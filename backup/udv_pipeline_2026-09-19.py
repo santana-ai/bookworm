@@ -14,8 +14,6 @@ QUOTE_PATTERN = re.compile(r'“([^”]{10,})”|"([^"]{10,})"')
 SENTENCE_BOUNDARY_PATTERN = re.compile(r"(?<=[.!?])\s+")
 PARTY_INFO_MARKERS = ("/", " - ")
 STAGE_DIRECTION_PATTERN = re.compile(r"^(?:\([^()]*\)\s*)+$")
-QUOTE_PREFIX_LENGTHS = (10, 6, 4, 3)
-TRUSTED_PREFIX_WORDS = 6
 
 
 def normalize_whitespace(text):
@@ -122,39 +120,25 @@ def extract_quotes(opinion_text):
 
 
 def quote_prefix_pattern(prefix):
-    first, rest = prefix[0], prefix[1:]
-    lower, upper = first.lower(), first.upper()
-    if lower == upper:
-        head = rf"(?<!\w){re.escape(first)}"
-    else:
-        head = rf"(?:(?<!\w){re.escape(lower)}|{re.escape(upper)})"
-    return re.compile(rf"{head}(?i:{re.escape(rest)})(?!\w)")
+    left_boundary = "" if prefix[:1].isupper() else r"(?<!\w)"
+    return re.compile(rf"{left_boundary}{re.escape(prefix)}(?!\w)")
 
 
-def find_quote_match(quote, person_speech):
+def find_quote_evidence(quote, person_speech):
     words = quote.split()
-    for prefix_length in QUOTE_PREFIX_LENGTHS:
+    for prefix_length in (10, 6, 4, 3):
         prefix = " ".join(words[:prefix_length])
         if len(prefix) > 5 and quote_prefix_pattern(prefix).search(person_speech):
-            return {"prefix": prefix, "words": min(prefix_length, len(words))}
+            return prefix
     return None
-
-
-def find_opinion_quote_match(opinion_text, person_speech):
-    for quote in extract_quotes(opinion_text):
-        match = find_quote_match(quote, person_speech)
-        if match is not None:
-            return match
-    return None
-
-
-def is_trusted_quote(match):
-    return match is not None and match["words"] >= TRUSTED_PREFIX_WORDS
 
 
 def find_opinion_quote_evidence(opinion_text, person_speech):
-    match = find_opinion_quote_match(opinion_text, person_speech)
-    return match["prefix"] if is_trusted_quote(match) else None
+    for quote in extract_quotes(opinion_text):
+        found = find_quote_evidence(quote, person_speech)
+        if found is not None:
+            return found
+    return None
 
 
 def split_sentences(speech):
@@ -164,10 +148,6 @@ def split_sentences(speech):
         for part in parts
         if len(part.split()) >= 4 and not STAGE_DIRECTION_PATTERN.match(part)
     ]
-
-
-def sentences_agree(sentence, other_sentence):
-    return sentence == other_sentence or sentence in other_sentence or other_sentence in sentence
 
 
 def enclosing_sentence(prefix, speech):

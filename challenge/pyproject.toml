@@ -16,4 +16,12 @@ dependencies = [
 dev = [
     "ipykernel>=7.3.0",
     "jupyter>=1.1.1",
+    "ruff>=0.16.8",
 ]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

@@ -11,11 +11,6 @@ TURN_HEADER_PATTERN = re.compile(
     r"(?:O\s+SR\.|A\s+SRA\.)\s*([A-ZÀ-Ü][A-ZÀ-Ü\.\s]{0,60}?)\s*(?:\(([^)]*)\))?\s*-\s?"
 )
 QUOTE_PATTERN = re.compile(r'“([^”]{10,})”|"([^"]{10,})"')
-SENTENCE_BOUNDARY_PATTERN = re.compile(r"(?<=[.!?])\s+")
-PARTY_INFO_MARKERS = ("/", " - ")
-STAGE_DIRECTION_PATTERN = re.compile(r"^(?:\([^()]*\)\s*)+$")
-QUOTE_PREFIX_LENGTHS = (10, 6, 4, 3)
-TRUSTED_PREFIX_WORDS = 6
 
 
 def normalize_whitespace(text):
@@ -56,28 +51,10 @@ def split_into_turns(transcript):
     return turns
 
 
-def is_party_info(text):
-    return any(marker in text for marker in PARTY_INFO_MARKERS)
-
-
 def resolve_turn_name(turn):
-    party_info = turn["party_info"]
-    if ". " in party_info:
-        head, tail = party_info.rsplit(". ", 1)
-        if is_party_info(tail):
-            return head.strip()
+    if "." in turn["party_info"]:
+        return turn["party_info"].split(".")[0].strip()
     return turn["raw_name"]
-
-
-def turn_name_candidates(turn):
-    candidates = [turn["raw_name"]]
-    party_info = turn["party_info"]
-    resolved_name = resolve_turn_name(turn)
-    if resolved_name != turn["raw_name"]:
-        candidates.append(resolved_name)
-    elif party_info and not is_party_info(party_info):
-        candidates.append(party_info)
-    return candidates
 
 
 def names_match(name_a, name_b):
@@ -88,101 +65,31 @@ def names_match(name_a, name_b):
     return tokens_a <= tokens_b or tokens_b <= tokens_a
 
 
-def matching_turns(name, turns):
-    return [t for t in turns if any(names_match(name, c) for c in turn_name_candidates(t))]
-
-
-def single_token_matching_turns(name, turns):
-    token = normalize_name(name)
-    speakers = {
-        normalize_name(candidate)
-        for turn in turns
-        for candidate in turn_name_candidates(turn)
-        if token in normalize_name(candidate).split()
-    }
-    if len(speakers) != 1:
-        return []
-    speaker = speakers.pop()
-    return [t for t in turns if any(normalize_name(c) == speaker for c in turn_name_candidates(t))]
-
-
-def resolve_person_speech(person, turns):
-    matched_turns = matching_turns(person["nome"], turns)
-    if not matched_turns and len(normalize_name(person["nome"]).split()) == 1:
-        matched_turns = single_token_matching_turns(person["nome"], turns)
+def resolve_person_speech(pessoa, turns):
+    matched_turns = [t for t in turns if names_match(pessoa["nome"], t["resolved_name"])]
     speech = normalize_whitespace(" ".join(t["speech"] for t in matched_turns))
     return matched_turns, speech
 
 
-def extract_quotes(opinion_text):
-    return [
-        normalize_whitespace(match.group(1) or match.group(2))
-        for match in QUOTE_PATTERN.finditer(opinion_text)
-    ]
+def extract_quote(opinion_text):
+    match = QUOTE_PATTERN.search(opinion_text)
+    if not match:
+        return None
+    return normalize_whitespace(match.group(1) or match.group(2))
 
 
-def quote_prefix_pattern(prefix):
-    first, rest = prefix[0], prefix[1:]
-    lower, upper = first.lower(), first.upper()
-    if lower == upper:
-        head = rf"(?<!\w){re.escape(first)}"
-    else:
-        head = rf"(?:(?<!\w){re.escape(lower)}|{re.escape(upper)})"
-    return re.compile(rf"{head}(?i:{re.escape(rest)})(?!\w)")
-
-
-def find_quote_match(quote, person_speech):
+def find_quote_evidence(quote, person_speech):
     words = quote.split()
-    for prefix_length in QUOTE_PREFIX_LENGTHS:
+    for prefix_length in (10, 6, 4, 3):
         prefix = " ".join(words[:prefix_length])
-        if len(prefix) > 5 and quote_prefix_pattern(prefix).search(person_speech):
-            return {"prefix": prefix, "words": min(prefix_length, len(words))}
+        if len(prefix) > 5 and prefix in person_speech:
+            return prefix
     return None
-
-
-def find_opinion_quote_match(opinion_text, person_speech):
-    for quote in extract_quotes(opinion_text):
-        match = find_quote_match(quote, person_speech)
-        if match is not None:
-            return match
-    return None
-
-
-def is_trusted_quote(match):
-    return match is not None and match["words"] >= TRUSTED_PREFIX_WORDS
-
-
-def find_opinion_quote_evidence(opinion_text, person_speech):
-    match = find_opinion_quote_match(opinion_text, person_speech)
-    return match["prefix"] if is_trusted_quote(match) else None
 
 
 def split_sentences(speech):
-    parts = SENTENCE_BOUNDARY_PATTERN.split(speech)
-    return [
-        normalize_whitespace(part)
-        for part in parts
-        if len(part.split()) >= 4 and not STAGE_DIRECTION_PATTERN.match(part)
-    ]
-
-
-def sentences_agree(sentence, other_sentence):
-    return sentence == other_sentence or sentence in other_sentence or other_sentence in sentence
-
-
-def enclosing_sentence(prefix, speech):
-    speech = normalize_whitespace(speech)
-    hit = quote_prefix_pattern(prefix).search(speech)
-    if hit is None:
-        raise ValueError(f"prefix not found in speech: {prefix!r}")
-    covered = []
-    position = 0
-    for part in SENTENCE_BOUNDARY_PATTERN.split(speech):
-        end = position + len(part)
-        if position < hit.end() and hit.start() < end:
-            covered.append(part)
-        position = end + 1
-    return normalize_whitespace(" ".join(covered))
+    parts = re.split(r"(?<=[.!?])\s+", speech)
+    return [normalize_whitespace(part) for part in parts if len(part.split()) >= 4]
 
 
 def locate_sentence_span(sentence, transcript, turns):

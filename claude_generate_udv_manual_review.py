@@ -10,11 +10,9 @@ from utils.udv_pipeline import (  # noqa: E402
     CONFIDENCE_THRESHOLD,
     best_embedding_match,
     best_semantic_match,
-    extract_quote,
-    find_quote_evidence,
+    find_opinion_quote_evidence,
     get_embedding_model,
     resolve_person_speech,
-    resolve_turn_name,
     split_into_turns,
     split_sentences,
 )
@@ -103,18 +101,14 @@ def build_pools(lds_records):
     weak_pool = []
 
     for hearing in lds_records[:20]:
-        turns = [
-            dict(turn, resolved_name=resolve_turn_name(turn))
-            for turn in split_into_turns(hearing["transcricao"])
-        ]
+        turns = split_into_turns(hearing["transcricao"])
         for pessoa in hearing["metadados"]["envolvidos"]:
             matched_turns, speech = resolve_person_speech(pessoa, turns)
             if not matched_turns:
                 continue
             sentences = split_sentences(speech)
             for opinion_text in pessoa["opinioes"]:
-                quote = extract_quote(opinion_text)
-                if quote is not None and find_quote_evidence(quote, speech) is not None:
+                if find_opinion_quote_evidence(opinion_text, speech) is not None:
                     continue
                 best_sentence, score = best_semantic_match(opinion_text, sentences)
                 if best_sentence is None:
@@ -160,10 +154,7 @@ def build_embedding_diff_items(lds_records, review_items):
     divergent = []
     for item in review_items:
         hearing = hearings_by_id[item["hearing_id"]]
-        turns = [
-            dict(turn, resolved_name=resolve_turn_name(turn))
-            for turn in split_into_turns(hearing["transcricao"])
-        ]
+        turns = split_into_turns(hearing["transcricao"])
         pessoa = next(p for p in hearing["metadados"]["envolvidos"] if p["nome"] == item["person"])
         _, speech = resolve_person_speech(pessoa, turns)
         sentences = split_sentences(speech)

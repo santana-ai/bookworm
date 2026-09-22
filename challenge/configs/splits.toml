@@ -1,0 +1,18 @@
+[dataset]
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+
+[temporal]
+split_version = "temporal_v1"
+train_fraction = 0.70
+validation_fraction = 0.15
+min_boundary_gap_days = 2
+
+[leakage]
+near_duplicate_threshold = 0.5
+near_duplicate_pairs = 10
+
+[run]
+seed = 42
+output_dir = "artifacts/splits"
+udv_path = "artifacts/udv/udv_v0.jsonl"
