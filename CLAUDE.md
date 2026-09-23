@@ -10,17 +10,24 @@ instruções e vale para o repositório inteiro: **não coloque arquivos meta de
 - **[`bookworm/`](bookworm/)** — o **core**: a biblioteca `bookworm`, empacotada como projeto `uv`
   normal (`pyproject.toml`, `src/bookworm/`, `tests/`, `docs/`). Nenhum experimento roda aqui dentro.
   `bookworm` evolui a partir do que se aprende em `challenge/`: o que funciona lá é promovido para cá.
+  O front web da demo (visualização da verificação de atribuição e perguntas extrativas) mora em
+  `bookworm/web/` e consome o que a biblioteca exporta.
 - **[`challenge/`](challenge/)** — onde tudo acontece de fato: comandos são rodados, notebooks são
   executados, dados são analisados, arquivos são salvos. É seu **próprio projeto `uv`**, tendo
   `bookworm` como uma de suas dependências. Contém `challenge/README.md` (o que é o dataset, incluindo a
   distinção entre os arquivos LDS e NLI), `challenge/desafio_ideias_em_rede.md` (brief oficial do
   desafio), `challenge/2410.07495v2.pdf` (paper do dataset), `challenge/dataset/` (dados brutos baixados
-  do Hugging Face via `challenge/utils/download_dataset.py`, nunca versionados) e o notebook de análise
-  exploratória mais recente (`challenge/eda_vXX.ipynb`).
-- **[`backup/`](backup/)** — enquanto o repositório não tem `git` (ver nota de prazo na seção 7), guarda
-  o histórico completo de versões de notebooks e outros arquivos sensíveis a perda de trabalho. Cada
-  versão nova de um notebook ganha um sufixo `vXX` (`eda_v00.ipynb`, `eda_v01.ipynb`, ...); `backup/`
-  acumula todas as versões, enquanto a pasta de trabalho (`challenge/`) mantém só a mais recente.
+  do Hugging Face via `challenge/utils/download_dataset.py`, nunca versionados), `challenge/utils/`
+  (scripts reprodutíveis: download, construção e verificação de splits e de UDVs, geração de material
+  para revisão manual etc.), `challenge/configs/` (configuração por arquivo, ex.: `splits.toml`,
+  `udv.toml`), `challenge/artifacts/` (saídas versionadas desses scripts; a exceção é
+  `artifacts/cache/`, ignorada no Git por conter caches derivados regeneráveis) e o notebook mais recente
+  de cada frente de investigação (`challenge/eda_vXX.ipynb`, `challenge/splits_vXX.ipynb`,
+  `challenge/udv_vXX.ipynb`, ...).
+- **[`backup/`](backup/)** — guarda o histórico completo de versões de notebooks e outros arquivos
+  sensíveis a perda de trabalho, independente do histórico do Git. Cada versão nova de um notebook ganha
+  um sufixo `vXX` (`eda_v00.ipynb`, `eda_v01.ipynb`, ...); `backup/` acumula todas as versões, enquanto a
+  pasta de trabalho (`challenge/`) mantém só a mais recente.
 - **[`CONSTITUTION.md`](CONSTITUTION.md)** — a tese científica e a especificação de construção
   completas do `bookworm` (visão de longo prazo, arquitetura em 4 pilares, milestones, cláusula de
   integridade). Não expira quando o desafio terminar.
@@ -44,13 +51,10 @@ instruções e vale para o repositório inteiro: **não coloque arquivos meta de
   ~627 palavras/matéria (~96% de compressão), 2.203 opiniões estruturadas, 4.238 pares NLI
   (`retrieved_context_entailment`, não "verdade global").
 - **Prazos:** inscrição até **30/07/2026**, submissão até **30/09/2026** (avaliação 01–15/10, resultado 16/10/2026).
-- **Equipe:** 3–4 alunos, maiores de 18, de **≥2 Colabs de instituições diferentes**.
 - **Entregáveis:** artigo científico (≤10 páginas, template do desafio) + código-fonte documentado em
   repositório acessível + vídeo (≤5 min). Dashboard/demo interativa é recomendado, não obrigatório.
 - **Critérios de avaliação:** Inovação e Originalidade 40% · Rigor Metodológico 30% · Impacto e
   Aplicabilidade 10% · Qualidade da Apresentação e Código 20%.
-- **Premiação:** os **2 melhores grupos** ganham ida ao BRACIS 2026 (19–22/10) + visita técnica de
-  1 semana a MIT/Harvard. Não é prêmio em dinheiro nem parceria contínua de laboratório.
 - **Trilhas (A–D) são só inspiração**, não obrigatórias — o brief incentiva explicitamente cruzar
   fronteiras entre elas ou propor tarefas inéditas. O nome do evento, "Ideias em Rede", e a exigência
   de equipe multi-Colab deixam claro que o objetivo é **contribuição científica real e colaboração em
@@ -158,12 +162,6 @@ Regras por célula, em qualquer notebook:
 - cada célula de código tem **uma responsabilidade só** — nunca várias funções na mesma célula;
 - evite imports dentro de função/classe.
 
-## 7. Checklist de entregáveis do desafio (tracking real, não só código)
+## 7. Checklist de entregáveis do desafio
 
-- [ ] Inscrição da equipe (prazo 30/07/2026 — confirmar se já foi feita).
-- [ ] Artigo científico ≤10 páginas no template do desafio: problema, metodologia, arquitetura, resultados.
-- [ ] Repositório de código documentado (`bookworm/`) com README cobrindo motivação, instalação, dados,
-      execução, arquitetura, ética, citação.
-- [ ] Vídeo ≤5 minutos, roteirizado a partir do "experimento decisivo" (`CONSTITUTION.md`).
-- [ ] Dashboard/demo interativa em Streamlit (P1, recomendado).
-- [ ] Envio para rodrigo.barros@kunumi.com e gianlucca@kunumi.com até 30/09/2026.
+Vive em [`ROADMAP.md`](ROADMAP.md), seção "Checklist de entregáveis do desafio".

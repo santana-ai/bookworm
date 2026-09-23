@@ -23,6 +23,16 @@ cobertura editorial e o que foi efetivamente dito numa audiência pública.
 Inscrição até 30/07/2026, submissão até 30/09/2026 (ver `CLAUDE.md` §1 para os fatos completos do
 desafio).
 
+## Checklist de entregáveis do desafio (tracking real, não só código)
+
+- [ ] Inscrição da equipe (prazo 30/07/2026 — confirmar se já foi feita).
+- [ ] Artigo científico ≤10 páginas no template do desafio: problema, metodologia, arquitetura, resultados.
+- [ ] Repositório de código documentado (`bookworm/`) com README cobrindo motivação, instalação, dados,
+      execução, arquitetura, ética, citação.
+- [ ] Vídeo ≤5 minutos, roteirizado a partir do "experimento decisivo" (`CONSTITUTION.md`).
+- [ ] Dashboard/demo interativa em Streamlit (P1, recomendado).
+- [ ] Envio para rodrigo.barros@kunumi.com e gianlucca@kunumi.com até 30/09/2026.
+
 ## Escopo priorizado (P0 / P1 / P2)
 
 O `CONSTITUTION.md` descreve um programa de pesquisa amplo, pensado para uma equipe full-time ao longo
