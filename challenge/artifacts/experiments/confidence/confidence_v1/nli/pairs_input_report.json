@@ -1,0 +1,474 @@
+{
+  "experiment": "confidence_policies",
+  "step": "pairs",
+  "run_name": "confidence_v1",
+  "created_at": "2026-09-23T18:36:34+00:00",
+  "splits": {
+    "fit": [
+      "train"
+    ],
+    "evaluate": [
+      "validation"
+    ],
+    "final_test": false,
+    "final_test_splits": []
+  },
+  "splits_used": [
+    "train",
+    "validation"
+  ],
+  "targets": [
+    "bm25_hearing.sentence",
+    "hybrid_rrf.sentence",
+    "rerank_bge.sentence",
+    "serafim_335m.sentence",
+    "serafim_335m.window2",
+    "serafim_335m.window3"
+  ],
+  "pairs": 13152,
+  "pairs_by_bench_split": {
+    "masked_quotes.train": 592,
+    "masked_quotes.validation": 173,
+    "nli.train": 10022,
+    "nli.validation": 2365
+  },
+  "collect_reports": {
+    "bm25_hearing.sentence": {
+      "path": "artifacts/experiments/confidence/confidence_v1/collect/bm25_hearing.sentence_report.json",
+      "sha256": "48067b329e753b81c4f1ea32b22610a0b6f0778fee3c222a7ee0191e7e391cab",
+      "created_at": "2026-09-23T18:36:11+00:00",
+      "hearing_filter": null,
+      "harness_rows_checked": 3404,
+      "harness_run_reports": [
+        "artifacts/experiments/retrieval/retrieval_v1/runs/bm25_hearing__train+validation__sentence+window2+window3+turn__masked_quotes+nli_report.json"
+      ],
+      "model_revisions": [],
+      "code_sha256": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704"
+    },
+    "hybrid_rrf.sentence": {
+      "path": "artifacts/experiments/confidence/confidence_v1/collect/hybrid_rrf.sentence_report.json",
+      "sha256": "7f03c12ba4962af63b8591f43d4ac08398ee92e90d8b2b4a1e291fbf3f6307fa",
+      "created_at": "2026-09-23T18:36:09+00:00",
+      "hearing_filter": null,
+      "harness_rows_checked": 3404,
+      "harness_run_reports": [
+        "artifacts/experiments/retrieval/retrieval_v1/runs/hybrid_rrf__train+validation__sentence+turn__masked_quotes+nli_report.json"
+      ],
+      "model_revisions": [
+        {
+          "retriever": "serafim_335m",
+          "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+          "revision": "a01887015444f7599669c509447c5bdbce958916"
+        }
+      ],
+      "code_sha256": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704"
+    },
+    "rerank_bge.sentence": {
+      "path": "artifacts/experiments/confidence/confidence_v1/collect/rerank_bge.sentence_report.json",
+      "sha256": "8612b455ba9f299f9e04040e4ac8b971abe65121737d964366baa5bdc96d3c7d",
+      "created_at": "2026-09-23T18:36:07+00:00",
+      "hearing_filter": null,
+      "harness_rows_checked": 3404,
+      "harness_run_reports": [
+        "artifacts/experiments/retrieval/retrieval_v1/runs/rerank_bge__train+validation__sentence__masked_quotes+nli_report.json"
+      ],
+      "model_revisions": [
+        {
+          "retriever": "rerank_bge",
+          "model": "BAAI/bge-reranker-v2-m3",
+          "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+        },
+        {
+          "retriever": "serafim_335m",
+          "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+          "revision": "a01887015444f7599669c509447c5bdbce958916"
+        }
+      ],
+      "code_sha256": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704"
+    },
+    "serafim_335m.sentence": {
+      "path": "artifacts/experiments/confidence/confidence_v1/collect/serafim_335m.sentence_report.json",
+      "sha256": "6224e2ba4c73ecc095264cd847a0b765174c482dfdcf8f82b3f49f50ae94d795",
+      "created_at": "2026-09-23T18:36:03+00:00",
+      "hearing_filter": null,
+      "harness_rows_checked": 3404,
+      "harness_run_reports": [
+        "artifacts/experiments/retrieval/retrieval_v1/runs/serafim_335m__train+validation__sentence+turn__masked_quotes+nli_report.json"
+      ],
+      "model_revisions": [
+        {
+          "retriever": "serafim_335m",
+          "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+          "revision": "a01887015444f7599669c509447c5bdbce958916"
+        }
+      ],
+      "code_sha256": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704"
+    },
+    "serafim_335m.window2": {
+      "path": "artifacts/experiments/confidence/confidence_v1/collect/serafim_335m.window2_report.json",
+      "sha256": "69dda02247624f8d9596138aa5d0e7a16c0e44519e0925c925bfd0c3d0fedf32",
+      "created_at": "2026-09-23T18:36:04+00:00",
+      "hearing_filter": null,
+      "harness_rows_checked": 3404,
+      "harness_run_reports": [
+        "artifacts/experiments/retrieval/retrieval_v1/runs/serafim_335m__train+validation__window2+window3__masked_quotes+nli_report.json"
+      ],
+      "model_revisions": [
+        {
+          "retriever": "serafim_335m",
+          "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+          "revision": "a01887015444f7599669c509447c5bdbce958916"
+        }
+      ],
+      "code_sha256": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704"
+    },
+    "serafim_335m.window3": {
+      "path": "artifacts/experiments/confidence/confidence_v1/collect/serafim_335m.window3_report.json",
+      "sha256": "0dbe4bc3284c334c0043e444f308597a07e4b7124032010ac359a9a7a19f7f8b",
+      "created_at": "2026-09-23T18:36:05+00:00",
+      "hearing_filter": null,
+      "harness_rows_checked": 3404,
+      "harness_run_reports": [
+        "artifacts/experiments/retrieval/retrieval_v1/runs/serafim_335m__train+validation__window2+window3__masked_quotes+nli_report.json"
+      ],
+      "model_revisions": [
+        {
+          "retriever": "serafim_335m",
+          "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+          "revision": "a01887015444f7599669c509447c5bdbce958916"
+        }
+      ],
+      "code_sha256": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704"
+    }
+  },
+  "feature_rows": 20424,
+  "pair_rule": "premise (evidence) = text of the top-1 unit; hypothesis (proposition) = the query text the retriever saw (the masked opinion for masked_quotes, the NLI opinion for nli); one pair per distinct (bench, query, top-1 text) over all targets, pair_id = <bench>:<query_id>#<first 16 hex of sha256(top-1 text)>",
+  "output": {
+    "path": "artifacts/experiments/confidence/confidence_v1/nli/pairs_input.jsonl",
+    "sha256": "946c59dbb9c423a0639bd31913bf0ec1eb32bc0c4d552fc1184357d4c2333dd1"
+  },
+  "scoring_command": "uv run --no-sync python -m utils.nli_verifier_experiments --config configs/nli_verifier.toml pairs --input artifacts/experiments/confidence/confidence_v1/nli/pairs_input.jsonl --run-name confidence_v1 --output-dir artifacts/experiments/confidence/confidence_v1/nli --scorers xnli_mdeberta",
+  "inputs": [
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/serafim_335m.sentence/train.jsonl",
+      "rows": 142,
+      "sha256": "115df4754c501cc464e8b48c27885bf24387ad357b239c11b76a94beabde0118"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/serafim_335m.sentence/validation.jsonl",
+      "rows": 40,
+      "sha256": "9b1d59c4e6a344bbd9f55da852c599e4e501dcf56b4aea4ccdff0b2743a66831"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/serafim_335m.sentence/train.jsonl",
+      "rows": 2602,
+      "sha256": "fb6a8cf4f09f8bb4a21fd3b4fd4ee3d392c04b5d7a1fa5b24192a5a410d74f1c"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/serafim_335m.sentence/validation.jsonl",
+      "rows": 620,
+      "sha256": "c52ee53812256387c9136b5c978ab7ca72d74d7b2a900e594c67dd6b9a5a7f92"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/serafim_335m.window2/train.jsonl",
+      "rows": 142,
+      "sha256": "9c28c2b9091daf4123fb1746f89a86afe25d8167dc0f873947577791c945ddc8"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/serafim_335m.window2/validation.jsonl",
+      "rows": 40,
+      "sha256": "aa4c437f0bb784485dbc41b839034258e35d5727266e983ab07ba342cf725f54"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/serafim_335m.window2/train.jsonl",
+      "rows": 2602,
+      "sha256": "c42787ef00cf14afe330a25905182b8df7ee31d58ab6fec1180a2186e7f7a303"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/serafim_335m.window2/validation.jsonl",
+      "rows": 620,
+      "sha256": "ea27a1d42ec07ae7e7dff0a922ea60cf8c8934d538b1944d01777a960269caad"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/serafim_335m.window3/train.jsonl",
+      "rows": 142,
+      "sha256": "80a432cc0744ce9f9ff42084a7b681ac267b046fa687ca3131a6aa743d5a9599"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/serafim_335m.window3/validation.jsonl",
+      "rows": 40,
+      "sha256": "efbf85a3323a4f567f6bc4c942d8c09146c936829002c21ad68400a101bf10aa"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/serafim_335m.window3/train.jsonl",
+      "rows": 2602,
+      "sha256": "4ce740c8ec1f5c32908af7340a1b9b554df279f3d84148ecc13116ae661c8537"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/serafim_335m.window3/validation.jsonl",
+      "rows": 620,
+      "sha256": "75e5e93e28ab00a711ee8299925b6c2ef7c1f639ea080877e89640e86baa7e6a"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/rerank_bge.sentence/train.jsonl",
+      "rows": 142,
+      "sha256": "2c31cc91ab9561f991647dc831dd347b1d252751f1cdc933e50cf260fcfe7ff3"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/rerank_bge.sentence/validation.jsonl",
+      "rows": 40,
+      "sha256": "f36ee10b52651d14670c13ada8c030c2b3856ef334402ce33ddf52ee23f27a55"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/rerank_bge.sentence/train.jsonl",
+      "rows": 2602,
+      "sha256": "90a31ed7298324d649363a6fd2566c00c67a602de9a759baa32d485f3468dd5b"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/rerank_bge.sentence/validation.jsonl",
+      "rows": 620,
+      "sha256": "b64bbe05931cf984349e7d069710a6d7d8fa950d85ac545653a86fd7e9d35f15"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/hybrid_rrf.sentence/train.jsonl",
+      "rows": 142,
+      "sha256": "c3236f632d7fba505e36f569ace414f597bc32ac0153e4de1c847e232ac31f01"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/hybrid_rrf.sentence/validation.jsonl",
+      "rows": 40,
+      "sha256": "aa75362556ccb71a778e1e0f36a0d871b065c078d333f339d4df7a09f7ac01f0"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/hybrid_rrf.sentence/train.jsonl",
+      "rows": 2602,
+      "sha256": "70c922812765e48582053309b0a22188ebf7b454d6ef009bfe9c7d06e45fc0f0"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/hybrid_rrf.sentence/validation.jsonl",
+      "rows": 620,
+      "sha256": "67fcaf302480d2be48ec3fd31a2af934e9bbfd87cef321452a333b9a96cf4fdc"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/bm25_hearing.sentence/train.jsonl",
+      "rows": 142,
+      "sha256": "56437e04fe9eb3d56c2addf20a27a0e179d69ebe8ce8495e4ece3d724f629158"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/masked_quotes/bm25_hearing.sentence/validation.jsonl",
+      "rows": 40,
+      "sha256": "ec316ed7a955d25dbf326553b025cc651fbeefdf8e00d3271b8abd0facba6ebd"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/bm25_hearing.sentence/train.jsonl",
+      "rows": 2602,
+      "sha256": "84be133bda3b3aac94e757dfe65cdb075e1f187cf11b97393c366d4df8d1fb3c"
+    },
+    {
+      "path": "artifacts/experiments/confidence/confidence_v1/features/nli/bm25_hearing.sentence/validation.jsonl",
+      "rows": 620,
+      "sha256": "dd87f762b57cebb678f601f55414adda558727ba4d254f76134a7f90cc51ec63"
+    }
+  ],
+  "code": {
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/confidence_policies.py": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/retrieval_data.py": "078477fe0834a3d5a4d92e29ad662c45185f69608f1901227f1ce12101fe58f5",
+    "utils/retrieval_experiments.py": "93ca12e7ed238374b652b8ba9c24100fdc89c5c5d9c901a16d012100ebc6affc",
+    "utils/retrieval_models.py": "4c0e7b153a5f56ddf8e5837145a9ec4d1b7c3b58a023a668fd34f5c95fad8491",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/retrieval_store.py": "5d9ec1ada17896dffa15281657b8d90baf0981e1328487f2f9552cdec039d49e",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "scikit_learn": "1.9.0",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "config": {
+    "harness": {
+      "config_path": "configs/retrieval_experiments.toml",
+      "run_name": "retrieval_v1",
+      "rows": "per-query rows written by utils.retrieval_experiments run under <run.output_dir>/<run_name>/queries/<bench>/<unit>/<retriever>/<split>.jsonl",
+      "full_scores_rule": "the rows keep only the top_n_stored scores, so collect ranks every query again with the harness retriever classes (utils.retrieval_experiments.build_retriever) on the same workload to read the score of every candidate unit; dense vectors and cross-encoder scores come only from the harness cache (encoding and model loading raise, cache files are never written), sparse retrievers are refitted on CPU; every query is checked against its row (top-1 id, rank of the first relevant unit, stored top ids and rounded scores) and any disagreement stops the run",
+      "cache_guard": "the collect step replaces DenseEncoder.encode and .load, RerankRetriever.load and VectorStore.add with functions that stop the run, and VectorStore.flush with a no-op, on the retriever instances it builds; a target whose harness rows or cache directories (store.json) are missing is skipped and listed in collect/skipped_targets.json"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "fit": [
+        "train"
+      ],
+      "evaluate": [
+        "validation"
+      ],
+      "final_test": [
+        "test"
+      ],
+      "rule": "logistic regressions, Youden thresholds and conformal thresholds are fitted on the fit split only (exactly one) and applied unchanged to the evaluate splits; the final_test splits are read only with --final-test, evaluated with the thresholds fitted on the fit split, and nothing is chosen on them; every feature row is checked against the manifest split of its hearing"
+    },
+    "targets": {
+      "primary": "serafim_335m.sentence",
+      "primary_reason": "the production evidence decision: the UDV builder takes the top-1 sentence of the production encoder among the speaker's sentences and labels it semantic_match_high when its cosine reaches [evidence].embedding_threshold",
+      "list": [
+        "serafim_335m.sentence",
+        "serafim_335m.window2",
+        "serafim_335m.window3",
+        "serafim_335m.turn",
+        "rerank_bge.sentence",
+        "hybrid_rrf.sentence",
+        "bm25_hearing.sentence"
+      ],
+      "list_reason": "declared before any confidence result: the production encoder on the four units of the harness, the two retrievers built on top of it that the harness runs on sentences (cross-encoder rerank and RRF hybrid), and the sparse reference already scored by the harness; any other target is run on request and reported as such",
+      "benches": [
+        "masked_quotes",
+        "nli"
+      ],
+      "bench_rule": "each benchmark is analysed separately: their relevance labels mean different things (masked_quotes: the unit holds the silver quote target; nli: the unit overlaps a chunk the annotator judged the opinion inferable from, retrieved_context_entailment, not global truth)"
+    },
+    "label": {
+      "definition": "correct is true when the harness rank of the first relevant unit is 1 (order by score descending, candidate index ascending on ties, the argmax rule of the UDV builder)",
+      "tie_bounds": "rank_optimistic == 1 and rank_pessimistic == 1 are written next to the label, so queries whose label depends on tie order can be counted"
+    },
+    "population": {
+      "min_candidates": 2,
+      "rule": "queries with fewer than min_candidates candidate units are left out of every signal and policy comparison: with one candidate the top-1 is relevant by construction (every benchmark query has a relevant unit) and margin and z-score are undefined; they are counted, and the production rule is also reported on all queries including them",
+      "subsets": [
+        "multi_candidate",
+        "nontrivial"
+      ],
+      "subsets_definition": "multi_candidate: n_units >= min_candidates (the primary population); nontrivial: multi_candidate and n_relevant < n_units, where a wrong top-1 is possible; signal metrics are reported on both, policies on multi_candidate only"
+    },
+    "signals": {
+      "base": [
+        "top1_score",
+        "margin",
+        "zscore"
+      ],
+      "definitions": "top1_score: the retriever score of the rank-1 unit (cosine for dense retrievers, BM25 or TF-IDF score for sparse ones, fused reciprocal-rank score for RRF, raw cross-encoder logit for rerankers); margin: top1_score minus the score of the rank-2 unit; zscore: (top1_score - mean) / std over the scores of every candidate unit of the query, population std (ddof 0), set to zero_spread_value when std <= 1e-12 * max(1, |mean|), that is when every candidate has the same score up to float rounding (counted as zero_spread); for rerankers the distribution is the reranked top_k units, the only units with a cross-encoder score",
+      "direction": "every signal is read as higher = more confident; a policy accepts the top-1 when signal >= threshold",
+      "zero_spread_value": 0.0
+    },
+    "entailment": {
+      "nli_config_path": "configs/nli_verifier.toml",
+      "scorers": [
+        "xnli_mdeberta"
+      ],
+      "scorers_reason": "the primary system declared for the NLI verifier experiment (per-chunk P(entailment) of the 3-way multilingual NLI model); assin2_mdeberta can be added here and scored with the same pairs file",
+      "score_key": "max.entailment",
+      "units": [
+        "sentence",
+        "window2",
+        "window3"
+      ],
+      "units_reason": "turn units are left out: in the sparse harness runs on train+validation (retrieval_v1_report.json, summaries.<bench>.train+validation.turn.<retriever>.top1_chars) the median top-1 turn has 4,675 to 6,856 characters depending on retriever and benchmark, and the XNLI tokenizer produced 3.28 characters per token on the 319 sentence and window3 smoke pairs of this experiment, so a typical top-1 turn is well past the 512-token limit of both NLI models and the premise would be cut in most pairs",
+      "pair": "premise (evidence) = text of the top-1 unit; hypothesis (proposition) = the query text the retriever saw (the masked opinion for masked_quotes, the NLI opinion for nli); one pair per distinct (bench, query, top-1 text) over all targets, pair_id = <bench>:<query_id>#<first 16 hex of sha256(top-1 text)>",
+      "pairs_input": "<run_dir>/nli/pairs_input.jsonl, written by the pairs command, which rebuilds the unit texts from the LDS (harness workload) and checks each against the top1_text_sha256 of the features",
+      "scores_location": "<run_dir>/nli/pairs/<run_name>/<scorer>.jsonl, written by utils.nli_verifier_experiments pairs --input <pairs_input> --run-name <run_name> --output-dir <run_dir>/nli --scorers <scorers>; the evaluate step records whether the scored input sha256 equals the current pairs_input",
+      "signal_name": "entailment.<scorer>",
+      "missing_rule": "whether a target gets the entailment signal is decided on the fit and evaluate splits only: it gets it when every query of its population in those splits has a score; otherwise the signal and every feature set using it are reported as missing for that target. With --final-test, a signal kept this way must also be scored on every final_test query, and the run is refused otherwise, so the test rows can never change which models are fitted"
+    },
+    "logistic": {
+      "feature_sets": {
+        "scores": [
+          "top1_score",
+          "margin",
+          "zscore"
+        ],
+        "scores_entailment": [
+          "top1_score",
+          "margin",
+          "zscore",
+          "entailment.xnli_mdeberta"
+        ]
+      },
+      "feature_sets_reason": "scores uses only what the retriever returns; scores_entailment adds the NLI verifier, so the difference measures what entailment adds",
+      "standardize": "features centred and scaled with the mean and population std of the fit rows; a constant feature is left unscaled",
+      "C": 1.0,
+      "l1_ratio": 0.0,
+      "solver": "lbfgs",
+      "max_iter": 1000,
+      "class_weight": "none",
+      "class_weight_reason": "unweighted, so the probability estimates P(correct) at the base rate of the fit split and the 0.5 policy means what it says",
+      "signal_name": "logistic.<feature_set>"
+    },
+    "policies": {
+      "youden_signals": "every signal, including the logistic probabilities",
+      "youden_rule": "threshold maximising TPR - FPR with correct as the positive class on the fit rows (utils.calibrate_threshold.youden_optimum: lowest threshold on ties, midpoint between the lowest kept and the highest excluded score); J = 0 keeps every query and is reported as degenerate",
+      "conformal_signals": [
+        "top1_score"
+      ],
+      "conformal_alphas": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "conformal_rule": "split conformal on the correct fit queries: with n of them and k = floor(alpha * (n + 1)), the threshold is the k-th smallest of their signal values (no threshold, everything accepted, when k = 0); a new correct query then reaches the threshold with probability at least 1 - alpha if it is exchangeable with the calibration queries. The temporal split and hearing clustering break exchangeability, so the realised recall of correct top-1s on the evaluate split is the measured quantity",
+      "probability_threshold": 0.5,
+      "probability_rule": "logistic.<feature_set> >= probability_threshold, no fitting beyond the regression"
+    },
+    "production_rule": {
+      "target": "serafim_335m.sentence",
+      "signal": "top1_score",
+      "udv_config_path": "configs/udv.toml",
+      "threshold_keys": [
+        "embedding_threshold",
+        "previous_embedding_threshold"
+      ],
+      "threshold_keys_reason": "embedding_threshold is the cut the UDV builder applies now (semantic_match_high when the top-1 cosine reaches it); previous_embedding_threshold is the 0.47 used until the train-only recalibration of 2026-09-23; both are read from the UDV config at every run and recorded",
+      "comparison_rule": "embedding_threshold (0.45) was calibrated on train hearings only; previous_embedding_threshold (0.47) was calibrated on the 20 hearings of dev20, part of which are validation and test hearings, so its metrics on those splits are partly in-sample. Each production policy entry carries calibration_overlap (the calibration hearings that fall in the evaluated split and their queries); the two cuts are compared only in production_rule.outside_calibration, on the queries of hearings outside every calibration set, and 0.47 is otherwise a historical reference",
+      "query_text_note": "the production builder scores the unmasked LDS opinion; masked_quotes queries are the masked opinion and nli queries are the NLI opinion, so the rule is evaluated on the harness queries, not on the production records",
+      "score_note": "the harness cosine is the dot product of L2-normalized float32 vectors and the builder uses sklearn cosine_similarity on the raw vectors; the two agree up to float32 rounding (not measured here), so only a score within rounding distance of a threshold can fall on the other side of it",
+      "calibration": {
+        "embedding_threshold": {
+          "role": "current cut, calibrated on train only",
+          "description": "legacy_random rule of utils.calibrate_threshold on train hearings: unmasked opinion vs its trusted-quote sentence against a random sentence of another train hearing, midpoint of q25(positive) and q75(negative), rounded to 0.45; the hearings it could use are leak_check.hearing_ids_used of the calibration artifact",
+          "hearings_source": "artifacts/calibration/threshold_v1.json",
+          "hearings_field": "leak_check.hearing_ids_used",
+          "threshold_source": "artifacts/calibration/threshold_v1.json",
+          "threshold_field": "rules.legacy_random.threshold_rounded"
+        },
+        "previous_embedding_threshold": {
+          "role": "historical reference, calibrated on dev20 (hearings of train, validation and test)",
+          "description": "0.47 was calibrated in udv_v05.ipynb on pairs confirmed by a case-insensitive quote prefix of 6+ words against random pairs (35 pairs from 20 records, per the [evidence] section of dev20_coverage.json), midpoint of q25(positive) and q75(negative), drawn from the hearings of the dev20 run; every hearing of dev20.jsonl is treated as a calibration hearing",
+          "hearings_source": "artifacts/udv/dev20.jsonl",
+          "hearings_field": "hearing_id",
+          "threshold_source": "artifacts/udv/dev20_coverage.json",
+          "threshold_field": "config.evidence.embedding_threshold"
+        }
+      }
+    },
+    "evaluation": {
+      "coverages": [
+        0.5,
+        0.7,
+        0.9
+      ],
+      "risk_coverage_grid_step": 0.05,
+      "risk_coverage_rule": "queries sorted by signal descending; coverage j/n keeps the first j; risk = error share among them; ties in the signal are resolved by the expected value over every order of the tied queries; AURC = mean risk over j = 1..n; oracle AURC puts every correct query first; e_aurc = AURC - oracle AURC; precision at coverage c keeps the first ceil(c * n) queries, a choice made on the evaluate split itself, so it describes ranking quality and is not a deployable policy",
+      "reference_signal": "top1_score",
+      "bootstrap_samples": 1000,
+      "bootstrap_unit": "hearing",
+      "bootstrap_unit_reason": "opinions of the same hearing share speakers, topic and transcript, so they are not independent; every replicate resamples whole hearings of the evaluate split and, independently, of the fit split",
+      "bootstrap_intervals": "fixed: the thresholds and regressions fitted on the full fit split, applied to each resampled evaluate split; refit: thresholds and regressions refitted on each resampled fit split and applied to the resampled evaluate split of the same replicate, so the interval also carries the fitting uncertainty; paired differences of signal metrics use the same evaluate replicates",
+      "confidence_level": 0.95,
+      "seed": 42,
+      "primary_metric": "aurc",
+      "primary_interval_amendment": "Recorded on 2026-09-23, before any confidence result on retrieval outputs was computed: a lower AURC is better, so 'better than top1_score' means the whole paired 95% interval of AURC(signal) - AURC(top1_score) lies below 0 (better_than_reference in the report); for a signal that is fitted (logistic.*) the interval used is the refit one, so it carries the fitting uncertainty; for the raw signals the fixed and refit intervals coincide and the fixed one is reported.",
+      "primary_declaration": "Declared on 2026-09-23, before any confidence result on retrieval outputs was computed. Question: which signal best predicts that the top-1 unit is correct. Primary target: serafim_335m.sentence. Primary metric: validation AURC on the multi_candidate population, per benchmark, with a hearing-bootstrap interval; a signal is said to predict correctness better than top1_score only when the paired 95% interval of its AURC difference excludes 0. ROC AUC, average precision, precision at coverage and every policy are reported next to it. nli is the benchmark the conclusion rests on; masked_quotes (40 validation queries, 142 train) is reported with the same method and its intervals are expected to be too wide for a conclusion. Smoke tests on synthetic inputs and on a few hearings of the harness outputs were run after this declaration."
+    },
+    "collect": {
+      "score_tolerance": 1.5e-05,
+      "score_tolerance_reason": "harness rows round scores to 5 decimals"
+    },
+    "run": {
+      "run_name": "confidence_v1",
+      "output_dir": "artifacts/experiments/confidence",
+      "smoke_rule": "collect --hearing-ids writes to <run_name>_smoke unless --run-name is given, and every later step prints and records the hearing filter of each collect report it reads",
+      "model_loading": "none: collect reads the harness caches, pairs only writes text pairs, evaluate works on the saved features; the entailment scores come from utils.nli_verifier_experiments, which records model, revision and label probes in its own report"
+    }
+  }
+}

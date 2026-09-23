@@ -1,0 +1,571 @@
+{
+  "run_name": "retrieval_v1",
+  "retriever": "serafim_335m",
+  "created_at": "2026-09-23T03:37:17+00:00",
+  "splits_used": [
+    "train",
+    "validation"
+  ],
+  "final_test": false,
+  "benches": [
+    "masked_quotes",
+    "nli"
+  ],
+  "units": [
+    "sentence",
+    "turn"
+  ],
+  "limits": {
+    "hearings": null,
+    "queries_per_bench": null
+  },
+  "device": "mps",
+  "workload": {
+    "hearings": 176,
+    "queries": {
+      "masked_quotes.train": {
+        "queries": 142,
+        "hearings": 87
+      },
+      "masked_quotes.validation": {
+        "queries": 40,
+        "hearings": 24
+      },
+      "nli.train": {
+        "queries": 2602,
+        "hearings": 144
+      },
+      "nli.validation": {
+        "queries": 620,
+        "hearings": 32
+      }
+    },
+    "query_checks": {
+      "masked_quotes": {
+        "rows": 182,
+        "kept": 182
+      },
+      "nli": {
+        "rows": 3679,
+        "located_chunks": 12888,
+        "located_chunks_chosen_occurrence_outside_person": 27,
+        "kept_turn_set_equals_lds_person": 2041,
+        "kept": 3222,
+        "dropped_not_inferable": 415,
+        "dropped_person_not_resolved": 42
+      }
+    },
+    "sentence_span_checks": {
+      "sentences": 162990,
+      "first_match_differs_from_sequential": 121
+    },
+    "load_seconds": 38.6
+  },
+  "retriever_details": {
+    "kind": "dense",
+    "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+    "revision": "a01887015444f7599669c509447c5bdbce958916",
+    "query_prefix": "",
+    "passage_prefix": "",
+    "max_seq_length": 128,
+    "native_max_seq_length": 128,
+    "similarity": "cosine (dot product of L2-normalized vectors)",
+    "batch_size": 32,
+    "token_budget": 4096,
+    "production_cache_reuse": true,
+    "counts": {
+      "production_passage_lists_imported": 176,
+      "production_passage_texts_imported": 97225,
+      "passage_texts_requested": 123801,
+      "model_loads": 1,
+      "passage_texts_encoded": 36393,
+      "passage_tokens_encoded": 1439036,
+      "query_texts_requested": 6808,
+      "query_texts_encoded": 3261,
+      "query_tokens_encoded": 74250,
+      "production_query_lists_imported": 87,
+      "production_query_texts_imported": 142,
+      "production_query_lists_missing": 24
+    },
+    "encode_seconds": 680.5,
+    "model_load_seconds": 2.4,
+    "truncation": {
+      "sentence": {
+        "query": {
+          "texts": 3403,
+          "over_max_seq_length": 0,
+          "max_tokens": 74,
+          "mean_tokens": 22.9
+        },
+        "passage": {
+          "texts": 113460,
+          "over_max_seq_length": 242,
+          "max_tokens": 574,
+          "mean_tokens": 27.5
+        }
+      },
+      "turn": {
+        "query": {
+          "texts": 3403,
+          "over_max_seq_length": 0,
+          "max_tokens": 74,
+          "mean_tokens": 22.9
+        },
+        "passage": {
+          "texts": 8954,
+          "over_max_seq_length": 3264,
+          "max_tokens": 7906,
+          "mean_tokens": 332.0
+        }
+      }
+    },
+    "card_notes": "config_sentence_transformers.json: prompts {} and default_prompt_name null, so no prefix; modules: Transformer (BertModel, hidden 1024) + mean Pooling, no Normalize module; sentence_bert_config.json max_seq_length 128 (production value, kept so vectors equal the build_udvs cache); trained with AnglELoss on STS."
+  },
+  "timing": {
+    "elapsed_seconds": 688.2,
+    "mean_seconds_per_hearing": 3.91,
+    "max_seconds_per_hearing": 24.92
+  },
+  "outputs": [
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/serafim_335m/train.jsonl",
+      "rows": 142,
+      "sha256": "3921216967186e83f4a47c42c7587030fac567033592152cb7eb7afe9f5e3ae6"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/serafim_335m/validation.jsonl",
+      "rows": 40,
+      "sha256": "a2e1e41a7b9c7067986ce0f56adab9ec9c116758d71ed3ca4d5baa89d5fa2f58"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/serafim_335m/train.jsonl",
+      "rows": 142,
+      "sha256": "9ff6d1494e51eaec174959c6554553963569120751e7dd7bfd47886ba904738d"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/serafim_335m/validation.jsonl",
+      "rows": 40,
+      "sha256": "def2b93424889c6f798ea834bca72ecb21b876787bc479d7d4f81dfb085f0192"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/serafim_335m/train.jsonl",
+      "rows": 2602,
+      "sha256": "eb4109dedce873968060275f575ecb33775487fcf3af8a95230c080fb4507187"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/serafim_335m/validation.jsonl",
+      "rows": 620,
+      "sha256": "307d7a71483e929ea79134779525e4f89544f0b05394c99faefd7874c30cb3f0"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/serafim_335m/train.jsonl",
+      "rows": 2602,
+      "sha256": "a5adcc51340dc040c32fb5ed8cd378ab5ca08b54d6603bcdfc84ae9999ffa492"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/serafim_335m/validation.jsonl",
+      "rows": 620,
+      "sha256": "72b6c4064e042c4e32f183e38a952979c15bda080b973cfbd30d63187e81e0b5"
+    }
+  ],
+  "sources": {
+    "lds": {
+      "path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    },
+    "benchmarks": {
+      "masked_quotes": {
+        "path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+        "sha256": "1b82286f03635013a153b8882bcc6fc96efa28b674ecddd965a4972d983e4223",
+        "rows_read": 210,
+        "rows_outside_requested_splits": 28,
+        "rows_train": 142,
+        "rows_validation": 40
+      },
+      "nli": {
+        "path": "artifacts/benchmarks/nli_v1.jsonl",
+        "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d",
+        "rows_read": 4238,
+        "rows_outside_requested_splits": 559,
+        "rows_train": 2981,
+        "rows_validation": 698
+      }
+    }
+  },
+  "code": {
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/retrieval_data.py": "078477fe0834a3d5a4d92e29ad662c45185f69608f1901227f1ce12101fe58f5",
+    "utils/retrieval_experiments.py": "dbf142ea64e32f7f51ce7523cf11162a079ace0f574745f75baab8d6c089b600",
+    "utils/retrieval_models.py": "69828810d44b6e80e490a7a3c6fd41e99ddaaba061ad2df929f378642842554c",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/retrieval_store.py": "5d9ec1ada17896dffa15281657b8d90baf0981e1328487f2f9552cdec039d49e",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "scikit_learn": "1.9.0",
+    "rank_bm25": "0.2.2 (no __version__ attribute)",
+    "torch": "2.13.0",
+    "sentence_transformers": "5.6.1",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "lds_sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "default": [
+        "train",
+        "validation"
+      ]
+    },
+    "benchmarks": {
+      "masked_quotes": {
+        "path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+        "query_field": "masked_opinion",
+        "candidates": "the row's candidate list (the speaker's per-turn sentences), checked against the list rebuilt from the LDS with resolve_hearing_people",
+        "relevance": "a unit is relevant when it contains a sentence listed in target_indices (the sentences that agree with the silver target sentence enclosing the trusted quote prefix)"
+      },
+      "nli": {
+        "path": "artifacts/benchmarks/nli_v1.jsonl",
+        "query_field": "opinion",
+        "filters": [
+          "label_inferable is true",
+          "person resolved to LDS turns",
+          "at least one located chunk",
+          "at least one sentence unit of the speaker overlaps a located chunk segment"
+        ],
+        "candidates": "rebuilt from person_resolution.turn_indices with split_into_turns and split_sentences on each turn, the resolution rechecked with resolve_person_speech on the NLI person name",
+        "relevance": "a unit is relevant when its character span overlaps the recorded span (chosen occurrence) of any segment of any located chunk of the opinion; the label says the opinion was judged inferable from the four retrieved chunks together (retrieved_context_entailment), not that each overlapping unit supports it"
+      }
+    },
+    "units": {
+      "kinds": [
+        "sentence",
+        "window2",
+        "window3",
+        "turn"
+      ],
+      "window_sizes": {
+        "window2": 2,
+        "window3": 3
+      },
+      "stride": 1,
+      "definitions": "sentence: one candidate sentence; windowN: N consecutive candidate sentences of one turn, stride 1, a turn with fewer than N sentences gives one unit with all of them, text joined by a space, span from the first sentence start to the last sentence end; turn: the whole turn text (whitespace normalized, including stage directions and parts shorter than a sentence), only turns with at least one candidate sentence"
+    },
+    "retrievers": {
+      "tfidf_word": {
+        "kind": "tfidf",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "analyzer": "word",
+        "ngram_range": [
+          1,
+          1
+        ],
+        "lowercase": true,
+        "strip_accents": "unicode",
+        "token_pattern": "(?u)\\b\\w\\w+\\b",
+        "sublinear_tf": false,
+        "min_df": 1
+      },
+      "tfidf_char": {
+        "kind": "tfidf",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "analyzer": "char_wb",
+        "ngram_range": [
+          3,
+          5
+        ],
+        "lowercase": true,
+        "strip_accents": "unicode",
+        "token_pattern": "(?u)\\b\\w\\w+\\b",
+        "sublinear_tf": false,
+        "min_df": 1
+      },
+      "bm25": {
+        "kind": "bm25",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "k1": 1.5,
+        "b": 0.75,
+        "epsilon": 0.25
+      },
+      "serafim_335m": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+        "revision": "a01887015444f7599669c509447c5bdbce958916",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": true,
+        "card_notes": "config_sentence_transformers.json: prompts {} and default_prompt_name null, so no prefix; modules: Transformer (BertModel, hidden 1024) + mean Pooling, no Normalize module; sentence_bert_config.json max_seq_length 128 (production value, kept so vectors equal the build_udvs cache); trained with AnglELoss on STS."
+      },
+      "serafim_335m_ir": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder-ir",
+        "revision": "222eaea5c8df6b61d8032ffffaa9bc9febd35a2e",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "prompts {} and default_prompt_name null, no prefix in the card usage; Transformer (BertModel, 1024) + mean Pooling, no Normalize; max_seq_length 128; train-config.yaml: GISTEmbedLoss on unicamp-dl/mmarco portuguese pairs, base bertimbau-335m."
+      },
+      "serafim_900m": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-900m-portuguese-pt-sentence-encoder",
+        "revision": "8b6aac1431bf56dd4b8f6a27a98ea78d3a7c5d31",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 16,
+        "token_budget": 2048,
+        "production_cache": false,
+        "card_notes": "prompts {} and default_prompt_name null, no prefix; Transformer (DebertaV2Model, hidden 1536) + mean Pooling, no Normalize; max_seq_length 128; train-config.yaml base albertina-900m-ptpt (European Portuguese base), CoSENT on STS."
+      },
+      "e5_large": {
+        "kind": "dense",
+        "model": "intfloat/multilingual-e5-large",
+        "revision": "3d7cfbdacd47fdda877c5cd8a79fbcc4f2a574f3",
+        "query_prefix": "query: ",
+        "passage_prefix": "passage: ",
+        "max_seq_length": 512,
+        "batch_size": 16,
+        "token_budget": 8192,
+        "production_cache": false,
+        "card_notes": "README: each input must start with 'query: ' or 'passage: '; 'query: '/'passage: ' for asymmetric passage retrieval, 'query: ' on both sides for symmetric similarity; the asymmetric pair is used because the query (an opinion summary) and the passages (transcript speech) differ in length and register. No config_sentence_transformers.json prompts in the snapshot, so the prefixes are prepended to the text here. Modules: XLMRobertaModel (1024) + mean Pooling + Normalize; max_seq_length 512."
+      },
+      "bge_m3": {
+        "kind": "dense",
+        "model": "BAAI/bge-m3",
+        "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 8192,
+        "batch_size": 8,
+        "token_budget": 8192,
+        "production_cache": false,
+        "card_notes": "README: 'the BGE-M3 model no longer requires adding instructions to the queries'; dense vectors from sentence-transformers: XLMRobertaModel (1024) + CLS Pooling + Normalize; max_seq_length 8192 (native, kept; a batch never exceeds token_budget tokens, so one 8192-token sequence runs alone). Sparse and ColBERT heads (sparse_linear.pt, colbert_linear.pt) are not used."
+      },
+      "mpnet": {
+        "kind": "dense",
+        "model": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+        "revision": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "no prompts in config_sentence_transformers.json and no prefix in the card; XLMRobertaModel (768) + mean Pooling, no Normalize; max_seq_length 128; paraphrase model (symmetric)."
+      },
+      "minilm": {
+        "kind": "dense",
+        "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "no prompts and no prefix; BertModel (384) + mean Pooling, no Normalize; max_seq_length 128; paraphrase model (symmetric)."
+      },
+      "hybrid_rrf": {
+        "kind": "rrf",
+        "components": [
+          "bm25_speaker",
+          "serafim_335m"
+        ],
+        "k": 60,
+        "choice": "declared before any retrieval result was computed: BM25 fitted on the speaker's units (the sparse design the benchmarks were built around) fused with the production encoder, so the hybrid measures what lexical evidence adds to the encoder already in use; another dense component may only be chosen on train"
+      },
+      "rerank_bge": {
+        "kind": "rerank",
+        "model": "BAAI/bge-reranker-v2-m3",
+        "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "max_length": 512,
+        "batch_size": 16,
+        "card_notes": "config.json: XLMRobertaForSequenceClassification with id2label {0: LABEL_0}, a single relevance logit (higher = more relevant), no sbert_ce_default_activation_function; README scores with max_length=512 and maps to [0, 1] with sigmoid only optionally. The raw logit is used (activation Identity), which gives the same order as the sigmoid without saturated ties. No query instruction for this normal (non-LLM) reranker."
+      },
+      "rerank_mmarco": {
+        "kind": "rerank",
+        "model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+        "revision": "1427fd652930e4ba29e8149678df786c240d8825",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "max_length": 512,
+        "batch_size": 32,
+        "card_notes": "config.json: XLMRobertaForSequenceClassification, id2label {0: LABEL_0}, a single logit, sbert_ce_default_activation_function Identity; tokenizer model_max_length 512; trained on machine-translated mMARCO (includes pt)."
+      }
+    },
+    "evaluation": {
+      "baseline_retriever": "serafim_335m",
+      "baseline_unit": "sentence",
+      "ks": [
+        1,
+        3,
+        5
+      ],
+      "top_n_stored": 10,
+      "score_decimals": 5,
+      "bootstrap_samples": 2000,
+      "permutation_samples": 10000,
+      "confidence_level": 0.95,
+      "seed": 42,
+      "bootstrap_unit": "hearing",
+      "multiple_comparisons": "holm, per benchmark and split group, across every compared (retriever, unit) pair, separately for the McNemar and the MRR tests",
+      "tie_policy": "order by score descending, candidate index ascending on ties (the argmax rule of the UDV builder); rank_optimistic and rank_pessimistic bound the rank of the first relevant unit over every tie order"
+    },
+    "cache": {
+      "embeddings_dir": "artifacts/cache/experiments/embeddings",
+      "rerank_dir": "artifacts/cache/experiments/rerank",
+      "shard_size": 5000,
+      "batch_size_note": "batch sizes measured on 2026-09-22 (Apple M5, MPS, fp32, serafim-335m, 512 sentences): 16 to 32 give about 2.1k tokens/s, 64 about 1.0k and 256 about 0.55k; the batch size changes vectors only at float rounding level",
+      "production_config": "configs/udv.toml"
+    },
+    "run": {
+      "run_name": "retrieval_v1",
+      "output_dir": "artifacts/experiments/retrieval",
+      "device": "auto",
+      "hf_hub_offline": true,
+      "seed": 42
+    },
+    "queue": {
+      "plan": "priority order under the measured MPS throughput: every retriever on the sentence unit (E1) and the turn unit, the four units (E2) for the production encoder, the hybrid and the small reranker; windows for other dense models and the large reranker beyond sentences are left for a later step chosen on train",
+      "steps": [
+        {
+          "retrievers": [
+            "tfidf_word",
+            "tfidf_char",
+            "bm25"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ],
+          "device": "cpu"
+        },
+        {
+          "retrievers": [
+            "serafim_335m"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "hybrid_rrf"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "minilm"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "mpnet"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "serafim_335m_ir"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "e5_large"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "rerank_mmarco"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "rerank_bge"
+          ],
+          "units": [
+            "sentence"
+          ]
+        },
+        {
+          "retrievers": [
+            "bge_m3"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "serafim_900m"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        }
+      ]
+    }
+  }
+}
