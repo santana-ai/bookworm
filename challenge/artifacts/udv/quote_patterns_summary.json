@@ -1,0 +1,228 @@
+{
+  "created_at": "2026-09-23T02:16:39+00:00",
+  "run_name": "udv_v0",
+  "hearings": 206,
+  "splits": {
+    "path": "artifacts/splits/temporal_v1.json",
+    "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+    "split_version": "temporal_v1"
+  },
+  "patterns": {
+    "double_only": [
+      "“([^”]{10,})”|\"([^\"]{10,})\""
+    ],
+    "all_patterns": [
+      "“([^”]{10,})”|\"([^\"]{10,})\"",
+      "(?<!\\w)'([^']{10,})'(?!\\w)"
+    ]
+  },
+  "field_definitions": {
+    "span_prefix_words": "per quoted span, the longest quote prefix (10, 6, 4 or 3 words) found in a turn of the speaker; None when no prefix is found",
+    "single_spans_inside_double": "single-quoted spans that lie inside a double-quoted span of the same opinion",
+    "curly_single_not_in_pipeline": "spans between ‘ and ’ with 10+ characters, measured only; they are not quote patterns of the pipeline",
+    "with_apostrophe_inside_word": "resolved opinions with ' or ’ between two word characters, which the word boundaries of the single-quote pattern keep out of a quote",
+    "change_kinds": "difference between the quote match chosen with the double-quote patterns alone and with every pattern, per opinion of a resolved person"
+  },
+  "by_split": {
+    "train": {
+      "opinions": 1536,
+      "resolved_opinions": 1456,
+      "with_double_span": 610,
+      "with_single_span": 62,
+      "spans": {
+        "double": 635,
+        "single": 66,
+        "curly_single_not_in_pipeline": 6
+      },
+      "single_spans_inside_double": 5,
+      "with_apostrophe_inside_word": 0,
+      "span_prefix_words": {
+        "double": {
+          "1": 1,
+          "2": 4,
+          "3": 69,
+          "4": 98,
+          "5": 1,
+          "6": 92,
+          "7": 2,
+          "10": 80,
+          "None": 288
+        },
+        "single": {
+          "1": 5,
+          "2": 8,
+          "3": 8,
+          "4": 8,
+          "5": 1,
+          "6": 5,
+          "10": 5,
+          "None": 26
+        },
+        "curly_single_not_in_pipeline": {
+          "1": 1,
+          "3": 1,
+          "None": 4
+        }
+      },
+      "trusted_double_only": 173,
+      "trusted_all_patterns": 183,
+      "trusted_all_patterns_located_in_source_turn": 183,
+      "short_double_only": 165,
+      "short_all_patterns": 187,
+      "change_kinds": {
+        "short_match_appears": 22,
+        "enters_quote_found": 10,
+        "short_prefix_changed": 3
+      },
+      "span_trusted_share": {
+        "double": 0.274,
+        "single": 0.1515,
+        "curly_single_not_in_pipeline": 0.0
+      }
+    },
+    "validation": {
+      "opinions": 308,
+      "resolved_opinions": 305,
+      "with_double_span": 133,
+      "with_single_span": 11,
+      "spans": {
+        "double": 137,
+        "single": 12,
+        "curly_single_not_in_pipeline": 0
+      },
+      "single_spans_inside_double": 0,
+      "with_apostrophe_inside_word": 0,
+      "span_prefix_words": {
+        "double": {
+          "1": 1,
+          "2": 2,
+          "3": 8,
+          "4": 25,
+          "6": 28,
+          "7": 1,
+          "10": 20,
+          "None": 52
+        },
+        "single": {
+          "2": 1,
+          "3": 2,
+          "6": 3,
+          "10": 1,
+          "None": 5
+        },
+        "curly_single_not_in_pipeline": {}
+      },
+      "trusted_double_only": 49,
+      "trusted_all_patterns": 53,
+      "trusted_all_patterns_located_in_source_turn": 53,
+      "short_double_only": 34,
+      "short_all_patterns": 37,
+      "change_kinds": {
+        "short_match_appears": 3,
+        "enters_quote_found": 4
+      },
+      "span_trusted_share": {
+        "double": 0.3577,
+        "single": 0.3333,
+        "curly_single_not_in_pipeline": null
+      }
+    },
+    "test": {
+      "opinions": 359,
+      "resolved_opinions": 352,
+      "with_double_span": 156,
+      "with_single_span": 10,
+      "spans": {
+        "double": 163,
+        "single": 11,
+        "curly_single_not_in_pipeline": 0
+      },
+      "single_spans_inside_double": 0,
+      "with_apostrophe_inside_word": 0,
+      "span_prefix_words": {
+        "double": {
+          "2": 4,
+          "3": 18,
+          "4": 21,
+          "6": 25,
+          "10": 17,
+          "None": 78
+        },
+        "single": {
+          "2": 2,
+          "3": 1,
+          "4": 2,
+          "5": 2,
+          "None": 4
+        },
+        "curly_single_not_in_pipeline": {}
+      },
+      "trusted_double_only": 41,
+      "trusted_all_patterns": 41,
+      "trusted_all_patterns_located_in_source_turn": 41,
+      "short_double_only": 42,
+      "short_all_patterns": 48,
+      "change_kinds": {
+        "short_match_appears": 6
+      },
+      "span_trusted_share": {
+        "double": 0.2577,
+        "single": 0.0,
+        "curly_single_not_in_pipeline": null
+      }
+    }
+  },
+  "entering_quote_found_by_run_tier": {
+    "train:semantic_match_high": 10,
+    "validation:semantic_match_high": 4
+  },
+  "code": {
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/measure_quote_patterns.py": "85bac1453a4dac6865a7fd250e17b0865201c69cc66c25c980783ca5cce8a137"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "encoder": {
+      "name": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+      "revision": "a01887015444f7599669c509447c5bdbce958916",
+      "batch_size": 64,
+      "device": "auto"
+    },
+    "evidence": {
+      "embedding_threshold": 0.47,
+      "calibration_source": "udv_v05.ipynb",
+      "calibration_records": 20,
+      "calibration_pairs": 35,
+      "calibration_method": "pairs confirmed by a case-insensitive quote prefix of 6+ words vs random pairs, midpoint of q25(positive) and q75(negative)"
+    },
+    "run": {
+      "seed": 42,
+      "output_dir": "artifacts/udv",
+      "cache_dir": "artifacts/cache/embeddings"
+    },
+    "calibration": {
+      "version": "threshold_v1",
+      "splits": [
+        "train"
+      ],
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "masked_benchmark_path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+      "output_dir": "artifacts/calibration",
+      "primary_rule": "masked_top1_youden",
+      "primary_rule_declaration": "Declared on 2026-09-22, before any calibration result on real embeddings was computed. The threshold decides whether the top-1 sentence the encoder picks among the speaker's sentences becomes semantic_match_high, so the primary rule calibrates that decision directly: on train opinions whose quoted spans were removed (masked_quotes benchmark), top-1 is correct when it agrees with the quote target, and the threshold maximizes Youden's J of 'score >= t predicts a correct top-1'. The three pair rules are reported for comparison with the historical 0.47 and are not used to choose the threshold. Writing the chosen value into [evidence].embedding_threshold is a separate, recorded step.",
+      "seed": 42,
+      "bootstrap_samples": 1000,
+      "bootstrap_unit": "hearing",
+      "bootstrap_unit_reason": "opinions of the same hearing share speakers, topic and transcript, so they are not independent; each bootstrap replicate resamples whole hearings and redraws the random negatives",
+      "confidence_level": 0.95,
+      "negatives_per_query": 1,
+      "positive_quantile": 0.25,
+      "negative_quantile": 0.75,
+      "threshold_decimals": 2
+    }
+  },
+  "elapsed_seconds": 9.7
+}
