@@ -1,0 +1,85 @@
+[project]
+name = "bookworm"
+version = "0.1.0"
+description = "Verifiable evidence units (UDVs) linking structured opinions to public hearing transcripts."
+readme = "README.md"
+authors = [{ name = "Arthur Germano", email = "a.merode@edu.pucrs.br" }]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.0",
+    "pydantic>=2.7",
+    "scikit-learn>=1.5",
+    "typer>=0.12",
+]
+
+[project.optional-dependencies]
+embeddings = [
+    "sentence-transformers>=5.0",
+    "torch>=2.4",
+]
+
+[project.scripts]
+bookworm = "bookworm.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    "ruff>=0.8",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "PERF", "RUF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["bookworm"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+mypy_path = "tests"
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = [
+    "sklearn",
+    "sklearn.*",
+    "sentence_transformers",
+    "sentence_transformers.*",
+    "torch",
+    "torch.*",
+]
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not model' --strict-markers --cov=bookworm --cov-report=term-missing"
+markers = [
+    "dataset: needs the real PublicHearingBR LDS file, located through BOOKWORM_LDS_PATH",
+    "model: loads a sentence-transformers encoder from the local Hugging Face cache; opt-in, excluded from default runs",
+]
+
+[tool.coverage.run]
+branch = false
+core = "sysmon"
+source = ["bookworm"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

@@ -1,0 +1,18 @@
+[dataset]
+lds_path = "splits_mini.jsonl"
+sha256 = "1036e0413037fac926bea474d6e97cc7baef3e6213a95f9331345f733723dce3"
+
+[temporal]
+split_version = "mini_temporal"
+train_fraction = 0.70
+validation_fraction = 0.10
+min_boundary_gap_days = 2
+
+[leakage]
+near_duplicate_threshold = 0.5
+near_duplicate_pairs = 3
+
+[run]
+seed = 7
+output_dir = "splits"
+udv_path = "udv/mini.jsonl"
