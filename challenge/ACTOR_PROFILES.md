@@ -80,7 +80,7 @@ arquivo; remova a linha quebrada antes de consumir o JSONL. Não rode duas inst�
 
 Os prompts moram em `prompts/actor_profile/` e podem ser editados sem tocar no código:
 
-- `system_profile.md`: regras do perfil (fundamentação, presidência de sessão, escrita).
+- `system_profile.md`: regras do perfil (fundamentação, condução e cortesia, escrita).
 - `user_profile.md.j2`: template Jinja2 com as falas; recebe `actor_label` (o nome do ator) e
   `hearings` (cada um com `date`, `assunto` e `turns`, e cada turno com `role` e `text`).
 
@@ -96,8 +96,9 @@ contrastantes com `--actors` para um arquivo descartável e compare com a versã
   fechamento genéricas, e manda começar pelo conteúdo mais distintivo, o que também protege contra
   truncamento em encoders com janela curta.
 - **Fundamentação como restrição explícita.** O system prompt proíbe conhecimento prévio sobre a
-  pessoa, partidos e temas, além de proibir completar cargo ou órgão de pessoas citadas; o que a
-  pessoa declara sobre si pode entrar. Dados citados nas falas entram como afirmação da pessoa, não
+  pessoa, partidos e temas, além de proibir expandir ou abreviar siglas, completar nome, cargo ou
+  órgão de pessoas citadas e atribuir data a fato que a fala menciona sem data; o que a pessoa
+  declara sobre si pode entrar. Dados citados nas falas entram como afirmação da pessoa, não
   como fato. Falas escassas ou protocolares geram um perfil de duas a quatro frases, sem preencher
   lacunas.
 - **Proibição de conteúdo negativo.** Dizer o que a pessoa "não menciona" injeta termos espúrios no
@@ -110,10 +111,15 @@ contrastantes com `--actors` para um arquivo descartável e compare com a versã
 - **Turnos de presidência marcados, não removidos.** A construção do arquivo de entrada já corta os
   turnos de presidência com menos de 50 palavras (`HEARING_ACTORS.md`); os que restam misturam
   condução e opinião. O template marca esses turnos com `[presidência da sessão]` e o system prompt
-  manda ignorar a condução e aproveitar só o que é posição.
+  manda ignorar a condução e aproveitar só o que é posição. A regra vale para qualquer turno: pedidos
+  de tempo ou inscrição, citação de requerimentos, cumprimentos, agradecimentos e elogios também são
+  desconsiderados, porque apareciam nos perfis como se fossem conteúdo.
 - **Data e assunto por audiência.** Cada bloco de falas vem com a data da matéria e o `assunto` do
   LDS, o que permite ao modelo ancorar mudanças de posição no tempo ("em maio de 2024 passou a
-  defender") e desfazer referências vagas ("este projeto de lei").
+  defender") e desfazer referências vagas ("este projeto de lei"). Como o `assunto` vem da matéria e
+  não da fala, o system prompt restringe o cabeçalho a situar as falas no tempo e no tema e proíbe
+  atribuir à pessoa o que só aparece nele (sem essa regra, o assunto "atos de 8 de janeiro" virou
+  posição de um deputado que não citou a data).
 - **Comprimento proporcional ao material**, com teto rígido de 800 palavras. O teto alto faz o perfil
   de quem fala muito carregar o máximo de informação distintiva (posições, propostas, alvos, números,
   datas); a proporcionalidade impede que ator com duas falas protocolares ganhe perfil inflado; e a
