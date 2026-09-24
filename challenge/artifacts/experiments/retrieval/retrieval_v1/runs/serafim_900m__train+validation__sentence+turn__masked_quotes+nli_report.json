@@ -1,7 +1,7 @@
 {
   "run_name": "retrieval_v1",
-  "retriever": "tfidf_word_speaker",
-  "created_at": "2026-09-24T12:22:12+00:00",
+  "retriever": "serafim_900m",
+  "created_at": "2026-09-24T12:21:37+00:00",
   "splits_used": [
     "train",
     "validation"
@@ -13,15 +13,13 @@
   ],
   "units": [
     "sentence",
-    "window2",
-    "window3",
     "turn"
   ],
   "limits": {
     "hearings": null,
     "queries_per_bench": null
   },
-  "device": "cpu",
+  "device": "mps",
   "hub_offline": {
     "configured": true,
     "env_HF_HUB_OFFLINE": "1",
@@ -70,118 +68,117 @@
       "sentences": 162990,
       "first_match_differs_from_sequential": 121
     },
-    "load_seconds": 18.5
+    "load_seconds": 34.4
   },
   "retriever_details": {
-    "kind": "tfidf",
-    "fit_scope": "speaker",
-    "fit_corpus": "the candidate units of the speaker",
-    "query_in_fit": false,
-    "params": {
-      "fit_scopes": [
-        "speaker",
-        "hearing"
-      ],
-      "analyzer": "word",
-      "ngram_range": [
-        1,
-        1
-      ],
-      "lowercase": true,
-      "strip_accents": "unicode",
-      "token_pattern": "(?u)\\b\\w\\w+\\b",
-      "sublinear_tf": false,
-      "min_df": 1
+    "kind": "dense",
+    "model": "PORTULAN/serafim-900m-portuguese-pt-sentence-encoder",
+    "revision": "8b6aac1431bf56dd4b8f6a27a98ea78d3a7c5d31",
+    "query_prefix": "",
+    "passage_prefix": "",
+    "max_seq_length": 128,
+    "native_max_seq_length": 128,
+    "weights_file": {
+      "file": "model.safetensors",
+      "path": "/Users/arthur/.cache/huggingface/hub/models--PORTULAN--serafim-900m-portuguese-pt-sentence-encoder/snapshots/8b6aac1431bf56dd4b8f6a27a98ea78d3a7c5d31/model.safetensors",
+      "snapshot": "8b6aac1431bf56dd4b8f6a27a98ea78d3a7c5d31",
+      "snapshot_is_pinned_revision": true,
+      "blob": "f805cc49fd4e2c2a9dd448b842929d9fc889b72feb934bde8cec25849750803f",
+      "format": "safetensors"
     },
+    "local_files_only": true,
+    "similarity": "cosine (dot product of L2-normalized vectors)",
+    "batch_size": 16,
+    "token_budget": 2048,
+    "production_cache_reuse": false,
     "counts": {
-      "fits": 4700
-    }
+      "passage_texts_requested": 123801,
+      "model_loads": 1,
+      "passage_texts_encoded": 120487,
+      "passage_tokens_encoded": 5044001,
+      "query_texts_requested": 6808,
+      "query_texts_encoded": 3403,
+      "query_tokens_encoded": 113308
+    },
+    "encode_seconds": 5182.5,
+    "model_load_seconds": 3.0,
+    "truncation": {
+      "sentence": {
+        "query": {
+          "texts": 3403,
+          "over_max_seq_length": 0,
+          "max_tokens": 103,
+          "mean_tokens": 33.3
+        },
+        "passage": {
+          "texts": 113460,
+          "over_max_seq_length": 1431,
+          "max_tokens": 689,
+          "mean_tokens": 39.0
+        }
+      },
+      "turn": {
+        "query": {
+          "texts": 3403,
+          "over_max_seq_length": 0,
+          "max_tokens": 103,
+          "mean_tokens": 33.3
+        },
+        "passage": {
+          "texts": 8954,
+          "over_max_seq_length": 3788,
+          "max_tokens": 11710,
+          "mean_tokens": 479.6
+        }
+      }
+    },
+    "card_notes": "prompts {} and default_prompt_name null, no prefix; Transformer (DebertaV2Model, hidden 1536) + mean Pooling, no Normalize; max_seq_length 128; train-config.yaml base albertina-900m-ptpt (European Portuguese base), CoSENT on STS."
   },
   "timing": {
-    "elapsed_seconds": 13.5,
-    "mean_seconds_per_hearing": 0.08,
-    "max_seconds_per_hearing": 0.22
+    "elapsed_seconds": 5188.6,
+    "mean_seconds_per_hearing": 29.48,
+    "max_seconds_per_hearing": 199.88
   },
   "outputs": [
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/serafim_900m/train.jsonl",
       "rows": 142,
-      "sha256": "0bcbe5de2bc04851eacbae40dc1f901cbc3553b91b8081bb486666f00f9e4dad"
+      "sha256": "8ee9a99e57ff2cd91942aaf771f42659bb39c4fa92458448d76cf9b665885972"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/serafim_900m/validation.jsonl",
       "rows": 40,
-      "sha256": "4c48ed6b4e85dd3fb7908be03f8408ddd447ef722aaa830668eb6e60d2a3533a"
+      "sha256": "79beebe009061c0f45ea8dc221862e18e5e625a7ee23a4f0ffa9458dba58623c"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/serafim_900m/train.jsonl",
       "rows": 142,
-      "sha256": "4e4f1cd96924b74c209015c215819f20c5a91c25f3e7bf5dcff2d2d8bb65592c"
+      "sha256": "68811fdccdcb91f7708760585d5d5a983a5c7c5cec8707c356f5359cc9471d43"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/serafim_900m/validation.jsonl",
       "rows": 40,
-      "sha256": "57808abf6ddb18dfb57840ea51b9a9eab58ca8dceb86ae0ac913687fce95a5b9"
+      "sha256": "414c61bcc156699703d302225cb755bf88d7af2a3169997a53de0ced0408dc4f"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window2/tfidf_word_speaker/train.jsonl",
-      "rows": 142,
-      "sha256": "00f1a53c045a2828136f1ca6b0218a9d1ee0678774433a8692c00c30a4506843"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window2/tfidf_word_speaker/validation.jsonl",
-      "rows": 40,
-      "sha256": "2e23dcee28c4a96febea1acba7edd9669304a11d386b998799890346253891cb"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window3/tfidf_word_speaker/train.jsonl",
-      "rows": 142,
-      "sha256": "85b52aae3a94d0ab1ca73a2b202491ca4ac26844c7ceba56cbcadde57442e6b5"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window3/tfidf_word_speaker/validation.jsonl",
-      "rows": 40,
-      "sha256": "a55802a4abb6ec18255d120fce6ebc8b4a2bbcc471e07d043b1ee86c833e7322"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/serafim_900m/train.jsonl",
       "rows": 2602,
-      "sha256": "08bce919ddec0b76b0fca9576ce65d2f00a43be9691be05d0c02b254262eac7d"
+      "sha256": "9498269c4588e03a8b3a83186d4e7e662f00977dc80bf6fb4a8dcbf35320d769"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/serafim_900m/validation.jsonl",
       "rows": 620,
-      "sha256": "0a4576416b35167090c09511fe3f189a865540c5f06011c5721adeb9930e0cec"
+      "sha256": "22dbaa069143488301eeb9a5666c68181eaeef53293ade58884260c808be846f"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/serafim_900m/train.jsonl",
       "rows": 2602,
-      "sha256": "7ae641a0715405bedc28fd47eb653bd78ab6a0b4092ebda149cb1c282292faae"
+      "sha256": "9b8334046638ac2a4aa7e9d3628671d4500635302751bad6c881239a9a2c09a0"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/serafim_900m/validation.jsonl",
       "rows": 620,
-      "sha256": "21b89bfd3eb4120fb9fe2ef4bbb17eef3033cd1f9c7114e8e9b4427dcd41a9a0"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window2/tfidf_word_speaker/train.jsonl",
-      "rows": 2602,
-      "sha256": "9ac8a418bf563dc4817090cc931d61c2b989db2d37a0d4cf16b446ae595f0348"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window2/tfidf_word_speaker/validation.jsonl",
-      "rows": 620,
-      "sha256": "b1185b3fbaecde259603f26b4a90970f00bd97c805a1ade4bf43129e7c1f82e7"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window3/tfidf_word_speaker/train.jsonl",
-      "rows": 2602,
-      "sha256": "61e9c0bc6d386f1f81812c5776c6f056a90728e96c2b371c03d23f08b151a6d7"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window3/tfidf_word_speaker/validation.jsonl",
-      "rows": 620,
-      "sha256": "e091b36dd51babefac316aaece054d9ab45d8116e367bdbc40634654668cedaa"
+      "sha256": "f886b6e760a6ea6187811a5d34b9d252e19da50eb27282eb54cb26c53cc96f2f"
     }
   ],
   "sources": {

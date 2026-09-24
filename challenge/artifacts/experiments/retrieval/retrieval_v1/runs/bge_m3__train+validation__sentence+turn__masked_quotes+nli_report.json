@@ -1,7 +1,7 @@
 {
   "run_name": "retrieval_v1",
-  "retriever": "tfidf_word_speaker",
-  "created_at": "2026-09-24T12:22:12+00:00",
+  "retriever": "bge_m3",
+  "created_at": "2026-09-23T19:42:54+00:00",
   "splits_used": [
     "train",
     "validation"
@@ -13,15 +13,13 @@
   ],
   "units": [
     "sentence",
-    "window2",
-    "window3",
     "turn"
   ],
   "limits": {
     "hearings": null,
     "queries_per_bench": null
   },
-  "device": "cpu",
+  "device": "mps",
   "hub_offline": {
     "configured": true,
     "env_HF_HUB_OFFLINE": "1",
@@ -70,118 +68,117 @@
       "sentences": 162990,
       "first_match_differs_from_sequential": 121
     },
-    "load_seconds": 18.5
+    "load_seconds": 18.7
   },
   "retriever_details": {
-    "kind": "tfidf",
-    "fit_scope": "speaker",
-    "fit_corpus": "the candidate units of the speaker",
-    "query_in_fit": false,
-    "params": {
-      "fit_scopes": [
-        "speaker",
-        "hearing"
-      ],
-      "analyzer": "word",
-      "ngram_range": [
-        1,
-        1
-      ],
-      "lowercase": true,
-      "strip_accents": "unicode",
-      "token_pattern": "(?u)\\b\\w\\w+\\b",
-      "sublinear_tf": false,
-      "min_df": 1
+    "kind": "dense",
+    "model": "BAAI/bge-m3",
+    "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+    "query_prefix": "",
+    "passage_prefix": "",
+    "max_seq_length": 8192,
+    "native_max_seq_length": 8192,
+    "weights_file": {
+      "file": "pytorch_model.bin",
+      "path": "/Users/arthur/.cache/huggingface/hub/models--BAAI--bge-m3/snapshots/5617a9f61b028005a4858fdac845db406aefb181/pytorch_model.bin",
+      "snapshot": "5617a9f61b028005a4858fdac845db406aefb181",
+      "snapshot_is_pinned_revision": true,
+      "blob": "b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38",
+      "format": "pytorch_bin"
     },
+    "local_files_only": true,
+    "similarity": "cosine (dot product of L2-normalized vectors)",
+    "batch_size": 8,
+    "token_budget": 8192,
+    "production_cache_reuse": false,
     "counts": {
-      "fits": 4700
-    }
+      "passage_texts_requested": 123801,
+      "model_loads": 1,
+      "passage_texts_encoded": 120487,
+      "passage_tokens_encoded": 6303625,
+      "query_texts_requested": 6808,
+      "query_texts_encoded": 3403,
+      "query_tokens_encoded": 82413
+    },
+    "encode_seconds": 2261.3,
+    "model_load_seconds": 2.1,
+    "truncation": {
+      "sentence": {
+        "query": {
+          "texts": 3403,
+          "over_max_seq_length": 0,
+          "max_tokens": 76,
+          "mean_tokens": 24.2
+        },
+        "passage": {
+          "texts": 113460,
+          "over_max_seq_length": 0,
+          "max_tokens": 580,
+          "mean_tokens": 28.6
+        }
+      },
+      "turn": {
+        "query": {
+          "texts": 3403,
+          "over_max_seq_length": 0,
+          "max_tokens": 76,
+          "mean_tokens": 24.2
+        },
+        "passage": {
+          "texts": 8954,
+          "over_max_seq_length": 1,
+          "max_tokens": 8544,
+          "mean_tokens": 345.5
+        }
+      }
+    },
+    "card_notes": "README: 'the BGE-M3 model no longer requires adding instructions to the queries'; dense vectors from sentence-transformers: XLMRobertaModel (1024) + CLS Pooling + Normalize; max_seq_length 8192 (native, kept; a batch never exceeds token_budget tokens, so one 8192-token sequence runs alone). Sparse and ColBERT heads (sparse_linear.pt, colbert_linear.pt) are not used."
   },
   "timing": {
-    "elapsed_seconds": 13.5,
-    "mean_seconds_per_hearing": 0.08,
-    "max_seconds_per_hearing": 0.22
+    "elapsed_seconds": 2266.5,
+    "mean_seconds_per_hearing": 12.88,
+    "max_seconds_per_hearing": 40.16
   },
   "outputs": [
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/bge_m3/train.jsonl",
       "rows": 142,
-      "sha256": "0bcbe5de2bc04851eacbae40dc1f901cbc3553b91b8081bb486666f00f9e4dad"
+      "sha256": "ab1f187c68e768d006eea81577c5a3c25bc45b5aea6f54cf41349e5db07ab3bc"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/sentence/bge_m3/validation.jsonl",
       "rows": 40,
-      "sha256": "4c48ed6b4e85dd3fb7908be03f8408ddd447ef722aaa830668eb6e60d2a3533a"
+      "sha256": "bf39051b979a3af06c8b5d980f5e746fc0b2719e03acf5a924ff97b7e580a0e8"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/bge_m3/train.jsonl",
       "rows": 142,
-      "sha256": "4e4f1cd96924b74c209015c215819f20c5a91c25f3e7bf5dcff2d2d8bb65592c"
+      "sha256": "c3d359960d0420ee345383204ae45823570faccd90b11a0d1c898beb7f398766"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/turn/bge_m3/validation.jsonl",
       "rows": 40,
-      "sha256": "57808abf6ddb18dfb57840ea51b9a9eab58ca8dceb86ae0ac913687fce95a5b9"
+      "sha256": "7d1cff15f1865233510d8c296393bdb5a65122b03c99dd1908aa6ad184d3b663"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window2/tfidf_word_speaker/train.jsonl",
-      "rows": 142,
-      "sha256": "00f1a53c045a2828136f1ca6b0218a9d1ee0678774433a8692c00c30a4506843"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window2/tfidf_word_speaker/validation.jsonl",
-      "rows": 40,
-      "sha256": "2e23dcee28c4a96febea1acba7edd9669304a11d386b998799890346253891cb"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window3/tfidf_word_speaker/train.jsonl",
-      "rows": 142,
-      "sha256": "85b52aae3a94d0ab1ca73a2b202491ca4ac26844c7ceba56cbcadde57442e6b5"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/masked_quotes/window3/tfidf_word_speaker/validation.jsonl",
-      "rows": 40,
-      "sha256": "a55802a4abb6ec18255d120fce6ebc8b4a2bbcc471e07d043b1ee86c833e7322"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/bge_m3/train.jsonl",
       "rows": 2602,
-      "sha256": "08bce919ddec0b76b0fca9576ce65d2f00a43be9691be05d0c02b254262eac7d"
+      "sha256": "324484b63da53b1a700095f11822544569170679a4316b8c1c5ab42754890f4d"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/sentence/bge_m3/validation.jsonl",
       "rows": 620,
-      "sha256": "0a4576416b35167090c09511fe3f189a865540c5f06011c5721adeb9930e0cec"
+      "sha256": "495c4ae0a27fa455c6835f80c87dd6af0f55dfa83bdc9ded9318f54aa4973394"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/tfidf_word_speaker/train.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/bge_m3/train.jsonl",
       "rows": 2602,
-      "sha256": "7ae641a0715405bedc28fd47eb653bd78ab6a0b4092ebda149cb1c282292faae"
+      "sha256": "990f71bf49d3f68f53fa6d8a272d74f03198402ab4f090c77d7c382103997a23"
     },
     {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/tfidf_word_speaker/validation.jsonl",
+      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/turn/bge_m3/validation.jsonl",
       "rows": 620,
-      "sha256": "21b89bfd3eb4120fb9fe2ef4bbb17eef3033cd1f9c7114e8e9b4427dcd41a9a0"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window2/tfidf_word_speaker/train.jsonl",
-      "rows": 2602,
-      "sha256": "9ac8a418bf563dc4817090cc931d61c2b989db2d37a0d4cf16b446ae595f0348"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window2/tfidf_word_speaker/validation.jsonl",
-      "rows": 620,
-      "sha256": "b1185b3fbaecde259603f26b4a90970f00bd97c805a1ade4bf43129e7c1f82e7"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window3/tfidf_word_speaker/train.jsonl",
-      "rows": 2602,
-      "sha256": "61e9c0bc6d386f1f81812c5776c6f056a90728e96c2b371c03d23f08b151a6d7"
-    },
-    {
-      "path": "artifacts/experiments/retrieval/retrieval_v1/queries/nli/window3/tfidf_word_speaker/validation.jsonl",
-      "rows": 620,
-      "sha256": "e091b36dd51babefac316aaece054d9ab45d8116e367bdbc40634654668cedaa"
+      "sha256": "fbf607f092dd832c7c50950cd8ab3ba1a7aee38cc3ef2708fb97e797e4786922"
     }
   ],
   "sources": {
