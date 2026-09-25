@@ -39,6 +39,36 @@ uv run python -m utils.generate_actor_profiles \
 `--input` aponta para outro JSONL com o mesmo schema (ex.: o arquivo de falantes de uma audiência) e
 `--config` para outro arquivo de configuração.
 
+## Perfis só com as audiências de treino
+
+Um perfil gerado com as 206 audiências já leu as falas das audiências de teste. Se as opiniões
+publicadas dessas audiências forem usadas para avaliar o perfil, a avaliação mede o que o perfil
+copiou, não o que ele permite estimar. Para esse uso, o perfil é gerado só com as audiências de
+`train` do split `temporal_v1`; as de `validation` não entram.
+
+```
+./run_actor_profiles.sh
+```
+
+O modelo vem da variável `MODEL` do script (um exemplo, trocável por `MODEL=<modelo>
+./run_actor_profiles.sh` ou por `--model <modelo>` na linha de comando).
+
+O script roda, em ordem: `utils.download_dataset` (só se o LDS não estiver em `dataset/`),
+`utils.build_actor_speeches`, `utils.filter_actor_speeches` e `utils.generate_actor_profiles`. Os
+argumentos passados ao script vão para o gerador (`--model`, `--actors`, `--limit`). A saída é
+`artifacts/actor_profiles/actor_profiles_train.jsonl`, separada da saída com todas as audiências,
+porque a retomada pula atores pelo nome e misturaria as duas versões.
+
+`utils.filter_actor_speeches` lê a seção `[split_filter]` de `configs/actor_profiles.toml`, mantém
+de cada ator só as audiências dos splits listados em `splits`, sem alterar os turnos, e descarta o
+ator que fica sem nenhuma. O resultado vai para `actors_multi_hearing_train.jsonl` em
+`artifacts/cache/` (não versionado, como o arquivo de origem) e as contagens, com o SHA-256 do
+manifesto do split e dos dois arquivos, para `artifacts/actor_profiles/train_speeches_stats.json`.
+Com `temporal_v1`, dos 301 atores ficam 264, em 139 das 144 audiências de treino, com 4.598 dos
+6.323 turnos; 37 atores não falam em nenhuma audiência de treino e 79 ficam com uma só. Os campos
+`has_party_header` e `party_uf` continuam com o valor calculado sobre todas as audiências, porque o
+arquivo de origem não guarda o partido por audiência.
+
 ## Configuração
 
 Tudo fica em `configs/actor_profiles.toml`:
@@ -46,6 +76,8 @@ Tudo fica em `configs/actor_profiles.toml`:
 - `[input]`: caminho do JSONL de falas por ator e do LDS (o LDS fornece a data e o assunto de cada
   audiência, conferido por SHA-256 como nos demais scripts).
 - `[output]`: caminho do JSONL de perfis.
+- `[split_filter]`: manifesto do split, splits mantidos e caminhos do arquivo filtrado e das
+  contagens, lidos só por `utils.filter_actor_speeches`.
 - `[prompts]`: pasta e nomes dos dois arquivos de prompt.
 - `[model]`: `name` (id do Hugging Face ou pasta local, vazio por padrão); `device_map`, repassado
   ao `from_pretrained` (com `"auto"`, o `accelerate` distribui o modelo entre as GPUs disponíveis e
