@@ -1,0 +1,177 @@
+[dataset]
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+
+[speakers]
+chair_names = ["PRESIDENTE", "PRESIDENTA"]
+non_person_keys = [
+    "INTERPRETE",
+    "MANIFESTACAO EM LINGUA ESTRANGEIRA. TRADUCAO SIMULTANEA.",
+    "MANIFESTACAO EM LINGUA ESTRANGEIRA. TRADUCAO NAO SIMULTANEA.",
+]
+chair_min_words = 50
+candidate_chair_cuts = [50, 100, 200, 300]
+long_chair_turn_words = 300
+
+[measurement]
+udv_path = "artifacts/udv/udv_v1.jsonl"
+output_path = "artifacts/hearing_actors/measurements.json"
+
+[speeches]
+single_hearing_path = "artifacts/cache/hearing_actors/actors_single_hearing.jsonl"
+multi_hearing_path = "artifacts/cache/hearing_actors/actors_multi_hearing.jsonl"
+ambiguous_names_path = "artifacts/hearing_actors/ambiguous_names.json"
+stats_path = "artifacts/hearing_actors/actor_speeches_stats.json"
+
+[[merges.groups]]
+canonical = "ANA ANGELICA CAMPELO DE ALBUQUERQUE E MELO"
+aliases = ["ANA ANGELICA CAMPELO DE ALBUQUERQUE"]
+
+[[merges.groups]]
+canonical = "ANGELA ABOIN"
+aliases = ["ANGELA ABOIN GOMES"]
+
+[[merges.groups]]
+canonical = "BERENICE ALVES DE MELO BENTO"
+aliases = ["BERENICE BENTO"]
+
+[[merges.groups]]
+canonical = "CARINA MINEIA DOS SANTOS TRINDADE"
+aliases = ["CARINA TRINDADE"]
+
+[[merges.groups]]
+canonical = "CHARLENE DA SILVA BORGES"
+aliases = ["CHARLENE BORGES"]
+
+[[merges.groups]]
+canonical = "CLEO BOHN DE LIMA"
+aliases = ["CLEO BOHN"]
+
+[[merges.groups]]
+canonical = "DEYVID SOUZA BACELAR DA SILVA"
+aliases = ["DEYVID BACELAR"]
+
+[[merges.groups]]
+canonical = "DUARTE JR."
+aliases = ["DUARTE", "DUARTE GONCALVES JR"]
+
+[[merges.groups]]
+canonical = "ELISEU PAULINO"
+aliases = ["ELISEU PAULINO DA CUNHA"]
+
+[[merges.groups]]
+canonical = "EVANDRO HENRIQUE"
+aliases = ["EVANDRO HENRIQUE ROQUE PEREIRA"]
+
+[[merges.groups]]
+canonical = "FERNANDO KORN MALERBI"
+aliases = ["FERNANDO MALERBI"]
+
+[[merges.groups]]
+canonical = "GEORGE NEVES LODDER"
+aliases = ["GEORGE LODDER"]
+
+[[merges.groups]]
+canonical = "GLEIDSON JOSE VERAS DO NASCIMENTO"
+aliases = ["GLEIDSON VERAS"]
+
+[[merges.groups]]
+canonical = "HELDER ETERNO"
+aliases = ["HELDER ETERNO DA SILVEIRA"]
+
+[[merges.groups]]
+canonical = "JAIR GOMES DE ALMEIDA"
+aliases = ["JAIR ALMEIDA"]
+
+[[merges.groups]]
+canonical = "JOHNNY AMORIM LIBERATO"
+aliases = ["JOHNNY LIBERATO"]
+
+[[merges.groups]]
+canonical = "KARINA RIE ISHIDA"
+aliases = ["KARINA ISHIDA"]
+
+[[merges.groups]]
+canonical = "LEONARDO MOURA VILELA"
+aliases = ["LEONARDO VILELA"]
+
+[[merges.groups]]
+canonical = "LUCAS JOSE RAMOS LOPES"
+aliases = ["LUCAS LOPES"]
+
+[[merges.groups]]
+canonical = "MARCIA DE AVILA BERNI LEAO"
+aliases = ["MARCIA LEAO"]
+
+[[merges.groups]]
+canonical = "MARCIO TAVARES"
+aliases = ["MARCIO TAVARES SANTOS"]
+
+[[merges.groups]]
+canonical = "MARINA RONGO"
+aliases = ["MARINA RONGO BARBOSA"]
+
+[[merges.groups]]
+canonical = "MAX MACIEL"
+aliases = ["MAX MACIEL CAVALCANTI"]
+
+[[merges.groups]]
+canonical = "MERCEDES BUSTAMANTE"
+aliases = ["MERCEDES MARIA DA CUNHA BUSTAMANTE"]
+
+[[merges.groups]]
+canonical = "MINISTRA NISIA TRINDADE LIMA"
+aliases = ["MINISTRA NISIA TRINDADE"]
+
+[[merges.groups]]
+canonical = "MINISTRO PAULO TEIXEIRA"
+aliases = ["PAULO TEIXEIRA"]
+
+[[merges.groups]]
+canonical = "PAULO PEDRO"
+aliases = ["PAULO PEDRO DE CARVALHO"]
+
+[[merges.groups]]
+canonical = "PHELLIP ALEXANDER ALCANTARA PONCE"
+aliases = ["PHELLIP PONCE"]
+
+[[merges.groups]]
+canonical = "RAQUEL BRANQUINHO"
+aliases = ["RAQUEL BRANQUINHO PIMENTA MAMEDE NASCIMENTO"]
+
+[[merges.groups]]
+canonical = "RICARDO MAGNUS OSORIO GALVAO"
+aliases = ["RICARDO GALVAO"]
+
+[[merges.groups]]
+canonical = "ROBERTO MONTEIRO PAI"
+aliases = ["ROBERTO MONTEIRO"]
+
+[[merges.groups]]
+canonical = "RODRIGO BORDEAUX MATTOS"
+aliases = ["RODRIGO"]
+
+[[merges.groups]]
+canonical = "RODRIGO AGOSTINHO"
+aliases = ["RODRIGO ANTONIO DE AGOSTINHO MENDONCA"]
+
+[[merges.groups]]
+canonical = "RODRIGO SARAIVA MARINHO"
+aliases = ["RODRIGO MARINHO", "RODRIGO SARAIVA"]
+
+[[merges.groups]]
+canonical = "VINICIUS SOARES"
+aliases = ["ROGEAN VINICIUS SANTOS SOARES"]
+
+[[merges.groups]]
+canonical = "VICTOR HUGO IOCCA"
+aliases = ["VICTOR IOCCA"]
+
+[[merges.groups]]
+canonical = "WOLNEI WOLFF"
+aliases = ["WOLNEI APARECIDO WOLFF BARREIROS", "WOLNEI WOLFF BARREIROS"]
+
+[[merges.reassignments]]
+key = "ALEXANDRE SAMPAIO"
+hearing_id = 38
+canonical = "ALEXANDRE SAMPAIO DE ABREU"
