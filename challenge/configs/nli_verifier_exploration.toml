@@ -1,0 +1,46 @@
+[exploration]
+name = "e3x_v1"
+date = "2026-09-25"
+declared = "Declared on 2026-09-25, before any exploration number was computed. Question: can a different use of the scores already computed in nli_verifier_v2 and nli_verifier_v1 (another chunk pooling, another subset of the battery questions, a model learned on train) tell inferable from not inferable better than the declared primary laya_multi_pt.max.panel? Disclosure: the ideas behind this round came from the validation results of nli_verifier_v2 (p4_supports alone had a higher validation ROC AUC than the panel, p7 and p8 were the weakest questions, the position questions changed their answer with the option order in 24 to 31% of the validation premises). A validation confirmation of a candidate chosen here is therefore not fully independent of validation; the test split stays unread and is the independent check at the end of the project"
+verifier_config = "configs/nli_verifier.toml"
+fit_split = "train"
+confirm_split = "validation"
+split_rule = "explore reads only the train score files (<scorer>_train.jsonl) and the train rows of the benchmark; no validation or test file is opened by it. confirm reads validation once, for the one selected candidate and the references, and refuses to run when its output already exists"
+
+[exploration.inputs]
+decision_scorers = { laya_multi_pt = "nli_verifier_v2", laya_multi_en = "nli_verifier_v2", laya_en_en = "nli_verifier_v2", laya_multi_en_m2m100 = "nli_verifier_v2", laya_en_en_m2m100 = "nli_verifier_v2" }
+nli_scorers = { xnli_mdeberta = "nli_verifier_v1", assin2_mdeberta = "nli_verifier_v1", xnli_mdeberta_en = "nli_verifier_v2", xnli_mdeberta_en_m2m100 = "nli_verifier_v2" }
+cosine_scorers = { cosine_serafim = "nli_verifier_v1" }
+missing_rule = "a listed scorer without a train score file is skipped and named in the report"
+
+[exploration.candidates]
+decision_signals = ["p1_nli", "p2_nli_reversed", "p3_inferable", "p4_supports", "p5_position", "p6_position_reversed", "p7_coverage", "p8_similarity", "nli_order_mean", "position_order_mean"]
+order_pairs = { nli_order_mean = ["p1_nli", "p2_nli_reversed"], position_order_mean = ["p5_position", "p6_position_reversed"] }
+panel_components = ["nli_order_mean", "p3_inferable", "p4_supports", "position_order_mean", "p7_coverage", "p8_similarity"]
+panel_min_size = 2
+nli_signals = ["entailment"]
+cosine_signals = ["cosine", "sentence_max"]
+pools = ["max", "mean", "top2_mean", "noisy_or", "concatenated"]
+pool_rule = "each signal is read per non-empty chunk and pooled into one opinion score: max, mean, mean of the two largest (the only one when there is one chunk), noisy_or = 1 - prod(1 - s), or read from the concatenated premise when the scorer has one; an opinion with no premise scores 0.0 (-1.0 for the cosine scorer), as in the score files. A panel is the mean of its components per chunk, then pooled the same way (concatenated: the mean of the concatenated signals). The recomputed max pool must equal the stored max.<signal> and max.panel of the score files (tolerance 1e-9), which checks the reading"
+learned_rule = "L2 logistic regression (lbfgs, max_iter 2000, standardized inputs, random_state 42) on the max, mean and concatenated pools of the eight battery signals of one decision scorer (24 features); cross_model adds the max, mean and concatenated entailment of xnli_mdeberta and the max cosine and sentence_max of cosine_serafim to laya_multi_pt. C is chosen from c_grid by an inner stratified group 3-fold split by hearing, inside each outer training part, by mean inner ROC AUC"
+c_grid = [0.01, 0.1, 1.0, 10.0]
+inner_splits = 3
+cross_model = { base = "laya_multi_pt", extra = ["xnli_mdeberta:entailment:max", "xnli_mdeberta:entailment:mean", "xnli_mdeberta:entailment:concatenated", "cosine_serafim:cosine:max", "cosine_serafim:sentence_max:max"] }
+
+[exploration.cv]
+n_splits = 5
+repeats = 5
+seed = 20260925
+rule = "sklearn StratifiedGroupKFold(n_splits, shuffle=True, random_state=seed + repeat) over the train opinions, groups = hearing_id, stratified by label_inferable; every candidate is scored on the same 25 folds. ROC AUC is computed per held-out fold; Cohen kappa per held-out fold uses the max_f1_not_inferable threshold fitted on the other folds"
+
+[exploration.selection]
+metric = "roc_auc"
+rule = "best = the candidate with the highest mean held-out ROC AUC over the 25 folds; se = standard deviation of its 25 fold values / sqrt(n_splits). Eligible = every candidate whose mean is at least best - se. The selected candidate is the simplest eligible one: first by kind (signal, then panel, then learned), then by number of panel components, then by mean ROC AUC. The mean CV ROC AUC of the selected candidate is biased upward by the selection among all candidates and is not reported as its expected performance"
+references = ["laya_multi_pt:panel:max", "xnli_mdeberta:entailment:max"]
+
+[exploration.confirmation]
+references = ["laya_multi_pt:panel:max", "xnli_mdeberta:entailment:max"]
+bootstrap_samples = 1000
+seed = 42
+threshold_rule = "max_f1_not_inferable, fitted on the whole train split; a learned candidate is refit on the whole train split with C chosen by the inner rule on the whole train split"
+comparison_rule = "paired hearing bootstrap on validation (the same replicates for both sides), delta = selected minus reference for ROC AUC and Cohen kappa; two-sided p-value 2 x the smaller share at or beyond zero with the (k + 1) / (B + 1) correction, capped at 1; Holm over the ROC AUC comparisons against the two references"

@@ -18,14 +18,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from utils.dataset_io import load_gated_jsonl, write_json, write_jsonl
 from utils.udv_pipeline import (
-    enclosing_sentence,
-    find_opinion_quote_match,
+    QUOTE_PATTERNS,
+    SENTENCE_BOUNDARY_PATTERN,
+    TRUSTED_PREFIX_WORDS,
+    find_opinion_turn_quote_match,
     is_trusted_quote,
-    locate_sentence_span,
+    locate_turn_sentence_span,
     resolve_person_speech,
     sentences_agree,
     split_into_turns,
-    split_sentences,
+    split_turn_sentences,
 )
 
 Record = dict[str, Any]
@@ -39,6 +41,15 @@ TIERS = (
 )
 SUPPORT_TYPES = ("direct_quote", "semantic_with_short_quote", "semantic_similarity")
 EMPTY_SPAN: Record = {"start_char": None, "end_char": None, "speaker_turn": None}
+PIPELINE: Record = {
+    "sentence_segmentation": "per matched turn, concatenated in turn order",
+    "sentence_boundary_pattern": SENTENCE_BOUNDARY_PATTERN.pattern,
+    "quote_patterns": [pattern.pattern for pattern in QUOTE_PATTERNS],
+    "quote_search": "inside each matched turn",
+    "quote_selection": "most prefix words over all quotes, earliest quote on ties",
+    "quote_occurrence": "max token Jaccard with the opinion for trusted prefixes, first on ties",
+    "trusted_prefix_words": TRUSTED_PREFIX_WORDS,
+}
 
 
 @dataclass(frozen=True)
@@ -142,21 +153,25 @@ def resolve_hearing_people(hearing: Record) -> list[Record]:
     people = []
     for person_index, participant in enumerate(hearing["metadados"]["envolvidos"]):
         matched_turns, speech = resolve_person_speech(participant, turns)
+        units = split_turn_sentences(matched_turns)
         people.append(
             {
                 "index": person_index,
                 "participant": participant,
                 "matched_turns": matched_turns,
                 "speech": speech,
-                "sentences": split_sentences(speech) if matched_turns else [],
+                "sentences": [unit["text"] for unit in units],
+                "sentence_turns": [unit["turn_index"] for unit in units],
             }
         )
     return people
 
 
 def build_quote_evidence(quote_match: Record, person: Record, transcript: str) -> Record:
-    sentence = enclosing_sentence(quote_match["prefix"], person["speech"])
-    span = locate_sentence_span(sentence, transcript, person["matched_turns"])
+    sentence = quote_match["sentence"]
+    span = locate_turn_sentence_span(
+        sentence, transcript, person["matched_turns"], quote_match["turn_index"]
+    )
     return {
         "text": sentence,
         "support_type": "direct_quote",
@@ -166,10 +181,10 @@ def build_quote_evidence(quote_match: Record, person: Record, transcript: str) -
     }
 
 
-def short_quote_supports(quote_match: Record | None, sentence: str, person: Record) -> bool:
+def short_quote_supports(quote_match: Record | None, sentence: str) -> bool:
     if quote_match is None:
         return False
-    return sentences_agree(enclosing_sentence(quote_match["prefix"], person["speech"]), sentence)
+    return sentences_agree(quote_match["sentence"], sentence)
 
 
 def build_semantic_evidence(
@@ -184,8 +199,10 @@ def build_semantic_evidence(
     ).flatten()
     best_index = int(similarities.argmax())
     sentence = person["sentences"][best_index]
-    supported = short_quote_supports(quote_match, sentence, person)
-    span = locate_sentence_span(sentence, transcript, person["matched_turns"])
+    supported = short_quote_supports(quote_match, sentence)
+    span = locate_turn_sentence_span(
+        sentence, transcript, person["matched_turns"], person["sentence_turns"][best_index]
+    )
     return {
         "text": sentence,
         "support_type": "semantic_with_short_quote" if supported else "semantic_similarity",
@@ -270,7 +287,7 @@ def build_hearing_udvs(
     for position, (person, opinion_index, opinion_text) in enumerate(opinions):
         evidence = None
         if person["matched_turns"]:
-            quote_match = find_opinion_quote_match(opinion_text, person["speech"])
+            quote_match = find_opinion_turn_quote_match(opinion_text, person["matched_turns"])
             if is_trusted_quote(quote_match):
                 evidence = build_quote_evidence(quote_match, person, transcript)
             elif person["sentences"]:
@@ -319,6 +336,7 @@ def summarize_run(
             support_type: sum(1 for e in evidences if e["support_type"] == support_type)
             for support_type in SUPPORT_TYPES
         },
+        "pipeline": PIPELINE,
         "encoder_runtime": {
             "device": device,
             "max_seq_length": encoder.max_seq_length,

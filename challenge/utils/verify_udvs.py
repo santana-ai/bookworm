@@ -7,14 +7,14 @@ from typing import Any
 from utils.build_udvs import SUPPORT_TYPES, TIERS, load_config, load_lds_records
 from utils.dataset_io import load_jsonl
 from utils.udv_pipeline import (
-    enclosing_sentence,
-    find_opinion_quote_match,
+    find_opinion_turn_quote_match,
     is_trusted_quote,
     normalize_whitespace,
     resolve_person_speech,
     sentences_agree,
     split_into_turns,
-    split_sentences,
+    split_turn_sentences,
+    turn_text,
 )
 
 Record = dict[str, Any]
@@ -26,12 +26,14 @@ def index_people(hearings: list[Record]) -> dict[tuple[int, int], Record]:
         turns = split_into_turns(hearing["transcricao"])
         for person_index, participant in enumerate(hearing["metadados"]["envolvidos"]):
             matched_turns, speech = resolve_person_speech(participant, turns)
+            units = split_turn_sentences(matched_turns)
             people[(hearing["id"], person_index)] = {
                 "hearing": hearing,
                 "participant": participant,
                 "matched_turns": matched_turns,
                 "speech": speech,
-                "sentences": split_sentences(speech) if matched_turns else [],
+                "sentences": [unit["text"] for unit in units],
+                "sentence_turns": [unit["turn_index"] for unit in units],
             }
     return people
 
@@ -70,9 +72,10 @@ def check_record(record: Record, person: Record, opinion_text: str, threshold: f
         return problems + ["evidence_missing"]
     if evidence["support_type"] not in SUPPORT_TYPES:
         problems.append("unknown_support_type")
-    quote_match = find_opinion_quote_match(opinion_text, person["speech"])
+    problems.extend(check_single_turn(evidence, person))
+    quote_match = find_opinion_turn_quote_match(opinion_text, person["matched_turns"])
     if tier == "quote_found":
-        problems.extend(check_quote_evidence(evidence, quote_match, person, provenance))
+        problems.extend(check_quote_evidence(evidence, quote_match, provenance))
     else:
         if provenance != "model" or evidence["support_type"] == "direct_quote":
             problems.append("semantic_shape")
@@ -80,18 +83,25 @@ def check_record(record: Record, person: Record, opinion_text: str, threshold: f
             problems.append("semantic_but_trusted_quote_findable")
         if evidence["text"] not in person["sentences"]:
             problems.append("evidence_not_person_sentence")
-        problems.extend(check_short_quote_support(evidence, quote_match, person))
+        problems.extend(check_short_quote_support(evidence, quote_match))
         score = evidence["score"]
         if score is None or not -1.0001 <= score <= 1.0001:
             problems.append("score_out_of_range")
         elif (tier == "semantic_match_high") != (score >= threshold):
             problems.append("tier_inconsistent_with_score")
     problems.extend(check_offsets(record, person))
+    problems.extend(check_source_turn(evidence, quote_match, person, tier))
     return problems
 
 
+def check_single_turn(evidence: Record, person: Record) -> list[str]:
+    if any(evidence["text"] in turn_text(turn) for turn in person["matched_turns"]):
+        return []
+    return ["evidence_not_in_single_actor_turn"]
+
+
 def check_quote_evidence(
-    evidence: Record, quote_match: Record | None, person: Record, provenance: str | None
+    evidence: Record, quote_match: Record | None, provenance: str | None
 ) -> list[str]:
     problems: list[str] = []
     if provenance != "weak" or evidence["support_type"] != "direct_quote":
@@ -102,20 +112,16 @@ def check_quote_evidence(
         return problems + ["quote_not_trusted"]
     if evidence["quote_prefix"] != quote_match["prefix"]:
         return problems + ["quote_prefix_mismatch"]
-    if enclosing_sentence(quote_match["prefix"], person["speech"]) != evidence["text"]:
+    if quote_match["sentence"] != evidence["text"]:
         problems.append("quote_text_mismatch")
     return problems
 
 
-def check_short_quote_support(
-    evidence: Record, quote_match: Record | None, person: Record
-) -> list[str]:
+def check_short_quote_support(evidence: Record, quote_match: Record | None) -> list[str]:
     supported = (
         quote_match is not None
         and not is_trusted_quote(quote_match)
-        and sentences_agree(
-            enclosing_sentence(quote_match["prefix"], person["speech"]), evidence["text"]
-        )
+        and sentences_agree(quote_match["sentence"], evidence["text"])
     )
     expected_support_type = "semantic_with_short_quote" if supported else "semantic_similarity"
     expected_prefix = quote_match["prefix"] if supported else None
@@ -131,8 +137,8 @@ def check_offsets(record: Record, person: Record) -> list[str]:
     evidence = record["evidence"]
     if evidence["start_char"] is None:
         if evidence["end_char"] is not None or evidence["speaker_turn"] is not None:
-            return ["offset_shape"]
-        return []
+            return ["offset_shape", "evidence_offsets_missing"]
+        return ["evidence_offsets_missing"]
     problems: list[str] = []
     transcript = person["hearing"]["transcricao"]
     span = transcript[evidence["start_char"] : evidence["end_char"]]
@@ -148,6 +154,25 @@ def check_offsets(record: Record, person: Record) -> list[str]:
     ):
         problems.append("span_outside_turn")
     return problems
+
+
+def check_source_turn(
+    evidence: Record, quote_match: Record | None, person: Record, tier: str
+) -> list[str]:
+    if evidence["speaker_turn"] is None:
+        return []
+    if tier == "quote_found":
+        if is_trusted_quote(quote_match) and evidence["speaker_turn"] != quote_match["turn_index"]:
+            return ["quote_turn_mismatch"]
+        return []
+    source_turns = {
+        turn_index
+        for sentence, turn_index in zip(person["sentences"], person["sentence_turns"], strict=True)
+        if sentence == evidence["text"]
+    }
+    if source_turns and evidence["speaker_turn"] not in source_turns:
+        return ["semantic_turn_mismatch"]
+    return []
 
 
 def check_coverage(

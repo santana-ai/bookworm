@@ -1,0 +1,18 @@
+[dataset]
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+lds_sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+
+[splits]
+manifest_path = "artifacts/splits/temporal_v1.json"
+
+[masking]
+quote_pairs = [["“", "”"], ["\"", "\""], ["‘", "’"]]
+word_bounded_quote_pairs = [["'", "'"]]
+min_masked_words = 4
+min_masked_words_split = "train"
+min_masked_words_rule = "On train, 183 opinions have a trusted quote; after masking, 36 keep 0 words, 2 keep 1 word (a bare reporting verb), 3 keep 2 words (a reporting verb followed by que) and none keeps 3 words, the next value being 4. Any minimum from 3 to 4 drops the same 41 train rows, and a minimum of 2 would keep reporting verbs with no content, so the tie is broken by the minimum the pipeline already requires of a candidate sentence (MIN_SENTENCE_WORDS = 4) rather than by validation or test rows. The report section min_masked_words_audit recomputes this histogram and lists the train texts it rests on."
+audit_max_words = 8
+
+[run]
+benchmark_version = "masked_quotes_v1"
+output_dir = "artifacts/benchmarks"

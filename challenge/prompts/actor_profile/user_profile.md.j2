@@ -1,0 +1,11 @@
+Escreva o perfil de {{ actor_label }} a partir das falas abaixo, transcritas de {{ hearings | length }} audiência(s) pública(s), em ordem cronológica.
+
+{% for hearing in hearings %}
+=== Audiência de {{ hearing.date }} sobre: {{ hearing.assunto }} ===
+
+{% for turn in hearing.turns %}
+{% if turn.role == "chair" %}[presidência da sessão]
+{% endif %}{{ turn.text }}
+
+{% endfor %}
+{% endfor %}

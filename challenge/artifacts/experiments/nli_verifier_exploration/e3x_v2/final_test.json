@@ -1,0 +1,872 @@
+{
+  "experiment": "nli_verifier_exploration",
+  "name": "e3x_v2",
+  "stage": "final_test",
+  "created_at": "2026-09-25T18:46:19+00:00",
+  "splits_read": [
+    "train",
+    "test"
+  ],
+  "declared": "Declared on 2026-09-25, after the e3x_v2 validation confirmation and before any test opinion was translated or scored. At the user's request, the five candidates with the highest validation ROC AUC in e3x_v2/confirmation.csv are evaluated once on the test split, next to the two references. Every model is fitted exactly as for the confirmation: learned candidates on the whole train split with C chosen by the inner rule on train, thresholds max_f1_not_inferable on train; validation is not added to the fit, so test measures the same fitted systems that validation measured. Primary test result: the candidate selected by the train rule, laya_en_en:learned_cross_model_with_pt, fixed before validation was read; the other four are reported with it, and the best of the five on test is not reported as the expected performance of a chosen system. The test result chooses nothing: no candidate, parameter or rule of any experiment is changed after it",
+  "primary": "laya_en_en:learned_cross_model_with_pt",
+  "score_run": "final_test_e3x",
+  "files_read": {
+    "laya_multi_pt": {
+      "path": "artifacts/experiments/nli_verifier/final_test_e3x/scores/laya_multi_pt_test.jsonl",
+      "sha256": "887668e80916b11f03eb076b46888c2e76bb897553c30f129d49a632c3cb4bd4"
+    },
+    "laya_en_en": {
+      "path": "artifacts/experiments/nli_verifier/final_test_e3x/scores/laya_en_en_test.jsonl",
+      "sha256": "f2e994a7e2569d93b43e2ca96d754a11bba090db32811b40e2ee828ed972bedf"
+    },
+    "laya_en_en_m2m100": {
+      "path": "artifacts/experiments/nli_verifier/final_test_e3x/scores/laya_en_en_m2m100_test.jsonl",
+      "sha256": "75f58cc126b3cbd6b7f480199daf2ca24e1c7a515a9350074f93abe4ff106712"
+    },
+    "xnli_mdeberta": {
+      "path": "artifacts/experiments/nli_verifier/final_test_e3x/scores/xnli_mdeberta_test.jsonl",
+      "sha256": "62f3bfab5d38b73ee3fc9ba035e099c2b1890a92dc511106806003cafc0476aa"
+    },
+    "cosine_serafim": {
+      "path": "artifacts/experiments/nli_verifier/final_test_e3x/scores/cosine_serafim_test.jsonl",
+      "sha256": "f0e371b85071c3bbd94aa7cec92a32aaaa7b6098413d27e99e41b0f4143e9438"
+    }
+  },
+  "reading_check": {
+    "laya_multi_pt": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "laya_en_en": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "laya_en_en_m2m100": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "xnli_mdeberta": {
+      "stored_scores_checked": [
+        "max.entailment",
+        "concatenated.entailment"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "cosine_serafim": {
+      "stored_scores_checked": [
+        "max.cosine",
+        "sentence_max.cosine"
+      ],
+      "max_abs_gap": 0.0
+    }
+  },
+  "train_copy_check": {
+    "laya_multi_pt": {
+      "scores_compared": 26,
+      "max_abs_gap": 0.0
+    },
+    "laya_en_en": {
+      "scores_compared": 26,
+      "max_abs_gap": 0.0
+    },
+    "laya_en_en_m2m100": {
+      "scores_compared": 26,
+      "max_abs_gap": 0.0
+    },
+    "xnli_mdeberta": {
+      "scores_compared": 4,
+      "max_abs_gap": 0.0
+    },
+    "cosine_serafim": {
+      "scores_compared": 2,
+      "max_abs_gap": 0.0
+    }
+  },
+  "opinions": {
+    "count": 559,
+    "hearings": 30,
+    "not_inferable": 89
+  },
+  "learned": {
+    "laya_en_en:learned_cross_model_with_pt": {
+      "c": 0.01,
+      "inner_means": {
+        "0.01": 0.8681,
+        "0.1": 0.8674,
+        "1.0": 0.8618,
+        "10.0": 0.8576
+      },
+      "coefficients": {
+        "laya_en_en:p1_nli:max": 0.0528,
+        "laya_en_en:p1_nli:mean": 0.0291,
+        "laya_en_en:p1_nli:concatenated": 0.0665,
+        "laya_en_en:p2_nli_reversed:max": 0.0504,
+        "laya_en_en:p2_nli_reversed:mean": 0.0266,
+        "laya_en_en:p2_nli_reversed:concatenated": 0.06,
+        "laya_en_en:p3_inferable:max": 0.0267,
+        "laya_en_en:p3_inferable:mean": 0.0256,
+        "laya_en_en:p3_inferable:concatenated": 0.1173,
+        "laya_en_en:p4_supports:max": 0.0223,
+        "laya_en_en:p4_supports:mean": 0.03,
+        "laya_en_en:p4_supports:concatenated": 0.1258,
+        "laya_en_en:p5_position:max": 0.0626,
+        "laya_en_en:p5_position:mean": 0.0091,
+        "laya_en_en:p5_position:concatenated": 0.0508,
+        "laya_en_en:p6_position_reversed:max": 0.069,
+        "laya_en_en:p6_position_reversed:mean": 0.0061,
+        "laya_en_en:p6_position_reversed:concatenated": 0.0335,
+        "laya_en_en:p7_coverage:max": 0.0136,
+        "laya_en_en:p7_coverage:mean": -0.0258,
+        "laya_en_en:p7_coverage:concatenated": -0.0892,
+        "laya_en_en:p8_similarity:max": 0.0499,
+        "laya_en_en:p8_similarity:mean": 0.0169,
+        "laya_en_en:p8_similarity:concatenated": 0.023,
+        "laya_multi_pt:p1_nli:max": 0.0315,
+        "laya_multi_pt:p1_nli:mean": -0.0283,
+        "laya_multi_pt:p1_nli:concatenated": 0.0682,
+        "laya_multi_pt:p2_nli_reversed:max": 0.0291,
+        "laya_multi_pt:p2_nli_reversed:mean": -0.0313,
+        "laya_multi_pt:p2_nli_reversed:concatenated": 0.0684,
+        "laya_multi_pt:p3_inferable:max": 0.1003,
+        "laya_multi_pt:p3_inferable:mean": 0.0275,
+        "laya_multi_pt:p3_inferable:concatenated": 0.137,
+        "laya_multi_pt:p4_supports:max": 0.083,
+        "laya_multi_pt:p4_supports:mean": 0.0224,
+        "laya_multi_pt:p4_supports:concatenated": 0.1451,
+        "laya_multi_pt:p5_position:max": 0.005,
+        "laya_multi_pt:p5_position:mean": -0.0814,
+        "laya_multi_pt:p5_position:concatenated": -0.0081,
+        "laya_multi_pt:p6_position_reversed:max": 0.0287,
+        "laya_multi_pt:p6_position_reversed:mean": -0.0537,
+        "laya_multi_pt:p6_position_reversed:concatenated": 0.0232,
+        "laya_multi_pt:p7_coverage:max": 0.0724,
+        "laya_multi_pt:p7_coverage:mean": 0.0178,
+        "laya_multi_pt:p7_coverage:concatenated": -0.0613,
+        "laya_multi_pt:p8_similarity:max": 0.0415,
+        "laya_multi_pt:p8_similarity:mean": -0.1378,
+        "laya_multi_pt:p8_similarity:concatenated": 0.0116,
+        "xnli_mdeberta:entailment:max": 0.1742,
+        "xnli_mdeberta:entailment:mean": 0.0407,
+        "xnli_mdeberta:entailment:concatenated": 0.1523,
+        "cosine_serafim:cosine:max": 0.2045,
+        "cosine_serafim:sentence_max:max": 0.304
+      }
+    },
+    "laya_en_en:learned_cross_model": {
+      "c": 0.1,
+      "inner_means": {
+        "0.01": 0.8574,
+        "0.1": 0.8576,
+        "1.0": 0.8547,
+        "10.0": 0.8526
+      },
+      "coefficients": {
+        "laya_en_en:p1_nli:max": 0.112,
+        "laya_en_en:p1_nli:mean": 0.0192,
+        "laya_en_en:p1_nli:concatenated": 0.1222,
+        "laya_en_en:p2_nli_reversed:max": 0.0896,
+        "laya_en_en:p2_nli_reversed:mean": 0.0037,
+        "laya_en_en:p2_nli_reversed:concatenated": 0.0338,
+        "laya_en_en:p3_inferable:max": 0.0091,
+        "laya_en_en:p3_inferable:mean": 0.0919,
+        "laya_en_en:p3_inferable:concatenated": 0.1306,
+        "laya_en_en:p4_supports:max": -0.0572,
+        "laya_en_en:p4_supports:mean": 0.1064,
+        "laya_en_en:p4_supports:concatenated": 0.2192,
+        "laya_en_en:p5_position:max": 0.0866,
+        "laya_en_en:p5_position:mean": -0.0513,
+        "laya_en_en:p5_position:concatenated": 0.1392,
+        "laya_en_en:p6_position_reversed:max": 0.1063,
+        "laya_en_en:p6_position_reversed:mean": -0.0652,
+        "laya_en_en:p6_position_reversed:concatenated": -0.0393,
+        "laya_en_en:p7_coverage:max": 0.0287,
+        "laya_en_en:p7_coverage:mean": -0.0882,
+        "laya_en_en:p7_coverage:concatenated": -0.293,
+        "laya_en_en:p8_similarity:max": 0.0913,
+        "laya_en_en:p8_similarity:mean": 0.0419,
+        "laya_en_en:p8_similarity:concatenated": 0.1267,
+        "xnli_mdeberta:entailment:max": 0.2985,
+        "xnli_mdeberta:entailment:mean": -0.014,
+        "xnli_mdeberta:entailment:concatenated": 0.1964,
+        "cosine_serafim:cosine:max": 0.258,
+        "cosine_serafim:sentence_max:max": 0.5649
+      }
+    },
+    "laya_en_en_m2m100:learned_cross_model": {
+      "c": 0.1,
+      "inner_means": {
+        "0.01": 0.8576,
+        "0.1": 0.8582,
+        "1.0": 0.8559,
+        "10.0": 0.8541
+      },
+      "coefficients": {
+        "laya_en_en_m2m100:p1_nli:max": 0.1607,
+        "laya_en_en_m2m100:p1_nli:mean": 0.0648,
+        "laya_en_en_m2m100:p1_nli:concatenated": 0.186,
+        "laya_en_en_m2m100:p2_nli_reversed:max": 0.0772,
+        "laya_en_en_m2m100:p2_nli_reversed:mean": 0.019,
+        "laya_en_en_m2m100:p2_nli_reversed:concatenated": 0.074,
+        "laya_en_en_m2m100:p3_inferable:max": -0.1465,
+        "laya_en_en_m2m100:p3_inferable:mean": -0.0478,
+        "laya_en_en_m2m100:p3_inferable:concatenated": 0.2025,
+        "laya_en_en_m2m100:p4_supports:max": 0.2001,
+        "laya_en_en_m2m100:p4_supports:mean": 0.1137,
+        "laya_en_en_m2m100:p4_supports:concatenated": 0.0221,
+        "laya_en_en_m2m100:p5_position:max": 0.3381,
+        "laya_en_en_m2m100:p5_position:mean": -0.2426,
+        "laya_en_en_m2m100:p5_position:concatenated": 0.1832,
+        "laya_en_en_m2m100:p6_position_reversed:max": 0.1401,
+        "laya_en_en_m2m100:p6_position_reversed:mean": -0.0851,
+        "laya_en_en_m2m100:p6_position_reversed:concatenated": -0.1037,
+        "laya_en_en_m2m100:p7_coverage:max": -0.2471,
+        "laya_en_en_m2m100:p7_coverage:mean": -0.1467,
+        "laya_en_en_m2m100:p7_coverage:concatenated": -0.0405,
+        "laya_en_en_m2m100:p8_similarity:max": 0.1182,
+        "laya_en_en_m2m100:p8_similarity:mean": 0.0943,
+        "laya_en_en_m2m100:p8_similarity:concatenated": -0.0434,
+        "xnli_mdeberta:entailment:max": 0.2797,
+        "xnli_mdeberta:entailment:mean": 0.0101,
+        "xnli_mdeberta:entailment:concatenated": 0.2139,
+        "cosine_serafim:cosine:max": 0.28,
+        "cosine_serafim:sentence_max:max": 0.5693
+      }
+    },
+    "laya_multi_pt:learned_cross_model": {
+      "c": 0.1,
+      "inner_means": {
+        "0.01": 0.8531,
+        "0.1": 0.8555,
+        "1.0": 0.8523,
+        "10.0": 0.85
+      },
+      "coefficients": {
+        "laya_multi_pt:p1_nli:max": 0.0135,
+        "laya_multi_pt:p1_nli:mean": -0.0745,
+        "laya_multi_pt:p1_nli:concatenated": 0.0379,
+        "laya_multi_pt:p2_nli_reversed:max": 0.0049,
+        "laya_multi_pt:p2_nli_reversed:mean": -0.0884,
+        "laya_multi_pt:p2_nli_reversed:concatenated": 0.1192,
+        "laya_multi_pt:p3_inferable:max": 0.1825,
+        "laya_multi_pt:p3_inferable:mean": 0.171,
+        "laya_multi_pt:p3_inferable:concatenated": 0.1187,
+        "laya_multi_pt:p4_supports:max": 0.1034,
+        "laya_multi_pt:p4_supports:mean": 0.1211,
+        "laya_multi_pt:p4_supports:concatenated": 0.2621,
+        "laya_multi_pt:p5_position:max": 0.063,
+        "laya_multi_pt:p5_position:mean": -0.22,
+        "laya_multi_pt:p5_position:concatenated": -0.0959,
+        "laya_multi_pt:p6_position_reversed:max": 0.1139,
+        "laya_multi_pt:p6_position_reversed:mean": -0.1213,
+        "laya_multi_pt:p6_position_reversed:concatenated": 0.0531,
+        "laya_multi_pt:p7_coverage:max": 0.092,
+        "laya_multi_pt:p7_coverage:mean": 0.1012,
+        "laya_multi_pt:p7_coverage:concatenated": -0.0972,
+        "laya_multi_pt:p8_similarity:max": 0.1283,
+        "laya_multi_pt:p8_similarity:mean": -0.3162,
+        "laya_multi_pt:p8_similarity:concatenated": 0.0429,
+        "xnli_mdeberta:entailment:max": 0.2781,
+        "xnli_mdeberta:entailment:mean": 0.048,
+        "xnli_mdeberta:entailment:concatenated": 0.2318,
+        "cosine_serafim:cosine:max": 0.3045,
+        "cosine_serafim:sentence_max:max": 0.6359
+      }
+    },
+    "laya_en_en:learned": {
+      "c": 0.1,
+      "inner_means": {
+        "0.01": 0.8278,
+        "0.1": 0.8281,
+        "1.0": 0.8249,
+        "10.0": 0.8224
+      },
+      "coefficients": {
+        "laya_en_en:p1_nli:max": 0.1533,
+        "laya_en_en:p1_nli:mean": 0.0567,
+        "laya_en_en:p1_nli:concatenated": 0.138,
+        "laya_en_en:p2_nli_reversed:max": 0.0737,
+        "laya_en_en:p2_nli_reversed:mean": 0.0159,
+        "laya_en_en:p2_nli_reversed:concatenated": 0.0616,
+        "laya_en_en:p3_inferable:max": -0.01,
+        "laya_en_en:p3_inferable:mean": 0.152,
+        "laya_en_en:p3_inferable:concatenated": 0.2091,
+        "laya_en_en:p4_supports:max": -0.0398,
+        "laya_en_en:p4_supports:mean": 0.1808,
+        "laya_en_en:p4_supports:concatenated": 0.1919,
+        "laya_en_en:p5_position:max": 0.0397,
+        "laya_en_en:p5_position:mean": -0.0575,
+        "laya_en_en:p5_position:concatenated": 0.1504,
+        "laya_en_en:p6_position_reversed:max": 0.2107,
+        "laya_en_en:p6_position_reversed:mean": -0.048,
+        "laya_en_en:p6_position_reversed:concatenated": 0.0774,
+        "laya_en_en:p7_coverage:max": 0.0306,
+        "laya_en_en:p7_coverage:mean": -0.1887,
+        "laya_en_en:p7_coverage:concatenated": -0.3699,
+        "laya_en_en:p8_similarity:max": 0.1697,
+        "laya_en_en:p8_similarity:mean": 0.1193,
+        "laya_en_en:p8_similarity:concatenated": 0.1752
+      }
+    }
+  },
+  "results": {
+    "laya_en_en:learned_cross_model_with_pt": {
+      "roc_auc": 0.9122,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.8698,
+        "high": 0.9454,
+        "median": 0.9101,
+        "std": 0.0205
+      },
+      "threshold": 0.7478214519952443,
+      "cohen_kappa": 0.5924,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.441,
+        "high": 0.7108,
+        "median": 0.5814,
+        "std": 0.0698
+      },
+      "f1_not_inferable": 0.6633,
+      "precision_not_inferable": 0.6075,
+      "recall_not_inferable": 0.7303,
+      "role": "primary",
+      "threshold_fitted_on": "train"
+    },
+    "laya_en_en:learned_cross_model": {
+      "roc_auc": 0.9074,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.8631,
+        "high": 0.9415,
+        "median": 0.9055,
+        "std": 0.0218
+      },
+      "threshold": 0.6475459265944201,
+      "cohen_kappa": 0.6255,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.4724,
+        "high": 0.7388,
+        "median": 0.6173,
+        "std": 0.0721
+      },
+      "f1_not_inferable": 0.6824,
+      "precision_not_inferable": 0.716,
+      "recall_not_inferable": 0.6517,
+      "role": "top5",
+      "threshold_fitted_on": "train"
+    },
+    "laya_en_en_m2m100:learned_cross_model": {
+      "roc_auc": 0.9021,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.8515,
+        "high": 0.9415,
+        "median": 0.9003,
+        "std": 0.0239
+      },
+      "threshold": 0.7191611680351749,
+      "cohen_kappa": 0.5967,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.4412,
+        "high": 0.7186,
+        "median": 0.5859,
+        "std": 0.0728
+      },
+      "f1_not_inferable": 0.663,
+      "precision_not_inferable": 0.6421,
+      "recall_not_inferable": 0.6854,
+      "role": "top5",
+      "threshold_fitted_on": "train"
+    },
+    "laya_multi_pt:learned_cross_model": {
+      "roc_auc": 0.9069,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.8567,
+        "high": 0.9435,
+        "median": 0.9039,
+        "std": 0.0233
+      },
+      "threshold": 0.7079659206828977,
+      "cohen_kappa": 0.6098,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.4643,
+        "high": 0.7171,
+        "median": 0.5962,
+        "std": 0.066
+      },
+      "f1_not_inferable": 0.6739,
+      "precision_not_inferable": 0.6526,
+      "recall_not_inferable": 0.6966,
+      "role": "top5",
+      "threshold_fitted_on": "train"
+    },
+    "laya_en_en:learned": {
+      "roc_auc": 0.8683,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.7995,
+        "high": 0.9212,
+        "median": 0.8672,
+        "std": 0.0327
+      },
+      "threshold": 0.6843957578930799,
+      "cohen_kappa": 0.5271,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.3682,
+        "high": 0.666,
+        "median": 0.5123,
+        "std": 0.0774
+      },
+      "f1_not_inferable": 0.6064,
+      "precision_not_inferable": 0.5758,
+      "recall_not_inferable": 0.6404,
+      "role": "top5",
+      "threshold_fitted_on": "train"
+    },
+    "laya_multi_pt:panel:max": {
+      "roc_auc": 0.8571,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.7899,
+        "high": 0.9071,
+        "median": 0.8539,
+        "std": 0.0313
+      },
+      "threshold": 0.25038408085298236,
+      "cohen_kappa": 0.4985,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.3318,
+        "high": 0.6377,
+        "median": 0.4847,
+        "std": 0.0781
+      },
+      "f1_not_inferable": 0.5905,
+      "precision_not_inferable": 0.5124,
+      "recall_not_inferable": 0.6966,
+      "role": "reference",
+      "threshold_fitted_on": "train"
+    },
+    "xnli_mdeberta:entailment:max": {
+      "roc_auc": 0.8009,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.7197,
+        "high": 0.8643,
+        "median": 0.794,
+        "std": 0.0376
+      },
+      "threshold": 0.9067894113172021,
+      "cohen_kappa": 0.3481,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.2017,
+        "high": 0.4902,
+        "median": 0.3315,
+        "std": 0.0771
+      },
+      "f1_not_inferable": 0.4793,
+      "precision_not_inferable": 0.3791,
+      "recall_not_inferable": 0.6517,
+      "role": "reference",
+      "threshold_fitted_on": "train"
+    }
+  },
+  "comparisons": [
+    {
+      "candidate": "laya_en_en:learned_cross_model_with_pt",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "roc_auc",
+      "delta": 0.0551,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0228,
+        "high": 0.1001,
+        "median": 0.0564,
+        "std": 0.0192
+      },
+      "p_value": 0.003996003996003996,
+      "p_holm": 0.023976023976023976
+    },
+    {
+      "candidate": "laya_en_en:learned_cross_model_with_pt",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "cohen_kappa",
+      "delta": 0.0939,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": -0.0085,
+        "high": 0.2059,
+        "median": 0.0948,
+        "std": 0.0534
+      },
+      "p_value": 0.07992007992007992
+    },
+    {
+      "candidate": "laya_en_en:learned_cross_model_with_pt",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "roc_auc",
+      "delta": 0.1113,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0719,
+        "high": 0.1628,
+        "median": 0.1145,
+        "std": 0.0232
+      },
+      "p_value": 0.001998001998001998,
+      "p_holm": 0.01998001998001998
+    },
+    {
+      "candidate": "laya_en_en:learned_cross_model_with_pt",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "cohen_kappa",
+      "delta": 0.2443,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.16,
+        "high": 0.3404,
+        "median": 0.242,
+        "std": 0.0451
+      },
+      "p_value": 0.001998001998001998
+    },
+    {
+      "candidate": "laya_en_en:learned_cross_model",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "roc_auc",
+      "delta": 0.0503,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0186,
+        "high": 0.0939,
+        "median": 0.0511,
+        "std": 0.0194
+      },
+      "p_value": 0.003996003996003996,
+      "p_holm": 0.023976023976023976
+    },
+    {
+      "candidate": "laya_en_en:learned_cross_model",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "cohen_kappa",
+      "delta": 0.127,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0275,
+        "high": 0.2241,
+        "median": 0.1259,
+        "std": 0.0497
+      },
+      "p_value": 0.017982017982017984
+    },
+    {
+      "candidate": "laya_en_en:learned_cross_model",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "roc_auc",
+      "delta": 0.1065,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0688,
+        "high": 0.1558,
+        "median": 0.1104,
+        "std": 0.0223
+      },
+      "p_value": 0.001998001998001998,
+      "p_holm": 0.01998001998001998
+    },
+    {
+      "candidate": "laya_en_en:learned_cross_model",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "cohen_kappa",
+      "delta": 0.2774,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.1964,
+        "high": 0.36,
+        "median": 0.2768,
+        "std": 0.0413
+      },
+      "p_value": 0.001998001998001998
+    },
+    {
+      "candidate": "laya_en_en_m2m100:learned_cross_model",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "roc_auc",
+      "delta": 0.045,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0076,
+        "high": 0.0966,
+        "median": 0.0457,
+        "std": 0.0224
+      },
+      "p_value": 0.017982017982017984,
+      "p_holm": 0.04795204795204795
+    },
+    {
+      "candidate": "laya_en_en_m2m100:learned_cross_model",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "cohen_kappa",
+      "delta": 0.0982,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": -0.0188,
+        "high": 0.2145,
+        "median": 0.1009,
+        "std": 0.0572
+      },
+      "p_value": 0.0899100899100899
+    },
+    {
+      "candidate": "laya_en_en_m2m100:learned_cross_model",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "roc_auc",
+      "delta": 0.1012,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0667,
+        "high": 0.1495,
+        "median": 0.1044,
+        "std": 0.0217
+      },
+      "p_value": 0.001998001998001998,
+      "p_holm": 0.01998001998001998
+    },
+    {
+      "candidate": "laya_en_en_m2m100:learned_cross_model",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "cohen_kappa",
+      "delta": 0.2486,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.1634,
+        "high": 0.3379,
+        "median": 0.249,
+        "std": 0.0444
+      },
+      "p_value": 0.001998001998001998
+    },
+    {
+      "candidate": "laya_multi_pt:learned_cross_model",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "roc_auc",
+      "delta": 0.0498,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0108,
+        "high": 0.0996,
+        "median": 0.0513,
+        "std": 0.0219
+      },
+      "p_value": 0.015984015984015984,
+      "p_holm": 0.04795204795204795
+    },
+    {
+      "candidate": "laya_multi_pt:learned_cross_model",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "cohen_kappa",
+      "delta": 0.1113,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0028,
+        "high": 0.2261,
+        "median": 0.1074,
+        "std": 0.0582
+      },
+      "p_value": 0.04795204795204795
+    },
+    {
+      "candidate": "laya_multi_pt:learned_cross_model",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "roc_auc",
+      "delta": 0.106,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0698,
+        "high": 0.1558,
+        "median": 0.1088,
+        "std": 0.022
+      },
+      "p_value": 0.001998001998001998,
+      "p_holm": 0.01998001998001998
+    },
+    {
+      "candidate": "laya_multi_pt:learned_cross_model",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "cohen_kappa",
+      "delta": 0.2617,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.1848,
+        "high": 0.3398,
+        "median": 0.2607,
+        "std": 0.0418
+      },
+      "p_value": 0.001998001998001998
+    },
+    {
+      "candidate": "laya_en_en:learned",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "roc_auc",
+      "delta": 0.0112,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": -0.0254,
+        "high": 0.0543,
+        "median": 0.0123,
+        "std": 0.0201
+      },
+      "p_value": 0.5414585414585414,
+      "p_holm": 0.5414585414585414
+    },
+    {
+      "candidate": "laya_en_en:learned",
+      "reference": "laya_multi_pt:panel:max",
+      "metric": "cohen_kappa",
+      "delta": 0.0286,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": -0.0574,
+        "high": 0.1196,
+        "median": 0.0283,
+        "std": 0.0465
+      },
+      "p_value": 0.5834165834165834
+    },
+    {
+      "candidate": "laya_en_en:learned",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "roc_auc",
+      "delta": 0.0674,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0137,
+        "high": 0.1284,
+        "median": 0.0701,
+        "std": 0.0289
+      },
+      "p_value": 0.011988011988011988,
+      "p_holm": 0.04795204795204795
+    },
+    {
+      "candidate": "laya_en_en:learned",
+      "reference": "xnli_mdeberta:entailment:max",
+      "metric": "cohen_kappa",
+      "delta": 0.179,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.0731,
+        "high": 0.2829,
+        "median": 0.1768,
+        "std": 0.0544
+      },
+      "p_value": 0.001998001998001998
+    }
+  ],
+  "comparison_rule": "paired hearing bootstrap on test (1000 replicates, seed 42), delta = candidate minus reference for ROC AUC and Cohen kappa; p-value as in the confirmation; Holm over the ten ROC AUC comparisons (five candidates x two references)",
+  "label_semantics": "label_inferable is True when the annotator judged the opinion inferable from the four retrieved chunks (retrieved_context_entailment); it says nothing about text outside those chunks and is not a global truth label",
+  "config": {
+    "path": "configs/nli_verifier_exploration_v2.toml",
+    "sha256": "aea55d50a019f1e91d0f1851cde29fe66c6f4168bfd4b1c26e8b1163a1c2d71d"
+  },
+  "code": {
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
+    "utils/cache_lock.py": "7ce920799be0518f2452a8eac30af478c91435916fd9bb51b81759d10e77283e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9",
+    "utils/decision_models.py": "e36d278be4afcba55aea6d4bbce3e224178a2632806fb4eb2d280ffe06d20362",
+    "utils/decision_scoring.py": "46aeccbd61651f9dbcf776aa50335649e512db58e5fce4534cbbb2aa0c855341",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      1.45,
+      1.49,
+      1.45
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": null,
+      "huggingface_hub_is_offline_mode": false,
+      "transformers_is_offline_mode": false,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}

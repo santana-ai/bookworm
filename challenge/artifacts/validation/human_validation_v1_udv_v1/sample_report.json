@@ -1,0 +1,507 @@
+{
+  "stage": "sample",
+  "sample_name": "human_validation_v1_udv_v1",
+  "created_at": "2026-09-23T16:57:42+00:00",
+  "dry_run": false,
+  "final_test": true,
+  "splits_used": [
+    "test"
+  ],
+  "splits_declared": [
+    "test"
+  ],
+  "splits_reason": "The validation split is used by the experiments to choose the method (encoder, threshold, candidate units, reranker), so a human estimate of precision drawn from it would be biased toward the chosen method. The sample is drawn from test hearings only, which no choice has used. Reading test requires --final-test; a dry run may override the splits with --splits, never writing into output_dir.",
+  "splits_readable": [
+    "test",
+    "train",
+    "validation"
+  ],
+  "split_manifest": {
+    "path": "artifacts/splits/temporal_v1.json",
+    "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+    "split_version": "temporal_v1"
+  },
+  "lds": {
+    "path": "dataset/PublicHearingBR_LDS.jsonl",
+    "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+  },
+  "run": {
+    "run_name": "udv_v1",
+    "path": "artifacts/udv/udv_v1.jsonl",
+    "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1",
+    "coverage_path": "artifacts/udv/udv_v1_coverage.json",
+    "coverage_sha256": "a63bb61d5a82cbdf28c8ff9c827092ba92868c5c412d315372a2d8200ba95bdd",
+    "coverage_created_at": "2026-09-23T02:53:59+00:00",
+    "records_in_run": 2203,
+    "records_read": 2203,
+    "embedding_threshold": 0.45,
+    "encoders": [
+      "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder@a01887015444f7599669c509447c5bdbce958916"
+    ]
+  },
+  "threshold_calibration": {
+    "rule": "the sample stage reads evidence.calibration_source of the run coverage file; it must be a calibration artifact (JSON) whose leak_check lists the calibration splits and hearings and passed, whose splits include neither test nor a sampled split, none of whose hearings belongs to a sampled split, which was built on the current split manifest, and one of whose rules gives the run embedding_threshold (threshold_rounded). The tier boundary of semantic_match_high and semantic_match_weak is then set without the sampled hearings. A run that fails is refused for the sample (udv_v0 and udv_v1_pre carry the dev20 cut 0.47, calibrated on hearings of every split); a dry run only warns. The result is written to annotation_key.json and sample_report.json as threshold_calibration",
+    "embedding_threshold": 0.45,
+    "calibration_source": "artifacts/calibration/threshold_v1.json",
+    "calibration_method": "legacy_random rule on train hearings only: unmasked opinion vs its trusted-quote sentence (positives) and vs a random sentence of another train hearing (negatives), midpoint of q25(positive) and q75(negative); bootstrap 95% interval 0.4366-0.4687 by hearing",
+    "sampled_splits": [
+      "test"
+    ],
+    "calibration_artifact_sha256": "488ef785489af7e2d8b3643aa84e1931fd501cabe369cea4bfab504c69842ca4",
+    "calibration_version": "threshold_v1",
+    "calibration_splits": [
+      "train"
+    ],
+    "calibration_hearings": 144,
+    "calibration_hearings_in_sampled_splits": [],
+    "rules_giving_this_threshold": [
+      "legacy_random"
+    ],
+    "leak_check_passed": true,
+    "split_manifest_matches": true,
+    "problems": [],
+    "passed": true
+  },
+  "population": {
+    "unit": "UDV",
+    "sampled_splits": {
+      "direct_quote": 41,
+      "semantic_match_high": 277,
+      "semantic_with_short_quote": 22,
+      "semantic_match_weak": 6,
+      "speaker_check": 13
+    },
+    "by_split": {
+      "train": {
+        "direct_quote": 183,
+        "semantic_match_high": 1170,
+        "semantic_with_short_quote": 70,
+        "semantic_match_weak": 31,
+        "speaker_check": 82
+      },
+      "validation": {
+        "direct_quote": 53,
+        "semantic_match_high": 228,
+        "semantic_with_short_quote": 19,
+        "semantic_match_weak": 5,
+        "speaker_check": 3
+      },
+      "test": {
+        "direct_quote": 41,
+        "semantic_match_high": 277,
+        "semantic_with_short_quote": 22,
+        "semantic_match_weak": 6,
+        "speaker_check": 13
+      }
+    },
+    "all_splits": {
+      "direct_quote": 277,
+      "semantic_match_high": 1675,
+      "semantic_with_short_quote": 111,
+      "semantic_match_weak": 42,
+      "speaker_check": 98
+    },
+    "all_splits_note": "all three splits were readable"
+  },
+  "sample": {
+    "by_stratum": {
+      "direct_quote": {
+        "question": "trecho_sustenta",
+        "target": 35,
+        "population": 41,
+        "drawn_udvs": 35,
+        "all_taken": false,
+        "shortfall": 0,
+        "rows": 35
+      },
+      "semantic_match_high": {
+        "question": "trecho_sustenta",
+        "target": 65,
+        "population": 277,
+        "drawn_udvs": 65,
+        "all_taken": false,
+        "shortfall": 0,
+        "rows": 65
+      },
+      "semantic_with_short_quote": {
+        "question": "trecho_sustenta",
+        "target": 15,
+        "population": 22,
+        "drawn_udvs": 15,
+        "all_taken": false,
+        "shortfall": 0,
+        "rows": 15
+      },
+      "semantic_match_weak": {
+        "question": "trecho_sustenta",
+        "target": 15,
+        "population": 6,
+        "drawn_udvs": 6,
+        "all_taken": true,
+        "shortfall": 9,
+        "rows": 6
+      },
+      "speaker_check": {
+        "question": "pessoa_falou",
+        "target": 20,
+        "population": 13,
+        "drawn_udvs": 13,
+        "all_taken": true,
+        "shortfall": 7,
+        "rows": 6
+      }
+    },
+    "rows": 127,
+    "udvs": 134,
+    "hearings": 30,
+    "evidence_rows_with_offsets": 121,
+    "strata_with_shortfall": [
+      "semantic_match_weak",
+      "speaker_check"
+    ]
+  },
+  "criteria": {
+    "declared_on": "2026-09-23",
+    "declaration": "Declared before any human judgment of this sample exists. The criteria are copied into annotation_key.json when the sample is drawn, and the precision report flags any later change. PASS requires the Wilson lower bound of the stated metric, at the report confidence level, to reach min_wilson_lower on the stated stratum.",
+    "rules": [
+      {
+        "name": "quote_found_strict_precision",
+        "stratum": "direct_quote",
+        "metric": "strict_precision",
+        "min_wilson_lower": 0.9
+      },
+      {
+        "name": "semantic_match_high_tolerant_precision",
+        "stratum": "semantic_match_high",
+        "metric": "tolerant_precision",
+        "min_wilson_lower": 0.75
+      }
+    ]
+  },
+  "criteria_sha256": "c4fc0116acd057ee20d04d1ea328a8b56d6f55ef7801b699b3213a7c98e63322",
+  "criteria_feasibility_at_drawn_size": [
+    {
+      "rule": "quote_found_strict_precision",
+      "stratum": "direct_quote",
+      "trials": 35,
+      "min_successes_to_pass": 35,
+      "max_failures_to_pass": 0
+    },
+    {
+      "rule": "semantic_match_high_tolerant_precision",
+      "stratum": "semantic_match_high",
+      "trials": 65,
+      "min_successes_to_pass": 56,
+      "max_failures_to_pass": 9
+    }
+  ],
+  "blinding": {
+    "csv_columns": [
+      "item_id",
+      "hearing_id",
+      "pergunta",
+      "participante",
+      "cargo",
+      "afirmacao",
+      "trecho",
+      "contexto_antes",
+      "contexto_depois",
+      "link",
+      "julgamento",
+      "existe_trecho_melhor",
+      "observacao"
+    ],
+    "hidden_in_key_only": [
+      "udv_ids",
+      "stratum",
+      "tier",
+      "support_type",
+      "score",
+      "quote_prefix",
+      "quote_cue_in_trecho"
+    ],
+    "row_order": "random permutation (seed stream row_order); item ids follow the row order",
+    "forbidden_token_hits": 0,
+    "known_leaks": [
+      "a direct_quote item can be recognized when the afirmacao holds a quotation whose words reappear in trecho",
+      "a semantic_with_short_quote item is recognizable in the same way: this support type is assigned only when a quote prefix of the afirmacao is found in the sentence that becomes trecho, so the quoted words reappear in trecho; semantic_similarity items (the semantic_match_high and semantic_match_weak strata) show the cue only by coincidence, so only high against weak stays blind",
+      "pessoa_falou rows are recognizable by their question, which is asked only of the speaker_check stratum"
+    ],
+    "quote_cue": {
+      "definition": "quote_cue_in_trecho is true when a quotation extracted from afirmacao (udv_pipeline.extract_quotes) has a prefix of 10, 6, 4 or 3 words (udv_pipeline.quote_prefixes) that udv_pipeline.quote_prefix_pattern finds in trecho; it is stored per item in the key only and the precision report splits each evidence stratum by it",
+      "rows_by_stratum": {
+        "direct_quote": {
+          "rows": 35,
+          "with_cue": 35
+        },
+        "semantic_match_high": {
+          "rows": 65,
+          "with_cue": 0
+        },
+        "semantic_with_short_quote": {
+          "rows": 15,
+          "with_cue": 15
+        },
+        "semantic_match_weak": {
+          "rows": 6,
+          "with_cue": 0
+        }
+      }
+    }
+  },
+  "seeds": {
+    "seed": 42,
+    "streams": {
+      "stratum_draw": 0,
+      "row_order": 1,
+      "repeat_draw": 2,
+      "repeat_order": 3
+    },
+    "generator": "numpy PCG64"
+  },
+  "outputs": {
+    "annotation_csv": {
+      "path": "artifacts/validation/human_validation_v1_udv_v1/annotation.csv",
+      "bytes": 167081,
+      "sha256": "de759d43958220b28b33aafaa8a587630f42b02c561ac8060e945e8123310374"
+    },
+    "annotation_key": {
+      "path": "artifacts/validation/human_validation_v1_udv_v1/annotation_key.json",
+      "bytes": 252521,
+      "sha256": "088664b03a8e28dffd3a6b6ef17843f88368e8745f9816c9ddc943ef674d8b70"
+    },
+    "transcripts": {
+      "dir": "artifacts/cache/validation/human_validation_v1_udv_v1/transcripts",
+      "files": 30,
+      "hearing_ids": [
+        1,
+        3,
+        5,
+        7,
+        9,
+        10,
+        21,
+        23,
+        24,
+        49,
+        86,
+        87,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        177
+      ]
+    }
+  },
+  "code": {
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/generate_validation_sample.py": "e9915c1e57a2ddf23ccb3c7b2f08490b2e37806ff26e2ae243724c95a36a5992"
+  },
+  "timing": {
+    "elapsed_seconds": 0.2
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "sample_splits": [
+        "test"
+      ],
+      "sample_splits_reason": "The validation split is used by the experiments to choose the method (encoder, threshold, candidate units, reranker), so a human estimate of precision drawn from it would be biased toward the chosen method. The sample is drawn from test hearings only, which no choice has used. Reading test requires --final-test; a dry run may override the splits with --splits, never writing into output_dir."
+    },
+    "source": {
+      "udv_dir": "artifacts/udv",
+      "threshold_calibration_rule": "the sample stage reads evidence.calibration_source of the run coverage file; it must be a calibration artifact (JSON) whose leak_check lists the calibration splits and hearings and passed, whose splits include neither test nor a sampled split, none of whose hearings belongs to a sampled split, which was built on the current split manifest, and one of whose rules gives the run embedding_threshold (threshold_rounded). The tier boundary of semantic_match_high and semantic_match_weak is then set without the sampled hearings. A run that fails is refused for the sample (udv_v0 and udv_v1_pre carry the dev20 cut 0.47, calibrated on hearings of every split); a dry run only warns. The result is written to annotation_key.json and sample_report.json as threshold_calibration"
+    },
+    "sample": {
+      "version": "human_validation_v1",
+      "seed": 42,
+      "seed_streams": {
+        "stratum_draw": 0,
+        "row_order": 1,
+        "repeat_draw": 2,
+        "repeat_order": 3
+      },
+      "output_dir": "artifacts/validation",
+      "transcripts_dir": "artifacts/cache/validation",
+      "transcripts_reason": "The annotator needs the full transcript of each sampled hearing to answer pessoa_falou and existe_trecho_melhor. Transcripts are raw dataset text, so they are written under artifacts/cache (ignored by Git) and can be regenerated from the LDS.",
+      "item_id_prefix": "A",
+      "context_chars": 350,
+      "csv_delimiter": ";",
+      "csv_delimiter_reason": "Excel in a pt-BR locale splits CSV columns on semicolons; Numbers detects either. The reader accepts semicolon, comma or tab, whichever yields the expected header, so a sheet re-exported with another delimiter still loads.",
+      "csv_encoding": "utf-8-sig",
+      "turn_numbering": "0-based turn_index of utils.udv_pipeline.split_into_turns, the same number stored in evidence.speaker_turn; the transcript files mark each turn with it",
+      "character_offsets": "0-based start and exclusive end in the original transcricao string, the same values as evidence.start_char and evidence.end_char",
+      "strata": [
+        {
+          "name": "direct_quote",
+          "question": "trecho_sustenta",
+          "tiers": [
+            "quote_found"
+          ],
+          "support_types": [
+            "direct_quote"
+          ],
+          "target": 35
+        },
+        {
+          "name": "semantic_match_high",
+          "question": "trecho_sustenta",
+          "tiers": [
+            "semantic_match_high"
+          ],
+          "support_types": [
+            "semantic_similarity"
+          ],
+          "target": 65
+        },
+        {
+          "name": "semantic_with_short_quote",
+          "question": "trecho_sustenta",
+          "tiers": [
+            "semantic_match_high",
+            "semantic_match_weak"
+          ],
+          "support_types": [
+            "semantic_with_short_quote"
+          ],
+          "target": 15
+        },
+        {
+          "name": "semantic_match_weak",
+          "question": "trecho_sustenta",
+          "tiers": [
+            "semantic_match_weak"
+          ],
+          "support_types": [
+            "semantic_similarity"
+          ],
+          "target": 15
+        },
+        {
+          "name": "speaker_check",
+          "question": "pessoa_falou",
+          "tiers": [
+            "no_evidence",
+            "person_not_resolved"
+          ],
+          "support_types": [
+            "none"
+          ],
+          "target": 20
+        }
+      ],
+      "strata_notes": {
+        "partition": "Every UDV of the sampled splits falls in exactly one stratum (checked at run time), so the strata partition the population and the stratified total covers the whole run. semantic_with_short_quote takes every tier of that support type; semantic_match_weak keeps only semantic_similarity, so the two never overlap.",
+        "none_support_type": "support_types = ['none'] matches records whose evidence is null",
+        "speaker_unit": "speaker_check samples UDVs, as the other strata do, but its question depends only on the participant, so the sheet has one row per distinct (hearing, participant) among the drawn UDVs and the judgment is copied to each of that participant's drawn UDVs",
+        "target_shortfall": "when a stratum has fewer UDVs than its target, all of them are taken and the report lists the shortfall"
+      }
+    },
+    "repeat": {
+      "items": 20,
+      "item_id_prefix": "B",
+      "eligible_questions": [
+        "trecho_sustenta"
+      ],
+      "eligible_reason": "Intra-annotator agreement is measured on the evidence judgments (correta / parcial / incorreta), where the boundary between labels is a matter of reading. pessoa_falou items are few (at most one row per participant) and their label sets differ, so mixing them into the 20 repeats would lower the number of evidence pairs and pool two unrelated scales in one kappa.",
+      "min_hours_after_first_pass": 24,
+      "min_hours_reason": "The repeat sheet is created only after the first pass is complete and at least this many hours after annotation.csv was last modified, so it cannot be seen during the first pass and the first judgments are less likely to be remembered."
+    },
+    "annotation": {
+      "better_passage_values": [
+        "sim",
+        "nao",
+        "nao_procurei"
+      ],
+      "label_normalization": "strip, lower case, accents removed, spaces and hyphens turned into underscores (so 'Não falou' reads as nao_falou)",
+      "questions": {
+        "trecho_sustenta": {
+          "judgments": [
+            "correta",
+            "parcial",
+            "incorreta"
+          ],
+          "better_passage_required": true,
+          "prompt": "O trecho, dito por esta pessoa, sustenta a afirmação atribuída a ela?"
+        },
+        "pessoa_falou": {
+          "judgments": [
+            "falou",
+            "nao_falou",
+            "nao_sei"
+          ],
+          "better_passage_required": false,
+          "prompt": "A transcrição registra palavras ditas por esta pessoa nesta audiência?"
+        }
+      }
+    },
+    "report": {
+      "confidence_level": 0.95,
+      "proportion_interval": "wilson",
+      "stratified_interval": "normal approximation of the stratified total, variance sum_h N_h^2 (1 - n_h / N_h) p_h (1 - p_h) / (n_h - 1)",
+      "strict_success": [
+        "correta"
+      ],
+      "tolerant_success": [
+        "correta",
+        "parcial"
+      ],
+      "speaker_correct": [
+        "nao_falou"
+      ],
+      "speaker_spoke": [
+        "falou"
+      ],
+      "speaker_undecided": [
+        "nao_sei"
+      ],
+      "speaker_correct_reason": "A no_evidence or person_not_resolved UDV states that the transcript holds no usable speech of the participant; it is correct when the annotator finds that the participant did not speak (nao_falou). nao_sei is left out of the denominator and counted separately.",
+      "output_name": "precision_report.json",
+      "interim_output_prefix": "precision_report_interim",
+      "interim_rule": "--without-reannotation writes <interim_output_prefix>_<UTC timestamp>.json, never overwritten, so a look at the numbers before the repeat sheet leaves a trace; the repeat stage records every precision report present when it creates the repeat sheet, and the final report lists both in integrity.interim_reports"
+    },
+    "criteria": {
+      "declared_on": "2026-09-23",
+      "declaration": "Declared before any human judgment of this sample exists. The criteria are copied into annotation_key.json when the sample is drawn, and the precision report flags any later change. PASS requires the Wilson lower bound of the stated metric, at the report confidence level, to reach min_wilson_lower on the stated stratum.",
+      "rules": [
+        {
+          "name": "quote_found_strict_precision",
+          "stratum": "direct_quote",
+          "metric": "strict_precision",
+          "min_wilson_lower": 0.9
+        },
+        {
+          "name": "semantic_match_high_tolerant_precision",
+          "stratum": "semantic_match_high",
+          "metric": "tolerant_precision",
+          "min_wilson_lower": 0.75
+        }
+      ]
+    }
+  }
+}
