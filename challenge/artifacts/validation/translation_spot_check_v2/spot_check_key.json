@@ -1,0 +1,3790 @@
+{
+  "experiment": "translation_spot_check",
+  "name": "translation_spot_check_v2",
+  "created_at": "2026-09-24T16:25:53+00:00",
+  "supersedes": "translation_spot_check_v1: 40 rows with the NLLB translation only, generated on 2026-09-24 before the second condition existed; v2 shows the same 40 units with both translations. Its untracked folder was removed at 15:21:58 UTC (the last modification time of artifacts/validation, which holds only v2 and a folder of 2026-09-23), after its draws, NLLB cache keys and flags had been copied to a scratch file (15:16:36 UTC) and after v2 was written (15:20:45 UTC); v2 draws the same units, in the same order, with the same NLLB cache keys. A check made before the removal found the three judgment columns (adequacao, fluencia, observacao) of its 40 rows empty, all 120 cells; the time and output of that check were not saved, and neither the v1 sheet nor its sha256 was kept, so the check cannot be repeated or verified now. This text was corrected on 2026-09-24 (see [declaration] review_amendment): its first version was written at about 15:04 UTC, before the check and the removal it described.",
+  "splits": {
+    "splits": [
+      "validation"
+    ],
+    "final_test_flag": false,
+    "test_read": false
+  },
+  "population": {
+    "size": 7666,
+    "rule": "distinct translation units of validation chunks (after the join rule) that udv_pipeline.is_sentence accepts (at least 4 words, not a stage direction), in first-occurrence order of the benchmark file"
+  },
+  "draw": {
+    "seed": 42,
+    "size": 40,
+    "rule": "numpy default_rng(seed).choice(population size, size, replace=False); units are numbered U01..U40 in draw order",
+    "indices": [
+      6297,
+      719,
+      6802,
+      1538,
+      488,
+      7089,
+      7451,
+      705,
+      3449,
+      5323,
+      4175,
+      680,
+      3443,
+      4926,
+      3304,
+      979,
+      1740,
+      4842,
+      3826,
+      6419,
+      5482,
+      3922,
+      3348,
+      6577,
+      5903,
+      6342,
+      5620,
+      4020,
+      6552,
+      1396,
+      5979,
+      2835,
+      2121,
+      6007,
+      4248,
+      4993,
+      5815,
+      3079,
+      3394,
+      656
+    ]
+  },
+  "order": {
+    "seed": 20260924,
+    "rule": "the rows are built in draw order, one row per unit and model in the order of models (U01 nllb, U01 m2m100, U02 nllb, ...); numpy default_rng(order_seed).permutation(number of rows) gives the sheet order, sheet row i holding built row permutation[i]; item ids T01..T80 follow the sheet order",
+    "permutation": [
+      26,
+      2,
+      18,
+      21,
+      16,
+      44,
+      37,
+      36,
+      49,
+      4,
+      51,
+      46,
+      57,
+      12,
+      42,
+      69,
+      27,
+      13,
+      67,
+      65,
+      71,
+      78,
+      1,
+      40,
+      60,
+      39,
+      73,
+      62,
+      33,
+      72,
+      76,
+      56,
+      45,
+      59,
+      38,
+      19,
+      48,
+      77,
+      0,
+      9,
+      43,
+      70,
+      29,
+      53,
+      52,
+      10,
+      41,
+      30,
+      28,
+      34,
+      32,
+      55,
+      61,
+      3,
+      75,
+      35,
+      31,
+      50,
+      74,
+      64,
+      15,
+      25,
+      5,
+      54,
+      66,
+      68,
+      7,
+      6,
+      14,
+      20,
+      22,
+      23,
+      58,
+      79,
+      11,
+      17,
+      63,
+      47,
+      8,
+      24
+    ]
+  },
+  "display": {
+    "normalization": {
+      "U+2018": "'",
+      "U+2019": "'",
+      "U+201C": "\"",
+      "U+201D": "\""
+    },
+    "rule": "on the sheet only, each translation is shown with display_normalization applied (the typographic single and double quotation marks, U+2018, U+2019, U+201C and U+201D, replaced by their plain ASCII forms), so the sheet shows the translations E3 reads up to these glyphs; the key keeps translation_sha256, the hash of the exact text E3 reads, and adds for each row display_normalized and sheet_translation_sha256, the hash of the text shown",
+    "rows_changed": 3
+  },
+  "blinding_check": {
+    "rule": "every non-alphanumeric, non-space character of the shown translations that occurs in the rows of one model only; such a row can be told apart by that character, and so can the other row of its unit, which shows the same texto_pt",
+    "characters_of_one_model": {
+      "U+2014": {
+        "m2m100": [
+          "T77"
+        ]
+      }
+    },
+    "identifiable_items": [
+      "T77"
+    ],
+    "identifiable_units": [
+      "U32"
+    ],
+    "items_of_identifiable_units": [
+      "T28",
+      "T77"
+    ]
+  },
+  "replaced_sheet": {
+    "path": "artifacts/validation/translation_spot_check_v2/spot_check.csv",
+    "existed": true,
+    "sha256": "255188844d830322eee731901870b1a34d8ec12129e473a0cc7629aec8df0d38",
+    "filled_judgment_cells": 0,
+    "judgment_columns": [
+      "adequacao",
+      "fluencia",
+      "observacao"
+    ]
+  },
+  "models": {
+    "nllb": {
+      "condition": "nllb",
+      "role": "first_condition",
+      "name": "facebook/nllb-200-distilled-600M",
+      "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "license": "CC-BY-NC-4.0",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9"
+    },
+    "m2m100": {
+      "condition": "m2m100",
+      "role": "second_condition",
+      "name": "facebook/m2m100_418M",
+      "revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "license": "MIT",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e"
+    }
+  },
+  "counts": {
+    "units": 40,
+    "rows": 80,
+    "units_with_identical_translations": 1,
+    "flags_by_model": {
+      "nllb": {
+        "empty": 0,
+        "identical": 0,
+        "degenerate": 0,
+        "degenerate_not_in_source": 0,
+        "input_truncated": 0,
+        "hit_max_new_tokens": 0,
+        "long_output": 0,
+        "doubled_length": 0
+      },
+      "m2m100": {
+        "empty": 0,
+        "identical": 0,
+        "degenerate": 0,
+        "degenerate_not_in_source": 0,
+        "input_truncated": 0,
+        "hit_max_new_tokens": 0,
+        "long_output": 0,
+        "doubled_length": 0
+      }
+    }
+  },
+  "units": [
+    {
+      "unit": "U01",
+      "population_index": 6297,
+      "source_sha256": "0f5478e85d1cee543c96649271f028f309f2f54303b8a2112600ba7e1a5ab0b8",
+      "items": {
+        "nllb": "T39",
+        "m2m100": "T23"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U02",
+      "population_index": 719,
+      "source_sha256": "a36c05b7a1baf8b667ede8c9d6ae36dc5eea83fc379ccf36debb0939a7545313",
+      "items": {
+        "nllb": "T02",
+        "m2m100": "T54"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U03",
+      "population_index": 6802,
+      "source_sha256": "c163de77f51668ea85c44567f441c9873007b05e30dac2a33bc2ba7a12735b01",
+      "items": {
+        "nllb": "T10",
+        "m2m100": "T63"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U04",
+      "population_index": 1538,
+      "source_sha256": "a7f2f0501a8aaa2d76055ef01cb274df94faa013a4632feeaeb037ba12529b95",
+      "items": {
+        "nllb": "T68",
+        "m2m100": "T67"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U05",
+      "population_index": 488,
+      "source_sha256": "2ddde79424edb771f497ba065019f0aa72abe44a6f726440c1fe7fa0ed1249dd",
+      "items": {
+        "nllb": "T79",
+        "m2m100": "T40"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U06",
+      "population_index": 7089,
+      "source_sha256": "538a38f66519744f30c23e8f199e511d41d9f36493a40f61a872e3f939c1f02e",
+      "items": {
+        "nllb": "T46",
+        "m2m100": "T75"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U07",
+      "population_index": 7451,
+      "source_sha256": "bae2c606bd57acfd67feb50f23e18ef21badd3bd9a35db707dedb0a93babd56f",
+      "items": {
+        "nllb": "T14",
+        "m2m100": "T18"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U08",
+      "population_index": 705,
+      "source_sha256": "6cc9dc611a0fe32778f96538b0efe4d77d1c396f62872680ec65ff1742390531",
+      "items": {
+        "nllb": "T69",
+        "m2m100": "T61"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U09",
+      "population_index": 3449,
+      "source_sha256": "7a9aa641dc22397182bdd9ddccfe43e2363fd29fbd635774d9023922ef890bed",
+      "items": {
+        "nllb": "T05",
+        "m2m100": "T76"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U10",
+      "population_index": 5323,
+      "source_sha256": "57dc37ba4d223a562492526edeb44935e0fb31c1876696dccb57cd8a841bc460",
+      "items": {
+        "nllb": "T03",
+        "m2m100": "T36"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U11",
+      "population_index": 4175,
+      "source_sha256": "0495962d735431c15dd96bf8a1607f41812ad77b6ad2d83f69058123f0387828",
+      "items": {
+        "nllb": "T70",
+        "m2m100": "T04"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U12",
+      "population_index": 680,
+      "source_sha256": "fef8c337093d6640e234d102148f261d32372ea746a731be7a9ba0f6dc766adf",
+      "items": {
+        "nllb": "T71",
+        "m2m100": "T72"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U13",
+      "population_index": 3443,
+      "source_sha256": "eec3ef059d2098ff24ef337ace331c7e537f974024d259b17214d6260f9236d4",
+      "items": {
+        "nllb": "T80",
+        "m2m100": "T62"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U14",
+      "population_index": 4926,
+      "source_sha256": "b25a908571063002dd667fe1690a4b166b682377258c7c9c4c87fba14713b67f",
+      "items": {
+        "nllb": "T01",
+        "m2m100": "T17"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U15",
+      "population_index": 3304,
+      "source_sha256": "f01636486fa34513167105cf678cb393476cc598a2ab30217b033b77f874aee6",
+      "items": {
+        "nllb": "T49",
+        "m2m100": "T43"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U16",
+      "population_index": 979,
+      "source_sha256": "19563d39ca765a537d2dccef7811143a9a7179b443bdd18d53e2aeeae0bd343d",
+      "items": {
+        "nllb": "T48",
+        "m2m100": "T57"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U17",
+      "population_index": 1740,
+      "source_sha256": "01fc73b37a9332fc3bd3ee952939fcbaf9dae8d52a4506f70232dc957b431e7b",
+      "items": {
+        "nllb": "T51",
+        "m2m100": "T29"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U18",
+      "population_index": 4842,
+      "source_sha256": "a64d050e626b712da5d9df6bac215de2a306933d636e7edd0a83700f66085bd4",
+      "items": {
+        "nllb": "T50",
+        "m2m100": "T56"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U19",
+      "population_index": 3826,
+      "source_sha256": "5d6ebeaa188153df07d87991822189a332c904b153fa23bc9652bc87279a2440",
+      "items": {
+        "nllb": "T08",
+        "m2m100": "T07"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U20",
+      "population_index": 6419,
+      "source_sha256": "a33f00852495ca87e3da1d81c3be73eddb4f5a0f1776344a56be27e6031e93b2",
+      "items": {
+        "nllb": "T35",
+        "m2m100": "T26"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U21",
+      "population_index": 5482,
+      "source_sha256": "15c8cf29687d70295af2d2beb50111071aaf3e23738113c6dd845014455b0fea",
+      "items": {
+        "nllb": "T24",
+        "m2m100": "T47"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U22",
+      "population_index": 3922,
+      "source_sha256": "e45179498e30b2aeeac672dfba81d3cc80bc8f00f702588bd41b100ffad1b5b5",
+      "items": {
+        "nllb": "T15",
+        "m2m100": "T41"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U23",
+      "population_index": 3348,
+      "source_sha256": "515bd0987776f36caf584b69ee30971fcffb1e18f163f899016af691110d3a8a",
+      "items": {
+        "nllb": "T06",
+        "m2m100": "T33"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U24",
+      "population_index": 6577,
+      "source_sha256": "52d855bc7c0fbde028d68232abdf60597ec6828836af5d511db7faebeb289a22",
+      "items": {
+        "nllb": "T12",
+        "m2m100": "T78"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U25",
+      "population_index": 5903,
+      "source_sha256": "c67690c93e723fd0cc9f163518aebde1c3e39b6073460348f43617750db6ff76",
+      "items": {
+        "nllb": "T37",
+        "m2m100": "T09"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U26",
+      "population_index": 6342,
+      "source_sha256": "c6039944e60f810699b47ed362914f785cd03c8a099be6dec531c38443dadfca",
+      "items": {
+        "nllb": "T58",
+        "m2m100": "T11"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U27",
+      "population_index": 5620,
+      "source_sha256": "05d0be1898c8a88cded388c572c273558c8b387c69e197cc3340b4afcba2d594",
+      "items": {
+        "nllb": "T45",
+        "m2m100": "T44"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U28",
+      "population_index": 4020,
+      "source_sha256": "e762cace65748130016f837e5156cf67b31cc34123c88643096aeeec45568a8c",
+      "items": {
+        "nllb": "T64",
+        "m2m100": "T52"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U29",
+      "population_index": 6552,
+      "source_sha256": "463bc20368ca6588e8fea6e9c0ff6dbbf9aaba3981402961377e6bda467df56c",
+      "items": {
+        "nllb": "T32",
+        "m2m100": "T13"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U30",
+      "population_index": 1396,
+      "source_sha256": "a0d61ea8f1fb4468afb0ddc2a226d41adb4c5d0e12b857a07e4c3eba4b07efb7",
+      "items": {
+        "nllb": "T73",
+        "m2m100": "T34"
+      },
+      "translations_identical": true
+    },
+    {
+      "unit": "U31",
+      "population_index": 5979,
+      "source_sha256": "0b0313494cfaf01e569198bb6b61fc1e99391de9ca9e002aaf4dea8a4b951142",
+      "items": {
+        "nllb": "T25",
+        "m2m100": "T53"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U32",
+      "population_index": 2835,
+      "source_sha256": "112ca63bb24d291992af4f772e94c4061251a1d1cd912e2fa30277f5949ffe89",
+      "items": {
+        "nllb": "T28",
+        "m2m100": "T77"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U33",
+      "population_index": 2121,
+      "source_sha256": "9bfa3b6b241ed4b88cbb37ea342a27d0d00773bc538862ccb417e4cc35c2e420",
+      "items": {
+        "nllb": "T60",
+        "m2m100": "T20"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U34",
+      "population_index": 6007,
+      "source_sha256": "1a75fc96b6c271db9fa4ca13891a857c7c2f3caf6fbbc9672b8c68aab42a23b1",
+      "items": {
+        "nllb": "T65",
+        "m2m100": "T19"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U35",
+      "population_index": 4248,
+      "source_sha256": "622ce220ed768e1dac5c6c53898ad4620a11bfccfda65421a16e6d9907eeb23d",
+      "items": {
+        "nllb": "T66",
+        "m2m100": "T16"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U36",
+      "population_index": 4993,
+      "source_sha256": "9a269c44e9be98f98fac61c5792b556e8cead94bc4a740f57116492fe5b00b1c",
+      "items": {
+        "nllb": "T42",
+        "m2m100": "T21"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U37",
+      "population_index": 5815,
+      "source_sha256": "ccf387a8d4ef3f0db9294f5feebc6934e2286112183f4d826f1178a61b11eef3",
+      "items": {
+        "nllb": "T30",
+        "m2m100": "T27"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U38",
+      "population_index": 3079,
+      "source_sha256": "ccc08ec53c475d6cb9c351859374c77fb0f05ee74cebab17068ce4ccb08fc90d",
+      "items": {
+        "nllb": "T59",
+        "m2m100": "T55"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U39",
+      "population_index": 3394,
+      "source_sha256": "593ef07c0abd299b2ffc249f62474568a2e5457d6e5c2fa022d31f772af9cee4",
+      "items": {
+        "nllb": "T31",
+        "m2m100": "T38"
+      },
+      "translations_identical": false
+    },
+    {
+      "unit": "U40",
+      "population_index": 656,
+      "source_sha256": "1b6c9897a1748b8f283fb969aceb5f03f9abb88b526c69a2c3d059b9cf1d8d4f",
+      "items": {
+        "nllb": "T22",
+        "m2m100": "T74"
+      },
+      "translations_identical": false
+    }
+  ],
+  "items": [
+    {
+      "item_id": "T01",
+      "unit": "U14",
+      "built_row": 26,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 4926,
+      "cache_key": "de02fbf63371db1c0ef373c740a461e845b37da79cb76b50731bdb78da034943",
+      "source_sha256": "b25a908571063002dd667fe1690a4b166b682377258c7c9c4c87fba14713b67f",
+      "translation_sha256": "06562a71231269237f9262247ad2742f90de392279b0596c010f3a6cfa0cfff3",
+      "display_normalized": false,
+      "sheet_translation_sha256": "06562a71231269237f9262247ad2742f90de392279b0596c010f3a6cfa0cfff3",
+      "opinion_ids": [
+        "nli-121-3-2"
+      ],
+      "hearing_ids": [
+        121
+      ],
+      "input_tokens": 42,
+      "output_tokens": 40,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T02",
+      "unit": "U02",
+      "built_row": 2,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 719,
+      "cache_key": "7df3dfa334daacaa9704dac41ff289a91d8ec969fb4ce89504aad8c2e53acfa2",
+      "source_sha256": "a36c05b7a1baf8b667ede8c9d6ae36dc5eea83fc379ccf36debb0939a7545313",
+      "translation_sha256": "0f2cdcc193dc2360f6342bceec95288d588bbe4eac8991649f98c4672bc66634",
+      "display_normalized": false,
+      "sheet_translation_sha256": "0f2cdcc193dc2360f6342bceec95288d588bbe4eac8991649f98c4672bc66634",
+      "opinion_ids": [
+        "nli-13-0-1"
+      ],
+      "hearing_ids": [
+        13
+      ],
+      "input_tokens": 17,
+      "output_tokens": 22,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T03",
+      "unit": "U10",
+      "built_row": 18,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 5323,
+      "cache_key": "1a517bf0d73bb8c8770dff810109524b32c7384f84df38ed49874679b03e5fa9",
+      "source_sha256": "57dc37ba4d223a562492526edeb44935e0fb31c1876696dccb57cd8a841bc460",
+      "translation_sha256": "9b906104e610dd1f3d334e5a8597ea2b505e6fdaf60d96641feeaf13fa60e94e",
+      "display_normalized": false,
+      "sheet_translation_sha256": "9b906104e610dd1f3d334e5a8597ea2b505e6fdaf60d96641feeaf13fa60e94e",
+      "opinion_ids": [
+        "nli-123-3-0"
+      ],
+      "hearing_ids": [
+        123
+      ],
+      "input_tokens": 11,
+      "output_tokens": 17,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T04",
+      "unit": "U11",
+      "built_row": 21,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 4175,
+      "cache_key": "cbfaa49e364b09320878d3ee33623c61a955a4cd8d262b546616fb3dda7d3b9d",
+      "source_sha256": "0495962d735431c15dd96bf8a1607f41812ad77b6ad2d83f69058123f0387828",
+      "translation_sha256": "a0111d87c57e82f3b698430043fb280e1dcf0dca01c92cdddddee33763c6941c",
+      "display_normalized": false,
+      "sheet_translation_sha256": "a0111d87c57e82f3b698430043fb280e1dcf0dca01c92cdddddee33763c6941c",
+      "opinion_ids": [
+        "nli-118-6-0",
+        "nli-118-6-1",
+        "nli-118-6-2"
+      ],
+      "hearing_ids": [
+        118
+      ],
+      "input_tokens": 59,
+      "output_tokens": 55,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T05",
+      "unit": "U09",
+      "built_row": 16,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3449,
+      "cache_key": "86619a6e8ae5e69268bcf31cd0711bd709d70bacfe6ce18b6cd8561317a23ff0",
+      "source_sha256": "7a9aa641dc22397182bdd9ddccfe43e2363fd29fbd635774d9023922ef890bed",
+      "translation_sha256": "e794d250d31dff674519844e0af2328583ad1c6bf40766b6b69d28ba64c004b9",
+      "display_normalized": false,
+      "sheet_translation_sha256": "e794d250d31dff674519844e0af2328583ad1c6bf40766b6b69d28ba64c004b9",
+      "opinion_ids": [
+        "nli-30-5-0",
+        "nli-30-5-1"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 34,
+      "output_tokens": 30,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T06",
+      "unit": "U23",
+      "built_row": 44,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3348,
+      "cache_key": "6fbeba38aa86ea78916b13f1f65739f8c5c38bc4b13a632ed953b2feaced6a3b",
+      "source_sha256": "515bd0987776f36caf584b69ee30971fcffb1e18f163f899016af691110d3a8a",
+      "translation_sha256": "c3f4a692147d82e649ecb6c36cf2eec224508f23d4942dbc14e59df1b6bdeb35",
+      "display_normalized": false,
+      "sheet_translation_sha256": "c3f4a692147d82e649ecb6c36cf2eec224508f23d4942dbc14e59df1b6bdeb35",
+      "opinion_ids": [
+        "nli-30-2-0",
+        "nli-30-2-1",
+        "nli-30-2-2"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 62,
+      "output_tokens": 46,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T07",
+      "unit": "U19",
+      "built_row": 37,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3826,
+      "cache_key": "36c6618ad435c33a9191e9fcd017cafb5a8596efee906a1c5389d4332736a7f8",
+      "source_sha256": "5d6ebeaa188153df07d87991822189a332c904b153fa23bc9652bc87279a2440",
+      "translation_sha256": "48da9297acca2052ec8fe8a42894043459fdfd026b5a1863c7607a03f89da9d8",
+      "display_normalized": false,
+      "sheet_translation_sha256": "48da9297acca2052ec8fe8a42894043459fdfd026b5a1863c7607a03f89da9d8",
+      "opinion_ids": [
+        "nli-117-2-0",
+        "nli-117-2-1"
+      ],
+      "hearing_ids": [
+        117
+      ],
+      "input_tokens": 11,
+      "output_tokens": 9,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T08",
+      "unit": "U19",
+      "built_row": 36,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3826,
+      "cache_key": "728b607971447045c13f834007b80c2717c81c7c4e6f86e1cd01fb6861a66a27",
+      "source_sha256": "5d6ebeaa188153df07d87991822189a332c904b153fa23bc9652bc87279a2440",
+      "translation_sha256": "ad8799a72f371238bec4b0fb4df2c15e1f4a988db3fa83a5aee33cf9a3bee019",
+      "display_normalized": false,
+      "sheet_translation_sha256": "ad8799a72f371238bec4b0fb4df2c15e1f4a988db3fa83a5aee33cf9a3bee019",
+      "opinion_ids": [
+        "nli-117-2-0",
+        "nli-117-2-1"
+      ],
+      "hearing_ids": [
+        117
+      ],
+      "input_tokens": 11,
+      "output_tokens": 11,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T09",
+      "unit": "U25",
+      "built_row": 49,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 5903,
+      "cache_key": "76493b9dd399d7ce4c5bc80e21167e737e33144983023f27a87be230835d19b5",
+      "source_sha256": "c67690c93e723fd0cc9f163518aebde1c3e39b6073460348f43617750db6ff76",
+      "translation_sha256": "ba323a43d81e72f931fcd7e1fc38714c3de9a07807158f58fca10c679025018d",
+      "display_normalized": false,
+      "sheet_translation_sha256": "ba323a43d81e72f931fcd7e1fc38714c3de9a07807158f58fca10c679025018d",
+      "opinion_ids": [
+        "nli-126-4-0",
+        "nli-126-4-1"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 32,
+      "output_tokens": 30,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T10",
+      "unit": "U03",
+      "built_row": 4,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 6802,
+      "cache_key": "505f4bb7e8c2bf0304661aedebcf307fb3b777d0d2ea74c71fa8bd3961f11173",
+      "source_sha256": "c163de77f51668ea85c44567f441c9873007b05e30dac2a33bc2ba7a12735b01",
+      "translation_sha256": "7130b38e8541e53fc915ed817b086085585a62dbca5806784b979f5949e430ff",
+      "display_normalized": false,
+      "sheet_translation_sha256": "7130b38e8541e53fc915ed817b086085585a62dbca5806784b979f5949e430ff",
+      "opinion_ids": [
+        "nli-130-4-0",
+        "nli-130-4-1"
+      ],
+      "hearing_ids": [
+        130
+      ],
+      "input_tokens": 55,
+      "output_tokens": 41,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T11",
+      "unit": "U26",
+      "built_row": 51,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 6342,
+      "cache_key": "c9343cafd9043338abaaf7f6e99ed33560d1858941c5a026cc2a98910f8c35a4",
+      "source_sha256": "c6039944e60f810699b47ed362914f785cd03c8a099be6dec531c38443dadfca",
+      "translation_sha256": "615e78868dc76433273b4d368f9fce24dad5505e13d4c577f34b03ab6ffaddc1",
+      "display_normalized": false,
+      "sheet_translation_sha256": "615e78868dc76433273b4d368f9fce24dad5505e13d4c577f34b03ab6ffaddc1",
+      "opinion_ids": [
+        "nli-128-2-0"
+      ],
+      "hearing_ids": [
+        128
+      ],
+      "input_tokens": 14,
+      "output_tokens": 10,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T12",
+      "unit": "U24",
+      "built_row": 46,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 6577,
+      "cache_key": "4855f53e95c76a51b74699e06c72c83010a1016a822b1755a682905eb86a6d79",
+      "source_sha256": "52d855bc7c0fbde028d68232abdf60597ec6828836af5d511db7faebeb289a22",
+      "translation_sha256": "690e04c3fc9336e0c2941afa7956212cab900672d7d210c9c87b384a07e9126e",
+      "display_normalized": false,
+      "sheet_translation_sha256": "690e04c3fc9336e0c2941afa7956212cab900672d7d210c9c87b384a07e9126e",
+      "opinion_ids": [
+        "nli-129-1-2"
+      ],
+      "hearing_ids": [
+        129
+      ],
+      "input_tokens": 9,
+      "output_tokens": 8,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T13",
+      "unit": "U29",
+      "built_row": 57,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 6552,
+      "cache_key": "9418bf5a6f72688defb5a2c906d99745302485c5b7304ae0f97342c0d4fbebf4",
+      "source_sha256": "463bc20368ca6588e8fea6e9c0ff6dbbf9aaba3981402961377e6bda467df56c",
+      "translation_sha256": "b8dd46aafdd59388d796b2f3e339952f479f9b66bdc221744d6754da7c9f1507",
+      "display_normalized": false,
+      "sheet_translation_sha256": "b8dd46aafdd59388d796b2f3e339952f479f9b66bdc221744d6754da7c9f1507",
+      "opinion_ids": [
+        "nli-129-1-0",
+        "nli-129-1-3"
+      ],
+      "hearing_ids": [
+        129
+      ],
+      "input_tokens": 65,
+      "output_tokens": 62,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T14",
+      "unit": "U07",
+      "built_row": 12,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 7451,
+      "cache_key": "3cf72e6c7e8bb1e741c79a863547b96db731eedf100b2bdb81489da055aefc68",
+      "source_sha256": "bae2c606bd57acfd67feb50f23e18ef21badd3bd9a35db707dedb0a93babd56f",
+      "translation_sha256": "88fa523d7a53122b22e74eb12bea86d295ba8f29d48a306a2ffccd45104c2b77",
+      "display_normalized": false,
+      "sheet_translation_sha256": "88fa523d7a53122b22e74eb12bea86d295ba8f29d48a306a2ffccd45104c2b77",
+      "opinion_ids": [
+        "nli-133-5-0"
+      ],
+      "hearing_ids": [
+        133
+      ],
+      "input_tokens": 9,
+      "output_tokens": 8,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T15",
+      "unit": "U22",
+      "built_row": 42,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3922,
+      "cache_key": "a7da919033e115b0dd9b8a99a70c4fd4e7e381cb42565bcd097cce8d53d6c116",
+      "source_sha256": "e45179498e30b2aeeac672dfba81d3cc80bc8f00f702588bd41b100ffad1b5b5",
+      "translation_sha256": "d11e2c4e7852a3312edafa67b56b8a02df4d5edbfaa1c9152a8b8af13896c598",
+      "display_normalized": false,
+      "sheet_translation_sha256": "d11e2c4e7852a3312edafa67b56b8a02df4d5edbfaa1c9152a8b8af13896c598",
+      "opinion_ids": [
+        "nli-117-5-1"
+      ],
+      "hearing_ids": [
+        117
+      ],
+      "input_tokens": 28,
+      "output_tokens": 23,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T16",
+      "unit": "U35",
+      "built_row": 69,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 4248,
+      "cache_key": "3c01f70fe0da5f67bf34d286d02a8e5ae9fc674508d5f148b4f83c1de05ea2ed",
+      "source_sha256": "622ce220ed768e1dac5c6c53898ad4620a11bfccfda65421a16e6d9907eeb23d",
+      "translation_sha256": "7a79e7ca8e63590f433a1b23607a722c6a2ead1b95568123fceaa23c3526c0e7",
+      "display_normalized": false,
+      "sheet_translation_sha256": "7a79e7ca8e63590f433a1b23607a722c6a2ead1b95568123fceaa23c3526c0e7",
+      "opinion_ids": [
+        "nli-119-1-1"
+      ],
+      "hearing_ids": [
+        119
+      ],
+      "input_tokens": 43,
+      "output_tokens": 29,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T17",
+      "unit": "U14",
+      "built_row": 27,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 4926,
+      "cache_key": "a6dd4a3b6206e418a320d102bb79922ba704fd30c2c4a24afa33cab655e8f336",
+      "source_sha256": "b25a908571063002dd667fe1690a4b166b682377258c7c9c4c87fba14713b67f",
+      "translation_sha256": "c67d5f78cb166433eff4bf6aec21c97cddd45b8d6d3543d2ac4cfd166c2f1f25",
+      "display_normalized": false,
+      "sheet_translation_sha256": "c67d5f78cb166433eff4bf6aec21c97cddd45b8d6d3543d2ac4cfd166c2f1f25",
+      "opinion_ids": [
+        "nli-121-3-2"
+      ],
+      "hearing_ids": [
+        121
+      ],
+      "input_tokens": 47,
+      "output_tokens": 49,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T18",
+      "unit": "U07",
+      "built_row": 13,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 7451,
+      "cache_key": "6c9e093654f18b3ce1b3bdac7fbe56a428ff57ff5eb9111e7e0e89fca77080b8",
+      "source_sha256": "bae2c606bd57acfd67feb50f23e18ef21badd3bd9a35db707dedb0a93babd56f",
+      "translation_sha256": "07c4be8b0b149c646c9b5cac860957b3474c74db53c812e44ec6bc48b8057294",
+      "display_normalized": false,
+      "sheet_translation_sha256": "07c4be8b0b149c646c9b5cac860957b3474c74db53c812e44ec6bc48b8057294",
+      "opinion_ids": [
+        "nli-133-5-0"
+      ],
+      "hearing_ids": [
+        133
+      ],
+      "input_tokens": 8,
+      "output_tokens": 7,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T19",
+      "unit": "U34",
+      "built_row": 67,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 6007,
+      "cache_key": "8ea71b456fe2df8a7d110d847b31a0a40414d1a8ebf3b99ea4b6915a97ff4f64",
+      "source_sha256": "1a75fc96b6c271db9fa4ca13891a857c7c2f3caf6fbbc9672b8c68aab42a23b1",
+      "translation_sha256": "c6c6cbf32de9a66382a476570023f48338d0df65655af3470f921a6b85ae11dd",
+      "display_normalized": false,
+      "sheet_translation_sha256": "c6c6cbf32de9a66382a476570023f48338d0df65655af3470f921a6b85ae11dd",
+      "opinion_ids": [
+        "nli-126-7-0"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 23,
+      "output_tokens": 27,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T20",
+      "unit": "U33",
+      "built_row": 65,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 2121,
+      "cache_key": "a9ee93b7c88dc3f8bb6ee95f3da9b6e268e0a8ffc1dc58e3454fd753bab10666",
+      "source_sha256": "9bfa3b6b241ed4b88cbb37ea342a27d0d00773bc538862ccb417e4cc35c2e420",
+      "translation_sha256": "cf894e2358e0d7a4fd452b469435b2e5e859ed505a9f2214451dff4fc24e46cb",
+      "display_normalized": false,
+      "sheet_translation_sha256": "cf894e2358e0d7a4fd452b469435b2e5e859ed505a9f2214451dff4fc24e46cb",
+      "opinion_ids": [
+        "nli-25-0-0"
+      ],
+      "hearing_ids": [
+        25
+      ],
+      "input_tokens": 51,
+      "output_tokens": 52,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T21",
+      "unit": "U36",
+      "built_row": 71,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 4993,
+      "cache_key": "fb17390f725025a813aa3df10807cb1b7424ebde821e982fd68f174368bc2d5b",
+      "source_sha256": "9a269c44e9be98f98fac61c5792b556e8cead94bc4a740f57116492fe5b00b1c",
+      "translation_sha256": "ebfd434e300bfe872ae1809e6480184f08966aed3c7b1fbf3b7ed43e74dc6724",
+      "display_normalized": false,
+      "sheet_translation_sha256": "ebfd434e300bfe872ae1809e6480184f08966aed3c7b1fbf3b7ed43e74dc6724",
+      "opinion_ids": [
+        "nli-121-5-2"
+      ],
+      "hearing_ids": [
+        121
+      ],
+      "input_tokens": 27,
+      "output_tokens": 30,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T22",
+      "unit": "U40",
+      "built_row": 78,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 656,
+      "cache_key": "e860eec2208f024f1ae6eb53735f0444ea1bed2176154320d72513f8c181947e",
+      "source_sha256": "1b6c9897a1748b8f283fb969aceb5f03f9abb88b526c69a2c3d059b9cf1d8d4f",
+      "translation_sha256": "acd982c921043bed94af55e17c1c54b71d528d76a492967567a68309fe72ab5e",
+      "display_normalized": false,
+      "sheet_translation_sha256": "acd982c921043bed94af55e17c1c54b71d528d76a492967567a68309fe72ab5e",
+      "opinion_ids": [
+        "nli-12-7-2"
+      ],
+      "hearing_ids": [
+        12
+      ],
+      "input_tokens": 48,
+      "output_tokens": 45,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T23",
+      "unit": "U01",
+      "built_row": 1,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 6297,
+      "cache_key": "1ed8bbde8554cf2b84a0d28d7402ae79e6a0b722ed5432ae4c368056beba3f37",
+      "source_sha256": "0f5478e85d1cee543c96649271f028f309f2f54303b8a2112600ba7e1a5ab0b8",
+      "translation_sha256": "ca308451ee7d1bd18d8884fb28bbb5a107947e648603340f5e46cd92e4145b19",
+      "display_normalized": false,
+      "sheet_translation_sha256": "ca308451ee7d1bd18d8884fb28bbb5a107947e648603340f5e46cd92e4145b19",
+      "opinion_ids": [
+        "nli-128-0-1",
+        "nli-128-0-2"
+      ],
+      "hearing_ids": [
+        128
+      ],
+      "input_tokens": 16,
+      "output_tokens": 14,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T24",
+      "unit": "U21",
+      "built_row": 40,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 5482,
+      "cache_key": "90bcbab94371cea55a71df2c3f4f6b5f1c7bea406ca0c65b710a83fff10f34f4",
+      "source_sha256": "15c8cf29687d70295af2d2beb50111071aaf3e23738113c6dd845014455b0fea",
+      "translation_sha256": "81172e9bebc7574e4b8ae9fd3c73296a9e61483111921da21f281ef738722d4c",
+      "display_normalized": false,
+      "sheet_translation_sha256": "81172e9bebc7574e4b8ae9fd3c73296a9e61483111921da21f281ef738722d4c",
+      "opinion_ids": [
+        "nli-124-2-2",
+        "nli-124-2-3"
+      ],
+      "hearing_ids": [
+        124
+      ],
+      "input_tokens": 12,
+      "output_tokens": 14,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T25",
+      "unit": "U31",
+      "built_row": 60,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 5979,
+      "cache_key": "8436b4e58b708b8727e374e4f38d0875ebd6b3cfe0f9cdd3fbd05db5cd8efae4",
+      "source_sha256": "0b0313494cfaf01e569198bb6b61fc1e99391de9ca9e002aaf4dea8a4b951142",
+      "translation_sha256": "7b2e81b53b58adb9b195c2b2980a5e879ff5be09e52453d230a33481319b2139",
+      "display_normalized": false,
+      "sheet_translation_sha256": "7b2e81b53b58adb9b195c2b2980a5e879ff5be09e52453d230a33481319b2139",
+      "opinion_ids": [
+        "nli-126-6-0",
+        "nli-126-6-1",
+        "nli-126-6-2"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 11,
+      "output_tokens": 12,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T26",
+      "unit": "U20",
+      "built_row": 39,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 6419,
+      "cache_key": "85b3736f0bf750194a87a75d78a378413112fc507abf8677ecd0bbbda650d6c7",
+      "source_sha256": "a33f00852495ca87e3da1d81c3be73eddb4f5a0f1776344a56be27e6031e93b2",
+      "translation_sha256": "d004495a39c165121fd671b991bd8522c5584d5e99eee4263154202e6d13372f",
+      "display_normalized": false,
+      "sheet_translation_sha256": "d004495a39c165121fd671b991bd8522c5584d5e99eee4263154202e6d13372f",
+      "opinion_ids": [
+        "nli-128-4-2"
+      ],
+      "hearing_ids": [
+        128
+      ],
+      "input_tokens": 26,
+      "output_tokens": 23,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T27",
+      "unit": "U37",
+      "built_row": 73,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 5815,
+      "cache_key": "d0539a9256696ba6634ef6cdf3b9d4fbf386bfd5470afe96262021ac806cbcf8",
+      "source_sha256": "ccf387a8d4ef3f0db9294f5feebc6934e2286112183f4d826f1178a61b11eef3",
+      "translation_sha256": "a230b3f76a4f9e38ca78f72a9790be049c141a23640485f3e56b2cab8a300a58",
+      "display_normalized": false,
+      "sheet_translation_sha256": "a230b3f76a4f9e38ca78f72a9790be049c141a23640485f3e56b2cab8a300a58",
+      "opinion_ids": [
+        "nli-126-2-0",
+        "nli-126-2-1"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 19,
+      "output_tokens": 20,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T28",
+      "unit": "U32",
+      "built_row": 62,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 2835,
+      "cache_key": "03ba258a9dd2b8a0bade680fc55c41fcc115eecd0e2fe22768a389afd6e96636",
+      "source_sha256": "112ca63bb24d291992af4f772e94c4061251a1d1cd912e2fa30277f5949ffe89",
+      "translation_sha256": "a9ea2781e44622a41b9f688f7d0cf568ee36d454ba4d788575ed4f781e9c8acc",
+      "display_normalized": false,
+      "sheet_translation_sha256": "a9ea2781e44622a41b9f688f7d0cf568ee36d454ba4d788575ed4f781e9c8acc",
+      "opinion_ids": [
+        "nli-28-0-1",
+        "nli-28-0-2"
+      ],
+      "hearing_ids": [
+        28
+      ],
+      "input_tokens": 87,
+      "output_tokens": 70,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T29",
+      "unit": "U17",
+      "built_row": 33,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 1740,
+      "cache_key": "f61fa892853131460c1958b4d49aad5f3b66da56eb6fca910a47a08289052801",
+      "source_sha256": "01fc73b37a9332fc3bd3ee952939fcbaf9dae8d52a4506f70232dc957b431e7b",
+      "translation_sha256": "de613667ff09c927c85d586a2db8f2d14dc11a9227ede2465da6f6ae6aec8a03",
+      "display_normalized": false,
+      "sheet_translation_sha256": "de613667ff09c927c85d586a2db8f2d14dc11a9227ede2465da6f6ae6aec8a03",
+      "opinion_ids": [
+        "nli-18-4-0"
+      ],
+      "hearing_ids": [
+        18
+      ],
+      "input_tokens": 60,
+      "output_tokens": 55,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T30",
+      "unit": "U37",
+      "built_row": 72,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 5815,
+      "cache_key": "9655bc5173be77af248895f451b389d7570afdcbc27f26afefbf74b45780bf93",
+      "source_sha256": "ccf387a8d4ef3f0db9294f5feebc6934e2286112183f4d826f1178a61b11eef3",
+      "translation_sha256": "dd7352294e17e4bde94ca4d83c58128a9394d81b4ef1df53237e334c76e7799d",
+      "display_normalized": false,
+      "sheet_translation_sha256": "dd7352294e17e4bde94ca4d83c58128a9394d81b4ef1df53237e334c76e7799d",
+      "opinion_ids": [
+        "nli-126-2-0",
+        "nli-126-2-1"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 18,
+      "output_tokens": 20,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T31",
+      "unit": "U39",
+      "built_row": 76,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3394,
+      "cache_key": "4d45b85413e8d157c53f8d8c6c1eed6d0440f6aa8eacc4db66cb92996e8ee1f3",
+      "source_sha256": "593ef07c0abd299b2ffc249f62474568a2e5457d6e5c2fa022d31f772af9cee4",
+      "translation_sha256": "076791a49c2b9051f9276d6b488aa691b951f5e0960ef9c13e6468e1cc17de88",
+      "display_normalized": false,
+      "sheet_translation_sha256": "076791a49c2b9051f9276d6b488aa691b951f5e0960ef9c13e6468e1cc17de88",
+      "opinion_ids": [
+        "nli-30-3-1"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 28,
+      "output_tokens": 30,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T32",
+      "unit": "U29",
+      "built_row": 56,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 6552,
+      "cache_key": "71fe9fb890d819312bb1859301750757eba250cddc2de6b9a7370e3aa9874d56",
+      "source_sha256": "463bc20368ca6588e8fea6e9c0ff6dbbf9aaba3981402961377e6bda467df56c",
+      "translation_sha256": "f847dbd8a01af5cf5e5ef81634fe7084a96e37816ec0eab8e12a0e8952d798a5",
+      "display_normalized": false,
+      "sheet_translation_sha256": "f847dbd8a01af5cf5e5ef81634fe7084a96e37816ec0eab8e12a0e8952d798a5",
+      "opinion_ids": [
+        "nli-129-1-0",
+        "nli-129-1-3"
+      ],
+      "hearing_ids": [
+        129
+      ],
+      "input_tokens": 62,
+      "output_tokens": 53,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T33",
+      "unit": "U23",
+      "built_row": 45,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3348,
+      "cache_key": "e59d4c9926c14d92ea7c22de3c10db78dc3f7ff38c9b18989a288f6ea468bb1e",
+      "source_sha256": "515bd0987776f36caf584b69ee30971fcffb1e18f163f899016af691110d3a8a",
+      "translation_sha256": "4dcfdd4f14276d7d658940a9278dddadf3bebfc322c5517193bc25b0d7fcb3c2",
+      "display_normalized": false,
+      "sheet_translation_sha256": "4dcfdd4f14276d7d658940a9278dddadf3bebfc322c5517193bc25b0d7fcb3c2",
+      "opinion_ids": [
+        "nli-30-2-0",
+        "nli-30-2-1",
+        "nli-30-2-2"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 58,
+      "output_tokens": 47,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T34",
+      "unit": "U30",
+      "built_row": 59,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 1396,
+      "cache_key": "ee45a538ec97ef6f7f207be016689b8b36f43d776433e51aca1678d181dc6f87",
+      "source_sha256": "a0d61ea8f1fb4468afb0ddc2a226d41adb4c5d0e12b857a07e4c3eba4b07efb7",
+      "translation_sha256": "68d505cedbc9646a220330ba5fe57dbbeb0a057d34bb24d75c7ad533662b6767",
+      "display_normalized": false,
+      "sheet_translation_sha256": "68d505cedbc9646a220330ba5fe57dbbeb0a057d34bb24d75c7ad533662b6767",
+      "opinion_ids": [
+        "nli-16-3-0",
+        "nli-16-3-1"
+      ],
+      "hearing_ids": [
+        16
+      ],
+      "input_tokens": 9,
+      "output_tokens": 10,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T35",
+      "unit": "U20",
+      "built_row": 38,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 6419,
+      "cache_key": "eaa861fb7e0a7ac8b388046308a91caf0f5503c4eb65093acec38feac475f287",
+      "source_sha256": "a33f00852495ca87e3da1d81c3be73eddb4f5a0f1776344a56be27e6031e93b2",
+      "translation_sha256": "dd836dfaa6c07a13504c81865baaae4f3c22dee61a0eb8f1a33e8dd229d001d2",
+      "display_normalized": false,
+      "sheet_translation_sha256": "dd836dfaa6c07a13504c81865baaae4f3c22dee61a0eb8f1a33e8dd229d001d2",
+      "opinion_ids": [
+        "nli-128-4-2"
+      ],
+      "hearing_ids": [
+        128
+      ],
+      "input_tokens": 25,
+      "output_tokens": 20,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T36",
+      "unit": "U10",
+      "built_row": 19,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 5323,
+      "cache_key": "2604a3e7cd6bff6ef45f31ba7709982c1f73106af7ad8ad2a335c64d20112fab",
+      "source_sha256": "57dc37ba4d223a562492526edeb44935e0fb31c1876696dccb57cd8a841bc460",
+      "translation_sha256": "d00ac55751076eba70743f5d0a0b697c0511a57e4f0df995066aa9eaee3f8e67",
+      "display_normalized": false,
+      "sheet_translation_sha256": "d00ac55751076eba70743f5d0a0b697c0511a57e4f0df995066aa9eaee3f8e67",
+      "opinion_ids": [
+        "nli-123-3-0"
+      ],
+      "hearing_ids": [
+        123
+      ],
+      "input_tokens": 12,
+      "output_tokens": 10,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T37",
+      "unit": "U25",
+      "built_row": 48,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 5903,
+      "cache_key": "e8f12087de7f9bb00738fb0b15e4ae152f9e6eae351ab7cfcaac570ef4a7c5ff",
+      "source_sha256": "c67690c93e723fd0cc9f163518aebde1c3e39b6073460348f43617750db6ff76",
+      "translation_sha256": "c1eeda00cfb8c2c9dca69471e401bbee9c4f61b0a0e4360551a8e4d4496131e9",
+      "display_normalized": false,
+      "sheet_translation_sha256": "c1eeda00cfb8c2c9dca69471e401bbee9c4f61b0a0e4360551a8e4d4496131e9",
+      "opinion_ids": [
+        "nli-126-4-0",
+        "nli-126-4-1"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 33,
+      "output_tokens": 28,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T38",
+      "unit": "U39",
+      "built_row": 77,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3394,
+      "cache_key": "2085166beb5d84ef5e672507e5cc17fa28e76a034e3f92fd45f88715fff32f03",
+      "source_sha256": "593ef07c0abd299b2ffc249f62474568a2e5457d6e5c2fa022d31f772af9cee4",
+      "translation_sha256": "61878f0da50bcb327f4d4353fe0c1f386790265d19e82c0078eaa95529f3bb12",
+      "display_normalized": false,
+      "sheet_translation_sha256": "61878f0da50bcb327f4d4353fe0c1f386790265d19e82c0078eaa95529f3bb12",
+      "opinion_ids": [
+        "nli-30-3-1"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 28,
+      "output_tokens": 34,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T39",
+      "unit": "U01",
+      "built_row": 0,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 6297,
+      "cache_key": "f2a039a1c621549440171d56d24e2e750b02927104c20f06ce701da74192d5ec",
+      "source_sha256": "0f5478e85d1cee543c96649271f028f309f2f54303b8a2112600ba7e1a5ab0b8",
+      "translation_sha256": "87a5ab1fdaba4467b11beefd7e57c49ff088fa3ddc261a54433f9df09cb16a60",
+      "display_normalized": false,
+      "sheet_translation_sha256": "87a5ab1fdaba4467b11beefd7e57c49ff088fa3ddc261a54433f9df09cb16a60",
+      "opinion_ids": [
+        "nli-128-0-1",
+        "nli-128-0-2"
+      ],
+      "hearing_ids": [
+        128
+      ],
+      "input_tokens": 15,
+      "output_tokens": 7,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T40",
+      "unit": "U05",
+      "built_row": 9,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 488,
+      "cache_key": "eb67498ffc9af162b02011043ecd7ee127c2ddaec6115e5f1c03fd6f90578753",
+      "source_sha256": "2ddde79424edb771f497ba065019f0aa72abe44a6f726440c1fe7fa0ed1249dd",
+      "translation_sha256": "ae967935660a93f7925f0232a47461fd99a9e97ea54bb0dfdbae18bde80b2fa8",
+      "display_normalized": false,
+      "sheet_translation_sha256": "ae967935660a93f7925f0232a47461fd99a9e97ea54bb0dfdbae18bde80b2fa8",
+      "opinion_ids": [
+        "nli-12-3-1",
+        "nli-12-3-2"
+      ],
+      "hearing_ids": [
+        12
+      ],
+      "input_tokens": 25,
+      "output_tokens": 22,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T41",
+      "unit": "U22",
+      "built_row": 43,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3922,
+      "cache_key": "a3c313e3a809825af99b78a4e5c581eca1f9e8ff4ae25f03c5c4e534e156a898",
+      "source_sha256": "e45179498e30b2aeeac672dfba81d3cc80bc8f00f702588bd41b100ffad1b5b5",
+      "translation_sha256": "1d8a7b278b0378f9ea7542b0f78cefe3eaf019d397b982f29cc8541256435dd8",
+      "display_normalized": false,
+      "sheet_translation_sha256": "1d8a7b278b0378f9ea7542b0f78cefe3eaf019d397b982f29cc8541256435dd8",
+      "opinion_ids": [
+        "nli-117-5-1"
+      ],
+      "hearing_ids": [
+        117
+      ],
+      "input_tokens": 27,
+      "output_tokens": 30,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T42",
+      "unit": "U36",
+      "built_row": 70,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 4993,
+      "cache_key": "61ab1a9ab0780b7dff636a4081a9a495656eeffc6d91cf8d441797cbc0a0a701",
+      "source_sha256": "9a269c44e9be98f98fac61c5792b556e8cead94bc4a740f57116492fe5b00b1c",
+      "translation_sha256": "9297816f8a1d3283f5721f9a182defeafeafe892ebed706ad437359dc98bdf0a",
+      "display_normalized": false,
+      "sheet_translation_sha256": "9297816f8a1d3283f5721f9a182defeafeafe892ebed706ad437359dc98bdf0a",
+      "opinion_ids": [
+        "nli-121-5-2"
+      ],
+      "hearing_ids": [
+        121
+      ],
+      "input_tokens": 30,
+      "output_tokens": 28,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T43",
+      "unit": "U15",
+      "built_row": 29,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3304,
+      "cache_key": "8925e4bc03bbe1882f8ee68640a8f236664ed7cba1cfd5b37633349e67b66756",
+      "source_sha256": "f01636486fa34513167105cf678cb393476cc598a2ab30217b033b77f874aee6",
+      "translation_sha256": "8ee7eaa222f9287d494a6ce134c72128726e77351f0df2f85c0e68fe39097f95",
+      "display_normalized": false,
+      "sheet_translation_sha256": "8ee7eaa222f9287d494a6ce134c72128726e77351f0df2f85c0e68fe39097f95",
+      "opinion_ids": [
+        "nli-30-0-0"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 43,
+      "output_tokens": 48,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T44",
+      "unit": "U27",
+      "built_row": 53,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 5620,
+      "cache_key": "a61e8be9eec6203ab10d79db3f3697c76ca53655880a16c08c6e5c02e88d4af8",
+      "source_sha256": "05d0be1898c8a88cded388c572c273558c8b387c69e197cc3340b4afcba2d594",
+      "translation_sha256": "f4e728fd1c4b9318b430e45022047cf41b892791fee3a51b1fe12cb117f0a445",
+      "display_normalized": false,
+      "sheet_translation_sha256": "f4e728fd1c4b9318b430e45022047cf41b892791fee3a51b1fe12cb117f0a445",
+      "opinion_ids": [
+        "nli-125-1-1",
+        "nli-125-1-3"
+      ],
+      "hearing_ids": [
+        125
+      ],
+      "input_tokens": 29,
+      "output_tokens": 29,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T45",
+      "unit": "U27",
+      "built_row": 52,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 5620,
+      "cache_key": "93ce119b7686ac561ea122500bfd111e04e5145708c1ec065b3c531d6ba90800",
+      "source_sha256": "05d0be1898c8a88cded388c572c273558c8b387c69e197cc3340b4afcba2d594",
+      "translation_sha256": "7e83e3594cdae5ef572f53ad66e530f98a60ad05bf75f3c587f9db20b5541517",
+      "display_normalized": false,
+      "sheet_translation_sha256": "7e83e3594cdae5ef572f53ad66e530f98a60ad05bf75f3c587f9db20b5541517",
+      "opinion_ids": [
+        "nli-125-1-1",
+        "nli-125-1-3"
+      ],
+      "hearing_ids": [
+        125
+      ],
+      "input_tokens": 32,
+      "output_tokens": 28,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T46",
+      "unit": "U06",
+      "built_row": 10,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 7089,
+      "cache_key": "ef75c953cc09d0ad7216c998832cf130c473c8b29ef75eb1cdd60f111184c30f",
+      "source_sha256": "538a38f66519744f30c23e8f199e511d41d9f36493a40f61a872e3f939c1f02e",
+      "translation_sha256": "8525e97fd3451bdd009abb1904287f3d3c3bf8da1de04e9ff6674ee8957fb743",
+      "display_normalized": false,
+      "sheet_translation_sha256": "8525e97fd3451bdd009abb1904287f3d3c3bf8da1de04e9ff6674ee8957fb743",
+      "opinion_ids": [
+        "nli-132-0-1"
+      ],
+      "hearing_ids": [
+        132
+      ],
+      "input_tokens": 29,
+      "output_tokens": 27,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T47",
+      "unit": "U21",
+      "built_row": 41,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 5482,
+      "cache_key": "b6442c364b96d66b11bab011992bcde51d649a9d96b2d8c1b544c62b88599853",
+      "source_sha256": "15c8cf29687d70295af2d2beb50111071aaf3e23738113c6dd845014455b0fea",
+      "translation_sha256": "2f8f4e191e20969012a20f1f47543c8d1d334d70d764e1f197bcaf4990ba5def",
+      "display_normalized": false,
+      "sheet_translation_sha256": "2f8f4e191e20969012a20f1f47543c8d1d334d70d764e1f197bcaf4990ba5def",
+      "opinion_ids": [
+        "nli-124-2-2",
+        "nli-124-2-3"
+      ],
+      "hearing_ids": [
+        124
+      ],
+      "input_tokens": 12,
+      "output_tokens": 13,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T48",
+      "unit": "U16",
+      "built_row": 30,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 979,
+      "cache_key": "35345a523e269d192b390198735c97c3961f19fc7df1f4c9e342ced64eefc63c",
+      "source_sha256": "19563d39ca765a537d2dccef7811143a9a7179b443bdd18d53e2aeeae0bd343d",
+      "translation_sha256": "75fbda1d075171db6cf8f4d001055aae93e3ab47cdefa06aa10750652f190135",
+      "display_normalized": false,
+      "sheet_translation_sha256": "75fbda1d075171db6cf8f4d001055aae93e3ab47cdefa06aa10750652f190135",
+      "opinion_ids": [
+        "nli-13-9-0",
+        "nli-13-9-2"
+      ],
+      "hearing_ids": [
+        13
+      ],
+      "input_tokens": 11,
+      "output_tokens": 12,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T49",
+      "unit": "U15",
+      "built_row": 28,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3304,
+      "cache_key": "58e2f75694962e91960555b14af7937f9fe7b4fe6539d8f1331235b3b9db572a",
+      "source_sha256": "f01636486fa34513167105cf678cb393476cc598a2ab30217b033b77f874aee6",
+      "translation_sha256": "ce1d3737122ba60f77953225241aa9447272c1b7e09336456cbdbea926066679",
+      "display_normalized": false,
+      "sheet_translation_sha256": "ce1d3737122ba60f77953225241aa9447272c1b7e09336456cbdbea926066679",
+      "opinion_ids": [
+        "nli-30-0-0"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 41,
+      "output_tokens": 42,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T50",
+      "unit": "U18",
+      "built_row": 34,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 4842,
+      "cache_key": "0e871cb5aa90ad214186b7e73401859d952067019dd5102a49e76d60b7fd694f",
+      "source_sha256": "a64d050e626b712da5d9df6bac215de2a306933d636e7edd0a83700f66085bd4",
+      "translation_sha256": "e5b25469c97ed2674bcd93165edcd60b3c6c0025bcf793780bbced3375eb200c",
+      "display_normalized": false,
+      "sheet_translation_sha256": "e5b25469c97ed2674bcd93165edcd60b3c6c0025bcf793780bbced3375eb200c",
+      "opinion_ids": [
+        "nli-121-1-1",
+        "nli-121-1-2"
+      ],
+      "hearing_ids": [
+        121
+      ],
+      "input_tokens": 76,
+      "output_tokens": 62,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T51",
+      "unit": "U17",
+      "built_row": 32,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 1740,
+      "cache_key": "db3347a52cb5c423fa7f22fe6231e2744044a34b46a2e12ac89faecae3345d44",
+      "source_sha256": "01fc73b37a9332fc3bd3ee952939fcbaf9dae8d52a4506f70232dc957b431e7b",
+      "translation_sha256": "e93fbbf808fecf804ac8b23cc946f14ef6f65519f510f9a6edbd201851e7ddfc",
+      "display_normalized": false,
+      "sheet_translation_sha256": "e93fbbf808fecf804ac8b23cc946f14ef6f65519f510f9a6edbd201851e7ddfc",
+      "opinion_ids": [
+        "nli-18-4-0"
+      ],
+      "hearing_ids": [
+        18
+      ],
+      "input_tokens": 57,
+      "output_tokens": 55,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T52",
+      "unit": "U28",
+      "built_row": 55,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 4020,
+      "cache_key": "d6579b6279fd8595a161b26c1fc778783e7bd87670ad6a2b7ff57c4ceb180799",
+      "source_sha256": "e762cace65748130016f837e5156cf67b31cc34123c88643096aeeec45568a8c",
+      "translation_sha256": "af33a3174d8dba05d384f60b59a4dee9611549f8ea5103ed68e6e8866dea9c46",
+      "display_normalized": false,
+      "sheet_translation_sha256": "af33a3174d8dba05d384f60b59a4dee9611549f8ea5103ed68e6e8866dea9c46",
+      "opinion_ids": [
+        "nli-118-1-1"
+      ],
+      "hearing_ids": [
+        118
+      ],
+      "input_tokens": 8,
+      "output_tokens": 10,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T53",
+      "unit": "U31",
+      "built_row": 61,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 5979,
+      "cache_key": "5813ed97208b211c9ee2df22f47eea9ecbf40693667b76040deed4dee718fcb4",
+      "source_sha256": "0b0313494cfaf01e569198bb6b61fc1e99391de9ca9e002aaf4dea8a4b951142",
+      "translation_sha256": "c7bf464469e6876e5f41dfcb13770a58399dfc41cf746132e3f33fd45f37c8ac",
+      "display_normalized": false,
+      "sheet_translation_sha256": "c7bf464469e6876e5f41dfcb13770a58399dfc41cf746132e3f33fd45f37c8ac",
+      "opinion_ids": [
+        "nli-126-6-0",
+        "nli-126-6-1",
+        "nli-126-6-2"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 11,
+      "output_tokens": 9,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T54",
+      "unit": "U02",
+      "built_row": 3,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 719,
+      "cache_key": "128985aec0ebdca1a7c2968d8dba991226f745550289604a224c2f44d5f7d79c",
+      "source_sha256": "a36c05b7a1baf8b667ede8c9d6ae36dc5eea83fc379ccf36debb0939a7545313",
+      "translation_sha256": "9999ace79a0b592c8738f5fe3106124ca18b5cca1b25d004e29e60d4eeb38cda",
+      "display_normalized": false,
+      "sheet_translation_sha256": "9999ace79a0b592c8738f5fe3106124ca18b5cca1b25d004e29e60d4eeb38cda",
+      "opinion_ids": [
+        "nli-13-0-1"
+      ],
+      "hearing_ids": [
+        13
+      ],
+      "input_tokens": 17,
+      "output_tokens": 20,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T55",
+      "unit": "U38",
+      "built_row": 75,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3079,
+      "cache_key": "0e5df5831d9aa0126f0b187641d66c220cef01057eb74d07d09bc0aafaef4dc5",
+      "source_sha256": "ccc08ec53c475d6cb9c351859374c77fb0f05ee74cebab17068ce4ccb08fc90d",
+      "translation_sha256": "a72eff5256a4e4b79c00db1b7f9dc7dd7940e5c4d0802e1bb3dae22b9232994e",
+      "display_normalized": false,
+      "sheet_translation_sha256": "a72eff5256a4e4b79c00db1b7f9dc7dd7940e5c4d0802e1bb3dae22b9232994e",
+      "opinion_ids": [
+        "nli-29-0-0",
+        "nli-29-0-2"
+      ],
+      "hearing_ids": [
+        29
+      ],
+      "input_tokens": 54,
+      "output_tokens": 49,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T56",
+      "unit": "U18",
+      "built_row": 35,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 4842,
+      "cache_key": "b972e79a726c081817b3fcf60f0eb8adaa880510e84f1a4c4d72befed559b378",
+      "source_sha256": "a64d050e626b712da5d9df6bac215de2a306933d636e7edd0a83700f66085bd4",
+      "translation_sha256": "d5b75fa298835be75917b0376cb0aa82236b05cabcdf10405fc93f2c6d4050a0",
+      "display_normalized": false,
+      "sheet_translation_sha256": "d5b75fa298835be75917b0376cb0aa82236b05cabcdf10405fc93f2c6d4050a0",
+      "opinion_ids": [
+        "nli-121-1-1",
+        "nli-121-1-2"
+      ],
+      "hearing_ids": [
+        121
+      ],
+      "input_tokens": 82,
+      "output_tokens": 69,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T57",
+      "unit": "U16",
+      "built_row": 31,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 979,
+      "cache_key": "fc75d48dae17f602630f69d8babe65e4bc39f2a34a89607eda1c8167e127ffb7",
+      "source_sha256": "19563d39ca765a537d2dccef7811143a9a7179b443bdd18d53e2aeeae0bd343d",
+      "translation_sha256": "f707ba38736e307f359d7f175491a0271a6fa6df169693aa20a42c50b3dcf35a",
+      "display_normalized": false,
+      "sheet_translation_sha256": "f707ba38736e307f359d7f175491a0271a6fa6df169693aa20a42c50b3dcf35a",
+      "opinion_ids": [
+        "nli-13-9-0",
+        "nli-13-9-2"
+      ],
+      "hearing_ids": [
+        13
+      ],
+      "input_tokens": 12,
+      "output_tokens": 11,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T58",
+      "unit": "U26",
+      "built_row": 50,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 6342,
+      "cache_key": "93ec2e05690293c3f3a3f22a1ae36cbff1f61bd82f5d0e122d86c32561f65a39",
+      "source_sha256": "c6039944e60f810699b47ed362914f785cd03c8a099be6dec531c38443dadfca",
+      "translation_sha256": "4cc86ea210d768e5fd393ee34c386f549a06cb0108368d8174144d39b3496a45",
+      "display_normalized": false,
+      "sheet_translation_sha256": "4cc86ea210d768e5fd393ee34c386f549a06cb0108368d8174144d39b3496a45",
+      "opinion_ids": [
+        "nli-128-2-0"
+      ],
+      "hearing_ids": [
+        128
+      ],
+      "input_tokens": 12,
+      "output_tokens": 11,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T59",
+      "unit": "U38",
+      "built_row": 74,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3079,
+      "cache_key": "d4279e0b67a69c2921bd0b8003b4ea6fb5d98e8d2dc7f0206d3caa3bb2de8f49",
+      "source_sha256": "ccc08ec53c475d6cb9c351859374c77fb0f05ee74cebab17068ce4ccb08fc90d",
+      "translation_sha256": "02f1701948bf038ab52a9870e1f7b62ca6a5811ea1c4a707a9df3f2a76d2cc36",
+      "display_normalized": false,
+      "sheet_translation_sha256": "02f1701948bf038ab52a9870e1f7b62ca6a5811ea1c4a707a9df3f2a76d2cc36",
+      "opinion_ids": [
+        "nli-29-0-0",
+        "nli-29-0-2"
+      ],
+      "hearing_ids": [
+        29
+      ],
+      "input_tokens": 47,
+      "output_tokens": 44,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T60",
+      "unit": "U33",
+      "built_row": 64,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 2121,
+      "cache_key": "7fcad47fa525702b5d8680ea01c803998d2a47d51c9f76c3e6cb58fcd4057679",
+      "source_sha256": "9bfa3b6b241ed4b88cbb37ea342a27d0d00773bc538862ccb417e4cc35c2e420",
+      "translation_sha256": "76fd6dc777b3f551cd969d741fe9787f9e358d65355773d35bbaaf8b271a9319",
+      "display_normalized": false,
+      "sheet_translation_sha256": "76fd6dc777b3f551cd969d741fe9787f9e358d65355773d35bbaaf8b271a9319",
+      "opinion_ids": [
+        "nli-25-0-0"
+      ],
+      "hearing_ids": [
+        25
+      ],
+      "input_tokens": 52,
+      "output_tokens": 49,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T61",
+      "unit": "U08",
+      "built_row": 15,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 705,
+      "cache_key": "f7b13802c6c6f9ec034336c9a0052c72c62102dc1d1d2c20e68d8ea7a9a27f5b",
+      "source_sha256": "6cc9dc611a0fe32778f96538b0efe4d77d1c396f62872680ec65ff1742390531",
+      "translation_sha256": "c35da272975a0ba6d1c4931f753371f874a3a0d611b885a7a8ebb29376ee7447",
+      "display_normalized": false,
+      "sheet_translation_sha256": "c35da272975a0ba6d1c4931f753371f874a3a0d611b885a7a8ebb29376ee7447",
+      "opinion_ids": [
+        "nli-13-0-0",
+        "nli-13-0-1"
+      ],
+      "hearing_ids": [
+        13
+      ],
+      "input_tokens": 13,
+      "output_tokens": 9,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T62",
+      "unit": "U13",
+      "built_row": 25,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3443,
+      "cache_key": "6832547ceb8371a8ad6e53b34b5e74bef4d67b090dd61cd539de2681db1c6413",
+      "source_sha256": "eec3ef059d2098ff24ef337ace331c7e537f974024d259b17214d6260f9236d4",
+      "translation_sha256": "15ab18848bb1df7a9c52626dc2ad4908053de5f93137e7a318400f7c93152f72",
+      "display_normalized": true,
+      "sheet_translation_sha256": "3682a045516dc9fff4293572648930911cf289ec1e0b938e55c1f61ade9c1aca",
+      "opinion_ids": [
+        "nli-30-5-0"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 43,
+      "output_tokens": 49,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T63",
+      "unit": "U03",
+      "built_row": 5,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 6802,
+      "cache_key": "ba1e5f4b80662142a289b99145ecb378fc41358afcc9ae5a457ee521110048f2",
+      "source_sha256": "c163de77f51668ea85c44567f441c9873007b05e30dac2a33bc2ba7a12735b01",
+      "translation_sha256": "e851786bab5b104de07d526ed76aaed9a598c550d54adc3255c2e3030e805b36",
+      "display_normalized": true,
+      "sheet_translation_sha256": "c4c55cda91e0597e771d7864110ce6498b5059ee0d939523eafc43420cd2f6b8",
+      "opinion_ids": [
+        "nli-130-4-0",
+        "nli-130-4-1"
+      ],
+      "hearing_ids": [
+        130
+      ],
+      "input_tokens": 53,
+      "output_tokens": 47,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T64",
+      "unit": "U28",
+      "built_row": 54,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 4020,
+      "cache_key": "077c6e42cf2b7dbe01f7fb3f477d61c68b6d6ef1def8a1a65ecaf40d0a0f8e7c",
+      "source_sha256": "e762cace65748130016f837e5156cf67b31cc34123c88643096aeeec45568a8c",
+      "translation_sha256": "1479e0875f89d6f7ff3bd42166ef1d3af30bbc68411d405c4131a25e84389c39",
+      "display_normalized": false,
+      "sheet_translation_sha256": "1479e0875f89d6f7ff3bd42166ef1d3af30bbc68411d405c4131a25e84389c39",
+      "opinion_ids": [
+        "nli-118-1-1"
+      ],
+      "hearing_ids": [
+        118
+      ],
+      "input_tokens": 8,
+      "output_tokens": 9,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T65",
+      "unit": "U34",
+      "built_row": 66,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 6007,
+      "cache_key": "8e7a5b7c8fca8f2af8b3c22e5efdbb7b928cf0463a56b189ad5a805a2d02500a",
+      "source_sha256": "1a75fc96b6c271db9fa4ca13891a857c7c2f3caf6fbbc9672b8c68aab42a23b1",
+      "translation_sha256": "56a1122d839afd68b40510ed8b728518d02e311dcda75711f6cfcd99a465e90f",
+      "display_normalized": false,
+      "sheet_translation_sha256": "56a1122d839afd68b40510ed8b728518d02e311dcda75711f6cfcd99a465e90f",
+      "opinion_ids": [
+        "nli-126-7-0"
+      ],
+      "hearing_ids": [
+        126
+      ],
+      "input_tokens": 21,
+      "output_tokens": 24,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T66",
+      "unit": "U35",
+      "built_row": 68,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 4248,
+      "cache_key": "d47ea060f5c501d1254786a7c731c33a7659a5ab9cf6878873aca63197e2f766",
+      "source_sha256": "622ce220ed768e1dac5c6c53898ad4620a11bfccfda65421a16e6d9907eeb23d",
+      "translation_sha256": "f4aba0132312ba0853415fd2d598bdc0f7c2376d581b3bb802581812fa813154",
+      "display_normalized": false,
+      "sheet_translation_sha256": "f4aba0132312ba0853415fd2d598bdc0f7c2376d581b3bb802581812fa813154",
+      "opinion_ids": [
+        "nli-119-1-1"
+      ],
+      "hearing_ids": [
+        119
+      ],
+      "input_tokens": 42,
+      "output_tokens": 29,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T67",
+      "unit": "U04",
+      "built_row": 7,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 1538,
+      "cache_key": "7900934f124bcdcf4c54dc74ea15eb353dcd677400246852e88f291acbfcce50",
+      "source_sha256": "a7f2f0501a8aaa2d76055ef01cb274df94faa013a4632feeaeb037ba12529b95",
+      "translation_sha256": "8d3600a56a4f86bb621db765e58605ff9fb67844d914c83191c2ca9ee3a2cf22",
+      "display_normalized": false,
+      "sheet_translation_sha256": "8d3600a56a4f86bb621db765e58605ff9fb67844d914c83191c2ca9ee3a2cf22",
+      "opinion_ids": [
+        "nli-17-3-0",
+        "nli-17-3-1"
+      ],
+      "hearing_ids": [
+        17
+      ],
+      "input_tokens": 19,
+      "output_tokens": 24,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T68",
+      "unit": "U04",
+      "built_row": 6,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 1538,
+      "cache_key": "da178fc7ccd30bd06cb591ca132dd8aae1516cbd9019fee293245b7ffbd76208",
+      "source_sha256": "a7f2f0501a8aaa2d76055ef01cb274df94faa013a4632feeaeb037ba12529b95",
+      "translation_sha256": "31d0497cfe07aa177db888695b552dbcb5840a7b89b41ce3446655437daca582",
+      "display_normalized": false,
+      "sheet_translation_sha256": "31d0497cfe07aa177db888695b552dbcb5840a7b89b41ce3446655437daca582",
+      "opinion_ids": [
+        "nli-17-3-0",
+        "nli-17-3-1"
+      ],
+      "hearing_ids": [
+        17
+      ],
+      "input_tokens": 19,
+      "output_tokens": 20,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T69",
+      "unit": "U08",
+      "built_row": 14,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 705,
+      "cache_key": "c67bf382aa5df1b0f3c7d9b6520695fcab4fad6607b5d07a1cd103169aa47088",
+      "source_sha256": "6cc9dc611a0fe32778f96538b0efe4d77d1c396f62872680ec65ff1742390531",
+      "translation_sha256": "bcfed8646cc99776035a7dbc1ea84ad2e4e23fa3779e714da47b05dceb97026a",
+      "display_normalized": false,
+      "sheet_translation_sha256": "bcfed8646cc99776035a7dbc1ea84ad2e4e23fa3779e714da47b05dceb97026a",
+      "opinion_ids": [
+        "nli-13-0-0",
+        "nli-13-0-1"
+      ],
+      "hearing_ids": [
+        13
+      ],
+      "input_tokens": 12,
+      "output_tokens": 10,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T70",
+      "unit": "U11",
+      "built_row": 20,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 4175,
+      "cache_key": "b7856e5a91b30abd97ef23dd481550b151c4762141a30b06a88335f8468339ce",
+      "source_sha256": "0495962d735431c15dd96bf8a1607f41812ad77b6ad2d83f69058123f0387828",
+      "translation_sha256": "b5907aef65c784811aa33d6aed35c8ed55270d8d475c504ee7f3956bd545fd82",
+      "display_normalized": false,
+      "sheet_translation_sha256": "b5907aef65c784811aa33d6aed35c8ed55270d8d475c504ee7f3956bd545fd82",
+      "opinion_ids": [
+        "nli-118-6-0",
+        "nli-118-6-1",
+        "nli-118-6-2"
+      ],
+      "hearing_ids": [
+        118
+      ],
+      "input_tokens": 57,
+      "output_tokens": 47,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T71",
+      "unit": "U12",
+      "built_row": 22,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 680,
+      "cache_key": "f7051679d9b95d09eb904cdd764b4022375c594db9d03e869207c1431af7a00a",
+      "source_sha256": "fef8c337093d6640e234d102148f261d32372ea746a731be7a9ba0f6dc766adf",
+      "translation_sha256": "1e111b727e900126cc0e29de9232e6bf297deddc18425ec36fa0eca0593e8f03",
+      "display_normalized": false,
+      "sheet_translation_sha256": "1e111b727e900126cc0e29de9232e6bf297deddc18425ec36fa0eca0593e8f03",
+      "opinion_ids": [
+        "nli-12-8-0"
+      ],
+      "hearing_ids": [
+        12
+      ],
+      "input_tokens": 12,
+      "output_tokens": 14,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T72",
+      "unit": "U12",
+      "built_row": 23,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 680,
+      "cache_key": "df2ce7636a360d3b0f7431df48b63ffb2c421561abba8b602a90326262a85922",
+      "source_sha256": "fef8c337093d6640e234d102148f261d32372ea746a731be7a9ba0f6dc766adf",
+      "translation_sha256": "92ae460f1fe0a209f87e82f1c96bae4fc4dc1e69d38921a14eb20be51d4a8bf8",
+      "display_normalized": false,
+      "sheet_translation_sha256": "92ae460f1fe0a209f87e82f1c96bae4fc4dc1e69d38921a14eb20be51d4a8bf8",
+      "opinion_ids": [
+        "nli-12-8-0"
+      ],
+      "hearing_ids": [
+        12
+      ],
+      "input_tokens": 13,
+      "output_tokens": 10,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T73",
+      "unit": "U30",
+      "built_row": 58,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 1396,
+      "cache_key": "70b6100f3d0c59c8ff9acbce527115353b8cbf750e5d93e80b4b324551a00ff0",
+      "source_sha256": "a0d61ea8f1fb4468afb0ddc2a226d41adb4c5d0e12b857a07e4c3eba4b07efb7",
+      "translation_sha256": "68d505cedbc9646a220330ba5fe57dbbeb0a057d34bb24d75c7ad533662b6767",
+      "display_normalized": false,
+      "sheet_translation_sha256": "68d505cedbc9646a220330ba5fe57dbbeb0a057d34bb24d75c7ad533662b6767",
+      "opinion_ids": [
+        "nli-16-3-0",
+        "nli-16-3-1"
+      ],
+      "hearing_ids": [
+        16
+      ],
+      "input_tokens": 9,
+      "output_tokens": 10,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T74",
+      "unit": "U40",
+      "built_row": 79,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 656,
+      "cache_key": "80c08a736908ed3c44aea38b7b053b91eaa0e95c7aa3603382d2565ebc013f38",
+      "source_sha256": "1b6c9897a1748b8f283fb969aceb5f03f9abb88b526c69a2c3d059b9cf1d8d4f",
+      "translation_sha256": "9b15f2727c2ac52a2f8eda64c63ec1d1b25eb7568862a9ac2ea2c9c9fbd9d5f0",
+      "display_normalized": true,
+      "sheet_translation_sha256": "314bcf82dc4ee9e499c213fc39321349204b174b4b792230f83990d11da0c655",
+      "opinion_ids": [
+        "nli-12-7-2"
+      ],
+      "hearing_ids": [
+        12
+      ],
+      "input_tokens": 47,
+      "output_tokens": 52,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T75",
+      "unit": "U06",
+      "built_row": 11,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 7089,
+      "cache_key": "de0e06d7c3066832e3252db8710661744a77a89ed1335dbafb1a0c88a072f7d6",
+      "source_sha256": "538a38f66519744f30c23e8f199e511d41d9f36493a40f61a872e3f939c1f02e",
+      "translation_sha256": "7c74e44eb3ce47a85a6034d7eae19907e1202ca8d104fbf1e3f750947ebec08e",
+      "display_normalized": false,
+      "sheet_translation_sha256": "7c74e44eb3ce47a85a6034d7eae19907e1202ca8d104fbf1e3f750947ebec08e",
+      "opinion_ids": [
+        "nli-132-0-1"
+      ],
+      "hearing_ids": [
+        132
+      ],
+      "input_tokens": 31,
+      "output_tokens": 31,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T76",
+      "unit": "U09",
+      "built_row": 17,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 3449,
+      "cache_key": "2bb6eebb7b4355a8085bbcc759ae950cbc4cc7facf09a1e08742e12884303080",
+      "source_sha256": "7a9aa641dc22397182bdd9ddccfe43e2363fd29fbd635774d9023922ef890bed",
+      "translation_sha256": "50dde988318979df46bc774525d5212eb5538d1c441fa67ec0ac9b405954a475",
+      "display_normalized": false,
+      "sheet_translation_sha256": "50dde988318979df46bc774525d5212eb5538d1c441fa67ec0ac9b405954a475",
+      "opinion_ids": [
+        "nli-30-5-0",
+        "nli-30-5-1"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 34,
+      "output_tokens": 33,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T77",
+      "unit": "U32",
+      "built_row": 63,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 2835,
+      "cache_key": "b25032f15ecd1b2530bbb4a54e37956a5037f2bad7147ca49b2ed6cef4708001",
+      "source_sha256": "112ca63bb24d291992af4f772e94c4061251a1d1cd912e2fa30277f5949ffe89",
+      "translation_sha256": "99e39c37155a2832b8170d699ef11d6f20f5f0ecf10e2dbdb792e0adf7801e3e",
+      "display_normalized": false,
+      "sheet_translation_sha256": "99e39c37155a2832b8170d699ef11d6f20f5f0ecf10e2dbdb792e0adf7801e3e",
+      "opinion_ids": [
+        "nli-28-0-1",
+        "nli-28-0-2"
+      ],
+      "hearing_ids": [
+        28
+      ],
+      "input_tokens": 89,
+      "output_tokens": 81,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T78",
+      "unit": "U24",
+      "built_row": 47,
+      "model": "m2m100",
+      "model_name": "facebook/m2m100_418M",
+      "model_revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "population_index": 6577,
+      "cache_key": "5bafe1678f5d56183353cfce94ec3e5e34287a6163eb570a1598aebda29c1ff5",
+      "source_sha256": "52d855bc7c0fbde028d68232abdf60597ec6828836af5d511db7faebeb289a22",
+      "translation_sha256": "422f51b5630efec7a8a9cadba810b2e0546957f3b4888aace00563f187efc6f7",
+      "display_normalized": false,
+      "sheet_translation_sha256": "422f51b5630efec7a8a9cadba810b2e0546957f3b4888aace00563f187efc6f7",
+      "opinion_ids": [
+        "nli-129-1-2"
+      ],
+      "hearing_ids": [
+        129
+      ],
+      "input_tokens": 9,
+      "output_tokens": 7,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T79",
+      "unit": "U05",
+      "built_row": 8,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 488,
+      "cache_key": "4b311485c69795fbbac7e4aa4e918d7f5f9221a0ceafa60c172d53a1cfc1e881",
+      "source_sha256": "2ddde79424edb771f497ba065019f0aa72abe44a6f726440c1fe7fa0ed1249dd",
+      "translation_sha256": "b40a5c5200282c1320e43a8344f9ecf217c7e5a3c426262e9950ae05f60c2f31",
+      "display_normalized": false,
+      "sheet_translation_sha256": "b40a5c5200282c1320e43a8344f9ecf217c7e5a3c426262e9950ae05f60c2f31",
+      "opinion_ids": [
+        "nli-12-3-1",
+        "nli-12-3-2"
+      ],
+      "hearing_ids": [
+        12
+      ],
+      "input_tokens": 25,
+      "output_tokens": 19,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    },
+    {
+      "item_id": "T80",
+      "unit": "U13",
+      "built_row": 24,
+      "model": "nllb",
+      "model_name": "facebook/nllb-200-distilled-600M",
+      "model_revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "population_index": 3443,
+      "cache_key": "fbabb669aa29b8bba1d84c3336883ecf4967a1479e726a314ff9e8da7f044010",
+      "source_sha256": "eec3ef059d2098ff24ef337ace331c7e537f974024d259b17214d6260f9236d4",
+      "translation_sha256": "6a530a1bab5587225a456bef7b17a2528a109b3f21067f694ca4d23eb957e4b3",
+      "display_normalized": false,
+      "sheet_translation_sha256": "6a530a1bab5587225a456bef7b17a2528a109b3f21067f694ca4d23eb957e4b3",
+      "opinion_ids": [
+        "nli-30-5-0"
+      ],
+      "hearing_ids": [
+        30
+      ],
+      "input_tokens": 50,
+      "output_tokens": 41,
+      "device": "cpu",
+      "flags": {
+        "empty": false,
+        "identical": false,
+        "degenerate": false,
+        "degenerate_not_in_source": false,
+        "input_truncated": false,
+        "hit_max_new_tokens": false,
+        "long_output": false,
+        "doubled_length": false
+      }
+    }
+  ],
+  "sheet": {
+    "path": "artifacts/validation/translation_spot_check_v2/spot_check.csv",
+    "sha256": "255188844d830322eee731901870b1a34d8ec12129e473a0cc7629aec8df0d38"
+  },
+  "runs": {
+    "nllb": {
+      "requested": 40,
+      "already_cached": 40,
+      "translated": 0,
+      "model_loaded": false,
+      "store_opened": "read-only"
+    },
+    "m2m100": {
+      "requested": 40,
+      "already_cached": 40,
+      "translated": 0,
+      "model_loaded": false,
+      "store_opened": "read-only"
+    }
+  },
+  "model_info": {
+    "nllb": null,
+    "m2m100": null
+  },
+  "stores": {
+    "nllb": {
+      "path": "artifacts/cache/translation/translations_facebook-nllb-200-distilled-600m_f8d333a098d1.jsonl",
+      "signature": {
+        "model": "facebook/nllb-200-distilled-600M",
+        "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+        "src_lang": "por_Latn",
+        "tgt_lang": "eng_Latn",
+        "dtype": "float32",
+        "num_beams": 4,
+        "do_sample": false,
+        "length_penalty": 1.0,
+        "early_stopping": false,
+        "no_repeat_ngram_size": 0,
+        "repetition_penalty": 1.0,
+        "max_input_tokens": 512,
+        "max_new_tokens_ratio": 2.0,
+        "max_new_tokens_margin": 16,
+        "max_new_tokens_cap": 1020
+      },
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "segmentation": {
+        "join_abbreviations": [
+          "Art.",
+          "Dr.",
+          "Dra.",
+          "Dras.",
+          "Drs.",
+          "Exma.",
+          "Exmo.",
+          "Prof.",
+          "Profa.",
+          "Profs.",
+          "Sr.",
+          "Sra.",
+          "Sras.",
+          "Srs.",
+          "V.Exa.",
+          "V.Exas.",
+          "art.",
+          "arts."
+        ],
+        "join_short_parts": true
+      },
+      "entries": 12695,
+      "entries_by_device": {
+        "cpu": 40,
+        "mps": 12655
+      },
+      "other_signature_lines": 0,
+      "incomplete_tail_bytes": 0
+    },
+    "m2m100": {
+      "path": "artifacts/cache/translation/translations_facebook-m2m100-418m_55c2e61bbf05.jsonl",
+      "signature": {
+        "model": "facebook/m2m100_418M",
+        "revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+        "src_lang": "pt",
+        "tgt_lang": "en",
+        "dtype": "float32",
+        "num_beams": 4,
+        "do_sample": false,
+        "length_penalty": 1.0,
+        "early_stopping": false,
+        "no_repeat_ngram_size": 0,
+        "repetition_penalty": 1.0,
+        "max_input_tokens": 512,
+        "max_new_tokens_ratio": 2.0,
+        "max_new_tokens_margin": 16,
+        "max_new_tokens_cap": 1020
+      },
+      "signature_sha256": "a13badd9c59dbca3cff24d0802684e3007448cb27d29b95947a4cbcc86c0cd8e",
+      "segmentation": {
+        "join_abbreviations": [
+          "Art.",
+          "Dr.",
+          "Dra.",
+          "Dras.",
+          "Drs.",
+          "Exma.",
+          "Exmo.",
+          "Prof.",
+          "Profa.",
+          "Profs.",
+          "Sr.",
+          "Sra.",
+          "Sras.",
+          "Srs.",
+          "V.Exa.",
+          "V.Exas.",
+          "art.",
+          "arts."
+        ],
+        "join_short_parts": true
+      },
+      "entries": 40,
+      "entries_by_device": {
+        "cpu": 40
+      },
+      "other_signature_lines": 0,
+      "incomplete_tail_bytes": 0
+    }
+  },
+  "sources": {
+    "nli": {
+      "path": "dataset/PublicHearingBR_NLI.jsonl",
+      "sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "benchmark": {
+      "path": "artifacts/benchmarks/nli_v1.jsonl",
+      "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    },
+    "nli_verifier_config": {
+      "path": "configs/nli_verifier.toml",
+      "sha256": "4024a82586a4a14505be4b33e0b699b6f65feda5be1775cb4f5fa94415c8b6fb"
+    }
+  },
+  "subset": null,
+  "code": {
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
+    "utils/cache_lock.py": "7ce920799be0518f2452a8eac30af478c91435916fd9bb51b81759d10e77283e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "tokenizers": "0.22.2",
+    "huggingface_hub": "1.24.0",
+    "mps_available": true,
+    "torch_threads": 4,
+    "cpu_count": 10,
+    "load_average": [
+      2.04,
+      2.79,
+      5.68
+    ],
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  },
+  "config": {
+    "translation": {
+      "declaration": {
+        "date": "2026-09-24",
+        "text": "Declared on 2026-09-24, before any full translation run and before any score of an English scorer existed. The model, revision, decoding, units, splits and report rules below are fixed for the English conditions of E3 (configs/nli_verifier.toml). Before the full run, only the plan command (token and segment counts, no translation) and smoke runs on at most the first 25 validation opinions (their opinions and chunks) plus the 40 spot-check sentences, on CPU, are run; they are used only to check that the code runs and to time it. This module reads no label, judge or score; apart from the join amendment recorded in [units], nothing here was chosen from translation outputs.",
+        "second_condition_amendment": "Recorded on 2026-09-24, before any translation by facebook/m2m100_418M existed and before any full-run score of an English scorer existed. User decision of 2026-09-24: both translation models are run, as two declared translation conditions of E3 ([models] nllb and m2m100). Reason: facebook/nllb-200-distilled-600M is licensed CC-BY-NC-4.0, which allows non-commercial use only, and facebook/m2m100_418M is licensed MIT; the second condition measures how much the English results of E3 depend on the translation model, and gives an English result obtained with a permissively licensed translation. m2m100 uses the units, segmentation, splits, decoding and batching declared below for NLLB, unchanged; only the model, its revision, its language codes and its tokenizer differ, and each model has its own cache file and signature. There is no fallback model any more. History: earlier the same day facebook/m2m100_418M at this revision was declared in a [fallback] table as a technical fallback of NLLB, to be used only if NLLB could not be loaded (download or load error), behind --use-fallback and --fallback-reason; NLLB loaded, the fallback was never used (status 'declared, not used'), no m2m100 translation was ever made, and this amendment replaces the [fallback] table by [models.m2m100] and the two options by --model nllb|m2m100 (default nllb) on every command. The NLLB model, revision, signature (sha256 b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9), units, segmentation, decoding and batching are unchanged, and the NLLB full run started before this amendment continues unchanged. When this was written no m2m100 translation and no full-run E3 score existed; the NLLB full run had started on MPS at 14:51:27 UTC, and at 15:04:52 UTC (the NLLB plan rerun) the NLLB main cache held 687 MPS translations (678 of that run, 9 of the attempt stopped at 14:51 UTC) and 40 CPU translations (spot check v1); the NLLB CPU translation smoke, spot check v1 (40 NLLB translations, no judgment) and the E3 CPU smoke scores (laya_multi_pt on the first 25 train and 25 validation opinions, the NLLB English scorers on the first 25 validation opinions) existed; no smoke number, translation output, label, judge or score was used to write it. This sentence was corrected on 2026-09-24, see review_amendment.",
+        "review_amendment": "Recorded on 2026-09-24 after a review of the second-condition amendment, before any m2m100 full-run translation, any full-run E3 score and any spot-check judgment existed; no translation quality, label, judge or score was used. (1) second_condition_amendment first said that only the CPU smoke runs existed when it was written; the NLLB full run, spot check v1 and the E3 smoke scores also existed, and the sentence now says so. (2) spot_check.supersedes was first written before the check and the removal it describes; it now records what is known of both. (3) units.chunk_rule_reason and units.join_amendment quoted short transcript sentences; they now describe them without quoting them (translation_v1/plan.json, which is not rewritten, keeps the earlier wording). (4) spot_check.display_amendment: typographic apostrophes and quotation marks are shown in their plain form on the spot-check sheet, and the key lists the rows that stay identifiable. (5) models.nllb.run_note records that the code of the running translation_v1 process was not kept. (6) run.full_run_rule declares the device of the full runs. (7) artifacts/experiments/translation/smoke_translation/report.json (NLLB CPU smoke, 12:41:24 UTC) predates the second condition: it has the earlier fallback field and no model record; it is kept as the record of that smoke and of its timing and is not regenerated."
+      },
+      "inputs": {
+        "nli_verifier_config": "configs/nli_verifier.toml",
+        "rule": "benchmark path and report, gated NLI file, split manifest, premise text source and label probes are read from the E3 config, so the translated texts are the premises and hypotheses E3 scores; premise.text_source must be nli_chunks"
+      },
+      "splits": {
+        "default": [
+          "train",
+          "validation"
+        ],
+        "final_test": [
+          "test"
+        ],
+        "rule": "plan, translate and report read the benchmark rows of the default splits; rows of final_test hearings are read only with --final-test and nothing is chosen on them; --splits can narrow the selection (for a smoke run) but can never add a final_test split without --final-test"
+      },
+      "models": {
+        "default": "nllb",
+        "conditions": [
+          "nllb",
+          "m2m100"
+        ],
+        "rule": "each key is a declared translation condition of the E3 English scorers, which name it in translation_model; every command takes --model <key> (default nllb). The conditions share [splits], [decoding], [units], [report] and the spot check; each has its own cache file (named after its model and revision) and its own signature, so the translations of the two models never mix",
+        "amendment": "Recorded on 2026-09-24, see [declaration] second_condition_amendment: [model] became [models.nllb] with every value unchanged except role (primary became first_condition; role is not part of the signature), and the [fallback] table became the second condition [models.m2m100]",
+        "nllb": {
+          "role": "first_condition",
+          "name": "facebook/nllb-200-distilled-600M",
+          "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+          "revision_source": "huggingface_hub HfApi().model_info on 2026-09-24: sha of the main branch, commit of 2024-02-14 titled 'pipeline_tag: translation'; main is the only branch",
+          "weights_file": "pytorch_model.bin",
+          "weights_note": "the pinned snapshot has no safetensors file; pytorch_model.bin is loaded by transformers with torch.load(weights_only=True)",
+          "architecture": "M2M100ForConditionalGeneration (config.json): 12 encoder and 12 decoder layers, d_model 1024, vocabulary 256,206, max_position_embeddings 1024",
+          "intended_use": "README: research in machine translation, single sentence translation among 200 languages; not intended for document translation; trained with inputs of at most 512 tokens, longer inputs may degrade",
+          "license": "CC-BY-NC-4.0",
+          "license_reason": "CC-BY-NC-4.0 allows non-commercial use and sharing of adapted material with attribution. This is a non-commercial research experiment: the translations are intermediate inputs of the E3 English scorers, stored only in the Git-ignored cache and not redistributed; the versioned artifacts hold counts, distributions and hashes, the translations of the three hand-written label probes and the 40 spot-check sentences, each attributed to this model and revision. Any commercial use of the translations would need another model.",
+          "src_lang": "por_Latn",
+          "tgt_lang": "eng_Latn",
+          "src_token": "por_Latn",
+          "tgt_token": "eng_Latn",
+          "language_rule": "the tokenizer is created with src_lang, so each input is [src_token] tokens [</s>]; generation is forced to start with tgt_token (forced_bos_token_id); both ids are checked against the loaded tokenizer at every load",
+          "dtype": "float32",
+          "dtype_reason": "config.json torch_dtype float32; the same dtype on CPU and MPS",
+          "run_note": "Recorded on 2026-09-24 after a review, while the full NLLB run translation_v1 (translate --device mps) was running. Its process started at 14:51:27 UTC (11:51:27 in the local run log) and executes the utils/translation.py it imported then, a version written after the batching amendment and before the second-condition edits, which modified the file at 15:04 UTC. That version was not kept and its sha256 was not recorded (the code hash in translation_v1/plan.json, 74fcdc128b44..., is from 12:39:21 UTC, before batch_token_budget existed), so the utils/translation.py hash that translation_v1/report.json records identifies no kept file. The current code (utils/translation.py sha256 d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98) reproduces what the run does: replaying its batching with the NLLB tokenizer and the cache opened read-only, at 16:17 UTC, gives 45,224 texts missing at its start, the count the run printed, and the 663 batches it had written (10,518 records, all on mps with batch size 16 and budget 2048) match the replay in composition (0 of 663 differ) and in model input tokens (0 records differ); the 9 MPS records written at 14:47 UTC by the attempt stopped before this run (same batch size and budget) are cached texts for the replay and are not replayed; the NLLB signature, units and model_texts sha256 are unchanged. After the run ends, report --model nllb --run-name translation_v1_report (read-only, no model loaded) writes a report of the same cache whose code hash matches a file on disk, and both reports are kept."
+        },
+        "m2m100": {
+          "role": "second_condition",
+          "name": "facebook/m2m100_418M",
+          "revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+          "revision_source": "huggingface_hub HfApi().model_info on 2026-09-24: sha of the main branch",
+          "history": "declared on 2026-09-24 as the technical fallback of NLLB ([fallback], status 'declared, not used'), never used in that role; a translation condition of its own since the second_condition_amendment of the same day",
+          "fetched": "python -m utils.translation fetch --model m2m100 on 2026-09-24 downloaded the pinned snapshot: README.md, config.json, generation_config.json, special_tokens_map.json, tokenizer_config.json, vocab.json, sentencepiece.bpe.model and pytorch_model.bin",
+          "weights_file": "pytorch_model.bin",
+          "weights_note": "the pinned snapshot has no safetensors file; pytorch_model.bin (1,935,796,948 bytes, 512 tensors, every tensor float32) is loaded by transformers with torch.load(weights_only=True)",
+          "architecture": "M2M100ForConditionalGeneration (config.json at the pinned revision, sha256 df0ae43e4e4b0d7e3c97b7f447857a70ef6b6a2aa1f145cedbcc730d95f67134): 12 encoder and 12 decoder layers, d_model 1024, 16 attention heads, feed-forward dimension 4096, vocabulary 128,112, max_position_embeddings 1024; config.json has no torch_dtype; dropout 0.1 and encoder and decoder layerdrop 0.05 are training settings, inactive in eval mode",
+          "intended_use": "README at the pinned revision (sha256 1fd660f130aedc5ecf1796b47ab47d43d3c4b36541f5387b7adb3df75cb5dfdb): a multilingual encoder-decoder model trained for many-to-many translation, directly between the 9,900 directions of 100 languages, Portuguese (pt) and English (en) among them; the target language id is forced as the first generated token with forced_bos_token_id; M2M100Tokenizer needs sentencepiece. The card has no intended-use, limitations, training-length or input-length section; it cites the paper arXiv 2010.11125 (Fan et al., Beyond English-Centric Multilingual Machine Translation)",
+          "license": "MIT",
+          "license_reason": "MIT allows use, copying, modification and redistribution, commercial use included, with the copyright and permission notice. The translations are handled as the NLLB ones: intermediate inputs of the E3 English scorers, stored only in the Git-ignored cache; the versioned artifacts hold counts, distributions and hashes, the translations of the three hand-written label probes and the spot-check sentences, each attributed to this model and revision",
+          "src_lang": "pt",
+          "tgt_lang": "en",
+          "src_token": "__pt__",
+          "tgt_token": "__en__",
+          "language_rule": "as for NLLB: the tokenizer is created with src_lang, so each input is [src_token] tokens [</s>]; generation is forced to start with tgt_token (forced_bos_token_id); both ids are checked against the loaded tokenizer at every load",
+          "tokenizer_check": "checked on 2026-09-24 on the real tokenizer at the pinned revision, before any translation: M2M100Tokenizer (sentencepiece, no fast tokenizer), created with src_lang pt; 'Bom dia a todos.' is [__pt__ 128075, 5 content tokens, </s> 2]; 2 special tokens per input; right padding with pad id 1; __en__ is id 128022 and get_lang_id('en') gives the same id; decode with skip_special_tokens removes __en__ and </s>. This is the NLLB layout ([src_token] tokens [</s>], one forced target token after the decoder start token), so Seq2SeqTranslator, check_tokenizer and the output token count serve both models unchanged",
+          "dtype": "float32",
+          "dtype_reason": "config.json has no torch_dtype and every tensor of pytorch_model.bin is float32; the same dtype on CPU and MPS",
+          "generation_config_note": "generation_config.json sets num_beams 5, early_stopping true and max_length 200; every [decoding] value is passed explicitly to generate, so the decoding is the one declared in [decoding], identical to NLLB's",
+          "plan_note": "plan --model m2m100 (artifacts/experiments/translation/translation_v1_m2m100/plan.json, 2026-09-24, tokenizer only, no translation): the same 45,273 distinct model texts as NLLB over train and validation plus the label probes (the same ordered list, sha256 88a580af77c41d80d80d310d96ac4f8ddd83aff3c141acafe7610fa942df6a65), 1,587,175 model input tokens against 1,559,288 for NLLB (+1.8%), longest input 405 tokens (q99 115), none over max_input_tokens 512; the m2m100 card states no input limit and max_input_tokens applies unchanged. Batches are formed from each model's own token counts, so the two conditions do not share a batch composition"
+        }
+      },
+      "decoding": {
+        "num_beams": 4,
+        "do_sample": false,
+        "length_penalty": 1.0,
+        "early_stopping": false,
+        "no_repeat_ngram_size": 0,
+        "repetition_penalty": 1.0,
+        "decoding_rule": "deterministic beam search with 4 beams, no sampling, no repetition penalty and no n-gram blocking, so degenerate repetition is measured rather than hidden; every value is passed explicitly to generate",
+        "max_input_tokens": 512,
+        "max_input_rule": "inputs are tokenized with truncation at max_input_tokens, counting the language code and </s> (the model card training limit); a truncated input is counted by plan and flagged in the cache and the report",
+        "max_new_tokens_ratio": 2.0,
+        "max_new_tokens_margin": 16,
+        "max_new_tokens_cap": 1020,
+        "max_new_tokens_rule": "generation_config.json max_length 200 is overridden: the max_new_tokens of a batch is min(max_new_tokens_cap, ceil(max_new_tokens_ratio x the longest model input of the batch, in tokens after truncation) + max_new_tokens_margin); an output that reaches it without </s> is flagged hit_max_new_tokens, and an output longer than ratio x its own input + margin is flagged long_output, which marks every output the batch composition could have cut",
+        "batch_size": 16,
+        "batch_token_budget": 2048,
+        "batching_rule": "the distinct texts still missing from the cache are sorted by model input length before truncation, longest first (stable, ties in first-occurrence order), and grouped in that order: a batch takes the next text while it holds fewer than batch_size texts and its number of texts plus one, times the model input tokens of its first (longest) text, stays within batch_token_budget; a batch always holds at least one text; batch_token_budget = 0 gives batches of batch_size",
+        "batching_amendment": "Recorded on 2026-09-24, before any translation of the full run existed. The first full run on MPS (started 09:44, stopped at 11:45) wrote no batch in two hours: its first batch held the 16 longest units (up to 412 model input tokens, max_new_tokens up to 840, 4 beams, 64 sequences), whose decoder cache alone needs about 5 GB, and the machine was swapping (20.0 of 20.5 GB of swap in use). batch_token_budget was added so the few long units go in smaller batches: with 2048, texts of up to 128 model input tokens (more than 99% of the planned texts, q99 113) still go in batches of 16 and the 412-token unit goes in a batch of 4. It changes only how the missing texts are grouped; model, revision, units and decoding are unchanged, batch size and budget are not part of the cache signature, and each cache record stores its batch size, budget and batch number. Decided from memory use, elapsed time and the planned token counts only; no label, judge or score was read",
+        "determinism_note": "decoding is deterministic for a given batch and device; float32 rounding in padded batches and between devices can in rare cases change a beam, so each cache record stores the device, batch size and batch number, the first translation of a text is kept, and the report counts the records of each device"
+      },
+      "units": {
+        "opinion_rule": "each opinion is translated whole: the benchmark opinion after udv_pipeline.normalize_whitespace, the hypothesis text E3 scores",
+        "chunk_rule": "each premise chunk is chunks_proximos[position] of the gated NLI file after udv_pipeline.normalize_whitespace, the premise text E3 scores. The chunk is cut at the sentence boundaries of udv_pipeline.split_sentences (SENTENCE_BOUNDARY_PATTERN) and every non-empty part is kept in order; the join rule below then merges some parts into translation units; each distinct unit is translated once, and the English chunk is the non-empty translations of its units joined by one space",
+        "chunk_rule_reason": "split_sentences also drops parts shorter than 4 words and stage directions (udv_pipeline.is_sentence). Counted by the plan command on the 9,908 distinct train and validation chunks, before any translation: joining only the split_sentences sentences would remove 5,333 of 1,043,920 words (0.51%) from 1,962 chunks (19.8%), among them short content sentences such as one-word answers and three-word statements, so the English premise would not carry the same text as the Portuguese premise E3 scores. Keeping every part keeps every word of the chunk in the English premise. Decided from word counts only; no translation, label or score was read",
+        "join_abbreviations": [
+          "Sr.",
+          "Sra.",
+          "Srs.",
+          "Sras.",
+          "Dr.",
+          "Dra.",
+          "Drs.",
+          "Dras.",
+          "V.Exa.",
+          "V.Exas.",
+          "Prof.",
+          "Profa.",
+          "Profs.",
+          "Exmo.",
+          "Exma.",
+          "art.",
+          "arts.",
+          "Art."
+        ],
+        "join_short_parts": true,
+        "join_rule": "walking the parts of a chunk in order, a part (or the text accumulated so far) is joined by one space to the next part when its last whitespace token is in join_abbreviations or, with join_short_parts, when udv_pipeline.is_sentence rejects it (fewer than 4 words, or only a stage direction); text still pending at the end of the chunk is joined to the previous unit, or is the only unit. Every word of the chunk stays in exactly one unit. Setting join_abbreviations = [] and join_short_parts = false gives one unit per boundary part",
+        "join_amendment": "Recorded on 2026-09-24, before any full translation run and before any English score existed. A debug run on the first validation opinion (27 texts, CPU, cache and report outside artifacts) showed content absent from the source in the translations of parts cut at an abbreviation (a part made of a single form of address, a part ending in a form of address) and a short closing formula of thanks translated twice, the known weakness of the model on inputs much shorter than a sentence. The join rule was added after that run; the model, revision and decoding were not changed. The abbreviation list holds the forms of address and legal abbreviations that end non-final parts, counted by the plan command without translation (join_abbreviation_last_token_counts: Sr. 473, Dr. 319, art. 319, Sra. 238, V.Exa. 164, Dra. 131, Prof. 81, Profa. 61, Srs. 52, Sras. 22, Exmo. 16, V.Exas. 14, arts. 12, Exma. 3, Art. 1; Drs., Dras. and Profs. complete the forms and do not occur). Of the 43,777 distinct boundary parts of the train and validation chunks and the label probes, 1,561 end in a listed abbreviation and 1,307 are rejected by is_sentence; after the rule there are 41,599 distinct units, 2 of them still shorter than a sentence (chunks with no sentence), and 2,636 of the 9,911 distinct chunks have joined parts. No label, judge or score was read",
+        "verbatim_rule": "a part without any letter or digit (for example ')') is copied unchanged and never sent to the model",
+        "empty_rule": "an empty chunk gives an empty English chunk; E3 does not score empty chunks",
+        "probe_rule": "each [label_probes] premise of the E3 config is translated as a chunk and each hypothesis as an opinion; the probe translations are written to every report",
+        "deduplication": "opinions and parts share one cache keyed by text, so a text is translated once whatever its role, split or position"
+      },
+      "cache": {
+        "dir": "artifacts/cache/translation",
+        "rule": "one JSONL file per model and revision; each line holds key = sha256 of the signature digest (sha256 of the canonical JSON of model, revision, languages, dtype and decoding parameters) and the whitespace-normalized source text, plus the source, the translation, token counts, flags and provenance (device, batch size, batch number, seconds). Lines are appended batch by batch in one write, so an interrupted run resumes from the last complete batch; a translate run cuts an incomplete last line, a read-only open ignores it, and a malformed complete line stops the run. One writer at a time: translate and spot-check (without --cached-only) must not run together on the same cache, while any number of read-only stores (the E3 scorers) can open it during a run",
+        "models_rule": "each translation condition of [models] has its own file in this directory (translations_<model>_<revision[:12]>.jsonl) and its own signature; a command opens only the cache of its --model as a writer, and spot-check opens the caches of the other conditions read-only (added on 2026-09-24 with the second condition)"
+      },
+      "report": {
+        "output_dir": "artifacts/experiments/translation",
+        "degenerate_ngram": 4,
+        "degenerate_min_count": 4,
+        "degenerate_rule": "an output is degenerate when some 4-gram of lowercased word tokens (\\w+) occurs at least 4 times, overlaps counted; the same test on the source separates repetition already present in the speech from repetition added by the model",
+        "identical_rule": "the output equals its whitespace-normalized source; verbatim parts are not counted",
+        "doubled_length_rule": "an output is flagged doubled_length when it has more than twice the tokens of its input (content tokens of the model tokenizer), which catches a short input translated twice",
+        "length_ratio_rule": "tokens: output tokens / input tokens of the model tokenizer, language codes and </s> excluded; characters: output characters / source characters; English chunk characters / Portuguese chunk characters per distinct chunk",
+        "content_rule": "the versioned report holds counts, distributions, timing, cache keys and hashes; it holds no transcript or article text, translated or not, except the label probes",
+        "estimate_rule": "report --estimate-from-plan extrapolates a full run from a plan.json: measured seconds per model input token of the selected cache records x the plan input tokens, and measured seconds per text x the plan distinct texts, separately per device; a device without records has no estimate"
+      },
+      "spot_check": {
+        "name": "translation_spot_check_v2",
+        "supersedes": "translation_spot_check_v1: 40 rows with the NLLB translation only, generated on 2026-09-24 before the second condition existed; v2 shows the same 40 units with both translations. Its untracked folder was removed at 15:21:58 UTC (the last modification time of artifacts/validation, which holds only v2 and a folder of 2026-09-23), after its draws, NLLB cache keys and flags had been copied to a scratch file (15:16:36 UTC) and after v2 was written (15:20:45 UTC); v2 draws the same units, in the same order, with the same NLLB cache keys. A check made before the removal found the three judgment columns (adequacao, fluencia, observacao) of its 40 rows empty, all 120 cells; the time and output of that check were not saved, and neither the v1 sheet nor its sha256 was kept, so the check cannot be repeated or verified now. This text was corrected on 2026-09-24 (see [declaration] review_amendment): its first version was written at about 15:04 UTC, before the check and the removal it described.",
+        "supersede_rule": "added on 2026-09-24: a sheet with any judgment filled in is never overwritten (the command refuses) and is never removed; a sheet without judgment may be regenerated in place, and the new key records the sha256 and the filled judgment cells of the sheet it replaced (replaced_sheet)",
+        "amendment": "Recorded on 2026-09-24 with the second translation condition, before any m2m100 translation and before any judgment existed: the population, size, seed and draw rule of v1 are unchanged, so v2 draws the same 40 units; each unit is shown once per condition of models (80 rows) in a blind order given by order_seed, and the key file says which row is which. Nothing here was chosen from a translation, label, judge or score",
+        "output_dir": "artifacts/validation",
+        "split": "validation",
+        "population": "distinct translation units of validation chunks (after the join rule) that udv_pipeline.is_sentence accepts (at least 4 words, not a stage direction), in first-occurrence order of the benchmark file",
+        "size": 40,
+        "seed": 42,
+        "draw_rule": "numpy default_rng(seed).choice(population size, size, replace=False); units are numbered U01..U40 in draw order",
+        "models": [
+          "nllb",
+          "m2m100"
+        ],
+        "order_seed": 20260924,
+        "order_rule": "the rows are built in draw order, one row per unit and model in the order of models (U01 nllb, U01 m2m100, U02 nllb, ...); numpy default_rng(order_seed).permutation(number of rows) gives the sheet order, sheet row i holding built row permutation[i]; item ids T01..T80 follow the sheet order",
+        "item_id_prefix": "T",
+        "csv_delimiter": ";",
+        "csv_encoding": "utf-8-sig",
+        "csv_reason": "same convention as the human validation sheets: Excel in a pt-BR locale splits on semicolons",
+        "columns": [
+          "item_id",
+          "texto_pt",
+          "traducao_en",
+          "adequacao",
+          "fluencia",
+          "observacao"
+        ],
+        "judgment_columns": [
+          "adequacao",
+          "fluencia",
+          "observacao"
+        ],
+        "display_normalization": {
+          "‘": "'",
+          "’": "'",
+          "“": "\"",
+          "”": "\""
+        },
+        "display_rule": "on the sheet only, each translation is shown with display_normalization applied (the typographic single and double quotation marks, U+2018, U+2019, U+201C and U+201D, replaced by their plain ASCII forms), so the sheet shows the translations E3 reads up to these glyphs; the key keeps translation_sha256, the hash of the exact text E3 reads, and adds for each row display_normalized and sheet_translation_sha256, the hash of the text shown",
+        "display_amendment": "Recorded on 2026-09-24 after a review, before any judgment existed. In the first v2 sheet the apostrophe glyph told the models apart: the plain apostrophe occurred only in NLLB rows (10 rows) and U+2019 only in m2m100 rows (3 rows), and no texto_pt holds either, so a reader could group 13 rows by model, 24 with the other row of each unit. The first v2 sheet (spot_check.csv sha256 142ed559635ea63054b310027416fe208e73263550b51c18bd0c71c4d14d5ec6, 0 of its 240 judgment cells filled) was replaced in place by a sheet regenerated with the same seeds, so the draws, the order and the item ids are unchanged and only the shown text of the rows with a typographic mark changed (T62, T63 and T74). The mapping covers only typographic variants of the apostrophe and of the quotation marks, so no word, number or punctuation choice of a model is changed. blinding_check in the key lists every character still found in the rows of one model only and the rows it makes identifiable; after the regeneration this is the em dash, which m2m100 keeps from the source in 1 row and NLLB drops in the other row of that unit, so 2 rows of 1 unit stay identifiable, and the judgments can be reported with and without them. Decided from the characters of the shown translations only; no translation quality, label, judge or score was used.",
+        "blinding": "the sheet shows only an item id, the source and one translation, in the shuffled order; the unit, the model, hearing and opinion ids, token counts and every automatic flag of each row are written to spot_check_key.json, which the annotator does not open before finishing",
+        "cache_rule": "the sheet shows the translations E3 reads: each condition is read from its main cache under its own signature. spot-check --model <key> translates the missing units of that model only, into that model's main cache, on the device of --device; the caches of the other conditions are opened read-only and the command stops, before loading any model or writing anything, if one of them lacks a unit (it never translates for another model). A writer is opened only when the selected model has a missing unit; spot-check --cached-only opens every cache read-only and loads no model. The command refuses to overwrite a sheet that has any judgment filled in",
+        "labels_rule": "the sample uses no label, judge or score; it checks translation quality only and no E3 choice is made from it",
+        "readme": "# Checagem manual da tradução (translation_spot_check_v2)\n\nA planilha `spot_check.csv` tem 80 linhas, feitas a partir de 40 trechos de transcrição sorteados\n(semente 42) entre as unidades de tradução dos trechos de validação. Cada trecho foi traduzido para o\ninglês por dois tradutores automáticos, facebook/nllb-200-distilled-600M e facebook/m2m100_418M, nas\nrevisões fixadas em `configs/translation.toml`.\n\nCada frase aparece duas vezes, em linhas diferentes e fora de ordem, cada vez com a tradução de um\ndos dois tradutores; as duas traduções podem até coincidir. Julgue cada linha por si só, sem procurar\na outra linha da mesma frase para comparar, e não tente adivinhar qual tradutor produziu a tradução.\n\nCada unidade é uma frase da transcrição; quando uma frase tem menos de quatro palavras ou termina em\nabreviação (Sr., Dra., V.Exa., art.), ela aparece unida à frase seguinte, ou, no fim do trecho, à\nfrase anterior, exatamente como foi traduzida. Nas traduções, apóstrofos e aspas tipográficos\naparecem na forma simples (' e \").\n\nPara cada linha, leia `texto_pt` inteiro e depois `traducao_en`, e preencha:\n\n- `adequacao` (1 a 4): quanto do sentido de `texto_pt` está em `traducao_en`.\n  4: todo o sentido. 3: quase todo, com perda ou erro que não muda a afirmação.\n  2: parte do sentido, ou um erro que muda a afirmação (negação perdida, sujeito trocado, número errado).\n  1: pouco ou nada do sentido, ou sentido oposto.\n- `fluencia` (1 a 4): quão correto é o inglês, lido sozinho, sem olhar o português.\n  4: inglês correto. 3: compreensível, com erros pequenos. 2: difícil de entender. 1: incompreensível.\n- `observacao` (opcional): o tipo de erro, por exemplo nome próprio traduzido, negação perdida,\n  repetição, trecho omitido, termo técnico ou jurídico errado.\n\nJulgue a tradução da frase como ela está, mesmo quando a frase original estiver incompleta ou mal\ntranscrita; nesse caso, anote em `observacao`. Não use outro tradutor automático como referência e\nnão abra `spot_check_key.json` antes de terminar: ele diz qual tradutor produziu cada linha e traz os\nidentificadores das audiências e as marcações automáticas de cada item.\n\nA planilha é regenerada por `python -m utils.translation spot-check`, que se recusa a sobrescrever\num arquivo com qualquer julgamento preenchido.\n"
+      },
+      "run": {
+        "seed": 42,
+        "device": "auto",
+        "full_run_rule": "Recorded on 2026-09-24 after a review, before any m2m100 full-run translation: the full translate run of each condition uses --device mps, one condition at a time (the m2m100 run starts only after the NLLB run translation_v1 has ended), so the two conditions differ in the model and not in the device. The 40 spot-check units of each condition were translated on CPU before its full run and keep that translation (the first translation of a text is kept): at 16:21 UTC the NLLB cache held CPU records for exactly those 40 units and MPS records for every other text (11,623 records), and the m2m100 cache held only the 40 CPU records. Each E3 score report records its translation store with entries_by_device, and the evaluation report repeats it for each scorer (scorers.<key>.translation.store), so the device mix of both caches is reported next to T01 to T03",
+        "hf_hub_offline": true,
+        "hf_hub_offline_rule": "every command except fetch switches huggingface_hub to offline mode before any model is loaded (utils.hub_offline.enforce_offline) and loads config, tokenizer and weights with local_files_only from the pinned snapshot; fetch downloads the pinned revision into the local Hugging Face cache",
+        "progress_every_batches": 10
+      }
+    },
+    "nli_verifier": {
+      "path": "configs/nli_verifier.toml"
+    }
+  }
+}

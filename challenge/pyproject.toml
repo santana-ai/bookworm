@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "huggingface-hub>=1.24.0",
+    "laya==0.3.11",
     "matplotlib>=3.11.1",
     "pandas>=3.0.5",
     "protobuf>=7.36.2",
@@ -21,6 +22,7 @@ dependencies = [
 dev = [
     "ipykernel>=7.3.0",
     "jupyter>=1.1.1",
+    "pytest>=9.1.1",
     "ruff>=0.16.8",
 ]
 
@@ -30,3 +32,7 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
