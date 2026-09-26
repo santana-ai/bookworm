@@ -84,6 +84,7 @@ def test_help_lists_the_version_option_and_commands() -> None:
     assert "build-splits" in result.output
     assert "verify-splits" in result.output
     assert "export-hearing" in result.output
+    assert "export-site" in result.output
 
 
 def test_version_prints_the_package_version() -> None:

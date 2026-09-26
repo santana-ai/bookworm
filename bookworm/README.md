@@ -117,13 +117,15 @@ uv run bookworm verify-udvs --config configs/udv.toml --run-name udv_v1
 uv run bookworm verify-udvs --config configs/udv.toml --run-name udv_v1 --baseline artifacts/udv/udv_v0.jsonl
 uv run bookworm export-hearing --config configs/udv.toml --run-name udv_v1 --hearing 70 \
     --output demo/hearing70.json --split-manifest artifacts/splits/temporal_v1.json
+uv run bookworm export-site --config configs/udv.toml --run-name udv_v1 \
+    --split-manifest artifacts/splits/temporal_v1.json
 uv run bookworm build-splits --config configs/splits.toml
 uv run bookworm verify-splits --config configs/splits.toml
 ```
 
 Sem `--config`, os comandos procuram `configs/udv.toml` e `configs/splits.toml`. Sem `--run-name`,
-`build-udvs` e `verify-udvs` usam `udv_v0`, como os scripts de referência; em `export-hearing` o nome é
-obrigatório.
+`build-udvs` e `verify-udvs` usam `udv_v0`, como os scripts de referência; em `export-hearing` e
+`export-site` o nome é obrigatório.
 
 - `build-udvs` grava `<output_dir>/<run-name>.jsonl` e `<output_dir>/<run-name>_coverage.json`, e guarda
   os embeddings em `cache_dir`, com o mesmo nome de arquivo dos scripts de referência (o cache existente
@@ -133,25 +135,46 @@ obrigatório.
 - `export-hearing` grava, em `--output`, uma audiência de uma execução no JSON lido pela demonstração
   web: transcrição, turnos com as sentenças e os offsets de cada uma, participantes, as UDV da
   execução e, para cada opinião, as `--top-k` (padrão 8) sentenças do participante mais similares a
-  ela, calculadas com o encoder e o cache de `build-udvs`. Com `--split-manifest`, o conjunto da
-  audiência no manifesto entra em `hearing.split`. O comando para com código 2 se a execução foi
-  construída com outro encoder ou outra revisão, se a audiência não pertence à execução ou se os
-  registros da audiência não correspondem às opiniões do LDS. O formato está em
+  ela. Os embeddings vêm só do cache que `build-udvs` gravou para a execução
+  ([ADR 0004](docs/adr/0004-exports-read-only-the-run-cache.md)): o comando não carrega modelo, não
+  importa `torch` e não grava nada no cache, e um embedding ausente do cache faz o comando parar com
+  código 2, com o caminho do arquivo esperado. Com `--split-manifest`, o conjunto da audiência no
+  manifesto entra em `hearing.split`. O comando também para com código 2 se a execução foi construída
+  com outro encoder ou outra revisão, se a audiência não pertence à execução ou se os registros da
+  audiência não correspondem às opiniões do LDS. O formato está em
   [docs/data_model.md](docs/data_model.md#json-de-demonstração-export-hearing).
+- `export-site` grava os dados da demonstração para todas as audiências de uma execução numa só
+  passada: `hearings/<id>.json`, que é exatamente o arquivo de `export-hearing` daquela audiência
+  (mesmo código, mesmo `--top-k` padrão, mesmo manifesto), e `index.json`, com um resumo de cada
+  audiência para a tela que lista as matérias. O LDS é lido uma vez, e os embeddings vêm só do cache,
+  como em `export-hearing`. Sem `--output`, o destino é `web/app/data` do projeto `bookworm` de onde o
+  pacote foi instalado em modo editável; fora dessa árvore de código, `--output` é obrigatório.
+  `bookworm/web/app/data/` está no `.gitignore` porque os arquivos contêm as transcrições inteiras. O
+  comando recusa um destino que já tenha `index.json` ou `hearings/`, a não ser com `--overwrite`, que
+  apaga o `index.json` antigo antes de gravar a primeira audiência e regrava os arquivos das audiências
+  da execução; arquivos de outras audiências não são apagados e ficam fora do índice. `index.json` é
+  gravado por último, então uma exportação interrompida, nova ou com `--overwrite`, deixa o diretório
+  sem índice. Nenhum arquivo leva data de criação, e duas exportações com as mesmas entradas geram os
+  mesmos bytes. Para `udv_v1` são 206 arquivos de audiência com 76.526.309 bytes no total (mediana de
+  329.899; o maior, 3.377.789, é o da audiência 6, cuja transcrição tem 147.728 palavras) e um índice
+  de 184.112 bytes. O formato está em
+  [docs/data_model.md](docs/data_model.md#diretório-de-demonstração-export-site), e a página que lê
+  esses arquivos, com o comando para servi-la, está descrita em [web/README.md](web/README.md).
 - `build-splits` grava `<output_dir>/<split_version>.json` (manifesto) e
   `<output_dir>/<split_version>_report.json` (relatório) e imprime um resumo por conjunto. Se `udv_path`
   existir, as UDVs entram nas contagens do relatório; se não existir, `udv_source` fica `null`.
 - `verify-splits` refaz a extração de datas, os cortes e a atribuição a partir do LDS e confere o
   manifesto e o relatório gravados.
 
-Códigos de saída, iguais nos cinco comandos:
+Códigos de saída, iguais nos seis comandos:
 
 - `0`: nenhum problema.
 - `1`: a verificação encontrou problemas, listados em `problems`.
 - `2`: erro de entrada: hash do LDS divergente (`DatasetIntegrityError`), TOML ausente ou inválido
   (`ConfigError`), arquivo de execução, manifesto ou relatório ausente ou ilegível, seleção de audiências
-  vazia, audiência ou encoder que não correspondem à execução exportada, matéria sem carimbo de
-  publicação ou falta de corte elegível (`SplitError`).
+  vazia, audiência ou encoder que não correspondem à execução exportada, embedding ausente do cache
+  numa exportação (`EmbeddingCacheMissError`), destino de `export-site` já exportado sem
+  `--overwrite`, matéria sem carimbo de publicação ou falta de corte elegível (`SplitError`).
 
 ### Configuração de UDV
 
@@ -281,6 +304,7 @@ from bookworm import (
     export_hearing,
     load_hearings,
     load_split_config,
+    pipeline_description,
     verify_split_run,
 )
 from bookworm.udv.build import udv_corpus
@@ -296,7 +320,9 @@ run = build_udvs(hearings[:20], cached, EvidenceSettings(embedding_threshold=0.4
 print(run.records[0].to_json_line())
 
 first = [record for record in run.records if record.hearing_id == hearings[0].id]
-demo = export_hearing(hearings[0], first, cached, run_name="tfidf", top_k=3)
+demo = export_hearing(
+    hearings[0], first, cached, run_name="tfidf", pipeline=pipeline_description(), top_k=3
+)
 print(demo["udvs"][0]["candidates"])
 
 config = load_split_config(Path("configs/splits.toml"))
@@ -373,10 +399,11 @@ Com `challenge/configs/splits.toml`, o resultado é `temporal_v1`: 144 audiênci
 ```text
 src/bookworm/
   __init__.py            API pública (reexporta os nomes abaixo)
-  cli.py                 aplicação Typer: build-udvs, verify-udvs, export-hearing, build-splits,
-                         verify-splits
+  cli.py                 aplicação Typer: build-udvs, verify-udvs, export-hearing, export-site,
+                         build-splits, verify-splits
   config.py              UdvConfig e SplitConfig (pydantic, frozen), lidos de TOML
-  errors.py              BookwormError, DatasetIntegrityError, ConfigError, SplitError
+  errors.py              BookwormError, DatasetIntegrityError, ConfigError, SplitError,
+                         EmbeddingCacheMissError
   data/
     io.py                JSONL/JSON em UTF-8, sha256, leitura do LDS com checagem de hash
     schemas.py           HearingRecord, Metadados, Envolvido (schema do LDS)
@@ -397,8 +424,10 @@ src/bookworm/
     coverage.py          arquivo de cobertura de uma execução, com a seção pipeline
     verify.py            verificação independente de uma execução e diferença contra outra
     export.py            JSON de uma audiência para a demonstração web (export-hearing)
+    site.py              diretório da demonstração: um JSON por audiência e index.json (export-site)
   features/
-    encoders.py          protocolo SentenceEncoder e cache em disco (CachedEncoder)
+    encoders.py          protocolo SentenceEncoder, cache em disco (CachedEncoder, com modo
+                         cache_only) e RunCacheEncoder, que só dá nome ao cache de uma execução
     tfidf.py             TfidfEncoder, ajustado no corpus, em CPU
     sentence_transformer.py  encoder sentence-transformers (só com o extra embeddings)
 ```
@@ -409,6 +438,11 @@ Dependências entre módulos: `transcript` não conhece `udv`; `udv` usa `transc
 único módulo que importa `torch` ou `sentence_transformers`, e a CLI só o importa quando a configuração
 pede esse encoder; por isso `import bookworm` funciona sem o extra `embeddings`. A CLI recebe a fábrica
 de encoders por `create_app(encoder_factory)`, o que permite testar os comandos sem carregar modelo.
+`export-hearing` e `export-site` não usam essa fábrica: com um encoder `sentence-transformers`, montam
+um `RunCacheEncoder` com `name` e `revision` da configuração e o dispositivo gravado em
+`encoder_runtime.device` do arquivo de cobertura, que só dá nome aos arquivos do cache; com TF-IDF,
+reajustam o encoder no corpus das audiências da execução, como `build-udvs`. `udv.site` usa
+`udv.export` e não conhece a CLI.
 
 ## Testes e CI local
 
@@ -452,13 +486,14 @@ Marcadores e variáveis de ambiente:
   [docs/data_model.md](docs/data_model.md); os cinco defeitos injetados no manifesto real (audiência
   trocada de conjunto, audiência removida, data alterada, fronteira alterada, contador do relatório
   alterado); uma execução TF-IDF nas 20 primeiras audiências que precisa passar em todas as checagens e
-  ter as mesmas citações de `udv_v1`; e a exportação da audiência 70 de `udv_v1`.
+  ter as mesmas citações de `udv_v1`; a exportação da audiência 70 de `udv_v1`; e a exportação das 206
+  audiências de `udv_v1` com `export_site` (contagens do índice, manchetes e tamanhos dos arquivos).
 - `BOOKWORM_EMBEDDING_CACHE`: diretório de cache de embeddings já existente (por exemplo
   `challenge/artifacts/cache/embeddings`). Com ele, `tests/integration/test_parity_udv_cached_rebuild.py`
-  reconstrói `udv_v1` e `udv_v1_pre` e `tests/integration/test_export_hearing.py` exporta a audiência 70
-  só a partir do cache: o encoder desses testes falha em qualquer texto que não esteja no cache, o cache
-  é aberto em modo somente leitura e o teste confere que nenhum arquivo do diretório foi criado ou
-  alterado.
+  reconstrói `udv_v1` e `udv_v1_pre`, `tests/integration/test_export_hearing.py` exporta a audiência 70
+  e `tests/integration/test_export_site.py` exporta as 206 audiências, só a partir do cache: o encoder
+  desses testes falha em qualquer texto que não esteja no cache, o cache é aberto em modo somente
+  leitura e o teste confere que nenhum arquivo do diretório foi criado ou alterado.
 - `model`: carrega o encoder Serafim; é opt-in e fica fora da execução padrão (`addopts` usa
   `-m 'not model'`). Rodar com `uv run pytest -m model`. Por padrão reconstrói as 20 primeiras
   audiências de `udv_v1`; `BOOKWORM_PARITY_FULL=1` reconstrói as 206. Ids, tiers, `support_type`,

@@ -2,7 +2,8 @@
 
 Este documento descreve, campo por campo, os arquivos que a biblioteca lê e grava: o arquivo LDS do
 PublicHearingBR, o registro UDV, o arquivo de cobertura de uma execução de UDV, o JSON de
-demonstração de uma audiência, o manifesto de split e o relatório de split. Os scripts de origem
+demonstração de uma audiência, o diretório de demonstração de uma execução, o manifesto de split e o
+relatório de split. Os scripts de origem
 trocam dicionários sem schema publicado, então o significado de um campo, os valores possíveis e os
 casos em que ele fica nulo só podiam ser descobertos lendo o código. Os números citados vêm dos
 arquivos reais (`PublicHearingBR_LDS.jsonl` com o sha256
@@ -171,19 +172,85 @@ foi escolhida e quais trechos ficaram perto dela. Chaves de primeiro nível, nes
 | `turns[].sentences[]` | lista | Sentenças candidatas do turno, na ordem do texto, com `text`, `start` e `end`; os offsets são procurados só nesse turno e ficam `null` se o texto não for encontrado nele. |
 | `people[]` | lista | Participantes de `envolvidos`, na ordem do LDS: `index`, `name`, `role`, `turns` (índices dos turnos atribuídos) e `resolved` (pelo menos um turno). |
 | `udvs[]` | lista | Os registros UDV da audiência, lidos de `<run>.jsonl`, com os campos de `UdvRecord` na mesma ordem e três campos a mais. |
-| `udvs[].candidates[]` | lista | Até `--top-k` (padrão 8) sentenças candidatas do participante, em ordem decrescente de similaridade de cosseno com a opinião, com o mesmo encoder e o mesmo cache de `build-udvs`; empates ficam na ordem das sentenças. Cada uma tem `text`, `score` (arredondado a 4 casas), `turn`, `start` e `end`. Vazia quando o participante não tem sentença candidata. |
+| `udvs[].candidates[]` | lista | Até `--top-k` (padrão 8) sentenças candidatas do participante, em ordem decrescente de similaridade de cosseno com a opinião, calculada com os embeddings que `build-udvs` gravou no cache para a execução; empates ficam na ordem das sentenças. Cada uma tem `text`, `score` (arredondado a 4 casas), `turn`, `start` e `end`. Vazia quando o participante não tem sentença candidata. |
 | `udvs[].n_candidates` | inteiro | Número de sentenças candidatas do participante. |
 | `udvs[].quotes` | lista de texto | Citações extraídas da opinião com os padrões da rodada, na ordem da opinião. |
 | `run.name` | texto | Nome da execução. |
 | `run.encoder`, `run.revision`, `run.threshold` | texto, texto, número | `method.encoder`, `method.revision` e `method.embedding_threshold` dos registros. |
 
+Os offsets contam caracteres Unicode, como os índices de `str` do Python. Um navegador indexa texto em
+unidades UTF-16, e as duas contagens passam a diferir depois do primeiro caractere fora do plano básico
+(um emoji, por exemplo); por isso a demonstração web recusa um arquivo em que `transcript_chars` não é
+igual ao tamanho da transcrição medido por ela.
+
 Nas UDV semânticas, o primeiro candidato é a própria evidência: mesmo texto, turno e offsets, e
 `score` igual ao da evidência arredondado a 4 casas. Em `quote_found` os candidatos continuam sendo os
 da similaridade, e a evidência pode não estar entre eles. O comando para com código 2 quando os
 registros da audiência na execução não são exatamente as opiniões do LDS, na mesma ordem, ou quando o
-encoder da configuração tem nome ou revisão diferente de `method`. Para a audiência 70 de `udv_v1`
+encoder da configuração tem nome ou revisão diferente de `method`, e também quando falta no cache o
+arquivo de embeddings das sentenças ou das opiniões da audiência (`EmbeddingCacheMissError`, com o
+caminho esperado); a exportação nunca calcula embeddings
+([ADR 0004](adr/0004-exports-read-only-the-run-cache.md)). Para a audiência 70 de `udv_v1`
 (teste `tests/integration/test_export_hearing.py`): 21 turnos, 6 participantes, 12 UDV, 10 evidências,
 todas as posições conferidas contra a transcrição.
+
+## Diretório de demonstração (`export-site`)
+
+A demonstração web lista todas as matérias de uma execução e abre qualquer uma delas lendo arquivos
+estáticos, sem servidor de aplicação. `bookworm export-site` grava esse conjunto num diretório (por
+padrão `bookworm/web/app/data/`, fora do Git):
+
+```text
+<saída>/
+  index.json
+  hearings/
+    1.json
+    ...
+    206.json
+```
+
+Cada `hearings/<id>.json` é o arquivo que `export-hearing --hearing <id>` gravaria com as mesmas
+opções (`--top-k`, `--split-manifest`), byte a byte, então a demonstração lê um e outro do mesmo jeito;
+o formato é o da seção anterior. `index.json` resume cada audiência para a tela que lista as matérias,
+sem que ela precise abrir os 206 arquivos. Nenhum arquivo do diretório tem data de criação: duas
+exportações com as mesmas entradas geram os mesmos bytes. O índice é gravado depois de todas as
+audiências, e um `index.json` que já exista no diretório é apagado antes da primeira (com
+`--overwrite`), então uma exportação que para no meio deixa o diretório sem `index.json`. Só as
+audiências listadas no índice pertencem à exportação: `--overwrite` não apaga arquivos de audiências
+que ficaram fora da execução, e a demonstração web recusa abrir uma audiência que não está no índice
+ou cujo bloco `run` difere do dele.
+
+`index.json` é um objeto com duas chaves, nesta ordem: `run` e `hearings`.
+
+| Campo | Tipo | Conteúdo |
+|---|---|---|
+| `run` | objeto | O bloco `run` dos arquivos de audiência (`name`, `encoder`, `revision`, `threshold`). Precisa ser igual em todas as audiências; se não for, o comando para com código 2. |
+| `hearings[]` | lista | Uma entrada por audiência da execução, em ordem crescente de `id`, com as chaves na ordem desta tabela. |
+| `hearings[].id`, `hearings[].split`, `hearings[].article_date`, `hearings[].assunto` | inteiro, texto ou `null`, texto ou `null`, texto | Cópias dos campos de mesmo nome em `hearing` do arquivo da audiência. |
+| `hearings[].title` | texto | Título curto para exibição, pela regra descrita abaixo. |
+| `hearings[].n_udvs` | inteiro | Número de UDV da audiência (tamanho de `udvs`). |
+| `hearings[].n_people`, `hearings[].n_people_resolved` | inteiro | Número de participantes em `people` e quantos deles têm pelo menos um turno atribuído (`resolved`). |
+| `hearings[].tiers` | objeto | Número de UDV por `tier`, com os cinco valores sempre presentes, na ordem de `Tier`, e `0` quando não há nenhuma. |
+| `hearings[].support_types` | objeto | Número de UDV com evidência por `evidence.support_type`, com os três valores sempre presentes, na ordem de `SupportType`. UDV sem evidência (`no_evidence`, `person_not_resolved`) não entram, então a soma é o número de UDV com `evidence`. |
+| `hearings[].transcript_words` | inteiro | Cópia de `hearing.transcript_words`. |
+| `hearings[].actors` | lista de texto | `name` de cada participante de `people`, na mesma ordem; a posição na lista é `people[].index`. |
+
+O título é a primeira linha não vazia de `materia` (a manchete da matéria), com os espaços
+normalizados; se `materia` não tiver nenhuma linha com texto, é `assunto`, também normalizado. Um
+título com mais de 120 caracteres é cortado no último espaço que deixa o resultado, já com as
+reticências (`…`), em até 120 caracteres; vírgula, ponto e vírgula, dois pontos e hífen soltos antes
+das reticências são removidos, e uma palavra única maior que o limite é cortada no caractere 119. A
+manchete identifica a matéria que a demonstração mostra, e o limite impede que uma matéria sem quebra
+de linha vire um título do tamanho do texto. No LDS, as manchetes têm de 58 a 124 caracteres, todas
+diferentes, e 1 das 206 é cortada.
+
+Para `udv_v1` com `temporal_v1` (teste `tests/integration/test_export_site.py`): 206 arquivos de
+audiência, 2.203 UDV, com as contagens por `tier` e por `support_type` iguais às do arquivo de
+cobertura (`quote_found` 277, `semantic_match_high` 1.785, `semantic_match_weak` 43, `no_evidence` 8,
+`person_not_resolved` 90; `direct_quote` 277, `semantic_with_short_quote` 111, `semantic_similarity`
+1.717). Os arquivos de audiência somam 76.526.309 bytes: o menor tem 115.500 (audiência 67), a mediana
+é 329.899 e o maior tem 3.377.789 (audiência 6, a transcrição mais longa do LDS, com 147.728
+palavras). O índice tem 184.112 bytes.
 
 ## Manifesto de split (`temporal_v1.json`)
 

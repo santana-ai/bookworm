@@ -69,12 +69,12 @@ def stub_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> Senten
     return StubEncoder()
 
 
-def renamed_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
-    return StubEncoder(revision="stub-revision-2")
+def unused_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
+    raise AssertionError("the export commands must not build an encoder")
 
 
 stub_app = create_app(encoder_factory=stub_factory)
-renamed_app = create_app(encoder_factory=renamed_factory)
+export_only_app = create_app(encoder_factory=unused_factory)
 
 
 def mini_records(hearings: list[HearingRecord], hearing_id: int) -> list[UdvRecord]:
@@ -467,12 +467,74 @@ def test_cli_export_input_errors_exit_two(
     assert not (mini_workdir / "x.json").exists()
 
 
+def rewrite_config(workdir: Path, old: str, new: str) -> None:
+    path = workdir / CONFIG
+    text = path.read_text(encoding="utf-8")
+    assert old in text
+    path.write_text(text.replace(old, new), encoding="utf-8")
+
+
 def test_cli_export_rejects_another_encoder(mini_workdir: Path) -> None:
     assert build(stub_app, "mini").exit_code == 0
+    rewrite_config(mini_workdir, 'revision = "stub-revision-1"', 'revision = "stub-revision-2"')
     output = mini_workdir / "x.json"
-    result = export(renamed_app, "--run-name", "mini", "--hearing", "1", "--output", str(output))
+    result = export(stub_app, "--run-name", "mini", "--hearing", "1", "--output", str(output))
     assert result.exit_code == 2
     assert "but the encoder is stub-encoder@stub-revision-2" in result.stderr
+    assert not output.exists()
+
+
+def test_cli_export_reads_only_the_cache_of_the_run(mini_workdir: Path) -> None:
+    assert build(stub_app, "mini").exit_code == 0
+    cache = mini_workdir / "cache"
+    before = {path.name: path.read_bytes() for path in cache.iterdir()}
+    output = mini_workdir / "hearing1.json"
+    options = ("--run-name", "mini", "--hearing", "1", "--output", str(output))
+    result = export(export_only_app, *options)
+    assert result.exit_code == 0, result.output
+    assert {path.name: path.read_bytes() for path in cache.iterdir()} == before
+    expected = mini_workdir / "expected.json"
+    options = ("--run-name", "mini", "--hearing", "1", "--output", str(expected))
+    assert export(stub_app, *options).exit_code == 0
+    assert output.read_bytes() == expected.read_bytes()
+
+
+def test_cli_export_fails_on_a_cache_miss(mini_workdir: Path) -> None:
+    assert build(stub_app, "mini").exit_code == 0
+    for path in (mini_workdir / "cache").glob("sentences_1_*.npy"):
+        path.unlink()
+    output = mini_workdir / "x.json"
+    result = export(stub_app, "--run-name", "mini", "--hearing", "1", "--output", str(output))
+    assert result.exit_code == 2
+    assert (
+        "sentences_1: no cached embeddings for 13 texts of stub-encoder@stub-revision-1@cpu "
+        "(cache/sentences_1_" in result.stderr
+    )
+    assert "only reads the embedding cache written by build-udvs" in result.stderr
+    assert not output.exists()
+    assert sorted(path.name[:11] for path in (mini_workdir / "cache").iterdir()) == [
+        "opinions_1_",
+        "opinions_2_",
+        "sentences_2",
+    ]
+
+
+@pytest.mark.parametrize("runtime", [None, {"device": 1}])
+def test_cli_export_needs_the_device_of_the_run(
+    mini_workdir: Path, runtime: JsonObject | None
+) -> None:
+    assert build(stub_app, "mini").exit_code == 0
+    path = mini_workdir / "out" / "mini_coverage.json"
+    coverage = json.loads(path.read_text(encoding="utf-8"))
+    if runtime is None:
+        del coverage["encoder_runtime"]
+    else:
+        coverage["encoder_runtime"] = runtime
+    path.write_text(json.dumps(coverage), encoding="utf-8")
+    output = mini_workdir / "x.json"
+    result = export(stub_app, "--run-name", "mini", "--hearing", "1", "--output", str(output))
+    assert result.exit_code == 2
+    assert "mini_coverage.json: encoder_runtime.device is missing or not text" in result.stderr
 
 
 def test_cli_export_rejects_invalid_run_lines(mini_workdir: Path) -> None:

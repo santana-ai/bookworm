@@ -1,8 +1,9 @@
 # Mockups da demo de verificação de atribuição
 
 Protótipos visuais da demo que mostra, para uma audiência, como cada afirmação atribuída pela matéria
-a um participante é ligada ao trecho da transcrição que a sustenta. Servem para escolher a direção do
-front; não são a demo final.
+a um participante é ligada ao trecho da transcrição que a sustenta. Serviram para escolher a direção do
+front; não são a demo final. A direção escolhida foi a F, e a demonstração que a leva para todas as
+matérias está em [`../app/`](../app/), descrita em [`../README.md`](../README.md).
 
 | Arquivo | Direção |
 | --- | --- |

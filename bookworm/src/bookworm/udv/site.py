@@ -1,0 +1,142 @@
+from collections import Counter
+from collections.abc import Callable, Mapping, Sequence
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+from bookworm.data.io import write_json
+from bookworm.data.schemas import HearingRecord
+from bookworm.data.splits import SplitName
+from bookworm.errors import ConfigError
+from bookworm.features.encoders import CachedEncoder
+from bookworm.transcript.text import normalize_whitespace
+from bookworm.udv.export import DEFAULT_TOP_K, export_hearing, split_of
+from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
+
+JsonObject = dict[str, Any]
+HearingCallback = Callable[[int, JsonObject, int], None]
+
+INDEX_FILE_NAME = "index.json"
+HEARINGS_DIR_NAME = "hearings"
+TITLE_MAX_CHARS = 120
+TITLE_ELLIPSIS = "…"
+TITLE_TRAILING_CHARACTERS = " ,;:-"
+
+
+@dataclass(frozen=True)
+class SiteExport:
+    index: JsonObject
+    hearing_bytes: dict[int, int]
+    index_bytes: int
+
+    @property
+    def total_bytes(self) -> int:
+        return self.index_bytes + sum(self.hearing_bytes.values())
+
+
+def display_title(materia: str, assunto: str, max_chars: int = TITLE_MAX_CHARS) -> str:
+    headline = next(
+        (line for line in (normalize_whitespace(raw) for raw in materia.splitlines()) if line), ""
+    )
+    title = headline or normalize_whitespace(assunto)
+    if len(title) <= max_chars:
+        return title
+    room = title[: max_chars - len(TITLE_ELLIPSIS) + 1]
+    boundary = room.rfind(" ")
+    kept = room[:boundary] if boundary > 0 else room[: max_chars - len(TITLE_ELLIPSIS)]
+    return kept.rstrip(TITLE_TRAILING_CHARACTERS) + TITLE_ELLIPSIS
+
+
+def site_index_entry(payload: Mapping[str, Any]) -> JsonObject:
+    hearing = payload["hearing"]
+    people = payload["people"]
+    udvs = payload["udvs"]
+    tiers = Counter(udv["tier"] for udv in udvs)
+    support_types = Counter(
+        udv["evidence"]["support_type"] for udv in udvs if udv["evidence"] is not None
+    )
+    return {
+        "id": hearing["id"],
+        "split": hearing["split"],
+        "article_date": hearing["article_date"],
+        "assunto": hearing["assunto"],
+        "title": display_title(hearing["materia"], hearing["assunto"]),
+        "n_udvs": len(udvs),
+        "n_people": len(people),
+        "n_people_resolved": sum(1 for person in people if person["resolved"]),
+        "tiers": {tier: tiers[tier] for tier in TIERS},
+        "support_types": {kind: support_types[kind] for kind in SUPPORT_TYPES},
+        "transcript_words": hearing["transcript_words"],
+        "actors": [person["name"] for person in people],
+    }
+
+
+def hearing_file(output_dir: Path, hearing_id: int) -> Path:
+    return output_dir / HEARINGS_DIR_NAME / f"{hearing_id}.json"
+
+
+def group_records(
+    records: Sequence[UdvRecord], hearing_ids: Sequence[int]
+) -> dict[int, list[UdvRecord]]:
+    grouped: dict[int, list[UdvRecord]] = {hearing_id: [] for hearing_id in hearing_ids}
+    unknown = sorted({record.hearing_id for record in records} - grouped.keys())
+    if unknown:
+        raise ConfigError(f"the run has records of hearings outside its coverage: {unknown[:3]}")
+    for record in records:
+        grouped[record.hearing_id].append(record)
+    return grouped
+
+
+def export_site(
+    hearings: Sequence[HearingRecord],
+    records: Sequence[UdvRecord],
+    encoder: CachedEncoder,
+    output_dir: Path,
+    *,
+    run_name: str,
+    pipeline: object,
+    top_k: int = DEFAULT_TOP_K,
+    split_manifest: Mapping[str, Any] | None = None,
+    on_hearing: HearingCallback | None = None,
+) -> SiteExport:
+    ordered = sorted(hearings, key=lambda hearing: hearing.id)
+    if not ordered:
+        raise ConfigError(f"run {run_name} has no hearings to export")
+    grouped = group_records(records, [hearing.id for hearing in ordered])
+    splits: dict[int, SplitName] = (
+        {}
+        if split_manifest is None
+        else {hearing.id: split_of(split_manifest, hearing.id) for hearing in ordered}
+    )
+    index_path = output_dir / INDEX_FILE_NAME
+    index_path.unlink(missing_ok=True)
+    entries: list[JsonObject] = []
+    hearing_bytes: dict[int, int] = {}
+    run: JsonObject | None = None
+    for number, hearing in enumerate(ordered, start=1):
+        payload = export_hearing(
+            hearing,
+            grouped[hearing.id],
+            encoder,
+            run_name=run_name,
+            pipeline=pipeline,
+            top_k=top_k,
+            split=splits.get(hearing.id),
+        )
+        if run is None:
+            run = payload["run"]
+        elif payload["run"] != run:
+            raise ConfigError(
+                f"hearing {hearing.id}: run block {payload['run']} differs from {run} "
+                f"of hearing {ordered[0].id}"
+            )
+        path = hearing_file(output_dir, hearing.id)
+        write_json(payload, path)
+        hearing_bytes[hearing.id] = path.stat().st_size
+        entry = site_index_entry(payload)
+        entries.append(entry)
+        if on_hearing is not None:
+            on_hearing(number, entry, hearing_bytes[hearing.id])
+    index = {"run": run, "hearings": entries}
+    write_json(index, index_path)
+    return SiteExport(index, hearing_bytes, index_path.stat().st_size)

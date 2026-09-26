@@ -6,6 +6,8 @@ from typing import Any, Protocol, runtime_checkable
 import numpy as np
 from numpy.typing import NDArray
 
+from bookworm.errors import EmbeddingCacheMissError
+
 FloatMatrix = NDArray[np.floating[Any]]
 
 CACHE_TEXT_SEPARATOR = b"\x1e"
@@ -28,6 +30,10 @@ class SentenceEncoder(Protocol):
     def runtime_info(self) -> dict[str, Any]: ...
 
 
+def sentence_encoder_identity(name: str, revision: str, device: str) -> str:
+    return f"{name}@{revision}@{device}"
+
+
 def cache_key(identity: str, texts: Sequence[str]) -> str:
     digest = hashlib.sha256(identity.encode())
     for text in texts:
@@ -47,6 +53,38 @@ def check_row_count(embeddings: FloatMatrix, texts: Sequence[str], source: str) 
         )
 
 
+class RunCacheEncoder:
+    def __init__(self, name: str, revision: str, device: str) -> None:
+        self._name = name
+        self._revision = revision
+        self._device = device
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def revision(self) -> str:
+        return self._revision
+
+    @property
+    def device(self) -> str:
+        return self._device
+
+    @property
+    def cache_identity(self) -> str:
+        return sentence_encoder_identity(self._name, self._revision, self._device)
+
+    def encode(self, texts: Sequence[str]) -> FloatMatrix:
+        raise EmbeddingCacheMissError(
+            f"{self.cache_identity} cannot encode {len(texts)} texts: it only names the "
+            "embedding cache files of a finished run"
+        )
+
+    def runtime_info(self) -> dict[str, Any]:
+        return {"device": self._device}
+
+
 class CachedEncoder:
     def __init__(
         self,
@@ -54,10 +92,12 @@ class CachedEncoder:
         cache_dir: Path | None = None,
         *,
         read_only: bool = False,
+        cache_only: bool = False,
     ) -> None:
         self.encoder = encoder
         self.cache_dir = cache_dir
-        self.read_only = read_only
+        self.read_only = read_only or cache_only
+        self.cache_only = cache_only
 
     def cache_path(self, texts: Sequence[str], label: str) -> Path | None:
         if self.cache_dir is None:
@@ -66,12 +106,21 @@ class CachedEncoder:
 
     def encode(self, texts: Sequence[str], label: str) -> FloatMatrix:
         if not texts:
+            if self.cache_only:
+                return np.empty((0, 0), dtype=np.float32)
             return self.encoder.encode([])
         path = self.cache_path(texts, label)
         if path is not None and path.exists():
             cached: FloatMatrix = np.load(path)
             check_row_count(cached, texts, path.name)
             return cached
+        if self.cache_only:
+            location = "no cache directory" if path is None else str(path)
+            raise EmbeddingCacheMissError(
+                f"{label}: no cached embeddings for {len(texts)} texts of "
+                f"{self.encoder.cache_identity} ({location}); this command only reads the "
+                "embedding cache written by build-udvs for the run"
+            )
         embeddings = self.encoder.encode(texts)
         check_row_count(embeddings, texts, label)
         if path is not None and not self.read_only:

@@ -41,8 +41,21 @@ from bookworm.data.splits import (
     compute_temporal_split,
 )
 from bookworm.data.verify_splits import SplitVerification, verify_split_run
-from bookworm.errors import BookwormError, ConfigError, DatasetIntegrityError, SplitError
-from bookworm.features.encoders import CachedEncoder, SentenceEncoder, cache_file_name, cache_key
+from bookworm.errors import (
+    BookwormError,
+    ConfigError,
+    DatasetIntegrityError,
+    EmbeddingCacheMissError,
+    SplitError,
+)
+from bookworm.features.encoders import (
+    CachedEncoder,
+    RunCacheEncoder,
+    SentenceEncoder,
+    cache_file_name,
+    cache_key,
+    sentence_encoder_identity,
+)
 from bookworm.features.tfidf import TfidfEncoder
 from bookworm.transcript.offsets import Span, locate_sentence_span, locate_turn_sentence_span
 from bookworm.transcript.sentences import (
@@ -89,6 +102,7 @@ from bookworm.udv.schemas import (
     read_udv_jsonl,
     write_udv_jsonl,
 )
+from bookworm.udv.site import SiteExport, display_title, export_site, site_index_entry
 from bookworm.udv.verify import UdvVerification, compare_with_baseline, verify_udv_run
 
 __version__ = version("bookworm")
@@ -105,6 +119,7 @@ __all__ = [
     "CutCandidate",
     "DatasetIntegrityError",
     "DateExtractionSummary",
+    "EmbeddingCacheMissError",
     "Evidence",
     "EvidenceSettings",
     "HearingMetadata",
@@ -116,8 +131,10 @@ __all__ = [
     "Provenance",
     "QuoteMatch",
     "QuotePolicy",
+    "RunCacheEncoder",
     "SentenceEncoder",
     "SentenceTransformerSettings",
+    "SiteExport",
     "Span",
     "SplitArtifacts",
     "SplitBoundaries",
@@ -150,8 +167,10 @@ __all__ = [
     "check_article_date",
     "compare_with_baseline",
     "compute_temporal_split",
+    "display_title",
     "enclosing_sentence",
     "export_hearing",
+    "export_site",
     "extract_quotes",
     "find_opinion_quote_match",
     "find_opinion_turn_quote_match",
@@ -171,8 +190,10 @@ __all__ = [
     "resolve_hearing_people",
     "resolve_person_speech",
     "select_hearings",
+    "sentence_encoder_identity",
     "sentences_agree",
     "sha256_of_file",
+    "site_index_entry",
     "split_into_turns",
     "split_sentences",
     "split_turn_sentences",

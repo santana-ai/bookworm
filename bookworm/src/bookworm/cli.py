@@ -10,12 +10,12 @@ import typer
 
 from bookworm import __version__
 from bookworm.config import TfidfSettings, UdvConfig, load_split_config, load_udv_config
-from bookworm.data.io import load_hearings, write_json
+from bookworm.data.io import json_path, load_hearings, write_json
 from bookworm.data.schemas import HearingRecord
 from bookworm.data.splits import SPLIT_NAMES, build_temporal_split
 from bookworm.data.verify_splits import verify_split_run
 from bookworm.errors import BookwormError, ConfigError
-from bookworm.features.encoders import CachedEncoder, SentenceEncoder
+from bookworm.features.encoders import CachedEncoder, RunCacheEncoder, SentenceEncoder
 from bookworm.features.tfidf import TfidfEncoder
 from bookworm.udv.build import EvidenceSettings, build_udvs, select_hearings, udv_corpus
 from bookworm.udv.coverage import summarize_run
@@ -27,6 +27,7 @@ from bookworm.udv.schemas import (
     read_udv_jsonl,
     write_udv_jsonl,
 )
+from bookworm.udv.site import HEARINGS_DIR_NAME, INDEX_FILE_NAME, export_site
 from bookworm.udv.verify import compare_with_baseline, coverage_hearings, verify_udv_run
 
 EncoderFactory = Callable[[UdvConfig, Sequence[HearingRecord]], SentenceEncoder]
@@ -36,6 +37,12 @@ PROBLEMS_EXIT_CODE = 1
 DEFAULT_CONFIG_PATH = Path("configs/udv.toml")
 DEFAULT_SPLIT_CONFIG_PATH = Path("configs/splits.toml")
 SPLIT_SUMMARY_KEYS = ("hearings", "share_of_hearings", "first_date", "last_date", "udvs")
+PACKAGE_DIR = Path(__file__).resolve().parent
+SITE_DATA_PARTS = ("web", "app", "data")
+
+
+def fit_tfidf_encoder(settings: TfidfSettings, hearings: Sequence[HearingRecord]) -> TfidfEncoder:
+    return TfidfEncoder.fit(udv_corpus(hearings), max_features=settings.max_features)
 
 
 def default_encoder_factory(
@@ -43,7 +50,7 @@ def default_encoder_factory(
 ) -> SentenceEncoder:
     settings = config.encoder
     if isinstance(settings, TfidfSettings):
-        return TfidfEncoder.fit(udv_corpus(hearings), max_features=settings.max_features)
+        return fit_tfidf_encoder(settings, hearings)
     try:
         from bookworm.features import sentence_transformer
     except ModuleNotFoundError as error:
@@ -214,6 +221,56 @@ def run_verify(config_path: Path, run_name: str, baseline: Path | None) -> bool:
     return verification.ok
 
 
+def run_device(coverage: dict[str, Any]) -> str:
+    found, device = json_path(coverage, ("encoder_runtime", "device"))
+    if not found or not isinstance(device, str):
+        raise ConfigError(
+            "encoder_runtime.device is missing or not text, so the embedding cache files of "
+            "the run cannot be named"
+        )
+    return device
+
+
+def run_cache_encoder(
+    config: UdvConfig, hearings: Sequence[HearingRecord], coverage: dict[str, Any]
+) -> SentenceEncoder:
+    settings = config.encoder
+    if isinstance(settings, TfidfSettings):
+        return fit_tfidf_encoder(settings, hearings)
+    return RunCacheEncoder(settings.name, settings.revision, run_device(coverage))
+
+
+@dataclass(frozen=True)
+class ExportRun:
+    records: list[UdvRecord]
+    hearings: list[HearingRecord]
+    pipeline: object
+    encoder: CachedEncoder
+
+
+def load_export_run(config_path: Path, run_name: str) -> ExportRun:
+    config = load_udv_config(config_path)
+    records_path, coverage_path = run_paths(config, run_name)
+    parsed = read_run_records(records_path)
+    if parsed.errors:
+        raise ConfigError(f"{records_path}: {parsed.errors[0]}")
+    coverage = read_json_object(coverage_path, "coverage file")
+    hearings = load_lds(config.lds_path, config.expected_sha256)
+    try:
+        run_hearings = coverage_hearings(coverage, hearings)
+        check_run_pipeline(coverage.get("pipeline"))
+        encoder = run_cache_encoder(config, run_hearings, coverage)
+    except ConfigError as error:
+        raise ConfigError(f"{coverage_path}: {error}") from error
+    seed_everything(config.seed)
+    return ExportRun(
+        parsed.records,
+        run_hearings,
+        coverage.get("pipeline"),
+        CachedEncoder(encoder, config.cache_dir, cache_only=True),
+    )
+
+
 @dataclass(frozen=True)
 class ExportRequest:
     config_path: Path
@@ -224,20 +281,9 @@ class ExportRequest:
     split_manifest: Path | None
 
 
-def run_export(request: ExportRequest, encoder_factory: EncoderFactory) -> None:
-    config = load_udv_config(request.config_path)
-    records_path, coverage_path = run_paths(config, request.run_name)
-    parsed = read_run_records(records_path)
-    if parsed.errors:
-        raise ConfigError(f"{records_path}: {parsed.errors[0]}")
-    coverage = read_json_object(coverage_path, "coverage file")
-    hearings = load_lds(config.lds_path, config.expected_sha256)
-    try:
-        run_hearings = coverage_hearings(coverage, hearings)
-        check_run_pipeline(coverage.get("pipeline"))
-    except ConfigError as error:
-        raise ConfigError(f"{coverage_path}: {error}") from error
-    hearing = next((item for item in run_hearings if item.id == request.hearing_id), None)
+def run_export(request: ExportRequest) -> None:
+    run = load_export_run(request.config_path, request.run_name)
+    hearing = next((item for item in run.hearings if item.id == request.hearing_id), None)
     if hearing is None:
         raise ConfigError(f"hearing {request.hearing_id} is not part of run {request.run_name}")
     split = None
@@ -245,14 +291,12 @@ def run_export(request: ExportRequest, encoder_factory: EncoderFactory) -> None:
         split = split_of(
             read_json_object(request.split_manifest, "split manifest"), request.hearing_id
         )
-    seed_everything(config.seed)
-    encoder = encoder_factory(config, run_hearings)
     payload = export_hearing(
         hearing,
-        [record for record in parsed.records if record.hearing_id == request.hearing_id],
-        CachedEncoder(encoder, config.cache_dir),
+        [record for record in run.records if record.hearing_id == request.hearing_id],
+        run.encoder,
         run_name=request.run_name,
-        pipeline=coverage.get("pipeline"),
+        pipeline=run.pipeline,
         top_k=request.top_k,
         split=split,
     )
@@ -264,6 +308,77 @@ def run_export(request: ExportRequest, encoder_factory: EncoderFactory) -> None:
             "turns": len(payload["turns"]),
             "udvs": len(payload["udvs"]),
             "output": str(request.output),
+        }
+    )
+
+
+def default_site_dir(package_dir: Path = PACKAGE_DIR) -> Path:
+    project_dir = package_dir.parent.parent
+    if not (project_dir / "pyproject.toml").is_file():
+        raise ConfigError(
+            f"{package_dir}: bookworm is not running from its source tree, so there is no "
+            "default web/app/data directory; pass --output"
+        )
+    return project_dir.joinpath(*SITE_DATA_PARTS)
+
+
+@dataclass(frozen=True)
+class SiteRequest:
+    config_path: Path
+    run_name: str
+    output: Path | None
+    top_k: int
+    split_manifest: Path | None
+    overwrite: bool
+
+
+def check_new_site(output_dir: Path, overwrite: bool) -> None:
+    existing = [
+        path
+        for path in (output_dir / INDEX_FILE_NAME, output_dir / HEARINGS_DIR_NAME)
+        if path.exists()
+    ]
+    if existing and not overwrite:
+        raise ConfigError(
+            f"{existing[0]}: site export already exists; pass --overwrite to replace its files"
+        )
+
+
+def run_export_site(request: SiteRequest) -> None:
+    output_dir = request.output if request.output is not None else default_site_dir()
+    check_new_site(output_dir, request.overwrite)
+    manifest = (
+        None
+        if request.split_manifest is None
+        else read_json_object(request.split_manifest, "split manifest")
+    )
+    run = load_export_run(request.config_path, request.run_name)
+    total = len(run.hearings)
+
+    def report_progress(number: int, entry: dict[str, Any], size: int) -> None:
+        typer.echo(
+            f"[{number}/{total}] hearing {entry['id']}: {entry['n_udvs']} UDVs, {size} bytes",
+            err=True,
+        )
+
+    site = export_site(
+        run.hearings,
+        run.records,
+        run.encoder,
+        output_dir,
+        run_name=request.run_name,
+        pipeline=run.pipeline,
+        top_k=request.top_k,
+        split_manifest=manifest,
+        on_hearing=report_progress,
+    )
+    echo_json(
+        {
+            "run": request.run_name,
+            "hearings": len(site.index["hearings"]),
+            "udvs": sum(entry["n_udvs"] for entry in site.index["hearings"]),
+            "bytes": site.total_bytes,
+            "output": str(output_dir),
         }
     )
 
@@ -385,7 +500,43 @@ def create_app(encoder_factory: EncoderFactory = default_encoder_factory) -> typ
     ) -> None:
         request = ExportRequest(config_path, run_name, hearing_id, output, top_k, split_manifest)
         try:
-            run_export(request, encoder_factory)
+            run_export(request)
+        except BookwormError as error:
+            raise fail(error) from error
+
+    @app.command(
+        "export-site",
+        help=(
+            "Write every hearing of a UDV run as demo JSON, plus an index.json, read only "
+            "from the embedding cache."
+        ),
+    )
+    def export_site_command(
+        run_name: Annotated[str, typer.Option("--run-name", help="Basename of the run files.")],
+        output: Annotated[
+            Path | None,
+            typer.Option(
+                "--output",
+                help="Directory to write; defaults to web/app/data of the bookworm source tree.",
+            ),
+        ] = None,
+        config_path: Annotated[
+            Path, typer.Option("--config", help="UDV TOML config.")
+        ] = DEFAULT_CONFIG_PATH,
+        top_k: Annotated[
+            int, typer.Option("--top-k", min=1, help="Candidate sentences kept per opinion.")
+        ] = DEFAULT_TOP_K,
+        split_manifest: Annotated[
+            Path | None,
+            typer.Option("--split-manifest", help="Split manifest that names each hearing split."),
+        ] = None,
+        overwrite: Annotated[
+            bool, typer.Option("--overwrite", help="Replace the files of an existing export.")
+        ] = False,
+    ) -> None:
+        request = SiteRequest(config_path, run_name, output, top_k, split_manifest, overwrite)
+        try:
+            run_export_site(request)
         except BookwormError as error:
             raise fail(error) from error
 

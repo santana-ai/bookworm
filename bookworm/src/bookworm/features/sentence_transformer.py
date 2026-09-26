@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from sentence_transformers import SentenceTransformer
 
-from bookworm.features.encoders import FloatMatrix
+from bookworm.features.encoders import FloatMatrix, sentence_encoder_identity
 
 AUTO_DEVICE = "auto"
 
@@ -69,7 +69,7 @@ class SentenceTransformerEncoder:
 
     @property
     def cache_identity(self) -> str:
-        return f"{self._name}@{self._revision}@{self._device}"
+        return sentence_encoder_identity(self._name, self._revision, self._device)
 
     @property
     def is_loaded(self) -> bool:

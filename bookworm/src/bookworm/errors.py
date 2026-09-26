@@ -19,3 +19,7 @@ class ConfigError(BookwormError):
 
 class SplitError(BookwormError):
     pass
+
+
+class EmbeddingCacheMissError(BookwormError):
+    pass
