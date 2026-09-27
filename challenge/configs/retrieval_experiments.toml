@@ -164,6 +164,26 @@ max_length = 512
 batch_size = 32
 card_notes = "config.json: XLMRobertaForSequenceClassification, id2label {0: LABEL_0}, a single logit, sbert_ce_default_activation_function Identity; tokenizer model_max_length 512; trained on machine-translated mMARCO (includes pt)."
 
+[retrievers.rerank_laya_p4]
+kind = "decision_rerank"
+decision_config = "configs/nli_verifier.toml"
+scorer = "laya_multi_pt"
+revision = "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8"
+question = "p4_supports"
+base = "serafim_335m"
+top_k = 20
+notes = "Laya (laya_multi_pt of configs/nli_verifier.toml: checkpoint, subfolder, max_len, head_max_len and batch_size read from that scorer, revision checked against it) used as a reranker of the serafim_335m top_k. Each pair is one Laya forward pass on the battery question p4_supports with the state {premise: candidate unit text, hypothesis: query text}, the orientation of the E3 battery (premise = transcript text, hypothesis = opinion); the score is the question's support signal, P(true). No translation. Laya answers are cached in cache.decision_dir (one file per checkpoint and device, keyed by the model signature, the question JSON and the state) and the scores in cache.rerank_dir keyed by the pair digest, so an interrupted run resumes."
+
+[retrievers.rerank_laya_p3]
+kind = "decision_rerank"
+decision_config = "configs/nli_verifier.toml"
+scorer = "laya_multi_pt"
+revision = "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8"
+question = "p3_inferable"
+base = "serafim_335m"
+top_k = 20
+notes = "secondary variant of rerank_laya_p4 with the battery question p3_inferable (P(true) of 'Can the hypothesis be inferred from the premise?'); every other value as rerank_laya_p4"
+
 [evaluation]
 baseline_retriever = "serafim_335m"
 baseline_unit = "sentence"
@@ -182,6 +202,8 @@ tie_policy = "order by score descending, candidate index ascending on ties (the 
 [cache]
 embeddings_dir = "artifacts/cache/experiments/embeddings"
 rerank_dir = "artifacts/cache/experiments/rerank"
+decision_dir = "artifacts/cache/experiments/decision_models"
+decision_dir_note = "a Laya answer cache separate from the E3 one (configs/nli_verifier.toml decision_models.cache_dir), so the retrieval runs and the verifier runs never write the same file"
 shard_size = 5000
 batch_size_note = "batch sizes measured on 2026-09-22 (Apple M5, MPS, fp32, serafim-335m, 512 sentences): 16 to 32 give about 2.1k tokens/s, 64 about 1.0k and 256 about 0.55k; the batch size changes vectors only at float rounding level"
 production_config = "configs/udv.toml"
@@ -208,3 +230,15 @@ steps = [
     { retrievers = ["bge_m3"], units = ["sentence", "turn"] },
     { retrievers = ["serafim_900m"], units = ["sentence", "turn"] },
 ]
+
+[declarations.retrieval_v2]
+declared = "Declared on 2026-09-27, before any Laya score on a retrieval benchmark was computed (smoke runs included). Question: does Laya, used as a reranker of the serafim_335m top 20 sentences, put a supporting sentence first more often than serafim_335m alone? Laya had never been tested as a retriever; in E3 it only judged inferability over the four retrieved chunks."
+run_name = "retrieval_v2"
+primary = "rerank_laya_p4: laya_multi_pt with the battery question p4_supports (the best single Portuguese question of the E3 v2 validation, ROC AUC 0.793; chosen from E3, not from any retrieval result); no translation"
+secondary = "rerank_laya_p3 (p3_inferable), run after the primary only if the throughput measured on the primary leaves room; no variant with translation"
+design = "base serafim_335m, unit sentence, top_k 20 (the value of rerank_bge and rerank_mmarco, so the three rerankers are comparable); splits train and validation only, the test split is not read; both benchmarks (masked_quotes, nli)"
+top_k_rule = "top_k may be lowered to 10 only if a smoke run shows that the full run would exceed about 6 hours on MPS, decided from throughput alone before any retrieval metric is seen; the value used is recorded here"
+run_contents = "the retrieval_v2 run holds serafim_335m (baseline), rerank_bge and rerank_mmarco on the sentence unit, recomputed from the E1 caches (their rows are checked against retrieval_v1), plus the Laya rerankers; no retrieval_v1 file is modified"
+evaluation = "the E1 machinery unchanged: acc@1/3/5 and MRR with hearing-bootstrap intervals; each retriever against serafim_335m on the sentence unit with exact McNemar on acc@1 and the hearing sign-flip test on the reciprocal rank; Holm over one family per benchmark, split group and test, the family holding every non-baseline retriever of the run (rerank_bge, rerank_mmarco, rerank_laya_p4 and rerank_laya_p3 if run). Laya against rerank_bge and rerank_mmarco is reported descriptively (summarize with --baseline-retriever), outside the decision"
+decision_rule = "Laya reranking is proposed for the UDV only if its MRR on nli validation is higher than serafim_335m with Holm-adjusted p < 0.05; otherwise it is reported as a negative result"
+device_and_top_k_decision = "Recorded on 2026-09-27 from throughput alone, before any retrieval metric of a Laya reranker was read: a CPU smoke run (2 hearings requested, 1 loaded, 5 queries, 100 pairs) scored 100 pairs in 2.16 s of forward time (about 46 pairs/s, 93 input tokens per pair, no truncated premise); the full train and validation run is about 67,400 pairs per variant (the pair count of rerank_bge in retrieval_v1), about 25 to 40 minutes on CPU. So top_k stays 20, the Laya rerankers run on the CPU (float32; the MPS stays free for another job on the machine and the CPU answers go to their own cache file), and the secondary rerank_laya_p3 is run after the primary. serafim_335m, rerank_bge and rerank_mmarco are recomputed on the CPU from their caches, with a check that no embedding or pair score is computed anew"

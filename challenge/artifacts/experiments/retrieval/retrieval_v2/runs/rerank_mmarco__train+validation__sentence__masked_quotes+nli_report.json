@@ -1,0 +1,614 @@
+{
+  "run_name": "retrieval_v2",
+  "retriever": "rerank_mmarco",
+  "created_at": "2026-09-27T01:38:06+00:00",
+  "splits_used": [
+    "train",
+    "validation"
+  ],
+  "final_test": false,
+  "benches": [
+    "masked_quotes",
+    "nli"
+  ],
+  "units": [
+    "sentence"
+  ],
+  "limits": {
+    "hearings": null,
+    "queries_per_bench": null
+  },
+  "device": "cpu",
+  "hub_offline": {
+    "configured": true,
+    "env_HF_HUB_OFFLINE": "1",
+    "huggingface_hub_is_offline_mode": true,
+    "transformers_is_offline_mode": true,
+    "huggingface_hub": "1.24.0",
+    "transformers": "5.14.1",
+    "method": "HF_HUB_OFFLINE=1 in the environment and huggingface_hub.constants.HF_HUB_OFFLINE set to True before any model is loaded (the constant is read when huggingface_hub is imported, so the variable alone has no effect after import); every Hub request then raises and files resolve from the local cache only"
+  },
+  "workload": {
+    "hearings": 176,
+    "queries": {
+      "masked_quotes.train": {
+        "queries": 142,
+        "hearings": 87
+      },
+      "masked_quotes.validation": {
+        "queries": 40,
+        "hearings": 24
+      },
+      "nli.train": {
+        "queries": 2602,
+        "hearings": 144
+      },
+      "nli.validation": {
+        "queries": 620,
+        "hearings": 32
+      }
+    },
+    "query_checks": {
+      "masked_quotes": {
+        "rows": 182,
+        "kept": 182
+      },
+      "nli": {
+        "rows": 3679,
+        "located_chunks": 12888,
+        "located_chunks_chosen_occurrence_outside_person": 27,
+        "kept_turn_set_equals_lds_person": 2041,
+        "kept": 3222,
+        "dropped_not_inferable": 415,
+        "dropped_person_not_resolved": 42
+      }
+    },
+    "sentence_span_checks": {
+      "sentences": 162990,
+      "first_match_differs_from_sequential": 121
+    },
+    "load_seconds": 17.7
+  },
+  "retriever_details": {
+    "kind": "rerank",
+    "model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+    "revision": "1427fd652930e4ba29e8149678df786c240d8825",
+    "base": "serafim_335m",
+    "base_details": {
+      "kind": "dense",
+      "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+      "revision": "a01887015444f7599669c509447c5bdbce958916",
+      "query_prefix": "",
+      "passage_prefix": "",
+      "max_seq_length": 128,
+      "native_max_seq_length": 128,
+      "weights_file": {
+        "file": "model.safetensors",
+        "path": "/Users/arthur/.cache/huggingface/hub/models--PORTULAN--serafim-335m-portuguese-pt-sentence-encoder/snapshots/a01887015444f7599669c509447c5bdbce958916/model.safetensors",
+        "snapshot": "a01887015444f7599669c509447c5bdbce958916",
+        "snapshot_is_pinned_revision": true,
+        "blob": "de5eef389cc1fce1f8e31e5cdf9ed78432057c84c69a2124ef0c6bd460d2fc99",
+        "format": "safetensors"
+      },
+      "local_files_only": true,
+      "similarity": "cosine (dot product of L2-normalized vectors)",
+      "batch_size": 32,
+      "token_budget": 4096,
+      "production_cache_reuse": true,
+      "counts": {
+        "passage_texts_requested": 114842,
+        "query_texts_requested": 3404
+      },
+      "encode_seconds": 0.0,
+      "model_load_seconds": 0.0,
+      "truncation": {
+        "sentence": {
+          "query": {
+            "texts": 3403,
+            "over_max_seq_length": 0,
+            "max_tokens": 74,
+            "mean_tokens": 22.9
+          },
+          "passage": {
+            "texts": 113460,
+            "over_max_seq_length": 242,
+            "max_tokens": 574,
+            "mean_tokens": 27.5
+          }
+        }
+      },
+      "card_notes": "config_sentence_transformers.json: prompts {} and default_prompt_name null, so no prefix; modules: Transformer (BertModel, hidden 1024) + mean Pooling, no Normalize module; sentence_bert_config.json max_seq_length 128 (production value, kept so vectors equal the build_udvs cache); trained with AnglELoss on STS."
+    },
+    "weights_file": {
+      "file": "model.safetensors",
+      "path": "/Users/arthur/.cache/huggingface/hub/models--cross-encoder--mmarco-mMiniLMv2-L12-H384-v1/snapshots/1427fd652930e4ba29e8149678df786c240d8825/model.safetensors",
+      "snapshot": "1427fd652930e4ba29e8149678df786c240d8825",
+      "snapshot_is_pinned_revision": true,
+      "blob": "5daeca2481a76b5976a2bdc32f0a78532b6716da4f8cd3ff59460ef8d2f359b4",
+      "format": "safetensors"
+    },
+    "local_files_only": true,
+    "top_k": 20,
+    "max_length": 512,
+    "batch_size": 32,
+    "activation": "Identity (raw logit; the order equals the sigmoid order)",
+    "ordering": "the top_k units of the base order sorted by cross-encoder score (base order on ties), followed by the remaining units in base order",
+    "counts": {
+      "pairs_requested": 67387
+    },
+    "score_seconds": 0.0,
+    "card_notes": "config.json: XLMRobertaForSequenceClassification, id2label {0: LABEL_0}, a single logit, sbert_ce_default_activation_function Identity; tokenizer model_max_length 512; trained on machine-translated mMARCO (includes pt)."
+  },
+  "timing": {
+    "elapsed_seconds": 0.5,
+    "mean_seconds_per_hearing": 0.0,
+    "max_seconds_per_hearing": 0.02
+  },
+  "outputs": [
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_mmarco/train.jsonl",
+      "rows": 142,
+      "sha256": "571db57ade2eadbf61e38747ca7e68828e82096a6bbef8e61816a7861af50197"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_mmarco/validation.jsonl",
+      "rows": 40,
+      "sha256": "81f87e4daa62ce55151f3463679ed2161650b01ee4072f98ca0868151b71640a"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_mmarco/train.jsonl",
+      "rows": 2602,
+      "sha256": "a95a5fe98bf5ccf676f0a83dd1b92e9e989754fbeb1c5e7d0f7e6065e8cc6b83"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_mmarco/validation.jsonl",
+      "rows": 620,
+      "sha256": "f402aa0bd759405b6769fd6ac17fcd8bb4a7e8359f2c6e6a0bd3b6f6ab0ae7a7"
+    }
+  ],
+  "sources": {
+    "lds": {
+      "path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    },
+    "benchmarks": {
+      "masked_quotes": {
+        "path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+        "sha256": "1b82286f03635013a153b8882bcc6fc96efa28b674ecddd965a4972d983e4223",
+        "rows_read": 210,
+        "rows_outside_requested_splits": 28,
+        "rows_train": 142,
+        "rows_validation": 40
+      },
+      "nli": {
+        "path": "artifacts/benchmarks/nli_v1.jsonl",
+        "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d",
+        "rows_read": 4238,
+        "rows_outside_requested_splits": 559,
+        "rows_train": 2981,
+        "rows_validation": 698
+      }
+    }
+  },
+  "code": {
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/decision_models.py": "e36d278be4afcba55aea6d4bbce3e224178a2632806fb4eb2d280ffe06d20362",
+    "utils/decision_scoring.py": "46aeccbd61651f9dbcf776aa50335649e512db58e5fce4534cbbb2aa0c855341",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9",
+    "utils/retrieval_data.py": "078477fe0834a3d5a4d92e29ad662c45185f69608f1901227f1ce12101fe58f5",
+    "utils/retrieval_experiments.py": "3d09c52c04d4c141341c3ff85f36d82fd983da95a89cc0f7fb02c35878cf2913",
+    "utils/retrieval_models.py": "f43ffac9ec0f2f723c60be226da19809b8e9b9bbd65d89dfbe2ea63e3ee192db",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/retrieval_store.py": "5d9ec1ada17896dffa15281657b8d90baf0981e1328487f2f9552cdec039d49e",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "scikit_learn": "1.9.0",
+    "rank_bm25": "0.2.2 (no __version__ attribute)",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "laya": "0.3.11",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "lds_sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "default": [
+        "train",
+        "validation"
+      ]
+    },
+    "benchmarks": {
+      "masked_quotes": {
+        "path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+        "query_field": "masked_opinion",
+        "candidates": "the row's candidate list (the speaker's per-turn sentences), checked against the list rebuilt from the LDS with resolve_hearing_people",
+        "relevance": "a unit is relevant when it contains a sentence listed in target_indices (the sentences that agree with the silver target sentence enclosing the trusted quote prefix)"
+      },
+      "nli": {
+        "path": "artifacts/benchmarks/nli_v1.jsonl",
+        "query_field": "opinion",
+        "filters": [
+          "label_inferable is true",
+          "person resolved to LDS turns",
+          "at least one located chunk",
+          "at least one sentence unit of the speaker overlaps a located chunk segment"
+        ],
+        "candidates": "rebuilt from person_resolution.turn_indices with split_into_turns and split_sentences on each turn, the resolution rechecked with resolve_person_speech on the NLI person name",
+        "relevance": "a unit is relevant when its character span overlaps the recorded span (chosen occurrence) of any segment of any located chunk of the opinion; the label says the opinion was judged inferable from the four retrieved chunks together (retrieved_context_entailment), not that each overlapping unit supports it"
+      }
+    },
+    "units": {
+      "kinds": [
+        "sentence",
+        "window2",
+        "window3",
+        "turn"
+      ],
+      "window_sizes": {
+        "window2": 2,
+        "window3": 3
+      },
+      "stride": 1,
+      "definitions": "sentence: one candidate sentence; windowN: N consecutive candidate sentences of one turn, stride 1, a turn with fewer than N sentences gives one unit with all of them, text joined by a space, span from the first sentence start to the last sentence end; turn: the whole turn text (whitespace normalized, including stage directions and parts shorter than a sentence), only turns with at least one candidate sentence"
+    },
+    "retrievers": {
+      "tfidf_word": {
+        "kind": "tfidf",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "analyzer": "word",
+        "ngram_range": [
+          1,
+          1
+        ],
+        "lowercase": true,
+        "strip_accents": "unicode",
+        "token_pattern": "(?u)\\b\\w\\w+\\b",
+        "sublinear_tf": false,
+        "min_df": 1
+      },
+      "tfidf_char": {
+        "kind": "tfidf",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "analyzer": "char_wb",
+        "ngram_range": [
+          3,
+          5
+        ],
+        "lowercase": true,
+        "strip_accents": "unicode",
+        "token_pattern": "(?u)\\b\\w\\w+\\b",
+        "sublinear_tf": false,
+        "min_df": 1
+      },
+      "bm25": {
+        "kind": "bm25",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "k1": 1.5,
+        "b": 0.75,
+        "epsilon": 0.25
+      },
+      "serafim_335m": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+        "revision": "a01887015444f7599669c509447c5bdbce958916",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": true,
+        "card_notes": "config_sentence_transformers.json: prompts {} and default_prompt_name null, so no prefix; modules: Transformer (BertModel, hidden 1024) + mean Pooling, no Normalize module; sentence_bert_config.json max_seq_length 128 (production value, kept so vectors equal the build_udvs cache); trained with AnglELoss on STS."
+      },
+      "serafim_335m_ir": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder-ir",
+        "revision": "222eaea5c8df6b61d8032ffffaa9bc9febd35a2e",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "prompts {} and default_prompt_name null, no prefix in the card usage; Transformer (BertModel, 1024) + mean Pooling, no Normalize; max_seq_length 128; train-config.yaml: GISTEmbedLoss on unicamp-dl/mmarco portuguese pairs, base bertimbau-335m."
+      },
+      "serafim_900m": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-900m-portuguese-pt-sentence-encoder",
+        "revision": "8b6aac1431bf56dd4b8f6a27a98ea78d3a7c5d31",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 16,
+        "token_budget": 2048,
+        "production_cache": false,
+        "card_notes": "prompts {} and default_prompt_name null, no prefix; Transformer (DebertaV2Model, hidden 1536) + mean Pooling, no Normalize; max_seq_length 128; train-config.yaml base albertina-900m-ptpt (European Portuguese base), CoSENT on STS."
+      },
+      "e5_large": {
+        "kind": "dense",
+        "model": "intfloat/multilingual-e5-large",
+        "revision": "3d7cfbdacd47fdda877c5cd8a79fbcc4f2a574f3",
+        "query_prefix": "query: ",
+        "passage_prefix": "passage: ",
+        "max_seq_length": 512,
+        "batch_size": 16,
+        "token_budget": 8192,
+        "production_cache": false,
+        "card_notes": "README: each input must start with 'query: ' or 'passage: '; 'query: '/'passage: ' for asymmetric passage retrieval, 'query: ' on both sides for symmetric similarity; the asymmetric pair is used because the query (an opinion summary) and the passages (transcript speech) differ in length and register. No config_sentence_transformers.json prompts in the snapshot, so the prefixes are prepended to the text here. Modules: XLMRobertaModel (1024) + mean Pooling + Normalize; max_seq_length 512."
+      },
+      "bge_m3": {
+        "kind": "dense",
+        "model": "BAAI/bge-m3",
+        "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 8192,
+        "batch_size": 8,
+        "token_budget": 8192,
+        "production_cache": false,
+        "card_notes": "README: 'the BGE-M3 model no longer requires adding instructions to the queries'; dense vectors from sentence-transformers: XLMRobertaModel (1024) + CLS Pooling + Normalize; max_seq_length 8192 (native, kept; a batch never exceeds token_budget tokens, so one 8192-token sequence runs alone). Sparse and ColBERT heads (sparse_linear.pt, colbert_linear.pt) are not used."
+      },
+      "mpnet": {
+        "kind": "dense",
+        "model": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+        "revision": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "no prompts in config_sentence_transformers.json and no prefix in the card; XLMRobertaModel (768) + mean Pooling, no Normalize; max_seq_length 128; paraphrase model (symmetric)."
+      },
+      "minilm": {
+        "kind": "dense",
+        "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "no prompts and no prefix; BertModel (384) + mean Pooling, no Normalize; max_seq_length 128; paraphrase model (symmetric)."
+      },
+      "hybrid_rrf": {
+        "kind": "rrf",
+        "components": [
+          "bm25_speaker",
+          "serafim_335m"
+        ],
+        "k": 60,
+        "choice": "declared before any retrieval result was computed: BM25 fitted on the speaker's units (the sparse design the benchmarks were built around) fused with the production encoder, so the hybrid measures what lexical evidence adds to the encoder already in use; another dense component may only be chosen on train"
+      },
+      "rerank_bge": {
+        "kind": "rerank",
+        "model": "BAAI/bge-reranker-v2-m3",
+        "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "max_length": 512,
+        "batch_size": 16,
+        "card_notes": "config.json: XLMRobertaForSequenceClassification with id2label {0: LABEL_0}, a single relevance logit (higher = more relevant), no sbert_ce_default_activation_function; README scores with max_length=512 and maps to [0, 1] with sigmoid only optionally. The raw logit is used (activation Identity), which gives the same order as the sigmoid without saturated ties. No query instruction for this normal (non-LLM) reranker."
+      },
+      "rerank_mmarco": {
+        "kind": "rerank",
+        "model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+        "revision": "1427fd652930e4ba29e8149678df786c240d8825",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "max_length": 512,
+        "batch_size": 32,
+        "card_notes": "config.json: XLMRobertaForSequenceClassification, id2label {0: LABEL_0}, a single logit, sbert_ce_default_activation_function Identity; tokenizer model_max_length 512; trained on machine-translated mMARCO (includes pt)."
+      },
+      "rerank_laya_p4": {
+        "kind": "decision_rerank",
+        "decision_config": "configs/nli_verifier.toml",
+        "scorer": "laya_multi_pt",
+        "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+        "question": "p4_supports",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "notes": "Laya (laya_multi_pt of configs/nli_verifier.toml: checkpoint, subfolder, max_len, head_max_len and batch_size read from that scorer, revision checked against it) used as a reranker of the serafim_335m top_k. Each pair is one Laya forward pass on the battery question p4_supports with the state {premise: candidate unit text, hypothesis: query text}, the orientation of the E3 battery (premise = transcript text, hypothesis = opinion); the score is the question's support signal, P(true). No translation. Laya answers are cached in cache.decision_dir (one file per checkpoint and device, keyed by the model signature, the question JSON and the state) and the scores in cache.rerank_dir keyed by the pair digest, so an interrupted run resumes."
+      },
+      "rerank_laya_p3": {
+        "kind": "decision_rerank",
+        "decision_config": "configs/nli_verifier.toml",
+        "scorer": "laya_multi_pt",
+        "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+        "question": "p3_inferable",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "notes": "secondary variant of rerank_laya_p4 with the battery question p3_inferable (P(true) of 'Can the hypothesis be inferred from the premise?'); every other value as rerank_laya_p4"
+      }
+    },
+    "evaluation": {
+      "baseline_retriever": "serafim_335m",
+      "baseline_unit": "sentence",
+      "ks": [
+        1,
+        3,
+        5
+      ],
+      "top_n_stored": 10,
+      "score_decimals": 5,
+      "bootstrap_samples": 2000,
+      "permutation_samples": 10000,
+      "confidence_level": 0.95,
+      "seed": 42,
+      "bootstrap_unit": "hearing",
+      "multiple_comparisons": "holm, one family per question: E1 (retrievers) compares every retriever with baseline_retriever on the same unit kind, one family per benchmark, split group, unit kind and test (McNemar on acc@1, sign-flip on reciprocal rank); E2 (units) compares every unit kind with baseline_unit for the same retriever on the paired lift (hit@1 minus n_relevant / n_units), one family per benchmark, split group and retriever; no test crosses both the retriever and the unit kind, and every adjusted p-value records its family",
+      "multiple_comparisons_amendment": "Recorded on 2026-09-23, before any summarize run that included a dense retriever: the first version tested every (retriever, unit) pair against serafim_335m on sentences with raw acc@1 and MRR in one family per benchmark and split group, which mixed the retriever and unit questions and rewarded larger units for their higher chance of holding a relevant unit (random_acc_at_1 0.015 on B1 sentences vs 0.455 on B1 turns; 1,365 of 3,222 B2 turn queries have every unit relevant); the only summarize report written before this change (retrieval_v1_report.json of the sparse run) had no baseline rows, so no comparison had been computed",
+      "tie_policy": "order by score descending, candidate index ascending on ties (the argmax rule of the UDV builder); rank_optimistic and rank_pessimistic bound the rank of the first relevant unit over every tie order"
+    },
+    "cache": {
+      "embeddings_dir": "artifacts/cache/experiments/embeddings",
+      "rerank_dir": "artifacts/cache/experiments/rerank",
+      "decision_dir": "artifacts/cache/experiments/decision_models",
+      "decision_dir_note": "a Laya answer cache separate from the E3 one (configs/nli_verifier.toml decision_models.cache_dir), so the retrieval runs and the verifier runs never write the same file",
+      "shard_size": 5000,
+      "batch_size_note": "batch sizes measured on 2026-09-22 (Apple M5, MPS, fp32, serafim-335m, 512 sentences): 16 to 32 give about 2.1k tokens/s, 64 about 1.0k and 256 about 0.55k; the batch size changes vectors only at float rounding level",
+      "production_config": "configs/udv.toml"
+    },
+    "run": {
+      "run_name": "retrieval_v1",
+      "output_dir": "artifacts/experiments/retrieval",
+      "device": "auto",
+      "hf_hub_offline": true,
+      "seed": 42
+    },
+    "queue": {
+      "plan": "priority order under the measured MPS throughput: every retriever on the sentence unit (E1) and the turn unit, the four units (E2) for the production encoder, the hybrid and the small reranker; windows for other dense models and the large reranker beyond sentences are left for a later step chosen on train",
+      "steps": [
+        {
+          "retrievers": [
+            "tfidf_word",
+            "tfidf_char",
+            "bm25"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ],
+          "device": "cpu"
+        },
+        {
+          "retrievers": [
+            "serafim_335m"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "hybrid_rrf"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "minilm"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "mpnet"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "serafim_335m_ir"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "e5_large"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "rerank_mmarco"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "rerank_bge"
+          ],
+          "units": [
+            "sentence"
+          ]
+        },
+        {
+          "retrievers": [
+            "bge_m3"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "serafim_900m"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        }
+      ]
+    },
+    "declarations": {
+      "retrieval_v2": {
+        "declared": "Declared on 2026-09-27, before any Laya score on a retrieval benchmark was computed (smoke runs included). Question: does Laya, used as a reranker of the serafim_335m top 20 sentences, put a supporting sentence first more often than serafim_335m alone? Laya had never been tested as a retriever; in E3 it only judged inferability over the four retrieved chunks.",
+        "run_name": "retrieval_v2",
+        "primary": "rerank_laya_p4: laya_multi_pt with the battery question p4_supports (the best single Portuguese question of the E3 v2 validation, ROC AUC 0.793; chosen from E3, not from any retrieval result); no translation",
+        "secondary": "rerank_laya_p3 (p3_inferable), run after the primary only if the throughput measured on the primary leaves room; no variant with translation",
+        "design": "base serafim_335m, unit sentence, top_k 20 (the value of rerank_bge and rerank_mmarco, so the three rerankers are comparable); splits train and validation only, the test split is not read; both benchmarks (masked_quotes, nli)",
+        "top_k_rule": "top_k may be lowered to 10 only if a smoke run shows that the full run would exceed about 6 hours on MPS, decided from throughput alone before any retrieval metric is seen; the value used is recorded here",
+        "run_contents": "the retrieval_v2 run holds serafim_335m (baseline), rerank_bge and rerank_mmarco on the sentence unit, recomputed from the E1 caches (their rows are checked against retrieval_v1), plus the Laya rerankers; no retrieval_v1 file is modified",
+        "evaluation": "the E1 machinery unchanged: acc@1/3/5 and MRR with hearing-bootstrap intervals; each retriever against serafim_335m on the sentence unit with exact McNemar on acc@1 and the hearing sign-flip test on the reciprocal rank; Holm over one family per benchmark, split group and test, the family holding every non-baseline retriever of the run (rerank_bge, rerank_mmarco, rerank_laya_p4 and rerank_laya_p3 if run). Laya against rerank_bge and rerank_mmarco is reported descriptively (summarize with --baseline-retriever), outside the decision",
+        "decision_rule": "Laya reranking is proposed for the UDV only if its MRR on nli validation is higher than serafim_335m with Holm-adjusted p < 0.05; otherwise it is reported as a negative result",
+        "device_and_top_k_decision": "Recorded on 2026-09-27 from throughput alone, before any retrieval metric of a Laya reranker was read: a CPU smoke run (2 hearings requested, 1 loaded, 5 queries, 100 pairs) scored 100 pairs in 2.16 s of forward time (about 46 pairs/s, 93 input tokens per pair, no truncated premise); the full train and validation run is about 67,400 pairs per variant (the pair count of rerank_bge in retrieval_v1), about 25 to 40 minutes on CPU. So top_k stays 20, the Laya rerankers run on the CPU (float32; the MPS stays free for another job on the machine and the CPU answers go to their own cache file), and the secondary rerank_laya_p3 is run after the primary. serafim_335m, rerank_bge and rerank_mmarco are recomputed on the CPU from their caches, with a check that no embedding or pair score is computed anew"
+      }
+    }
+  }
+}

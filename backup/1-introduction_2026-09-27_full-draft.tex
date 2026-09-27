@@ -1,0 +1,52 @@
+\section{Introdu\c{c}\~ao}
+\label{sec:introducao}
+
+As audiências públicas das comissões da Câmara dos Deputados reúnem parlamentares, representantes
+do governo, especialistas e entidades da sociedade civil em torno de propostas legislativas e
+políticas públicas, e suas transcrições registram o que cada participante defendeu. Essas
+transcrições têm em média 18 mil palavras no PublicHearingBR~\citep{fernandes2024publichearingbr}, e o
+público costuma conhecê-las por matérias jornalísticas que têm em média 4,2\% do tamanho da
+transcrição e citam poucas opiniões de poucos participantes. O conjunto de dados registra o que a
+matéria atribui a cada pessoa, mas não o ponto da fala de onde cada opinião foi extraída.
+
+Este trabalho trata de três perguntas encadeadas que partem dessa lacuna: qual trecho da fala de uma
+pessoa sustenta cada opinião que a matéria lhe atribui; como representar, somente a partir da fala,
+o que uma pessoa defende ao longo de várias audiências, de modo que a representação oriente um
+modelo de linguagem; e se um LLM que recebe essa representação consegue estimar como a pessoa se
+posicionaria numa audiência que não entrou nela, declarando a base da estimativa. Uma estimativa
+desse tipo pode apoiar a preparação de audiências e ferramentas de transparência que informem o que
+um participante já defendeu sobre um tema e como suas posições se aplicam a um tema novo. LLMs usados
+para simular pessoas, porém, tendem a produzir respostas estereotipadas e a apagar a diversidade
+interna dos grupos~\citep{bisbee2024synthetic,wang2025large}, e o modelo pode responder com a própria
+opinião ou com o que associa ao nome da pessoa. Por isso, a simulação proposta usa somente as falas
+da própria pessoa, exclui o partido do prompt, declara a base de cada estimativa e é avaliada com
+opiniões publicadas sobre audiências posteriores às usadas no perfil.
+
+A abordagem (Seção~\ref{sec:metodo}) tem três componentes: a Unidade Deliberativa Verificável (UDV),
+que liga cada opinião do resumo estruturado a uma sentença da fala da própria pessoa, com offsets de
+caracteres, um nível que declara o tipo de vínculo e a origem do vínculo; os perfis por ator, escritos
+por um LLM somente com as falas de cada pessoa nas audiências de treino, em blocos de posições,
+critérios e valores, alinhamentos declarados e forma de argumentar; e a simulação, que fornece o
+perfil a um LLM, acrescenta trechos das falas anteriores da pessoa recuperados pelo assunto e usa
+\textit{classifier-free guidance} para amplificar o efeito desse material. As UDVs das audiências de
+validação e de teste servem de gabarito para perguntas de múltipla escolha que medem o efeito de cada
+componente. O trabalho se inspira nas Trilhas A e B do desafio: a UDV e a recuperação restrita à fala
+da pessoa tratam da auditoria de documentos longos, e os perfis e a simulação tratam da mineração de
+opiniões e de atores, sempre com apoio em trechos localizados da transcrição.
+
+\medskip\noindent\textbf{Contribui\c{c}\~oes.} As principais contribui\c{c}\~oes deste trabalho s\~ao:
+\begin{itemize}
+  \itemsep2pt
+  \item a UDV, um registro que liga 2.105 das 2.203 opiniões do PublicHearingBR a uma sentença da
+  fala da própria pessoa, com offsets, nível e proveniência, conferido por um verificador separado;
+  \item perfis por ator escritos somente com falas de audiências de treino, com regras que impedem
+  atribuir à pessoa o que vem do cabeçalho da audiência, de terceiros, do partido ou de conhecimento
+  externo às falas;
+  \item um método de simulação de participantes que combina o perfil, trechos recuperados da fala da
+  própria pessoa e \textit{classifier-free guidance}, com classificação da base da estimativa e
+  justificação conferida por código;
+  \item um protocolo de avaliação por múltipla escolha com gabarito derivado das UDVs, distratores da
+  mesma audiência, leitura pelas probabilidades das letras em quatro rotações das opções, escolha de
+  hiperparâmetros na validação e intervalos por \textit{bootstrap} de audiências, aplicado às
+  condições da simulação com <resultado principal>.
+\end{itemize}
