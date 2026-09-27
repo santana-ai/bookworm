@@ -140,18 +140,32 @@ def generate_profile(
     )
 
 
-def load_done_actors(path: Path, report: Reporter = ignore_message) -> set[str]:
+def load_done_actors(
+    path: Path, prompt_version: str, model: str, report: Reporter = ignore_message
+) -> set[str]:
     if not path.exists():
         return set()
     done: set[str] = set()
+    stale: set[tuple[str, str]] = set()
     with path.open(encoding="utf-8") as handle:
         for line_number, line in enumerate(handle, start=1):
             if not line.strip():
                 continue
             try:
-                done.add(json.loads(line)["actor"])
+                row = json.loads(line)
+                actor, version = row["actor"], (row["prompt_version"], row["model"])
             except (json.JSONDecodeError, KeyError, TypeError):
                 report(f"ignoring invalid line {line_number} in {path}")
+                continue
+            if version != (prompt_version, model):
+                stale.add(version)
+            done.add(actor)
+    if stale:
+        raise ConfigError(
+            f"{path} has profiles from other (prompt_version, model) pairs {sorted(stale)},"
+            f" current run is {(prompt_version, model)}; move the file away to regenerate"
+            " every profile, or pass a new --output"
+        )
     return done
 
 
@@ -180,18 +194,26 @@ class GenerationOutcome:
 class PreparedRun:
     context: GenerationContext
     selected: list[ActorSpeechRecord]
+    done: frozenset[str] = frozenset()
 
 
-def prepare_run(request: GenerateRequest) -> PreparedRun:
+def prepare_run(request: GenerateRequest, report: Reporter = ignore_message) -> PreparedRun:
     config = load_profiles_config(request.config_path).with_overrides(
         request.speeches_path, request.output_path, request.model
     )
     if not request.dry_run and not config.model.name:
         raise ConfigError("set [model] name in the config, or pass --model")
     prompts = load_prompts(config.prompts_dir, config.system_profile_file, config.user_profile_file)
+    done = (
+        frozenset()
+        if request.dry_run
+        else frozenset(
+            load_done_actors(config.profiles_path, prompts.version, config.model.name, report)
+        )
+    )
     selected = select_actors(load_speeches(config.speeches_path), request.actors)
     context = GenerationContext(config, prompts, load_lds_metadata(config))
-    return PreparedRun(context, selected)
+    return PreparedRun(context, selected, done)
 
 
 def dry_run(run: PreparedRun, limit: int | None) -> GenerationOutcome:
@@ -256,8 +278,7 @@ def generate_profiles(
 ) -> GenerationOutcome:
     context = run.context
     path = context.config.profiles_path
-    done = load_done_actors(path, report)
-    todo = [record for record in run.selected if record.actor not in done]
+    todo = [record for record in run.selected if record.actor not in run.done]
     skipped = len(run.selected) - len(todo)
     if skipped:
         report(f"resuming: {skipped} actors already in {path}")
@@ -292,7 +313,7 @@ def run_generate_profiles(
     client_factory: ClientFactory = default_client_factory,
     report: Reporter = ignore_message,
 ) -> GenerationOutcome:
-    run = prepare_run(request)
+    run = prepare_run(request, report)
     report(f"{len(run.selected)} actors selected, prompts {run.context.prompts.version}")
     if request.dry_run:
         return dry_run(run, request.limit)

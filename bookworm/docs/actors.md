@@ -94,7 +94,9 @@ só pelo script de medição do `challenge/`, é ignorada.
 Para cada turno de `split_into_turns`:
 
 1. O nome da pessoa é o do cabeçalho; num turno de presidência, vale o nome entre parênteses
-   (`A SRA. PRESIDENTE (Erika Kokay. PT - DF)` dá `Erika Kokay`). A chave é esse nome sem acentos, em
+   (`A SRA. PRESIDENTE (Erika Kokay. PT - DF)` dá `Erika Kokay`). O mesmo vale para qualquer
+   cabeçalho cujo parêntese não seja partido e UF (`ANTONIO DA SILVA JESUS (TOINHO DO JUDÔ)` dá
+   `TOINHO DO JUDÔ`). A chave é esse nome sem acentos, em
    maiúsculas e com espaços normalizados.
 2. O papel é `chair` quando o nome do cabeçalho está em `chair_names`, e `speaker` nos demais.
 3. O turno é descartado, nesta ordem, se a chave estiver em `non_person_keys`, se a fala for só
@@ -121,6 +123,64 @@ do ator. A ligação fica com a chave de mais turnos (empate: a primeira em orde
 `linked_turns` é o número de turnos dessa chave. `actor` é nulo quando a pessoa não foi resolvida para
 nenhum turno (`matched_turns` 0, as UDVs `person_not_resolved`) ou quando nenhum dos turnos dela
 sobreviveu à política (`linked_turns` 0).
+
+## Duas regras de ligação
+
+Para avaliar um perfil de ator, cada UDV de uma audiência de teste precisa apontar para o registro do
+ator que a disse. O repositório tem duas regras que fazem essa ligação, e a questão era se elas
+escolhem atores diferentes para a mesma UDV, o que faria as contagens de avaliação dependerem da regra.
+
+- **Turnos atribuídos** (a regra desta etapa, `bookworm.pipeline.resolve_link`, usada no arquivo
+  `<run>_actor_links.jsonl`): entre os turnos que a resolução de envolvidos atribuiu à pessoa da UDV,
+  fica o ator com mais turnos mantidos pela política.
+- **Turno de evidência** (a regra do bloco `evaluation` de `filter-actor-speeches`, portada de
+  `challenge/utils/filter_actor_speeches.py`; ver [Perfis de atores](profiles.md#formato-dos-arquivos)):
+  fica o ator dono do turno `evidence.speaker_turn` da UDV. UDV sem evidência, ou cujo turno de
+  evidência foi descartado pela política, fica sem ligação.
+
+Sobre `udv_v1` (2.203 UDVs) e o LDS completo:
+
+- a regra dos turnos atribuídos liga 2.104 UDVs e a do turno de evidência, 2.099;
+- nas 2.099 UDVs que as duas ligam, o ator é o mesmo; não há nenhuma divergência;
+- o turno de evidência está sempre entre os turnos atribuídos à pessoa;
+- as 5 ligações a mais da primeira regra (`udv-6-1-0` e `udv-6-1-1`, Aureo Ribeiro; `udv-58-2-0`,
+  Soraya Santos; `udv-117-0-0`, Alfredo Gaspar; `udv-195-2-2`, `KRISZTIAN KATONA`) são UDVs cujo turno
+  de evidência foi descartado pela política, mas que têm outros turnos mantidos da mesma pessoa; nas
+  5, o nome do ator corresponde ao nome da UDV;
+- no split `test` de `temporal_v1`, as duas regras dão 106 UDVs ligadas a atores com perfil (duas ou
+  mais audiências, pelo menos uma de treino), 48 atores e 27 audiências, os mesmos números de
+  `challenge/artifacts/actor_profiles/train_speeches_stats.json`.
+
+Como a primeira regra contém a segunda e nunca escolhe outro ator, o arquivo de ligações continua com
+ela. O bloco `evaluation` continua com a regra do turno de evidência, para reproduzir byte a byte as
+contagens do `challenge/`; em `udv_v1` test as duas coincidem.
+
+Em 6 UDVs o nome de exibição do ator ligado não é o nome que a matéria usa. As duas regras escolhem o
+mesmo ator nelas, porque a diferença vem de antes da ligação, da forma como o nome do ator é formado a
+partir do cabeçalho do turno:
+
+- `udv-40-2-0`, `udv-40-2-1` e `udv-40-2-2` (matéria: "Antônio da Silva Jesus (Toninho do Judô)") vão
+  para `TOINHO DO JUDÔ`. O cabeçalho é `ANTONIO DA SILVA JESUS (TOINHO DO JUDÔ)`: o nome civil casa
+  com o da matéria, e o nome do ator é o que está entre parênteses, grafado sem o "n" na transcrição.
+- `udv-146-2-0` (matéria: "Ângela Gomes", representante da Federação das Associações de Cannabis
+  Terapêutica) vai para `ANGELA ABOIN`. O cabeçalho da audiência 146 é `ANGELA ABOIN GOMES`, que
+  contém as duas palavras do nome da matéria; a fusão `ANGELA ABOIN GOMES` → `ANGELA ABOIN` de
+  `[merges]` junta esse registro ao da audiência 126, sobre cannabis medicinal, onde a mesma pessoa
+  aparece como `ANGELA ABOIN` e também fala da filha com autismo tratada com cannabis. O nome de
+  exibição fica com a grafia canônica, sem "Gomes".
+- `udv-206-5-0` e `udv-206-5-1` (matéria: "Maria do Rosário Tripodi", representante do Ministério da
+  Educação) vão para `ZARA FIGUEIREDO`. O cabeçalho é `MARIA DO ROSARIO FIGUEIREDO TRIPODI (ZARA
+  FIGUEIREDO)`, e a presidência anuncia a fala como a de Zara Figueiredo, do Ministério da Educação:
+  o nome civil casa com o da matéria, e o nome do ator é o que está entre parênteses. É um ator de
+  uma única audiência, então não entra nos perfis.
+
+Nos três casos o turno atribuído é da pessoa citada na matéria. O que difere é a grafia escolhida para
+o registro: quando o cabeçalho traz um nome entre parênteses que não é partido e UF, a política usa
+esse nome como chave (passo 1 da política), e uma fusão usa a chave canônica. Quem liga perfis a UDVs pelo
+nome de exibição, em vez de usar o arquivo de ligações, perde esses casos.
+
+Esses números são fixados por `tests/integration/test_link_rules.py` (marcador `dataset`), que refaz
+as duas regras a partir do LDS, de `udv_v1.jsonl` e de `temporal_v1.json`.
 
 ## Números da rodada sobre o LDS completo
 

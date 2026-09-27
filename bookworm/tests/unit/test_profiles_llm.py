@@ -24,6 +24,8 @@ CHALLENGE_STYLE: dict[str, dict[str, Any]] = {
     "split_filter": {
         "manifest_path": "m.json",
         "splits": ["train"],
+        "eval_splits": ["test"],
+        "udv_path": "u.jsonl",
         "speeches_path": "f.jsonl",
         "stats_path": "st.json",
     },
@@ -77,6 +79,7 @@ def test_split_filter_config_reads_the_split_filter_table() -> None:
     config = SplitFilterConfig.from_mapping(CHALLENGE_STYLE)
     assert (config.speeches_path, config.output_path) == (Path("s.jsonl"), Path("f.jsonl"))
     assert config.splits == ["train"]
+    assert (config.eval_splits, config.udv_path) == (["test"], Path("u.jsonl"))
     assert config.with_output(Path("o.jsonl")).output_path == Path("o.jsonl")
     assert config.with_output(None) == config
 
@@ -91,6 +94,22 @@ def test_invalid_splits_are_config_errors(splits: Any) -> None:
     raw = {**CHALLENGE_STYLE, "split_filter": {**CHALLENGE_STYLE["split_filter"], "splits": splits}}
     with pytest.raises(ConfigError):
         SplitFilterConfig.from_mapping(raw)
+
+
+@pytest.mark.parametrize(
+    "eval_splits", [[], ["test", "test"], ["dev"], ["train"], ["test", "train"]]
+)
+def test_invalid_eval_splits_are_config_errors(eval_splits: Any) -> None:
+    table = {**CHALLENGE_STYLE["split_filter"], "eval_splits": eval_splits}
+    with pytest.raises(ConfigError):
+        SplitFilterConfig.from_mapping({**CHALLENGE_STYLE, "split_filter": table})
+
+
+@pytest.mark.parametrize("key", ["eval_splits", "udv_path"])
+def test_split_filter_evaluation_keys_are_required(key: str) -> None:
+    table = {name: value for name, value in CHALLENGE_STYLE["split_filter"].items() if name != key}
+    with pytest.raises(ConfigError, match=f"split_filter].{key}"):
+        SplitFilterConfig.from_mapping({**CHALLENGE_STYLE, "split_filter": table})
 
 
 def test_missing_table_is_a_config_error(tmp_path: Path) -> None:

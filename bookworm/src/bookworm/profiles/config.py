@@ -27,20 +27,30 @@ class ModelSettings(_ConfigModel):
     seed: int | None = None
 
 
+def check_split_names(splits: list[str]) -> None:
+    if not splits or len(set(splits)) != len(splits) or not set(splits) <= set(SPLIT_NAMES):
+        raise ValueError(f"splits must be distinct names among {SPLIT_NAMES}, got {splits}")
+
+
 class SplitFilterConfig(_ConfigModel):
     speeches_path: Path
     lds_sha256: str
     manifest_path: Path
     splits: list[str]
+    eval_splits: list[str]
+    udv_path: Path
     output_path: Path
     stats_path: Path
     source: dict[str, Any]
 
     @model_validator(mode="after")
     def check_splits(self) -> Self:
-        splits = self.splits
-        if not splits or len(set(splits)) != len(splits) or not set(splits) <= set(SPLIT_NAMES):
-            raise ValueError(f"splits must be distinct names among {SPLIT_NAMES}, got {splits}")
+        check_split_names(self.splits)
+        check_split_names(self.eval_splits)
+        if set(self.splits) & set(self.eval_splits):
+            raise ValueError(
+                f"eval_splits {self.eval_splits} overlap the profile splits {self.splits}"
+            )
         return self
 
     def with_output(self, output_path: Path | None) -> "SplitFilterConfig":
@@ -60,6 +70,8 @@ class SplitFilterConfig(_ConfigModel):
                         required(source, "split_filter", "manifest_path", origin)
                     ),
                     "splits": required(source, "split_filter", "splits", origin),
+                    "eval_splits": required(source, "split_filter", "eval_splits", origin),
+                    "udv_path": Path(required(source, "split_filter", "udv_path", origin)),
                     "output_path": Path(required(source, "split_filter", "speeches_path", origin)),
                     "stats_path": Path(required(source, "split_filter", "stats_path", origin)),
                     "source": source,

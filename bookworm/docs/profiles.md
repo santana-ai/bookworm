@@ -10,7 +10,10 @@ mesmo comportamento, `challenge/utils/filter_actor_speeches.py` e
 As UDVs dizem o que uma pessoa defendeu numa audiência, uma opinião por vez. Para comparar atores
 entre audiências, buscar quem tem posições parecidas ou estimar o que alguém diria sobre um tema
 novo, é preciso um resumo de tudo o que a pessoa falou. O perfil é esse resumo: um texto por ator,
-escrito a partir só das falas da transcrição, para ser convertido em embedding numa etapa posterior.
+escrito a partir só das falas da transcrição, que outro modelo recebe como instrução para responder
+como a pessoa responderia. O prompt atual pede até quatro blocos com título fixo (`## Posições`,
+`## Critérios e valores`, `## Alinhamentos declarados` e `## Forma de argumentar`), com itens
+começando por `- `; o bloco sem apoio nas falas é omitido.
 
 Um perfil escrito com todas as audiências já leu as falas das audiências de teste. Se as opiniões
 publicadas dessas audiências forem usadas para avaliar o perfil (`bookworm validate-profiles`), a
@@ -24,7 +27,8 @@ passa antes por um filtro que mantém só as audiências dos splits configurados
    um registro por ator com fala em pelo menos duas audiências), com os mesmos bytes do script
    `challenge/utils/build_actor_speeches.py`.
 2. `bookworm filter-actor-speeches` mantém de cada ator só as audiências dos splits listados, sem
-   alterar os turnos, descarta o ator que fica sem nenhuma e grava o arquivo filtrado e as contagens.
+   alterar os turnos, descarta o ator que fica sem nenhuma e grava o arquivo filtrado e as contagens,
+   incluindo quantas UDVs dos splits de avaliação se ligam a um ator que terá perfil.
 3. `bookworm generate-profiles` monta um prompt por ator, com as falas em ordem cronológica, e grava
    um perfil por linha.
 
@@ -46,8 +50,9 @@ uv run bookworm generate-profiles --config configs/actor_profiles.toml \
   --input artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl --dry-run
 ```
 
-Com `temporal_v1`, a saída tem 264 prompts, 6.596.900 caracteres no total e o maior prompt, de
-Erika Kokay, com 283.255 caracteres. O `prompt_version` dos prompts atuais é `8428246d3fae`.
+Com `temporal_v1`, a saída tem 264 prompts, 7.178.756 caracteres no total (6.862 do prompt de
+sistema, repetido em cada um, e 5.367.188 das falas) e o maior prompt, de Erika Kokay, com 285.459
+caracteres. O `prompt_version` dos prompts atuais é `a80b3a121fab`.
 
 A geração de verdade precisa do extra `profiles` (`transformers`, `accelerate`, `torch`) e do id de
 um modelo do Hugging Face ou do caminho de uma pasta local:
@@ -82,8 +87,10 @@ Opções de `generate-profiles`:
   o `assunto` de cada audiência, e é conferido por SHA-256.
 - `[output]`: `profiles_path`.
 - `[split_filter]`: `manifest_path` (manifesto do split; o comando recusa um manifesto gerado de
-  outro LDS), `splits` (nomes distintos entre `train`, `validation` e `test`), `speeches_path`
-  (arquivo filtrado) e `stats_path` (contagens).
+  outro LDS), `splits` (nomes distintos entre `train`, `validation` e `test`), `eval_splits` (splits
+  de avaliação, na mesma forma; o comando recusa a configuração se algum deles também estiver em
+  `splits`), `udv_path` (as UDVs usadas nas contagens de avaliação), `speeches_path` (arquivo
+  filtrado) e `stats_path` (contagens). `splits_reason` é ignorada.
 - `[prompts]`: `dir`, `system_profile` e `user_profile`. Sem `dir`, valem os prompts empacotados em
   `bookworm/profiles/prompts/`, cópias byte a byte dos de `challenge/prompts/actor_profile/`.
 - `[model]`: `name`, `device_map` (repassado a `from_pretrained`; com `"auto"`, o `accelerate`
@@ -92,10 +99,32 @@ Opções de `generate-profiles`:
 
 ## Formato dos arquivos
 
-O arquivo filtrado tem o mesmo formato das falas por ator. As contagens (`stats_path`) têm três
+O arquivo filtrado tem o mesmo formato das falas por ator. As contagens (`stats_path`) têm quatro
 blocos: `split_manifest` (caminho, SHA-256, versão, splits e número de audiências), `input` e
 `output` (caminho, SHA-256, atores, audiências, turnos e distribuição de audiências por ator; o
-`output` traz também `actors_without_split_hearings`).
+`output` traz também `actors_without_split_hearings`) e `evaluation`.
+
+O bloco `evaluation` responde, antes de gerar qualquer perfil, quanto material haverá para avaliá-los:
+um perfil só pode ser conferido contra UDVs de audiências que ele não leu, ditas pela mesma pessoa.
+Uma UDV de uma audiência dos `eval_splits` é ligada ao ator dono do seu turno de evidência
+(`hearing_id` e `evidence.speaker_turn`) no arquivo de falas sem filtro; UDV sem evidência, ou cujo
+turno de evidência foi descartado quando o arquivo de falas foi montado, fica sem ligação. Só contam
+as ligações a atores que continuam no arquivo filtrado, ou seja, que terão perfil. As chaves, nesta
+ordem:
+
+- `splits`, `udv_path` e `udv_sha256`;
+- `link`: a regra acima, em texto (a mesma frase do script do `challenge/`);
+- `hearings`: audiências dos `eval_splits`;
+- `profiled_actors_speaking`: atores com perfil que têm algum turno nessas audiências;
+- `udvs`: UDVs dessas audiências;
+- `linked_udvs`, `linked_actors` e `linked_hearings`: UDVs ligadas a um ator com perfil, quantos
+  atores e em quantas audiências;
+- `linked_udvs_by_tier`: as UDVs ligadas por `tier`, em ordem alfabética.
+
+Com `udv_v1` e `eval_splits = ["test"]`: 30 audiências, 116 atores com perfil falam nelas, e 106 das
+359 UDVs se ligam a 48 atores em 27 audiências (17 `quote_found`, 87 `semantic_match_high`, 2
+`semantic_match_weak`). Essa regra de ligação é diferente da usada no arquivo de ligações de
+`build-udvs`; a comparação das duas está em [Falas por ator](actors.md#duas-regras-de-ligação).
 
 Cada linha do arquivo de perfis (`bookworm.profiles.ProfileRecord`) tem, nesta ordem:
 
@@ -111,9 +140,18 @@ Cada linha do arquivo de perfis (`bookworm.profiles.ProfileRecord`) tem, nesta o
 
 O arquivo de perfis é aberto em modo append e cada perfil é gravado assim que fica pronto. Ao rodar
 de novo com o mesmo `--output`, os atores que já têm linha são pulados, pelo nome; para regerar um
-ator, apague a linha dele. Uma linha inválida (por exemplo, deixada por interrupção no meio da
-escrita) é ignorada na retomada, com aviso, mas continua no arquivo; remova-a antes de consumir o
-JSONL, porque `read_profiles` recusa o arquivo. Não rode duas execuções sobre o mesmo `--output`.
+ator, apague a linha dele.
+
+Como a retomada pula pelo nome, retomar um arquivo gerado com outro prompt ou outro modelo juntaria
+no mesmo JSONL perfis que não são comparáveis. Por isso, antes de ler as falas, o comando lê o
+arquivo de saída e para com código 2 se alguma linha tiver um par (`prompt_version`, `model`)
+diferente do da execução atual; a mensagem lista os pares encontrados. Para regerar todos os perfis,
+mova o arquivo antigo ou passe um `--output` novo. O `--dry-run` não lê o arquivo de saída.
+
+Uma linha inválida (JSON quebrado, por exemplo deixado por interrupção no meio da escrita, ou sem
+`actor`, `prompt_version` ou `model`) é ignorada na retomada, com aviso, e não conta como feita; ela
+continua no arquivo, então remova-a antes de consumir o JSONL, porque `read_profiles` recusa o
+arquivo. Não rode duas execuções sobre o mesmo `--output`.
 
 Erro em um ator não interrompe a execução: o ator fica fora do arquivo, e portanto é tentado de novo
 na próxima rodada, e o resumo final lista os nomes em `failed_actors`. Contam como falha uma resposta
@@ -128,8 +166,10 @@ termina com código 1; erro de configuração ou de dados termina com código 2.
   roda o filtro e compara as contagens byte a byte com
   `challenge/artifacts/actor_profiles/train_speeches_stats.json`: 301 atores, 198 audiências e 6.323
   turnos na entrada; 264 atores, 139 das 144 audiências de treino e 4.598 turnos na saída, com 37
-  atores sem audiência de treino. O mesmo arquivo confere que os prompts renderizados são idênticos
-  aos do script do `challenge/` para os 264 atores.
+  atores sem audiência de treino; no bloco `evaluation`, 106 das 359 UDVs de teste ligadas a 48
+  atores em 27 audiências. O mesmo arquivo confere que os prompts empacotados têm o mesmo
+  `prompt_version` do script do `challenge/` e que os prompts renderizados são idênticos para os 264
+  atores.
 - A geração depende do modelo, da semente e do hardware: a mesma semente não garante o mesmo texto
   entre GPUs ou versões do `transformers`. O registro guarda `model` e `prompt_version`, mas não a
   revisão do checkpoint; para fixá-la, passe uma pasta local em `--model`.

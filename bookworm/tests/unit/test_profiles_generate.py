@@ -23,11 +23,12 @@ from bookworm.profiles.config import (
     ProfilesConfig,
     load_split_filter_config,
 )
-from bookworm.profiles.generate import GenerateRequest, run_generate_profiles
+from bookworm.profiles.generate import GenerateRequest, load_done_actors, run_generate_profiles
 from bookworm.profiles.llm import ChatResult
 from bookworm.profiles.prompts import load_prompts, prompt_version
-from bookworm.profiles.schemas import read_profiles
-from bookworm.profiles.split_filter import build_split_filter
+from bookworm.profiles.schemas import ProfileRecord, read_profiles
+from bookworm.profiles.split_filter import LINK_DESCRIPTION, build_split_filter
+from bookworm.udv.schemas import Actor, Evidence, Method, Tier, UdvRecord, write_udv_jsonl
 
 runner = CliRunner()
 
@@ -77,6 +78,39 @@ SPEECHES = [
 ]
 
 
+def udv(
+    udv_id: str, hearing_id: int, tier: Tier, speaker_turn: int | None, has_evidence: bool = True
+) -> UdvRecord:
+    evidence = Evidence(
+        text="Trecho.",
+        support_type="direct_quote",
+        score=None,
+        quote_prefix=None,
+        start_char=None,
+        end_char=None,
+        speaker_turn=speaker_turn,
+    )
+    return UdvRecord(
+        id=udv_id,
+        hearing_id=hearing_id,
+        actor=Actor(name="Pessoa", role="Convidada"),
+        proposition="Opinião.",
+        evidence=evidence if has_evidence else None,
+        tier=tier,
+        provenance=None,
+        method=Method(encoder="stub-encoder", revision="stub-revision-1", embedding_threshold=0.6),
+    )
+
+
+UDVS = [
+    udv("udv-1-0-0", TRAIN_LATE, "quote_found", 3),
+    udv("udv-3-0-0", TEST_HEARING, "quote_found", 1),
+    udv("udv-3-0-1", TEST_HEARING, "semantic_match_high", 7),
+    udv("udv-3-0-2", TEST_HEARING, "no_evidence", None, has_evidence=False),
+    udv("udv-3-1-0", TEST_HEARING, "semantic_match_weak", 0),
+]
+
+
 def lds_record(hearing_id: int) -> dict[str, Any]:
     return {
         "id": hearing_id,
@@ -122,7 +156,9 @@ class Workspace:
     manifest: Path
 
 
-def write_config(root: Path, lds_sha256: str, extra: str = "") -> Path:
+def write_config(
+    root: Path, lds_sha256: str, extra: str = "", eval_splits: str = '["test"]'
+) -> Path:
     path = root / "actor_profiles.toml"
     path.write_text(
         f"""
@@ -137,6 +173,8 @@ profiles_path = "out/profiles.jsonl"
 [split_filter]
 manifest_path = "manifest.json"
 splits = ["train"]
+eval_splits = {eval_splits}
+udv_path = "udvs.jsonl"
 speeches_path = "cache/speeches_train.jsonl"
 stats_path = "out/stats.json"
 
@@ -171,6 +209,7 @@ def workspace(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Workspace:
         tmp_path / "manifest.json",
     )
     write_actor_speeches(SPEECHES, tmp_path / "speeches.jsonl")
+    write_udv_jsonl(UDVS, tmp_path / "udvs.jsonl")
     return Workspace(
         root=tmp_path,
         config=write_config(tmp_path, lds_sha256),
@@ -252,6 +291,36 @@ def test_split_filter_keeps_only_train_hearings(workspace: Workspace) -> None:
         "hearings_per_actor": {"1": 1, "2": 1},
         "actors_without_split_hearings": 1,
     }
+    assert list(stats) == ["split_manifest", "input", "output", "evaluation"]
+    assert stats["evaluation"] == {
+        "splits": ["test"],
+        "udv_path": "udvs.jsonl",
+        "udv_sha256": sha256_of_file(workspace.root / "udvs.jsonl"),
+        "link": LINK_DESCRIPTION,
+        "hearings": 1,
+        "profiled_actors_speaking": 1,
+        "udvs": 4,
+        "linked_udvs": 1,
+        "linked_actors": 1,
+        "linked_hearings": 1,
+        "linked_udvs_by_tier": {"quote_found": 1},
+    }
+
+
+def test_split_filter_refuses_eval_splits_that_overlap_the_profile_splits(
+    workspace: Workspace,
+) -> None:
+    write_config(
+        workspace.root, sha256_of_file(workspace.root / "lds.jsonl"), eval_splits='["train"]'
+    )
+    with pytest.raises(ConfigError, match="overlap the profile splits"):
+        load_split_filter_config(workspace.config)
+
+
+def test_split_filter_needs_the_udv_file(workspace: Workspace) -> None:
+    (workspace.root / "udvs.jsonl").unlink()
+    with pytest.raises(ConfigError, match="UDV file not found"):
+        build_split_filter(load_split_filter_config(workspace.config))
 
 
 def test_split_filter_refuses_a_manifest_of_another_lds(workspace: Workspace) -> None:
@@ -343,12 +412,85 @@ def test_resume_skips_existing_actors(filtered: Workspace) -> None:
 
 
 def test_resume_ignores_an_invalid_line(filtered: Workspace) -> None:
-    filtered.profiles.parent.mkdir(parents=True, exist_ok=True)
-    filtered.profiles.write_text('{"actor": "Ana Silva"}\n{"act\n', encoding="utf-8")
+    run_generate_profiles(request(filtered, limit=1), FakeFactory())
+    with filtered.profiles.open("a", encoding="utf-8") as handle:
+        handle.write('{"actor": "Caio Lima"}\n{"act\n')
     messages: list[str] = []
     outcome = run_generate_profiles(request(filtered), FakeFactory(), messages.append)
-    assert outcome.summary["skipped_existing"] == 1
+    assert (outcome.summary["skipped_existing"], outcome.summary["generated"]) == (1, 1)
     assert "ignoring invalid line 2 in out/profiles.jsonl" in messages
+    assert "ignoring invalid line 3 in out/profiles.jsonl" in messages
+
+
+def profile_row(actor: str, prompt_version: str, model: str) -> str:
+    return ProfileRecord(
+        actor=actor,
+        profile="Texto.",
+        model=model,
+        prompt_version=prompt_version,
+        n_statements=1,
+        n_hearings=1,
+        hearing_ids=[1],
+        input_tokens=1,
+        output_tokens=1,
+        generated_at="2026-09-26T00:00:00+00:00",
+        duration_seconds=0.1,
+    ).to_json_line()
+
+
+def test_load_done_actors_accepts_rows_of_the_current_run(tmp_path: Path) -> None:
+    path = tmp_path / "profiles.jsonl"
+    path.write_text(
+        profile_row("Ana Silva", "v1", "m") + "\n\n" + profile_row("Caio Lima", "v1", "m") + "\n",
+        encoding="utf-8",
+    )
+    assert load_done_actors(path, "v1", "m") == {"Ana Silva", "Caio Lima"}
+    assert load_done_actors(tmp_path / "missing.jsonl", "v1", "m") == set()
+
+
+@pytest.mark.parametrize(("version", "model"), [("v0", "m"), ("v1", "other"), ("v0", "other")])
+def test_load_done_actors_refuses_rows_of_another_run(
+    tmp_path: Path, version: str, model: str
+) -> None:
+    path = tmp_path / "profiles.jsonl"
+    path.write_text(
+        profile_row("Ana Silva", "v1", "m")
+        + "\n"
+        + profile_row("Caio Lima", version, model)
+        + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ConfigError, match=r"other \(prompt_version, model\) pairs") as error:
+        load_done_actors(path, "v1", "m")
+    assert f"[('{version}', '{model}')]" in str(error.value)
+    assert "current run is ('v1', 'm')" in str(error.value)
+
+
+def test_resume_refuses_profiles_of_another_prompt_version(filtered: Workspace) -> None:
+    filtered.profiles.parent.mkdir(parents=True, exist_ok=True)
+    filtered.profiles.write_text(profile_row("Ana Silva", "0" * 12, "toy-model") + "\n")
+    before = filtered.profiles.read_bytes()
+    factory = FakeFactory()
+    with pytest.raises(ConfigError, match="move the file away"):
+        run_generate_profiles(request(filtered), factory)
+    assert factory.loads == 0
+    assert filtered.profiles.read_bytes() == before
+
+
+def test_resume_refuses_another_model_before_reading_speeches(filtered: Workspace) -> None:
+    run_generate_profiles(request(filtered, limit=1), FakeFactory())
+    missing = filtered.root / "missing.jsonl"
+    with pytest.raises(ConfigError, match="other \\(prompt_version, model\\) pairs"):
+        run_generate_profiles(
+            request(filtered, model="another-model", speeches_path=missing), FakeFactory()
+        )
+
+
+def test_dry_run_ignores_profiles_of_another_run(filtered: Workspace) -> None:
+    filtered.profiles.parent.mkdir(parents=True, exist_ok=True)
+    filtered.profiles.write_text(profile_row("Ana Silva", "0" * 12, "toy-model") + "\n")
+    outcome = run_generate_profiles(request(filtered, dry_run=True), FakeFactory())
+    assert outcome.summary["prompts"] == 2
 
 
 def test_failures_are_counted_and_retried(filtered: Workspace) -> None:
