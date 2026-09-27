@@ -1,3 +1,16 @@
+\section{Prompt de geração dos perfis}
+\label{ap:prompt}
+
+O Quadro~\ref{lst:prompt-sistema} reproduz o prompt de sistema, igual para todos os atores, sem
+alteração, com a marcação em Markdown original. O Quadro~\ref{lst:prompt-usuario} mostra o esquema do
+prompt do usuário, montado por ator. O nome é a grafia mais frequente do nome da pessoa nos cabeçalhos
+dos seus turnos, e por isso pode vir em maiúsculas; a data é a da matéria, no formato dd/mm/aaaa; o
+assunto é o registrado no resumo estruturado. O bloco de uma audiência se repete para cada audiência de treino do ator,
+em ordem cronológica, e dentro dele cada turno vira um parágrafo, na ordem da transcrição, com a marca
+\texttt{[presidência da sessão]} só antes dos turnos de presidência.
+
+\begin{lstlisting}[basicstyle=\footnotesize\rmfamily,breakindent=0.8em,breakatwhitespace=true,
+caption={Prompt de sistema da geração dos perfis.},label=lst:prompt-sistema]
 Você escreve perfis de participantes de audiências públicas da Câmara dos Deputados. Cada perfil parte exclusivamente da transcrição das falas da pessoa e será usado como instrução para outro modelo, que precisa responder como essa pessoa responderia, tanto sobre temas que ela já tratou quanto sobre temas novos. Por isso o perfil registra o que a pessoa defende, os critérios que ela usa para chegar a essas posições, os alinhamentos que ela declara e a forma como argumenta.
 
 ## Fonte única
@@ -34,3 +47,19 @@ O perfil tem até quatro blocos, nesta ordem. Um bloco sem apoio nas falas é om
 - Nunca descreva o que a pessoa não disse, não mencionou ou deixou de defender. O perfil contém apenas o que está nas falas, nunca a ausência de algo.
 - Comprimento proporcional ao material, com limite rígido de 800 palavras somando todos os blocos. Falas ricas em muitas audiências merecem um perfil longo e denso: registre cada posição, proposta, critério e alvo distinto, com os números, casos e datas que a pessoa cita, em vez de resumir. Perto do limite, corte os itens de menor importância, nunca comprima tudo em frases vagas. Material pobre gera perfil bem mais curto.
 - A saída é somente os blocos, sem título geral, sem preâmbulo e sem comentários sobre a tarefa.
+\end{lstlisting}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[basicstyle=\footnotesize\rmfamily,breakindent=0.8em,breakatwhitespace=true,escapeinside={(*}{*)},
+caption={Esquema do prompt do usuário. Os campos em itálico são preenchidos por ator, com \textit{n} igual ao número de audiências; o bloco de
+audiência mostra um turno de presidência seguido de um turno comum.},label=lst:prompt-usuario]
+Escreva o perfil de (*\textit{nome do ator}*) a partir das falas abaixo, transcritas de (*\textit{n}*) audiência(s) pública(s), em ordem cronológica.
+
+=== Audiência de (*\textit{data}*) sobre: (*\textit{assunto}*) ===
+
+[presidência da sessão]
+(*\textit{texto de um turno de presidência}*)
+
+(*\textit{texto de um turno comum}*)
+\end{lstlisting}
+\end{minipage}

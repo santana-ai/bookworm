@@ -1,0 +1,47 @@
+\section{Trabalhos Relacionados}
+\label{sec:relacionados}
+
+\textbf{Posições a partir da fala.} A ciência política computacional estima posições de atores
+políticos a partir das palavras que eles usam, com escalas supervisionadas por textos de
+referência~\citep{laver2003extracting} ou não supervisionadas~\citep{slapin2008scaling}, e com
+extensões que estimam a posição de cada parlamentar a partir do conjunto dos seus
+discursos~\citep{lauderdale2016measuring}. \citet{abercrombie2020sentiment} revisam a análise de
+sentimento e de tomada de posição em debates parlamentares, e \citet{izumi2021government} aplicam essa
+linha a discursos de senadores brasileiros, agregados por partido. LLMs já foram usados para
+posicionar políticos tanto a partir do que o modelo sabe sobre o nome~\citep{wu2023large} quanto a
+partir da leitura dos textos dos próprios atores~\citep{lemens2025positioning}. Este trabalho
+substitui a escala por um perfil textual em blocos, escrito somente com a fala de cada pessoa nas
+audiências de treino, e avalia o perfil pelo seu uso na simulação; o efeito do nome, observado por
+\citet{wu2023large}, é medido pela condição 0.
+
+\textbf{Simulação de pessoas com LLMs.} \citet{argyle2023outofone} condicionam um LLM em perfis
+sociodemográficos para reproduzir as respostas de subpopulações, e os agentes
+gerativos~\citep{park2023generative} combinam um LLM com memória em linguagem natural e recuperação.
+Condicionar o modelo no material do próprio indivíduo supera o condicionamento apenas demográfico,
+seja com opiniões passadas relevantes no prompt~\citep{hwang2023aligning}, seja com entrevistas
+longas~\citep{park2026llm}, e a recuperação de itens do histórico do próprio usuário melhora a
+personalização em tarefas de classificação e de geração~\citep{salemi2024lamp}. O direcionamento
+apenas pelo prompt, porém, não elimina o desalinhamento entre as opiniões do modelo e as de grupos
+demográficos~\citep{santurkar2023whose}, respostas de personas variam com a redação do prompt e têm
+menos variância que as humanas~\citep{bisbee2024synthetic}, e LLMs tendem a achatar e a estereotipar
+identidades~\citep{wang2025large}. \citet{shanahan2023role} propõem descrever essas respostas como
+interpretação de um papel, e a simulação proposta adota essa leitura: a fala simulada é uma
+estimativa condicionada a falas públicas de uma pessoa identificada, com base declarada, avaliada com
+opiniões publicadas sobre audiências posteriores às do perfil.
+
+\textbf{Decodificação e avaliação.} A CFG, proposta para modelos de difusão~\citep{ho2022classifier},
+foi adaptada a modelos de linguagem para reforçar a aderência ao prompt~\citep{sanchez2024stay}, e a
+decodificação sensível ao contexto contrasta as distribuições com e sem o documento fornecido para
+reduzir respostas apoiadas só no conhecimento prévio do modelo~\citep{shi2024trusting}; a condição 3
+aplica o mesmo contraste ao material da pessoa. Na múltipla escolha, a resposta pode ser lida pela
+probabilidade do símbolo de cada opção~\citep{robinson2023leveraging}, mas LLMs favorecem certas
+posições e letras~\citep{zheng2024large,pezeshkpour2024large}, e em questionários esse viés pode
+dominar as respostas~\citep{dominguezolmedo2024questioning}, o que motiva as rotações das opções.
+
+\textbf{Atribuição.} A geração aumentada por recuperação~\citep{lewis2020rag} fundamenta a condição 2,
+e a atribuição de um texto gerado a fontes identificadas~\citep{rashkin2023measuring} costuma ser
+avaliada por anotadores ou por modelos, em respostas com citações~\citep{gao2023enabling} ou em fatos
+atômicos~\citep{min2023factscore}. A UDV e a conferência da justificação adotam uma forma mais
+restrita, verificável por regra: a evidência é uma sentença localizada por offsets na fala da própria
+pessoa, e a cópia citada é conferida literalmente, sem juiz automático, ao custo de não avaliar a
+sustentação de sentido.

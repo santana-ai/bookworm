@@ -1,0 +1,75 @@
+\begin{figure}[tbp]
+  \centering
+  \begin{tikzpicture}[
+      font=\scriptsize,
+      box/.style={draw=black!45, rounded corners=2pt, align=center, inner sep=3pt,
+                  minimum height=0.8cm},
+      data/.style={box, fill=black!4},
+      lane/.style={draw=black!30, rounded corners=3pt, inner sep=4pt},
+      heading/.style={font=\scriptsize\bfseries, text=black!65, inner sep=0pt},
+      link/.style={-{Stealth[length=4.5pt]}, draw=black!65, line width=0.6pt},
+      note/.style={font=\scriptsize, text=black!60, inner sep=1.5pt},
+    ]
+    \node[data, text width=1.5cm] (tra) at (0.85,-1.75) {Transcrição};
+    \node[box, text width=2.3cm] (tur) at (3.55,-1.75) {Turnos de fala\\(o cabeçalho\\identifica o autor)};
+    \node[data, text width=2.2cm] (par) at (6.45,-1.75) {Partição temporal\\(treino, validação\\e teste)};
+    \node[data, text width=1.5cm] (res) at (0.85,-3.55) {Resumo\\estruturado};
+
+    \node[box, text width=2.3cm] (reg) at (3.55,0) {Registro de ator\\(mesclas e filtros)};
+    \node[box, text width=2.2cm] (ftr) at (6.45,0) {Falas de treino};
+
+    \node[box, text width=2.3cm] (pes) at (3.55,-3.55) {Resolução da pessoa\\na audiência};
+    \node[box, text width=2.2cm] (evi) at (6.45,-3.55) {Citação literal ou\\maior cosseno};
+    \node[box, text width=1.55cm] (udv) at (8.95,-3.55) {UDV\\(offsets, nível,\\proveniência)};
+
+    \node[box, text width=3.6cm] (per) at (12.5,0)
+      {Perfil em quatro blocos:\\Posições, Critérios e valores,\\Alinhamentos declarados,\\Forma de argumentar};
+    \node[box, text width=3.6cm] (sys) at (12.5,-1.65)
+      {Prompt de sistema: instruções,\\nome e cargo, perfil numerado e\\exemplos (só na geração aberta)};
+    \node[box, text width=3.6cm] (msg) at (12.5,-2.75)
+      {Mensagem: data e assunto,\\$k$ trechos recuperados e pedido};
+    \node[box, text width=3.6cm, fill=black!4] (mod) at (12.5,-4.0)
+      {Modelo simulador (condições 0 a 3)};
+    \node[box, text width=1.5cm, minimum height=0.7cm] (mc) at (11.5,-5.0) {Múltipla escolha};
+    \node[box, text width=1.5cm, minimum height=0.7cm] (bas) at (13.5,-5.0) {Base da\\estimativa};
+    \node[box, text width=1.5cm, minimum height=0.7cm] (fal) at (13.5,-5.9) {Fala simulada};
+    \node[box, text width=1.5cm, minimum height=0.7cm] (jus) at (11.5,-5.9) {Justificação\\conferida};
+
+    \begin{scope}[on background layer]
+      \node[draw=black!30, dashed, rounded corners=3pt, inner sep=3pt, fit=(sys)(msg)] (conv) {};
+      \node[lane, fit=(per)(jus)(fal)] (sim) {};
+      \node[lane, fit=(reg)(ftr)] (bperf) {};
+      \node[lane, fit=(pes)(evi)(udv)] (budv) {};
+    \end{scope}
+    \node[heading, anchor=south west] at ($(bperf.north west)+(0,2pt)$)
+      {Perfis (Seções \ref{sec:metodo-atores} e \ref{sec:metodo-perfis})};
+    \node[heading, anchor=south east] at ($(budv.north east)+(0,2pt)$)
+      {UDV (Seção \ref{sec:metodo-udv})};
+    \node[heading, anchor=south west] at ($(sim.north west)+(0,2pt)$)
+      {Simulação (Seção \ref{sec:metodo-simulacao})};
+
+    \draw[link] (tra) -- (tur);
+    \draw[link] (tur) -- (reg);
+    \draw[link] (tur) -- (pes);
+    \draw[link] (res) -- (pes);
+    \draw[link] (reg) -- (ftr);
+    \draw[link] (par) -- node[note, right] {treino} (ftr);
+    \draw[link] (pes) -- (evi);
+    \draw[link] (evi) -- (udv);
+    \draw[link] (ftr) -- node[note, above] {LLM gerador} (per);
+    \draw[link] (per) -- (sys);
+    \draw[link] (ftr.south east) -- node[note, sloped, above] {recuperação} (msg.west);
+    \draw[link] (conv) -- (mod);
+    \draw[link] (mod.south -| mc) -- (mc);
+    \draw[link] (mod.south -| bas) -- (bas);
+    \draw[link] (bas) -- (fal);
+    \draw[link] (fal) -- (jus);
+    \draw[link] (udv.south) |- (mc.west);
+    \node[note, anchor=north east, align=right] at ($(udv.south)+(-0.05,-0.3)$)
+      {gabarito: UDVs de\\validação e teste};
+  \end{tikzpicture}
+  \caption{Visão geral do pipeline. O ramo da UDV liga cada opinião do resumo estruturado à fala da
+  pessoa, o ramo dos perfis usa só as falas de treino, e as UDVs das audiências de validação e de teste
+  servem de gabarito da múltipla escolha (Seção~\ref{sec:setup}).}
+  \label{fig:arquitetura}
+\end{figure}

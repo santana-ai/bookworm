@@ -1,0 +1,570 @@
+import argparse
+import dataclasses
+import json
+import logging
+import random
+import time
+from collections import Counter, defaultdict
+from dataclasses import dataclass
+from itertools import pairwise
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+
+from utils.actor_simulation import (
+    DEFAULT_CONFIG,
+    LETTERS,
+    Material,
+    SimulationConfig,
+    SimulationModel,
+    SimulationPrompts,
+    SpeechRetriever,
+    chat_messages,
+    check_disjoint,
+    clean_role,
+    file_info,
+    fingerprint,
+    linked_udvs,
+    load_config,
+    load_profiles,
+    load_prompts,
+    load_rows,
+    number_profile,
+    parse_level,
+    render,
+    split_hearings,
+    turn_owners,
+    udv_owner,
+)
+from utils.dataset_io import load_jsonl, write_json, write_jsonl
+from utils.generate_actor_profiles import hearing_metadata
+from utils.udv_pipeline import load_encoder_spec, normalize_name, normalize_whitespace
+
+Record = dict[str, Any]
+
+CONDITIONS = ("0", "1", "2", "3")
+DISTRACTORS = len(LETTERS) - 1
+CONDITION_NAMES = {
+    "0": "no profile (name and role)",
+    "1": "profile",
+    "2": "profile + retrieved train excerpts",
+    "3": "condition 2 combined with condition 0 by classifier-free guidance",
+}
+DISTRACTOR_RULE = (
+    "the other options are propositions of 3 distinct other actors of the same hearing: UDVs whose"
+    " actor name differs from the target after name normalization and whose evidence turn does not"
+    " belong to the target speaker; a text (whitespace-normalized) given to the target in this"
+    " hearing never enters the pool, and a text shared by several other actors enters it once,"
+    " under the first of them in file order; the actors and one proposition of each are drawn"
+    " with random.Random(f'{seed}:{udv_id}'), and questions with fewer than 3 candidate actors"
+    " are dropped"
+)
+SCORING_RULE = (
+    "the options are shown in the 4 cyclic rotations of a seeded shuffled order; in each rotation"
+    " the log-probabilities of the letter tokens at the first assistant position (log-softmax over"
+    " the whole vocabulary) are renormalized over the 4 letters; the option probabilities are"
+    " averaged over rotations and the predicted option is the argmax"
+)
+GUIDANCE_RULE = (
+    "condition 3 combines, per rotation, the whole-vocabulary letter log-probabilities of"
+    " conditions 0 and 2 as logp0 + gamma * (logp2 - logp0) before renormalizing over the 4"
+    " letters, the same formula as transformers' UnbatchedClassifierFreeGuidanceLogitsProcessor"
+)
+SELECTION_RULE = (
+    "k maximizes the accuracy of condition 2 on the selection split, then gamma maximizes the"
+    " accuracy of condition 3 with that k; ties go to the higher mean probability of the correct"
+    " option, then to the first value in the config grid"
+)
+LETTER_MASS_RULE = (
+    "letter_mass is the sum of the whole-vocabulary probabilities of the 4 letter tokens at the"
+    " first assistant position, per rotation, summarized by mean and minimum over questions and"
+    " rotations; condition 3 is a combination of log-probabilities, not a distribution, and is"
+    " left out"
+)
+LEVEL_RULE = (
+    "evidence levels are asked without the options, only on the evaluation split, for conditions"
+    " 1 and 2 (condition 3 has the material of condition 2 and reuses its level); the label is"
+    " the first of DIRETA, INDIRETA, ESPECULATIVA, SEM BASE that starts the greedy response"
+)
+
+
+def choose_options(
+    udv: Record,
+    actor: str,
+    hearing_udvs: list[Record],
+    owners: dict[tuple[int, int], str],
+    config: SimulationConfig,
+) -> list[Record] | None:
+    target_name = normalize_name(udv["actor"]["name"])
+    others = []
+    seen = set()
+    for other in hearing_udvs:
+        if (
+            normalize_name(other["actor"]["name"]) == target_name
+            or udv_owner(other, owners) == actor
+        ):
+            seen.add(normalize_whitespace(other["proposition"]))
+        else:
+            others.append(other)
+    pool: dict[str, list[Record]] = defaultdict(list)
+    for other in others:
+        text = normalize_whitespace(other["proposition"])
+        if text in seen:
+            continue
+        seen.add(text)
+        pool[normalize_name(other["actor"]["name"])].append(other)
+    if len(pool) < DISTRACTORS:
+        return None
+    rng = random.Random(f"{config.eval_seed}:{udv['id']}")
+    names = rng.sample(sorted(pool), DISTRACTORS)
+    options = [udv] + [rng.choice(pool[name]) for name in names]
+    rng.shuffle(options)
+    return options
+
+
+def build_questions(
+    config: SimulationConfig,
+    split: str,
+    profiles: dict[str, Record],
+    udvs: list[Record],
+    owners: dict[tuple[int, int], str],
+    metadata: dict[int, Record],
+) -> tuple[list[Record], Record]:
+    hearings = split_hearings(config, split)
+    by_hearing: dict[int, list[Record]] = defaultdict(list)
+    for udv in udvs:
+        if udv["hearing_id"] in hearings:
+            by_hearing[udv["hearing_id"]].append(udv)
+    linked = linked_udvs(udvs, owners, set(profiles), hearings)
+    questions: list[Record] = []
+    dropped: list[str] = []
+    for udv, actor in linked:
+        options = choose_options(udv, actor, by_hearing[udv["hearing_id"]], owners, config)
+        if options is None:
+            dropped.append(udv["id"])
+            continue
+        hearing = metadata[udv["hearing_id"]]
+        questions.append(
+            {
+                "udv_id": udv["id"],
+                "hearing_id": udv["hearing_id"],
+                "actor": actor,
+                "tier": udv["tier"],
+                "cargo": udv["actor"]["role"],
+                "role": clean_role(udv["actor"]["role"], config.parties),
+                "date": hearing["date_br"],
+                "assunto": hearing["assunto"],
+                "options": [option["proposition"] for option in options],
+                "option_udv_ids": [option["id"] for option in options],
+                "answer": options.index(udv),
+            }
+        )
+    counts = {
+        "split": split,
+        "hearings": len(hearings),
+        "linked_udvs": len(linked),
+        "linked_actors": len({actor for _, actor in linked}),
+        "dropped_without_distractors": dropped,
+        "questions": len(questions),
+        "question_actors": len({question["actor"] for question in questions}),
+        "question_hearings": len({question["hearing_id"] for question in questions}),
+        "questions_by_tier": dict(sorted(Counter(q["tier"] for q in questions).items())),
+        "roles_with_party_removed": sum(
+            question["role"] != normalize_whitespace(question["cargo"] or "")
+            for question in questions
+        ),
+    }
+    return questions, counts
+
+
+def rotations(size: int) -> list[list[int]]:
+    return [[(start + position) % size for position in range(size)] for start in range(size)]
+
+
+@dataclass(frozen=True)
+class Evaluator:
+    config: SimulationConfig
+    prompts: SimulationPrompts
+    model: SimulationModel
+    retriever: SpeechRetriever
+
+    def choice_logprobs(self, material: Material, question: Record) -> list[list[float]]:
+        options = question["options"]
+        by_rotation = []
+        for order in rotations(len(options)):
+            request = render(
+                self.prompts.choice,
+                name=material.name,
+                options=[options[index] for index in order],
+                letters=LETTERS,
+            )
+            messages = chat_messages(
+                self.prompts, material, question["date"], question["assunto"], request
+            )
+            letters = self.model.letter_logprobs(messages)
+            by_option = [0.0] * len(options)
+            for position, option in enumerate(order):
+                by_option[option] = letters[position]
+            by_rotation.append(by_option)
+        return by_rotation
+
+    def evidence_level(self, material: Material, question: Record) -> Record:
+        request = render(self.prompts.evidence, name=material.name)
+        messages = chat_messages(
+            self.prompts, material, question["date"], question["assunto"], request
+        )
+        generation = self.model.generate(messages, self.config.evidence_max_tokens)
+        return {"label": parse_level(generation.text), "text": generation.text}
+
+    def score(
+        self, question: Record, profile: Record, ks: tuple[int, ...], with_levels: bool
+    ) -> Record:
+        material = Material(
+            name=question["actor"],
+            role=question["role"],
+            profile=number_profile(profile["profile"]),
+        )
+        with_excerpts = {
+            k: material.with_excerpts(
+                self.retriever.retrieve(question["actor"], question["assunto"], k)
+            )
+            for k in ks
+        }
+        row = {
+            **question,
+            "logprobs": {
+                "0": self.choice_logprobs(material.baseline(), question),
+                "1": self.choice_logprobs(material, question),
+                "2": {str(k): self.choice_logprobs(m, question) for k, m in with_excerpts.items()},
+            },
+            "excerpts": {
+                str(k): [excerpt.source for excerpt in m.excerpts] for k, m in with_excerpts.items()
+            },
+            "profile_prompt_version": profile["prompt_version"],
+        }
+        if with_levels:
+            (k,) = ks
+            row["levels"] = {
+                "1": self.evidence_level(material, question),
+                "2": self.evidence_level(with_excerpts[k], question),
+            }
+        return row
+
+
+def score_split(
+    evaluator: Evaluator,
+    questions: list[Record],
+    profiles: dict[str, Record],
+    ks: tuple[int, ...],
+    with_levels: bool,
+    run_digest: str,
+    path: Path,
+) -> list[Record]:
+    done = load_rows(path, "udv_id")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rows = []
+    with open(path, "a") as output:
+        for index, question in enumerate(questions, start=1):
+            profile = profiles[question["actor"]]["profile"]
+            key = fingerprint(run_digest, profile, question, ks, with_levels)
+            row = done.get(question["udv_id"])
+            if row is None or row["fingerprint"] != key:
+                started = time.monotonic()
+                scored = evaluator.score(question, profiles[question["actor"]], ks, with_levels)
+                row = {**scored, "fingerprint": key}
+                output.write(json.dumps(row, ensure_ascii=False) + "\n")
+                output.flush()
+                logging.info(
+                    "[%d/%d] %s (%s): %.1fs",
+                    index,
+                    len(questions),
+                    question["udv_id"],
+                    question["actor"],
+                    time.monotonic() - started,
+                )
+            rows.append(row)
+    write_jsonl(rows, path)
+    return rows
+
+
+def softmax(values: np.ndarray) -> np.ndarray:
+    shifted = np.exp(values - values.max(axis=-1, keepdims=True))
+    return shifted / shifted.sum(axis=-1, keepdims=True)
+
+
+def condition_logprobs(row: Record, condition: str, k: int) -> np.ndarray:
+    logprobs = row["logprobs"]
+    return np.array(logprobs["2"][str(k)] if condition == "2" else logprobs[condition])
+
+
+def option_probabilities(row: Record, condition: str, k: int, gamma: float) -> np.ndarray:
+    if condition == "3":
+        base = condition_logprobs(row, "0", k)
+        values = base + gamma * (condition_logprobs(row, "2", k) - base)
+    else:
+        values = condition_logprobs(row, condition, k)
+    return softmax(values).mean(axis=0)
+
+
+def outcomes(
+    rows: list[Record], condition: str, k: int, gamma: float
+) -> tuple[np.ndarray, np.ndarray]:
+    probabilities = [option_probabilities(row, condition, k, gamma) for row in rows]
+    answers = [row["answer"] for row in rows]
+    correct = np.array(
+        [float(np.argmax(p) == a) for p, a in zip(probabilities, answers, strict=True)]
+    )
+    p_correct = np.array([p[a] for p, a in zip(probabilities, answers, strict=True)])
+    return correct, p_correct
+
+
+def metrics(rows: list[Record], condition: str, k: int, gamma: float) -> Record:
+    correct, p_correct = outcomes(rows, condition, k, gamma)
+    return {
+        "n": len(rows),
+        "accuracy": float(correct.mean()),
+        "mean_p_correct": float(p_correct.mean()),
+    }
+
+
+def letter_mass(rows: list[Record], k: int) -> Record:
+    mass: Record = {}
+    for condition in ("0", "1", "2"):
+        sums = np.concatenate(
+            [np.exp(condition_logprobs(row, condition, k)).sum(axis=-1) for row in rows]
+        )
+        mass[condition] = {"mean": float(sums.mean()), "min": float(sums.min())}
+    return mass
+
+
+def best(grid: tuple[Any, ...], results: dict[Any, Record]) -> Any:
+    return max(
+        grid, key=lambda value: (results[value]["accuracy"], results[value]["mean_p_correct"])
+    )
+
+
+def select(rows: list[Record], config: SimulationConfig) -> Record:
+    by_k = {k: metrics(rows, "2", k, 1.0) for k in config.k_grid}
+    k = best(config.k_grid, by_k)
+    by_gamma = {gamma: metrics(rows, "3", k, gamma) for gamma in config.guidance_grid}
+    gamma = best(config.guidance_grid, by_gamma)
+    return {
+        "k": k,
+        "guidance_scale": gamma,
+        "rule": SELECTION_RULE,
+        "condition_2_by_k": {str(value): result for value, result in by_k.items()},
+        "condition_3_by_guidance_scale": {str(value): result for value, result in by_gamma.items()},
+    }
+
+
+def bootstrap_interval(
+    delta: np.ndarray, hearing_ids: list[int], samples: int, seed: int
+) -> list[float]:
+    groups: dict[int, list[int]] = defaultdict(list)
+    for index, hearing_id in enumerate(hearing_ids):
+        groups[hearing_id].append(index)
+    members = [np.array(indices) for _, indices in sorted(groups.items())]
+    rng = np.random.default_rng(seed)
+    means = []
+    for _ in range(samples):
+        drawn = rng.integers(len(members), size=len(members))
+        means.append(delta[np.concatenate([members[i] for i in drawn])].mean())
+    return [float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))]
+
+
+def accuracy_by_level(rows: list[Record], correct: dict[str, np.ndarray]) -> Record:
+    by_level: Record = {}
+    for condition in ("1", "2", "3"):
+        source = "2" if condition == "3" else condition
+        groups: dict[str, list[float]] = defaultdict(list)
+        for row, hit in zip(rows, correct[condition], strict=True):
+            groups[row["levels"][source]["label"] or "unparsed"].append(hit)
+        by_level[condition] = {
+            label: {"n": len(hits), "accuracy": float(np.mean(hits))}
+            for label, hits in sorted(groups.items())
+        }
+    return by_level
+
+
+def evaluate(rows: list[Record], k: int, gamma: float, config: SimulationConfig) -> Record:
+    correct = {condition: outcomes(rows, condition, k, gamma)[0] for condition in CONDITIONS}
+    hearing_ids = [row["hearing_id"] for row in rows]
+    return {
+        "k": k,
+        "guidance_scale": gamma,
+        "conditions": {
+            condition: {"name": CONDITION_NAMES[condition], **metrics(rows, condition, k, gamma)}
+            for condition in CONDITIONS
+        },
+        "letter_mass": letter_mass(rows, k),
+        "differences": {
+            f"{after}-{before}": {
+                "accuracy": float((correct[after] - correct[before]).mean()),
+                "ci95": bootstrap_interval(
+                    correct[after] - correct[before],
+                    hearing_ids,
+                    config.bootstrap_samples,
+                    config.eval_seed,
+                ),
+            }
+            for before, after in pairwise(CONDITIONS)
+        },
+        "bootstrap": (
+            f"paired percentile interval over {config.bootstrap_samples} resamples of whole"
+            f" hearings, seed {config.eval_seed}"
+        ),
+        "accuracy_by_level": accuracy_by_level(rows, correct),
+    }
+
+
+def print_report(summary: Record) -> None:
+    for key in ("selection", "evaluation"):
+        counts = summary[key]["counts"]
+        print(
+            f"{counts['split']}: {counts['questions']} questions ({counts['question_actors']}"
+            f" actors, {counts['question_hearings']} hearings), {counts['linked_udvs']} linked"
+            f" UDVs, {len(counts['dropped_without_distractors'])} dropped without distractors"
+        )
+    selection = summary["selection"]
+    split = selection["counts"]["split"]
+    print(f"selected on {split}: k={selection['k']}, gamma={selection['guidance_scale']}")
+    evaluation = summary["evaluation"]
+    for condition, result in evaluation["conditions"].items():
+        print(
+            f"  condition {condition}: accuracy {result['accuracy']:.3f},"
+            f" mean p(correct) {result['mean_p_correct']:.3f} (n={result['n']})"
+        )
+    for name, difference in evaluation["differences"].items():
+        low, high = difference["ci95"]
+        print(f"  {name}: {difference['accuracy']:+.3f} [{low:+.3f}, {high:+.3f}]")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Multiple-choice evaluation of actor simulation: choose k and gamma on the selection"
+            " split, then score conditions 0-3 and evidence levels on the evaluation split."
+        )
+    )
+    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--model", help="Hugging Face model id or local path (overrides config)")
+    parser.add_argument("--actors", nargs="*", help="only these profiled actors, by exact name")
+    args = parser.parse_args()
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    config = load_config(args.config)
+    if args.model is not None:
+        config = dataclasses.replace(config, model=args.model)
+    if not config.model:
+        parser.error("set [model] name in the config, or pass --model")
+    if config.selection_split == config.eval_split:
+        parser.error("selection_split and eval_split must differ")
+    prompts = load_prompts(config.prompts_dir)
+    profiles = load_profiles(config.profiles_path, args.actors)
+    train_records = [
+        record for record in load_jsonl(config.train_speeches_path) if record["actor"] in profiles
+    ]
+    evaluated = split_hearings(config, config.selection_split) | split_hearings(
+        config, config.eval_split
+    )
+    check_disjoint(profiles, train_records, evaluated)
+    metadata = hearing_metadata(config.lds_path, config.lds_sha256)
+    udvs = load_jsonl(config.udv_path)
+    owners = turn_owners(load_jsonl(config.speeches_path))
+    selection_questions, selection_counts = build_questions(
+        config, config.selection_split, profiles, udvs, owners, metadata
+    )
+    eval_questions, eval_counts = build_questions(
+        config, config.eval_split, profiles, udvs, owners, metadata
+    )
+    if not selection_questions or not eval_questions:
+        raise SystemExit(
+            f"no questions to score: {len(selection_questions)} on {config.selection_split},"
+            f" {len(eval_questions)} on {config.eval_split}; k and gamma are chosen on"
+            f" {config.selection_split}, so the profiled actors need questions in both splits"
+        )
+    inputs = {
+        "profiles": {
+            **file_info(config.profiles_path),
+            "actors": len(profiles),
+            "prompt_versions": sorted({row["prompt_version"] for row in profiles.values()}),
+            "models": sorted({row["model"] for row in profiles.values()}),
+        },
+        "train_speeches": file_info(config.train_speeches_path),
+        "speeches": file_info(config.speeches_path),
+        "udv": file_info(config.udv_path),
+        "split_manifest": file_info(config.manifest_path),
+    }
+    run_digest = fingerprint(
+        config.model,
+        config.evidence_max_tokens,
+        load_encoder_spec(),
+        prompts.version,
+        {name: info for name, info in inputs.items() if name != "profiles"},
+    )
+    logging.info(
+        "%d + %d questions, prompts %s, loading %s",
+        len(selection_questions),
+        len(eval_questions),
+        prompts.version,
+        config.model,
+    )
+    evaluator = Evaluator(
+        config=config,
+        prompts=prompts,
+        model=SimulationModel(config.model, config.device_map),
+        retriever=SpeechRetriever(train_records, metadata),
+    )
+    selection_rows = score_split(
+        evaluator,
+        selection_questions,
+        profiles,
+        config.k_grid,
+        False,
+        run_digest,
+        config.output_dir / f"choice_{config.selection_split}.jsonl",
+    )
+    selection = select(selection_rows, config)
+    eval_rows = score_split(
+        evaluator,
+        eval_questions,
+        profiles,
+        (selection["k"],),
+        True,
+        run_digest,
+        config.output_dir / f"choice_{config.eval_split}.jsonl",
+    )
+    summary = {
+        "model": config.model,
+        "prompt_version": prompts.version,
+        "letter_token_ids": dict(zip(LETTERS, evaluator.model.letter_ids, strict=True)),
+        "encoder": dict(zip(("name", "revision"), load_encoder_spec(), strict=True)),
+        "inputs": inputs,
+        "rules": {
+            "distractors": DISTRACTOR_RULE,
+            "scoring": SCORING_RULE,
+            "guidance": GUIDANCE_RULE,
+            "levels": LEVEL_RULE,
+            "letter_mass": LETTER_MASS_RULE,
+        },
+        "selection": {
+            "counts": selection_counts,
+            "conditions": {
+                condition: metrics(selection_rows, condition, selection["k"], 1.0)
+                for condition in ("0", "1")
+            },
+            "letter_mass": letter_mass(selection_rows, selection["k"]),
+            **selection,
+        },
+        "evaluation": {
+            "counts": eval_counts,
+            **evaluate(eval_rows, selection["k"], selection["guidance_scale"], config),
+        },
+    }
+    write_json(summary, config.output_dir / "evaluation.json")
+    print_report(summary)
+    print(f"wrote {config.output_dir / 'evaluation.json'}")
+
+
+if __name__ == "__main__":
+    main()

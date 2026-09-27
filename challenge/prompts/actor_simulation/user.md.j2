@@ -1,0 +1,14 @@
+AUDIÊNCIA DE {{ date }}, SOBRE: {{ assunto }}
+{% if excerpts %}
+
+TRECHOS DE FALAS ANTERIORES DE {{ name }}
+{% for excerpt in excerpts %}
+[T{{ loop.index }}] {{ excerpt.date }} · {{ excerpt.assunto }}
+{% if excerpt.chair %}
+[presidência da sessão]
+{% endif %}
+"{{ excerpt.text }}"
+{% endfor %}
+{% endif %}
+
+{{ request }}
