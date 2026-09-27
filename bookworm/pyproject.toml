@@ -6,6 +6,7 @@ readme = "README.md"
 authors = [{ name = "Arthur Germano", email = "a.merode@edu.pucrs.br" }]
 requires-python = ">=3.12"
 dependencies = [
+    "jinja2>=3.1",
     "numpy>=2.0",
     "pydantic>=2.7",
     "scikit-learn>=1.5",
@@ -16,6 +17,11 @@ dependencies = [
 embeddings = [
     "sentence-transformers>=5.0",
     "torch>=2.4",
+]
+profiles = [
+    "accelerate>=1.0",
+    "torch>=2.4",
+    "transformers>=4.46",
 ]
 
 [project.scripts]
@@ -59,6 +65,10 @@ module = [
     "sentence_transformers.*",
     "torch",
     "torch.*",
+    "transformers",
+    "transformers.*",
+    "accelerate",
+    "accelerate.*",
 ]
 ignore_missing_imports = true
 

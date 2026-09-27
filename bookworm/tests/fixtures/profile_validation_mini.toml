@@ -1,0 +1,25 @@
+[inputs]
+udv_path = "udvs.jsonl"
+links_path = "udvs_actor_links.jsonl"
+profiles_path = "profiles.jsonl"
+split_manifest = "splits.json"
+
+[validation]
+tiers = ["quote_found", "semantic_match_high"]
+generation_splits = ["train"]
+held_out_splits = ["test"]
+cache_dir = "cache"
+output_dir = "out"
+name = "profile_validation_mini"
+seed = 7
+bootstrap_samples = 200
+confidence_level = 0.95
+
+[validation.encoder]
+kind = "tfidf"
+
+[review]
+seed = 11
+score_bands = [0.2]
+sizes = { in_prompt = 2, held_out = 1 }
+output = "review/profile_review.csv"

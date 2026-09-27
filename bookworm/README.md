@@ -166,7 +166,7 @@ Sem `--config`, os comandos procuram `configs/udv.toml` e `configs/splits.toml`.
 - `verify-splits` refaz a extração de datas, os cortes e a atribuição a partir do LDS e confere o
   manifesto e o relatório gravados.
 
-Códigos de saída, iguais nos seis comandos:
+Códigos de saída, iguais em todos os comandos:
 
 - `0`: nenhum problema.
 - `1`: a verificação encontrou problemas, listados em `problems`.
@@ -175,6 +175,44 @@ Códigos de saída, iguais nos seis comandos:
   vazia, audiência ou encoder que não correspondem à execução exportada, embedding ausente do cache
   numa exportação (`EmbeddingCacheMissError`), destino de `export-site` já exportado sem
   `--overwrite`, matéria sem carimbo de publicação ou falta de corte elegível (`SplitError`).
+
+### Atores e perfis: a mesma passada das UDVs
+
+As UDVs e os perfis de atores saem dos mesmos turnos de fala. `build-udvs --actors-config` recorta a
+transcrição de cada audiência uma vez e, na mesma execução, grava as UDVs, as falas por ator e a
+ligação de cada UDV com o ator a que ela pertence
+([ADR 0005](docs/adr/0005-one-transcript-pass-for-udvs-and-actor-profiles.md)). A política de atores,
+o filtro por split e a geração de perfis reproduzem os scripts de `challenge/utils/`
+(`build_actor_speeches.py`, `filter_actor_speeches.py` e `generate_actor_profiles.py`), com os
+arquivos de saída testados byte a byte contra eles. A sequência completa, dentro de `challenge/`:
+
+```bash
+uv run bookworm build-udvs --config configs/udv.toml --run-name udv_v1 \
+    --actors-config configs/hearing_actors.toml
+uv run bookworm filter-actor-speeches --config configs/actor_profiles.toml
+uv run bookworm generate-profiles --config configs/actor_profiles.toml \
+    --input artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl --dry-run
+uv sync --extra profiles
+uv run bookworm generate-profiles --config configs/actor_profiles.toml \
+    --input artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl \
+    --output artifacts/actor_profiles/actor_profiles_train.jsonl --model <modelo>
+uv run bookworm validate-profiles --config configs/profile_validation.toml
+uv run bookworm sample-profile-review --config configs/profile_validation.toml
+uv run bookworm score-profile-review --config configs/profile_validation.toml \
+    --annotations artifacts/profile_validation/profile_review.csv
+```
+
+- O primeiro comando é o de sempre, com uma opção a mais: sem `--actors-config`, os arquivos de UDV
+  são os mesmos de antes, e com ela a execução grava também os quatro arquivos de `[speeches]` e
+  `<output_dir>/<run-name>_actor_links.jsonl`. Detalhes em [docs/actors.md](docs/actors.md).
+- `--dry-run` renderiza todos os prompts sem carregar modelo; a geração de verdade precisa do extra
+  `profiles` e de um modelo local ou do Hugging Face, atrás da interface `ChatClient`. Detalhes em
+  [docs/profiles.md](docs/profiles.md).
+- A conferência do perfil faz a pergunta que a UDV faz à matéria: dada uma opinião do ator com
+  evidência na transcrição, há uma sentença do perfil que a sustente? Ela separa as audiências que
+  entraram no prompt das que ficaram de fora (`test`), mede se o perfil do próprio ator fica em
+  primeiro entre todos, e gera uma planilha cega para julgamento humano. Detalhes em
+  [docs/profile_validation.md](docs/profile_validation.md).
 
 ### Configuração de UDV
 

@@ -1,0 +1,26 @@
+[dataset]
+lds_path = "lds_actors.jsonl"
+sha256 = "bb3b7cdd7aa8cf9befb7932f190ca955d0f3e43dc6803bc883ae36d5252c5be1"
+
+[speakers]
+chair_names = ["PRESIDENTE", "PRESIDENTA"]
+non_person_keys = ["INTERPRETE"]
+chair_min_words = 10
+
+[measurement]
+output_path = "ignored.json"
+
+[speeches]
+single_hearing_path = "actors/single.jsonl"
+multi_hearing_path = "actors/multi.jsonl"
+ambiguous_names_path = "actors/ambiguous_names.json"
+stats_path = "actors/stats.json"
+
+[[merges.groups]]
+canonical = "JOAO SILVA"
+aliases = ["JOAO"]
+
+[[merges.reassignments]]
+key = "MARCOS"
+hearing_id = 11
+canonical = "MARCOS PEREIRA"

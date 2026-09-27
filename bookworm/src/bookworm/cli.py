@@ -9,6 +9,9 @@ import numpy as np
 import typer
 
 from bookworm import __version__
+from bookworm.actors.config import ActorsConfig, load_actors_config
+from bookworm.actors.schemas import UdvActorLink, write_udv_actor_links
+from bookworm.actors.speeches import ActorSpeeches, write_actor_outputs
 from bookworm.config import TfidfSettings, UdvConfig, load_split_config, load_udv_config
 from bookworm.data.io import json_path, load_hearings, write_json
 from bookworm.data.schemas import HearingRecord
@@ -17,7 +20,18 @@ from bookworm.data.verify_splits import verify_split_run
 from bookworm.errors import BookwormError, ConfigError
 from bookworm.features.encoders import CachedEncoder, RunCacheEncoder, SentenceEncoder
 from bookworm.features.tfidf import TfidfEncoder
-from bookworm.udv.build import EvidenceSettings, build_udvs, select_hearings, udv_corpus
+from bookworm.pipeline import run_pipeline
+from bookworm.profiles.config import load_split_filter_config
+from bookworm.profiles.generate import (
+    ClientFactory,
+    GenerateRequest,
+    default_client_factory,
+    run_generate_profiles,
+)
+from bookworm.profiles.review import run_sample_profile_review, run_score_profile_review
+from bookworm.profiles.split_filter import build_split_filter
+from bookworm.profiles.validate import run_validate_profiles
+from bookworm.udv.build import EvidenceSettings, select_hearings, udv_corpus
 from bookworm.udv.coverage import summarize_run
 from bookworm.udv.export import DEFAULT_TOP_K, check_run_pipeline, export_hearing, split_of
 from bookworm.udv.schemas import (
@@ -144,6 +158,7 @@ class BuildRequest:
     limit: int | None
     ids: list[int] | None
     overwrite: bool
+    actors_config_path: Path | None = None
 
 
 def check_new_run(paths: Sequence[Path], overwrite: bool) -> None:
@@ -152,8 +167,33 @@ def check_new_run(paths: Sequence[Path], overwrite: bool) -> None:
         raise ConfigError(f"{existing[0]}: run file already exists; pass --overwrite to replace it")
 
 
+def actor_links_path(config: UdvConfig, run_name: str) -> Path:
+    return config.output_dir / f"{run_name}_actor_links.jsonl"
+
+
+def load_run_actors_config(path: Path | None, config: UdvConfig) -> ActorsConfig | None:
+    if path is None:
+        return None
+    actors_config = load_actors_config(path)
+    if actors_config.expected_sha256 != config.expected_sha256:
+        raise ConfigError(
+            f"{path}: LDS sha256 {actors_config.expected_sha256} differs from the UDV config "
+            f"{config.expected_sha256}"
+        )
+    return actors_config
+
+
+def actor_summary(actors: ActorSpeeches, links: Sequence[UdvActorLink]) -> dict[str, Any]:
+    return {
+        "actors": len(actors.records),
+        "actor_turns_kept": actors.stats["turns"]["kept"],
+        "udvs_linked_to_actor": sum(link.actor_key is not None for link in links),
+    }
+
+
 def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
     config = load_udv_config(request.config_path)
+    actors_config = load_run_actors_config(request.actors_config_path, config)
     seed_everything(config.seed)
     hearings = select_hearings(
         load_lds(config.lds_path, config.expected_sha256), request.limit, request.ids or None
@@ -161,7 +201,9 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
     if not hearings:
         raise ConfigError("the hearing selection is empty")
     records_path, coverage_path = output_paths(config, request.run_name)
-    check_new_run((records_path, coverage_path), request.overwrite)
+    links_path = actor_links_path(config, request.run_name)
+    actor_paths = () if actors_config is None else (*actors_config.output_paths, links_path)
+    check_new_run((records_path, coverage_path, *actor_paths), request.overwrite)
     encoder = encoder_factory(config, hearings)
     typer.echo(
         f"{len(hearings)} hearings | {encoder.name}@{encoder.revision[:7]} "
@@ -178,7 +220,10 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
         )
 
     settings = EvidenceSettings(embedding_threshold=config.embedding_threshold)
-    run = build_udvs(hearings, cached, settings, on_hearing=report_progress)
+    pipeline_run = run_pipeline(
+        hearings, cached, settings, actors_config, on_hearing=report_progress
+    )
+    run = pipeline_run.udv
     summary = summarize_run(
         request.run_name,
         run.records,
@@ -191,7 +236,18 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
     )
     write_udv_jsonl(run.records, records_path)
     write_json(summary, coverage_path)
-    echo_json({**summary["opinions"], **summary["timing"]})
+    if pipeline_run.actors is None:
+        echo_json({**summary["opinions"], **summary["timing"]})
+        return
+    write_actor_outputs(pipeline_run.actors)
+    write_udv_actor_links(pipeline_run.links, links_path)
+    echo_json(
+        {
+            **summary["opinions"],
+            **summary["timing"],
+            **actor_summary(pipeline_run.actors, pipeline_run.links),
+        }
+    )
 
 
 def run_paths(config: UdvConfig, run_name: str) -> tuple[Path, Path]:
@@ -412,7 +468,14 @@ def run_verify_splits(config_path: Path) -> bool:
     return verification.ok
 
 
-def create_app(encoder_factory: EncoderFactory = default_encoder_factory) -> typer.Typer:
+def echo_progress(message: str) -> None:
+    typer.echo(message, err=True)
+
+
+def create_app(
+    encoder_factory: EncoderFactory = default_encoder_factory,
+    client_factory: ClientFactory = default_client_factory,
+) -> typer.Typer:
     app = typer.Typer(
         name="bookworm",
         help=(
@@ -455,8 +518,18 @@ def create_app(encoder_factory: EncoderFactory = default_encoder_factory) -> typ
         overwrite: Annotated[
             bool, typer.Option("--overwrite", help="Replace the files of an existing run.")
         ] = False,
+        actors_config_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--actors-config",
+                help=(
+                    "Actor speeches TOML config; also writes per-actor speeches and the "
+                    "UDV to actor links from the same pass over the transcripts."
+                ),
+            ),
+        ] = None,
     ) -> None:
-        request = BuildRequest(config_path, run_name, limit, ids, overwrite)
+        request = BuildRequest(config_path, run_name, limit, ids, overwrite, actors_config_path)
         try:
             run_build(request, encoder_factory)
         except BookwormError as error:
@@ -567,6 +640,118 @@ def create_app(encoder_factory: EncoderFactory = default_encoder_factory) -> typ
             raise fail(error) from error
         if not ok:
             raise typer.Exit(PROBLEMS_EXIT_CODE)
+
+    @app.command(
+        "filter-actor-speeches",
+        help="Keep only the hearings of the configured splits in the actor speeches file.",
+    )
+    def filter_actor_speeches_command(
+        config_path: Annotated[Path, typer.Option("--config", help="Actor profiles TOML config.")],
+        output: Annotated[
+            Path | None,
+            typer.Option("--output", help="Filtered speeches JSONL (overrides config)."),
+        ] = None,
+    ) -> None:
+        try:
+            config = load_split_filter_config(config_path).with_output(output)
+            stats = build_split_filter(config)
+        except BookwormError as error:
+            raise fail(error) from error
+        echo_json(stats)
+
+    @app.command(
+        "generate-profiles",
+        help="Write one LLM-written profile per actor from an actor speeches file.",
+    )
+    def generate_profiles_command(
+        config_path: Annotated[Path, typer.Option("--config", help="Actor profiles TOML config.")],
+        speeches: Annotated[
+            Path | None,
+            typer.Option("--speeches", "--input", help="Actor speeches JSONL (overrides config)."),
+        ] = None,
+        output: Annotated[
+            Path | None, typer.Option("--output", help="Profiles JSONL (overrides config).")
+        ] = None,
+        model: Annotated[
+            str | None,
+            typer.Option("--model", help="Hugging Face model id or local path (overrides config)."),
+        ] = None,
+        actors: Annotated[
+            list[str] | None,
+            typer.Option("--actors", help="Only these actors, by exact name; repeat for more."),
+        ] = None,
+        limit: Annotated[
+            int | None, typer.Option("--limit", min=0, help="Process at most N actors this run.")
+        ] = None,
+        dry_run: Annotated[
+            bool,
+            typer.Option(
+                "--dry-run", help="Render every prompt and report sizes, without a model."
+            ),
+        ] = False,
+    ) -> None:
+        request = GenerateRequest(config_path, speeches, output, model, actors, limit, dry_run)
+        try:
+            outcome = run_generate_profiles(request, client_factory, echo_progress)
+        except BookwormError as error:
+            raise fail(error) from error
+        echo_json(outcome.summary)
+        if not outcome.ok:
+            raise typer.Exit(PROBLEMS_EXIT_CODE)
+
+    @app.command(
+        "validate-profiles",
+        help=(
+            "Score each verified UDV against the profile of its actor and of every other "
+            "actor, separating hearings seen at generation from held-out ones."
+        ),
+    )
+    def validate_profiles_command(
+        config_path: Annotated[
+            Path, typer.Option("--config", help="Profile validation TOML config.")
+        ],
+        overwrite: Annotated[
+            bool, typer.Option("--overwrite", help="Replace existing pairs and report files.")
+        ] = False,
+    ) -> None:
+        try:
+            echo_json(run_validate_profiles(config_path, overwrite=overwrite))
+        except BookwormError as error:
+            raise fail(error) from error
+
+    @app.command(
+        "sample-profile-review",
+        help="Draw a seeded, stratified sample of profile pairs as a CSV with empty judgments.",
+    )
+    def sample_profile_review_command(
+        config_path: Annotated[
+            Path, typer.Option("--config", help="Profile validation TOML config.")
+        ],
+        overwrite: Annotated[
+            bool, typer.Option("--overwrite", help="Replace an existing review sample.")
+        ] = False,
+    ) -> None:
+        try:
+            echo_json(run_sample_profile_review(config_path, overwrite=overwrite))
+        except BookwormError as error:
+            raise fail(error) from error
+
+    @app.command(
+        "score-profile-review",
+        help="Compute support proportions with Wilson intervals from a filled review CSV.",
+    )
+    def score_profile_review_command(
+        config_path: Annotated[
+            Path, typer.Option("--config", help="Profile validation TOML config.")
+        ],
+        annotations: Annotated[
+            Path, typer.Option("--annotations", help="Review CSV with the judgments filled in.")
+        ],
+    ) -> None:
+        try:
+            echo_json(run_score_profile_review(config_path, annotations))
+        except BookwormError as error:
+            raise fail(error) from error
 
     return app
 

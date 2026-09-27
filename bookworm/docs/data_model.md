@@ -2,8 +2,8 @@
 
 Este documento descreve, campo por campo, os arquivos que a biblioteca lê e grava: o arquivo LDS do
 PublicHearingBR, o registro UDV, o arquivo de cobertura de uma execução de UDV, o JSON de
-demonstração de uma audiência, o diretório de demonstração de uma execução, o manifesto de split e o
-relatório de split. Os scripts de origem
+demonstração de uma audiência, o diretório de demonstração de uma execução, os arquivos de falas por
+ator e de ligações UDV → ator, o manifesto de split e o relatório de split. Os scripts de origem
 trocam dicionários sem schema publicado, então o significado de um campo, os valores possíveis e os
 casos em que ele fica nulo só podiam ser descobertos lendo o código. Os números citados vêm dos
 arquivos reais (`PublicHearingBR_LDS.jsonl` com o sha256
@@ -251,6 +251,73 @@ cobertura (`quote_found` 277, `semantic_match_high` 1.785, `semantic_match_weak`
 1.717). Os arquivos de audiência somam 76.526.309 bytes: o menor tem 115.500 (audiência 67), a mediana
 é 329.899 e o maior tem 3.377.789 (audiência 6, a transcrição mais longa do LDS, com 147.728
 palavras). O índice tem 184.112 bytes.
+
+## Falas por ator
+
+Arquivos gravados por `build-udvs --actors-config` (ver [Falas por ator](actors.md)). Os quatro
+primeiros têm o formato de `challenge/utils/build_actor_speeches.py` e são byte a byte iguais aos que o
+script grava com a mesma configuração; o quinto é novo.
+
+### Registro de falas (`single_hearing_path`, `multi_hearing_path`)
+
+JSONL com um ator por linha, em ordem alfabética da chave normalizada do ator. O primeiro arquivo tem
+os atores de uma única audiência (1.550 no LDS completo) e o segundo os de duas ou mais (301). Modelo:
+`ActorSpeechRecord`, com `ActorHearing` e `ActorTurn`, na ordem de campos abaixo. A chave normalizada
+não é gravada; quem precisa dela usa o registro em memória (`ActorSpeeches.records`, indexado por
+chave).
+
+| Campo | Tipo | Conteúdo |
+|---|---|---|
+| `actor` | texto | Nome de exibição, escolhido entre as grafias dos cabeçalhos; único entre todos os registros. |
+| `has_party_header` | booleano | `true` quando algum turno do ator tem partido e UF no cabeçalho. |
+| `party_uf` | lista de texto | Textos de partido e UF dos cabeçalhos, sem repetição, na ordem em que aparecem (`Bloco/PT - SP`, `PSB - PE`). |
+| `hearings[]` | lista | Audiências em que o ator tem turno mantido, em ordem crescente de `hearing_id`. |
+| `hearings[].hearing_id` | inteiro | `id` da audiência no LDS. |
+| `hearings[].full_speech` | texto | Textos dos turnos da audiência unidos por uma linha em branco (`"\n\n"`). |
+| `hearings[].turns[]` | lista | Turnos mantidos, na ordem da transcrição. |
+| `turns[].turn_index` | inteiro | Índice do turno em `split_into_turns` (o mesmo `speaker_turn` das UDVs). |
+| `turns[].role` | texto | `chair` (cabeçalho em `chair_names`) ou `speaker`. |
+| `turns[].start_char`, `turns[].end_char` | inteiro | Offsets da fala do turno em `transcricao`, sem o cabeçalho. |
+| `turns[].text` | texto | `transcricao[start_char:end_char]`, sem normalizar espaços. |
+
+### Nomes ambíguos (`ambiguous_names_path`)
+
+Objeto com `criterion` (o critério, em texto) e `pairs`. Cada par junta duas chaves distintas, em ordem
+alfabética, cujos conjuntos de palavras são iguais ou um contido no outro: `relation`
+(`equal_tokens` ou `name_subset`), `a` e `b` (cada um com `key`, `actor`, `has_party_header`,
+`party_uf`, `hearing_ids` e `turns`) e `shared_hearing_ids`. No LDS completo são 81 pares, 1
+`equal_tokens` e 80 `name_subset`.
+
+### Contagens (`stats_path`)
+
+| Campo | Conteúdo | LDS completo |
+|---|---|---|
+| `dataset` | `path` (como escrito na configuração de atores), `sha256` e `hearings` (audiências processadas). | 206 |
+| `policy` | `chair_min_words`, `non_person_keys` e a descrição da fusão (`merge`). | 50 |
+| `turns.total`, `turns.kept`, `turns.verified_against_transcript` | Turnos de `split_into_turns`, turnos mantidos e turnos conferidos contra a transcrição (sempre iguais aos mantidos). | 17.264, 13.190, 13.190 |
+| `turns.dropped_non_person` | `turns_dropped`, `by_key` e a lista `turns` (`key`, `raw_name`, `hearing_id`) dos turnos de chaves que não são pessoa. | 32 |
+| `turns.dropped_stage_direction`, `turns.dropped_empty`, `turns.dropped_short_chair` | Turnos descartados por serem só rubricas, vazios ou de presidência curta. | 36, 5, 4.001 |
+| `merges` | `groups`, `alias_keys`, `alias_turns_kept`, `reassignments`, `reassigned_turns_kept`. | 37, 40, 130, 1, 1 |
+| `hearings_per_actor` | Número de atores por número de audiências, com a chave como texto. | `"1"`: 1.550, `"30"`: 1 |
+| `files.single_hearing`, `files.multi_hearing` | `path`, `actors`, `with_party_header`, `without_party_header`, `speaker_words` e `chair_words` de cada arquivo. | 1.550 e 301 atores |
+| `ambiguous_name_pairs` | `path`, `criterion`, `pairs`, `equal_tokens`, `name_subset`. | 81, 1, 80 |
+
+### Ligações UDV → ator (`<run>_actor_links.jsonl`)
+
+Uma linha por registro UDV, na mesma ordem de `<run>.jsonl`. Modelo: `UdvActorLink`.
+
+| Campo | Tipo | Conteúdo |
+|---|---|---|
+| `udv_id` | texto | `id` do registro UDV. |
+| `hearing_id` | inteiro | `id` da audiência. |
+| `actor_key` | texto ou `null` | Chave normalizada do ator (depois das fusões) com mais turnos entre os atribuídos à pessoa; empate vai para a primeira em ordem alfabética. |
+| `actor` | texto ou `null` | Nome de exibição desse ator, igual ao campo `actor` do registro de falas e do perfil; é a chave de junção. |
+| `matched_turns` | inteiro | Turnos que a resolução de envolvidos da UDV atribuiu à pessoa. `0` exatamente nas UDVs `person_not_resolved`. |
+| `linked_turns` | inteiro | Quantos desses turnos sobreviveram à política de falas e têm a chave `actor_key`. |
+
+`actor_key` e `actor` são nulos juntos, exatamente quando `linked_turns` é `0`. Em `udv_v1`: 2.203
+ligações, 2.104 com ator, 90 com `matched_turns` 0, 9 com turnos atribuídos mas nenhum mantido, 355
+com `0 < linked_turns < matched_turns`.
 
 ## Manifesto de split (`temporal_v1.json`)
 

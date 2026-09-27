@@ -67,8 +67,11 @@ def select_hearings(
     return list(hearings)
 
 
-def resolve_hearing_people(hearing: HearingRecord) -> list[PersonSpeech]:
-    turns = split_into_turns(hearing.transcricao)
+def resolve_hearing_people(
+    hearing: HearingRecord, turns: Sequence[Turn] | None = None
+) -> list[PersonSpeech]:
+    if turns is None:
+        turns = split_into_turns(hearing.transcricao)
     people: list[PersonSpeech] = []
     for person_index, participant in enumerate(hearing.metadados.envolvidos):
         matched_turns, speech = resolve_person_speech(participant.nome, turns)
@@ -127,10 +130,13 @@ def build_udv_record(
 
 
 def build_hearing_udvs(
-    hearing: HearingRecord, encoder: CachedEncoder, settings: EvidenceSettings
+    hearing: HearingRecord,
+    encoder: CachedEncoder,
+    settings: EvidenceSettings,
+    turns: Sequence[Turn] | None = None,
 ) -> tuple[list[UdvRecord], list[PersonSpeech]]:
     transcript = hearing.transcricao
-    people = resolve_hearing_people(hearing)
+    people = resolve_hearing_people(hearing, turns)
     all_sentences = [sentence for person in people for sentence in person.sentences]
     sentence_embeddings = encoder.encode(all_sentences, f"sentences_{hearing.id}")
     opinions = [
