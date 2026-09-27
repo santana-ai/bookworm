@@ -138,8 +138,12 @@ def load_prompts(config: ProfilesConfig) -> PromptSet:
 
 
 def load_hearing_metadata(config: ProfilesConfig) -> dict[int, Record]:
+    return hearing_metadata(config.lds_path, config.lds_sha256)
+
+
+def hearing_metadata(lds_path: Path, lds_sha256: str) -> dict[int, Record]:
     metadata: dict[int, Record] = {}
-    for hearing in load_gated_jsonl(config.lds_path, config.lds_sha256):
+    for hearing in load_gated_jsonl(lds_path, lds_sha256):
         published = article_date(hearing["materia"])
         if published is None:
             raise ValueError(f"hearing {hearing['id']} has no article date")

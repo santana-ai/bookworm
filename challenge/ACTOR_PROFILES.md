@@ -2,9 +2,9 @@
 
 Este documento descreve a etapa que transforma as falas de cada ator recorrente (arquivo
 `actors_multi_hearing.jsonl`, construído como descrito em `HEARING_ACTORS.md`) em um texto de perfil
-escrito por um LLM. O perfil será convertido em embedding numa etapa posterior, fora do escopo deste
-passo; aqui o objetivo é só gerar, para cada ator, um texto denso, específico e fundamentado
-exclusivamente nas falas.
+escrito por um LLM. O perfil vai no system prompt de outro modelo, que responde como a pessoa
+responderia (plano em `ACTOR_SIMULATION.md`); aqui o objetivo é só gerar, para cada ator, um texto
+denso, específico e fundamentado exclusivamente nas falas.
 
 ## Como rodar
 
@@ -69,6 +69,13 @@ Com `temporal_v1`, dos 301 atores ficam 264, em 139 das 144 audiências de trein
 `has_party_header` e `party_uf` continuam com o valor calculado sobre todas as audiências, porque o
 arquivo de origem não guarda o partido por audiência.
 
+O mesmo relatório conta o que sobra para avaliar nos splits de `eval_splits` (`test`), que não podem
+coincidir com os de `splits`. Uma UDV de teste é ligada ao ator dono do seu turno de evidência
+(`hearing_id` e `evidence.speaker_turn`) no arquivo sem filtro; UDV sem turno de evidência fica sem
+ligação. Com `udv_v1`, 116 dos 264 atores também falam no teste, e 106 das 359 UDVs de teste se ligam
+a 48 deles, em 27 das 30 audiências (17 `quote_found`, 87 `semantic_match_high`, 2
+`semantic_match_weak`).
+
 ## Configuração
 
 Tudo fica em `configs/actor_profiles.toml`:
@@ -76,8 +83,9 @@ Tudo fica em `configs/actor_profiles.toml`:
 - `[input]`: caminho do JSONL de falas por ator e do LDS (o LDS fornece a data e o assunto de cada
   audiência, conferido por SHA-256 como nos demais scripts).
 - `[output]`: caminho do JSONL de perfis.
-- `[split_filter]`: manifesto do split, splits mantidos e caminhos do arquivo filtrado e das
-  contagens, lidos só por `utils.filter_actor_speeches`.
+- `[split_filter]`: manifesto do split, splits mantidos (`splits`), splits de avaliação
+  (`eval_splits`), arquivo de UDVs e caminhos do arquivo filtrado e das contagens, lidos só por
+  `utils.filter_actor_speeches`.
 - `[prompts]`: pasta e nomes dos dois arquivos de prompt.
 - `[model]`: `name` (id do Hugging Face ou pasta local, vazio por padrão); `device_map`, repassado
   ao `from_pretrained` (com `"auto"`, o `accelerate` distribui o modelo entre as GPUs disponíveis e
@@ -112,7 +120,11 @@ arquivo; remova a linha quebrada antes de consumir o JSONL. Não rode duas inst�
 
 Os prompts moram em `prompts/actor_profile/` e podem ser editados sem tocar no código:
 
-- `system_profile.md`: regras do perfil (fundamentação, condução e cortesia, escrita).
+- `system_profile.md`: regras do perfil (fundamentação, condução e cortesia, blocos do perfil,
+  escrita).
+- `system_profile_old.md`: versão anterior, que gerava prosa corrida para ser convertida em
+  embedding. Não é lida pelo script; para gerar com ela, `system_profile = "system_profile_old.md"`
+  na seção `[prompts]` e um `--output` novo, porque a retomada pula atores pelo nome.
 - `user_profile.md.j2`: template Jinja2 com as falas; recebe `actor_label` (o nome do ator) e
   `hearings` (cada um com `date`, `assunto` e `turns`, e cada turno com `role` e `text`).
 
@@ -122,20 +134,34 @@ contrastantes com `--actors` para um arquivo descartável e compare com a versã
 
 ## Decisões de desenho do prompt
 
-- **Prosa corrida, sem estrutura fixa.** Cabeçalhos e fórmulas repetidas em todos os perfis
-  ("Temas: ...", "Posições: ...") criariam texto idêntico entre atores diferentes e aproximariam os
-  embeddings por forma, não por conteúdo. O prompt proíbe listas, títulos e frases de abertura ou
-  fechamento genéricas, e manda começar pelo conteúdo mais distintivo, o que também protege contra
-  truncamento em encoders com janela curta.
+- **Quatro blocos com título fixo.** `## Posições`, `## Critérios e valores`, `## Alinhamentos
+  declarados` e `## Forma de argumentar`, nesta ordem, com itens começando pelo verbo; bloco sem
+  apoio nas falas é omitido. As posições orientam o modelo que simula a pessoa em temas que ela já
+  tratou; os outros três blocos, em temas novos. Dentro de cada bloco, o que se repete em mais
+  audiências vem primeiro.
+- **Motivo junto da posição.** Quando a pessoa diz por que defende algo, o item de posição traz o
+  motivo com as palavras dela. O bloco de critérios fica com os princípios enunciados de forma geral
+  e os motivos que justificam mais de uma posição, e proíbe deduzir valor de posição ("defende o
+  SUS" não autoriza "valoriza o papel do Estado").
+- **Alinhamento só declarado.** O bloco de alinhamentos contém o que a pessoa diz sobre si (cargo,
+  organização, trajetória, cidade) e sobre o próprio lado (governo, oposição, bancada, frente), nunca
+  o que se deduziria do partido, das posições ou de quem ela elogia. É o mesmo motivo que deixa o
+  partido fora do prompt de simulação.
+- **Forma de argumentar observável.** Descreve comportamento (tipo de apoio, como trata
+  convidados), sem adjetivo de personalidade. Um traço só entra se aparecer em mais de um turno e
+  nenhuma fala o contradisser; uma frase dirigida a uma pessoa ou a um caso não vira traço geral; tom
+  que muda entre audiências é registrado por audiência. As três restrições vieram de perfis gerados
+  durante o desenvolvimento do prompt, em que "conversa fiada", dita sobre um prefeito, virou traço
+  geral, e "identifica problemas estruturais em vez de culpar pessoas" era contrariado por falas de
+  outra audiência.
 - **Fundamentação como restrição explícita.** O system prompt proíbe conhecimento prévio sobre a
   pessoa, partidos e temas, além de proibir expandir ou abreviar siglas, completar nome, cargo ou
-  órgão de pessoas citadas e atribuir data a fato que a fala menciona sem data; o que a pessoa
-  declara sobre si pode entrar. Dados citados nas falas entram como afirmação da pessoa, não
-  como fato. Falas escassas ou protocolares geram um perfil de duas a quatro frases, sem preencher
-  lacunas.
-- **Proibição de conteúdo negativo.** Dizer o que a pessoa "não menciona" injeta termos espúrios no
-  embedding (a primeira iteração produziu "não menciona temas de saúde" para um ator que só fez
-  saudações); o prompt proíbe descrever ausências.
+  órgão de pessoas citadas e atribuir data a fato que a fala menciona sem data. Dados citados nas
+  falas entram como afirmação da pessoa, não como fato. Falas escassas ou protocolares geram só os
+  blocos que elas sustentam, com um ou dois itens cada, sem preencher lacunas.
+- **Proibição de conteúdo negativo.** O modelo que simula a pessoa leria "não menciona temas de
+  saúde" como posição (a primeira iteração produziu essa frase para um ator que só fez saudações); o
+  prompt proíbe descrever ausências.
 - **Posição de terceiros não é posição do ator.** Em falas de presidência de sessão a pessoa
   resume e questiona propostas de convidados; a primeira iteração atribuiu a um deputado a proposta
   de duplicação de rodovia que era da concessionária convidada. O prompt manda atribuir ao ator
@@ -147,15 +173,17 @@ contrastantes com `--actors` para um arquivo descartável e compare com a versã
   de tempo ou inscrição, citação de requerimentos, cumprimentos, agradecimentos e elogios também são
   desconsiderados, porque apareciam nos perfis como se fossem conteúdo.
 - **Data e assunto por audiência.** Cada bloco de falas vem com a data da matéria e o `assunto` do
-  LDS, o que permite ao modelo ancorar mudanças de posição no tempo ("em maio de 2024 passou a
-  defender") e desfazer referências vagas ("este projeto de lei"). Como o `assunto` vem da matéria e
+  LDS, o que permite ao modelo ancorar mudanças de posição no tempo ("em 14/05/2024 passou a
+  defender") e desfazer referências vagas ("este projeto de lei"). Os itens do perfil não levam
+  data, exceto os que registram mudança de posição; nos perfis gerados durante o desenvolvimento do
+  prompt, a data por item vinha às vezes com a data de outra audiência. Como o `assunto` vem da matéria e
   não da fala, o system prompt restringe o cabeçalho a situar as falas no tempo e no tema e proíbe
   atribuir à pessoa o que só aparece nele (sem essa regra, o assunto "atos de 8 de janeiro" virou
   posição de um deputado que não citou a data).
-- **Comprimento proporcional ao material**, com teto rígido de 800 palavras. O teto alto faz o perfil
-  de quem fala muito carregar o máximo de informação distintiva (posições, propostas, alvos, números,
-  datas); a proporcionalidade impede que ator com duas falas protocolares ganhe perfil inflado; e a
-  ordem por distintividade limita a perda se o encoder da etapa de embedding truncar o texto.
+- **Comprimento proporcional ao material**, com teto rígido de 800 palavras somando os blocos. O teto
+  alto faz o perfil de quem fala muito carregar o máximo de informação (posições, critérios,
+  propostas, alvos, números); a proporcionalidade impede que ator com duas falas protocolares ganhe
+  perfil inflado.
 
 ## Limitações
 

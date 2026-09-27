@@ -45,5 +45,24 @@
       "22": 1
     },
     "actors_without_split_hearings": 37
+  },
+  "evaluation": {
+    "splits": [
+      "test"
+    ],
+    "udv_path": "artifacts/udv/udv_v1.jsonl",
+    "udv_sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1",
+    "link": "a UDV of an evaluation hearing is linked to the actor who owns its evidence turn (hearing_id, evidence.speaker_turn) in the unfiltered speech file; UDVs without an evidence turn, or whose turn was dropped when the speech file was built, stay unlinked",
+    "hearings": 30,
+    "profiled_actors_speaking": 116,
+    "udvs": 359,
+    "linked_udvs": 106,
+    "linked_actors": 48,
+    "linked_hearings": 27,
+    "linked_udvs_by_tier": {
+      "quote_found": 17,
+      "semantic_match_high": 87,
+      "semantic_match_weak": 2
+    }
   }
 }

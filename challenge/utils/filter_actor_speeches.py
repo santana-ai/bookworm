@@ -13,6 +13,11 @@ from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
 Record = dict[str, Any]
 
 DEFAULT_CONFIG = Path("configs/actor_profiles.toml")
+LINK_DESCRIPTION = (
+    "a UDV of an evaluation hearing is linked to the actor who owns its evidence turn"
+    " (hearing_id, evidence.speaker_turn) in the unfiltered speech file; UDVs without an"
+    " evidence turn, or whose turn was dropped when the speech file was built, stay unlinked"
+)
 
 
 @dataclass(frozen=True)
@@ -21,8 +26,15 @@ class SplitFilterConfig:
     lds_sha256: str
     manifest_path: Path
     splits: tuple[str, ...]
+    eval_splits: tuple[str, ...]
+    udv_path: Path
     output_path: Path
     stats_path: Path
+
+
+def check_split_names(splits: tuple[str, ...]) -> None:
+    if not splits or len(set(splits)) != len(splits) or not set(splits) <= set(SPLIT_NAMES):
+        raise SystemExit(f"splits must be distinct names among {SPLIT_NAMES}, got {splits}")
 
 
 def load_config(path: Path) -> SplitFilterConfig:
@@ -30,24 +42,30 @@ def load_config(path: Path) -> SplitFilterConfig:
         raw = tomllib.load(f)
     section = raw["split_filter"]
     splits = tuple(section["splits"])
-    if not splits or len(set(splits)) != len(splits) or not set(splits) <= set(SPLIT_NAMES):
-        raise SystemExit(f"splits must be distinct names among {SPLIT_NAMES}, got {splits}")
+    eval_splits = tuple(section["eval_splits"])
+    check_split_names(splits)
+    check_split_names(eval_splits)
+    if set(splits) & set(eval_splits):
+        raise SystemExit(f"eval_splits {eval_splits} overlap the profile splits {splits}")
     return SplitFilterConfig(
         speeches_path=Path(raw["input"]["speeches_path"]),
         lds_sha256=raw["input"]["lds_sha256"],
         manifest_path=Path(section["manifest_path"]),
         splits=splits,
+        eval_splits=eval_splits,
+        udv_path=Path(section["udv_path"]),
         output_path=Path(section["speeches_path"]),
         stats_path=Path(section["stats_path"]),
     )
 
 
-def load_split_hearings(config: SplitFilterConfig) -> tuple[set[int], Record]:
+def load_split_hearings(config: SplitFilterConfig) -> tuple[set[int], set[int], Record]:
     with open(config.manifest_path) as f:
         manifest = json.load(f)
     if manifest["dataset"]["sha256"] != config.lds_sha256:
         raise SystemExit(f"{config.manifest_path} was built from another LDS file")
     hearings = {hearing_id for name in config.splits for hearing_id in manifest[name]}
+    eval_hearings = {hearing_id for name in config.eval_splits for hearing_id in manifest[name]}
     info = {
         "path": str(config.manifest_path),
         "sha256": sha256_of_file(config.manifest_path),
@@ -55,7 +73,7 @@ def load_split_hearings(config: SplitFilterConfig) -> tuple[set[int], Record]:
         "splits": list(config.splits),
         "hearings": len(hearings),
     }
-    return hearings, info
+    return hearings, eval_hearings, info
 
 
 def filter_record(record: Record, hearings: set[int]) -> Record | None:
@@ -77,8 +95,42 @@ def summarize(records: list[Record]) -> Record:
     }
 
 
+def summarize_evaluation(
+    records: list[Record],
+    filtered: list[Record],
+    udvs: list[Record],
+    eval_hearings: set[int],
+) -> Record:
+    profiled = {record["actor"] for record in filtered}
+    owners = {
+        (hearing["hearing_id"], turn["turn_index"]): record["actor"]
+        for record in records
+        for hearing in record["hearings"]
+        if hearing["hearing_id"] in eval_hearings
+        for turn in hearing["turns"]
+    }
+    speaking = {actor for actor in owners.values() if actor in profiled}
+    linked: list[tuple[Record, str]] = []
+    for udv in udvs:
+        evidence = udv["evidence"]
+        if udv["hearing_id"] not in eval_hearings or not evidence:
+            continue
+        actor = owners.get((udv["hearing_id"], evidence["speaker_turn"]))
+        if actor in profiled:
+            linked.append((udv, actor))
+    return {
+        "hearings": len(eval_hearings),
+        "profiled_actors_speaking": len(speaking),
+        "udvs": sum(udv["hearing_id"] in eval_hearings for udv in udvs),
+        "linked_udvs": len(linked),
+        "linked_actors": len({actor for _, actor in linked}),
+        "linked_hearings": len({udv["hearing_id"] for udv, _ in linked}),
+        "linked_udvs_by_tier": dict(sorted(Counter(udv["tier"] for udv, _ in linked).items())),
+    }
+
+
 def build(config: SplitFilterConfig) -> Record:
-    hearings, manifest_info = load_split_hearings(config)
+    hearings, eval_hearings, manifest_info = load_split_hearings(config)
     records = load_jsonl(config.speeches_path)
     filtered = [
         kept for kept in (filter_record(record, hearings) for record in records) if kept is not None
@@ -96,6 +148,13 @@ def build(config: SplitFilterConfig) -> Record:
             "sha256": sha256_of_file(config.output_path),
             **summarize(filtered),
             "actors_without_split_hearings": len(records) - len(filtered),
+        },
+        "evaluation": {
+            "splits": list(config.eval_splits),
+            "udv_path": str(config.udv_path),
+            "udv_sha256": sha256_of_file(config.udv_path),
+            "link": LINK_DESCRIPTION,
+            **summarize_evaluation(records, filtered, load_jsonl(config.udv_path), eval_hearings),
         },
     }
     write_json(stats, config.stats_path)
@@ -119,6 +178,17 @@ def print_report(stats: Record) -> None:
     )
     print(f"  {output['actors_without_split_hearings']} actors have no hearing in these splits")
     print(f"  hearings per actor: {output['hearings_per_actor']}")
+    evaluation = stats["evaluation"]
+    print(
+        f"evaluation {evaluation['splits']}: {evaluation['hearings']} hearings,"
+        f" {evaluation['profiled_actors_speaking']} profiled actors speak in them"
+    )
+    print(
+        f"  {evaluation['linked_udvs']} of {evaluation['udvs']} UDVs linked to"
+        f" {evaluation['linked_actors']} profiled actors"
+        f" in {evaluation['linked_hearings']} hearings"
+    )
+    print(f"  linked UDVs by tier: {evaluation['linked_udvs_by_tier']}")
 
 
 def main() -> None:
