@@ -109,7 +109,10 @@ Uma linha JSON por ator:
 
 A escrita é incremental e o arquivo de saída é aberto em modo append. Ao rodar de novo com o mesmo
 `--output`, os atores que já têm linha válida são pulados; para regerar um ator, apague a linha dele
-(ou o arquivo). Erro em um ator não derruba o processo: a falha é registrada no log, o ator fica de
+(ou o arquivo). A retomada só acontece se todas as linhas do arquivo tiverem o mesmo `prompt_version`
+e o mesmo `model` do run atual; se alguma divergir, o gerador para antes de carregar o modelo e lista
+as versões encontradas, para que um arquivo nunca misture perfis de prompts ou modelos diferentes.
+Para regerar tudo depois de editar um prompt, mova o arquivo antigo para outro nome. Erro em um ator não derruba o processo: a falha é registrada no log, o ator fica de
 fora do arquivo (portanto será tentado de novo na próxima rodada) e o resumo final lista os nomes que
 falharam. Uma resposta que chega a `max_output_tokens` sem terminar conta como falha. Uma linha
 parcial deixada por interrupção abrupta é ignorada na retomada, com aviso no log, mas permanece no
@@ -124,7 +127,8 @@ Os prompts moram em `prompts/actor_profile/` e podem ser editados sem tocar no c
   escrita).
 - `system_profile_old.md`: versão anterior, que gerava prosa corrida para ser convertida em
   embedding. Não é lida pelo script; para gerar com ela, `system_profile = "system_profile_old.md"`
-  na seção `[prompts]` e um `--output` novo, porque a retomada pula atores pelo nome.
+  na seção `[prompts]` e um `--output` novo, porque o gerador recusa retomar um arquivo com perfis de
+  outra versão de prompt.
 - `user_profile.md.j2`: template Jinja2 com as falas; recebe `actor_label` (o nome do ator) e
   `hearings` (cada um com `date`, `assunto` e `turns`, e cada turno com `role` e `text`).
 

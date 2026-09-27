@@ -203,18 +203,30 @@ class ProfileRunner:
         }
 
 
-def load_done_actors(path: Path) -> set[str]:
+def load_done_actors(path: Path, prompt_version: str, model: str) -> set[str]:
     if not path.exists():
         return set()
     done: set[str] = set()
+    stale: set[tuple[str, str]] = set()
     with open(path) as f:
         for line_number, line in enumerate(f, start=1):
             if not line.strip():
                 continue
             try:
-                done.add(json.loads(line)["actor"])
+                row = json.loads(line)
+                actor, version = row["actor"], (row["prompt_version"], row["model"])
             except (json.JSONDecodeError, KeyError):
                 logging.warning("ignoring invalid line %d in %s", line_number, path)
+                continue
+            if version != (prompt_version, model):
+                stale.add(version)
+            done.add(actor)
+    if stale:
+        raise SystemExit(
+            f"{path} has profiles from other (prompt_version, model) pairs {sorted(stale)},"
+            f" current run is {(prompt_version, model)}; move the file away to regenerate"
+            " every profile, or pass a new --output"
+        )
     return done
 
 
@@ -232,10 +244,10 @@ def run(
     runner: ProfileRunner,
     records: list[Record],
     metadata: dict[int, Record],
+    done: set[str],
     limit: int | None,
 ) -> int:
     config = runner.config
-    done = load_done_actors(config.profiles_path)
     skipped = [record["actor"] for record in records if record["actor"] in done]
     todo = [record for record in records if record["actor"] not in done]
     if skipped:
@@ -310,6 +322,7 @@ def main() -> None:
     if not config.model:
         parser.error("set [model] name in the config, or pass --model")
     prompts = load_prompts(config)
+    done = load_done_actors(config.profiles_path, prompts.version, config.model)
     with open(config.speeches_path) as f:
         records = [json.loads(line) for line in f]
     records = select_records(records, args.actors)
@@ -322,7 +335,7 @@ def main() -> None:
         prompts=prompts,
         client=TransformersChatClient(config),
     )
-    raise SystemExit(run(runner, records, metadata, args.limit))
+    raise SystemExit(run(runner, records, metadata, done, args.limit))
 
 
 if __name__ == "__main__":
