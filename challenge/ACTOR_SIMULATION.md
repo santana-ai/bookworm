@@ -2,7 +2,7 @@
 
 Desenho e implementação do uso do perfil textual de cada ator (`ACTOR_PROFILES.md`) no system
 prompt de outro modelo, de modo que ele responda como essa pessoa responderia, tanto sobre temas
-que ela já tratou quanto sobre temas novos. As três abordagens abaixo são comparadas com o mesmo
+que ela já tratou quanto sobre temas novos. As abordagens abaixo são comparadas com o mesmo
 protocolo de avaliação. O código está em `utils/actor_simulation.py` (partes comuns),
 `utils/evaluate_actor_simulation.py` (avaliação por múltipla escolha) e `utils/simulate_actors.py`
 (geração aberta); como rodar, o formato das saídas e as escolhas de implementação que este desenho
@@ -49,31 +49,46 @@ poucos perfis gerados durante o desenvolvimento, não por uma medida da avaliaç
   têm frases no imperativo), ficam perto da pergunta a que se referem, e o system prompt fixo por
   pessoa permite reaproveitar o cálculo do prefixo entre perguntas. Essa escolha não foi medida.
 - **Classifier-free guidance (CFG):** resolve a tendência do modelo de responder com a própria
-  opinião padrão e com o que já sabe da pessoa pelo nome, mesmo com o perfil no prompt. A cada
-  token, combina a distribuição com e sem o material da pessoa:
+  opinião padrão e com o que já sabe da pessoa pelo nome, mesmo com o perfil no prompt. Combina a
+  distribuição com e sem o material da pessoa:
 
   ```
   logp_final = logp_negativo + γ · (logp_completo − logp_negativo)
   ```
 
-  Com γ = 1 a geração é a normal; com γ > 1 a resposta vai mais na direção que o material empurra.
-  O prompt negativo é o mesmo prompt (instruções, nome, pergunta) sem o material cujo efeito se
-  quer amplificar: sem perfil e sem trechos amplifica os dois; só sem o perfil amplifica o que o
-  perfil acrescenta além dos trechos. O `transformers` 5.14.1 do ambiente já implementa isso em
-  `model.generate(..., guidance_scale=γ, negative_prompt_ids=...)`
-  (`UnbatchedClassifierFreeGuidanceLogitsProcessor`), com referência a Sanchez et al. 2023, "Stay
-  on topic with Classifier-Free Guidance" (arXiv 2306.17806). Custo: duas passagens pelo modelo
-  por token na geração aberta. Com γ alto o texto degrada (repetição, caricatura das posições).
+  Com γ = 1 o resultado é o do prompt completo; com γ > 1 a resposta vai mais na direção que o
+  material empurra. O prompt negativo é o mesmo prompt (instruções, nome, pergunta) sem o material
+  cujo efeito se quer amplificar: sem perfil e sem trechos amplifica os dois; só sem o perfil
+  amplifica o que o perfil acrescenta além dos trechos. A referência é Sanchez et al. 2023, "Stay on
+  topic with Classifier-Free Guidance" (arXiv 2306.17806). A CFG entra só na múltipla escolha, na
+  condição 3 (ver Avaliação); o motivo de a geração aberta não usá-la está na seção seguinte.
 
-## As três abordagens
+## As abordagens
 
 1. **Só o perfil:** perfil no system prompt.
 2. **Perfil + RAG:** perfil no system prompt, trechos recuperados e pergunta na mensagem do
    usuário.
-3. **Perfil + RAG + CFG:** a abordagem 2 gerada com guidance.
 
-As três são comparadas com um baseline sem perfil (condição 0 da avaliação). O partido fica fora do
-prompt em todas: com ele, o modelo preenche o que falta com o estereótipo do partido.
+Na múltipla escolha, as duas são as condições 1 e 2, e a condição 3 combina a 2 com o baseline por
+CFG. As abordagens são comparadas com um baseline sem perfil (condição 0 da avaliação). O partido
+fica fora do prompt em todas: com ele, o modelo preenche o que falta com o estereótipo do partido.
+
+A geração aberta tinha uma terceira abordagem, a 2 gerada com CFG a cada token, com o prompt da
+condição 0 como negativo. Ela saiu depois do piloto de 27/09/2026 (Arnaldo Jardim e Daniela
+Reinehr, três modelos, três pedidos de audiências de `test` por modelo), por dois resultados:
+
+- As falas geradas só com o prompt negativo foram recusas nos três modelos. A CFG supõe que o
+  prompt negativo produza a opinião padrão do modelo sobre o tema; com uma recusa no lugar, a
+  guidance afasta a fala da recusa, e a opinião padrão fica sem correção.
+- γ era o escolhido pelo acerto da múltipla escolha, em que a CFG age sobre um único token, e no
+  piloto cada modelo o escolheu com 2 perguntas de validação. Com γ = 3,0, escolhido para um dos
+  modelos, a fala da abordagem 3 perdeu o sentido ("Presidente quero fazer uma pergunta lige pont
+  Caro Ciocchi do ponto de vista mudanças dias depois ons modific regras despacho [...]"), e a
+  escolha por acerto não detecta essa degradação.
+
+A decisão veio da leitura de saídas geradas para audiências de `test`, sem uso das UDVs nem do
+acerto, e o artigo precisa declarar isso. A fala com o material da condição 0 continua sendo gerada
+(ver "Fala") para verificar, na rodada completa, se a recusa se repete.
 
 ## Template de simulação
 
@@ -158,7 +173,7 @@ TRECHOS DE FALAS ANTERIORES DE {nome}
 
 Na múltipla escolha, `{data}` e `{assunto}` são os da audiência de teste; na geração aberta, o
 assunto é o tema pedido e a data é a do pedido. As datas seguem o formato do template do perfil. A
-seção de trechos só existe nas condições e abordagens 2 e 3:
+seção de trechos só existe nas condições 2 e 3 e na abordagem 2:
 
 - a consulta é `{assunto}`, e a busca é por frase, entre as frases dos turnos da pessoa nas
   audiências de `train`, com o Serafim da UDV;
@@ -175,19 +190,29 @@ k sai de `validation`; as demais escolhas não foram medidas.
 **Múltipla escolha** (avaliação, condições 0 a 3):
 
 ```
-Qual destas afirmações {nome} fez nesta audiência?
+Uma destas afirmações foi feita por {nome} nesta audiência, que não aparece no material desta conversa. Qual é a mais provável?
 A) {proposição}
 B) {proposição}
 C) {proposição}
 D) {proposição}
-Responda só com a letra.
+Responda só com a letra, mesmo sem certeza.
 ```
 
 A resposta é lida no primeiro token gerado pelo assistente, pelo softmax dos logits dos quatro
 tokens de letra, cujos ids são conferidos no tokenizer antes da rodada (cada letra precisa ser um
 token só).
 
-**Nível de evidência** (condições e abordagens 1 a 3):
+A redação anterior, "Qual destas afirmações {nome} fez nesta audiência? [...] Responda só com a
+letra.", pedia um fato que o material não contém por construção, já que o system prompt diz que o
+material da conversa é a única fonte sobre a pessoa e a audiência avaliada nunca está nele. Num
+piloto com dois atores (Arnaldo Jardim e Daniela Reinehr) e três modelos, dois deles responderam
+com recusas ("Nenhuma das alternativas. O material fornecido não contém informações sobre a
+audiência [...]") nas condições com material, e a soma das probabilidades das letras caiu. A
+redação atual declara que uma das opções é da pessoa e que a audiência não está no material, e
+pede a letra mesmo sem certeza. As três informações são iguais em todas as condições. O efeito da
+troca ainda não foi medido.
+
+**Nível de evidência** (condições 1 a 3 e abordagens 1 e 2):
 
 ```
 Com o material desta conversa, classifique a base para estimar a posição
@@ -204,10 +229,10 @@ Responda só com o rótulo.
 Na avaliação, esta chamada não leva as opções, para que o nível não dependa dos distratores, e roda
 em cada condição com o material dela. Na geração aberta ela vem antes da fala, e com SEM BASE a fala
 não é gerada: a saída é "o material não permite estimar". A recusa precisa ser uma saída prevista,
-senão o modelo inventa uma posição, e fica fora da chamada da fala por causa da CFG: sem material,
-o prompt negativo favorece a recusa, e com γ > 1 a guidance afasta a resposta dela.
+senão o modelo inventa uma posição, e fica numa chamada própria, antes da fala, porque o rótulo
+decide se a fala é gerada.
 
-**Fala** (geração aberta, abordagens 1 a 3):
+**Fala** (geração aberta, abordagens 1 e 2):
 
 ```
 Escreva, em primeira pessoa, a fala de {nome} nesta audiência sobre esse
@@ -215,13 +240,12 @@ assunto, com no máximo 200 palavras, sem cumprimentos nem agradecimentos
 e sem os ids do material. Escreva só a fala.
 ```
 
-Na abordagem 3, o prompt negativo da CFG são as mesmas mensagens na forma da condição 0: perfil
-"Nenhum.", sem exemplos e sem trechos. Antes de escolher γ, algumas gerações feitas só com o prompt
-negativo precisam ser lidas: se forem recusas por falta de material, e não uma fala genérica, a
-guidance afasta a resposta da recusa em vez de afastá-la da opinião padrão do modelo, que é o que
-ela deveria corrigir. O teto de 200 palavras é uma escolha, não uma medida.
+Cada pedido gera também a fala com as mensagens na forma da condição 0: perfil "Nenhum.", sem
+exemplos e sem trechos, e sem o pedido do nível antes. É o prompt negativo que a CFG usaria, e a
+fala serve para verificar se ele produz uma recusa, como no piloto (ver "As abordagens"). O teto de
+200 palavras é uma escolha, não uma medida.
 
-**Justificação** (geração aberta, abordagens 1 a 3, sem CFG): a mesma mensagem da fala, com o
+**Justificação** (geração aberta, abordagens 1 e 2): a mesma mensagem da fala, com o
 pedido abaixo no lugar do pedido da fala.
 
 ```
@@ -243,16 +267,16 @@ conferência mostra que o item citado existe e que a cópia é literal, mas não
 frase nem que o modelo o usou, porque a justificação é escrita depois da fala. Sustentação de
 sentido exige leitura humana e fica fora da conferência.
 
-Decodificação gulosa em todas as chamadas; a CFG entra só na fala da abordagem 3 e, na múltipla
-escolha, pela combinação dos log-probs das condições 0 e 2 (ver Avaliação).
+Decodificação gulosa em todas as chamadas; a CFG entra só na múltipla escolha, pela combinação dos
+log-probs das condições 0 e 2 (ver Avaliação).
 
 ## Avaliação
 
 ### Pergunta de múltipla escolha
 
 Cada UDV de teste ligada a um ator com perfil vira uma pergunta: nome e papel do ator, data e
-assunto da audiência de teste, e 4 proposições, a do ator e 3 de outros atores da mesma audiência.
-"Qual destas afirmações {nome} fez nesta audiência?" O acaso é 25%. Pelo relatório de
+assunto da audiência de teste, e 4 proposições, a do ator e 3 de outros atores da mesma audiência,
+com o pedido de múltipla escolha acima. O acaso é 25%. Pelo relatório de
 `utils.filter_actor_speeches` (`artifacts/actor_profiles/train_speeches_stats.json`), são 106 das
 359 UDVs de teste, de 48 atores, em 27 das 30 audiências de teste.
 
@@ -317,7 +341,7 @@ As etapas também rodam separadas:
 ```
 uv run python -m utils.evaluate_actor_simulation --model <modelo> [--actors ...] [--config ...]
 uv run python -m utils.simulate_actors --model <modelo> [--actors ...] [--requests pedidos.jsonl] \
-  [--k N] [--guidance-scale G]
+  [--k N]
 ```
 
 `utils.evaluate_actor_simulation` monta as perguntas de `validation` e de `test` e confere, antes
@@ -326,14 +350,12 @@ dois splits. Em `validation`, mede as condições 0 e 1 e a condição 2 para ca
 escolhe k e depois γ (condição 3, em `guidance_grid`); em seguida roda `test` só com o k e o γ
 escolhidos, junto com os níveis de evidência.
 
-`utils.simulate_actors` gera a fala das abordagens 1 a 3 com o k e o γ gravados em
-`evaluation.json`, ou com `--k` e `--guidance-scale`. Sem `--requests`, faz um pedido por par (ator,
+`utils.simulate_actors` gera a fala das abordagens 1 e 2 com o k gravado em `evaluation.json`, ou
+com `--k`. Sem `--requests`, faz um pedido por par (ator,
 audiência de `requests_split`) com UDV ligada, com a data e o assunto da audiência. Com
 `--requests`, lê um JSONL com `actor`, `date` (DD/MM/AAAA) e `topic`, que é o caminho para temas
-novos. Cada pedido gera também `negative_speech`, a fala feita só com o prompt negativo da CFG.
-O desenho pede que algumas dessas falas sejam lidas antes de escolher γ: antes da rodada completa,
-rode `utils.simulate_actors` com poucos atores e `--guidance-scale 1.0` (sem guidance) e leia
-`negative_speech`. Trocar γ depois refaz todas as linhas de `simulations.jsonl`.
+novos. Cada pedido gera também `baseline_speech`, a fala feita com o material da condição 0.
+Trocar k depois refaz todas as linhas de `simulations.jsonl`.
 
 Para uma rodada curta, os atores precisam ter perguntas em `validation` e em `test`, porque k e γ
 são escolhidos em `validation`; sem pergunta em um dos dois splits, a avaliação para com erro antes
@@ -381,7 +403,7 @@ Em `artifacts/actor_simulation/`:
   marcação). A soma das probabilidades das quatro letras no vocabulário inteiro, com média e
   mínimo por condição, mostra quanto da decisão do modelo essa leitura captura.
 - `simulations.jsonl`: uma linha por pedido, com papel, exemplos e trechos usados (com o texto),
-  `negative_speech` e, por abordagem, o nível, a saída (a fala ou "o material não permite
+  `baseline_speech` e, por abordagem, o nível, a saída (a fala ou "o material não permite
   estimar"), a fala e a justificação cruas (`truncated` quando chegam ao teto de tokens) e `check`,
   a conferência frase a frase.
 - `simulations_summary.json`: por abordagem, a distribuição dos níveis, as recusas, as falas e
@@ -393,7 +415,7 @@ Em `artifacts/actor_simulation/`:
 As linhas são gravadas uma a uma. Ao rodar de novo, uma pergunta ou um pedido é reaproveitado
 quando a impressão digital coincide: modelo, versão dos prompts, tetos de tokens, encoder, arquivo
 de falas de treino, texto do perfil do ator e a própria pergunta (opções e papel) ou o próprio
-pedido (papel, exemplos, k e γ). Acrescentar perfis de outros atores não refaz as linhas já
+pedido (papel, exemplos e k). Acrescentar perfis de outros atores não refaz as linhas já
 calculadas. No fim, o JSONL é reescrito só com as linhas da rodada atual. Uma linha quebrada por
 interrupção é ignorada, com aviso no log. Não rode duas instâncias sobre a mesma pasta de saída.
 
@@ -444,7 +466,9 @@ O desenho acima deixava estas escolhas em aberto. Nenhuma delas foi medida:
 - As contagens de perguntas de `validation` e de `test` (UDVs ligadas, perguntas, descartadas por
   falta de 3 outros atores) saem em `counts` de `evaluation.json` e dependem do conjunto de perfis
   da rodada; citar só os números da rodada completa.
-- Ler algumas `negative_speech` antes da rodada completa da geração aberta (ver "Como rodar").
+- Contar as recusas entre as `baseline_speech` da rodada completa, que é o número do artigo para a
+  retirada da CFG da geração aberta. A recusa é texto livre, então a contagem é por leitura: um
+  script gera o arquivo com um campo de julgamento vazio por pedido, e o campo é preenchido à mão.
 - Confirmar, em script versionado, o ganho do filtro de falante na recuperação com Serafim.
 - Gerar perfis com o modelo final para poucos atores contrastantes (`--actors`) e ler antes da
   rodada completa.

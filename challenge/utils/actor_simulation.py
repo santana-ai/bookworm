@@ -448,25 +448,9 @@ class SimulationModel:
         return torch.log_softmax(logits, dim=-1)[self.letter_ids].tolist()
 
     @torch.inference_mode()
-    def generate(
-        self,
-        messages: list[Record],
-        max_new_tokens: int,
-        negative: list[Record] | None = None,
-        guidance_scale: float = 1.0,
-    ) -> Generation:
+    def generate(self, messages: list[Record], max_new_tokens: int) -> Generation:
         inputs = self._encode(messages)
-        guidance: Record = {}
-        if negative is not None and guidance_scale != 1:
-            negative_inputs = self._encode(negative)
-            guidance = {
-                "guidance_scale": guidance_scale,
-                "negative_prompt_ids": negative_inputs["input_ids"],
-                "negative_prompt_attention_mask": negative_inputs["attention_mask"],
-            }
-        output = self.model.generate(
-            **inputs, do_sample=False, max_new_tokens=max_new_tokens, **guidance
-        )
+        output = self.model.generate(**inputs, do_sample=False, max_new_tokens=max_new_tokens)
         generated = output[0, inputs["input_ids"].shape[1] :]
         return Generation(
             text=self.tokenizer.decode(generated, skip_special_tokens=True).strip(),
