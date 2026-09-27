@@ -3,6 +3,7 @@ import hashlib
 import json
 import time
 from collections import Counter
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Protocol
@@ -13,6 +14,8 @@ from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from utils.build_udvs import UdvConfig, cache_key
+from utils.decision_models import DecisionModel, LayaDecisionModel, LayaSpec, sha256_text
+from utils.decision_scoring import BatteryQuestion
 from utils.hub_offline import pinned_weights_file
 from utils.retrieval_data import (
     HearingData,
@@ -59,6 +62,17 @@ class RerankSpec:
     top_k: int
     max_length: int
     batch_size: int
+    source: Record
+
+
+@dataclass(frozen=True)
+class DecisionRerankSpec:
+    name: str
+    scorer: str
+    base: str
+    top_k: int
+    question: BatteryQuestion
+    laya: LayaSpec
     source: Record
 
 
@@ -560,6 +574,39 @@ class RrfRetriever:
             component.close()
 
 
+def rerank_top(
+    base: dict[str, Ranking],
+    hearing: HearingData,
+    kind: str,
+    queries: list[Query],
+    top_k: int,
+    pair_scores: Callable[[list[tuple[str, str]]], np.ndarray],
+) -> dict[str, Ranking]:
+    selected: dict[str, np.ndarray] = {}
+    pairs: list[tuple[str, str]] = []
+    for query in queries:
+        units: list[Unit] = hearing.contexts[query.context_key].units[kind]
+        top = base[query.query_id].order[:top_k]
+        selected[query.query_id] = top
+        pairs.extend((query.text, units[index].text) for index in top)
+    scores = pair_scores(pairs)
+    rankings: dict[str, Ranking] = {}
+    cursor = 0
+    for query in queries:
+        order = base[query.query_id].order
+        top = selected[query.query_id]
+        top_scores = scores[cursor : cursor + len(top)]
+        cursor += len(top)
+        reranked = top[np.lexsort((np.arange(len(top)), -top_scores))]
+        final = np.concatenate([reranked, order[len(top) :]])
+        sort_key = -rank_positions(order).astype(np.float64)
+        display = np.full(len(order), np.nan)
+        sort_key[top] = RERANK_OFFSET + top_scores
+        display[top] = top_scores
+        rankings[query.query_id] = Ranking(final, sort_key, display)
+    return rankings
+
+
 class RerankRetriever:
     def __init__(self, spec: RerankSpec, base: Retriever, runtime: Runtime) -> None:
         self.retriever_id = spec.name
@@ -632,29 +679,7 @@ class RerankRetriever:
         self, hearing: HearingData, kind: str, queries: list[Query]
     ) -> dict[str, Ranking]:
         base = self.base.rank_hearing(hearing, kind, queries)
-        selected: dict[str, np.ndarray] = {}
-        pairs: list[tuple[str, str]] = []
-        for query in queries:
-            units: list[Unit] = hearing.contexts[query.context_key].units[kind]
-            top = base[query.query_id].order[: self.spec.top_k]
-            selected[query.query_id] = top
-            pairs.extend((query.text, units[index].text) for index in top)
-        scores = self.pair_scores(pairs)
-        rankings: dict[str, Ranking] = {}
-        cursor = 0
-        for query in queries:
-            order = base[query.query_id].order
-            top = selected[query.query_id]
-            top_scores = scores[cursor : cursor + len(top)]
-            cursor += len(top)
-            reranked = top[np.lexsort((np.arange(len(top)), -top_scores))]
-            final = np.concatenate([reranked, order[len(top) :]])
-            sort_key = -rank_positions(order).astype(np.float64)
-            display = np.full(len(order), np.nan)
-            sort_key[top] = RERANK_OFFSET + top_scores
-            display[top] = top_scores
-            rankings[query.query_id] = Ranking(final, sort_key, display)
-        return rankings
+        return rerank_top(base, hearing, kind, queries, self.spec.top_k, self.pair_scores)
 
     def describe(self) -> Record:
         return {
@@ -682,6 +707,144 @@ class RerankRetriever:
         self.store.flush()
         self.base.close()
         if self.model is not None:
+            self.model = None
+            gc.collect()
+            release_device_memory(self.runtime.device)
+
+
+class DecisionRerankRetriever:
+    def __init__(
+        self,
+        spec: DecisionRerankSpec,
+        base: Retriever,
+        runtime: Runtime,
+        load_model: Callable[[LayaSpec], DecisionModel] = LayaDecisionModel,
+    ) -> None:
+        self.retriever_id = spec.name
+        self.spec = spec
+        self.base = base
+        self.runtime = runtime
+        self.load_model = load_model
+        self.model: DecisionModel | None = None
+        self.model_details: Record | None = None
+        self.counts: Counter[str] = Counter()
+        self.score_seconds = 0.0
+        laya, question = spec.laya, spec.question.question
+        payload_digest = sha256_text(question.payload_json())[:8]
+        self.store = VectorStore(
+            runtime.rerank_dir
+            / slug(laya.repo_id)
+            / laya.revision[:12]
+            / slug(laya.label)
+            / f"{question.key}-{payload_digest}"
+            / laya.device,
+            {
+                "key": (
+                    f"{laya.repo_id}@{laya.revision}|subfolder={laya.label}|"
+                    f"max_len={laya.max_length}|head_max_len={laya.head_max_length}|"
+                    f"truncate={laya.truncate_key}|device={laya.device}|"
+                    f"question={question.payload_json()}|state=premise:unit,hypothesis:query|"
+                    "signal=support"
+                ),
+                "model": laya.repo_id,
+                "revision": laya.revision,
+                "subfolder": laya.subfolder,
+                "question": question.key,
+                "question_payload": question.payload(),
+                "device": laya.device,
+                "stored_scores": (
+                    "support signal of the battery question (P(true) for a noul, P(support "
+                    "option) for a choice, expected level / (levels - 1) for a score), float32"
+                ),
+                "stored_lengths": "input tokens of the Laya forward pass",
+            },
+            runtime.shard_size,
+        )
+        self.store.provenance = {
+            "device": laya.device,
+            "scored_rows_batch_size": laya.batch_size,
+            "precision": "float32",
+        }
+
+    def load(self) -> DecisionModel:
+        if self.model is None:
+            self.model = self.load_model(self.spec.laya)
+            self.counts["model_loads"] += 1
+        return self.model
+
+    def pair_scores(self, pairs: list[tuple[str, str]]) -> np.ndarray:
+        keys = [pair_digest(query, passage) for query, passage in pairs]
+        missing = list(
+            dict.fromkeys(
+                pair for pair, key in zip(pairs, keys, strict=True) if not self.store.contains(key)
+            )
+        )
+        self.counts["pairs_requested"] += len(pairs)
+        if missing:
+            battery_question = self.spec.question
+            states = [{"premise": passage, "hypothesis": query} for query, passage in missing]
+            started = time.perf_counter()
+            answers = self.load().predict_batch(states, [battery_question.question])
+            self.score_seconds += time.perf_counter() - started
+            key = battery_question.question.key
+            scores = np.array(
+                [battery_question.support(answer[key]) for answer in answers], dtype=np.float32
+            )
+            lengths = [
+                -1 if answer[key].input_tokens is None else int(answer[key].input_tokens)
+                for answer in answers
+            ]
+            self.counts["pairs_scored"] += len(missing)
+            self.counts["pairs_truncated"] += sum(answer[key].truncated for answer in answers)
+            self.store.add(
+                [pair_digest(q, p) for q, p in missing], scores.reshape(-1, 1), lengths, "scored"
+            )
+        return self.store.gather(keys).reshape(-1).astype(np.float64)
+
+    def rank_hearing(
+        self, hearing: HearingData, kind: str, queries: list[Query]
+    ) -> dict[str, Ranking]:
+        base = self.base.rank_hearing(hearing, kind, queries)
+        return rerank_top(base, hearing, kind, queries, self.spec.top_k, self.pair_scores)
+
+    def describe(self) -> Record:
+        laya, question = self.spec.laya, self.spec.question.question
+        return {
+            "kind": "decision_rerank",
+            "scorer": self.spec.scorer,
+            "model": laya.repo_id,
+            "revision": laya.revision,
+            "subfolder": laya.subfolder,
+            "max_len": laya.max_length,
+            "head_max_len": laya.head_max_length,
+            "truncated_key": laya.truncate_key,
+            "answer_cache_dir": str(laya.cache_dir),
+            "question": question.key,
+            "question_payload": question.payload(),
+            "state": "{premise: candidate unit text, hypothesis: query text}",
+            "signal": (
+                "support signal of the question: P(true) for a noul, P(support option) for a "
+                "choice, expected level / (levels - 1) for a score"
+            ),
+            "base": self.base.retriever_id,
+            "base_details": self.base.describe(),
+            "top_k": self.spec.top_k,
+            "batch_size": laya.batch_size,
+            "ordering": (
+                "the top_k units of the base order sorted by the support signal (base order on "
+                "ties), followed by the remaining units in base order"
+            ),
+            "counts": dict(self.counts),
+            "score_seconds": round(self.score_seconds, 1),
+            "decision_model": self.model_details,
+            "notes": self.spec.source.get("notes"),
+        }
+
+    def close(self) -> None:
+        self.store.flush()
+        self.base.close()
+        if self.model is not None:
+            self.model_details = self.model.describe()
             self.model = None
             gc.collect()
             release_device_memory(self.runtime.device)

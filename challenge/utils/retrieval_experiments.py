@@ -1,4 +1,5 @@
 import argparse
+import importlib.metadata
 import platform
 import shlex
 import subprocess
@@ -24,6 +25,8 @@ from utils import (
     build_udvs,
     calibrate_threshold,
     dataset_io,
+    decision_models,
+    decision_scoring,
     hub_offline,
     retrieval_data,
     retrieval_models,
@@ -35,6 +38,8 @@ from utils.build_udvs import load_config as load_udv_config
 from utils.build_udvs import seed_everything, select_device
 from utils.calibrate_threshold import load_split_lookup
 from utils.dataset_io import load_gated_jsonl, load_jsonl, sha256_of_file, write_json, write_jsonl
+from utils.decision_models import LayaSpec
+from utils.decision_scoring import BatteryError, parse_battery
 from utils.hub_offline import enforce_offline, offline_environment, offline_state
 from utils.retrieval_data import (
     BENCHES,
@@ -49,6 +54,8 @@ from utils.retrieval_data import (
 )
 from utils.retrieval_models import (
     Bm25Retriever,
+    DecisionRerankRetriever,
+    DecisionRerankSpec,
     DenseRetriever,
     DenseSpec,
     Ranking,
@@ -64,13 +71,16 @@ from utils.retrieval_stats import bootstrap_mean, holm, mcnemar_exact, sign_flip
 Record = dict[str, Any]
 
 SPARSE_KINDS = ("tfidf", "bm25")
-RETRIEVER_KINDS = (*SPARSE_KINDS, "dense", "rrf", "rerank")
+RETRIEVER_KINDS = (*SPARSE_KINDS, "dense", "rrf", "rerank", "decision_rerank")
+DECISION_TRUNCATED_KEY = "premise"
 FIT_SCOPES = ("speaker", "hearing")
 CODE_MODULES = (
     udv_pipeline,
     build_udvs,
     calibrate_threshold,
     dataset_io,
+    decision_models,
+    decision_scoring,
     hub_offline,
     retrieval_data,
     retrieval_models,
@@ -161,6 +171,12 @@ def validate_retrievers(retrievers: dict[str, Record], evaluation: Record) -> No
         raise SystemExit("evaluation.baseline_retriever is not a configured retriever")
 
 
+def validate_decision_retrievers(retrievers: dict[str, Record], cache: Record) -> None:
+    for name, spec in retrievers.items():
+        if spec["kind"] == "decision_rerank":
+            decision_rerank_spec(name, spec, "cpu", Path(cache["decision_dir"]))
+
+
 def validate_queue(
     steps: list[Record],
     retrievers: dict[str, Record],
@@ -200,6 +216,7 @@ def load_config(config_path: Path) -> ExperimentConfig:
     if not set(raw["benchmarks"]) <= set(BENCHES):
         raise SystemExit(f"benchmarks must be among {BENCHES}")
     validate_retrievers(raw["retrievers"], raw["evaluation"])
+    validate_decision_retrievers(raw["retrievers"], raw["cache"])
     if raw["evaluation"]["baseline_unit"] not in kinds:
         raise SystemExit("evaluation.baseline_unit must be one of units.kinds")
     validate_queue(raw["queue"]["steps"], raw["retrievers"], kinds, tuple(raw["benchmarks"]))
@@ -289,6 +306,46 @@ def rerank_spec(name: str, spec: Record) -> RerankSpec:
     )
 
 
+def decision_rerank_spec(
+    name: str, spec: Record, device: str, cache_dir: Path
+) -> DecisionRerankSpec:
+    with open(spec["decision_config"], "rb") as f:
+        raw = tomllib.load(f)
+    scorer = raw.get("scorers", {}).get(spec["scorer"])
+    where = f"retrievers.{name}: {spec['decision_config']} scorers.{spec['scorer']}"
+    if scorer is None or scorer["kind"] != "laya":
+        raise SystemExit(f"{where} must be a laya scorer")
+    if scorer["language"] != "pt":
+        raise SystemExit(f"{where} reads a translation; only language pt is supported")
+    if scorer["revision"] != spec["revision"]:
+        raise SystemExit(f"{where} revision {scorer['revision']} != {spec['revision']}")
+    if spec["question"] not in scorer["questions"]:
+        raise SystemExit(f"{where} does not ask {spec['question']!r}")
+    try:
+        battery = parse_battery(raw["decision_battery"])
+    except BatteryError as error:
+        raise SystemExit(f"{where}: decision_battery: {error}") from error
+    return DecisionRerankSpec(
+        name=name,
+        scorer=spec["scorer"],
+        base=spec["base"],
+        top_k=spec["top_k"],
+        question=battery.questions[spec["question"]],
+        laya=LayaSpec(
+            repo_id=scorer["name"],
+            revision=scorer["revision"],
+            subfolder=scorer["subfolder"],
+            device=device,
+            batch_size=int(scorer["batch_size"]),
+            max_length=int(scorer["max_length"]),
+            head_max_length=int(scorer["head_max_length"]),
+            truncate_key=DECISION_TRUNCATED_KEY,
+            cache_dir=cache_dir,
+        ),
+        source=spec,
+    )
+
+
 def build_retriever(rid: str, config: ExperimentConfig, runtime: Runtime) -> Retriever:
     name, scope = retriever_ids(config.retrievers)[rid]
     spec = config.retrievers[name]
@@ -304,9 +361,13 @@ def build_retriever(rid: str, config: ExperimentConfig, runtime: Runtime) -> Ret
             build_retriever(component, config, runtime) for component in spec["components"]
         ]
         return RrfRetriever(rid, components, spec["k"])
-    return RerankRetriever(
-        rerank_spec(name, spec), build_retriever(spec["base"], config, runtime), runtime
-    )
+    base = build_retriever(spec["base"], config, runtime)
+    if kind == "decision_rerank":
+        decision = decision_rerank_spec(
+            name, spec, runtime.device, Path(config.cache["decision_dir"])
+        )
+        return DecisionRerankRetriever(decision, base, runtime)
+    return RerankRetriever(rerank_spec(name, spec), base, runtime)
 
 
 def load_bench_rows(
@@ -477,6 +538,7 @@ def environment() -> Record:
         "transformers": transformers.__version__,
         "huggingface_hub": huggingface_hub.__version__,
         "sentence_transformers": sentence_transformers.__version__,
+        "laya": importlib.metadata.version("laya"),
         "platform": platform.platform(),
     }
 
@@ -980,6 +1042,7 @@ def command_summarize(args: argparse.Namespace, config: ExperimentConfig) -> Non
             "given an opinion and the speaker's candidate units, which representation ranks a "
             "supporting passage first"
         ),
+        "declaration": config.source.get("declarations", {}).get(run_name),
         "benchmarks": config.benches,
         "definitions": DEFINITIONS,
         "summaries": summaries,
