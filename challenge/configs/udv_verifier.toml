@@ -1,0 +1,50 @@
+[udv_verifier]
+name = "udv_v1_verifier"
+date = "2026-09-26"
+declared = "Declared on 2026-09-26, before any UDV evidence or proposition was translated or scored by any verifier. Before this declaration, only a train refit of the primary below was run, to check that it reproduces the fit recorded in final_test.json (C, inner means, coefficients and threshold); it read no UDV and no validation or test row. The verifier is an extra analysis layer on artifacts/udv/udv_v1.jsonl: it adds, per UDV with evidence, a score of how strongly the evidence text supports the proposition, and it changes no UDV, tier, evidence or threshold of the UDV builder. Nothing in this run is tuned on UDV scores: the scorers, features, model, C and threshold are the ones of the E3x v2 final test, fitted on the train split of the NLI benchmark only"
+purpose = "the UDV tiers say how the evidence was found (a literal quote, or a transcript sentence close in embedding space); they do not say whether the evidence sentence states what the proposition says. The verifier score is a second, independent reading of that question, from models trained for entailment-like decisions"
+
+[udv_verifier.inputs]
+udv_path = "artifacts/udv/udv_v1.jsonl"
+verifier_config = "configs/nli_verifier.toml"
+exploration_config = "configs/nli_verifier_exploration_v2.toml"
+selection_path = "artifacts/experiments/nli_verifier_exploration/e3x_v2/selection.json"
+final_test_path = "artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json"
+
+[udv_verifier.pairs]
+evidence_tiers = ["quote_found", "semantic_match_high", "semantic_match_weak"]
+premise = "evidence.text after udv_pipeline.normalize_whitespace, one premise item per UDV"
+hypothesis = "proposition after udv_pipeline.normalize_whitespace"
+unscored_rule = "a UDV whose tier is not in evidence_tiers (person_not_resolved, no_evidence) has no evidence and gets no score; it is written to the output with null scores and counted in the report. A UDV of an evidence tier with an empty evidence text stops the run"
+split_rule = "every UDV is scored, whatever the split of its hearing: the verifier is fixed before this run, no label is read on UDVs and nothing is chosen from their scores. The split of each hearing (artifacts/splits/temporal_v1.json) is written to the output and the report counts UDVs per split and how many propositions are identical to an NLI benchmark opinion of each split"
+
+[udv_verifier.scoring]
+primary = "laya_en_en:learned_cross_model_with_pt"
+secondary = "laya_multi_pt:p4_supports:max"
+secondary_reason = "the laya_multi_pt answer to p4_supports alone: one question, one checkpoint and no translation step, so its reading depends on fewer components than the primary"
+scorers = ["laya_en_en", "laya_multi_pt", "xnli_mdeberta", "cosine_serafim"]
+scorers_rule = "the scorers named by the features of the primary (checked at run time) with their specs in verifier_config: laya_en_en on the NLLB English translation (translation_model nllb, as in E3x), laya_multi_pt, xnli_mdeberta and cosine_serafim on the Portuguese text"
+code_path = "utils.nli_verifier_experiments.score_units with concatenate_single = true, the setting of the E3 score command that produced every score file E3x read; decision answers, NLI logits, embeddings and translations are read from and appended to the existing caches, so a rerun computes only what is missing"
+translation_rule = "the English hypothesis is TranslationStore.translate_opinion(proposition) and the English premise TranslationStore.translate_chunk(evidence text) (sentence segments joined), from the main NLLB cache of configs/translation.toml; missing texts are translated with utils.translation (same model, revision and decoding) and appended to that cache before any English score"
+device = "mps"
+device_reason = "every E3 score file E3x read was computed on mps, and the decision, logit and embedding caches are keyed by device"
+pool_rule = "with one premise item, the max and mean pools are the value on that item and the concatenated premise is the same text, so the three pools of each feature coincide; the run checks that they are equal (tolerance 1e-9) and reports the largest gap. The stored max scores of every UDV score file are recomputed from the items as in E3x (tolerance 1e-9)"
+fit_rule = "the primary is refitted exactly as the final_test stage of E3x: L2 logistic regression on the train split of the NLI benchmark (the train score files E3x read), C chosen from c_grid by the inner grouped 3-fold rule on train, threshold max_f1_not_inferable on the train scores of the fitted model. The run stops unless the train score files have the sha256 recorded in selection.json and the refit has the C, inner means, rounded coefficients and threshold recorded in final_test.json"
+decision_rule = "supported_at_train_threshold = primary probability >= the train threshold (final_test.json threshold of the primary, 0.7478)"
+
+[udv_verifier.report]
+quantiles = [0.0, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 1.0]
+semantic_tiers = ["semantic_match_high", "semantic_match_weak"]
+cosine_rule = "Spearman correlation between each verifier score and evidence.score (the serafim cosine the UDV builder recorded) within each semantic tier and over both together"
+lowest_tiers = ["quote_found", "semantic_match_high"]
+lowest_count = 20
+lowest_rule = "the lowest_count UDVs of each lowest_tiers tier by primary probability (ties by udv id), with proposition and evidence text, for manual inspection"
+domain_shift = "the verifier was fitted on the NLI benchmark, where the hypothesis is an article opinion and the premise is the four transcript chunks retrieved for it; here the premise is one evidence sentence. This is a domain shift and its effect on the scores, the ranking and the threshold is not measured here"
+label_semantics = "the fitted target is label_inferable of the NLI benchmark (retrieved_context_entailment: the annotator judged the opinion inferable from the retrieved chunks). A UDV score estimates that judgment for the evidence sentence alone; it is not a global truth label, and a low score says only that the evidence sentence gives the verifier little support for the proposition"
+
+[udv_verifier.outputs]
+output_path = "artifacts/udv/udv_v1_verifier.jsonl"
+report_path = "artifacts/udv/udv_v1_verifier_report.json"
+score_run = "udv_v1_verifier"
+score_rule = "per-scorer score files in the E3 layout, artifacts/experiments/nli_verifier/udv_v1_verifier/scores/<scorer>_udv.jsonl and <scorer>_report.json, and translate_report.json in that folder; they hold scores and counts, no transcript or article text"
+overwrite_rule = "apply refuses to run when output_path or report_path exists"
