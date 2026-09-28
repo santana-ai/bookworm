@@ -22,7 +22,7 @@ from utils import nli_verifier_experiments as experiments
 from utils import nli_verifier_exploration as exploration
 from utils.calibrate_threshold import interval, rounded
 from utils.confidence_policies import signal_metrics
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
+from utils.dataset_io import load_jsonl, module_path, sha256_of_file, write_json, write_jsonl
 from utils.decision_models import DecisionQuestion, LayaDecisionModel, noul_question
 from utils.decision_scoring import bootstrap_p_value
 from utils.grounding_scorers import (
@@ -147,9 +147,7 @@ def load_config(path: Path) -> Config:
 
 
 def code_hashes() -> Record:
-    hashes = {
-        f"utils/{Path(m.__file__).name}": sha256_of_file(Path(m.__file__)) for m in CODE_MODULES
-    }
+    hashes = {f"utils/{module_path(m).name}": sha256_of_file(module_path(m)) for m in CODE_MODULES}
     return {"utils/confidence_v2.py": sha256_of_file(Path(__file__)), **hashes}
 
 
@@ -634,7 +632,7 @@ def paired_comparisons(
     pairs: list[tuple[str, str]],
     level: float,
 ) -> list[Record]:
-    entries = []
+    entries: list[Record] = []
     for name, reference in pairs:
         metrics = point_metrics(systems[name], positive)
         base = point_metrics(systems[reference], positive)

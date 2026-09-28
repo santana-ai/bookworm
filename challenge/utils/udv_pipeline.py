@@ -2,7 +2,7 @@ import re
 import tomllib
 import unicodedata
 from pathlib import Path
-from typing import Any
+from typing import Any, TypeGuard
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -177,7 +177,7 @@ def find_opinion_quote_match(opinion_text: str, person_speech: str) -> Record | 
     return None
 
 
-def is_trusted_quote(match: Record | None) -> bool:
+def is_trusted_quote(match: Record | None) -> TypeGuard[Record]:
     return match is not None and match["words"] >= TRUSTED_PREFIX_WORDS
 
 

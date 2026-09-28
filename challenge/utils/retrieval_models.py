@@ -6,7 +6,7 @@ from collections import Counter
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Protocol, cast
 
 import numpy as np
 from rank_bm25 import BM25Okapi
@@ -791,7 +791,7 @@ class DecisionRerankRetriever:
                 [battery_question.support(answer[key]) for answer in answers], dtype=np.float32
             )
             lengths = [
-                -1 if answer[key].input_tokens is None else int(answer[key].input_tokens)
+                -1 if answer[key].input_tokens is None else int(cast(int, answer[key].input_tokens))
                 for answer in answers
             ]
             self.counts["pairs_scored"] += len(missing)

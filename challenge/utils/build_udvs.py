@@ -8,7 +8,7 @@ import tomllib
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 import sentence_transformers
@@ -207,7 +207,7 @@ def build_semantic_evidence(
         "text": sentence,
         "support_type": "semantic_with_short_quote" if supported else "semantic_similarity",
         "score": float(similarities[best_index]),
-        "quote_prefix": quote_match["prefix"] if supported else None,
+        "quote_prefix": cast(Record, quote_match)["prefix"] if supported else None,
         **(span or EMPTY_SPAN),
     }
 

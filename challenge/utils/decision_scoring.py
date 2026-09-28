@@ -1,7 +1,7 @@
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from itertools import combinations
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 from sklearn.linear_model import LogisticRegression
@@ -70,7 +70,7 @@ def battery_question(key: str, raw: Record, tables: Record) -> BatteryQuestion:
         raise BatteryError(f"decision_battery.{key}: type differs from {raw['same_as']}")
     instructions = base["instructions"]
     if kind == "choice":
-        options = raw.get("options", base.get("options"))
+        options = cast(list[str], raw.get("options", base.get("options")))
         criteria = base["criteria"]
         if set(options) != set(criteria):
             raise BatteryError(f"decision_battery.{key}: options {options} != criteria keys")

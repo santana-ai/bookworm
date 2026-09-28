@@ -1,7 +1,7 @@
 import time
 from collections.abc import Sequence
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 import torch
@@ -239,7 +239,7 @@ class HhemScorer(TorchScorer):
         tied = {"transformer.encoder.embed_tokens.weight"}
         if set(missing) - tied or unexpected:
             raise SystemExit(f"HHEM keys: missing {missing}, unexpected {unexpected}")
-        self.model = model.to(self.device, dtype=self.dtype).eval()
+        self.model = cast(Any, model).to(self.device, dtype=self.dtype).eval()
         self.info["missing_tied_keys"] = sorted(missing)
 
     def batch_values(self, pairs: list[Pair]) -> tuple[np.ndarray, list[int], list[Record]]:
@@ -293,7 +293,7 @@ class YesNoScorer(TorchScorer):
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
         self.model = AutoModelForCausalLM.from_pretrained(path, dtype=self.dtype)
-        self.model.to(self.device).eval()
+        cast(Any, self.model).to(self.device).eval()
         self.yes_id = self.first_token(self.positive_word)
         self.no_id = self.first_token(self.negative_word)
         if self.yes_id == self.no_id:
@@ -337,8 +337,11 @@ class LlmJudgeScorer(YesNoScorer):
     def prompt(self, premise: str, hypothesis: str) -> str:
         content = self.spec.raw["prompt"].format(premise=premise, hypothesis=hypothesis)
         messages = [{"role": "user", "content": content}]
-        return self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True, **self.template_options
+        return cast(
+            str,
+            self.tokenizer.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True, **self.template_options
+            ),
         )
 
 
@@ -348,11 +351,14 @@ class GraniteGuardianScorer(YesNoScorer):
             {"role": "context", "content": premise},
             {"role": "assistant", "content": hypothesis},
         ]
-        return self.tokenizer.apply_chat_template(
-            messages,
-            guardian_config={"risk_name": "groundedness"},
-            tokenize=False,
-            add_generation_prompt=True,
+        return cast(
+            str,
+            self.tokenizer.apply_chat_template(
+                messages,
+                guardian_config={"risk_name": "groundedness"},
+                tokenize=False,
+                add_generation_prompt=True,
+            ),
         )
 
     def positive_value(self, yes: np.ndarray) -> np.ndarray:

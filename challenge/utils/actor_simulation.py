@@ -433,8 +433,8 @@ class Generation:
 
 class SimulationModel:
     def __init__(self, name: str, device_map: str) -> None:
-        self.tokenizer = AutoTokenizer.from_pretrained(name)
-        self.model = AutoModelForCausalLM.from_pretrained(name, device_map=device_map)
+        self.tokenizer: Any = AutoTokenizer.from_pretrained(name)
+        self.model: Any = AutoModelForCausalLM.from_pretrained(name, device_map=device_map)
         self.letter_ids = letter_token_ids(self.tokenizer)
 
     def _encode(self, messages: list[Record]) -> Any:

@@ -7,7 +7,7 @@ import time
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from utils.actor_simulation import (
     CHAIR_ROLE,
@@ -164,7 +164,7 @@ def check_line(item: Record, known_ids: set[str], sources: dict[str, str]) -> Re
     support = (
         [value for value in support if isinstance(value, str)] if isinstance(support, list) else []
     )
-    copies = item.get("copias") if isinstance(item.get("copias"), dict) else {}
+    copies = cast(Record, item.get("copias")) if isinstance(item.get("copias"), dict) else {}
     problems = [] if support else ["empty_support"]
     for source_id in support:
         if source_id not in known_ids:

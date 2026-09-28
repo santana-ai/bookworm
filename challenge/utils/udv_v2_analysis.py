@@ -1,6 +1,7 @@
 import argparse
 import json
 from collections import Counter
+from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -191,11 +192,15 @@ def semantic_lengths(records: list[Record]) -> Record:
     }
 
 
+def has_tier(tier: str) -> Callable[[Record], bool]:
+    return lambda row: row["tier"] == tier
+
+
 def shares(rows: list[Record], field: str, split_of: dict[int, str]) -> Record:
     scored = [row for row in rows if row["scored"]]
     result: Record = {}
-    groups = [("all", lambda row: True)]
-    groups += [(tier, lambda row, tier=tier: row["tier"] == tier) for tier in EVIDENCE_TIERS]
+    groups: list[tuple[str, Callable[[Record], bool]]] = [("all", lambda row: True)]
+    groups += [(tier, has_tier(tier)) for tier in EVIDENCE_TIERS]
     for name, keep in groups:
         chosen = [row for row in scored if keep(row)]
         result[name] = {
@@ -385,7 +390,7 @@ def command_analyze(args: argparse.Namespace) -> None:
     with open(paths["v2_verifier_report"]) as f:
         verifier_report = json.load(f)
     adopted = cosine["adopted_rule"]
-    report = {
+    report: Record = {
         "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "cuts": {
             "cosine": {

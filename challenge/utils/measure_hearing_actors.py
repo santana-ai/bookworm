@@ -164,11 +164,11 @@ def udv_chair_evidence(
     udvs: list[Record], turns: list[Record], config: HearingActorsConfig
 ) -> Record:
     turn_by_position = {(turn["hearing_id"], turn["turn_index"]): turn for turn in turns}
-    located = Counter()
-    in_chair = Counter()
+    located: Counter[str] = Counter()
+    in_chair: Counter[str] = Counter()
     chair_actors = set()
     evidence_turn_words = []
-    quote_examples = []
+    quote_examples: list[Record] = []
     for udv in udvs:
         evidence = udv.get("evidence") or {}
         if evidence.get("speaker_turn") is None:
@@ -216,7 +216,7 @@ def party_header_checks(hearings: list[Record], turns: list[Record]) -> Record:
         bool(PARTY_UF_PATTERN.search(turn["party_info"].rsplit(". ", 1)[-1]))
         for turn in party_turns
     )
-    titled = Counter()
+    titled: Counter[str] = Counter()
     for hearing in hearings:
         for match in TITLED_HEADER_PATTERN.finditer(hearing["transcricao"]):
             titled[match.group(1)] += 1

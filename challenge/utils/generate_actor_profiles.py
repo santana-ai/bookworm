@@ -74,8 +74,8 @@ class ChatClient(Protocol):
 class TransformersChatClient:
     def __init__(self, config: ProfilesConfig) -> None:
         self._config = config
-        self._tokenizer = AutoTokenizer.from_pretrained(config.model)
-        self._model = AutoModelForCausalLM.from_pretrained(
+        self._tokenizer: Any = AutoTokenizer.from_pretrained(config.model)
+        self._model: Any = AutoModelForCausalLM.from_pretrained(
             config.model, device_map=config.device_map
         )
 

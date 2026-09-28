@@ -363,6 +363,7 @@ def char_alignment(prefix: QuotePrefix, view: TurnView) -> Alignment:
     if len(view.folded) < len(prefix.folded):
         return Alignment(fuzz.ratio(prefix.folded, view.folded), view.turn_index, 0, len(view.text))
     hit = fuzz.partial_ratio_alignment(prefix.folded, view.folded)
+    assert hit is not None
     return Alignment(hit.score, view.turn_index, hit.dest_start, hit.dest_end)
 
 
@@ -374,6 +375,7 @@ def token_alignment(prefix: QuotePrefix, view: TurnView) -> Alignment | None:
         score, first, last = fuzz.ratio(needle, haystack), 0, len(haystack)
     else:
         hit = fuzz.partial_ratio_alignment(needle, haystack)
+        assert hit is not None
         score, first, last = hit.score, hit.dest_start, hit.dest_end
     if last <= first:
         return Alignment(score, view.turn_index, 0, 0)

@@ -116,7 +116,7 @@ def summarize_evaluation(
         if udv["hearing_id"] not in eval_hearings or not evidence:
             continue
         actor = owners.get((udv["hearing_id"], evidence["speaker_turn"]))
-        if actor in profiled:
+        if actor is not None and actor in profiled:
             linked.append((udv, actor))
     return {
         "hearings": len(eval_hearings),

@@ -37,7 +37,14 @@ from utils import (
 from utils.build_udvs import load_config as load_udv_config
 from utils.build_udvs import seed_everything, select_device
 from utils.calibrate_threshold import load_split_lookup
-from utils.dataset_io import load_gated_jsonl, load_jsonl, sha256_of_file, write_json, write_jsonl
+from utils.dataset_io import (
+    load_gated_jsonl,
+    load_jsonl,
+    module_path,
+    sha256_of_file,
+    write_json,
+    write_jsonl,
+)
 from utils.decision_models import LayaSpec
 from utils.decision_scoring import BatteryError, parse_battery
 from utils.hub_offline import enforce_offline, offline_environment, offline_state
@@ -419,7 +426,7 @@ def build_workload(
     ]
     if limit_hearings is not None:
         records = records[:limit_hearings]
-    checks = {bench: Counter() for bench in benches}
+    checks: dict[str, Counter[str]] = {bench: Counter() for bench in benches}
     span_checks: Counter[str] = Counter()
     hearings: list[HearingData] = []
     queries: dict[int, list[Query]] = {}
@@ -439,9 +446,10 @@ def build_workload(
                 config.window_sizes,
                 checks[bench],
             )
-            if remaining[bench] is not None:
-                built = built[: remaining[bench]]
-                remaining[bench] -= len(built)
+            limit = remaining[bench]
+            if limit is not None:
+                built = built[:limit]
+                remaining[bench] = limit - len(built)
             hearing_queries.extend(built)
         if hearing_queries:
             hearings.append(hearing)
@@ -544,9 +552,7 @@ def environment() -> Record:
 
 
 def code_hashes() -> Record:
-    files = {
-        f"utils/{Path(module.__file__).name}": Path(module.__file__) for module in CODE_MODULES
-    }
+    files = {f"utils/{module_path(module).name}": module_path(module) for module in CODE_MODULES}
     files["utils/retrieval_experiments.py"] = Path(__file__)
     return {name: sha256_of_file(path) for name, path in sorted(files.items())}
 
@@ -980,7 +986,7 @@ def load_query_rows(
 
 
 def split_groups(splits: tuple[str, ...]) -> dict[str, tuple[str, ...]]:
-    groups = {split: (split,) for split in splits}
+    groups: dict[str, tuple[str, ...]] = {split: (split,) for split in splits}
     if len(splits) > 1:
         groups["+".join(splits)] = splits
     return groups

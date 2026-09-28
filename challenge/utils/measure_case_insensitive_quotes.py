@@ -4,7 +4,7 @@ import random
 import re
 from collections import Counter
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -199,14 +199,14 @@ def collect_candidates(hearings: list[Record], current_by_id: dict[str, Record])
                         "hearing_id": hearing["id"],
                         "actor": person["participant"]["nome"],
                         "opinion": opinion_text,
-                        "quote": matches["ignore_case"]["quote"],
+                        "quote": cast(Record, matches["ignore_case"])["quote"],
                         "exact": described["exact"],
                         "first_letter": described["first_letter"],
                         "ignore_case": described["ignore_case"],
                         "status": statuses,
                         "current": current,
                         "sentence_vs_current": sentence_relation(
-                            described["ignore_case"]["sentence"], current["text"]
+                            cast(Record, described["ignore_case"])["sentence"], current["text"]
                         ),
                     }
                 )
@@ -249,7 +249,7 @@ def summarize_mode(candidates: list[Record], mode: str) -> Record:
 def calibration_pairs(hearings: list[Record], mode: str, seed: int) -> list[tuple[str, str, str]]:
     random.seed(seed)
     pairs = []
-    pool = []
+    pool: list[str] = []
     per_hearing = []
     for hearing in hearings:
         people = [p for p in resolve_hearing_people(hearing) if p["sentences"]]
@@ -439,7 +439,8 @@ def project_tiers_policy(
         candidate = candidates_by_id.get(record["id"])
         status = candidate["status"][mode] if candidate else "none"
         if status in ("new", "changed"):
-            keep = accepted(candidate[mode]["prefix_words"], candidate[mode + "_vs_embedding_top"])
+            found = cast(Record, candidate)
+            keep = accepted(found[mode]["prefix_words"], found[mode + "_vs_embedding_top"])
             if keep:
                 counter["quote_found"] += 1
             elif status == "new":

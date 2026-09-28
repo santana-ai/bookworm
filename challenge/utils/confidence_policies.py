@@ -894,10 +894,10 @@ def command_pairs(args: argparse.Namespace, config: ConfidenceConfig) -> None:
     unit_of = {target.name: target.unit for target in targets}
     for hearing in workload.hearings:
         for query in workload.queries[hearing.hearing_id]:
-            for unit in {unit_of[name] for name in loaded}:
-                lookup[(query.bench, query.query_id, unit)] = (
+            for unit_name in {unit_of[name] for name in loaded}:
+                lookup[(query.bench, query.query_id, unit_name)] = (
                     query,
-                    hearing.contexts[query.context_key].units[unit],
+                    hearing.contexts[query.context_key].units[unit_name],
                 )
     pairs: dict[str, Record] = {}
     for name, benches in loaded.items():

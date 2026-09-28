@@ -37,7 +37,7 @@ from utils.build_nli_benchmark import iter_opinions
 from utils.build_udvs import seed_everything, select_device
 from utils.cache_lock import CacheLockedError, acquire_writer_lock
 from utils.calibrate_threshold import load_split_lookup
-from utils.dataset_io import load_gated_jsonl, load_jsonl, sha256_of_file, write_json
+from utils.dataset_io import load_gated_jsonl, load_jsonl, module_path, sha256_of_file, write_json
 from utils.hub_offline import enforce_offline, offline_state, pinned_weights_file
 from utils.udv_pipeline import (
     SENTENCE_BOUNDARY_PATTERN,
@@ -1075,7 +1075,7 @@ def record_statistics(
 ) -> Record:
     records = [(text, store.record(text)) for text in texts]
     present = [(text, record) for text, record in records if record is not None]
-    flags = {name: [] for name in FLAG_NAMES}
+    flags: dict[str, list[str]] = {name: [] for name in FLAG_NAMES}
     for text, record in present:
         for name, value in output_flags(text, record, config).items():
             if value:
@@ -1189,7 +1189,7 @@ def code_hashes() -> Record:
         dataset_io,
         hub_offline,
     )
-    hashes = {f"utils/{Path(m.__file__).name}": sha256_of_file(Path(m.__file__)) for m in modules}
+    hashes = {f"utils/{module_path(m).name}": sha256_of_file(module_path(m)) for m in modules}
     return {"utils/translation.py": sha256_of_file(Path(__file__)), **hashes}
 
 

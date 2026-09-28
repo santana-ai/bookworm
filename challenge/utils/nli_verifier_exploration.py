@@ -698,7 +698,7 @@ def compare_systems(
     config: ExplorationConfig,
 ) -> list[Record]:
     level = float(config.verifier["evaluation"]["confidence_level"])
-    comparisons = []
+    comparisons: list[Record] = []
     for key in keys:
         for reference in references:
             for metric in ("roc_auc", "cohen_kappa"):
@@ -798,9 +798,9 @@ def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None
         by_candidate.setdefault(entry["candidate"], {})[
             f"{entry['metric']}|{entry['reference']}"
         ] = entry
-    table = []
+    table: list[Record] = []
     for name, result in results.items():
-        row = {
+        table_row: Record = {
             "system": name,
             "role": result["role"],
             "cv_roc_auc_mean": result["cv_roc_auc_mean"],
@@ -812,10 +812,10 @@ def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None
             "cohen_kappa_high": result["cohen_kappa_interval"]["high"],
         }
         for reference in config.references:
-            entry = by_candidate.get(name, {}).get(f"roc_auc|{reference}")
-            row[f"delta_auc_vs_{reference}"] = None if entry is None else entry["delta"]
-            row[f"p_holm_vs_{reference}"] = None if entry is None else entry["p_holm"]
-        table.append(row)
+            found = by_candidate.get(name, {}).get(f"roc_auc|{reference}")
+            table_row[f"delta_auc_vs_{reference}"] = None if found is None else found["delta"]
+            table_row[f"p_holm_vs_{reference}"] = None if found is None else found["p_holm"]
+        table.append(table_row)
     table.sort(key=lambda row: -row["roc_auc"])
     write_csv(out / "confirmation.csv", table)
     print(f"{len(candidates)} candidates evaluated on {confirm_split}", flush=True)

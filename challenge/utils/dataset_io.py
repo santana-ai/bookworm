@@ -1,7 +1,8 @@
 import hashlib
 import json
 from pathlib import Path
-from typing import Any
+from types import ModuleType
+from typing import Any, cast
 
 Record = dict[str, Any]
 
@@ -12,6 +13,10 @@ def sha256_of_file(path: Path) -> str:
         for chunk in iter(lambda: f.read(1 << 20), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def module_path(module: ModuleType) -> Path:
+    return Path(cast(str, module.__file__))
 
 
 def load_jsonl(path: Path) -> list[Record]:
@@ -33,7 +38,7 @@ def write_jsonl(records: list[Record], path: Path) -> None:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
-def write_json(payload: Record, path: Path) -> None:
+def write_json(payload: Record | list[Record], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)

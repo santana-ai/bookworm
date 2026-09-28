@@ -307,6 +307,7 @@ def quote_change_kinds(old: Record | None, new: Record | None) -> list[str]:
         return ["enters_quote_found"]
     if not new_trusted:
         return ["leaves_quote_found"]
+    assert old is not None and new is not None
     kinds = []
     if old["prefix"] != new["prefix"]:
         kinds.append("prefix_changed")
@@ -324,6 +325,7 @@ def short_change(old: Record | None, new: Record | None) -> str | None:
         return None
     if old_short != new_short:
         return "short_match_appears_or_disappears"
+    assert old is not None and new is not None
     if old["prefix"] != new["prefix"]:
         return "short_prefix_changed"
     if old["text"] != new["text"]:

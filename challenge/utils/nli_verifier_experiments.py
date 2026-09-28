@@ -11,10 +11,11 @@ import re
 import time
 import tomllib
 from collections import Counter
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import huggingface_hub
 import laya
@@ -67,6 +68,7 @@ from utils.calibrate_threshold import (
 from utils.dataset_io import (
     load_gated_jsonl,
     load_jsonl,
+    module_path,
     sha256_of_file,
     write_json,
     write_jsonl,
@@ -1424,7 +1426,7 @@ def open_translations(
     stores = {
         key: translation.open_store(translation_config, key, cache_dir=cache_dir) for key in models
     }
-    return Translations(translation_config, stores)
+    return Translations(translation_config, cast(dict[str, TranslationStore], stores))
 
 
 def translation_summary(
@@ -1894,7 +1896,7 @@ def code_hashes() -> Record:
         retrieval_stats,
         translation,
     )
-    hashes = {f"utils/{Path(m.__file__).name}": sha256_of_file(Path(m.__file__)) for m in modules}
+    hashes = {f"utils/{module_path(m).name}": sha256_of_file(module_path(m)) for m in modules}
     return {"utils/nli_verifier_experiments.py": sha256_of_file(Path(__file__)), **hashes}
 
 
@@ -2344,7 +2346,9 @@ def compute_estimate(plans: Record, timing_dir: Path, declaration: RunDeclaratio
         "devices": devices,
         "rates": rates,
         "hours_full": {k: None if v is None else round(v, 2) for k, v in first.items()},
-        "total_hours_full": None if not known else round(sum(first.values()), 2),
+        "total_hours_full": None
+        if not known
+        else round(sum(cast(Iterable[float], first.values())), 2),
         "steps_applied": steps,
         "hours_after_steps": {k: None if v is None else round(v, 2) for k, v in last.items()},
         "total_hours_after_steps": None if total is None else round(total, 2),
@@ -2544,15 +2548,16 @@ def max_f1_not_inferable_optimum(scores: np.ndarray, labels: np.ndarray) -> Reco
     predicted_not = len(labels) - kept
     f1 = 2 * true_not / (predicted_not + positives)
     best = int(np.flatnonzero(f1 >= f1.max() - 1e-12)[-1])
+    lowest_kept: float | None
+    highest_excluded: float | None
     if best == 0:
         threshold = float(np.nextafter(cut_scores[0], np.inf))
         lowest_kept, highest_excluded = None, float(cut_scores[0])
     else:
-        lowest_kept = float(cut_scores[best - 1])
+        kept_score = float(cut_scores[best - 1])
+        lowest_kept = kept_score
         highest_excluded = float(cut_scores[best]) if best < len(cut_scores) else None
-        threshold = (
-            lowest_kept if highest_excluded is None else (lowest_kept + highest_excluded) / 2
-        )
+        threshold = kept_score if highest_excluded is None else (kept_score + highest_excluded) / 2
     return {
         "threshold": threshold,
         "f1_not_inferable": float(f1[best]),
@@ -2646,7 +2651,7 @@ def evaluate_system_split(
     refits: dict[str, list[Record | None]],
     draws: list[np.ndarray],
     config: VerifierConfig,
-) -> tuple[Record, dict[str, np.ndarray]]:
+) -> tuple[Record, dict[tuple[str, str], np.ndarray]]:
     scores, labels, level = data.scores[system], data.labels, config.confidence_level
     ranking_values = [ranking_metrics(labels[rows], scores[rows]) for rows in draws]
     replicates = {("ranking", m): np.array([v[m] for v in ranking_values]) for m in RANKING_METRICS}

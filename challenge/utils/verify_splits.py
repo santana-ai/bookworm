@@ -7,6 +7,7 @@ from typing import Any
 
 from utils.build_splits import (
     SPLIT_NAMES,
+    SplitConfig,
     choose_boundary,
     cut_candidates,
     dates_by_hearing,
@@ -82,7 +83,7 @@ def check_chronology(manifest: Record, dates: dict[int, date], min_gap_days: int
     return problems
 
 
-def check_boundaries(manifest: Record, dates: dict[int, date], config: Record) -> list[str]:
+def check_boundaries(manifest: Record, dates: dict[int, date], config: SplitConfig) -> list[str]:
     candidates = cut_candidates(dates, config.min_boundary_gap_days)
     train_cut = choose_boundary(candidates, config.train_fraction, None)
     validation_cut = choose_boundary(

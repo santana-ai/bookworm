@@ -2,7 +2,7 @@ import argparse
 import json
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from utils.build_udvs import SUPPORT_TYPES, TIERS, load_config, load_lds_records
 from utils.dataset_io import load_jsonl
@@ -124,7 +124,7 @@ def check_short_quote_support(evidence: Record, quote_match: Record | None) -> l
         and sentences_agree(quote_match["sentence"], evidence["text"])
     )
     expected_support_type = "semantic_with_short_quote" if supported else "semantic_similarity"
-    expected_prefix = quote_match["prefix"] if supported else None
+    expected_prefix = cast(Record, quote_match)["prefix"] if supported else None
     problems: list[str] = []
     if evidence["support_type"] != expected_support_type:
         problems.append("short_quote_support_mismatch")
