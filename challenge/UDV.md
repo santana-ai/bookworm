@@ -1,10 +1,13 @@
 # Unidades Deliberativas Verificáveis (UDV)
 
 Este documento descreve a UDV: o problema que ela resolve, o que cada registro contém, como os
-registros são construídos a partir do PublicHearingBR, como o corte de similaridade foi calibrado, o
-que já se mediu sobre a qualidade da evidência e o que ainda falta medir. A rodada de referência é
-`udv_v1`. Os números saem dos artefatos versionados em `artifacts/` e dos comandos indicados em cada
-seção.
+registros são construídos a partir do PublicHearingBR e como o corte de similaridade de `udv_v1` foi
+calibrado. A rodada descrita aqui é `udv_v1`. As mudanças de `udv_v2` (janelas de duas sentenças,
+citação inteira, cortes recalibrados e confiança do verificador) estão em
+[`PIPELINE.md`](PIPELINE.md), seção "Pipeline recomendado", e na ADR 0006
+(`../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`). Os resultados dos
+experimentos e da validação humana estão em [`RELATORIO_EXPERIMENTOS.md`](RELATORIO_EXPERIMENTOS.md).
+Os números saem dos artefatos versionados em `artifacts/` e dos comandos indicados em cada seção.
 
 ## O problema
 
@@ -166,8 +169,8 @@ a coerência do arquivo com as regras. Em 24/09/2026, `udv_v1` passa sem nenhuma
 registros com evidência diferente em relação a outra rodada.
 
 A reprodutibilidade foi testada regenerando uma rodada antiga: `artifacts/udv/udv_v0_repro.jsonl`,
-gerado de novo com o código que produziu `udv_v0` (preservado em `backup/*_2026-09-21.py`), é idêntico
-byte a byte a `udv_v0.jsonl`.
+gerado de novo com o código que produziu `udv_v0` (`backup/*_2026-09-21.py`, na tag Git
+`research-2026-09-28`), é idêntico byte a byte a `udv_v0.jsonl`.
 
 Artefatos relacionados e os comandos que os geram (todos dentro de `challenge/`):
 
@@ -296,7 +299,8 @@ A regra primária, declarada em 22/09/2026 antes de qualquer resultado, calibrav
 que o corte toma: no benchmark de citações mascaradas (B1, abaixo), o top-1 do encoder está correto
 quando coincide com a sentença da citação, e o corte maximizaria o índice J de Youden de "score ≥ t
 prevê top-1 correto". A regra se mostrou degenerada: só 12 das 142 consultas do train têm top-1
-correto, os top-1 errados têm score mais alto que os corretos (medianas 0,655 e 0,578), o melhor J é 0
+correto, os top-1 errados têm score mais alto que os corretos (medianas 0,6472 e 0,5543; médias 0,655
+e 0,5776, `artifacts/calibration/threshold_v1.json`), o melhor J é 0
 e o corte correspondente aceita todas as consultas. Ela foi registrada como não adotada.
 
 O corte adotado vem da regra usada desde o protótipo, recalculada só no train:
@@ -418,10 +422,11 @@ opinião. Os resultados por turno (recuperadores léxicos no B1) e por trecho (S
 que a região certa da fala costuma ser encontrada, mas a sentença exata escolhida pode não ser a que
 sustenta a opinião. Quanto disso é erro e quanto é outra sentença válida só a anotação humana mede.
 
-Uma amostra anterior, de 65 pares das 20 primeiras audiências (`udv_manual_review.json`), foi julgada
-sem protocolo cego e sem anotador independente; ela não é usada como validação neste documento.
+Uma revisão exploratória anterior, de 65 pares das 20 primeiras audiências, foi feita sem protocolo
+cego e sem anotador independente; ela não é validação e foi retirada desta versão (fica na tag
+`research-2026-09-28`).
 
-### Validação humana cega (pendente)
+### Validação humana cega
 
 A amostra `artifacts/validation/human_validation_v1_udv_v1/` foi gerada por
 `utils/generate_validation_sample.py` com o protocolo abaixo, descrito para o anotador em
@@ -461,36 +466,15 @@ A amostra `artifacts/validation/human_validation_v1_udv_v1/` foi gerada por
   Com os tamanhos sorteados, o primeiro critério só passa com 35 corretas em 35 (nenhuma `parcial`), e
   o segundo admite até 9 falhas em 65.
 
-Em 24/09/2026 nenhuma das 127 linhas de `annotation.csv` tinha julgamento.
+O estado da anotação e o recálculo parcial das precisões estão no relatório, seção 7.
 
 ## Experimentos que testam alternativas
 
-Estes experimentos usam B1 e B2 para testar componentes que poderiam substituir ou complementar os da
-UDV. Nenhum deles mudou a pipeline até agora.
-
-- **Recuperação** (`utils/retrieval_experiments.py`, `artifacts/experiments/retrieval/retrieval_v1/`):
-  TF-IDF de palavras e de caracteres, BM25, encoders densos (Serafim, Serafim IR, e5-large, MiniLM,
-  MPNet), fusão híbrida e rerankers, com unidades de sentença, janelas de 2 e 3 sentenças e turno;
-  intervalos por bootstrap de audiência. O relatório agregado cobre só as seis configurações léxicas:
-  a etapa `summarize` rodou (03:09 UTC de 23/09) antes das rodadas densas e dos rerankers (a partir das
-  03:37 UTC), cujas saídas por consulta estão gravadas mas sem métricas agregadas. Com janelas de 3
-  sentenças, o melhor léxico no B1 sobe para acc@1 de 24,7% (TF-IDF de caracteres), contra 6,0% por
-  sentença; o sorteio sobe de 1,5% para 5,1%, e a evidência entregue fica três sentenças mais longa.
-- **Verificador NLI** (`utils/nli_verifier_experiments.py`): se um modelo NLI aberto reproduz o rótulo
-  do especialista no B2. Na validação, o sistema primário declarado (mDeBERTa XNLI, máximo da
-  probabilidade de entailment entre os quatro trechos) tem ROC AUC 0,770 (IC 0,696 a 0,833), contra
-  0,730 (0,660 a 0,798) do cosseno do Serafim; a diferença, 0,040, tem intervalo de -0,040 a 0,126.
-  Com o corte ajustado no train, o kappa de Cohen do mDeBERTa com o especialista é 0,236, contra 0,691
-  do melhor juiz LLM armazenado no dataset (GPT-4o mini, prompt 1). Um NLI aberto não substitui o juiz
-  LLM e não supera o cosseno com margem estatística.
-- **Casamento aproximado** (`utils/fuzzy_matching_experiments.py`): se casamento aproximado de texto
-  recupera citações e nomes que as regras exatas perdem. No train, com similaridade de caracteres ≥ 80,
-  317 das 436 opiniões com citação de 6+ palavras e sem casamento exato ganhariam um trecho casado; a
-  taxa de casamento ao acaso, medida contra falas de outras pessoas da mesma audiência, é 2,8% (IC 1,5%
-  a 4,3%), o que corresponde a cerca de 12 casamentos esperados ao acaso. Para nomes, `token_set_ratio`
-  ≥ 80 propõe um único falante para 17 dos 39 participantes não resolvidos do train (37 opiniões), sem
-  medida de acerto. As planilhas cegas de revisão (458 linhas de citação, 70 de nomes) estão sem
-  julgamento, e nada foi incorporado.
+Os experimentos que usam B1 e B2 para testar componentes que poderiam substituir ou complementar os da
+UDV estão no relatório, com os números e as fontes: recuperadores e unidades (E1, E2 e retrieval_v2,
+seções 4.3 a 4.5), verificador de suporte e tradução (E3, E3x, seções 5.1 a 5.4), sinais de confiança
+(E5 e confidence_v2, seções 5.5 e 5.6) e casamento aproximado de citações e nomes (E6, seção 5.8). O
+que cada um decidiu para a construção está em [`PIPELINE.md`](PIPELINE.md).
 
 ## Relação com os outros documentos
 
@@ -504,9 +488,9 @@ completa, sem usar as UDVs.
 
 ## Limitações
 
-- A precisão de nenhum nível foi medida por anotação humana. A amostra cega está pronta e sem
-  julgamentos; nos estratos `semantic_match_weak` (6 UDVs) e `speaker_check` (6 pessoas), o teste tem
-  tão poucos casos que os intervalos serão largos.
+- A validação humana está incompleta (relatório, seção 7). Nos estratos `semantic_match_weak` (6 UDVs)
+  e `speaker_check` (6 pessoas), o teste tem tão poucos casos que os intervalos serão largos mesmo com a
+  planilha completa.
 - A camada semântica, com 1.828 dos 2.105 registros com evidência (1.785 deles em alta confiança), é a
   menos sustentada: o encoder acha a sentença citada em 8,5% a 10% das consultas mascaradas e em 61%
   das não mascaradas, e o score não distingue acerto de erro. O corte de 0,45 depende do que se usa como negativo (0,50 com sentenças da
