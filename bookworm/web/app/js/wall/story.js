@@ -530,7 +530,26 @@ export function installStory(w) {
     els.auto.innerHTML = st.auto ? "Pausar" : 'Tocar <span class="wl-a2">sozinho</span>';
     els.auto.setAttribute("aria-pressed", st.auto ? "true" : "false");
     els.pick.value = st.mode === "net" ? "" : String(st.i);
+    renderCaseLink();
     fitCaption();
+  }
+
+  function caseClaim() {
+    if (st.mode === "net") return st.pull && /^st\d+$/.test(st.pull) ? Number(st.pull.slice(2)) : -1;
+    if (st.mode !== "net" && st.k >= 0 && S[st.i].scenes[st.k] === "result") return st.i;
+    return -1;
+  }
+
+  function renderCaseLink() {
+    const j = caseClaim();
+    const link = els.kase;
+    link.hidden = j < 0;
+    if (j < 0) {
+      link.removeAttribute("href");
+      return;
+    }
+    link.href = "#h" + M.H.hearing.id + "-u" + (j + 1);
+    link.setAttribute("aria-label", "Abrir a pasta da afirmação " + (j + 1));
   }
 
   function fitCaption() {

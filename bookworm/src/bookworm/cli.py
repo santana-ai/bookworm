@@ -13,7 +13,7 @@ from bookworm.actors.config import ActorsConfig, load_actors_config
 from bookworm.actors.schemas import UdvActorLink, write_udv_actor_links
 from bookworm.actors.speeches import ActorSpeeches, write_actor_outputs
 from bookworm.config import TfidfSettings, UdvConfig, load_split_config, load_udv_config
-from bookworm.data.io import json_path, load_hearings, write_json
+from bookworm.data.io import json_path, load_hearings, sha256_of_file, write_json
 from bookworm.data.schemas import HearingRecord
 from bookworm.data.splits import SPLIT_NAMES, build_temporal_split
 from bookworm.data.verify_splits import verify_split_run
@@ -41,6 +41,7 @@ from bookworm.udv.schemas import (
     read_udv_jsonl,
     write_udv_jsonl,
 )
+from bookworm.udv.signals import SiteSignals, load_site_signals
 from bookworm.udv.site import HEARINGS_DIR_NAME, INDEX_FILE_NAME, export_site
 from bookworm.udv.verify import compare_with_baseline, coverage_hearings, verify_udv_run
 
@@ -302,6 +303,7 @@ class ExportRun:
     hearings: list[HearingRecord]
     pipeline: object
     encoder: CachedEncoder
+    records_path: Path
 
 
 def load_export_run(config_path: Path, run_name: str) -> ExportRun:
@@ -324,7 +326,14 @@ def load_export_run(config_path: Path, run_name: str) -> ExportRun:
         run_hearings,
         coverage.get("pipeline"),
         CachedEncoder(encoder, config.cache_dir, cache_only=True),
+        records_path,
     )
+
+
+def load_run_signals(report_path: Path | None, run: ExportRun) -> SiteSignals | None:
+    if report_path is None:
+        return None
+    return load_site_signals(report_path, run.records, sha256_of_file(run.records_path))
 
 
 @dataclass(frozen=True)
@@ -335,6 +344,7 @@ class ExportRequest:
     output: Path
     top_k: int
     split_manifest: Path | None
+    verifier_report: Path | None = None
 
 
 def run_export(request: ExportRequest) -> None:
@@ -342,6 +352,7 @@ def run_export(request: ExportRequest) -> None:
     hearing = next((item for item in run.hearings if item.id == request.hearing_id), None)
     if hearing is None:
         raise ConfigError(f"hearing {request.hearing_id} is not part of run {request.run_name}")
+    signals = load_run_signals(request.verifier_report, run)
     split = None
     if request.split_manifest is not None:
         split = split_of(
@@ -355,6 +366,7 @@ def run_export(request: ExportRequest) -> None:
         pipeline=run.pipeline,
         top_k=request.top_k,
         split=split,
+        signals=signals,
     )
     write_json(payload, request.output)
     echo_json(
@@ -386,6 +398,7 @@ class SiteRequest:
     top_k: int
     split_manifest: Path | None
     overwrite: bool
+    verifier_report: Path | None = None
 
 
 def check_new_site(output_dir: Path, overwrite: bool) -> None:
@@ -409,6 +422,7 @@ def run_export_site(request: SiteRequest) -> None:
         else read_json_object(request.split_manifest, "split manifest")
     )
     run = load_export_run(request.config_path, request.run_name)
+    signals = load_run_signals(request.verifier_report, run)
     total = len(run.hearings)
 
     def report_progress(number: int, entry: dict[str, Any], size: int) -> None:
@@ -427,6 +441,7 @@ def run_export_site(request: SiteRequest) -> None:
         top_k=request.top_k,
         split_manifest=manifest,
         on_hearing=report_progress,
+        signals=signals,
     )
     echo_json(
         {
@@ -570,8 +585,20 @@ def create_app(
             Path | None,
             typer.Option("--split-manifest", help="Split manifest that names the hearing split."),
         ] = None,
+        verifier_report: Annotated[
+            Path | None,
+            typer.Option(
+                "--verifier-report",
+                help=(
+                    "Verifier report of the run; adds the verifier, question and translation "
+                    "signals of each UDV."
+                ),
+            ),
+        ] = None,
     ) -> None:
-        request = ExportRequest(config_path, run_name, hearing_id, output, top_k, split_manifest)
+        request = ExportRequest(
+            config_path, run_name, hearing_id, output, top_k, split_manifest, verifier_report
+        )
         try:
             run_export(request)
         except BookwormError as error:
@@ -606,8 +633,20 @@ def create_app(
         overwrite: Annotated[
             bool, typer.Option("--overwrite", help="Replace the files of an existing export.")
         ] = False,
+        verifier_report: Annotated[
+            Path | None,
+            typer.Option(
+                "--verifier-report",
+                help=(
+                    "Verifier report of the run; adds the verifier, question and translation "
+                    "signals of each UDV."
+                ),
+            ),
+        ] = None,
     ) -> None:
-        request = SiteRequest(config_path, run_name, output, top_k, split_manifest, overwrite)
+        request = SiteRequest(
+            config_path, run_name, output, top_k, split_manifest, overwrite, verifier_report
+        )
         try:
             run_export_site(request)
         except BookwormError as error:

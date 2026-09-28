@@ -23,6 +23,7 @@ from bookworm.udv.coverage import pipeline_description
 from bookworm.udv.evidence import sentence_similarities
 from bookworm.udv.quotes import DEFAULT_QUOTE_POLICY, QuotePolicy, extract_quotes
 from bookworm.udv.schemas import SEMANTIC_TIERS, Evidence, UdvRecord
+from bookworm.udv.signals import SiteSignals
 
 JsonObject = dict[str, Any]
 
@@ -216,6 +217,7 @@ def export_hearing(
     top_k: int = DEFAULT_TOP_K,
     split: SplitName | None = None,
     quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
+    signals: SiteSignals | None = None,
 ) -> JsonObject:
     if top_k < 1:
         raise ConfigError(f"top_k must be at least 1, got {top_k}")
@@ -246,16 +248,17 @@ def export_hearing(
             top_k,
         )
         check_top_candidate(record, candidates)
-        udvs.append(
-            {
-                **record.to_dict(),
-                "candidates": candidates,
-                "n_candidates": len(person.sentences),
-                "quotes": extract_quotes(record.proposition, quote_policy.patterns),
-            }
-        )
+        entry = {
+            **record.to_dict(),
+            "candidates": candidates,
+            "n_candidates": len(person.sentences),
+            "quotes": extract_quotes(record.proposition, quote_policy.patterns),
+        }
+        if signals is not None:
+            entry["signals"] = signals.for_record(record)
+        udvs.append(entry)
     method = records[0].method
-    return {
+    payload: JsonObject = {
         "hearing": hearing_summary(hearing, split),
         "transcript": transcript,
         "turns": [turn_entry(turn, by_turn[turn.turn_index]) for turn in turns],
@@ -268,3 +271,6 @@ def export_hearing(
             "threshold": method.embedding_threshold,
         },
     }
+    if signals is not None:
+        payload["signals"] = signals.summary
+    return payload

@@ -1,11 +1,12 @@
 import { bucketSentence, NOT_CHECKED, NOT_CHECKED_SHORT, statementsSentence, TIER_ORDER } from "./copy.js";
 import { DataError, loadHearing, loadIndex } from "./data.js";
+import { caseToken, renderCase } from "./case.js";
 import { createHome, dotsHtml } from "./home.js";
 import { esc, fmtDate, hashToken } from "./text.js";
 import { createWall } from "./wall/wall.js";
 
 const $ = (sel) => document.querySelector(sel);
-const view = { home: $("#home"), hearing: $("#hearing"), state: $("#state"), host: $("#wall-host") };
+const view = { home: $("#home"), hearing: $("#hearing"), kase: $("#case"), state: $("#state"), host: $("#wall-host") };
 const hv = { k: $("[data-hv-k]"), title: $("#hv-title"), sum: $("[data-hv-sum]"), nav: $("[data-hv-nav]") };
 const APP_TITLE = "Rede de barbantes";
 let home = null;
@@ -13,6 +14,7 @@ let siteIndex = null;
 let homeScroll = 0;
 let wall = null;
 let routeSeq = 0;
+let resume = null;
 
 document.querySelectorAll("[data-note]").forEach((el) => {
   el.innerHTML = "<b>Ainda sem conferência humana.</b> " + esc(el.classList.contains("is-compact") ? NOT_CHECKED_SHORT : NOT_CHECKED);
@@ -75,8 +77,15 @@ function focusQuiet(el) {
   }
 }
 
+function dropCase() {
+  view.kase.hidden = true;
+  view.kase.innerHTML = "";
+}
+
 async function showHome(seq) {
   dropWall();
+  dropCase();
+  resume = null;
   view.hearing.hidden = true;
   document.title = APP_TITLE;
   if (home) {
@@ -119,13 +128,7 @@ function navHtml(id) {
   );
 }
 
-async function showHearing(id, seq) {
-  if (!view.home.hidden) homeScroll = window.scrollY;
-  dropWall();
-  view.home.hidden = true;
-  view.hearing.hidden = true;
-  setState(loadingHtml("Abrindo a audiência " + id + "…"));
-  window.scrollTo(0, 0);
+async function ensureHome(seq) {
   if (!home) {
     try {
       const index = await loadIndex();
@@ -142,20 +145,38 @@ async function showHearing(id, seq) {
       home = null;
     }
   }
+}
+
+async function openHearing(id, seq) {
+  if (!view.home.hidden) homeScroll = window.scrollY;
+  dropWall();
+  dropCase();
+  view.home.hidden = true;
+  view.hearing.hidden = true;
+  setState(loadingHtml("Abrindo a audiência " + id + "…"));
+  window.scrollTo(0, 0);
+  await ensureHome(seq);
+  if (seq !== routeSeq) return null;
   if (siteIndex && !siteIndex.hearings.some((h) => h.id === id)) {
     setState(errorHtml("Não achamos a audiência " + id, ["A audiência " + id + " não está na lista de matérias desta exportação (<code>data/index.json</code>).", "Volte para a lista e escolha outra matéria."], null, true));
-    return;
+    return null;
   }
   let H;
   try {
     H = await loadHearing(id, siteIndex ? siteIndex.run : null);
   } catch (error) {
-    if (seq !== routeSeq) return;
+    if (seq !== routeSeq) return null;
     const missing = error instanceof DataError && error.kind === "missing";
     setState(errorHtml(missing ? "Não achamos a audiência " + id : "Não conseguimos abrir a audiência " + id, [describe(error), missing ? "Volte para a lista e escolha outra matéria." : dataHelp()], missing ? null : "Tentar de novo", true));
-    return;
+    return null;
   }
-  if (seq !== routeSeq) return;
+  if (seq !== routeSeq) return null;
+  return H;
+}
+
+async function showHearing(id, seq) {
+  const H = await openHearing(id, seq);
+  if (!H) return;
   if (!H.udvs.length) {
     setState(errorHtml("A audiência " + id + " não pode ser mostrada", ["Esta matéria não tem afirmações atribuídas a participantes."], null, true));
     return;
@@ -172,6 +193,8 @@ async function showHearing(id, seq) {
   view.hearing.hidden = false;
   try {
     wall = createWall(view.host, H);
+    if (resume && resume.id === H.hearing.id && resume.j < H.udvs.length) wall.openStatement(resume.j);
+    resume = null;
   } catch (error) {
     dropWall();
     view.hearing.hidden = true;
@@ -182,8 +205,36 @@ async function showHearing(id, seq) {
   focusQuiet(hv.title);
 }
 
+async function showCase(id, n, seq) {
+  const H = await openHearing(id, seq);
+  if (!H) return;
+  if (!(n >= 1 && n <= H.udvs.length)) {
+    setState(errorHtml("Não achamos a afirmação " + n + " da audiência " + id, ["A audiência " + id + " tem " + H.udvs.length + " afirmações.", '<a href="#h' + id + '">Voltar à audiência</a>.'], null, true));
+    return;
+  }
+  let shown;
+  try {
+    shown = renderCase(view.kase, H, n);
+  } catch (error) {
+    dropCase();
+    setState(errorHtml("Não conseguimos montar a pasta da afirmação " + n, [describe(error)], "Tentar de novo", true));
+    if (window.console) console.warn(error);
+    return;
+  }
+  resume = { id, j: n - 1 };
+  document.title = shown.title + " · " + APP_TITLE;
+  setState("");
+  view.kase.hidden = false;
+  focusQuiet(shown.heading);
+}
+
 function route() {
   const seq = ++routeSeq;
+  const kase = caseToken(location.hash);
+  if (kase) {
+    showCase(kase.id, kase.n, seq);
+    return;
+  }
   const id = hashToken(location.hash);
   if (id == null) {
     if (location.hash && location.hash !== "#") history.replaceState(null, "", location.pathname + location.search);
@@ -198,7 +249,7 @@ document.addEventListener("click", (e) => {
   if (!t || !t.closest) return;
   if (t.closest("[data-skip]")) {
     e.preventDefault();
-    const target = view.hearing.hidden ? $("#home-h") : hv.title;
+    const target = !view.kase.hidden ? $("#cs-title") : view.hearing.hidden ? $("#home-h") : hv.title;
     focusQuiet(target && !target.closest("[hidden]") ? target : $("#main"));
     return;
   }

@@ -23,8 +23,17 @@ grava um arquivo por audiência (`hearings/<id>.json`, o mesmo formato de `expor
 ```bash
 cd challenge
 uv run --project ../bookworm bookworm export-site --config configs/udv.toml --run-name udv_v1 \
-    --split-manifest artifacts/splits/temporal_v1.json
+    --split-manifest artifacts/splits/temporal_v1.json \
+    --verifier-report artifacts/udv/udv_v1_verifier_report.json
 ```
+
+`--verifier-report` é opcional. Com ele, cada afirmação ganha o bloco `signals` que a pasta da
+afirmação mostra (a nota do verificador, as oito perguntas e a cópia em inglês que o verificador leu);
+os valores são lidos dos arquivos que o relatório do verificador registra, conferidos pelo sha256, sem
+carregar modelo. Esses arquivos, e o cache de tradução em `challenge/artifacts/cache/translation/`,
+precisam estar no lugar; se faltar algum, se um sha256 não bater ou se os ids das UDVs não forem os da
+execução, o comando para com código 2. Sem a opção, os arquivos gravados são os mesmos, byte a byte,
+de antes dela existir.
 
 Num projeto que tenha a biblioteca como dependência (`uv add --editable ../bookworm`), o mesmo comando
 é `uv run bookworm export-site ...`. A exportação precisa do LDS em `challenge/dataset/`, da execução
@@ -34,7 +43,7 @@ faltar um arquivo do cache, o comando para com código 2 e diz qual é.
 Sem `--output`, os arquivos vão para `bookworm/web/app/data/` da árvore de código de onde a biblioteca
 foi instalada; `--output` escolhe outro diretório, e `--overwrite` regrava uma exportação existente. A
 pasta `app/data/` está no `.gitignore` porque os arquivos contêm as transcrições inteiras (cerca de
-77 MB para `udv_v1`). O formato dos arquivos está em
+77 MB para `udv_v1`, ou 81 MB com `--verifier-report`). O formato dos arquivos está em
 [`docs/data_model.md`](../docs/data_model.md#diretório-de-demonstração-export-site).
 
 Antes de desenhar, a página confere cada arquivo contra esse formato: todos os campos que ela usa, com
@@ -42,7 +51,11 @@ os tipos e os valores de `tier` e `support_type` documentados, e a coerência en
 `actor.name` precisa estar em `people`; `person_not_resolved` precisa corresponder a
 `resolved: false`; só `quote_found`, `semantic_match_high` e `semantic_match_weak` têm `evidence`, e só
 `quote_found` tem `support_type` `direct_quote`; a evidência precisa estar dentro da transcrição e num
-turno da própria pessoa; no índice, a soma de `tiers` precisa ser `n_udvs`. Uma audiência que não está
+turno da própria pessoa; no índice, a soma de `tiers` precisa ser `n_udvs`. Quando a audiência traz `signals`, a página confere
+também: o bloco do nível da audiência existe e tem perguntas com ids únicos; toda afirmação tem o seu
+bloco; `scored` é verdadeiro exatamente nas afirmações com `evidence` e, nessas, os quatro campos estão
+preenchidos (e nas outras, `null`); `supported` é igual a `probability >= threshold`; e cada valor das
+perguntas está entre 0 e 1 para todos os ids de pergunta, nas duas leituras. Uma audiência que não está
 em `index.json`, ou cujo bloco `run` difere do dele, é recusada, porque o arquivo pode ter sobrado de
 outra exportação. As posições das frases candidatas podem ser `null`, como diz o formato; essas frases
 aparecem na folha da busca, mas não acendem nenhum tracinho do caderno. A página também exige que
@@ -63,7 +76,8 @@ python -m http.server 8000
 ```
 
 Depois, abra `http://localhost:8000/`. Cada audiência tem um endereço próprio, `#h` seguido do número
-(`http://localhost:8000/#h70`), que pode ser compartilhado. Abrir `index.html` direto do disco não
+(`http://localhost:8000/#h70`), que pode ser compartilhado, e cada afirmação tem a sua pasta em `#h`
+seguido do número da audiência, `-u` e o número da afirmação (`#h70-u1`). Abrir `index.html` direto do disco não
 funciona, porque o navegador bloqueia a leitura de `data/` por `file://`; nesse caso, e quando os dados
 ainda não foram gerados, a página mostra o erro e o comando que falta.
 
@@ -102,6 +116,28 @@ outras partes.
 "Pergunte à audiência" procura palavras nas frases da transcrição (BM25, sem acentos e sem palavras
 muito comuns) e mostra as cinco frases que mais combinam, com a posição de cada uma na audiência. Nada é
 gerado: todo texto mostrado foi dito na audiência.
+
+**Pasta da afirmação.** Uma página por afirmação, para quem quer ver a análise inteira de uma vez, sem
+nada para abrir ou fechar. Ela é aberta pelo botão "Abrir a pasta desta afirmação" na legenda da
+parede, que aparece no exemplo pronto, na cena do resultado de cada afirmação e, na rede inteira,
+quando um cartão de afirmação é puxado. Dentro dela há "Voltar à audiência", os botões de afirmação
+anterior e próxima e uma ficha por afirmação, com o número, o nome e a cor do resultado. Voltar à
+audiência reabre a história na cena do resultado da afirmação que estava aberta; entrar em `#h70` por
+outro caminho abre a história do começo, como antes. A pasta tem quatro partes, lidas da esquerda para
+a direita em telas largas e uma embaixo da outra no celular:
+
+| Parte | O que mostra |
+| --- | --- |
+| O que a matéria diz | O cartão da afirmação, com a pessoa, o cargo e o carimbo. Quando há aspas, a citação inteira aparece sublinhada, com as palavras achadas na fala marcadas, e uma linha diz que só o começo das aspas foi procurado. |
+| O que a pessoa disse | A frase escolhida em amarelo, no meio de até duas frases antes e duas depois do mesmo turno (até 600 caracteres de cada lado), com o turno e a posição na transcrição. Embaixo, menor, a cópia em inglês que o verificador leu, marcada como tradução automática, com o nome do modelo. |
+| O que as medidas dizem | A régua do cosseno com o corte da execução, a régua do verificador com o corte escolhido no treino, uma frase dizendo se as duas medidas ficam do mesmo lado dos seus cortes, a tabela das oito perguntas (a pergunta em pt-BR, o valor na leitura em português e na cópia em inglês) e a linha do outro modelo de NLI. Uma linha da tabela fica marcada em vermelho quando as duas leituras diferem em 0,30 ou mais. |
+| Outras frases parecidas que a pessoa disse | As frases candidatas, em ordem de nota, com uma barra por nota e o corte marcado; a escolhida fica destacada, e a última linha diz a distância da segunda para a primeira (ou, em `quote_found`, em que posição a frase escolhida pelas aspas ficaria pelo sentido). |
+
+Uma afirmação sem trecho (`no_evidence`, `person_not_resolved`) mostra só o cartão e a explicação do
+motivo, com o mesmo texto da legenda da parede. Uma audiência exportada sem `--verifier-report` mostra
+a pasta sem a parte das medidas e com uma linha dizendo que a segunda opinião, a do verificador, não
+foi calculada. Um aviso curto no topo repete que ninguém conferiu os resultados e que nenhuma nota é a
+chance de a afirmação estar certa.
 
 ### Como os resultados são descritos
 
@@ -171,11 +207,13 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
 | `index.html` | Estrutura da página, fontes e bibliotecas. |
 | `css/app.css` | Cores, tipografia, lista de matérias e estados. |
 | `css/wall.css` | A parede: cartões, barbantes, câmera, legenda, busca. |
-| `js/main.js` | Rotas (`#h<id>`), carregamento e estados de erro. |
+| `css/case.css` | A pasta da afirmação. |
+| `js/main.js` | Rotas (`#h<id>`, `#h<id>-u<n>`), carregamento, volta da pasta à cena do resultado e estados de erro. |
 | `js/data.js` | Leitura de `data/index.json` e `data/hearings/<id>.json` e conferência do formato. |
 | `js/home.js` | Lista de matérias: busca, ordem, sorteio. |
 | `js/model.js` | Deriva do JSON da audiência os cartões, grupos, trechos, cadernos e onde cada afirmação aparece na matéria. |
-| `js/copy.js` | Os textos dos resultados e do aviso de conferência. |
+| `js/copy.js` | Os textos dos resultados, do aviso de conferência e das oito perguntas. |
+| `js/case.js` | A pasta da afirmação. |
 | `js/text.js` | Formatação em pt-BR e comparação de palavras. |
 | `js/wall/wall.js` | Monta a parede e liga os eventos. |
 | `js/wall/objects.js`, `layout.js`, `strings.js` | Cartões, disposição e barbantes. |
@@ -197,3 +235,9 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
 - As frases candidatas da folha da busca aparecem numa linha cada, cortadas com reticências; a frase
   escolhida aparece inteira no trecho.
 - A busca da seção "Pergunte à audiência" é por palavras, não por sentido.
+- O botão da pasta fica na legenda, não nos cartões: na rede inteira, ele só aparece depois que um
+  cartão de afirmação é puxado.
+- A cópia em inglês é a que o verificador leu, gravada no cache de tradução; a página não traduz nada,
+  e um erro de tradução muda juntas todas as respostas da leitura em inglês.
+- O limite de 0,30 que marca uma pergunta em que as duas leituras discordam foi escolhido para a
+  leitura da página, não medido.

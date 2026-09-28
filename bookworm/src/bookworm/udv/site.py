@@ -12,6 +12,7 @@ from bookworm.features.encoders import CachedEncoder
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.export import DEFAULT_TOP_K, export_hearing, split_of
 from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
+from bookworm.udv.signals import SiteSignals
 
 JsonObject = dict[str, Any]
 HearingCallback = Callable[[int, JsonObject, int], None]
@@ -98,6 +99,7 @@ def export_site(
     top_k: int = DEFAULT_TOP_K,
     split_manifest: Mapping[str, Any] | None = None,
     on_hearing: HearingCallback | None = None,
+    signals: SiteSignals | None = None,
 ) -> SiteExport:
     ordered = sorted(hearings, key=lambda hearing: hearing.id)
     if not ordered:
@@ -122,6 +124,7 @@ def export_site(
             pipeline=pipeline,
             top_k=top_k,
             split=splits.get(hearing.id),
+            signals=signals,
         )
         if run is None:
             run = payload["run"]

@@ -27,6 +27,7 @@ const BOOL = kind((v) => typeof v === "boolean", "verdadeiro ou falso");
 const nullable = (t) => kind((v) => v === null || t(v), t.want + " ou null");
 const oneOf = (values) => kind((v) => values.indexOf(v) >= 0, "um de " + values.join(", "));
 const counts = (names) => Object.fromEntries(names.map((n) => [n, INT]));
+const PROB = kind((v) => typeof v === "number" && v >= 0 && v <= 1, "número de 0 a 1");
 
 const RUN = { name: STR, encoder: STR, revision: STR, threshold: NUM };
 
@@ -79,6 +80,24 @@ const HEARING = {
     },
   ],
   run: RUN,
+};
+
+const SCORER = { model: STR, revision: STR, language: STR };
+export const LAYA_NAMES = ["laya_multi_pt", "laya_en_en"];
+
+const SIGNALS_RUN = {
+  verifier: { name: STR, threshold: PROB, threshold_fitted_on: STR, report_sha256: STR },
+  scorers: { laya_multi_pt: SCORER, laya_en_en: SCORER, xnli_mdeberta: SCORER },
+  translation: { name: STR, revision: STR, license: STR },
+  questions: [{ id: STR, type: STR, instructions: STR }],
+};
+
+const UDV_SIGNALS = {
+  scored: BOOL,
+  verifier: { nullable: { probability: PROB, supported: BOOL } },
+  laya: { nullable: { laya_multi_pt: {}, laya_en_en: {} } },
+  xnli: { nullable: { entailment: PROB, neutral: PROB, contradiction: PROB, truncated: BOOL } },
+  translation: { nullable: { premise: STR, hypothesis: STR } },
 };
 
 function walk(url, value, shape, at) {
@@ -148,7 +167,34 @@ function checkHearing(url, data, id) {
     if (!(ev.start_char >= 0 && ev.start_char <= ev.end_char && ev.end_char <= T.length)) bad(at + ".evidence", "posições fora da transcrição");
     if (p.turns.indexOf(ev.speaker_turn) < 0) bad(at + ".evidence.speaker_turn", "não é um turno de " + p.name);
   });
+  if ("signals" in data) checkSignals(url, data, bad);
+  else data.udvs.forEach((u, i) => {
+    if ("signals" in u) bad("udvs[" + i + "].signals", "presente, mas o arquivo não tem o bloco signals");
+  });
   return data;
+}
+
+function checkSignals(url, data, bad) {
+  walk(url, data.signals, SIGNALS_RUN, "signals");
+  const ids = data.signals.questions.map((q) => q.id);
+  if (!ids.length || new Set(ids).size !== ids.length) bad("signals.questions", "vazia ou com perguntas repetidas");
+  const cut = data.signals.verifier.threshold;
+  data.udvs.forEach((u, i) => {
+    const at = "udvs[" + i + "].signals";
+    if (!("signals" in u)) bad(at, "campo ausente");
+    walk(url, u.signals, UDV_SIGNALS, at);
+    const sg = u.signals;
+    const parts = [sg.verifier, sg.laya, sg.xnli, sg.translation];
+    if (parts.some((x) => (x !== null) !== sg.scored)) bad(at, "scored não corresponde aos blocos preenchidos");
+    if (sg.scored !== (u.evidence !== null)) bad(at + ".scored", "não corresponde à evidência");
+    if (!sg.scored) return;
+    if (sg.verifier.supported !== (sg.verifier.probability >= cut)) bad(at + ".verifier.supported", "não corresponde à nota e ao corte");
+    LAYA_NAMES.forEach((name) => {
+      ids.forEach((q) => {
+        if (!PROB(sg.laya[name][q])) bad(at + ".laya." + name + "." + q, "esperava " + PROB.want);
+      });
+    });
+  });
 }
 
 async function getJson(url) {

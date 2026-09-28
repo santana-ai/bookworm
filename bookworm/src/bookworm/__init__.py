@@ -102,6 +102,7 @@ from bookworm.udv.schemas import (
     read_udv_jsonl,
     write_udv_jsonl,
 )
+from bookworm.udv.signals import Segmentation, SiteSignals, load_site_signals
 from bookworm.udv.site import SiteExport, display_title, export_site, site_index_entry
 from bookworm.udv.verify import UdvVerification, compare_with_baseline, verify_udv_run
 
@@ -132,9 +133,11 @@ __all__ = [
     "QuoteMatch",
     "QuotePolicy",
     "RunCacheEncoder",
+    "Segmentation",
     "SentenceEncoder",
     "SentenceTransformerSettings",
     "SiteExport",
+    "SiteSignals",
     "Span",
     "SplitArtifacts",
     "SplitBoundaries",
@@ -180,6 +183,7 @@ __all__ = [
     "load_gated_jsonl",
     "load_hearings",
     "load_jsonl",
+    "load_site_signals",
     "load_split_config",
     "load_udv_config",
     "load_udv_jsonl",

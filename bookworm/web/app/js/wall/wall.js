@@ -18,7 +18,7 @@ function collectElements(root) {
     svLo: q(".wl-sv-lo"), svHi: q(".wl-sv-hi"), tags: q(".wl-tags"),
     reader: q(".wl-reader"), readerBody: q(".wl-reader-body"), readerPos: q(".wl-reader-pos"), readerH: q(".wl-reader-h"),
     rdBefore: q(".wl-rd-before"), rdAfter: q(".wl-rd-after"), rdClose: q(".wl-rd-close"),
-    next: q(".wl-next"), back: q(".wl-back"), auto: q(".wl-auto"), all: q(".wl-all"), pick: q(".wl-pick-sel"),
+    next: q(".wl-next"), back: q(".wl-back"), auto: q(".wl-auto"), kase: q(".wl-case"), all: q(".wl-all"), pick: q(".wl-pick-sel"),
     capScene: q(".wl-cap-scene"), capText: q(".wl-cap-text"), cap: q(".wl-cap"), legend: q(".wl-legend"), key: q(".wl-key"), disc: q(".wl-disc"),
     zoom: q(".wl-zoom"), zin: q(".wl-zin"), zout: q(".wl-zout"), hint: q(".wl-hint"),
     q: q(".wl-q"), askform: q(".wl-askform"), askAud: q(".wl-ask-aud"), askSug: q(".wl-ask-sug"), aterms: q(".wl-ask-terms"),
@@ -266,5 +266,10 @@ export function createWall(host, H) {
     root.remove();
   }
 
-  return { destroy };
+  function openStatement(j) {
+    if (w.destroyed || !M.S[j]) return;
+    w.openStatementAt(j, "result");
+  }
+
+  return { destroy, openStatement };
 }

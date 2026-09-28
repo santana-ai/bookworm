@@ -40,3 +40,25 @@ export const NOT_CHECKED =
   "Os resultados vêm de um procedimento automático e ainda não foram conferidos por uma pessoa. Servem de pista para ler a transcrição, não de prova.";
 
 export const NOT_CHECKED_SHORT = "Resultados de um procedimento automático, que ainda não foram conferidos por uma pessoa: servem de pista, não de prova.";
+
+export const CASE_NOTE =
+  "As notas vêm de modelos e nenhuma é a chance de a afirmação estar certa; uma nota baixa diz só que a frase escolhida dá pouco apoio a ela.";
+
+export const NO_SECOND_OPINION = "A segunda opinião, a do verificador, não foi calculada nesta exportação.";
+
+export const SPLIT_GAP = 0.3;
+
+const QUESTIONS = {
+  p1_nli: { text: "A frase implica a afirmação, é neutra ou a contradiz?", value: "chance de “implica”" },
+  p2_nli_reversed: { text: "A mesma pergunta, com as opções na ordem inversa", value: "chance de “implica”" },
+  p3_inferable: { text: "Dá para inferir a afirmação a partir da frase?", value: "chance de “sim”" },
+  p4_supports: { text: "A frase sustenta a afirmação?", value: "chance de “sim”" },
+  p5_position: { text: "Que posição a frase toma sobre o que a afirmação diz?", value: "chance de “a mesma posição”" },
+  p6_position_reversed: { text: "A mesma pergunta, com as opções na ordem inversa", value: "chance de “a mesma posição”" },
+  p7_coverage: { text: "Quanto da afirmação está dito na frase?", value: "de nada (0) a tudo (1)" },
+  p8_similarity: { text: "Quão parecidos no sentido são a frase e a afirmação?", value: "de nada (0) a mesmo sentido (1)" },
+};
+
+export function questionCopy(q) {
+  return QUESTIONS[q.id] || { text: q.instructions, value: "" };
+}

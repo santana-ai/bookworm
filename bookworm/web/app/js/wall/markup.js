@@ -52,6 +52,7 @@ export function wallMarkup() {
       <button type="button" class="wl-btn wl-back">Voltar</button>
       <button type="button" class="wl-btn wl-btn-go wl-next">Começar</button>
       <button type="button" class="wl-btn wl-auto" aria-pressed="false">Tocar sozinho</button>
+      <a class="wl-btn wl-case" hidden><span class="wl-case-w">Abrir a pasta<span class="wl-case-x"> desta afirmação</span></span><span class="wl-case-n">Pasta</span></a>
     </div>
   </div>
 </div>

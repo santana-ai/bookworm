@@ -155,7 +155,8 @@ uma audiência de uma execução sem recalcular nada: a transcrição, os turnos
 candidatas e os offsets de cada uma, os participantes, as UDV da execução e, para cada opinião, as
 sentenças do participante mais parecidas com ela. Os candidatos permitem mostrar por que a evidência
 foi escolhida e quais trechos ficaram perto dela. Chaves de primeiro nível, nesta ordem: `hearing`,
-`transcript`, `turns`, `people`, `udvs`, `run`.
+`transcript`, `turns`, `people`, `udvs`, `run` e, só com `--verifier-report`, `signals` (ver
+[Sinais do verificador](#sinais-do-verificador---verifier-report)).
 
 | Campo | Tipo | Conteúdo |
 |---|---|---|
@@ -171,7 +172,7 @@ foi escolhida e quais trechos ficaram perto dela. Chaves de primeiro nível, nes
 | `turns[].start`, `turns[].end` | inteiro | Offsets da fala do turno, sem o cabeçalho. |
 | `turns[].sentences[]` | lista | Sentenças candidatas do turno, na ordem do texto, com `text`, `start` e `end`; os offsets são procurados só nesse turno e ficam `null` se o texto não for encontrado nele. |
 | `people[]` | lista | Participantes de `envolvidos`, na ordem do LDS: `index`, `name`, `role`, `turns` (índices dos turnos atribuídos) e `resolved` (pelo menos um turno). |
-| `udvs[]` | lista | Os registros UDV da audiência, lidos de `<run>.jsonl`, com os campos de `UdvRecord` na mesma ordem e três campos a mais. |
+| `udvs[]` | lista | Os registros UDV da audiência, lidos de `<run>.jsonl`, com os campos de `UdvRecord` na mesma ordem e três campos a mais (quatro com `--verifier-report`, que acrescenta `signals` no fim). |
 | `udvs[].candidates[]` | lista | Até `--top-k` (padrão 8) sentenças candidatas do participante, em ordem decrescente de similaridade de cosseno com a opinião, calculada com os embeddings que `build-udvs` gravou no cache para a execução; empates ficam na ordem das sentenças. Cada uma tem `text`, `score` (arredondado a 4 casas), `turn`, `start` e `end`. Vazia quando o participante não tem sentença candidata. |
 | `udvs[].n_candidates` | inteiro | Número de sentenças candidatas do participante. |
 | `udvs[].quotes` | lista de texto | Citações extraídas da opinião com os padrões da rodada, na ordem da opinião. |
@@ -193,6 +194,60 @@ caminho esperado); a exportação nunca calcula embeddings
 ([ADR 0004](adr/0004-exports-read-only-the-run-cache.md)). Para a audiência 70 de `udv_v1`
 (teste `tests/integration/test_export_hearing.py`): 21 turnos, 6 participantes, 12 UDV, 10 evidências,
 todas as posições conferidas contra a transcrição.
+
+### Sinais do verificador (`--verifier-report`)
+
+A pasta de cada afirmação na demonstração web mostra, ao lado da similaridade de cosseno, a decisão do
+verificador primário, as oito perguntas que ele combina e a cópia em inglês que ele leu. Esses números
+já existem nos artefatos de `challenge/artifacts/udv/`; a opção `--verifier-report` (em
+`export-hearing` e `export-site`) copia os valores para o JSON da audiência, sem carregar modelo nem
+recalcular nada. O ponto de entrada é o relatório do verificador (`udv_v1_verifier_report.json`), que
+registra, cada um com o seu sha256: os registros da execução (`inputs.udv`), a saída do verificador
+(`outputs`), os arquivos de notas das três leituras (`inputs.udv_score_files`: `laya_multi_pt`,
+`laya_en_en`, `xnli_mdeberta`) e os relatórios dessas notas (`score_runs`). O relatório de
+`laya_en_en` diz onde está o cache de tradução (`translation.store`) e com que assinatura e segmentação
+ele foi gravado. Os caminhos do relatório são relativos à pasta de onde o comando roda (`challenge/`).
+
+Sem a opção, os arquivos gravados são os mesmos, byte a byte, de uma exportação anterior à opção (teste
+`tests/unit/test_signals.py`, que também confere que tirar os campos `signals` de uma exportação com a
+opção devolve esses bytes). `index.json` não muda com a opção. O comando para com código 2 quando: o
+relatório ou um dos arquivos que ele registra não existe; um sha256 não bate, inclusive o dos registros
+da execução lidos pelo comando; os ids das UDVs da saída do verificador não são exatamente os da execução, ou os de um arquivo de notas
+não são exatamente os das UDV com nota (a mensagem diz quantos faltam e quantos sobram, com um exemplo
+de cada); uma linha da saída tem nota sem probabilidade ou sem decisão, ou a audiência, o `tier` ou o
+`support_type` dela diferem dos do registro; uma UDV com nota não tem evidência no registro; as perguntas das duas leituras
+Laya são diferentes; o corte do ajuste (`primary.fit.threshold`) difere do corte usado no teste final;
+ou um texto que precisa de tradução não está no cache.
+
+`signals` do primeiro nível, com as chaves nesta ordem:
+
+| Campo | Tipo | Conteúdo |
+|---|---|---|
+| `verifier.name` | texto | O candidato primário do relatório (`primary.candidate`). |
+| `verifier.threshold` | número | O corte da probabilidade, ajustado no conjunto indicado a seguir. |
+| `verifier.threshold_fitted_on` | texto | Conjunto em que o corte foi ajustado (`train` para `udv_v1`). |
+| `verifier.report_sha256` | texto | sha256 do relatório lido. |
+| `scorers.<nome>` | objeto | Para `laya_multi_pt`, `laya_en_en` e `xnli_mdeberta`: `model`, `revision` e `language` (`pt` ou `en`, a língua do texto que o modelo leu). |
+| `translation` | objeto | `name`, `revision` e `license` do modelo de tradução. |
+| `questions[]` | lista | As perguntas Laya, na ordem das notas: `id`, `type` (`choice`, `noul` para sim ou não, `score` para escala), `instructions` e `options` como o modelo as recebeu, `support_option` (a opção que favorece a afirmação nas perguntas de escolha; `null` nas outras) e `reverses` (o id da pergunta cujas opções esta apresenta em ordem inversa, ou `null`). |
+
+`udvs[].signals`, com as chaves nesta ordem:
+
+| Campo | Tipo | Conteúdo |
+|---|---|---|
+| `scored` | booleano | Verdadeiro quando o verificador deu nota à UDV, o que acontece exatamente nas UDV com `evidence`. Quando é falso, os outros quatro campos são `null`. |
+| `verifier.probability` | número | Probabilidade de o trecho sustentar a opinião, segundo o verificador. |
+| `verifier.supported` | booleano | Cópia de `supported_at_train_threshold` da saída do verificador, que é `probability >= verifier.threshold`; a demonstração web recusa o arquivo se as duas coisas diferirem. |
+| `laya.laya_multi_pt`, `laya.laya_en_en` | objeto | Um número de 0 a 1 por id de pergunta, a favor da afirmação, lido de `items[0].signals` do arquivo de notas: nas perguntas de escolha, a probabilidade da `support_option`; nas de sim ou não, a de sim; nas de escala, o nível esperado dividido por 4. `laya_multi_pt` leu a frase e a opinião em português; `laya_en_en`, as cópias em inglês. |
+| `xnli` | objeto | `entailment`, `neutral` e `contradiction` do outro modelo de NLI, que leu o texto em português, e `truncated` (se a entrada foi cortada). |
+| `translation.premise`, `translation.hypothesis` | texto | As cópias em inglês que `laya_en_en` leu: a frase da evidência, dividida em segmentos como na tradução e com os segmentos traduzidos unidos por espaço, e a opinião traduzida inteira. |
+
+A regra de `laya` foi conferida nas 33.680 respostas de `udv_v1` (2.105 UDV com nota, 8 perguntas, 2
+leituras) contra as distribuições gravadas em cada resposta, sem nenhuma diferença. Nas 2.105 UDV,
+`supported` é igual a `probability >= threshold`, e das 2.105 frases de evidência, 4 são divididas em
+mais de um segmento para a tradução; todos os segmentos estão no cache. A chave de cada texto no cache é
+o sha256 da assinatura do cache seguida do caractere `\x1e` e do texto normalizado; `Segmentation`
+repete, na biblioteca, a divisão em segmentos usada na tradução, com as opções gravadas no cache.
 
 ## Diretório de demonstração (`export-site`)
 
@@ -250,7 +305,9 @@ cobertura (`quote_found` 277, `semantic_match_high` 1.785, `semantic_match_weak`
 `person_not_resolved` 90; `direct_quote` 277, `semantic_with_short_quote` 111, `semantic_similarity`
 1.717). Os arquivos de audiência somam 76.526.309 bytes: o menor tem 115.500 (audiência 67), a mediana
 é 329.899 e o maior tem 3.377.789 (audiência 6, a transcrição mais longa do LDS, com 147.728
-palavras). O índice tem 184.112 bytes.
+palavras). O índice tem 184.112 bytes. Com `--verifier-report artifacts/udv/udv_v1_verifier_report.json`,
+os arquivos de audiência somam 80.892.695 bytes (o menor tem 132.368, a mediana é 350.800,5 e o maior
+tem 3.423.632, as mesmas audiências), e o índice continua com os mesmos 184.112 bytes.
 
 ## Falas por ator
 

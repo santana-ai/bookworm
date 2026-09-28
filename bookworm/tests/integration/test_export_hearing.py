@@ -12,8 +12,10 @@ from bookworm import (
     UdvRecord,
     export_hearing,
     extract_quotes,
+    load_site_signals,
     load_udv_jsonl,
     pipeline_description,
+    sha256_of_file,
 )
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.export import split_of
@@ -25,6 +27,8 @@ RUN_NAME = "udv_v1"
 HEARING_ID = 70
 SEMANTIC_TIERS = ("semantic_match_high", "semantic_match_weak")
 HISTORICAL_RUN = "udv_v0"
+VERIFIER_REPORT = Path("artifacts/udv/udv_v1_verifier_report.json")
+TRANSLATION_CACHE_DIR = Path("artifacts/cache/translation")
 HISTORICAL_MISMATCHES = {
     1: "udv-1-1-2",
     45: "udv-45-0-2",
@@ -190,3 +194,36 @@ def test_a_run_of_the_previous_pipeline_is_refused(
             pipeline=pipeline_description(),
         )
     assert directory_state(embedding_cache_dir) == before
+
+
+def test_signals_of_hearing_70_match_the_verifier_output(
+    challenge_dir: Path, udv_artifacts_dir: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.chdir(challenge_dir)
+    if not TRANSLATION_CACHE_DIR.is_dir():
+        pytest.skip(f"translation cache not found at {challenge_dir / TRANSLATION_CACHE_DIR}")
+    records_path = udv_artifact_path(udv_artifacts_dir, f"{RUN_NAME}.jsonl")
+    run_records = load_udv_jsonl(records_path)
+    signals = load_site_signals(VERIFIER_REPORT, run_records, sha256_of_file(records_path))
+    records = [record for record in run_records if record.hearing_id == HEARING_ID]
+    verifier = {
+        row["udv_id"]: row
+        for row in map(
+            json.loads,
+            Path("artifacts/udv/udv_v1_verifier.jsonl").read_text(encoding="utf-8").splitlines(),
+        )
+        if row["hearing_id"] == HEARING_ID
+    }
+    for record in records:
+        found = signals.for_record(record)
+        row = verifier[record.id]
+        assert found["scored"] is row["scored"]
+        if row["scored"]:
+            assert found["verifier"]["probability"] == row["primary_probability"]
+            assert found["laya"]["laya_multi_pt"]["p4_supports"] == row["p4_supports"]
+            assert found["translation"]["premise"] and found["translation"]["hypothesis"]
+    first = signals.for_record(records[0])
+    assert round(first["verifier"]["probability"], 2) == 0.28
+    assert first["verifier"]["supported"] is False
+    assert [record.tier for record in records].count("person_not_resolved") == 2
+    assert round(signals.summary["verifier"]["threshold"], 4) == 0.7478
