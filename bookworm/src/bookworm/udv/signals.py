@@ -1,26 +1,45 @@
 """Verifier, question and translation signals of each UDV, read from a verifier report."""
 
-import hashlib
 import json
-import re
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from bookworm.data.io import JsonObject, is_json_number, read_json_object, sha256_of_file
+from bookworm.data.io import (
+    JsonObject,
+    is_json_number,
+    read_json_object,
+    required_field,
+    required_number,
+    required_text,
+    sha256_of_file,
+)
 from bookworm.errors import ConfigError
-from bookworm.transcript.sentences import SENTENCE_BOUNDARY_PATTERN, is_sentence
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.schemas import UdvRecord
+from bookworm.udv.translations import (
+    Segmentation,
+    Translations,
+    load_translations,
+    translation_key,
+    translation_source,
+)
+
+__all__ = [
+    "HEAVY_ARTIFACT_MANIFEST",
+    "Segmentation",
+    "SiteSignals",
+    "load_site_signals",
+    "missing_signal_files",
+    "translation_key",
+]
 
 LAYA_SCORERS = ("laya_multi_pt", "laya_en_en")
 XNLI_SCORER = "xnli_mdeberta"
 SCORERS = (*LAYA_SCORERS, XNLI_SCORER)
 TRANSLATED_SCORER = "laya_en_en"
 XNLI_LABELS = ("entailment", "neutral", "contradiction")
-CONTENT_PATTERN = re.compile(r"\w")
-TRANSLATION_KEY_SEPARATOR = "\x1e"
 HEAVY_ARTIFACT_MANIFEST = "experiments/artifacts/MANIFEST_heavy.tsv"
 UNSCORED: JsonObject = {
     "scored": False,
@@ -29,78 +48,6 @@ UNSCORED: JsonObject = {
     "xnli": None,
     "translation": None,
 }
-
-
-def has_content(text: str) -> bool:
-    return CONTENT_PATTERN.search(text) is not None
-
-
-def translation_key(signature_sha256: str, text: str) -> str:
-    return hashlib.sha256(
-        f"{signature_sha256}{TRANSLATION_KEY_SEPARATOR}{text}".encode()
-    ).hexdigest()
-
-
-@dataclass(frozen=True)
-class Segmentation:
-    join_abbreviations: frozenset[str]
-    join_short_parts: bool
-
-    def needs_join(self, text: str) -> bool:
-        if text.split()[-1] in self.join_abbreviations:
-            return True
-        return self.join_short_parts and not is_sentence(text)
-
-    def segments(self, chunk: str) -> list[str]:
-        parts = [
-            part
-            for part in (
-                normalize_whitespace(raw)
-                for raw in SENTENCE_BOUNDARY_PATTERN.split(normalize_whitespace(chunk))
-            )
-            if part
-        ]
-        units: list[str] = []
-        pending = ""
-        for part in parts:
-            text = f"{pending} {part}" if pending else part
-            if self.needs_join(text):
-                pending = text
-                continue
-            units.append(text)
-            pending = ""
-        if pending and units:
-            units[-1] = f"{units[-1]} {pending}"
-        elif pending:
-            units.append(pending)
-        return units
-
-
-@dataclass(frozen=True)
-class Translations:
-    signature_sha256: str
-    segmentation: Segmentation
-    entries: Mapping[str, str]
-    path: Path
-
-    def lookup(self, text: str) -> str:
-        normalized = normalize_whitespace(text)
-        if not has_content(normalized):
-            return normalized
-        found = self.entries.get(translation_key(self.signature_sha256, normalized))
-        if found is None:
-            raise ConfigError(
-                f"{self.path}: no translation of a {len(normalized)}-character text under "
-                f"signature {self.signature_sha256[:16]}"
-            )
-        return found
-
-    def translate_opinion(self, opinion: str) -> str:
-        return self.lookup(opinion)
-
-    def translate_chunk(self, chunk: str) -> str:
-        translated = (self.lookup(segment).strip() for segment in self.segmentation.segments(chunk))
-        return " ".join(text for text in translated if text)
 
 
 def read_rows(path: Path, description: str) -> list[JsonObject]:
@@ -121,29 +68,6 @@ def read_rows(path: Path, description: str) -> list[JsonObject]:
     return rows
 
 
-def field(source: Mapping[str, Any], keys: Sequence[str], origin: str) -> Any:
-    value: Any = source
-    for key in keys:
-        if not isinstance(value, Mapping) or key not in value:
-            raise ConfigError(f"{origin}: {'.'.join(keys)} is missing")
-        value = value[key]
-    return value
-
-
-def text_field(source: Mapping[str, Any], keys: Sequence[str], origin: str) -> str:
-    value = field(source, keys, origin)
-    if not isinstance(value, str):
-        raise ConfigError(f"{origin}: {'.'.join(keys)} is not text")
-    return value
-
-
-def number_field(source: Mapping[str, Any], keys: Sequence[str], origin: str) -> float:
-    value = field(source, keys, origin)
-    if not is_json_number(value):
-        raise ConfigError(f"{origin}: {'.'.join(keys)} is not a number")
-    return float(value)
-
-
 def file_entry(entry: object, description: str, origin: str) -> Mapping[str, Any]:
     if not isinstance(entry, Mapping):
         raise ConfigError(f"{origin}: the {description} entry is not an object")
@@ -151,14 +75,22 @@ def file_entry(entry: object, description: str, origin: str) -> Mapping[str, Any
 
 
 def entry_path(entry: object, description: str, origin: str) -> Path:
-    return Path(text_field(file_entry(entry, description, origin), ("path",), origin))
+    return Path(required_text(file_entry(entry, description, origin), ("path",), origin))
+
+
+def score_file_entry(report: JsonObject, name: str, origin: str) -> object:
+    return required_field(report, ("inputs", "udv_score_files", name), origin)
+
+
+def score_report_entry(report: JsonObject, name: str, origin: str) -> object:
+    return required_field(report, ("score_runs", name), origin)
 
 
 def recorded_files(report: JsonObject, origin: str) -> dict[str, object]:
-    entries: dict[str, object] = {"verifier output": field(report, ("outputs",), origin)}
+    entries: dict[str, object] = {"verifier output": required_field(report, ("outputs",), origin)}
     for name in SCORERS:
-        entries[f"{name} scores"] = field(report, ("inputs", "udv_score_files", name), origin)
-        entries[f"{name} score report"] = field(report, ("score_runs", name), origin)
+        entries[f"{name} scores"] = score_file_entry(report, name, origin)
+        entries[f"{name} score report"] = score_report_entry(report, name, origin)
     return entries
 
 
@@ -189,8 +121,8 @@ def check_recorded_files(report: JsonObject, origin: str) -> None:
 
 def checked_file(entry: object, description: str, origin: str) -> Path:
     checked = file_entry(entry, description, origin)
-    path = Path(text_field(checked, ("path",), origin))
-    expected = text_field(checked, ("sha256",), origin)
+    path = Path(required_text(checked, ("path",), origin))
+    expected = required_text(checked, ("sha256",), origin)
     if not path.is_file():
         raise ConfigError(f"{path}: {description} not found")
     actual = sha256_of_file(path)
@@ -227,8 +159,8 @@ def check_same_ids(found: Iterable[str], expected: Iterable[str], origin: str) -
 def question_entry(question_id: str, spec: object, origin: str) -> JsonObject:
     if not isinstance(spec, Mapping):
         raise ConfigError(f"{origin}: question {question_id} is not an object")
-    payload = field(spec, ("payload",), origin)
-    kind = text_field(payload, ("type",), origin)
+    payload = required_field(spec, ("payload",), origin)
+    kind = required_text(payload, ("type",), origin)
     criteria = payload.get("criteria") if isinstance(payload, Mapping) else None
     options: list[str] | None
     if isinstance(criteria, Mapping):
@@ -240,7 +172,7 @@ def question_entry(question_id: str, spec: object, origin: str) -> JsonObject:
     return {
         "id": question_id,
         "type": kind,
-        "instructions": text_field(payload, ("instructions",), origin),
+        "instructions": required_text(payload, ("instructions",), origin),
         "options": options,
         "support_option": spec.get("support_option"),
         "reverses": spec.get("reverses"),
@@ -249,11 +181,11 @@ def question_entry(question_id: str, spec: object, origin: str) -> JsonObject:
 
 def battery(reports: Mapping[str, JsonObject], origins: Mapping[str, str]) -> list[JsonObject]:
     first = LAYA_SCORERS[0]
-    questions = field(reports[first], ("questions",), origins[first])
+    questions = required_field(reports[first], ("questions",), origins[first])
     if not isinstance(questions, Mapping) or not questions:
         raise ConfigError(f"{origins[first]}: questions is empty or not an object")
     for name in LAYA_SCORERS[1:]:
-        if field(reports[name], ("questions",), origins[name]) != questions:
+        if required_field(reports[name], ("questions",), origins[name]) != questions:
             raise ConfigError(f"{origins[name]}: questions differ from those of {first}")
     return [question_entry(str(key), spec, origins[first]) for key, spec in questions.items()]
 
@@ -295,17 +227,17 @@ def xnli_answer(row: JsonObject, path: Path) -> JsonObject:
 def udv_threshold_of(report: JsonObject, origin: str) -> JsonObject | None:
     if "udv_threshold" not in report:
         return None
-    block = field(report, ("udv_threshold",), origin)
-    interval = field(block, ("interval",), origin)
+    block = required_field(report, ("udv_threshold",), origin)
+    interval = required_field(block, ("interval",), origin)
     return {
-        "value": number_field(block, ("exact",), origin),
-        "rounded": number_field(block, ("value",), origin),
-        "rule": text_field(block, ("rule",), origin),
+        "value": required_number(block, ("exact",), origin),
+        "rounded": required_number(block, ("value",), origin),
+        "rule": required_text(block, ("rule",), origin),
         "interval": [
-            number_field(interval, ("low",), origin),
-            number_field(interval, ("high",), origin),
+            required_number(interval, ("low",), origin),
+            required_number(interval, ("high",), origin),
         ],
-        "source": text_field(block, ("path",), origin),
+        "source": required_text(block, ("path",), origin),
     }
 
 
@@ -354,61 +286,6 @@ def premise_of(record: UdvRecord) -> str:
     return normalize_whitespace(record.evidence.text)
 
 
-def load_translations(
-    path: Path,
-    signature_sha256: str,
-    segmentation: Segmentation,
-    texts: Iterable[str],
-) -> Translations:
-    wanted = {
-        translation_key(signature_sha256, text): text
-        for text in (normalize_whitespace(raw) for raw in texts)
-        if has_content(text)
-    }
-    if not path.is_file():
-        raise ConfigError(f"{path}: translation cache not found")
-    entries: dict[str, str] = {}
-    with path.open(encoding="utf-8") as handle:
-        for line in handle:
-            try:
-                row = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            key = row.get("key") if isinstance(row, dict) else None
-            if key not in wanted or row.get("signature_sha256") != signature_sha256:
-                continue
-            if row.get("source") != wanted[key] or not isinstance(row.get("translation"), str):
-                raise ConfigError(f"{path}: entry {key[:16]} does not hold the text of its key")
-            entries[key] = row["translation"]
-    missing = len(wanted) - len(entries)
-    if missing:
-        raise ConfigError(
-            f"{path}: {missing} of {len(wanted)} texts have no translation under signature "
-            f"{signature_sha256[:16]}"
-        )
-    return Translations(signature_sha256, segmentation, entries, path)
-
-
-def translation_source(
-    report: JsonObject, origin: str
-) -> tuple[Path, str, Segmentation, JsonObject]:
-    store = field(report, ("translation", "store"), origin)
-    abbreviations = field(store, ("segmentation", "join_abbreviations"), origin)
-    join_short = field(store, ("segmentation", "join_short_parts"), origin)
-    if not isinstance(abbreviations, list) or not isinstance(join_short, bool):
-        raise ConfigError(f"{origin}: translation.store.segmentation is malformed")
-    model = {
-        key: text_field(report, ("translation", "model", key), origin)
-        for key in ("name", "revision", "license")
-    }
-    return (
-        Path(text_field(store, ("path",), origin)),
-        text_field(store, ("signature_sha256",), origin),
-        Segmentation(frozenset(str(item) for item in abbreviations), join_short),
-        model,
-    )
-
-
 @dataclass(frozen=True)
 class SiteSignals:
     summary: JsonObject
@@ -419,6 +296,39 @@ class SiteSignals:
         if found is None:
             raise ConfigError(f"{record.id}: the verifier output has no row for this UDV")
         return found
+
+
+@dataclass(frozen=True)
+class ScorerRuns:
+    """Checked score files and score reports of the Laya and XNLI scorers."""
+
+    score_paths: dict[str, Path]
+    reports: dict[str, JsonObject]
+    origins: dict[str, str]
+
+    def rows(self, scored: Sequence[UdvRecord]) -> dict[str, dict[str, JsonObject]]:
+        rows: dict[str, dict[str, JsonObject]] = {}
+        for name, path in self.score_paths.items():
+            rows[name] = rows_by_id(read_rows(path, f"{name} scores"), "id", path)
+            check_same_ids(rows[name], (record.id for record in scored), str(path))
+        return rows
+
+
+def load_scorer_runs(report: JsonObject, origin: str) -> ScorerRuns:
+    score_paths: dict[str, Path] = {}
+    report_paths: dict[str, Path] = {}
+    for name in SCORERS:
+        score_paths[name] = checked_file(
+            score_file_entry(report, name, origin), f"{name} scores", origin
+        )
+        report_paths[name] = checked_file(
+            score_report_entry(report, name, origin), f"{name} score report", origin
+        )
+    reports = {
+        name: read_json_object(path, f"{name} score report") for name, path in report_paths.items()
+    }
+    origins = {name: str(path) for name, path in report_paths.items()}
+    return ScorerRuns(score_paths, reports, origins)
 
 
 def scored_signals(
@@ -444,23 +354,16 @@ def scored_signals(
     }
 
 
-def signals_summary(
-    report: JsonObject,
-    report_path: Path,
-    reports: Mapping[str, JsonObject],
-    origins: Mapping[str, str],
-    translation_model: JsonObject,
-    questions: list[JsonObject],
-) -> JsonObject:
+def verifier_summary(report: JsonObject, report_path: Path) -> JsonObject:
     origin = str(report_path)
-    primary = field(report, ("primary",), origin)
-    threshold = number_field(primary, ("fit", "threshold"), origin)
-    if number_field(primary, ("final_test_result", "threshold"), origin) != threshold:
+    primary = required_field(report, ("primary",), origin)
+    threshold = required_number(primary, ("fit", "threshold"), origin)
+    if required_number(primary, ("final_test_result", "threshold"), origin) != threshold:
         raise ConfigError(f"{origin}: primary fit and final test thresholds differ")
     verifier: JsonObject = {
-        "name": text_field(primary, ("candidate",), origin),
+        "name": required_text(primary, ("candidate",), origin),
         "threshold": threshold,
-        "threshold_fitted_on": text_field(
+        "threshold_fitted_on": required_text(
             primary, ("final_test_result", "threshold_fitted_on"), origin
         ),
         "report_sha256": sha256_of_file(report_path),
@@ -468,19 +371,63 @@ def signals_summary(
     udv_threshold = udv_threshold_of(report, origin)
     if udv_threshold is not None:
         verifier["udv_threshold"] = udv_threshold
+    return verifier
+
+
+def scorer_summary(report: JsonObject, origin: str) -> JsonObject:
     return {
-        "verifier": verifier,
+        "model": required_text(report, ("model", "name"), origin),
+        "revision": required_text(report, ("model", "revision"), origin),
+        "language": required_text(report, ("language",), origin),
+    }
+
+
+def signals_summary(
+    report: JsonObject,
+    report_path: Path,
+    scorers: ScorerRuns,
+    translation_model: JsonObject,
+    questions: list[JsonObject],
+) -> JsonObject:
+    return {
+        "verifier": verifier_summary(report, report_path),
         "scorers": {
-            name: {
-                "model": text_field(reports[name], ("model", "name"), origins[name]),
-                "revision": text_field(reports[name], ("model", "revision"), origins[name]),
-                "language": text_field(reports[name], ("language",), origins[name]),
-            }
-            for name in SCORERS
+            name: scorer_summary(scorers.reports[name], scorers.origins[name]) for name in SCORERS
         },
         "translation": translation_model,
         "questions": questions,
     }
+
+
+def check_udv_input(report: JsonObject, records_sha256: str, origin: str) -> None:
+    recorded_udv = required_text(report, ("inputs", "udv", "sha256"), origin)
+    if recorded_udv != records_sha256:
+        raise ConfigError(
+            f"{origin}: the verifier read a UDV file with sha256 {recorded_udv}, not the run "
+            f"records ({records_sha256})"
+        )
+
+
+def verifier_decisions(
+    report: JsonObject, records: Sequence[UdvRecord], origin: str
+) -> dict[str, JsonObject | None]:
+    verifier_path = checked_file(
+        required_field(report, ("outputs",), origin), "verifier output", origin
+    )
+    verifier_rows = rows_by_id(read_rows(verifier_path, "verifier output"), "udv_id", verifier_path)
+    check_same_ids(verifier_rows, (record.id for record in records), str(verifier_path))
+    udv_threshold = udv_threshold_of(report, origin)
+    udv_cut = None if udv_threshold is None else float(udv_threshold["value"])
+    return {
+        record.id: verifier_decision(verifier_rows[record.id], record, verifier_path, udv_cut)
+        for record in records
+    }
+
+
+def texts_to_translate(scored: Sequence[UdvRecord], segmentation: Segmentation) -> list[str]:
+    texts = [normalize_whitespace(record.proposition) for record in scored]
+    texts += [segment for record in scored for segment in segmentation.segments(premise_of(record))]
+    return texts
 
 
 def load_site_signals(
@@ -489,55 +436,32 @@ def load_site_signals(
     """Read the verifier signals of every UDV of a run, checking each file against its sha256."""
     origin = str(report_path)
     report = read_json_object(report_path, "verifier report")
-    recorded_udv = text_field(report, ("inputs", "udv", "sha256"), origin)
-    if recorded_udv != records_sha256:
-        raise ConfigError(
-            f"{origin}: the verifier read a UDV file with sha256 {recorded_udv}, not the run "
-            f"records ({records_sha256})"
-        )
+    check_udv_input(report, records_sha256, origin)
     check_recorded_files(report, origin)
-    verifier_path = checked_file(field(report, ("outputs",), origin), "verifier output", origin)
-    verifier_rows = rows_by_id(read_rows(verifier_path, "verifier output"), "udv_id", verifier_path)
-    check_same_ids(verifier_rows, (record.id for record in records), str(verifier_path))
-    udv_threshold = udv_threshold_of(report, origin)
-    udv_cut = None if udv_threshold is None else float(udv_threshold["value"])
-    decisions = {
-        record.id: verifier_decision(verifier_rows[record.id], record, verifier_path, udv_cut)
-        for record in records
-    }
+    decisions = verifier_decisions(report, records, origin)
     scored = [record for record in records if decisions[record.id] is not None]
-    score_paths: dict[str, Path] = {}
-    report_paths: dict[str, Path] = {}
-    for name in SCORERS:
-        score_paths[name] = checked_file(
-            field(report, ("inputs", "udv_score_files", name), origin), f"{name} scores", origin
-        )
-        report_paths[name] = checked_file(
-            field(report, ("score_runs", name), origin), f"{name} score report", origin
-        )
-    reports = {
-        name: read_json_object(path, f"{name} score report") for name, path in report_paths.items()
-    }
-    origins = {name: str(path) for name, path in report_paths.items()}
-    questions = battery(reports, origins)
+    scorers = load_scorer_runs(report, origin)
+    questions = battery(scorers.reports, scorers.origins)
     question_ids = [question["id"] for question in questions]
-    rows: dict[str, dict[str, JsonObject]] = {}
-    for name, path in score_paths.items():
-        rows[name] = rows_by_id(read_rows(path, f"{name} scores"), "id", path)
-        check_same_ids(rows[name], (record.id for record in scored), str(path))
-    cache_path, signature, segmentation, translation_model = translation_source(
-        reports[TRANSLATED_SCORER], origins[TRANSLATED_SCORER]
+    rows = scorers.rows(scored)
+    source = translation_source(
+        scorers.reports[TRANSLATED_SCORER], scorers.origins[TRANSLATED_SCORER]
     )
-    texts = [normalize_whitespace(record.proposition) for record in scored]
-    texts += [segment for record in scored for segment in segmentation.segments(premise_of(record))]
-    translations = load_translations(cache_path, signature, segmentation, texts)
+    translations = load_translations(
+        source.path,
+        source.signature_sha256,
+        source.segmentation,
+        texts_to_translate(scored, source.segmentation),
+    )
     by_udv: dict[str, JsonObject] = {}
     for record in records:
         decision = decisions[record.id]
         by_udv[record.id] = (
             dict(UNSCORED)
             if decision is None
-            else scored_signals(record, decision, rows, score_paths, question_ids, translations)
+            else scored_signals(
+                record, decision, rows, scorers.score_paths, question_ids, translations
+            )
         )
-    summary = signals_summary(report, report_path, reports, origins, translation_model, questions)
+    summary = signals_summary(report, report_path, scorers, source.model, questions)
     return SiteSignals(summary, by_udv)

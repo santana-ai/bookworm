@@ -2,7 +2,7 @@
 
 import hashlib
 import json
-from collections.abc import Iterable, Iterator, Sequence
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from datetime import date
 from pathlib import Path
 from typing import Any, TypeGuard
@@ -88,6 +88,30 @@ def json_path(payload: object, path: Sequence[str]) -> tuple[bool, Any]:
             return False, None
         value = value[key]
     return True, value
+
+
+def required_field(source: Mapping[str, Any], keys: Sequence[str], origin: str) -> Any:
+    """Value at a nested key path; raises ``ConfigError`` naming ``origin`` when it is missing."""
+    value: Any = source
+    for key in keys:
+        if not isinstance(value, Mapping) or key not in value:
+            raise ConfigError(f"{origin}: {'.'.join(keys)} is missing")
+        value = value[key]
+    return value
+
+
+def required_text(source: Mapping[str, Any], keys: Sequence[str], origin: str) -> str:
+    value = required_field(source, keys, origin)
+    if not isinstance(value, str):
+        raise ConfigError(f"{origin}: {'.'.join(keys)} is not text")
+    return value
+
+
+def required_number(source: Mapping[str, Any], keys: Sequence[str], origin: str) -> float:
+    value = required_field(source, keys, origin)
+    if not is_json_number(value):
+        raise ConfigError(f"{origin}: {'.'.join(keys)} is not a number")
+    return float(value)
 
 
 def json_value(value: Any) -> Any:
