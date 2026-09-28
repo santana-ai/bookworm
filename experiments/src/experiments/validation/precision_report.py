@@ -15,23 +15,26 @@ from bookworm import sha256_of_file, write_json
 from scipy.stats import norm
 from sklearn.metrics import cohen_kappa_score, confusion_matrix
 
-from experiments.common.provenance import source_hashes
-from experiments.validation.generate_sample import (
+from experiments.common.provenance import code_section
+from experiments.common.reporting import rounded, utc_timestamp
+from experiments.validation.generate_sample.config import (
+    ValidationConfig,
+    load_validation_config,
+)
+from experiments.validation.generate_sample.sheets import (
     ANNOTATION_CSV,
     ANNOTATION_KEY,
     REANNOTATION_CSV,
     REANNOTATION_KEY,
-    ValidationConfig,
     canonical_sha256,
     existing_precision_reports,
     load_key,
-    load_validation_config,
-    min_successes_to_pass,
-    now_iso,
     read_annotation_csv,
     require_final_test,
-    rounded,
     validate_annotation,
+)
+from experiments.validation.generate_sample.statistics import (
+    min_successes_to_pass,
     wilson_interval,
 )
 
@@ -677,7 +680,8 @@ def load_judgments(
     elif not without_reannotation:
         problems.append(
             f"{REANNOTATION_KEY} does not exist: create and annotate the repeat sheet "
-            "(generate_validation_sample --stage repeat) before any number is computed, or pass "
+            "(experiments.validation.generate_sample --stage repeat) before any number is "
+            "computed, or pass "
             "--without-reannotation"
         )
     if problems:
@@ -686,39 +690,57 @@ def load_judgments(
     return first, repeat
 
 
-def main() -> None:
-    args = parse_args()
-    started = time.perf_counter()
-    config = load_validation_config(args.config)
-    rc = load_report_config(config)
-    key = load_key(args.sample_dir / ANNOTATION_KEY, "annotation")
-    require_final_test(key, args.final_test)
-    rules = key["criteria"]["rules"]
-    check_rules(rules, {stratum["name"]: stratum["question"] for stratum in key["strata"]})
-    first, repeat = load_judgments(key, args.sample_dir, config, args.without_reannotation)
-    units = judged_units(key, first)
-    results = stratum_results(key, units, first, config, rc)
-    integrity = integrity_section(key, args.sample_dir, config)
-    interim = repeat is None
+def environment() -> Record:
+    return {
+        "python": platform.python_version(),
+        "numpy": np.__version__,
+        "scipy": scipy.__version__,
+        "scikit_learn": sklearn.__version__,
+        "platform": platform.platform(),
+    }
+
+
+def output_name_for(rc: ReportConfig, interim: bool) -> str:
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    output_name = f"{rc.interim_output_prefix}_{stamp}.json" if interim else rc.output_name
-    output_path = args.sample_dir / output_name
-    if interim and output_path.exists():
-        raise SystemExit(f"{output_path} exists; interim reports are never overwritten")
-    integrity["interim_reports"] = interim_section(
-        args.sample_dir, rc, repeat[0] if repeat is not None else None, output_name
-    )
+    return f"{rc.interim_output_prefix}_{stamp}.json" if interim else rc.output_name
+
+
+def agreement_or_skip(
+    key: Record,
+    first: dict[str, Record],
+    repeat: tuple[Record, dict[str, Record]] | None,
+    integrity: Record,
+    sample_dir: Path,
+    config: ValidationConfig,
+    rc: ReportConfig,
+) -> Record:
+    """The agreement section, recording the repeat files in ``integrity`` when there are some."""
     if repeat is None:
-        agreement: Record = {"status": "not_computed", "reason": "--without-reannotation"}
-    else:
-        agreement = agreement_section(
-            key, first, repeat[0], repeat[1], integrity["annotation_csv_sha256"], config, rc
-        )
-        integrity["reannotation_csv_sha256"] = sha256_of_file(args.sample_dir / REANNOTATION_CSV)
-        integrity["reannotation_key_sha256"] = sha256_of_file(args.sample_dir / REANNOTATION_KEY)
-    report = {
+        return {"status": "not_computed", "reason": "--without-reannotation"}
+    agreement = agreement_section(
+        key, first, repeat[0], repeat[1], integrity["annotation_csv_sha256"], config, rc
+    )
+    integrity["reannotation_csv_sha256"] = sha256_of_file(sample_dir / REANNOTATION_CSV)
+    integrity["reannotation_key_sha256"] = sha256_of_file(sample_dir / REANNOTATION_KEY)
+    return agreement
+
+
+def build_report(
+    args: argparse.Namespace,
+    key: Record,
+    first: dict[str, Record],
+    units: list[Record],
+    results: dict[str, Record],
+    agreement: Record,
+    integrity: Record,
+    config: ValidationConfig,
+    rc: ReportConfig,
+    elapsed: float,
+) -> Record:
+    interim = agreement["status"] == "not_computed"
+    return {
         "sample_name": key["sample_name"],
-        "created_at": now_iso(),
+        "created_at": utc_timestamp(),
         "interim": interim,
         "interim_note": (
             "computed with --without-reannotation before the repeat sheet was annotated; written "
@@ -748,24 +770,53 @@ def main() -> None:
             "declaration": key["criteria"]["declaration"],
             "source": "frozen copy in annotation_key.json",
             "confidence_level": rc.confidence_level,
-            "rules": evaluate_criteria(rules, results, rc.confidence_level, key["dry_run"]),
+            "rules": evaluate_criteria(
+                key["criteria"]["rules"], results, rc.confidence_level, key["dry_run"]
+            ),
         },
         "intra_annotator_agreement": agreement,
         "integrity": integrity,
-        "code": {
-            **source_hashes(),
-            **source_hashes(Path(__file__)),
-        },
-        "timing": {"elapsed_seconds": round(time.perf_counter() - started, 2)},
-        "environment": {
-            "python": platform.python_version(),
-            "numpy": np.__version__,
-            "scipy": scipy.__version__,
-            "scikit_learn": sklearn.__version__,
-            "platform": platform.platform(),
-        },
+        "code": code_section(Path(__file__)),
+        "timing": {"elapsed_seconds": round(elapsed, 2)},
+        "environment": environment(),
         "config": config.source,
     }
+
+
+def main() -> None:
+    args = parse_args()
+    started = time.perf_counter()
+    config = load_validation_config(args.config)
+    rc = load_report_config(config)
+    key = load_key(args.sample_dir / ANNOTATION_KEY, "annotation")
+    require_final_test(key, args.final_test)
+    strata = {stratum["name"]: stratum["question"] for stratum in key["strata"]}
+    check_rules(key["criteria"]["rules"], strata)
+    first, repeat = load_judgments(key, args.sample_dir, config, args.without_reannotation)
+    units = judged_units(key, first)
+    results = stratum_results(key, units, first, config, rc)
+    integrity = integrity_section(key, args.sample_dir, config)
+    interim = repeat is None
+    output_name = output_name_for(rc, interim)
+    output_path = args.sample_dir / output_name
+    if interim and output_path.exists():
+        raise SystemExit(f"{output_path} exists; interim reports are never overwritten")
+    integrity["interim_reports"] = interim_section(
+        args.sample_dir, rc, repeat[0] if repeat is not None else None, output_name
+    )
+    agreement = agreement_or_skip(key, first, repeat, integrity, args.sample_dir, config, rc)
+    report = build_report(
+        args,
+        key,
+        first,
+        units,
+        results,
+        agreement,
+        integrity,
+        config,
+        rc,
+        time.perf_counter() - started,
+    )
     report = round_floats(report)
     write_json(report, output_path)
     print_summary(report)
