@@ -7,6 +7,9 @@
   `src/bookworm/cli.py`
 - Porta, com paridade testada: `challenge/utils/build_actor_speeches.py`,
   `challenge/utils/filter_actor_speeches.py` e `challenge/utils/generate_actor_profiles.py`
+- Nota de 2026-09-28: na versão 1.0, `src/bookworm/cli.py` virou o pacote `src/bookworm/cli/`
+  (`udv_commands.py` e `profile_commands.py` para os comandos desta decisão), e os scripts de
+  `challenge/utils/` estão nos caminhos de [`docs/path_map.md`](../../../docs/path_map.md). A decisão não mudou.
 
 ## Contexto
 

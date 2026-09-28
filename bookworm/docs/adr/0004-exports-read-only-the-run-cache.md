@@ -8,6 +8,8 @@
   `src/bookworm/udv/site.py`
 - Testes: `tests/unit/test_export.py`, `tests/unit/test_site.py`, `tests/unit/test_encoders.py` e,
   com o marcador `dataset`, `tests/integration/test_export_site.py`
+- Nota de 2026-09-28: na versão 1.0, `src/bookworm/cli.py` virou o pacote `src/bookworm/cli/`; os
+  comandos de exportação estão em `cli/export_commands.py`. A decisão não mudou.
 
 ## Contexto
 

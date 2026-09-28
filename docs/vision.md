@@ -453,10 +453,11 @@ bookworm/
 ├── pyproject.toml, uv.lock, .python-version
 ├── README.md                # uso, instalação, CLI e API da biblioteca
 ├── docs/
-│   ├── data_model.md, actors.md, profiles.md, profile_validation.md
+│   ├── cli.md, configuration.md, architecture.md, data_model.md, testing.md, limitations.md
+│   ├── actors.md, profiles.md, profile_validation.md
 │   └── adr/                 # decisões de arquitetura (README.md é o índice)
 ├── src/bookworm/
-│   ├── cli.py, config.py, pipeline.py, models.py, errors.py
+│   ├── cli/, config.py, pipeline.py, models.py, errors.py
 │   ├── data/                # schemas, leitura do LDS, datas, splits e sua verificação
 │   ├── transcript/          # falantes, turnos, sentenças, offsets
 │   ├── features/            # TF-IDF e codificadores de sentenças
