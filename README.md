@@ -60,8 +60,10 @@ arquivo de origem:
 
 | achado | número |
 |---|---|
-| Opiniões com evidência localizada (`udv_v1` e `udv_v2`) | 2.105 de 2.203 (90 de pessoas não resolvidas, 8 sem sentença candidata) |
+| Opiniões com evidência localizada (`udv_v1` e `udv_v2`) | 2.105 de 2.203 (90 de pessoas não resolvidas, 8 sem unidade candidata) |
 | Citações literais localizadas (`quote_found`) | 277 |
+| Níveis semânticos de `udv_v2` (corte de cosseno 0,50) | 1.744 `semantic_match_high`, 84 `semantic_match_weak` |
+| Verificador sobre as 2.105 evidências de `udv_v2` | passam 1.750 (0,8314) no corte de premissa UDV 0,2429 e 826 (0,3924) no corte do benchmark 0,7478 |
 | Recuperação no benchmark NLI (validação, sentença, `serafim_335m`) | acc@1 0,8774, MRR 0,9295 |
 | 15 recuperadores alternativos contra o `serafim_335m` | nenhum o supera na sentença depois de Holm |
 | Janelas de 2 sentenças contra sentença, mesmo recuperador | lift +0,0143 [-0,0091; 0,0409], Holm 0,4104 |
@@ -69,16 +71,32 @@ arquivo de origem:
 | Sinais derivados do cosseno como confiança (E5) | nenhum IC de diferença de AURC exclui zero |
 | Verificador primário (E3x), teste final, 559 opiniões | ROC AUC 0,9122 [0,8698; 0,9454], kappa 0,5924 |
 | Verificador contra o cosseno na validação (confidence_v2 E-A) | ROC AUC 0,8758 contra 0,7302, Δ +0,1457 [0,0852; 0,2159], Holm 0,012 |
-| Validação humana parcial, `quote_found` (precisão estrita) | 17 de 18, 0,9444 [0,7424; 0,9901] |
-| Validação humana parcial, `semantic_match_high` (precisão tolerante) | 25 de 32, 0,7812 [0,6125; 0,8898] |
+| Validação humana parcial de `udv_v1`, `quote_found` (precisão estrita) | 17 de 18, 0,9444 [0,7424; 0,9901] |
+| Validação humana parcial de `udv_v1`, `semantic_match_high` (precisão tolerante) | 25 de 32, 0,7812 [0,6125; 0,8898] |
 
-Os intervalos são de 95% por bootstrap de audiência. As duas linhas de validação humana vêm de uma
-leitura intermediária de 65 das 127 linhas da amostra, feita numa planilha que ainda está sendo
+Os intervalos das linhas de recuperação e do verificador são de 95% por bootstrap de audiência; os da
+validação humana são de Wilson a 95%. As duas linhas de validação humana vêm de uma leitura
+intermediária de 65 das 127 linhas da amostra de `udv_v1`, feita numa planilha que ainda está sendo
 preenchida e será versionada quando completa; a planilha deste repositório
 (`challenge/artifacts/validation/human_validation_v1_udv_v1/annotation.csv`) ainda está vazia. Nenhum
-critério declarado da validação pode ser decidido com a leitura parcial (relatório, seção 7). O
-verificador foi ajustado com premissas de quatro trechos e é aplicado a evidências de uma citação ou
-janela, uma mudança de domínio que não foi medida com rótulo humano.
+critério declarado da validação pode ser decidido com a leitura parcial (relatório, seção 7). A precisão
+humana de `udv_v2` não foi medida: 23 itens da amostra têm a mesma evidência nas duas versões e herdam o
+rótulo, e as 104 linhas da planilha suplementar de `udv_v2` ainda não foram julgadas (relatório, seção
+7.3). O verificador foi ajustado com premissas de quatro trechos e é aplicado a evidências de uma
+citação ou janela, uma mudança de domínio que não foi medida com rótulo humano.
+
+`udv_v0` e `udv_v1` (evidência de uma sentença, corte 0,45) ficam como histórico e base de comparação.
+Toda etapa depois da UDV (verificador, ligação a atores, perfis, perguntas da simulação, exportação da
+demo) foi refeita ou conferida sobre `udv_v2`, ao lado do valor de `udv_v1`, em
+[`challenge/artifacts/udv/udv_v2_downstream_report.json`](challenge/artifacts/udv/udv_v2_downstream_report.json).
+
+## Demo web
+
+`bookworm/web/` é um front estático que mostra, para cada audiência, a opinião da matéria, o trecho da
+transcrição escolhido, as unidades candidatas e as duas medidas (cosseno e verificador), além de uma página
+por ator com o perfil gerado. Os dados saem de `bookworm export-site` sobre `udv_v2`; a exportação confere
+que a rodada foi construída com a configuração passada e recusa uma rodada de outra configuração. Como
+exportar e servir: [`bookworm/web/README.md`](bookworm/web/README.md).
 
 ## Organização do repositório
 
@@ -99,7 +117,7 @@ O artigo do desafio fica num repositório próprio:
 ## Início rápido
 
 Requer Python 3.12 e [uv](https://docs.astral.sh/uv/). O caminho abaixo roda em CPU, sem modelo, e
-confere a execução publicada `udv_v1` recalculando cada UDV a partir do dataset.
+confere a execução publicada `udv_v2` recalculando cada UDV a partir do dataset.
 
 ```bash
 git clone https://github.com/santana-ai/bookworm.git
@@ -112,7 +130,7 @@ uv sync
 uv run pytest
 
 cd ../challenge
-uv run --project ../bookworm bookworm verify-udvs --config configs/udv.toml --run-name udv_v1
+uv run --project ../bookworm bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
 ```
 
 O último comando termina com `"problems": {}`. Um exemplo completo com o encoder TF-IDF, que constrói

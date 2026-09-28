@@ -31,8 +31,8 @@ Inscrição até 30/07/2026; submissão até 30/09/2026; avaliação de 01 a 15/
       `challenge/`, com README, guia de reprodução, relatório, ADRs, licença e citação.
 - [ ] Vídeo de até 5 minutos.
 - [x] Demonstração interativa (recomendada): front estático em `bookworm/web/`, alimentado por
-      `bookworm export-site`, com a verificação de atribuição por audiência. A página de perfis de ator
-      entra num PR seguinte.
+      `bookworm export-site` sobre `udv_v2`, com a verificação de atribuição por audiência e a página
+      de perfis de ator (`challenge/artifacts/web/export_site_udv_v2.json`).
 - [ ] Anexar o pacote de artefatos pesados (`challenge/artifacts/MANIFEST_heavy.tsv`) a um GitHub Release.
 - [ ] Envio para rodrigo.barros@kunumi.com e gianlucca@kunumi.com até 30/09/2026.
 
@@ -66,6 +66,8 @@ Cada item tem código, configuração, testes e artefato versionado.
 - **UDVs.** `udv_v0` e `udv_v1` (sentenças, corte de cosseno calibrado no treino, `threshold_v1`) e o
   pipeline recomendado `udv_v2` (janelas de duas sentenças, citação inteira, cortes recalibrados), cada
   uma reconstruível byte a byte e conferida por `verify-udvs` ([ADR 0006](bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md)).
+  `udv_v2` é a rodada de referência; toda etapa seguinte foi refeita ou conferida sobre ela, ao lado do
+  valor de `udv_v1` (`challenge/artifacts/udv/udv_v2_downstream_report.json`).
 - **Trabalho 1, achar a evidência.** E1 e E2 (`retrieval_v1`: 16 recuperadores, sentença contra
   janelas) e `retrieval_v2` (Laya como reranqueador, resultado negativo).
 - **Trabalho 2, confiança.** E3 v1 e v2 (NLI multilíngue, Laya, tradução NLLB e M2M100), E3x
@@ -74,10 +76,14 @@ Cada item tem código, configuração, testes e artefato versionado.
 - **E6.** Casamento aproximado de citações e nomes, medido e desligado até a revisão das planilhas.
 - **Atores.** Falas por ator entre audiências, duas regras de ligação UDV-ator, perfis gerados só com
   as audiências de treino e simulação avaliada no teste, numa rodada completa com
-  `mlx-community/Qwen3.8-27B-8bit`.
+  `mlx-community/Qwen3.8-27B-8bit` sobre `udv_v1`; sobre `udv_v2`, as perguntas e os pedidos da
+  simulação foram reconstruídos sem modelo (98 de 101 perguntas de teste idênticas). Conferência dos
+  perfis contra as UDVs (`bookworm validate-profiles`) versionada para as duas rodadas
+  (`challenge/artifacts/profile_validation/`).
 - **Validação humana.** Amostra estratificada de 127 linhas de `udv_v1` nas audiências de teste,
   cegamento registrado, guia do anotador e scripts de pontuação; leitura intermediária de 65 linhas
-  (relatório, seção 7.2).
+  (relatório, seção 7.2). Planilha suplementar de `udv_v2` com as 104 linhas cuja evidência mudou
+  (relatório, seção 7.3).
 - **Biblioteca `bookworm` 1.0.0.** CLI e API para UDVs, splits, atores, perfis e exportação, com paridade
   testada contra os scripts de `challenge/`, tipagem estrita e testes sem rede.
 - **Demo web** em `bookworm/web/`.
@@ -88,12 +94,14 @@ Cada item tem código, configuração, testes e artefato versionado.
    versionada; a planilha do repositório está vazia) e a reanotação de 20 linhas para a concordância
    intra-anotador; só então os critérios declarados podem ser decididos. O critério de `quote_found` já
    não pode ser atingido, porque exige zero erros e um erro foi anotado.
-2. **Validação humana de `udv_v2`.** Os itens semânticos e as citações estendidas precisam de julgamento
-   com a evidência de `udv_v2` (`challenge/artifacts/udv/udv_v2_annotation_plan.json`).
+2. **Validação humana de `udv_v2`.** Julgar as 104 linhas de
+   `challenge/artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv`; os outros 23
+   itens herdam o rótulo de `udv_v1`. Até lá, a precisão de `udv_v2` é desconhecida.
 3. **Domínio do verificador.** Medir com rótulo humano o efeito de aplicar a UDVs (premissa de uma
    citação ou janela) um verificador ajustado com quatro trechos recuperados.
 4. **Planilhas pendentes.** Revisão de citações e nomes do E6 e checagem manual da tradução.
-5. **Perfis.** Rodada versionada de `bookworm validate-profiles`; página de perfis na demo web.
+5. **Perfis.** Rodada do modelo de simulação sobre `udv_v2` (comando em
+   `challenge/mlx_alternative/README.md`) e revisão manual dos pares da conferência de perfis.
 6. **Artefatos pesados.** Publicar o pacote no GitHub Release e fixar revisões dos modelos MLX.
 7. **Split por comissão**, com a extração do nome da comissão validada antes de virar base de split.
 8. **Itens P1 e P2 não iniciados:** comparação entre audiências, busca sobre as UDVs, EDI, baseline
