@@ -1,8 +1,8 @@
-import { CASE_NOTE, DISCLOSE_HINTS, FINDING_SHORT, findingDetail, findingLine, NO_SECOND_OPINION, NOT_CHECKED_SHORT, questionCopy, SPLIT_GAP, SUMMARY_JOBS, VERIFIER_GAUGE_NOTE, VERIFIER_NONE, verifierLine } from "./copy.js";
+import { CASE_NOTE, DISCLOSE_HINTS, FINDING_SHORT, findingDetail, findingLine, NO_SECOND_OPINION, NOT_CHECKED_SHORT, questionCopy, SPLIT_GAP, SUMMARY_JOBS, unitCopy, VERIFIER_GAUGE_NOTE, VERIFIER_NONE, verifierCut, verifierLine } from "./copy.js";
 import { bindDisclose, discloseBar, discloseEnd } from "./disclose.js";
 import { LAYA_NAMES } from "./data.js";
 import { buildModel } from "./model.js";
-import { clamp, countLabel, esc, firstName, fmtDate, fmtInt, fmtScore, joinPt, markText, plural, seqIndex, tno, wordsOf } from "./text.js";
+import { clamp, countLabel, esc, firstName, fmtCut, fmtDate, fmtInt, fmtScore, joinPt, markText, plural, seqIndex, tno, wordsOf } from "./text.js";
 
 const CONTEXT_SENTENCES = 2;
 const CONTEXT_MAX = 600;
@@ -68,7 +68,8 @@ function quoteMarks(s) {
   return ranges;
 }
 
-function quoteLine(s) {
+function quoteLine(s, M) {
+  const by = M.U.window ? "o trecho foi escolhido pelo sentido." : "a frase foi escolhida pelo sentido.";
   if (!s.u.quotes.length) return "";
   if (!s.resolved) return "As aspas não foram procuradas na fala: a pessoa não foi achada entre quem fala.";
   if (!s.ev) return "As aspas não foram procuradas: não havia frase para comparar.";
@@ -77,8 +78,8 @@ function quoteLine(s) {
     const n = (qd.qi === 0 ? "as " + qd.np + " primeiras" : qd.np) + " das " + qd.nq + " palavras";
     return "Só o começo das aspas foi procurado na fala: " + n + " aparecem nela, seguidas e iguais (em vermelho). As outras palavras das aspas não foram comparadas.";
   }
-  if (s.qsem && s.qsem.np && s.qsem.run >= s.qsem.np) return "O começo das aspas (em vermelho) aparece na fala, mas é curto; a frase foi escolhida pelo sentido.";
-  return "As aspas não aparecem iguais na fala; a frase foi escolhida pelo sentido.";
+  if (s.qsem && s.qsem.np && s.qsem.run >= s.qsem.np) return "O começo das aspas (em vermelho) aparece na fala, mas é curto; " + by;
+  return "As aspas não aparecem iguais na fala; " + by;
 }
 
 function stampHtml(s, M) {
@@ -88,7 +89,7 @@ function stampHtml(s, M) {
 
 function claimHtml(s, M, prof) {
   const u = s.u;
-  const line = quoteLine(s);
+  const line = quoteLine(s, M);
   return (
     '<article class="cs-st"><span class="wl-pin" aria-hidden="true"></span>' +
     '<p class="wl-st-k">Afirmação ' + (s.i + 1) + " de " + M.S.length + " · segundo a matéria,</p>" +
@@ -139,7 +140,7 @@ function passageHtml(s, M) {
     '<article class="cs-pa"><span class="wl-pin is-l" aria-hidden="true"></span><span class="wl-pin is-r" aria-hidden="true"></span><div class="cs-pa-in">' +
     '<p class="wl-pa-h"><span>Turno ' + tno(ev.speaker_turn) + " de " + fmtInt(M.NT) + "</span><span>fala de " + esc(M.speakerName(ev.speaker_turn)) + "</span></p>" +
     '<p class="cs-pa-t">' + (ctx.before ? '<span class="cs-ctx">' + esc(ctx.before) + "</span> " : "") + "<mark>" + evidenceHtml(s, ctx.main) + "</mark>" + (ctx.after ? ' <span class="cs-ctx">' + esc(ctx.after) + "</span>" : "") + "</p>" +
-    '<p class="cs-pa-f">Em amarelo, a frase escolhida; em cinza, as frases em volta, no mesmo turno. Caracteres ' + fmtInt(ev.start_char) + " a " + fmtInt(ev.end_char) + " de " + fmtInt(M.T.length) + ". " +
+    '<p class="cs-pa-f">Em amarelo, ' + esc(M.U.chosen) + "; em cinza, as frases em volta, no mesmo turno. Caracteres " + fmtInt(ev.start_char) + " a " + fmtInt(ev.end_char) + " de " + fmtInt(M.T.length) + ". " +
     esc(s.u.actor.name) + " fala em " + (g.turns.length === 1 ? "um dos " : g.turns.length + " dos ") + fmtInt(M.NT) + " turnos.</p>" +
     "</div></article>"
   );
@@ -152,7 +153,7 @@ function englishHtml(s, H) {
   return (
     '<aside class="cs-en" aria-label="Cópia em inglês">' +
     '<p class="cs-en-k">Cópia em inglês que o verificador leu</p>' +
-    '<p class="cs-en-l">Frase</p><p class="cs-en-t" lang="en">' + esc(tr.premise) + "</p>" +
+    '<p class="cs-en-l">Trecho</p><p class="cs-en-t" lang="en">' + esc(tr.premise) + "</p>" +
     '<p class="cs-en-l">Afirmação</p><p class="cs-en-t" lang="en">' + esc(tr.hypothesis) + "</p>" +
     '<p class="cs-en-f">Tradução automática, feita por ' + esc(model.name) + ". O verificador combina respostas sobre o texto em português e sobre esta cópia; se a tradução errar, as respostas em inglês mudam junto.</p>" +
     "</aside>"
@@ -175,29 +176,46 @@ function whyHtml(s, M) {
   return '<div class="cs-why"><span class="wl-pin" aria-hidden="true"></span><p class="cs-why-h">' + esc(s.tier.label) + '</p><p class="cs-why-t">' + esc(text) + "</p></div>";
 }
 
-function rulerHtml(value, cut, label) {
+function rulerHtml(value, cut, label, alt) {
   const c = pct(cut);
+  const a = alt == null ? "" : pct(alt);
   return (
     '<div class="wl-rul cs-rul" role="img" aria-label="' + esc(label) + '"><div class="wl-rul-bar"><span class="wl-rul-zone" style="left:' + c + '"></span><span class="wl-rul-cut" style="left:' + c + '"></span>' +
+    (alt == null ? "" : '<span class="wl-rul-cut is-alt" style="left:' + a + '"></span>') +
     (value === null ? "" : '<span class="wl-rul-mk" style="left:' + pct(value) + '"></span>') +
-    '</div><div class="wl-rul-ax"><span style="left:0">0</span><span style="left:' + c + '">' + fmtScore(cut) + '</span><span style="left:100%">1</span></div></div>'
+    '</div><div class="wl-rul-ax"><span style="left:0">0</span><span style="left:' + c + '">' + fmtCut(cut) + "</span>" +
+    (alt == null ? "" : '<span class="is-alt" style="left:' + a + '">' + fmtCut(alt) + "</span>") +
+    '<span style="left:100%">1</span></div></div>'
   );
 }
 
-function measureBlock(title, sub, value, cut, above, valueText) {
+function measureBlock(title, sub, value, cut, above, valueText, alt, altLine) {
   const side = value === null ? "" : above ? "acima do corte" : "abaixo do corte";
   return (
     '<div class="cs-m"><p class="cs-m-h">' + esc(title) + '</p><p class="cs-m-s">' + esc(sub) + "</p>" +
-    rulerHtml(value, cut, title + ": " + (value === null ? "sem nota" : "nota " + valueText + ", corte " + fmtScore(cut) + ", " + side)) +
-    '<p class="cs-m-v">' + (value === null ? "Sem nota: a frase foi achada pelas aspas." : "Nota <b>" + esc(valueText) + "</b>, " + side + " (" + fmtScore(cut) + ").") + "</p></div>"
+    rulerHtml(value, cut, title + ": " + (value === null ? "sem nota" : "nota " + valueText + ", corte " + fmtCut(cut) + ", " + side), alt) +
+    '<p class="cs-m-v">' + (value === null ? "Sem nota: o trecho foi achado pelas aspas." : "Nota <b>" + esc(valueText) + "</b>, " + side + " (" + fmtCut(cut) + ").") + "</p>" +
+    (altLine ? '<p class="cs-m-v is-alt">' + esc(altLine) + "</p>" : "") +
+    "</div>"
   );
 }
 
+function verifierSub(M, C) {
+  const base = "Modelo treinado para dizer se um trecho sustenta uma opinião da matéria. Aprendeu com quatro trechos recuperados por opinião e aqui lê " + M.U.read + ".";
+  if (C.train === null) return base + " O corte foi escolhido no treino.";
+  return base + " O corte " + fmtCut(C.cut) + " foi calibrado para trechos de UDV, em pares de audiências de treino (regra " + C.rule + "); o traço cinza marca " + fmtCut(C.train) + ", o corte escolhido no treino do verificador, com os quatro trechos.";
+}
+
+function trainLine(v, C) {
+  if (C.train === null) return "";
+  return "No corte do treino do verificador (" + fmtCut(C.train) + "), a nota fica " + (v.supported ? "acima" : "abaixo") + " dele.";
+}
+
 function agreement(cosAbove, verAbove) {
-  if (cosAbove === null) return "Aqui só o verificador dá nota, e ela fica " + (verAbove ? "acima" : "abaixo") + " do corte dele; a frase veio das aspas, não da semelhança.";
+  if (cosAbove === null) return "Aqui só o verificador dá nota, e ela fica " + (verAbove ? "acima" : "abaixo") + " do corte dele; o trecho veio das aspas, não da semelhança.";
   if (cosAbove && verAbove) return "As duas medidas ficam acima dos seus cortes.";
   if (!cosAbove && !verAbove) return "As duas medidas ficam abaixo dos seus cortes.";
-  if (cosAbove) return "As medidas discordam: pelo cosseno a frase é parecida com a afirmação, mas o verificador fica abaixo do corte dele.";
+  if (cosAbove) return "As medidas discordam: pelo cosseno o trecho é parecido com a afirmação, mas o verificador fica abaixo do corte dele.";
   return "As medidas discordam: a semelhança fica abaixo do corte da execução, mas o verificador passa do corte dele.";
 }
 
@@ -218,7 +236,7 @@ function questionsHtml(s, H) {
   const x = sg.xnli;
   return (
     '<div class="cs-qs"><p class="cs-m-h">Oito perguntas a um modelo de decisão</p>' +
-    '<p class="cs-m-s">A mesma frase e a mesma afirmação, oito perguntas diferentes; a nota vai de 0 a 1, a favor da afirmação. PT leu o texto em português, EN a cópia em inglês. Faixa vermelha: as duas leituras diferem em ' + fmtScore(SPLIT_GAP) + " ou mais.</p>" +
+    '<p class="cs-m-s">O mesmo trecho e a mesma afirmação, oito perguntas diferentes; a nota vai de 0 a 1, a favor da afirmação. PT leu o texto em português, EN a cópia em inglês. Faixa vermelha: as duas leituras diferem em ' + fmtScore(SPLIT_GAP) + " ou mais.</p>" +
     '<table class="cs-qt"><thead><tr><th scope="col">Pergunta</th><th scope="col">PT</th><th scope="col">EN</th></tr></thead><tbody>' + rows + "</tbody></table>" +
     '<p class="cs-xnli">Outro modelo (' + esc(H.signals.scorers.xnli_mdeberta.model.split("/").pop()) + "), no texto em português: implica " + fmtScore(x.entailment) + ", neutra " + fmtScore(x.neutral) + ", contradiz " + fmtScore(x.contradiction) + "." +
     (x.truncated ? " A frase foi cortada para caber nesse modelo." : "") + "</p></div>"
@@ -228,18 +246,15 @@ function questionsHtml(s, H) {
 function measuresHtml(s, H, M) {
   const sg = s.u.signals;
   const v = sg.verifier;
-  const cut = H.signals.verifier.threshold;
+  const C = verifierCut(H.signals);
+  const supported = C.supported(v);
   const cos = s.isQuote ? null : s.ev.score;
   const cosAbove = cos === null ? null : s.tier.k !== "w";
   return (
     '<div class="cs-me">' +
-    measureBlock("Semelhança de sentido", "Cosseno entre a afirmação e a frase escolhida; o corte é o da execução.", cos, M.CUT, cosAbove, cos === null ? "" : fmtScore(cos, M.CUT)) +
-    measureBlock(
-      "Verificador",
-      "Modelo treinado para dizer se um trecho sustenta uma opinião da matéria. Aprendeu com quatro trechos por opinião e aqui lê uma frase só; o corte foi escolhido no treino.",
-      v.probability, cut, v.supported, fmtScore(v.probability, cut),
-    ) +
-    '<p class="cs-agree">' + esc(agreement(cosAbove, v.supported)) + "</p>" +
+    measureBlock("Semelhança de sentido", "Cosseno entre a afirmação e " + M.U.chosen + "; o corte é o da execução.", cos, M.CUT, cosAbove, cos === null ? "" : fmtScore(cos, M.CUT)) +
+    measureBlock("Verificador", verifierSub(M, C), v.probability, C.cut, supported, fmtScore(v.probability, C.cut), C.train, trainLine(v, C)) +
+    '<p class="cs-agree">' + esc(agreement(cosAbove, supported)) + "</p>" +
     questionsHtml(s, H) +
     "</div>"
   );
@@ -249,23 +264,24 @@ function candidatesHtml(s, M) {
   const c = s.u.candidates;
   if (!s.ev || !c.length) return "";
   const ev = s.ev;
+  const U = M.U;
   const chosenAt = c.findIndex((x) => x.start === ev.start_char && x.end === ev.end_char && x.turn === ev.speaker_turn);
   const items = c
     .map((x, r) => {
       const best = r === chosenAt;
       return (
-        "<li" + (best ? ' class="is-best"' : "") + '><span class="cs-rk">' + (r + 1) + '</span><div class="cs-ct"><p class="cs-cx">' + esc(x.text) + '</p><p class="cs-cm">turno ' + tno(x.turn) + (best ? " · <b>a frase escolhida</b>" : "") + "</p></div>" +
+        "<li" + (best ? ' class="is-best"' : "") + '><span class="cs-rk">' + (r + 1) + '</span><div class="cs-ct"><p class="cs-cx">' + esc(x.text) + '</p><p class="cs-cm">turno ' + tno(x.turn) + (best ? " · <b>" + esc(U.best) + "</b>" : "") + "</p></div>" +
         '<div class="cs-cs"><span class="cs-sbar" aria-hidden="true"><i style="width:' + pct(x.score) + '"></i><em style="left:' + pct(M.CUT) + '"></em></span><b>' + fmtScore(x.score, M.CUT) + "</b></div></li>"
       );
     })
     .join("");
   let foot;
-  if (s.isQuote) foot = "A frase escolhida veio das aspas" + (chosenAt >= 0 ? " e é a " + (chosenAt + 1) + "ª desta lista pelo sentido." : ", e não está entre estas " + c.length + " frases mais parecidas pelo sentido.");
-  else if (c.length > 1) foot = "A segunda frase ficou " + fmtGap(c[0].score - c[1].score) + " abaixo da primeira.";
-  else foot = "Só havia esta frase para comparar.";
+  if (s.isQuote) foot = (U.window ? "O trecho escolhido veio das aspas" : "A frase escolhida veio das aspas") + (chosenAt >= 0 ? U.rank(chosenAt + 1) : U.notIn(c.length));
+  else if (c.length > 1) foot = U.gap(fmtGap(c[0].score - c[1].score));
+  else foot = U.only;
   return (
-    '<section class="cs-row" aria-labelledby="cs-h4"><h2 class="cs-h" id="cs-h4"><span class="cs-hn" aria-hidden="true">4</span>Outras frases parecidas que a pessoa disse</h2>' +
-    '<div class="cs-list"><p class="cs-m-s">' + plural(c.length, "A mais parecida", "As " + c.length + " mais parecidas") + " entre as " + countLabel(s.nSent, "frase", "frases") + " de " + esc(s.u.actor.name) + ", pela nota de semelhança; o traço preto na barra é o corte da execução, " + fmtScore(M.CUT) + ".</p>" +
+    '<section class="cs-row" aria-labelledby="cs-h4"><h2 class="cs-h" id="cs-h4"><span class="cs-hn" aria-hidden="true">4</span>' + esc(U.heading) + "</h2>" +
+    '<div class="cs-list"><p class="cs-m-s">' + esc(U.top(c.length)) + " entre " + (U.window ? "os " : "as ") + esc(U.count(s.nSent)) + " de " + esc(s.u.actor.name) + ", pela nota de semelhança; o traço preto na barra é o corte da execução, " + fmtCut(M.CUT) + ".</p>" +
     '<ol class="cs-cands">' + items + '</ol><p class="cs-foot">' + esc(foot) + "</p></div></section>"
   );
 }
@@ -305,8 +321,8 @@ function gaugeHtml(job, answer, t, value, cut, valueText, detail) {
   const bar =
     value === null
       ? '<p class="cs-g-none">' + esc(t === "q" ? "achado pelas aspas" : "sem nota") + "</p>"
-      : '<div class="cs-g-bar" role="img" aria-label="' + esc("nota " + valueText + " de 0 a 1, corte " + fmtScore(cut)) + '"><i data-t="' + t + '" style="width:' + pct(value) + '"></i><em style="left:' + pct(cut) + '"></em></div>' +
-        '<div class="cs-g-ax" aria-hidden="true"><span style="left:0">0</span><span style="left:' + pct(cut) + '">corte ' + fmtScore(cut) + '</span><span style="left:100%">1</span></div>';
+      : '<div class="cs-g-bar" role="img" aria-label="' + esc("nota " + valueText + " de 0 a 1, corte " + fmtCut(cut)) + '"><i data-t="' + t + '" style="width:' + pct(value) + '"></i><em style="left:' + pct(cut) + '"></em></div>' +
+        '<div class="cs-g-ax" aria-hidden="true"><span style="left:0">0</span><span style="left:' + pct(cut) + '">corte ' + fmtCut(cut) + '</span><span style="left:100%">1</span></div>';
   return (
     '<div class="cs-g"><p class="cs-g-q">' + esc(job) + '</p><p class="cs-g-a" data-t="' + t + '">' + esc(answer) + (value === null ? "" : " <b>" + esc(valueText) + "</b>") + "</p>" + bar + '<p class="cs-g-d">' + esc(detail) + "</p></div>"
   );
@@ -316,12 +332,15 @@ function summaryHtml(s, H, M, prof) {
   const u = s.u;
   const scored = !!(H.signals && u.signals && u.signals.scored);
   const v = scored ? u.signals.verifier : null;
-  const vcut = scored ? H.signals.verifier.threshold : null;
+  const C = scored ? verifierCut(H.signals) : null;
+  const vcut = C ? C.cut : null;
+  const vSupported = v ? C.supported(v) : false;
   const vText = v ? fmtScore(v.probability, vcut) : "";
+  const vNote = !v ? NO_SECOND_OPINION : C.train === null ? VERIFIER_GAUGE_NOTE : VERIFIER_GAUGE_NOTE + " Corte calibrado para trechos de UDV; no corte do treino do verificador, " + fmtCut(C.train) + ", a nota fica " + (v.supported ? "acima" : "abaixo") + " dele.";
   const cos = s.ev && !s.isQuote ? s.ev.score : null;
   const cosText = cos === null ? "" : fmtScore(cos, M.CUT);
   const find = findingLine(s.tierName);
-  const vt = v ? (v.supported ? "q" : "w") : "u";
+  const vt = v ? (vSupported ? "q" : "w") : "u";
   const claim =
     '<article class="cs-st cs-s-claim"><span class="wl-pin" aria-hidden="true"></span>' +
     '<p class="wl-st-k">Afirmação ' + (s.i + 1) + " · segundo a matéria,</p>" +
@@ -336,13 +355,13 @@ function summaryHtml(s, H, M, prof) {
       '<p class="cs-pa-t"><mark>' + evidenceHtml(s, s.ev.text) + "</mark></p></div></article>"
     : '<div class="cs-why cs-s-pa"><span class="wl-pin" aria-hidden="true"></span><p class="cs-why-h">' + esc(s.tier.label) + '</p><p class="cs-why-t">' + esc(findingDetail(s.tierName, "", "")) + "</p></div>";
   const gauges =
-    gaugeHtml(SUMMARY_JOBS.find, FINDING_SHORT[s.tierName] || find, s.tier.k, cos, M.CUT, cosText, findingDetail(s.tierName, cosText, fmtScore(M.CUT))) +
+    gaugeHtml(SUMMARY_JOBS.find, FINDING_SHORT[s.tierName] || find, s.tier.k, cos, M.CUT, cosText, findingDetail(s.tierName, cosText, fmtCut(M.CUT))) +
     (s.ev
-      ? gaugeHtml(SUMMARY_JOBS.support, v ? (v.supported ? "Sustenta" : "Não sustenta") : "Não calculado", vt, v ? v.probability : null, vcut, vText, v ? VERIFIER_GAUGE_NOTE : NO_SECOND_OPINION)
+      ? gaugeHtml(SUMMARY_JOBS.support, v ? (vSupported ? "Sustenta" : "Não sustenta") : "Não calculado", vt, v ? v.probability : null, vcut, vText, vNote)
       : '<div class="cs-g"><p class="cs-g-q">' + esc(SUMMARY_JOBS.support) + '</p><p class="cs-g-d">' + esc(VERIFIER_NONE) + "</p></div>");
   return (
     '<div class="wl cs cs-sum"><div class="cs-board cs-s-board">' +
-    '<p class="cs-verdict"><span data-t="' + s.tier.k + '">' + esc(find) + "</span>" + (s.ev ? '<span class="cs-verdict-sep" aria-hidden="true">·</span><span data-t="' + vt + '">' + esc(verifierLine(v, vText)) + "</span>" : "") + "</p>" +
+    '<p class="cs-verdict"><span data-t="' + s.tier.k + '">' + esc(find) + "</span>" + (s.ev ? '<span class="cs-verdict-sep" aria-hidden="true">·</span><span data-t="' + vt + '">' + esc(verifierLine(v, vText, vSupported)) + "</span>" : "") + "</p>" +
     '<div class="cs-s-grid">' + claim + passage + '<div class="cs-me cs-s-g">' + gauges + '<p class="cs-s-note">' + esc(NOT_CHECKED_SHORT) + "</p></div></div>" +
     "</div>" + discloseBar("case", "cs-more", DISCLOSE_HINTS.case) + "</div>"
   );
@@ -350,6 +369,7 @@ function summaryHtml(s, H, M, prof) {
 
 export function renderCase(host, H, n, profileOf) {
   const M = buildModel(H);
+  M.U = unitCopy(H.run);
   const s = M.S[n - 1];
   if (!s) return null;
   const scored = !!(H.signals && s.u.signals && s.u.signals.scored);

@@ -173,16 +173,24 @@ foi escolhida e quais trechos ficaram perto dela. Chaves de primeiro nível, nes
 | `turns[].sentences[]` | lista | Sentenças candidatas do turno, na ordem do texto, com `text`, `start` e `end`; os offsets são procurados só nesse turno e ficam `null` se o texto não for encontrado nele. |
 | `people[]` | lista | Participantes de `envolvidos`, na ordem do LDS: `index`, `name`, `role`, `turns` (índices dos turnos atribuídos) e `resolved` (pelo menos um turno). |
 | `udvs[]` | lista | Os registros UDV da audiência, lidos de `<run>.jsonl`, com os campos de `UdvRecord` na mesma ordem e três campos a mais (quatro com `--verifier-report`, que acrescenta `signals` no fim). |
-| `udvs[].candidates[]` | lista | Até `--top-k` (padrão 8) sentenças candidatas do participante, em ordem decrescente de similaridade de cosseno com a opinião, calculada com os embeddings que `build-udvs` gravou no cache para a execução; empates ficam na ordem das sentenças. Cada uma tem `text`, `score` (arredondado a 4 casas), `turn`, `start` e `end`. Vazia quando o participante não tem sentença candidata. |
-| `udvs[].n_candidates` | inteiro | Número de sentenças candidatas do participante. |
+| `udvs[].candidates[]` | lista | Até `--top-k` (padrão 8) unidades candidatas do participante, em ordem decrescente de similaridade de cosseno com a opinião, calculada com os embeddings que `build-udvs` gravou no cache para a execução; empates ficam na ordem das unidades. A unidade é a de `semantic_unit` na configuração: a sentença, ou a janela de sentenças seguidas do mesmo turno (`window2` em `udv_v2`), com o texto do trecho da transcrição que ela cobre. Cada uma tem `text`, `score` (arredondado a 4 casas), `turn`, `start` e `end`. Vazia quando o participante não tem sentença candidata. |
+| `udvs[].n_candidates` | inteiro | Número de unidades candidatas do participante. |
 | `udvs[].quotes` | lista de texto | Citações extraídas da opinião com os padrões da rodada, na ordem da opinião. |
 | `run.name` | texto | Nome da execução. |
 | `run.encoder`, `run.revision`, `run.threshold` | texto, texto, número | `method.encoder`, `method.revision` e `method.embedding_threshold` dos registros. |
+| `run.semantic_unit`, `run.quote_extent` | texto | Só quando a configuração muda o padrão: a unidade candidata (`window2` em `udv_v2`) e a extensão da evidência de citação (`full_quote` em `udv_v2`). Sem elas, a execução usa sentenças e a sentença do começo da citação, e os bytes do arquivo são os de antes desses campos existirem. |
 
 Os offsets contam caracteres Unicode, como os índices de `str` do Python. Um navegador indexa texto em
 unidades UTF-16, e as duas contagens passam a diferir depois do primeiro caractere fora do plano básico
 (um emoji, por exemplo); por isso a demonstração web recusa um arquivo em que `transcript_chars` não é
 igual ao tamanho da transcrição medido por ela.
+
+O comando lê a execução com a configuração passada em `--config` e confere que a seção `pipeline` do
+arquivo de cobertura é a que essa configuração descreve (`pipeline_description` com `semantic_unit`,
+`quote_extent` e a política de citações) e que o `embedding_threshold` gravado é o da configuração; se
+não for, para com código 2 e diz em que campos a execução difere. Assim `udv_v1` se exporta com
+`configs/udv.toml` e `udv_v2` com `configs/udv_v2.toml`, e nenhuma das duas com a configuração da
+outra.
 
 Nas UDV semânticas, o primeiro candidato é a própria evidência: mesmo texto, turno e offsets, e
 `score` igual ao da evidência arredondado a 4 casas. Em `quote_found` os candidatos continuam sendo os
@@ -227,6 +235,7 @@ ou um texto que precisa de tradução não está no cache.
 | `verifier.threshold` | número | O corte da probabilidade, ajustado no conjunto indicado a seguir. |
 | `verifier.threshold_fitted_on` | texto | Conjunto em que o corte foi ajustado (`train` para `udv_v1`). |
 | `verifier.report_sha256` | texto | sha256 do relatório lido. |
+| `verifier.udv_threshold` | objeto | Só quando o relatório tem um corte para premissas de UDV (`udv_v2_verifier_report.json`): `value` (o corte exato, 0,2428652… em `udv_v2`), `rounded` (0,2429), `rule` (`legacy_random`), `interval` (intervalo de bootstrap por audiência, `[0,221, 0,2782]`) e `source` (`artifacts/calibration/udv_verifier_threshold_v1.json`). A página usa esse corte como principal e mostra `threshold` (0,7478, o corte do treino no benchmark NLI) como segundo traço. |
 | `scorers.<nome>` | objeto | Para `laya_multi_pt`, `laya_en_en` e `xnli_mdeberta`: `model`, `revision` e `language` (`pt` ou `en`, a língua do texto que o modelo leu). |
 | `translation` | objeto | `name`, `revision` e `license` do modelo de tradução. |
 | `questions[]` | lista | As perguntas Laya, na ordem das notas: `id`, `type` (`choice`, `noul` para sim ou não, `score` para escala), `instructions` e `options` como o modelo as recebeu, `support_option` (a opção que favorece a afirmação nas perguntas de escolha; `null` nas outras) e `reverses` (o id da pergunta cujas opções esta apresenta em ordem inversa, ou `null`). |
@@ -238,6 +247,7 @@ ou um texto que precisa de tradução não está no cache.
 | `scored` | booleano | Verdadeiro quando o verificador deu nota à UDV, o que acontece exatamente nas UDV com `evidence`. Quando é falso, os outros quatro campos são `null`. |
 | `verifier.probability` | número | Probabilidade de o trecho sustentar a opinião, segundo o verificador. |
 | `verifier.supported` | booleano | Cópia de `supported_at_train_threshold` da saída do verificador, que é `probability >= verifier.threshold`; a demonstração web recusa o arquivo se as duas coisas diferirem. |
+| `verifier.supported_at_udv_threshold` | booleano | Só com `verifier.udv_threshold`: cópia do campo de mesmo nome da saída do verificador, conferida contra `probability >= udv_threshold.value`; o comando para com código 2, e a página recusa o arquivo, se as duas coisas diferirem. |
 | `laya.laya_multi_pt`, `laya.laya_en_en` | objeto | Um número de 0 a 1 por id de pergunta, a favor da afirmação, lido de `items[0].signals` do arquivo de notas: nas perguntas de escolha, a probabilidade da `support_option`; nas de sim ou não, a de sim; nas de escala, o nível esperado dividido por 4. `laya_multi_pt` leu a frase e a opinião em português; `laya_en_en`, as cópias em inglês. |
 | `xnli` | objeto | `entailment`, `neutral` e `contradiction` do outro modelo de NLI, que leu o texto em português, e `truncated` (se a entrada foi cortada). |
 | `translation.premise`, `translation.hypothesis` | texto | As cópias em inglês que `laya_en_en` leu: a frase da evidência, dividida em segmentos como na tradução e com os segmentos traduzidos unidos por espaço, e a opinião traduzida inteira. |
@@ -279,7 +289,7 @@ ou cujo bloco `run` difere do dele.
 
 | Campo | Tipo | Conteúdo |
 |---|---|---|
-| `run` | objeto | O bloco `run` dos arquivos de audiência (`name`, `encoder`, `revision`, `threshold`). Precisa ser igual em todas as audiências; se não for, o comando para com código 2. |
+| `run` | objeto | O bloco `run` dos arquivos de audiência (`name`, `encoder`, `revision`, `threshold` e, quando existem, `semantic_unit` e `quote_extent`). Precisa ser igual em todas as audiências; se não for, o comando para com código 2. |
 | `hearings[]` | lista | Uma entrada por audiência da execução, em ordem crescente de `id`, com as chaves na ordem desta tabela. |
 | `hearings[].id`, `hearings[].split`, `hearings[].article_date`, `hearings[].assunto` | inteiro, texto ou `null`, texto ou `null`, texto | Cópias dos campos de mesmo nome em `hearing` do arquivo da audiência. |
 | `hearings[].title` | texto | Título curto para exibição, pela regra descrita abaixo. |

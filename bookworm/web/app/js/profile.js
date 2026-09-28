@@ -1,7 +1,7 @@
 import { CLAIM_STATES, claimState, DISCLOSE_HINTS, PROFILE_BADGES, PROFILE_MATCH_NOTE, PROFILE_NOTE, PROFILE_NOTE_SHORT, PROFILE_TOP_NOTE, PROFILE_TOP_TITLE, SPLIT_NAMES, tierOf, UDV_RULES } from "./copy.js";
 import { bindDisclose, discloseBar, discloseEnd } from "./disclose.js";
 import { caseHash } from "./case.js";
-import { countLabel, esc, fmtDate, fmtInt, fmtScore, joinPt, plural, shorten, tno } from "./text.js";
+import { countLabel, esc, fmtCut, fmtDate, fmtInt, fmtScore, joinPt, plural, shorten, tno } from "./text.js";
 
 const CLAIM_SHORT = 220;
 const QUOTE_MAX = 260;
@@ -65,7 +65,7 @@ function pct(n, total) {
 
 function verifierText(v, cut) {
   if (!v) return "verificador não calculado";
-  const side = cut == null ? "" : v.supported ? ", acima do corte " + fmtScore(cut) : ", abaixo do corte " + fmtScore(cut);
+  const side = cut == null ? "" : v.supported ? ", acima do corte " + fmtCut(cut) : ", abaixo do corte " + fmtCut(cut);
   return "verificador " + fmtScore(v.probability, cut == null ? undefined : cut) + side;
 }
 

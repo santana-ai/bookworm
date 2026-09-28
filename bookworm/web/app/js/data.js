@@ -92,6 +92,8 @@ const SIGNALS_RUN = {
   questions: [{ id: STR, type: STR, instructions: STR }],
 };
 
+const UDV_THRESHOLD = { value: PROB, rounded: PROB, rule: STR, interval: [PROB], source: STR };
+
 const UDV_SIGNALS = {
   scored: BOOL,
   verifier: { nullable: { probability: PROB, supported: BOOL } },
@@ -179,6 +181,9 @@ function checkSignals(url, data, bad) {
   const ids = data.signals.questions.map((q) => q.id);
   if (!ids.length || new Set(ids).size !== ids.length) bad("signals.questions", "vazia ou com perguntas repetidas");
   const cut = data.signals.verifier.threshold;
+  const udv = data.signals.verifier.udv_threshold;
+  if (udv !== undefined) walk(url, udv, UDV_THRESHOLD, "signals.verifier.udv_threshold");
+  const udvCut = udv === undefined ? null : udv.value;
   data.udvs.forEach((u, i) => {
     const at = "udvs[" + i + "].signals";
     if (!("signals" in u)) bad(at, "campo ausente");
@@ -189,6 +194,7 @@ function checkSignals(url, data, bad) {
     if (sg.scored !== (u.evidence !== null)) bad(at + ".scored", "não corresponde à evidência");
     if (!sg.scored) return;
     if (sg.verifier.supported !== (sg.verifier.probability >= cut)) bad(at + ".verifier.supported", "não corresponde à nota e ao corte");
+    if (udvCut !== null && sg.verifier.supported_at_udv_threshold !== (sg.verifier.probability >= udvCut)) bad(at + ".verifier.supported_at_udv_threshold", "não corresponde à nota e ao corte das UDVs");
     LAYA_NAMES.forEach((name) => {
       ids.forEach((q) => {
         if (!PROB(sg.laya[name][q])) bad(at + ".laya." + name + "." + q, "esperava " + PROB.want);

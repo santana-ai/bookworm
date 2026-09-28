@@ -181,15 +181,20 @@ alfabética, a mesma regra de `build-udvs`.
   `score`, ou `null`, e `udv` com `id`, `rule` e `score`, ou `null`); `hearings` (`id`, `split`,
   `article_date`, `title`, `assunto`, `turns`, `in_profile`, `udvs`); `udvs` (`id`, `hearing_id`, `n`,
   `article_name`, `proposition`, `tier`, `evidence`, `verifier` com `probability` e `supported` ou
-  `null`, `in_profile`); e `verifier_threshold`.
+  `null`, `in_profile`); e `verifier_threshold`, o corte da decisão em `verifier.supported` (o corte
+  para premissas de UDV quando o relatório do verificador tem um, 0,2429 em `udv_v2`; senão, o corte do
+  treino).
 
 O `slug` vem do nome sem acentos, em minúsculas, com hífens; nomes que colidem ganham `-2`, `-3`.
 
-**Números da rodada `qwen38_27b` de treino.** Com `udv_v1` e o relatório do verificador: 264 perfis,
-4.928 itens; 144 itens ligados a uma UDV (111 por `same_sentence`, 33 por `similar_text`), 4.348 só com
-frase e 436 sem frase. 660 UDVs têm como dono um ator com perfil; 193 atores têm pelo menos uma UDV, mas só 95
-têm algum item ligado a uma delas. Os perfis ocupam cerca de 4,8 MB (`profiles/` e `actors.json`), e a exportação
-inteira, 85,5 MB. Esses números saem do resumo JSON que o comando imprime.
+**Números da rodada `qwen38_27b` de treino.** Com `udv_v2` e o relatório do verificador, o resumo
+que o comando imprime, gravado em
+[`challenge/artifacts/web/export_site_udv_v2.json`](../../challenge/artifacts/web/export_site_udv_v2.json),
+dá 264 perfis e 4.928 itens: 202 itens ligados a uma UDV, 4.290 só com frase e 436 sem frase. 660 UDVs
+têm como dono um ator com perfil. A exportação inteira, com os perfis, ocupa 88.438.867 bytes. Os
+perfis foram gerados das falas de treino, que não dependem da execução de UDV; entre `udv_v1` e
+`udv_v2` muda só a ligação dos itens às UDVs, já que `same_sentence` compara a frase escolhida com a
+evidência da UDV, e a evidência semântica de `udv_v2` é uma janela de duas frases.
 
 ## Retomada e falhas
 

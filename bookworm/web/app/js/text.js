@@ -26,6 +26,12 @@ export function fmtScore(x, cut) {
   return shown.toFixed(digits).replace(".", ",");
 }
 
+export function fmtCut(x) {
+  let digits = SCORE_DIGITS;
+  while (digits < SCORE_MAX_DIGITS && Math.abs(roundTo(x, digits) - x) > 1e-9) digits += 1;
+  return roundTo(x, digits).toFixed(digits).replace(".", ",");
+}
+
 export function joinPt(items) {
   if (items.length < 2) return items.join("");
   return items.slice(0, -1).join(", ") + " e " + items[items.length - 1];

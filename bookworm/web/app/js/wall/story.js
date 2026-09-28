@@ -1,3 +1,4 @@
+import { unitCopy } from "../copy.js";
 import { clamp, countLabel, esc, fmtInt, fmtScore, joinPt, plural, tno } from "../text.js";
 import { cadId, paId, peId, stId } from "./objects.js";
 
@@ -378,20 +379,22 @@ export function installStory(w) {
       return pre + name + " fala em " + (n === 1 ? "um dos " : n + " dos ") + fmtInt(M.NT) + " turnos da audiência. O caderno ao lado junta essas falas, na ordem em que aconteceram, e " + eachDash(g) + "; o fio pontilhado liga os dois.";
     }
     if (id === "search") {
-      const N = countLabel(s.nSent, "frase", "frases");
+      const U = unitCopy(M.RUN);
+      const N = U.count(s.nSent);
+      const each = U.window ? " com cada um dos " : " com cada uma das ";
       if (!ev) return name + " fala em " + countLabel(s.turns.length, "turno", "turnos") + ", mas nenhuma frase tem pelo menos 4 palavras. Não há frase para comparar com o cartão.";
-      if (s.isQuote) return "A matéria põe a frase entre aspas. Então procuramos o começo das aspas, palavra por palavra, nas " + N + " de " + name + ".";
+      if (s.isQuote) return "A matéria põe a frase entre aspas. Então procuramos o começo das aspas, palavra por palavra, " + (U.window ? "nos " : "nas ") + N + " de " + name + ".";
       if (s.qsem) {
         const qs = s.qsem;
         return (
           (qs.np && qs.run >= qs.np
             ? "O começo das aspas, “" + qs.prefix + "”, aparece na fala, mas é curto; então comparamos pelo sentido"
             : "A matéria põe a frase entre aspas, mas o começo das aspas não aparece igual na fala; então comparamos pelo sentido") +
-          " com cada uma das " + N + " de " + name + "."
+          each + N + " de " + name + "."
         );
       }
       const top = Math.min(8, u.candidates.length);
-      return "Comparamos o sentido do cartão com cada uma das " + N + " de " + name + ". " + plural(top, "A mais parecida fica", "As " + top + " mais parecidas ficam") + " em vermelho no caderno; as outras apagam.";
+      return "Comparamos o sentido do cartão" + each + N + " de " + name + ". " + U.top(top) + plural(top, " fica", " ficam") + " em vermelho no caderno; " + (U.window ? "os outros apagam." : "as outras apagam.");
     }
     if (id === "passage") {
       const t = tno(ev.speaker_turn);

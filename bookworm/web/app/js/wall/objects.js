@@ -1,4 +1,4 @@
-import { NOT_CHECKED } from "../copy.js";
+import { NOT_CHECKED, unitCopy } from "../copy.js";
 import { clamp, countLabel, esc, firstName, fmtInt, fmtScore, joinPt, markText, plural, shorten, tno } from "../text.js";
 
 export const stId = (i) => "st" + i;
@@ -212,14 +212,15 @@ export function installObjects(w) {
         '<p class="wl-qm-n">' + quoteCount(qd) + " entre aspas aparecem na fala, seguidas e iguais</p>";
     } else {
       const c = s.u.candidates.slice(0, 8);
+      const U = unitCopy(M.RUN);
       h =
-        '<p class="wl-sh-h">Busca pelo sentido · <b>' + esc(countLabel(s.nSent, "frase", "frases")) + " de " + esc(name) + "</b></p>" +
+        '<p class="wl-sh-h">Busca pelo sentido · <b>' + esc(U.count(s.nSent)) + " de " + esc(name) + "</b></p>" +
         (c.length
           ? '<ol class="wl-slips">' +
             c.map((x, r) => '<li data-r="' + r + '"' + (s.ev && x.start === s.ev.start_char ? ' class="is-best"' : "") + "><b>" + fmtScore(x.score, M.CUT) + "</b><span>" + esc(x.text) + "</span><em>turno " + tno(x.turn) + "</em></li>").join("") +
             "</ol>"
           : '<p class="wl-sh-note">Não havia frase de ' + esc(name) + " com pelo menos 4 palavras para comparar.</p>") +
-        (c.length ? '<p class="wl-sh-note">' + plural(c.length, "A mais parecida", "As " + c.length + " mais parecidas") + ", da nota maior para a menor. Quanto mais perto de 1, mais parecido o sentido; a nota não é a chance de estar certo.</p>" : "");
+        (c.length ? '<p class="wl-sh-note">' + esc(U.top(c.length)) + ", da nota maior para a menor. Quanto mais perto de 1, mais parecido o sentido; a nota não é a chance de estar certo.</p>" : "");
     }
     box.innerHTML = h;
   }

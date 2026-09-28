@@ -1,4 +1,4 @@
-import { countLabel, joinPt } from "./text.js";
+import { countLabel, joinPt, plural } from "./text.js";
 
 const TIERS = {
   quote_found: { k: "q", label: "Achamos o começo das aspas na fala", short: "aspas na fala", tag: "começo das aspas" },
@@ -42,21 +42,21 @@ export const NOT_CHECKED =
 export const NOT_CHECKED_SHORT = "Resultados de um procedimento automático, que ainda não foram conferidos por uma pessoa: servem de pista, não de prova.";
 
 export const CASE_NOTE =
-  "As notas vêm de modelos e nenhuma é a chance de a afirmação estar certa; uma nota baixa diz só que a frase escolhida dá pouco apoio a ela.";
+  "As notas vêm de modelos e nenhuma é a chance de a afirmação estar certa; uma nota baixa diz só que o trecho escolhido dá pouco apoio a ela.";
 
 export const NO_SECOND_OPINION = "A segunda opinião, a do verificador, não foi calculada nesta exportação.";
 
 export const SPLIT_GAP = 0.3;
 
 const QUESTIONS = {
-  p1_nli: { text: "A frase implica a afirmação, é neutra ou a contradiz?", value: "chance de “implica”" },
+  p1_nli: { text: "O trecho implica a afirmação, é neutro ou a contradiz?", value: "chance de “implica”" },
   p2_nli_reversed: { text: "A mesma pergunta, com as opções na ordem inversa", value: "chance de “implica”" },
-  p3_inferable: { text: "Dá para inferir a afirmação a partir da frase?", value: "chance de “sim”" },
-  p4_supports: { text: "A frase sustenta a afirmação?", value: "chance de “sim”" },
-  p5_position: { text: "Que posição a frase toma sobre o que a afirmação diz?", value: "chance de “a mesma posição”" },
+  p3_inferable: { text: "Dá para inferir a afirmação a partir do trecho?", value: "chance de “sim”" },
+  p4_supports: { text: "O trecho sustenta a afirmação?", value: "chance de “sim”" },
+  p5_position: { text: "Que posição o trecho toma sobre o que a afirmação diz?", value: "chance de “a mesma posição”" },
   p6_position_reversed: { text: "A mesma pergunta, com as opções na ordem inversa", value: "chance de “a mesma posição”" },
-  p7_coverage: { text: "Quanto da afirmação está dito na frase?", value: "de nada (0) a tudo (1)" },
-  p8_similarity: { text: "Quão parecidos no sentido são a frase e a afirmação?", value: "de nada (0) a mesmo sentido (1)" },
+  p7_coverage: { text: "Quanto da afirmação está dito no trecho?", value: "de nada (0) a tudo (1)" },
+  p8_similarity: { text: "Quão parecidos no sentido são o trecho e a afirmação?", value: "de nada (0) a mesmo sentido (1)" },
 };
 
 export function questionCopy(q) {
@@ -93,7 +93,7 @@ export const DISCLOSE = { open: "Ver análise completa", close: "Recolher" };
 export const DISCLOSE_HINTS = {
   home: "Aqui estão as primeiras; a lista completa segue a mesma ordem e a mesma busca.",
   wall: "Como ler os fios, todas as afirmações desta matéria, a busca por palavras na audiência e as notas de método.",
-  case: "As frases em volta, as duas notas com seus cortes, as oito perguntas ao modelo, a cópia em inglês e as outras frases parecidas.",
+  case: "As frases em volta, as duas notas com seus cortes, as oito perguntas ao modelo, a cópia em inglês e os outros trechos parecidos.",
   profile: "Todos os itens do perfil, a evidência de cada um, as audiências, as afirmações das matérias e como o perfil foi feito.",
   atlas: "Todos os perfis de atores e todas as audiências, com quem a matéria cita em cada uma.",
   reader: "As frases antes e depois, no mesmo ponto da transcrição.",
@@ -119,12 +119,59 @@ export function findingDetail(tierName, cosText, cutText) {
   return "Pode ser que não tenha falado ou que apareça com outro nome.";
 }
 
-export function verifierLine(v, text) {
+export function verifierLine(v, text, supported) {
   if (!v) return "verificador: não calculado";
-  return "verificador: " + (v.supported ? "sustenta" : "não sustenta") + " (" + text + ")";
+  return "verificador: " + (supported ? "sustenta" : "não sustenta") + " (" + text + ")";
 }
 
 export const VERIFIER_GAUGE_NOTE = "Nota de 0 a 1 com corte; não é a chance de a afirmação estar certa.";
+
+const SENTENCE_UNIT = {
+  window: false,
+  chosen: "a frase escolhida",
+  Chosen: "A frase escolhida",
+  read: "uma frase só",
+  heading: "Outras frases parecidas que a pessoa disse",
+  count: (n) => countLabel(n, "frase", "frases"),
+  top: (n) => plural(n, "A mais parecida", "As " + n + " mais parecidas"),
+  rank: (r) => " e é a " + r + "ª desta lista pelo sentido.",
+  notIn: (n) => ", e não está entre estas " + n + " frases mais parecidas pelo sentido.",
+  gap: (g) => "A segunda frase ficou " + g + " abaixo da primeira.",
+  only: "Só havia esta frase para comparar.",
+  best: "a frase escolhida",
+};
+
+const WINDOW_SIZES = { window2: "duas", window3: "três" };
+
+function windowUnit(size) {
+  const what = size + " frases seguidas do mesmo turno";
+  return {
+    window: true,
+    chosen: "o trecho escolhido (" + what + ")",
+    Chosen: "O trecho escolhido, " + what,
+    read: "um trecho de " + size + " frases",
+    heading: "Outros trechos parecidos que a pessoa disse",
+    count: (n) => countLabel(n, "trecho de " + size + " frases", "trechos de " + size + " frases"),
+    top: (n) => plural(n, "O mais parecido", "Os " + n + " mais parecidos"),
+    rank: (r) => " e é o " + r + "º desta lista pelo sentido.",
+    notIn: (n) => ", e não está entre estes " + n + " trechos mais parecidos pelo sentido (as aspas podem cobrir mais de duas frases).",
+    gap: (g) => "O segundo trecho ficou " + g + " abaixo do primeiro.",
+    only: "Só havia este trecho para comparar.",
+    best: "o trecho escolhido",
+  };
+}
+
+export function unitCopy(run) {
+  const size = run && WINDOW_SIZES[run.semantic_unit];
+  return size ? windowUnit(size) : SENTENCE_UNIT;
+}
+
+export function verifierCut(signals) {
+  const v = signals.verifier;
+  const udv = v.udv_threshold;
+  if (!udv) return { cut: v.threshold, train: null, supported: (d) => d.supported };
+  return { cut: udv.value, train: v.threshold, rule: udv.rule, supported: (d) => d.supported_at_udv_threshold };
+}
 
 export const VERIFIER_NONE = "Sem trecho, o verificador não tem o que ler.";
 

@@ -15,16 +15,23 @@ A página não recalcula nada: ela lê arquivos JSON gravados pela biblioteca. O
 grava um arquivo por audiência (`hearings/<id>.json`, o mesmo formato de `export-hearing`) e um
 `index.json` com o resumo que a lista de matérias usa. Ele lê os embeddings só do cache gravado por
 `build-udvs`, então não carrega modelo. O comando roda a partir da pasta do projeto que tem
-`configs/udv.toml`, porque os caminhos do TOML são relativos a ela. Neste repositório essa pasta é
+`configs/udv_v2.toml`, porque os caminhos do TOML são relativos a ela. Neste repositório essa pasta é
 `challenge/`, cujo ambiente não tem a biblioteca instalada; `--project ../bookworm` usa o ambiente de
 `bookworm/` sem sair de `challenge/`:
 
 ```bash
 cd challenge
-uv run --project ../bookworm bookworm export-site --config configs/udv.toml --run-name udv_v1 \
+uv run --project ../bookworm bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 \
     --split-manifest artifacts/splits/temporal_v1.json \
-    --verifier-report artifacts/udv/udv_v1_verifier_report.json
+    --verifier-report artifacts/udv/udv_v2_verifier_report.json
 ```
+
+`udv_v2` é a execução final; `udv_v1` continua exportável com `--config configs/udv.toml --run-name
+udv_v1` e o relatório `udv_v1_verifier_report.json`. O comando confere a execução contra a configuração
+passada em `--config`: a seção `pipeline` do arquivo de cobertura precisa ser a que essa configuração
+descreve (unidade candidata, extensão da citação e padrões de aspas) e o corte de cosseno precisa ser o
+dela. Com a configuração de outra execução, o comando para com código 2 e diz em que campos elas
+diferem.
 
 `--verifier-report` é opcional. Com ele, cada afirmação ganha o bloco `signals` que a pasta da
 afirmação mostra (a nota do verificador, as oito perguntas e a cópia em inglês que o verificador leu);
@@ -41,9 +48,9 @@ rodada que a página mostra (por padrão, o nome do arquivo). Para os perfis de 
 
 ```bash
 cd challenge
-uv run --project ../bookworm bookworm export-site --config configs/udv.toml --run-name udv_v1 \
+uv run --project ../bookworm bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 \
     --split-manifest artifacts/splits/temporal_v1.json \
-    --verifier-report artifacts/udv/udv_v1_verifier_report.json \
+    --verifier-report artifacts/udv/udv_v2_verifier_report.json \
     --profiles mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl \
     --profiles-run qwen38_27b --actors-config configs/hearing_actors.toml
 ```
@@ -61,8 +68,9 @@ faltar um arquivo do cache, o comando para com código 2 e diz qual é.
 
 Sem `--output`, os arquivos vão para `bookworm/web/app/data/` da árvore de código de onde a biblioteca
 foi instalada; `--output` escolhe outro diretório, e `--overwrite` regrava uma exportação existente. A
-pasta `app/data/` está no `.gitignore` porque os arquivos contêm as transcrições inteiras (cerca de
-77 MB para `udv_v1`, ou 81 MB com `--verifier-report`). O formato dos arquivos está em
+pasta `app/data/` está no `.gitignore` porque os arquivos contêm as transcrições inteiras: 88.438.867
+bytes para `udv_v2` com `--verifier-report` e os perfis, segundo o resumo gravado em
+[`challenge/artifacts/web/export_site_udv_v2.json`](../../challenge/artifacts/web/export_site_udv_v2.json). O formato dos arquivos está em
 [`docs/data_model.md`](../docs/data_model.md#diretório-de-demonstração-export-site).
 
 Antes de desenhar, a página confere cada arquivo contra esse formato: todos os campos que ela usa, com
@@ -91,7 +99,7 @@ de arquivos serve; com Python:
 
 ```bash
 cd bookworm/web/app
-python -m http.server 8000
+python3 -m http.server 8000
 ```
 
 Depois, abra `http://localhost:8000/`. Cada audiência tem um endereço próprio, `#h` seguido do número
@@ -124,7 +132,7 @@ funciona igual.
 | --- | --- | --- |
 | Lista de matérias | Busca, ordem, sorteio, a legenda dos quadradinhos e as 12 primeiras matérias da ordem e da busca atuais. | As outras matérias, na mesma ordem. |
 | Mural da audiência | Manchete, os números (afirmações, pessoas, quantas em cada resultado), os perfis de quem fala, o aviso curto e a parede com a história. | Como ler os fios, o aviso completo, os atalhos de teclado, "Pergunte à audiência" e a lista de todas as afirmações, cada uma com link para a sua pasta. |
-| Pasta da afirmação | Uma linha de veredito com as duas perguntas separadas ("Trecho encontrado por citação direta · verificador: sustenta (0,91)"), o cartão da afirmação, só a frase escolhida em amarelo e dois medidores: "Onde está o trecho?" (resultado da busca e cosseno com o corte) e "O trecho sustenta a afirmação?" (nota do verificador com o corte). | As fichas de todas as afirmações, o aviso sobre as notas e a pasta inteira descrita abaixo. |
+| Pasta da afirmação | Uma linha de veredito com as duas perguntas separadas ("Trecho encontrado por citação direta · verificador: sustenta (0,91)"), o cartão da afirmação, só o trecho escolhido em amarelo e dois medidores: "Onde está o trecho?" (resultado da busca e cosseno com o corte) e "O trecho sustenta a afirmação?" (nota do verificador com o corte). | As fichas de todas as afirmações, o aviso sobre as notas e a pasta inteira descrita abaixo. |
 | Perfil | Nome, cargo, duas frases de síntese calculadas a partir dos dados, os números de participação, o selo de texto gerado por modelo e três posições, cada uma com um selo da evidência. | O dossiê inteiro descrito abaixo. |
 | Mapa do caso | Os números da exportação, a busca, os quatro atores com mais afirmações nas matérias e as três audiências mais recentes; com uma busca, os primeiros resultados. | Todos os perfis e todas as audiências. |
 | Leitor da transcrição | Só a frase marcada, com o turno e quem fala. | As frases antes e depois e os botões "Ler mais antes" e "Ler mais depois". |
@@ -181,9 +189,9 @@ lidas da esquerda para a direita em telas largas e uma embaixo da outra no celul
 | Parte | O que mostra |
 | --- | --- |
 | O que a matéria diz | O cartão da afirmação, com a pessoa, o cargo e o carimbo. Quando há aspas, a citação inteira aparece sublinhada, com as palavras achadas na fala marcadas, e uma linha diz que só o começo das aspas foi procurado. |
-| O que a pessoa disse | A frase escolhida em amarelo, no meio de até duas frases antes e duas depois do mesmo turno (até 600 caracteres de cada lado), com o turno e a posição na transcrição. Embaixo, menor, a cópia em inglês que o verificador leu, marcada como tradução automática, com o nome do modelo. |
-| O que as medidas dizem | A régua do cosseno com o corte da execução, a régua do verificador com o corte escolhido no treino, uma frase dizendo se as duas medidas ficam do mesmo lado dos seus cortes, a tabela das oito perguntas (a pergunta em pt-BR, o valor na leitura em português e na cópia em inglês) e a linha do outro modelo de NLI. Uma linha da tabela fica marcada em vermelho quando as duas leituras diferem em 0,30 ou mais. |
-| Outras frases parecidas que a pessoa disse | As frases candidatas, em ordem de nota, com uma barra por nota e o corte marcado; a escolhida fica destacada, e a última linha diz a distância da segunda para a primeira (ou, em `quote_found`, em que posição a frase escolhida pelas aspas ficaria pelo sentido). |
+| O que a pessoa disse | O trecho escolhido em amarelo (uma frase em `udv_v1`, duas frases seguidas ou a citação inteira em `udv_v2`), no meio de até duas frases antes e duas depois do mesmo turno (até 600 caracteres de cada lado), com o turno e a posição na transcrição. Embaixo, menor, a cópia em inglês que o verificador leu, marcada como tradução automática, com o nome do modelo. |
+| O que as medidas dizem | A régua do cosseno com o corte da execução, a régua do verificador com o seu corte (em `udv_v2`, o corte para premissas de UDV, 0,2429, com o corte do treino no benchmark NLI, 0,7478, num segundo traço cinza e numa linha que diz de que lado dele a nota fica), uma frase dizendo se as duas medidas ficam do mesmo lado dos seus cortes, a tabela das oito perguntas (a pergunta em pt-BR, o valor na leitura em português e na cópia em inglês) e a linha do outro modelo de NLI. Uma linha da tabela fica marcada em vermelho quando as duas leituras diferem em 0,30 ou mais. |
+| Outras frases (ou trechos) parecidos que a pessoa disse | As unidades candidatas da execução (frases em `udv_v1`, janelas de duas frases em `udv_v2`), em ordem de nota, com uma barra por nota e o corte marcado; a escolhida fica destacada, e a última linha diz a distância da segunda para a primeira (ou, em `quote_found`, em que posição a frase escolhida pelas aspas ficaria pelo sentido). |
 
 Uma afirmação sem trecho (`no_evidence`, `person_not_resolved`) mostra só o cartão e a explicação do
 motivo, com o mesmo texto da legenda da parede. Uma audiência exportada sem `--verifier-report` mostra
@@ -309,7 +317,12 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
 ## Limitações conhecidas
 
 - Os níveis de resultado não foram validados por anotação humana; a página diz isso, mas não mostra
-  nenhuma medida de acerto, porque ela ainda não existe.
+  nenhuma medida de acerto: a precisão de `udv_v2` ainda depende do julgamento da planilha
+  suplementar (ver [`challenge/README.md`](../../challenge/README.md)).
+- Os dois cortes do verificador vêm de artefatos: 0,7478 é o corte do treino no benchmark NLI
+  (`challenge/artifacts/udv/udv_v2_verifier_report.json`, `primary.fit.threshold`) e 0,2429 o corte
+  para premissas de UDV (`challenge/artifacts/calibration/udv_verifier_threshold_v1.json`,
+  `udv_threshold`). A página usa o segundo nas decisões e mostra o primeiro como referência.
 - Nas audiências com mais afirmações, a visão da rede inteira fica pequena e alguns rótulos de longe se
   encostam; aproximar resolve.
 - No celular, cada cena termina num objeto só; para ver as ligações com os vizinhos ao mesmo tempo, é
@@ -329,8 +342,9 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
 - A ligação entre um item do perfil e a fala é lexical (TF-IDF das palavras), escolhida frase a frase;
   uma frase parecida pode não sustentar o item, e o item pode resumir várias falas. Os limites de 0,15
   (frase) e 0,30 (UDV por texto parecido) foram escolhidos para a leitura da página, não medidos.
-- Na rodada `qwen38_27b` de treino, só 144 dos 4.928 itens dos 264 perfis se ligam a uma UDV; 4.348 têm
-  só uma frase parecida e 436 não têm nenhuma. A maior parte do texto dos perfis se confere lendo a
+- Na rodada `qwen38_27b` de treino, com `udv_v2`, só 202 dos 4.928 itens dos 264 perfis se ligam a
+  uma UDV; 4.290 têm só uma frase parecida e 436 não têm nenhuma
+  (`challenge/artifacts/web/export_site_udv_v2.json`). A maior parte do texto dos perfis se confere lendo a
   transcrição, sem uma afirmação da matéria ao lado.
 - Os perfis só cobrem o split de treino e os atores que falam em mais de uma audiência; a simulação de
   atores não aparece na página.
