@@ -11,7 +11,7 @@ import typer
 from bookworm import __version__
 from bookworm.actors.config import ActorsConfig, load_actors_config
 from bookworm.actors.schemas import UdvActorLink, write_udv_actor_links
-from bookworm.actors.speeches import ActorSpeeches, write_actor_outputs
+from bookworm.actors.speeches import ActorSpeeches, collect_actor_speeches, write_actor_outputs
 from bookworm.config import TfidfSettings, UdvConfig, load_split_config, load_udv_config
 from bookworm.data.io import json_path, load_hearings, sha256_of_file, write_json
 from bookworm.data.schemas import HearingRecord
@@ -29,6 +29,8 @@ from bookworm.profiles.generate import (
     run_generate_profiles,
 )
 from bookworm.profiles.review import run_sample_profile_review, run_score_profile_review
+from bookworm.profiles.schemas import read_profiles
+from bookworm.profiles.site import ACTORS_FILE_NAME, PROFILES_DIR_NAME, ProfileSiteBuilder
 from bookworm.profiles.split_filter import build_split_filter
 from bookworm.profiles.validate import run_validate_profiles
 from bookworm.udv.build import EvidenceSettings, select_hearings, udv_corpus
@@ -51,6 +53,7 @@ ERROR_EXIT_CODE = 2
 PROBLEMS_EXIT_CODE = 1
 DEFAULT_CONFIG_PATH = Path("configs/udv.toml")
 DEFAULT_SPLIT_CONFIG_PATH = Path("configs/splits.toml")
+DEFAULT_ACTORS_CONFIG_PATH = Path("configs/hearing_actors.toml")
 SPLIT_SUMMARY_KEYS = ("hearings", "share_of_hearings", "first_date", "last_date", "udvs")
 PACKAGE_DIR = Path(__file__).resolve().parent
 SITE_DATA_PARTS = ("web", "app", "data")
@@ -404,12 +407,38 @@ class SiteRequest:
     split_manifest: Path | None
     overwrite: bool
     verifier_report: Path | None = None
+    profiles: Path | None = None
+    actors_config: Path = DEFAULT_ACTORS_CONFIG_PATH
+    profiles_run: str | None = None
+
+
+def load_profile_site(request: SiteRequest, run: ExportRun) -> ProfileSiteBuilder | None:
+    if request.profiles is None:
+        return None
+    if not request.profiles.is_file():
+        raise ConfigError(f"{request.profiles}: profile file not found")
+    config = load_udv_config(request.config_path)
+    actors_config = load_run_actors_config(request.actors_config, config)
+    if actors_config is None:
+        return None
+    speeches = collect_actor_speeches(run.hearings, actors_config)
+    return ProfileSiteBuilder(
+        read_profiles(request.profiles),
+        speeches.records,
+        run_name=request.profiles_run or request.profiles.stem,
+        source_sha256=sha256_of_file(request.profiles),
+    )
 
 
 def check_new_site(output_dir: Path, overwrite: bool) -> None:
     existing = [
         path
-        for path in (output_dir / INDEX_FILE_NAME, output_dir / HEARINGS_DIR_NAME)
+        for path in (
+            output_dir / INDEX_FILE_NAME,
+            output_dir / HEARINGS_DIR_NAME,
+            output_dir / ACTORS_FILE_NAME,
+            output_dir / PROFILES_DIR_NAME,
+        )
         if path.exists()
     ]
     if existing and not overwrite:
@@ -428,6 +457,7 @@ def run_export_site(request: SiteRequest) -> None:
     )
     run = load_export_run(request.config_path, request.run_name)
     signals = load_run_signals(request.verifier_report, run)
+    profiles = load_profile_site(request, run)
     total = len(run.hearings)
 
     def report_progress(number: int, entry: dict[str, Any], size: int) -> None:
@@ -447,16 +477,26 @@ def run_export_site(request: SiteRequest) -> None:
         split_manifest=manifest,
         on_hearing=report_progress,
         signals=signals,
+        profiles=profiles,
     )
-    echo_json(
-        {
-            "run": request.run_name,
-            "hearings": len(site.index["hearings"]),
-            "udvs": sum(entry["n_udvs"] for entry in site.index["hearings"]),
-            "bytes": site.total_bytes,
-            "output": str(output_dir),
+    summary: dict[str, Any] = {
+        "run": request.run_name,
+        "hearings": len(site.index["hearings"]),
+        "udvs": sum(entry["n_udvs"] for entry in site.index["hearings"]),
+        "bytes": site.total_bytes,
+        "output": str(output_dir),
+    }
+    if site.profiles is not None:
+        actors = site.profiles.actors["actors"]
+        summary["profiles"] = {
+            "actors": len(actors),
+            "linked_udvs": len(site.profiles.actors["udvs"]),
+            **{
+                key: sum(actor["claims"][key] for actor in actors)
+                for key in ("claims", "with_udv", "passage_only", "without_evidence")
+            },
         }
-    )
+    echo_json(summary)
 
 
 def run_build_splits(config_path: Path) -> None:
@@ -648,9 +688,42 @@ def create_app(
                 ),
             ),
         ] = None,
+        profiles: Annotated[
+            Path | None,
+            typer.Option(
+                "--profiles",
+                help=(
+                    "Actor profiles JSONL; adds actors.json and one profiles/<actor>.json per "
+                    "profiled actor."
+                ),
+            ),
+        ] = None,
+        actors_config: Annotated[
+            Path,
+            typer.Option(
+                "--actors-config",
+                help="Hearing actors TOML config, used with --profiles to rebuild the speeches.",
+            ),
+        ] = DEFAULT_ACTORS_CONFIG_PATH,
+        profiles_run: Annotated[
+            str | None,
+            typer.Option(
+                "--profiles-run",
+                help="Name of the profile run shown on the page; defaults to the file name.",
+            ),
+        ] = None,
     ) -> None:
         request = SiteRequest(
-            config_path, run_name, output, top_k, split_manifest, overwrite, verifier_report
+            config_path,
+            run_name,
+            output,
+            top_k,
+            split_manifest,
+            overwrite,
+            verifier_report,
+            profiles,
+            actors_config,
+            profiles_run,
         )
         try:
             run_export_site(request)
