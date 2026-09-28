@@ -67,12 +67,16 @@ configuração e a saída versionada de cada uma, está no [guia de reprodução
 |---|---|---|
 | `data` | `download`, `quote_benchmark`, `nli_benchmark` | `legacy_splits` |
 | `udv` | `calibrate_threshold`, `calibrate_v2`, `v2_analysis`, `v2_downstream`, `fuzzy_matching`, `measure_*` | |
-| `retrieval` (E1, E2, retrieval_v2) | `experiments` | `data`, `models`, `store` |
-| `verifier` (E3, E3x, E5, confidence_v2) | `nli_experiments`, `nli_exploration`, `translation`, `udv_verifier`, `confidence_policies`, `confidence_v2` | `decision_models`, `decision_scoring`, `grounding_scorers`, `grounding_models` |
+| `retrieval` (E1, E2, retrieval_v2) | `experiments` | `config`, `specs`, `workload`, `run`, `scoring`, `summary`, `reports`, `data`, `models`, `store` |
+| `verifier` (E3, E3x, E5, confidence_v2) | `nli_experiments`, `nli_exploration`, `translation`, `udv_verifier`, `confidence_policies`, `confidence_v2` | pacotes `nli`, `exploration`, `translate`, `udv_scores`, `confidence`, `grounding` e `decision`; `decision_models`, `decision_scoring`, `benchmark_inputs`, `stats`, `runtime` |
 | `validation` | `generate_sample`, `precision_report`, `fuzzy_review_precision` | |
-| `actors` | `measure_hearing_actors`, `build_speeches`, `filter_speeches`, `generate_profiles`, `evaluate_simulation`, `simulate` | `simulation` |
-| `mlx` | `run`, `verify_backend`, `benchmark` | `backend`, `settings` |
-| `common` | | `transcript`, `udv_run`, `provenance`, `stats`, `cache_lock`, `hub_offline` |
+| `actors` | `measure_hearing_actors`, `build_speeches`, `filter_speeches`, `generate_profiles`, `evaluate_simulation`, `simulate` | `simulation`, `backend`, `chat`, `justification`, `io`, `cli` |
+| `mlx` | `run`, `verify_backend`, `benchmark` | `backend`, `settings`, `probe` |
+| `common` | | `transcript`, `udv_run`, `provenance`, `reporting`, `splits`, `stats`, `cache_lock`, `hub_offline` |
+
+Cada script de `verifier` é um ponto de entrada curto: o código de cada etapa fica no pacote de mesmo
+assunto (`nli_experiments` em `nli`, `nli_exploration` em `exploration`, `translation` em `translate`,
+`udv_verifier` em `udv_scores`, `confidence_policies` em `confidence`, `confidence_v2` em `grounding`).
 
 A construção e a verificação de UDVs e de splits são comandos da biblioteca (`uv run bookworm
 build-udvs`, `verify-udvs`, `build-splits`, `verify-splits`). `common.transcript` e `common.udv_run`

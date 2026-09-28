@@ -18,7 +18,8 @@ o código, a configuração e os relatórios correspondentes. O registro complet
 
 A declaração completa (candidatos, revisões, premissas, métricas, famílias de Holm e regra do smoke)
 está em `configs/confidence_v2.toml`, escrita antes de qualquer escore novo. O código está em
-`experiments.verifier.confidence_v2`, `experiments.verifier.grounding_scorers` e `experiments.verifier.grounding_models`; os testes, com
+`experiments.verifier.confidence_v2`, o ponto de entrada, e no pacote `experiments.verifier.grounding`
+(avaliadores em `grounding.scorers`, modelos em `grounding.models`); os testes, com
 avaliadores falsos, em `tests/test_confidence_v2.py`. Os artefatos ficam em
 `artifacts/experiments/confidence_v2/`.
 
@@ -157,7 +158,7 @@ Premissa: os 4 trechos recuperados, com o escore da opinião igual ao máximo en
 O conjunto de teste do benchmark não foi lido. A família de Holm principal tem 30 comparações (15
 candidatos contra o cosseno em ROC AUC e AURC); as duas combinações por posto formam uma família
 separada de 4 comparações. O verificador primário foi reajustado no treino exatamente como em
-`experiments.verifier.udv_verifier.fit_primary`, e o reajuste confere com `final_test.json` (coeficientes, médias
+`experiments.verifier.udv_scores.primary.fit_primary`, e o reajuste confere com `final_test.json` (coeficientes, médias
 internas e limiar idênticos, `ea_report.json`, `primary.refit_check`).
 
 ### Validação (698 opiniões, 32 audiências, 76 negativos)

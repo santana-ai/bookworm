@@ -66,8 +66,8 @@ rodado de dentro de `experiments/`; o arquivo fica em `experiments/src/experimen
 | `utils/fuzzy_review_precision.py` | `experiments.validation.fuzzy_review_precision` |
 | `utils/generate_actor_profiles.py` | `experiments.actors.generate_profiles` |
 | `utils/generate_validation_sample.py` | `experiments.validation.generate_sample` |
-| `utils/grounding_models.py` | `experiments.verifier.grounding_models` |
-| `utils/grounding_scorers.py` | `experiments.verifier.grounding_scorers` |
+| `utils/grounding_models.py` | `experiments.verifier.grounding.models` |
+| `utils/grounding_scorers.py` | `experiments.verifier.grounding.scorers` |
 | `utils/hub_offline.py` | `experiments.common.hub_offline` |
 | `utils/measure_case_insensitive_quotes.py` | `experiments.udv.measure_case_insensitive_quotes` |
 | `utils/measure_hearing_actors.py` | `experiments.actors.measure_hearing_actors` |
