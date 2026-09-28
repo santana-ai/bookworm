@@ -248,7 +248,7 @@ class Bm25Retriever:
         return {
             "kind": "bm25",
             "implementation": "rank_bm25.BM25Okapi",
-            "tokenizer": "udv_pipeline.strip_accents, lowercase, WORD_TOKEN_PATTERN (\\w+)",
+            "tokenizer": "bookworm strip_accents, lowercase, WORD_TOKEN_PATTERN (\\w+)",
             "fit_scope": self.fit_scope,
             "fit_corpus": (
                 "the units of the same kind built over every turn of the hearing"

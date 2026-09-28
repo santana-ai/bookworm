@@ -4,8 +4,8 @@ import numpy as np
 import pytest
 
 from experiments.common.udv_run import load_config as load_udv_config
+from experiments.retrieval.config import load_config
 from experiments.retrieval.data import HearingData, Query, SpeakerContext, Unit
-from experiments.retrieval.experiments import decision_rerank_spec, load_config
 from experiments.retrieval.models import (
     RERANK_OFFSET,
     DecisionRerankRetriever,
@@ -13,6 +13,7 @@ from experiments.retrieval.models import (
     Runtime,
     order_by,
 )
+from experiments.retrieval.specs import decision_rerank_spec
 from experiments.verifier.decision_models import DecisionQuestion, FakeDecisionModel, LayaSpec
 from experiments.verifier.decision_scoring import BatteryQuestion
 

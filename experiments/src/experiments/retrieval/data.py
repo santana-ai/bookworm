@@ -3,6 +3,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from typing import Any
 
+from experiments.common.splits import SPLIT_NAMES as SPLIT_NAMES
 from experiments.common.transcript import (
     locate_turn_sentence_span,
     normalize_whitespace,
@@ -17,7 +18,6 @@ Record = dict[str, Any]
 
 UNIT_KINDS = ("sentence", "window2", "window3", "turn")
 BENCHES = ("masked_quotes", "nli")
-SPLIT_NAMES = ("train", "validation", "test")
 HEARING_CONTEXT = "all"
 
 
