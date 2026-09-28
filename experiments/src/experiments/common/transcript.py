@@ -61,6 +61,7 @@ __all__ = [
     "QUOTE_PREFIX_LENGTHS",
     "SENTENCE_BOUNDARY_PATTERN",
     "SINGLE_QUOTE_PATTERN",
+    "CODE_SOURCES",
     "SOURCES",
     "STAGE_DIRECTION_PATTERN",
     "TRUSTED_PREFIX_WORDS",
@@ -122,6 +123,7 @@ SOURCES: tuple[ModuleType, ...] = (
     bookworm.transcript.offsets,
     bookworm.udv.quotes,
 )
+CODE_SOURCES: tuple[ModuleType | Path, ...] = (Path(__file__), *SOURCES)
 
 
 def as_turn(turn: Record) -> Turn:

@@ -4,6 +4,7 @@ Each file is recorded under its path relative to the repository root, such as
 ``experiments/src/experiments/udv/calibrate_threshold.py`` or
 ``bookworm/src/bookworm/udv/quotes.py``. Reports written before the repository was reorganized
 record the old ``utils/<name>.py`` paths; ``docs/path_map.md`` maps them to the current files.
+A package, or a directory, stands for every ``.py`` file directly inside it.
 """
 
 from pathlib import Path
@@ -26,6 +27,13 @@ def source_path(source: Source) -> Path:
     return module_path(source) if isinstance(source, ModuleType) else source
 
 
+def expand_source(source: Source) -> list[Path]:
+    path = source_path(source)
+    if isinstance(source, ModuleType) and hasattr(source, "__path__"):
+        path = path.parent
+    return sorted(path.glob("*.py")) if path.is_dir() else [path]
+
+
 def source_label(source: Source) -> str:
     path = source_path(source).resolve()
     if path.is_relative_to(REPOSITORY_DIR):
@@ -35,3 +43,9 @@ def source_label(source: Source) -> str:
 
 def source_hashes(*sources: Source) -> dict[str, str]:
     return {source_label(source): sha256_of_file(source_path(source)) for source in sources}
+
+
+def code_section(*sources: Source) -> dict[str, str]:
+    """The ``code`` section of a report: the sha256 of each source file, in the order given."""
+    paths = [path for source in sources for path in expand_source(source)]
+    return {source_label(path): sha256_of_file(path) for path in paths}
