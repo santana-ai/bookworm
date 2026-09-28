@@ -19,6 +19,7 @@ TRANSLATED_SCORER = "laya_en_en"
 XNLI_LABELS = ("entailment", "neutral", "contradiction")
 CONTENT_PATTERN = re.compile(r"\w")
 TRANSLATION_KEY_SEPARATOR = "\x1e"
+HEAVY_ARTIFACT_MANIFEST = "challenge/artifacts/MANIFEST_heavy.tsv"
 UNSCORED: JsonObject = {
     "scored": False,
     "verifier": None,
@@ -141,11 +142,53 @@ def number_field(source: Mapping[str, Any], keys: Sequence[str], origin: str) ->
     return float(value)
 
 
-def checked_file(entry: object, description: str, origin: str) -> Path:
+def file_entry(entry: object, description: str, origin: str) -> Mapping[str, Any]:
     if not isinstance(entry, Mapping):
         raise ConfigError(f"{origin}: the {description} entry is not an object")
-    path = Path(text_field(entry, ("path",), origin))
-    expected = text_field(entry, ("sha256",), origin)
+    return entry
+
+
+def entry_path(entry: object, description: str, origin: str) -> Path:
+    return Path(text_field(file_entry(entry, description, origin), ("path",), origin))
+
+
+def recorded_files(report: JsonObject, origin: str) -> dict[str, object]:
+    entries: dict[str, object] = {"verifier output": field(report, ("outputs",), origin)}
+    for name in SCORERS:
+        entries[f"{name} scores"] = field(report, ("inputs", "udv_score_files", name), origin)
+        entries[f"{name} score report"] = field(report, ("score_runs", name), origin)
+    return entries
+
+
+def missing_recorded_files(report: JsonObject, origin: str) -> list[Path]:
+    paths = (
+        entry_path(entry, description, origin)
+        for description, entry in recorded_files(report, origin).items()
+    )
+    return [path for path in paths if not path.is_file()]
+
+
+def missing_signal_files(report_path: Path) -> list[Path]:
+    """List the files a verifier report records that are missing from the working directory."""
+    report = read_json_object(report_path, "verifier report")
+    return missing_recorded_files(report, str(report_path))
+
+
+def check_recorded_files(report: JsonObject, origin: str) -> None:
+    missing = missing_recorded_files(report, origin)
+    if missing:
+        raise ConfigError(
+            f"{origin}: files recorded in the verifier report are missing ({len(missing)}): "
+            f"{', '.join(str(path) for path in missing)}. Files left out of the repository "
+            f"because of their size are listed, with the command that regenerates each one, "
+            f"in {HEAVY_ARTIFACT_MANIFEST}"
+        )
+
+
+def checked_file(entry: object, description: str, origin: str) -> Path:
+    checked = file_entry(entry, description, origin)
+    path = Path(text_field(checked, ("path",), origin))
+    expected = text_field(checked, ("sha256",), origin)
     if not path.is_file():
         raise ConfigError(f"{path}: {description} not found")
     actual = sha256_of_file(path)
@@ -342,9 +385,68 @@ class SiteSignals:
         return found
 
 
+def scored_signals(
+    record: UdvRecord,
+    decision: JsonObject,
+    rows: Mapping[str, Mapping[str, JsonObject]],
+    score_paths: Mapping[str, Path],
+    question_ids: Sequence[str],
+    translations: Translations,
+) -> JsonObject:
+    return {
+        "scored": True,
+        "verifier": decision,
+        "laya": {
+            name: laya_answers(rows[name][record.id], question_ids, score_paths[name])
+            for name in LAYA_SCORERS
+        },
+        "xnli": xnli_answer(rows[XNLI_SCORER][record.id], score_paths[XNLI_SCORER]),
+        "translation": {
+            "premise": translations.translate_chunk(premise_of(record)),
+            "hypothesis": translations.translate_opinion(record.proposition),
+        },
+    }
+
+
+def signals_summary(
+    report: JsonObject,
+    report_path: Path,
+    reports: Mapping[str, JsonObject],
+    origins: Mapping[str, str],
+    translation_model: JsonObject,
+    questions: list[JsonObject],
+) -> JsonObject:
+    origin = str(report_path)
+    primary = field(report, ("primary",), origin)
+    threshold = number_field(primary, ("fit", "threshold"), origin)
+    if number_field(primary, ("final_test_result", "threshold"), origin) != threshold:
+        raise ConfigError(f"{origin}: primary fit and final test thresholds differ")
+    return {
+        "verifier": {
+            "name": text_field(primary, ("candidate",), origin),
+            "threshold": threshold,
+            "threshold_fitted_on": text_field(
+                primary, ("final_test_result", "threshold_fitted_on"), origin
+            ),
+            "report_sha256": sha256_of_file(report_path),
+        },
+        "scorers": {
+            name: {
+                "model": text_field(reports[name], ("model", "name"), origins[name]),
+                "revision": text_field(reports[name], ("model", "revision"), origins[name]),
+                "language": text_field(reports[name], ("language",), origins[name]),
+            }
+            for name in SCORERS
+        },
+        "translation": translation_model,
+        "questions": questions,
+    }
+
+
 def load_site_signals(
     report_path: Path, records: Sequence[UdvRecord], records_sha256: str
 ) -> SiteSignals:
+    """Read the verifier signals of every UDV of a run, checking each file against its sha256."""
     origin = str(report_path)
     report = read_json_object(report_path, "verifier report")
     recorded_udv = text_field(report, ("inputs", "udv", "sha256"), origin)
@@ -353,6 +455,7 @@ def load_site_signals(
             f"{origin}: the verifier read a UDV file with sha256 {recorded_udv}, not the run "
             f"records ({records_sha256})"
         )
+    check_recorded_files(report, origin)
     verifier_path = checked_file(field(report, ("outputs",), origin), "verifier output", origin)
     verifier_rows = rows_by_id(read_rows(verifier_path, "verifier output"), "udv_id", verifier_path)
     check_same_ids(verifier_rows, (record.id for record in records), str(verifier_path))
@@ -389,44 +492,10 @@ def load_site_signals(
     by_udv: dict[str, JsonObject] = {}
     for record in records:
         decision = decisions[record.id]
-        if decision is None:
-            by_udv[record.id] = dict(UNSCORED)
-            continue
-        by_udv[record.id] = {
-            "scored": True,
-            "verifier": decision,
-            "laya": {
-                name: laya_answers(rows[name][record.id], question_ids, score_paths[name])
-                for name in LAYA_SCORERS
-            },
-            "xnli": xnli_answer(rows[XNLI_SCORER][record.id], score_paths[XNLI_SCORER]),
-            "translation": {
-                "premise": translations.translate_chunk(premise_of(record)),
-                "hypothesis": translations.translate_opinion(record.proposition),
-            },
-        }
-    primary = field(report, ("primary",), origin)
-    threshold = number_field(primary, ("fit", "threshold"), origin)
-    if number_field(primary, ("final_test_result", "threshold"), origin) != threshold:
-        raise ConfigError(f"{origin}: primary fit and final test thresholds differ")
-    summary = {
-        "verifier": {
-            "name": text_field(primary, ("candidate",), origin),
-            "threshold": threshold,
-            "threshold_fitted_on": text_field(
-                primary, ("final_test_result", "threshold_fitted_on"), origin
-            ),
-            "report_sha256": sha256_of_file(report_path),
-        },
-        "scorers": {
-            name: {
-                "model": text_field(reports[name], ("model", "name"), origins[name]),
-                "revision": text_field(reports[name], ("model", "revision"), origins[name]),
-                "language": text_field(reports[name], ("language",), origins[name]),
-            }
-            for name in SCORERS
-        },
-        "translation": translation_model,
-        "questions": questions,
-    }
+        by_udv[record.id] = (
+            dict(UNSCORED)
+            if decision is None
+            else scored_signals(record, decision, rows, score_paths, question_ids, translations)
+        )
+    summary = signals_summary(report, report_path, reports, origins, translation_model, questions)
     return SiteSignals(summary, by_udv)

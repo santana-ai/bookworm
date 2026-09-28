@@ -11,7 +11,12 @@ from bookworm import ConfigError, Segmentation, UdvRecord, load_udv_jsonl, sha25
 from bookworm.cli import create_app
 from bookworm.data.io import write_json
 from bookworm.transcript.text import normalize_whitespace
-from bookworm.udv.signals import load_site_signals, translation_key
+from bookworm.udv.signals import (
+    HEAVY_ARTIFACT_MANIFEST,
+    load_site_signals,
+    missing_signal_files,
+    translation_key,
+)
 
 JsonObject = dict[str, Any]
 
@@ -355,7 +360,7 @@ def change_tier() -> None:
         (rename_verifier_row, "e.g. ['udv-2-9-9']"),
         (change_score_file, "laya_en_en_udv.jsonl: sha256"),
         (drop_translation, "1 of"),
-        (remove_score_report, "xnli_mdeberta_report.json: xnli_mdeberta score report not found"),
+        (remove_score_report, "are missing (1): scores/xnli_mdeberta_report.json"),
         (change_run_records, "not the run records"),
         (change_tier, "tier or support_type different from the run record"),
     ],
@@ -368,6 +373,23 @@ def test_export_with_broken_signal_sources_exits_two(
     assert result.exit_code == 2
     assert message in result.stderr
     assert not Path("signals.json").exists()
+
+
+def test_missing_heavy_score_files_are_named_with_the_manifest(signal_workdir: Path) -> None:
+    Path("scores/laya_en_en_udv.jsonl").unlink()
+    Path("scores/xnli_mdeberta_udv.jsonl").unlink()
+    assert missing_signal_files(Path(REPORT)) == [
+        Path("scores/laya_en_en_udv.jsonl"),
+        Path("scores/xnli_mdeberta_udv.jsonl"),
+    ]
+    result = export("signals.json", "--verifier-report", REPORT)
+    assert result.exit_code == 2
+    assert (
+        "are missing (2): scores/laya_en_en_udv.jsonl, scores/xnli_mdeberta_udv.jsonl"
+        in result.stderr
+    )
+    assert HEAVY_ARTIFACT_MANIFEST in result.stderr
+    assert "Traceback" not in result.stderr
 
 
 def test_export_with_a_missing_report_exits_two(signal_workdir: Path) -> None:

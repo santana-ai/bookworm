@@ -19,6 +19,7 @@ from bookworm import (
 )
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.export import split_of
+from bookworm.udv.signals import HEAVY_ARTIFACT_MANIFEST, missing_signal_files
 
 pytestmark = pytest.mark.dataset
 
@@ -203,6 +204,12 @@ def test_signals_of_hearing_70_match_the_verifier_output(
     monkeypatch.chdir(challenge_dir)
     if not TRANSLATION_CACHE_DIR.is_dir():
         pytest.skip(f"translation cache not found at {challenge_dir / TRANSLATION_CACHE_DIR}")
+    missing = missing_signal_files(VERIFIER_REPORT)
+    if missing:
+        pytest.skip(
+            f"verifier score files not found ({', '.join(map(str, missing))}); they are "
+            f"regenerable heavy artifacts listed in {HEAVY_ARTIFACT_MANIFEST}"
+        )
     records_path = udv_artifact_path(udv_artifacts_dir, f"{RUN_NAME}.jsonl")
     run_records = load_udv_jsonl(records_path)
     signals = load_site_signals(VERIFIER_REPORT, run_records, sha256_of_file(records_path))
