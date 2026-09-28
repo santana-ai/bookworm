@@ -70,22 +70,22 @@ class MiniRun:
         return verify_udv_run("mini", records, self.coverage(records), self.hearings).problems
 
 
+def build_mini_run(
+    hearings: list[HearingRecord], encoder: StubEncoder, config_path: Path
+) -> MiniRun:
+    run = build_udvs(hearings, CachedEncoder(encoder), EvidenceSettings(MINI_THRESHOLD))
+    source = tomllib.loads(config_path.read_text(encoding="utf-8"))
+    return MiniRun(run=run, source=source, hearings=hearings)
+
+
 @pytest.fixture
 def mini(mini_hearing_list: list[HearingRecord], udv_mini_config_path: Path) -> MiniRun:
-    run = build_udvs(
-        mini_hearing_list, CachedEncoder(StubEncoder()), EvidenceSettings(MINI_THRESHOLD)
-    )
-    source = tomllib.loads(udv_mini_config_path.read_text(encoding="utf-8"))
-    return MiniRun(run=run, source=source, hearings=mini_hearing_list)
+    return build_mini_run(mini_hearing_list, StubEncoder(), udv_mini_config_path)
 
 
 @pytest.fixture
 def turns(turns_hearing: HearingRecord, udv_mini_config_path: Path) -> MiniRun:
-    run = build_udvs(
-        [turns_hearing], CachedEncoder(StubEncoder(TURNS_VECTORS)), EvidenceSettings(MINI_THRESHOLD)
-    )
-    source = tomllib.loads(udv_mini_config_path.read_text(encoding="utf-8"))
-    return MiniRun(run=run, source=source, hearings=[turns_hearing])
+    return build_mini_run([turns_hearing], StubEncoder(TURNS_VECTORS), udv_mini_config_path)
 
 
 def mutate(
