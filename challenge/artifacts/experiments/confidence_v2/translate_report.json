@@ -1,0 +1,99 @@
+{
+  "created_at": "2026-09-27T19:48:14+00:00",
+  "model": "nllb",
+  "run": {
+    "requested": 45509,
+    "already_cached": 45509
+  },
+  "store": {
+    "path": "artifacts/cache/translation/translations_facebook-nllb-200-distilled-600m_f8d333a098d1.jsonl",
+    "signature": {
+      "model": "facebook/nllb-200-distilled-600M",
+      "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "src_lang": "por_Latn",
+      "tgt_lang": "eng_Latn",
+      "dtype": "float32",
+      "num_beams": 4,
+      "do_sample": false,
+      "length_penalty": 1.0,
+      "early_stopping": false,
+      "no_repeat_ngram_size": 0,
+      "repetition_penalty": 1.0,
+      "max_input_tokens": 512,
+      "max_new_tokens_ratio": 2.0,
+      "max_new_tokens_margin": 16,
+      "max_new_tokens_cap": 1020
+    },
+    "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+    "segmentation": {
+      "join_abbreviations": [
+        "Art.",
+        "Dr.",
+        "Dra.",
+        "Dras.",
+        "Drs.",
+        "Exma.",
+        "Exmo.",
+        "Prof.",
+        "Profa.",
+        "Profs.",
+        "Sr.",
+        "Sra.",
+        "Sras.",
+        "Srs.",
+        "V.Exa.",
+        "V.Exas.",
+        "art.",
+        "arts."
+      ],
+      "join_short_parts": true
+    },
+    "entries": 55393,
+    "entries_by_device": {
+      "cpu": 40,
+      "mps": 55353
+    },
+    "other_signature_lines": 0,
+    "incomplete_tail_bytes": 0
+  },
+  "still_missing": 0,
+  "config": {
+    "path": "configs/confidence_v2.toml",
+    "sha256": "7010a93e6df86269cacbd0f0c8b5a94b10ac1a21d6fda3b770713899f8bdfc7d"
+  },
+  "code": {
+    "utils/confidence_v2.py": "0426278c0b871eed86ba41b23a5a84f718c13fb5ca7159cbaec5384d2b5fcce5",
+    "utils/grounding_scorers.py": "984aa02c58e52aee6e1bedb5b11c6bc89506772c6996075acfb61922b003a80a",
+    "utils/grounding_models.py": "10dc6650259d0b9432e0a6ba2f7e4a0475e32e584955322500aa997e05f3c0a6",
+    "utils/confidence_policies.py": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704",
+    "utils/udv_verifier.py": "61436011728deb5f0bb9985536a258557122596282d88a4a7b2cfdbc031ffcdc",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      2.07,
+      2.24,
+      2.19
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": null,
+      "huggingface_hub_is_offline_mode": false,
+      "transformers_is_offline_mode": false,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}

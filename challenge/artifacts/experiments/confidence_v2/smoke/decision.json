@@ -1,0 +1,118 @@
+{
+  "created_at": "2026-09-27T19:58:07+00:00",
+  "rule": "a candidate runs in full when it loads, passes its probe (HHEM card examples; Yes/No mass above 0.5 on average for the LLM candidates) and its projected time for every E-A and E-B pair (smoke seconds per pair times the full pair count) is at most budget_hours; otherwise it is dropped, or for the qwen3 judge the 1.7B fallback is smoked under the same rule. The decision and the throughputs are written to smoke/decision.json and to [smoke_decision] of this file before the full run starts",
+  "budget_hours": 5.0,
+  "decisions": {
+    "minicheck_ft5": {
+      "status": "run",
+      "reason": "projected 0.992 h within the 5.0 h budget",
+      "name": "lytang/MiniCheck-Flan-T5-Large",
+      "revision": "96eafd01cee2d16cf81aaa2fb226b14f422a37b3",
+      "pairs_per_second": 5.164,
+      "projected_hours": 0.992,
+      "smoke_sha256": "4b237053174d37fbe079fb2e75f628e8035a02d9b23c2a15931a9a458fba762b"
+    },
+    "minicheck_deberta": {
+      "status": "run",
+      "reason": "projected 1.907 h within the 5.0 h budget",
+      "name": "lytang/MiniCheck-DeBERTa-v3-Large",
+      "revision": "2f2d01a54fa022a7ffadb76260e1ea8bc88c82bb",
+      "pairs_per_second": 2.687,
+      "projected_hours": 1.907,
+      "smoke_sha256": "cc664cd75cb2d8e8d132a1181941d550e8c1fcf5d6234953f63175d289467498"
+    },
+    "factcg_deberta": {
+      "status": "run",
+      "reason": "projected 2.272 h within the 5.0 h budget",
+      "name": "yaxili96/FactCG-DeBERTa-v3-Large",
+      "revision": "0430e3509dbd28d2dff7a117c0eae25359ff3e80",
+      "pairs_per_second": 2.255,
+      "projected_hours": 2.272,
+      "smoke_sha256": "b9f92677d91d02eefdae602125db52902872fe0c45c7f610cabd84a3a7bb02aa"
+    },
+    "alignscore_large": {
+      "status": "run",
+      "reason": "projected 0.271 h within the 5.0 h budget",
+      "name": "yzha/AlignScore",
+      "revision": "8509e78d25bb914939fc585c626500c9b2944249",
+      "pairs_per_second": 15.109,
+      "projected_hours": 0.271,
+      "smoke_sha256": "7c68d781b532fc1276897e79269d6261b8dcaf4f6ce72f7fd4fe74e1deebf7c8"
+    },
+    "hhem_open": {
+      "status": "run",
+      "reason": "projected 0.378 h within the 5.0 h budget",
+      "name": "vectara/hallucination_evaluation_model",
+      "revision": "8e4a2e6e96c708cc76c2344f7e4757df2515292c",
+      "pairs_per_second": 13.549,
+      "projected_hours": 0.378,
+      "smoke_sha256": "2d16036cf6dcb6ded659ea68cd88cdf9d456093b04b7988f779ba20406c7a2c1"
+    },
+    "bge_reranker": {
+      "status": "run",
+      "reason": "projected 0.708 h within the 5.0 h budget",
+      "name": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+      "pairs_per_second": 7.233,
+      "projected_hours": 0.708,
+      "smoke_sha256": "1b54ccd56e10b204d8ec34955962cfe84ba7a578f852d5384c2cbe02bd48280c"
+    },
+    "laya_new_laya_multi_pt": {
+      "status": "run",
+      "reason": "projected 1.387 h within the 5.0 h budget",
+      "name": "laya_new:laya_multi_pt",
+      "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+      "pairs_per_second": 14.78,
+      "projected_hours": 1.387,
+      "smoke_sha256": "2efad2a7b09225b37d518a1330da56526279c60944beb5095a688342294b6296"
+    },
+    "laya_new_laya_en_en": {
+      "status": "run",
+      "reason": "projected 2.636 h within the 5.0 h budget",
+      "name": "laya_new:laya_en_en",
+      "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+      "pairs_per_second": 7.773,
+      "projected_hours": 2.636,
+      "smoke_sha256": "fcb5b459fc1c98e3696b8b4274339f7ee3c8a09126930079743fb90a9a6b6a83"
+    }
+  },
+  "config": {
+    "path": "configs/confidence_v2.toml",
+    "sha256": "7010a93e6df86269cacbd0f0c8b5a94b10ac1a21d6fda3b770713899f8bdfc7d"
+  },
+  "code": {
+    "utils/confidence_v2.py": "0426278c0b871eed86ba41b23a5a84f718c13fb5ca7159cbaec5384d2b5fcce5",
+    "utils/grounding_scorers.py": "984aa02c58e52aee6e1bedb5b11c6bc89506772c6996075acfb61922b003a80a",
+    "utils/grounding_models.py": "10dc6650259d0b9432e0a6ba2f7e4a0475e32e584955322500aa997e05f3c0a6",
+    "utils/confidence_policies.py": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704",
+    "utils/udv_verifier.py": "61436011728deb5f0bb9985536a258557122596282d88a4a7b2cfdbc031ffcdc",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      2.18,
+      2.76,
+      2.6
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": null,
+      "huggingface_hub_is_offline_mode": false,
+      "transformers_is_offline_mode": false,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}

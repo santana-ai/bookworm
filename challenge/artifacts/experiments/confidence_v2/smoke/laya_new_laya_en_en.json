@@ -1,0 +1,189 @@
+{
+  "scorer": "laya_en_en",
+  "model": {
+    "kind": "laya",
+    "name": "convaiinnovations/laya",
+    "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+    "subfolder": "",
+    "laya_version": "0.3.11",
+    "checkpoint_dir": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+    "weights_file": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/model.safetensors",
+      "is_symlink": true,
+      "blob": "dd8562d713759821a0bc049e79abd09e5817d218d18fa51478ad16986d018764",
+      "bytes": 842609210
+    },
+    "tokenizer_config": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/tokenizer/tokenizer_config.json",
+      "is_symlink": true,
+      "blob": "9fd800115c5c92353220aa66addfce67a9135f32",
+      "bytes": 308
+    },
+    "encoder": "answerdotai/ModernBERT-large",
+    "max_len": 512,
+    "head_max_len": 192,
+    "temperature_applied": [
+      1.6369030475616455,
+      1.2514300346374512,
+      1.983399510383606
+    ],
+    "temperature_by_options_applied": {
+      "choice:3-5": 1.7601518630981445,
+      "choice:6-10": 1.0000158548355103,
+      "score:3-5": 1.2514300346374512,
+      "noul:2": 1.983399510383606,
+      "choice:11+": 0.5,
+      "choice:2": 1.9063563346862793
+    },
+    "device": "mps",
+    "dtype": "torch.float32",
+    "parameters": 421293827,
+    "load_seconds": 1.0,
+    "batch_size": 16,
+    "truncation": "when the serialized state does not fit max_len minus the question prefix, 'premise' is cut at the last whitespace that fits, so the other keys stay whole",
+    "answer_cache": {
+      "path": "artifacts/cache/decision_models/laya_root_aa8c91ca088e_mps.jsonl",
+      "signature": "laya@0.3.11@convaiinnovations/laya@aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8@root@mps@float32@512@192@premise",
+      "entries_at_start": 353560,
+      "other_signature_lines": 0
+    },
+    "counters": {
+      "requests": 1000,
+      "computed": 1000,
+      "cache_hits": 0,
+      "forward_seconds": 128.08,
+      "computed_input_tokens": 256148,
+      "batches": 64,
+      "max_rounding_gap": 4.988957173607256e-05
+    }
+  },
+  "questions": {
+    "n1_entails": {
+      "type": "noul",
+      "instructions": "Does the `premise` entail the `hypothesis`?"
+    },
+    "n2_states": {
+      "type": "noul",
+      "instructions": "Does the `premise` say what the `hypothesis` states?"
+    },
+    "n3_attributable": {
+      "type": "noul",
+      "instructions": "Can everything in the `hypothesis` be attributed to the `premise`?"
+    },
+    "n4_reader_agrees": {
+      "type": "noul",
+      "instructions": "Would someone who read only the `premise` agree that the `hypothesis` is true?"
+    }
+  },
+  "requests": 250,
+  "question_count": 4,
+  "seconds": 128.654,
+  "counters": {
+    "requests": 1000,
+    "computed": 1000,
+    "cache_hits": 0,
+    "forward_seconds": 128.083980712021,
+    "computed_input_tokens": 256148,
+    "batches": 64,
+    "max_rounding_gap": 4.988957173607256e-05
+  },
+  "translation": {
+    "path": "artifacts/cache/translation/translations_facebook-nllb-200-distilled-600m_f8d333a098d1.jsonl",
+    "signature": {
+      "model": "facebook/nllb-200-distilled-600M",
+      "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "src_lang": "por_Latn",
+      "tgt_lang": "eng_Latn",
+      "dtype": "float32",
+      "num_beams": 4,
+      "do_sample": false,
+      "length_penalty": 1.0,
+      "early_stopping": false,
+      "no_repeat_ngram_size": 0,
+      "repetition_penalty": 1.0,
+      "max_input_tokens": 512,
+      "max_new_tokens_ratio": 2.0,
+      "max_new_tokens_margin": 16,
+      "max_new_tokens_cap": 1020
+    },
+    "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+    "segmentation": {
+      "join_abbreviations": [
+        "Art.",
+        "Dr.",
+        "Dra.",
+        "Dras.",
+        "Drs.",
+        "Exma.",
+        "Exmo.",
+        "Prof.",
+        "Profa.",
+        "Profs.",
+        "Sr.",
+        "Sra.",
+        "Sras.",
+        "Srs.",
+        "V.Exa.",
+        "V.Exas.",
+        "art.",
+        "arts."
+      ],
+      "join_short_parts": true
+    },
+    "entries": 55393,
+    "entries_by_device": {
+      "cpu": 40,
+      "mps": 55353
+    },
+    "other_signature_lines": 0,
+    "incomplete_tail_bytes": 0
+  },
+  "status": "scored",
+  "name": "laya_new:laya_en_en",
+  "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+  "opinions": 50,
+  "pairs_per_second": 7.773,
+  "full_pairs": 73772,
+  "projected_hours": 2.636,
+  "truncation": {},
+  "created_at": "2026-09-27T19:58:01+00:00",
+  "config": {
+    "path": "configs/confidence_v2.toml",
+    "sha256": "7010a93e6df86269cacbd0f0c8b5a94b10ac1a21d6fda3b770713899f8bdfc7d"
+  },
+  "code": {
+    "utils/confidence_v2.py": "0426278c0b871eed86ba41b23a5a84f718c13fb5ca7159cbaec5384d2b5fcce5",
+    "utils/grounding_scorers.py": "984aa02c58e52aee6e1bedb5b11c6bc89506772c6996075acfb61922b003a80a",
+    "utils/grounding_models.py": "10dc6650259d0b9432e0a6ba2f7e4a0475e32e584955322500aa997e05f3c0a6",
+    "utils/confidence_policies.py": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704",
+    "utils/udv_verifier.py": "61436011728deb5f0bb9985536a258557122596282d88a4a7b2cfdbc031ffcdc",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      2.28,
+      2.79,
+      2.61
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}
