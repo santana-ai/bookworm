@@ -21,6 +21,8 @@ from bookworm.udv.schemas import (
     record_evidences,
 )
 
+ELAPSED_DECIMALS = 1
+PER_HEARING_DECIMALS = 2
 SENTENCE_SEGMENTATION = "per matched turn, concatenated in turn order"
 QUOTE_SEARCH = "inside each matched turn"
 QUOTE_SELECTION = "most prefix words over all quotes, earliest quote on ties"
@@ -93,9 +95,9 @@ def timing_summary(hearing_seconds: Sequence[float]) -> JsonObject:
             "max_seconds_per_hearing": 0.0,
         }
     return {
-        "elapsed_seconds": round(sum(hearing_seconds), 1),
-        "mean_seconds_per_hearing": round(float(np.mean(hearing_seconds)), 2),
-        "max_seconds_per_hearing": round(max(hearing_seconds), 2),
+        "elapsed_seconds": round(sum(hearing_seconds), ELAPSED_DECIMALS),
+        "mean_seconds_per_hearing": round(float(np.mean(hearing_seconds)), PER_HEARING_DECIMALS),
+        "max_seconds_per_hearing": round(max(hearing_seconds), PER_HEARING_DECIMALS),
     }
 
 

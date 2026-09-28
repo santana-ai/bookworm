@@ -27,7 +27,11 @@ GROUPING_METHOD = (
     "cut at dates whose gap to the next dated hearing is at least min_boundary_gap_days"
 )
 DATE_FIELD = "first DD/MM/YYYY - HH:MM timestamp in materia (article publication)"
-NEAR_DUPLICATE_METHOD = "tfidf cosine over materia, min_df=2, sublinear_tf"
+NEAR_DUPLICATE_MIN_DF = 2
+NEAR_DUPLICATE_METHOD = f"tfidf cosine over materia, min_df={NEAR_DUPLICATE_MIN_DF}, sublinear_tf"
+NEAR_DUPLICATE_PERCENTILE = 99
+FRACTION_DECIMALS = 4
+SIMILARITY_DECIMALS = 3
 RECOMPUTED_BOUNDARY_KEYS = (
     "train_end",
     "validation_start",
@@ -67,8 +71,8 @@ class SplitBoundaries:
             test_start=validation_cut.next_day,
             train_gap_days=train_cut.gap_days,
             test_gap_days=validation_cut.gap_days,
-            train_fraction_reached=round(train_cut.fraction, 4),
-            validation_end_fraction_reached=round(validation_cut.fraction, 4),
+            train_fraction_reached=round(train_cut.fraction, FRACTION_DECIMALS),
+            validation_end_fraction_reached=round(validation_cut.fraction, FRACTION_DECIMALS),
         )
 
     def to_dict(self) -> JsonObject:
@@ -192,7 +196,7 @@ def summarize_split(
     udvs = [udv for hearing_id in ids for udv in udvs_by_hearing.get(hearing_id, [])]
     return {
         "hearings": len(ids),
-        "share_of_hearings": round(len(ids) / total_hearings, 4),
+        "share_of_hearings": round(len(ids) / total_hearings, FRACTION_DECIMALS),
         "first_date": min(days).isoformat(),
         "last_date": max(days).isoformat(),
         "distinct_dates": len(set(days)),
@@ -224,7 +228,7 @@ def cross_split_similarity(
 ) -> JsonObject:
     ids = [hearing_id for name in SPLIT_NAMES for hearing_id in groups[name]]
     split_of = {hearing_id: name for name in SPLIT_NAMES for hearing_id in groups[name]}
-    matrix = TfidfVectorizer(min_df=2, sublinear_tf=True).fit_transform(
+    matrix = TfidfVectorizer(min_df=NEAR_DUPLICATE_MIN_DF, sublinear_tf=True).fit_transform(
         [hearings_by_id[hearing_id].materia for hearing_id in ids]
     )
     similarities = cosine_similarity(matrix)
@@ -241,12 +245,12 @@ def cross_split_similarity(
         "threshold": threshold,
         "cross_split_pairs": len(pairs),
         "above_threshold": int((scores >= threshold).sum()),
-        "max": round(float(scores.max()), 3),
-        "p99": round(float(np.percentile(scores, 99)), 3),
-        "median": round(float(np.median(scores)), 3),
+        "max": round(float(scores.max()), SIMILARITY_DECIMALS),
+        "p99": round(float(np.percentile(scores, NEAR_DUPLICATE_PERCENTILE)), SIMILARITY_DECIMALS),
+        "median": round(float(np.median(scores)), SIMILARITY_DECIMALS),
         "top_pairs": [
             {
-                "similarity": round(score, 3),
+                "similarity": round(score, SIMILARITY_DECIMALS),
                 "hearings": [first, second],
                 "splits": [split_of[first], split_of[second]],
             }
