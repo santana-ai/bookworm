@@ -9,10 +9,10 @@ Convenções usadas no texto:
 
 - Números com ponto decimal, exatamente como estão nos artefatos JSON, para que possam ser buscados
   diretamente nos arquivos. Contagens inteiras também seguem os artefatos.
-- Caminhos relativos a `challenge/`, salvo indicação. Dois checkouts foram lidos: o worktree
-  `bookworm_germano` (branch `bookworm_germano`, commit `fbf7a87`, que contém `udv_v2`) e o checkout
-  principal (branch `udv_germano`, commit `b593be4`, que contém `confidence_v2`). Quando um número vem do
-  checkout principal, isso é dito explicitamente.
+- Caminhos relativos a `challenge/`, salvo indicação. A primeira versão deste relatório leu dois ramos
+  de trabalho (`bookworm_germano`, commit `fbf7a87`, com `udv_v2`, e `udv_germano`, commit `b593be4`, com
+  `confidence_v2`); os dois foram unidos, e todos os artefatos citados estão nesta versão nos caminhos
+  indicados. Os comandos de cada etapa, em ordem, estão em `README.md`.
 - IC 95% é intervalo de confiança de 95%. "Holm" é o p-valor ajustado pelo método de Holm dentro da
   família declarada no próprio experimento.
 - "Planejado e não rodado" significa que existe código ou declaração, mas nenhum artefato de resultado
@@ -60,7 +60,7 @@ Resultados principais, todos rastreados nas seções seguintes:
 | Laya como reranqueador do top 20 (resultado negativo) | MRR 0.8690 contra 0.9295, Holm 0.0004 | `artifacts/experiments/retrieval/retrieval_v2/retrieval_v2_report.json` |
 | Sinais derivados do cosseno não melhoram a confiança (E5) | nenhum IC de diferença de AURC exclui zero no `nli` | `artifacts/experiments/confidence/confidence_v1/confidence_v1_report.json` |
 | Verificador primário (E3x), teste final, 559 opiniões | ROC AUC 0.9122 [0.8698; 0.9454], kappa 0.5924 | `artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json` |
-| Primário contra o cosseno Serafim na validação (confidence_v2 E-A) | ROC AUC 0.8758 contra 0.7302, Δ +0.1457 [0.0852; 0.2159], Holm 0.012 | `challenge/artifacts/experiments/confidence_v2/ea_report.json` (checkout principal) |
+| Primário contra o cosseno Serafim na validação (confidence_v2 E-A) | ROC AUC 0.8758 contra 0.7302, Δ +0.1457 [0.0852; 0.2159], Holm 0.012 | `artifacts/experiments/confidence_v2/ea_report.json` |
 | Validação humana parcial, `quote_found` (precisão estrita) | 17 de 18, 0.9444 [0.7424; 0.9901] | recálculo desta data, seção 7 |
 | Validação humana parcial, `semantic_match_high` (precisão tolerante) | 25 de 32, 0.7812 [0.6125; 0.8898] | idem |
 
@@ -347,7 +347,7 @@ Fontes: `artifacts/udv/udv_v2_analysis.json`, `artifacts/udv/udv_v2_coverage.jso
 | diferença de `udv_v1` para `udv_v2` | valor |
 |---|---|
 | registros idênticos | 234 |
-| registros alterados | 1969 (`udv_v2_analysis.json`); `udv_v2_verify.json`, `baseline_diff.evidence_changed`, dá 1970 |
+| registros alterados | 1969 com evidência diferente em texto, `start_char`, `end_char` ou `speaker_turn` (`udv_v2_analysis.json`, `diff.evidence_changed`); 1970 com qualquer mudança, incluindo a de só nível (`diff.records_changed_any`) e, por outro critério, em `udv_v2_verify.json` (`baseline_diff.evidence_changed`, que compara o objeto `evidence` inteiro, `score` incluído); ver Apêndice A |
 | citações estendidas | 152 |
 | janelas que contêm a sentença de `udv_v1` | 1343 |
 | janelas em outro ponto | 474 |
@@ -803,8 +803,8 @@ o Trabalho 2.
 
 ### 5.6 confidence_v2 E-A: o verificador contra avaliadores da literatura
 
-Fonte: checkout principal, `challenge/artifacts/experiments/confidence_v2/ea_report.json` (criado
-2026-09-28T09:58:40Z) e `challenge/CONFIDENCE_V2.md`.
+Fonte: `artifacts/experiments/confidence_v2/ea_report.json` (criado 2026-09-28T09:58:40Z) e
+`CONFIDENCE_V2.md`.
 
 **Problema.** Confirmar que o primário do E3x é uma confiança melhor que o cosseno e compará-lo com
 avaliadores de consistência publicados, no mesmo rótulo e na mesma premissa.
@@ -839,7 +839,6 @@ não serve como sinal (ROC AUC 0.4721 para `laya_multi_pt_spread_q7`).
 Leitura: o primário tem a maior ROC AUC e o menor AURC de todos os sinais e é o único que supera o cosseno
 nas duas métricas após Holm. A comparação direta do primário com cada avaliador da literatura não foi
 declarada; a distância para o mais próximo (`bge_reranker`, 0.034 de ROC AUC) é só uma estimativa pontual.
-A frase "nenhum avaliador da literatura supera o primário" de `PIPELINE.md` deve ser lida nesse sentido.
 
 Não rodaram, com o motivo registrado (`CONFIDENCE_V2.md`): juízes LLM (Qwen3-4B-Instruct-2507, Qwen3-1.7B,
 Bespoke-MiniCheck-7B) e Granite Guardian 3.2-3B, por decisão registrada antes de qualquer escore; Lynx e
@@ -974,12 +973,37 @@ do teste mediria cópia. Por isso o perfil de avaliação usa só audiências de
 | UDVs de teste de `udv_v1` | 359, das quais 106 ligadas a 48 atores com perfil, em 27 de 30 audiências |
 | níveis dessas 106 | 17 `quote_found`, 87 `semantic_match_high`, 2 `semantic_match_weak` |
 
-Situação: o gerador de perfis (`utils/generate_actor_profiles.py`), a conferência de perfis contra UDVs
-(`bookworm validate-profiles`) e a simulação de atores com três abordagens (só perfil; perfil com
-recuperação; perfil com recuperação e classifier-free guidance) estão implementados e documentados. Não há
-nenhum arquivo de perfis, de conferência ou de avaliação de simulação versionado em `artifacts/`; nenhum
-resultado dessas etapas pode ser citado. As pendências listadas em `ACTOR_SIMULATION.md` ("Pendências")
-incluem gerar perfis com o modelo final e fazer a rodada completa.
+Implementação: o gerador de perfis (`utils/generate_actor_profiles.py`), a conferência de perfis contra
+UDVs (`bookworm validate-profiles`) e a simulação de atores com três abordagens (só perfil; perfil com
+recuperação; perfil com recuperação e classifier-free guidance) estão em `ACTOR_PROFILES.md` e
+`ACTOR_SIMULATION.md`.
+
+Rodada completa com o backend MLX (`mlx_alternative/README.md`), modelo `mlx-community/Qwen3.8-27B-8bit`,
+27 e 28/09/2026, num Apple M4 Max de 128 GB. Fontes: `mlx_alternative/runs/qwen38_27b/actor_simulation/evaluation.json`
+e `mlx_alternative/runs/qwen38_27b/relatorio_rodada_completa.md`. Perfis gerados só com as audiências de
+treino (264 atores, nenhuma falha); k e γ escolhidos na validação; resultado no teste. Múltipla escolha
+com 4 proposições da mesma audiência (acaso 0.25), lida pelas probabilidades das letras no primeiro token,
+média de 4 rotações; intervalos por bootstrap pareado de 1000 reamostragens de audiências.
+
+| condição (teste, 101 perguntas, 46 atores, 24 audiências) | acerto |
+|---|---|
+| 0, nome e cargo | 0.3069 |
+| 1, perfil | 0.4257 |
+| 2, perfil e trechos (k = 3) | 0.4455 |
+| 3, condição 2 com guidance (γ = 1.0) | 0.4455 |
+
+| diferença (teste) | acerto [IC 95%] |
+|---|---|
+| 1 menos 0 | +0.1188 [0.0495; 0.1965] |
+| 2 menos 1 | +0.0198 [-0.0286; 0.0702] |
+| 3 menos 2 | 0 [0; 0] |
+
+Na validação (81 perguntas), k = 3 e γ = 1.0 tiveram o maior acerto da grade (`selection`), então a
+guidance não mudou nada. Os níveis de evidência declarados pelo modelo não ordenaram o acerto como o
+desenho exige (ESPECULATIVA acima de INDIRETA nas condições 1 e 2). Limites: um modelo, quantizado em 8
+bits, uma semente; o prompt de múltipla escolha foi revisado depois de um piloto que usou perguntas de
+teste, com base na massa das letras e sem uso do acerto (`ACTOR_SIMULATION.md`). A conferência de perfis
+(`bookworm validate-profiles`) não tem rodada versionada.
 
 ## 7. Validação humana (parcial)
 
@@ -1032,13 +1056,15 @@ O relatório final exige as duas planilhas completas (`annotation_guide.md`). Es
 recálculo intermediário, feito a pedido para o artigo, sobre as linhas já julgadas. Ele não é uma decisão
 sobre os critérios.
 
-Comando (rodado no worktree, lendo a planilha do checkout principal, com saída fora do repositório):
+Comando (saída gravada fora do repositório):
 
 ```
 cd challenge && uv run python -m utils.udv_v2_analysis score-annotation --final-test \
-  --annotation /Users/arthur/Documents/bookworm/challenge/artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
+  --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
   --output <arquivo temporário>
 ```
+
+Os números abaixo só se reproduzem com a versão da planilha de sha256 indicado a seguir.
 
 Estado da planilha lida: sha256 `5d4de458fbd1ad86c0dedccaaa180b1640fb96c8a50d05071b581dba5010bbc1`; 65 de 127
 linhas julgadas; 0 rótulos inválidos; o campo `existe_trecho_melhor` está vazio nas 65. Saída gerada em
@@ -1070,8 +1096,8 @@ Todas as 18 linhas `direct_quote` julgadas e as 8 `semantic_with_short_quote` t�
 visível; as 32 de `semantic_match_high` não têm (`by_quote_cue`). Os números de `direct_quote` e
 `semantic_with_short_quote` não foram obtidos às cegas quanto ao modo de busca.
 
-Uma revisão exploratória anterior, não cega e sem protocolo, existe no repositório; ela não é validação e
-não entra em nenhum número deste relatório.
+Uma revisão exploratória anterior, não cega e sem protocolo, foi retirada desta versão (fica na tag Git
+`research-2026-09-28`); ela não é validação e não entra em nenhum número deste relatório.
 
 ## 8. Glossário de métricas
 
@@ -1122,7 +1148,7 @@ Cada métrica está explicada pelo problema que resolve.
 | laya | 0.3.11 | `retrieval_v2_report.json` |
 | ambiente de `udv_v2` | torch 2.14.0, sentence-transformers 6.1.0, Python 3.12.13 | `artifacts/udv/udv_v2_coverage.json` |
 | plataforma | macOS 26.5.2 arm64 (`macOS-26.5.2-arm64-arm-64bit`), 10 CPUs | relatórios de tradução |
-| hardware | Apple M5 com aceleração MPS, fp32; máquina de 24 GB | `configs/retrieval_experiments.toml` (`batch_size_note`), `CONFIDENCE_V2.md` |
+| hardware | Apple M5 com aceleração MPS, fp32; máquina de 24 GB; a rodada MLX de perfis e simulação, num Apple M4 Max de 128 GB | `configs/retrieval_experiments.toml` (`batch_size_note`), `CONFIDENCE_V2.md`, `mlx_alternative/runs/qwen38_27b/relatorio_rodada_completa.md` |
 | gerenciador | `uv` com lock por projeto (`bookworm/` e `challenge/`) | estrutura do repositório |
 | Hub | `HF_HUB_OFFLINE=1` nas rodadas; revisões de modelo fixadas | `environment.hub_offline` dos relatórios de tradução |
 
@@ -1165,10 +1191,11 @@ Dentro de `challenge/` (salvo indicação):
 | E3x | `utils.nli_verifier_exploration` (subcomandos `confirm` e `final-test`, além da seleção) |
 | E5 | `utils.confidence_policies` |
 | E6 | `utils.fuzzy_matching_experiments`; `uv run --no-sync python -m utils.fuzzy_review_precision` |
-| confidence_v2 (checkout principal) | `uv run python -m utils.confidence_v2 smoke`, `decide`, `score`, `laya-smoke`, `laya-score`, `evaluate-ea` |
+| confidence_v2 | `uv run python -m utils.confidence_v2 smoke`, `decide`, `score`, `laya-smoke`, `laya-score`, `evaluate-ea` |
 | atores | `uv run python -m utils.measure_hearing_actors`; `uv run python -m utils.build_actor_speeches` |
 | amostra humana | `uv run --no-sync python -m utils.generate_validation_sample --run-name udv_v1 --final-test`; relatório final: `uv run --no-sync python -m utils.precision_report --sample-dir artifacts/validation/human_validation_v1_udv_v1 --final-test` |
-| lint | `uv run ruff check utils/`; `uv run ruff format --check utils/` |
+| `udv_v2` (CLI da biblioteca) | `uv run --project ../bookworm bookworm build-udvs --config configs/udv_v2.toml --run-name udv_v2`; `verify-udvs` com os mesmos argumentos e `--baseline artifacts/udv/udv_v1.jsonl` |
+| lint e tipos | `uv run ruff check .`; `uv run ruff format --check .`; `uv run mypy` |
 
 Os relatórios de recuperação, E3 e E3x não gravam a linha de comando usada; eles gravam o sha256 do código,
 das entradas e da configuração (`code`, `inputs`, `config`). A reprodução exata passa por esses hashes.
@@ -1182,7 +1209,7 @@ Rodados nesta data no worktree:
 | `bookworm`, com `BOOKWORM_LDS_PATH=challenge/dataset/PublicHearingBR_LDS.jsonl` e `BOOKWORM_EMBEDDING_CACHE=challenge/artifacts/cache/embeddings` | 843 passaram, 4 desmarcados (marcador `model`), 84 s |
 | `bookworm`, só marcador `dataset` | 95 passaram |
 | `bookworm`, sem as variáveis de ambiente | 755 passaram, 88 pulados; cobertura total 97% (4046 linhas, 120 sem cobertura) |
-| `challenge` | 105 passaram |
+| `challenge` | 105 passaram; na versão de release, 118 passaram, sem o dataset e sem os arquivos pesados |
 
 Os testes de integração com marcador `dataset` refazem, a partir do LDS, a paridade byte a byte de
 `udv_v1.jsonl` e dos arquivos de falas por ator com os do `challenge/`, e as contagens das duas regras de
@@ -1220,7 +1247,9 @@ verificador.
 11. **Tradução.** Não comercial (NLLB) e sem checagem manual preenchida.
 12. **Identidade de atores.** Revisão só com evidência interna do dataset; homônimos exatos entre audiências
     ficam juntos sem aviso; um par segue sem resolução.
-13. **Perfis e simulação sem resultado.** Implementados, sem rodada versionada.
+13. **Perfis e simulação com uma rodada.** Um modelo quantizado, uma semente e 101 perguntas de teste
+    (seção 6.3); os níveis de evidência não ordenam o acerto; a conferência de perfis não tem rodada
+    versionada.
 14. **Versões de biblioteca.** Duas combinações de torch e sentence-transformers entre rodadas, sem medida
     de efeito.
 15. **Modelos não rodados.** Jev (declarado no E3 v2), juízes LLM e outros avaliadores do confidence_v2
@@ -1348,18 +1377,22 @@ os commits fixados nas configurações do repositório.
 
 ## Apêndice A. Inconsistências entre artefatos
 
-| tema | fonte A | fonte B | qual vale |
+A coluna "situação" diz o que foi feito na versão de release: erro de documentação corrigido no próprio
+documento, ou divergência explicada.
+
+| tema | fonte A | fonte B | situação |
 |---|---|---|---|
-| Validação humana intermediária, `semantic_match_high` | `PIPELINE.md` e `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json`: 31 julgadas, 21 de 31, um rótulo inválido (A003) | recálculo desta data: 32 julgadas (21 `correta`, 4 `parcial`, 7 `incorreta`), 0 inválidos | o recálculo; a planilha mudou depois do arquivo anterior |
-| Kappa do "melhor juiz" na validação | `PIPELINE.md`: 0.69 (juiz de referência escolhido no train, 0.6909) | `nli_verifier_v2/evaluation_report.json`: `prompt_2_deepseek-chat` 0.7114 | os dois são verdadeiros; o primeiro é escolhido no train, o segundo é o máximo visto na validação |
-| Registros alterados de `udv_v1` para `udv_v2` | `udv_v2_analysis.json`: 1969 | `udv_v2_verify.json`, `baseline_diff.evidence_changed`: 1970 | não resolvido; as duas contagens usam critérios de diferença que não foram comparados |
-| Nome da sigla UDV | `PIPELINE.md`: "unidades documentais verificáveis" | `UDV.md` e `README.md`: "Unidade Deliberativa Verificável" | `UDV.md` (documento de referência da UDV) |
-| Versões de biblioteca | `configs/nli_verifier.toml` e relatórios de recuperação: torch 2.13.0, sentence-transformers 5.6.1 | `udv_v2_coverage.json`: torch 2.14.0, sentence-transformers 6.1.0 | as duas; ambientes de datas diferentes |
-| Medianas do top-1 na regra degenerada | `UDV.md`: "medianas 0,655 e 0,578" (errados e corretos) | `threshold_v1.json`: medianas 0.6472 e 0.5543; 0.655 e 0.5776 são as médias | o JSON; `UDV.md` chama de mediana o que é média |
-| Afirmações antigas de `UDV.md` | resumo de recuperação cobre só rodadas lexicais; nenhuma linha julgada na amostra | `retrieval_v1_report.json` com todos os densos; planilha com 65 linhas julgadas | os artefatos; `UDV.md` está desatualizado nesses pontos |
-| "Nenhum avaliador da literatura supera o primário" | `PIPELINE.md` | `CONFIDENCE_V2.md`: comparação direta não declarada; só estimativa pontual | `CONFIDENCE_V2.md`; a frase de `PIPELINE.md` não tem teste por trás |
+| Validação humana intermediária, `semantic_match_high` | `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json`: 31 julgadas, 21 de 31, um rótulo inválido (A003) | recálculo desta data: 32 julgadas (21 `correta`, 4 `parcial`, 7 `incorreta`), 0 inválidos | vale o recálculo (a planilha mudou depois do arquivo anterior); `PIPELINE.md` deixou de copiar os números e aponta para a seção 7.2 |
+| Kappa do "melhor juiz" na validação | `PIPELINE.md`: 0.69 | `nli_verifier_v2/evaluation_report.json`: `prompt_2_deepseek-chat` 0.7114 | os dois são verdadeiros: 0.6909 é o juiz de referência escolhido no treino (`prompt_1_gpt-4o-mini-2024-07-18`), 0.7114 é o máximo visto na validação; `PIPELINE.md` agora diz isso |
+| Registros alterados de `udv_v1` para `udv_v2` | `udv_v2_analysis.json`: 1969 | `udv_v2_verify.json`, `baseline_diff.evidence_changed`: 1970 | explicado: `diff.evidence_changed` (1969) compara texto, `start_char`, `end_char` e `speaker_turn`; `diff.records_changed_any` (1970) soma `udv-6-0-6`, que só mudou de nível (cosseno 0.4838, entre os cortes 0.45 e 0.50); `baseline_diff.evidence_changed` (1970) compara o objeto `evidence` inteiro e soma `udv-117-0-0`, mesma sentença e mesmos offsets com cosseno diferente em 1.2e-7 (0.69387329 contra 0.69387317). As 1969 com evidência diferente estão nas três contagens |
+| Nome da sigla UDV | `PIPELINE.md`: "unidades documentais verificáveis" | `UDV.md` e `README.md`: "Unidade Deliberativa Verificável" | corrigido em `PIPELINE.md` |
+| Versões de biblioteca | `configs/nli_verifier.toml` e relatórios de recuperação: torch 2.13.0, sentence-transformers 5.6.1 | `udv_v2_coverage.json`: torch 2.14.0, sentence-transformers 6.1.0 | as duas; `udv_v2` é construída pela CLI de `../bookworm/`, que tem ambiente próprio |
+| Medianas do top-1 na regra degenerada | `UDV.md`: "medianas 0,655 e 0,578" (errados e corretos) | `threshold_v1.json`: medianas 0.6472 e 0.5543; 0.655 e 0.5776 são as médias | corrigido em `UDV.md` |
+| Afirmações antigas de `UDV.md` | resumo de recuperação cobre só rodadas lexicais; nenhuma linha julgada na amostra | `retrieval_v1_report.json` com todos os densos; planilha com 65 linhas julgadas | corrigido: `UDV.md` descreve só o registro e as regras de `udv_v1` e aponta para este relatório nos experimentos e na validação |
+| "Nenhum avaliador da literatura supera o primário" | `PIPELINE.md` e a seção "Resposta" de `CONFIDENCE_V2.md` | `CONFIDENCE_V2.md`, E-A: comparação direta não declarada; só estimativa pontual | corrigido nos dois documentos: a ordem é estimativa pontual sem teste |
 | Contagem de falantes recorrentes | `HEARING_ACTORS.md`: 282 falantes em 2 ou mais audiências (antes das fusões, 1901 falantes) | `actors.md`: 301 atores em 2 ou mais audiências (depois das fusões e regras de descarte) | as duas, em etapas diferentes |
-| Versão do pacote Laya | `retrieval_v2_report.json`: 0.3.11 instalada | PyPI atual: 0.3.21 | 0.3.11 é a usada nos resultados |
+| Versão do pacote Laya | `retrieval_v2_report.json`: 0.3.11 instalada | PyPI atual: 0.3.21 | 0.3.11 é a usada nos resultados e a fixada em `pyproject.toml` |
+| Perfis e simulação | versão anterior deste relatório: sem rodada versionada | `mlx_alternative/runs/qwen38_27b/` | corrigido na seção 6.3; a rodada entrou com a união dos ramos |
 
 ## Apêndice B. O que foi planejado e não rodado
 
@@ -1372,6 +1405,6 @@ os commits fixados nas configurações do repositório.
 | checagem manual de tradução | não preenchida | `artifacts/validation/translation_spot_check_v2/` |
 | segunda metade da validação humana e reanotação de 20 linhas | pendentes | `annotation_guide.md` |
 | validação humana própria de `udv_v2` | plano existe (`artifacts/udv/udv_v2_annotation_plan.json`); nenhuma planilha nova | ADR 0006 |
-| perfis de ator com o modelo final, conferência de perfis e simulação | implementados, sem rodada versionada | `ACTOR_PROFILES.md`, `ACTOR_SIMULATION.md`, `../bookworm/docs/profile_validation.md` |
+| conferência de perfis contra UDVs (`bookworm validate-profiles`) | implementada, sem rodada versionada; perfis e simulação têm a rodada da seção 6.3 | `../bookworm/docs/profile_validation.md` |
 | auditoria editorial (índice de desvio editorial) e espaço latente multifacetado | descritos no documento de visão; sem artefato de resultado | `CONSTITUTION.md` |
 | teste do benchmark de recuperação e do E5 | não lido por desenho | `retrieval_v1_report.json`, `confidence_v1_report.json` (`final_test` falso) |
