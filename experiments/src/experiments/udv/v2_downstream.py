@@ -1,17 +1,20 @@
+"""Compare every stage downstream of the UDV run on udv_v1 and udv_v2."""
+
 import argparse
 import json
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from bookworm import load_jsonl, sha256_of_file, write_json
+from bookworm import TIERS, load_jsonl, sha256_of_file, write_json
 
 from experiments.actors import evaluate_simulation, simulation
 from experiments.actors.generate_profiles import hearing_metadata
-from experiments.common.provenance import source_hashes
+from experiments.common.provenance import code_section
+from experiments.common.reporting import file_record, utc_timestamp
+from experiments.common.splits import SPLIT_NAMES, read_split_lookup
 
 Record = dict[str, Any]
 
@@ -26,14 +29,8 @@ PROFILES = Path("artifacts/mlx_runs/qwen38_27b/actor_profiles/actor_profiles_tra
 LINKS_V2 = Path("artifacts/udv/udv_v2_actor_links.jsonl")
 OUTPUT = Path("artifacts/udv/udv_v2_downstream_report.json")
 RUNS = {"udv_v1": Path("artifacts/udv/udv_v1.jsonl"), "udv_v2": Path("artifacts/udv/udv_v2.jsonl")}
-SPLITS = ("train", "validation", "test")
-TIERS = (
-    "quote_found",
-    "semantic_match_high",
-    "semantic_match_weak",
-    "no_evidence",
-    "person_not_resolved",
-)
+DISAGREEMENT_EXAMPLES = 20
+SUMMARY_OMITTED_KEYS = frozenset({"library_only", "evidence_turn_only", "disagreement_examples"})
 LIBRARY_RULE = (
     "the links of udv_v2_actor_links.jsonl, written by bookworm build-udvs --actors-config: the"
     " actor owning the most kept turns among the turns matched to the participant; the rule reads"
@@ -49,9 +46,9 @@ PROFILED_RULE = (
     " filtered to train hearings), as counted for profile evaluation"
 )
 OVERLAP_RULE = (
-    "simulation questions built by evaluate_actor_simulation.build_questions on each run with the"
-    " same profiles, speeches and seeds; a question is identical when every field, options"
-    " included, is equal"
+    "simulation questions built by experiments.actors.evaluate_simulation.build_questions on each"
+    " run with the same profiles, speeches and seeds; a question is identical when every field,"
+    " options included, is equal"
 )
 
 
@@ -78,10 +75,6 @@ def evidence_turn_links(
     return links
 
 
-def split_of(manifest: Mapping[str, Any]) -> dict[int, str]:
-    return {hearing: split for split in SPLITS for hearing in manifest[split]}
-
-
 def profiled_counts(
     udvs: Mapping[str, Record],
     links: Mapping[str, str],
@@ -89,7 +82,7 @@ def profiled_counts(
     hearing_split: Mapping[int, str],
 ) -> dict[str, Record]:
     counts: dict[str, Record] = {}
-    for split in SPLITS:
+    for split in SPLIT_NAMES:
         linked = {
             uid: actor
             for uid, actor in links.items()
@@ -123,7 +116,7 @@ def link_comparison(
         "disagreements": len(disagreements),
         "disagreement_examples": [
             {"udv_id": uid, "library": library[uid], "evidence_turn": evidence[uid]}
-            for uid in disagreements[:20]
+            for uid in disagreements[:DISAGREEMENT_EXAMPLES]
         ],
         "library_only": {uid: library[uid] for uid in library_only},
         "evidence_turn_only": {uid: evidence[uid] for uid in evidence_only},
@@ -135,8 +128,8 @@ def link_comparison(
 
 
 def split_tier_counts(udvs: Iterable[Record], hearing_split: Mapping[int, str]) -> Record:
-    counts: dict[str, Counter[str]] = {split: Counter() for split in SPLITS}
-    hearings: dict[str, set[int]] = {split: set() for split in SPLITS}
+    counts: dict[str, Counter[str]] = {split: Counter() for split in SPLIT_NAMES}
+    hearings: dict[str, set[int]] = {split: set() for split in SPLIT_NAMES}
     for udv in udvs:
         split = hearing_split[udv["hearing_id"]]
         counts[split][udv["tier"]] += 1
@@ -147,7 +140,7 @@ def split_tier_counts(udvs: Iterable[Record], hearing_split: Mapping[int, str]) 
             "hearings": len(hearings[split]),
             "by_tier": {tier: counts[split][tier] for tier in TIERS},
         }
-        for split in SPLITS
+        for split in SPLIT_NAMES
     }
 
 
@@ -157,12 +150,13 @@ def simulation_questions(udv_path: Path, profiles_path: Path) -> dict[str, list[
     metadata = hearing_metadata(config.lds_path, config.lds_sha256)
     owners = simulation.turn_owners(load_jsonl(config.speeches_path))
     udvs = load_jsonl(udv_path)
-    return {
-        split: evaluate_simulation.build_questions(config, split, profiles, udvs, owners, metadata)[
-            0
-        ]
-        for split in (config.selection_split, config.eval_split)
-    }
+    questions: dict[str, list[Record]] = {}
+    for split in (config.selection_split, config.eval_split):
+        built, _ = evaluate_simulation.build_questions(
+            config, split, profiles, udvs, owners, metadata
+        )
+        questions[split] = built
+    return questions
 
 
 def question_overlap(v1: Mapping[str, list[Record]], v2: Mapping[str, list[Record]]) -> Record:
@@ -427,14 +421,8 @@ def supplement_section() -> Record:
     }
 
 
-def code_hashes() -> dict[str, str]:
-    modules = (simulation, evaluate_simulation)
-    return source_hashes(Path(__file__), *modules)
-
-
 def build_report(profiles_path: Path) -> Record:
-    with open(MANIFEST) as f:
-        hearing_split = split_of(json.load(f))
+    hearing_split = read_split_lookup(MANIFEST)
     owners: dict[tuple[int, int], str] = {}
     for speech_file in SPEECH_FILES:
         owners.update(simulation.turn_owners(load_jsonl(speech_file)))
@@ -454,26 +442,23 @@ def build_report(profiles_path: Path) -> Record:
         questions[run] = simulation_questions(path, profiles_path)
     return {
         "name": "udv_v2_downstream",
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "created_at": utc_timestamp(),
         "purpose": (
             "every stage downstream of the UDV run, rerun or checked on udv_v2, next to its"
             " udv_v1 value"
         ),
         "inputs": {
-            "split_manifest": {"path": str(MANIFEST), "sha256": sha256_of_file(MANIFEST)},
+            "split_manifest": file_record(MANIFEST),
             "speech_files": {str(path): sha256_of_file(path) for path in SPEECH_FILES},
-            "train_speeches": {
-                "path": str(TRAIN_SPEECHES),
-                "sha256": sha256_of_file(TRAIN_SPEECHES),
-            },
-            "profiles": {"path": str(profiles_path), "sha256": sha256_of_file(profiles_path)},
+            "train_speeches": file_record(TRAIN_SPEECHES),
+            "profiles": file_record(profiles_path),
         },
         "link_rules": {
             "library_rule": LIBRARY_RULE,
             "evidence_turn_rule": EVIDENCE_RULE,
             "profiled_rule": PROFILED_RULE,
             "profiled_actors": len(profiled),
-            "library_links_file": {"path": str(LINKS_V2), "sha256": sha256_of_file(LINKS_V2)},
+            "library_links_file": file_record(LINKS_V2),
         },
         "runs": runs,
         "question_overlap": question_overlap(questions["udv_v1"], questions["udv_v2"]),
@@ -481,30 +466,37 @@ def build_report(profiles_path: Path) -> Record:
         "supplement_annotation": supplement_section(),
         "colleague_command": COLLEAGUE_COMMAND,
         "not_run": list(NOT_RUN),
-        "code": code_hashes(),
+        "code": code_section(Path(__file__), simulation, evaluate_simulation),
     }
 
 
-def main() -> None:
+def run_summary(report: Record) -> Record:
+    return {
+        run: {
+            "link_rules": {
+                key: value
+                for key, value in section["link_rules"].items()
+                if key not in SUMMARY_OMITTED_KEYS
+            },
+        }
+        for run, section in report["runs"].items()
+    }
+
+
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Compare every stage downstream of the UDV run on udv_v1 and udv_v2."
     )
     parser.add_argument("--profiles", type=Path, default=PROFILES)
     parser.add_argument("--output", type=Path, default=OUTPUT)
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
     report = build_report(args.profiles)
     write_json(report, args.output)
-    summary = {
-        run: {
-            "link_rules": {
-                key: value
-                for key, value in section["link_rules"].items()
-                if key not in {"library_only", "evidence_turn_only", "disagreement_examples"}
-            },
-        }
-        for run, section in report["runs"].items()
-    }
-    print(json.dumps(summary, ensure_ascii=False, indent=2))
+    print(json.dumps(run_summary(report), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
