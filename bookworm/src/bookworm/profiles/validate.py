@@ -10,7 +10,7 @@ from typing import Any, Literal, Self, get_args
 
 import numpy as np
 from numpy.typing import NDArray
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import Field, ValidationError, model_validator
 
 from bookworm.actors.schemas import UdvActorLink, read_udv_actor_links
 from bookworm.config import (
@@ -27,6 +27,7 @@ from bookworm.data.splits import SPLIT_NAMES, SplitName
 from bookworm.errors import ConfigError
 from bookworm.features.encoders import CachedEncoder, FloatMatrix, SentenceEncoder
 from bookworm.features.tfidf import TfidfEncoder
+from bookworm.models import StrictModel
 from bookworm.profiles.schemas import ProfileRecord, read_profiles
 from bookworm.transcript.sentences import split_sentences
 from bookworm.udv.schemas import Tier, UdvRecord, load_udv_jsonl
@@ -69,11 +70,7 @@ SCORE_NOTE = (
 )
 
 
-class _ValidationModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
-
-
-class ReviewSettings(_ValidationModel):
+class ReviewSettings(StrictModel):
     seed: int
     sizes: dict[Group, int]
     score_bands: list[float]
@@ -88,7 +85,7 @@ class ReviewSettings(_ValidationModel):
         return self
 
 
-class ProfileValidationConfig(_ValidationModel):
+class ProfileValidationConfig(StrictModel):
     udv_path: Path
     links_path: Path
     profiles_path: Path
@@ -189,7 +186,7 @@ def load_profile_validation_config(path: Path) -> ProfileValidationConfig:
     return ProfileValidationConfig.from_mapping(read_toml(path), origin=str(path))
 
 
-class ProfilePair(_ValidationModel):
+class ProfilePair(StrictModel):
     udv_id: str
     hearing_id: int
     split: SplitName

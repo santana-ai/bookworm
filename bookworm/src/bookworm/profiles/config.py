@@ -3,22 +3,19 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, Self
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import Field, ValidationError, model_validator
 
 from bookworm.config import read_toml, required, section
 from bookworm.data.splits import SPLIT_NAMES
 from bookworm.errors import ConfigError
+from bookworm.models import ConfigModel
 
 PACKAGED_PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 DEFAULT_SYSTEM_PROFILE = "system_profile.md"
 DEFAULT_USER_PROFILE = "user_profile.md.j2"
 
 
-class _ConfigModel(BaseModel):
-    model_config = ConfigDict(extra="ignore", frozen=True, strict=True)
-
-
-class ModelSettings(_ConfigModel):
+class ModelSettings(ConfigModel):
     name: str
     device_map: str
     temperature: float | int = Field(ge=0)
@@ -32,7 +29,7 @@ def check_split_names(splits: list[str]) -> None:
         raise ValueError(f"splits must be distinct names among {SPLIT_NAMES}, got {splits}")
 
 
-class SplitFilterConfig(_ConfigModel):
+class SplitFilterConfig(ConfigModel):
     speeches_path: Path
     lds_sha256: str
     manifest_path: Path
@@ -81,7 +78,7 @@ class SplitFilterConfig(_ConfigModel):
             raise ConfigError(f"{origin}: {error}") from error
 
 
-class ProfilesConfig(_ConfigModel):
+class ProfilesConfig(ConfigModel):
     speeches_path: Path
     lds_path: Path
     lds_sha256: str

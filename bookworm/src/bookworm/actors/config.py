@@ -3,28 +3,25 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, Self
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import Field, ValidationError, model_validator
 
 from bookworm.config import read_toml, required
 from bookworm.errors import ConfigError
+from bookworm.models import ConfigModel
 
 
-class _ActorsConfigModel(BaseModel):
-    model_config = ConfigDict(extra="ignore", frozen=True, strict=True)
-
-
-class MergeGroup(_ActorsConfigModel):
+class MergeGroup(ConfigModel):
     canonical: str
     aliases: tuple[str, ...] = Field(min_length=1)
 
 
-class MergeReassignment(_ActorsConfigModel):
+class MergeReassignment(ConfigModel):
     key: str
     hearing_id: int
     canonical: str
 
 
-class ActorsConfig(_ActorsConfigModel):
+class ActorsConfig(ConfigModel):
     lds_path: Path
     expected_sha256: str
     chair_names: tuple[str, ...]

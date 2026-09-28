@@ -5,16 +5,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TextIO
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError
+from pydantic import Field, ValidationError
 
 from bookworm.errors import ConfigError
+from bookworm.models import StrictModel
 
 
-class _ProfileModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
-
-
-class ProfileRecord(_ProfileModel):
+class ProfileRecord(StrictModel):
     actor: str = Field(min_length=1)
     profile: str = Field(min_length=1)
     model: str

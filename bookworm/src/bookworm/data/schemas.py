@@ -1,22 +1,18 @@
-from pydantic import BaseModel, ConfigDict
+from bookworm.models import StrictModel
 
 
-class _DatasetModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
-
-
-class Participant(_DatasetModel):
+class Participant(StrictModel):
     nome: str
     cargo: str
     opinioes: tuple[str, ...]
 
 
-class HearingMetadata(_DatasetModel):
+class HearingMetadata(StrictModel):
     assunto: str
     envolvidos: tuple[Participant, ...]
 
 
-class HearingRecord(_DatasetModel):
+class HearingRecord(StrictModel):
     id: int
     materia: str
     metadados: HearingMetadata

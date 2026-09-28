@@ -4,9 +4,10 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Annotated, Any, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import Field, ValidationError, model_validator
 
 from bookworm.errors import ConfigError
+from bookworm.models import ConfigModel
 from bookworm.udv.quotes import QuoteExtentMode
 from bookworm.udv.windows import SemanticUnit
 
@@ -14,11 +15,7 @@ DEFAULT_ENCODER_KIND = "sentence_transformers"
 SPLIT_VERSION_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_.-]*$"
 
 
-class _ConfigModel(BaseModel):
-    model_config = ConfigDict(extra="ignore", frozen=True, strict=True)
-
-
-class SentenceTransformerSettings(_ConfigModel):
+class SentenceTransformerSettings(ConfigModel):
     kind: Literal["sentence_transformers"] = "sentence_transformers"
     name: str
     revision: str
@@ -26,7 +23,7 @@ class SentenceTransformerSettings(_ConfigModel):
     device: str
 
 
-class TfidfSettings(_ConfigModel):
+class TfidfSettings(ConfigModel):
     kind: Literal["tfidf"]
     max_features: int | None = Field(default=None, gt=0)
 
@@ -36,7 +33,7 @@ EncoderSettings = Annotated[
 ]
 
 
-class UdvConfig(_ConfigModel):
+class UdvConfig(ConfigModel):
     lds_path: Path
     expected_sha256: str
     encoder: EncoderSettings
@@ -78,7 +75,7 @@ class UdvConfig(_ConfigModel):
             raise ConfigError(f"{origin}: {error}") from error
 
 
-class SplitConfig(_ConfigModel):
+class SplitConfig(ConfigModel):
     lds_path: Path
     expected_sha256: str
     split_version: str = Field(pattern=SPLIT_VERSION_PATTERN)

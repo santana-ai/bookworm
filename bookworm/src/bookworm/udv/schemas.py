@@ -4,7 +4,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal, get_args
 
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import ValidationError
+
+from bookworm.models import StrictModel
 
 Tier = Literal[
     "quote_found",
@@ -21,16 +23,12 @@ SUPPORT_TYPES: tuple[SupportType, ...] = get_args(SupportType)
 SEMANTIC_TIERS: tuple[Tier, ...] = ("semantic_match_high", "semantic_match_weak")
 
 
-class _UdvModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
-
-
-class Actor(_UdvModel):
+class Actor(StrictModel):
     name: str
     role: str
 
 
-class Evidence(_UdvModel):
+class Evidence(StrictModel):
     text: str
     support_type: SupportType
     score: float | None
@@ -40,13 +38,13 @@ class Evidence(_UdvModel):
     speaker_turn: int | None
 
 
-class Method(_UdvModel):
+class Method(StrictModel):
     encoder: str
     revision: str
     embedding_threshold: float | int
 
 
-class UdvRecord(_UdvModel):
+class UdvRecord(StrictModel):
     id: str
     hearing_id: int
     actor: Actor

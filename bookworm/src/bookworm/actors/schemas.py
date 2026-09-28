@@ -3,7 +3,7 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Any, Literal, get_args
 
-from pydantic import BaseModel, ConfigDict
+from bookworm.models import StrictModel
 
 TurnRole = Literal["chair", "speaker"]
 
@@ -13,9 +13,7 @@ TURN_ROLES: tuple[TurnRole, ...] = get_args(TurnRole)
 SPEECH_SEPARATOR = "\n\n"
 
 
-class _ActorModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, strict=True)
-
+class _ActorModel(StrictModel):
     def to_dict(self) -> dict[str, Any]:
         return self.model_dump()
 
