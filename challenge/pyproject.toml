@@ -1,7 +1,7 @@
 [project]
 name = "challenge"
 version = "0.1.0"
-description = "Add your description here"
+description = "Experiments, analyses and reproducible artifacts of bookworm on the PublicHearingBR dataset"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -24,6 +24,7 @@ dependencies = [
 dev = [
     "ipykernel>=7.3.0",
     "jupyter>=1.1.1",
+    "mypy>=2.3.1",
     "pytest>=9.1.1",
     "ruff>=0.16.8",
 ]
@@ -31,9 +32,31 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+extend-exclude = ["*.ipynb", "mlx_alternative/runs"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B"]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"utils/cache_lock.py" = ["SIM115"]
+"tests/test_cache_lock.py" = ["SIM115"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["utils", "mlx_alternative"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["utils", "mlx_alternative"]
+exclude = ["mlx_alternative/runs/"]
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = ["laya", "laya.*", "scipy", "scipy.*", "sklearn", "sklearn.*", "tokenizers", "tokenizers.*", "yaml", "mlx", "mlx.*", "mlx_lm", "mlx_lm.*", "rank_bm25"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

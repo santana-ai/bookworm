@@ -222,10 +222,7 @@ def main() -> None:
     paths = run_paths(settings, spec)
     write_derived_configs(spec, paths)
     install_backend(spec)
-    if args.all_actors:
-        actors = None
-    else:
-        actors = args.actors or list(settings.short_run_actors) or None
+    actors = None if args.all_actors else args.actors or list(settings.short_run_actors) or None
     extra = []
     if args.k is not None:
         extra += ["--k", args.k]
