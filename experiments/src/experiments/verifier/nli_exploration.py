@@ -17,7 +17,6 @@ from sklearn.preprocessing import StandardScaler
 from experiments.common.stats import holm
 from experiments.data.nli_benchmark import load_split_lookup
 from experiments.udv.calibrate_threshold import interval, rounded
-from experiments.verifier.decision_scoring import bootstrap_p_value
 from experiments.verifier.nli_experiments import (
     binary_metrics,
     code_hashes,
@@ -26,6 +25,7 @@ from experiments.verifier.nli_experiments import (
     max_f1_not_inferable_optimum,
     now,
 )
+from experiments.verifier.stats import bootstrap_p_value
 
 Record = dict[str, Any]
 

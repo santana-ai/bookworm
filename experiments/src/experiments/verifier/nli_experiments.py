@@ -61,7 +61,7 @@ from experiments.udv.calibrate_threshold import (
     unit_groups,
     youden_optimum,
 )
-from experiments.verifier import decision_models, decision_scoring, translation
+from experiments.verifier import decision_models, decision_scoring, runtime, stats, translation
 from experiments.verifier.decision_models import (
     DEFAULT_API_KEY_ENV,
     JEV_ENDPOINT,
@@ -82,12 +82,9 @@ from experiments.verifier.decision_models import (
 from experiments.verifier.decision_scoring import (
     CONSENSUS,
     DERIVED_SCORES,
-    MIN_HEARINGS_FOR_P_VALUE,
     STACKED,
     Battery,
     BatteryError,
-    apply_holm,
-    bootstrap_p_value,
     check_selection,
     component_agreement,
     consensus_votes,
@@ -99,6 +96,7 @@ from experiments.verifier.decision_scoring import (
     parse_battery,
     score_names,
 )
+from experiments.verifier.stats import MIN_HEARINGS_FOR_P_VALUE, apply_holm, bootstrap_p_value
 from experiments.verifier.translation import TranslationConfig, TranslationStore
 
 Record = dict[str, Any]
@@ -1880,8 +1878,10 @@ def code_hashes() -> Record:
         calibrate_threshold,
         bookworm.data.io,
         hub_offline,
-        decision_models,
-        decision_scoring,
+        *decision_models.SOURCES,
+        *decision_scoring.SOURCES,
+        stats,
+        runtime,
         retrieval_stats,
         translation,
     )

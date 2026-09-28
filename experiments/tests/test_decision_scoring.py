@@ -7,8 +7,6 @@ import pytest
 from experiments.verifier.decision_models import DecisionAnswer
 from experiments.verifier.decision_scoring import (
     BatteryError,
-    apply_holm,
-    bootstrap_p_value,
     check_selection,
     component_agreement,
     consensus_votes,
@@ -19,6 +17,7 @@ from experiments.verifier.decision_scoring import (
     parse_battery,
     score_names,
 )
+from experiments.verifier.stats import apply_holm, bootstrap_p_value
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier.toml"
 ALL = (

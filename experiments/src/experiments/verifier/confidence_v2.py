@@ -24,7 +24,6 @@ from experiments.verifier import nli_experiments as experiments
 from experiments.verifier import nli_exploration as exploration
 from experiments.verifier.confidence_policies import signal_metrics
 from experiments.verifier.decision_models import DecisionQuestion, LayaDecisionModel, noul_question
-from experiments.verifier.decision_scoring import bootstrap_p_value
 from experiments.verifier.grounding_scorers import (
     CandidateSpec,
     PairScorer,
@@ -34,6 +33,7 @@ from experiments.verifier.grounding_scorers import (
     parse_candidate,
 )
 from experiments.verifier.nli_experiments import PremiseUnit
+from experiments.verifier.stats import bootstrap_p_value
 
 Record = dict[str, Any]
 
