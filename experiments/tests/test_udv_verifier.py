@@ -7,19 +7,41 @@ from bookworm import write_jsonl
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-from experiments.verifier import udv_verifier as uv
 from experiments.verifier.exploration import scores as exploration_scores
-from experiments.verifier.exploration.candidates import check_reading
+from experiments.verifier.exploration.candidates import check_reading, feature_candidate
 from experiments.verifier.exploration.config import (
     BATTERY_SIGNALS,
     Candidate,
     ScorerData,
     load_exploration_config,
 )
-from experiments.verifier.exploration.scores import load_scorer
+from experiments.verifier.exploration.scores import candidate_scores, load_scorer
 from experiments.verifier.nli.benchmark import PremiseUnit
 from experiments.verifier.nli.config import ScorerSpec
 from experiments.verifier.nli.scoring import score_file
+from experiments.verifier.udv_scores import scoring as udv_scoring
+from experiments.verifier.udv_scores.analysis import (
+    evidence_cosine_feature,
+    evidence_score_check,
+    grouped_summaries,
+    lowest_udvs,
+    pool_agreement,
+    supported_shares,
+    udv_semantic_unit,
+)
+from experiments.verifier.udv_scores.apply import output_rows
+from experiments.verifier.udv_scores.config import (
+    SENTENCE_CHECK_RULE,
+    UDV_SPLIT,
+    FittedPrimary,
+    candidate_scorers,
+    check_scorer_list,
+    load_config,
+    primary_candidate,
+)
+from experiments.verifier.udv_scores.primary import refit_check
+from experiments.verifier.udv_scores.scoring import score_scorers
+from experiments.verifier.udv_scores.units import udv_units
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs" / "udv_verifier.toml"
@@ -90,7 +112,7 @@ SPECS = [
 def configs(monkeypatch, tmp_path):
     monkeypatch.chdir(ROOT)
     monkeypatch.setattr(exploration_scores, "SCORES_ROOT", tmp_path)
-    return uv.load_config(CONFIG), load_exploration_config(EXPLORATION)
+    return load_config(CONFIG), load_exploration_config(EXPLORATION)
 
 
 def test_units_keep_only_evidence_tiers_and_count_the_rest():
@@ -100,7 +122,7 @@ def test_units_keep_only_evidence_tiers_and_count_the_rest():
         record("c", "person_not_resolved", None),
         record("d", "no_evidence", None),
     ]
-    units, unscored = uv.udv_units(records, ("quote_found", "semantic_match_weak"), {1: "train"})
+    units, unscored = udv_units(records, ("quote_found", "semantic_match_weak"), {1: "train"})
     assert [u.unit_id for u in units] == ["a", "b"]
     assert units[0].items == ("Frase citada.",)
     assert units[0].hypothesis == "Proposta a"
@@ -110,9 +132,9 @@ def test_units_keep_only_evidence_tiers_and_count_the_rest():
 
 def test_units_refuse_an_evidence_tier_without_text():
     with pytest.raises(SystemExit):
-        uv.udv_units([record("a", "quote_found", "  ")], ("quote_found",), {1: "train"})
+        udv_units([record("a", "quote_found", "  ")], ("quote_found",), {1: "train"})
     with pytest.raises(SystemExit):
-        uv.udv_units([record("a", "quote_found", "Texto.", 9)], ("quote_found",), {1: "train"})
+        udv_units([record("a", "quote_found", "Texto.", 9)], ("quote_found",), {1: "train"})
 
 
 def test_score_scorers_routes_english_scorers_through_the_translation(monkeypatch):
@@ -128,8 +150,8 @@ def test_score_scorers_routes_english_scorers_through_the_translation(monkeypatc
         seen[spec_.key] = (spec_units[0], concatenate_single, probes)
         return [fake_row(u, spec_, 0.5) for u in spec_units], {"timing": {}}
 
-    monkeypatch.setattr(uv, "translation_summary", lambda *args: {"model": "fake"})
-    results = uv.score_scorers(units, SPECS[:2], verifier, "cpu", translations, "t", fake_score)
+    monkeypatch.setattr(udv_scoring, "translation_summary", lambda *args: {"model": "fake"})
+    results = score_scorers(units, SPECS[:2], verifier, "cpu", translations, "t", fake_score)
     english, single, probes = seen["laya_en_en"]
     assert english.hypothesis == "EN Proposta." and english.items == ("EN Frase.",)
     assert single is True and probes == [("EN P", "EN H")]
@@ -139,37 +161,37 @@ def test_score_scorers_routes_english_scorers_through_the_translation(monkeypatc
 
 def test_primary_reads_the_declared_scorers(configs):
     config, exploration_config = configs
-    candidate = uv.primary_candidate(exploration_config, config.primary)
+    candidate = primary_candidate(exploration_config, config.primary)
     assert len(candidate.features) == 2 * 24 + 5
-    assert set(uv.candidate_scorers(candidate)) == set(config.scorers)
-    uv.check_scorer_list(config, candidate)
+    assert set(candidate_scorers(candidate)) == set(config.scorers)
+    check_scorer_list(config, candidate)
 
 
 def test_fake_scores_flow_to_probabilities(configs):
     config, exploration_config = configs
-    candidate = uv.primary_candidate(exploration_config, config.primary)
+    candidate = primary_candidate(exploration_config, config.primary)
     units = [PremiseUnit(f"u{i}", 1, "train", "H", ("P",)) for i in range(4)]
     for index, spec_ in enumerate(SPECS):
         rows = [fake_row(u, spec_, (0.1 * (i + 1) + 0.05 * index) % 1) for i, u in enumerate(units)]
-        write_jsonl(rows, score_file(config.run_dir, spec_.key, uv.UDV_SPLIT))
+        write_jsonl(rows, score_file(config.run_dir, spec_.key, UDV_SPLIT))
     ids = [u.unit_id for u in units]
     data = {}
     for key in config.scorers:
         kind, _ = exploration_config.scorers[key]
-        data[key] = load_scorer(key, kind, config.name, uv.UDV_SPLIT, ids, exploration_config)
+        data[key] = load_scorer(key, kind, config.name, UDV_SPLIT, ids, exploration_config)
     check_reading(exploration_config, data)
-    pools = uv.pool_agreement(candidate, data)
+    pools = pool_agreement(candidate, data)
     assert all(gap == 0.0 for gap in pools["max_abs_gap_by_scorer"].values())
     rng = np.random.default_rng(0)
     matrix = rng.random((40, len(candidate.features)))
     labels = rng.random(40) > 0.5
     scaler = StandardScaler().fit(matrix)
     model = LogisticRegression().fit(scaler.transform(matrix), labels)
-    fitted = uv.FittedPrimary(candidate, scaler, model, 0.5, {})
+    fitted = FittedPrimary(candidate, scaler, model, 0.5, {})
     probabilities = fitted.probabilities(data)
     assert probabilities.shape == (4,)
     assert ((probabilities > 0) & (probabilities < 1)).all()
-    secondary = uv.candidate_scores(uv.feature_candidate(config.secondary), data)
+    secondary = candidate_scores(feature_candidate(config.secondary), data)
     assert secondary.tolist() == pytest.approx(
         [decision_signals((0.1 * (i + 1) + 0.05) % 1)["p4_supports"] for i in range(4)]
     )
@@ -188,11 +210,11 @@ def test_pool_agreement_stops_when_pools_differ():
     }
     candidate = Candidate("c", "learned", "toy", (), "learned", ("toy:a:max", "toy:a:concatenated"))
     with pytest.raises(SystemExit):
-        uv.pool_agreement(candidate, data)
+        pool_agreement(candidate, data)
 
 
 def test_refit_check_compares_every_recorded_value():
-    fitted = uv.FittedPrimary(
+    fitted = FittedPrimary(
         Candidate("k", "learned", "s", (), "learned"),
         StandardScaler(),
         LogisticRegression(),
@@ -203,31 +225,31 @@ def test_refit_check_compares_every_recorded_value():
         "learned": {"k": {"c": 0.01, "inner_means": {"0.01": 0.8}, "coefficients": {"f": 0.1}}},
         "results": {"k": {"threshold": 0.75}},
     }
-    assert all(uv.refit_check(fitted, final_test, "k")["checks"].values())
+    assert all(refit_check(fitted, final_test, "k")["checks"].values())
     final_test["results"]["k"]["threshold"] = 0.7
     with pytest.raises(SystemExit):
-        uv.refit_check(fitted, final_test, "k")
+        refit_check(fitted, final_test, "k")
 
 
 def test_summaries_and_lowest():
     values = np.array([0.9, 0.1, 0.5, 0.3])
     groups = ["x", "x", "y", "y"]
-    summary = uv.grouped_summaries(values, groups, (0.0, 0.5, 1.0))
+    summary = grouped_summaries(values, groups, (0.0, 0.5, 1.0))
     assert summary["x"]["quantiles"]["0.0"] == 0.1 and summary["all"]["n"] == 4
-    shares = uv.supported_shares(values >= 0.5, groups)
+    shares = supported_shares(values >= 0.5, groups)
     assert shares["x"] == {"n": 2, "supported": 1, "share": 0.5}
     assert shares["all"]["supported"] == 2
     records = [
         record(name, tier, "t")
         for name, tier in zip("abcd", ["quote_found"] * 3 + ["x"], strict=True)
     ]
-    lowest = uv.lowest_udvs(records, values, values, ("quote_found",), 2)
+    lowest = lowest_udvs(records, values, values, ("quote_found",), 2)
     assert [row["udv_id"] for row in lowest["quote_found"]] == ["b", "c"]
 
 
 def test_output_rows_keep_unscored_udvs_with_null_scores():
     records = [record("a", "quote_found", "t"), record("b", "no_evidence", None)]
-    rows = uv.output_rows(records, {1: "test"}, {"a": (0.8, True, 0.6)})
+    rows = output_rows(records, {1: "test"}, {"a": (0.8, True, 0.6)})
     assert rows[0]["scored"] and rows[0]["supported_at_train_threshold"] is True
     assert rows[1] == {
         "udv_id": "b",
@@ -248,14 +270,14 @@ def test_evidence_score_check_on_sentence_runs_compares_every_semantic_udv():
         record("b", "quote_found", "Outra frase com aspas no texto."),
         record("c", "semantic_match_weak", "Mais uma frase de evidência aqui."),
     ]
-    check = uv.evidence_score_check(
+    check = evidence_score_check(
         np.array([0.6, 0.1, 0.4]),
         np.array([0.6, np.nan, 0.6]),
         records,
         ("semantic_match_high", "semantic_match_weak"),
     )
     assert check == {
-        "rule": uv.SENTENCE_CHECK_RULE,
+        "rule": SENTENCE_CHECK_RULE,
         "n": 2,
         "max_abs_gap": 0.2,
         "within_1e-4": 1,
@@ -272,7 +294,7 @@ def test_evidence_score_check_on_window_runs_separates_texts_the_encoder_did_not
         ),
         record("c", "quote_found", "Citação direta encontrada na fala."),
     ]
-    check = uv.evidence_score_check(
+    check = evidence_score_check(
         np.array([0.6, 0.5, 0.1]),
         np.array([0.6, 0.6, np.nan]),
         records,
@@ -292,8 +314,8 @@ def test_evidence_score_check_on_window_runs_separates_texts_the_encoder_did_not
 def test_semantic_unit_is_read_from_the_coverage_pipeline(tmp_path):
     udv_path = tmp_path / "run.jsonl"
     (tmp_path / "run_coverage.json").write_text('{"pipeline": {"semantic_unit": "window2"}}')
-    assert uv.udv_semantic_unit(udv_path) == "window2"
-    assert uv.evidence_cosine_feature("window2") == "cosine_serafim:cosine:max"
+    assert udv_semantic_unit(udv_path) == "window2"
+    assert evidence_cosine_feature("window2") == "cosine_serafim:cosine:max"
     (tmp_path / "run_coverage.json").write_text('{"pipeline": {}}')
-    assert uv.udv_semantic_unit(udv_path) == "sentence"
-    assert uv.evidence_cosine_feature("sentence") == "cosine_serafim:sentence_max:max"
+    assert udv_semantic_unit(udv_path) == "sentence"
+    assert evidence_cosine_feature("sentence") == "cosine_serafim:sentence_max:max"

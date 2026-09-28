@@ -57,6 +57,13 @@ from experiments.verifier.translate import config as translate_config
 from experiments.verifier.translate import store as translate_store
 from experiments.verifier.translate.seq2seq import load_translator, translate_missing
 from experiments.verifier.translate.store import selected_model
+from experiments.verifier.udv_scores.config import (
+    FittedPrimary,
+    candidate_scorers,
+    primary_candidate,
+)
+from experiments.verifier.udv_scores.config import load_config as load_udv_verifier_config
+from experiments.verifier.udv_scores.primary import fit_primary, load_fit_data, refit_check
 
 Record = dict[str, Any]
 
@@ -88,7 +95,7 @@ CODE_MODULES: tuple[Source, ...] = (
     grounding_scorers,
     grounding_models,
     confidence_policies,
-    udv_verifier,
+    *udv_verifier.SOURCES,
     *experiments.SOURCES,
     *exploration.SOURCES,
     *translation.SOURCES,
@@ -657,31 +664,31 @@ def exploration_data(
 
 def fitted_primary(
     config: Config,
-) -> tuple[udv_verifier.FittedPrimary, ExplorationConfig, Record]:
-    udv_config = udv_verifier.load_config(config.udv_verifier_config)
+) -> tuple[FittedPrimary, ExplorationConfig, Record]:
+    udv_config = load_udv_verifier_config(config.udv_verifier_config)
     expl = load_exploration_config(udv_config.exploration_config)
-    candidate = udv_verifier.primary_candidate(expl, udv_config.primary)
+    candidate = primary_candidate(expl, udv_config.primary)
     with open(udv_config.selection_path) as f:
         selection = json.load(f)
     with open(udv_config.final_test_path) as f:
         final_test = json.load(f)
-    scorers = udv_verifier.candidate_scorers(candidate)
-    labels, hearings, data, files = udv_verifier.load_fit_data(expl, scorers, selection)
-    fitted = udv_verifier.fit_primary(candidate, labels, hearings, data, expl)
-    check = udv_verifier.refit_check(fitted, final_test, udv_config.primary)
+    scorers = candidate_scorers(candidate)
+    labels, hearings, data, files = load_fit_data(expl, scorers, selection)
+    fitted = fit_primary(candidate, labels, hearings, data, expl)
+    check = refit_check(fitted, final_test, udv_config.primary)
     return fitted, expl, {"refit_check": check, "fit_files": files, "key": udv_config.primary}
 
 
 def ea_existing(
     split: str,
     ids: list[str],
-    fitted: udv_verifier.FittedPrimary,
+    fitted: FittedPrimary,
     expl: ExplorationConfig,
 ) -> tuple[dict[str, np.ndarray], Record]:
     scorer_keys = tuple(
         dict.fromkeys(
             [
-                *udv_verifier.candidate_scorers(fitted.candidate),
+                *candidate_scorers(fitted.candidate),
                 *(feature.split(":")[0] for feature in EXISTING_FEATURES.values()),
             ]
         )
@@ -738,7 +745,7 @@ def added_value_pairs(extra: dict[str, np.ndarray]) -> list[tuple[str, str]]:
 
 
 def spread_thresholds(config: Config) -> tuple[dict[str, float], Record]:
-    udv_config = udv_verifier.load_config(config.udv_verifier_config)
+    udv_config = load_udv_verifier_config(config.udv_verifier_config)
     expl = load_exploration_config(udv_config.exploration_config)
     ids, _, _ = load_labels(expl, "train")
     _, extra, sources = laya_systems(config, "train", ids, "max")
