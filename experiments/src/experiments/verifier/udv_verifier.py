@@ -9,25 +9,47 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import transformers
 from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 from scipy.stats import spearmanr
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
+from experiments.common.hub_offline import enforce_offline
 from experiments.common.provenance import source_hashes
 from experiments.common.transcript import normalize_whitespace, split_sentences
-from experiments.udv.calibrate_threshold import rounded
-from experiments.verifier import nli_experiments as experiments
+from experiments.common.udv_run import seed_everything, select_device
+from experiments.udv.calibrate_threshold import load_split_lookup, rounded
 from experiments.verifier import nli_exploration as exploration
-from experiments.verifier.nli_experiments import (
-    PremiseUnit,
+from experiments.verifier.nli.benchmark import PremiseUnit
+from experiments.verifier.nli.config import (
+    DECISION_KINDS,
+    DEVICES,
     ScorerSpec,
     VerifierConfig,
+    selected_scorers,
+)
+from experiments.verifier.nli.config import load_config as load_verifier_config
+from experiments.verifier.nli.cross_encoder import portuguese_probes, release_device
+from experiments.verifier.nli.decision import check_decision_scorer
+from experiments.verifier.nli.metrics import max_f1_not_inferable_optimum
+from experiments.verifier.nli.provenance import code_hashes as nli_code_hashes
+from experiments.verifier.nli.provenance import environment
+from experiments.verifier.nli.scoring import (
+    check_score_names,
+    score_file,
+    score_report,
+    score_report_file,
+    score_units,
+)
+from experiments.verifier.nli.translated import (
+    Translations,
+    check_translations,
     english_probes,
     english_units,
-    max_f1_not_inferable_optimum,
-    portuguese_probes,
-    score_units,
+    load_translation_config,
+    open_translations,
+    translation_summary,
     translation_texts,
 )
 from experiments.verifier.nli_exploration import (
@@ -45,6 +67,9 @@ from experiments.verifier.nli_exploration import (
     load_labels,
     load_scorer,
 )
+from experiments.verifier.runtime import now
+from experiments.verifier.translate.seq2seq import load_translator, translate_missing
+from experiments.verifier.translate.store import model_record, open_store, selected_model
 
 Record = dict[str, Any]
 ScoreFunction = Callable[..., tuple[list[Record], Record]]
@@ -194,9 +219,7 @@ def load_udvs(
     config: UdvVerifierConfig, verifier: VerifierConfig
 ) -> tuple[list[Record], list[PremiseUnit], Counter[str], dict[int, str], Record]:
     records = load_jsonl(config.udv_path)
-    split_of, split_source = experiments.load_split_lookup(
-        verifier.manifest_path, verifier.lds_sha256
-    )
+    split_of, split_source = load_split_lookup(verifier.manifest_path, verifier.lds_sha256)
     units, unscored = udv_units(records, config.evidence_tiers, split_of)
     return records, units, unscored, split_of, split_source
 
@@ -228,7 +251,7 @@ def check_scorer_list(config: UdvVerifierConfig, candidate: Candidate) -> None:
 
 
 def selected_specs(config: UdvVerifierConfig, verifier: VerifierConfig) -> list[ScorerSpec]:
-    return experiments.selected_scorers(verifier, list(config.scorers))
+    return selected_scorers(verifier, list(config.scorers))
 
 
 def english_specs(specs: list[ScorerSpec]) -> list[ScorerSpec]:
@@ -236,7 +259,7 @@ def english_specs(specs: list[ScorerSpec]) -> list[ScorerSpec]:
 
 
 def open_run(config: UdvVerifierConfig) -> tuple[VerifierConfig, ExplorationConfig]:
-    verifier = experiments.load_config(config.verifier_config)
+    verifier = load_verifier_config(config.verifier_config)
     exploration_config = load_exploration_config(config.exploration_config)
     if exploration_config.raw["verifier_config"] != str(config.verifier_config):
         raise SystemExit("the exploration config reads another verifier config")
@@ -246,32 +269,30 @@ def open_run(config: UdvVerifierConfig) -> tuple[VerifierConfig, ExplorationConf
 
 def prepare_models(verifier: VerifierConfig) -> None:
     if verifier.hf_hub_offline:
-        experiments.enforce_offline()
-    experiments.seed_everything(verifier.seed)
-    experiments.transformers.logging.set_verbosity_error()
+        enforce_offline()
+    seed_everything(verifier.seed)
+    transformers.logging.set_verbosity_error()
 
 
 def command_translate(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     verifier, _ = open_run(config)
     _, units, _, _, _ = load_udvs(config, verifier)
     specs = english_specs(selected_specs(config, verifier))
-    translation_config = experiments.load_translation_config(verifier)
-    report: Record = {"created_at": experiments.now(), "models": {}}
+    translation_config = load_translation_config(verifier)
+    report: Record = {"created_at": now(), "models": {}}
     for model_key in dict.fromkeys(str(spec.translation_model) for spec in specs):
-        spec = experiments.translation.selected_model(translation_config, model_key)
-        store = experiments.translation.open_store(translation_config, model_key, writable=True)
+        spec = selected_model(translation_config, model_key)
+        store = open_store(translation_config, model_key, writable=True)
         texts = translation_texts(units, portuguese_probes(verifier), store)
         missing = store.missing(texts)
         run: Record = {"requested": len(texts), "already_cached": len(texts) - len(missing)}
         info = None
         if missing:
             prepare_models(verifier)
-            device = experiments.select_device(args.device or config.device)
-            translator = experiments.translation.load_translator(
-                spec, translation_config.decoding, device
-            )
+            device = select_device(args.device or config.device)
+            translator = load_translator(spec, translation_config.decoding, device)
             print(f"{spec.name} on {device}: {len(missing)} texts to translate", flush=True)
-            run |= experiments.translation.translate_missing(
+            run |= translate_missing(
                 translator,
                 store,
                 missing,
@@ -280,9 +301,9 @@ def command_translate(args: argparse.Namespace, config: UdvVerifierConfig) -> No
             )
             info = translator.info
             del translator
-            experiments.release_device(device)
+            release_device(device)
         report["models"][model_key] = {
-            "model": experiments.translation.model_record(translation_config, spec),
+            "model": model_record(translation_config, spec),
             "run": run,
             "model_info": info,
             "store": store.summary(),
@@ -297,7 +318,7 @@ def score_scorers(
     specs: list[ScorerSpec],
     verifier: VerifierConfig,
     device: str,
-    translations: experiments.Translations | None,
+    translations: Translations | None,
     prefix: str,
     score_function: ScoreFunction = score_units,
 ) -> dict[str, tuple[list[Record], Record]]:
@@ -309,7 +330,7 @@ def score_scorers(
                 raise SystemExit(f"{spec.key}: no translation store opened")
             store = translations.store(spec)
             spec_units, probes = english_units(units, store), english_probes(verifier, store)
-            extra["translation"] = experiments.translation_summary(verifier, translations, spec)
+            extra["translation"] = translation_summary(verifier, translations, spec)
         rows, details = score_function(
             spec_units, spec, verifier, device, True, prefix, probes, "live"
         )
@@ -328,29 +349,29 @@ def write_scores(
     by_key = {spec.key: spec for spec in specs}
     for key, (rows, details) in results.items():
         spec = by_key[key]
-        experiments.check_score_names(rows, spec)
-        path = experiments.score_file(config.run_dir, key, UDV_SPLIT)
+        check_score_names(rows, spec)
+        path = score_file(config.run_dir, key, UDV_SPLIT)
         write_jsonl(rows, path)
         files = {UDV_SPLIT: {"path": str(path), "rows": len(rows), "sha256": sha256_of_file(path)}}
         splits = {"hearing_splits": dict(sorted(Counter(row["split"] for row in rows).items()))}
-        report = experiments.score_report(
+        report = score_report(
             "udv", config.name, spec, rows, details, context, splits, verifier, files
         )
-        write_json(report, experiments.score_report_file(config.run_dir, key))
+        write_json(report, score_report_file(config.run_dir, key))
 
 
 def command_score(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     verifier, _ = open_run(config)
     _, units, _, _, split_source = load_udvs(config, verifier)
     specs = selected_specs(config, verifier)
-    translations = experiments.open_translations(verifier, specs, None)
+    translations = open_translations(verifier, specs, None)
     for spec in specs:
-        if spec.kind in experiments.DECISION_KINDS:
-            experiments.check_decision_scorer(spec, verifier, "live")
+        if spec.kind in DECISION_KINDS:
+            check_decision_scorer(spec, verifier, "live")
         if spec.language == "en" and translations is not None:
-            experiments.check_translations(spec, units, verifier, translations.store(spec))
+            check_translations(spec, units, verifier, translations.store(spec))
     prepare_models(verifier)
-    device = experiments.select_device(args.device or config.device)
+    device = select_device(args.device or config.device)
     context = {
         "sources": {
             "udv": {"path": str(config.udv_path), "sha256": sha256_of_file(config.udv_path)},
@@ -619,7 +640,7 @@ def benchmark_overlap(verifier: Record, units: list[PremiseUnit]) -> Record:
 def score_reports(config: UdvVerifierConfig) -> Record:
     reports: Record = {}
     for key in config.scorers:
-        path = experiments.score_report_file(config.run_dir, key)
+        path = score_report_file(config.run_dir, key)
         with open(path) as f:
             report = json.load(f)
         reports[key] = {
@@ -656,7 +677,7 @@ def code_hashes() -> Record:
     return {
         **source_hashes(Path(__file__)),
         **source_hashes(exploration),
-        **experiments.code_hashes(),
+        **nli_code_hashes(),
     }
 
 
@@ -844,7 +865,7 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     report = {
         "experiment": "udv_verifier",
         "name": config.name,
-        "created_at": experiments.now(),
+        "created_at": now(),
         "declared": config.raw["declared"],
         "purpose": config.raw["purpose"],
         "caveats": {
@@ -927,7 +948,7 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
             },
         },
         "code": code_hashes(),
-        "environment": experiments.environment(),
+        "environment": environment(),
     }
     if udv_threshold is not None:
         udv_decisions = primary >= udv_threshold.value
@@ -964,7 +985,7 @@ def parse_args() -> argparse.Namespace:
     commands = parser.add_subparsers(dest="command", required=True)
     for name in ("translate", "score"):
         command = commands.add_parser(name)
-        command.add_argument("--device", choices=experiments.DEVICES, default=None)
+        command.add_argument("--device", choices=DEVICES, default=None)
     commands.add_parser("apply", help="refit the primary on train and write the UDV scores")
     return parser.parse_args()
 

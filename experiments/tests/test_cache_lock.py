@@ -5,9 +5,11 @@ from pathlib import Path
 import pytest
 
 from experiments.common.cache_lock import CacheLockedError, acquire_writer_lock, lock_path
-from experiments.verifier import nli_experiments as e3
 from experiments.verifier.decision_models import AnswerCache, DecisionModelError
-from experiments.verifier.translation import Segmenter, TranslationStore
+from experiments.verifier.nli.config import load_config
+from experiments.verifier.nli.cross_encoder import open_logit_cache
+from experiments.verifier.translate.config import Segmenter
+from experiments.verifier.translate.store import TranslationStore
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier.toml"
 SEGMENTER = Segmenter(join_abbreviations=frozenset(), join_short_parts=False)
@@ -56,12 +58,12 @@ def test_laya_and_nli_caches_take_the_writer_lock(tmp_path: Path) -> None:
         assert answers.read_bytes() == b'{"key": "cut'
     finally:
         handle.close()
-    config = dataclasses.replace(e3.load_config(CONFIG), cache_dir=tmp_path)
+    config = dataclasses.replace(load_config(CONFIG), cache_dir=tmp_path)
     spec = config.scorers["xnli_mdeberta_en_m2m100"]
     logits = tmp_path / f"nli_{spec.key}_{spec.revision[:12]}_cpu.jsonl"
     handle = hold_lock_elsewhere(logits)
     try:
         with pytest.raises(SystemExit, match="one writer at a time"):
-            e3.open_logit_cache(config, spec, "cpu")
+            open_logit_cache(config, spec, "cpu")
     finally:
         handle.close()

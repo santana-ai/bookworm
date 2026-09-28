@@ -17,15 +17,10 @@ from sklearn.preprocessing import StandardScaler
 from experiments.common.stats import holm
 from experiments.data.nli_benchmark import load_split_lookup
 from experiments.udv.calibrate_threshold import interval, rounded
-from experiments.verifier.nli_experiments import (
-    binary_metrics,
-    code_hashes,
-    environment,
-    hearing_draws,
-    max_f1_not_inferable_optimum,
-    now,
-)
-from experiments.verifier.stats import bootstrap_p_value
+from experiments.verifier.nli.metrics import binary_metrics, max_f1_not_inferable_optimum
+from experiments.verifier.nli.provenance import code_hashes, environment
+from experiments.verifier.runtime import now
+from experiments.verifier.stats import bootstrap_p_value, hearing_draws
 
 Record = dict[str, Any]
 

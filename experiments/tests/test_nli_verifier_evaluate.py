@@ -9,8 +9,15 @@ import numpy as np
 import pytest
 from bookworm import write_json, write_jsonl
 
-from experiments.verifier import nli_experiments as e3
 from experiments.verifier.decision_models import FakeDecisionModel
+from experiments.verifier.nli import decision as nli_decision
+from experiments.verifier.nli.benchmark import PremiseUnit, unit_header
+from experiments.verifier.nli.config import DECISION_KINDS, ScorerSpec, VerifierConfig, load_config
+from experiments.verifier.nli.cross_encoder import portuguese_probes
+from experiments.verifier.nli.decision import score_units_decision
+from experiments.verifier.nli.report import command_evaluate
+from experiments.verifier.nli.scoring import score_report_file, write_split_scores
+from experiments.verifier.nli.table import TABLE_COLUMNS
 from experiments.verifier.stats import apply_holm
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier.toml"
@@ -41,9 +48,9 @@ def benchmark_rows(rng: np.random.Generator) -> list[dict]:
     return rows
 
 
-def units_of(rows: list[dict]) -> list[e3.PremiseUnit]:
+def units_of(rows: list[dict]) -> list[PremiseUnit]:
     return [
-        e3.PremiseUnit(
+        PremiseUnit(
             row["id"],
             row["hearing_id"],
             row["split"],
@@ -69,15 +76,15 @@ def report_stub(key: str, files: dict) -> dict:
     }
 
 
-def write_scores(config: e3.VerifierConfig, key: str, rows: list[dict], directory: Path) -> None:
-    files = e3.write_split_scores(rows, directory, key)
-    write_json(report_stub(key, files), e3.score_report_file(directory, key))
+def write_scores(config: VerifierConfig, key: str, rows: list[dict], directory: Path) -> None:
+    files = write_split_scores(rows, directory, key)
+    write_json(report_stub(key, files), score_report_file(directory, key))
 
 
-def numeric_rows(spec: e3.ScorerSpec, units: list[e3.PremiseUnit], rng) -> list[dict]:
+def numeric_rows(spec: ScorerSpec, units: list[PremiseUnit], rng) -> list[dict]:
     return [
         {
-            **e3.unit_header(unit),
+            **unit_header(unit),
             "items": [],
             "concatenated": None,
             "scores": {name: float(rng.random()) for name in spec.scores},
@@ -89,7 +96,7 @@ def numeric_rows(spec: e3.ScorerSpec, units: list[e3.PremiseUnit], rng) -> list[
 @pytest.fixture
 def evaluated(tmp_path, monkeypatch):
     rng = np.random.default_rng(7)
-    base = e3.load_config(CONFIG)
+    base = load_config(CONFIG)
     rows = benchmark_rows(rng)
     benchmark = tmp_path / "benchmark.jsonl"
     write_jsonl(rows, benchmark)
@@ -114,12 +121,12 @@ def evaluated(tmp_path, monkeypatch):
     units = units_of(rows)
     declaration = config.declarations["nli_verifier_v2"]
     run_dir = config.output_dir / "smoke"
-    monkeypatch.setattr(e3, "load_decision_model", lambda *args: FakeDecisionModel())
+    monkeypatch.setattr(nli_decision, "load_decision_model", lambda *args: FakeDecisionModel())
     for key in declaration.scorers:
         spec = config.scorers[key]
-        if spec.kind in e3.DECISION_KINDS:
-            scored, _ = e3.score_units_decision(
-                units, spec, config, "cpu", True, e3.portuguese_probes(config), "live"
+        if spec.kind in DECISION_KINDS:
+            scored, _ = score_units_decision(
+                units, spec, config, "cpu", True, portuguese_probes(config), "live"
             )
         else:
             scored = numeric_rows(spec, units, rng)
@@ -130,7 +137,7 @@ def evaluated(tmp_path, monkeypatch):
     args = argparse.Namespace(
         run_name="smoke", output_dir=None, final_test=False, declaration="nli_verifier_v2"
     )
-    e3.command_evaluate(args, config)
+    command_evaluate(args, config)
     return run_dir
 
 
@@ -192,8 +199,8 @@ def test_evaluate_builds_one_table_with_every_scorer(evaluated):
         entry = by_name[row["comparison"]]
         assert row["family"] == entry["family"]
         assert float(row["p_holm"]) == pytest.approx(entry["p_holm"])
-    assert report["table"]["columns"] == list(e3.TABLE_COLUMNS)
-    assert all(set(row) == set(e3.TABLE_COLUMNS) for row in report["table"]["rows"])
+    assert report["table"]["columns"] == list(TABLE_COLUMNS)
+    assert all(set(row) == set(TABLE_COLUMNS) for row in report["table"]["rows"])
     assert report["declared"]["primary_system"] == "laya_multi_pt.max.panel"
 
 
@@ -202,7 +209,7 @@ def test_a_missing_jev_leaves_the_other_families_unchanged(evaluated):
     for path in evaluated.glob("scores/jev_*"):
         path.unlink()
     config = dataclasses.replace(
-        e3.load_config(CONFIG), output_dir=evaluated.parent, bootstrap_samples=25
+        load_config(CONFIG), output_dir=evaluated.parent, bootstrap_samples=25
     )
     manifest = evaluated.parent.parent / "manifest.json"
     config = dataclasses.replace(
@@ -214,7 +221,7 @@ def test_a_missing_jev_leaves_the_other_families_unchanged(evaluated):
     args = argparse.Namespace(
         run_name="smoke", output_dir=None, final_test=False, declaration="nli_verifier_v2"
     )
-    e3.command_evaluate(args, config)
+    command_evaluate(args, config)
     report = read_report(evaluated)
     assert report["scorers_missing"] == ["jev_en", "jev_pt"]
     after = report["declared_comparisons"]["validation"]

@@ -5,15 +5,42 @@ from pathlib import Path
 import pytest
 from bookworm import write_json
 
-from experiments.verifier import nli_experiments as e3
-from experiments.verifier import translation
 from experiments.verifier.decision_models import AnswerCache, FakeDecisionModel, choice_question
-from experiments.verifier.translation import Segmenter, TranslationOutput, TranslationStore
+from experiments.verifier.nli import decision as nli_decision
+from experiments.verifier.nli.benchmark import PremiseUnit, concatenated_premise
+from experiments.verifier.nli.config import (
+    ScorerSpec,
+    declared_systems,
+    load_config,
+    narrowed_splits,
+    parse_declaration,
+    parse_families,
+    parse_twins,
+    scorer_translation_model,
+)
+from experiments.verifier.nli.cross_encoder import open_logit_cache, portuguese_probes, request_key
+from experiments.verifier.nli.decision import (
+    decision_truncation_summary,
+    laya_spec,
+    score_units_decision,
+)
+from experiments.verifier.nli.plan import compute_estimate, plan_units
+from experiments.verifier.nli.scoring import check_score_names, score_report_file
+from experiments.verifier.nli.translated import (
+    Translations,
+    check_translations,
+    english_probes,
+    english_units,
+    translation_texts,
+)
+from experiments.verifier.translate import config as translate_config
+from experiments.verifier.translate.config import Segmenter
+from experiments.verifier.translate.store import TranslationOutput, TranslationStore
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier.toml"
 SIGNATURE = {"model": "fake/translator", "revision": "0" * 40}
 SEGMENTER = Segmenter(join_abbreviations=frozenset(), join_short_parts=False)
-UNIT = e3.PremiseUnit(
+UNIT = PremiseUnit(
     unit_id="nli-1-0-0",
     hearing_id=1,
     split="validation",
@@ -25,7 +52,7 @@ UNIT = e3.PremiseUnit(
         "O deputado disse que apoia o projeto de lei.",
     ),
 )
-EMPTY_UNIT = e3.PremiseUnit("nli-2-0-0", 2, "validation", "Uma opinião.", ("", ""))
+EMPTY_UNIT = PremiseUnit("nli-2-0-0", 2, "validation", "Uma opinião.", ("", ""))
 FAMILY_SIZES = {"main": 10, "translation_model": 11, "jev": 4}
 M2M100_TWINS = {
     "laya_multi_en_m2m100": "laya_multi_en",
@@ -37,7 +64,7 @@ TWIN_FIELDS_THAT_DIFFER = {"key", "translation_model", "source"}
 
 @pytest.fixture(scope="module")
 def config():
-    return e3.load_config(CONFIG)
+    return load_config(CONFIG)
 
 
 def english(text: str) -> str:
@@ -71,14 +98,14 @@ def test_v2_declaration_names_declared_systems(config):
     assert declaration.primary_system == "laya_multi_pt.max.panel"
     assert len(declaration.comparisons) == sum(FAMILY_SIZES.values())
     assert set(declaration.imported) == {"cosine_serafim", "xnli_mdeberta", "assin2_mdeberta"}
-    systems = e3.declared_systems(config.scorers)
+    systems = declared_systems(config.scorers)
     for comparison in declaration.comparisons:
         assert comparison["system"] in systems
     assert "laya_multi_pt.max.consensus" in systems
     raw = copy.deepcopy(config.source["declarations"]["nli_verifier_v2"])
     raw["comparisons"][0]["system"] = "laya_multi_pt.max.unknown"
     with pytest.raises(SystemExit, match="undeclared systems"):
-        e3.parse_declaration("x", raw, config.scorers, config.source["evaluation"])
+        parse_declaration("x", raw, config.scorers, config.source["evaluation"])
 
 
 def test_v2_families_split_the_comparisons(config):
@@ -99,15 +126,15 @@ def test_v2_families_split_the_comparisons(config):
     raw = copy.deepcopy(config.source["declarations"]["nli_verifier_v2"])
     raw["families"]["main"]["comparisons"].append(families["jev"][0])
     with pytest.raises(SystemExit, match="exactly one family"):
-        e3.parse_families("x", raw, [c["name"] for c in declaration.comparisons])
+        parse_families("x", raw, [c["name"] for c in declaration.comparisons])
     raw = copy.deepcopy(config.source["declarations"]["nli_verifier_v2"])
     raw["family_order"] = ["main", "jev"]
     with pytest.raises(SystemExit, match="every family once"):
-        e3.parse_families("x", raw, [c["name"] for c in declaration.comparisons])
+        parse_families("x", raw, [c["name"] for c in declaration.comparisons])
 
 
 def test_english_scorers_name_a_translation_condition(config):
-    conditions = translation.load_config(config.translation_config_path).models
+    conditions = translate_config.load_config(config.translation_config_path).models
     english = [spec for spec in config.scorers.values() if spec.language == "en"]
     assert {spec.key for spec in english} >= set(M2M100_TWINS) | set(M2M100_TWINS.values())
     assert all(spec.translation_model in conditions for spec in english)
@@ -117,20 +144,20 @@ def test_english_scorers_name_a_translation_condition(config):
     for twin, first in M2M100_TWINS.items():
         a, b = config.scorers[twin], config.scorers[first]
         assert (a.translation_model, b.translation_model) == ("m2m100", "nllb")
-        for field in dataclasses.fields(e3.ScorerSpec):
+        for field in dataclasses.fields(ScorerSpec):
             if field.name not in TWIN_FIELDS_THAT_DIFFER:
                 assert getattr(a, field.name) == getattr(b, field.name), field.name
     with pytest.raises(SystemExit, match="needs translation_model"):
-        e3.scorer_translation_model("x", {}, "en")
+        scorer_translation_model("x", {}, "en")
     with pytest.raises(SystemExit, match="only for language en"):
-        e3.scorer_translation_model("x", {"translation_model": "nllb"}, "pt")
+        scorer_translation_model("x", {"translation_model": "nllb"}, "pt")
 
 
 def test_laya_twins_share_a_cache_file_without_sharing_keys(config, tmp_path):
     laya_twins = [twin for twin in M2M100_TWINS if config.scorers[twin].kind == "laya"]
     assert laya_twins == ["laya_multi_en_m2m100", "laya_en_en_m2m100"]
     for twin in laya_twins:
-        assert e3.laya_spec(config.scorers[twin], config, "cpu") == e3.laya_spec(
+        assert laya_spec(config.scorers[twin], config, "cpu") == laya_spec(
             config.scorers[M2M100_TWINS[twin]], config, "cpu"
         )
     question = choice_question("p1_nli", "Relation?", [("entailment", "a"), ("neutral", "b")])
@@ -146,51 +173,51 @@ def test_laya_twins_share_a_cache_file_without_sharing_keys(config, tmp_path):
 
 def test_nli_twins_write_separate_logit_files(config, tmp_path):
     local = dataclasses.replace(config, cache_dir=tmp_path)
-    first = e3.open_logit_cache(local, config.scorers["xnli_mdeberta_en"], "cpu")
-    twin = e3.open_logit_cache(local, config.scorers["xnli_mdeberta_en_m2m100"], "cpu")
+    first = open_logit_cache(local, config.scorers["xnli_mdeberta_en"], "cpu")
+    twin = open_logit_cache(local, config.scorers["xnli_mdeberta_en_m2m100"], "cpu")
     assert first.path != twin.path and first.path.parent == twin.path.parent == tmp_path
     assert first.signature == twin.signature
     hypothesis = "The deputy supports the bill."
-    assert e3.request_key(first.signature, "He supports it.", hypothesis) != e3.request_key(
+    assert request_key(first.signature, "He supports it.", hypothesis) != request_key(
         twin.signature, "He backs it.", hypothesis
     )
 
 
 def test_plan_units_use_each_model_store_or_mark_a_proxy(config, tmp_path):
-    probes = e3.portuguese_probes(config)
+    probes = portuguese_probes(config)
     reader = TranslationStore.open(tmp_path / "a.jsonl", SIGNATURE, SEGMENTER)
-    texts = e3.translation_texts([UNIT], probes, reader)
+    texts = translation_texts([UNIT], probes, reader)
     full = filled_store(tmp_path / "nllb", texts)
     empty = TranslationStore.open(tmp_path / "m2m100.jsonl", SIGNATURE, SEGMENTER)
-    conditions = translation.load_config(config.translation_config_path)
-    stores = e3.Translations(conditions, {"nllb": full, "m2m100": empty})
-    units, source = e3.plan_units(config.scorers["laya_multi_en"], [UNIT], config, stores)
+    conditions = translate_config.load_config(config.translation_config_path)
+    stores = Translations(conditions, {"nllb": full, "m2m100": empty})
+    units, source = plan_units(config.scorers["laya_multi_en"], [UNIT], config, stores)
     assert source["texts"] == "english" and source["translation_model"] == "nllb"
     assert units[0].hypothesis == english(UNIT.hypothesis)
     twin = config.scorers["laya_multi_en_m2m100"]
-    units, source = e3.plan_units(twin, [UNIT], config, stores)
+    units, source = plan_units(twin, [UNIT], config, stores)
     assert source["texts"] == "portuguese_proxy" and source["translation_model"] == "m2m100"
     assert source["missing_translations"] == source["distinct_texts"] == len(texts)
     assert units == [UNIT]
-    units, source = e3.plan_units(twin, [UNIT], config, None)
+    units, source = plan_units(twin, [UNIT], config, None)
     assert source["texts"] == "portuguese_proxy" and units == [UNIT]
-    assert e3.plan_units(config.scorers["laya_multi_pt"], [UNIT], config, None)[1] == {
+    assert plan_units(config.scorers["laya_multi_pt"], [UNIT], config, None)[1] == {
         "texts": "portuguese"
     }
 
 
 def test_test_split_needs_final_test(config):
     with pytest.raises(SystemExit, match="final-test"):
-        e3.narrowed_splits(config, False, ["test"])
-    assert e3.narrowed_splits(config, False, ["validation"]) == ("validation",)
+        narrowed_splits(config, False, ["test"])
+    assert narrowed_splits(config, False, ["validation"]) == ("validation",)
 
 
 def test_english_lookup_failure_names_the_model_cache_and_count(config, tmp_path):
     store = TranslationStore.open(tmp_path / "empty.jsonl", SIGNATURE, SEGMENTER)
-    texts = e3.translation_texts([UNIT], e3.portuguese_probes(config), store)
+    texts = translation_texts([UNIT], portuguese_probes(config), store)
     for key, model in (("laya_multi_en", "nllb"), ("laya_multi_en_m2m100", "m2m100")):
         with pytest.raises(SystemExit) as error:
-            e3.check_translations(config.scorers[key], [UNIT], config, store)
+            check_translations(config.scorers[key], [UNIT], config, store)
         message = str(error.value)
         assert "no translation" in message and str(tmp_path / "empty.jsonl") in message
         assert key in message and f"translation model {model}" in message
@@ -201,32 +228,31 @@ def test_english_lookup_failure_names_the_model_cache_and_count(config, tmp_path
 
 
 def test_english_units_keep_positions_and_empty_chunks(config, tmp_path):
-    probes = e3.portuguese_probes(config)
+    probes = portuguese_probes(config)
     reader = TranslationStore.open(tmp_path / "a.jsonl", SIGNATURE, SEGMENTER)
-    texts = e3.translation_texts([UNIT], probes, reader)
+    texts = translation_texts([UNIT], probes, reader)
     store = filled_store(tmp_path / "b", texts)
     assert (
-        e3.check_translations(config.scorers["laya_multi_en"], [UNIT], config, store)["missing"]
-        == 0
+        check_translations(config.scorers["laya_multi_en"], [UNIT], config, store)["missing"] == 0
     )
-    (unit,) = e3.english_units([UNIT], store)
+    (unit,) = english_units([UNIT], store)
     assert unit.hypothesis == english(UNIT.hypothesis)
     assert unit.items[0] == english(UNIT.items[0]) and unit.items[1] == ""
     assert unit.items[0] == unit.items[3]
-    assert e3.concatenated_premise(unit, " ", True) == " ".join(
+    assert concatenated_premise(unit, " ", True) == " ".join(
         english(item) for item in UNIT.items if item
     )
-    assert e3.english_probes(config, store)[0][1] == english(probes[0][1])
+    assert english_probes(config, store)[0][1] == english(probes[0][1])
 
 
 def test_decision_rows_from_a_fake_model(config, monkeypatch):
     spec = config.scorers["laya_multi_pt"]
     model = FakeDecisionModel()
-    monkeypatch.setattr(e3, "load_decision_model", lambda *args: model)
-    rows, details = e3.score_units_decision(
-        [UNIT, EMPTY_UNIT], spec, config, "cpu", True, e3.portuguese_probes(config), "live"
+    monkeypatch.setattr(nli_decision, "load_decision_model", lambda *args: model)
+    rows, details = score_units_decision(
+        [UNIT, EMPTY_UNIT], spec, config, "cpu", True, portuguese_probes(config), "live"
     )
-    e3.check_score_names(rows, spec)
+    check_score_names(rows, spec)
     row, empty = rows
     assert row["items"][1] is None and row["items"][0] == row["items"][3]
     assert row["concatenated"]["items_joined"] == 3
@@ -243,7 +269,7 @@ def test_decision_rows_from_a_fake_model(config, monkeypatch):
     assert details["label_probes"]["total"] == 3
     assert details["timing"]["premise_texts"] == 3
     assert model.calls[0][0] == 3 and len(model.calls[0][1]) == 8
-    summary = e3.decision_truncation_summary(rows, spec.questions)
+    summary = decision_truncation_summary(rows, spec.questions)
     assert summary["items_scored"] == 3 and summary["concatenated_premises"] == 1
 
 
@@ -253,11 +279,11 @@ def test_twins_are_declared_and_checked(config):
     raw = copy.deepcopy(config.source["declarations"]["nli_verifier_v2"])
     raw["twins"] = {"laya_multi_en_m2m100": "laya_en_en"}
     with pytest.raises(SystemExit, match="must equal laya_en_en"):
-        e3.parse_twins("x", raw, config.scorers, tuple(raw["scorers"]))
+        parse_twins("x", raw, config.scorers, tuple(raw["scorers"]))
     raw = copy.deepcopy(config.source["declarations"]["nli_verifier_v2"])
     raw["compute"]["local_scorers"].remove("laya_en_en_m2m100")
     with pytest.raises(SystemExit, match="both scorers of the twins"):
-        e3.parse_twins("x", raw, config.scorers, tuple(raw["scorers"]))
+        parse_twins("x", raw, config.scorers, tuple(raw["scorers"]))
 
 
 def write_smoke_report(directory: Path, key: str, kind: str) -> None:
@@ -266,10 +292,10 @@ def write_smoke_report(directory: Path, key: str, kind: str) -> None:
     else:
         timing = {"computed": 10, "requests": 10, "seconds": 10.0, "model_input_tokens": 10}
     report = {"kind": kind, "timing": timing, "model": {"device": "cpu"}}
-    write_json(report, e3.score_report_file(directory, key))
+    write_json(report, score_report_file(directory, key))
 
 
-def fake_plan(spec: e3.ScorerSpec) -> dict:
+def fake_plan(spec: ScorerSpec) -> dict:
     if spec.kind != "laya":
         return {"model_input_tokens": 1000}
     per_mode = {"chunk": {"model_input_tokens": 1000}, "concatenated": {"model_input_tokens": 1000}}
@@ -282,7 +308,7 @@ def test_compute_estimate_drops_twins_together_and_needs_every_local_scorer(conf
     for key in local:
         write_smoke_report(tmp_path, key, config.scorers[key].kind)
     plans = {key: fake_plan(config.scorers[key]) for key in local}
-    estimate = e3.compute_estimate(plans, tmp_path, declaration)
+    estimate = compute_estimate(plans, tmp_path, declaration)
     assert [step["step"] for step in estimate["steps_applied"]] == list(
         declaration.source["compute"]["drop_order"]
     )
@@ -300,4 +326,4 @@ def test_compute_estimate_drops_twins_together_and_needs_every_local_scorer(conf
     assert after["laya_multi_en_m2m100"] < estimate["hours_full"]["laya_multi_en_m2m100"]
     partial = {key: plan for key, plan in plans.items() if key != "laya_en_en_m2m100"}
     with pytest.raises(SystemExit, match="lacks \\['laya_en_en_m2m100'\\]"):
-        e3.compute_estimate(partial, tmp_path, declaration)
+        compute_estimate(partial, tmp_path, declaration)

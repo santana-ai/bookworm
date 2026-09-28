@@ -5,20 +5,40 @@ from pathlib import Path
 import pytest
 
 from experiments.common.transcript import split_sentences
-from experiments.verifier import translation
-from experiments.verifier.translation import (
+from experiments.verifier.translate import commands as translate_commands
+from experiments.verifier.translate.config import (
     DecodingSpec,
-    MissingTranslationError,
     ModelSpec,
     Segmenter,
-    TranslationOutput,
-    TranslationStore,
     boundary_parts,
     join_segments,
-    model_signature,
-    repeated_ngram,
-    resolve_splits,
+    load_config,
+    parse_spot_check,
+)
+from experiments.verifier.translate.selection import resolve_splits
+from experiments.verifier.translate.seq2seq import (
+    Seq2SeqTranslator,
+    check_tokenizer,
+    length_batches,
     translate_missing,
+)
+from experiments.verifier.translate.spot_check import (
+    blinding_check,
+    existing_judgments,
+    spot_check_order,
+    spot_check_stores,
+    write_spot_check_csv,
+)
+from experiments.verifier.translate.statistics import repeated_ngram
+from experiments.verifier.translate.store import (
+    MissingTranslationError,
+    TranslationOutput,
+    TranslationStore,
+    cache_path,
+    model_signature,
+    open_store,
+    selected_model,
+    signature_digest,
 )
 
 MODEL = ModelSpec(
@@ -247,18 +267,18 @@ def test_read_only_store_refuses_append(tmp_path: Path) -> None:
 
 
 def test_length_batches_without_budget_cuts_fixed_batches() -> None:
-    assert translation.length_batches([3, 9, 5, 7, 1], batch_size=2) == [[1, 3], [2, 0], [4]]
+    assert length_batches([3, 9, 5, 7, 1], batch_size=2) == [[1, 3], [2, 0], [4]]
 
 
 def test_length_batches_budget_shrinks_batches_of_long_texts() -> None:
     lengths = [400, 30, 410, 20, 100, 30]
-    batches = translation.length_batches(lengths, batch_size=4, token_budget=820)
+    batches = length_batches(lengths, batch_size=4, token_budget=820)
     assert batches == [[2, 0], [4, 1, 5, 3]]
     assert all(len(batch) * lengths[batch[0]] <= 820 for batch in batches)
 
 
 def test_length_batches_keeps_a_text_longer_than_the_budget_alone() -> None:
-    assert translation.length_batches([900, 10, 10], batch_size=4, token_budget=100) == [
+    assert length_batches([900, 10, 10], batch_size=4, token_budget=100) == [
         [0],
         [1, 2],
     ]
@@ -277,7 +297,7 @@ def test_translate_missing_applies_the_token_budget(tmp_path: Path) -> None:
 def test_cache_records_hold_provenance(tmp_path: Path) -> None:
     translate_missing(FakeTranslator(), store_at(tmp_path), ["Uma frase com cinco palavras."])
     record = json.loads((tmp_path / "cache.jsonl").read_text().splitlines()[0])
-    assert record["signature_sha256"] == translation.signature_digest(SIGNATURE)
+    assert record["signature_sha256"] == signature_digest(SIGNATURE)
     assert {"device", "batch_size", "batch_number", "batch_seconds", "seconds"} <= set(record)
 
 
@@ -320,22 +340,22 @@ NLLB_SIGNATURE_SHA256 = "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84d
 
 @pytest.fixture(scope="module")
 def real_config():
-    return translation.load_config(CONFIG)
+    return load_config(CONFIG)
 
 
 def test_nllb_condition_keeps_its_signature_decoding_and_units(real_config) -> None:
-    nllb = translation.selected_model(real_config)
+    nllb = selected_model(real_config)
     assert nllb.key == real_config.default_model == "nllb"
     signature = model_signature(nllb, real_config.decoding)
-    assert translation.signature_digest(signature) == NLLB_SIGNATURE_SHA256
+    assert signature_digest(signature) == NLLB_SIGNATURE_SHA256
     assert (real_config.decoding.batch_size, real_config.decoding.batch_token_budget) == (16, 2048)
     assert real_config.segmenter.join_short_parts
     assert {"Sr.", "V.Exa.", "art."} <= real_config.segmenter.join_abbreviations
 
 
 def test_second_condition_has_its_own_signature_and_cache_file(real_config) -> None:
-    nllb = translation.selected_model(real_config, "nllb")
-    m2m100 = translation.selected_model(real_config, "m2m100")
+    nllb = selected_model(real_config, "nllb")
+    m2m100 = selected_model(real_config, "m2m100")
     assert (m2m100.name, m2m100.license, m2m100.src_token, m2m100.tgt_token) == (
         "facebook/m2m100_418M",
         "MIT",
@@ -343,14 +363,13 @@ def test_second_condition_has_its_own_signature_and_cache_file(real_config) -> N
         "__en__",
     )
     digests = {
-        translation.signature_digest(model_signature(spec, real_config.decoding))
-        for spec in (nllb, m2m100)
+        signature_digest(model_signature(spec, real_config.decoding)) for spec in (nllb, m2m100)
     }
     assert len(digests) == 2
-    paths = {translation.cache_path(real_config.cache_dir, spec) for spec in (nllb, m2m100)}
+    paths = {cache_path(real_config.cache_dir, spec) for spec in (nllb, m2m100)}
     assert len(paths) == 2
     with pytest.raises(SystemExit, match="unknown translation model"):
-        translation.selected_model(real_config, "fallback")
+        selected_model(real_config, "fallback")
 
 
 @dataclass
@@ -375,18 +394,18 @@ M2M100_LIKE = replace(MODEL, src_lang="pt", tgt_lang="en", src_token="__pt__", t
 
 
 def test_check_tokenizer_accepts_the_m2m100_layout() -> None:
-    info = translation.check_tokenizer(FakeTokenizer(128075, 128022), M2M100_LIKE)
+    info = check_tokenizer(FakeTokenizer(128075, 128022), M2M100_LIKE)
     assert (info["source_token_id"], info["target_token_id"]) == (128075, 128022)
     assert info["special_tokens_per_input"] == 2
 
 
 def test_check_tokenizer_refuses_unknown_language_codes() -> None:
     with pytest.raises(SystemExit, match="unknown"):
-        translation.check_tokenizer(FakeTokenizer(3, 128022), M2M100_LIKE)
+        check_tokenizer(FakeTokenizer(3, 128022), M2M100_LIKE)
 
 
 def test_output_length_skips_decoder_start_and_forced_target_token() -> None:
-    fake = translation.Seq2SeqTranslator(
+    fake = Seq2SeqTranslator(
         spec=M2M100_LIKE,
         decoding=DECODING,
         tokenizer=FakeTokenizer(128075, 128022),
@@ -403,9 +422,9 @@ def test_output_length_skips_decoder_start_and_forced_target_token() -> None:
 
 
 def test_spot_check_order_is_a_seeded_permutation() -> None:
-    order = translation.spot_check_order(80, 20260924)
+    order = spot_check_order(80, 20260924)
     assert sorted(order) == list(range(80))
-    assert order == translation.spot_check_order(80, 20260924)
+    assert order == spot_check_order(80, 20260924)
     assert order != list(range(80))
 
 
@@ -413,10 +432,10 @@ def test_existing_judgments_counts_filled_cells(tmp_path: Path, real_config) -> 
     spot = real_config.spot_check
     path = tmp_path / "sheet.csv"
     rows = [{"item_id": "T01", "texto_pt": "a", "traducao_en": "b"}]
-    translation.write_spot_check_csv(path, spot, rows)
-    assert translation.existing_judgments(path, spot) == 0
-    translation.write_spot_check_csv(path, spot, [{**rows[0], "fluencia": "3"}])
-    assert translation.existing_judgments(path, spot) == 1
+    write_spot_check_csv(path, spot, rows)
+    assert existing_judgments(path, spot) == 0
+    write_spot_check_csv(path, spot, [{**rows[0], "fluencia": "3"}])
+    assert existing_judgments(path, spot) == 1
 
 
 def condition_translator(config, key: str) -> FakeTranslator:
@@ -440,7 +459,7 @@ SOURCES = [
 
 
 def fill_condition(config, tmp_path: Path, key: str, texts: list[str]) -> Path:
-    store = translation.open_store(config, key, writable=True, cache_dir=tmp_path)
+    store = open_store(config, key, writable=True, cache_dir=tmp_path)
     translate_missing(condition_translator(config, key), store, texts)
     return store.path
 
@@ -457,17 +476,13 @@ def test_spot_check_writes_only_the_selected_model_cache(
         loads.append(spec.key)
         return condition_translator(real_config, spec.key)
 
-    monkeypatch.setattr(translation, "load_translator", fake_load)
-    stores, runs, _ = translation.spot_check_stores(
-        spot_args(tmp_path, "m2m100"), real_config, SOURCES
-    )
+    monkeypatch.setattr(translate_commands, "load_translator", fake_load)
+    stores, runs, _ = spot_check_stores(spot_args(tmp_path, "m2m100"), real_config, SOURCES)
     assert loads == ["m2m100"]
     assert nllb_path.read_bytes() == before
     assert not stores["nllb"].writable and stores["m2m100"].writable
     assert runs["m2m100"]["translated"] == 3 and runs["nllb"]["store_opened"] == "read-only"
-    again, runs, _ = translation.spot_check_stores(
-        spot_args(tmp_path, "m2m100"), real_config, SOURCES
-    )
+    again, runs, _ = spot_check_stores(spot_args(tmp_path, "m2m100"), real_config, SOURCES)
     assert loads == ["m2m100"] and not again["m2m100"].writable
     assert runs["m2m100"]["already_cached"] == 3
 
@@ -477,19 +492,19 @@ def test_spot_check_stops_when_another_model_lacks_a_unit(
 ) -> None:
     nllb_path = fill_condition(real_config, tmp_path, "nllb", SOURCES[:2])
     before = nllb_path.read_bytes()
-    monkeypatch.setattr(translation, "load_translator", lambda *args: pytest.fail("loaded"))
+    monkeypatch.setattr(translate_commands, "load_translator", lambda *args: pytest.fail("loaded"))
     with pytest.raises(SystemExit, match="1 of 3 spot-check units have no nllb translation"):
-        translation.spot_check_stores(spot_args(tmp_path, "m2m100"), real_config, SOURCES)
-    m2m100 = translation.cache_path(tmp_path, real_config.models["m2m100"])
+        spot_check_stores(spot_args(tmp_path, "m2m100"), real_config, SOURCES)
+    m2m100 = cache_path(tmp_path, real_config.models["m2m100"])
     assert not m2m100.exists()
     assert nllb_path.read_bytes() == before
     fill_condition(real_config, tmp_path, "nllb", SOURCES)
     with pytest.raises(SystemExit, match="3 of 3 spot-check units have no m2m100 translation"):
-        translation.spot_check_stores(spot_args(tmp_path, "nllb", True), real_config, SOURCES)
+        spot_check_stores(spot_args(tmp_path, "nllb", True), real_config, SOURCES)
 
 
 def test_lookup_failure_names_the_condition_of_the_store(tmp_path: Path, real_config) -> None:
-    store = translation.open_store(real_config, "m2m100", cache_dir=tmp_path)
+    store = open_store(real_config, "m2m100", cache_dir=tmp_path)
     assert store.condition == "m2m100" and not store.writable
     with pytest.raises(MissingTranslationError, match="translate --model m2m100 for the splits"):
         store.lookup("Uma frase que nunca foi traduzida.")
@@ -503,7 +518,7 @@ def test_spot_check_display_changes_only_typographic_quotes(real_config) -> None
     raw = {**real_config.source["translation"]["spot_check"]}
     raw["display_normalization"] = {"\u2019": "ab"}
     with pytest.raises(SystemExit, match="one character to one ASCII one"):
-        translation.parse_spot_check(raw)
+        parse_spot_check(raw)
 
 
 def test_blinding_check_lists_rows_told_apart_by_a_character() -> None:
@@ -519,7 +534,7 @@ def test_blinding_check_lists_rows_told_apart_by_a_character() -> None:
         {"item_id": "T03", "traducao_en": "Yes, it is."},
         {"item_id": "T04", "traducao_en": "Yes, it is."},
     ]
-    check = translation.blinding_check(sheet, items)
+    check = blinding_check(sheet, items)
     assert check["characters_of_one_model"] == {"U+2014": {"m2m100": ["T02"]}}
     assert check["identifiable_items"] == ["T02"]
     assert check["identifiable_units"] == ["U01"]

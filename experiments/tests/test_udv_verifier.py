@@ -9,7 +9,9 @@ from sklearn.preprocessing import StandardScaler
 
 from experiments.verifier import nli_exploration as exploration
 from experiments.verifier import udv_verifier as uv
-from experiments.verifier.nli_experiments import PremiseUnit, ScorerSpec
+from experiments.verifier.nli.benchmark import PremiseUnit
+from experiments.verifier.nli.config import ScorerSpec
+from experiments.verifier.nli.scoring import score_file
 from experiments.verifier.nli_exploration import (
     BATTERY_SIGNALS,
     Candidate,
@@ -125,7 +127,7 @@ def test_score_scorers_routes_english_scorers_through_the_translation(monkeypatc
         seen[spec_.key] = (spec_units[0], concatenate_single, probes)
         return [fake_row(u, spec_, 0.5) for u in spec_units], {"timing": {}}
 
-    monkeypatch.setattr(uv.experiments, "translation_summary", lambda *args: {"model": "fake"})
+    monkeypatch.setattr(uv, "translation_summary", lambda *args: {"model": "fake"})
     results = uv.score_scorers(units, SPECS[:2], verifier, "cpu", translations, "t", fake_score)
     english, single, probes = seen["laya_en_en"]
     assert english.hypothesis == "EN Proposta." and english.items == ("EN Frase.",)
@@ -148,7 +150,7 @@ def test_fake_scores_flow_to_probabilities(configs):
     units = [PremiseUnit(f"u{i}", 1, "train", "H", ("P",)) for i in range(4)]
     for index, spec_ in enumerate(SPECS):
         rows = [fake_row(u, spec_, (0.1 * (i + 1) + 0.05 * index) % 1) for i, u in enumerate(units)]
-        write_jsonl(rows, uv.experiments.score_file(config.run_dir, spec_.key, uv.UDV_SPLIT))
+        write_jsonl(rows, score_file(config.run_dir, spec_.key, uv.UDV_SPLIT))
     ids = [u.unit_id for u in units]
     data = {}
     for key in config.scorers:

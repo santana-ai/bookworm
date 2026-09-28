@@ -8,10 +8,13 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import transformers
 from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 
-from experiments.common.provenance import source_hashes
+from experiments.common.hub_offline import enforce_offline
+from experiments.common.provenance import Source, source_hashes
 from experiments.common.stats import holm
+from experiments.common.udv_run import seed_everything, select_device
 from experiments.udv.calibrate_threshold import interval, rounded
 from experiments.verifier import (
     confidence_policies,
@@ -32,8 +35,20 @@ from experiments.verifier.grounding_scorers import (
     normalized_ranks,
     parse_candidate,
 )
-from experiments.verifier.nli_experiments import PremiseUnit
-from experiments.verifier.stats import bootstrap_p_value
+from experiments.verifier.nli.benchmark import PremiseUnit, concatenated_premise, distinct_items
+from experiments.verifier.nli.config import DEVICES, ScorerSpec
+from experiments.verifier.nli.config import load_config as load_verifier_config
+from experiments.verifier.nli.decision import decision_requests, run_decision
+from experiments.verifier.nli.decision import laya_spec as verifier_laya_spec
+from experiments.verifier.nli.provenance import environment
+from experiments.verifier.nli.scoring import prepare_benchmark_units
+from experiments.verifier.nli.translated import english_units, translation_texts
+from experiments.verifier.runtime import now
+from experiments.verifier.stats import bootstrap_p_value, hearing_draws
+from experiments.verifier.translate import config as translate_config
+from experiments.verifier.translate import store as translate_store
+from experiments.verifier.translate.seq2seq import load_translator, translate_missing
+from experiments.verifier.translate.store import selected_model
 
 Record = dict[str, Any]
 
@@ -61,14 +76,14 @@ POOLS = ("max", "concatenated")
 LAYA_RUN = "nli_verifier_v2"
 LAYA_AGGREGATES = ("mean", "median", "min")
 TRUE_OPTION = "true"
-CODE_MODULES = (
+CODE_MODULES: tuple[Source, ...] = (
     grounding_scorers,
     grounding_models,
     confidence_policies,
     udv_verifier,
-    experiments,
+    *experiments.SOURCES,
     exploration,
-    translation,
+    *translation.SOURCES,
 )
 
 
@@ -138,21 +153,23 @@ def run_record(config: Config) -> Record:
     return {
         "config": {"path": str(config.path), "sha256": sha256_of_file(config.path)},
         "code": code_hashes(),
-        "environment": experiments.environment(),
+        "environment": environment(),
     }
 
 
 def ea_units(config: Config) -> tuple[list[PremiseUnit], Record]:
-    verifier = experiments.load_config(config.verifier_config)
-    units, context = experiments.prepare_benchmark_units(verifier, EA_SPLITS, None)
+    verifier = load_verifier_config(config.verifier_config)
+    units, context = prepare_benchmark_units(verifier, EA_SPLITS, None)
     if {unit.split for unit in units} - set(EA_SPLITS):
         raise SystemExit("E-A units outside train and validation")
     return units, context
 
 
 def open_store(config: Config, writable: bool = False) -> tuple[Any, Any]:
-    translation_config = translation.load_config(config.translation_config)
-    store = translation.open_store(translation_config, config.translation_model, writable=writable)
+    translation_config = translate_config.load_config(config.translation_config)
+    store = translate_store.open_store(
+        translation_config, config.translation_model, writable=writable
+    )
     return translation_config, store
 
 
@@ -161,12 +178,12 @@ def language_units(units: list[PremiseUnit], spec: CandidateSpec, store: Any) ->
         return units
     if store is None:
         raise SystemExit(f"{spec.key}: no translation store opened")
-    return experiments.english_units(units, store)
+    return english_units(units, store)
 
 
 def unit_pairs(unit: PremiseUnit, concatenated: bool) -> tuple[list[str], str | None]:
-    items = experiments.distinct_items(unit.items)
-    joined = experiments.concatenated_premise(unit, " ", False) if concatenated else None
+    items = distinct_items(unit.items)
+    joined = concatenated_premise(unit, " ", False) if concatenated else None
     return items, joined
 
 
@@ -257,10 +274,10 @@ def progress_printer(key: str) -> Callable[[int, int], None]:
 
 
 def prepare_device(device: str) -> str:
-    experiments.enforce_offline()
-    experiments.seed_everything(0)
-    experiments.transformers.logging.set_verbosity_error()
-    return experiments.select_device(device)
+    enforce_offline()
+    seed_everything(0)
+    transformers.logging.set_verbosity_error()
+    return select_device(device)
 
 
 def smoke_units(units: list[PremiseUnit], count: int, seed: int) -> list[PremiseUnit]:
@@ -287,14 +304,14 @@ def hhem_probe(scorer: PairScorer) -> Record:
 def command_translate(args: argparse.Namespace, config: Config) -> None:
     ea, _ = ea_units(config)
     translation_config, store = open_store(config, writable=True)
-    texts = experiments.translation_texts(ea, [], store)
+    texts = translation_texts(ea, [], store)
     missing = store.missing(texts)
     run: Record = {"requested": len(texts), "already_cached": len(texts) - len(missing)}
     if missing:
         device = prepare_device(args.device)
-        spec = translation.selected_model(translation_config, config.translation_model)
-        translator = translation.load_translator(spec, translation_config.decoding, device)
-        run |= translation.translate_missing(
+        spec = selected_model(translation_config, config.translation_model)
+        translator = load_translator(spec, translation_config.decoding, device)
+        run |= translate_missing(
             translator,
             store,
             missing,
@@ -302,7 +319,7 @@ def command_translate(args: argparse.Namespace, config: Config) -> None:
             translation_config.decoding.batch_token_budget,
         )
     report = {
-        "created_at": experiments.now(),
+        "created_at": now(),
         "model": config.translation_model,
         "run": run,
         "store": store.summary(),
@@ -346,7 +363,7 @@ def command_smoke(args: argparse.Namespace, config: Config) -> None:
         full = full_pair_count(spec, ea, store)
         record |= {
             "status": "scored",
-            "created_at": experiments.now(),
+            "created_at": now(),
             "device": device,
             "model": scorer.info,
             "opinions": len(rows),
@@ -410,7 +427,7 @@ def command_decide(args: argparse.Namespace, config: Config) -> None:
             "smoke_sha256": sha256_of_file(path),
         }
     report = {
-        "created_at": experiments.now(),
+        "created_at": now(),
         "rule": config.raw["smoke"]["decision_rule"],
         "budget_hours": config.budget_hours,
         "decisions": decisions,
@@ -460,7 +477,7 @@ def command_score(args: argparse.Namespace, config: Config) -> None:
             written[split] = {"path": str(path), "rows": len(split_rows)}
             written[split]["sha256"] = sha256_of_file(path)
         report = {
-            "created_at": experiments.now(),
+            "created_at": now(),
             "candidate": key,
             "set": "ea",
             "model": scorer.info,
@@ -599,7 +616,7 @@ def evaluate_set(
     seed: int,
     level: float,
 ) -> Record:
-    draws = experiments.hearing_draws(hearings, samples, np.random.default_rng(seed))
+    draws = hearing_draws(hearings, samples, np.random.default_rng(seed))
     replicates = replicate_metrics(systems, positive, draws)
     return {
         "items": int(len(positive)),
@@ -819,7 +836,7 @@ def command_evaluate_ea(args: argparse.Namespace, config: Config) -> None:
     report = {
         "experiment": config.name,
         "part": "E-A",
-        "created_at": experiments.now(),
+        "created_at": now(),
         "splits_read": list(EA_SPLITS),
         "label": config.raw["evaluation"]["positive_ea"],
         "label_semantics": config.raw["experiment"]["label_semantics"],
@@ -851,8 +868,8 @@ def laya_questions(config: Config, scorer: str) -> list[DecisionQuestion]:
     return [noul_question(key, table[language][key]) for key in table["keys"]]
 
 
-def laya_spec(config: Config, scorer: str) -> tuple[Any, experiments.ScorerSpec]:
-    verifier = experiments.load_config(config.verifier_config)
+def laya_spec(config: Config, scorer: str) -> tuple[Any, ScorerSpec]:
+    verifier = load_verifier_config(config.verifier_config)
     spec = verifier.scorers[scorer]
     if spec.kind != "laya":
         raise SystemExit(f"{scorer} is not a Laya scorer")
@@ -862,11 +879,11 @@ def laya_spec(config: Config, scorer: str) -> tuple[Any, experiments.ScorerSpec]
 
 
 def laya_units(
-    config: Config, units: list[PremiseUnit], spec: experiments.ScorerSpec, store: Any
+    config: Config, units: list[PremiseUnit], spec: ScorerSpec, store: Any
 ) -> list[PremiseUnit]:
     if spec.language == "pt":
         return units
-    return experiments.english_units(units, store)
+    return english_units(units, store)
 
 
 def laya_rows(
@@ -884,7 +901,7 @@ def laya_rows(
         items = [
             {"signals": signals(item, unit.hypothesis)} if item else None for item in unit.items
         ]
-        joined = experiments.concatenated_premise(unit, " ", False) if concatenated else None
+        joined = concatenated_premise(unit, " ", False) if concatenated else None
         rows.append(
             {
                 "id": unit.unit_id,
@@ -904,9 +921,9 @@ def run_laya(
     _, store = open_store(config)
     spec_units = laya_units(config, units, spec, store)
     questions = laya_questions(config, scorer)
-    requests = experiments.decision_requests(spec_units, " ", concatenated, False)
-    model = LayaDecisionModel(experiments.laya_spec(spec, verifier, device))
-    answers, seconds = experiments.run_decision(model, questions, requests, scorer, True)
+    requests = decision_requests(spec_units, " ", concatenated, False)
+    model = LayaDecisionModel(verifier_laya_spec(spec, verifier, device))
+    answers, seconds = run_decision(model, questions, requests, scorer, True)
     rows = laya_rows(spec_units, answers, [q.key for q in questions], concatenated)
     record = {
         "scorer": scorer,
@@ -938,9 +955,7 @@ def command_laya_smoke(args: argparse.Namespace, config: Config) -> None:
         per_request = record["seconds"] / computed
         _, spec = laya_spec(config, scorer)
         _, store = open_store(config)
-        requests = experiments.decision_requests(
-            laya_units(config, ea, spec, store), " ", True, False
-        )
+        requests = decision_requests(laya_units(config, ea, spec, store), " ", True, False)
         full = len(set(requests)) * record["question_count"]
         record |= {
             "status": "scored",
@@ -951,7 +966,7 @@ def command_laya_smoke(args: argparse.Namespace, config: Config) -> None:
             "full_pairs": full,
             "projected_hours": round(full * per_request / 3600, 3),
             "truncation": {},
-            "created_at": experiments.now(),
+            "created_at": now(),
         }
         write_json(record | run_record(config), path)
         print(json.dumps({k: record[k] for k in ("pairs_per_second", "projected_hours")}))
@@ -980,7 +995,7 @@ def command_laya_score(args: argparse.Namespace, config: Config) -> None:
                 "sha256": sha256_of_file(path),
             }
         report = {
-            "created_at": experiments.now(),
+            "created_at": now(),
             "set": "ea",
             **record,
             "files": written,
@@ -1105,7 +1120,7 @@ def spread_flag_table(
     level: float,
 ) -> Record:
     flagged = spread > threshold
-    draws = experiments.hearing_draws(hearings, samples, np.random.default_rng(seed))
+    draws = hearing_draws(hearings, samples, np.random.default_rng(seed))
 
     def negative_rate(mask: np.ndarray) -> float:
         return float((~positive[mask]).mean()) if mask.any() else np.nan
@@ -1150,14 +1165,14 @@ def parse_args() -> argparse.Namespace:
     commands = parser.add_subparsers(dest="command", required=True)
     for name in ("translate", "smoke", "score"):
         command = commands.add_parser(name)
-        command.add_argument("--device", choices=experiments.DEVICES, default="mps")
+        command.add_argument("--device", choices=DEVICES, default="mps")
         if name != "translate":
             command.add_argument("--candidates", nargs="+", default=None)
         if name == "smoke":
             command.add_argument("--fallback", action="store_true")
     for name in ("laya-smoke", "laya-score"):
         command = commands.add_parser(name)
-        command.add_argument("--device", choices=experiments.DEVICES, default="mps")
+        command.add_argument("--device", choices=DEVICES, default="mps")
         command.add_argument("--scorers", nargs="+", default=None)
     commands.add_parser("decide")
     commands.add_parser("evaluate-ea")

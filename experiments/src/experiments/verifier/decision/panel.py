@@ -17,9 +17,7 @@ from experiments.verifier.decision.battery import (
     score_names,
     support_signals,
 )
-from experiments.verifier.decision.questions import (
-    DecisionAnswer,
-)
+from experiments.verifier.decision.questions import DecisionAnswer
 
 Record = dict[str, Any]
 STACKED_MAX_ITER = 1000
