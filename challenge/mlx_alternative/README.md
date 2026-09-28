@@ -75,6 +75,28 @@ uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.benchmark
   reuso de prefixo. Projeta a duração da rodada completa com esses números e com os tempos da rodada
   curta. Grava `runs/benchmark.json` e `runs/benchmark.md`.
 
+## Rodada sobre `udv_v2`
+
+`config_udv_v2.yaml` refaz perfis, avaliação e simulação com o modelo da rodada completa,
+`mlx-community/Qwen3.8-27B-8bit`, lendo os TOMLs de `configs/`, que apontam para
+`artifacts/udv/udv_v2.jsonl`. As saídas vão para `runs/udv_v2/qwen38_27b/` e `runs/udv_v2/shared/`;
+a rodada `udv_v1` em `runs/qwen38_27b/` não é lida nem sobrescrita. De dentro de `challenge/`:
+
+```
+uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run all --model qwen38_27b --all-actors --settings mlx_alternative/config_udv_v2.yaml
+```
+
+Se o modelo não estiver em `<models_dir>/mlx-community/Qwen3.8-27B-8bit`, `run download` com as
+mesmas opções baixa o modelo antes. A revisão do modelo não está fixada (`revision: null`): a pasta
+local da rodada `udv_v1` não guardou o commit do Hugging Face. Quando o commit for conhecido, ele
+entra em `revision` antes da rodada, e `download` e `smoke.json` passam a registrá-lo.
+
+As entradas da rodada podem ser conferidas antes e depois dela pelos dry runs, que não usam modelo:
+`artifacts/actor_profiles/udv_v2_dry_run_profiles.json` (prompts dos perfis),
+`artifacts/actor_simulation/udv_v2_dry_run_evaluation.json` (perguntas de múltipla escolha) e
+`artifacts/actor_simulation/udv_v2_dry_run_simulation.json` (pedidos de simulação). Os comandos que
+os gravam estão em `artifacts/udv/udv_v2_downstream_report.json`.
+
 ## Decisão entre os modelos
 
 1. Rodar `smoke`, `verify_backend` e `run all` (rodada curta) para cada modelo, depois o

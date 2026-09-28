@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 TRAIN_SPEECHES="artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl"
 TRAIN_PROFILES="artifacts/actor_profiles/actor_profiles_train.jsonl"
-MODEL="${MODEL:-meta-llama/Llama-3.3-70B-Instruct}"
+MODEL="${MODEL:?set MODEL to a transformers model id; the udv_v2 profile and simulation run uses mlx-community/Qwen3.8-27B-8bit through mlx_alternative (see mlx_alternative/README.md)}"
 
 if [ ! -f dataset/PublicHearingBR_LDS.jsonl ]; then
   uv run python -m utils.download_dataset

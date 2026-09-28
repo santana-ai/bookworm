@@ -109,6 +109,7 @@ def smoke(spec: ModelSpec, paths: RunPaths) -> Record:
     report: Record = {
         "model": spec.id,
         "repo": spec.repo,
+        "revision": spec.revision,
         "load_seconds": round(load_seconds, 1),
         "template_kwargs": dict(spec.options.template_kwargs),
         "prompt_tail": engine.tokenizer.decode(tokens[-16:]),
