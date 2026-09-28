@@ -224,10 +224,10 @@ ARTIFACTS = (
             "inputs.udv.sha256",
             "outputs.sha256",
         ),
-        "evidence_score_check compares the cosine_serafim sentence_max of the premise with"
-        " evidence.score; for udv_v2 the premise is a window of sentences and evidence.score is"
-        " the cosine of the whole window, so the two quantities differ and the check no longer"
-        " measures a reading error",
+        "evidence_score_check compares evidence.score with the cosine of the unit the verifier"
+        " read: the sentence_max cosine for udv_v1, the cosine of the whole window for udv_v2;"
+        " on udv_v2 the UDVs of encoded_text_differs have an evidence span that also holds"
+        " parts the encoder skipped, so the verifier premise is longer than the encoded text",
     ),
     Artifact(
         "chair_evidence",
@@ -345,6 +345,13 @@ ARTIFACTS = (
         " examples_sha256",
     ),
     Artifact(
+        "web_export",
+        {"udv_v1": None, "udv_v2": "artifacts/web/export_site_udv_v2.json"},
+        ("run", "hearings", "udvs", "bytes", "output", "profiles"),
+        "summary printed by bookworm export-site on udv_v2 with --verifier-report and the"
+        " qwen38_27b train profiles; the export checks the run against configs/udv_v2.toml",
+    ),
+    Artifact(
         "human_precision_interim",
         {
             "udv_v1": None,
@@ -390,20 +397,6 @@ COLLEAGUE_COMMAND = {
     "revision_note": "no local copy of the model was available, so no revision is pinned",
 }
 NOT_RUN = (
-    {
-        "stage": "web export",
-        "command": (
-            "uv run --project ../bookworm bookworm export-site --config configs/udv_v2.toml"
-            " --run-name udv_v2 --split-manifest artifacts/splits/temporal_v1.json"
-            " --verifier-report artifacts/udv/udv_v2_verifier_report.json"
-        ),
-        "reason": (
-            "check_run_pipeline refuses udv_v2_coverage.json: the coverage pipeline differs from"
-            " the current pipeline in semantic_unit, semantic_unit_rule, quote_extent,"
-            " quote_extent_rule, quote_suffix_lengths and quote_max_span_ratio; the export only"
-            " accepts runs of the default sentence pipeline"
-        ),
-    },
     {
         "stage": "profile generation and actor simulation with qwen38_27b",
         "command": COLLEAGUE_COMMAND["run"],

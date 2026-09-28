@@ -1,6 +1,6 @@
 {
   "name": "udv_v2_downstream",
-  "created_at": "2026-09-28T17:43:43+00:00",
+  "created_at": "2026-09-28T18:11:58+00:00",
   "purpose": "every stage downstream of the UDV run, rerun or checked on udv_v2, next to its udv_v1 value",
   "inputs": {
     "split_manifest": {
@@ -527,10 +527,76 @@
           "xnli_mdeberta": 0.0
         },
         "evidence_score_check": {
-          "rule": "cosine_serafim sentence_max.cosine of each semantic UDV against evidence.score",
-          "n": 1828,
-          "max_abs_gap": 0.2375,
-          "within_1e-4": 27
+          "rule": "cosine_serafim max.cosine (the cosine of the whole premise, the window the verifier read) of each semantic UDV against evidence.score (the cosine of the window the UDV builder encoded); n, max_abs_gap and within_1e-4 cover the UDVs whose premise equals the encoded text, the candidate sentences of the window joined by a space; encoded_text_differs counts the UDVs whose evidence span also holds parts that are not candidate sentences (under 4 words or stage directions), which the verifier read and the encoder did not",
+          "semantic_unit": "window2",
+          "semantic_udvs": 1828,
+          "n": 1771,
+          "max_abs_gap": 0.0,
+          "within_1e-4": 1771,
+          "encoded_text_differs": {
+            "n": 57,
+            "max_abs_gap": 0.0902,
+            "within_1e-4": 0,
+            "udv_ids": [
+              "udv-1-2-0",
+              "udv-1-7-2",
+              "udv-2-0-2",
+              "udv-6-0-10",
+              "udv-6-0-13",
+              "udv-9-1-0",
+              "udv-18-2-0",
+              "udv-19-1-0",
+              "udv-32-2-2",
+              "udv-35-0-2",
+              "udv-39-7-0",
+              "udv-42-2-1",
+              "udv-43-2-0",
+              "udv-45-0-4",
+              "udv-45-1-0",
+              "udv-50-0-3",
+              "udv-55-2-0",
+              "udv-58-4-0",
+              "udv-65-1-1",
+              "udv-67-3-0",
+              "udv-79-0-1",
+              "udv-80-6-0",
+              "udv-82-3-0",
+              "udv-92-0-1",
+              "udv-98-2-0",
+              "udv-101-3-0",
+              "udv-103-0-8",
+              "udv-103-1-0",
+              "udv-104-4-0",
+              "udv-108-6-0",
+              "udv-113-0-2",
+              "udv-115-4-1",
+              "udv-120-1-1",
+              "udv-122-0-2",
+              "udv-122-2-0",
+              "udv-133-3-0",
+              "udv-143-0-1",
+              "udv-143-2-1",
+              "udv-143-5-1",
+              "udv-144-0-1",
+              "udv-145-0-5",
+              "udv-147-3-0",
+              "udv-152-4-0",
+              "udv-168-3-3",
+              "udv-171-4-0",
+              "udv-177-2-0",
+              "udv-177-2-1",
+              "udv-177-4-2",
+              "udv-192-0-2",
+              "udv-192-1-0",
+              "udv-194-3-0",
+              "udv-195-2-2",
+              "udv-199-9-0",
+              "udv-199-10-0",
+              "udv-201-0-0",
+              "udv-202-2-2",
+              "udv-204-6-2"
+            ]
+          }
         },
         "cosine_relation.spearman.semantic_all": {
           "primary_probability": {
@@ -547,7 +613,7 @@
         "inputs.udv.sha256": "02f42b288840400cbcfb24a613ecc7e0c82f52923de80c09faf3d246fd01fb45",
         "outputs.sha256": "26bf245921b359263585f55274c45d8b1b70ca30253ce5f99cad0ede09d2f4e7"
       },
-      "note": "evidence_score_check compares the cosine_serafim sentence_max of the premise with evidence.score; for udv_v2 the premise is a window of sentences and evidence.score is the cosine of the whole window, so the two quantities differ and the check no longer measures a reading error"
+      "note": "evidence_score_check compares evidence.score with the cosine of the unit the verifier read: the sentence_max cosine for udv_v1, the cosine of the whole window for udv_v2; on udv_v2 the UDVs of encoded_text_differs have an evidence span that also holds parts the encoder skipped, so the verifier premise is longer than the encoded text"
     },
     "chair_evidence": {
       "artifacts": {
@@ -1128,6 +1194,29 @@
         "actors_without_role": 21
       },
       "note": "the same dry run on udv_v1 gives the same requests_sha256, roles_sha256 and examples_sha256"
+    },
+    "web_export": {
+      "artifacts": {
+        "udv_v1": null,
+        "udv_v2": "artifacts/web/export_site_udv_v2.json"
+      },
+      "udv_v1": null,
+      "udv_v2": {
+        "run": "udv_v2",
+        "hearings": 206,
+        "udvs": 2203,
+        "bytes": 88438867,
+        "output": "../bookworm/web/app/data",
+        "profiles": {
+          "actors": 264,
+          "linked_udvs": 660,
+          "claims": 4928,
+          "with_udv": 202,
+          "passage_only": 4290,
+          "without_evidence": 436
+        }
+      },
+      "note": "summary printed by bookworm export-site on udv_v2 with --verifier-report and the qwen38_27b train profiles; the export checks the run against configs/udv_v2.toml"
     },
     "human_precision_interim": {
       "artifacts": {
@@ -2393,11 +2482,6 @@
   },
   "not_run": [
     {
-      "stage": "web export",
-      "command": "uv run --project ../bookworm bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 --split-manifest artifacts/splits/temporal_v1.json --verifier-report artifacts/udv/udv_v2_verifier_report.json",
-      "reason": "check_run_pipeline refuses udv_v2_coverage.json: the coverage pipeline differs from the current pipeline in semantic_unit, semantic_unit_rule, quote_extent, quote_extent_rule, quote_suffix_lengths and quote_max_span_ratio; the export only accepts runs of the default sentence pipeline"
-    },
-    {
       "stage": "profile generation and actor simulation with qwen38_27b",
       "command": "uv run --with \"mlx-lm==0.31.3\" python -m mlx_alternative.run all --model qwen38_27b --all-actors --settings mlx_alternative/config_udv_v2.yaml",
       "reason": "the 27B MLX model is run on another machine"
@@ -2409,7 +2493,7 @@
     }
   ],
   "code": {
-    "utils/udv_v2_downstream.py": "eb352498460f4e06de340bd3e836134e9a8ea069cedf491560d602b122d3584c",
+    "utils/udv_v2_downstream.py": "80b738fe5fa053167efef15e2529fd0b3aa256ed56158276d57638b21b39ab0b",
     "utils/actor_simulation.py": "b1a0d2ba9775108d20c4179dfc8a1eb840e97dfd374c62349a5d2aa6215a8ab6",
     "utils/evaluate_actor_simulation.py": "2b543989bcd84e8292401c1f7ba6ffd837bd35bf1054a7fa64422f89b1bc4c61"
   }
