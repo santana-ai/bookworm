@@ -38,7 +38,7 @@ Inscrição até 30/07/2026; submissão até 30/09/2026; avaliação de 01 a 15/
 
 ## Escopo priorizado
 
-O `docs/vision.md` descreve um programa de pesquisa amplo. Para a submissão de 2026, os itens foram
+O [`vision.md`](vision.md) descreve um programa de pesquisa amplo. Para a submissão de 2026, os itens foram
 priorizados assim:
 
 - **P0, necessário para o artigo e o vídeo:** qualidade de projeto (lint, tipos, testes); leitura e
@@ -105,7 +105,7 @@ Cada item tem código, configuração, testes e artefato versionado.
    citação ou janela) um verificador ajustado com quatro trechos recuperados.
 4. **Planilhas pendentes.** Revisão de citações e nomes do E6 e checagem manual da tradução.
 5. **Perfis.** Rodada do modelo de simulação sobre `udv_v2` (comando em
-   `docs/methodology/mlx_backend.md`) e revisão manual dos pares da conferência de perfis.
+   [`methodology/mlx_backend.md`](methodology/mlx_backend.md)) e revisão manual dos pares da conferência de perfis.
 6. **Artefatos pesados.** Publicar o pacote no GitHub Release e fixar revisões dos modelos MLX.
 7. **Split por comissão**, com a extração do nome da comissão validada antes de virar base de split.
 8. **Itens P1 e P2 não iniciados:** comparação entre audiências, busca sobre as UDVs, EDI, baseline

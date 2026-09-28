@@ -4,10 +4,10 @@ Este documento descreve a UDV: o problema que ela resolve, o que cada registro c
 registros são construídos a partir do PublicHearingBR e como o corte de similaridade de `udv_v1` foi
 calibrado. A rodada descrita aqui é `udv_v1`. As mudanças de `udv_v2` (janelas de duas sentenças,
 citação inteira, cortes recalibrados e confiança do verificador) estão em
-[`docs/pipeline.md`](../pipeline.md), seção "Pipeline recomendado", e na ADR 0006
-(`../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`). Os resultados dos
-experimentos e da validação humana estão em [`docs/report.md`](../report.md).
-Os números saem dos artefatos versionados em `artifacts/` e dos comandos indicados em cada seção.
+[`pipeline.md`](../pipeline.md#pipeline-recomendado-udv_v2) e na
+[ADR 0006](../../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md). Os resultados dos
+experimentos e da validação humana estão no [relatório](../report.md). Os números saem dos artefatos
+versionados em `experiments/artifacts/`; os caminhos desta página são relativos a `experiments/`.
 
 ## O problema
 
@@ -44,7 +44,7 @@ do que ela efetivamente disse. A UDV cria esse vínculo para cada uma das 2.203 
 
 Outras partes do projeto já dependem das UDVs ou da mesma regra de ligação: o benchmark de citações
 mascaradas (B1) usa a regra de citação literal para definir o alvo; a calibração do corte usa esse
-benchmark e os pares de citação do train; `docs/methodology/hearing_actors.md` usa `udv_v1` para medir quantas opiniões
+benchmark e os pares de citação do train; [`hearing_actors.md`](hearing_actors.md) usa `udv_v1` para medir quantas opiniões
 publicadas vêm de turnos de presidente de sessão (336 de 2.105); e a amostra de validação humana é
 sorteada sobre `udv_v1`.
 
@@ -139,7 +139,7 @@ entre opinião e evidência.
 
 Dentro de `experiments/`:
 
-```
+```bash
 uv run bookworm build-udvs --run-name udv_v1
 uv run bookworm verify-udvs --run-name udv_v1
 ```
@@ -172,21 +172,13 @@ A reprodutibilidade foi testada regenerando uma rodada antiga: `artifacts/udv/ud
 gerado de novo com o código que produziu `udv_v0` (`backup/*_2026-09-21.py`, na tag Git
 `research-2026-09-28`), é idêntico byte a byte a `udv_v0.jsonl`.
 
-Artefatos relacionados e os comandos que os geram (todos dentro de `experiments/`):
-
-| artefato | comando |
-|---|---|
-| `artifacts/splits/temporal_v1.json` | `uv run bookworm build-splits` |
-| `artifacts/benchmarks/masked_quotes_v1*` (B1) | `uv run python -m experiments.data.quote_benchmark` |
-| `artifacts/benchmarks/nli_v1*` (B2) | `uv run python -m experiments.data.nli_benchmark` (exige o arquivo NLI baixado) |
-| `artifacts/calibration/threshold_v1*` | `uv run python -m experiments.udv.calibrate_threshold` |
-| `artifacts/udv/turn_segmentation_*` (ADR 0002) | `uv run python -m experiments.udv.measure_turn_segmentation` |
-| `artifacts/udv/quote_patterns_*` (ADR 0003) | `uv run python -m experiments.udv.measure_quote_patterns` |
-| `artifacts/validation/human_validation_v1_udv_v1/` | `uv run --no-sync python -m experiments.validation.generate_sample --run-name udv_v1 --final-test` |
+Os comandos que geram os artefatos relacionados (splits, benchmarks B1 e B2, calibração, medições das
+ADRs e amostra de validação) estão no [guia de reprodução](../reproduce.md#etapas-em-ordem).
 
 ## Construção
 
-O código está em `bookworm/src/bookworm/transcript/` e `bookworm/src/bookworm/udv/` (funções) e em `bookworm/src/bookworm/udv/build.py` (rodada em lote, `bookworm build-udvs`). Para cada
+O código está na biblioteca, nos módulos `bookworm.transcript` e `bookworm.udv` (a rodada em lote é
+`bookworm build-udvs`). Esta seção é a descrição das regras; a biblioteca não as repete. Para cada
 audiência, as etapas são estas.
 
 ### 1. Turnos de fala
@@ -212,7 +204,7 @@ transcrição), e quem preside a sessão aparece como `PRESIDENTE` com o nome en
   aquela palavra no nome; se houver mais de um, a pessoa fica sem turno.
 
 A regra de nome contido é aceitável dentro de uma audiência, que tem poucos falantes; entre audiências
-ela junta pessoas diferentes, e por isso `docs/methodology/hearing_actors.md` usa outra regra para identificar a mesma
+ela junta pessoas diferentes, e por isso [`hearing_actors.md`](hearing_actors.md) usa outra regra para identificar a mesma
 pessoa em audiências distintas. Resultado: 1.020 dos 1.065 participantes têm ao menos um turno; as 45
 pessoas restantes somam 90 opiniões.
 
@@ -428,45 +420,15 @@ cego e sem anotador independente; ela não é validação e foi retirada desta v
 
 ### Validação humana cega
 
-A amostra `artifacts/validation/human_validation_v1_udv_v1/` foi gerada por
-`experiments/src/experiments/validation/generate_sample.py` com o protocolo abaixo, descrito para o anotador em
-`docs/validation/annotation_guide.md`.
-
-- **Só audiências de teste.** A validação é usada pelos experimentos para escolher método (encoder,
-  corte, unidade, reranker), então uma estimativa tirada dela seria enviesada a favor do método
-  escolhido. O gerador recusa uma rodada cujo corte tenha sido calibrado com audiências do teste;
-  `udv_v0` e `udv_v1_pre` são recusadas, `udv_v1` passa.
-- **Estratos**, com semente fixa (PCG64, semente 42):
-
-  | estrato | pergunta ao anotador | população no teste | sorteados |
-  |---|---|---|---|
-  | `direct_quote` | o trecho sustenta a afirmação? | 41 | 35 |
-  | `semantic_match_high` | idem | 277 | 65 |
-  | `semantic_with_short_quote` | idem | 22 | 15 |
-  | `semantic_match_weak` | idem | 6 | 6 (todos) |
-  | `speaker_check` | a pessoa falou nesta audiência? | 13 UDVs | 13 UDVs, 6 linhas (uma por pessoa) |
-
-  São 127 linhas, 134 UDVs e 30 audiências. Nos dois últimos estratos a população é menor que a meta
-  (15 e 20).
-- **Rótulos**: `correta`, `parcial` ou `incorreta` para o trecho, com o contexto do turno ao redor, mais
-  `existe_trecho_melhor` (`sim`, `nao`, `nao_procurei`); `falou`, `nao_falou` ou `nao_sei` para
-  `speaker_check`.
-- **Cegamento**: a planilha não mostra nível, tipo de suporte, score nem prefixo, e as linhas estão em
-  ordem aleatória. O relatório registra os vazamentos conhecidos: uma linha de citação é reconhecível
-  porque as palavras entre aspas reaparecem no trecho (35 de 35 em `direct_quote`, 15 de 15 em
-  `semantic_with_short_quote`, 0 nos estratos semânticos puros), e só a distinção entre alta e baixa
-  confiança semântica fica de fato cega.
-- **Concordância intra-anotador**: pelo menos 24 horas depois da primeira rodada, 20 linhas de
-  `trecho_sustenta` voltam em outra ordem e com outros identificadores.
-- **Relatório**: precisão estrita (só `correta`) e tolerante (`correta` ou `parcial`) por estrato com
-  intervalo de Wilson a 95%, estimativa estratificada para a rodada inteira, e o relatório só é
-  calculado com as duas planilhas completas.
-- **Critérios declarados em 23/09/2026, antes de qualquer julgamento**: limite inferior de Wilson da
-  precisão estrita de `direct_quote` ≥ 0,90, e da precisão tolerante de `semantic_match_high` ≥ 0,75.
-  Com os tamanhos sorteados, o primeiro critério só passa com 35 corretas em 35 (nenhuma `parcial`), e
-  o segundo admite até 9 falhas em 65.
-
-O estado da anotação e o recálculo parcial das precisões estão no relatório, seção 7.
+A amostra `artifacts/validation/human_validation_v1_udv_v1/` foi sorteada de `udv_v1`, só nas
+audiências de teste, porque a validação é usada pelos experimentos para escolher método e uma estimativa
+tirada dela seria enviesada a favor do método escolhido. São 127 linhas em cinco estratos
+(`direct_quote`, `semantic_match_high`, `semantic_with_short_quote`, `semantic_match_weak` e
+`speaker_check`), com semente fixa, rótulos `correta`, `parcial` ou `incorreta` e critérios declarados
+em 23/09/2026, antes de qualquer julgamento. O desenho completo da amostra, o cegamento e os vazamentos
+conhecidos estão no [relatório, seção 7.1](../report.md#71-desenho-da-amostra); o critério de cada rótulo,
+no [guia do anotador](../validation/annotation_guide.md); os resultados, nas seções 7.2 e 7.4 do
+relatório.
 
 ## Experimentos que testam alternativas
 
@@ -478,12 +440,12 @@ que cada um decidiu para a construção está em [`docs/pipeline.md`](../pipelin
 
 ## Relação com os outros documentos
 
-`docs/methodology/hearing_actors.md` separa a fala completa de cada pessoa entre audiências usando o mesmo
+[`hearing_actors.md`](hearing_actors.md) separa a fala completa de cada pessoa entre audiências usando o mesmo
 `split_into_turns`, e seus arquivos usam os mesmos nomes de campo (`actor`, `hearing_id`,
 `start_char`), de modo que uma UDV pode ser cruzada com o turno correspondente na fala do ator. As
 duas bases resolvem identidade de formas diferentes: a UDV associa o nome da matéria aos cabeçalhos de
-uma audiência pela regra de nome contido; `docs/methodology/hearing_actors.md` associa cabeçalhos entre audiências pelo
-nome exato mais uma lista revisada de mesclas. `docs/methodology/actor_profiles.md` gera perfis a partir da fala
+uma audiência pela regra de nome contido; [`hearing_actors.md`](hearing_actors.md) associa cabeçalhos entre audiências pelo
+nome exato mais uma lista revisada de mesclas. [`actor_profiles.md`](actor_profiles.md) gera perfis a partir da fala
 completa, sem usar as UDVs.
 
 ## Limitações

@@ -1,10 +1,10 @@
 # Simulação de atores a partir do perfil
 
-Desenho e implementação do uso do perfil textual de cada ator (`docs/methodology/actor_profiles.md`) no system
+Desenho e implementação do uso do perfil textual de cada ator ([`actor_profiles.md`](actor_profiles.md)) no system
 prompt de outro modelo, de modo que ele responda como essa pessoa responderia, tanto sobre temas
 que ela já tratou quanto sobre temas novos. As abordagens abaixo são comparadas com o mesmo
-protocolo de avaliação. O código está em `experiments/src/experiments/actors/simulation.py` (partes comuns),
-`experiments/src/experiments/actors/evaluate_simulation.py` (avaliação por múltipla escolha) e `experiments/src/experiments/actors/simulate.py`
+protocolo de avaliação. O código está em `experiments.actors.simulation` (partes comuns),
+`experiments.actors.evaluate_simulation` (avaliação por múltipla escolha) e `experiments.actors.simulate`
 (geração aberta); como rodar, o formato das saídas e as escolhas de implementação que este desenho
 deixava em aberto estão no fim do documento.
 
@@ -34,7 +34,7 @@ O prompt atual (`prompts/actor_profile/system_profile.md`, lido pela config) man
   modelo por trechos reais de fala (ver abaixo), porque estilo só descrito tende a virar caricatura.
 
 Um bloco sem apoio nas falas é omitido. O teto de 800 palavras vale para a soma dos blocos. As
-decisões de desenho estão em `docs/methodology/actor_profiles.md`. A troca de prompt foi decidida pela leitura de
+decisões de desenho estão em [`actor_profiles.md`](actor_profiles.md). A troca de prompt foi decidida pela leitura de
 poucos perfis gerados durante o desenvolvimento, não por uma medida da avaliação abaixo.
 
 ## Componentes
@@ -339,7 +339,7 @@ Dentro de `experiments/`:
 ```
 
 O script roda, em ordem, `run_actor_profiles.sh` (perfis só com as audiências de `train`, ver
-`docs/methodology/actor_profiles.md`), `experiments.actors.evaluate_simulation` e `experiments.actors.simulate`, todos com o
+[`actor_profiles.md`](actor_profiles.md)), `experiments.actors.evaluate_simulation` e `experiments.actors.simulate`, todos com o
 modelo da variável `MODEL` (o mesmo padrão de `run_actor_profiles.sh`, trocável por
 `MODEL=<modelo> ./run_simulation_pipeline.sh`). O padrão, `meta-llama/Llama-3.3-70B-Instruct`, é só um
 exemplo e não é o modelo da rodada versionada, que usou `mlx-community/Qwen3.8-27B-8bit` pelo backend MLX. Os argumentos passados ao script vão só para o
@@ -478,7 +478,7 @@ O desenho acima deixava estas escolhas em aberto. Nenhuma delas foi medida:
 ## Pendências
 
 A rodada completa com `mlx-community/Qwen3.8-27B-8bit` está em `artifacts/mlx_runs/qwen38_27b/`
-(relatório em `relatorio_rodada_completa.md`, resumo na seção 6.3 de `docs/report.md`). Ela
+(relatório em `relatorio_rodada_completa.md`, resumo na seção 6.3 do [relatório](../report.md)). Ela
 foi feita sobre `udv_v1`. As configurações de `configs/` apontam agora para `udv_v2`; sobre ela, só as
 perguntas e os pedidos foram reconstruídos sem modelo (`artifacts/actor_simulation/udv_v2_dry_run_evaluation.json`
 e `udv_v2_dry_run_simulation.json`): no teste, 98 das 101 perguntas são idênticas às de `udv_v1` e 3
@@ -486,7 +486,7 @@ mudam só o nível; os pedidos de simulação são idênticos (`question_overlap
 `simulation_requests_dry_run` de `artifacts/udv/udv_v2_downstream_report.json`). O que continua em
 aberto:
 
-- A rodada do modelo sobre `udv_v2`, com o comando de `docs/methodology/mlx_backend.md`, seção "Rodada sobre
+- A rodada do modelo sobre `udv_v2`, com o comando de [`mlx_backend.md`](mlx_backend.md), seção "Rodada sobre
   `udv_v2`".
 
 - As contagens de perguntas de `validation` e de `test` (UDVs ligadas, perguntas, descartadas por

@@ -96,7 +96,7 @@ Fonte: `artifacts/experiments/retrieval/retrieval_v1/retrieval_v1_report.json`,
 `comparisons.<bench>.<split>.units_within_retriever.serafim_335m`.
 
 **Decisão.** `udv_v2` usa `window2`, pela regra do ADR 0006
-(`../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`): a unidade precisa ganhar
+([`bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`](../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md)): a unidade precisa ganhar
 de `sentence` com Holm < 0,05 em algum benchmark no treino e na validação e não pode perder com
 significância em nenhum. `window3` perde no `nli` do treino. A regra foi escrita depois de ler o E2, e
 não existe teste direto entre `window2` e `window3`.
@@ -214,8 +214,8 @@ Fontes: `artifacts/experiments/confidence_v2/ea_report.json` e [`docs/methodolog
 
 **Decisão.** O primário é a confiança adotada. Na estimativa pontual, nenhum avaliador da literatura tem
 ROC AUC maior que o primário, mas a comparação direta do primário com cada avaliador não foi declarada
-nem testada (`docs/methodology/confidence.md`, E-A). A parte E-B do experimento, sobre UDVs com rótulos que não eram
-humanos, não está nesta versão (`docs/methodology/confidence.md`).
+nem testada ([`methodology/confidence.md`](methodology/confidence.md), E-A). A parte E-B do experimento, sobre UDVs com rótulos que não eram
+humanos, não está nesta versão ([`methodology/confidence.md`](methodology/confidence.md)).
 
 ### Camada do verificador sobre `udv_v1`
 
@@ -267,7 +267,7 @@ trechos aproximados discorda do cosseno.
 | turno de evidência | 2.099 | 2.098 |
 | divergências entre as duas | 0 | 0 |
 
-Fontes: `../bookworm/docs/actors.md`, seção "Duas regras de ligação", e
+Fontes: [`bookworm/docs/actors.md`](../bookworm/docs/actors.md), seção "Duas regras de ligação", e
 `artifacts/udv/udv_v2_downstream_report.json` (`runs.<rodada>.link_rules`). Nas duas rodadas, 106 UDVs de
 teste ficam ligadas a atores com perfil (`artifacts/actor_profiles/train_speeches_stats.json` e
 `artifacts/actor_profiles/train_speeches_stats_udv_v2.json`).
@@ -276,7 +276,7 @@ teste ficam ligadas a atores com perfil (`artifacts/actor_profiles/train_speeche
 
 ## Pipeline recomendado: `udv_v2`
 
-Decisões registradas no ADR 0006 (`../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`)
+Decisões registradas no ADR 0006 ([`bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`](../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md))
 e configuração em `configs/udv_v2.toml`.
 
 1. **Resolução de pessoa.** A mesma de `udv_v1` (nome contido no cabeçalho do turno).
@@ -478,7 +478,7 @@ uv run python -m experiments.udv.v2_analysis score-annotation --final-test \
   --output artifacts/udv/udv_v2_precision_final.json
 ```
 
-Ele reusa as funções de `experiments/src/experiments/validation/precision_report.py` (precisão estrita e tolerante por estrato, intervalo
+Ele reusa as funções de `experiments.validation.precision_report` (precisão estrita e tolerante por estrato, intervalo
 de Wilson a 95%, critérios congelados na chave) para `udv_v1`, para os itens herdados de `udv_v2` e, com
 `--supplement-dir`, para `udv_v2` inteira: o item `same` ou `superset` conta com o rótulo de `udv_v1` e o
 item `moved`, só com o rótulo da planilha suplementar. Essa parte dá a precisão por estrato e por tier
@@ -496,7 +496,7 @@ Critérios declarados em 2026-09-23 (`criteria` da chave): limite inferior de Wi
 
 **Resultado humano final.** `artifacts/udv/udv_v2_precision_final.json`, status `final`, com as 127
 linhas de `udv_v1` e as 26 suplementares julgadas. O campo `existe_trecho_melhor` ficou vazio nas duas
-planilhas; `experiments/src/experiments/validation/precision_report.py` recusa planilhas assim, então os números finais vêm de
+planilhas; `experiments.validation.precision_report` recusa planilhas assim, então os números finais vêm de
 `udv_v2_analysis score-annotation`, e o campo não foi preenchido depois.
 
 | estrato | `udv_v1`: correta / parcial / incorreta | `udv_v1`: estrita; tolerante [Wilson 95%] | `udv_v2`: correta / parcial / incorreta | `udv_v2`: estrita; tolerante [Wilson 95%] |
@@ -529,7 +529,7 @@ Os arquivos `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` e
   desligado até a planilha `artifacts/experiments/fuzzy/fuzzy_v1_names_review.jsonl` ser julgada.
 - **Libras.** Os 8 registros `no_evidence` de `udv_v2` são de 3 participantes das audiências 53 e 111
   cuja única fala registrada é a marcação "(Manifestação em LIBRAS.)"; a tradução está nos turnos do
-  intérprete (`artifacts/udv/udv_v2.jsonl`, nível `no_evidence`; `docs/methodology/hearing_actors.md` conta 6
+  intérprete (`artifacts/udv/udv_v2.jsonl`, nível `no_evidence`; [`methodology/hearing_actors.md`](methodology/hearing_actors.md) conta 6
   participantes que falaram em Libras). Atribuir a fala do intérprete a eles daria evidência a no máximo
   8 das 2.203 opiniões. Não implementado.
 - **Validação humana.** Os dois critérios declarados falharam (seção "Resultado humano final"). A precisão

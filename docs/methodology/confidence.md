@@ -5,7 +5,7 @@
 O construtor de UDVs registra, para cada evidência semântica, o cosseno do codificador de produção
 (`PORTULAN/serafim-335m-portuguese-pt-sentence-encoder`) entre a proposição e a frase escolhida. O
 cosseno mede proximidade de sentido; ele não diz se a frase afirma o que a proposição afirma. O
-verificador primário do E3x (`laya_en_en:learned_cross_model_with_pt`, `experiments/src/experiments/verifier/udv_verifier.py`) foi
+verificador primário do E3x (`laya_en_en:learned_cross_model_with_pt`, `experiments.verifier.udv_verifier`) foi
 treinado para essa segunda pergunta. Este experimento mede se o verificador é um sinal de confiança
 melhor que o cosseno e como ele se compara com os avaliadores de suporte mais usados e mais recentes
 na literatura de grounding e consistência factual.
@@ -18,7 +18,7 @@ o código, a configuração e os relatórios correspondentes. O registro complet
 
 A declaração completa (candidatos, revisões, premissas, métricas, famílias de Holm e regra do smoke)
 está em `configs/confidence_v2.toml`, escrita antes de qualquer escore novo. O código está em
-`experiments/src/experiments/verifier/confidence_v2.py`, `experiments/src/experiments/verifier/grounding_scorers.py` e `experiments/src/experiments/verifier/grounding_models.py`; os testes, com
+`experiments.verifier.confidence_v2`, `experiments.verifier.grounding_scorers` e `experiments.verifier.grounding_models`; os testes, com
 avaliadores falsos, em `tests/test_confidence_v2.py`. Os artefatos ficam em
 `artifacts/experiments/confidence_v2/`.
 

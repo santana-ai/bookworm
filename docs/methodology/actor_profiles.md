@@ -1,9 +1,9 @@
 # Perfis por ator
 
 Este documento descreve a etapa que transforma as falas de cada ator recorrente (arquivo
-`actors_multi_hearing.jsonl`, construído como descrito em `docs/methodology/hearing_actors.md`) em um texto de perfil
+`actors_multi_hearing.jsonl`, construído como descrito em [`hearing_actors.md`](hearing_actors.md)) em um texto de perfil
 escrito por um LLM. O perfil vai no system prompt de outro modelo, que responde como a pessoa
-responderia (plano em `docs/methodology/actor_simulation.md`); aqui o objetivo é só gerar, para cada ator, um texto
+responderia (plano em [`actor_simulation.md`](actor_simulation.md)); aqui o objetivo é só gerar, para cada ator, um texto
 denso, específico e fundamentado exclusivamente nas falas.
 
 ## Como rodar
@@ -178,7 +178,7 @@ contrastantes com `--actors` para um arquivo descartável e compare com a versã
   de duplicação de rodovia que era da concessionária convidada. O prompt manda atribuir ao ator
   somente o que ele mesmo defende.
 - **Turnos de presidência marcados, não removidos.** A construção do arquivo de entrada já corta os
-  turnos de presidência com menos de 50 palavras (`docs/methodology/hearing_actors.md`); os que restam misturam
+  turnos de presidência com menos de 50 palavras ([`hearing_actors.md`](hearing_actors.md)); os que restam misturam
   condução e opinião. O template marca esses turnos com `[presidência da sessão]` e o system prompt
   manda ignorar a condução e aproveitar só o que é posição. A regra vale para qualquer turno: pedidos
   de tempo ou inscrição, citação de requerimentos, cumprimentos, agradecimentos e elogios também são
