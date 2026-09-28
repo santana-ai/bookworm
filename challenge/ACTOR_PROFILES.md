@@ -65,7 +65,9 @@ porque a retomada pula atores pelo nome e misturaria as duas versões.
 de cada ator só as audiências dos splits listados em `splits`, sem alterar os turnos, e descarta o
 ator que fica sem nenhuma. O resultado vai para `actors_multi_hearing_train.jsonl` em
 `artifacts/cache/` (não versionado, como o arquivo de origem) e as contagens, com o SHA-256 do
-manifesto do split e dos dois arquivos, para `artifacts/actor_profiles/train_speeches_stats.json`.
+manifesto do split e dos dois arquivos, para o arquivo de `stats_path`: com `udv_v2`, a rodada de
+referência, `artifacts/actor_profiles/train_speeches_stats_udv_v2.json`; a contagem da rodada `udv_v1`
+fica em `artifacts/actor_profiles/train_speeches_stats.json`.
 Com `temporal_v1`, dos 301 atores ficam 264, em 139 das 144 audiências de treino, com 4.598 dos
 6.323 turnos; 37 atores não falam em nenhuma audiência de treino e 79 ficam com uma só. Os campos
 `has_party_header` e `party_uf` continuam com o valor calculado sobre todas as audiências, porque o
@@ -74,9 +76,12 @@ arquivo de origem não guarda o partido por audiência.
 O mesmo relatório conta o que sobra para avaliar nos splits de `eval_splits` (`test`), que não podem
 coincidir com os de `splits`. Uma UDV de teste é ligada ao ator dono do seu turno de evidência
 (`hearing_id` e `evidence.speaker_turn`) no arquivo sem filtro; UDV sem turno de evidência fica sem
-ligação. Com `udv_v1`, 116 dos 264 atores também falam no teste, e 106 das 359 UDVs de teste se ligam
-a 48 deles, em 27 das 30 audiências (17 `quote_found`, 87 `semantic_match_high`, 2
-`semantic_match_weak`).
+ligação. 116 dos 264 atores também falam no teste, e 106 das 359 UDVs de teste se ligam a 48 deles, em
+27 das 30 audiências, tanto em `udv_v2` quanto em `udv_v1`. Só os níveis dessas 106 mudam: 17
+`quote_found`, 84 `semantic_match_high` e 5 `semantic_match_weak` em `udv_v2`, contra 17, 87 e 2 em
+`udv_v1`. O arquivo filtrado de falas é o mesmo nas duas rodadas (sha256 `6d5d7d0d…` em
+`output.sha256` dos dois relatórios), porque o filtro não lê a evidência das UDVs; os perfis gerados
+com ele servem às duas.
 
 ## Configuração
 

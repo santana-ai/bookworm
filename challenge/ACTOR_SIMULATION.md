@@ -289,8 +289,9 @@ log-probs das condições 0 e 2 (ver Avaliação).
 Cada UDV de teste ligada a um ator com perfil vira uma pergunta: nome e papel do ator, data e
 assunto da audiência de teste, e 4 proposições, a do ator e 3 de outros atores da mesma audiência,
 com o pedido de múltipla escolha acima. O acaso é 25%. Pelo relatório de
-`utils.filter_actor_speeches` (`artifacts/actor_profiles/train_speeches_stats.json`), são 106 das
-359 UDVs de teste, de 48 atores, em 27 das 30 audiências de teste.
+`utils.filter_actor_speeches` (`artifacts/actor_profiles/train_speeches_stats_udv_v2.json`; o mesmo
+número em `train_speeches_stats.json`, da rodada `udv_v1`), são 106 das 359 UDVs de teste, de 48
+atores, em 27 das 30 audiências de teste.
 
 A resposta aberta não serve como medida principal porque o assunto da audiência já carrega a
 posição central: na audiência 1 (teste), o assunto é "Acusações de censura contra Alexandre de
@@ -477,8 +478,16 @@ O desenho acima deixava estas escolhas em aberto. Nenhuma delas foi medida:
 ## Pendências
 
 A rodada completa com `mlx-community/Qwen3.8-27B-8bit` está em `mlx_alternative/runs/qwen38_27b/`
-(relatório em `relatorio_rodada_completa.md`, resumo na seção 6.3 de `RELATORIO_EXPERIMENTOS.md`). O
-que continua em aberto:
+(relatório em `relatorio_rodada_completa.md`, resumo na seção 6.3 de `RELATORIO_EXPERIMENTOS.md`). Ela
+foi feita sobre `udv_v1`. As configurações de `configs/` apontam agora para `udv_v2`; sobre ela, só as
+perguntas e os pedidos foram reconstruídos sem modelo (`artifacts/actor_simulation/udv_v2_dry_run_evaluation.json`
+e `udv_v2_dry_run_simulation.json`): no teste, 98 das 101 perguntas são idênticas às de `udv_v1` e 3
+mudam só o nível; os pedidos de simulação são idênticos (`question_overlap` e
+`simulation_requests_dry_run` de `artifacts/udv/udv_v2_downstream_report.json`). O que continua em
+aberto:
+
+- A rodada do modelo sobre `udv_v2`, com o comando de `mlx_alternative/README.md`, seção "Rodada sobre
+  `udv_v2`".
 
 - As contagens de perguntas de `validation` e de `test` (UDVs ligadas, perguntas, descartadas por
   falta de 3 outros atores) saem em `counts` de `evaluation.json` e dependem do conjunto de perfis

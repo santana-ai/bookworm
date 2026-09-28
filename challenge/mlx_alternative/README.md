@@ -83,11 +83,14 @@ uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.benchmark
 a rodada `udv_v1` em `runs/qwen38_27b/` não é lida nem sobrescrita. De dentro de `challenge/`:
 
 ```
+uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run download --model qwen38_27b --settings mlx_alternative/config_udv_v2.yaml
 uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run all --model qwen38_27b --all-actors --settings mlx_alternative/config_udv_v2.yaml
 ```
 
-Se o modelo não estiver em `<models_dir>/mlx-community/Qwen3.8-27B-8bit`, `run download` com as
-mesmas opções baixa o modelo antes. A revisão do modelo não está fixada (`revision: null`): a pasta
+O primeiro comando só é necessário se o modelo não estiver em
+`<models_dir>/mlx-community/Qwen3.8-27B-8bit`. A rodada não foi feita nesta versão do repositório
+(`not_run` de `artifacts/udv/udv_v2_downstream_report.json`); os números de perfis e simulação
+publicados são os da rodada `udv_v1` em `runs/qwen38_27b/`. A revisão do modelo não está fixada (`revision: null`): a pasta
 local da rodada `udv_v1` não guardou o commit do Hugging Face. Quando o commit for conhecido, ele
 entra em `revision` antes da rodada, e `download` e `smoke.json` passam a registrá-lo.
 
@@ -95,7 +98,17 @@ As entradas da rodada podem ser conferidas antes e depois dela pelos dry runs, q
 `artifacts/actor_profiles/udv_v2_dry_run_profiles.json` (prompts dos perfis),
 `artifacts/actor_simulation/udv_v2_dry_run_evaluation.json` (perguntas de múltipla escolha) e
 `artifacts/actor_simulation/udv_v2_dry_run_simulation.json` (pedidos de simulação). Os comandos que
-os gravam estão em `artifacts/udv/udv_v2_downstream_report.json`.
+os gravam estão em `artifacts/udv/udv_v2_downstream_report.json`. O que esses dry runs já mostram:
+
+- os prompts dos perfis leem só as falas de treino e o LDS, e o arquivo de falas de treino é o mesmo nas
+  duas rodadas (sha256 `6d5d7d0d…`), então os perfis gerados devem repetir os de `runs/qwen38_27b/`
+  quando o backend e a semente são os mesmos;
+- os pedidos de simulação são os mesmos nas duas rodadas (`requests_sha256` `5f0a7eb5…`);
+- as perguntas de múltipla escolha mudam pouco: no teste, 98 de 101 são idênticas e 3 mudam só o nível
+  da UDV; na validação, 70 de 81 são idênticas, 10 mudam o nível e 1 sai (`question_overlap`).
+
+Com o nível da UDV como única mudança no teste, a diferença esperada no acerto está nas 3 perguntas cujo
+nível mudou e em quaisquer diferenças de escolha de k e γ na validação.
 
 ## Decisão entre os modelos
 
