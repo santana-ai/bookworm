@@ -1208,7 +1208,7 @@ Rodados nesta data no worktree:
 | `bookworm`, com `BOOKWORM_LDS_PATH=challenge/dataset/PublicHearingBR_LDS.jsonl` e `BOOKWORM_EMBEDDING_CACHE=challenge/artifacts/cache/embeddings` | 843 passaram, 4 desmarcados (marcador `model`), 84 s |
 | `bookworm`, só marcador `dataset` | 95 passaram |
 | `bookworm`, sem as variáveis de ambiente | 755 passaram, 88 pulados; cobertura total 97% (4046 linhas, 120 sem cobertura) |
-| `challenge` | 105 passaram; na versão de release, 118 passaram, sem o dataset e sem os arquivos pesados |
+| `challenge` | 105 passaram; na versão de release, 115 passaram, sem o dataset e sem os arquivos pesados (a retirada da parte E-B do confidence_v2 removeu 3 testes) |
 
 Os testes de integração com marcador `dataset` refazem, a partir do LDS, a paridade byte a byte de
 `udv_v1.jsonl` e dos arquivos de falas por ator com os do `challenge/`, e as contagens das duas regras de
