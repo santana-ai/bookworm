@@ -41,11 +41,10 @@ def source_label(source: Source) -> str:
     return path.as_posix()
 
 
-def source_hashes(*sources: Source) -> dict[str, str]:
-    return {source_label(source): sha256_of_file(source_path(source)) for source in sources}
-
-
 def code_section(*sources: Source) -> dict[str, str]:
     """The ``code`` section of a report: the sha256 of each source file, in the order given."""
     paths = [path for source in sources for path in expand_source(source)]
     return {source_label(path): sha256_of_file(path) for path in paths}
+
+
+source_hashes = code_section
