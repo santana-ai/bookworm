@@ -89,8 +89,8 @@ class MLXEngine:
 
     def prefill(self, tokens: list[int]) -> tuple[mx.array, list[Any]]:
         if not self.options.prefix_cache:
-            cache = make_prompt_cache(self.model)
-            return self._last_logits(tokens, cache), cache
+            fresh_cache = make_prompt_cache(self.model)
+            return self._last_logits(tokens, fresh_cache), fresh_cache
         start = 0
         cache: list[Any] | None = None
         if self._snapshot is not None:

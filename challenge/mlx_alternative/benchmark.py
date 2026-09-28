@@ -3,7 +3,7 @@ import json
 import time
 from dataclasses import replace
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import mlx.core as mx
 
@@ -117,8 +117,8 @@ def full_run_counts(paths: RunPaths, actors: set[str]) -> Record:
     metadata = profiles_module.hearing_metadata(config.lds_path, config.lds_sha256)
     udvs = load_jsonl(config.udv_path)
     owners = turn_owners(load_jsonl(config.speeches_path))
-    profiles = {actor: {} for actor in actors}
-    counts = {}
+    profiles: dict[str, Record] = {actor: {} for actor in actors}
+    counts: Record = {}
     for split in (config.selection_split, config.eval_split):
         questions, _ = evaluation_module.build_questions(
             config, split, profiles, udvs, owners, metadata
@@ -163,7 +163,9 @@ def measure(spec: ModelSpec, paths: RunPaths, settings: Settings) -> Record:
     prompts = profiles_module.load_prompts(profiles_config)
     records = load_jsonl(train_speeches_path(paths))
     metadata = profiles_module.load_hearing_metadata(profiles_config)
-    runner = profiles_module.ProfileRunner(config=profiles_config, prompts=prompts, client=None)
+    runner = profiles_module.ProfileRunner(
+        config=profiles_config, prompts=prompts, client=cast(profiles_module.ChatClient, None)
+    )
     prompt_tokens = {
         record["actor"]: engine.encode(profile_messages(*runner.profile_prompt(record, metadata)))
         for record in records

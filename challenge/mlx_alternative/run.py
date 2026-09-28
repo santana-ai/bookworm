@@ -53,9 +53,15 @@ def now() -> str:
 
 
 def install_backend(spec: ModelSpec) -> None:
-    profiles_module.TransformersChatClient = partial(MLXChatClient, options=spec.options)
-    evaluation_module.SimulationModel = partial(MLXSimulationModel, options=spec.options)
-    simulation_module.SimulationModel = partial(MLXSimulationModel, options=spec.options)
+    profiles_module.TransformersChatClient = partial(  # type: ignore[misc,assignment]
+        MLXChatClient, options=spec.options
+    )
+    evaluation_module.SimulationModel = partial(  # type: ignore[misc,assignment]
+        MLXSimulationModel, options=spec.options
+    )
+    simulation_module.SimulationModel = partial(  # type: ignore[misc,assignment]
+        MLXSimulationModel, options=spec.options
+    )
 
 
 def install_timed_score_split(spec: ModelSpec, paths: RunPaths) -> None:
