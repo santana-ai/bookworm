@@ -475,6 +475,10 @@ O desenho acima deixava estas escolhas em aberto. Nenhuma delas foi medida:
 
 ## Pendências
 
+A rodada completa com `mlx-community/Qwen3.8-27B-8bit` está em `mlx_alternative/runs/qwen38_27b/`
+(relatório em `relatorio_rodada_completa.md`, resumo na seção 6.3 de `RELATORIO_EXPERIMENTOS.md`). O
+que continua em aberto:
+
 - As contagens de perguntas de `validation` e de `test` (UDVs ligadas, perguntas, descartadas por
   falta de 3 outros atores) saem em `counts` de `evaluation.json` e dependem do conjunto de perfis
   da rodada; citar só os números da rodada completa.
@@ -482,8 +486,6 @@ O desenho acima deixava estas escolhas em aberto. Nenhuma delas foi medida:
   retirada da CFG da geração aberta. A recusa é texto livre, então a contagem é por leitura: um
   script gera o arquivo com um campo de julgamento vazio por pedido, e o campo é preenchido à mão.
 - Confirmar, em script versionado, o ganho do filtro de falante na recuperação com Serafim.
-- Gerar perfis com o modelo final para poucos atores contrastantes (`--actors`) e ler antes da
-  rodada completa.
 - Opcional: medir a troca de prompt na condição 1, em `validation`, com perfis gerados por
   `system_profile.md` e por `system_profile_old.md`.
 - O Apêndice A do artigo traz cópia literal de `system_profile.md`; qualquer edição do prompt exige
