@@ -1,9 +1,10 @@
-# Constituição do bookworm
+# Visão do bookworm
 
 ## Memória verificável e espaço latente deliberativo sobre audiências públicas
 
-Este documento consolida a tese científica e a especificação de construção do `bookworm`. Ele é a
-fonte de verdade para a visão de longo prazo do projeto. Prioridades concretas para a submissão do
+Este documento consolida a tese científica e a especificação de construção do `bookworm`, e é a fonte
+da visão de longo prazo do projeto. Ele descreve mais do que a versão 1.0 implementa: o que já existe, e
+com que resultado, está em [`report.md`](report.md). Prioridades concretas para a submissão do
 desafio de 2026 (o que é P0/P1/P2) e o estado de cada entrega ficam em [`docs/roadmap.md`](roadmap.md);
 este documento não expira quando o desafio terminar.
 
@@ -37,7 +38,7 @@ A meta científica não é declarar automaticamente que um jornalista ou veícul
 A meta é medir e explicar **desvios editoriais observáveis**, distinguindo factualidade, cobertura,
 seleção, enquadramento, equilíbrio, relevância e possível orientação ideológica.
 
-## 2. O que um projeto vencedor precisa demonstrar
+## 2. O que o projeto precisa demonstrar
 
 - **Formulação científica nova.** O problema não é formulado como `transcrição → resumo`, mas como
   `transcrição → memória deliberativa verificável → representação latente multifacetada → produtos e
@@ -63,7 +64,7 @@ cobrem audiências realizadas entre novembro de 2021 e maio de 2024.
 
 A extração inicial das matérias produziu 3.054 opiniões. Após revisão manual, correção de atribuições
 e fusão de opiniões duplicadas ou artificialmente separadas, restaram **2.203 opiniões**. O conjunto
-estruturado **não é** uma decomposição completa da transcrição — representa o conteúdo selecionado nas
+estruturado **não é** uma decomposição completa da transcrição; representa o conteúdo selecionado nas
 matérias.
 
 ### 3.3 Escala
@@ -85,15 +86,15 @@ ter suporte em trechos que não apareceram entre os quatro recuperados.
 ### 3.5 Baseline do artigo
 
 Recall médio ~44,9%, precisão média ~24,8%. Baixa precisão contra a matéria não implica necessariamente
-alucinação — o sistema pode recuperar uma opinião verdadeira que o jornalista não selecionou.
+alucinação: o sistema pode recuperar uma opinião verdadeira que o jornalista não selecionou.
 
-### 3.6 As três verdades — implicação central para o bookworm
+### 3.6 As três verdades: implicação central para o bookworm
 
 O dataset contém três verdades parciais que **nunca devem ser confundidas**:
 
-- **Verdade documental** — o que está sustentado pela transcrição.
-- **Verdade editorial** — o que foi selecionado e redigido na matéria.
-- **Verdade anotada sob recuperação** — o que o especialista conseguiu validar a partir dos quatro
+- **Verdade documental**: o que está sustentado pela transcrição.
+- **Verdade editorial**: o que foi selecionado e redigido na matéria.
+- **Verdade anotada sob recuperação**: o que o especialista conseguiu validar a partir dos quatro
   chunks recuperados (não é a mesma coisa que "verdade global").
 
 `bookworm` deve modelar essas três camadas separadamente, em toda análise, relatório ou métrica que produzir.
@@ -109,18 +110,18 @@ melhora recuperação, comparação, clusterização, avaliação de resumos, de
 relações, auditoria editorial e explicabilidade.
 
 **Limite fundamental:** a representação é uma compressão semântica com perdas. Não deve ser apresentada
-como substituta da transcrição original — deve preservar o necessário para tarefas deliberativas e
+como substituta da transcrição original; deve preservar o necessário para tarefas deliberativas e
 manter ligações formais com o texto fonte.
 
 ## 5. Arquitetura em quatro pilares
 
-1. **Memória verificável** — Unidades Deliberativas Verificáveis (UDV), participantes, proposições,
+1. **Memória verificável**: Unidades Deliberativas Verificáveis (UDV), participantes, proposições,
    evidências, offsets, confiança, proveniência.
-2. **Estrutura deliberativa** — grafo, relações, consenso, conflito, resposta, mudança de posição,
+2. **Estrutura deliberativa**: grafo, relações, consenso, conflito, resposta, mudança de posição,
    temporalidade.
-3. **Espaço Latente Deliberativo** — vetores por UDV, por participante, por audiência, fatores
+3. **Espaço Latente Deliberativo**: vetores por UDV, por participante, por audiência, fatores
    interpretáveis, decoder semântico, índices.
-4. **Geração e auditoria editorial** — avaliação de resumo, avaliação de matéria, geração restrita,
+4. **Geração e auditoria editorial**: avaliação de resumo, avaliação de matéria, geração restrita,
    análise de cobertura, análise de desvio editorial.
 
 ## 6. Unidade Deliberativa Verificável (UDV)
@@ -181,24 +182,24 @@ Cada bloco pode ter dimensão distinta (ex.: \\(z_i^{topic}\\in\\mathbb{R}^{64}\
 
 ## 8. Baselines matemáticos
 
-- **8.1 TF-IDF + Truncated SVD** — \\(X_{tfidf}\\approx U_k\\Sigma_kV_k^\\top\\); baseline de Latent
+- **8.1 TF-IDF + Truncated SVD**: \\(X_{tfidf}\\approx U_k\\Sigma_kV_k^\\top\\); baseline de Latent
   Semantic Analysis. Ver `experiments/concepts/tfidf.ipynb` e `experiments/concepts/svd.ipynb`.
-- **8.2 Matriz UDV–características + SVD** — colunas: tema, posições, atos discursivos, participantes,
+- **8.2 Matriz UDV–características + SVD**: colunas: tema, posições, atos discursivos, participantes,
   instituições, tipos de argumento, relações, confiança, posição temporal.
-- **8.3 NMF** — \\(X\\approx WH,\\quad W,H\\geq 0\\); relevante para fatores aditivos e interpretáveis.
+- **8.3 NMF**: \\(X\\approx WH,\\quad W,H\\geq 0\\); relevante para fatores aditivos e interpretáveis.
   Ver `experiments/concepts/nmf.ipynb`.
-- **8.4 Fatoração tensorial** — tensor
+- **8.4 Fatoração tensorial**: tensor
   \\(\\mathcal{X}\\in\\mathbb{R}^{hearing\\times actor\\times topic\\times stance\\times time}\\); métodos
   CP, Tucker, non-negative Tucker. Ver `experiments/concepts/tensor_factorization.ipynb`.
-- **8.5 Embeddings genéricos** — representações de sentença/documento como baseline sem supervisão
+- **8.5 Embeddings genéricos**: representações de sentença/documento como baseline sem supervisão
   deliberativa. Ver `experiments/concepts/embeddings.ipynb`.
-- **8.6 Autoencoder** — \\(z=E_\\theta(x), \\hat{x}=D_\\phi(z)\\). Ver `experiments/concepts/autoencoder.ipynb`.
-- **8.7 Variational Autoencoder** — \\(q_\\theta(z|x),\\ p_\\phi(x|z)\\). Ver `experiments/concepts/vae.ipynb`.
-- **8.8 Graph Autoencoder** — codifica estrutura de nós e relações. Ver
+- **8.6 Autoencoder**: \\(z=E_\\theta(x), \\hat{x}=D_\\phi(z)\\). Ver `experiments/concepts/autoencoder.ipynb`.
+- **8.7 Variational Autoencoder**: \\(q_\\theta(z|x),\\ p_\\phi(x|z)\\). Ver `experiments/concepts/vae.ipynb`.
+- **8.8 Graph Autoencoder**: codifica estrutura de nós e relações. Ver
   `experiments/concepts/graph_encoder.ipynb`.
-- **8.9 Modelo contrastivo multifacetado** — aproxima pares semanticamente equivalentes e separa
+- **8.9 Modelo contrastivo multifacetado**: aproxima pares semanticamente equivalentes e separa
   negativos difíceis. Ver `experiments/concepts/contrastive_learning.ipynb`.
-- **SparsePCA** — alternativa opcional aos baselines de fatoração. Ver
+- **SparsePCA**: alternativa opcional aos baselines de fatoração. Ver
   `experiments/concepts/sparse_pca.ipynb`.
 
 ## 9. Objetivos de treinamento
@@ -211,13 +212,13 @@ Cada bloco pode ter dimensão distinta (ex.: \\(z_i^{topic}\\in\\mathbb{R}^{64}\
 \\lambda_{orth}\\mathcal{L}_{orth}
 \\]
 
-- **Reconstrução semântica** — o decoder reconstrói distribuição temática, posições, atores,
+- **Reconstrução semântica**: o decoder reconstrói distribuição temática, posições, atores,
   argumentos, relações, perfil temporal e relevância.
-- **Contraste** — positivos: transcrição–matéria, transcrição–resumo correto, UDV–evidência, opiniões
+- **Contraste**: positivos: transcrição–matéria, transcrição–resumo correto, UDV–evidência, opiniões
   equivalentes, audiências deliberativamente semelhantes. Negativos difíceis: mesmo tema com posição
   oposta, mesmas palavras com negação, mesma proposição atribuída a outra pessoa, resumo plausível sem
   suporte, matéria com distorção controlada.
-- **Separação de fatores** — evitar que "tema" domine todas as dimensões, via heads separados, losses
+- **Separação de fatores**: evitar que "tema" domine todas as dimensões, via heads separados, losses
   supervisionadas, penalidade de correlação, adversarial disentanglement, orthogonality regularization.
 
 ## 10. Comparação entre transcrições
@@ -287,14 +288,14 @@ EDI = \\lambda_1 Omission + \\lambda_2 OverRepresentation + \\lambda_3 UnderRepr
 
 - **Omissão relevante:** \\(O(p)=R_H(p)(1-C_A(p))\\)
 - **Super-representação:** \\(SR(p)=W_A(p)-W_H(p)\\)
-- **Distorção de posição** — exemplos: apoio condicionado → apoio; dúvida → rejeição; previsão → fato;
+- **Distorção de posição**: exemplos: apoio condicionado → apoio; dúvida → rejeição; previsão → fato;
   citação → posição própria.
-- **Assimetria de evidência** — quanto contexto e justificativa cada lado recebe.
-- **Enquadramento lexical** — verbos, qualificadores e rótulos, sempre com contexto.
-- **Orientação ideológica** — linha futura separada; exige taxonomia explícita, anotadores
+- **Assimetria de evidência**: quanto contexto e justificativa cada lado recebe.
+- **Enquadramento lexical**: verbos, qualificadores e rótulos, sempre com contexto.
+- **Orientação ideológica**: linha futura separada; exige taxonomia explícita, anotadores
   especialistas, corpus externo, validação, linguagem probabilística. **Fora do MVP.**
 
-O EDI nunca é retornado como um número isolado — sempre com evidências, limitações, confiança e aviso
+O EDI nunca é retornado como um número isolado: sempre com evidências, limitações, confiança e aviso
 de que não mede intenção.
 
 ## 15. Splits e prevenção de vazamento
@@ -308,16 +309,16 @@ manifesto: `{"split_version": "v1", "train": [], "validation": [], "test": [], "
 
 ## 16. Avaliação do espaço latente
 
-- **Retrieval** — Recall@k, MRR, nDCG, MAP.
-- **Similaridade humana** — Spearman, Kendall, correlação por dimensão.
-- **Reconstrução** — erro por faceta, macro-F1, KL divergence, graph reconstruction, temporal
+- **Retrieval**: Recall@k, MRR, nDCG, MAP.
+- **Similaridade humana**: Spearman, Kendall, correlação por dimensão.
+- **Reconstrução**: erro por faceta, macro-F1, KL divergence, graph reconstruction, temporal
   reconstruction.
-- **Clusterização** — métricas internas, estabilidade, coerência de especialistas.
-- **Avaliação de resumo** — classificação de resumos corretos/incompletos/distorcidos/alucinados,
+- **Clusterização**: métricas internas, estabilidade, coerência de especialistas.
+- **Avaliação de resumo**: classificação de resumos corretos/incompletos/distorcidos/alucinados,
   correlação com especialistas.
-- **Auditoria editorial** — precisão de detecção de omissão/distorção, false positive rate,
+- **Auditoria editorial**: precisão de detecção de omissão/distorção, false positive rate,
   calibração, concordância humana.
-- **Compressão** — \\(CompressionRatio = \\frac{bytes(z)+bytes(metadata)}{bytes(original)}\\), reportada
+- **Compressão**: \\(CompressionRatio = \\frac{bytes(z)+bytes(metadata)}{bytes(original)}\\), reportada
   mas nunca tratada como objetivo único.
 
 ## 17. Testes adversariais
@@ -332,11 +333,11 @@ reduz coverage; repetição aumenta overrepresentation; fato ausente reduz factu
 
 Intervenções: remover evidência, trocar ator, inverter negação, alterar posição, remover voz
 minoritária, mudar ordem, substituir verbo neutro por valorativo, aumentar artificialmente a frequência
-de um ator. O espaço deve reagir na faceta correta — ex.: inversão de negação muda `stance`, não
+de um ator. O espaço deve reagir na faceta correta (ex.: inversão de negação muda `stance`, não
 necessariamente `topic`; troca de participante muda `actor` sem destruir `topic`; alteração lexical
-afeta `framing` mais que `factuality`.
+afeta `framing` mais que `factuality`).
 
-## 19. Entregável central — bookworm Latent Space
+## 19. Entregável central: bookworm Latent Space
 
 Componentes: encoder de evidência; encoder de UDV; encoder de participante; encoder de audiência;
 representação multifacetada; decoder semântico; baseline SVD; baseline NMF; autoencoder; modelo
@@ -345,34 +346,34 @@ editorial; explicabilidade; benchmark; API; documentação; artigo.
 
 ## 20. Entregáveis completos do projeto
 
-- **Dados e benchmark** — perfil estatístico, splits, esquema UDV, benchmark próprio, conjunto
+- **Dados e benchmark**: perfil estatístico, splits, esquema UDV, benchmark próprio, conjunto
   adversarial, conjunto de resumos perturbados, conjunto de matérias perturbadas.
-- **Modelos** — baselines lineares, embeddings, modelo latente, verificador, calibrador, decoder.
-- **Produto** — CLI, API, interface, busca, comparação, clusters, auditoria (ver seção 24).
-- **Ciência** — artigo principal, relatório de ablações, relatório de ética, cartão do modelo,
+- **Modelos**: baselines lineares, embeddings, modelo latente, verificador, calibrador, decoder.
+- **Produto**: CLI, API, interface, busca, comparação, clusters, auditoria (ver seção 24).
+- **Ciência**: artigo principal, relatório de ablações, relatório de ética, cartão do modelo,
   documentação de reprodução.
 
 ## 21. Hipóteses de publicação (visão de longo prazo)
 
-- **Paper 1** — A Verifiable Multifaceted Latent Space for Long-Form Public Deliberations.
-- **Paper 2** — Beyond Reference Summaries: Separating Documentary Truth from Editorial Selection.
-- **Paper 3** — Auditing Editorial Coverage of Public Hearings with Evidence-Grounded Representations.
-- **Paper 4** — PublicHearingBR as an NLI and Deliberative Representation Benchmark.
+- **Paper 1**: A Verifiable Multifaceted Latent Space for Long-Form Public Deliberations.
+- **Paper 2**: Beyond Reference Summaries: Separating Documentary Truth from Editorial Selection.
+- **Paper 3**: Auditing Editorial Coverage of Public Hearings with Evidence-Grounded Representations.
+- **Paper 4**: PublicHearingBR as an NLI and Deliberative Representation Benchmark.
 
 Para a submissão de 2026, ver o escopo P0 em [`docs/roadmap.md`](roadmap.md). O artigo do desafio (≤10
 páginas) deriva de um recorte de uma dessas hipóteses, não das quatro simultaneamente.
 
 ## 22. Riscos científicos e mitigação
 
-- **Dataset pequeno** — modelos compactos, baselines lineares, pré-treinamento, regularização,
+- **Dataset pequeno**: modelos compactos, baselines lineares, pré-treinamento, regularização,
   cross-validation, weak supervision, anotação ativa.
-- **Confusão entre tema e posição** — negativos difíceis, heads separados, losses supervisionadas,
+- **Confusão entre tema e posição**: negativos difíceis, heads separados, losses supervisionadas,
   testes causais.
-- **Gold editorial incompleto** — separar factualidade de seleção, usar NLI, múltiplas referências,
+- **Gold editorial incompleto**: separar factualidade de seleção, usar NLI, múltiplas referências,
   avaliação humana.
-- **Auditoria editorial acusatória** — medir desvio observável, evitar inferência de intenção,
+- **Auditoria editorial acusatória**: medir desvio observável, evitar inferência de intenção,
   linguagem calibrada, especialistas.
-- **Baixa interpretabilidade** — fatores explícitos, NMF, probes, nearest UDVs, explanations.
+- **Baixa interpretabilidade**: fatores explícitos, NMF, probes, nearest UDVs, explanations.
 
 ## 23. Por que o projeto tem potencial científico amplo
 
@@ -411,24 +412,24 @@ O projeto não deve:
   código de produção (notebooks são para exploração e para os conceitos em `experiments/concepts/`); sem
   chamadas remotas nos testes; componentes de LLM sempre atrás de interface; execução em CPU possível
   para baselines; GPU opcional.
-- Não implemente tudo de uma vez — trabalhe por milestones, cada um com código executável, testes,
+- Não implemente tudo de uma vez; trabalhe por milestones, cada um com código executável, testes,
   documentação, métricas, artefatos versionados e decisões registradas. Antes de alterar arquitetura,
   registre um ADR em `bookworm/docs/adr/`. Não introduza dependências sem justificar.
 
 ### 25.2 Superfície pública do bookworm
 
-`bookworm` é uma biblioteca Python — não um script nem um notebook. Ela é usada de quatro formas:
+`bookworm` é uma biblioteca Python, e não um script ou um notebook. Ela é usada de quatro formas:
 
-1. **Biblioteca importável** — `from bookworm import ...` dentro de código Python (ex.: notebooks e
+1. **Biblioteca importável**: `from bookworm import ...` dentro de código Python (ex.: notebooks e
    scripts de `experiments/`).
-2. **CLI** — via Typer, invocada como `uv run bookworm <comando>` (ex.: `bookworm compare`,
+2. **CLI**: via Typer, invocada como `uv run bookworm <comando>` (ex.: `bookworm compare`,
    `bookworm search`, `bookworm cluster`).
-3. **`bookworm init`** — comando que faz o scaffold de um projeto novo que depende de `bookworm` (ex.:
+3. **`bookworm init`**: comando que faz o scaffold de um projeto novo que depende de `bookworm` (ex.:
    usado para inicializar a estrutura de `experiments/` como projeto `uv` consumidor da lib).
-4. **API** — serviço HTTP (`api/service.py`, `api/models.py`) expondo as mesmas operações da CLI, para
+4. **API**: serviço HTTP (`api/service.py`, `api/models.py`) expondo as mesmas operações da CLI, para
    ser consumido por um dashboard (ex.: Streamlit) ou outra aplicação.
 
-Nenhum destes quatro pontos de entrada duplica lógica — todos chamam as mesmas funções públicas da
+Nenhum destes quatro pontos de entrada duplica lógica: todos chamam as mesmas funções públicas da
 biblioteca (seção 29).
 
 ### 25.3 Estrutura do repositório
@@ -486,11 +487,11 @@ experiments/
 
 Validado empiricamente em `experiments/notebooks/eda.ipynb` contra os arquivos reais baixados de
 `unicamp-dl/PublicHearingBR` no Hugging Face (`experiments/dataset/PublicHearingBR_LDS.jsonl` e
-`PublicHearingBR_NLI.jsonl`) — **nunca presuma silenciosamente nomes de campos**, sempre confira contra
+`PublicHearingBR_NLI.jsonl`): **nunca presuma silenciosamente nomes de campos**, sempre confira contra
 o JSON real. Os modelos abaixo refletem o schema real, não o schema originalmente assumido pelos
 documentos de design.
 
-`PublicHearingBR_LDS.jsonl` — 206 registros, um por audiência, alinhados 1:1 por posição/`id` com o
+`PublicHearingBR_LDS.jsonl`: 206 registros, um por audiência, alinhados 1:1 por posição/`id` com o
 arquivo NLI:
 
 ```python
@@ -512,7 +513,7 @@ class HearingRecord(BaseModel):
     metadados: Metadados
 ```
 
-`PublicHearingBR_NLI.jsonl` — mesmos 206 `id`s, mas **sem** `materia`/`transcricao` (só metadata
+`PublicHearingBR_NLI.jsonl`: mesmos 206 `id`s, mas **sem** `materia`/`transcricao` (só metadata
 extraída); cada opinião aqui é bem mais rica que no LDS, com evidência recuperada e verificação de
 alucinação:
 
@@ -548,17 +549,17 @@ alerta, não como algo a "consertar" silenciosamente):
 
 - **Não existem campos estruturados `date`, `committee` ou `source_url`.** A data da audiência
   (formato `dd/mm/aaaa`, presente em 206/206 matérias) e o nome da comissão (`"Comissão de ..."`)
-  aparecem só como **texto livre** dentro de `materia` — extraíveis por regex/heurística, mas isso
+  aparecem só como **texto livre** dentro de `materia`: extraíveis por regex/heurística, mas isso
   precisa de validação antes de virar base confiável para os splits temporal e por comissão (seção 15).
 - O identificador é `id` **inteiro**, não uma `hearing_id: str`.
-- `assunto` **não é um metadado canônico único** — o mesmo `id` tem um `assunto` diferente em
+- `assunto` **não é um metadado canônico único**: o mesmo `id` tem um `assunto` diferente em
   `metadados` (LDS) e `metadados_extraidos` (NLI): 0/206 idênticos na amostra verificada. Cada arquivo
   passou por uma extração/LLM independente sobre a mesma transcrição.
 - O arquivo NLI carrega um **sinal multi-LLM não documentado em nenhuma versão anterior deste
   documento**: além da `verificacao_manual` (a mesma anotação humana que originou os "504/4238 =
   11,89%" da seção 3.4), há 12 julgamentos automáticos de alucinação (4 modelos × 3 prompts,
-  reproduzindo o experimento da seção 4.2.2 do paper do dataset). É um recurso pronto — não uma
-  obrigação — que pode servir de baseline/comparação extra para a verificação de UDV e para o EDI.
+  reproduzindo o experimento da seção 4.2.2 do paper do dataset). É um recurso pronto, não uma
+  obrigação, que pode servir de baseline/comparação extra para a verificação de UDV e para o EDI.
 
 ### 25.5 CLI mínima
 
@@ -581,33 +582,33 @@ uv run bookworm reproduce-baseline
 
 ### 25.6 Milestones
 
-0. **Higiene do projeto** — inicializar, configurar lint/tipos/testes/CI local/documentação. Critério
+0. **Higiene do projeto**: inicializar, configurar lint/tipos/testes/CI local/documentação. Critério
    de aceite: `uv run ruff check .`, `uv run ruff format --check .`, `uv run mypy src`, `uv run pytest`
    todos passam.
-1. **Ingestão e perfil do dataset** — baixar/instruir download, ler JSONL, validar, gerar parquet,
+1. **Ingestão e perfil do dataset**: baixar/instruir download, ler JSONL, validar, gerar parquet,
    produzir perfil, salvar hashes, detectar duplicatas, preservar texto intacto. Métricas: amostras,
    palavras por transcrição/matéria, participantes, opiniões, nulos, tamanho, datas, comissões.
    Critério de aceite: o perfil deve reproduzir aproximadamente os números da seção 3 (diferenças devem
    ser explicadas).
-2. **Splits** — temporal, temático, por comissão, GroupKFold, adversarial holdout (ver seção 15).
-3. **Baseline TF-IDF + SVD** — normalizar sem remover negações; TF-IDF; TruncatedSVD; normalizar
+2. **Splits**: temporal, temático, por comissão, GroupKFold, adversarial holdout (ver seção 15).
+3. **Baseline TF-IDF + SVD**: normalizar sem remover negações; TF-IDF; TruncatedSVD; normalizar
    vetores; indexar; comparar; clusterizar. Experimentos: palavra vs. char n-grams, 64/128/256
    dimensões, texto integral vs. matéria vs. opiniões concatenadas. Métricas: retrieval
    transcrição↔matéria, vizinhos, clustering, compressão. Artefatos: vocabulary, IDF, componentes,
    vetores, relatório.
-4. **Matriz estruturada + SVD/NMF** — linhas: UDV provisória ou opinião estruturada; colunas: tema,
+4. **Matriz estruturada + SVD/NMF**: linhas: UDV provisória ou opinião estruturada; colunas: tema,
    pessoa, cargo, stance, ato, argumento, posição temporal, confiança. Use apenas campos disponíveis e
-   weak labels explícitos — **não invente rótulos**. Modelos: TruncatedSVD, NMF, SparsePCA opcional.
+   weak labels explícitos; **não invente rótulos**. Modelos: TruncatedSVD, NMF, SparsePCA opcional.
    Liste top features por fator.
-5. **Baseline NLI e evidência** — dataset de 4.238 pares. Cuidado: o label significa "inferível a
-   partir dos quatro chunks apresentados", não "verdadeiro na transcrição inteira" — nomeie a tarefa
+5. **Baseline NLI e evidência**: dataset de 4.238 pares. Cuidado: o label significa "inferível a
+   partir dos quatro chunks apresentados", não "verdadeiro na transcrição inteira"; nomeie a tarefa
    `retrieved_context_entailment`. Modelos: TF-IDF+logistic regression, sentence embeddings+logistic
    regression, cross-encoder, transformer fine-tuned. Métricas: precision/recall por classe, ROC-AUC,
    PR-AUC, calibration, confusion matrix.
-6. **UDV v0** — fontes: opiniões estruturadas, participante, matéria, evidências recuperadas. Etapas:
+6. **UDV v0**: fontes: opiniões estruturadas, participante, matéria, evidências recuperadas. Etapas:
    atomicidade, resolução de pessoa, retrieval, suporte, offsets, confiança. UDV v0 deve ser distinguida
    de anotação humana (`provenance = weak | model | human`).
-7. **Espaço multifacetado v1** — facetas mínimas: topic, actor, stance, evidence, editorial. Cada
+7. **Espaço multifacetado v1**: facetas mínimas: topic, actor, stance, evidence, editorial. Cada
    faceta implementa:
 
    ```python
@@ -621,24 +622,24 @@ uv run bookworm reproduce-baseline
    ```
 
    Comparar agregação por mean, relevance-weighted mean, attention pooling, DeepSets.
-8. **Autoencoder** — entrada: vetor estruturado ou concatenação de facetas. Encoder MLP, bottleneck,
+8. **Autoencoder**: entrada: vetor estruturado ou concatenação de facetas. Encoder MLP, bottleneck,
    heads de reconstrução, early stopping. Perdas: MSE (contínuas), BCE (multilabel), cross-entropy
    (categóricas), KL (distribuições). Reprodutibilidade: seeds, deterministic flags, checkpoints,
    config serializada.
-9. **Contraste** — ver seção 9. Registrar como cada negativo foi criado.
-10. **Grafo** — NetworkX primeiro. Nós: hearing, actor, UDV, topic. Arestas: said, supports, opposes,
-    related_to, evidence_for. Avaliar PyTorch Geometric só se necessário — não adicione complexidade
+9. **Contraste**: ver seção 9. Registrar como cada negativo foi criado.
+10. **Grafo**: NetworkX primeiro. Nós: hearing, actor, UDV, topic. Arestas: said, supports, opposes,
+    related_to, evidence_for. Avaliar PyTorch Geometric só se necessário; não adicione complexidade
     prematuramente.
-11. **Comparação explicável** — ver seção 10.
-12. **Busca** — ver seção 11. Índices lexical, dense, multifacetado.
-13. **Clusterização** — ver seção 12.
-14. **Avaliação de resumo** — ver seção 13. Pipeline: segmentar afirmações, codificar, recuperar UDVs,
+11. **Comparação explicável**: ver seção 10.
+12. **Busca**: ver seção 11. Índices lexical, dense, multifacetado.
+13. **Clusterização**: ver seção 12.
+14. **Avaliação de resumo**: ver seção 13. Pipeline: segmentar afirmações, codificar, recuperar UDVs,
     verificar, medir cobertura, medir peso, produzir relatório.
-15. **Auditoria editorial** — ver seção 14. Escopo v1: omission, overrepresentation,
+15. **Auditoria editorial**: ver seção 14. Escopo v1: omission, overrepresentation,
     underrepresentation, stance distortion, evidence asymmetry. Orientação ideológica explícita fica
     fora do MVP.
-16. **Testes adversariais** — ver seção 17.
-17. **Avaliação estatística** — relatórios com média, mediana, intervalo de confiança, bootstrap,
+16. **Testes adversariais**: ver seção 17.
+17. **Avaliação estatística**: relatórios com média, mediana, intervalo de confiança, bootstrap,
     testes pareados, tamanho de efeito. Comparações entre SVD, NMF, embeddings, autoencoder,
     contrastivo, graph. Não declarar superioridade sem intervalo e teste apropriado.
 
@@ -677,10 +678,10 @@ duplicadas; cache com hash; embeddings em float32; avaliar float16 apenas para a
 
 ### 25.11 Documentação
 
-- **README de `bookworm/`** — motivação, instalação, dados, execução, arquitetura, ética, citação (essa
+- **README de `bookworm/`**: motivação, instalação, dados, execução, arquitetura, ética, citação (essa
   documentação vive em `bookworm/README.md`, não neste `docs/vision.md`).
-- **Data card** — origem, licença, período, composição, limitações, riscos.
-- **Model card** — tarefas, métricas, falhas, grupos, uso proibido.
+- **Data card**: origem, licença, período, composição, limitações, riscos.
+- **Model card**: tarefas, métricas, falhas, grupos, uso proibido.
 
 ### 25.12 API pública desejada
 
@@ -753,5 +754,3 @@ Cada comando deve produzir: JSON, relatório legível, evidências, versões, co
 pública, capaz de codificar, comparar, buscar, clusterizar, reconstruir semanticamente e auditar
 transcrições, resumos e matérias, mantendo a distinção entre verdade documental, estrutura deliberativa
 e seleção editorial.
-
-Esta é a constituição do projeto.
