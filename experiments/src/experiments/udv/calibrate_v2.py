@@ -2,8 +2,7 @@ import argparse
 import json
 import time
 from collections import Counter
-from dataclasses import dataclass
-from datetime import UTC, datetime
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -11,7 +10,9 @@ import numpy as np
 from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 from sentence_transformers import SentenceTransformer
 
-from experiments.common.provenance import source_hashes
+from experiments.common.provenance import code_section
+from experiments.common.reporting import file_record, utc_timestamp
+from experiments.common.splits import load_split_lookup
 from experiments.common.transcript import normalize_whitespace
 from experiments.common.udv_run import (
     UdvConfig,
@@ -24,6 +25,7 @@ from experiments.common.udv_run import (
 )
 from experiments.retrieval.data import SentenceSpan, locate_turn_sentences, window_units
 from experiments.udv import calibrate_threshold as base
+from experiments.udv.calibrate_threshold import Encode, EncodingLedger
 
 Record = dict[str, Any]
 
@@ -31,11 +33,14 @@ UNIT_SIZES = {"sentence": 1, "window2": 2, "window3": 3}
 PAIR_ROLES = ("positive", "legacy_random", "hard_negative")
 VERIFIER_RULES = ("legacy_random", "hard_negative")
 ROLE_TIER = {role: f"calibration_{role}" for role in PAIR_ROLES}
+VERIFIER_STREAM_OFFSET = 100
+VERIFIER_THRESHOLD_DECIMALS = 4
 LABEL_SEMANTICS_UNIT = (
     "candidate units are windows of consecutive candidate sentences of one matched turn "
-    "(retrieval_data.window_units, stride 1); a unit is a target when it holds a sentence that "
-    "agrees with the silver target sentence; the embedded text is the unit text (sentences joined "
-    "by a space) and the premise text is the transcript span of the unit, whitespace normalized"
+    "(experiments.retrieval.data.window_units, stride 1); a unit is a target when it holds a "
+    "sentence that agrees with the silver target sentence; the embedded text is the unit text "
+    "(sentences joined by a space) and the premise text is the transcript span of the unit, "
+    "whitespace normalized"
 )
 
 
@@ -91,88 +96,67 @@ def window_query(query: Record, windows: WindowUnits, window_offset: int) -> Rec
     }
 
 
+def window_slices(people: list[Record], windows: dict[int, WindowUnits]) -> dict[int, slice]:
+    slices: dict[int, slice] = {}
+    cursor = 0
+    for person in people:
+        count = len(windows[person["index"]].texts)
+        slices[person["index"]] = slice(cursor, cursor + count)
+        cursor += count
+    return slices
+
+
+def window_queries(
+    base_queries: list[Record],
+    windows: dict[int, WindowUnits],
+    slices: dict[int, slice],
+    funnel: Record,
+) -> list[Record]:
+    """The sentence queries restated on window units; counts the targets no window holds."""
+    funnel["target_not_in_windows"] = 0
+    queries: list[Record] = []
+    for query in base_queries:
+        person = query["person_index"]
+        converted = window_query(query, windows[person], slices[person].start)
+        if converted is None:
+            funnel["target_not_in_windows"] += 1
+            continue
+        queries.append(converted)
+    return queries
+
+
 def collect_hearing(
     hearing: Record,
     rows: list[Record],
     encoder: SentenceTransformer,
     udv_config: UdvConfig,
     device: str,
-    ledger: base.EncodingLedger,
+    ledger: EncodingLedger,
     unit: str,
     size: int,
     checks: Counter[str],
 ) -> Record:
-    hearing_id = hearing["id"]
+    """Score the unmasked and masked queries of one hearing against the speaker's windows."""
+    encode: Encode = base.guarded_encoder(encoder, udv_config, device, hearing["id"], ledger)
     transcript = hearing["transcricao"]
     people = resolve_hearing_people(hearing)
     windows = {
         person["index"]: person_windows(person, transcript, size, checks) for person in people
     }
-    offsets: dict[int, slice] = {}
-    cursor = 0
-    for person in people:
-        count = len(windows[person["index"]].texts)
-        offsets[person["index"]] = slice(cursor, cursor + count)
-        cursor += count
+    slices = window_slices(people, windows)
     all_texts = [text for person in people for text in windows[person["index"]].texts]
     all_spans = [span for person in people for span in windows[person["index"]].spans]
-    unit_embeddings = base.encode_guarded(
-        encoder, all_texts, udv_config, device, f"{unit}s", hearing_id, ledger
-    )
+    unit_embeddings = encode(all_texts, f"{unit}s")
     base_queries, funnel = base.trusted_quote_queries(hearing, people)
-    funnel["target_not_in_windows"] = 0
-    queries: list[Record] = []
-    for query in base_queries:
-        converted = window_query(
-            query, windows[query["person_index"]], offsets[query["person_index"]].start
-        )
-        if converted is None:
-            funnel["target_not_in_windows"] += 1
-            continue
-        queries.append(converted)
-    unmasked: list[Record] = []
-    query_embeddings = np.empty((0, unit_embeddings.shape[1]), dtype=np.float32)
-    if queries:
-        opinion_texts = [text for person in people for text in person["participant"]["opinioes"]]
-        opinion_embeddings = base.encode_guarded(
-            encoder, opinion_texts, udv_config, device, "opinions", hearing_id, ledger
-        )
-        query_embeddings = opinion_embeddings[[q["opinion_position"] for q in queries]]
-        unmasked = [
-            base.score_query(
-                query,
-                "opinion",
-                opinion_embeddings[query["opinion_position"]],
-                unit_embeddings[offsets[query["person_index"]]],
-            )
-            for query in queries
-        ]
-    sentence_queries = {query["id"]: query for query in base_queries}
+    queries = window_queries(base_queries, windows, slices, funnel)
+    unmasked, query_embeddings = base.score_unmasked(
+        people, queries, unit_embeddings, slices, encode
+    )
     by_id = {query["id"]: query for query in queries}
-    problems = {row["id"]: base.masked_row_problems(row, sentence_queries) for row in rows}
-    problems = {row_id: found for row_id, found in problems.items() if found}
+    problems = base.masked_problems(rows, {query["id"]: query for query in base_queries})
     masked: list[Record] = []
-    kept_rows = [row for row in rows if row["id"] in by_id]
-    if kept_rows and not problems:
-        masked_embeddings = base.encode_guarded(
-            encoder,
-            [row["masked_opinion"] for row in rows],
-            udv_config,
-            device,
-            "masked",
-            hearing_id,
-            ledger,
-        )
-        masked = [
-            base.score_query(
-                {**by_id[row["id"]], "masked_opinion": row["masked_opinion"]},
-                "masked_opinion",
-                masked_embeddings[position],
-                unit_embeddings[offsets[row["person"]["index"]]],
-            )
-            for position, row in enumerate(rows)
-            if row["id"] in by_id
-        ]
+    if any(row["id"] in by_id for row in rows) and not problems:
+        masked = base.score_masked(rows, by_id, unit_embeddings, slices, encode)
     return {
         "unmasked": unmasked,
         "query_embeddings": query_embeddings,
@@ -184,76 +168,83 @@ def collect_hearing(
     }
 
 
+PairMember = tuple[str, int, int, float]
+
+
+def pair_members(query: Record, draws: dict[str, dict[str, list[Record]]]) -> list[PairMember]:
+    """The best target unit of a query and its drawn negatives: role, hearing, unit, score."""
+    best = max(query["target_indices"], key=lambda index: query["candidate_scores"][index])
+    members: list[PairMember] = [
+        (
+            "positive",
+            query["hearing_id"],
+            query["sentence_offset"] + best,
+            float(query["candidate_scores"][best]),
+        )
+    ]
+    for rule in VERIFIER_RULES:
+        for negative in draws[rule].get(query["id"], []):
+            members.append(
+                (rule, negative["hearing_id"], negative["sentence_index"], negative["score"])
+            )
+    return members
+
+
+def verifier_pair(query: Record, member: PairMember, spans: dict[int, list[str]]) -> Record:
+    role, unit_hearing, unit_index, score = member
+    return {
+        "id": f"{query['id']}:{role}",
+        "query_id": query["id"],
+        "hearing_id": query["hearing_id"],
+        "pair_role": role,
+        "unit_hearing_id": unit_hearing,
+        "unit_index": unit_index,
+        "tier": ROLE_TIER[role],
+        "proposition": query["opinion"],
+        "evidence": {
+            "text": spans[unit_hearing][unit_index],
+            "support_type": "semantic_similarity",
+            "score": round(score, base.QUERY_SCORE_DECIMALS),
+        },
+    }
+
+
 def verifier_pairs(
     unmasked: list[Record],
     draws: dict[str, dict[str, list[Record]]],
     spans: dict[int, list[str]],
 ) -> list[Record]:
-    rows: list[Record] = []
-    for query in unmasked:
-        best = max(query["target_indices"], key=lambda index: query["candidate_scores"][index])
-        members: list[tuple[str, int, int, float]] = [
-            (
-                "positive",
-                query["hearing_id"],
-                query["sentence_offset"] + best,
-                float(query["candidate_scores"][best]),
-            )
-        ]
-        for rule in VERIFIER_RULES:
-            for negative in draws[rule].get(query["id"], []):
-                members.append(
-                    (rule, negative["hearing_id"], negative["sentence_index"], negative["score"])
-                )
-        for role, unit_hearing, unit_index, score in members:
-            rows.append(
-                {
-                    "id": f"{query['id']}:{role}",
-                    "query_id": query["id"],
-                    "hearing_id": query["hearing_id"],
-                    "pair_role": role,
-                    "unit_hearing_id": unit_hearing,
-                    "unit_index": unit_index,
-                    "tier": ROLE_TIER[role],
-                    "proposition": query["opinion"],
-                    "evidence": {
-                        "text": spans[unit_hearing][unit_index],
-                        "support_type": "semantic_similarity",
-                        "score": round(score, base.QUERY_SCORE_DECIMALS),
-                    },
-                }
-            )
-    return rows
+    return [
+        verifier_pair(query, member, spans)
+        for query in unmasked
+        for member in pair_members(query, draws)
+    ]
 
 
-def command_cosine(args: argparse.Namespace) -> None:
-    started = time.perf_counter()
-    udv_config = load_config(args.config)
-    config = base.load_calibration_config(udv_config)
+@dataclass
+class WindowQueries:
+    unmasked: list[Record] = field(default_factory=list)
+    masked: list[Record] = field(default_factory=list)
+    query_embeddings: list[np.ndarray] = field(default_factory=list)
+    unit_embeddings: dict[int, np.ndarray] = field(default_factory=dict)
+    unit_spans: dict[int, list[str]] = field(default_factory=dict)
+    funnels: list[Record] = field(default_factory=list)
+    problems: dict[str, list[str]] = field(default_factory=dict)
+    checks: Counter[str] = field(default_factory=Counter)
+
+
+def collect_window_queries(
+    hearings: list[Record],
+    masked_rows: dict[int, list[Record]],
+    encoder: SentenceTransformer,
+    udv_config: UdvConfig,
+    device: str,
+    ledger: EncodingLedger,
+) -> WindowQueries:
     unit, size = unit_size(udv_config)
-    seed_everything(udv_config.seed)
-    lds = load_lds_records(udv_config)
-    split_of, split_source = base.load_split_lookup(
-        config.manifest_path, udv_config.expected_sha256
-    )
-    hearings = base.select_calibration_hearings(lds, split_of, config.splits)
-    ledger = base.EncodingLedger(allowed_hearing_ids=frozenset(h["id"] for h in hearings))
-    masked_rows, masked_counts = base.load_masked_rows(
-        config.masked_benchmark_path, split_of, config.splits
-    )
-    device = select_device(udv_config.device)
-    print(f"{len(hearings)} calibration hearings | unit {unit} | {device}", flush=True)
-    encoder = load_encoder(udv_config, device)
-    unmasked: list[Record] = []
-    masked: list[Record] = []
-    query_embeddings: list[np.ndarray] = []
-    unit_embeddings: dict[int, np.ndarray] = {}
-    unit_spans: dict[int, list[str]] = {}
-    funnels: list[Record] = []
-    problems: dict[str, list[str]] = {}
-    checks: Counter[str] = Counter()
+    collected = WindowQueries()
     for number, hearing in enumerate(hearings, start=1):
-        collected = collect_hearing(
+        found = collect_hearing(
             hearing,
             masked_rows.get(hearing["id"], []),
             encoder,
@@ -262,50 +253,92 @@ def command_cosine(args: argparse.Namespace) -> None:
             ledger,
             unit,
             size,
-            checks,
+            collected.checks,
         )
-        unmasked.extend(collected["unmasked"])
-        masked.extend(collected["masked"])
-        query_embeddings.append(collected["query_embeddings"])
-        unit_embeddings[hearing["id"]] = collected["unit_embeddings"]
-        unit_spans[hearing["id"]] = collected["unit_spans"]
-        funnels.append(collected["funnel"])
-        problems.update(collected["problems"])
+        collected.unmasked.extend(found["unmasked"])
+        collected.masked.extend(found["masked"])
+        collected.query_embeddings.append(found["query_embeddings"])
+        collected.unit_embeddings[hearing["id"]] = found["unit_embeddings"]
+        collected.unit_spans[hearing["id"]] = found["unit_spans"]
+        collected.funnels.append(found["funnel"])
+        collected.problems.update(found["problems"])
         print(
             f"[{number}/{len(hearings)}] hearing {hearing['id']}: "
-            f"{len(collected['unmasked'])} quote queries, {len(collected['masked'])} masked",
+            f"{len(found['unmasked'])} quote queries, {len(found['masked'])} masked",
             flush=True,
         )
-    if problems:
-        raise SystemExit(f"the masked benchmark does not match the pipeline: {problems}")
-    pool = base.build_pool(np.vstack(query_embeddings), unit_embeddings)
-    results, draws = base.run_rules(unmasked, masked, pool, config)
-    query_hearings = {
-        "legacy_random": {query["hearing_id"] for query in unmasked},
-        "hard_negative": {
-            query["hearing_id"] for query in unmasked if len(query["non_target_indices"])
-        },
-        "masked_hard_negative": {
-            query["hearing_id"] for query in masked if len(query["non_target_indices"])
-        },
-        base.PRIMARY_RULE: {query["hearing_id"] for query in masked},
-    }
-    leak = base.leak_check(split_of, config, ledger, query_hearings, pool)
-    points = base.operating_points(results, masked, udv_config.embedding_threshold)
-    rows_path = config.output_dir / f"{config.version}_queries.jsonl"
-    rows = base.query_rows(unmasked, draws) + base.query_rows(masked, draws)
-    write_jsonl(rows, rows_path)
-    pairs = verifier_pairs(unmasked, draws, unit_spans)
+    if collected.problems:
+        raise SystemExit(f"the masked benchmark does not match the pipeline: {collected.problems}")
+    return collected
+
+
+def write_verifier_pairs(pairs: list[Record], config: base.CalibrationConfig) -> Record:
     pairs_path = config.output_dir / f"{config.version}_verifier_pairs.jsonl"
     write_jsonl(pairs, pairs_path)
-    adopted = udv_config.source["calibration"]["adopted_rule"]
+    return {
+        "path": str(pairs_path),
+        "rows": len(pairs),
+        "by_role": dict(Counter(pair["pair_role"] for pair in pairs)),
+        "sha256": sha256_of_file(pairs_path),
+    }
+
+
+def add_window_fields(
+    report: Record, results: Record, checks: Counter[str], udv_config: UdvConfig
+) -> None:
+    unit, size = unit_size(udv_config)
+    calibration = udv_config.source["calibration"]
+    adopted = calibration["adopted_rule"]
+    report["unit"] = {
+        "name": unit,
+        "size": size,
+        "semantics": LABEL_SEMANTICS_UNIT,
+        "sentence_location_checks": dict(checks),
+    }
+    report["adopted_rule"] = adopted
+    report["adopted_rule_declaration"] = calibration["adopted_rule_declaration"]
+    report["adopted_threshold"] = results[adopted]["threshold"]
+    report["adopted_threshold_rounded"] = results[adopted]["threshold_rounded"]
+    report["code"].update(code_section(Path(__file__)))
+
+
+def command_cosine(args: argparse.Namespace) -> None:
+    started = time.perf_counter()
+    udv_config = load_config(args.config)
+    config = base.load_calibration_config(udv_config)
+    unit, _ = unit_size(udv_config)
+    seed_everything(udv_config.seed)
+    lds = load_lds_records(udv_config)
+    split_of, split_source = load_split_lookup(config.manifest_path, udv_config.expected_sha256)
+    hearings = base.select_calibration_hearings(lds, split_of, config.splits)
+    ledger = EncodingLedger(allowed_hearing_ids=frozenset(h["id"] for h in hearings))
+    masked_rows, masked_counts = base.load_masked_rows(
+        config.masked_benchmark_path, split_of, config.splits
+    )
+    device = select_device(udv_config.device)
+    print(f"{len(hearings)} calibration hearings | unit {unit} | {device}", flush=True)
+    encoder = load_encoder(udv_config, device)
+    collected = collect_window_queries(hearings, masked_rows, encoder, udv_config, device, ledger)
+    unmasked, masked = collected.unmasked, collected.masked
+    pool = base.build_pool(np.vstack(collected.query_embeddings), collected.unit_embeddings)
+    results, draws = base.run_rules(unmasked, masked, pool, config)
+    leak = base.leak_check(
+        split_of, config, ledger, base.rule_query_hearings(unmasked, masked), pool
+    )
+    points = base.operating_points(results, masked, udv_config.embedding_threshold)
+    artifacts = {
+        "queries": base.write_query_rows(unmasked, masked, draws, config),
+        "verifier_pairs": write_verifier_pairs(
+            verifier_pairs(unmasked, draws, collected.unit_spans), config
+        ),
+    }
     report = base.build_report(
         results,
         points,
         leak,
         ledger,
         {
-            **base.sum_counts(funnels),
+            **base.sum_counts(collected.funnels),
             "used_by_legacy_random": len(unmasked),
             "used_by_hard_negative": results["hard_negative"]["pairs"]["queries"],
         },
@@ -315,41 +348,17 @@ def command_cosine(args: argparse.Namespace) -> None:
             "splits": split_source,
             "masked_benchmark": base.benchmark_source(config.masked_benchmark_path),
         },
-        {
-            "queries": {
-                "path": str(rows_path),
-                "rows": len(rows),
-                "sha256": sha256_of_file(rows_path),
-            },
-            "verifier_pairs": {
-                "path": str(pairs_path),
-                "rows": len(pairs),
-                "by_role": dict(Counter(pair["pair_role"] for pair in pairs)),
-                "sha256": sha256_of_file(pairs_path),
-            },
-        },
+        artifacts,
         encoder,
         device,
         time.perf_counter() - started,
         udv_config,
         config,
     )
-    report["unit"] = {
-        "name": unit,
-        "size": size,
-        "semantics": LABEL_SEMANTICS_UNIT,
-        "sentence_location_checks": dict(checks),
-    }
-    report["adopted_rule"] = adopted
-    report["adopted_rule_declaration"] = udv_config.source["calibration"][
-        "adopted_rule_declaration"
-    ]
-    report["adopted_threshold"] = results[adopted]["threshold"]
-    report["adopted_threshold_rounded"] = results[adopted]["threshold_rounded"]
-    report["code"].update(source_hashes(Path(__file__)))
+    add_window_fields(report, results, collected.checks, udv_config)
     write_json(report, config.output_dir / f"{config.version}.json")
     base.print_summary(report)
-    print(f"adopted ({adopted}): {report['adopted_threshold']}", flush=True)
+    print(f"adopted ({report['adopted_rule']}): {report['adopted_threshold']}", flush=True)
 
 
 def load_probabilities(path: Path) -> dict[str, float]:
@@ -374,7 +383,7 @@ def verifier_rule(
     negatives = np.array([negative[query] for query in kept], dtype=np.float64)
     point = base.pair_threshold(positives, negatives, config)
     groups = base.unit_groups([hearings[query] for query in kept], config.bootstrap_unit)
-    rng = base.rule_rng(config.seed, 100 + stream)
+    rng = base.rule_rng(config.seed, VERIFIER_STREAM_OFFSET + stream)
     replicates = []
     for _ in range(config.bootstrap_samples):
         rows = base.resample_rows(rng, groups)
@@ -389,7 +398,7 @@ def verifier_rule(
         },
         "threshold": base.rounded(threshold),
         "threshold_exact": threshold,
-        "threshold_rounded": round(threshold, 4),
+        "threshold_rounded": round(threshold, VERIFIER_THRESHOLD_DECIMALS),
         "positive_quantile_value": base.rounded(point["positive_quantile_value"]),
         "negative_quantile_value": base.rounded(point["negative_quantile_value"]),
         "positives_below_threshold": int((positives < threshold).sum()),
@@ -400,7 +409,7 @@ def verifier_rule(
             key: base.interval(
                 [replicate[key] for replicate in replicates], config.confidence_level
             )
-            for key in ("threshold", "positive_quantile_value", "negative_quantile_value")
+            for key in base.PAIR_BOOTSTRAP_KEYS
         },
     }
 
@@ -414,33 +423,56 @@ def at_threshold(values: list[float], threshold: float) -> Record:
     }
 
 
-def command_verifier(args: argparse.Namespace) -> None:
-    udv_config = load_config(args.config)
-    config = base.load_calibration_config(udv_config)
-    raw = udv_config.source["verifier_calibration"]
-    cosine_path = config.output_dir / f"{config.version}.json"
+def load_cosine_pairs(cosine_path: Path) -> tuple[Path, list[Record]]:
+    """The verifier pairs of the cosine calibration, after its leak check and their sha256."""
     with open(cosine_path) as f:
         cosine = json.load(f)
     if not cosine["leak_check"]["passed"]:
         raise SystemExit(f"{cosine_path}: the leak check did not pass")
-    pairs_path = Path(cosine["artifacts"]["verifier_pairs"]["path"])
-    if sha256_of_file(pairs_path) != cosine["artifacts"]["verifier_pairs"]["sha256"]:
+    recorded = cosine["artifacts"]["verifier_pairs"]
+    pairs_path = Path(recorded["path"])
+    if sha256_of_file(pairs_path) != recorded["sha256"]:
         raise SystemExit(f"{pairs_path}: sha256 differs from the calibration report")
-    scores_path = Path(raw["scores_path"])
-    probabilities = load_probabilities(scores_path)
-    pairs = load_jsonl(pairs_path)
-    split_of, split_source = base.load_split_lookup(
-        config.manifest_path, udv_config.expected_sha256
-    )
+    return pairs_path, load_jsonl(pairs_path)
+
+
+def pair_leak_check(
+    pairs: list[Record], split_of: dict[int, str], config: base.CalibrationConfig
+) -> Record:
     used = {pair["hearing_id"] for pair in pairs} | {pair["unit_hearing_id"] for pair in pairs}
     outside = sorted(h for h in used if split_of[h] not in config.splits)
     if outside:
         raise SystemExit(f"calibration pairs outside the calibration splits: {outside}")
+    return {
+        "calibration_splits": list(config.splits),
+        "hearings_used": len(used),
+        "hearings_outside_calibration_splits": outside,
+        "passed": not outside,
+    }
+
+
+def probabilities_by_role(
+    pairs: list[Record], probabilities: dict[str, float]
+) -> tuple[dict[str, dict[str, float]], dict[str, int]]:
     by_role: dict[str, dict[str, float]] = {role: {} for role in PAIR_ROLES}
     hearings: dict[str, int] = {}
     for pair in pairs:
         by_role[pair["pair_role"]][pair["query_id"]] = probabilities[pair["id"]]
         hearings[pair["query_id"]] = pair["hearing_id"]
+    return by_role, hearings
+
+
+def command_verifier(args: argparse.Namespace) -> None:
+    udv_config = load_config(args.config)
+    config = base.load_calibration_config(udv_config)
+    raw = udv_config.source["verifier_calibration"]
+    cosine_path = config.output_dir / f"{config.version}.json"
+    pairs_path, pairs = load_cosine_pairs(cosine_path)
+    scores_path = Path(raw["scores_path"])
+    probabilities = load_probabilities(scores_path)
+    split_of, split_source = load_split_lookup(config.manifest_path, udv_config.expected_sha256)
+    leak = pair_leak_check(pairs, split_of, config)
+    by_role, hearings = probabilities_by_role(pairs, probabilities)
     queries = sorted(by_role["positive"])
     rules = {
         rule: verifier_rule(queries, hearings, by_role["positive"], by_role[rule], config, stream)
@@ -450,7 +482,7 @@ def command_verifier(args: argparse.Namespace) -> None:
     adopted = raw["adopted_rule"]
     report = {
         "calibration_version": raw["version"],
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "created_at": utc_timestamp(),
         "score": raw["score"],
         "declaration": raw["declaration"],
         "adopted_rule": adopted,
@@ -470,22 +502,14 @@ def command_verifier(args: argparse.Namespace) -> None:
             "and a verifier score",
             "seed": config.seed,
         },
-        "leak_check": {
-            "calibration_splits": list(config.splits),
-            "hearings_used": len(used),
-            "hearings_outside_calibration_splits": outside,
-            "passed": not outside,
-        },
+        "leak_check": leak,
         "sources": {
-            "cosine_calibration": {"path": str(cosine_path), "sha256": sha256_of_file(cosine_path)},
-            "pairs": {"path": str(pairs_path), "sha256": sha256_of_file(pairs_path)},
-            "scores": {"path": str(scores_path), "sha256": sha256_of_file(scores_path)},
+            "cosine_calibration": file_record(cosine_path),
+            "pairs": file_record(pairs_path),
+            "scores": file_record(scores_path),
             "splits": split_source,
         },
-        "code": {
-            **source_hashes(Path(__file__)),
-            **source_hashes(base),
-        },
+        "code": code_section(Path(__file__), base),
     }
     output = Path(raw["output_path"])
     write_json(report, output)
@@ -507,9 +531,12 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+COMMANDS = {"cosine": command_cosine, "verifier": command_verifier}
+
+
 def main() -> None:
     args = parse_args()
-    {"cosine": command_cosine, "verifier": command_verifier}[args.command](args)
+    COMMANDS[args.command](args)
 
 
 if __name__ == "__main__":
