@@ -63,6 +63,7 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = [
+    "C90",
     "E",
     "F",
     "W",
@@ -81,6 +82,9 @@ select = [
     "PERF",
     "RUF",
 ]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.ruff.lint.isort]
 known-first-party = ["bookworm"]
