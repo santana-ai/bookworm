@@ -2,10 +2,10 @@
 
 - Status: aceita
 - Data: 2026-09-28
-- Código afetado: `bookworm/src/bookworm/udv/quotes.py` (extensão da evidência de citação),
-  `bookworm/src/bookworm/udv/windows.py` (novo: unidades de janela), `bookworm/src/bookworm/udv/build.py`,
-  `bookworm/src/bookworm/udv/evidence.py`, `bookworm/src/bookworm/udv/verify.py`,
-  `bookworm/src/bookworm/udv/coverage.py`, `bookworm/src/bookworm/config.py`;
+- Código afetado: `src/bookworm/udv/quotes.py` (extensão da evidência de citação),
+  `src/bookworm/udv/windows.py` (novo: unidades de janela), `src/bookworm/udv/build.py`,
+  `src/bookworm/udv/evidence.py`, `src/bookworm/udv/verify.py`,
+  `src/bookworm/udv/coverage.py`, `src/bookworm/config.py`;
   `challenge/utils/calibrate_udv_v2.py` (novo), `challenge/utils/udv_verifier.py` (segundo corte),
   `challenge/utils/udv_v2_analysis.py` (novo), `challenge/configs/udv_v2.toml`,
   `challenge/configs/udv_v2_verifier.toml`, `challenge/configs/udv_v2_calibration_verifier.toml`

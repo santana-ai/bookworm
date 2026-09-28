@@ -9,7 +9,9 @@
   `challenge/artifacts/udv/turn_segmentation_summary.json` e
   `challenge/artifacts/udv/turn_segmentation_quote_changes.jsonl`
 - Código anterior preservado em `backup/udv_pipeline_2026-09-21.py`, `backup/build_udvs_2026-09-21.py`
-  e `backup/verify_udvs_2026-09-21.py` (o código que gerou `artifacts/udv/udv_v0.jsonl` em 21/09/2026)
+  e `backup/verify_udvs_2026-09-21.py` (o código que gerou `artifacts/udv/udv_v0.jsonl` em 21/09/2026).
+  A pasta `backup/` não faz parte da versão 1.0.0; os três arquivos continuam no histórico do Git
+  (por exemplo, no commit `4657fd1`)
 
 ## Contexto
 

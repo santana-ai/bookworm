@@ -1,11 +1,13 @@
 # ADR 0001: estrutura da biblioteca e porte com paridade
 
-- Status: aceito
+- Status: aceita
 - Data: 2026-09-22
 - Atualizado em 2026-09-23: porte da segmentação por turno ([ADR 0002](0002-per-turn-sentence-segmentation.md))
   e das aspas simples ([ADR 0003](0003-single-quoted-spans-as-quotes.md)); oráculos de paridade
   passam a ser `udv_v1` e `udv_v1_pre`; comando `export-hearing` (seção
   [Porte das ADR 0002 e 0003](#porte-das-adr-0002-e-0003))
+- Atualizado em 2026-09-28: diferenças entre o texto e o código da versão 1.0.0 (seção
+  [Estado na versão 1.0.0](#estado-na-versão-100))
 
 ## Contexto
 
@@ -285,3 +287,19 @@ possa ser portada com paridade: split por comissão, splits por similaridade, gr
 latente, busca, comparação entre audiências, clusterização, API HTTP, módulo de logging, Makefile e
 configuração em YAML. Também não entram módulos de marcação (`NotImplementedError`) para essas partes:
 um módulo só é criado quando existe código executável e testado para ele.
+
+## Estado na versão 1.0.0
+
+As seções acima descrevem o estado de 2026-09-23. Decisões posteriores mudaram estes pontos:
+
+- Dependências do núcleo: `jinja2` entrou com os templates de prompt dos perfis
+  ([ADR 0005](0005-one-transcript-pass-for-udvs-and-actor-profiles.md)).
+- Módulos que importam dependências pesadas: além de `features/sentence_transformer.py`,
+  `profiles/transformers_client.py` importa `transformers` (extra `profiles`). Os dois continuam
+  importados só de forma tardia, por `features/loading.py` (encoders da CLI e de
+  `validate-profiles`) e por `profiles/llm.py`.
+- A CLI tem onze comandos: os seis de UDV, split e exportação, mais `filter-actor-speeches`,
+  `generate-profiles`, `validate-profiles`, `sample-profile-review` e `score-profile-review`
+  (ADR 0005). `create_app` recebe também a fábrica de clientes de chat (`client_factory`).
+- Além de `read_only`, `CachedEncoder` tem o modo `cache_only`, que falha em qualquer texto fora do
+  cache ([ADR 0004](0004-exports-read-only-the-run-cache.md)).
