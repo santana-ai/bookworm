@@ -1,3 +1,5 @@
+"""Resolution of a hearing participant to their speaker turns."""
+
 from collections.abc import Sequence
 
 from bookworm.transcript.text import normalize_name, normalize_whitespace

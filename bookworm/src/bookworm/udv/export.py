@@ -1,3 +1,5 @@
+"""Demo JSON of one hearing (``export-hearing``)."""
+
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
@@ -217,6 +219,7 @@ def export_hearing(
     quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
     signals: SiteSignals | None = None,
 ) -> JsonObject:
+    """Demo JSON of one hearing, with the ``top_k`` candidate sentences of each opinion."""
     if top_k < 1:
         raise ConfigError(f"top_k must be at least 1, got {top_k}")
     if not records:

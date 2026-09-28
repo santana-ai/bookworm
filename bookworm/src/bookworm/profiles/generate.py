@@ -1,3 +1,5 @@
+"""Profile generation: prompt rendering, dry run and resumable runs."""
+
 import json
 import time
 from collections.abc import Callable, Iterable, Mapping, Sequence
@@ -313,6 +315,7 @@ def run_generate_profiles(
     client_factory: ClientFactory = default_client_factory,
     report: Reporter = ignore_message,
 ) -> GenerationOutcome:
+    """Generate the missing profiles of a speeches file, or render the prompts only."""
     run = prepare_run(request, report)
     report(f"{len(run.selected)} actors selected, prompts {run.context.prompts.version}")
     if request.dry_run:

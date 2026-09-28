@@ -1,3 +1,5 @@
+"""``UdvRecord`` and the JSONL file of a run."""
+
 import json
 from collections.abc import Iterable
 from dataclasses import dataclass, field

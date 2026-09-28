@@ -1,3 +1,5 @@
+"""Character span of a sentence in the turn it comes from."""
+
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass

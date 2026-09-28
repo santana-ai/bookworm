@@ -1,3 +1,5 @@
+"""Validation of actor profiles against the verified UDVs of each actor."""
+
 import copy
 from collections import Counter
 from collections.abc import Callable, Mapping, Sequence
@@ -586,6 +588,7 @@ def validate_profiles(
     overwrite: bool = False,
     created_at: datetime | None = None,
 ) -> JsonObject:
+    """Score each verified UDV against every profile and write the pairs and report."""
     check_new_outputs((config.pairs_path, config.report_path), overwrite)
     inputs = load_inputs(config)
     if not inputs.profiles:
@@ -675,6 +678,7 @@ def build_report(
 
 
 def run_validate_profiles(config_path: Path, *, overwrite: bool = False) -> JsonObject:
+    """Load a profile validation config and run ``validate_profiles``."""
     config = load_profile_validation_config(config_path)
     report = validate_profiles(config, overwrite=overwrite)
     return {

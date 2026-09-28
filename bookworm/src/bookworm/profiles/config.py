@@ -1,3 +1,5 @@
+"""Configuration of the actor speeches split filter and of profile generation."""
+
 import copy
 from collections.abc import Mapping
 from pathlib import Path

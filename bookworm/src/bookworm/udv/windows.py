@@ -1,3 +1,5 @@
+"""Candidate windows of consecutive sentences within a turn (``semantic_unit``)."""
+
 from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal, get_args

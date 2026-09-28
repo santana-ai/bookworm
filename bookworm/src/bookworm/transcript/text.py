@@ -1,3 +1,5 @@
+"""Whitespace, accent and name normalization."""
+
 import re
 import unicodedata
 

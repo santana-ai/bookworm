@@ -1,3 +1,5 @@
+"""Per-actor speeches collected across hearings and their links to UDVs."""
+
 from bookworm.actors.schemas import (
     CHAIR_ROLE,
     SPEAKER_ROLE,

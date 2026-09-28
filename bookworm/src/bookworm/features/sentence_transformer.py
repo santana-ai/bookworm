@@ -1,3 +1,5 @@
+"""sentence-transformers encoder; needs the ``embeddings`` extra."""
+
 from collections.abc import Callable, Sequence
 from typing import Any
 

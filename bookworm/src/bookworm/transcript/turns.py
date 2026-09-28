@@ -1,3 +1,5 @@
+"""Speaker turns, split at the ``O SR.`` and ``A SRA.`` headers."""
+
 import re
 from dataclasses import dataclass
 
@@ -17,6 +19,7 @@ class Turn:
 
 
 def split_into_turns(transcript: str) -> list[Turn]:
+    """Split a transcript into speaker turns at the ``O SR.``/``A SRA.`` headers."""
     matches = list(TURN_HEADER_PATTERN.finditer(transcript))
     turns: list[Turn] = []
     for index, match in enumerate(matches):

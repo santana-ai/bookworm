@@ -1,3 +1,5 @@
+"""Independent verification of a temporal split manifest and report."""
+
 from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -284,6 +286,7 @@ def verify_split_run(
     udvs: Sequence[UdvRecord],
     config: SplitConfig,
 ) -> SplitVerification:
+    """Recompute a temporal split from the LDS and check a manifest and report."""
     dates = dates_by_hearing(hearings)
     extraction = summarize_date_extraction(hearings)
     problems = check_manifest_shape(manifest)

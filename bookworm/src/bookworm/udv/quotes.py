@@ -1,3 +1,5 @@
+"""Quote extraction, per-turn prefix search and choice of the quoted occurrence."""
+
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -119,6 +121,7 @@ def quoted_text(match: re.Match[str]) -> str:
 def extract_quotes(
     opinion_text: str, patterns: Sequence[re.Pattern[str]] = QUOTE_PATTERNS
 ) -> list[str]:
+    """Quoted spans of an opinion, in text order, with whitespace normalized."""
     matches = sorted(
         (match for pattern in patterns for match in pattern.finditer(opinion_text)),
         key=lambda match: (match.start(), -match.end()),
@@ -208,6 +211,7 @@ def choose_occurrence_index(occurrences: Sequence[PrefixOccurrence], opinion_tex
 def find_opinion_turn_quote_match(
     opinion_text: str, turns: Sequence[Turn], policy: QuotePolicy = DEFAULT_QUOTE_POLICY
 ) -> TurnQuoteMatch | None:
+    """Best quote prefix of an opinion found within a single turn, if any."""
     best: tuple[int, PrefixMatch] | None = None
     for quote_index, quote in enumerate(extract_quotes(opinion_text, policy.patterns)):
         match = find_turn_quote_match(quote, turns, policy)

@@ -1,3 +1,5 @@
+"""Sentence boundaries, per-turn sentences and the sentence that encloses a span."""
+
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -30,6 +32,7 @@ def turn_text(turn: Turn) -> str:
 
 
 def split_turn_sentences(turns: Sequence[Turn]) -> list[TurnSentence]:
+    """Candidate sentences of each turn, tagged with the index of their turn."""
     return [
         TurnSentence(text=sentence, turn_index=turn.turn_index)
         for turn in turns

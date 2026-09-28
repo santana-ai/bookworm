@@ -1,3 +1,5 @@
+"""Actor profiles: split filter, generation behind ``ChatClient`` and validation against UDVs."""
+
 from bookworm.profiles.config import (
     PACKAGED_PROMPTS_DIR,
     ModelSettings,

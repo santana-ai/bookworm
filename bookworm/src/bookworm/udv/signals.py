@@ -1,3 +1,5 @@
+"""Verifier, question and translation signals of each UDV, read from a verifier report."""
+
 import hashlib
 import json
 import re

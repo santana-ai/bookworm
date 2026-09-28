@@ -1,3 +1,5 @@
+"""Coverage file of a run, with the pipeline description."""
+
 import platform
 from collections.abc import Mapping, Sequence
 from datetime import UTC, datetime
@@ -63,6 +65,7 @@ def evidence_description(settings: EvidenceSettings) -> JsonObject:
 def pipeline_description(
     policy: QuotePolicy = DEFAULT_QUOTE_POLICY, settings: EvidenceSettings | None = None
 ) -> JsonObject:
+    """Rules of the evidence search, as recorded in the ``pipeline`` section."""
     extra = {} if settings is None else evidence_description(settings)
     return {
         "sentence_segmentation": SENTENCE_SEGMENTATION,
@@ -104,6 +107,7 @@ def summarize_run(
     created_at: datetime | None = None,
     environment: Mapping[str, Any] | None = None,
 ) -> JsonObject:
+    """Coverage file of a run: counters, timing, encoder, environment and pipeline."""
     evidences = [record.evidence for record in records if record.evidence is not None]
     moment = datetime.now(UTC) if created_at is None else created_at
     return {

@@ -1,3 +1,5 @@
+"""Construction of the UDVs of a hearing and of a run."""
+
 import time
 from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass, field
@@ -76,6 +78,7 @@ def udv_id(hearing_id: int, person_index: int, opinion_index: int) -> str:
 def select_hearings(
     hearings: Sequence[HearingRecord], limit: int | None, ids: Iterable[int] | None
 ) -> list[HearingRecord]:
+    """Keep the hearings with the given ids or, without ids, the first ``limit``."""
     if ids is not None:
         wanted = set(ids)
         return [hearing for hearing in hearings if hearing.id in wanted]
@@ -107,6 +110,7 @@ def resolve_hearing_people(
 
 
 def udv_corpus(hearings: Iterable[HearingRecord]) -> list[str]:
+    """Candidate sentences and opinions of the hearings: the corpus TF-IDF is fitted on."""
     corpus: list[str] = []
     for hearing in hearings:
         people = resolve_hearing_people(hearing)
@@ -231,6 +235,7 @@ def build_hearing_udvs(
     settings: EvidenceSettings,
     turns: Sequence[Turn] | None = None,
 ) -> tuple[list[UdvRecord], list[PersonSpeech]]:
+    """Build the UDVs of one hearing and the resolved speech of each participant."""
     transcript = hearing.transcricao
     people = resolve_hearing_people(hearing, turns)
     candidates = semantic_candidates(hearing, people, encoder, settings)
@@ -279,6 +284,7 @@ def build_udvs(
     on_hearing: HearingProgress | None = None,
     clock: Callable[[], float] = time.perf_counter,
 ) -> UdvRun:
+    """Build the UDVs of every hearing, in order, with per-hearing timings."""
     run = UdvRun(hearings=tuple(hearings))
     for number, hearing in enumerate(hearings, start=1):
         started = clock()

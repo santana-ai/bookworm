@@ -1,3 +1,5 @@
+"""Blind human review of profile pairs: stratified sample and Wilson intervals."""
+
 import csv
 import io
 import math
@@ -136,6 +138,7 @@ def write_review_csv(rows: Sequence[Mapping[str, str]], path: Path) -> None:
 def sample_profile_review(
     config: ProfileValidationConfig, *, overwrite: bool = False
 ) -> JsonObject:
+    """Write a seeded, stratified review sample as a CSV with empty judgments."""
     review = config.review
     check_new_outputs((review.output, config.review_sample_path), overwrite)
     pairs = read_pairs(config.pairs_path)
@@ -363,6 +366,7 @@ def group_review(
 
 
 def score_profile_review(config: ProfileValidationConfig, annotations: Path) -> JsonObject:
+    """Score a filled review CSV: support proportions with Wilson intervals."""
     sample = read_json_object(config.review_sample_path, "review sample file")
     pairs = {pair.udv_id: pair for pair in read_pairs(config.pairs_path)}
     if sha256_of_file(config.pairs_path) != sample["pairs"]["sha256"]:

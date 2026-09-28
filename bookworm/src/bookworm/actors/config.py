@@ -1,3 +1,5 @@
+"""Actor speeches configuration: speaker policy, name merges and output paths."""
+
 import copy
 from collections.abc import Mapping
 from pathlib import Path
@@ -102,4 +104,5 @@ def speeches_path(source: Mapping[str, Any], key: str, origin: str) -> Path:
 
 
 def load_actors_config(path: Path) -> ActorsConfig:
+    """Read and validate an actor speeches TOML config; raises ``ConfigError``."""
     return ActorsConfig.from_mapping(read_toml(path), origin=str(path))

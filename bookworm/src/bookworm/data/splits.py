@@ -1,3 +1,5 @@
+"""Temporal split: date cuts, hearing assignment, manifest and report."""
+
 import platform
 from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
@@ -344,6 +346,7 @@ def build_temporal_split(
     created_at: datetime | None = None,
     environment: Mapping[str, Any] | None = None,
 ) -> SplitArtifacts:
+    """Cut the hearings by article date into train, validation and test."""
     split = compute_temporal_split(hearings, config)
     moment = datetime.now(UTC) if created_at is None else created_at
     return SplitArtifacts(

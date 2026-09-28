@@ -1,3 +1,5 @@
+"""Independent verification of a UDV run and diff against another run."""
+
 from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -347,6 +349,7 @@ def check_coverage(
 def compare_with_baseline(
     records: Sequence[UdvRecord], baseline: Sequence[UdvRecord]
 ) -> JsonObject:
+    """Count the tier moves and evidence changes of a run against a baseline run."""
     current = {record.id: record for record in records}
     moves: Counter[str] = Counter()
     evidence_changed = 0
@@ -431,6 +434,7 @@ def verify_udv_run(
     schema_errors: Sequence[str] = (),
     quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
 ) -> UdvVerification:
+    """Recompute every UDV of a run from the LDS and report each disagreement."""
     threshold = coverage_threshold(coverage)
     settings = coverage_settings(coverage, quote_policy)
     people = index_people(coverage_hearings(coverage, hearings), settings.semantic_unit)

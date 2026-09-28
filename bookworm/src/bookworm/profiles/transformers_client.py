@@ -1,3 +1,5 @@
+"""``ChatClient`` backed by Hugging Face transformers; needs the ``profiles`` extra."""
+
 from collections.abc import Callable
 from typing import Any
 

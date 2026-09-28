@@ -1,3 +1,5 @@
+"""UDV and temporal split configuration, read from TOML files."""
+
 import copy
 import tomllib
 from collections.abc import Mapping
@@ -162,8 +164,10 @@ def read_toml(path: Path) -> dict[str, Any]:
 
 
 def load_udv_config(path: Path) -> UdvConfig:
+    """Read and validate a UDV TOML config; raises ``ConfigError``."""
     return UdvConfig.from_mapping(read_toml(path), origin=str(path))
 
 
 def load_split_config(path: Path) -> SplitConfig:
+    """Read and validate a split TOML config; raises ``ConfigError``."""
     return SplitConfig.from_mapping(read_toml(path), origin=str(path))

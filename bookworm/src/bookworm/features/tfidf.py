@@ -1,3 +1,5 @@
+"""TF-IDF sentence encoder fitted on a corpus, for CPU runs and as a baseline."""
+
 import hashlib
 import json
 from collections.abc import Iterable, Sequence

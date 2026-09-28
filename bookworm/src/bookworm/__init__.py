@@ -1,3 +1,5 @@
+"""Verifiable evidence units (UDVs) linking article opinions to public hearing transcripts."""
+
 from importlib.metadata import version
 
 from bookworm.config import (

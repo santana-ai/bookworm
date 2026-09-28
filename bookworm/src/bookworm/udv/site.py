@@ -1,3 +1,5 @@
+"""Demo data directory: one JSON per hearing and ``index.json`` (``export-site``)."""
+
 from collections import Counter
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
@@ -100,6 +102,7 @@ def export_site(
     on_hearing: HearingCallback | None = None,
     signals: SiteSignals | None = None,
 ) -> SiteExport:
+    """Write the demo JSON of every hearing and then ``index.json`` to ``output_dir``."""
     ordered = sorted(hearings, key=lambda hearing: hearing.id)
     if not ordered:
         raise ConfigError(f"run {run_name} has no hearings to export")

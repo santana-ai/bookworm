@@ -1,3 +1,5 @@
+"""Collection of person turns into per-actor speeches, with the turn policy and name merges."""
+
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
@@ -345,6 +347,7 @@ def non_person_summary(drops: Sequence[NonPersonDrop]) -> JsonObject:
 def collect_actor_speeches(
     hearings: Iterable[HearingRecord], config: ActorsConfig
 ) -> ActorSpeeches:
+    """Collect the per-actor speeches of the hearings without building UDVs."""
     collector = ActorCollector(config)
     for hearing in hearings:
         collector.add_hearing(

@@ -1,3 +1,5 @@
+"""JSON and JSONL reading and writing, sha256 checks and LDS loading."""
+
 import hashlib
 import json
 from collections.abc import Iterable, Iterator, Sequence
@@ -44,6 +46,7 @@ def load_gated_jsonl(path: Path, expected_sha256: str) -> list[JsonObject]:
 
 
 def load_hearings(path: Path, expected_sha256: str | None = None) -> list[HearingRecord]:
+    """Read the LDS file, checking its sha256 first when one is given."""
     if expected_sha256 is not None:
         verify_sha256(path, expected_sha256)
     with path.open(encoding="utf-8") as handle:

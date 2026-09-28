@@ -1,3 +1,5 @@
+"""Exception hierarchy; the CLI turns every ``BookwormError`` into exit code 2."""
+
 from pathlib import Path
 
 

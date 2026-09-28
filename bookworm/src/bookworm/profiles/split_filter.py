@@ -1,3 +1,5 @@
+"""Filter of the actor speeches file to the hearings of the configured splits."""
+
 from collections import Counter
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
@@ -147,6 +149,7 @@ def summarize_evaluation(
 
 
 def build_split_filter(config: SplitFilterConfig) -> JsonObject:
+    """Write the speeches of the configured splits and return their statistics."""
     manifest = read_checked_manifest(config.manifest_path, config.lds_sha256)
     selection = selection_from_manifest(manifest, config.manifest_path, config.splits)
     eval_hearings = split_hearing_ids(manifest, config.manifest_path, config.eval_splits)

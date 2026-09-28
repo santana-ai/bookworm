@@ -1,3 +1,5 @@
+"""One pass over each transcript for the UDVs and, optionally, the actor speeches."""
+
 import time
 from collections import Counter
 from collections.abc import Callable, Mapping, Sequence
@@ -84,6 +86,7 @@ def run_pipeline(
     on_hearing: HearingProgress | None = None,
     clock: Callable[[], float] = time.perf_counter,
 ) -> PipelineRun:
+    """Split each transcript once and build UDVs, actor speeches and links from it."""
     udv_run = UdvRun(hearings=tuple(hearings))
     collector = None if actors_config is None else ActorCollector(actors_config)
     pending: list[PendingLink] = []

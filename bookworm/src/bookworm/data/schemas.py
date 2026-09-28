@@ -1,3 +1,5 @@
+"""Schema of a PublicHearingBR LDS record, with the original Portuguese keys."""
+
 from bookworm.models import StrictModel
 
 

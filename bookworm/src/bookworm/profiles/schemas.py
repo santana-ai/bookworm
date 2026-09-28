@@ -1,3 +1,5 @@
+"""Records of the actor profiles file."""
+
 import json
 from collections import Counter
 from collections.abc import Iterable

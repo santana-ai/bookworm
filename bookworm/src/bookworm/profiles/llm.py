@@ -1,3 +1,5 @@
+"""``ChatClient`` protocol and the checks applied to every generated response."""
+
 import re
 from dataclasses import dataclass
 from typing import Protocol

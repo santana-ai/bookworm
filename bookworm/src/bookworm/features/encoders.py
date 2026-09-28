@@ -1,3 +1,5 @@
+"""``SentenceEncoder`` protocol, the on-disk embedding cache and the run cache encoder."""
+
 import hashlib
 from collections.abc import Sequence
 from pathlib import Path

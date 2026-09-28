@@ -1,3 +1,5 @@
+"""Command-line interface: the ``bookworm`` Typer application."""
+
 import json
 import random
 from collections.abc import Callable, Sequence

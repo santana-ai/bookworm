@@ -1,3 +1,5 @@
+"""Records of the actor speeches files and of the UDV to actor links file."""
+
 import json
 from collections.abc import Iterable
 from pathlib import Path

@@ -1,3 +1,5 @@
+"""Publication date of each article and its check against the weekday mentions in the text."""
+
 import re
 from collections import Counter
 from collections.abc import Sequence
@@ -107,6 +109,7 @@ def updated_at(article: str) -> datetime | None:
 
 
 def article_date(article: str) -> date | None:
+    """Date of the first timestamp of an article outside an ``Atualizado em``, if any."""
     published = published_at(article)
     return published.date() if published else None
 
@@ -143,6 +146,7 @@ def check_weekday_mention(reference: date, mention: WeekdayMention) -> MentionCh
 
 
 def check_article_date(article: str) -> ArticleDateCheck:
+    """Compare the publication date with the weekday mentions of the article."""
     reference = article_date(article)
     if reference is None:
         return ArticleDateCheck(article_date=None, updated_at=None, mentions=())

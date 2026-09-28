@@ -1,3 +1,5 @@
+"""Jinja2 prompt templates and the hash that versions them."""
+
 import hashlib
 from collections.abc import Sequence
 from dataclasses import dataclass
