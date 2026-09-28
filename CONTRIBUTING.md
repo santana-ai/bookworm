@@ -1,8 +1,8 @@
 # Como contribuir
 
 O repositório tem dois projetos `uv`, cada um com seu `pyproject.toml` e seu `uv.lock`: `bookworm/` (a
-biblioteca) e `experiments/` (os experimentos, que dependem da biblioteca como pacote editável). Uma mudança só entra quando lint, tipos e
-testes passam no projeto que ela toca.
+biblioteca) e `experiments/` (os experimentos, que dependem da biblioteca como pacote editável). Uma
+mudança só entra quando lint, tipos e testes passam no projeto que ela toca.
 
 ## Ambiente
 
