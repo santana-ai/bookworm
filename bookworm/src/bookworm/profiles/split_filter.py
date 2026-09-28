@@ -9,7 +9,7 @@ from bookworm.actors.schemas import ActorSpeechRecord, read_actor_speeches, writ
 from bookworm.data.io import JsonObject, read_json_object, sha256_of_file, write_json
 from bookworm.errors import ConfigError
 from bookworm.profiles.config import SplitFilterConfig
-from bookworm.udv.schemas import UdvRecord, load_udv_jsonl
+from bookworm.udv.schemas import UdvRecord, read_udv_run
 
 LINK_DESCRIPTION = (
     "a UDV of an evaluation hearing is linked to the actor who owns its evidence turn"
@@ -103,15 +103,6 @@ def load_speeches(path: Path) -> list[ActorSpeechRecord]:
         raise ConfigError(f"{path}: cannot read actor speeches: {error}") from error
 
 
-def load_udvs(path: Path) -> list[UdvRecord]:
-    if not path.is_file():
-        raise ConfigError(f"{path}: UDV file not found")
-    try:
-        return load_udv_jsonl(path)
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read UDVs: {error}") from error
-
-
 def evidence_turn_owners(
     records: Iterable[ActorSpeechRecord], hearing_ids: frozenset[int]
 ) -> dict[tuple[int, int], str]:
@@ -160,7 +151,7 @@ def build_split_filter(config: SplitFilterConfig) -> JsonObject:
     selection = selection_from_manifest(manifest, config.manifest_path, config.splits)
     eval_hearings = split_hearing_ids(manifest, config.manifest_path, config.eval_splits)
     records = load_speeches(config.speeches_path)
-    udvs = load_udvs(config.udv_path)
+    udvs = read_udv_run(config.udv_path, "UDV file")
     filtered = filter_speeches(records, selection.hearing_ids)
     write_actor_speeches(filtered, config.output_path)
     stats: JsonObject = {

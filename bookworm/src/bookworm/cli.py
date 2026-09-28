@@ -19,6 +19,7 @@ from bookworm.data.splits import SPLIT_NAMES, build_temporal_split
 from bookworm.data.verify_splits import verify_split_run
 from bookworm.errors import BookwormError, ConfigError
 from bookworm.features.encoders import CachedEncoder, RunCacheEncoder, SentenceEncoder
+from bookworm.features.loading import load_sentence_transformer_encoder
 from bookworm.features.tfidf import TfidfEncoder
 from bookworm.pipeline import run_pipeline
 from bookworm.profiles.config import load_split_filter_config
@@ -37,8 +38,8 @@ from bookworm.udv.export import DEFAULT_TOP_K, check_run_pipeline, export_hearin
 from bookworm.udv.schemas import (
     ParsedUdvLines,
     UdvRecord,
-    load_udv_jsonl,
     read_udv_jsonl,
+    read_udv_run,
     write_udv_jsonl,
 )
 from bookworm.udv.signals import SiteSignals, load_site_signals
@@ -66,16 +67,7 @@ def default_encoder_factory(
     settings = config.encoder
     if isinstance(settings, TfidfSettings):
         return fit_tfidf_encoder(settings, hearings)
-    try:
-        from bookworm.features import sentence_transformer
-    except ModuleNotFoundError as error:
-        raise ConfigError(
-            f"encoder kind {settings.kind!r} needs the optional 'embeddings' extra: {error}"
-        ) from error
-    sentence_transformer.seed_torch(config.seed)
-    return sentence_transformer.SentenceTransformerEncoder(
-        settings.name, settings.revision, settings.device, settings.batch_size
-    )
+    return load_sentence_transformer_encoder(settings, config.seed)
 
 
 def seed_everything(seed: int) -> None:
@@ -104,20 +96,8 @@ def load_lds(path: Path, expected_sha256: str) -> list[HearingRecord]:
     return load_hearings(path, expected_sha256)
 
 
-def load_baseline(path: Path) -> list[UdvRecord]:
-    try:
-        return load_udv_jsonl(path)
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read baseline run: {error}") from error
-
-
 def load_split_udvs(path: Path) -> list[UdvRecord] | None:
-    if not path.exists():
-        return None
-    try:
-        return load_udv_jsonl(path)
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read UDV run: {error}") from error
+    return read_udv_run(path, "UDV run") if path.exists() else None
 
 
 def read_run_records(path: Path) -> ParsedUdvLines:
@@ -262,7 +242,9 @@ def run_verify(config_path: Path, run_name: str, baseline: Path | None) -> bool:
         raise ConfigError(f"{coverage_path}: {error}") from error
     report = verification.to_report()
     if baseline is not None:
-        report["baseline_diff"] = compare_with_baseline(parsed.records, load_baseline(baseline))
+        report["baseline_diff"] = compare_with_baseline(
+            parsed.records, read_udv_run(baseline, "baseline run")
+        )
     echo_json(report)
     return verification.ok
 

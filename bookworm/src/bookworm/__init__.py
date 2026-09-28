@@ -100,6 +100,7 @@ from bookworm.udv.schemas import (
     UdvRecord,
     load_udv_jsonl,
     read_udv_jsonl,
+    read_udv_run,
     write_udv_jsonl,
 )
 from bookworm.udv.signals import Segmentation, SiteSignals, load_site_signals
@@ -191,6 +192,7 @@ __all__ = [
     "locate_turn_sentence_span",
     "pipeline_description",
     "read_udv_jsonl",
+    "read_udv_run",
     "resolve_hearing_people",
     "resolve_person_speech",
     "select_hearings",

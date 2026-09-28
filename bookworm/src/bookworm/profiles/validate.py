@@ -32,11 +32,12 @@ from bookworm.data.io import (
 from bookworm.data.splits import SPLIT_NAMES, SplitName
 from bookworm.errors import ConfigError
 from bookworm.features.encoders import CachedEncoder, FloatMatrix, SentenceEncoder
+from bookworm.features.loading import load_sentence_transformer_encoder
 from bookworm.features.tfidf import TfidfEncoder
 from bookworm.models import StrictModel
 from bookworm.profiles.schemas import ProfileRecord, read_profiles
 from bookworm.transcript.sentences import split_sentences
-from bookworm.udv.schemas import Tier, UdvRecord, load_udv_jsonl
+from bookworm.udv.schemas import Tier, UdvRecord, read_udv_run
 
 Group = Literal["in_prompt", "held_out"]
 SkipReason = Literal[
@@ -408,16 +409,7 @@ def default_profile_encoder(
 ) -> SentenceEncoder:
     if isinstance(settings, TfidfSettings):
         return TfidfEncoder.fit(corpus, max_features=settings.max_features)
-    try:
-        from bookworm.features import sentence_transformer
-    except ModuleNotFoundError as error:
-        raise ConfigError(
-            f"encoder kind {settings.kind!r} needs the optional 'embeddings' extra: {error}"
-        ) from error
-    sentence_transformer.seed_torch(seed)
-    return sentence_transformer.SentenceTransformerEncoder(
-        settings.name, settings.revision, settings.device, settings.batch_size
-    )
+    return load_sentence_transformer_encoder(settings, seed)
 
 
 def round_value(value: float) -> float:
@@ -576,20 +568,11 @@ def read_links(path: Path) -> dict[str, UdvActorLink]:
     return by_udv
 
 
-def read_udvs(path: Path) -> list[UdvRecord]:
-    try:
-        return load_udv_jsonl(path)
-    except FileNotFoundError as error:
-        raise ConfigError(f"{path}: UDV run file not found") from error
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read UDV run: {error}") from error
-
-
 def load_inputs(config: ProfileValidationConfig) -> ValidationInputs:
     if not config.profiles_path.is_file():
         raise ConfigError(f"{config.profiles_path}: profiles file not found")
     return ValidationInputs(
-        udvs=read_udvs(config.udv_path),
+        udvs=read_udv_run(config.udv_path, "UDV run"),
         links=read_links(config.links_path),
         profiles=read_profiles(config.profiles_path),
         manifest=read_split_manifest(config.split_manifest),

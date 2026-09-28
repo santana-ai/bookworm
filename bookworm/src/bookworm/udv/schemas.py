@@ -6,6 +6,7 @@ from typing import Any, Literal, get_args
 
 from pydantic import ValidationError
 
+from bookworm.errors import ConfigError
 from bookworm.models import StrictModel
 
 Tier = Literal[
@@ -106,6 +107,15 @@ def read_udv_jsonl(path: Path) -> ParsedUdvLines:
 def load_udv_jsonl(path: Path) -> list[UdvRecord]:
     with path.open(encoding="utf-8") as handle:
         return [UdvRecord.from_json_line(line) for line in handle]
+
+
+def read_udv_run(path: Path, description: str) -> list[UdvRecord]:
+    if not path.is_file():
+        raise ConfigError(f"{path}: {description} not found")
+    try:
+        return load_udv_jsonl(path)
+    except (OSError, ValueError) as error:
+        raise ConfigError(f"{path}: cannot read {description}: {error}") from error
 
 
 def write_udv_jsonl(records: Iterable[UdvRecord], path: Path) -> None:
