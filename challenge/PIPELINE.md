@@ -261,14 +261,16 @@ trechos aproximados discorda do cosseno.
 
 **Problema.** As contagens de avaliação dos perfis de ator dependem de qual regra liga uma UDV a um ator.
 
-| regra | UDVs ligadas em `udv_v1` |
-|---|---|
-| turnos atribuídos | 2.104 |
-| turno de evidência | 2.099 |
-| divergências entre as duas | 0 |
+| regra | UDVs ligadas em `udv_v1` | UDVs ligadas em `udv_v2` |
+|---|---|---|
+| turnos atribuídos | 2.104 | 2.104 |
+| turno de evidência | 2.099 | 2.098 |
+| divergências entre as duas | 0 | 0 |
 
-Fonte: `../bookworm/docs/actors.md`, seção "Duas regras de ligação", e
-`artifacts/actor_profiles/train_speeches_stats.json` (106 UDVs de teste ligadas a atores com perfil).
+Fontes: `../bookworm/docs/actors.md`, seção "Duas regras de ligação", e
+`artifacts/udv/udv_v2_downstream_report.json` (`runs.<rodada>.link_rules`). Nas duas rodadas, 106 UDVs de
+teste ficam ligadas a atores com perfil (`artifacts/actor_profiles/train_speeches_stats.json` e
+`artifacts/actor_profiles/train_speeches_stats_udv_v2.json`).
 
 **Decisão.** As duas regras nunca escolhem atores diferentes; o arquivo de ligações usa a primeira.
 
@@ -408,6 +410,13 @@ probabilidade subiu de 0,478 para 0,590 e 1.312 subiram; nas 152 citações este
 (`v1_vs_v2`). As 136 UDVs pontuadas com evidência igual têm a mesma probabilidade nas duas execuções
 (diferença máxima 0).
 
+**Conferência do escore** (`evidence_score_check` de `udv_v2_verifier_report.json`). A camada recalcula o
+cosseno da janela que o verificador leu e o compara com `evidence.score` da UDV. Em 1.771 das 1.828 UDVs
+semânticas a diferença é 0. Nas outras 57 (`encoded_text_differs`), o intervalo da janela na transcrição
+inclui partes que não são candidatas (trechos de menos de 4 palavras, rubricas ou a divisão em "Sr."), que
+o encoder não leu; a premissa do verificador é mais longa que o texto codificado, e a diferença chega a
+0,0902.
+
 **Nível do cosseno contra a decisão do verificador**, só UDVs semânticas (`cosine_tier_agreement`):
 
 | corte do verificador | alta e passa | alta e não passa | fraca e passa | fraca e não passa | concordância | kappa |
@@ -440,15 +449,23 @@ Dos 121 itens `trecho_sustenta`, só 17 (todos citações) mantêm a evidência;
 mantém, porque a janela sempre difere da sentença julgada. Os 17 itens herdados não são uma amostra
 aleatória de `udv_v2`: são as citações que já cabiam numa sentença.
 
-**Comando de precisão.** Com a planilha preenchida e a chave:
+Os 104 itens que mudaram estão na planilha suplementar
+`artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv`, com a mesma opinião e a
+evidência de `udv_v2`, em nova ordem e com novos identificadores (a correspondência fica em
+`annotation_key.json`, na mesma pasta). Nenhuma linha dela foi julgada.
+
+**Comando de precisão.** Com as planilhas preenchidas e as chaves:
 
 ```bash
 uv run python -m utils.udv_v2_analysis score-annotation --final-test \
-  --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv
+  --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
+  --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement
 ```
 
 Ele reusa as funções de `utils/precision_report.py` (precisão estrita e tolerante por estrato, intervalo
-de Wilson a 95%, critérios congelados na chave) para `udv_v1` e para os itens herdados de `udv_v2`. Com a
+de Wilson a 95%, critérios congelados na chave) para `udv_v1`, para os itens herdados de `udv_v2` e, com
+`--supplement-dir`, para `udv_v2` inteira: o item sem mudança conta com o rótulo de `udv_v1` e o item com
+mudança, só com o rótulo da planilha suplementar. Com a
 planilha incompleta, conta só as linhas com rótulo válido, informa "n julgados de N" no total e por
 estrato, lista rótulos fora do conjunto permitido sem contá-los e marca o relatório e cada critério como
 `INTERIM`. Cada execução grava um arquivo novo, `artifacts/udv/udv_v2_precision_<interim|final>_<UTC>.json`,
@@ -474,9 +491,9 @@ cada critério e o que ainda falta anotar estão no relatório, seção 7.2. O a
   intérprete (`artifacts/udv/udv_v2.jsonl`, nível `no_evidence`; `HEARING_ACTORS.md` conta 6
   participantes que falaram em Libras). Atribuir a fala do intérprete a eles daria evidência a no máximo
   8 das 2.203 opiniões. Não implementado.
-- **Validação humana de `udv_v2`.** Os itens semânticos e as 18 citações estendidas da amostra precisam
-  de novos julgamentos com a evidência de `udv_v2`; sem isso, não há precisão humana de `udv_v2` além das
-  citações herdadas.
+- **Validação humana de `udv_v2`.** As 104 linhas da planilha suplementar (os itens semânticos e as 18
+  citações estendidas da amostra) precisam de julgamento com a evidência de `udv_v2`; sem isso, não há
+  precisão humana de `udv_v2` além das citações herdadas.
 - **Domínio do verificador.** O primário foi ajustado com premissas de 4 chunks recuperados; nas UDVs a
   premissa é uma citação ou uma janela. O corte de premissa UDV corrige a escala no treino, mas o efeito
   da mudança de domínio na ordenação não foi medido com rótulo humano.
