@@ -187,7 +187,7 @@ de ligação.
 
 A UDV liga cada opinião do LDS a um trecho da fala da pessoa, com offsets exatos, índice de turno, nível
 (`tier`), tipo de suporte (`support_type`) e proveniência (`provenance`). O registro e as regras estão em
-[`methodology/udv.md`](methodology/udv.md) e, para `udv_v2`, em `docs/pipeline.md` e no ADR 0006
+[`methodology/udv.md`](methodology/udv.md) e, para `udv_v2`, em [`pipeline.md`](pipeline.md) e no ADR 0006
 ([`bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`](../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md)).
 
 ## 2. Splits
@@ -329,7 +329,7 @@ confiável é cortada no fim da sentença que contém o prefixo, mesmo quando a 
 do verificador (seção 5.7) reprovou 72% das citações literais com premissa de uma sentença. `udv_v2`
 alonga a evidência e recalibra os cortes. Decisões no ADR 0006; configuração em `configs/udv_v2.toml`.
 
-Regras de `udv_v2` (`docs/pipeline.md`, "Pipeline recomendado"):
+Regras de `udv_v2` ([`pipeline.md`](pipeline.md), "Pipeline recomendado"):
 
 1. Resolução de pessoa igual a `udv_v1`.
 2. Citação: mesmo casamento de prefixo; a evidência se estende até o fim da citação, achado por um sufixo
@@ -796,7 +796,7 @@ não inferíveis. Bootstrap pareado de 1000 réplicas de audiências, semente 42
 | primário contra `xnli` | +0.1113 | 0.020 |
 | `laya_en_en:learned` contra painel | +0.0112 | 0.54 |
 
-**Decisão** (`docs/pipeline.md`). O primário do E3x é o verificador adotado, com o corte do train 0.7478. O kappa
+**Decisão** ([`pipeline.md`](pipeline.md)). O primário do E3x é o verificador adotado, com o corte do train 0.7478. O kappa
 dele no teste (0.5924) fica abaixo do kappa dos juízes LLM do dataset (0.6909 do juiz de referência na
 validação); ele ordena bem, mas não substitui um juiz como classificador binário. O kappa do teste
 (0.5924) e o da validação (0.4411) diferem bastante; o teste tem mais negativos (89 de 559 contra 76 de
@@ -963,7 +963,7 @@ A concordância com o encoder é um indicador fraco de precisão, porque o encod
 citação. Deve ser lida contra a concordância no controle positivo (0.612), e não contra 1.
 
 **Decisão.** Fica desligado. As planilhas de revisão (`fuzzy_v1_quotes_review.jsonl`, 458 linhas, e
-`fuzzy_v1_names_review.jsonl`, 70 linhas, segundo `docs/pipeline.md`) não têm julgamento; o cálculo de precisão
+`fuzzy_v1_names_review.jsonl`, 70 linhas, segundo [`pipeline.md`](pipeline.md)) não têm julgamento; o cálculo de precisão
 (`uv run --no-sync python -m experiments.validation.fuzzy_review_precision`) só roda com elas preenchidas.
 
 ## 6. Atores e regras de ligação

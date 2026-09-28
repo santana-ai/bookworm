@@ -5,7 +5,7 @@ Deliberativas Verificáveis, descritas em [`docs/methodology/udv.md`](methodolog
 `udv_v2`. Para cada experimento: o problema, o que foi comparado, uma tabela curta e a decisão. Todo
 número cita o artefato de onde vem; os caminhos são relativos a `experiments/`, salvo quando indicado. A
 descrição completa de cada experimento, com todos os números, está em
-[`docs/report.md`](report.md); os comandos, em [`experiments/README.md`](../experiments/README.md).
+[`docs/report.md`](report.md); os comandos, no [guia de reprodução](reproduce.md).
 
 Splits: manifesto `artifacts/splits/temporal_v1.json`, 144 audiências de treino, 32 de validação e 30
 de teste. Nenhuma escolha deste documento usou o teste; onde há número de teste, ele foi medido depois
