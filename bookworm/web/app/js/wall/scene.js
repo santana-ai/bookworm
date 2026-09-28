@@ -156,7 +156,7 @@ export function installScene(w) {
       if (o.type === "cad" && !linked[o.id]) v = v === "faint" ? "faint" : "pale";
       el.dataset.v = v;
       const hb = el.querySelector(".wl-hit");
-      if (hb) hb.tabIndex = view.mode === "net" && on ? 0 : -1;
+      if (hb) hb.tabIndex = -1;
       if (o.type === "st") el.classList.toggle("is-inked", scLv(view, Number(o.id.slice(2)), "result"));
       if (o.type === "pa") {
         const k = Number(o.id.slice(2));
@@ -210,9 +210,36 @@ export function installScene(w) {
       w.els.legend.hidden = legendHidden;
       w.resetZoomBounds();
     }
+    w.rove(view.mode === "net" ? view.pull : null);
     w.redrawAll();
     w.startLoop();
   }
 
-  Object.assign(w, { sceneIdx, lastK, lvOf, scLv, curSets, tagSet, setTag, applyWall });
+  function roveList() {
+    return w.OBJ_LIST.filter((o) => o.el.classList.contains("is-on")).map((o) => o.el.querySelector(".wl-hit")).filter(Boolean);
+  }
+
+  function rove(prefer) {
+    const list = roveList();
+    if (!list.length) return null;
+    const want = prefer || w.roveId;
+    let cur = list.find((b) => b.dataset.pull === want) || list.find((b) => b.dataset.pull === w.roveId) || list[0];
+    list.forEach((b) => {
+      b.tabIndex = b === cur ? 0 : -1;
+    });
+    w.roveId = cur.dataset.pull;
+    return cur;
+  }
+
+  function roveStep(from, d) {
+    const list = roveList();
+    const at = list.indexOf(from);
+    if (at < 0 || !list.length) return;
+    const nx = list[(at + d + list.length) % list.length];
+    w.roveId = nx.dataset.pull;
+    rove(w.roveId);
+    nx.focus();
+  }
+
+  Object.assign(w, { sceneIdx, lastK, lvOf, scLv, curSets, tagSet, setTag, applyWall, rove, roveStep });
 }

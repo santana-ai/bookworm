@@ -1,4 +1,5 @@
-import { tierOf } from "./copy.js";
+import { tierOf, verifierCut } from "./copy.js";
+import { supportOf } from "./support.js";
 import { fmtDate, firstName, matchBlocks, reEsc, seqIndex, titleCase, wordsOf } from "./text.js";
 
 const DASH_CAP = 440;
@@ -125,6 +126,7 @@ export function buildModel(H) {
   const T = H.transcript;
   const RUN = H.run;
   const CUT = RUN.threshold;
+  const C = H.signals ? verifierCut(H.signals) : null;
   const turns = H.turns.slice().sort((a, b) => a.index - b.index);
   const NT = turns.length;
   const turnsByIdx = {};
@@ -197,6 +199,7 @@ export function buildModel(H) {
       tier: tierOf(u.tier),
       nSent: u.n_candidates,
       spot: articleSpot(article, u, i),
+      sup: supportOf(u, C),
       mentions: { turns: [], people: [] },
       quote: null,
       qsem: null,
@@ -327,6 +330,7 @@ export function buildModel(H) {
     T,
     RUN,
     CUT,
+    C,
     NT,
     turns,
     turnsByIdx,

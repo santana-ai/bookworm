@@ -54,10 +54,13 @@ kbd { font: 700 0.85em/1 var(--f-mono); padding: 1px 5px; border-radius: 3px; ba
 .at-a a::before { content: ""; position: absolute; top: -6px; left: 14px; width: 54px; height: 10px; border-radius: 4px 4px 0 0; background: var(--kraft-lt); }
 .at-a a:hover { transform: translateY(-3px); background: #EEDDBD; }
 .at-a a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-.at-mono { grid-row: 1 / span 5; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #4E5967; color: #F3EFE4; font: 400 17px/1 var(--f-stamp); }
+.at-mono { grid-row: 1 / span 7; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #4E5967; color: #F3EFE4; font: 400 17px/1 var(--f-stamp); }
+.at-a a > :not(.at-mono) { grid-column: 2; }
 .at-a-n { font: 800 15.5px/1.2 var(--f-ui); overflow-wrap: break-word; }
 .at-a-r { font: 500 13px/1.3 var(--f-ui); color: var(--kraft-mute); overflow-wrap: break-word; }
 .at-a-m, .at-a-c { font: 500 12.5px/1.3 var(--f-ui); color: var(--kraft-mute); }
+.at-a-u { font: 600 14px/1.3 var(--f-ui); color: var(--kraft-ink); }
+.at-a-u b { font: 800 17px/1 var(--f-ui); }
 .at-bar { display: flex; height: 8px; margin-top: 4px; background: rgba(42, 27, 14, 0.15); }
 .at-bar i { height: 100%; width: auto; flex-basis: 0; }
 
@@ -83,10 +86,11 @@ kbd { font: 700 0.85em/1 var(--f-mono); padding: 1px 5px; border-radius: 3px; ba
 @media (max-width: 760px) {
   .bar { padding-right: 16px; }
   .crumbs ol { font-size: 14px; }
-  .map-tab { top: auto; bottom: 14px; right: 12px; flex-direction: row; gap: 8px; padding: 10px 12px; border-radius: 22px; transform: none; font-size: 13.5px; }
+  .map-tab { position: static; order: 2; margin-left: auto; flex-direction: row; gap: 8px; min-height: 40px; padding: 9px 12px; border-radius: 20px; transform: none; font-size: 13.5px; box-shadow: 0 3px 0 #8F7049, inset 0 0 0 1px rgba(90, 60, 30, 0.35); }
   .map-tab-t { writing-mode: horizontal-tb; transform: none; }
   .map-tab kbd { display: none; }
-  body { padding-bottom: 64px; }
+  .brand { order: 1; }
+  .crumbs { order: 3; flex: 1 1 100%; }
 }
 @media (min-width: 761px) {
   main, footer { padding-right: 60px; }

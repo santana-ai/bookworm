@@ -170,8 +170,9 @@ foi escolhida e quais trechos ficaram perto dela. Chaves de primeiro nível, nes
 | `turns[].index` | inteiro | Índice do turno (o `speaker_turn` das UDV). |
 | `turns[].speaker`, `turns[].party` | texto | Nome no cabeçalho do turno e conteúdo do parêntese (`""` quando não há). |
 | `turns[].start`, `turns[].end` | inteiro | Offsets da fala do turno, sem o cabeçalho. |
-| `turns[].sentences[]` | lista | Sentenças candidatas do turno, na ordem do texto, com `text`, `start` e `end`; os offsets são procurados só nesse turno e ficam `null` se o texto não for encontrado nele. |
-| `people[]` | lista | Participantes de `envolvidos`, na ordem do LDS: `index`, `name`, `role`, `turns` (índices dos turnos atribuídos) e `resolved` (pelo menos um turno). |
+| `turns[].sentences[]` | lista | Sentenças candidatas do turno, na ordem do texto, cada uma uma lista `[start, end]`; os offsets são procurados só nesse turno. O texto da sentença é `transcript[start:end]` com cada sequência de espaços (a classe `\s` do JavaScript) trocada por um espaço e as pontas aparadas, e só é gravado, como terceiro item (`[start, end, text]`), quando essa regra não o reproduz; quando o texto não é encontrado no turno, a entrada é `[null, null, text]`. Assim a transcrição vai uma vez só no arquivo. |
+| `people[]` | lista | Participantes de `envolvidos`, na ordem do LDS: `index`, `name`, `role`, `turns` (índices dos turnos atribuídos) e `resolved` (pelo menos um turno). e `similar_speakers`. |
+| `people[].similar_speakers` | lista | Vazia para quem tem turno. Para quem não foi achado, até 3 nomes de cabeçalho de turno parecidos com `name` (`difflib.SequenceMatcher` sobre os nomes normalizados, razão de pelo menos 0,75), do mais parecido para o menos: `name` como está na transcrição, `turns` e `score` (3 casas). É uma pista para conferir, não uma identificação: na audiência 53, "Luegio de Souza" tem "LUÉRGIO DE SOUSA" com 0,903. |
 | `udvs[]` | lista | Os registros UDV da audiência, lidos de `<run>.jsonl`, com os campos de `UdvRecord` na mesma ordem e três campos a mais (quatro com `--verifier-report`, que acrescenta `signals` no fim). |
 | `udvs[].candidates[]` | lista | Até `--top-k` (padrão 8) unidades candidatas do participante, em ordem decrescente de similaridade de cosseno com a opinião, calculada com os embeddings que `build-udvs` gravou no cache para a execução; empates ficam na ordem das unidades. A unidade é a de `semantic_unit` na configuração: a sentença, ou a janela de sentenças seguidas do mesmo turno (`window2` em `udv_v2`), com o texto do trecho da transcrição que ela cobre. Cada uma tem `text`, `score` (arredondado a 4 casas), `turn`, `start` e `end`. Vazia quando o participante não tem sentença candidata. |
 | `udvs[].n_candidates` | inteiro | Número de unidades candidatas do participante. |
@@ -285,7 +286,7 @@ audiências listadas no índice pertencem à exportação: `--overwrite` não ap
 que ficaram fora da execução, e a demonstração web recusa abrir uma audiência que não está no índice
 ou cujo bloco `run` difere do dele.
 
-`index.json` é um objeto com duas chaves, nesta ordem: `run` e `hearings`.
+`index.json` é um objeto com duas chaves, nesta ordem: `run` e `hearings`; com `--human-validation`, uma terceira, `validation`.
 
 | Campo | Tipo | Conteúdo |
 |---|---|---|
@@ -300,6 +301,25 @@ ou cujo bloco `run` difere do dele.
 | `hearings[].transcript_words` | inteiro | Cópia de `hearing.transcript_words`. |
 | `hearings[].actors` | lista de texto | `name` de cada participante de `people`, na mesma ordem; a posição na lista é `people[].index`. |
 
+`validation` resume a conferência humana da execução, lida do relatório final de precisão
+(`experiments/artifacts/udv/udv_v2_precision_final.json`, seção com o nome da execução). O comando
+para com código 2 quando falta um campo, quando uma UDV julgada não está na execução, quando um
+julgamento está fora dos rótulos da pergunta ou quando as contagens por `tier` não batem com
+`by_tier` do relatório. Campos: `source` (`path`, `sha256`), `run`, `status`, `sample_name`,
+`splits`, `confidence_level`, `single_annotator` (o texto de `label_semantics.trecho_sustenta`
+começa com "one annotator"), `criteria_declared_on`, `judged_items`; `tiers`, por `tier` com UDV
+julgadas em `trecho_sustenta`, com `udvs`, `correta`, `parcial`, `incorreta`, `strict` e `tolerant`
+(`successes`, `trials`, `estimate`, `low`, `high`, intervalo de Wilson); `criteria` (`name`,
+`stratum`, `metric`, `min_wilson_lower`, `status`, `observed`); `inheritance` (`judged_inherited`,
+`judged_reannotated`, `rule`, `assumption`, ou `null`); `speaker_check` (`udvs`, `falou`,
+`nao_falou`, `nao_sei`, ou `null`); `udvs`, que leva cada id julgado a `question` e `judgment`; e
+`verifier_bands`, só com `--verifier-report` e um corte para premissas de UDV (senão `null`):
+`cuts` (`[udv_threshold.value, threshold]`), `bands` (`weak` abaixo do primeiro corte, `uncertain`
+entre os dois, `strong` a partir do segundo, cada uma com `udvs`, `correta`, `parcial`,
+`incorreta` das UDVs julgadas em `trecho_sustenta`) e `unscored`. Para `udv_v2`: `quote_found` 25,
+6 e 4 de 35; `semantic_match_high` 50, 19 e 11 de 80; `semantic_match_weak` 1, 0 e 5 de 6; faixas
+5, 3 e 7 (fraca), 23, 15 e 10 (incerta), 48, 7 e 3 (forte); os dois critérios com `FAIL`.
+
 O título é a primeira linha não vazia de `materia` (a manchete da matéria), com os espaços
 normalizados; se `materia` não tiver nenhuma linha com texto, é `assunto`, também normalizado. Um
 título com mais de 120 caracteres é cortado no último espaço que deixa o resultado, já com as
@@ -313,11 +333,11 @@ Para `udv_v1` com `temporal_v1` (teste `tests/integration/test_export_site.py`):
 audiência, 2.203 UDV, com as contagens por `tier` e por `support_type` iguais às do arquivo de
 cobertura (`quote_found` 277, `semantic_match_high` 1.785, `semantic_match_weak` 43, `no_evidence` 8,
 `person_not_resolved` 90; `direct_quote` 277, `semantic_with_short_quote` 111, `semantic_similarity`
-1.717). Os arquivos de audiência somam 76.526.309 bytes: o menor tem 115.500 (audiência 67), a mediana
-é 329.899 e o maior tem 3.377.789 (audiência 6, a transcrição mais longa do LDS, com 147.728
+1.717). Os arquivos de audiência somam 46.836.254 bytes: o menor tem 79.531 (audiência 67), a mediana
+é 199.367 e o maior tem 2.388.858 (audiência 6, a transcrição mais longa do LDS, com 147.728
 palavras). O índice tem 184.112 bytes. Com `--verifier-report artifacts/udv/udv_v1_verifier_report.json`,
-os arquivos de audiência somam 80.892.695 bytes (o menor tem 132.368, a mediana é 350.800,5 e o maior
-tem 3.423.632, as mesmas audiências), e o índice continua com os mesmos 184.112 bytes.
+os arquivos de audiência somam 51.202.640 bytes (o menor tem 96.399, a mediana é 218.513 e o maior
+tem 2.434.701, as mesmas audiências), e o índice continua com os mesmos 184.112 bytes.
 
 ## Falas por ator
 

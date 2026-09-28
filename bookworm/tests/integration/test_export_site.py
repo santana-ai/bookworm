@@ -134,8 +134,8 @@ def test_titles_are_headlines_within_the_limit(
 def test_file_sizes(site_dir: Path) -> None:
     sizes = {int(path.stem): path.stat().st_size for path in (site_dir / "hearings").glob("*.json")}
     ordered = sorted(sizes.values())
-    assert sum(ordered) == 76_526_309
-    assert (ordered[0], statistics.median(ordered), ordered[-1]) == (115_500, 329_899, 3_377_789)
+    assert sum(ordered) == 46_836_254
+    assert (ordered[0], statistics.median(ordered), ordered[-1]) == (79_531, 199_367, 2_388_858)
     assert min(sizes, key=sizes.__getitem__) == 67
     assert max(sizes, key=sizes.__getitem__) == 6
     assert (site_dir / "index.json").stat().st_size == 184_112

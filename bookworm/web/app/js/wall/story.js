@@ -1,4 +1,4 @@
-import { unitCopy } from "../copy.js";
+import { SUPPORT_NOTE, unitCopy } from "../copy.js";
 import { clamp, countLabel, esc, fmtInt, fmtScore, joinPt, plural, tno } from "../text.js";
 import { cadId, paId, peId, stId } from "./objects.js";
 
@@ -398,30 +398,34 @@ export function installStory(w) {
     }
     if (id === "passage") {
       const t = tno(ev.speaker_turn);
-      const chars = "caracteres " + fmtInt(ev.start_char) + " a " + fmtInt(ev.end_char);
       const shared = PAS[s.pa].sts.filter((j) => j !== s.i && st.done[j]);
       const line = s.tier.k === "q" ? "O fio verde, grosso e duplo," : s.tier.k === "h" ? "O fio azul" : "O fio tracejado, mais fraco,";
       return (
-        (shared.length ? "É o mesmo trecho da " + plural(shared.length, "afirmação ", "afirmações ") + joinPt(shared.map((j) => String(j + 1))) + ". " : "Este é o trecho escolhido, no turno " + t + ", " + chars + ". ") +
+        (shared.length ? "É o mesmo trecho da " + plural(shared.length, "afirmação ", "afirmações ") + joinPt(shared.map((j) => String(j + 1))) + ". " : "Este é o trecho escolhido, no turno " + t + ", fala de " + M.speakerName(ev.speaker_turn) + ". ") +
         line + " liga o trecho ao cartão; o preto, de traço e ponto, mostra onde ele está no caderno de " + name + "."
       );
     }
     const k = s.tier.k;
-    if (k === "q") return "Resultado: " + w.quoteCount(s.quote).toLowerCase() + " entre aspas aparecem iguais na fala de " + name + ", no turno " + tno(ev.speaker_turn) + ". Aqui não há nota de semelhança; compare o cartão com o trecho em amarelo.";
-    if (k === "h") return "Resultado: achamos um trecho parecido, com nota " + fmtScore(ev.score, M.CUT) + ". A nota vai de 0 a 1 e mede o quanto as frases se parecem, não a chance de a matéria estar certa. Compare o cartão com o trecho em amarelo.";
-    if (k === "w") return "Resultado: só achamos algo pouco parecido. A nota, " + fmtScore(ev.score, M.CUT) + ", ficou abaixo de " + cutText() + ", o ponto a partir do qual chamamos de parecido.";
+    const sup = supportTail(s);
+    if (k === "q") return "Resultado: " + w.quoteCount(s.quote).toLowerCase() + " entre aspas aparecem iguais na fala de " + name + ", no turno " + tno(ev.speaker_turn) + "; aqui não se mede semelhança." + sup + " Compare o cartão com o trecho em amarelo.";
+    if (k === "h") return "Resultado: achamos um trecho parecido, com semelhança " + fmtScore(ev.score, M.CUT) + ", de 0 a 1." + sup + " Compare o cartão com o trecho em amarelo.";
+    if (k === "w") return "Resultado: só achamos algo pouco parecido. A semelhança, " + fmtScore(ev.score, M.CUT) + ", ficou abaixo de " + cutText() + ", o ponto a partir do qual chamamos de parecido." + sup;
     if (k === "u") return "Resultado: não achamos " + (isCompany(g) ? "essa empresa" : "essa pessoa") + " entre quem fala, então não há fala para comparar." + (s.spot.viaNote ? " A matéria relata uma nota." : "");
     return "Resultado: não havia frase de " + name + " para comparar.";
   }
 
+  function supportTail(s) {
+    return s.sup ? " O verificador dá " + s.sup.b.label + " ao trecho (" + s.sup.text + "); " + SUPPORT_NOTE.charAt(0).toLowerCase() + SUPPORT_NOTE.slice(1) : "";
+  }
+
   function restCaption() {
     const s = S[0];
-    const sc = scoreOf(s) != null ? ", com nota " + fmtScore(s.ev.score, M.CUT) + " (de 0 a 1; mede semelhança, não a chance de estar certo)" : "";
+    const sc = scoreOf(s) != null ? ", com semelhança " + fmtScore(s.ev.score, M.CUT) + " (de 0 a 1; não é a chance de a afirmação estar certa)" : "";
     return "A matéria atribui uma afirmação a " + s.u.actor.name + ", e " + REST_PHRASE[s.tier.k] + sc + ". Aperte Começar para ver os fios sendo amarrados.";
   }
 
   function weakTail(s) {
-    return "com nota " + fmtScore(s.ev.score, M.CUT) + ", abaixo de " + cutText() + ": só achamos algo pouco parecido";
+    return "com semelhança " + fmtScore(s.ev.score, M.CUT) + ", abaixo de " + cutText() + ": só achamos algo pouco parecido";
   }
 
   function summary(id) {
@@ -435,7 +439,7 @@ export function installStory(w) {
       if (!s.resolved) return r + "Não achamos " + (isCompany(M.groupOfSt[s.i]) ? "essa empresa" : "essa pessoa") + " entre quem fala.";
       if (!s.ev) return r + "Não havia frase para comparar.";
       if (s.tier.k === "w") return r + "Ligada ao trecho mais parecido do turno " + tno(s.ev.speaker_turn) + ", " + weakTail(s) + ".";
-      return r + "Ligada a um trecho do turno " + tno(s.ev.speaker_turn) + ": " + s.tier.label.toLowerCase() + (scoreOf(s) != null ? ", nota " + fmtScore(s.ev.score, M.CUT) : "") + ".";
+      return r + "Ligada a um trecho do turno " + tno(s.ev.speaker_turn) + ": " + s.tier.label.toLowerCase() + (scoreOf(s) != null ? ", semelhança " + fmtScore(s.ev.score, M.CUT) : "") + "." + supportTail(s);
     }
     if (o.type === "pe") {
       const g = groupById(Number(id.slice(2)));
@@ -455,8 +459,8 @@ export function installStory(w) {
       const num = (j) => String(j + 1);
       const parts = [];
       if (strong.length) parts.push("é o trecho escolhido para " + plural(strong.length, "a afirmação ", "as afirmações ") + joinPt(strong.map(num)));
-      if (weak.length) parts.push("é o mais parecido que achamos para " + plural(weak.length, "a afirmação ", "as afirmações ") + joinPt(weak.map(num)) + ", mas a nota ficou abaixo de " + cutText());
-      return "Trecho do turno " + tno(pa.turn) + ", caracteres " + fmtInt(pa.start) + " a " + fmtInt(pa.end) + ": " + parts.join("; ") + ".";
+      if (weak.length) parts.push("é o mais parecido que achamos para " + plural(weak.length, "a afirmação ", "as afirmações ") + joinPt(weak.map(num)) + ", mas a semelhança ficou abaixo de " + cutText());
+      return "Trecho do turno " + tno(pa.turn) + ", fala de " + M.speakerName(pa.turn) + ": " + parts.join("; ") + ".";
     }
     return "";
   }
@@ -469,7 +473,7 @@ export function installStory(w) {
     }
     if (o && o.type === "pa") {
       const pa = PAS[Number(id.slice(2))];
-      return "Trecho do turno " + tno(pa.turn) + ", caracteres " + fmtInt(pa.start) + " a " + fmtInt(pa.end) + ".";
+      return "Trecho do turno " + tno(pa.turn) + ", fala de " + M.speakerName(pa.turn) + ".";
     }
     return summary(id);
   }
@@ -492,7 +496,7 @@ export function installStory(w) {
     if (x.type === "sus") {
       const s = S[x.st];
       if (s.tier.k === "w") return "Fio tracejado: liga a afirmação " + (x.st + 1) + " ao trecho mais parecido que achamos, " + weakTail(s) + ".";
-      return "Fio “" + x.label + "”: liga a afirmação " + (x.st + 1) + " a este trecho; " + s.tier.label.toLowerCase() + (scoreOf(s) != null ? ", nota " + fmtScore(s.ev.score, M.CUT) : "") + ".";
+      return "Fio “" + x.label + "”: liga a afirmação " + (x.st + 1) + " a este trecho; " + s.tier.label.toLowerCase() + (scoreOf(s) != null ? ", semelhança " + fmtScore(s.ev.score, M.CUT) : "") + ".";
     }
     if (x.type === "esta") {
       const pa = PAS[x.pa];

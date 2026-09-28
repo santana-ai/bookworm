@@ -1,5 +1,6 @@
 import json
 import shutil
+from collections import Counter
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
@@ -37,6 +38,8 @@ from bookworm.profiles.site import (
     ProfileSiteBuilder,
     actor_slug,
     assign_slugs,
+    display_name_of,
+    page_verifier_cuts,
     page_verifier_threshold,
     parse_profile,
     trim_passage,
@@ -202,6 +205,7 @@ def test_export_site_writes_the_profile_pages(
     )
     actors = read(tmp_path / "site" / ACTORS_FILE_NAME)
     assert actors["run"] == site.index["run"]
+    assert actors["verifier_cuts"] is None
     assert actors["profiles"]["run"] == "stub_run"
     assert actors["profiles"]["models"] == ["stub-model"]
     assert actors["people"] == {
@@ -225,6 +229,9 @@ def test_export_site_writes_the_profile_pages(
     assert summary["joao-silva"]["n_hearings_in_profile"] == 1
     assert summary["joao-silva"]["n_turns"] == 3
     assert summary["marcos-pereira"]["n_udvs"] == 3
+    assert summary["joao-silva"]["display_name"] == "João Silva"
+    assert summary["marcos-pereira"]["name"] == "MARCOS PEREIRA"
+    assert summary["marcos-pereira"]["display_name"] == "Marcos Pereira"
 
 
 def test_profile_page_links_claims_to_passages_and_udvs(
@@ -238,6 +245,7 @@ def test_profile_page_links_claims_to_passages_and_udvs(
     assert page["actor"] == {
         "slug": "joao-silva",
         "name": "João Silva",
+        "display_name": "João Silva",
         "role": "Deputado (PT-SP)",
         "article_names": ["João Silva"],
         "party_uf": ["Bloco/PT - SP"],
@@ -266,6 +274,7 @@ def test_profile_page_links_claims_to_passages_and_udvs(
     assert page["udvs"][0]["in_profile"] is True
     assert "match_text" not in page["udvs"][0]
     assert page["verifier_threshold"] is None
+    assert page["verifier_cuts"] is None
 
 
 def test_profile_page_reads_only_the_hearings_of_the_profile(
@@ -410,6 +419,8 @@ def test_profile_verifier_uses_the_udv_premise_cut_when_the_export_has_one() -> 
     both = {"verifier": {"threshold": 0.75, "udv_threshold": {"value": 0.25}}}
     assert page_verifier_threshold(train_only) == 0.75
     assert page_verifier_threshold(both) == 0.25
+    assert page_verifier_cuts(train_only) == {"low": 0.75, "high": None}
+    assert page_verifier_cuts(both) == {"low": 0.25, "high": 0.75}
     decision = {"probability": 0.4, "supported": False}
     assert verifier_of({"signals": {"verifier": decision}}) == decision
     with_udv = {**decision, "supported_at_udv_threshold": True}
@@ -418,3 +429,9 @@ def test_profile_verifier_uses_the_udv_premise_cut_when_the_export_has_one() -> 
         "supported": True,
     }
     assert verifier_of({"signals": {"verifier": None}}) is None
+
+
+def test_display_name_prefers_the_most_frequent_then_the_longest_article_name() -> None:
+    assert display_name_of(Counter({"Marcos": 1, "Marcos Pereira": 1}), "X") == "Marcos Pereira"
+    assert display_name_of(Counter({"Marcos": 2, "Marcos Pereira": 1}), "X") == "Marcos"
+    assert display_name_of(Counter(), "MARCOS PEREIRA") == "MARCOS PEREIRA"

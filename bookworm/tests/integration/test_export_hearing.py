@@ -18,7 +18,7 @@ from bookworm import (
 )
 from bookworm.data.io import JsonObject
 from bookworm.transcript.text import normalize_whitespace
-from bookworm.udv.export import split_of
+from bookworm.udv.export import sentence_text, split_of
 from bookworm.udv.signals import HEAVY_ARTIFACT_MANIFEST, missing_signal_files
 
 pytestmark = pytest.mark.dataset
@@ -115,8 +115,12 @@ def test_turn_sentences_slice_the_transcript(exported: JsonObject) -> None:
     assert len(exported["people"]) == 6
     for turn in exported["turns"]:
         for sentence in turn["sentences"]:
-            assert span_text(transcript, sentence["start"], sentence["end"]) == sentence["text"]
-            assert turn["start"] <= sentence["start"] < sentence["end"] <= turn["end"]
+            start, end = sentence[0], sentence[1]
+            assert turn["start"] <= start < end <= turn["end"]
+            if len(sentence) == 2:
+                assert sentence_text(transcript, sentence) == span_text(transcript, start, end)
+            else:
+                assert sentence[2] != span_text(transcript, start, end)
 
 
 def test_every_evidence_offset_slices_the_transcript(exported: JsonObject) -> None:

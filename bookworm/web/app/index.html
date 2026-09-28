@@ -24,19 +24,19 @@
 <header class="bar">
   <a class="brand" href="#">bookworm <span>rede de barbantes</span></a>
   <nav class="crumbs" aria-label="Onde você está" data-crumbs></nav>
+  <a class="map-tab" href="#arquivo" aria-keyshortcuts="m" title="Mapa do caso (tecla M)" data-map-tab><span class="map-tab-t">Mapa do caso</span><kbd aria-hidden="true">M</kbd></a>
 </header>
-<a class="map-tab" href="#arquivo" aria-keyshortcuts="m" title="Mapa do caso (tecla M)" data-map-tab><span class="map-tab-t">Mapa do caso</span><kbd aria-hidden="true">M</kbd></a>
 <main id="main" tabindex="-1">
   <section id="home" class="home" aria-labelledby="home-h" hidden>
     <div class="home-top">
       <h1 id="home-h" tabindex="-1">Rede de barbantes</h1>
-      <p class="lede">Matérias jornalísticas sobre audiências públicas da Câmara dos Deputados. Cada afirmação que a matéria atribui a alguém vira um cartão, e barbantes ligam o cartão a quem disse e ao trecho da audiência onde procuramos essa fala.</p>
+      <p class="lede">A fala que a matéria atribui a alguém está na transcrição da audiência? Para cada afirmação de matérias sobre audiências públicas da Câmara dos Deputados, a página mostra quem disse e o trecho da transcrição que a busca achou; barbantes ligam as três coisas.</p>
       <p class="note" data-note></p>
     </div>
     <div class="tools" role="search" aria-label="Procurar matérias">
       <div class="field field-q">
         <label for="home-q">Procurar</label>
-        <input id="home-q" type="search" autocomplete="off" spellcheck="false" placeholder="Palavra do título ou nome de participante">
+        <input id="home-q" type="search" autocomplete="off" spellcheck="false" placeholder="Título, assunto ou participante">
       </div>
       <div class="field field-sort">
         <label for="home-sort">Ordem</label>
@@ -49,10 +49,10 @@
     </div>
     <ul class="keyline" aria-label="Como ler os quadradinhos">
       <li>Cada quadradinho é uma afirmação:</li>
-      <li><i class="dot" data-k="q" aria-hidden="true"></i>com o começo das aspas achado na fala</li>
-      <li><i class="dot" data-k="h" aria-hidden="true"></i>com um trecho parecido</li>
-      <li><i class="dot" data-k="w" aria-hidden="true"></i>só com algo pouco parecido</li>
-      <li><i class="dot" data-k="u" aria-hidden="true"></i>sem trecho achado</li>
+      <li><i class="dot" data-k="q" aria-hidden="true"></i>aspas achadas na fala</li>
+      <li><i class="dot" data-k="h" aria-hidden="true"></i>trecho parecido</li>
+      <li><i class="dot" data-k="w" aria-hidden="true"></i>pouco parecido</li>
+      <li><i class="dot" data-k="u" aria-hidden="true"></i>sem trecho</li>
     </ul>
     <p class="count" id="home-count" aria-live="polite"></p>
     <ol class="clips" id="home-list"></ol>

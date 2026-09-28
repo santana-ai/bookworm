@@ -1,12 +1,16 @@
-import { CASE_NOTE, DISCLOSE_HINTS, FINDING_SHORT, findingDetail, findingLine, NO_SECOND_OPINION, NOT_CHECKED_SHORT, questionCopy, SPLIT_GAP, SUMMARY_JOBS, unitCopy, VERIFIER_GAUGE_NOTE, VERIFIER_NONE, verifierCut, verifierLine } from "./copy.js";
+import { bandEvidenceLine, bandRange, CASE_NOTE, DISCLOSE_HINTS, findingDetail, GLOSSARY, judgmentLine, MEASURES, NO_SECOND_OPINION, P4_ID, p4Mismatch, p4Note, questionCopy, questionsDisagree, SPLIT_GAP, SUMMARY_JOBS, SUPPORT_NOTE, unitCopy, validationLead, validationLong, validationShort, VERIFIER_NONE } from "./copy.js";
 import { bindDisclose, discloseBar, discloseEnd } from "./disclose.js";
 import { LAYA_NAMES } from "./data.js";
 import { buildModel } from "./model.js";
-import { clamp, countLabel, esc, firstName, fmtCut, fmtDate, fmtInt, fmtScore, joinPt, markText, plural, seqIndex, tno, wordsOf } from "./text.js";
+import { supportAria, supportChip, supportIcon, supportRuler } from "./support.js";
+import { clamp, countLabel, esc, firstName, fmtCut, fmtDate, fmtInt, fmtScore, joinPt, markText, plural, seqIndex, shorten, tno, wordsOf } from "./text.js";
 
 const CONTEXT_SENTENCES = 2;
 const CONTEXT_MAX = 600;
+const RAW_TURNS = 4;
+const RAW_TURN_MAX = 320;
 const DOT_KEY = { q: "q", h: "h", w: "w", n: "u", u: "u" };
+const INTERPRETER = /INT[ÉE]RPRETE/i;
 
 export function caseHash(id, n) {
   return "#h" + id + "-u" + n;
@@ -15,6 +19,10 @@ export function caseHash(id, n) {
 export function caseToken(value) {
   const m = String(value || "").match(/^#?h(\d+)-u(\d+)$/);
   return m ? { id: Number(m[1]), n: Number(m[2]) } : null;
+}
+
+export function readerHash(hearingId, turn, start, end) {
+  return "#h" + hearingId + "-t" + tno(turn) + "-p" + start + "-" + end;
 }
 
 function pct(x) {
@@ -69,22 +77,31 @@ function quoteMarks(s) {
 }
 
 function quoteLine(s, M) {
-  const by = M.U.window ? "o trecho foi escolhido pelo sentido." : "a frase foi escolhida pelo sentido.";
+  const by = M.U.window ? "o trecho foi escolhido pela semelhança de sentido." : "a frase foi escolhida pela semelhança de sentido.";
   if (!s.u.quotes.length) return "";
   if (!s.resolved) return "As aspas não foram procuradas na fala: a pessoa não foi achada entre quem fala.";
   if (!s.ev) return "As aspas não foram procuradas: não havia frase para comparar.";
   if (s.isQuote && s.quote) {
     const qd = s.quote;
     const n = (qd.qi === 0 ? "as " + qd.np + " primeiras" : qd.np) + " das " + qd.nq + " palavras";
-    return "Só o começo das aspas foi procurado na fala: " + n + " aparecem nela, seguidas e iguais (em vermelho). As outras palavras das aspas não foram comparadas.";
+    const of = s.u.quotes.length > 1 ? " de 1 das " + s.u.quotes.length + " citações" : "";
+    return "Só o começo das aspas" + of + " foi procurado na fala: " + n + " aparecem nela, seguidas e iguais (em vermelho). As outras palavras das aspas não foram comparadas.";
   }
   if (s.qsem && s.qsem.np && s.qsem.run >= s.qsem.np) return "O começo das aspas (em vermelho) aparece na fala, mas é curto; " + by;
   return "As aspas não aparecem iguais na fala; " + by;
 }
 
+function simText(s, M) {
+  return s.ev && !s.isQuote ? fmtScore(s.ev.score, M.CUT) : "";
+}
+
 function stampHtml(s, M) {
-  const sc = s.ev && !s.isQuote ? "<small>nota " + fmtScore(s.ev.score, M.CUT) + "</small>" : "";
-  return '<div class="cs-stamp"><div class="wl-ink" data-t="' + s.tier.k + '"><span>' + esc(s.tier.label) + "</span>" + sc + "</div></div>";
+  const sc = s.ev && !s.isQuote ? "<small>" + MEASURES.similarity + " " + simText(s, M) + "</small>" : "";
+  return '<div class="cs-stamp"><div class="wl-ink" data-t="' + s.tier.k + '"><span>' + esc(s.tier.label) + "</span>" + sc + "</div>" + (s.sup ? supportChip(s.sup, true) : "") + "</div>";
+}
+
+function profLink(prof) {
+  return prof ? '<p class="cs-prof"><a href="' + esc(prof.href) + '">Ver o perfil de ' + esc(prof.name) + ' <span aria-hidden="true">&rarr;</span></a></p>' : "";
 }
 
 function claimHtml(s, M, prof) {
@@ -95,7 +112,7 @@ function claimHtml(s, M, prof) {
     '<p class="wl-st-k">Afirmação ' + (s.i + 1) + " de " + M.S.length + " · segundo a matéria,</p>" +
     '<p class="wl-st-who">' + esc(u.actor.name) + "</p>" +
     (u.actor.role ? '<p class="cs-role">' + esc(u.actor.role) + "</p>" : "") +
-    (prof ? '<p class="cs-prof"><a href="' + esc(prof.href) + '">Ver o perfil de ' + esc(prof.name) + ' <span aria-hidden="true">&rarr;</span></a></p>' : "") +
+    profLink(prof) +
     '<p class="wl-st-prop cs-prop">' + markText(u.proposition, quoteMarks(s)) + "</p>" +
     (line ? '<p class="cs-qline">' + esc(line) + "</p>" : "") +
     stampHtml(s, M) +
@@ -140,8 +157,8 @@ function passageHtml(s, M) {
     '<article class="cs-pa"><span class="wl-pin is-l" aria-hidden="true"></span><span class="wl-pin is-r" aria-hidden="true"></span><div class="cs-pa-in">' +
     '<p class="wl-pa-h"><span>Turno ' + tno(ev.speaker_turn) + " de " + fmtInt(M.NT) + "</span><span>fala de " + esc(M.speakerName(ev.speaker_turn)) + "</span></p>" +
     '<p class="cs-pa-t">' + (ctx.before ? '<span class="cs-ctx">' + esc(ctx.before) + "</span> " : "") + "<mark>" + evidenceHtml(s, ctx.main) + "</mark>" + (ctx.after ? ' <span class="cs-ctx">' + esc(ctx.after) + "</span>" : "") + "</p>" +
-    '<p class="cs-pa-f">Em amarelo, ' + esc(M.U.chosen) + "; em cinza, as frases em volta, no mesmo turno. Caracteres " + fmtInt(ev.start_char) + " a " + fmtInt(ev.end_char) + " de " + fmtInt(M.T.length) + ". " +
-    esc(s.u.actor.name) + " fala em " + (g.turns.length === 1 ? "um dos " : g.turns.length + " dos ") + fmtInt(M.NT) + " turnos.</p>" +
+    '<p class="cs-pa-f">Em amarelo, ' + esc(M.U.chosen) + "; em cinza, as frases em volta, no mesmo turno. " +
+    esc(s.u.actor.name) + " fala em " + (g.turns.length === 1 ? "um dos " : g.turns.length + " dos ") + fmtInt(M.NT) + " turnos. Posição na transcrição: caracteres " + fmtInt(ev.start_char) + " a " + fmtInt(ev.end_char) + " de " + fmtInt(M.T.length) + ".</p>" +
     "</div></article>"
   );
 }
@@ -160,63 +177,126 @@ function englishHtml(s, H) {
   );
 }
 
-function whyHtml(s, M) {
+function rawTurnText(M, ti) {
+  const t = M.turnsByIdx[ti];
+  if (!t) return "";
+  const text = M.T.slice(t.start, t.end).replace(/\s+/g, " ").trim();
+  return shorten(text, RAW_TURN_MAX);
+}
+
+function rawTurnsHtml(s, M) {
+  const hid = M.H.hearing.id;
+  const rows = [];
+  s.turns.slice(0, RAW_TURNS).forEach((ti) => {
+    const t = M.turnsByIdx[ti];
+    if (!t) return;
+    rows.push('<li><p class="cs-raw-k">Turno ' + tno(ti) + ", " + esc(s.u.actor.name) + ' · <a href="' + readerHash(hid, ti, t.start, t.end) + '">ler na transcrição</a></p><p class="cs-raw-t">' + esc(rawTurnText(M, ti)) + "</p></li>");
+    const nx = M.turnsByIdx[ti + 1];
+    if (nx && INTERPRETER.test(nx.speaker + " " + nx.party)) {
+      rows.push('<li class="is-int"><p class="cs-raw-k">Turno ' + tno(ti + 1) + ", logo depois: " + esc(M.speakerName(ti + 1)) + ' · <a href="' + readerHash(hid, ti + 1, nx.start, nx.end) + '">ler na transcrição</a></p><p class="cs-raw-t">' + esc(rawTurnText(M, ti + 1)) + "</p></li>");
+    }
+  });
+  const more = s.turns.length - Math.min(s.turns.length, RAW_TURNS);
+  const interp = rows.some((r) => r.indexOf("is-int") >= 0);
+  return (
+    '<p class="cs-why-t">Os turnos, como estão na transcrição:</p><ol class="cs-raw">' + rows.join("") + "</ol>" +
+    (more > 0 ? '<p class="cs-why-f">E mais ' + countLabel(more, "turno", "turnos") + ".</p>" : "") +
+    (interp ? '<p class="cs-why-f">O turno seguinte é de um intérprete: a fala pode ter sido registrada na voz dele, e a busca só procura nos turnos da própria pessoa.</p>' : "")
+  );
+}
+
+function similarHtml(s, M) {
+  const list = (s.p && s.p.similar_speakers) || [];
+  const hid = M.H.hearing.id;
+  if (!list.length) return '<p class="cs-why-f">Nenhum nome parecido aparece entre quem fala.</p>';
+  return (
+    '<p class="cs-why-t">Nomes parecidos entre quem fala, para conferir. A semelhança é só de grafia: não confirma que é a mesma pessoa.</p><ul class="cs-sim">' +
+    list
+      .map((x) => {
+        const t0 = M.turnsByIdx[x.turns[0]];
+        return (
+          "<li><b>" + esc(x.name) + "</b> <span>" + esc(countLabel(x.turns.length, "turno", "turnos")) + (x.turns.length <= 3 ? " (" + joinPt(x.turns.map((t) => String(tno(t)))) + ")" : "") + "</span>" +
+          (t0 ? ' · <a href="' + readerHash(hid, x.turns[0], t0.start, t0.end) + '">ler o primeiro turno</a>' : "") + "</li>"
+        );
+      })
+      .join("") +
+    "</ul>"
+  );
+}
+
+function whyHtml(s, M, cls) {
   const u = s.u;
-  let text;
+  let body;
   if (!s.resolved) {
     const who = isCompany(s.p.role) ? "essa empresa" : "essa pessoa";
     const mt = s.mentions.turns;
     let tailText = "";
     if (mt.length) tailText = " O nome aparece na fala de outras pessoas" + (mt.length <= 3 ? " (" + plural(mt.length, "turno ", "turnos ") + joinPt(mt.map((t) => String(tno(t)))) + ")" : "") + (s.spot.viaNote ? ", e a matéria cita uma nota." : ".");
     else if (s.spot.viaNote) tailText = " A matéria cita uma nota.";
-    text = "Procuramos " + who + " entre quem fala nos " + fmtInt(M.NT) + " turnos da transcrição e não achamos. Pode ser que não tenha falado ou que apareça com outro nome." + tailText;
+    body = '<p class="cs-why-t">' + esc("A busca procurou " + who + " entre quem fala nos " + fmtInt(M.NT) + " turnos da transcrição e não achou. Pode ser que não tenha falado ou que apareça com outro nome." + tailText) + "</p>" + similarHtml(s, M);
   } else {
-    text = u.actor.name + " fala em " + countLabel(s.turns.length, "turno", "turnos") + ", mas nenhuma frase tem pelo menos 4 palavras. Não há frase para comparar com a afirmação.";
+    body = '<p class="cs-why-t">' + esc("A transcrição registra " + countLabel(s.turns.length, "turno", "turnos") + " de " + u.actor.name + ", mas sem frase de pelo menos 4 palavras. Não há frase para comparar com a afirmação.") + "</p>" + rawTurnsHtml(s, M);
   }
-  return '<div class="cs-why"><span class="wl-pin" aria-hidden="true"></span><p class="cs-why-h">' + esc(s.tier.label) + '</p><p class="cs-why-t">' + esc(text) + "</p></div>";
+  const judged = judgmentLine(u.id);
+  return '<div class="cs-why' + (cls ? " " + cls : "") + '"><span class="wl-pin" aria-hidden="true"></span><p class="cs-why-h">' + esc(s.tier.label) + "</p>" + body + (judged ? '<p class="cs-judged">' + esc(judged) + "</p>" : "") + "</div>";
 }
 
-function rulerHtml(value, cut, label, alt) {
+function rulerHtml(value, cut, label) {
   const c = pct(cut);
-  const a = alt == null ? "" : pct(alt);
   return (
     '<div class="wl-rul cs-rul" role="img" aria-label="' + esc(label) + '"><div class="wl-rul-bar"><span class="wl-rul-zone" style="left:' + c + '"></span><span class="wl-rul-cut" style="left:' + c + '"></span>' +
-    (alt == null ? "" : '<span class="wl-rul-cut is-alt" style="left:' + a + '"></span>') +
     (value === null ? "" : '<span class="wl-rul-mk" style="left:' + pct(value) + '"></span>') +
     '</div><div class="wl-rul-ax"><span style="left:0">0</span><span style="left:' + c + '">' + fmtCut(cut) + "</span>" +
-    (alt == null ? "" : '<span class="is-alt" style="left:' + a + '">' + fmtCut(alt) + "</span>") +
     '<span style="left:100%">1</span></div></div>'
   );
 }
 
-function measureBlock(title, sub, value, cut, above, valueText, alt, altLine) {
-  const side = value === null ? "" : above ? "acima do corte" : "abaixo do corte";
+function similarityBlock(s, M) {
+  const cos = s.isQuote ? null : s.ev.score;
+  const above = cos !== null && s.tier.k !== "w";
+  const side = cos === null ? "" : above ? "acima do corte" : "abaixo do corte";
+  const text = cos === null ? "" : fmtScore(cos, M.CUT);
   return (
-    '<div class="cs-m"><p class="cs-m-h">' + esc(title) + '</p><p class="cs-m-s">' + esc(sub) + "</p>" +
-    rulerHtml(value, cut, title + ": " + (value === null ? "sem nota" : "nota " + valueText + ", corte " + fmtCut(cut) + ", " + side), alt) +
-    '<p class="cs-m-v">' + (value === null ? "Sem nota: o trecho foi achado pelas aspas." : "Nota <b>" + esc(valueText) + "</b>, " + side + " (" + fmtCut(cut) + ").") + "</p>" +
-    (altLine ? '<p class="cs-m-v is-alt">' + esc(altLine) + "</p>" : "") +
+    '<div class="cs-m"><p class="cs-m-h">Semelhança de sentido</p><p class="cs-m-s">' + esc("Cosseno entre a afirmação e " + M.U.chosen + ", de 0 a 1: quanto o sentido das duas se parece, pelas representações de um modelo de frases. O corte é o da rodada.") + "</p>" +
+    rulerHtml(cos, M.CUT, "Semelhança: " + (cos === null ? "não usada" : text + ", corte " + fmtCut(M.CUT) + ", " + side)) +
+    '<p class="cs-m-v">' + (cos === null ? "Não usada: o trecho foi achado pelas aspas." : "Semelhança <b>" + esc(text) + "</b>, " + side + " (" + fmtCut(M.CUT) + ").") + "</p></div>"
+  );
+}
+
+function verifierSub(M) {
+  const C = M.C;
+  const base = "Modelo treinado para dizer se um trecho sustenta uma opinião da matéria. Aprendeu com quatro trechos recuperados por opinião e aqui lê " + M.U.read + ".";
+  if (C.train === null) return base + " O corte foi escolhido no treino.";
+  return (
+    base + " Dois cortes separam as faixas. O de " + fmtCut(C.low) + " foi calibrado para trechos escolhidos pela busca, em audiências de treino: fica no meio entre o apoio típico de pares certos e a de pares em que o trecho foi sorteado de outra fala (regra " + C.rule + "). O de " +
+    fmtCut(C.high) + " é o corte escolhido no treino do verificador, com os quatro trechos."
+  );
+}
+
+function p4Of(s) {
+  const pt = s.u.signals && s.u.signals.laya ? s.u.signals.laya[LAYA_NAMES[0]] : null;
+  return pt && typeof pt[P4_ID] === "number" ? pt[P4_ID] : null;
+}
+
+function supportBlock(s, M) {
+  const sup = s.sup;
+  const ev = bandEvidenceLine(sup.b, M.C);
+  const p4 = p4Of(s);
+  return (
+    '<div class="cs-m cs-m-ap"><p class="cs-m-h">Apoio do verificador</p><p class="cs-m-s">' + esc(verifierSub(M)) + "</p>" +
+    supportRuler(sup, "Apoio: " + supportAria(sup)) +
+    '<p class="cs-m-v">Apoio <b>' + esc(sup.text) + "</b>: " + supportChip(sup, false) + " (" + esc(bandRange(sup.b, M.C)) + "). " + esc(SUPPORT_NOTE) + "</p>" +
+    (ev ? '<p class="cs-m-v">' + esc(ev) + "</p>" : "") +
+    (p4 !== null && p4Mismatch(sup.b, p4, M.C) ? '<p class="cs-m-v is-alt">' + esc(p4Note(fmtScore(p4))) + "</p>" : "") +
     "</div>"
   );
 }
 
-function verifierSub(M, C) {
-  const base = "Modelo treinado para dizer se um trecho sustenta uma opinião da matéria. Aprendeu com quatro trechos recuperados por opinião e aqui lê " + M.U.read + ".";
-  if (C.train === null) return base + " O corte foi escolhido no treino.";
-  return base + " O corte " + fmtCut(C.cut) + " foi calibrado para trechos de UDV, em pares de audiências de treino (regra " + C.rule + "); o traço cinza marca " + fmtCut(C.train) + ", o corte escolhido no treino do verificador, com os quatro trechos.";
-}
-
-function trainLine(v, C) {
-  if (C.train === null) return "";
-  return "No corte do treino do verificador (" + fmtCut(C.train) + "), a nota fica " + (v.supported ? "acima" : "abaixo") + " dele.";
-}
-
-function agreement(cosAbove, verAbove) {
-  if (cosAbove === null) return "Aqui só o verificador dá nota, e ela fica " + (verAbove ? "acima" : "abaixo") + " do corte dele; o trecho veio das aspas, não da semelhança.";
-  if (cosAbove && verAbove) return "As duas medidas ficam acima dos seus cortes.";
-  if (!cosAbove && !verAbove) return "As duas medidas ficam abaixo dos seus cortes.";
-  if (cosAbove) return "As medidas discordam: pelo cosseno o trecho é parecido com a afirmação, mas o verificador fica abaixo do corte dele.";
-  return "As medidas discordam: a semelhança fica abaixo do corte da execução, mas o verificador passa do corte dele.";
+function twoQuestions(s, M) {
+  const where = s.tier.label.toLowerCase() + (s.isQuote ? "" : " (semelhança " + simText(s, M) + ")");
+  const how = s.sup.b.label + " (" + s.sup.text + ")";
+  const extra = questionsDisagree(s.tier.k, s.sup.b);
+  return "São duas perguntas diferentes. Onde está o trecho: " + where + ". Quanto ele apoia a afirmação: " + how + "." + (extra ? " " + extra : "");
 }
 
 function questionsHtml(s, H) {
@@ -236,7 +316,7 @@ function questionsHtml(s, H) {
   const x = sg.xnli;
   return (
     '<div class="cs-qs"><p class="cs-m-h">Oito perguntas a um modelo de decisão</p>' +
-    '<p class="cs-m-s">O mesmo trecho e a mesma afirmação, oito perguntas diferentes; a nota vai de 0 a 1, a favor da afirmação. PT leu o texto em português, EN a cópia em inglês. Faixa vermelha: as duas leituras diferem em ' + fmtScore(SPLIT_GAP) + " ou mais.</p>" +
+    '<p class="cs-m-s">O mesmo trecho e a mesma afirmação, oito perguntas diferentes; cada resposta vai de 0 a 1, a favor da afirmação, e o apoio acima combina todas elas. PT leu o texto em português, EN a cópia em inglês. Faixa vermelha: as duas leituras diferem em ' + fmtScore(SPLIT_GAP) + " ou mais.</p>" +
     '<table class="cs-qt"><thead><tr><th scope="col">Pergunta</th><th scope="col">PT</th><th scope="col">EN</th></tr></thead><tbody>' + rows + "</tbody></table>" +
     '<p class="cs-xnli">Outro modelo (' + esc(H.signals.scorers.xnli_mdeberta.model.split("/").pop()) + "), no texto em português: implica " + fmtScore(x.entailment) + ", neutra " + fmtScore(x.neutral) + ", contradiz " + fmtScore(x.contradiction) + "." +
     (x.truncated ? " A frase foi cortada para caber nesse modelo." : "") + "</p></div>"
@@ -244,20 +324,7 @@ function questionsHtml(s, H) {
 }
 
 function measuresHtml(s, H, M) {
-  const sg = s.u.signals;
-  const v = sg.verifier;
-  const C = verifierCut(H.signals);
-  const supported = C.supported(v);
-  const cos = s.isQuote ? null : s.ev.score;
-  const cosAbove = cos === null ? null : s.tier.k !== "w";
-  return (
-    '<div class="cs-me">' +
-    measureBlock("Semelhança de sentido", "Cosseno entre a afirmação e " + M.U.chosen + "; o corte é o da execução.", cos, M.CUT, cosAbove, cos === null ? "" : fmtScore(cos, M.CUT)) +
-    measureBlock("Verificador", verifierSub(M, C), v.probability, C.cut, supported, fmtScore(v.probability, C.cut), C.train, trainLine(v, C)) +
-    '<p class="cs-agree">' + esc(agreement(cosAbove, supported)) + "</p>" +
-    questionsHtml(s, H) +
-    "</div>"
-  );
+  return '<div class="cs-me">' + similarityBlock(s, M) + supportBlock(s, M) + '<p class="cs-agree">' + esc(twoQuestions(s, M)) + "</p>" + questionsHtml(s, H) + "</div>";
 }
 
 function candidatesHtml(s, M) {
@@ -281,7 +348,7 @@ function candidatesHtml(s, M) {
   else foot = U.only;
   return (
     '<section class="cs-row" aria-labelledby="cs-h4"><h2 class="cs-h" id="cs-h4"><span class="cs-hn" aria-hidden="true">4</span>' + esc(U.heading) + "</h2>" +
-    '<div class="cs-list"><p class="cs-m-s">' + esc(U.top(c.length)) + " entre " + (U.window ? "os " : "as ") + esc(U.count(s.nSent)) + " de " + esc(s.u.actor.name) + ", pela nota de semelhança; o traço preto na barra é o corte da execução, " + fmtCut(M.CUT) + ".</p>" +
+    '<div class="cs-list"><p class="cs-m-s">' + esc(U.top(c.length)) + " entre " + (U.window ? "os " : "as ") + esc(U.count(s.nSent)) + " de " + esc(s.u.actor.name) + ", pela semelhança de sentido; o traço preto na barra é o corte da rodada, " + fmtCut(M.CUT) + ".</p>" +
     '<ol class="cs-cands">' + items + '</ol><p class="cs-foot">' + esc(foot) + "</p></div></section>"
   );
 }
@@ -291,9 +358,12 @@ function chipsHtml(M, id, cur) {
     '<ol class="cs-chips" aria-label="Afirmações desta matéria">' +
     M.S.map((s) => {
       const n = s.i + 1;
+      const supText = s.sup ? ", " + s.sup.b.label : "";
       return (
-        '<li><a href="' + caseHash(id, n) + '"' + (n === cur ? ' aria-current="page"' : "") + ' title="' + esc(s.u.actor.name + ": " + s.tier.label) + '">' +
-        '<span class="cs-no">' + n + '</span><span class="cs-chip-n">' + esc(firstName(s.u.actor.name)) + '</span><i class="dot" data-k="' + DOT_KEY[s.tier.k] + '" aria-hidden="true"></i><span class="vh">, ' + esc(s.tier.label) + "</span></a></li>"
+        '<li><a href="' + caseHash(id, n) + '"' + (n === cur ? ' aria-current="page"' : "") + ' title="' + esc(s.u.actor.name + ": " + s.tier.label + supText) + '">' +
+        '<span class="cs-no">' + n + '</span><span class="cs-chip-n">' + esc(firstName(s.u.actor.name)) + '</span><i class="dot" data-k="' + DOT_KEY[s.tier.k] + '" aria-hidden="true"></i>' +
+        (s.sup ? '<span class="ap is-icon" data-b="' + s.sup.b.k + '">' + supportIcon(s.sup.b) + "</span>" : "") +
+        '<span class="vh">, ' + esc(s.tier.label + supText) + "</span></a></li>"
       );
     }).join("") +
     "</ol>"
@@ -317,53 +387,73 @@ function headHtml(H, M, s) {
   );
 }
 
-function gaugeHtml(job, answer, t, value, cut, valueText, detail) {
-  const bar =
-    value === null
-      ? '<p class="cs-g-none">' + esc(t === "q" ? "achado pelas aspas" : "sem nota") + "</p>"
-      : '<div class="cs-g-bar" role="img" aria-label="' + esc("nota " + valueText + " de 0 a 1, corte " + fmtCut(cut)) + '"><i data-t="' + t + '" style="width:' + pct(value) + '"></i><em style="left:' + pct(cut) + '"></em></div>' +
-        '<div class="cs-g-ax" aria-hidden="true"><span style="left:0">0</span><span style="left:' + pct(cut) + '">corte ' + fmtCut(cut) + '</span><span style="left:100%">1</span></div>';
+function findGauge(s, M) {
+  const t = s.tier.k;
+  const cos = s.ev && !s.isQuote ? s.ev.score : null;
+  const text = simText(s, M);
+  let bar;
+  if (!s.ev) bar = '<p class="cs-g-none is-na">não se aplica</p>';
+  else if (cos === null) bar = '<p class="cs-g-none">aspas achadas</p>';
+  else
+    bar =
+      '<div class="cs-g-bar" role="img" aria-label="' + esc(MEASURES.similarity + " " + text + " de 0 a 1, corte " + fmtCut(M.CUT)) + '"><i data-t="' + t + '" style="width:' + pct(cos) + '"></i><em style="left:' + pct(M.CUT) + '"></em></div>' +
+      '<div class="cs-g-ax" aria-hidden="true"><span style="left:0">0</span><span style="left:' + pct(M.CUT) + '">corte ' + fmtCut(M.CUT) + '</span><span style="left:100%">1</span></div>';
   return (
-    '<div class="cs-g"><p class="cs-g-q">' + esc(job) + '</p><p class="cs-g-a" data-t="' + t + '">' + esc(answer) + (value === null ? "" : " <b>" + esc(valueText) + "</b>") + "</p>" + bar + '<p class="cs-g-d">' + esc(detail) + "</p></div>"
+    '<div class="cs-g"><p class="cs-g-q">' + esc(SUMMARY_JOBS.find) + '</p><p class="cs-g-a" data-t="' + t + '">' + esc(s.tier.label) + (cos === null ? "" : ' <span class="cs-g-m">' + MEASURES.similarity + " <b>" + esc(text) + "</b></span>") + "</p>" + bar +
+    (s.ev ? '<p class="cs-g-d">' + esc(findingDetail(s.tierName, text, fmtCut(M.CUT))) + "</p>" : "") + "</div>"
+  );
+}
+
+function supportGauge(s, H, M) {
+  const head = '<div class="cs-g cs-g-ap"><p class="cs-g-q">' + esc(SUMMARY_JOBS.support) + "</p>";
+  if (!s.ev) return head + '<p class="cs-g-none is-na">não se aplica</p><p class="cs-g-d">' + esc(VERIFIER_NONE) + "</p></div>";
+  if (!s.sup) return head + '<p class="cs-g-d">' + esc(NO_SECOND_OPINION) + "</p></div>";
+  const sup = s.sup;
+  const ev = bandEvidenceLine(sup.b, M.C);
+  const p4 = p4Of(s);
+  return (
+    head + '<p class="cs-g-a is-ap">' + supportChip(sup, false) + ' <span class="cs-g-m">' + MEASURES.support + " <b>" + esc(sup.text) + "</b></span></p>" +
+    supportRuler(sup, "Apoio: " + supportAria(sup)) +
+    '<p class="cs-g-d">' + esc("Faixa " + bandRange(sup.b, M.C) + ". " + SUPPORT_NOTE) + "</p>" +
+    (ev ? '<p class="cs-g-d is-ev">' + esc(ev) + "</p>" : "") +
+    (p4 !== null && p4Mismatch(sup.b, p4, M.C) ? '<p class="cs-g-d">' + esc(p4Note(fmtScore(p4))) + "</p>" : "") +
+    "</div>"
   );
 }
 
 function summaryHtml(s, H, M, prof) {
   const u = s.u;
-  const scored = !!(H.signals && u.signals && u.signals.scored);
-  const v = scored ? u.signals.verifier : null;
-  const C = scored ? verifierCut(H.signals) : null;
-  const vcut = C ? C.cut : null;
-  const vSupported = v ? C.supported(v) : false;
-  const vText = v ? fmtScore(v.probability, vcut) : "";
-  const vNote = !v ? NO_SECOND_OPINION : C.train === null ? VERIFIER_GAUGE_NOTE : VERIFIER_GAUGE_NOTE + " Corte calibrado para trechos de UDV; no corte do treino do verificador, " + fmtCut(C.train) + ", a nota fica " + (v.supported ? "acima" : "abaixo") + " dele.";
-  const cos = s.ev && !s.isQuote ? s.ev.score : null;
-  const cosText = cos === null ? "" : fmtScore(cos, M.CUT);
-  const find = findingLine(s.tierName);
-  const vt = v ? (vSupported ? "q" : "w") : "u";
   const claim =
     '<article class="cs-st cs-s-claim"><span class="wl-pin" aria-hidden="true"></span>' +
     '<p class="wl-st-k">Afirmação ' + (s.i + 1) + " · segundo a matéria,</p>" +
     '<p class="wl-st-who">' + esc(u.actor.name) + "</p>" +
     (u.actor.role ? '<p class="cs-role">' + esc(u.actor.role) + "</p>" : "") +
     '<p class="wl-st-prop cs-prop">' + markText(u.proposition, quoteMarks(s)) + "</p>" +
-    (prof ? '<p class="cs-prof"><a href="' + esc(prof.href) + '">Ver o perfil de ' + esc(prof.name) + ' <span aria-hidden="true">&rarr;</span></a></p>' : "") +
+    profLink(prof) +
     "</article>";
+  const judged = judgmentLine(u.id);
   const passage = s.ev
     ? '<article class="cs-pa cs-s-pa"><span class="wl-pin is-l" aria-hidden="true"></span><span class="wl-pin is-r" aria-hidden="true"></span><div class="cs-pa-in">' +
       '<p class="wl-pa-h"><span>Trecho da audiência</span><span>turno ' + tno(s.ev.speaker_turn) + ", " + esc(M.speakerName(s.ev.speaker_turn)) + "</span></p>" +
-      '<p class="cs-pa-t"><mark>' + evidenceHtml(s, s.ev.text) + "</mark></p></div></article>"
-    : '<div class="cs-why cs-s-pa"><span class="wl-pin" aria-hidden="true"></span><p class="cs-why-h">' + esc(s.tier.label) + '</p><p class="cs-why-t">' + esc(findingDetail(s.tierName, "", "")) + "</p></div>";
-  const gauges =
-    gaugeHtml(SUMMARY_JOBS.find, FINDING_SHORT[s.tierName] || find, s.tier.k, cos, M.CUT, cosText, findingDetail(s.tierName, cosText, fmtCut(M.CUT))) +
-    (s.ev
-      ? gaugeHtml(SUMMARY_JOBS.support, v ? (vSupported ? "Sustenta" : "Não sustenta") : "Não calculado", vt, v ? v.probability : null, vcut, vText, vNote)
-      : '<div class="cs-g"><p class="cs-g-q">' + esc(SUMMARY_JOBS.support) + '</p><p class="cs-g-d">' + esc(VERIFIER_NONE) + "</p></div>");
+      '<p class="cs-pa-t"><mark>' + evidenceHtml(s, s.ev.text) + "</mark></p>" + (judged ? '<p class="cs-judged">' + esc(judged) + "</p>" : "") + "</div></article>"
+    : whyHtml(s, M, "cs-s-pa");
+  const verdictSup = s.ev ? (s.sup ? supportChip(s.sup, true) : '<span class="cs-verdict-na">' + esc(MEASURES.support + ": não calculado") + "</span>") : "";
   return (
     '<div class="wl cs cs-sum"><div class="cs-board cs-s-board">' +
-    '<p class="cs-verdict"><span data-t="' + s.tier.k + '">' + esc(find) + "</span>" + (s.ev ? '<span class="cs-verdict-sep" aria-hidden="true">·</span><span data-t="' + vt + '">' + esc(verifierLine(v, vText, vSupported)) + "</span>" : "") + "</p>" +
-    '<div class="cs-s-grid">' + claim + passage + '<div class="cs-me cs-s-g">' + gauges + '<p class="cs-s-note">' + esc(NOT_CHECKED_SHORT) + "</p></div></div>" +
+    '<p class="cs-verdict"><span data-t="' + s.tier.k + '">' + esc(s.tier.label) + "</span>" + (verdictSup ? '<span class="cs-verdict-sep" aria-hidden="true">·</span>' + verdictSup : "") + "</p>" +
+    '<div class="cs-s-grid">' + claim + passage + '<div class="cs-me cs-s-g">' + findGauge(s, M) + supportGauge(s, H, M) + '<p class="cs-s-note"><b>' + esc(validationLead()) + "</b> " + esc(validationShort()) + "</p></div></div>" +
     "</div>" + discloseBar("case", "cs-more", DISCLOSE_HINTS.case) + "</div>"
+  );
+}
+
+function glossaryHtml() {
+  return '<dl class="cs-gloss">' + GLOSSARY.map((g) => "<dt>" + esc(g[0]) + "</dt><dd>" + esc(g[1]) + "</dd>").join("") + "</dl>";
+}
+
+function notesHtml() {
+  return (
+    '<div class="note is-compact cs-vnote"><p><b>' + esc(validationLead()) + "</b> " + esc(CASE_NOTE) + "</p>" +
+    validationLong().map((p) => "<p>" + esc(p) + "</p>").join("") + glossaryHtml() + "</div>"
   );
 }
 
@@ -372,7 +462,6 @@ export function renderCase(host, H, n, profileOf) {
   M.U = unitCopy(H.run);
   const s = M.S[n - 1];
   if (!s) return null;
-  const scored = !!(H.signals && s.u.signals && s.u.signals.scored);
   const prof = profileOf ? profileOf(s.u.id) : null;
   const cols = [
     '<section class="cs-col" aria-labelledby="cs-h1"><h2 class="cs-h" id="cs-h1"><span class="cs-hn" aria-hidden="true">1</span>O que a matéria diz</h2>' + claimHtml(s, M, prof) + "</section>",
@@ -381,12 +470,12 @@ export function renderCase(host, H, n, profileOf) {
       (s.ev && !H.signals ? '<p class="cs-slip">' + esc(NO_SECOND_OPINION) + "</p>" : "") +
       "</section>",
   ];
-  if (scored) cols.push('<section class="cs-col" aria-labelledby="cs-h3"><h2 class="cs-h" id="cs-h3"><span class="cs-hn" aria-hidden="true">3</span>O que as medidas dizem</h2>' + measuresHtml(s, H, M) + "</section>");
+  if (s.sup) cols.push('<section class="cs-col" aria-labelledby="cs-h3"><h2 class="cs-h" id="cs-h3"><span class="cs-hn" aria-hidden="true">3</span>O que as medidas dizem</h2>' + measuresHtml(s, H, M) + "</section>");
   host.innerHTML =
     headHtml(H, M, s) +
     summaryHtml(s, H, M, prof) +
     '<div class="cs-more" id="cs-more">' +
-    '<div class="cs-more-head">' + chipsHtml(M, H.hearing.id, n) + '<p class="note is-compact"><b>Sem conferência humana.</b> ' + esc(CASE_NOTE) + "</p></div>" +
+    '<div class="cs-more-head">' + chipsHtml(M, H.hearing.id, n) + notesHtml() + "</div>" +
     '<div class="wl cs"><div class="cs-board"><div class="cs-grid" data-cols="' + cols.length + '">' + cols.join("") + "</div>" + candidatesHtml(s, M) + "</div></div>" +
     discloseEnd("case", "cs-more") +
     "</div>";

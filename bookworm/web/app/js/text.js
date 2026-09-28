@@ -189,3 +189,8 @@ export function hashToken(value) {
   const m = String(value || "").match(/^#?h(\d+)$/);
   return m ? Number(m[1]) : null;
 }
+
+export function actorName(a) {
+  const n = (a && (a.display_name || a.name)) || "";
+  return n && n === n.toUpperCase() && /\p{Lu}{2}/u.test(n) ? titleCase(n) : n;
+}

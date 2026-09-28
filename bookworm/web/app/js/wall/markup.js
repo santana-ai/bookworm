@@ -64,7 +64,7 @@ ${discloseBar("wall", "wl-more", DISCLOSE_HINTS.wall)}
 <div class="wl-more" id="wl-more">
 <ul class="wl-key" aria-label="Como ler os fios"></ul>
 <p class="wl-disc"></p>
-<p class="wl-keys">No teclado, as setas para a direita e para a esquerda avançam e voltam, e as teclas + e &minus; aproximam e afastam a parede. Na rede inteira, arraste a parede para ver outras partes.</p>
+<p class="wl-keys">No teclado, as setas para a direita e para a esquerda avançam e voltam, e as teclas + e &minus; aproximam e afastam a parede. Com Tab se chega aos cartões da parede: as setas passam de um cartão para outro, e Enter puxa o fio do cartão na rede inteira. Com o mouse, na rede inteira, arraste a parede para ver outras partes.</p>
 <div class="wl-ask" role="search" aria-labelledby="wl-ask-h">
   <h3 class="wl-ask-h" id="wl-ask-h">Pergunte à audiência</h3>
   <p class="wl-ask-note">Busca por palavras nesta audiência. Nada é gerado: só mostramos frases que foram ditas.</p>
@@ -85,6 +85,11 @@ ${discloseBar("wall", "wl-more", DISCLOSE_HINTS.wall)}
 </div>
 <section class="wl-list" aria-labelledby="wl-list-h">
   <h3 class="wl-list-h" id="wl-list-h">Todas as afirmações desta matéria</h3>
+  <div class="wl-sort" role="group" aria-label="Ordem da lista">
+    <button type="button" class="wl-btn wl-sort-b" data-sort="order" aria-pressed="true">Ordem da matéria</button>
+    <button type="button" class="wl-btn wl-sort-b" data-sort="support" aria-pressed="false">Menos apoio primeiro</button>
+  </div>
+  <p class="wl-list-note"></p>
   <ol class="wl-list-l"></ol>
 </section>
 ${discloseEnd("wall", "wl-more")}

@@ -1,7 +1,8 @@
-import { CLAIM_STATES, claimState, DISCLOSE_HINTS, PROFILE_BADGES, PROFILE_MATCH_NOTE, PROFILE_NOTE, PROFILE_NOTE_SHORT, PROFILE_TOP_NOTE, PROFILE_TOP_TITLE, SPLIT_NAMES, tierOf, UDV_RULES } from "./copy.js";
+import { CLAIM_STATES, claimState, cutsOf, DISCLOSE_HINTS, MEASURES, PROFILE_BADGES, PROFILE_MATCH_NOTE, PROFILE_NOTE, PROFILE_NOTE_SHORT, PROFILE_TOP_NOTE, PROFILE_TOP_TITLE, SPLIT_NAMES, tierOf, UDV_RULES } from "./copy.js";
 import { bindDisclose, discloseBar, discloseEnd } from "./disclose.js";
 import { caseHash } from "./case.js";
-import { countLabel, esc, fmtCut, fmtDate, fmtInt, fmtScore, joinPt, plural, shorten, tno } from "./text.js";
+import { supportChip, supportFrom } from "./support.js";
+import { actorName, countLabel, esc, fmtDate, fmtInt, fmtScore, joinPt, plural, shorten, tno } from "./text.js";
 
 const CLAIM_SHORT = 220;
 const QUOTE_MAX = 260;
@@ -37,12 +38,12 @@ export function profileItemToken(value) {
 }
 
 export function passageHash(p) {
-  return "#h" + p.hearing_id + "-t" + p.turn + "-p" + p.start + "-" + p.end;
+  return "#h" + p.hearing_id + "-t" + (p.turn + 1) + "-p" + p.start + "-" + p.end;
 }
 
 export function passageToken(value) {
   const m = String(value || "").match(/^#?h(\d+)-t(\d+)-p(\d+)-(\d+)$/);
-  return m ? { id: Number(m[1]), turn: Number(m[2]), start: Number(m[3]), end: Number(m[4]) } : null;
+  return m ? { id: Number(m[1]), turn: Number(m[2]) - 1, start: Number(m[3]), end: Number(m[4]) } : null;
 }
 
 export function icon(name) {
@@ -63,15 +64,23 @@ function pct(n, total) {
   return total ? ((100 * n) / total).toFixed(1) + "%" : "0%";
 }
 
-function verifierText(v, cut) {
-  if (!v) return "verificador não calculado";
-  const side = cut == null ? "" : v.supported ? ", acima do corte " + fmtCut(cut) : ", abaixo do corte " + fmtCut(cut);
-  return "verificador " + fmtScore(v.probability, cut == null ? undefined : cut) + side;
+function cutsOfProfile(P) {
+  if (P.verifier_cuts) return cutsOf(P.verifier_cuts.low, P.verifier_cuts.high);
+  return P.verifier_threshold != null ? cutsOf(P.verifier_threshold, null) : null;
 }
 
-function inkHtml(u, cut) {
+function inkHtml(u, C) {
   const t = tierOf(u.tier);
-  return '<div class="pf-ink" data-t="' + t.k + '"><span>' + esc(t.label) + "</span><small>" + esc(verifierText(u.verifier, cut)) + "</small></div>";
+  const sup = u.verifier && C ? supportChip(supportFrom(u.verifier.probability, C), true) : u.evidence ? "<small>" + MEASURES.support + " não calculado</small>" : "";
+  return '<div class="pf-ink-row"><div class="pf-ink" data-t="' + t.k + '"><span>' + esc(t.label) + "</span></div>" + sup + "</div>";
+}
+
+function polaHtml(a) {
+  const ini = esc(initials(actorName(a)));
+  return (
+    '<div class="pf-pola" role="img" aria-label="Sem foto: as iniciais ' + ini + '"><div class="pf-pola-img" aria-hidden="true"><svg class="pf-sil" viewBox="0 0 100 100"><circle cx="50" cy="38" r="17"/><path d="M16 96c3-22 17-34 34-34s31 12 34 34"/></svg><span>' + ini + "</span></div>" +
+    '<p class="pf-pola-cap" aria-hidden="true">' + esc(actorName(a)) + "<small>sem foto</small></p></div>"
+  );
 }
 
 function period(hearings) {
@@ -108,27 +117,28 @@ function factRow(label, value) {
   return value ? '<tr><th scope="row">' + esc(label) + "</th><td>" + value + "</td></tr>" : "";
 }
 
-function headHtml(P, ctx) {
+function headHtml(P) {
   const a = P.actor;
   const pv = P.provenance;
   const heard = P.hearings;
   const turns = heard.reduce((s, h) => s + h.turns, 0);
   const q = pickQuote(P);
-  const others = a.article_names.filter((n) => n !== a.name);
+  const others = a.article_names.filter((n) => n !== actorName(a));
   const rows =
     factRow("Na matéria", a.role ? esc(a.role) : "") +
     factRow("Na transcrição", a.party_uf.length ? esc(a.party_uf.join("; ")) : "") +
     factRow("Audiências", esc(countLabel(heard.length, "audiência", "audiências")) + (period(heard) ? ", " + esc(period(heard)) : "")) +
     factRow("Falas", esc(countLabel(turns, "turno", "turnos"))) +
+    (actorName(a) !== a.name ? factRow("Na transcrição, como", esc(a.name)) : "") +
     factRow("Perfil lido de", esc(countLabel(pv.n_hearings, "audiência", "audiências") + " de treino, " + countLabel(pv.n_statements, "turno", "turnos"))) +
     factRow("Foco", esc(focusLine(P))) +
     (others.length ? factRow("Nome na matéria", esc(joinPt(others))) : "");
   return (
     '<article class="pf-sheet pf-head" aria-labelledby="pf-title"><span class="pf-tape is-a" aria-hidden="true"></span><span class="pf-tape is-b" aria-hidden="true"></span>' +
-    '<figure class="pf-pola" role="img" aria-label="Sem foto: as iniciais ' + esc(initials(a.name)) + '"><div class="pf-pola-img" aria-hidden="true"><svg class="pf-sil" viewBox="0 0 100 100"><circle cx="50" cy="38" r="17"/><path d="M16 96c3-22 17-34 34-34s31 12 34 34"/></svg><span>' + esc(initials(a.name)) + '</span></div><figcaption>' + esc(a.name) + "<small>sem foto</small></figcaption></figure>" +
+    polaHtml(a) +
     '<div class="pf-head-main">' +
-    '<p class="pf-k">Dossiê de ator · ' + esc(ctx.runLabel) + "</p>" +
-    '<h2 class="pf-name"><span>Perfil:</span> ' + esc(a.name) + "</h2>" +
+    '<p class="pf-k">Dossiê de ator</p>' +
+    '<h2 class="pf-name"><span>Perfil:</span> ' + esc(actorName(a)) + "</h2>" +
     (q
       ? '<blockquote class="pf-quote"><p>“' + esc(shorten(q.text, QUOTE_MAX)) + '”</p><footer>Trecho da transcrição, audiência ' + q.hearing + ", turno " + tno(q.turn) + " (" + esc(q.from) + ")</footer></blockquote>"
       : "") +
@@ -149,7 +159,7 @@ function notesHtml(P) {
   const when = fmtDate(pv.generated_at.slice(0, 10));
   const items = [
     "escrito por " + pv.model.split("/").pop(),
-    "rodada " + pv.run + ", prompt " + pv.prompt_version,
+    "rodada " + pv.run + " (o nome da execução que gerou os perfis), versão do pedido ao modelo " + pv.prompt_version,
     when ? "gerado em " + when : "",
     fmtInt(pv.input_tokens) + " tokens lidos, " + fmtInt(pv.output_tokens) + " escritos",
     "gerado a partir das falas; confira a evidência",
@@ -230,7 +240,7 @@ function participationHtml(P) {
   const read = P.hearings.filter((h) => h.in_profile).length;
   return (
     '<section class="pf-card pf-part" aria-labelledby="pf-part-h">' +
-    sticky("fala em " + countLabel(P.hearings.length, "audiência", "audiências") + "; o perfil leu " + read, "is-y") +
+    sticky(countLabel(P.hearings.length, "audiência", "audiências") + " com falas; " + read + " " + plural(read, "lida", "lidas") + " pelo perfil", "is-y") +
     '<h2 class="pf-h" id="pf-part-h">' + icon("cal") + "Participação</h2>" +
     '<ol class="pf-hl">' + hearingRows(P) + "</ol></section>"
   );
@@ -273,24 +283,24 @@ function sectionsHtml(P) {
   bySection.forEach((s) => {
     if (!s.items.length) return;
     const noUdv = s.items.filter((x) => !x.c.udv).length;
-    const note = noUdv ? sticky(noUdv + " de " + s.items.length + " sem UDV ligada", "is-p") : "";
+    const note = noUdv ? sticky(noUdv + " de " + s.items.length + " sem afirmação da matéria ligada", "is-p") : "";
     (LEFT_SECTIONS.indexOf(s.title.toLowerCase()) >= 0 ? left : right).push(sectionCard(s.title, s.items, left.length + right.length === 0 ? note : ""));
   });
   return { left: left.join(""), right: right.join("") };
 }
 
-function evidenceItem(x, P, byId, cut) {
+function evidenceItem(x, P, byId, C) {
   const c = x.c;
   const st = claimState(c);
   const u = c.udv ? byId.get(c.udv.id) : null;
   const pa = c.passage;
   const passage = pa
     ? '<div class="pf-ev-pa"><p class="pf-ev-t"><mark>' + esc(pa.text) + "</mark></p>" +
-      '<p class="pf-ev-m">Audiência ' + pa.hearing_id + ", turno " + tno(pa.turn) + ", nota de palavras " + fmtScore(pa.score) +
+      '<p class="pf-ev-m">Audiência ' + pa.hearing_id + ", turno " + tno(pa.turn) + ", " + MEASURES.words + " " + fmtScore(pa.score) +
       (pa.start !== null && pa.end !== null ? ' · <a href="' + passageHash(pa) + '">Ler na transcrição</a>' : "") + "</p></div>"
     : '<div class="pf-ev-pa is-none"><p class="pf-ev-m">Sem frase parecida nas falas que o perfil leu.</p></div>';
   const udv = u
-    ? '<div class="pf-ev-u">' + inkHtml(u, cut) +
+    ? '<div class="pf-ev-u">' + inkHtml(u, C) +
       '<p class="pf-ev-m">' + esc(UDV_RULES[c.udv.rule]) + ".</p>" +
       '<p class="pf-ev-p">“' + esc(shorten(u.proposition, 180)) + "”</p>" +
       '<a class="pf-go" href="' + caseHash(u.hearing_id, u.n) + '">Pasta da afirmação ' + u.n + ", audiência " + u.hearing_id + "</a></div>"
@@ -311,8 +321,8 @@ function evidenceHtml(P) {
     (none ? sticky(countLabel(none, "item sem frase parecida", "itens sem frase parecida") + " nas falas lidas", "is-g") : "") +
     '<h2 class="pf-h" id="pf-ev-h">' + icon("link") + "Evidência de cada item</h2>" +
     '<p class="pf-small">' + esc(PROFILE_MATCH_NOTE) + "</p>" +
-    '<div class="pf-ev-cols" aria-hidden="true"><span>Item do perfil</span><span>Frase mais parecida nas falas</span><span>Afirmação da matéria (UDV)</span></div>' +
-    '<ol class="pf-evl">' + claims.map((x) => evidenceItem(x, P, byId, P.verifier_threshold)).join("") + "</ol></section>"
+    '<div class="pf-ev-cols" aria-hidden="true"><span>Item do perfil</span><span>Frase mais parecida nas falas</span><span>Afirmação da matéria</span></div>' +
+    '<ol class="pf-evl">' + claims.map((x) => evidenceItem(x, P, byId, cutsOfProfile(P))).join("") + "</ol></section>"
   );
 }
 
@@ -320,24 +330,19 @@ function udvsHtml(P) {
   if (!P.udvs.length) {
     return '<section class="pf-card pf-udvs" aria-labelledby="pf-u-h"><h2 class="pf-h" id="pf-u-h">' + icon("doc") + "O que as matérias atribuem</h2><p class=\"pf-small\">Nenhuma afirmação das matérias ficou ligada a esta pessoa pelos turnos de fala.</p></section>";
   }
-  const cut = P.verifier_threshold;
+  const C = cutsOfProfile(P);
   const rows = P.udvs
     .map(
       (u) =>
         '<li class="pf-ur' + (u.in_profile ? "" : " is-out") + '"><p class="pf-ur-k"><a href="' + caseHash(u.hearing_id, u.n) + '">Audiência ' + u.hearing_id + ", afirmação " + u.n + "</a>" + (u.in_profile ? "" : "<span>audiência fora do perfil</span>") + "</p>" +
-        '<p class="pf-ur-p">' + esc(u.proposition) + "</p>" + inkHtml(u, cut) + "</li>",
+        '<p class="pf-ur-p">' + esc(u.proposition) + "</p>" + inkHtml(u, C) + "</li>",
     )
     .join("");
   return (
     '<section class="pf-card pf-udvs" aria-labelledby="pf-u-h"><h2 class="pf-h" id="pf-u-h">' + icon("doc") + "O que as matérias atribuem</h2>" +
-    '<p class="pf-small">As afirmações que as matérias atribuem a ' + esc(P.actor.name) + ", ligadas pelos turnos em que a pessoa fala, com o resultado da busca e a nota do verificador de cada uma. Quando a matéria não menciona algo que está no perfil, isso só quer dizer que a matéria não escolheu aquele ponto.</p>" +
+    '<p class="pf-small">As afirmações que as matérias atribuem a ' + esc(actorName(P.actor)) + ", ligadas pelos turnos em que a pessoa fala, com o resultado da busca e o apoio do verificador de cada uma. Quando a matéria não menciona algo que está no perfil, isso só quer dizer que a matéria não escolheu aquele ponto.</p>" +
     '<ol class="pf-ul">' + rows + "</ol></section>"
   );
-}
-
-function firstSentence(text, max) {
-  const m = String(text).match(/^(.+?[.!?])(\s|$)/);
-  return shorten(m && m[1].length >= 40 ? m[1] : text, max);
 }
 
 function synthesisLines(P) {
@@ -365,11 +370,11 @@ function topPositions(P) {
 
 function badgeHtml(x) {
   const st = claimState(x.c);
-  const label = PROFILE_BADGES[st.k] + (st.k === "pas" ? " (" + fmtScore(x.c.passage.score) + ")" : "");
+  const label = PROFILE_BADGES[st.k];
   return '<button type="button" class="pf-badge" data-s="' + st.k + '" data-jump="pf-e' + x.n + '" aria-label="' + esc(label + ". Ver a evidência do item " + x.n) + '"><i aria-hidden="true"></i>' + esc(label) + "</button>";
 }
 
-function summaryHtml(P, ctx) {
+function summaryHtml(P) {
   const a = P.actor;
   const read = P.hearings.filter((h) => h.in_profile).length;
   const turns = P.hearings.reduce((n, h) => n + h.turns, 0);
@@ -377,10 +382,10 @@ function summaryHtml(P, ctx) {
   const stat = (n, label) => '<li class="sm-stat"><b>' + esc(fmtInt(n)) + "</b><span>" + esc(label) + "</span></li>";
   return (
     '<article class="pf-sheet pf-sum" aria-labelledby="pf-title"><span class="pf-tape is-a" aria-hidden="true"></span><span class="pf-tape is-b" aria-hidden="true"></span>' +
-    '<figure class="pf-pola" role="img" aria-label="Sem foto: as iniciais ' + esc(initials(a.name)) + '"><div class="pf-pola-img" aria-hidden="true"><svg class="pf-sil" viewBox="0 0 100 100"><circle cx="50" cy="38" r="17"/><path d="M16 96c3-22 17-34 34-34s31 12 34 34"/></svg><span>' + esc(initials(a.name)) + '</span></div><figcaption>' + esc(a.name) + "<small>sem foto</small></figcaption></figure>" +
+    polaHtml(a) +
     '<div class="pf-sum-main">' +
-    '<p class="pf-k">Dossiê de ator · ' + esc(ctx.runLabel) + "</p>" +
-    '<h1 class="pf-name" id="pf-title" tabindex="-1"><span>Perfil:</span> ' + esc(a.name) + "</h1>" +
+    '<p class="pf-k">Dossiê de ator</p>' +
+    '<h1 class="pf-name" id="pf-title" tabindex="-1"><span>Perfil:</span> ' + esc(actorName(a)) + "</h1>" +
     (a.role || a.party_uf.length ? '<p class="pf-role">' + esc(a.role || a.party_uf[0]) + "</p>" : "") +
     '<p class="pf-syn">' + synthesisLines(P).map(esc).join(" ") + "</p>" +
     '<ul class="sm-stats pf-stats" aria-label="Participação">' + stat(P.hearings.length, plural(P.hearings.length, "audiência", "audiências")) + stat(turns, plural(turns, "turno de fala", "turnos de fala")) + stat(read, plural(read, "lida pelo perfil", "lidas pelo perfil")) + "</ul>" +
@@ -388,23 +393,23 @@ function summaryHtml(P, ctx) {
     "</div>" +
     (top.length
       ? '<section class="pf-top3" aria-labelledby="pf-top3-h"><h2 class="pf-h" id="pf-top3-h">' + icon("flag") + esc(PROFILE_TOP_TITLE) + '</h2><ol class="pf-top3-l">' +
-        top.map((x) => '<li><span class="pf-no">' + x.n + '</span><div><p class="pf-top3-t">' + esc(firstSentence(x.c.text, 190)) + "</p>" + badgeHtml(x) + "</div></li>").join("") +
+        top.map((x, i) => '<li><span class="pf-no">' + (i + 1) + '</span><div><p class="pf-top3-k">item ' + x.n + " do perfil</p><p class=\"pf-top3-t\">" + esc(x.c.text) + "</p>" + badgeHtml(x) + "</div></li>").join("") +
         '</ol><p class="pf-small">' + esc(PROFILE_TOP_NOTE) + "</p></section>"
       : "") +
     "</article>"
   );
 }
 
-export function renderProfile(host, P, ctx) {
+export function renderProfile(host, P) {
   const cols = sectionsHtml(P);
   host.innerHTML =
     '<div class="pf-desk">' +
     '<div class="pf-lamp" aria-hidden="true"></div>' +
-    summaryHtml(P, ctx) +
+    summaryHtml(P) +
     discloseBar("profile", "pf-more", DISCLOSE_HINTS.profile) +
     '<div class="pf-more" id="pf-more">' +
     '<p class="note is-compact pf-warn"><b>Gerado por um modelo de linguagem.</b> ' + esc(PROFILE_NOTE) + "</p>" +
-    '<div class="pf-top">' + headHtml(P, ctx) + notesHtml(P) + howHtml(P) + "</div>" +
+    '<div class="pf-top">' + headHtml(P) + notesHtml(P) + howHtml(P) + "</div>" +
     '<div class="pf-cols"><div class="pf-col">' + participationHtml(P) + themesHtml(P) + '</div><div class="pf-col">' + cols.left + '</div><div class="pf-col">' + cols.right + udvsHtml(P) + "</div></div>" +
     evidenceHtml(P) +
     discloseEnd("profile", "pf-more") +
@@ -412,5 +417,5 @@ export function renderProfile(host, P, ctx) {
     '<div class="pf-mug" aria-hidden="true"></div>' +
     "</div>";
   bindDisclose(host, "profile");
-  return { title: "Perfil: " + P.actor.name, heading: host.querySelector("#pf-title") };
+  return { title: "Perfil: " + actorName(P.actor), heading: host.querySelector("#pf-title") };
 }

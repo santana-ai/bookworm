@@ -165,10 +165,11 @@ apaga o `index.json` antigo antes de gravar a primeira audiência e regrava os a
 da execução; arquivos de outras audiências não são apagados e ficam fora do índice. `index.json` é
 gravado por último, então uma exportação interrompida, nova ou com `--overwrite`, deixa o diretório
 sem índice. Nenhum arquivo leva data de criação, e duas exportações com as mesmas entradas geram os
-mesmos bytes. A exportação de `udv_v2` com `--verifier-report` e `--profiles` grava 88.438.867 bytes
-no total, com 264 perfis de ator (`experiments/artifacts/web/export_site_udv_v2.json`). Para `udv_v1`,
-sem perfis, são 206 arquivos de audiência com 76.526.309 bytes no total (mediana de 329.899; o maior,
-3.377.789, é o da audiência 6, cuja transcrição tem 147.728 palavras) e um índice de 184.112 bytes. O formato está em
+mesmos bytes. A exportação de `udv_v2` com `--verifier-report`, `--profiles` e `--human-validation` grava
+58.810.449 bytes no total, com 264 perfis de ator (`experiments/artifacts/web/export_site_udv_v2.json`).
+Para `udv_v1`, sem perfis, são 206 arquivos de audiência com 46.836.254 bytes no total (mediana de
+199.367; o maior, 2.388.858, é o da audiência 6, cuja transcrição tem 147.728 palavras) e um índice de
+184.112 bytes. O formato está em
 [data_model.md](data_model.md#diretório-de-demonstração-export-site), e a página que lê
 esses arquivos, com o comando para servi-la, está descrita em [web/README.md](../web/README.md).
 
@@ -182,23 +183,26 @@ esses arquivos, com o comando para servi-la, está descrita em [web/README.md](.
  cache.
 
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ *  --run-name               <str>               Basename of the run files. [required]            │
-│    --output                 <path>              Directory to write; defaults to web/app/data of  │
-│                                                 the bookworm source tree.                        │
-│    --config                 <path>              UDV TOML config. [default: configs/udv.toml]     │
-│    --top-k                  <int range> [x>=1]  Candidate units kept per opinion. [default: 8]   │
-│    --split-manifest         <path>              Split manifest that names each hearing split.    │
-│    --overwrite                                  Replace the files of an existing export.         │
-│    --verifier-report        <path>              Verifier report of the run; adds the verifier,   │
-│                                                 question and translation signals of each UDV.    │
-│    --profiles               <path>              Actor profiles JSONL; adds actors.json and one   │
-│                                                 profiles/<actor>.json per profiled actor.        │
-│    --actors-config          <path>              Hearing actors TOML config, used with --profiles │
-│                                                 to rebuild the speeches.                         │
-│                                                 [default: configs/hearing_actors.toml]           │
-│    --profiles-run           <str>               Name of the profile run shown on the page;       │
-│                                                 defaults to the file name.                       │
-│    --help                                       Show this message and exit.                      │
+│ *  --run-name                <str>               Basename of the run files. [required]           │
+│    --output                  <path>              Directory to write; defaults to web/app/data of │
+│                                                  the bookworm source tree.                       │
+│    --config                  <path>              UDV TOML config. [default: configs/udv.toml]    │
+│    --top-k                   <int range> [x>=1]  Candidate units kept per opinion. [default: 8]  │
+│    --split-manifest          <path>              Split manifest that names each hearing split.   │
+│    --overwrite                                   Replace the files of an existing export.        │
+│    --verifier-report         <path>              Verifier report of the run; adds the verifier,  │
+│                                                  question and translation signals of each UDV.   │
+│    --profiles                <path>              Actor profiles JSONL; adds actors.json and one  │
+│                                                  profiles/<actor>.json per profiled actor.       │
+│    --actors-config           <path>              Hearing actors TOML config, used with           │
+│                                                  --profiles to rebuild the speeches.             │
+│                                                  [default: configs/hearing_actors.toml]          │
+│    --profiles-run            <str>               Name of the profile run shown on the page;      │
+│                                                  defaults to the file name.                      │
+│    --human-validation        <path>              Final precision report of the run; adds the     │
+│                                                  human judgments, the precision per tier and the │
+│                                                  judgments per verifier band to index.json.      │
+│    --help                                        Show this message and exit.                     │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 

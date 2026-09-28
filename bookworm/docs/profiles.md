@@ -169,12 +169,12 @@ alfabética, a mesma regra de `build-udvs`.
 
 **Saída.** Além dos arquivos da audiência, a exportação grava:
 
-- `actors.json`: `run` (o mesmo bloco de `index.json`); `profiles` (`run`, `models`, `prompt_versions`,
+- `actors.json`: `run` (o mesmo bloco de `index.json`); `verifier_cuts` (ver abaixo); `profiles` (`run`, `models`, `prompt_versions`,
   `source_sha256` do JSONL e `match`, a regra acima com os limites); `actors`, uma entrada por ator com
-  `slug`, `name`, `role`, `n_hearings`, `n_hearings_in_profile`, `n_turns`, `hearing_ids`, `n_udvs` e
+  `slug`, `name`, `display_name`, `role`, `n_hearings`, `n_hearings_in_profile`, `n_turns`, `hearing_ids`, `n_udvs` e
   `claims` (`claims`, `with_udv`, `passage_only`, `without_evidence`); `people`, que leva cada nome da
   matéria de cada audiência ao `slug` do perfil; e `udvs`, que leva cada id de UDV ao `slug`.
-- `profiles/<slug>.json`, um por ator: `actor` (`slug`, `name`, `role`, `article_names`, `party_uf`);
+- `profiles/<slug>.json`, um por ator: `actor` (`slug`, `name`, `display_name`, `role`, `article_names`, `party_uf`);
   `provenance` (`run`, `model`, `prompt_version`, `generated_at`, `n_statements`, `n_hearings`,
   `hearing_ids`, `input_tokens`, `output_tokens`, `source_sha256`); `match`; `counts`; `sections`, cada
   uma com `title` e `claims` (`text`, `passage` com `hearing_id`, `turn`, `start`, `end`, `text` e
@@ -183,7 +183,10 @@ alfabética, a mesma regra de `build-udvs`.
   `article_name`, `proposition`, `tier`, `evidence`, `verifier` com `probability` e `supported` ou
   `null`, `in_profile`); e `verifier_threshold`, o corte da decisão em `verifier.supported` (o corte
   para premissas de UDV quando o relatório do verificador tem um, 0,2429 em `udv_v2`; senão, o corte do
-  treino).
+  treino) e `verifier_cuts`, os cortes das faixas de apoio (`low`, o corte para premissas de UDV, e
+  `high`, o corte do treino; sem corte para premissas, `low` é o corte do treino e `high` é `null`;
+  `null` sem `--verifier-report`). `display_name` é o nome mais frequente do ator nas matérias (o
+  mais longo nos empates), ou `name` quando nenhuma matéria o cita.
 
 O `slug` vem do nome sem acentos, em minúsculas, com hífens; nomes que colidem ganham `-2`, `-3`.
 
@@ -191,7 +194,7 @@ O `slug` vem do nome sem acentos, em minúsculas, com hífens; nomes que colidem
 que o comando imprime, gravado em
 [`experiments/artifacts/web/export_site_udv_v2.json`](../../experiments/artifacts/web/export_site_udv_v2.json),
 dá 264 perfis e 4.928 itens: 202 itens ligados a uma UDV, 4.290 só com frase e 436 sem frase. 660 UDVs
-têm como dono um ator com perfil. A exportação inteira, com os perfis, ocupa 88.438.867 bytes. Os
+têm como dono um ator com perfil. A exportação inteira, com os perfis e a conferência humana, ocupa 58.810.449 bytes. Os
 perfis foram gerados das falas de treino, que não dependem da execução de UDV; entre `udv_v1` e
 `udv_v2` muda só a ligação dos itens às UDVs, já que `same_sentence` compara a frase escolhida com a
 evidência da UDV, e a evidência semântica de `udv_v2` é uma janela de duas frases.

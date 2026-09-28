@@ -1,7 +1,9 @@
 import { caseHash } from "../case.js";
+import { MEASURES, SUPPORT_NOTE } from "../copy.js";
 import { bindDisclose } from "../disclose.js";
 import { buildModel } from "../model.js";
-import { clamp, esc, shorten } from "../text.js";
+import { supportChip } from "../support.js";
+import { clamp, esc, fmtScore, shorten } from "../text.js";
 import { installAsk } from "./ask.js";
 import { installCamera } from "./camera.js";
 import { installLayout } from "./layout.js";
@@ -19,7 +21,7 @@ function collectElements(root) {
     wrap: q(".wl-wrap"), world: q(".wl-world"), cork: q(".wl-cork"), objs: q(".wl-objs"), glabs: q(".wl-glabs"),
     svLo: q(".wl-sv-lo"), svHi: q(".wl-sv-hi"), tags: q(".wl-tags"),
     reader: q(".wl-reader"), readerBody: q(".wl-reader-body"), readerPos: q(".wl-reader-pos"), readerH: q(".wl-reader-h"),
-    rdBefore: q(".wl-rd-before"), rdAfter: q(".wl-rd-after"), rdClose: q(".wl-rd-close"), rdMore: q(".wl-rd-more"), list: q(".wl-list-l"),
+    rdBefore: q(".wl-rd-before"), rdAfter: q(".wl-rd-after"), rdClose: q(".wl-rd-close"), rdMore: q(".wl-rd-more"), list: q(".wl-list-l"), listNote: q(".wl-list-note"), sort: q(".wl-sort"),
     next: q(".wl-next"), back: q(".wl-back"), auto: q(".wl-auto"), kase: q(".wl-case"), all: q(".wl-all"), pick: q(".wl-pick-sel"),
     capScene: q(".wl-cap-scene"), capText: q(".wl-cap-text"), cap: q(".wl-cap"), legend: q(".wl-legend"), key: q(".wl-key"), disc: q(".wl-disc"),
     zoom: q(".wl-zoom"), zin: q(".wl-zin"), zout: q(".wl-zout"), hint: q(".wl-hint"),
@@ -57,10 +59,32 @@ export function createWall(host, H) {
     '<option value="" disabled>Escolha uma afirmação</option>' +
     M.S.map((s, j) => '<option value="' + j + '">' + (j + 1) + ". " + esc(s.u.actor.name) + ": " + esc(shorten(s.u.proposition.replace(/^["“]/, ""), 58)) + "</option>").join("");
   els.disc.textContent = w.disclaimer;
-  els.list.innerHTML = M.S.map(
-    (s, j) =>
-      '<li><a href="' + caseHash(H.hearing.id, j + 1) + '"><span class="wl-list-n">' + (j + 1) + '</span><span class="wl-list-b"><span class="wl-list-w">' + esc(s.u.actor.name) + '</span><span class="wl-list-p">' + esc(shorten(s.u.proposition, 170)) + '</span></span><span class="wl-list-t" data-t="' + s.tier.k + '">' + esc(s.tier.short) + "</span></a></li>",
-  ).join("");
+  const scored = M.S.filter((s) => s.sup).length;
+
+  function listItem(s) {
+    const sim = s.ev && !s.isQuote ? ' <span class="wl-list-m">' + MEASURES.similarity + " " + esc(fmtScore(s.ev.score, M.CUT)) + "</span>" : "";
+    const sup = s.sup ? supportChip(s.sup, true) : '<span class="wl-list-m">' + (s.ev ? MEASURES.support + " não calculado" : "sem apoio para medir") + "</span>";
+    return (
+      '<li><a href="' + caseHash(H.hearing.id, s.i + 1) + '"><span class="wl-list-n">' + (s.i + 1) + '</span><span class="wl-list-b"><span class="wl-list-w">' + esc(s.u.actor.name) + '</span><span class="wl-list-p">' + esc(shorten(s.u.proposition, 170)) + "</span>" +
+      '<span class="wl-list-r"><span class="wl-list-q">Onde está o trecho: <span class="wl-list-t" data-t="' + s.tier.k + '">' + esc(s.tier.short) + "</span>" + sim + '</span><span class="wl-list-q">Apoio: ' + sup + "</span></span></span></a></li>"
+    );
+  }
+
+  function renderList(order) {
+    const rows = M.S.slice();
+    if (order === "support") rows.sort((a, b) => (a.sup ? a.sup.p : 2) - (b.sup ? b.sup.p : 2) || a.i - b.i);
+    els.list.innerHTML = rows.map(listItem).join("");
+    els.sort.querySelectorAll("[data-sort]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sort === order)));
+    const tail = scored < M.S.length ? " As " + (M.S.length - scored) + " sem apoio medido ficam no fim." : "";
+    els.listNote.textContent = order === "support" ? "Da afirmação com menos apoio do verificador para a com mais. " + SUPPORT_NOTE + tail : "Na ordem em que aparecem na matéria.";
+  }
+
+  els.sort.hidden = !scored;
+  renderList("order");
+  els.sort.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest ? e.target.closest("[data-sort]") : null;
+    if (b) renderList(b.dataset.sort);
+  });
 
   function stageSize() {
     const vh = window.innerHeight || 800;
@@ -111,6 +135,12 @@ export function createWall(host, H) {
   function onKey(e) {
     if (w.destroyed || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
     const key = e.key;
+    const tg0 = e.target;
+    if (tg0 && tg0.classList && tg0.classList.contains("wl-hit") && root.contains(tg0) && /^Arrow(Right|Left|Up|Down)$/.test(key)) {
+      e.preventDefault();
+      w.roveStep(tg0, key === "ArrowRight" || key === "ArrowDown" ? 1 : -1);
+      return;
+    }
     const zoomKey = key === "+" || key === "=" || key === "-" || key === "_";
     if (key !== "ArrowRight" && key !== "ArrowLeft" && key !== "Escape" && !zoomKey) return;
     const tg = e.target;
@@ -158,8 +188,14 @@ export function createWall(host, H) {
       w.onAskClick(e);
       return;
     }
-    if (w.st.mode !== "net" || t.closest(".wl-zoom, .wl-reader, .wl-legend")) return;
     const pb = t.closest("[data-pull]");
+    if (pb && root.contains(pb) && w.st.mode !== "net") {
+      w.goNetwork();
+      w.pullFromUser(pb.dataset.pull);
+      pb.focus({ preventScroll: true });
+      return;
+    }
+    if (w.st.mode !== "net" || t.closest(".wl-zoom, .wl-reader, .wl-legend")) return;
     if (pb && root.contains(pb)) {
       w.pullFromUser(pb.dataset.pull);
       return;
@@ -203,8 +239,25 @@ export function createWall(host, H) {
     }
   }
 
-  const onNext = () => w.next();
-  const onBack = () => w.back();
+  function keepStoryInView() {
+    if (w.destroyed || !w.L || w.L.name !== "tall") return;
+    const r = els.wrap.getBoundingClientRect();
+    const c = els.cap.getBoundingClientRect();
+    const vh = window.innerHeight || 0;
+    if (r.top >= 0 && c.bottom <= vh) return;
+    const fits = c.bottom - r.top <= vh - 8;
+    const dy = fits ? r.top - Math.max(4, (vh - (c.bottom - r.top)) / 2) : r.top - 4;
+    window.scrollBy({ top: dy, behavior: w.reduced() ? "auto" : "smooth" });
+  }
+
+  const onNext = () => {
+    w.next();
+    keepStoryInView();
+  };
+  const onBack = () => {
+    w.back();
+    keepStoryInView();
+  };
   const onAll = () => {
     w.closeReader(true);
     if (w.st.mode === "net") w.leaveNetwork();
@@ -279,9 +332,9 @@ export function createWall(host, H) {
     w.openStatementAt(j, "result");
   }
 
-  function openPassage(p) {
+  function openPassage(p, fromProfile) {
     if (w.destroyed) return false;
-    return w.openReaderPassage(p);
+    return w.openReaderPassage(p, fromProfile);
   }
 
   return { destroy, openStatement, openPassage };

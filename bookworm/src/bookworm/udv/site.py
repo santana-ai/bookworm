@@ -17,6 +17,7 @@ from bookworm.udv.build import EvidenceSettings
 from bookworm.udv.export import DEFAULT_TOP_K, export_hearing, split_of
 from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
 from bookworm.udv.signals import SiteSignals
+from bookworm.udv.site_validation import SiteValidation
 
 HearingCallback = Callable[[int, JsonObject, int], None]
 
@@ -137,6 +138,7 @@ def export_site(
     signals: SiteSignals | None = None,
     profiles: ProfileSiteBuilder | None = None,
     settings: EvidenceSettings | None = None,
+    validation: SiteValidation | None = None,
 ) -> SiteExport:
     """Write the demo JSON of every hearing and then ``index.json`` to ``output_dir``."""
     ordered = sorted(hearings, key=lambda hearing: hearing.id)
@@ -172,6 +174,8 @@ def export_site(
         if on_hearing is not None:
             on_hearing(number, entry, hearing_bytes[hearing.id])
     profile_site = None if profiles is None else profiles.write(output_dir, run)
-    index = {"run": run, "hearings": entries}
+    index: JsonObject = {"run": run, "hearings": entries}
+    if validation is not None:
+        index["validation"] = validation.index_block(signals)
     write_json(index, index_path)
     return SiteExport(index, hearing_bytes, index_path.stat().st_size, profile_site)

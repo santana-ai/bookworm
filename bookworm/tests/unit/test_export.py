@@ -32,8 +32,19 @@ from bookworm import (
 )
 from bookworm.cli import create_app
 from bookworm.data.io import JsonObject
+from bookworm.transcript.offsets import Span
 from bookworm.transcript.text import normalize_whitespace
-from bookworm.udv.export import DEFAULT_TOP_K, check_run_pipeline, split_of
+from bookworm.transcript.turns import split_into_turns
+from bookworm.udv.export import (
+    DEFAULT_TOP_K,
+    ExportedSentence,
+    check_run_pipeline,
+    js_normalized,
+    sentence_entry,
+    sentence_text,
+    similar_speakers,
+    split_of,
+)
 from bookworm.udv.quotes import DOUBLE_QUOTE_PATTERNS
 
 runner = CliRunner()
@@ -118,12 +129,13 @@ def test_export_lists_every_turn_with_its_sentences(exported: JsonObject) -> Non
     assert [turn["index"] for turn in turns] == list(range(7))
     assert [turn["speaker"] for turn in turns][:2] == ["PRESIDENTE", "MARCOS PEREIRA"]
     assert turns[0]["party"] == "Dep. Carlos Nunes. PL - RJ"
-    assert turns[5]["sentences"][0]["text"] == THANKS_SENTENCE
+    assert sentence_text(transcript, turns[5]["sentences"][0]) == THANKS_SENTENCE
     for turn in turns:
         assert set(turn) == {"index", "speaker", "party", "start", "end", "sentences"}
-        for sentence in turn["sentences"]:
-            assert slice_text(transcript, sentence["start"], sentence["end"]) == sentence["text"]
-            assert turn["start"] <= sentence["start"] < sentence["end"] <= turn["end"]
+        for entry in turn["sentences"]:
+            start, end = entry[0], entry[1]
+            assert slice_text(transcript, start, end) == sentence_text(transcript, entry)
+            assert turn["start"] <= start < end <= turn["end"]
 
 
 def test_export_lists_people_with_their_turns(exported: JsonObject) -> None:
@@ -134,6 +146,7 @@ def test_export_lists_people_with_their_turns(exported: JsonObject) -> None:
             "role": "Deputado (PT-SP)",
             "turns": [3],
             "resolved": True,
+            "similar_speakers": [],
         },
         {
             "index": 1,
@@ -141,6 +154,7 @@ def test_export_lists_people_with_their_turns(exported: JsonObject) -> None:
             "role": "Presidente da Associação de Cooperativas do Interior",
             "turns": [1, 5],
             "resolved": True,
+            "similar_speakers": [],
         },
         {
             "index": 2,
@@ -148,6 +162,7 @@ def test_export_lists_people_with_their_turns(exported: JsonObject) -> None:
             "role": "Deputado (PL-RJ), presidente da comissão",
             "turns": [0, 2, 4, 6],
             "resolved": True,
+            "similar_speakers": [],
         },
     ]
 
@@ -223,6 +238,7 @@ def test_export_of_people_without_sentences(mini_hearings: dict[int, HearingReco
         "role": "Representante dos pontos de cultura",
         "turns": [],
         "resolved": False,
+        "similar_speakers": [],
     }
     assert by_id["udv-2-0-0"]["quotes"] == [
         "os mestres da cultura popular precisam de reconhecimento formal do Estado"
@@ -590,3 +606,35 @@ def test_cli_export_rejects_a_non_positive_top_k(mini_workdir: Path) -> None:
         "0",
     )
     assert result.exit_code == 2
+
+
+def test_js_normalized_collapses_javascript_whitespace_only() -> None:
+    assert js_normalized("  a\n\u00a0 b\t\ufeff") == "a b"
+    assert js_normalized("a\x1cb") == "a\x1cb"
+
+
+def test_sentence_entry_drops_the_text_that_the_offsets_give_back() -> None:
+    transcript = "Primeira   frase.\nSegunda\x1cfrase."
+    first = ExportedSentence("Primeira frase.", 0, Span(0, 17, 0))
+    odd = ExportedSentence("Segunda frase.", 0, Span(18, 32, 0))
+    unplaced = ExportedSentence("Sem lugar.", 0, None)
+    entries = [sentence_entry(sentence, transcript) for sentence in (first, odd, unplaced)]
+    assert entries == [[0, 17], [18, 32, "Segunda frase."], [None, None, "Sem lugar."]]
+    assert [sentence_text(transcript, entry) for entry in entries] == [
+        "Primeira frase.",
+        "Segunda frase.",
+        "Sem lugar.",
+    ]
+
+
+def test_similar_speakers_lists_close_transcript_names() -> None:
+    transcript = (
+        "O SR. LUÉRGIO DE SOUSA - Bom dia a todos.\n"
+        "A SRA. PRESIDENTE (Erika Kokay. Bloco/PT - DF) - Obrigada.\n"
+        "O SR. LUÉRGIO DE SOUSA - Mais uma fala.\n"
+    )
+    turns = split_into_turns(transcript)
+    found = similar_speakers("Luegio de Souza", turns)
+    assert [(item["name"], item["turns"]) for item in found] == [("LUÉRGIO DE SOUSA", [0, 2])]
+    assert 0.75 <= found[0]["score"] < 1
+    assert similar_speakers("Maíra Pankararu", turns) == []

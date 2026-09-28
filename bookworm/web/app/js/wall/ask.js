@@ -256,7 +256,7 @@ export function installAsk(w) {
     body.innerHTML = rd.open ? (rd.a > 0 ? "[…]\n" : "") + markText(slice, ranges) + (rd.b < T.length ? "\n[…]" : "") : markText(slice, ranges);
     const who = "Turno " + tno(rd.mark.turn) + ", " + M.speakerName(rd.mark.turn) + ".";
     els.readerPos.textContent = rd.open
-      ? "Caracteres " + fmtInt(rd.a) + " a " + fmtInt(rd.b) + " de " + fmtInt(T.length) + ". Em amarelo, " + rd.mark.label + " (turno " + tno(rd.mark.turn) + ", " + M.speakerName(rd.mark.turn) + "). Em negrito, quem pega a palavra."
+      ? "Em amarelo, " + rd.mark.label + " (turno " + tno(rd.mark.turn) + ", " + M.speakerName(rd.mark.turn) + "). Em negrito, quem pega a palavra. Posição na transcrição: caracteres " + fmtInt(rd.a) + " a " + fmtInt(rd.b) + " de " + fmtInt(T.length) + "."
       : who + " " + READER_SHORT;
     els.rdBefore.disabled = rd.a <= 0;
     els.rdAfter.disabled = rd.b >= T.length;
@@ -272,8 +272,9 @@ export function installAsk(w) {
     }
   }
 
-  function openReaderAt(mark, title, from) {
+  function openReaderAt(mark, title, from, wide) {
     if (w.st.auto) w.setAuto(false);
+    if (wide) rd.open = true;
     rd.mark = mark;
     rd.back = from || document.activeElement;
     spanReader();
@@ -290,7 +291,7 @@ export function installAsk(w) {
   function openReader(k, from) {
     const pa = M.PAS[k];
     if (!pa) return;
-    openReaderAt({ start: pa.start, end: pa.end, turn: pa.turn, label: "o trecho escolhido" }, "A transcrição em volta do trecho", from);
+    openReaderAt({ start: pa.start, end: pa.end, turn: pa.turn, label: "o trecho escolhido" }, "A transcrição em volta do trecho", from, true);
   }
 
   function openReaderSentence(i, from) {
@@ -300,10 +301,12 @@ export function installAsk(w) {
     openReaderAt({ start: s.start, end: s.end, turn: s.turn, label: "a frase da busca" }, "A transcrição em volta da frase", from);
   }
 
-  function openReaderPassage(p) {
-    if (!(p.start >= 0 && p.end <= T.length && p.start <= p.end) || !M.turnsByIdx[p.turn]) return false;
+  function openReaderPassage(p, fromProfile) {
+    const t = M.turnsByIdx[p.turn];
+    if (!t || !(p.start >= t.start && p.end <= t.end && p.start < p.end)) return false;
     scrollWallIntoView();
-    openReaderAt({ start: p.start, end: p.end, turn: p.turn, label: "a frase do perfil" }, "A transcrição em volta da frase do perfil", els.wrap);
+    const what = fromProfile ? "a frase do perfil" : "o trecho do endereço";
+    openReaderAt({ start: p.start, end: p.end, turn: p.turn, label: what }, "A transcrição em volta d" + (fromProfile ? "a frase do perfil" : "o trecho pedido"), els.wrap, true);
     return true;
   }
 

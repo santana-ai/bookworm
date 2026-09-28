@@ -1,5 +1,6 @@
-import { NOT_CHECKED, unitCopy } from "../copy.js";
-import { clamp, countLabel, esc, firstName, fmtInt, fmtScore, joinPt, markText, plural, shorten, tno } from "../text.js";
+import { MEASURES, unitCopy, validationLead, validationShort } from "../copy.js";
+import { supportChip } from "../support.js";
+import { clamp, countLabel, esc, firstName, fmtInt, fmtScore, joinPt, markText, shorten, tno } from "../text.js";
 
 export const stId = (i) => "st" + i;
 export const peId = (g) => "pe" + g.gi;
@@ -92,7 +93,7 @@ export function installObjects(w) {
     const v = clamp(sc, 0, 1) * 100;
     return (
       '<div class="wl-rul" aria-hidden="true"><div class="wl-rul-bar"><span class="wl-rul-zone" style="left:' + c.toFixed(1) + '%"></span><span class="wl-rul-cut" style="left:' + c.toFixed(1) + '%"></span><span class="wl-rul-mk" style="left:' + v.toFixed(1) + '%"></span></div>' +
-      '<div class="wl-rul-ax"><span style="left:0">0</span><span style="left:' + c.toFixed(1) + '%">' + fmtScore(M.CUT) + '</span><span style="left:100%">1</span></div><p class="wl-rul-l">nota de 0 a 1</p></div>'
+      '<div class="wl-rul-ax"><span style="left:0">0</span><span style="left:' + c.toFixed(1) + '%">' + fmtScore(M.CUT) + '</span><span style="left:100%">1</span></div><p class="wl-rul-l">semelhança</p></div>'
     );
   }
 
@@ -100,8 +101,8 @@ export function installObjects(w) {
     let left = "";
     if (s.isQuote && s.quote) left = '<p class="wl-qn">' + quoteCount(s.quote) + " das aspas, iguais na fala</p>";
     else if (s.ev) left = rulerHtml(s.ev.score);
-    const sc = s.ev && !s.isQuote ? "<small>nota " + fmtScore(s.ev.score, M.CUT) + "</small>" : "";
-    return '<div class="wl-st-res">' + left + '<div class="wl-ink" data-t="' + s.tier.k + '"><span>' + esc(s.tier.label) + "</span>" + sc + "</div></div>";
+    const sc = s.ev && !s.isQuote ? "<small>" + MEASURES.similarity + " " + fmtScore(s.ev.score, M.CUT) + "</small>" : "";
+    return '<div class="wl-st-res">' + left + '<div class="wl-ink" data-t="' + s.tier.k + '"><span>' + esc(s.tier.short) + "</span>" + sc + "</div>" + (s.sup ? '<p class="wl-st-ap">' + supportChip(s.sup, true) + "</p>" : "") + "</div>";
   }
 
   function buildStatement(s) {
@@ -109,8 +110,8 @@ export function installObjects(w) {
     const h =
       '<span class="wl-pin"></span><div class="wl-near"><p class="wl-st-k">Afirmação ' + (s.i + 1) + " · segundo a matéria,</p>" +
       '<p class="wl-st-who">' + esc(u.actor.name) + ':</p><p class="wl-st-prop">' + esc(u.proposition) + "</p>" + stResHtml(s) + "</div>" +
-      '<div class="wl-far"><span class="wl-far-row"><span class="wl-no">' + (s.i + 1) + '</span><span class="wl-fl wl-sub">' + esc(firstName(u.actor.name)) + '</span></span><span class="wl-chip wl-sub" data-t="' + s.tier.k + '">' + esc(s.tier.short) + "</span></div>";
-    mkObj(stId(s.i), "st", h, "Afirmação " + (s.i + 1) + ", atribuída a " + u.actor.name + ": " + shorten(u.proposition, 90) + ". Puxar este cartão.");
+      '<div class="wl-far"><span class="wl-far-row"><span class="wl-no">' + (s.i + 1) + '</span><span class="wl-fl wl-sub">' + esc(firstName(u.actor.name)) + '</span></span><span class="wl-chip wl-sub" data-t="' + s.tier.k + '">' + esc(s.tier.short) + "</span>" + (s.sup ? '<span class="wl-sub wl-far-ap">' + supportChip(s.sup, false) + "</span>" : "") + "</div>";
+    mkObj(stId(s.i), "st", h, "Afirmação " + (s.i + 1) + ", atribuída a " + u.actor.name + ": " + shorten(u.proposition, 90) + ". " + s.tier.label + (s.sup ? ", " + s.sup.b.label : "") + ". Puxar este cartão.");
   }
 
   function personLine(g) {
@@ -164,10 +165,10 @@ export function installObjects(w) {
   function buildPassage(pa) {
     const speaker = M.speakerName(pa.turn);
     const h =
-      '<span class="wl-pin is-l"></span><span class="wl-pin is-r"></span><div class="wl-near"><p class="wl-pa-h"><span>Trecho · turno ' + tno(pa.turn) + "</span><span>" + esc(firstName(speaker)) + "</span></p>" +
-      '<p class="wl-pa-t"><mark>' + passageHtml(pa) + '</mark></p><p class="wl-pa-f">Caracteres ' + fmtInt(pa.start) + " a " + fmtInt(pa.end) + " de " + fmtInt(M.T.length) + "</p></div>" +
+      '<span class="wl-pin is-l"></span><span class="wl-pin is-r"></span><div class="wl-near"><p class="wl-pa-h"><span>Trecho · turno ' + tno(pa.turn) + "</span><span>" + esc(speaker) + "</span></p>" +
+      '<p class="wl-pa-t"><mark>' + passageHtml(pa) + "</mark></p></div>" +
       '<div class="wl-far"><span class="wl-fl">trecho<span class="wl-sub">, turno ' + tno(pa.turn) + "</span></span></div>";
-    const o = mkObj(paId(pa.k), "pa", h, "Trecho do turno " + tno(pa.turn) + ", caracteres " + fmtInt(pa.start) + " a " + fmtInt(pa.end) + ". Puxar este trecho.");
+    const o = mkObj(paId(pa.k), "pa", h, "Trecho do turno " + tno(pa.turn) + ", fala de " + speaker + ". Puxar este trecho.");
     const rb = document.createElement("button");
     rb.type = "button";
     rb.className = "wl-read";
@@ -220,7 +221,7 @@ export function installObjects(w) {
             c.map((x, r) => '<li data-r="' + r + '"' + (s.ev && x.start === s.ev.start_char ? ' class="is-best"' : "") + "><b>" + fmtScore(x.score, M.CUT) + "</b><span>" + esc(x.text) + "</span><em>turno " + tno(x.turn) + "</em></li>").join("") +
             "</ol>"
           : '<p class="wl-sh-note">Não havia frase de ' + esc(name) + " com pelo menos 4 palavras para comparar.</p>") +
-        (c.length ? '<p class="wl-sh-note">' + esc(U.top(c.length)) + ", da nota maior para a menor. Quanto mais perto de 1, mais parecido o sentido; a nota não é a chance de estar certo.</p>" : "");
+        (c.length ? '<p class="wl-sh-note">' + esc(U.top(c.length)) + ", da maior semelhança para a menor. Quanto mais perto de 1, mais parecido o sentido; a semelhança não é a chance de a afirmação estar certa.</p>" : "");
     }
     box.innerHTML = h;
   }
@@ -235,6 +236,6 @@ export function installObjects(w) {
   buildNote();
   buildSheet();
 
-  w.disclaimer = "Dados da audiência " + M.H.hearing.id + " (rodada " + M.RUN.name + ")" + ". " + NOT_CHECKED;
+  w.disclaimer = "Dados da audiência " + M.H.hearing.id + ". " + validationLead() + " " + validationShort();
   Object.assign(w, { mkObj, fillSheet, quoteCount });
 }

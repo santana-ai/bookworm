@@ -1,7 +1,9 @@
 """Demo JSON of one hearing (``export-hearing``)."""
 
+import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from difflib import SequenceMatcher
 from typing import Any
 
 import numpy as np
@@ -14,6 +16,8 @@ from bookworm.errors import ConfigError
 from bookworm.features.encoders import CachedEncoder, FloatMatrix
 from bookworm.transcript.offsets import Span, locate_sentence_span
 from bookworm.transcript.sentences import split_sentences, turn_text
+from bookworm.transcript.speakers import turn_name_candidates
+from bookworm.transcript.text import normalize_name
 from bookworm.transcript.turns import Turn, split_into_turns
 from bookworm.udv.build import (
     EvidenceSettings,
@@ -34,6 +38,11 @@ RankedCandidate = tuple[str, int, Span | None]
 
 DEFAULT_TOP_K = 8
 CANDIDATE_SCORE_DECIMALS = 4
+JS_WHITESPACE = "\t\n\v\f\r \u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"
+JS_WHITESPACE_PATTERN = re.compile(f"[{JS_WHITESPACE}]+")
+SIMILAR_NAME_MIN = 0.75
+SIMILAR_NAME_DECIMALS = 3
+SIMILAR_NAMES_KEPT = 3
 
 
 @dataclass(frozen=True, slots=True)
@@ -85,27 +94,78 @@ def hearing_summary(hearing: HearingRecord, split: SplitName | None) -> JsonObje
     }
 
 
-def turn_entry(turn: Turn, sentences: Sequence[ExportedSentence]) -> JsonObject:
+def js_normalized(text: str) -> str:
+    """``text`` with whitespace collapsed as ``replace(/\\s+/g, " ").trim()`` does in JavaScript."""
+    return JS_WHITESPACE_PATTERN.sub(" ", text).strip(" ")
+
+
+def sentence_entry(sentence: ExportedSentence, transcript: str) -> list[Any]:
+    """``[start, end]`` when the text follows from the offsets, else with the text appended."""
+    start, end = sentence.start, sentence.end
+    if start is None or end is None:
+        return [None, None, sentence.text]
+    if js_normalized(transcript[start:end]) == sentence.text:
+        return [start, end]
+    return [start, end, sentence.text]
+
+
+def sentence_text(transcript: str, entry: Sequence[Any]) -> str:
+    """Text of one exported sentence entry, read back from the transcript when it has none."""
+    if len(entry) == 3:
+        return str(entry[2])
+    start, end = entry
+    return js_normalized(transcript[int(start) : int(end)])
+
+
+def turn_entry(turn: Turn, sentences: Sequence[ExportedSentence], transcript: str) -> JsonObject:
     return {
         "index": turn.turn_index,
         "speaker": turn.raw_name,
         "party": turn.party_info,
         "start": turn.start_char,
         "end": turn.end_char,
-        "sentences": [
-            {"text": sentence.text, "start": sentence.start, "end": sentence.end}
-            for sentence in sentences
-        ],
+        "sentences": [sentence_entry(sentence, transcript) for sentence in sentences],
     }
 
 
-def person_entry(person: PersonSpeech) -> JsonObject:
+def similar_speakers(name: str, turns: Sequence[Turn]) -> list[JsonObject]:
+    """Transcript speaker names close to ``name`` by string similarity, best first."""
+    target = normalize_name(name)
+    spelled: dict[str, str] = {}
+    turns_of: dict[str, list[int]] = {}
+    for turn in turns:
+        for candidate in turn_name_candidates(turn):
+            key = normalize_name(candidate)
+            if not key:
+                continue
+            spelled.setdefault(key, candidate)
+            indices = turns_of.setdefault(key, [])
+            if turn.turn_index not in indices:
+                indices.append(turn.turn_index)
+    scored = [
+        (round(SequenceMatcher(None, target, key).ratio(), SIMILAR_NAME_DECIMALS), key)
+        for key in spelled
+    ]
+    kept = sorted(
+        ((score, key) for score, key in scored if score >= SIMILAR_NAME_MIN),
+        key=lambda item: (-item[0], spelled[item[1]]),
+    )
+    return [
+        {"name": spelled[key], "turns": turns_of[key], "score": score}
+        for score, key in kept[:SIMILAR_NAMES_KEPT]
+    ]
+
+
+def person_entry(person: PersonSpeech, turns: Sequence[Turn]) -> JsonObject:
     return {
         "index": person.index,
         "name": person.participant.nome,
         "role": person.participant.cargo,
         "turns": [turn.turn_index for turn in person.matched_turns],
         "resolved": person.resolved,
+        "similar_speakers": []
+        if person.resolved
+        else similar_speakers(person.participant.nome, turns),
     }
 
 
@@ -361,8 +421,8 @@ def export_hearing(
     payload: JsonObject = {
         "hearing": hearing_summary(hearing, split),
         "transcript": transcript,
-        "turns": [turn_entry(turn, by_turn[turn.turn_index]) for turn in turns],
-        "people": [person_entry(person) for person in people],
+        "turns": [turn_entry(turn, by_turn[turn.turn_index], transcript) for turn in turns],
+        "people": [person_entry(person, turns) for person in people],
         "udvs": udv_entries(
             hearing, people, records, candidates_of, encoder, top_k, policy, signals
         ),

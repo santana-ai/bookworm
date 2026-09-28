@@ -19,9 +19,9 @@ export function installLegend(w) {
       ["pub", null, "a matéria publica"],
       ["att", null, "atribuída a"],
       ["fala", null, "fala na audiência (caderno de falas)"],
-      ["sus", "q", "começo das aspas achado na fala"],
+      ["sus", "q", "aspas achadas na fala"],
       ["sus", "h", "trecho parecido pelo sentido"],
-      ["sus", "w", "o mais parecido, com nota abaixo de " + cut],
+      ["sus", "w", "só um trecho pouco parecido: semelhança abaixo de " + cut],
       ["esta", null, "onde o trecho está no caderno"],
       ["loose", null, "fio solto: fala não achada"],
     ];
@@ -34,7 +34,7 @@ export function installLegend(w) {
       '<button type="button" class="wl-lg-h" aria-expanded="' + (legend.classList.contains("is-closed") ? "false" : "true") + '">Como ler os fios</button><ul class="wl-lg-l">' +
       li("pub", null, "a matéria publica") + li("att", null, "atribuída a") + li("fala", null, "fala na audiência") + li("esta", null, "onde está no caderno") +
       '<li class="wl-lg-sub">cartão e trecho, conforme o resultado:</li>' +
-      li("sus", "q", "aspas na fala") + li("sus", "h", "trecho parecido") + li("sus", "w", "pouco parecido") + li("loose", null, "solto: fala não achada") + "</ul>";
+      li("sus", "q", "aspas achadas") + li("sus", "h", "trecho parecido") + li("sus", "w", "pouco parecido") + li("loose", null, "solto: fala não achada") + "</ul>";
   }
 
   function autoLegend() {

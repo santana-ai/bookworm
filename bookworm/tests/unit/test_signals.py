@@ -458,3 +458,68 @@ def test_signals_refuse_a_udv_decision_that_does_not_follow_the_cut(
     records = load_udv_jsonl(Path(RECORDS))
     with pytest.raises(ConfigError, match="supported_at_udv_threshold does not follow"):
         load_site_signals(Path(REPORT), records, sha256_of_file(Path(RECORDS)))
+
+
+def write_precision_report() -> Path:
+    path = Path("validation/precision.json")
+    write_json(
+        {
+            "status": "final",
+            "sample_name": "mini_sample",
+            "splits_used": ["test"],
+            "confidence_level": 0.95,
+            "criteria_declared_on": "2026-01-01",
+            "judged_items": 3,
+            "label_semantics": {"trecho_sustenta": "one annotator's reading"},
+            "mini": {
+                "strata": {
+                    "direct_quote": {
+                        "question": "trecho_sustenta",
+                        "udv_ids_by_judgment": {
+                            "correta": ["udv-1-0-0"],
+                            "parcial": ["udv-2-0-0"],
+                            "incorreta": [],
+                        },
+                    },
+                    "speaker_check": {
+                        "question": "pessoa_falou",
+                        "udv_ids_by_judgment": {"falou": ["udv-2-3-0"]},
+                    },
+                },
+                "criteria": [],
+            },
+        },
+        path,
+    )
+    return path
+
+
+def test_export_site_adds_the_human_validation_to_the_index(signal_workdir: Path) -> None:
+    add_udv_threshold()
+    report = write_precision_report()
+    base = ["export-site", "--config", CONFIG, "--run-name", "mini", "--output", "site"]
+    result = runner.invoke(
+        app, [*base, "--verifier-report", REPORT, "--human-validation", str(report)]
+    )
+    assert result.exit_code == 0, result.output
+    summary = json.loads(result.stdout)
+    assert summary["validation"] == {"judged_udvs": 3, "bands": True}
+    index = json.loads(Path("site/index.json").read_text(encoding="utf-8"))
+    validation = index["validation"]
+    assert validation["run"] == "mini"
+    assert validation["tiers"]["quote_found"]["udvs"] == 2
+    assert validation["speaker_check"] == {"udvs": 1, "falou": 1, "nao_falou": 0, "nao_sei": 0}
+    bands = validation["verifier_bands"]
+    assert bands["cuts"] == [UDV_CUT, 0.5]
+    assert sum(band["udvs"] for band in bands["bands"]) + bands["unscored"] == 2
+
+
+def test_export_site_refuses_a_validation_of_other_udvs(signal_workdir: Path) -> None:
+    report = write_precision_report()
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    payload["mini"]["strata"]["direct_quote"]["udv_ids_by_judgment"]["correta"] = ["udv-9-9-9"]
+    write_json(payload, report)
+    base = ["export-site", "--config", CONFIG, "--run-name", "mini", "--output", "site"]
+    result = runner.invoke(app, [*base, "--human-validation", str(report)])
+    assert result.exit_code == 2
+    assert "udv-9-9-9 is not in the run records" in result.stderr

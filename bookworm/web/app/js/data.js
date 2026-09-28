@@ -31,6 +31,27 @@ const PROB = kind((v) => typeof v === "number" && v >= 0 && v <= 1, "número de 
 
 const RUN = { name: STR, encoder: STR, revision: STR, threshold: NUM };
 
+const SENT = kind(
+  (v) => Array.isArray(v) && ((v.length === 2 && INT(v[0]) && INT(v[1])) || (v.length === 3 && ((INT(v[0]) && INT(v[1])) || (v[0] === null && v[1] === null)) && STR(v[2]))),
+  "[início, fim] ou [início, fim, texto]",
+);
+
+const PRECISION = { successes: INT, trials: INT, estimate: nullable(NUM), low: nullable(NUM), high: nullable(NUM) };
+const VALIDATION_TIER = { udvs: INT, correta: INT, parcial: INT, incorreta: INT, strict: PRECISION, tolerant: PRECISION };
+const VALIDATION = {
+  status: STR,
+  splits: [STR],
+  confidence_level: NUM,
+  single_annotator: BOOL,
+  criteria_declared_on: STR,
+  tiers: {},
+  criteria: [{ name: STR, stratum: STR, metric: STR, min_wilson_lower: NUM, status: STR, observed: PRECISION }],
+  inheritance: { nullable: { judged_inherited: INT, judged_reannotated: INT } },
+  speaker_check: { nullable: { udvs: INT, falou: INT, nao_falou: INT, nao_sei: INT } },
+  udvs: {},
+  verifier_bands: { nullable: { cuts: [NUM], bands: [{ band: oneOf(["weak", "uncertain", "strong"]), udvs: INT, correta: INT, parcial: INT, incorreta: INT }] } },
+};
+
 const INDEX = {
   run: RUN,
   hearings: [
@@ -64,7 +85,7 @@ const EVIDENCE = {
 const HEARING = {
   hearing: { id: INT, split: nullable(STR), article_date: nullable(STR), assunto: STR, materia: STR, transcript_chars: INT, transcript_words: INT },
   transcript: STR,
-  turns: [{ index: INT, speaker: STR, party: STR, start: INT, end: INT, sentences: [{ text: STR, start: nullable(INT), end: nullable(INT) }] }],
+  turns: [{ index: INT, speaker: STR, party: STR, start: INT, end: INT, sentences: [SENT] }],
   people: [{ index: INT, name: STR, role: STR, turns: [INT], resolved: BOOL }],
   udvs: [
     {
@@ -128,8 +149,21 @@ function sum(obj) {
   return Object.keys(obj).reduce((a, k) => a + obj[k], 0);
 }
 
+function checkValidation(url, v) {
+  walk(url, v, VALIDATION, "validation");
+  Object.keys(v.tiers).forEach((t) => {
+    if (TIER_ORDER.indexOf(t) < 0) throw new DataError("format", url, "validation.tiers." + t + ": resultado desconhecido");
+    walk(url, v.tiers[t], VALIDATION_TIER, "validation.tiers." + t);
+    const r = v.tiers[t];
+    if (r.correta + r.parcial + r.incorreta !== r.udvs) throw new DataError("format", url, "validation.tiers." + t + ": a soma dos julgamentos não é udvs");
+  });
+  if (v.verifier_bands && v.verifier_bands.cuts.length !== 2) throw new DataError("format", url, "validation.verifier_bands.cuts: esperava dois cortes");
+  Object.keys(v.udvs).forEach((id) => walk(url, v.udvs[id], { question: oneOf(["trecho_sustenta", "pessoa_falou"]), judgment: STR }, "validation.udvs." + id));
+}
+
 function checkIndex(url, data) {
   walk(url, data, INDEX, "");
+  if ("validation" in data && data.validation !== null) checkValidation(url, data.validation);
   data.hearings.forEach((h, i) => {
     const at = "hearings[" + i + "]";
     if (sum(h.tiers) !== h.n_udvs) throw new DataError("format", url, at + ".tiers: a soma não é n_udvs");
@@ -146,6 +180,12 @@ function checkHearing(url, data, id) {
   };
   if (data.hearing.id !== id) bad("hearing.id", "esperava " + id);
   if (T.length !== data.hearing.transcript_chars) bad("hearing.transcript_chars", "difere do tamanho de transcript, então as posições não batem com o texto");
+  data.turns.forEach((t, i) => {
+    t.sentences = t.sentences.map((x, j) => {
+      if (x[0] !== null && !(x[0] >= t.start && x[0] <= x[1] && x[1] <= t.end)) bad("turns[" + i + "].sentences[" + j + "]", "posições fora do turno");
+      return { start: x[0], end: x[1], text: x.length === 3 ? x[2] : T.slice(x[0], x[1]).replace(/\s+/g, " ").trim() };
+    });
+  });
   const turnIds = new Set(data.turns.map((t) => t.index));
   const people = new Map();
   data.people.forEach((p, i) => {
@@ -154,6 +194,8 @@ function checkHearing(url, data, id) {
     p.turns.forEach((t) => {
       if (!turnIds.has(t)) bad("people[" + i + "].turns", "turno " + t + " não existe");
     });
+    if ("similar_speakers" in p) walk(url, p.similar_speakers, [{ name: STR, turns: [INT], score: NUM }], "people[" + i + "].similar_speakers");
+    else p.similar_speakers = [];
     people.set(p.name, p);
   });
   data.udvs.forEach((u, i) => {
@@ -250,8 +292,20 @@ const PROFILE = {
   verifier_threshold: nullable(PROB),
 };
 
+const CUTS = { low: PROB, high: nullable(PROB) };
+
+function checkCuts(url, data) {
+  if (data.verifier_cuts == null) {
+    data.verifier_cuts = null;
+    return;
+  }
+  walk(url, data.verifier_cuts, CUTS, "verifier_cuts");
+  if (data.verifier_cuts.high !== null && data.verifier_cuts.high <= data.verifier_cuts.low) throw new DataError("format", url, "verifier_cuts: o corte alto não fica acima do baixo");
+}
+
 function checkActors(url, data) {
   walk(url, data, ACTORS, "");
+  checkCuts(url, data);
   const slugs = new Set();
   data.actors.forEach((a, i) => {
     if (slugs.has(a.slug)) throw new DataError("format", url, "actors[" + i + "].slug: repetido");
@@ -272,6 +326,7 @@ function checkActors(url, data) {
 
 function checkProfile(url, data, slug) {
   walk(url, data, PROFILE, "");
+  checkCuts(url, data);
   if (data.actor.slug !== slug) throw new DataError("format", url, "actor.slug: esperava " + slug);
   const ids = new Set(data.udvs.map((u) => u.id));
   let n = 0;

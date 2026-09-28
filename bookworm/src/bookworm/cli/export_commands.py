@@ -42,6 +42,7 @@ from bookworm.udv.site import (
     SiteExport,
     export_site,
 )
+from bookworm.udv.site_validation import SiteValidation, load_site_validation
 from bookworm.udv.verify import coverage_hearings, coverage_threshold
 
 PACKAGE_DIR = Path(__file__).resolve().parents[1]
@@ -205,6 +206,13 @@ class SiteRequest:
     profiles: Path | None = None
     actors_config: Path = DEFAULT_ACTORS_CONFIG_PATH
     profiles_run: str | None = None
+    human_validation: Path | None = None
+
+
+def load_run_validation(request: SiteRequest, run: ExportRun) -> SiteValidation | None:
+    if request.human_validation is None:
+        return None
+    return load_site_validation(request.human_validation, run.records, request.run_name)
 
 
 def load_profile_site(request: SiteRequest, run: ExportRun) -> ProfileSiteBuilder | None:
@@ -252,6 +260,12 @@ def site_summary(site: SiteExport, run_name: str, output_dir: Path) -> dict[str,
             "linked_udvs": len(site.profiles.actors["udvs"]),
             **{key: sum(actor["claims"][key] for actor in actors) for key in PROFILE_CLAIM_KEYS},
         }
+    validation = site.index.get("validation")
+    if isinstance(validation, dict):
+        summary["validation"] = {
+            "judged_udvs": len(validation["udvs"]),
+            "bands": validation["verifier_bands"] is not None,
+        }
     return summary
 
 
@@ -272,6 +286,7 @@ def run_export_site(request: SiteRequest) -> None:
     run = load_export_run(request.config_path, request.run_name)
     signals = load_run_signals(request.verifier_report, run)
     profiles = load_profile_site(request, run)
+    validation = load_run_validation(request, run)
     site = export_site(
         run.hearings,
         run.records,
@@ -285,6 +300,7 @@ def run_export_site(request: SiteRequest) -> None:
         signals=signals,
         profiles=profiles,
         settings=run.settings,
+        validation=validation,
     )
     echo_json(site_summary(site, request.run_name, output_dir))
 
@@ -361,6 +377,16 @@ def add_export_commands(app: typer.Typer) -> None:
                 help="Name of the profile run shown on the page; defaults to the file name.",
             ),
         ] = None,
+        human_validation: Annotated[
+            Path | None,
+            typer.Option(
+                "--human-validation",
+                help=(
+                    "Final precision report of the run; adds the human judgments, the "
+                    "precision per tier and the judgments per verifier band to index.json."
+                ),
+            ),
+        ] = None,
     ) -> None:
         request = SiteRequest(
             config_path,
@@ -373,5 +399,6 @@ def add_export_commands(app: typer.Typer) -> None:
             profiles,
             actors_config,
             profiles_run,
+            human_validation,
         )
         guarded(lambda: run_export_site(request))

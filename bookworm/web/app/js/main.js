@@ -1,11 +1,11 @@
-import { bucketSentence, NOT_CHECKED, NOT_CHECKED_SHORT, statementsSentence, TIER_ORDER } from "./copy.js";
+import { bucketSentence, setValidation, statementsSentence, TIER_ORDER, validationLead, validationShort } from "./copy.js";
 import { DataError, loadActors, loadHearing, loadIndex, loadProfile } from "./data.js";
 import { createAtlas } from "./atlas.js";
 import { caseToken, renderCase } from "./case.js";
 import { createHome, tierStats } from "./home.js";
 import { reveal } from "./disclose.js";
 import { passageToken, profileHash, profileItemToken, profileToken, renderProfile } from "./profile.js";
-import { esc, fmtDate, hashToken } from "./text.js";
+import { actorName, esc, fmtDate, hashToken } from "./text.js";
 import { createWall } from "./wall/wall.js";
 
 const $ = (sel) => document.querySelector(sel);
@@ -24,9 +24,17 @@ let actorsData;
 let lastHearing = null;
 let lastRoute = "";
 
-document.querySelectorAll("[data-note]").forEach((el) => {
-  el.innerHTML = "<b>Ainda sem conferência humana.</b> " + esc(el.classList.contains("is-compact") ? NOT_CHECKED_SHORT : NOT_CHECKED);
-});
+function paintNotes() {
+  document.querySelectorAll("[data-note]").forEach((el) => {
+    el.innerHTML = "<b>" + esc(validationLead()) + "</b> " + esc(validationShort());
+  });
+}
+
+function takeIndex(index) {
+  siteIndex = index;
+  setValidation(index.validation);
+  paintNotes();
+}
 
 function homeEls() {
   return { root: view.home, q: $("#home-q"), sort: $("#home-sort"), lucky: $("#home-lucky"), count: $("#home-count"), list: $("#home-list"), rest: $("#home-rest"), bar: $("[data-home-bar]"), end: $("[data-home-end]"), empty: $("#home-empty") };
@@ -127,7 +135,7 @@ function actorBySlug(slug) {
 function profileOfUdv(udvId) {
   const slug = actorsData && actorsData.udvs[udvId];
   const a = slug ? actorBySlug(slug) : null;
-  return a ? { href: profileHash(a.slug), name: a.name, slug: a.slug } : null;
+  return a ? { href: profileHash(a.slug), name: actorName(a), slug: a.slug } : null;
 }
 
 function hearingProfiles(id) {
@@ -162,7 +170,7 @@ async function showHome(seq) {
   try {
     const index = await loadIndex();
     if (seq !== routeSeq) return;
-    siteIndex = index;
+    takeIndex(index);
     home = createHome(
       homeEls(),
       index,
@@ -196,7 +204,7 @@ async function ensureHome(seq) {
     try {
       const index = await loadIndex();
       if (seq !== routeSeq) return;
-      siteIndex = index;
+      takeIndex(index);
       home = createHome(
         homeEls(),
         index,
@@ -237,7 +245,7 @@ async function openHearing(id, seq) {
   return H;
 }
 
-async function showHearing(id, seq, passage) {
+async function showHearing(id, seq, passage, fromProfile) {
   const H = await openHearing(id, seq);
   if (!H) return;
   await ensureActors(seq);
@@ -258,7 +266,7 @@ async function showHearing(id, seq, passage) {
   const profs = hearingProfiles(H.hearing.id);
   hv.prof.hidden = !profs.length;
   hv.prof.innerHTML = profs.length
-    ? "<span>Perfis de quem fala aqui:</span> " + profs.map((a) => '<a class="hv-prof-a" href="' + profileHash(a.slug) + '">' + esc(a.name) + "</a>").join("")
+    ? "<span>Perfis de quem fala aqui:</span> " + profs.map((a) => '<a class="hv-prof-a" href="' + profileHash(a.slug) + '">' + esc(actorName(a)) + "</a>").join("")
     : "";
   document.title = (date ? "Matéria de " + date : "Audiência " + id) + " · " + APP_TITLE;
   setState("");
@@ -266,7 +274,14 @@ async function showHearing(id, seq, passage) {
   try {
     wall = createWall(view.host, H);
     if (passage) {
-      if (!wall.openPassage(passage)) setState(errorHtml("Não achamos o trecho pedido", ["As posições " + passage.start + " a " + passage.end + " do turno " + (passage.turn + 1) + " não existem na audiência " + id + "."], null, false));
+      if (!wall.openPassage(passage, !!fromProfile)) {
+        dropWall();
+        view.hearing.hidden = true;
+        const back = fromProfile ? ' <a href="' + esc(fromProfile.charAt(0) === "#" ? fromProfile : "#" + fromProfile) + '">Voltar ao perfil</a>.' : "";
+        setState(errorHtml("Não achamos o trecho pedido", ["O endereço aponta para as posições " + passage.start + " a " + passage.end + " no turno " + (passage.turn + 1) + ", mas esse trecho não fica dentro desse turno da audiência " + id + ". O endereço pode estar incompleto ou ser de outra versão dos dados.", '<a href="#h' + id + '">Abrir a audiência ' + id + "</a>." + back], null, false));
+        focusQuiet(view.state.querySelector("h2"));
+        return;
+      }
     } else if (resume && resume.id === H.hearing.id && resume.j < H.udvs.length) wall.openStatement(resume.j);
     resume = null;
   } catch (error) {
@@ -329,18 +344,18 @@ async function showProfile(slug, seq) {
     P = await loadProfile(slug);
   } catch (error) {
     if (seq !== routeSeq) return;
-    setState(errorHtml("Não conseguimos abrir o perfil de " + a.name, [describe(error), dataHelp()], "Tentar de novo", true));
+    setState(errorHtml("Não conseguimos abrir o perfil de " + actorName(a), [describe(error), dataHelp()], "Tentar de novo", true));
     return;
   }
   if (seq !== routeSeq) return;
   const from = lastHearing != null && P.hearings.some((h) => h.id === lastHearing) ? lastHearing : null;
-  setCrumbs((from != null ? [["Audiência " + from, "#h" + from]] : []).concat([[a.name, null], ["Perfil", null]]));
+  setCrumbs((from != null ? [["Audiência " + from, "#h" + from]] : []).concat([["Perfil de " + actorName(P.actor), null]]));
   let shown;
   try {
-    shown = renderProfile(view.profile, P, { runLabel: "rodada " + P.provenance.run });
+    shown = renderProfile(view.profile, P);
   } catch (error) {
     dropCase();
-    setState(errorHtml("Não conseguimos montar o perfil de " + a.name, [describe(error)], "Tentar de novo", true));
+    setState(errorHtml("Não conseguimos montar o perfil de " + actorName(a), [describe(error)], "Tentar de novo", true));
     if (window.console) console.warn(error);
     return;
   }
@@ -378,6 +393,7 @@ async function showAtlas(seq) {
 function route() {
   const seq = ++routeSeq;
   const hash = location.hash;
+  const prevRoute = lastRoute;
   if (hash !== MAP_HASH) lastRoute = hash;
   if (hash === MAP_HASH) {
     showAtlas(seq);
@@ -390,7 +406,7 @@ function route() {
   }
   const passage = passageToken(hash);
   if (passage) {
-    showHearing(passage.id, seq, passage);
+    showHearing(passage.id, seq, passage, profileToken(prevRoute) ? prevRoute : null);
     return;
   }
   const kase = caseToken(location.hash);

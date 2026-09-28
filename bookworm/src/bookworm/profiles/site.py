@@ -29,6 +29,7 @@ from bookworm.profiles.profile_text import (
     trim_passage,
 )
 from bookworm.profiles.schemas import ProfileRecord
+from bookworm.udv.export import sentence_text
 
 __all__ = [
     "ACTORS_FILE_NAME",
@@ -42,6 +43,8 @@ __all__ = [
     "actor_slug",
     "assign_slugs",
     "clear_profile_site",
+    "display_name_of",
+    "page_verifier_cuts",
     "page_verifier_threshold",
     "parse_profile",
     "trim_passage",
@@ -80,6 +83,13 @@ def most_common(counts: Counter[str]) -> str | None:
     return min(counts.items(), key=lambda item: (-item[1], item[0]))[0]
 
 
+def display_name_of(article_names: Counter[str], fallback: str) -> str:
+    """Most frequent article name, the longest one on ties, then the smallest."""
+    if not article_names:
+        return fallback
+    return min(article_names.items(), key=lambda item: (-item[1], -len(item[0]), item[0]))[0]
+
+
 def majority_owner(turns: Sequence[int], owners: Mapping[int, str]) -> str | None:
     return most_common(Counter(owners[turn] for turn in turns if turn in owners))
 
@@ -99,6 +109,15 @@ def page_verifier_threshold(signals: Mapping[str, Any]) -> float:
     if isinstance(udv_threshold, Mapping):
         return float(udv_threshold["value"])
     return float(verifier["threshold"])
+
+
+def page_verifier_cuts(signals: Mapping[str, Any]) -> JsonObject:
+    """Cuts of the support bands: below ``low`` weak, from ``high`` on strong."""
+    verifier = signals["verifier"]
+    udv_threshold = verifier.get("udv_threshold")
+    if isinstance(udv_threshold, Mapping):
+        return {"low": float(udv_threshold["value"]), "high": float(verifier["threshold"])}
+    return {"low": float(verifier["threshold"]), "high": None}
 
 
 def evidence_of(udv: Mapping[str, Any]) -> JsonObject | None:
@@ -132,11 +151,11 @@ def trail_udv(udv: Mapping[str, Any], hearing_id: int, number: int) -> JsonObjec
     }
 
 
-def turn_sentences(hearing_id: int, turn: Mapping[str, Any]) -> list[Sentence]:
+def turn_sentences(hearing_id: int, turn: Mapping[str, Any], transcript: str) -> list[Sentence]:
     return [
-        Sentence(hearing_id, turn["index"], sentence["start"], sentence["end"], text)
-        for sentence in turn["sentences"]
-        if len((text := sentence["text"]).split()) >= PASSAGE_MIN_WORDS
+        Sentence(hearing_id, turn["index"], entry[0], entry[1], text)
+        for entry in turn["sentences"]
+        if len((text := sentence_text(transcript, entry)).split()) >= PASSAGE_MIN_WORDS
     ]
 
 
@@ -226,6 +245,7 @@ class ProfileSiteBuilder:
         self.people: dict[int, dict[str, str]] = {}
         self.udv_actors: dict[str, str] = {}
         self.threshold: float | None = None
+        self.cuts: JsonObject | None = None
 
     def add_hearing(self, payload: Mapping[str, Any], entry: Mapping[str, Any]) -> None:
         """Take one exported hearing page and its index entry."""
@@ -233,13 +253,14 @@ class ProfileSiteBuilder:
         signals = payload.get("signals")
         if isinstance(signals, Mapping):
             self.threshold = page_verifier_threshold(signals)
+            self.cuts = page_verifier_cuts(signals)
         self.hearings[hearing_id] = {
             "id": hearing_id,
             **{key: entry[key] for key in PAGE_HEARING_KEYS},
         }
         linked = self.link_people(hearing_id, payload["people"])
         self.collect_udvs(hearing_id, payload["udvs"], linked)
-        self.collect_sentences(hearing_id, payload["turns"])
+        self.collect_sentences(hearing_id, payload["turns"], payload["transcript"])
 
     def link_people(self, hearing_id: int, people: Sequence[Mapping[str, Any]]) -> dict[str, str]:
         owners = self.owners.get(hearing_id, {})
@@ -268,7 +289,9 @@ class ProfileSiteBuilder:
             self.udv_actors[udv["id"]] = self.slugs[actor]
             self.trails[actor].udvs.append(trail_udv(udv, hearing_id, number))
 
-    def collect_sentences(self, hearing_id: int, turns: Sequence[Mapping[str, Any]]) -> None:
+    def collect_sentences(
+        self, hearing_id: int, turns: Sequence[Mapping[str, Any]], transcript: str
+    ) -> None:
         turns_by_index = {turn["index"]: turn for turn in turns}
         for key, name in self.profiled.items():
             spoken = spoken_hearing(self.speeches[key], hearing_id)
@@ -283,7 +306,7 @@ class ProfileSiteBuilder:
                         f"hearing {hearing_id}: turn {actor_turn.turn_index} of {name} is not "
                         "in the exported turns"
                     )
-                trail.sentences.extend(turn_sentences(hearing_id, turn))
+                trail.sentences.extend(turn_sentences(hearing_id, turn, transcript))
 
     def match_claims(
         self, profile: ProfileRecord, trail: ActorTrail
@@ -320,11 +343,13 @@ class ProfileSiteBuilder:
         sections, counts = self.match_claims(profile, trail)
         hearings = self.page_hearings(record, trail, read)
         role = most_common(trail.roles)
+        display_name = display_name_of(trail.article_names, name)
         udvs = page_udvs(trail, read)
         page = {
             "actor": {
                 "slug": self.slugs[name],
                 "name": name,
+                "display_name": display_name,
                 "role": role,
                 "article_names": sorted(trail.article_names),
                 "party_uf": list(record.party_uf),
@@ -336,10 +361,12 @@ class ProfileSiteBuilder:
             "hearings": hearings,
             "udvs": udvs,
             "verifier_threshold": self.threshold,
+            "verifier_cuts": self.cuts,
         }
         summary = {
             "slug": self.slugs[name],
             "name": name,
+            "display_name": display_name,
             "role": role,
             "n_hearings": len(hearings),
             "n_hearings_in_profile": sum(1 for hearing in hearings if hearing["in_profile"]),
@@ -378,6 +405,7 @@ class ProfileSiteBuilder:
                 "source_sha256": self.source_sha256,
                 "match": self.match_block(),
             },
+            "verifier_cuts": self.cuts,
             "actors": summaries,
             "people": {str(key): people for key, people in sorted(self.people.items())},
             "udvs": dict(sorted(self.udv_actors.items())),
