@@ -10,6 +10,12 @@ treinado para essa segunda pergunta. Este experimento mede se o verificador é u
 melhor que o cosseno e como ele se compara com os avaliadores de suporte mais usados e mais recentes
 na literatura de grounding e consistência factual.
 
+Esta versão traz só a parte E-A, medida no benchmark NLI com o rótulo do especialista. A parte E-B, sobre
+as UDVs da amostra de validação `human_validation_v1_udv_v1`, usava rótulos de referência que não eram
+julgamento humano, gerados por um script que não faz parte desta versão; por isso ela foi retirada, com
+o código, a configuração e os relatórios correspondentes. O registro completo fica no tag
+`research-2026-09-28`.
+
 A declaração completa (candidatos, revisões, premissas, métricas, famílias de Holm e regra do smoke)
 está em `configs/confidence_v2.toml`, escrita antes de qualquer escore novo. O código está em
 `utils/confidence_v2.py`, `utils/grounding_scorers.py` e `utils/grounding_models.py`; os testes, com
@@ -114,7 +120,10 @@ reproduz os sete valores do cartão do modelo) e ficaram dentro do orçamento de
 Os tempos saem dos relatórios `scores/<candidato>_ea_report.json`. A vazão real foi menor que a do
 smoke (o `bge_reranker` projetava 0,71 h e levou 1,74 h; as perguntas novas do `laya_en_en` projetavam
 2,64 h e levaram 3,93 h); a decisão de rodar já estava registrada e não depende do tempo real. Todos os
-45.509 textos em inglês necessários já estavam no cache de tradução (`translate_report.json`).
+45.509 textos em inglês necessários já estavam no cache de tradução (`translate_report.json`). O smoke e a
+tradução rodaram quando o E-B ainda fazia parte do experimento, então os pares projetados de
+`smoke/*.json` e os textos de `translate_report.json` incluem os das UDVs anotadas (`[release]` da
+configuração).
 
 Não rodaram, com o motivo:
 
@@ -257,60 +266,6 @@ No `laya_en_en`, quando as perguntas discordam entre si o item tem seis vezes ma
 contra 2,9% na validação, 18,5% contra 4,2% no treino). No `laya_multi_pt` a dispersão não carrega
 informação. Com q11 os números são quase iguais (`results.validation.spread`).
 
-## E-B: 121 UDVs anotadas por um modelo de linguagem
-
-Os rótulos são a maioria de três passadas cegas de um modelo de linguagem sobre a pergunta
-`trecho_sustenta` da amostra `human_validation_v1_udv_v1`; não são julgamento humano, e todo número
-abaixo é concordância com essa anotação, não acurácia. Os rótulos ficam fora do repositório; o relatório
-guarda contagens, hashes e métricas agregadas. As 121 UDVs vêm de 30 audiências, todas do split de
-teste. Contagens: 62 `correta`, 56 `parcial`, 3 `incorreta`. Premissa: a frase única de evidência da
-UDV. Positivo = `correta`; negativo = `parcial` ou `incorreta`. Este conjunto é confirmatório: nada foi
-escolhido nele. O cosseno lido confere com `evidence.score` das 86 UDVs de camada semântica (diferença
-máxima 1,2e-7); nas 35 UDVs `quote_found` ele foi calculado no mesmo par.
-
-Fonte: `artifacts/experiments/confidence_v2/eb_report.json`.
-
-| Sinal | ROC AUC [IC 95%] | AURC [IC 95%] | Precisão a 80% | Precisão a 90% | Δ AUC vs cosseno | Δ AURC vs cosseno |
-|---|---|---|---|---|---|---|
-| `cosine_serafim` | 0,768 [0,673; 0,858] | 0,273 [0,188; 0,369] | 0,557 [0,459; 0,663] | 0,550 [0,452; 0,639] | referência |  |
-| `e3x_primary` | 0,844 [0,765; 0,911] | 0,224 [0,152; 0,317] | 0,598 [0,495; 0,698] | 0,560 [0,459; 0,652] | 0,076 [0,002; 0,148], p=0,0464 | -0,048 [-0,097; -0,004], p=0,0356 |
-| `laya_multi_pt_p4` | 0,683 [0,567; 0,785] | 0,306 [0,221; 0,412] | 0,526 [0,430; 0,634] | 0,523 [0,426; 0,625] | -0,085 [-0,226; 0,053], Holm 1,0000 | 0,033 [-0,048; 0,113], Holm 1,0000 |
-| `xnli_mdeberta` | 0,729 [0,649; 0,804] | 0,294 [0,211; 0,397] | 0,588 [0,489; 0,677] | 0,541 [0,446; 0,640] | -0,040 [-0,135; 0,058], Holm 1,0000 | 0,022 [-0,035; 0,082], Holm 1,0000 |
-| `laya_multi_pt_mean_q7` | 0,734 [0,628; 0,817] | 0,281 [0,196; 0,386] | 0,557 [0,463; 0,667] | 0,541 [0,444; 0,644] | -0,035 [-0,158; 0,086], Holm 1,0000 | 0,008 [-0,067; 0,084], Holm 1,0000 |
-| `laya_multi_pt_median_q7` | 0,690 [0,581; 0,787] | 0,303 [0,220; 0,408] | 0,546 [0,441; 0,644] | 0,523 [0,426; 0,622] | -0,078 [-0,215; 0,055], Holm 1,0000 | 0,031 [-0,048; 0,109], Holm 1,0000 |
-| `laya_multi_pt_min_q7` | 0,694 [0,588; 0,787] | 0,299 [0,214; 0,405] | 0,546 [0,444; 0,641] | 0,541 [0,444; 0,635] | -0,075 [-0,210; 0,060], Holm 1,0000 | 0,026 [-0,053; 0,104], Holm 1,0000 |
-| `laya_en_en_mean_q7` | 0,801 [0,696; 0,884] | 0,242 [0,159; 0,348] | 0,567 [0,462; 0,679] | 0,541 [0,434; 0,642] | 0,033 [-0,118; 0,166], Holm 1,0000 | -0,031 [-0,108; 0,049], Holm 1,0000 |
-| `laya_en_en_median_q7` | 0,750 [0,654; 0,835] | 0,264 [0,183; 0,364] | 0,546 [0,440; 0,659] | 0,532 [0,426; 0,630] | -0,019 [-0,144; 0,098], Holm 1,0000 | -0,008 [-0,077; 0,059], Holm 1,0000 |
-| `laya_en_en_min_q7` | 0,721 [0,629; 0,803] | 0,276 [0,196; 0,371] | 0,546 [0,446; 0,643] | 0,523 [0,433; 0,621] | -0,048 [-0,169; 0,070], Holm 1,0000 | 0,004 [-0,062; 0,069], Holm 1,0000 |
-| `minicheck_ft5` | 0,703 [0,611; 0,789] | 0,310 [0,208; 0,434] | 0,577 [0,479; 0,685] | 0,541 [0,449; 0,647] | -0,065 [-0,186; 0,053], Holm 1,0000 | 0,038 [-0,034; 0,115], Holm 1,0000 |
-| `minicheck_deberta` | 0,740 [0,659; 0,820] | 0,286 [0,202; 0,384] | 0,567 [0,474; 0,659] | 0,550 [0,450; 0,647] | -0,029 [-0,124; 0,071], Holm 1,0000 | 0,013 [-0,051; 0,079], Holm 1,0000 |
-| `factcg_deberta` | 0,713 [0,620; 0,797] | 0,297 [0,204; 0,414] | 0,546 [0,441; 0,667] | 0,532 [0,433; 0,636] | -0,056 [-0,193; 0,080], Holm 1,0000 | 0,025 [-0,058; 0,110], Holm 1,0000 |
-| `alignscore_large` | 0,744 [0,649; 0,837] | 0,277 [0,186; 0,382] | 0,567 [0,464; 0,678] | 0,550 [0,454; 0,646] | -0,024 [-0,136; 0,089], Holm 1,0000 | 0,004 [-0,064; 0,072], Holm 1,0000 |
-| `hhem_open` | 0,803 [0,707; 0,893] | 0,242 [0,166; 0,334] | 0,598 [0,495; 0,682] | 0,550 [0,453; 0,645] | 0,034 [-0,067; 0,129], Holm 1,0000 | -0,030 [-0,084; 0,024], Holm 1,0000 |
-| `bge_reranker` | 0,746 [0,666; 0,827] | 0,287 [0,193; 0,399] | 0,588 [0,479; 0,683] | 0,550 [0,452; 0,650] | -0,022 [-0,087; 0,054], Holm 1,0000 | 0,015 [-0,051; 0,070], Holm 1,0000 |
-| `rank_mean` | 0,831 [0,748; 0,902] | 0,233 [0,159; 0,322] | 0,598 [0,494; 0,695] | 0,560 [0,458; 0,648] | 0,062 [0,023; 0,102], p=0,0028, Holm 0,0840 | -0,040 [-0,069; -0,013], p=0,0008, Holm 0,0256 |
-| `rank_max` | 0,847 [0,769; 0,915] | 0,231 [0,152; 0,324] | 0,598 [0,495; 0,700] | 0,560 [0,458; 0,648] | 0,079 [0,024; 0,138], p=0,0028, Holm 0,0840 | -0,042 [-0,072; -0,014], p=0,0024, Holm 0,0744 |
-
-Contraste principal (`main_contrast`): primário menos cosseno, ROC AUC +0,076 [0,002; 0,148], p de
-bootstrap 0,046; AURC -0,048 [-0,097; -0,004], p 0,036. O teste de DeLong da diferença de AUC, que
-trata as UDVs como independentes, dá z = 2,04 e p = 0,041. Se os dois p do contraste principal forem
-ajustados juntos por Holm, os dois ficam em 0,071; a regra declarada usa o p não ajustado da AUC.
-
-Os demais candidatos formam a família secundária (16 candidatos, 32 comparações). Nenhum avaliador da
-literatura e nenhuma agregação do Laya difere do cosseno depois de Holm; todos os Δ têm intervalos que
-cruzam zero, e cinco dos seis avaliadores da literatura têm AUC pontual abaixo do cosseno. O HHEM e a média q7
-do `laya_en_en` (0,803 e 0,801) são os mais próximos do primário. Só `rank_mean` em AURC passa Holm
-(0,026), e a combinação não melhora o primário sozinho (0,831 e 0,847 contra 0,844 de ROC AUC).
-
-As perguntas novas não ajudam no E-B (Δ AUC de q11 menos q7 entre -0,046 e +0,001; `eb_report.json`,
-`added_questions`). A dispersão do `laya_en_en` com o limiar do treino marca 108 das 121 UDVs, porque as
-premissas de uma frase produzem mais discordância entre perguntas que os trechos do benchmark; entre as
-marcadas há 52,8% de negativos, entre as 13 não marcadas 15,4% (diferença 0,374 [0,064; 0,612]).
-
-Descritivo, `correta` ou `parcial` contra `incorreta`, com 3 negativos (sem intervalo nem teste):
-ROC AUC 0,972 do cosseno, 0,949 do primário, 0,969 do `bge_reranker`, e de 0,477 a 0,881 nos
-demais. Com três negativos esses números mudam muito ao trocar um único item.
-
 ## Resposta
 
 No benchmark (E-A, validação, rótulo de especialista, premissa de 4 trechos), o verificador primário do
@@ -319,29 +274,15 @@ com intervalo longe de zero e p de Holm 0,012 numa família de 30 comparações.
 ROC AUC entre todos os sinais medidos, incluindo os seis avaliadores da literatura, que ficam entre
 0,805 e 0,842.
 
-Nas UDVs (E-B, rótulo de um modelo de linguagem, premissa de uma frase), pela regra declarada o
-verificador é **melhor** que o cosseno: +0,076 de ROC AUC [0,002; 0,148], p = 0,046. A margem é
-pequena: o limite inferior do intervalo está em 0,002 e o resultado deixa de passar em 0,05 se os dois p
-do contraste principal forem ajustados juntos (0,071). Em resumo, o primário ordena melhor
-que o cosseno nas duas bases, com evidência forte no benchmark e fraca, no limite do teste, nas 121
-UDVs. Nenhum avaliador da literatura supera o cosseno no E-B depois de Holm. Nas estimativas pontuais,
-nenhum avaliador da literatura tem ROC AUC maior que o primário em qualquer das duas bases; a comparação
-direta entre eles não foi declarada, então essa ordem não tem teste.
+A comparação direta do primário com cada avaliador da literatura não foi declarada, então a ordem entre
+eles não tem teste. Nesta versão não há medida do primário contra o cosseno nas próprias UDVs com rótulo
+humano; ela depende da planilha `human_validation_v1_udv_v1` completa.
 
 ## Ressalvas
 
 - **Mudança de domínio.** No E-A a premissa são 4 trechos de transcrição de cerca de 630 caracteres
-  cada; no E-B é uma frase. O primário e os avaliadores foram medidos nas duas condições, mas um
-  resultado de uma não se transfere para a outra sem essa ressalva; a queda dos avaliadores da
-  literatura de E-A para E-B (de 0,805 a 0,842 para 0,703 a 0,803) é compatível com isso.
-- **O rótulo do E-B não é humano.** É a maioria de três passadas cegas de um modelo de linguagem. A
-  concordância com essa anotação não é acurácia, e um viés comum do anotador e de algum sinal (por
-  exemplo, ambos favorecerem frases com as mesmas palavras da proposição) infla a AUC desse sinal.
-- **Tamanho do E-B.** 121 UDVs de 30 audiências, 59 negativos, quase todos `parcial`. O contraste
-  principal passou por pouco; com essa amostra, diferenças de 0,05 de AUC não são distinguíveis.
-- **A AUC do primário no E-B já era conhecida** antes desta declaração (0,8442, relatório do
-  `udv_v1_verifier`); a do cosseno não era. A regra de decisão foi escrita antes de a do cosseno ser
-  calculada.
+  cada; na produção, a premissa de uma UDV é uma frase de evidência. Um resultado do E-A não se
+  transfere para a evidência de uma UDV sem essa ressalva.
 - **Primário dentro da amostra no treino do E-A.** Os números de treino do primário e das combinações
   por posto são descritivos.
 - **Tradução.** Os avaliadores em inglês e o `laya_en_en` leem a tradução NLLB; erros de tradução entram
@@ -363,7 +304,6 @@ uv run python -m utils.confidence_v2 decide
 uv run python -m utils.confidence_v2 score
 uv run python -m utils.confidence_v2 laya-score
 uv run python -m utils.confidence_v2 evaluate-ea
-uv run python -m utils.confidence_v2 evaluate-eb --annotation <annotation.csv> --annotator "<descrição>"
 ```
 
 Os comandos com modelo rodam em `mps`, um processo por vez, com

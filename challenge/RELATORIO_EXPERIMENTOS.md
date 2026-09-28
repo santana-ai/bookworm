@@ -845,8 +845,9 @@ Bespoke-MiniCheck-7B) e Granite Guardian 3.2-3B, por decisão registrada antes d
 TRUE, por licença e memória; SummaC, por ser uma agregação de NLI por frase já coberta; MiniCheck-RoBERTa,
 por redundância; LettuceDetect, por marcar tokens e não ter português confirmado.
 
-**E-B.** O `confidence_v2` também tem uma parte E-B, sobre 121 UDVs da amostra de validação. Ela usa
-rótulos de referência que não são julgamento humano e por isso é omitida deste relatório.
+**E-B.** O `confidence_v2` também teve uma parte E-B, sobre 121 UDVs da amostra de validação. Ela usava
+rótulos de referência que não eram julgamento humano; por isso foi retirada desta versão, com o código e
+os relatórios, e fica só no tag `research-2026-09-28`.
 
 ### 5.7 Camada do verificador sobre udv_v1
 
@@ -862,8 +863,7 @@ Fonte: `artifacts/udv/udv_v1_verifier_report.json`.
 | todas | 2105 | 489 (23.2%) |
 
 Por tipo de suporte, `semantic_with_short_quote` passa em 47 de 111. Spearman entre probabilidade e cosseno:
-0.6909 em `semantic_match_high` e 0.7088 nos dois níveis semânticos. O relatório também tem uma seção
-`annotation_agreement` construída com rótulos que não são humanos; ela não é usada aqui.
+0.6909 em `semantic_match_high` e 0.7088 nos dois níveis semânticos.
 
 **Decisão.** O corte do benchmark reprova 72% das citações literais com premissa de uma sentença, o que
 indica que a premissa curta deixa o verificador conservador. Isso motivou `udv_v2` (seção 3.5).
@@ -1131,7 +1131,6 @@ Cada métrica está explicada pelo problema que resolve.
 | McNemar exato | comparar acc@1 de dois recuperadores nas mesmas consultas | teste binomial bilateral nas consultas em que só um acerta; trata consultas como independentes, por isso o IC de bootstrap é mostrado ao lado |
 | permutação por sinal de audiências | comparar MRR ou lift respeitando audiências | troca aleatória do sinal da diferença de audiências inteiras, 10000 amostras |
 | Holm | controlar o erro de família em comparações múltiplas | ajuste sequencial de Holm dentro de cada família declarada |
-| DeLong | comparar ROC AUC correlacionadas | usado só no E-B do confidence_v2, omitido aqui |
 | Spearman | medir se dois sinais ordenam da mesma forma | correlação de postos |
 
 ## 9. Software e reprodutibilidade

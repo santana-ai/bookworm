@@ -204,22 +204,18 @@ cosseno não resolvem o Trabalho 2.
 **Problema.** Confirmar que o primário do E3x é uma confiança melhor que o cosseno e compará-lo com
 avaliadores publicados (MiniCheck, FactCG, AlignScore, HHEM, BGE reranker).
 
-**Comparado.** E-A: validação do benchmark NLI, rótulo do especialista. E-B: 121 UDVs de `udv_v1` da
-amostra de validação, com rótulos de anotação por modelo (maioria de três passadas cegas de um modelo
-de linguagem; não é julgamento humano).
+**Comparado.** E-A: validação do benchmark NLI, rótulo do especialista.
 
 | base | cosseno ROC AUC | primário ROC AUC | Δ [IC 95%] | p |
 |---|---|---|---|---|
-| E-A, validação (698 opiniões) | 0,730 | 0,876 | +0,146 | Holm 0,012 |
-| E-B, anotação por modelo (121 UDVs) | 0,768 | 0,844 | +0,076 [0,002; 0,148] | 0,046 (Holm 0,071 com o AURC) |
+| E-A, validação (698 opiniões) | 0,730 | 0,876 | +0,146 [0,085; 0,216] | Holm 0,012 |
 
-Fontes: `artifacts/experiments/confidence_v2/ea_report.json`,
-`artifacts/experiments/confidence_v2/eb_report.json` e [`CONFIDENCE_V2.md`](CONFIDENCE_V2.md).
+Fontes: `artifacts/experiments/confidence_v2/ea_report.json` e [`CONFIDENCE_V2.md`](CONFIDENCE_V2.md).
 
-**Decisão.** O primário é a confiança adotada. Nas estimativas pontuais, nenhum avaliador da literatura
-tem ROC AUC maior que o primário em nenhuma das duas bases, mas a comparação direta do primário com cada
-avaliador não foi declarada nem testada (`CONFIDENCE_V2.md`, E-A). No E-B a margem sobre o cosseno é
-pequena e o rótulo é de modelo.
+**Decisão.** O primário é a confiança adotada. Na estimativa pontual, nenhum avaliador da literatura tem
+ROC AUC maior que o primário, mas a comparação direta do primário com cada avaliador não foi declarada
+nem testada (`CONFIDENCE_V2.md`, E-A). A parte E-B do experimento, sobre UDVs com rótulos que não eram
+humanos, não está nesta versão (`CONFIDENCE_V2.md`).
 
 ### Camada do verificador sobre `udv_v1`
 
