@@ -3,7 +3,6 @@ import json
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, date, datetime
-from typing import Any
 
 import pytest
 
@@ -16,6 +15,7 @@ from bookworm import (
     summarize_date_extraction,
     verify_split_run,
 )
+from bookworm.data.io import JsonObject
 from bookworm.data.verify_splits import (
     check_assignment,
     check_chronology,
@@ -24,7 +24,6 @@ from bookworm.data.verify_splits import (
     check_partition,
 )
 
-JsonObject = dict[str, Any]
 Mutation = Callable[[JsonObject, JsonObject], None]
 DATES = {
     1: date(2023, 3, 1),

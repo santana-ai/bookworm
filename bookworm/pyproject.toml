@@ -120,6 +120,8 @@ warn_required_dynamic_aliases = true
 testpaths = ["tests"]
 addopts = "-m 'not model' --strict-markers --cov=bookworm --cov-report=term-missing"
 markers = [
+    "unit: test under tests/unit, on hand-written fixtures; applied by directory",
+    "integration: test under tests/integration, on the real dataset and published artifacts; applied by directory",
     "dataset: needs the real PublicHearingBR LDS file, located through BOOKWORM_LDS_PATH",
     "model: loads a sentence-transformers encoder from the local Hugging Face cache; opt-in, excluded from default runs",
 ]

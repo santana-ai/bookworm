@@ -9,7 +9,7 @@ from typer.testing import CliRunner
 
 from bookworm import ConfigError, Segmentation, UdvRecord, load_udv_jsonl, sha256_of_file
 from bookworm.cli import create_app
-from bookworm.data.io import write_json
+from bookworm.data.io import JsonObject, write_json
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.signals import (
     HEAVY_ARTIFACT_MANIFEST,
@@ -17,8 +17,6 @@ from bookworm.udv.signals import (
     missing_signal_files,
     translation_key,
 )
-
-JsonObject = dict[str, Any]
 
 runner = CliRunner()
 app = create_app(encoder_factory=lambda config, hearings: StubEncoder())

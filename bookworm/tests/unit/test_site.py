@@ -7,7 +7,14 @@ from typing import Any
 
 import pytest
 import typer
-from conftest import MINI_THRESHOLD, REPOSITORY_ROOT, StubEncoder
+from conftest import (
+    MINI_CONFIG,
+    MINI_THRESHOLD,
+    REPOSITORY_ROOT,
+    StubEncoder,
+    stub_factory,
+    unused_factory,
+)
 from typer.testing import CliRunner
 
 import bookworm.cli
@@ -17,9 +24,7 @@ from bookworm import (
     EvidenceSettings,
     HearingRecord,
     Method,
-    SentenceEncoder,
     SplitName,
-    UdvConfig,
     UdvRecord,
     build_udvs,
     display_title,
@@ -29,12 +34,10 @@ from bookworm import (
     site_index_entry,
 )
 from bookworm.cli import app, create_app, default_site_dir
+from bookworm.data.io import JsonObject
 from bookworm.udv.site import TITLE_ELLIPSIS, TITLE_MAX_CHARS
 
-JsonObject = dict[str, Any]
-
 runner = CliRunner()
-CONFIG = "udv_mini.toml"
 PIPELINE = pipeline_description()
 MANIFEST = {"train": [1], "validation": [2], "test": []}
 MINI_RUN = {
@@ -57,14 +60,6 @@ INDEX_ENTRY_KEYS = [
     "transcript_words",
     "actors",
 ]
-
-
-def stub_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
-    return StubEncoder()
-
-
-def unused_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
-    raise AssertionError("export-site must not build an encoder")
 
 
 stub_app = create_app(encoder_factory=stub_factory)
@@ -317,11 +312,11 @@ def test_export_site_rejects_hearings_with_different_run_blocks(
 
 
 def build(application: typer.Typer) -> Any:
-    return runner.invoke(application, ["build-udvs", "--config", CONFIG, "--run-name", "mini"])
+    return runner.invoke(application, ["build-udvs", "--config", MINI_CONFIG, "--run-name", "mini"])
 
 
 def site(application: typer.Typer, *options: str) -> Any:
-    return runner.invoke(application, ["export-site", "--config", CONFIG, *options])
+    return runner.invoke(application, ["export-site", "--config", MINI_CONFIG, *options])
 
 
 def hearing_export(workdir: Path, hearing_id: int, *options: str) -> bytes:
@@ -331,7 +326,7 @@ def hearing_export(workdir: Path, hearing_id: int, *options: str) -> bytes:
         [
             "export-hearing",
             "--config",
-            CONFIG,
+            MINI_CONFIG,
             "--run-name",
             "mini",
             "--hearing",
@@ -461,7 +456,7 @@ def test_cli_export_site_input_errors_exit_two(
 
 
 def test_cli_export_site_of_a_tfidf_run(mini_workdir: Path) -> None:
-    config = mini_workdir / CONFIG
+    config = mini_workdir / MINI_CONFIG
     text = config.read_text(encoding="utf-8")
     block = 'name = "stub-encoder"\nrevision = "stub-revision-1"\nbatch_size = 8\ndevice = "cpu"'
     assert block in text
@@ -478,7 +473,7 @@ def test_cli_export_site_of_a_tfidf_run(mini_workdir: Path) -> None:
 
 def test_cli_export_site_never_imports_the_model_stack(mini_workdir: Path) -> None:
     assert build(stub_app).exit_code == 0
-    command = ["export-site", "--config", CONFIG, "--run-name", "mini", "--output", "site"]
+    command = ["export-site", "--config", MINI_CONFIG, "--run-name", "mini", "--output", "site"]
     script = (
         "import sys\n"
         "from bookworm.cli import app\n"

@@ -6,11 +6,15 @@ from typing import Any
 import pytest
 import typer
 from conftest import (
+    MINI_CONFIG,
     MINI_THRESHOLD,
     THANKS_SENTENCE,
     TURNS_PHYSICS_SENTENCE,
     TURNS_VECTORS,
     StubEncoder,
+    rewrite_config,
+    stub_factory,
+    unused_factory,
 )
 from typer.testing import CliRunner
 
@@ -20,8 +24,6 @@ from bookworm import (
     EvidenceSettings,
     HearingRecord,
     QuotePolicy,
-    SentenceEncoder,
-    UdvConfig,
     UdvRecord,
     build_udvs,
     export_hearing,
@@ -29,14 +31,12 @@ from bookworm import (
     pipeline_description,
 )
 from bookworm.cli import create_app
+from bookworm.data.io import JsonObject
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.export import DEFAULT_TOP_K, check_run_pipeline, split_of
 from bookworm.udv.quotes import DOUBLE_QUOTE_PATTERNS
 
-JsonObject = dict[str, Any]
-
 runner = CliRunner()
-CONFIG = "udv_mini.toml"
 TOP_LEVEL_KEYS = ["hearing", "transcript", "turns", "people", "udvs", "run"]
 HEARING_KEYS = [
     "id",
@@ -63,14 +63,6 @@ UDV_KEYS = [
 MANIFEST = {"train": [1], "validation": [2], "test": []}
 PIPELINE = pipeline_description()
 DOUBLE_ONLY = QuotePolicy(patterns=DOUBLE_QUOTE_PATTERNS)
-
-
-def stub_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
-    return StubEncoder()
-
-
-def unused_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
-    raise AssertionError("the export commands must not build an encoder")
 
 
 stub_app = create_app(encoder_factory=stub_factory)
@@ -390,11 +382,13 @@ def test_split_of_reads_the_manifest() -> None:
 
 
 def build(application: typer.Typer, run_name: str) -> Any:
-    return runner.invoke(application, ["build-udvs", "--config", CONFIG, "--run-name", run_name])
+    return runner.invoke(
+        application, ["build-udvs", "--config", MINI_CONFIG, "--run-name", run_name]
+    )
 
 
 def export(application: typer.Typer, *options: str) -> Any:
-    return runner.invoke(application, ["export-hearing", "--config", CONFIG, *options])
+    return runner.invoke(application, ["export-hearing", "--config", MINI_CONFIG, *options])
 
 
 def test_cli_exports_a_hearing(mini_workdir: Path) -> None:
@@ -466,13 +460,6 @@ def test_cli_export_input_errors_exit_two(
     assert result.exit_code == 2
     assert message in result.stderr
     assert not (mini_workdir / "x.json").exists()
-
-
-def rewrite_config(workdir: Path, old: str, new: str) -> None:
-    path = workdir / CONFIG
-    text = path.read_text(encoding="utf-8")
-    assert old in text
-    path.write_text(text.replace(old, new), encoding="utf-8")
 
 
 def test_cli_export_rejects_another_encoder(mini_workdir: Path) -> None:

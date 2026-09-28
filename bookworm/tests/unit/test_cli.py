@@ -7,7 +7,15 @@ from typing import Any
 
 import pytest
 import typer
-from conftest import FIXTURE_VECTORS, MINI_THRESHOLD, THANKS_OPINION, StubEncoder
+from conftest import (
+    FIXTURE_VECTORS,
+    MINI_CONFIG,
+    MINI_THRESHOLD,
+    THANKS_OPINION,
+    StubEncoder,
+    rewrite_config,
+    stub_factory,
+)
 from typer.testing import CliRunner
 
 import bookworm.features
@@ -31,17 +39,12 @@ from bookworm import (
 from bookworm.cli import app, create_app, default_encoder_factory
 
 runner = CliRunner()
-CONFIG = "udv_mini.toml"
 SPLIT_CONFIG = "splits_mini.toml"
 SPLIT_SHA256 = "1036e0413037fac926bea474d6e97cc7baef3e6213a95f9331345f733723dce3"
 WRONG_SHA256 = "0" * 64
 MINI_SHA256 = "311f0fb9eebcfb9091a1722e6973e0cbb3c6870eb8d8c58023124529e36a854f"
 NOT_UTF8 = b"\xff\xfe\n"
 RUNNING_AS_ROOT = hasattr(os, "geteuid") and os.geteuid() == 0
-
-
-def stub_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
-    return StubEncoder()
 
 
 def alternative_stub_factory(
@@ -56,23 +59,16 @@ alternative_app = create_app(encoder_factory=alternative_stub_factory)
 
 
 def build(application: typer.Typer, *options: str) -> Any:
-    return runner.invoke(application, ["build-udvs", "--config", CONFIG, *options])
+    return runner.invoke(application, ["build-udvs", "--config", MINI_CONFIG, *options])
 
 
 def verify(application: typer.Typer, *options: str) -> Any:
-    return runner.invoke(application, ["verify-udvs", "--config", CONFIG, *options])
+    return runner.invoke(application, ["verify-udvs", "--config", MINI_CONFIG, *options])
 
 
 def output_ids(workdir: Path, run_name: str) -> list[str]:
     lines = (workdir / "out" / f"{run_name}.jsonl").read_text(encoding="utf-8").splitlines()
     return [json.loads(line)["id"] for line in lines]
-
-
-def rewrite_config(workdir: Path, old: str, new: str) -> None:
-    path = workdir / CONFIG
-    text = path.read_text(encoding="utf-8")
-    assert old in text
-    path.write_text(text.replace(old, new), encoding="utf-8")
 
 
 def test_help_lists_the_version_option_and_commands() -> None:
@@ -117,13 +113,13 @@ def test_build_writes_records_and_coverage(mini_workdir: Path) -> None:
         coverage["pipeline"]["sentence_segmentation"]
         == "per matched turn, concatenated in turn order"
     )
-    assert coverage["config"] == load_udv_config(mini_workdir / CONFIG).source
+    assert coverage["config"] == load_udv_config(mini_workdir / MINI_CONFIG).source
     assert len(list((mini_workdir / "cache").iterdir())) == 4
 
 
 @pytest.mark.parametrize("command", ["build-udvs", "verify-udvs"])
 def test_run_name_is_required(mini_workdir: Path, command: str) -> None:
-    result = runner.invoke(stub_app, [command, "--config", CONFIG])
+    result = runner.invoke(stub_app, [command, "--config", MINI_CONFIG])
     assert result.exit_code == 2
     assert "--run-name" in result.stderr
     assert not (mini_workdir / "out").exists()
@@ -254,7 +250,7 @@ def test_verify_rejects_an_unreadable_baseline(mini_workdir: Path) -> None:
 def test_integrity_error_exits_two(mini_workdir: Path, command: str) -> None:
     assert build(stub_app, "--run-name", "mini").exit_code == 0
     rewrite_config(mini_workdir, MINI_SHA256, WRONG_SHA256)
-    result = runner.invoke(stub_app, [command, "--config", CONFIG, "--run-name", "mini"])
+    result = runner.invoke(stub_app, [command, "--config", MINI_CONFIG, "--run-name", "mini"])
     assert result.exit_code == 2
     assert "sha256" in result.stderr
 
@@ -270,7 +266,7 @@ def test_config_errors_exit_two(mini_workdir: Path, command: str) -> None:
 def test_missing_lds_exits_two(mini_workdir: Path, command: str) -> None:
     assert build(stub_app, "--run-name", "mini").exit_code == 0
     (mini_workdir / "lds_mini.jsonl").unlink()
-    result = runner.invoke(stub_app, [command, "--config", CONFIG, "--run-name", "mini"])
+    result = runner.invoke(stub_app, [command, "--config", MINI_CONFIG, "--run-name", "mini"])
     assert result.exit_code == 2
     assert "LDS file not found" in result.stderr
 

@@ -2,6 +2,7 @@ import hashlib
 import importlib.util
 import os
 import shutil
+import socket
 import sys
 from collections.abc import Mapping, Sequence
 from pathlib import Path
@@ -15,8 +16,10 @@ from bookworm import (
     Actor,
     HearingRecord,
     Method,
+    SentenceEncoder,
     SplitConfig,
     Tier,
+    UdvConfig,
     UdvRecord,
     load_hearings,
     load_split_config,
@@ -32,6 +35,10 @@ FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures"
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 REFERENCE_PACKAGE = "utils"
 MINI_THRESHOLD = 0.6
+MINI_CONFIG = "udv_mini.toml"
+OFFLINE_VARIABLES = ("HF_HUB_OFFLINE", "HF_DATASETS_OFFLINE", "TRANSFORMERS_OFFLINE")
+NETWORK_FAMILIES = (socket.AF_INET, socket.AF_INET6)
+LOCAL_HOSTS = frozenset({"localhost", "127.0.0.1", "::1"})
 
 JOAO_OPINION = "Pediu reforço na fiscalização das cooperativas."
 JOAO_FIRST_SENTENCE = (
@@ -238,6 +245,52 @@ class StubEncoder:
 
     def runtime_info(self) -> dict[str, Any]:
         return {"device": "cpu", "max_seq_length": 0, "embedding_dimension": len(self.default)}
+
+
+def stub_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
+    return StubEncoder()
+
+
+def unused_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
+    raise AssertionError("the export commands must not build an encoder")
+
+
+def rewrite_config(workdir: Path, old: str, new: str, config: str = MINI_CONFIG) -> None:
+    path = workdir / config
+    text = path.read_text(encoding="utf-8")
+    assert old in text
+    path.write_text(text.replace(old, new), encoding="utf-8")
+
+
+class NetworkAccessError(AssertionError):
+    pass
+
+
+def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
+    for item in items:
+        item.add_marker("integration" if "integration" in item.path.parts else "unit")
+
+
+@pytest.fixture(autouse=True)
+def no_network(monkeypatch: pytest.MonkeyPatch) -> None:
+    for variable in OFFLINE_VARIABLES:
+        monkeypatch.setenv(variable, "1")
+    connect = socket.socket.connect
+
+    def guarded_connect(self: socket.socket, address: Any) -> None:
+        if self.family in NETWORK_FAMILIES:
+            raise NetworkAccessError(f"tests must not open network connections ({address})")
+        connect(self, address)
+
+    resolve = socket.getaddrinfo
+
+    def guarded_getaddrinfo(host: Any, *args: Any, **kwargs: Any) -> Any:
+        if host not in LOCAL_HOSTS:
+            raise NetworkAccessError(f"tests must not resolve network hosts ({host})")
+        return resolve(host, *args, **kwargs)
+
+    monkeypatch.setattr(socket.socket, "connect", guarded_connect)
+    monkeypatch.setattr(socket, "getaddrinfo", guarded_getaddrinfo)
 
 
 @pytest.fixture(scope="session")

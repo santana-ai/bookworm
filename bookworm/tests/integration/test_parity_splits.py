@@ -3,7 +3,6 @@ import json
 from collections.abc import Callable
 from pathlib import Path
 from types import ModuleType
-from typing import Any
 
 import pytest
 from conftest import import_challenge_module
@@ -25,11 +24,11 @@ from bookworm import (
     verify_split_run,
 )
 from bookworm.cli import app
+from bookworm.data.io import JsonObject
 from bookworm.data.splits import choose_boundary, cut_candidates, dates_by_hearing
 
 pytestmark = pytest.mark.dataset
 
-JsonObject = dict[str, Any]
 Mutation = Callable[[JsonObject, JsonObject], None]
 EXPECTED_HEARINGS = {"train": 144, "validation": 32, "test": 30}
 EXPECTED_UDVS = {"train": 1536, "validation": 308, "test": 359}

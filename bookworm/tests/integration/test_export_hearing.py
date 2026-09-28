@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-from typing import Any
 
 import pytest
 from conftest import cache_only_encoder, directory_state, udv_artifact_path
@@ -17,13 +16,13 @@ from bookworm import (
     pipeline_description,
     sha256_of_file,
 )
+from bookworm.data.io import JsonObject
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.export import split_of
 from bookworm.udv.signals import HEAVY_ARTIFACT_MANIFEST, missing_signal_files
 
 pytestmark = pytest.mark.dataset
 
-JsonObject = dict[str, Any]
 RUN_NAME = "udv_v1"
 HEARING_ID = 70
 SEMANTIC_TIERS = ("semantic_match_high", "semantic_match_weak")

@@ -6,15 +6,13 @@ from typing import Any
 
 import pytest
 import typer
-from conftest import FIXTURES_DIR, MINI_THRESHOLD, StubEncoder
+from conftest import FIXTURES_DIR, MINI_THRESHOLD, StubEncoder, stub_factory
 from typer.testing import CliRunner
 
 from bookworm import (
     CachedEncoder,
     EvidenceSettings,
     HearingRecord,
-    SentenceEncoder,
-    UdvConfig,
     build_udvs,
     load_hearings,
 )
@@ -46,10 +44,6 @@ EXPECTED_LINKS = [
 ]
 
 runner = CliRunner()
-
-
-def stub_factory(config: UdvConfig, hearings: Sequence[HearingRecord]) -> SentenceEncoder:
-    return StubEncoder()
 
 
 stub_app = create_app(encoder_factory=stub_factory)

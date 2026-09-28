@@ -2,7 +2,6 @@ import json
 import statistics
 from collections import Counter
 from pathlib import Path
-from typing import Any
 
 import pytest
 from conftest import directory_state, udv_artifact_path
@@ -15,12 +14,12 @@ from bookworm import (
     export_site,
     load_udv_jsonl,
 )
+from bookworm.data.io import JsonObject
 from bookworm.udv.site import TITLE_ELLIPSIS, TITLE_MAX_CHARS
 from bookworm.udv.verify import coverage_hearings
 
 pytestmark = pytest.mark.dataset
 
-JsonObject = dict[str, Any]
 RUN_NAME = "udv_v1"
 TIER_TOTALS = {
     "quote_found": 277,
