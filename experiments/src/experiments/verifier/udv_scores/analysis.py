@@ -112,7 +112,9 @@ def cosine_relation(
     return result
 
 
-def udv_semantic_unit(udv_path: Path) -> str:
+def udv_semantic_unit(udv_path: Path, declared: str | None = None) -> str:
+    if declared is not None:
+        return declared
     coverage_path = udv_path.with_name(f"{udv_path.stem}_coverage.json")
     with open(coverage_path) as f:
         pipeline = json.load(f).get("pipeline") or {}

@@ -10,6 +10,8 @@ verifier_config = "configs/nli_verifier.toml"
 exploration_config = "configs/nli_verifier_exploration_v2.toml"
 selection_path = "artifacts/experiments/nli_verifier_exploration/e3x_v2/selection.json"
 final_test_path = "artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json"
+semantic_unit = "window2"
+semantic_unit_rule = "the calibration pairs have no coverage file; every pair premise is a window2 unit of threshold_v2.json (unit.name), so the evidence score check compares the window cosine. The report of 2026-09-28 was written before this check read the unit and holds the sentence rule in evidence_score_check; no other section depends on the unit"
 
 [udv_verifier.pairs]
 evidence_tiers = ["calibration_positive", "calibration_legacy_random", "calibration_hard_negative"]

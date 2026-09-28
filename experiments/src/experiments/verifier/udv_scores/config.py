@@ -72,6 +72,7 @@ class UdvVerifierConfig:
     output_path: Path
     report_path: Path
     udv_threshold_path: Path | None = None
+    semantic_unit: str | None = None
 
     @property
     def run_dir(self) -> Path:
@@ -130,6 +131,7 @@ def load_config(path: Path) -> UdvVerifierConfig:
         udv_threshold_path=(
             Path(scoring["udv_threshold_path"]) if "udv_threshold_path" in scoring else None
         ),
+        semantic_unit=inputs.get("semantic_unit"),
     )
 
 

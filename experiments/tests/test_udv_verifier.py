@@ -319,3 +319,14 @@ def test_semantic_unit_is_read_from_the_coverage_pipeline(tmp_path):
     (tmp_path / "run_coverage.json").write_text('{"pipeline": {}}')
     assert udv_semantic_unit(udv_path) == "sentence"
     assert evidence_cosine_feature("sentence") == "cosine_serafim:sentence_max:max"
+
+
+def test_declared_semantic_unit_needs_no_coverage_file(tmp_path):
+    udv_path = tmp_path / "pairs.jsonl"
+    assert udv_semantic_unit(udv_path, "window2") == "window2"
+
+
+def test_calibration_config_declares_the_window_unit_of_its_pairs():
+    config = load_config(ROOT / "configs/udv_v2_calibration_verifier.toml")
+    assert config.semantic_unit == "window2"
+    assert load_config(ROOT / "configs/udv_v2_verifier.toml").semantic_unit is None

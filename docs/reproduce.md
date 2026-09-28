@@ -235,6 +235,12 @@ uv run python -m experiments.verifier.confidence_v2 translate   # depois smoke, 
 | 17 análise | caminhos em `DEFAULT_PATHS` do script | `artifacts/udv/udv_v2_analysis.json`, `udv_v2_annotation_plan.json` |
 | 18 confidence_v2 | `configs/confidence_v2.toml` | `artifacts/experiments/confidence_v2/` (`ea_report.json`, `smoke/`, `scores/*_report.json`) |
 
+Os pares de calibração da etapa 14 não têm arquivo de cobertura, então
+`configs/udv_v2_calibration_verifier.toml` declara a unidade deles (`inputs.semantic_unit = "window2"`).
+O relatório versionado `threshold_v2_verifier_scores_report.json` foi escrito antes de a checagem do
+cosseno ler a unidade e guarda a regra de sentença em `evidence_score_check`. Rodar `apply` de novo, com
+as saídas apagadas, grava os mesmos escores e muda só essa seção.
+
 ### Validação humana (19 e 20)
 
 Nenhum script preenche julgamento humano. `experiments.validation.generate_sample` e

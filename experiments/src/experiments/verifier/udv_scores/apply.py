@@ -231,7 +231,7 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     primary = fitted.probabilities(udv_data)
     secondary = candidate_scores(feature_candidate(config.secondary), udv_data)
     decisions = primary >= fitted.threshold
-    semantic_unit = udv_semantic_unit(config.udv_path)
+    semantic_unit = udv_semantic_unit(config.udv_path, config.semantic_unit)
     recomputed_cosine = candidate_scores(
         feature_candidate(evidence_cosine_feature(semantic_unit)), udv_data
     )
