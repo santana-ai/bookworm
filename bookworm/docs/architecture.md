@@ -20,7 +20,13 @@ turnos e sentenças (`transcript`), as UDVs são construídas e verificadas (`ud
 ```text
 src/bookworm/
   __init__.py            API pública (reexporta os pontos de entrada do README)
-  cli.py                 aplicação Typer; create_app(encoder_factory, client_factory)
+  cli/
+    app.py               aplicação Typer; create_app(encoder_factory, client_factory)
+    common.py            saída, erros, códigos de saída e opções comuns
+    udv_commands.py      build-udvs e verify-udvs
+    split_commands.py    build-splits e verify-splits
+    export_commands.py   export-hearing e export-site
+    profile_commands.py  filter-actor-speeches, generate-profiles, validate-profiles e a revisão
   config.py              UdvConfig e SplitConfig, lidos de TOML
   errors.py              BookwormError e subclasses; a CLI traduz todas para o código 2
   models.py              modelos pydantic base (congelados e estritos)
