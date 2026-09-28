@@ -1,13 +1,17 @@
+"""Keep only the hearings of the profile splits (train) in the per-actor speech file, and
+count the UDVs of the evaluation splits that the kept actors can be scored on."""
+
 import argparse
 import dataclasses
-import json
-import tomllib
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from bookworm import SPLIT_NAMES, load_jsonl, sha256_of_file, write_json, write_jsonl
+
+from experiments.actors.io import file_info, read_split_hearings, read_toml
+from experiments.actors.simulation import linked_udvs, turn_owners
 
 Record = dict[str, Any]
 
@@ -37,8 +41,7 @@ def check_split_names(splits: tuple[str, ...]) -> None:
 
 
 def load_config(path: Path) -> SplitFilterConfig:
-    with open(path, "rb") as f:
-        raw = tomllib.load(f)
+    raw = read_toml(path)
     section = raw["split_filter"]
     splits = tuple(section["splits"])
     eval_splits = tuple(section["eval_splits"])
@@ -59,15 +62,12 @@ def load_config(path: Path) -> SplitFilterConfig:
 
 
 def load_split_hearings(config: SplitFilterConfig) -> tuple[set[int], set[int], Record]:
-    with open(config.manifest_path) as f:
-        manifest = json.load(f)
-    if manifest["dataset"]["sha256"] != config.lds_sha256:
-        raise SystemExit(f"{config.manifest_path} was built from another LDS file")
+    """The profile hearings, the evaluation hearings and a description of the manifest."""
+    manifest = read_split_hearings(config.manifest_path, config.lds_sha256)
     hearings = {hearing_id for name in config.splits for hearing_id in manifest[name]}
     eval_hearings = {hearing_id for name in config.eval_splits for hearing_id in manifest[name]}
     info = {
-        "path": str(config.manifest_path),
-        "sha256": sha256_of_file(config.manifest_path),
+        **file_info(config.manifest_path),
         "split_version": manifest["split_version"],
         "splits": list(config.splits),
         "hearings": len(hearings),
@@ -100,23 +100,15 @@ def summarize_evaluation(
     udvs: list[Record],
     eval_hearings: set[int],
 ) -> Record:
+    """How many UDVs of the evaluation hearings are linked to a kept (profiled) actor."""
     profiled = {record["actor"] for record in filtered}
-    owners = {
-        (hearing["hearing_id"], turn["turn_index"]): record["actor"]
-        for record in records
-        for hearing in record["hearings"]
-        if hearing["hearing_id"] in eval_hearings
-        for turn in hearing["turns"]
+    owners = turn_owners(records)
+    speaking = {
+        actor
+        for (hearing_id, _), actor in owners.items()
+        if hearing_id in eval_hearings and actor in profiled
     }
-    speaking = {actor for actor in owners.values() if actor in profiled}
-    linked: list[tuple[Record, str]] = []
-    for udv in udvs:
-        evidence = udv["evidence"]
-        if udv["hearing_id"] not in eval_hearings or not evidence:
-            continue
-        actor = owners.get((udv["hearing_id"], evidence["speaker_turn"]))
-        if actor is not None and actor in profiled:
-            linked.append((udv, actor))
+    linked = linked_udvs(udvs, owners, profiled, eval_hearings)
     return {
         "hearings": len(eval_hearings),
         "profiled_actors_speaking": len(speaking),
@@ -137,14 +129,9 @@ def build(config: SplitFilterConfig) -> Record:
     write_jsonl(filtered, config.output_path)
     stats = {
         "split_manifest": manifest_info,
-        "input": {
-            "path": str(config.speeches_path),
-            "sha256": sha256_of_file(config.speeches_path),
-            **summarize(records),
-        },
+        "input": {**file_info(config.speeches_path), **summarize(records)},
         "output": {
-            "path": str(config.output_path),
-            "sha256": sha256_of_file(config.output_path),
+            **file_info(config.output_path),
             **summarize(filtered),
             "actors_without_split_hearings": len(records) - len(filtered),
         },

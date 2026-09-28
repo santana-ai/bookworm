@@ -1,6 +1,9 @@
+"""Measurements that set the policy of the per-actor speech files: speaker recurrence across
+hearings, the weight of chair turns, UDV evidence in chair turns, party headers and name
+subsets."""
+
 import argparse
 import re
-import tomllib
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -8,12 +11,13 @@ from typing import Any
 
 from bookworm import load_gated_jsonl, load_jsonl, write_json
 
+from experiments.actors.build_speeches import header_name, turn_words
+from experiments.actors.io import read_toml
 from experiments.common.transcript import (
     STAGE_DIRECTION_PATTERN,
     is_party_info,
     names_match,
     normalize_name,
-    resolve_turn_name,
     split_into_turns,
 )
 
@@ -46,30 +50,23 @@ class HearingActorsConfig:
 
 
 def load_config(path: Path) -> HearingActorsConfig:
-    with open(path, "rb") as f:
-        raw = tomllib.load(f)
+    raw = read_toml(path)
+    speakers = raw["speakers"]
     return HearingActorsConfig(
         lds_path=Path(raw["dataset"]["lds_path"]),
         expected_sha256=raw["dataset"]["sha256"],
-        chair_names=tuple(raw["speakers"]["chair_names"]),
-        non_person_keys=tuple(raw["speakers"]["non_person_keys"]),
-        chair_min_words=raw["speakers"]["chair_min_words"],
-        candidate_chair_cuts=tuple(raw["speakers"]["candidate_chair_cuts"]),
-        long_chair_turn_words=raw["speakers"]["long_chair_turn_words"],
+        chair_names=tuple(speakers["chair_names"]),
+        non_person_keys=tuple(speakers["non_person_keys"]),
+        chair_min_words=speakers["chair_min_words"],
+        candidate_chair_cuts=tuple(speakers["candidate_chair_cuts"]),
+        long_chair_turn_words=speakers["long_chair_turn_words"],
         udv_path=Path(raw["measurement"]["udv_path"]),
         output_path=Path(raw["measurement"]["output_path"]),
     )
 
 
 def speaker_key(turn: Record) -> str:
-    name = resolve_turn_name(turn)
-    if name == turn["raw_name"] and turn["party_info"] and not is_party_info(turn["party_info"]):
-        name = turn["party_info"]
-    return normalize_name(re.sub(r"\s+", " ", name))
-
-
-def word_count(turn: Record) -> int:
-    return len(turn["speech"].split())
+    return normalize_name(re.sub(r"\s+", " ", header_name(turn)))
 
 
 def quantiles(values: list[int]) -> dict[str, int]:
@@ -86,7 +83,7 @@ def annotate_turns(hearings: list[Record], config: HearingActorsConfig) -> list[
                     **turn,
                     "hearing_id": hearing["id"],
                     "key": speaker_key(turn),
-                    "words": word_count(turn),
+                    "words": turn_words(turn),
                     "is_chair": turn["raw_name"] in config.chair_names,
                     "has_party": is_party_info(turn["party_info"]),
                     "is_stage_direction": bool(STAGE_DIRECTION_PATTERN.match(turn["speech"])),

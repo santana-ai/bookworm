@@ -1,5 +1,7 @@
+"""Per-actor speech files: every kept turn of every hearing, grouped by actor across
+hearings, split into actors of one hearing and actors of several."""
+
 import argparse
-import tomllib
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
@@ -7,6 +9,7 @@ from typing import Any
 
 from bookworm import load_gated_jsonl, write_json, write_jsonl
 
+from experiments.actors.io import read_toml
 from experiments.common.transcript import (
     STAGE_DIRECTION_PATTERN,
     is_party_info,
@@ -17,6 +20,7 @@ from experiments.common.transcript import (
 )
 
 Record = dict[str, Any]
+MergeUsage = dict[str, Counter[Any]]
 
 DEFAULT_CONFIG = Path("configs/hearing_actors.toml")
 CHAIR_ROLE = "chair"
@@ -47,8 +51,9 @@ class ActorSpeechesConfig:
 
 
 def load_config(path: Path) -> ActorSpeechesConfig:
-    with open(path, "rb") as f:
-        raw = tomllib.load(f)
+    raw = read_toml(path)
+    speakers = raw["speakers"]
+    speeches = raw["speeches"]
     merges = raw.get("merges", {})
     merge_aliases: dict[str, str] = {}
     for group in merges.get("groups", []):
@@ -61,23 +66,29 @@ def load_config(path: Path) -> ActorSpeechesConfig:
     return ActorSpeechesConfig(
         lds_path=Path(raw["dataset"]["lds_path"]),
         expected_sha256=raw["dataset"]["sha256"],
-        chair_names=tuple(raw["speakers"]["chair_names"]),
-        non_person_keys=tuple(raw["speakers"]["non_person_keys"]),
-        chair_min_words=raw["speakers"]["chair_min_words"],
-        single_hearing_path=Path(raw["speeches"]["single_hearing_path"]),
-        multi_hearing_path=Path(raw["speeches"]["multi_hearing_path"]),
-        ambiguous_names_path=Path(raw["speeches"]["ambiguous_names_path"]),
-        stats_path=Path(raw["speeches"]["stats_path"]),
+        chair_names=tuple(speakers["chair_names"]),
+        non_person_keys=tuple(speakers["non_person_keys"]),
+        chair_min_words=speakers["chair_min_words"],
+        single_hearing_path=Path(speeches["single_hearing_path"]),
+        multi_hearing_path=Path(speeches["multi_hearing_path"]),
+        ambiguous_names_path=Path(speeches["ambiguous_names_path"]),
+        stats_path=Path(speeches["stats_path"]),
         merge_aliases=merge_aliases,
         merge_reassignments=merge_reassignments,
     )
 
 
-def person_name(turn: Record) -> str:
+def header_name(turn: Record) -> str:
+    """The speaker name of a turn header; a header whose parenthesis is not party information
+    carries the name there."""
     name = resolve_turn_name(turn)
     if name == turn["raw_name"] and turn["party_info"] and not is_party_info(turn["party_info"]):
         name = turn["party_info"]
-    return normalize_whitespace(name)
+    return name
+
+
+def person_name(turn: Record) -> str:
+    return normalize_whitespace(header_name(turn))
 
 
 def turn_party(turn: Record) -> str | None:
@@ -108,9 +119,8 @@ def drop_reason(turn: Record, key: str, role: str, config: ActorSpeechesConfig) 
     return None
 
 
-def apply_merges(
-    key: str, hearing_id: int, config: ActorSpeechesConfig, usage: dict[str, Counter]
-) -> str:
+def apply_merges(key: str, hearing_id: int, config: ActorSpeechesConfig, usage: MergeUsage) -> str:
+    """The key after the hearing-scoped reassignment, then the alias merge, counting each use."""
     target = config.merge_reassignments.get((key, hearing_id))
     if target is not None:
         usage["reassignments"][(key, hearing_id)] += 1
@@ -122,11 +132,32 @@ def apply_merges(
     return key
 
 
+def new_actor() -> Record:
+    return {"names": Counter(), "party_uf": {}, "hearings": {}}
+
+
+def add_turn(actor: Record, turn: Record, name: str, role: str, hearing_id: int) -> None:
+    actor["names"][name] += 1
+    party = turn_party(turn)
+    if party is not None:
+        actor["party_uf"].setdefault(party)
+    actor["hearings"].setdefault(hearing_id, []).append(
+        {
+            "turn_index": turn["turn_index"],
+            "role": role,
+            "start_char": turn["start_char"],
+            "end_char": turn["end_char"],
+            "text": turn["speech"],
+        }
+    )
+
+
 def collect_actors(
     hearings: list[Record], config: ActorSpeechesConfig
-) -> tuple[dict[str, Record], Record, dict[str, Counter]]:
+) -> tuple[dict[str, Record], Record, MergeUsage]:
+    """Kept turns grouped by merged actor key, the drop counts, and the merge usage."""
     actors: dict[str, Record] = {}
-    usage: dict[str, Counter] = {"aliases": Counter(), "reassignments": Counter()}
+    usage: MergeUsage = {"aliases": Counter(), "reassignments": Counter()}
     dropped: Record = {
         "non_person_key": [],
         "stage_direction": 0,
@@ -150,24 +181,11 @@ def collect_actors(
                 dropped[reason] += 1
                 continue
             key = apply_merges(key, hearing["id"], config, usage)
-            actor = actors.setdefault(key, {"names": Counter(), "party_uf": {}, "hearings": {}})
-            actor["names"][name] += 1
-            party = turn_party(turn)
-            if party is not None:
-                actor["party_uf"].setdefault(party)
-            actor["hearings"].setdefault(hearing["id"], []).append(
-                {
-                    "turn_index": turn["turn_index"],
-                    "role": role,
-                    "start_char": turn["start_char"],
-                    "end_char": turn["end_char"],
-                    "text": turn["speech"],
-                }
-            )
+            add_turn(actors.setdefault(key, new_actor()), turn, name, role, hearing["id"])
     return actors, dropped, usage
 
 
-def check_merge_usage(config: ActorSpeechesConfig, usage: dict[str, Counter]) -> None:
+def check_merge_usage(config: ActorSpeechesConfig, usage: MergeUsage) -> None:
     unused_aliases = sorted(set(config.merge_aliases) - set(usage["aliases"]))
     unused_reassignments = sorted(set(config.merge_reassignments) - set(usage["reassignments"]))
     if unused_aliases or unused_reassignments:
@@ -177,7 +195,8 @@ def check_merge_usage(config: ActorSpeechesConfig, usage: dict[str, Counter]) ->
         )
 
 
-def display_name(names: Counter) -> str:
+def display_name(names: Counter[str]) -> str:
+    """The most frequent spelling, preferring mixed case, then the longest, then alphabetical."""
     cased = Counter(
         {name: count for name, count in names.items() if any(c.islower() for c in name)}
     )
@@ -282,7 +301,40 @@ def non_person_summary(drops: list[Record]) -> Record:
     }
 
 
+def turn_stats(dropped: Record, verified: int) -> Record:
+    return {
+        "total": dropped["total_turns"],
+        "kept": verified,
+        "verified_against_transcript": verified,
+        "dropped_non_person": non_person_summary(dropped["non_person_key"]),
+        "dropped_stage_direction": dropped["stage_direction"],
+        "dropped_empty": dropped["empty"],
+        "dropped_short_chair": dropped["short_chair"],
+    }
+
+
+def merge_stats(config: ActorSpeechesConfig, usage: MergeUsage) -> Record:
+    return {
+        "groups": len(set(config.merge_aliases.values())),
+        "alias_keys": len(config.merge_aliases),
+        "alias_turns_kept": sum(usage["aliases"].values()),
+        "reassignments": len(config.merge_reassignments),
+        "reassigned_turns_kept": sum(usage["reassignments"].values()),
+    }
+
+
+def pair_stats(pairs: list[Record], path: Path) -> Record:
+    return {
+        "path": str(path),
+        "criterion": AMBIGUITY_CRITERION,
+        "pairs": len(pairs),
+        "equal_tokens": sum(pair["relation"] == "equal_tokens" for pair in pairs),
+        "name_subset": sum(pair["relation"] == "name_subset" for pair in pairs),
+    }
+
+
 def build(config: ActorSpeechesConfig) -> Record:
+    """Write the single- and multi-hearing speech files, the ambiguous name pairs and the stats."""
     hearings = load_gated_jsonl(config.lds_path, config.expected_sha256)
     actors, dropped, usage = collect_actors(hearings, config)
     check_merge_usage(config, usage)
@@ -307,34 +359,14 @@ def build(config: ActorSpeechesConfig) -> Record:
             "non_person_keys": list(config.non_person_keys),
             "merge": MERGE_DESCRIPTION,
         },
-        "turns": {
-            "total": dropped["total_turns"],
-            "kept": verified,
-            "verified_against_transcript": verified,
-            "dropped_non_person": non_person_summary(dropped["non_person_key"]),
-            "dropped_stage_direction": dropped["stage_direction"],
-            "dropped_empty": dropped["empty"],
-            "dropped_short_chair": dropped["short_chair"],
-        },
-        "merges": {
-            "groups": len(set(config.merge_aliases.values())),
-            "alias_keys": len(config.merge_aliases),
-            "alias_turns_kept": sum(usage["aliases"].values()),
-            "reassignments": len(config.merge_reassignments),
-            "reassigned_turns_kept": sum(usage["reassignments"].values()),
-        },
+        "turns": turn_stats(dropped, verified),
+        "merges": merge_stats(config, usage),
         "hearings_per_actor": {str(k): v for k, v in sorted(by_hearing_count.items())},
         "files": {
             "single_hearing": file_stats(single, config.single_hearing_path),
             "multi_hearing": file_stats(multi, config.multi_hearing_path),
         },
-        "ambiguous_name_pairs": {
-            "path": str(config.ambiguous_names_path),
-            "criterion": AMBIGUITY_CRITERION,
-            "pairs": len(pairs),
-            "equal_tokens": sum(pair["relation"] == "equal_tokens" for pair in pairs),
-            "name_subset": sum(pair["relation"] == "name_subset" for pair in pairs),
-        },
+        "ambiguous_name_pairs": pair_stats(pairs, config.ambiguous_names_path),
     }
     write_json(stats, config.stats_path)
     return stats
