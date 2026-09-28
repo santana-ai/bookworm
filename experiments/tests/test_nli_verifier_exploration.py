@@ -3,16 +3,10 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from experiments.verifier.nli_exploration import (
-    Candidate,
-    ScorerData,
-    candidate_scores,
-    cv_folds,
-    fixed_candidates,
-    load_exploration_config,
-    pool_values,
-    select,
-)
+from experiments.verifier.exploration.candidates import fixed_candidates
+from experiments.verifier.exploration.config import Candidate, ScorerData, load_exploration_config
+from experiments.verifier.exploration.cross_validation import cv_folds, select
+from experiments.verifier.exploration.scores import candidate_scores, pool_values
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier_exploration.toml"
 

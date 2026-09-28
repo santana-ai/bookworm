@@ -27,6 +27,14 @@ from experiments.verifier import nli_experiments as experiments
 from experiments.verifier import nli_exploration as exploration
 from experiments.verifier.confidence_policies import signal_metrics
 from experiments.verifier.decision_models import DecisionQuestion, LayaDecisionModel, noul_question
+from experiments.verifier.exploration import scores as exploration_scores
+from experiments.verifier.exploration.candidates import feature_candidate
+from experiments.verifier.exploration.config import (
+    ExplorationConfig,
+    ScorerData,
+    load_exploration_config,
+)
+from experiments.verifier.exploration.scores import candidate_scores, load_labels, load_scorer
 from experiments.verifier.grounding_scorers import (
     CandidateSpec,
     PairScorer,
@@ -82,7 +90,7 @@ CODE_MODULES: tuple[Source, ...] = (
     confidence_policies,
     udv_verifier,
     *experiments.SOURCES,
-    exploration,
+    *exploration.SOURCES,
     *translation.SOURCES,
 )
 
@@ -635,12 +643,12 @@ def subset_table(table: Record, names: list[str]) -> Record:
 
 
 def exploration_data(
-    expl: exploration.ExplorationConfig, keys: tuple[str, ...], split: str, ids: list[str]
-) -> dict[str, exploration.ScorerData]:
+    expl: ExplorationConfig, keys: tuple[str, ...], split: str, ids: list[str]
+) -> dict[str, ScorerData]:
     data = {}
     for key in keys:
         kind, run = expl.scorers[key]
-        scorer = exploration.load_scorer(key, kind, run, split, ids, expl)
+        scorer = load_scorer(key, kind, run, split, ids, expl)
         if scorer is None:
             raise SystemExit(f"{key}: no {split} score file in run {run}")
         data[key] = scorer
@@ -649,9 +657,9 @@ def exploration_data(
 
 def fitted_primary(
     config: Config,
-) -> tuple[udv_verifier.FittedPrimary, exploration.ExplorationConfig, Record]:
+) -> tuple[udv_verifier.FittedPrimary, ExplorationConfig, Record]:
     udv_config = udv_verifier.load_config(config.udv_verifier_config)
-    expl = exploration.load_exploration_config(udv_config.exploration_config)
+    expl = load_exploration_config(udv_config.exploration_config)
     candidate = udv_verifier.primary_candidate(expl, udv_config.primary)
     with open(udv_config.selection_path) as f:
         selection = json.load(f)
@@ -668,7 +676,7 @@ def ea_existing(
     split: str,
     ids: list[str],
     fitted: udv_verifier.FittedPrimary,
-    expl: exploration.ExplorationConfig,
+    expl: ExplorationConfig,
 ) -> tuple[dict[str, np.ndarray], Record]:
     scorer_keys = tuple(
         dict.fromkeys(
@@ -680,7 +688,7 @@ def ea_existing(
     )
     data = exploration_data(expl, scorer_keys, split, ids)
     systems = {
-        name: exploration.candidate_scores(exploration.feature_candidate(feature), data)
+        name: candidate_scores(feature_candidate(feature), data)
         for name, feature in EXISTING_FEATURES.items()
     }
     systems[PRIMARY] = fitted.probabilities(data)
@@ -731,8 +739,8 @@ def added_value_pairs(extra: dict[str, np.ndarray]) -> list[tuple[str, str]]:
 
 def spread_thresholds(config: Config) -> tuple[dict[str, float], Record]:
     udv_config = udv_verifier.load_config(config.udv_verifier_config)
-    expl = exploration.load_exploration_config(udv_config.exploration_config)
-    ids, _, _ = exploration.load_labels(expl, "train")
+    expl = load_exploration_config(udv_config.exploration_config)
+    ids, _, _ = load_labels(expl, "train")
     _, extra, sources = laya_systems(config, "train", ids, "max")
     _, spreads = split_extra(extra)
     return {name: float(np.median(values)) for name, values in spreads.items()}, sources
@@ -792,7 +800,7 @@ def command_evaluate_ea(args: argparse.Namespace, config: Config) -> None:
     results: Record = {}
     inputs: Record = {}
     for split in EA_SPLITS:
-        ids, labels, hearings = exploration.load_labels(expl, split)
+        ids, labels, hearings = load_labels(expl, split)
         existing, sources = ea_existing(split, ids, fitted, expl)
         laya_main, laya_extra, laya_sources = laya_systems(config, split, ids, "max")
         literature, literature_sources = literature_scores(config, candidates, split, ids, "max")
@@ -1068,7 +1076,7 @@ def spread_scores(
 
 
 def laya_battery_rows(scorer: str, split: str) -> tuple[dict[str, Record], Path]:
-    path = exploration.SCORES_ROOT / LAYA_RUN / "scores" / f"{scorer}_{split}.jsonl"
+    path = exploration_scores.SCORES_ROOT / LAYA_RUN / "scores" / f"{scorer}_{split}.jsonl"
     return {row["id"]: row for row in load_jsonl(path)}, path
 
 

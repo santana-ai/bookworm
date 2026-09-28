@@ -7,18 +7,19 @@ from bookworm import write_jsonl
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-from experiments.verifier import nli_exploration as exploration
 from experiments.verifier import udv_verifier as uv
+from experiments.verifier.exploration import scores as exploration_scores
+from experiments.verifier.exploration.candidates import check_reading
+from experiments.verifier.exploration.config import (
+    BATTERY_SIGNALS,
+    Candidate,
+    ScorerData,
+    load_exploration_config,
+)
+from experiments.verifier.exploration.scores import load_scorer
 from experiments.verifier.nli.benchmark import PremiseUnit
 from experiments.verifier.nli.config import ScorerSpec
 from experiments.verifier.nli.scoring import score_file
-from experiments.verifier.nli_exploration import (
-    BATTERY_SIGNALS,
-    Candidate,
-    check_reading,
-    load_exploration_config,
-    load_scorer,
-)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs" / "udv_verifier.toml"
@@ -88,7 +89,7 @@ SPECS = [
 @pytest.fixture
 def configs(monkeypatch, tmp_path):
     monkeypatch.chdir(ROOT)
-    monkeypatch.setattr(exploration, "SCORES_ROOT", tmp_path)
+    monkeypatch.setattr(exploration_scores, "SCORES_ROOT", tmp_path)
     return uv.load_config(CONFIG), load_exploration_config(EXPLORATION)
 
 
@@ -176,7 +177,7 @@ def test_fake_scores_flow_to_probabilities(configs):
 
 def test_pool_agreement_stops_when_pools_differ():
     data = {
-        "toy": exploration.ScorerData(
+        "toy": ScorerData(
             "toy",
             "decision",
             Path("toy"),

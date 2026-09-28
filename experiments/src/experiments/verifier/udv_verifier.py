@@ -21,6 +21,21 @@ from experiments.common.transcript import normalize_whitespace, split_sentences
 from experiments.common.udv_run import seed_everything, select_device
 from experiments.udv.calibrate_threshold import load_split_lookup, rounded
 from experiments.verifier import nli_exploration as exploration
+from experiments.verifier.exploration import scores as exploration_scores
+from experiments.verifier.exploration.candidates import (
+    check_reading,
+    feature_candidate,
+    learned_candidates,
+)
+from experiments.verifier.exploration.config import (
+    MATCH_TOLERANCE,
+    Candidate,
+    ExplorationConfig,
+    ScorerData,
+    load_exploration_config,
+)
+from experiments.verifier.exploration.cross_validation import feature_matrix, fit_learned
+from experiments.verifier.exploration.scores import candidate_scores, load_labels, load_scorer
 from experiments.verifier.nli.benchmark import PremiseUnit
 from experiments.verifier.nli.config import (
     DECISION_KINDS,
@@ -51,21 +66,6 @@ from experiments.verifier.nli.translated import (
     open_translations,
     translation_summary,
     translation_texts,
-)
-from experiments.verifier.nli_exploration import (
-    MATCH_TOLERANCE,
-    Candidate,
-    ExplorationConfig,
-    ScorerData,
-    candidate_scores,
-    check_reading,
-    feature_candidate,
-    feature_matrix,
-    fit_learned,
-    learned_candidates,
-    load_exploration_config,
-    load_labels,
-    load_scorer,
 )
 from experiments.verifier.runtime import now
 from experiments.verifier.translate.seq2seq import load_translator, translate_missing
@@ -120,7 +120,7 @@ class UdvVerifierConfig:
 
     @property
     def run_dir(self) -> Path:
-        return exploration.SCORES_ROOT / self.name
+        return exploration_scores.SCORES_ROOT / self.name
 
 
 @dataclass(frozen=True)
@@ -676,7 +676,7 @@ def translate_record(config: UdvVerifierConfig) -> Record | None:
 def code_hashes() -> Record:
     return {
         **source_hashes(Path(__file__)),
-        **source_hashes(exploration),
+        **source_hashes(*exploration.SOURCES),
         **nli_code_hashes(),
     }
 
