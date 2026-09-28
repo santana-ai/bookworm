@@ -1,10 +1,28 @@
 [project]
 name = "bookworm"
-version = "0.1.0"
+version = "1.0.0"
 description = "Verifiable evidence units (UDVs) linking structured opinions to public hearing transcripts."
 readme = "README.md"
-authors = [{ name = "Arthur Germano", email = "a.merode@edu.pucrs.br" }]
+license = "MIT"
+authors = [
+    { name = "Arthur Germano", email = "a.merode@edu.pucrs.br" },
+    { name = "João Vitor Boer Abitante" },
+    { name = "Henrique Santana" },
+]
 requires-python = ">=3.12"
+keywords = ["nlp", "portuguese", "public-hearings", "attribution", "evidence", "retrieval"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: Portuguese (Brazilian)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
 dependencies = [
     "jinja2>=3.1",
     "numpy>=2.0",
@@ -44,7 +62,28 @@ line-length = 100
 target-version = "py312"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "SIM", "PERF", "RUF"]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "N",
+    "UP",
+    "B",
+    "C4",
+    "SIM",
+    "PIE",
+    "PTH",
+    "RET",
+    "ISC",
+    "PT",
+    "T20",
+    "PERF",
+    "RUF",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/integration/test_drift_challenge.py" = ["T201"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["bookworm"]
