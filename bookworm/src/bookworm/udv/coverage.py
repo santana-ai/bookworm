@@ -6,13 +6,12 @@ from typing import Any
 
 import numpy as np
 
+from bookworm.data.io import JsonObject
 from bookworm.data.schemas import HearingRecord
 from bookworm.transcript.sentences import SENTENCE_BOUNDARY_PATTERN
 from bookworm.udv.build import EvidenceSettings, PersonSpeech
 from bookworm.udv.quotes import DEFAULT_QUOTE_POLICY, QuotePolicy
 from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
-
-JsonObject = dict[str, Any]
 
 SENTENCE_SEGMENTATION = "per matched turn, concatenated in turn order"
 QUOTE_SEARCH = "inside each matched turn"

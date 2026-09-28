@@ -5,7 +5,7 @@ from typing import Any
 import numpy as np
 
 from bookworm.data.dates import article_date
-from bookworm.data.io import is_json_integer_list
+from bookworm.data.io import JsonObject, is_json_integer_list
 from bookworm.data.schemas import HearingRecord
 from bookworm.data.splits import SPLIT_NAMES, SplitName
 from bookworm.errors import ConfigError
@@ -24,8 +24,6 @@ from bookworm.udv.evidence import sentence_similarities
 from bookworm.udv.quotes import DEFAULT_QUOTE_POLICY, QuotePolicy, extract_quotes
 from bookworm.udv.schemas import SEMANTIC_TIERS, Evidence, UdvRecord
 from bookworm.udv.signals import SiteSignals
-
-JsonObject = dict[str, Any]
 
 DEFAULT_TOP_K = 8
 CANDIDATE_SCORE_DECIMALS = 4

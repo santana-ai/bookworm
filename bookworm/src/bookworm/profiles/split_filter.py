@@ -1,4 +1,3 @@
-import json
 from collections import Counter
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
@@ -7,7 +6,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from bookworm.actors.schemas import ActorSpeechRecord, read_actor_speeches, write_actor_speeches
-from bookworm.data.io import JsonObject, sha256_of_file, write_json
+from bookworm.data.io import JsonObject, read_json_object, sha256_of_file, write_json
 from bookworm.errors import ConfigError
 from bookworm.profiles.config import SplitFilterConfig
 from bookworm.udv.schemas import UdvRecord, load_udv_jsonl
@@ -25,18 +24,6 @@ class SplitSelection:
     manifest: JsonObject
 
 
-def read_manifest(path: Path) -> JsonObject:
-    if not path.is_file():
-        raise ConfigError(f"{path}: split manifest not found")
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read split manifest: {error}") from error
-    if not isinstance(payload, dict):
-        raise ConfigError(f"{path}: split manifest is not a JSON object")
-    return payload
-
-
 def split_hearing_ids(manifest: JsonObject, path: Path, splits: Sequence[str]) -> frozenset[int]:
     hearing_ids: set[int] = set()
     for name in splits:
@@ -48,7 +35,7 @@ def split_hearing_ids(manifest: JsonObject, path: Path, splits: Sequence[str]) -
 
 
 def read_checked_manifest(path: Path, lds_sha256: str) -> JsonObject:
-    manifest = read_manifest(path)
+    manifest = read_json_object(path, "split manifest")
     dataset = manifest.get("dataset")
     if not isinstance(dataset, dict) or dataset.get("sha256") != lds_sha256:
         raise ConfigError(f"{path} was built from another LDS file")

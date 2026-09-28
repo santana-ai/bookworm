@@ -3,7 +3,13 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
 
-from bookworm.data.io import is_json_integer, is_json_integer_list, is_json_number, json_path
+from bookworm.data.io import (
+    JsonObject,
+    is_json_integer,
+    is_json_integer_list,
+    is_json_number,
+    json_path,
+)
 from bookworm.data.schemas import HearingRecord
 from bookworm.errors import ConfigError
 from bookworm.transcript.sentences import sentences_agree, turn_text
@@ -36,7 +42,6 @@ from bookworm.udv.windows import (
     unit_size,
 )
 
-JsonObject = dict[str, Any]
 PersonKey = tuple[int, int]
 
 EXAMPLES_PER_PROBLEM = 5

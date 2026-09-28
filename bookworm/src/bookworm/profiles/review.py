@@ -1,6 +1,5 @@
 import csv
 import io
-import json
 import math
 import unicodedata
 from collections import Counter
@@ -13,7 +12,7 @@ from typing import Any, Literal, get_args
 
 import numpy as np
 
-from bookworm.data.io import sha256_of_file, write_json
+from bookworm.data.io import JsonObject, read_json_object, sha256_of_file, write_json
 from bookworm.errors import ConfigError
 from bookworm.profiles.validate import (
     GROUPS,
@@ -27,7 +26,6 @@ from bookworm.profiles.validate import (
 )
 
 Judgment = Literal["sustentada", "compativel", "contradita", "sem_relacao"]
-JsonObject = dict[str, Any]
 
 JUDGMENTS: tuple[Judgment, ...] = get_args(Judgment)
 JUDGMENT_BY_LABEL: dict[str, Judgment] = {judgment: judgment for judgment in JUDGMENTS}
@@ -214,18 +212,6 @@ def read_review_csv(path: Path) -> list[dict[str, str]]:
         if reader.fieldnames is not None and set(CSV_COLUMNS) <= set(reader.fieldnames):
             return [dict(row) for row in reader]
     raise ConfigError(f"{path}: header does not contain the columns {list(CSV_COLUMNS)}")
-
-
-def read_json_object(path: Path, description: str) -> JsonObject:
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError as error:
-        raise ConfigError(f"{path}: {description} not found") from error
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read {description}: {error}") from error
-    if not isinstance(payload, dict):
-        raise ConfigError(f"{path}: {description} is not a JSON object")
-    return payload
 
 
 @dataclass(frozen=True)

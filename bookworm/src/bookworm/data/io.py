@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, TypeGuard
 
 from bookworm.data.schemas import HearingRecord
-from bookworm.errors import DatasetIntegrityError
+from bookworm.errors import ConfigError, DatasetIntegrityError
 
 JsonObject = dict[str, Any]
 
@@ -48,6 +48,22 @@ def load_hearings(path: Path, expected_sha256: str | None = None) -> list[Hearin
         verify_sha256(path, expected_sha256)
     with path.open(encoding="utf-8") as handle:
         return [HearingRecord.model_validate_json(line) for line in handle]
+
+
+def read_json_object(path: Path, description: str) -> JsonObject:
+    if not path.is_file():
+        raise ConfigError(f"{path}: {description} not found")
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except UnicodeDecodeError as error:
+        raise ConfigError(f"{path}: {description} is not UTF-8: {error}") from error
+    except json.JSONDecodeError as error:
+        raise ConfigError(f"{path}: invalid JSON: {error}") from error
+    except OSError as error:
+        raise ConfigError(f"{path}: cannot read {description}: {error}") from error
+    if not isinstance(payload, dict):
+        raise ConfigError(f"{path}: {description} is not a JSON object")
+    return payload
 
 
 def is_json_integer(value: object) -> TypeGuard[int]:

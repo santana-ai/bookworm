@@ -1,7 +1,6 @@
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
-from typing import Any
 
 from bookworm.actors.config import ActorsConfig
 from bookworm.actors.schemas import (
@@ -14,15 +13,13 @@ from bookworm.actors.schemas import (
     TurnRole,
     write_actor_speeches,
 )
-from bookworm.data.io import write_json
+from bookworm.data.io import JsonObject, write_json
 from bookworm.data.schemas import HearingRecord
 from bookworm.errors import BookwormError
 from bookworm.transcript.sentences import STAGE_DIRECTION_PATTERN
 from bookworm.transcript.speakers import is_party_info, resolve_turn_name
 from bookworm.transcript.text import normalize_name, normalize_whitespace
 from bookworm.transcript.turns import Turn, split_into_turns
-
-JsonObject = dict[str, Any]
 
 MERGE_DESCRIPTION = (
     "actors merged across hearings by exact normalized name (accents removed, upper case,"

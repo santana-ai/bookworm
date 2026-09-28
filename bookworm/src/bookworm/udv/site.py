@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from bookworm.data.io import write_json
+from bookworm.data.io import JsonObject, write_json
 from bookworm.data.schemas import HearingRecord
 from bookworm.data.splits import SplitName
 from bookworm.errors import ConfigError
@@ -14,7 +14,6 @@ from bookworm.udv.export import DEFAULT_TOP_K, export_hearing, split_of
 from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
 from bookworm.udv.signals import SiteSignals
 
-JsonObject = dict[str, Any]
 HearingCallback = Callable[[int, JsonObject, int], None]
 
 INDEX_FILE_NAME = "index.json"

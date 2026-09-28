@@ -6,13 +6,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from bookworm.data.io import is_json_number, sha256_of_file
+from bookworm.data.io import JsonObject, is_json_number, read_json_object, sha256_of_file
 from bookworm.errors import ConfigError
 from bookworm.transcript.sentences import SENTENCE_BOUNDARY_PATTERN, is_sentence
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.schemas import UdvRecord
-
-JsonObject = dict[str, Any]
 
 LAYA_SCORERS = ("laya_multi_pt", "laya_en_en")
 XNLI_SCORER = "xnli_mdeberta"
@@ -100,18 +98,6 @@ class Translations:
     def translate_chunk(self, chunk: str) -> str:
         translated = (self.lookup(segment).strip() for segment in self.segmentation.segments(chunk))
         return " ".join(text for text in translated if text)
-
-
-def read_object(path: Path, description: str) -> JsonObject:
-    if not path.is_file():
-        raise ConfigError(f"{path}: {description} not found")
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as error:
-        raise ConfigError(f"{path}: {description} is not valid JSON: {error}") from error
-    if not isinstance(payload, dict):
-        raise ConfigError(f"{path}: {description} is not a JSON object")
-    return payload
 
 
 def read_rows(path: Path, description: str) -> list[JsonObject]:
@@ -360,7 +346,7 @@ def load_site_signals(
     report_path: Path, records: Sequence[UdvRecord], records_sha256: str
 ) -> SiteSignals:
     origin = str(report_path)
-    report = read_object(report_path, "verifier report")
+    report = read_json_object(report_path, "verifier report")
     recorded_udv = text_field(report, ("inputs", "udv", "sha256"), origin)
     if recorded_udv != records_sha256:
         raise ConfigError(
@@ -385,7 +371,7 @@ def load_site_signals(
             field(report, ("score_runs", name), origin), f"{name} score report", origin
         )
     reports = {
-        name: read_object(path, f"{name} score report") for name, path in report_paths.items()
+        name: read_json_object(path, f"{name} score report") for name, path in report_paths.items()
     }
     origins = {name: str(path) for name, path in report_paths.items()}
     questions = battery(reports, origins)

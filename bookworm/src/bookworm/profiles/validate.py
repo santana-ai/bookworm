@@ -1,5 +1,4 @@
 import copy
-import json
 from collections import Counter
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
@@ -22,7 +21,14 @@ from bookworm.config import (
     required,
     section,
 )
-from bookworm.data.io import is_json_integer_list, sha256_of_file, write_json, write_jsonl
+from bookworm.data.io import (
+    JsonObject,
+    is_json_integer_list,
+    read_json_object,
+    sha256_of_file,
+    write_json,
+    write_jsonl,
+)
 from bookworm.data.splits import SPLIT_NAMES, SplitName
 from bookworm.errors import ConfigError
 from bookworm.features.encoders import CachedEncoder, FloatMatrix, SentenceEncoder
@@ -42,7 +48,6 @@ SkipReason = Literal[
     "split_not_evaluated",
     "not_in_prompt",
 ]
-JsonObject = dict[str, Any]
 ProfileEncoderFactory = Callable[[EncoderSettings, Sequence[str], int], SentenceEncoder]
 
 GROUPS: tuple[Group, ...] = get_args(Group)
@@ -230,13 +235,8 @@ class SplitManifest:
 
 
 def read_split_manifest(path: Path) -> SplitManifest:
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError as error:
-        raise ConfigError(f"{path}: split manifest not found") from error
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read split manifest: {error}") from error
-    if not isinstance(payload, dict) or not isinstance(payload.get("split_version"), str):
+    payload = read_json_object(path, "split manifest")
+    if not isinstance(payload.get("split_version"), str):
         raise ConfigError(f"{path}: split manifest has no split_version")
     split_by_hearing: dict[int, SplitName] = {}
     for name in SPLIT_NAMES:

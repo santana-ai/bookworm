@@ -13,7 +13,7 @@ from bookworm.actors.config import ActorsConfig, load_actors_config
 from bookworm.actors.schemas import UdvActorLink, write_udv_actor_links
 from bookworm.actors.speeches import ActorSpeeches, write_actor_outputs
 from bookworm.config import TfidfSettings, UdvConfig, load_split_config, load_udv_config
-from bookworm.data.io import json_path, load_hearings, sha256_of_file, write_json
+from bookworm.data.io import json_path, load_hearings, read_json_object, sha256_of_file, write_json
 from bookworm.data.schemas import HearingRecord
 from bookworm.data.splits import SPLIT_NAMES, build_temporal_split
 from bookworm.data.verify_splits import verify_split_run
@@ -118,22 +118,6 @@ def load_split_udvs(path: Path) -> list[UdvRecord] | None:
         return load_udv_jsonl(path)
     except (OSError, ValueError) as error:
         raise ConfigError(f"{path}: cannot read UDV run: {error}") from error
-
-
-def read_json_object(path: Path, description: str) -> dict[str, Any]:
-    if not path.is_file():
-        raise ConfigError(f"{path}: {description} not found")
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except UnicodeDecodeError as error:
-        raise ConfigError(f"{path}: {description} is not UTF-8: {error}") from error
-    except json.JSONDecodeError as error:
-        raise ConfigError(f"{path}: invalid JSON: {error}") from error
-    except OSError as error:
-        raise ConfigError(f"{path}: cannot read {description}: {error}") from error
-    if not isinstance(payload, dict):
-        raise ConfigError(f"{path}: {description} is not a JSON object")
-    return payload
 
 
 def read_run_records(path: Path) -> ParsedUdvLines:
