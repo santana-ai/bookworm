@@ -38,6 +38,7 @@ from experiments.verifier.grounding.units import (
 )
 from experiments.verifier.nli.benchmark import PremiseUnit
 from experiments.verifier.nli.translated import translation_texts
+from experiments.verifier.runtime import throughput
 from experiments.verifier.translate.seq2seq import load_translator, translate_missing
 from experiments.verifier.translate.store import selected_model
 
@@ -112,9 +113,7 @@ def progress_printer(key: str) -> Callable[[int, int], None]:
     started = time.perf_counter()
 
     def report(done: int, total: int) -> None:
-        elapsed = time.perf_counter() - started
-        rate = done / elapsed if elapsed else 0.0
-        eta = (total - done) / rate / 60 if rate else float("nan")
+        rate, eta = throughput(done, total, started)
         print(f"[{key}] {done}/{total} pairs, {rate:.2f}/s, eta {eta:.1f} min", flush=True)
 
     return report

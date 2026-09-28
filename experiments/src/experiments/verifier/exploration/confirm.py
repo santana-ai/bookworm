@@ -165,22 +165,24 @@ def compare_systems(
     return comparisons
 
 
-def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None:
-    out = output_dir(config, args.output_dir)
-    target = out / "confirmation.json"
-    if target.exists():
-        raise SystemExit(f"{target} exists: the confirmation runs once")
-    with open(out / "selection.json") as f:
-        selection = json.load(f)
-    fit_split, confirm_split = config.raw["fit_split"], config.raw["confirm_split"]
-    _, fit_labels, fit_hearings, fit_data, _ = load_all(config, fit_split)
-    ids, labels, hearings, data, missing = load_all(config, confirm_split)
-    candidates = confirm_candidates(selection, config, fit_data, out)
-    cv = {}
+Systems = dict[str, tuple[np.ndarray, np.ndarray]]
+
+
+def read_cv_results(out: Path) -> dict[str, Record]:
     with open(out / "cv_results.csv") as f:
-        for row in csv.DictReader(f):
-            cv[row["candidate"]] = row
-    systems: dict[str, tuple[np.ndarray, np.ndarray]] = {}
+        return {row["candidate"]: row for row in csv.DictReader(f)}
+
+
+def confirm_systems(
+    candidates: list[Candidate],
+    fit_data: dict[str, ScorerData],
+    data: dict[str, ScorerData],
+    fit_labels: np.ndarray,
+    fit_hearings: np.ndarray,
+    config: ExplorationConfig,
+) -> tuple[Systems, Record]:
+    """Fit-split and confirm-split scores of every candidate and reference."""
+    systems: Systems = {}
     learned: Record = {}
     for candidate in candidates:
         fit_scores, scores, model = system_scores(
@@ -194,17 +196,76 @@ def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None
             resolve_reference(reference, config, fit_data),
             resolve_reference(reference, config, data),
         )
-    results, replicates = evaluate_split(systems, fit_labels, labels, hearings, config)
+    return systems, learned
+
+
+def system_role(name: str, selected: str, references: tuple[str, ...]) -> str:
+    if name == selected:
+        return "selected"
+    if name in references:
+        return "reference"
+    return "above_cv_floor"
+
+
+def annotate_results(
+    results: Record,
+    selected: str,
+    cv: dict[str, Record],
+    fit_split: str,
+    config: ExplorationConfig,
+) -> None:
     for name, result in results.items():
-        result["role"] = (
-            "selected"
-            if name == candidates[0].key
-            else "reference"
-            if name in config.references
-            else "above_cv_floor"
-        )
+        result["role"] = system_role(name, selected, config.references)
         result["cv_roc_auc_mean"] = float(cv[name]["cv_roc_auc_mean"]) if name in cv else None
         result["threshold_fitted_on"] = fit_split
+
+
+def confirmation_table(
+    results: Record, comparisons: list[Record], references: tuple[str, ...]
+) -> list[Record]:
+    """One row per system, sorted by validation ROC AUC, with its Holm-adjusted AUC deltas."""
+    by_candidate: dict[str, Record] = {}
+    for entry in comparisons:
+        by_candidate.setdefault(entry["candidate"], {})[
+            f"{entry['metric']}|{entry['reference']}"
+        ] = entry
+    table: list[Record] = []
+    for name, result in results.items():
+        table_row: Record = {
+            "system": name,
+            "role": result["role"],
+            "cv_roc_auc_mean": result["cv_roc_auc_mean"],
+            "roc_auc": result["roc_auc"],
+            "roc_auc_low": result["roc_auc_interval"]["low"],
+            "roc_auc_high": result["roc_auc_interval"]["high"],
+            "cohen_kappa": result["cohen_kappa"],
+            "cohen_kappa_low": result["cohen_kappa_interval"]["low"],
+            "cohen_kappa_high": result["cohen_kappa_interval"]["high"],
+        }
+        for reference in references:
+            found = by_candidate.get(name, {}).get(f"roc_auc|{reference}")
+            table_row[f"delta_auc_vs_{reference}"] = None if found is None else found["delta"]
+            table_row[f"p_holm_vs_{reference}"] = None if found is None else found["p_holm"]
+        table.append(table_row)
+    table.sort(key=lambda row: -row["roc_auc"])
+    return table
+
+
+def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None:
+    out = output_dir(config, args.output_dir)
+    target = out / "confirmation.json"
+    if target.exists():
+        raise SystemExit(f"{target} exists: the confirmation runs once")
+    with open(out / "selection.json") as f:
+        selection = json.load(f)
+    fit_split, confirm_split = config.raw["fit_split"], config.raw["confirm_split"]
+    _, fit_labels, fit_hearings, fit_data, _ = load_all(config, fit_split)
+    ids, labels, hearings, data, missing = load_all(config, confirm_split)
+    candidates = confirm_candidates(selection, config, fit_data, out)
+    cv = read_cv_results(out)
+    systems, learned = confirm_systems(candidates, fit_data, data, fit_labels, fit_hearings, config)
+    results, replicates = evaluate_split(systems, fit_labels, labels, hearings, config)
+    annotate_results(results, candidates[0].key, cv, fit_split, config)
     comparisons = compare_systems(
         [c.key for c in candidates], config.references, results, replicates, config
     )
@@ -236,29 +297,5 @@ def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None
     }
     with open(target, "w") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
-    by_candidate: dict[str, Record] = {}
-    for entry in comparisons:
-        by_candidate.setdefault(entry["candidate"], {})[
-            f"{entry['metric']}|{entry['reference']}"
-        ] = entry
-    table: list[Record] = []
-    for name, result in results.items():
-        table_row: Record = {
-            "system": name,
-            "role": result["role"],
-            "cv_roc_auc_mean": result["cv_roc_auc_mean"],
-            "roc_auc": result["roc_auc"],
-            "roc_auc_low": result["roc_auc_interval"]["low"],
-            "roc_auc_high": result["roc_auc_interval"]["high"],
-            "cohen_kappa": result["cohen_kappa"],
-            "cohen_kappa_low": result["cohen_kappa_interval"]["low"],
-            "cohen_kappa_high": result["cohen_kappa_interval"]["high"],
-        }
-        for reference in config.references:
-            found = by_candidate.get(name, {}).get(f"roc_auc|{reference}")
-            table_row[f"delta_auc_vs_{reference}"] = None if found is None else found["delta"]
-            table_row[f"p_holm_vs_{reference}"] = None if found is None else found["p_holm"]
-        table.append(table_row)
-    table.sort(key=lambda row: -row["roc_auc"])
-    write_csv(out / "confirmation.csv", table)
+    write_csv(out / "confirmation.csv", confirmation_table(results, comparisons, config.references))
     print(f"{len(candidates)} candidates evaluated on {confirm_split}", flush=True)
