@@ -62,3 +62,28 @@ const QUESTIONS = {
 export function questionCopy(q) {
   return QUESTIONS[q.id] || { text: q.instructions, value: "" };
 }
+
+export const PROFILE_NOTE =
+  "Este perfil foi escrito por um modelo de linguagem, gerado a partir das falas da pessoa nas audiências; confira a evidência. Cada item aponta para a frase das falas que mais se parece com ele, e só vale como pista para ler a transcrição.";
+
+export const PROFILE_MATCH_NOTE =
+  "A frase de cada item é a mais parecida por palavras (TF-IDF, sem acentos e sem palavras muito comuns) entre as falas das audiências que o perfil leu; parecida não quer dizer que a frase sustenta o item. Uma afirmação da matéria (UDV) fica ligada ao item quando a frase é a mesma que a UDV usa como evidência, ou quando o item é parecido com o texto da UDV. Os dois cortes foram escolhidos para a leitura da página, sem medida de acerto.";
+
+export const CLAIM_STATES = {
+  udv: { k: "udv", label: "ligado a uma afirmação da matéria", short: "com UDV" },
+  passage: { k: "pas", label: "só com uma frase parecida nas falas", short: "só frase" },
+  none: { k: "none", label: "sem frase parecida nas falas lidas", short: "sem frase" },
+};
+
+export const UDV_RULES = {
+  same_sentence: "a frase do item é a evidência desta afirmação",
+  similar_text: "o item é parecido com o texto desta afirmação",
+};
+
+export const SPLIT_NAMES = { train: "treino", validation: "validação", test: "teste" };
+
+export function claimState(c) {
+  if (c.udv) return CLAIM_STATES.udv;
+  if (c.passage) return CLAIM_STATES.passage;
+  return CLAIM_STATES.none;
+}

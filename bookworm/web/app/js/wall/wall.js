@@ -271,5 +271,10 @@ export function createWall(host, H) {
     w.openStatementAt(j, "result");
   }
 
-  return { destroy, openStatement };
+  function openPassage(p) {
+    if (w.destroyed) return false;
+    return w.openReaderPassage(p);
+  }
+
+  return { destroy, openStatement, openPassage };
 }

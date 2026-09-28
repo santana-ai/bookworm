@@ -35,6 +35,26 @@ precisam estar no lugar; se faltar algum, se um sha256 não bater ou se os ids d
 execução, o comando para com código 2. Sem a opção, os arquivos gravados são os mesmos, byte a byte,
 de antes dela existir.
 
+`--profiles` é opcional e acrescenta os perfis de atores (ver [`docs/profiles.md`](../docs/profiles.md)).
+Ele recebe o JSONL gravado por `profile-actors`; `--actors-config` aponta para a configuração que
+ligou as falas aos atores (por padrão `configs/hearing_actors.toml`) e `--profiles-run` dá o nome da
+rodada que a página mostra (por padrão, o nome do arquivo). Para os perfis de treino gerados com Qwen:
+
+```bash
+cd challenge
+uv run --project ../bookworm bookworm export-site --config configs/udv.toml --run-name udv_v1 \
+    --split-manifest artifacts/splits/temporal_v1.json \
+    --verifier-report artifacts/udv/udv_v1_verifier_report.json \
+    --profiles mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl \
+    --profiles-run qwen38_27b --actors-config configs/hearing_actors.toml
+```
+
+Com a opção, a exportação grava também `actors.json` e um arquivo por ator em `profiles/<slug>.json`.
+O comando recusa um arquivo de perfis que não bata com as falas da configuração: para cada perfil,
+`n_statements` precisa ser a soma dos turnos da pessoa nas audiências de `hearing_ids`. Sem a opção,
+uma exportação anterior com perfis tem `actors.json` e `profiles/` apagados, para a página não
+mostrar perfis de outra execução.
+
 Num projeto que tenha a biblioteca como dependência (`uv add --editable ../bookworm`), o mesmo comando
 é `uv run bookworm export-site ...`. A exportação precisa do LDS em `challenge/dataset/`, da execução
 em `challenge/artifacts/udv/` e do cache de embeddings em `challenge/artifacts/cache/embeddings/`; se
@@ -80,6 +100,10 @@ Depois, abra `http://localhost:8000/`. Cada audiência tem um endereço próprio
 seguido do número da audiência, `-u` e o número da afirmação (`#h70-u1`). Abrir `index.html` direto do disco não
 funciona, porque o navegador bloqueia a leitura de `data/` por `file://`; nesse caso, e quando os dados
 ainda não foram gerados, a página mostra o erro e o comando que falta.
+
+Os outros endereços são `#arquivo` (o mapa do caso), `#perfil/<slug>` (o perfil de um ator, como
+`#perfil/vanessa-negrini`) e `#h<id>-t<turno>-p<início>-<fim>`, que abre o leitor da transcrição na
+frase indicada; é para esse endereço que a evidência de um perfil aponta.
 
 As bibliotecas vêm do cdnjs com versão fixa e verificação de integridade (`d3` 7.9.0 e `gsap` 3.12.5), e
 as fontes vêm do Google Fonts. Sem acesso a elas a página continua funcionando, sem as animações e com
@@ -162,6 +186,32 @@ o número mostrado nunca contradiga o resultado. Uma pessoa que não foi achada 
 ter falado ou aparecer com outro nome na transcrição, e a legenda diz isso. Os turnos são numerados a
 partir de 1 em toda a página.
 
+## Mapa do caso e perfis
+
+**Mapa do caso.** Uma aba fixa na borda direita (no celular, um botão no canto de baixo) e a tecla `M`
+abrem o mapa de qualquer página; `M` de novo volta para onde se estava, e `/` põe o cursor na busca.
+O mapa lista os perfis em ordem alfabética, cada um com uma barra que divide os itens do perfil em
+três partes (com UDV, só com frase parecida, sem frase), e as audiências da mais recente para a mais
+antiga, com links para o mural, para as pastas e para o perfil de cada pessoa citada que tem perfil.
+A busca procura por nome, cargo, título ou número da audiência, sem acento e sem diferença entre
+maiúsculas e minúsculas. No topo de todas as páginas, uma trilha (`Mapa do caso › Audiência 167 ›
+VANESSA NEGRINI › Perfil`) mostra o caminho e volta a qualquer ponto dele.
+
+**Perfil.** O perfil de um ator é montado como um dossiê: uma ficha com o monograma no lugar da foto
+(a página não busca imagens), a tabela de dados (cargo, audiências, turnos, itens), a proveniência
+(modelo, rodada, versão do prompt, data, tokens e sha256 do arquivo de perfis), um cartão que explica
+como o perfil foi feito, os cartões de cada seção do texto e a folha "Evidência de cada item". Um aviso
+no topo diz que o texto foi escrito por um modelo de linguagem a partir das falas e que a evidência
+precisa ser conferida. Cada item do texto tem um número que leva à sua evidência; a evidência é a
+frase das falas da pessoa mais parecida com o item, com link para o leitor da transcrição, e, quando
+existe, a afirmação da matéria (UDV) ligada a ele, com o nível do resultado, a nota do verificador e o
+link para a pasta. As notas adesivas só mostram números calculados na exportação (por exemplo, quantos
+itens têm UDV). Tudo fica aberto na página, sem nada a expandir.
+
+**Ligações.** A pasta de uma afirmação tem o link "Ver o perfil de ..." quando a pessoa tem perfil, e o
+cabeçalho do mural lista os perfis de quem fala na audiência. Do perfil, cada audiência leva ao mural,
+cada frase ao leitor da transcrição e cada UDV à sua pasta.
+
 ## Como a parede se organiza
 
 As audiências vão de 3 a 31 afirmações, de 2 a 12 participantes e de 7 a 4.898 turnos. Os protótipos
@@ -208,12 +258,16 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
 | `css/app.css` | Cores, tipografia, lista de matérias e estados. |
 | `css/wall.css` | A parede: cartões, barbantes, câmera, legenda, busca. |
 | `css/case.css` | A pasta da afirmação. |
-| `js/main.js` | Rotas (`#h<id>`, `#h<id>-u<n>`), carregamento, volta da pasta à cena do resultado e estados de erro. |
-| `js/data.js` | Leitura de `data/index.json` e `data/hearings/<id>.json` e conferência do formato. |
+| `css/profile.css` | O dossiê do perfil. |
+| `css/nav.css` | Trilha, aba do mapa, links para os perfis e o mapa do caso. |
+| `js/main.js` | Rotas (`#h<id>`, `#h<id>-u<n>`, `#h<id>-t<turno>-p<início>-<fim>`, `#perfil/<slug>`, `#arquivo`), trilha, atalhos de teclado, carregamento, volta da pasta à cena do resultado e estados de erro. |
+| `js/data.js` | Leitura de `data/index.json`, `data/hearings/<id>.json`, `data/actors.json` e `data/profiles/<slug>.json` e conferência do formato. |
 | `js/home.js` | Lista de matérias: busca, ordem, sorteio. |
 | `js/model.js` | Deriva do JSON da audiência os cartões, grupos, trechos, cadernos e onde cada afirmação aparece na matéria. |
 | `js/copy.js` | Os textos dos resultados, do aviso de conferência e das oito perguntas. |
 | `js/case.js` | A pasta da afirmação. |
+| `js/profile.js` | O perfil do ator. |
+| `js/atlas.js` | O mapa do caso e a busca por ator. |
 | `js/text.js` | Formatação em pt-BR e comparação de palavras. |
 | `js/wall/wall.js` | Monta a parede e liga os eventos. |
 | `js/wall/objects.js`, `layout.js`, `strings.js` | Cartões, disposição e barbantes. |
@@ -241,3 +295,12 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
   e um erro de tradução muda juntas todas as respostas da leitura em inglês.
 - O limite de 0,30 que marca uma pergunta em que as duas leituras discordam foi escolhido para a
   leitura da página, não medido.
+- A ligação entre um item do perfil e a fala é lexical (TF-IDF das palavras), escolhida frase a frase;
+  uma frase parecida pode não sustentar o item, e o item pode resumir várias falas. Os limites de 0,15
+  (frase) e 0,30 (UDV por texto parecido) foram escolhidos para a leitura da página, não medidos.
+- Na rodada `qwen38_27b` de treino, só 144 dos 4.928 itens dos 264 perfis se ligam a uma UDV; 4.348 têm
+  só uma frase parecida e 436 não têm nenhuma. A maior parte do texto dos perfis se confere lendo a
+  transcrição, sem uma afirmação da matéria ao lado.
+- Os perfis só cobrem o split de treino e os atores que falam em mais de uma audiência; a simulação de
+  atores não aparece na página.
+- A legenda da parede não tem link para os perfis; eles aparecem no cabeçalho do mural e nas pastas.

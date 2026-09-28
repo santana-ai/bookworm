@@ -1,13 +1,17 @@
 import { bucketSentence, NOT_CHECKED, NOT_CHECKED_SHORT, statementsSentence, TIER_ORDER } from "./copy.js";
-import { DataError, loadHearing, loadIndex } from "./data.js";
+import { DataError, loadActors, loadHearing, loadIndex, loadProfile } from "./data.js";
+import { createAtlas } from "./atlas.js";
 import { caseToken, renderCase } from "./case.js";
 import { createHome, dotsHtml } from "./home.js";
+import { passageToken, profileHash, profileToken, renderProfile } from "./profile.js";
 import { esc, fmtDate, hashToken } from "./text.js";
 import { createWall } from "./wall/wall.js";
 
 const $ = (sel) => document.querySelector(sel);
-const view = { home: $("#home"), hearing: $("#hearing"), kase: $("#case"), state: $("#state"), host: $("#wall-host") };
-const hv = { k: $("[data-hv-k]"), title: $("#hv-title"), sum: $("[data-hv-sum]"), nav: $("[data-hv-nav]") };
+const view = { home: $("#home"), hearing: $("#hearing"), kase: $("#case"), profile: $("#profile"), atlas: $("#atlas"), state: $("#state"), host: $("#wall-host") };
+const hv = { k: $("[data-hv-k]"), title: $("#hv-title"), sum: $("[data-hv-sum]"), nav: $("[data-hv-nav]"), prof: $("[data-hv-prof]") };
+const crumbsEl = $("[data-crumbs]");
+const MAP_HASH = "#arquivo";
 const APP_TITLE = "Rede de barbantes";
 let home = null;
 let siteIndex = null;
@@ -15,6 +19,9 @@ let homeScroll = 0;
 let wall = null;
 let routeSeq = 0;
 let resume = null;
+let actorsData;
+let lastHearing = null;
+let lastRoute = "";
 
 document.querySelectorAll("[data-note]").forEach((el) => {
   el.innerHTML = "<b>Ainda sem conferência humana.</b> " + esc(el.classList.contains("is-compact") ? NOT_CHECKED_SHORT : NOT_CHECKED);
@@ -80,6 +87,56 @@ function focusQuiet(el) {
 function dropCase() {
   view.kase.hidden = true;
   view.kase.innerHTML = "";
+  view.profile.hidden = true;
+  view.profile.innerHTML = "";
+  view.atlas.hidden = true;
+  view.atlas.innerHTML = "";
+}
+
+function crumb(label, href) {
+  return href ? '<a href="' + esc(href) + '">' + esc(label) + "</a>" : '<span aria-current="page">' + esc(label) + "</span>";
+}
+
+function setCrumbs(parts) {
+  const items = [["Mapa do caso", parts.length ? MAP_HASH : null]].concat(parts);
+  crumbsEl.innerHTML = "<ol>" + items.map((p) => "<li>" + crumb(p[0], p[1]) + "</li>").join("") + "</ol>";
+  document.querySelector("[data-map-tab]").classList.toggle("is-here", !parts.length);
+}
+
+async function ensureActors(seq) {
+  if (actorsData !== undefined) return actorsData;
+  await ensureHome(seq);
+  try {
+    actorsData = await loadActors(siteIndex ? siteIndex.run : null);
+  } catch (error) {
+    actorsData = null;
+    if (window.console) console.warn(error);
+  }
+  return actorsData;
+}
+
+function actorBySlug(slug) {
+  return actorsData ? actorsData.actors.find((a) => a.slug === slug) || null : null;
+}
+
+function profileOfUdv(udvId) {
+  const slug = actorsData && actorsData.udvs[udvId];
+  const a = slug ? actorBySlug(slug) : null;
+  return a ? { href: profileHash(a.slug), name: a.name, slug: a.slug } : null;
+}
+
+function hearingProfiles(id) {
+  const map = actorsData ? actorsData.people[String(id)] || {} : {};
+  const seen = new Set();
+  const out = [];
+  Object.keys(map).forEach((name) => {
+    const slug = map[name];
+    if (seen.has(slug)) return;
+    seen.add(slug);
+    const a = actorBySlug(slug);
+    if (a) out.push(a);
+  });
+  return out;
 }
 
 async function showHome(seq) {
@@ -88,6 +145,7 @@ async function showHome(seq) {
   resume = null;
   view.hearing.hidden = true;
   document.title = APP_TITLE;
+  setCrumbs([["Matérias", null]]);
   if (home) {
     view.home.hidden = false;
     setState("");
@@ -174,9 +232,13 @@ async function openHearing(id, seq) {
   return H;
 }
 
-async function showHearing(id, seq) {
+async function showHearing(id, seq, passage) {
   const H = await openHearing(id, seq);
   if (!H) return;
+  await ensureActors(seq);
+  if (seq !== routeSeq) return;
+  lastHearing = id;
+  setCrumbs([["Audiência " + id, null]]);
   if (!H.udvs.length) {
     setState(errorHtml("A audiência " + id + " não pode ser mostrada", ["Esta matéria não tem afirmações atribuídas a participantes."], null, true));
     return;
@@ -188,12 +250,19 @@ async function showHearing(id, seq) {
   hv.title.textContent = headline;
   hv.sum.innerHTML = '<span class="dots" aria-hidden="true">' + dotsHtml(tiers) + "</span>" + esc(statementsSentence(H.udvs.length, H.people.length) + ": " + bucketSentence(tiers));
   hv.nav.innerHTML = navHtml(H.hearing.id);
+  const profs = hearingProfiles(H.hearing.id);
+  hv.prof.hidden = !profs.length;
+  hv.prof.innerHTML = profs.length
+    ? "<span>Perfis de quem fala aqui:</span> " + profs.map((a) => '<a class="hv-prof-a" href="' + profileHash(a.slug) + '">' + esc(a.name) + "</a>").join("")
+    : "";
   document.title = (date ? "Matéria de " + date : "Audiência " + id) + " · " + APP_TITLE;
   setState("");
   view.hearing.hidden = false;
   try {
     wall = createWall(view.host, H);
-    if (resume && resume.id === H.hearing.id && resume.j < H.udvs.length) wall.openStatement(resume.j);
+    if (passage) {
+      if (!wall.openPassage(passage)) setState(errorHtml("Não achamos o trecho pedido", ["As posições " + passage.start + " a " + passage.end + " do turno " + (passage.turn + 1) + " não existem na audiência " + id + "."], null, false));
+    } else if (resume && resume.id === H.hearing.id && resume.j < H.udvs.length) wall.openStatement(resume.j);
     resume = null;
   } catch (error) {
     dropWall();
@@ -208,13 +277,17 @@ async function showHearing(id, seq) {
 async function showCase(id, n, seq) {
   const H = await openHearing(id, seq);
   if (!H) return;
+  await ensureActors(seq);
+  if (seq !== routeSeq) return;
+  lastHearing = id;
+  setCrumbs([["Audiência " + id, "#h" + id], ["Pasta da afirmação " + n, null]]);
   if (!(n >= 1 && n <= H.udvs.length)) {
     setState(errorHtml("Não achamos a afirmação " + n + " da audiência " + id, ["A audiência " + id + " tem " + H.udvs.length + " afirmações.", '<a href="#h' + id + '">Voltar à audiência</a>.'], null, true));
     return;
   }
   let shown;
   try {
-    shown = renderCase(view.kase, H, n);
+    shown = renderCase(view.kase, H, n, profileOfUdv);
   } catch (error) {
     dropCase();
     setState(errorHtml("Não conseguimos montar a pasta da afirmação " + n, [describe(error)], "Tentar de novo", true));
@@ -228,8 +301,90 @@ async function showCase(id, n, seq) {
   focusQuiet(shown.heading);
 }
 
+async function showProfile(slug, seq) {
+  dropWall();
+  dropCase();
+  view.home.hidden = true;
+  view.hearing.hidden = true;
+  setState(loadingHtml("Abrindo o perfil…"));
+  window.scrollTo(0, 0);
+  const actors = await ensureActors(seq);
+  if (seq !== routeSeq) return;
+  if (!actors) {
+    setState(errorHtml("Esta exportação não tem perfis", ["O arquivo <code>data/actors.json</code> não existe ou não pôde ser lido. Gere os dados com <code>bookworm export-site --profiles</code>; o comando completo está em <code>web/README.md</code>."], null, true));
+    return;
+  }
+  const a = actorBySlug(slug);
+  if (!a) {
+    setState(errorHtml("Não achamos o perfil pedido", ["Nenhum ator com perfil tem o endereço <code>" + esc(slug) + "</code>.", '<a href="' + MAP_HASH + '">Ver o mapa do caso</a>.'], null, true));
+    return;
+  }
+  let P;
+  try {
+    P = await loadProfile(slug);
+  } catch (error) {
+    if (seq !== routeSeq) return;
+    setState(errorHtml("Não conseguimos abrir o perfil de " + a.name, [describe(error), dataHelp()], "Tentar de novo", true));
+    return;
+  }
+  if (seq !== routeSeq) return;
+  const from = lastHearing != null && P.hearings.some((h) => h.id === lastHearing) ? lastHearing : null;
+  setCrumbs((from != null ? [["Audiência " + from, "#h" + from]] : []).concat([[a.name, null], ["Perfil", null]]));
+  let shown;
+  try {
+    shown = renderProfile(view.profile, P, { runLabel: "rodada " + P.provenance.run });
+  } catch (error) {
+    dropCase();
+    setState(errorHtml("Não conseguimos montar o perfil de " + a.name, [describe(error)], "Tentar de novo", true));
+    if (window.console) console.warn(error);
+    return;
+  }
+  document.title = shown.title + " · " + APP_TITLE;
+  setState("");
+  view.profile.hidden = false;
+  focusQuiet(shown.heading);
+}
+
+async function showAtlas(seq) {
+  dropWall();
+  dropCase();
+  view.home.hidden = true;
+  view.hearing.hidden = true;
+  setCrumbs([]);
+  setState(loadingHtml("Abrindo o mapa do caso…"));
+  window.scrollTo(0, 0);
+  await ensureHome(seq);
+  const actors = await ensureActors(seq);
+  if (seq !== routeSeq) return;
+  if (!siteIndex) {
+    setState(errorHtml("Não conseguimos carregar a lista de matérias", [dataHelp()], "Tentar de novo"));
+    return;
+  }
+  createAtlas(view.atlas, siteIndex, actors);
+  document.title = "Mapa do caso · " + APP_TITLE;
+  setState("");
+  view.atlas.hidden = false;
+  focusQuiet($("#at-title"));
+}
+
 function route() {
   const seq = ++routeSeq;
+  const hash = location.hash;
+  if (hash !== MAP_HASH) lastRoute = hash;
+  if (hash === MAP_HASH) {
+    showAtlas(seq);
+    return;
+  }
+  const slug = profileToken(hash);
+  if (slug) {
+    showProfile(slug, seq);
+    return;
+  }
+  const passage = passageToken(hash);
+  if (passage) {
+    showHearing(passage.id, seq, passage);
+    return;
+  }
   const kase = caseToken(location.hash);
   if (kase) {
     showCase(kase.id, kase.n, seq);
@@ -249,7 +404,7 @@ document.addEventListener("click", (e) => {
   if (!t || !t.closest) return;
   if (t.closest("[data-skip]")) {
     e.preventDefault();
-    const target = !view.kase.hidden ? $("#cs-title") : view.hearing.hidden ? $("#home-h") : hv.title;
+    const target = !view.kase.hidden ? $("#cs-title") : !view.profile.hidden ? $("#pf-title") : !view.atlas.hidden ? $("#at-title") : view.hearing.hidden ? $("#home-h") : hv.title;
     focusQuiet(target && !target.closest("[hidden]") ? target : $("#main"));
     return;
   }
@@ -264,11 +419,46 @@ document.addEventListener("click", (e) => {
     if (pool.length) location.hash = "#h" + pool[Math.floor(Math.random() * pool.length)].id;
     return;
   }
+  const jump = t.closest("[data-jump]");
+  if (jump) {
+    const el = document.getElementById(jump.dataset.jump);
+    if (el) {
+      el.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      focusQuiet(el);
+      el.classList.remove("is-flash");
+      void el.offsetWidth;
+      el.classList.add("is-flash");
+    }
+    return;
+  }
   const a = t.closest('a[href="#"]');
   if (a) {
     e.preventDefault();
     if (location.hash && location.hash !== "#") location.hash = "";
     else route();
+  }
+});
+
+function typing(el) {
+  if (!el || el.nodeType !== 1) return false;
+  const tag = el.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable;
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || typing(e.target)) return;
+  if (e.key === "m" || e.key === "M") {
+    e.preventDefault();
+    if (location.hash === MAP_HASH) location.hash = lastRoute && lastRoute !== MAP_HASH ? lastRoute : "";
+    else location.hash = MAP_HASH;
+    return;
+  }
+  if (e.key === "/" && !view.atlas.hidden) {
+    const q = $("#at-q");
+    if (q) {
+      e.preventDefault();
+      q.focus();
+    }
   }
 });
 

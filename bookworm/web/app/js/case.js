@@ -85,7 +85,7 @@ function stampHtml(s, M) {
   return '<div class="cs-stamp"><div class="wl-ink" data-t="' + s.tier.k + '"><span>' + esc(s.tier.label) + "</span>" + sc + "</div></div>";
 }
 
-function claimHtml(s, M) {
+function claimHtml(s, M, prof) {
   const u = s.u;
   const line = quoteLine(s);
   return (
@@ -93,6 +93,7 @@ function claimHtml(s, M) {
     '<p class="wl-st-k">Afirmação ' + (s.i + 1) + " de " + M.S.length + " · segundo a matéria,</p>" +
     '<p class="wl-st-who">' + esc(u.actor.name) + "</p>" +
     (u.actor.role ? '<p class="cs-role">' + esc(u.actor.role) + "</p>" : "") +
+    (prof ? '<p class="cs-prof"><a href="' + esc(prof.href) + '">Ver o perfil de ' + esc(prof.name) + ' <span aria-hidden="true">&rarr;</span></a></p>' : "") +
     '<p class="wl-st-prop cs-prop">' + markText(u.proposition, quoteMarks(s)) + "</p>" +
     (line ? '<p class="cs-qline">' + esc(line) + "</p>" : "") +
     stampHtml(s, M) +
@@ -300,13 +301,13 @@ function headHtml(H, M, s) {
   );
 }
 
-export function renderCase(host, H, n) {
+export function renderCase(host, H, n, profileOf) {
   const M = buildModel(H);
   const s = M.S[n - 1];
   if (!s) return null;
   const scored = !!(H.signals && s.u.signals && s.u.signals.scored);
   const cols = [
-    '<section class="cs-col" aria-labelledby="cs-h1"><h2 class="cs-h" id="cs-h1"><span class="cs-hn" aria-hidden="true">1</span>O que a matéria diz</h2>' + claimHtml(s, M) + "</section>",
+    '<section class="cs-col" aria-labelledby="cs-h1"><h2 class="cs-h" id="cs-h1"><span class="cs-hn" aria-hidden="true">1</span>O que a matéria diz</h2>' + claimHtml(s, M, profileOf ? profileOf(s.u.id) : null) + "</section>",
     '<section class="cs-col" aria-labelledby="cs-h2"><h2 class="cs-h" id="cs-h2"><span class="cs-hn" aria-hidden="true">2</span>O que a pessoa disse</h2>' +
       (s.ev ? passageHtml(s, M) + englishHtml(s, H) : whyHtml(s, M)) +
       (s.ev && !H.signals ? '<p class="cs-slip">' + esc(NO_SECOND_OPINION) + "</p>" : "") +

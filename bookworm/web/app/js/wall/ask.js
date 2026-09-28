@@ -279,6 +279,13 @@ export function installAsk(w) {
     openReaderAt({ start: s.start, end: s.end, turn: s.turn, label: "a frase da busca" }, "A transcrição em volta da frase", from);
   }
 
+  function openReaderPassage(p) {
+    if (!(p.start >= 0 && p.end <= T.length && p.start <= p.end) || !M.turnsByIdx[p.turn]) return false;
+    scrollWallIntoView();
+    openReaderAt({ start: p.start, end: p.end, turn: p.turn, label: "a frase do perfil" }, "A transcrição em volta da frase do perfil", els.wrap);
+    return true;
+  }
+
   function closeReader(silent) {
     if (els.reader.hidden) return;
     els.reader.hidden = true;
@@ -335,5 +342,5 @@ export function installAsk(w) {
     return false;
   }
 
-  Object.assign(w, { runAsk, initAsk, onAskClick, openReader, closeReader, readMore });
+  Object.assign(w, { runAsk, initAsk, onAskClick, openReader, openReaderPassage, closeReader, readMore });
 }

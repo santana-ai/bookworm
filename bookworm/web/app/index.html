@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/wall.css">
 <link rel="stylesheet" href="css/case.css">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/nav.css">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="module" src="js/main.js"></script>
@@ -20,7 +22,9 @@
 <a class="skip" href="#main" data-skip>Pular para o conteúdo</a>
 <header class="bar">
   <a class="brand" href="#">bookworm <span>rede de barbantes</span></a>
+  <nav class="crumbs" aria-label="Onde você está" data-crumbs></nav>
 </header>
+<a class="map-tab" href="#arquivo" aria-keyshortcuts="m" title="Mapa do caso (tecla M)" data-map-tab><span class="map-tab-t">Mapa do caso</span><kbd aria-hidden="true">M</kbd></a>
 <main id="main" tabindex="-1">
   <section id="home" class="home" aria-labelledby="home-h" hidden>
     <div class="home-top">
@@ -63,12 +67,17 @@
       <p class="hv-k" data-hv-k></p>
       <h1 class="hv-title" id="hv-title" tabindex="-1"></h1>
       <p class="hv-sum" data-hv-sum></p>
+      <p class="hv-prof" data-hv-prof hidden></p>
       <p class="note is-compact" data-note></p>
     </div>
     <div id="wall-host"></div>
   </section>
 
   <section id="case" class="cs-view" aria-labelledby="cs-title" hidden></section>
+
+  <section id="profile" class="pf-view" aria-labelledby="pf-title" hidden></section>
+
+  <section id="atlas" class="at-view" aria-labelledby="at-title" hidden></section>
 
   <div id="state" class="state" role="status" aria-live="polite"></div>
 </main>
