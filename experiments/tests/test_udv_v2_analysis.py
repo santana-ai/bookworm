@@ -1,14 +1,22 @@
 import csv
 import json
+from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
 import pytest
+from bookworm import sha256_of_file
 
 from experiments.udv import calibrate_v2 as calibration
 from experiments.udv import v2_analysis as analysis
 from experiments.udv.calibrate_threshold import CalibrationConfig
-from experiments.validation.generate_sample import CSV_COLUMNS
+from experiments.validation.generate_sample import (
+    CSV_COLUMNS,
+    canonical_sha256,
+    load_validation_config,
+    read_annotation_csv,
+    sheet_rows,
+)
 
 
 def udv(udv_id: str, tier: str, text: str | None, start: int = 0, prefix: str | None = None):
@@ -134,7 +142,7 @@ def write_sheet(path, rows):
 
 def test_partial_judgments_skip_empty_rows_and_list_invalid_labels(tmp_path):
     key = scored_key()
-    config = analysis.load_validation_config(analysis.Path("configs/validation_sample.toml"))
+    config = load_validation_config(Path("configs/validation_sample.toml"))
     sheet = tmp_path / "annotation.csv"
     write_sheet(
         sheet,
@@ -145,13 +153,13 @@ def test_partial_judgments_skip_empty_rows_and_list_invalid_labels(tmp_path):
             {"item_id": "A004", "julgamento": "parcial", "existe_trecho_melhor": "nao"},
         ],
     )
-    found = analysis.partial_judgments(analysis.read_annotation_csv(sheet, config), key, config)
+    found = analysis.partial_judgments(read_annotation_csv(sheet, config), key, config)
     assert sorted(found["valid"]) == ["A001", "A004"]
     assert found["invalid_labels"] == [{"item_id": "A002", "julgamento": "acho que sim"}]
     assert found["better_passage_missing"] == ["A001"]
     write_sheet(sheet, [{"item_id": "A001", "julgamento": "correta", "trecho": "mudou"}])
     with pytest.raises(SystemExit, match="trecho differs"):
-        analysis.partial_judgments(analysis.read_annotation_csv(sheet, config), key, config)
+        analysis.partial_judgments(read_annotation_csv(sheet, config), key, config)
 
 
 def test_score_command_reports_interim_precision_for_both_runs(tmp_path):
@@ -188,16 +196,14 @@ def test_score_command_reports_interim_precision_for_both_runs(tmp_path):
                 "item_plan": item_plan,
                 "v2_population_sampled_splits": {"direct_quote": 5, "semantic_match_high": 8},
                 "inputs": {
-                    "annotation_key": {
-                        "sha256": analysis.sha256_of_file(sample / "annotation_key.json")
-                    }
+                    "annotation_key": {"sha256": sha256_of_file(sample / "annotation_key.json")}
                 },
             }
         )
     )
     output = tmp_path / "report.json"
     args = SimpleNamespace(
-        config=analysis.Path("configs/validation_sample.toml"),
+        config=Path("configs/validation_sample.toml"),
         sample_dir=str(sample),
         annotation=str(sheet),
         plan=str(plan),
@@ -345,7 +351,7 @@ def test_supplement_rows_show_the_v2_evidence_of_reannotated_items_only():
     assert item["v1_relation"] == "moved"
     assert item["display"]["trecho"] == window
     assert item["display"]["contexto_antes"].endswith("Primeira frase dita.")
-    rows = analysis.sheet_rows(items)
+    rows = sheet_rows(items)
     assert rows[0]["julgamento"] == "" and "v1_item_id" not in rows[0]
     assert "v1_relation" not in rows[0]
 
@@ -376,9 +382,7 @@ def scored_plan(sample):
         "caveat": "c",
         "item_plan": item_plan,
         "v2_population_sampled_splits": {"direct_quote": 5, "semantic_match_high": 8},
-        "inputs": {
-            "annotation_key": {"sha256": analysis.sha256_of_file(sample / "annotation_key.json")}
-        },
+        "inputs": {"annotation_key": {"sha256": sha256_of_file(sample / "annotation_key.json")}},
     }
 
 
@@ -386,7 +390,7 @@ SUPPLEMENT_DISPLAY = {**DISPLAY, "trecho": "t v2"}
 
 
 def config_inheritance():
-    config = analysis.load_validation_config(analysis.Path("configs/validation_sample.toml"))
+    config = load_validation_config(Path("configs/validation_sample.toml"))
     return analysis.load_inheritance(config)
 
 
@@ -405,13 +409,13 @@ def write_supplement(folder, key, sample, plan_path):
         "dry_run": False,
         "splits_used": key["splits_used"],
         "base_sample": {
-            "annotation_key": {"sha256": analysis.sha256_of_file(sample / "annotation_key.json")}
+            "annotation_key": {"sha256": sha256_of_file(sample / "annotation_key.json")}
         },
-        "plan": {"sha256": analysis.sha256_of_file(plan_path)},
+        "plan": {"sha256": sha256_of_file(plan_path)},
         "criteria": criteria,
-        "criteria_sha256": analysis.canonical_sha256(criteria),
+        "criteria_sha256": canonical_sha256(criteria),
         "inheritance": inheritance,
-        "inheritance_sha256": analysis.canonical_sha256(inheritance),
+        "inheritance_sha256": canonical_sha256(inheritance),
         "strata": key["strata"],
         "inherited_items": {
             "A002": inherited_entry("superset", "trecho_sustenta", "semantic_match_high"),
@@ -460,7 +464,7 @@ def test_score_command_combines_inherited_and_supplementary_judgments(tmp_path):
         writer.writeheader()
         writer.writerow({**SUPPLEMENT_DISPLAY, "item_id": "C001", "julgamento": ""})
     args = SimpleNamespace(
-        config=analysis.Path("configs/validation_sample.toml"),
+        config=Path("configs/validation_sample.toml"),
         sample_dir=str(sample),
         annotation=str(sheet),
         plan=str(plan_path),
