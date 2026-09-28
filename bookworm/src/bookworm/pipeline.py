@@ -97,9 +97,7 @@ def run_pipeline(
         if collector is not None:
             kept_keys = collector.add_hearing(hearing.id, hearing.transcricao, turns)
             pending.extend(pending_links(hearing.id, people, kept_keys))
-        udv_run.hearing_seconds.append(clock() - started)
-        udv_run.records.extend(records)
-        udv_run.people.extend(people)
+        udv_run.add_hearing(records, people, clock() - started)
         if on_hearing is not None:
             on_hearing(number, hearing, len(records), udv_run.hearing_seconds[-1])
     if collector is None:

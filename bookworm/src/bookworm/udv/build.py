@@ -70,6 +70,13 @@ class UdvRun:
     people: list[PersonSpeech] = field(default_factory=list)
     hearing_seconds: list[float] = field(default_factory=list)
 
+    def add_hearing(
+        self, records: Sequence[UdvRecord], people: Sequence[PersonSpeech], seconds: float
+    ) -> None:
+        self.hearing_seconds.append(seconds)
+        self.records.extend(records)
+        self.people.extend(people)
+
 
 def udv_id(hearing_id: int, person_index: int, opinion_index: int) -> str:
     return f"udv-{hearing_id}-{person_index}-{opinion_index}"
@@ -119,13 +126,18 @@ def udv_corpus(hearings: Iterable[HearingRecord]) -> list[str]:
     return corpus
 
 
-def sentence_slices_by_person(people: Sequence[PersonSpeech]) -> dict[int, slice]:
+def consecutive_slices(lengths: Iterable[tuple[int, int]]) -> dict[int, slice]:
+    """Slices of consecutive rows, one per ``(key, length)`` pair, in the given order."""
     slices: dict[int, slice] = {}
     offset = 0
-    for person in people:
-        slices[person.index] = slice(offset, offset + len(person.sentences))
-        offset += len(person.sentences)
+    for key, length in lengths:
+        slices[key] = slice(offset, offset + length)
+        offset += length
     return slices
+
+
+def sentence_slices_by_person(people: Sequence[PersonSpeech]) -> dict[int, slice]:
+    return consecutive_slices((person.index, len(person.sentences)) for person in people)
 
 
 def build_udv_record(
@@ -156,34 +168,33 @@ class SemanticCandidates:
     slices: dict[int, slice]
     units: dict[int, list[CandidateUnit]]
 
+    def person_embeddings(self, person: PersonSpeech) -> FloatMatrix:
+        return self.embeddings[self.slices[person.index]]
+
 
 def semantic_candidates(
     hearing: HearingRecord,
     people: Sequence[PersonSpeech],
     encoder: CachedEncoder,
-    settings: EvidenceSettings,
+    semantic_unit: SemanticUnit,
 ) -> SemanticCandidates:
-    if not settings.uses_windows:
+    """Embeddings of the candidate sentences, or windows, of every person of a hearing."""
+    if semantic_unit == "sentence":
         all_sentences = [sentence for person in people for sentence in person.sentences]
         return SemanticCandidates(
             embeddings=encoder.encode(all_sentences, f"sentences_{hearing.id}"),
             slices=sentence_slices_by_person(people),
             units={},
         )
-    size = unit_size(settings.semantic_unit)
+    size = unit_size(semantic_unit)
     units = {
         person.index: person_units(person.matched_turns, hearing.transcricao, size)
         for person in people
     }
-    slices: dict[int, slice] = {}
-    offset = 0
-    for person in people:
-        slices[person.index] = slice(offset, offset + len(units[person.index]))
-        offset += len(units[person.index])
     texts = [unit.text for person in people for unit in units[person.index]]
     return SemanticCandidates(
-        embeddings=encoder.encode(texts, embedding_label(settings.semantic_unit, hearing.id)),
-        slices=slices,
+        embeddings=encoder.encode(texts, embedding_label(semantic_unit, hearing.id)),
+        slices=consecutive_slices((person.index, len(units[person.index])) for person in people),
         units=units,
     )
 
@@ -210,7 +221,7 @@ def semantic_evidence(
     quote_match: TurnQuoteMatch | None,
     settings: EvidenceSettings,
 ) -> Evidence | None:
-    embeddings = candidates.embeddings[candidates.slices[person.index]]
+    embeddings = candidates.person_embeddings(person)
     if settings.uses_windows:
         units = candidates.units[person.index]
         if not units:
@@ -229,6 +240,34 @@ def semantic_evidence(
     )
 
 
+def opinion_evidence(
+    opinion_text: str,
+    opinion_embedding: FloatMatrix,
+    person: PersonSpeech,
+    candidates: SemanticCandidates,
+    transcript: str,
+    settings: EvidenceSettings,
+) -> Evidence | None:
+    """Quote evidence when a trusted quote is found, similarity evidence otherwise."""
+    if not person.resolved:
+        return None
+    policy = settings.quote_policy
+    quote_match = find_opinion_turn_quote_match(opinion_text, person.matched_turns, policy)
+    if is_trusted_quote(quote_match, policy):
+        return quote_evidence(quote_match, opinion_text, person, transcript, settings)
+    return semantic_evidence(
+        opinion_embedding, person, candidates, transcript, quote_match, settings
+    )
+
+
+def encoder_method(encoder: CachedEncoder, settings: EvidenceSettings) -> Method:
+    return Method(
+        encoder=encoder.encoder.name,
+        revision=encoder.encoder.revision,
+        embedding_threshold=settings.embedding_threshold,
+    )
+
+
 def build_hearing_udvs(
     hearing: HearingRecord,
     encoder: CachedEncoder,
@@ -236,43 +275,34 @@ def build_hearing_udvs(
     turns: Sequence[Turn] | None = None,
 ) -> tuple[list[UdvRecord], list[PersonSpeech]]:
     """Build the UDVs of one hearing and the resolved speech of each participant."""
-    transcript = hearing.transcricao
     people = resolve_hearing_people(hearing, turns)
-    candidates = semantic_candidates(hearing, people, encoder, settings)
+    candidates = semantic_candidates(hearing, people, encoder, settings.semantic_unit)
     opinions = [
         (person, opinion_index, opinion_text)
         for person in people
         for opinion_index, opinion_text in enumerate(person.participant.opinioes)
     ]
     opinion_embeddings = encoder.encode([text for _, _, text in opinions], f"opinions_{hearing.id}")
-    method = Method(
-        encoder=encoder.encoder.name,
-        revision=encoder.encoder.revision,
-        embedding_threshold=settings.embedding_threshold,
-    )
-    policy = settings.quote_policy
-
-    records: list[UdvRecord] = []
-    for position, (person, opinion_index, opinion_text) in enumerate(opinions):
-        evidence: Evidence | None = None
-        if person.resolved:
-            quote_match = find_opinion_turn_quote_match(opinion_text, person.matched_turns, policy)
-            if is_trusted_quote(quote_match, policy):
-                evidence = quote_evidence(quote_match, opinion_text, person, transcript, settings)
-            else:
-                evidence = semantic_evidence(
-                    opinion_embeddings[position],
-                    person,
-                    candidates,
-                    transcript,
-                    quote_match,
-                    settings,
-                )
-        records.append(
-            build_udv_record(
-                hearing, person, opinion_index, opinion_text, evidence, method, settings
-            )
+    method = encoder_method(encoder, settings)
+    records = [
+        build_udv_record(
+            hearing,
+            person,
+            opinion_index,
+            opinion_text,
+            opinion_evidence(
+                opinion_text,
+                opinion_embeddings[position],
+                person,
+                candidates,
+                hearing.transcricao,
+                settings,
+            ),
+            method,
+            settings,
         )
+        for position, (person, opinion_index, opinion_text) in enumerate(opinions)
+    ]
     return records, people
 
 
@@ -289,9 +319,7 @@ def build_udvs(
     for number, hearing in enumerate(hearings, start=1):
         started = clock()
         records, people = build_hearing_udvs(hearing, encoder, settings)
-        run.hearing_seconds.append(clock() - started)
-        run.records.extend(records)
-        run.people.extend(people)
+        run.add_hearing(records, people, clock() - started)
         if on_hearing is not None:
             on_hearing(number, hearing, len(records), run.hearing_seconds[-1])
     return run

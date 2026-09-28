@@ -12,7 +12,7 @@ from bookworm.data.io import (
     is_json_number,
     json_path,
 )
-from bookworm.data.schemas import HearingRecord
+from bookworm.data.schemas import HearingRecord, Participant
 from bookworm.errors import ConfigError
 from bookworm.transcript.sentences import sentences_agree, turn_text
 from bookworm.transcript.text import normalize_whitespace
@@ -35,6 +35,10 @@ from bookworm.udv.schemas import (
     SupportType,
     Tier,
     UdvRecord,
+    count_located,
+    count_support_types,
+    count_tiers,
+    record_evidences,
 )
 from bookworm.udv.windows import (
     SEMANTIC_UNITS,
@@ -130,57 +134,119 @@ def check_record(
     policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
     settings: EvidenceSettings | None = None,
 ) -> list[str]:
+    """Problems of one UDV record against the evidence recomputed for its opinion."""
     settings = EvidenceSettings(threshold, policy) if settings is None else settings
-    problems: list[str] = []
     person = indexed.person
-    participant = person.participant
+    problems = check_identity(record, person.participant, opinion_text, threshold)
+    if record.tier == "person_not_resolved":
+        return [*problems, *check_unresolved_shape(record, person)]
+    if not person.matched_turns:
+        problems.append("resolved_tier_but_unmatched")
+    if record.tier == "no_evidence":
+        return [*problems, *check_no_evidence_shape(record, person)]
+    if record.evidence is None:
+        return [*problems, "evidence_missing"]
+    return [
+        *problems,
+        *check_evidence(record, record.evidence, indexed, opinion_text, policy, settings),
+    ]
+
+
+def check_identity(
+    record: UdvRecord, participant: Participant, opinion_text: str, threshold: float
+) -> list[str]:
+    problems: list[str] = []
     if record.proposition != opinion_text:
         problems.append("proposition_mismatch")
     if (record.actor.name, record.actor.role) != (participant.nome, participant.cargo):
         problems.append("actor_mismatch")
     if record.method.embedding_threshold != threshold:
         problems.append("method_threshold_mismatch")
-    tier, evidence, provenance = record.tier, record.evidence, record.provenance
-    if tier == "person_not_resolved":
-        if person.matched_turns:
-            problems.append("person_not_resolved_but_matched")
-        if evidence is not None or provenance is not None:
-            problems.append("person_not_resolved_shape")
-        return problems
-    if not person.matched_turns:
-        problems.append("resolved_tier_but_unmatched")
-    if tier == "no_evidence":
-        if evidence is not None or provenance is not None or person.sentences:
-            problems.append("no_evidence_shape")
-        return problems
-    if evidence is None:
-        return [*problems, "evidence_missing"]
-    problems.extend(check_single_turn(evidence, person))
+    return problems
+
+
+def has_evidence_fields(record: UdvRecord) -> bool:
+    return record.evidence is not None or record.provenance is not None
+
+
+def check_unresolved_shape(record: UdvRecord, person: PersonSpeech) -> list[str]:
+    problems: list[str] = []
+    if person.matched_turns:
+        problems.append("person_not_resolved_but_matched")
+    if has_evidence_fields(record):
+        problems.append("person_not_resolved_shape")
+    return problems
+
+
+def check_no_evidence_shape(record: UdvRecord, person: PersonSpeech) -> list[str]:
+    if has_evidence_fields(record) or person.sentences:
+        return ["no_evidence_shape"]
+    return []
+
+
+def check_evidence(
+    record: UdvRecord,
+    evidence: Evidence,
+    indexed: IndexedPerson,
+    opinion_text: str,
+    policy: QuotePolicy,
+    settings: EvidenceSettings,
+) -> list[str]:
+    person = indexed.person
+    problems = check_single_turn(evidence, person)
     quote_match = find_opinion_turn_quote_match(opinion_text, person.matched_turns, policy)
-    if tier == "quote_found":
+    if record.tier == "quote_found":
         expected_text = expected_quote_text(opinion_text, quote_match, person, settings)
         problems.extend(
-            check_quote_evidence(evidence, quote_match, provenance, policy, expected_text)
+            check_quote_evidence(evidence, quote_match, record.provenance, policy, expected_text)
         )
     else:
-        if provenance != "model" or evidence.support_type == "direct_quote":
-            problems.append("semantic_shape")
-        if is_trusted_quote(quote_match, policy):
-            problems.append("semantic_but_trusted_quote_findable")
-        if settings.uses_windows:
-            if evidence.text not in {unit.evidence_text for unit in indexed.units}:
-                problems.append("evidence_not_person_window")
-        elif evidence.text not in person.sentences:
-            problems.append("evidence_not_person_sentence")
-        problems.extend(check_short_quote_support(evidence, quote_match, policy))
-        score = evidence.score
-        if score is None or not -SCORE_BOUND <= score <= SCORE_BOUND:
-            problems.append("score_out_of_range")
-        elif (tier == "semantic_match_high") != (score >= threshold):
-            problems.append("tier_inconsistent_with_score")
+        problems.extend(
+            check_semantic_evidence(record, evidence, quote_match, indexed, policy, settings)
+        )
     problems.extend(check_offsets(evidence, indexed))
-    problems.extend(check_source_turn(evidence, quote_match, indexed, tier, policy))
+    problems.extend(check_source_turn(evidence, quote_match, indexed, record.tier, policy))
     return problems
+
+
+def check_semantic_evidence(
+    record: UdvRecord,
+    evidence: Evidence,
+    quote_match: TurnQuoteMatch | None,
+    indexed: IndexedPerson,
+    policy: QuotePolicy,
+    settings: EvidenceSettings,
+) -> list[str]:
+    problems: list[str] = []
+    if record.provenance != "model" or evidence.support_type == "direct_quote":
+        problems.append("semantic_shape")
+    if is_trusted_quote(quote_match, policy):
+        problems.append("semantic_but_trusted_quote_findable")
+    problems.extend(check_candidate_text(evidence, indexed, settings))
+    problems.extend(check_short_quote_support(evidence, quote_match, policy))
+    problems.extend(check_score(evidence, record.tier, settings.embedding_threshold))
+    return problems
+
+
+def check_candidate_text(
+    evidence: Evidence, indexed: IndexedPerson, settings: EvidenceSettings
+) -> list[str]:
+    if settings.uses_windows:
+        if evidence.text not in {unit.evidence_text for unit in indexed.units}:
+            return ["evidence_not_person_window"]
+        return []
+    if evidence.text not in indexed.person.sentences:
+        return ["evidence_not_person_sentence"]
+    return []
+
+
+def check_score(evidence: Evidence, tier: Tier, threshold: float) -> list[str]:
+    score = evidence.score
+    if score is None or not -SCORE_BOUND <= score <= SCORE_BOUND:
+        return ["score_out_of_range"]
+    if (tier == "semantic_match_high") != (score >= threshold):
+        return ["tier_inconsistent_with_score"]
+    return []
 
 
 def expected_quote_text(
@@ -298,31 +364,28 @@ def check_source_turn(
     return []
 
 
+def resolved_people(people: Mapping[PersonKey, IndexedPerson]) -> int:
+    return sum(1 for indexed in people.values() if indexed.person.matched_turns)
+
+
 def coverage_counters(
     records: Sequence[UdvRecord], people: Mapping[PersonKey, IndexedPerson]
 ) -> list[tuple[str, tuple[str, ...], int]]:
-    by_tier = Counter(record.tier for record in records)
-    evidences = [record.evidence for record in records if record.evidence is not None]
+    by_tier = count_tiers(records)
+    evidences = record_evidences(records)
+    by_support_type = count_support_types(evidences)
     return [
         ("opinions.total", ("opinions", "total"), len(records)),
         ("people.total", ("people", "total"), len(people)),
-        (
-            "people.resolved",
-            ("people", "resolved"),
-            sum(1 for indexed in people.values() if indexed.person.matched_turns),
-        ),
+        ("people.resolved", ("people", "resolved"), resolved_people(people)),
         ("evidence_offsets.total", ("evidence_offsets", "total"), len(evidences)),
-        (
-            "evidence_offsets.located",
-            ("evidence_offsets", "located"),
-            sum(1 for evidence in evidences if evidence.start_char is not None),
-        ),
+        ("evidence_offsets.located", ("evidence_offsets", "located"), count_located(evidences)),
         *[(f"by_tier.{tier}", ("opinions", "by_tier", tier), by_tier[tier]) for tier in TIERS],
         *[
             (
                 f"evidence_support_types.{support_type}",
                 ("evidence_support_types", support_type),
-                sum(1 for evidence in evidences if evidence.support_type == support_type),
+                by_support_type[support_type],
             )
             for support_type in SUPPORT_TYPES
         ],
@@ -425,6 +488,17 @@ def coverage_hearings(
     return [hearing for hearing in hearings if hearing.id in hearing_ids]
 
 
+def id_problems(
+    records: Sequence[UdvRecord], expected: Mapping[str, object]
+) -> dict[str, list[str]]:
+    ids = Counter(record.id for record in records)
+    found = {
+        "duplicate_id": [record_id for record_id, count in ids.items() if count > 1],
+        "missing_id": sorted(set(expected) - set(ids)),
+    }
+    return {kind: record_ids for kind, record_ids in found.items() if record_ids}
+
+
 def verify_udv_run(
     run_name: str,
     records: Sequence[UdvRecord],
@@ -441,14 +515,10 @@ def verify_udv_run(
     expected = expected_ids(people)
 
     problems: defaultdict[str, list[str]] = defaultdict(list)
-    for error in schema_errors:
-        problems[SCHEMA_PROBLEM].append(error)
-    ids = Counter(record.id for record in records)
-    for record_id, count in ids.items():
-        if count > 1:
-            problems["duplicate_id"].append(record_id)
-    for record_id in sorted(set(expected) - set(ids)):
-        problems["missing_id"].append(record_id)
+    if schema_errors:
+        problems[SCHEMA_PROBLEM].extend(schema_errors)
+    for kind, record_ids in id_problems(records, expected).items():
+        problems[kind].extend(record_ids)
     for record in records:
         if record.id not in expected:
             problems["unexpected_id"].append(record.id)
@@ -465,16 +535,9 @@ def verify_udv_run(
         run_name=run_name,
         records=len(records),
         expected_records=len(expected),
-        people_resolved=sum(1 for indexed in people.values() if indexed.person.matched_turns),
+        people_resolved=resolved_people(people),
         people_total=len(people),
-        by_tier={tier: sum(1 for record in records if record.tier == tier) for tier in TIERS},
-        by_support_type={
-            support_type: sum(
-                1
-                for record in records
-                if record.evidence is not None and record.evidence.support_type == support_type
-            )
-            for support_type in SUPPORT_TYPES
-        },
+        by_tier=count_tiers(records),
+        by_support_type=count_support_types(record_evidences(records)),
         problems=dict(problems),
     )

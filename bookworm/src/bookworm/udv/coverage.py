@@ -13,7 +13,13 @@ from bookworm.data.schemas import HearingRecord
 from bookworm.transcript.sentences import SENTENCE_BOUNDARY_PATTERN
 from bookworm.udv.build import EvidenceSettings, PersonSpeech
 from bookworm.udv.quotes import DEFAULT_QUOTE_POLICY, QuotePolicy
-from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
+from bookworm.udv.schemas import (
+    UdvRecord,
+    count_located,
+    count_support_types,
+    count_tiers,
+    record_evidences,
+)
 
 SENTENCE_SEGMENTATION = "per matched turn, concatenated in turn order"
 QUOTE_SEARCH = "inside each matched turn"
@@ -108,7 +114,7 @@ def summarize_run(
     environment: Mapping[str, Any] | None = None,
 ) -> JsonObject:
     """Coverage file of a run: counters, timing, encoder, environment and pipeline."""
-    evidences = [record.evidence for record in records if record.evidence is not None]
+    evidences = record_evidences(records)
     moment = datetime.now(UTC) if created_at is None else created_at
     return {
         "run_name": run_name,
@@ -118,20 +124,9 @@ def summarize_run(
             "total": len(people),
             "resolved": sum(1 for person in people if person.resolved),
         },
-        "opinions": {
-            "total": len(records),
-            "by_tier": {
-                tier: sum(1 for record in records if record.tier == tier) for tier in TIERS
-            },
-        },
-        "evidence_offsets": {
-            "total": len(evidences),
-            "located": sum(1 for evidence in evidences if evidence.start_char is not None),
-        },
-        "evidence_support_types": {
-            support_type: sum(1 for evidence in evidences if evidence.support_type == support_type)
-            for support_type in SUPPORT_TYPES
-        },
+        "opinions": {"total": len(records), "by_tier": count_tiers(records)},
+        "evidence_offsets": {"total": len(evidences), "located": count_located(evidences)},
+        "evidence_support_types": count_support_types(evidences),
         "pipeline": pipeline_description(quote_policy, settings),
         "encoder_runtime": dict(encoder_runtime),
         "timing": timing_summary(hearing_seconds),

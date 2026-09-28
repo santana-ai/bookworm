@@ -1,7 +1,8 @@
 """``UdvRecord`` and the JSONL file of a run."""
 
 import json
-from collections.abc import Iterable
+from collections import Counter
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal, get_args
@@ -66,6 +67,24 @@ class UdvRecord(StrictModel):
 
     def to_json_line(self) -> str:
         return json.dumps(self.model_dump(), ensure_ascii=False)
+
+
+def record_evidences(records: Iterable[UdvRecord]) -> list[Evidence]:
+    return [record.evidence for record in records if record.evidence is not None]
+
+
+def count_tiers(records: Iterable[UdvRecord]) -> dict[Tier, int]:
+    counts = Counter(record.tier for record in records)
+    return {tier: counts[tier] for tier in TIERS}
+
+
+def count_support_types(evidences: Iterable[Evidence]) -> dict[SupportType, int]:
+    counts = Counter(evidence.support_type for evidence in evidences)
+    return {support_type: counts[support_type] for support_type in SUPPORT_TYPES}
+
+
+def count_located(evidences: Sequence[Evidence]) -> int:
+    return sum(1 for evidence in evidences if evidence.start_char is not None)
 
 
 @dataclass(frozen=True)

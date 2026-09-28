@@ -93,6 +93,36 @@ def group_records(
     return grouped
 
 
+def hearing_splits(
+    hearings: Sequence[HearingRecord], split_manifest: Mapping[str, Any] | None
+) -> dict[int, SplitName]:
+    if split_manifest is None:
+        return {}
+    return {hearing.id: split_of(split_manifest, hearing.id) for hearing in hearings}
+
+
+def clear_site(output_dir: Path) -> Path:
+    index_path = output_dir / INDEX_FILE_NAME
+    index_path.unlink(missing_ok=True)
+    clear_profile_site(output_dir)
+    return index_path
+
+
+def check_same_run(run: JsonObject, payload: Mapping[str, Any], first_hearing_id: int) -> None:
+    if payload["run"] != run:
+        hearing_id = payload["hearing"]["id"]
+        raise ConfigError(
+            f"hearing {hearing_id}: run block {payload['run']} differs from {run} "
+            f"of hearing {first_hearing_id}"
+        )
+
+
+def write_hearing(payload: JsonObject, output_dir: Path) -> int:
+    path = hearing_file(output_dir, payload["hearing"]["id"])
+    write_json(payload, path)
+    return path.stat().st_size
+
+
 def export_site(
     hearings: Sequence[HearingRecord],
     records: Sequence[UdvRecord],
@@ -113,14 +143,8 @@ def export_site(
     if not ordered:
         raise ConfigError(f"run {run_name} has no hearings to export")
     grouped = group_records(records, [hearing.id for hearing in ordered])
-    splits: dict[int, SplitName] = (
-        {}
-        if split_manifest is None
-        else {hearing.id: split_of(split_manifest, hearing.id) for hearing in ordered}
-    )
-    index_path = output_dir / INDEX_FILE_NAME
-    index_path.unlink(missing_ok=True)
-    clear_profile_site(output_dir)
+    splits = hearing_splits(ordered, split_manifest)
+    index_path = clear_site(output_dir)
     entries: list[JsonObject] = []
     hearing_bytes: dict[int, int] = {}
     run: JsonObject | None = None
@@ -138,14 +162,9 @@ def export_site(
         )
         if run is None:
             run = payload["run"]
-        elif payload["run"] != run:
-            raise ConfigError(
-                f"hearing {hearing.id}: run block {payload['run']} differs from {run} "
-                f"of hearing {ordered[0].id}"
-            )
-        path = hearing_file(output_dir, hearing.id)
-        write_json(payload, path)
-        hearing_bytes[hearing.id] = path.stat().st_size
+        else:
+            check_same_run(run, payload, ordered[0].id)
+        hearing_bytes[hearing.id] = write_hearing(payload, output_dir)
         entry = site_index_entry(payload)
         entries.append(entry)
         if profiles is not None:
