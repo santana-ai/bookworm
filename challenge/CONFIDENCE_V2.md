@@ -324,8 +324,9 @@ verificador é **melhor** que o cosseno: +0,076 de ROC AUC [0,002; 0,148], p = 0
 pequena: o limite inferior do intervalo está em 0,002 e o resultado deixa de passar em 0,05 se os dois p
 do contraste principal forem ajustados juntos (0,071). Em resumo, o primário ordena melhor
 que o cosseno nas duas bases, com evidência forte no benchmark e fraca, no limite do teste, nas 121
-UDVs. Nenhum avaliador da literatura supera o cosseno no E-B, e nenhum supera o primário em qualquer das
-duas bases.
+UDVs. Nenhum avaliador da literatura supera o cosseno no E-B depois de Holm. Nas estimativas pontuais,
+nenhum avaliador da literatura tem ROC AUC maior que o primário em qualquer das duas bases; a comparação
+direta entre eles não foi declarada, então essa ordem não tem teste.
 
 ## Ressalvas
 
