@@ -5,10 +5,9 @@ atribui a alguém, a página mostra onde procuramos essa fala na transcrição d
 encontramos. O público é quem não conhece o projeto, então a página explica cada passo com cartões e
 barbantes em vez de tabelas.
 
-| Pasta | Conteúdo |
-| --- | --- |
-| [`app/`](app/) | A demonstração: lista das 206 matérias e a rede de barbantes de cada audiência. |
-| [`mockups/`](mockups/) | Os protótipos usados para escolher a direção visual; a direção F virou `app/`. |
+A demonstração fica em [`app/`](app/): a lista das 206 matérias e a rede de barbantes de cada
+audiência. Os protótipos visuais usados para escolher essa direção ficaram só no histórico do Git
+(pasta `bookworm/web/mockups/`, removida na versão 1.0.0).
 
 ## Gerar os dados
 
@@ -164,9 +163,9 @@ partir de 1 em toda a página.
 
 ## Como a parede se organiza
 
-As audiências vão de 3 a 31 afirmações, de 2 a 12 participantes e de 7 a 4.898 turnos. Os protótipos
-tinham uma página por turno e posições ajustadas à audiência 70, o que não cabe nas audiências maiores.
-A página faz a disposição a partir dos dados de cada audiência:
+As audiências vão de 3 a 31 afirmações, de 2 a 12 participantes e de 7 a 4.898 turnos. Uma página
+por turno com posições fixas, como nos protótipos, não cabe nas audiências maiores, então a página
+faz a disposição a partir dos dados de cada audiência:
 
 - cada participante forma um grupo em linha, com três colunas: os cartões das afirmações, a etiqueta da
   pessoa com os trechos e o caderno de falas. O caderno substitui as páginas por turno, então o tamanho
