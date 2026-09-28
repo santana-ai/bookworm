@@ -70,8 +70,9 @@ Resultados principais, todos rastreados nas seções seguintes:
 | Validação humana parcial de `udv_v1`, `semantic_match_high` (precisão tolerante) | 25 de 32, 0.7812 [0.6125; 0.8898] | idem |
 
 O que ainda não está resolvido: a precisão de `udv_v2` não foi medida. A amostra humana é de `udv_v1`;
-23 dos seus itens têm a mesma evidência em `udv_v2` e herdam o rótulo, e as 104 linhas da planilha
-suplementar de `udv_v2` ainda não foram julgadas (seção 7.3). A validação de `udv_v1` cobre 65 de 127
+101 dos seus itens herdam o rótulo em `udv_v2` (evidência igual, ou evidência nova que contém todo o
+trecho de `udv_v1` no mesmo turno), e as 26 linhas da planilha suplementar de `udv_v2`, com os itens
+cuja evidência é texto novo, ainda não foram julgadas (seção 7.3). A validação de `udv_v1` cobre 65 de 127
 linhas e nenhum critério declarado pode ser decidido; o critério de `quote_found` já não pode mais ser atingido quando a planilha for
 completada, porque exige zero erros em 35 e um erro já foi anotado (seção 7). O verificador foi ajustado
 com premissas de quatro trechos e aplicado a UDVs com premissa de uma sentença ou janela, uma mudança de
@@ -1162,22 +1163,50 @@ Uma revisão exploratória anterior, não cega e sem protocolo, foi retirada des
 ### 7.3 Planilha suplementar de `udv_v2`
 
 **Problema.** A amostra foi sorteada e julgada com a evidência de `udv_v1`; em `udv_v2` a evidência mudou
-na maior parte das UDVs sorteadas, então o rótulo de `udv_v1` não vale para elas.
+na maior parte das UDVs sorteadas, então o rótulo de `udv_v1` não vale diretamente para elas.
 
-Fontes: `artifacts/udv/udv_v2_annotation_plan.json` e
-`artifacts/validation/human_validation_v1_udv_v2_supplement/annotation_key.json`. Cada item da amostra
-cuja evidência mudou vira uma linha nova, com a mesma opinião e a evidência, o contexto e o link de
-`udv_v2`, em nova ordem aleatória e com novo identificador; o identificador de `udv_v1` fica só na chave.
+Fontes: `artifacts/udv/udv_v2_annotation_plan.json`, a seção `[udv_v2_supplement]` de
+`configs/validation_sample.toml` e
+`artifacts/validation/human_validation_v1_udv_v2_supplement/annotation_key.json`.
+
+**Regra de herança.** Cada item `trecho_sustenta` da amostra é classificado comparando a evidência de
+`udv_v1` e de `udv_v2` de cada uma das suas UDVs, só por posição e turno, sem ler nenhum rótulo:
+
+- `same`: mesmo `start_char`, `end_char` e `speaker_turn`;
+- `superset`: mesmo `speaker_turn`, início de `udv_v2` menor ou igual ao de `udv_v1` e fim maior ou igual;
+  o trecho de `udv_v2` contém todo o trecho de `udv_v1` e acrescenta texto do mesmo turno;
+- `moved`: qualquer outro caso (outro turno, trecho que deixa de fora parte do trecho de `udv_v1`).
+
+Um item com várias UDVs é `moved` se alguma delas for. Os itens `same` e `superset` herdam o rótulo de
+`udv_v1`; os itens `pessoa_falou`, sem evidência nas duas versões, também herdam, como no plano. Só os
+itens `moved` viram linha da planilha suplementar, com a mesma opinião e a evidência, o contexto e o link
+de `udv_v2`, em nova ordem aleatória e com novo identificador; o identificador e a classe de `udv_v1`
+ficam só na chave, que também lista os itens herdados com a sua classe.
+
+Justificativa: o texto acrescentado num item `superset` é do mesmo orador, então o texto que sustentava
+um trecho julgado `correta` continua presente, e um trecho julgado `parcial` ou `incorreta` só pode
+manter ou melhorar o seu suporte. Consequência: a precisão de `udv_v2` é conservadora quanto aos itens
+`superset` julgados `parcial` ou `incorreta`. A única premissa é que uma sentença acrescentada do mesmo
+turno não transforma um trecho que sustenta a afirmação em um que não sustenta; ela não foi medida.
 
 | item | valor |
 |---|---|
-| itens da amostra que herdam o rótulo de `udv_v1` (evidência igual) | 23 |
-| linhas a julgar na planilha suplementar | 104 (18 `direct_quote`, 63 `semantic_match_high`, 17 `semantic_with_short_quote`, 6 `semantic_match_weak`) |
+| itens `trecho_sustenta` da amostra | 121: 17 `same`, 78 `superset`, 26 `moved` |
+| itens que herdam o rótulo de `udv_v1` | 101: 17 `same` (`direct_quote`), 78 `superset` (18 `direct_quote`, 44 `semantic_match_high`, 15 `semantic_with_short_quote`, 1 `semantic_match_weak`) e 6 `pessoa_falou` |
+| linhas a julgar na planilha suplementar | 26 (19 `semantic_match_high`, 5 `semantic_match_weak`, 2 `semantic_with_short_quote`) |
 | linhas julgadas | 0 |
 | critérios | os mesmos da seção 7.1 (sha256 `c4fc0116…`) |
+| regra de herança | seção `[udv_v2_supplement]`, sha256 `f36927e2…`, copiada na chave |
 
-A precisão de `udv_v2` por estrato sai da combinação das duas planilhas: o item sem mudança conta com o
-rótulo de `udv_v1`, e o item com mudança conta só com o rótulo da planilha suplementar. Comando:
+Nenhum item `direct_quote` é `moved`: as 18 evidências de citação que mudaram só foram estendidas dentro
+do mesmo turno.
+
+A precisão de `udv_v2` por estrato e por tier sai da combinação das duas planilhas: o item `same` ou
+`superset` conta com o rótulo de `udv_v1`, e o item `moved` conta só com o rótulo da planilha
+suplementar. O relatório dá o intervalo de Wilson de cada precisão, as contagens por origem (`same`,
+`superset`, `moved`) e uma linha de sensibilidade: a precisão com os itens `superset` contados só quando
+o rótulo de `udv_v1` é `correta` (os outros saem do denominador), ao lado da precisão com todos os
+`superset` herdados. O status só é final quando as duas planilhas estão completas. Comando:
 
 ```
 cd challenge && uv run python -m utils.udv_v2_analysis score-annotation --final-test \
@@ -1186,9 +1215,10 @@ cd challenge && uv run python -m utils.udv_v2_analysis score-annotation --final-
 ```
 
 Ressalvas gravadas pelo próprio script: os itens foram sorteados nos estratos de `udv_v1`, então um item
-que mudou de estrato mantém a probabilidade de inclusão do estrato antigo; e as linhas suplementares
+que mudou de estrato mantém a probabilidade de inclusão do estrato antigo; as linhas suplementares
 mostram opiniões que o anotador já julgou com o trecho de `udv_v1`, então os dois julgamentos não são
-independentes. Até essa planilha ser julgada, a precisão de `udv_v2` é desconhecida.
+independentes; e um item `superset` guarda um rótulo dado a um trecho mais curto. Até a planilha
+suplementar ser julgada, a precisão de `udv_v2` é desconhecida.
 
 ## 8. Glossário de métricas
 
@@ -1326,8 +1356,10 @@ verificador.
    anotação deve saber disso.
 3. **Cegamento parcial.** Citações literais são reconhecíveis na planilha.
 4. **A validação humana é de `udv_v1`.** Ela não mede diretamente `udv_v2`, cuja evidência mudou em 1969 dos
-   2203 registros. Só 23 itens da amostra têm evidência igual nas duas versões; as 104 linhas da planilha
-   suplementar (seção 7.3) não foram julgadas, então a precisão de `udv_v2` é desconhecida.
+   2203 registros. Só 23 itens da amostra têm evidência igual nas duas versões; outros 78 herdam o rótulo porque
+   a evidência nova contém todo o trecho de `udv_v1` no mesmo turno, sob uma premissa não medida, e as
+   26 linhas da planilha suplementar (seção 7.3) não foram julgadas, então a precisão de `udv_v2` é
+   desconhecida.
 5. **Rótulo do Trabalho 2.** O verificador foi ajustado e avaliado no rótulo NLI sob recuperação (quatro
    trechos, opiniões geradas por LLM a partir da transcrição). A aplicação a UDVs (opiniões da matéria,
    premissa de uma sentença ou janela) é uma mudança de domínio não medida com rótulo humano.
@@ -1502,7 +1534,7 @@ documento, ou divergência explicada.
 | revisão das planilhas do E6 | sem julgamento | `fuzzy_v1_quotes_review.jsonl`, `fuzzy_v1_names_review.jsonl` |
 | checagem manual de tradução | não preenchida | `artifacts/validation/translation_spot_check_v2/` |
 | segunda metade da validação humana e reanotação de 20 linhas | pendentes | `annotation_guide.md` |
-| validação humana própria de `udv_v2` | planilha suplementar de 104 linhas gerada, nenhuma julgada (seção 7.3) | `artifacts/validation/human_validation_v1_udv_v2_supplement/` |
+| validação humana própria de `udv_v2` | planilha suplementar de 26 linhas gerada (itens `moved`; os `same` e `superset` herdam o rótulo), nenhuma julgada (seção 7.3) | `artifacts/validation/human_validation_v1_udv_v2_supplement/` |
 | simulação de atores com o modelo sobre `udv_v2` | comando pronto, rodada não feita | `artifacts/udv/udv_v2_downstream_report.json` (`not_run`), `mlx_alternative/README.md` |
 | revisão manual dos pares da conferência de perfis | amostra declarada (`review.sizes`), planilha não gerada | `artifacts/profile_validation/profile_validation_udv_v2_report.json` |
 | auditoria editorial (índice de desvio editorial) e espaço latente multifacetado | descritos no documento de visão; sem artefato de resultado | `CONSTITUTION.md` |

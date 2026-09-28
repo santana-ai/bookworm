@@ -449,10 +449,25 @@ Dos 121 itens `trecho_sustenta`, só 17 (todos citações) mantêm a evidência;
 mantém, porque a janela sempre difere da sentença julgada. Os 17 itens herdados não são uma amostra
 aleatória de `udv_v2`: são as citações que já cabiam numa sentença.
 
-Os 104 itens que mudaram estão na planilha suplementar
-`artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv`, com a mesma opinião e a
-evidência de `udv_v2`, em nova ordem e com novos identificadores (a correspondência fica em
-`annotation_key.json`, na mesma pasta). Nenhuma linha dela foi julgada.
+**Regra de herança da planilha suplementar.** A seção `[udv_v2_supplement]` de
+`configs/validation_sample.toml` classifica cada item `trecho_sustenta` só por posição e turno da
+evidência, sem ler rótulo: `same` (mesmo `start_char`, `end_char` e `speaker_turn`), `superset` (mesmo
+`speaker_turn`, trecho de `udv_v2` que começa no início do trecho de `udv_v1` ou antes e termina no fim
+dele ou depois) e `moved` (qualquer outro caso; um item com várias UDVs é `moved` se alguma for). Os 121
+itens se dividem em 17 `same`, 78 `superset` e 26 `moved`. Os `same` e `superset` herdam o rótulo de
+`udv_v1`: o texto acrescentado é do mesmo orador, então o texto que sustentava um trecho `correta`
+continua presente, e um rótulo `parcial` ou `incorreta` só pode melhorar. Por isso a precisão de
+`udv_v2` é conservadora quanto aos `superset` julgados `parcial` ou `incorreta`; a única premissa, não
+medida, é que uma sentença acrescentada não transforma suporte correto em incorreto.
+
+Só os 26 itens `moved` (19 `semantic_match_high`, 5 `semantic_match_weak`, 2
+`semantic_with_short_quote`) estão na planilha suplementar
+`artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv`, gerada por
+`uv run python -m utils.udv_v2_analysis supplement-sheet --final-test`, com a mesma opinião e a
+evidência de `udv_v2`, em nova ordem e com novos identificadores. A correspondência com `udv_v1` e a
+classe de cada linha ficam em `annotation_key.json`, na mesma pasta, que também lista os 101 itens
+herdados (17 `same`, 78 `superset`, 6 `pessoa_falou` sem evidência) com a sua classe. Nenhuma linha foi
+julgada.
 
 **Comando de precisão.** Com as planilhas preenchidas e as chaves:
 
@@ -464,8 +479,11 @@ uv run python -m utils.udv_v2_analysis score-annotation --final-test \
 
 Ele reusa as funções de `utils/precision_report.py` (precisão estrita e tolerante por estrato, intervalo
 de Wilson a 95%, critérios congelados na chave) para `udv_v1`, para os itens herdados de `udv_v2` e, com
-`--supplement-dir`, para `udv_v2` inteira: o item sem mudança conta com o rótulo de `udv_v1` e o item com
-mudança, só com o rótulo da planilha suplementar. Com a
+`--supplement-dir`, para `udv_v2` inteira: o item `same` ou `superset` conta com o rótulo de `udv_v1` e o
+item `moved`, só com o rótulo da planilha suplementar. Essa parte dá a precisão por estrato e por tier
+com intervalo de Wilson, as contagens por origem (`same`, `superset`, `moved`) e uma linha de
+sensibilidade: a precisão com os `superset` contados só quando o rótulo de `udv_v1` é `correta`, ao
+lado da precisão com todos herdados. O status só é final com as duas planilhas completas. Com a
 planilha incompleta, conta só as linhas com rótulo válido, informa "n julgados de N" no total e por
 estrato, lista rótulos fora do conjunto permitido sem contá-los e marca o relatório e cada critério como
 `INTERIM`. Cada execução grava um arquivo novo, `artifacts/udv/udv_v2_precision_<interim|final>_<UTC>.json`,
@@ -491,9 +509,10 @@ cada critério e o que ainda falta anotar estão no relatório, seção 7.2. O a
   intérprete (`artifacts/udv/udv_v2.jsonl`, nível `no_evidence`; `HEARING_ACTORS.md` conta 6
   participantes que falaram em Libras). Atribuir a fala do intérprete a eles daria evidência a no máximo
   8 das 2.203 opiniões. Não implementado.
-- **Validação humana de `udv_v2`.** As 104 linhas da planilha suplementar (os itens semânticos e as 18
-  citações estendidas da amostra) precisam de julgamento com a evidência de `udv_v2`; sem isso, não há
-  precisão humana de `udv_v2` além das citações herdadas.
+- **Validação humana de `udv_v2`.** As 26 linhas da planilha suplementar (os itens `moved`, cuja
+  evidência de `udv_v2` é texto novo) precisam de julgamento com a evidência de `udv_v2`; os 78 itens
+  `superset` e os 17 `same` herdam o rótulo de `udv_v1`. Sem essas linhas, não há precisão humana de
+  `udv_v2`.
 - **Domínio do verificador.** O primário foi ajustado com premissas de 4 chunks recuperados; nas UDVs a
   premissa é uma citação ou uma janela. O corte de premissa UDV corrige a escala no treino, mas o efeito
   da mudança de domínio na ordenação não foi medido com rótulo humano.

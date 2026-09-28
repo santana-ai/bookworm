@@ -82,8 +82,9 @@ Cada item tem código, configuração, testes e artefato versionado.
   (`challenge/artifacts/profile_validation/`).
 - **Validação humana.** Amostra estratificada de 127 linhas de `udv_v1` nas audiências de teste,
   cegamento registrado, guia do anotador e scripts de pontuação; leitura intermediária de 65 linhas
-  (relatório, seção 7.2). Planilha suplementar de `udv_v2` com as 104 linhas cuja evidência mudou
-  (relatório, seção 7.3).
+  (relatório, seção 7.2). Planilha suplementar de `udv_v2` com as 26 linhas cuja evidência é texto
+  novo; os itens cuja evidência de `udv_v2` contém todo o trecho de `udv_v1` no mesmo turno herdam o
+  rótulo (relatório, seção 7.3).
 - **Biblioteca `bookworm` 1.0.0.** CLI e API para UDVs, splits, atores, perfis e exportação, com paridade
   testada contra os scripts de `challenge/`, tipagem estrita e testes sem rede.
 - **Demo web** em `bookworm/web/`.
@@ -94,9 +95,11 @@ Cada item tem código, configuração, testes e artefato versionado.
    versionada; a planilha do repositório está vazia) e a reanotação de 20 linhas para a concordância
    intra-anotador; só então os critérios declarados podem ser decididos. O critério de `quote_found` já
    não pode ser atingido, porque exige zero erros e um erro foi anotado.
-2. **Validação humana de `udv_v2`.** Julgar as 104 linhas de
-   `challenge/artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv`; os outros 23
-   itens herdam o rótulo de `udv_v1`. Até lá, a precisão de `udv_v2` é desconhecida.
+2. **Validação humana de `udv_v2`.** Julgar as 26 linhas de
+   `challenge/artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv` (itens `moved`);
+   os outros 101 itens herdam o rótulo de `udv_v1` (17 `same`, 78 `superset` e 6 `pessoa_falou`), pela
+   regra da seção `[udv_v2_supplement]` de `challenge/configs/validation_sample.toml`. Até lá, a precisão
+   de `udv_v2` é desconhecida.
 3. **Domínio do verificador.** Medir com rótulo humano o efeito de aplicar a UDVs (premissa de uma
    citação ou janela) um verificador ajustado com quatro trechos recuperados.
 4. **Planilhas pendentes.** Revisão de citações e nomes do E6 e checagem manual da tradução.

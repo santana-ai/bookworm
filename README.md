@@ -80,9 +80,11 @@ intermediária de 65 das 127 linhas da amostra de `udv_v1`, feita numa planilha 
 preenchida e será versionada quando completa; a planilha deste repositório
 (`challenge/artifacts/validation/human_validation_v1_udv_v1/annotation.csv`) ainda está vazia. Nenhum
 critério declarado da validação pode ser decidido com a leitura parcial (relatório, seção 7). A precisão
-humana de `udv_v2` não foi medida: 23 itens da amostra têm a mesma evidência nas duas versões e herdam o
-rótulo, e as 104 linhas da planilha suplementar de `udv_v2` ainda não foram julgadas (relatório, seção
-7.3). O verificador foi ajustado com premissas de quatro trechos e é aplicado a evidências de uma
+humana de `udv_v2` não foi medida. 101 itens da amostra herdam o rótulo de `udv_v1`: 23 têm a mesma
+evidência nas duas versões e 78 têm em `udv_v2` uma evidência que contém todo o trecho de `udv_v1` no
+mesmo turno, regra declarada em `challenge/configs/validation_sample.toml` que torna a precisão
+conservadora quanto aos rótulos `parcial` e `incorreta`. As 26 linhas da planilha suplementar de
+`udv_v2`, com os itens cuja evidência é texto novo, ainda não foram julgadas (relatório, seção 7.3). O verificador foi ajustado com premissas de quatro trechos e é aplicado a evidências de uma
 citação ou janela, uma mudança de domínio que não foi medida com rótulo humano.
 
 `udv_v0` e `udv_v1` (evidência de uma sentença, corte 0,45) ficam como histórico e base de comparação.
