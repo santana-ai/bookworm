@@ -1,9 +1,11 @@
+"""Precision of the fuzzy matching experiment from its filled blind review sheets."""
+
 import argparse
 import json
 import platform
 import time
 from collections import Counter
-from datetime import UTC, datetime
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -13,32 +15,46 @@ import rapidfuzz
 import scipy
 from bookworm import load_jsonl, sha256_of_file, write_json
 
-from experiments.common.provenance import source_hashes
+from experiments.common import reporting
+from experiments.common.provenance import code_section
+from experiments.common.reporting import file_record, rounded, utc_timestamp
 from experiments.udv import fuzzy_matching
-from experiments.udv.fuzzy_matching import (
-    DISPLAY_FIELDS,
+from experiments.udv.fuzzy_matching.config import (
     NAME_METRICS,
     QUOTE_METHODS,
     REVIEW_KINDS,
     FuzzyConfig,
-    accepted_result,
-    bootstrap_ratio,
-    group_members,
     load_config,
-    name_decisions,
-    name_rules,
-    resolved_names,
-    rounded,
+    run_name_for,
 )
+from experiments.udv.fuzzy_matching.name_summary import name_decisions, name_rules, resolved_names
+from experiments.udv.fuzzy_matching.quote_summary import accepted_result, next_thresholds
+from experiments.udv.fuzzy_matching.report import group_members
+from experiments.udv.fuzzy_matching.review import DISPLAY_FIELDS
+from experiments.udv.fuzzy_matching.sampling import HearingCounts, bootstrap_ratio, increment
 from experiments.validation import generate_sample
 from experiments.validation.generate_sample import canonical_sha256, wilson_interval
 
 Record = dict[str, Any]
 Entry = tuple[int, str | None]
 
+QUESTION = (
+    "how often a fuzzy quote match points at the passage where the quotation starts, and how "
+    "often a fuzzy name match picks the participant, by method, rule and score band, from blind "
+    "human judgments"
+)
+MAX_PRINTED_PROBLEMS = 50
+PRINTED_QUOTE_THRESHOLDS = (90.0, 100.0)
+PRINTED_NAME_THRESHOLDS = (90.0,)
 
-def run_name_for(config: FuzzyConfig, final_test: bool) -> str:
-    return f"{config.version}_final_test" if final_test else config.version
+
+@dataclass(frozen=True)
+class Review:
+    key: Record
+    rows: list[Record]
+    judgments: dict[str, str]
+    problems: list[str]
+    inputs: Record
 
 
 def load_key(path: Path, kind: str, final_test: bool) -> Record:
@@ -103,17 +119,17 @@ def precision_entry(entries: list[Entry], key: Record, config: FuzzyConfig, stre
     counts = Counter(
         judgment if judgment is not None else "not_reviewed" for _, judgment in entries
     )
-    hits: dict[int, float] = {}
-    decided: dict[int, float] = {}
-    judged: dict[int, float] = {}
+    hits: HearingCounts = {}
+    decided: HearingCounts = {}
+    judged: HearingCounts = {}
     for hearing_id, judgment in entries:
         if judgment is None:
             continue
-        judged[hearing_id] = judged.get(hearing_id, 0.0) + 1
+        increment(judged, hearing_id)
         if judgment != unsure:
-            decided[hearing_id] = decided.get(hearing_id, 0.0) + 1
+            increment(decided, hearing_id)
         if judgment == positive:
-            hits[hearing_id] = hits.get(hearing_id, 0.0) + 1
+            increment(hits, hearing_id)
     hearing_ids = sorted(judged)
     wilson = wilson_interval(
         int(sum(hits.values())), int(sum(decided.values())), config.confidence_level
@@ -183,8 +199,7 @@ def quote_precision(
             for threshold in thresholds
         }
         bands = []
-        for position, low in enumerate(thresholds):
-            high = thresholds[position + 1] if position + 1 < len(thresholds) else None
+        for low, high in next_thresholds(thresholds):
             entry = precision_entry(
                 quote_entries(rows, method, low, high, lookup, judgments, config),
                 key,
@@ -219,9 +234,7 @@ def name_precision(
     return result
 
 
-def load_review(
-    kind: str, review_dir: Path, run_name: str, final_test: bool
-) -> tuple[Record, list[Record], dict[str, str], list[str], Record]:
+def load_review(kind: str, review_dir: Path, run_name: str, final_test: bool) -> Review:
     key_path = review_dir / f"{run_name}_{kind}_review_key.json"
     sheet_path = review_dir / f"{run_name}_{kind}_review.jsonl"
     key = load_key(key_path, kind, final_test)
@@ -240,10 +253,10 @@ def load_review(
             "sha256": sha256_of_file(sheet_path),
             "sha256_at_creation": key["sheet"]["sha256_at_creation"],
         },
-        "key": {"path": str(key_path), "sha256": sha256_of_file(key_path)},
+        "key": file_record(key_path),
         "rows": {"path": str(rows_path), "sha256": key["rows_file"]["sha256"]},
     }
-    return key, rows, judgments, problems, inputs
+    return Review(key, rows, judgments, problems, inputs)
 
 
 def parse_args() -> argparse.Namespace:
@@ -266,85 +279,118 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> None:
-    args = parse_args()
-    started = time.perf_counter()
-    config = load_config(args.config)
-    review_dir = args.review_dir or config.output_dir
-    run_name = run_name_for(config, args.final_test)
-    loaded = {
-        kind: load_review(kind, review_dir, run_name, args.final_test) for kind in REVIEW_KINDS
-    }
-    problems = [problem for kind in REVIEW_KINDS for problem in loaded[kind][3]]
-    if problems:
-        print("\n".join(problems[:50]))
-        raise SystemExit(f"{len(problems)} problems in the review sheets; no report written")
-    splits = tuple(loaded["quotes"][0]["splits_used"])
-    if tuple(loaded["names"][0]["splits_used"]) != splits:
-        raise SystemExit("the quote and name keys cover different splits")
-    groups = group_members(splits)
+def precision_by_group(
+    loaded: dict[str, Review], groups: dict[str, tuple[str, ...]], config: FuzzyConfig
+) -> Record:
     precision: Record = {"quotes": {}, "names": {}}
     for kind, compute in (("quotes", quote_precision), ("names", name_precision)):
-        key, rows, judgments, _, _ = loaded[kind]
+        review = loaded[kind]
         for group, members in groups.items():
-            members_rows = [row for row in rows if row["split"] in members]
-            precision[kind][group] = compute(members_rows, key, judgments, config, group)
-    report = {
+            members_rows = [row for row in review.rows if row["split"] in members]
+            precision[kind][group] = compute(
+                members_rows, review.key, review.judgments, config, group
+            )
+    return precision
+
+
+def code_hashes() -> dict[str, str]:
+    return code_section(
+        Path(__file__), fuzzy_matching, generate_sample, bookworm.data.io, reporting
+    )
+
+
+def environment() -> Record:
+    return {
+        "python": platform.python_version(),
+        "numpy": np.__version__,
+        "scipy": scipy.__version__,
+        "rapidfuzz": rapidfuzz.__version__,
+        "platform": platform.platform(),
+    }
+
+
+def build_report(
+    run_name: str,
+    splits: tuple[str, ...],
+    final_test: bool,
+    loaded: dict[str, Review],
+    precision: Record,
+    elapsed_seconds: float,
+    config: FuzzyConfig,
+) -> Record:
+    review_config = config.source["review"]
+    return {
         "run_name": run_name,
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
-        "question": (
-            "how often a fuzzy quote match points at the passage where the quotation starts, and "
-            "how often a fuzzy name match picks the participant, by method, rule and score band, "
-            "from blind human judgments"
-        ),
+        "created_at": utc_timestamp(),
+        "question": QUESTION,
         "splits_used": list(splits),
-        "final_test": args.final_test,
-        "rule": config.source["review"]["precision"]["precision_rule"],
+        "final_test": final_test,
+        "rule": review_config["precision"]["precision_rule"],
         "label_definitions": {
-            kind: config.source["review"][kind]["label_definitions"] for kind in REVIEW_KINDS
+            kind: review_config[kind]["label_definitions"] for kind in REVIEW_KINDS
         },
-        "inputs": {kind: loaded[kind][4] for kind in REVIEW_KINDS},
+        "inputs": {kind: loaded[kind].inputs for kind in REVIEW_KINDS},
         "judgment_counts": {
-            kind: dict(sorted(Counter(loaded[kind][2].values()).items())) for kind in REVIEW_KINDS
+            kind: dict(sorted(Counter(loaded[kind].judgments.values()).items()))
+            for kind in REVIEW_KINDS
         },
         "quotes": precision["quotes"],
         "names": precision["names"],
         "name_metrics": list(NAME_METRICS),
-        "code": {
-            **source_hashes(Path(__file__)),
-            **source_hashes(fuzzy_matching),
-            **source_hashes(generate_sample),
-            **source_hashes(bookworm.data.io),
-        },
-        "timing": {"elapsed_seconds": round(time.perf_counter() - started, 1)},
-        "environment": {
-            "python": platform.python_version(),
-            "numpy": np.__version__,
-            "scipy": scipy.__version__,
-            "rapidfuzz": rapidfuzz.__version__,
-            "platform": platform.platform(),
-        },
+        "code": code_hashes(),
+        "timing": {"elapsed_seconds": round(elapsed_seconds, 1)},
+        "environment": environment(),
         "config": config.source,
     }
-    output = review_dir / f"{run_name}_{config.source['review']['precision']['output_suffix']}.json"
-    write_json(report, output)
+
+
+def precision_cells(by_threshold: Record, shown: tuple[float, ...]) -> list[str]:
+    return [
+        f"t={threshold}: {value['judgments']} p={value['precision']['value']}"
+        for threshold, value in by_threshold.items()
+        if float(threshold) in shown
+    ]
+
+
+def print_summary(precision: Record, config: FuzzyConfig) -> None:
+    quote_shown = (config.quote_thresholds[0], *PRINTED_QUOTE_THRESHOLDS)
+    name_shown = (config.name_thresholds[0], *PRINTED_NAME_THRESHOLDS)
     for group, methods in precision["quotes"].items():
         for method, entry in methods.items():
-            cells = [
-                f"t={threshold}: {value['judgments']} p={value['precision']['value']}"
-                for threshold, value in entry["at_or_above_threshold"].items()
-                if float(threshold) in (config.quote_thresholds[0], 90.0, 100.0)
-            ]
+            cells = precision_cells(entry["at_or_above_threshold"], quote_shown)
             print(f"quotes {group:10s} {method:5s} " + " | ".join(cells))
     for group, rules in precision["names"].items():
         for rule, by_threshold in rules.items():
-            cells = [
-                f"t={threshold}: {value['judgments']} p={value['precision']['value']}"
-                for threshold, value in by_threshold.items()
-                if float(threshold) in (config.name_thresholds[0], 90.0)
-            ]
+            cells = precision_cells(by_threshold, name_shown)
             print(f"names  {group:10s} {rule:15s} " + " | ".join(cells))
+
+
+def run(config: FuzzyConfig, review_dir: Path | None, final_test: bool) -> None:
+    started = time.perf_counter()
+    review_dir = review_dir or config.output_dir
+    run_name = run_name_for(config, final_test)
+    loaded = {kind: load_review(kind, review_dir, run_name, final_test) for kind in REVIEW_KINDS}
+    problems = [problem for kind in REVIEW_KINDS for problem in loaded[kind].problems]
+    if problems:
+        print("\n".join(problems[:MAX_PRINTED_PROBLEMS]))
+        raise SystemExit(f"{len(problems)} problems in the review sheets; no report written")
+    splits = tuple(loaded["quotes"].key["splits_used"])
+    if tuple(loaded["names"].key["splits_used"]) != splits:
+        raise SystemExit("the quote and name keys cover different splits")
+    precision = precision_by_group(loaded, group_members(splits), config)
+    report = build_report(
+        run_name, splits, final_test, loaded, precision, time.perf_counter() - started, config
+    )
+    suffix = config.source["review"]["precision"]["output_suffix"]
+    output = review_dir / f"{run_name}_{suffix}.json"
+    write_json(report, output)
+    print_summary(precision, config)
     print(f"report -> {output}")
+
+
+def main() -> None:
+    args = parse_args()
+    run(load_config(args.config), args.review_dir, args.final_test)
 
 
 if __name__ == "__main__":
