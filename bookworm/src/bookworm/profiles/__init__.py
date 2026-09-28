@@ -4,7 +4,9 @@ from bookworm.profiles.config import (
     PACKAGED_PROMPTS_DIR,
     ModelSettings,
     ProfilesConfig,
+    ProfileValidationConfig,
     SplitFilterConfig,
+    load_profile_validation_config,
     load_profiles_config,
     load_split_filter_config,
 )
@@ -21,8 +23,10 @@ from bookworm.profiles.llm import ChatClient, ChatResult, GenerationError, finis
 from bookworm.profiles.prompts import PromptSet, load_prompts, prompt_version
 from bookworm.profiles.review import JUDGMENTS, sample_profile_review, score_profile_review
 from bookworm.profiles.schemas import (
+    ProfilePair,
     ProfileRecord,
     append_profile,
+    read_pairs,
     read_profile_lines,
     read_profiles,
     write_profiles,
@@ -33,13 +37,7 @@ from bookworm.profiles.split_filter import (
     load_split_selection,
     summarize_speeches,
 )
-from bookworm.profiles.validate import (
-    ProfilePair,
-    ProfileValidationConfig,
-    load_profile_validation_config,
-    read_pairs,
-    validate_profiles,
-)
+from bookworm.profiles.validate import validate_profiles
 
 __all__ = [
     "JUDGMENTS",

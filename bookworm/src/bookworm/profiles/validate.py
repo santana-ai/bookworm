@@ -1,28 +1,16 @@
 """Validation of actor profiles against the verified UDVs of each actor."""
 
-import copy
 from collections import Counter
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
-from itertools import pairwise
 from pathlib import Path
-from typing import Any, Literal, Self, get_args
+from typing import Literal, get_args
 
 import numpy as np
-from numpy.typing import NDArray
-from pydantic import Field, ValidationError, model_validator
 
 from bookworm.actors.schemas import UdvActorLink, read_udv_actor_links
-from bookworm.config import (
-    DEFAULT_ENCODER_KIND,
-    SPLIT_VERSION_PATTERN,
-    EncoderSettings,
-    TfidfSettings,
-    read_toml,
-    required,
-    section,
-)
+from bookworm.config import EncoderSettings, TfidfSettings
 from bookworm.data.io import (
     JsonObject,
     is_json_integer_list,
@@ -33,15 +21,57 @@ from bookworm.data.io import (
 )
 from bookworm.data.splits import SPLIT_NAMES, SplitName
 from bookworm.errors import ConfigError
-from bookworm.features.encoders import CachedEncoder, FloatMatrix, SentenceEncoder
+from bookworm.features.encoders import CachedEncoder, SentenceEncoder
 from bookworm.features.loading import load_sentence_transformer_encoder
 from bookworm.features.tfidf import TfidfEncoder
-from bookworm.models import StrictModel
-from bookworm.profiles.schemas import ProfileRecord, read_profiles
+from bookworm.profiles.config import (
+    ProfileValidationConfig,
+    ReviewSettings,
+    load_profile_validation_config,
+)
+from bookworm.profiles.schemas import (
+    GROUPS,
+    Group,
+    ProfilePair,
+    ProfileRecord,
+    read_pairs,
+    read_profiles,
+)
+from bookworm.profiles.validation_metrics import (
+    ProfileScores,
+    chance_mrr,
+    group_metrics,
+    identification_rank,
+    round_value,
+    rounded,
+    score_profiles,
+)
 from bookworm.transcript.sentences import split_sentences
-from bookworm.udv.schemas import Tier, UdvRecord, read_udv_run
+from bookworm.udv.schemas import UdvRecord, read_udv_run
 
-Group = Literal["in_prompt", "held_out"]
+__all__ = [
+    "GROUPS",
+    "SKIP_REASONS",
+    "Group",
+    "ProfilePair",
+    "ProfileValidationConfig",
+    "ReviewSettings",
+    "SplitManifest",
+    "chance_mrr",
+    "check_held_out_pair",
+    "check_new_outputs",
+    "check_profile",
+    "identification_rank",
+    "load_profile_validation_config",
+    "profile_sentences",
+    "profiles_by_actor",
+    "read_pairs",
+    "rounded",
+    "run_validate_profiles",
+    "score_profiles",
+    "validate_profiles",
+]
+
 SkipReason = Literal[
     "person_not_resolved",
     "tier_excluded",
@@ -53,15 +83,9 @@ SkipReason = Literal[
 ]
 ProfileEncoderFactory = Callable[[EncoderSettings, Sequence[str], int], SentenceEncoder]
 
-GROUPS: tuple[Group, ...] = get_args(Group)
 SKIP_REASONS: tuple[SkipReason, ...] = get_args(SkipReason)
-DEFAULT_TIERS: tuple[Tier, ...] = ("quote_found", "semantic_match_high")
-DEFAULT_GENERATION_SPLITS: tuple[SplitName, ...] = ("train",)
-DEFAULT_HELD_OUT_SPLITS: tuple[SplitName, ...] = ("test",)
-DEFAULT_CONFIDENCE_LEVEL = 0.95
 PROPOSITION_CACHE_LABEL = "profile_validation_propositions"
 SENTENCE_CACHE_LABEL = "profile_validation_sentences"
-ROUND_DECIMALS = 4
 SENTENCE_SEGMENTATION = (
     "each non-empty line of the profile split by bookworm.transcript.sentences.split_sentences"
 )
@@ -71,164 +95,10 @@ RANK_RULE = (
     "score (ties count against the true profile)"
 )
 TFIDF_CORPUS = "sentences of every profile; propositions are never part of the fitted corpus"
-BOOTSTRAP_INTERVAL = "percentile interval over replicates that resample whole hearings"
 SCORE_NOTE = (
     "cosine measures content proximity, not entailment; whether a profile sentence supports "
     "the opinion is decided by the human review"
 )
-
-
-class ReviewSettings(StrictModel):
-    seed: int
-    sizes: dict[Group, int]
-    score_bands: list[float]
-    output: Path
-
-    @model_validator(mode="after")
-    def check_review(self) -> Self:
-        if any(size < 0 for size in self.sizes.values()):
-            raise ValueError("review sizes must be >= 0")
-        if any(high <= low for low, high in pairwise(self.score_bands)):
-            raise ValueError("score_bands must be strictly increasing")
-        return self
-
-
-class ProfileValidationConfig(StrictModel):
-    udv_path: Path
-    links_path: Path
-    profiles_path: Path
-    split_manifest: Path
-    tiers: list[Tier] = Field(min_length=1)
-    generation_splits: list[SplitName] = Field(min_length=1)
-    held_out_splits: list[SplitName] = Field(min_length=1)
-    encoder: EncoderSettings
-    cache_dir: Path
-    output_dir: Path
-    name: str = Field(pattern=SPLIT_VERSION_PATTERN)
-    seed: int
-    bootstrap_samples: int = Field(gt=0)
-    confidence_level: float = Field(gt=0, lt=1)
-    review: ReviewSettings
-    source: dict[str, Any]
-
-    @model_validator(mode="after")
-    def check_splits(self) -> Self:
-        for name, values in (
-            ("tiers", self.tiers),
-            ("generation_splits", self.generation_splits),
-            ("held_out_splits", self.held_out_splits),
-        ):
-            if len(set(values)) != len(values):
-                raise ValueError(f"{name} has repeated values: {values}")
-        shared = sorted(set(self.generation_splits) & set(self.held_out_splits))
-        if shared:
-            raise ValueError(f"splits {shared} are both generation and held-out splits")
-        return self
-
-    @property
-    def pairs_path(self) -> Path:
-        return self.output_dir / f"{self.name}_pairs.jsonl"
-
-    @property
-    def report_path(self) -> Path:
-        return self.output_dir / f"{self.name}_report.json"
-
-    @property
-    def review_sample_path(self) -> Path:
-        output = self.review.output
-        return output.with_name(f"{output.stem}_sample.json")
-
-    @property
-    def review_report_path(self) -> Path:
-        output = self.review.output
-        return output.with_name(f"{output.stem}_report.json")
-
-    @classmethod
-    def from_mapping(
-        cls, raw: Mapping[str, Any], origin: str = "<mapping>"
-    ) -> "ProfileValidationConfig":
-        source = copy.deepcopy(dict(raw))
-        validation = section(source, "validation", origin)
-        encoder = dict(section(validation, "encoder", f"{origin} [validation]"))
-        encoder.setdefault("kind", DEFAULT_ENCODER_KIND)
-        try:
-            review = section(source, "review", origin)
-            return cls.model_validate(
-                {
-                    "udv_path": Path(required(source, "inputs", "udv_path", origin)),
-                    "links_path": Path(required(source, "inputs", "links_path", origin)),
-                    "profiles_path": Path(required(source, "inputs", "profiles_path", origin)),
-                    "split_manifest": Path(required(source, "inputs", "split_manifest", origin)),
-                    "tiers": list(validation.get("tiers", DEFAULT_TIERS)),
-                    "generation_splits": list(
-                        validation.get("generation_splits", DEFAULT_GENERATION_SPLITS)
-                    ),
-                    "held_out_splits": list(
-                        validation.get("held_out_splits", DEFAULT_HELD_OUT_SPLITS)
-                    ),
-                    "encoder": encoder,
-                    "cache_dir": Path(required(source, "validation", "cache_dir", origin)),
-                    "output_dir": Path(required(source, "validation", "output_dir", origin)),
-                    "name": required(source, "validation", "name", origin),
-                    "seed": required(source, "validation", "seed", origin),
-                    "bootstrap_samples": required(
-                        source, "validation", "bootstrap_samples", origin
-                    ),
-                    "confidence_level": float(
-                        validation.get("confidence_level", DEFAULT_CONFIDENCE_LEVEL)
-                    ),
-                    "review": {
-                        "seed": required(source, "review", "seed", origin),
-                        "sizes": dict(required(source, "review", "sizes", origin)),
-                        "score_bands": [float(edge) for edge in review.get("score_bands", [])],
-                        "output": Path(required(source, "review", "output", origin)),
-                    },
-                    "source": source,
-                }
-            )
-        except (ValidationError, TypeError, ValueError) as error:
-            raise ConfigError(f"{origin}: {error}") from error
-
-
-def load_profile_validation_config(path: Path) -> ProfileValidationConfig:
-    return ProfileValidationConfig.from_mapping(read_toml(path), origin=str(path))
-
-
-class ProfilePair(StrictModel):
-    udv_id: str
-    hearing_id: int
-    split: SplitName
-    group: Group
-    tier: Tier
-    actor_key: str | None
-    actor: str
-    udv_actor: str
-    proposition: str
-    udv_evidence: str | None
-    profile_sentence: str
-    profile_sentence_index: int
-    score: float
-    rank: int
-    n_candidates: int
-    best_other_actor: str | None
-    best_other_score: float | None
-
-    @classmethod
-    def from_json_line(cls, line: str) -> "ProfilePair":
-        return cls.model_validate_json(line)
-
-    def to_dict(self) -> JsonObject:
-        return self.model_dump()
-
-
-def read_pairs(path: Path) -> list[ProfilePair]:
-    try:
-        with path.open(encoding="utf-8") as handle:
-            return [ProfilePair.from_json_line(line) for line in handle if line.strip()]
-    except FileNotFoundError as error:
-        raise ConfigError(f"{path}: pairs file not found; run validate-profiles first") from error
-    except (OSError, ValueError) as error:
-        raise ConfigError(f"{path}: cannot read pairs file: {error}") from error
 
 
 @dataclass(frozen=True)
@@ -371,55 +241,12 @@ def classify_udv(
     return None, Candidate(udv, link, split, "in_prompt")
 
 
-def unit_rows(matrix: FloatMatrix) -> NDArray[np.float64]:
-    values = np.asarray(matrix, dtype=np.float64)
-    norms = np.linalg.norm(values, axis=1, keepdims=True)
-    return np.divide(values, norms, out=np.zeros_like(values), where=norms > 0)
-
-
-@dataclass(frozen=True)
-class ProfileScores:
-    scores: NDArray[np.float64]
-    best_sentence: NDArray[np.int64]
-
-
-def score_profiles(
-    propositions: FloatMatrix, sentences: FloatMatrix, sentence_counts: Sequence[int]
-) -> ProfileScores:
-    similarities = unit_rows(propositions) @ unit_rows(sentences).T
-    bounds = np.cumsum([0, *sentence_counts])
-    scores = np.empty((similarities.shape[0], len(sentence_counts)), dtype=np.float64)
-    best = np.empty_like(scores, dtype=np.int64)
-    for column, (start, end) in enumerate(pairwise(bounds)):
-        block = similarities[:, start:end]
-        best[:, column] = block.argmax(axis=1)
-        scores[:, column] = block.max(axis=1)
-    return ProfileScores(scores, best)
-
-
-def identification_rank(scores: NDArray[np.float64], true_index: int) -> int:
-    others = np.delete(scores, true_index)
-    return 1 + int(np.count_nonzero(others >= scores[true_index]))
-
-
-def chance_mrr(n_candidates: int) -> float:
-    return sum(1 / rank for rank in range(1, n_candidates + 1)) / n_candidates
-
-
 def default_profile_encoder(
     settings: EncoderSettings, corpus: Sequence[str], seed: int
 ) -> SentenceEncoder:
     if isinstance(settings, TfidfSettings):
         return TfidfEncoder.fit(corpus, max_features=settings.max_features)
     return load_sentence_transformer_encoder(settings, seed)
-
-
-def round_value(value: float) -> float:
-    return round(float(value), ROUND_DECIMALS)
-
-
-def rounded(value: float | None) -> float | None:
-    return None if value is None else round_value(value)
 
 
 def build_pairs(
@@ -459,84 +286,6 @@ def build_pairs(
             )
         )
     return pairs
-
-
-def percentile_interval(values: NDArray[np.float64], confidence_level: float) -> list[float]:
-    alpha = 1 - confidence_level
-    low, high = np.quantile(values, [alpha / 2, 1 - alpha / 2])
-    return [round_value(low), round_value(high)]
-
-
-def bootstrap_by_hearing(
-    pairs: Sequence[ProfilePair],
-    samples: int,
-    confidence_level: float,
-    rng: np.random.Generator,
-) -> JsonObject:
-    hearings = sorted({pair.hearing_id for pair in pairs})
-    position = {hearing_id: index for index, hearing_id in enumerate(hearings)}
-    counts = np.zeros(len(hearings))
-    sums = np.zeros((3, len(hearings)))
-    for pair in pairs:
-        index = position[pair.hearing_id]
-        counts[index] += 1
-        sums[:, index] += (pair.score, pair.rank == 1, 1 / pair.rank)
-    weights = np.stack(
-        [
-            np.bincount(rng.integers(0, len(hearings), len(hearings)), minlength=len(hearings))
-            for _ in range(samples)
-        ]
-    ).astype(np.float64)
-    replicates = (weights @ sums.T) / (weights @ counts)[:, None]
-    return {
-        "unit": "hearing",
-        "method": BOOTSTRAP_INTERVAL,
-        "samples": samples,
-        "confidence_level": confidence_level,
-        "mean_score": percentile_interval(replicates[:, 0], confidence_level),
-        "acc_at_1": percentile_interval(replicates[:, 1], confidence_level),
-        "mrr": percentile_interval(replicates[:, 2], confidence_level),
-    }
-
-
-def group_metrics(
-    pairs: Sequence[ProfilePair],
-    n_candidates: int,
-    config: ProfileValidationConfig,
-    rng: np.random.Generator,
-) -> JsonObject:
-    chance = {"acc_at_1": rounded(1 / n_candidates), "mrr": rounded(chance_mrr(n_candidates))}
-    summary: JsonObject = {
-        "pairs": len(pairs),
-        "hearings": len({pair.hearing_id for pair in pairs}),
-        "actors": len({pair.actor for pair in pairs}),
-        "splits": sorted({pair.split for pair in pairs}),
-        "n_candidates": n_candidates,
-        "chance": chance,
-    }
-    if not pairs:
-        return {**summary, "score": None, "identification": None, "bootstrap": None}
-    scores = np.array([pair.score for pair in pairs])
-    ranks = np.array([pair.rank for pair in pairs])
-    q25, median, q75 = np.quantile(scores, [0.25, 0.5, 0.75])
-    return {
-        **summary,
-        "score": {
-            "mean": rounded(scores.mean()),
-            "median": rounded(median),
-            "q25": rounded(q25),
-            "q75": rounded(q75),
-            "min": rounded(scores.min()),
-            "max": rounded(scores.max()),
-        },
-        "identification": {
-            "acc_at_1": rounded(float(np.mean(ranks == 1))),
-            "mrr": rounded(float(np.mean(1 / ranks))),
-        },
-        "bootstrap": bootstrap_by_hearing(
-            pairs, config.bootstrap_samples, config.confidence_level, rng
-        ),
-    }
 
 
 def input_digest(path: Path) -> JsonObject:

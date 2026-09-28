@@ -1,16 +1,23 @@
-"""Records of the actor profiles file."""
+"""Records of the actor profiles file and of the profile validation pairs file."""
 
 import json
 from collections import Counter
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TextIO
+from typing import Literal, TextIO, get_args
 
 from pydantic import Field, ValidationError
 
+from bookworm.data.io import JsonObject
+from bookworm.data.splits import SplitName
 from bookworm.errors import ConfigError
 from bookworm.models import StrictModel
+from bookworm.udv.schemas import Tier
+
+Group = Literal["in_prompt", "held_out"]
+
+GROUPS: tuple[Group, ...] = get_args(Group)
 
 
 class ProfileRecord(StrictModel):
@@ -83,3 +90,40 @@ def write_profiles(records: Iterable[ProfileRecord], path: Path) -> None:
     with path.open("w", encoding="utf-8") as handle:
         for record in records:
             handle.write(record.to_json_line() + "\n")
+
+
+class ProfilePair(StrictModel):
+    udv_id: str
+    hearing_id: int
+    split: SplitName
+    group: Group
+    tier: Tier
+    actor_key: str | None
+    actor: str
+    udv_actor: str
+    proposition: str
+    udv_evidence: str | None
+    profile_sentence: str
+    profile_sentence_index: int
+    score: float
+    rank: int
+    n_candidates: int
+    best_other_actor: str | None
+    best_other_score: float | None
+
+    @classmethod
+    def from_json_line(cls, line: str) -> "ProfilePair":
+        return cls.model_validate_json(line)
+
+    def to_dict(self) -> JsonObject:
+        return self.model_dump()
+
+
+def read_pairs(path: Path) -> list[ProfilePair]:
+    try:
+        with path.open(encoding="utf-8") as handle:
+            return [ProfilePair.from_json_line(line) for line in handle if line.strip()]
+    except FileNotFoundError as error:
+        raise ConfigError(f"{path}: pairs file not found; run validate-profiles first") from error
+    except (OSError, ValueError) as error:
+        raise ConfigError(f"{path}: cannot read pairs file: {error}") from error

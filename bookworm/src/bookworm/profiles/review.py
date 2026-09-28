@@ -16,16 +16,14 @@ import numpy as np
 
 from bookworm.data.io import JsonObject, read_json_object, sha256_of_file, write_json
 from bookworm.errors import ConfigError
-from bookworm.profiles.validate import (
-    GROUPS,
-    Group,
-    ProfilePair,
+from bookworm.profiles.config import (
     ProfileValidationConfig,
-    check_new_outputs,
+    ReviewSettings,
     load_profile_validation_config,
-    read_pairs,
-    rounded,
 )
+from bookworm.profiles.schemas import GROUPS, Group, ProfilePair, read_pairs
+from bookworm.profiles.validate import check_new_outputs
+from bookworm.profiles.validation_metrics import rounded
 
 Judgment = Literal["sustentada", "compativel", "contradita", "sem_relacao"]
 
@@ -51,6 +49,7 @@ CSV_DELIMITER = ";"
 CSV_DELIMITERS = (";", ",", "\t")
 CSV_ENCODING = "utf-8-sig"
 ITEM_ID_PREFIX = "P"
+ITEM_ID_MIN_DIGITS = 3
 DRAW_STREAM = 0
 ORDER_STREAM = 1
 ALL_SCORES_BAND = "all"
@@ -135,13 +134,10 @@ def write_review_csv(rows: Sequence[Mapping[str, str]], path: Path) -> None:
         writer.writerows(rows)
 
 
-def sample_profile_review(
-    config: ProfileValidationConfig, *, overwrite: bool = False
-) -> JsonObject:
-    """Write a seeded, stratified review sample as a CSV with empty judgments."""
-    review = config.review
-    check_new_outputs((review.output, config.review_sample_path), overwrite)
-    pairs = read_pairs(config.pairs_path)
+def draw_strata(
+    pairs: Sequence[ProfilePair], review: ReviewSettings
+) -> tuple[list[tuple[ProfilePair, str]], list[JsonObject]]:
+    """Draw up to the configured size from every stratum, without replacement."""
     draw_rng = np.random.default_rng([review.seed, DRAW_STREAM])
     drawn: list[tuple[ProfilePair, str]] = []
     strata_report: list[JsonObject] = []
@@ -160,9 +156,24 @@ def sample_profile_review(
                 "shortfall": target - size,
             }
         )
+    return drawn, strata_report
+
+
+def review_item_ids(count: int) -> list[str]:
+    width = max(ITEM_ID_MIN_DIGITS, len(str(count)))
+    return [f"{ITEM_ID_PREFIX}{number:0{width}d}" for number in range(1, count + 1)]
+
+
+def sample_profile_review(
+    config: ProfileValidationConfig, *, overwrite: bool = False
+) -> JsonObject:
+    """Write a seeded, stratified review sample as a CSV with empty judgments."""
+    review = config.review
+    check_new_outputs((review.output, config.review_sample_path), overwrite)
+    pairs = read_pairs(config.pairs_path)
+    drawn, strata_report = draw_strata(pairs, review)
     order = np.random.default_rng([review.seed, ORDER_STREAM]).permutation(len(drawn))
-    width = max(3, len(str(len(drawn))))
-    item_ids = [f"{ITEM_ID_PREFIX}{number:0{width}d}" for number in range(1, len(drawn) + 1)]
+    item_ids = review_item_ids(len(drawn))
     ordered = [drawn[int(index)] for index in order]
     rows = [
         csv_row(item_id, pair, config.profiles_path)
@@ -221,14 +232,9 @@ class JudgedItem:
     judgment: Judgment
 
 
-def judged_items(
-    rows: Sequence[Mapping[str, str]],
-    sample: Mapping[str, Any],
-    pairs: Mapping[str, ProfilePair],
-    edges: Sequence[float],
-    path: Path,
-) -> list[JudgedItem]:
-    expected: dict[str, Mapping[str, Any]] = dict(sample["items"])
+def check_sample_items(
+    rows: Sequence[Mapping[str, str]], expected: Mapping[str, object], path: Path
+) -> None:
     seen = [row["item_id"] for row in rows]
     if sorted(seen) != sorted(expected):
         missing = sorted(set(expected) - set(seen))
@@ -236,18 +242,42 @@ def judged_items(
         raise ConfigError(
             f"{path}: items differ from the sample (missing {missing}, unexpected {extra})"
         )
+
+
+def sampled_pair(
+    row: Mapping[str, str],
+    key: Mapping[str, Any],
+    pairs: Mapping[str, ProfilePair],
+    edges: Sequence[float],
+    path: Path,
+) -> ProfilePair:
+    item_id = row["item_id"]
+    pair = pairs.get(str(key.get("udv_id")))
+    if pair is None or dict(key) != item_key(pair, score_band(pair.score, edges)):
+        raise ConfigError(f"review sample key: {item_id} does not match the pairs file")
+    changed = [column for column in CHECKED_COLUMNS if row[column] != key[column]]
+    if changed:
+        raise ConfigError(f"{path}: {item_id} has edited columns {changed}")
+    return pair
+
+
+def judged_items(
+    rows: Sequence[Mapping[str, str]],
+    sample: Mapping[str, Any],
+    pairs: Mapping[str, ProfilePair],
+    edges: Sequence[float],
+    path: Path,
+) -> list[JudgedItem]:
+    """The judged review rows, checked against the sample; every row needs a valid judgment."""
+    expected: dict[str, Mapping[str, Any]] = dict(sample["items"])
+    check_sample_items(rows, expected, path)
     invalid: list[str] = []
     empty: list[str] = []
     items: list[JudgedItem] = []
     for row in rows:
         item_id = row["item_id"]
         key = expected[item_id]
-        pair = pairs.get(str(key.get("udv_id")))
-        if pair is None or dict(key) != item_key(pair, score_band(pair.score, edges)):
-            raise ConfigError(f"review sample key: {item_id} does not match the pairs file")
-        changed = [column for column in CHECKED_COLUMNS if row[column] != key[column]]
-        if changed:
-            raise ConfigError(f"{path}: {item_id} has edited columns {changed}")
+        pair = sampled_pair(row, key, pairs, edges, path)
         label = normalize_label(row["julgamento"] or "")
         judgment = JUDGMENT_BY_LABEL.get(label)
         if not label:

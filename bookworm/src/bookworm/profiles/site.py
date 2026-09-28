@@ -1,176 +1,56 @@
-import re
-import unicodedata
+"""Actor pages of the demo: ``actors.json`` and one ``profiles/<slug>.json`` per profiled actor."""
+
 from collections import Counter
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-from bookworm.actors.schemas import ActorSpeechRecord
-from bookworm.data.io import write_json
+from bookworm.actors.schemas import ActorHearing, ActorSpeechRecord
+from bookworm.data.io import JsonObject, write_json
 from bookworm.errors import ConfigError
+from bookworm.profiles.claim_matching import (
+    MATCH_METHOD,
+    PASSAGE_MATCH_MIN,
+    PASSAGE_MIN_WORDS,
+    SAME_SENTENCE_RULE,
+    SIMILAR_TEXT_RULE,
+    UDV_MATCH_MIN,
+    MatchThresholds,
+    Sentence,
+    match_claims,
+)
+from bookworm.profiles.profile_text import (
+    UNTITLED_SECTION,
+    ProfileSection,
+    actor_slug,
+    assign_slugs,
+    parse_profile,
+    trim_passage,
+)
 from bookworm.profiles.schemas import ProfileRecord
 
-JsonObject = dict[str, Any]
+__all__ = [
+    "ACTORS_FILE_NAME",
+    "PROFILES_DIR_NAME",
+    "SAME_SENTENCE_RULE",
+    "SIMILAR_TEXT_RULE",
+    "UNTITLED_SECTION",
+    "ProfileSection",
+    "ProfileSiteBuilder",
+    "ProfileSiteExport",
+    "actor_slug",
+    "assign_slugs",
+    "clear_profile_site",
+    "page_verifier_threshold",
+    "parse_profile",
+    "trim_passage",
+    "verifier_of",
+]
 
 ACTORS_FILE_NAME = "actors.json"
 PROFILES_DIR_NAME = "profiles"
-UNTITLED_SECTION = "Sem título"
-UDV_MATCH_MIN = 0.3
-PASSAGE_MATCH_MIN = 0.15
-PASSAGE_MIN_WORDS = 5
-PASSAGE_MAX_CHARS = 480
-SCORE_DECIMALS = 4
-PASSAGE_ELLIPSIS = " […]"
-MATCH_METHOD = (
-    "TF-IDF cosine between each profile item and, separately, the actor's sentences in the "
-    "hearings the profile read and the text (proposition and evidence) of the actor's UDVs in "
-    "those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, "
-    "fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the "
-    "transcript (same_sentence) or, failing that, when the item is similar enough to the UDV "
-    "text (similar_text)"
-)
-STOP_WORDS = (
-    "a",
-    "o",
-    "e",
-    "as",
-    "os",
-    "um",
-    "uma",
-    "uns",
-    "umas",
-    "de",
-    "do",
-    "da",
-    "dos",
-    "das",
-    "em",
-    "no",
-    "na",
-    "nos",
-    "nas",
-    "num",
-    "numa",
-    "por",
-    "pelo",
-    "pela",
-    "pelos",
-    "pelas",
-    "para",
-    "pra",
-    "pro",
-    "com",
-    "sem",
-    "sob",
-    "sobre",
-    "ate",
-    "que",
-    "se",
-    "nao",
-    "sim",
-    "ja",
-    "ha",
-    "foi",
-    "era",
-    "sao",
-    "ser",
-    "sera",
-    "estar",
-    "esta",
-    "estao",
-    "este",
-    "esse",
-    "essa",
-    "esses",
-    "essas",
-    "isso",
-    "isto",
-    "aquele",
-    "aquela",
-    "aquilo",
-    "ele",
-    "ela",
-    "eles",
-    "elas",
-    "eu",
-    "nos",
-    "voce",
-    "voces",
-    "me",
-    "te",
-    "lhe",
-    "lhes",
-    "seu",
-    "sua",
-    "seus",
-    "suas",
-    "meu",
-    "minha",
-    "nosso",
-    "nossa",
-    "ao",
-    "aos",
-    "como",
-    "mas",
-    "ou",
-    "mais",
-    "muito",
-    "tambem",
-    "so",
-    "entao",
-    "aqui",
-    "la",
-    "quando",
-    "onde",
-    "qual",
-    "quais",
-    "quem",
-    "porque",
-    "tem",
-    "ter",
-    "dito",
-    "disse",
-    "falou",
-    "falaram",
-    "foram",
-    "forma",
-    "entre",
-    "apos",
-    "ainda",
-    "cada",
-    "todo",
-    "toda",
-    "todos",
-    "todas",
-    "outro",
-    "outra",
-    "outros",
-    "outras",
-)
-SECTION_PATTERN = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$")
-BULLET_PATTERN = re.compile(r"^\s{0,1}[-*]\s+(.+?)\s*$")
-SLUG_PATTERN = re.compile(r"[^a-z0-9]+")
-SAME_SENTENCE_RULE = "same_sentence"
-SIMILAR_TEXT_RULE = "similar_text"
-
-
-@dataclass(frozen=True, slots=True)
-class ProfileSection:
-    title: str
-    claims: tuple[str, ...]
-
-
-@dataclass(frozen=True, slots=True)
-class Sentence:
-    hearing_id: int
-    turn: int
-    start: int | None
-    end: int | None
-    text: str
+PAGE_HEARING_KEYS = ("split", "article_date", "title", "assunto")
 
 
 @dataclass
@@ -193,84 +73,15 @@ class ProfileSiteExport:
         return self.actors_bytes + sum(self.profile_bytes.values())
 
 
-def parse_profile(text: str) -> list[ProfileSection]:
-    sections: list[tuple[str, list[str]]] = []
-    for raw in text.splitlines():
-        if not raw.strip():
-            continue
-        heading = SECTION_PATTERN.match(raw.strip())
-        if heading is not None:
-            sections.append((heading.group(1).strip(), []))
-            continue
-        if not sections:
-            sections.append((UNTITLED_SECTION, []))
-        claims = sections[-1][1]
-        bullet = BULLET_PATTERN.match(raw)
-        if bullet is not None or not claims:
-            claims.append(bullet.group(1) if bullet is not None else raw.strip())
-        else:
-            claims[-1] = f"{claims[-1]} {raw.strip()}"
-    return [ProfileSection(title, tuple(claims)) for title, claims in sections if claims]
-
-
-def actor_slug(name: str) -> str:
-    folded = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode().lower()
-    return SLUG_PATTERN.sub("-", folded).strip("-") or "ator"
-
-
-def assign_slugs(names: Iterable[str]) -> dict[str, str]:
-    slugs: dict[str, str] = {}
-    taken: set[str] = set()
-    for name in sorted(set(names)):
-        base = actor_slug(name)
-        slug = base
-        suffix = 2
-        while slug in taken:
-            slug = f"{base}-{suffix}"
-            suffix += 1
-        taken.add(slug)
-        slugs[name] = slug
-    return slugs
-
-
-def trim_passage(text: str, max_chars: int = PASSAGE_MAX_CHARS) -> str:
-    if len(text) <= max_chars:
-        return text
-    room = text[:max_chars]
-    boundary = room.rfind(" ")
-    kept = room[:boundary] if boundary > max_chars // 2 else room
-    return kept.rstrip(" ,;:") + PASSAGE_ELLIPSIS
+def most_common(counts: Counter[str]) -> str | None:
+    """Most frequent key, the smallest one on ties."""
+    if not counts:
+        return None
+    return min(counts.items(), key=lambda item: (-item[1], item[0]))[0]
 
 
 def majority_owner(turns: Sequence[int], owners: Mapping[int, str]) -> str | None:
-    counts = Counter(owners[turn] for turn in turns if turn in owners)
-    if not counts:
-        return None
-    key, _ = min(counts.items(), key=lambda item: (-item[1], item[0]))
-    return key
-
-
-def cosine_rows(vectorizer: TfidfVectorizer, rows: Sequence[str], columns: Sequence[str]) -> Any:
-    if not rows or not columns:
-        return np.zeros((len(rows), len(columns)))
-    left = vectorizer.transform(list(rows))
-    right = vectorizer.transform(list(columns))
-    return (left @ right.T).toarray()
-
-
-def fit_vectorizer(corpus: Sequence[str]) -> TfidfVectorizer | None:
-    vectorizer = TfidfVectorizer(
-        strip_accents="unicode",
-        lowercase=True,
-        sublinear_tf=True,
-        stop_words=list(STOP_WORDS),
-        dtype=np.float64,
-    )
-    try:
-        vectorizer.fit(list(corpus))
-    except ValueError:
-        return None
-    return vectorizer
+    return most_common(Counter(owners[turn] for turn in turns if turn in owners))
 
 
 def verifier_of(udv: Mapping[str, Any]) -> JsonObject | None:
@@ -307,38 +118,83 @@ def udv_text(udv: Mapping[str, Any]) -> str:
     return udv["proposition"] if evidence is None else f"{udv['proposition']} {evidence['text']}"
 
 
-def same_sentence(sentence: Sentence, udvs: Sequence[Mapping[str, Any]]) -> int | None:
-    if sentence.start is None or sentence.end is None:
-        return None
-    for position, udv in enumerate(udvs):
-        evidence = udv["evidence"]
-        if (
-            udv["hearing_id"] == sentence.hearing_id
-            and evidence["turn"] == sentence.turn
-            and evidence["start"] < sentence.end
-            and sentence.start < evidence["end"]
-        ):
-            return position
-    return None
+def trail_udv(udv: Mapping[str, Any], hearing_id: int, number: int) -> JsonObject:
+    return {
+        "id": udv["id"],
+        "hearing_id": hearing_id,
+        "n": number,
+        "article_name": udv["actor"]["name"],
+        "proposition": udv["proposition"],
+        "tier": udv["tier"],
+        "evidence": evidence_of(udv),
+        "verifier": verifier_of(udv),
+        "match_text": udv_text(udv),
+    }
 
 
-def most_common(counts: Counter[str]) -> str | None:
-    if not counts:
-        return None
-    return min(counts.items(), key=lambda item: (-item[1], item[0]))[0]
+def turn_sentences(hearing_id: int, turn: Mapping[str, Any]) -> list[Sentence]:
+    return [
+        Sentence(hearing_id, turn["index"], sentence["start"], sentence["end"], text)
+        for sentence in turn["sentences"]
+        if len((text := sentence["text"]).split()) >= PASSAGE_MIN_WORDS
+    ]
 
 
-def best_match(scores: Any, minimum: float) -> tuple[int, float] | None:
-    if scores.size == 0:
-        return None
-    position = int(np.argmax(scores))
-    value = float(scores[position])
-    if value < minimum:
-        return None
-    return position, round(value, SCORE_DECIMALS)
+def turn_owners(speeches: Mapping[str, ActorSpeechRecord]) -> dict[int, dict[int, str]]:
+    owners: dict[int, dict[int, str]] = {}
+    for key, record in speeches.items():
+        for hearing in record.hearings:
+            hearing_owners = owners.setdefault(hearing.hearing_id, {})
+            for turn in hearing.turns:
+                hearing_owners[turn.turn_index] = key
+    return owners
+
+
+def spoken_hearing(record: ActorSpeechRecord, hearing_id: int) -> ActorHearing | None:
+    return next((hearing for hearing in record.hearings if hearing.hearing_id == hearing_id), None)
+
+
+def check_profile_input(profile: ProfileRecord, record: ActorSpeechRecord) -> None:
+    turns = {hearing.hearing_id: len(hearing.turns) for hearing in record.hearings}
+    unknown = sorted(set(profile.hearing_ids) - turns.keys())
+    if unknown:
+        raise ConfigError(
+            f"profile of {profile.actor}: hearings {unknown[:3]} are not in the actor speeches"
+        )
+    read = sum(turns[hearing_id] for hearing_id in profile.hearing_ids)
+    if read != profile.n_statements or len(profile.hearing_ids) != profile.n_hearings:
+        raise ConfigError(
+            f"profile of {profile.actor}: {profile.n_statements} statements in "
+            f"{profile.n_hearings} hearings, but the actor speeches have {read} turns in "
+            f"{len(profile.hearing_ids)} of them; the profiles come from another actor pass"
+        )
+
+
+def profile_provenance(profile: ProfileRecord, run_name: str, source_sha256: str) -> JsonObject:
+    return {
+        "run": run_name,
+        "model": profile.model,
+        "prompt_version": profile.prompt_version,
+        "generated_at": profile.generated_at,
+        "n_statements": profile.n_statements,
+        "n_hearings": profile.n_hearings,
+        "hearing_ids": list(profile.hearing_ids),
+        "input_tokens": profile.input_tokens,
+        "output_tokens": profile.output_tokens,
+        "source_sha256": source_sha256,
+    }
+
+
+def page_udvs(trail: ActorTrail, read: set[int]) -> list[JsonObject]:
+    udvs = [{k: v for k, v in udv.items() if k != "match_text"} for udv in trail.udvs]
+    for udv in udvs:
+        udv["in_profile"] = udv["hearing_id"] in read
+    return udvs
 
 
 class ProfileSiteBuilder:
+    """Collects, hearing by hearing, the passages and UDVs of each profiled actor."""
+
     def __init__(
         self,
         profiles: Sequence[ProfileRecord],
@@ -364,12 +220,7 @@ class ProfileSiteBuilder:
         self.source_sha256 = source_sha256
         self.udv_match_min = udv_match_min
         self.passage_match_min = passage_match_min
-        self.owners: dict[int, dict[int, str]] = {}
-        for key, record in speeches.items():
-            for hearing in record.hearings:
-                owners = self.owners.setdefault(hearing.hearing_id, {})
-                for turn in hearing.turns:
-                    owners[turn.turn_index] = key
+        self.owners = turn_owners(speeches)
         self.trails: dict[str, ActorTrail] = {name: ActorTrail() for name in self.slugs}
         self.hearings: dict[int, JsonObject] = {}
         self.people: dict[int, dict[str, str]] = {}
@@ -377,20 +228,23 @@ class ProfileSiteBuilder:
         self.threshold: float | None = None
 
     def add_hearing(self, payload: Mapping[str, Any], entry: Mapping[str, Any]) -> None:
+        """Take one exported hearing page and its index entry."""
         hearing_id = payload["hearing"]["id"]
-        owners = self.owners.get(hearing_id, {})
         signals = payload.get("signals")
         if isinstance(signals, Mapping):
             self.threshold = page_verifier_threshold(signals)
         self.hearings[hearing_id] = {
             "id": hearing_id,
-            "split": entry["split"],
-            "article_date": entry["article_date"],
-            "title": entry["title"],
-            "assunto": entry["assunto"],
+            **{key: entry[key] for key in PAGE_HEARING_KEYS},
         }
+        linked = self.link_people(hearing_id, payload["people"])
+        self.collect_udvs(hearing_id, payload["udvs"], linked)
+        self.collect_sentences(hearing_id, payload["turns"])
+
+    def link_people(self, hearing_id: int, people: Sequence[Mapping[str, Any]]) -> dict[str, str]:
+        owners = self.owners.get(hearing_id, {})
         linked: dict[str, str] = {}
-        for person in payload["people"]:
+        for person in people:
             key = majority_owner(person["turns"], owners)
             if key is None or key not in self.profiled:
                 continue
@@ -402,28 +256,22 @@ class ProfileSiteBuilder:
                 trail.roles[person["role"]] += 1
         if linked:
             self.people[hearing_id] = {person: self.slugs[name] for person, name in linked.items()}
-        for number, udv in enumerate(payload["udvs"], start=1):
+        return linked
+
+    def collect_udvs(
+        self, hearing_id: int, udvs: Sequence[Mapping[str, Any]], linked: Mapping[str, str]
+    ) -> None:
+        for number, udv in enumerate(udvs, start=1):
             actor = linked.get(udv["actor"]["name"])
             if actor is None:
                 continue
             self.udv_actors[udv["id"]] = self.slugs[actor]
-            self.trails[actor].udvs.append(
-                {
-                    "id": udv["id"],
-                    "hearing_id": hearing_id,
-                    "n": number,
-                    "article_name": udv["actor"]["name"],
-                    "proposition": udv["proposition"],
-                    "tier": udv["tier"],
-                    "evidence": evidence_of(udv),
-                    "verifier": verifier_of(udv),
-                    "match_text": udv_text(udv),
-                }
-            )
-        turns_by_index = {turn["index"]: turn for turn in payload["turns"]}
+            self.trails[actor].udvs.append(trail_udv(udv, hearing_id, number))
+
+    def collect_sentences(self, hearing_id: int, turns: Sequence[Mapping[str, Any]]) -> None:
+        turns_by_index = {turn["index"]: turn for turn in turns}
         for key, name in self.profiled.items():
-            record = self.speeches[key]
-            spoken = next((h for h in record.hearings if h.hearing_id == hearing_id), None)
+            spoken = spoken_hearing(self.speeches[key], hearing_id)
             if spoken is None:
                 continue
             trail = self.trails[name]
@@ -435,82 +283,24 @@ class ProfileSiteBuilder:
                         f"hearing {hearing_id}: turn {actor_turn.turn_index} of {name} is not "
                         "in the exported turns"
                     )
-                trail.sentences.extend(
-                    Sentence(hearing_id, turn["index"], sentence["start"], sentence["end"], text)
-                    for sentence in turn["sentences"]
-                    if len((text := sentence["text"]).split()) >= PASSAGE_MIN_WORDS
-                )
+                trail.sentences.extend(turn_sentences(hearing_id, turn))
 
     def match_claims(
         self, profile: ProfileRecord, trail: ActorTrail
     ) -> tuple[list[JsonObject], JsonObject]:
         read = set(profile.hearing_ids)
-        sentences = [sentence for sentence in trail.sentences if sentence.hearing_id in read]
-        udvs = [udv for udv in trail.udvs if udv["hearing_id"] in read and udv["evidence"]]
-        sections = parse_profile(profile.profile)
-        claims = [claim for section in sections for claim in section.claims]
-        vectorizer = fit_vectorizer(
-            [sentence.text for sentence in sentences] + [udv["match_text"] for udv in udvs] + claims
+        return match_claims(
+            parse_profile(profile.profile),
+            [sentence for sentence in trail.sentences if sentence.hearing_id in read],
+            [udv for udv in trail.udvs if udv["hearing_id"] in read and udv["evidence"]],
+            MatchThresholds(udv=self.udv_match_min, passage=self.passage_match_min),
         )
-        if vectorizer is None:
-            passage_scores = np.zeros((len(claims), 0))
-            udv_scores = np.zeros((len(claims), 0))
-        else:
-            passage_scores = cosine_rows(vectorizer, claims, [s.text for s in sentences])
-            udv_scores = cosine_rows(vectorizer, claims, [udv["match_text"] for udv in udvs])
-        counts = Counter[str]()
-        out: list[JsonObject] = []
-        row = 0
-        for section in sections:
-            items: list[JsonObject] = []
-            for claim in section.claims:
-                passage = best_match(passage_scores[row], self.passage_match_min)
-                udv = best_match(udv_scores[row], self.udv_match_min)
-                row += 1
-                item: JsonObject = {"text": claim, "passage": None, "udv": None}
-                if passage is not None:
-                    sentence = sentences[passage[0]]
-                    item["passage"] = {
-                        "hearing_id": sentence.hearing_id,
-                        "turn": sentence.turn,
-                        "start": sentence.start,
-                        "end": sentence.end,
-                        "text": trim_passage(sentence.text),
-                        "score": passage[1],
-                    }
-                shared = None if passage is None else same_sentence(sentences[passage[0]], udvs)
-                if shared is not None:
-                    item["udv"] = {
-                        "id": udvs[shared]["id"],
-                        "rule": SAME_SENTENCE_RULE,
-                        "score": round(float(udv_scores[row - 1][shared]), SCORE_DECIMALS),
-                    }
-                elif udv is not None:
-                    item["udv"] = {
-                        "id": udvs[udv[0]]["id"],
-                        "rule": SIMILAR_TEXT_RULE,
-                        "score": udv[1],
-                    }
-                counts["claims"] += 1
-                linked = item["udv"] is not None
-                counts["with_udv"] += linked
-                counts["passage_only"] += not linked and passage is not None
-                counts["without_evidence"] += not linked and passage is None
-                items.append(item)
-            out.append({"title": section.title, "claims": items})
-        summary = {
-            key: counts[key] for key in ("claims", "with_udv", "passage_only", "without_evidence")
-        }
-        return out, summary
 
-    def actor_page(self, profile: ProfileRecord) -> tuple[JsonObject, JsonObject]:
-        name = profile.actor
-        trail = self.trails[name]
-        record = self.speeches[self.keys[name]]
-        read = set(profile.hearing_ids)
-        sections, counts = self.match_claims(profile, trail)
+    def page_hearings(
+        self, record: ActorSpeechRecord, trail: ActorTrail, read: set[int]
+    ) -> list[JsonObject]:
         udv_count = Counter(udv["hearing_id"] for udv in trail.udvs)
-        hearings = [
+        return [
             {
                 **self.hearings[hearing.hearing_id],
                 "turns": len(hearing.turns),
@@ -520,10 +310,17 @@ class ProfileSiteBuilder:
             for hearing in record.hearings
             if hearing.hearing_id in self.hearings
         ]
+
+    def actor_page(self, profile: ProfileRecord) -> tuple[JsonObject, JsonObject]:
+        """The page of one profiled actor and its entry in ``actors.json``."""
+        name = profile.actor
+        trail = self.trails[name]
+        record = self.speeches[self.keys[name]]
+        read = set(profile.hearing_ids)
+        sections, counts = self.match_claims(profile, trail)
+        hearings = self.page_hearings(record, trail, read)
         role = most_common(trail.roles)
-        udvs = [{k: v for k, v in udv.items() if k != "match_text"} for udv in trail.udvs]
-        for udv in udvs:
-            udv["in_profile"] = udv["hearing_id"] in read
+        udvs = page_udvs(trail, read)
         page = {
             "actor": {
                 "slug": self.slugs[name],
@@ -532,18 +329,7 @@ class ProfileSiteBuilder:
                 "article_names": sorted(trail.article_names),
                 "party_uf": list(record.party_uf),
             },
-            "provenance": {
-                "run": self.run_name,
-                "model": profile.model,
-                "prompt_version": profile.prompt_version,
-                "generated_at": profile.generated_at,
-                "n_statements": profile.n_statements,
-                "n_hearings": profile.n_hearings,
-                "hearing_ids": list(profile.hearing_ids),
-                "input_tokens": profile.input_tokens,
-                "output_tokens": profile.output_tokens,
-                "source_sha256": self.source_sha256,
-            },
+            "provenance": profile_provenance(profile, self.run_name, self.source_sha256),
             "match": self.match_block(),
             "counts": counts,
             "sections": sections,
@@ -573,11 +359,10 @@ class ProfileSiteBuilder:
         }
 
     def write(self, output_dir: Path, run: Mapping[str, Any] | None) -> ProfileSiteExport:
+        """Write every actor page and then ``actors.json`` to ``output_dir``."""
         profiles_dir = output_dir / PROFILES_DIR_NAME
         summaries: list[JsonObject] = []
         profile_bytes: dict[str, int] = {}
-        models = sorted({profile.model for profile in self.profiles})
-        versions = sorted({profile.prompt_version for profile in self.profiles})
         for profile in self.profiles:
             page, summary = self.actor_page(profile)
             path = profiles_dir / f"{summary['slug']}.json"
@@ -588,8 +373,8 @@ class ProfileSiteBuilder:
             "run": dict(run) if run is not None else None,
             "profiles": {
                 "run": self.run_name,
-                "models": models,
-                "prompt_versions": versions,
+                "models": sorted({profile.model for profile in self.profiles}),
+                "prompt_versions": sorted({profile.prompt_version for profile in self.profiles}),
                 "source_sha256": self.source_sha256,
                 "match": self.match_block(),
             },
@@ -600,22 +385,6 @@ class ProfileSiteBuilder:
         actors_path = output_dir / ACTORS_FILE_NAME
         write_json(actors, actors_path)
         return ProfileSiteExport(actors, actors_path.stat().st_size, profile_bytes)
-
-
-def check_profile_input(profile: ProfileRecord, record: ActorSpeechRecord) -> None:
-    turns = {hearing.hearing_id: len(hearing.turns) for hearing in record.hearings}
-    unknown = sorted(set(profile.hearing_ids) - turns.keys())
-    if unknown:
-        raise ConfigError(
-            f"profile of {profile.actor}: hearings {unknown[:3]} are not in the actor speeches"
-        )
-    read = sum(turns[hearing_id] for hearing_id in profile.hearing_ids)
-    if read != profile.n_statements or len(profile.hearing_ids) != profile.n_hearings:
-        raise ConfigError(
-            f"profile of {profile.actor}: {profile.n_statements} statements in "
-            f"{profile.n_hearings} hearings, but the actor speeches have {read} turns in "
-            f"{len(profile.hearing_ids)} of them; the profiles come from another actor pass"
-        )
 
 
 def clear_profile_site(output_dir: Path) -> None:

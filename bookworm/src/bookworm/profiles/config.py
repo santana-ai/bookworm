@@ -1,20 +1,34 @@
-"""Configuration of the actor speeches split filter and of profile generation."""
+"""Configuration of the actor speeches split filter, of profile generation and validation."""
 
 import copy
 from collections.abc import Mapping
+from itertools import pairwise
 from pathlib import Path
 from typing import Any, Self
 
 from pydantic import Field, ValidationError, model_validator
 
-from bookworm.config import read_toml, required, section
-from bookworm.data.splits import SPLIT_NAMES
+from bookworm.config import (
+    DEFAULT_ENCODER_KIND,
+    SPLIT_VERSION_PATTERN,
+    EncoderSettings,
+    read_toml,
+    required,
+    section,
+)
+from bookworm.data.splits import SPLIT_NAMES, SplitName
 from bookworm.errors import ConfigError
-from bookworm.models import ConfigModel
+from bookworm.models import ConfigModel, StrictModel
+from bookworm.profiles.schemas import Group
+from bookworm.udv.schemas import Tier
 
 PACKAGED_PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 DEFAULT_SYSTEM_PROFILE = "system_profile.md"
 DEFAULT_USER_PROFILE = "user_profile.md.j2"
+DEFAULT_TIERS: tuple[Tier, ...] = ("quote_found", "semantic_match_high")
+DEFAULT_GENERATION_SPLITS: tuple[SplitName, ...] = ("train",)
+DEFAULT_HELD_OUT_SPLITS: tuple[SplitName, ...] = ("test",)
+DEFAULT_CONFIDENCE_LEVEL = 0.95
 
 
 class ModelSettings(ConfigModel):
@@ -139,3 +153,119 @@ def load_split_filter_config(path: Path) -> SplitFilterConfig:
 
 def load_profiles_config(path: Path) -> ProfilesConfig:
     return ProfilesConfig.from_mapping(read_toml(path), origin=str(path))
+
+
+class ReviewSettings(StrictModel):
+    seed: int
+    sizes: dict[Group, int]
+    score_bands: list[float]
+    output: Path
+
+    @model_validator(mode="after")
+    def check_review(self) -> Self:
+        if any(size < 0 for size in self.sizes.values()):
+            raise ValueError("review sizes must be >= 0")
+        if any(high <= low for low, high in pairwise(self.score_bands)):
+            raise ValueError("score_bands must be strictly increasing")
+        return self
+
+
+class ProfileValidationConfig(StrictModel):
+    udv_path: Path
+    links_path: Path
+    profiles_path: Path
+    split_manifest: Path
+    tiers: list[Tier] = Field(min_length=1)
+    generation_splits: list[SplitName] = Field(min_length=1)
+    held_out_splits: list[SplitName] = Field(min_length=1)
+    encoder: EncoderSettings
+    cache_dir: Path
+    output_dir: Path
+    name: str = Field(pattern=SPLIT_VERSION_PATTERN)
+    seed: int
+    bootstrap_samples: int = Field(gt=0)
+    confidence_level: float = Field(gt=0, lt=1)
+    review: ReviewSettings
+    source: dict[str, Any]
+
+    @model_validator(mode="after")
+    def check_splits(self) -> Self:
+        for name, values in (
+            ("tiers", self.tiers),
+            ("generation_splits", self.generation_splits),
+            ("held_out_splits", self.held_out_splits),
+        ):
+            if len(set(values)) != len(values):
+                raise ValueError(f"{name} has repeated values: {values}")
+        shared = sorted(set(self.generation_splits) & set(self.held_out_splits))
+        if shared:
+            raise ValueError(f"splits {shared} are both generation and held-out splits")
+        return self
+
+    @property
+    def pairs_path(self) -> Path:
+        return self.output_dir / f"{self.name}_pairs.jsonl"
+
+    @property
+    def report_path(self) -> Path:
+        return self.output_dir / f"{self.name}_report.json"
+
+    @property
+    def review_sample_path(self) -> Path:
+        output = self.review.output
+        return output.with_name(f"{output.stem}_sample.json")
+
+    @property
+    def review_report_path(self) -> Path:
+        output = self.review.output
+        return output.with_name(f"{output.stem}_report.json")
+
+    @classmethod
+    def from_mapping(
+        cls, raw: Mapping[str, Any], origin: str = "<mapping>"
+    ) -> "ProfileValidationConfig":
+        source = copy.deepcopy(dict(raw))
+        validation = section(source, "validation", origin)
+        encoder = dict(section(validation, "encoder", f"{origin} [validation]"))
+        encoder.setdefault("kind", DEFAULT_ENCODER_KIND)
+        try:
+            review = section(source, "review", origin)
+            return cls.model_validate(
+                {
+                    "udv_path": Path(required(source, "inputs", "udv_path", origin)),
+                    "links_path": Path(required(source, "inputs", "links_path", origin)),
+                    "profiles_path": Path(required(source, "inputs", "profiles_path", origin)),
+                    "split_manifest": Path(required(source, "inputs", "split_manifest", origin)),
+                    "tiers": list(validation.get("tiers", DEFAULT_TIERS)),
+                    "generation_splits": list(
+                        validation.get("generation_splits", DEFAULT_GENERATION_SPLITS)
+                    ),
+                    "held_out_splits": list(
+                        validation.get("held_out_splits", DEFAULT_HELD_OUT_SPLITS)
+                    ),
+                    "encoder": encoder,
+                    "cache_dir": Path(required(source, "validation", "cache_dir", origin)),
+                    "output_dir": Path(required(source, "validation", "output_dir", origin)),
+                    "name": required(source, "validation", "name", origin),
+                    "seed": required(source, "validation", "seed", origin),
+                    "bootstrap_samples": required(
+                        source, "validation", "bootstrap_samples", origin
+                    ),
+                    "confidence_level": float(
+                        validation.get("confidence_level", DEFAULT_CONFIDENCE_LEVEL)
+                    ),
+                    "review": {
+                        "seed": required(source, "review", "seed", origin),
+                        "sizes": dict(required(source, "review", "sizes", origin)),
+                        "score_bands": [float(edge) for edge in review.get("score_bands", [])],
+                        "output": Path(required(source, "review", "output", origin)),
+                    },
+                    "source": source,
+                }
+            )
+        except (ValidationError, TypeError, ValueError) as error:
+            raise ConfigError(f"{origin}: {error}") from error
+
+
+def load_profile_validation_config(path: Path) -> ProfileValidationConfig:
+    return ProfileValidationConfig.from_mapping(read_toml(path), origin=str(path))
