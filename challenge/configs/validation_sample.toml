@@ -118,3 +118,16 @@ name = "semantic_match_high_tolerant_precision"
 stratum = "semantic_match_high"
 metric = "tolerant_precision"
 min_wilson_lower = 0.75
+
+[udv_v2_supplement]
+inherit_relations = ["same", "superset"]
+declared_on = "2026-09-28"
+declaration = "Declared before any row of the udv_v2 supplementary sheet was judged. utils.udv_v2_analysis supplement-sheet copies this section into the supplementary annotation_key.json, and score-annotation refuses a key whose copy differs from this section."
+relation_rules = { same = "the udv_v2 evidence has the start_char, end_char and speaker_turn of the udv_v1 evidence", superset = "same speaker_turn, udv_v2 start_char <= udv_v1 start_char and udv_v2 end_char >= udv_v1 end_char, not same: the udv_v2 passage holds the whole udv_v1 passage and adds text of the same turn", moved = "any other case: another turn, a udv_v2 passage that leaves out part of the udv_v1 passage, or evidence in one run only", no_evidence = "no evidence in either run (the pessoa_falou items); the item keeps its udv_v1 label, as in the annotation plan" }
+multi_udv_rule = "an item is moved if any of its UDVs is moved, same if every UDV is same, no_evidence if every UDV is no_evidence, superset otherwise"
+inheritance_rule = "an item whose relation is in inherit_relations, or no_evidence, keeps its udv_v1 human label for udv_v2; only the moved items get a row in the supplementary sheet"
+label_independence = "the relation is computed from the udv_v1 and udv_v2 offsets and speaker turns only; no human label is read to decide which items are inherited"
+justification = "the text added to a superset passage belongs to the same speaker turn, so the text that supported a udv_v1 passage judged correta is still in the udv_v2 passage, and a passage judged parcial or incorreta can only keep or improve its support when text of the same speaker is added"
+consequence = "the udv_v2 precision is conservative with respect to the superset items judged parcial or incorreta in udv_v1, whose udv_v2 label could be better than the inherited one"
+assumption = "adding a sentence of the same speaker turn does not turn a passage that supports the statement into one that does not"
+sensitivity_rule = "the report also gives the precision with the superset items counted only when their udv_v1 label is correta (the others are left out of the denominator), next to the precision with every superset item inherited"

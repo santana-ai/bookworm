@@ -1,6 +1,6 @@
 {
   "name": "udv_v2_downstream",
-  "created_at": "2026-09-28T18:11:58+00:00",
+  "created_at": "2026-09-28T18:53:36+00:00",
   "purpose": "every stage downstream of the UDV run, rerun or checked on udv_v2, next to its udv_v1 value",
   "inputs": {
     "split_manifest": {
@@ -2469,8 +2469,19 @@
   "supplement_annotation": {
     "path": "artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv",
     "key": "artifacts/validation/human_validation_v1_udv_v2_supplement/annotation_key.json",
-    "rows_to_judge": 104,
-    "score_command": "uv run python -m utils.udv_v2_analysis score-annotation --final-test --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement"
+    "score_command": "uv run python -m utils.udv_v2_analysis score-annotation --final-test --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement",
+    "rows_to_judge": 26,
+    "inherited_items": 101,
+    "relation_counts": {
+      "pessoa_falou": {
+        "no_evidence": 6
+      },
+      "trecho_sustenta": {
+        "same": 17,
+        "superset": 78,
+        "moved": 26
+      }
+    }
   },
   "colleague_command": {
     "cwd": "challenge",
@@ -2493,7 +2504,7 @@
     }
   ],
   "code": {
-    "utils/udv_v2_downstream.py": "80b738fe5fa053167efef15e2529fd0b3aa256ed56158276d57638b21b39ab0b",
+    "utils/udv_v2_downstream.py": "edebe5a22a3703b8c60e72cc2c1ec6d09a852b52c33545892fb01ef8e7420b3a",
     "utils/actor_simulation.py": "b1a0d2ba9775108d20c4179dfc8a1eb840e97dfd374c62349a5d2aa6215a8ab6",
     "utils/evaluate_actor_simulation.py": "2b543989bcd84e8292401c1f7ba6ffd837bd35bf1054a7fa64422f89b1bc4c61"
   }

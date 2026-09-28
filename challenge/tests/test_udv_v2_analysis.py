@@ -322,9 +322,13 @@ def test_supplement_rows_show_the_v2_evidence_of_reannotated_items_only():
             "A002": plan_entry("inherit", "direct_quote", ["b"], "trecho_sustenta"),
         }
     }
-    entries = analysis.reannotated_records(plan, v2)
-    assert [(item_id, record["id"], name) for item_id, record, name in entries] == [
-        ("A001", "a", "semantic_match_high")
+    relations = {
+        "A001": {"relation": "moved", "inherited": False},
+        "A002": {"relation": "superset", "inherited": True},
+    }
+    entries = analysis.reannotated_records(plan, relations, v2)
+    assert [(item_id, record["id"], name, rel) for item_id, record, name, rel in entries] == [
+        ("A001", "a", "semantic_match_high", "moved")
     ]
     view = {
         "transcript": transcript,
@@ -338,26 +342,29 @@ def test_supplement_rows_show_the_v2_evidence_of_reannotated_items_only():
     assert list(items) == ["C001"]
     item = items["C001"]
     assert item["v1_item_id"] == "A001" and item["stratum"] == "semantic_match_high"
+    assert item["v1_relation"] == "moved"
     assert item["display"]["trecho"] == window
     assert item["display"]["contexto_antes"].endswith("Primeira frase dita.")
     rows = analysis.sheet_rows(items)
     assert rows[0]["julgamento"] == "" and "v1_item_id" not in rows[0]
+    assert "v1_relation" not in rows[0]
 
 
 def test_reannotated_records_refuse_items_without_v2_evidence():
+    relations = {"A001": {"relation": "moved", "inherited": False}}
     plan = {"item_plan": {"A001": plan_entry("reannotate", None, ["a"], "trecho_sustenta")}}
     with pytest.raises(SystemExit, match="no evidence stratum"):
-        analysis.reannotated_records(plan, {"a": udv("a", "no_evidence", None)})
+        analysis.reannotated_records(plan, relations, {"a": udv("a", "no_evidence", None)})
     plan = {"item_plan": {"A001": plan_entry("reannotate", "speaker_check", ["a"], "pessoa_falou")}}
     with pytest.raises(SystemExit, match="single-UDV evidence"):
-        analysis.reannotated_records(plan, {"a": udv("a", "no_evidence", None)})
+        analysis.reannotated_records(plan, relations, {"a": udv("a", "no_evidence", None)})
 
 
 def scored_plan(sample):
     item_plan = {
         "A001": {"action": "reannotate", "v2_stratum": "direct_quote", "v2_tiers": ["quote_found"]},
         "A002": {
-            "action": "inherit",
+            "action": "reannotate",
             "v2_stratum": "semantic_match_high",
             "v2_tiers": ["semantic_match_high"],
         },
@@ -378,9 +385,19 @@ def scored_plan(sample):
 SUPPLEMENT_DISPLAY = {**DISPLAY, "trecho": "t v2"}
 
 
+def config_inheritance():
+    config = analysis.load_validation_config(analysis.Path("configs/validation_sample.toml"))
+    return analysis.load_inheritance(config)
+
+
+def inherited_entry(relation, question, stratum):
+    return {"relation": relation, "question": question, "v2_stratum": stratum, "v2_tiers": []}
+
+
 def write_supplement(folder, key, sample, plan_path):
     folder.mkdir()
     criteria = key["criteria"]
+    inheritance = config_inheritance()
     supplement = {
         "role": "annotation",
         "kind": analysis.SUPPLEMENT_KIND,
@@ -393,7 +410,14 @@ def write_supplement(folder, key, sample, plan_path):
         "plan": {"sha256": analysis.sha256_of_file(plan_path)},
         "criteria": criteria,
         "criteria_sha256": analysis.canonical_sha256(criteria),
+        "inheritance": inheritance,
+        "inheritance_sha256": analysis.canonical_sha256(inheritance),
         "strata": key["strata"],
+        "inherited_items": {
+            "A002": inherited_entry("superset", "trecho_sustenta", "semantic_match_high"),
+            "A003": inherited_entry("no_evidence", "pessoa_falou", "speaker_check"),
+            "A004": inherited_entry("same", "trecho_sustenta", None),
+        },
         "items": {
             "C001": {
                 "question": "trecho_sustenta",
@@ -403,6 +427,7 @@ def write_supplement(folder, key, sample, plan_path):
                 "quote_cue_in_trecho": True,
                 "display": SUPPLEMENT_DISPLAY,
                 "v1_item_id": "A001",
+                "v1_relation": "moved",
             }
         },
     }
@@ -472,13 +497,27 @@ def test_score_command_combines_inherited_and_supplementary_judgments(tmp_path):
     assert quotes["strict_precision"]["successes"] == 0 and quotes["judged_udvs"] == 1
     assert final["udv_v1"]["strata"]["direct_quote"]["strict_precision"]["successes"] == 1
     assert final["udv_v2"]["criteria"][0]["status"] == "FAIL"
-    assert final["udv_v2"]["sources_by_stratum"]["direct_quote"] == {
-        "inherited": 0,
-        "reannotated": 1,
+    combined = final["udv_v2"]
+    assert combined["sources_by_stratum"]["direct_quote"] == {
+        "superset": 0,
+        "moved": 1,
+        "no_evidence": 0,
     }
+    assert combined["sources"]["superset"] == {
+        "label_from": "udv_v1 sheet",
+        "items": 1,
+        "judged": 1,
+    }
+    assert combined["sources"]["moved"]["label_from"] == "supplementary sheet"
+    assert combined["by_tier"]["quote_found"]["strict_precision"]["successes"] == 0
+    sensitivity = combined["sensitivity"]
+    assert sensitivity["superset_left_out_items"] == ["A002"]
+    inherited = sensitivity["superset_inherited"]["by_stratum"]["semantic_match_high"]
+    assert inherited["tolerant_precision"]["successes"] == 1
+    assert "semantic_match_high" not in sensitivity["superset_only_if_v1_correta"]["by_stratum"]
 
 
-def test_load_supplement_refuses_another_plan(tmp_path):
+def test_load_supplement_refuses_another_plan_or_inheritance(tmp_path):
     key = scored_key()
     sample = tmp_path / "sample"
     sample.mkdir()
@@ -487,9 +526,77 @@ def test_load_supplement_refuses_another_plan(tmp_path):
     plan = scored_plan(sample)
     plan_path.write_text(json.dumps(plan))
     folder = tmp_path / "supplement"
-    write_supplement(folder, key, sample, plan_path)
-    loaded = analysis.load_supplement(folder, sample / "annotation_key.json", plan, plan_path)
+    supplement = write_supplement(folder, key, sample, plan_path)
+    inheritance = config_inheritance()
+    key_path = sample / "annotation_key.json"
+    loaded = analysis.load_supplement(folder, key_path, plan, plan_path, inheritance)
     assert list(loaded["items"]) == ["C001"]
+    only_same = {**inheritance, "inherit_relations": ["same"]}
+    with pytest.raises(SystemExit, match="differs from the config"):
+        analysis.load_supplement(folder, key_path, plan, plan_path, only_same)
+    edited = {**supplement, "inheritance": only_same}
+    (folder / "annotation_key.json").write_text(json.dumps(edited))
+    with pytest.raises(SystemExit, match="edited after the sheet was drawn"):
+        analysis.load_supplement(folder, key_path, plan, plan_path, inheritance)
+    missing = {**supplement, "inherited_items": {"A003": supplement["inherited_items"]["A003"]}}
+    (folder / "annotation_key.json").write_text(json.dumps(missing))
+    with pytest.raises(SystemExit, match="do not cover the plan"):
+        analysis.load_supplement(folder, key_path, plan, plan_path, inheritance)
     plan_path.write_text(json.dumps({**plan, "rule": "changed"}))
     with pytest.raises(SystemExit, match="another annotation plan"):
-        analysis.load_supplement(folder, sample / "annotation_key.json", plan, plan_path)
+        analysis.load_supplement(folder, key_path, plan, plan_path, inheritance)
+
+
+def spanned(udv_id: str, start: int, end: int, turn: int = 1) -> dict:
+    record = udv(udv_id, "semantic_match_high", "x" * (end - start), start)
+    record["evidence"]["speaker_turn"] = turn
+    return record
+
+
+def test_evidence_relation_uses_offsets_and_turn_only():
+    first = spanned("a", 10, 20)
+    assert analysis.evidence_relation(first, spanned("a", 10, 20)) == "same"
+    assert analysis.evidence_relation(first, spanned("a", 5, 20)) == "superset"
+    assert analysis.evidence_relation(first, spanned("a", 10, 40)) == "superset"
+    assert analysis.evidence_relation(first, spanned("a", 12, 40)) == "moved"
+    assert analysis.evidence_relation(first, spanned("a", 5, 30, turn=2)) == "moved"
+    empty = udv("a", "no_evidence", None)
+    assert analysis.evidence_relation(empty, empty) == "no_evidence"
+    assert analysis.evidence_relation(first, empty) == "moved"
+    assert analysis.item_relation(["same", "superset"]) == "superset"
+    assert analysis.item_relation(["same", "same"]) == "same"
+    assert analysis.item_relation(["superset", "moved"]) == "moved"
+    assert analysis.item_relation(["no_evidence", "same"]) == "moved"
+
+
+def test_item_relations_follow_the_config_and_check_the_plan():
+    inheritance = config_inheritance()
+    assert inheritance["inherit_relations"] == ["same", "superset"]
+    key = key_with_items()
+    v1 = {
+        "a": spanned("a", 10, 20),
+        "b": spanned("b", 10, 20),
+        "c": udv("c", "person_not_resolved", None),
+        "d": udv("d", "no_evidence", None),
+    }
+    v2 = {**v1, "a": spanned("a", 0, 30), "b": spanned("b", 15, 30)}
+    plan = {
+        "item_plan": {
+            "A001": {"action": "reannotate"},
+            "A002": {"action": "reannotate"},
+            "A003": {"action": "inherit"},
+        }
+    }
+    relations = analysis.item_relations(key, plan, v1, v2, inheritance)
+    assert {item: (entry["relation"], entry["inherited"]) for item, entry in relations.items()} == {
+        "A001": ("superset", True),
+        "A002": ("moved", False),
+        "A003": ("no_evidence", True),
+    }
+    strict = analysis.item_relations(
+        key, plan, v1, v2, {**inheritance, "inherit_relations": ["same"]}
+    )
+    assert strict["A001"]["inherited"] is False
+    plan["item_plan"]["A001"]["action"] = "inherit"
+    with pytest.raises(SystemExit, match="disagrees with the annotation plan"):
+        analysis.item_relations(key, plan, v1, v2, inheritance)

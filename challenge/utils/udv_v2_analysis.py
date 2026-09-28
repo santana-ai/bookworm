@@ -29,6 +29,7 @@ from utils.generate_validation_sample import (
     require_final_test,
     sheet_rows,
     validate_annotation,
+    wilson_interval,
     write_annotation_csv,
     write_transcripts,
 )
@@ -53,15 +54,17 @@ SUPPLEMENT_KIND = "udv_v2_supplement"
 SUPPLEMENT_ITEM_PREFIX = "C"
 SUPPLEMENT_ORDER_STREAM = 4
 SUPPLEMENT_RULE = (
-    "one row per item of the udv_v1 sample whose action in the annotation plan is reannotate: the "
-    "same sampled opinion, shown with its udv_v2 evidence, context and link; the rows are put in "
-    "a new random order and get new item ids, and the udv_v1 item id is kept in the key only"
+    "one row per item of the udv_v1 sample whose udv_v2 evidence is moved under the relation "
+    "rules of the inheritance section: the same sampled opinion, shown with its udv_v2 evidence, "
+    "context and link; the rows are put in a new random order and get new item ids, and the "
+    "udv_v1 item id and relation are kept in the key only"
 )
 COMBINED_RULE = (
-    "udv_v2 precision per stratum from every item of the udv_v1 sample: an item whose evidence did "
-    "not change keeps its judgment from the udv_v1 sheet, and an item whose evidence changed "
-    "counts only with its judgment from the supplementary sheet; the stratum of an item is the "
-    "stratum of its udv_v2 records, and the population is the udv_v2 count of the sampled splits"
+    "udv_v2 precision per stratum from every item of the udv_v1 sample: an item whose udv_v2 "
+    "evidence is same, superset or no_evidence (inheritance section of the supplementary key) "
+    "keeps its judgment from the udv_v1 sheet, and a moved item counts only with its judgment "
+    "from the supplementary sheet; the stratum of an item is the stratum of its udv_v2 records, "
+    "and the population is the udv_v2 count of the sampled splits"
 )
 COMBINED_CAVEATS = [
     "the items were drawn from the udv_v1 strata; an item that changed stratum in udv_v2 keeps "
@@ -71,7 +74,23 @@ COMBINED_CAVEATS = [
     "represented only through the items that were drawn",
     "the supplementary rows show opinions the annotator already judged with their udv_v1 passage, "
     "so their judgments are not independent of the first sheet",
+    "a superset item keeps a udv_v1 label given to a shorter passage; the inheritance section "
+    "states the assumption this rests on",
 ]
+RELATIONS = ("same", "superset", "moved", "no_evidence")
+INHERITANCE_FIELDS = (
+    "inherit_relations",
+    "declared_on",
+    "declaration",
+    "relation_rules",
+    "multi_udv_rule",
+    "inheritance_rule",
+    "label_independence",
+    "justification",
+    "consequence",
+    "assumption",
+    "sensitivity_rule",
+)
 DEFAULT_PATHS: Record = {
     "v1": "artifacts/udv/udv_v1.jsonl",
     "v2": "artifacts/udv/udv_v2.jsonl",
@@ -102,6 +121,66 @@ def evidence_identity(record: Record) -> tuple[Any, ...] | None:
 
 def same_evidence(first: Record, second: Record) -> bool:
     return evidence_identity(first) == evidence_identity(second)
+
+
+def evidence_relation(old: Record, new: Record) -> str:
+    first, second = old.get("evidence"), new.get("evidence")
+    if first is None and second is None:
+        return "no_evidence"
+    if first is None or second is None or first["speaker_turn"] != second["speaker_turn"]:
+        return "moved"
+    if (first["start_char"], first["end_char"]) == (second["start_char"], second["end_char"]):
+        return "same"
+    if second["start_char"] <= first["start_char"] and second["end_char"] >= first["end_char"]:
+        return "superset"
+    return "moved"
+
+
+def item_relation(relations: list[str]) -> str:
+    found = set(relations)
+    if "moved" in found or ("no_evidence" in found and len(found) > 1):
+        return "moved"
+    if found == {"no_evidence"}:
+        return "no_evidence"
+    if found == {"same"}:
+        return "same"
+    return "superset"
+
+
+def load_inheritance(config: ValidationConfig) -> Record:
+    section: Record = dict(config.source.get("udv_v2_supplement", {}))
+    missing = [name for name in INHERITANCE_FIELDS if name not in section]
+    if missing:
+        raise SystemExit(f"udv_v2_supplement must define {missing}")
+    inherit = section["inherit_relations"]
+    if "same" not in inherit or not set(inherit) <= {"same", "superset"}:
+        raise SystemExit("udv_v2_supplement.inherit_relations must hold same and at most superset")
+    if set(section["relation_rules"]) != set(RELATIONS):
+        raise SystemExit(f"udv_v2_supplement.relation_rules must define exactly {RELATIONS}")
+    return section
+
+
+def is_inherited(relation: str, inheritance: Record) -> bool:
+    return relation == "no_evidence" or relation in inheritance["inherit_relations"]
+
+
+def item_relations(
+    key: Record, plan: Record, v1: dict[str, Record], v2: dict[str, Record], inheritance: Record
+) -> dict[str, Record]:
+    relations: dict[str, Record] = {}
+    for item_id, item in sorted(key["items"].items()):
+        by_udv = {udv: evidence_relation(v1[udv], v2[udv]) for udv in item["udv_ids"]}
+        relation = item_relation(list(by_udv.values()))
+        identical = plan["item_plan"][item_id]["action"] == "inherit"
+        if identical != (relation in ("same", "no_evidence")):
+            raise SystemExit(f"{item_id}: relation {relation} disagrees with the annotation plan")
+        relations[item_id] = {
+            "question": item["question"],
+            "relation": relation,
+            "udv_relations": by_udv,
+            "inherited": is_inherited(relation, inheritance),
+        }
+    return relations
 
 
 def part_count(text: str) -> int:
@@ -592,14 +671,22 @@ def run_results(
     return {"strata": precision.round_floats(results), "criteria": precision.round_floats(rules)}
 
 
-def inherited_items(key: Record, plan: Record) -> tuple[dict[str, Record], dict[str, int]]:
+def plan_items(key: Record, plan: Record, item_ids: set[str]) -> dict[str, Record]:
     items: dict[str, Record] = {}
     for item_id, entry in plan["item_plan"].items():
-        if entry["action"] != "inherit" or entry["v2_stratum"] is None:
+        if item_id not in item_ids or entry["v2_stratum"] is None:
             continue
         tiers = set(entry["v2_tiers"])
         tier = entry["v2_tiers"][0] if len(tiers) == 1 else key["items"][item_id]["tier"]
         items[item_id] = {**key["items"][item_id], "stratum": entry["v2_stratum"], "tier": tier}
+    return items
+
+
+def inherited_items(key: Record, plan: Record) -> tuple[dict[str, Record], dict[str, int]]:
+    identical = {
+        item_id for item_id, entry in plan["item_plan"].items() if entry["action"] == "inherit"
+    }
+    items = plan_items(key, plan, identical)
     counts = Counter(str(item["stratum"]) for item in items.values())
     return items, dict(counts)
 
@@ -617,22 +704,24 @@ def key_strata(key: Record) -> dict[str, Stratum]:
     }
 
 
-def reannotated_records(plan: Record, v2: dict[str, Record]) -> list[tuple[str, Record, str]]:
-    entries: list[tuple[str, Record, str]] = []
+def reannotated_records(
+    plan: Record, relations: dict[str, Record], v2: dict[str, Record]
+) -> list[tuple[str, Record, str, str]]:
+    entries: list[tuple[str, Record, str, str]] = []
     for item_id, entry in sorted(plan["item_plan"].items()):
-        if entry["action"] != "reannotate":
+        if relations[item_id]["inherited"]:
             continue
         if entry["question"] != precision.SUPPORT_QUESTION or len(entry["udv_ids"]) != 1:
             raise SystemExit(f"{item_id}: only single-UDV evidence items can be reannotated")
         record = v2[entry["udv_ids"][0]]
         if record.get("evidence") is None or entry["v2_stratum"] is None:
             raise SystemExit(f"{item_id}: the udv_v2 record has no evidence stratum")
-        entries.append((item_id, record, str(entry["v2_stratum"])))
+        entries.append((item_id, record, str(entry["v2_stratum"]), relations[item_id]["relation"]))
     return entries
 
 
 def supplement_items(
-    entries: list[tuple[str, Record, str]],
+    entries: list[tuple[str, Record, str, str]],
     views: dict[int, Record],
     strata: dict[str, Stratum],
     chars: int,
@@ -642,10 +731,34 @@ def supplement_items(
         {
             **evidence_item(record, views[record["hearing_id"]], strata[name], chars),
             "v1_item_id": item_id,
+            "v1_relation": relation,
         }
-        for item_id, record, name in entries
+        for item_id, record, name, relation in entries
     ]
     return assign_item_ids(items, rng, SUPPLEMENT_ITEM_PREFIX)
+
+
+def inherited_section(plan: Record, relations: dict[str, Record]) -> dict[str, Record]:
+    return {
+        item_id: {
+            "relation": relation["relation"],
+            "question": relation["question"],
+            "v2_stratum": plan["item_plan"][item_id]["v2_stratum"],
+            "v2_tiers": plan["item_plan"][item_id]["v2_tiers"],
+        }
+        for item_id, relation in sorted(relations.items())
+        if relation["inherited"]
+    }
+
+
+def relation_counts(relations: dict[str, Record]) -> Record:
+    by_question: dict[str, Counter[str]] = {}
+    for relation in relations.values():
+        by_question.setdefault(relation["question"], Counter())[relation["relation"]] += 1
+    return {
+        question: {name: counts[name] for name in RELATIONS if counts[name]}
+        for question, counts in sorted(by_question.items())
+    }
 
 
 def supplement_rng(config: ValidationConfig) -> np.random.Generator:
@@ -667,7 +780,8 @@ def supplement_key(
     key_path: Path,
     plan: Record,
     plan_path: Path,
-    v2_path: Path,
+    runs: dict[str, Path],
+    inheritance: Record,
     final_test: bool,
 ) -> Record:
     return {
@@ -680,12 +794,16 @@ def supplement_key(
         "splits_used": key["splits_used"],
         "splits_declared": key["splits_declared"],
         "rule": SUPPLEMENT_RULE,
+        "inheritance": inheritance,
+        "inheritance_sha256": canonical_sha256(inheritance),
         "base_sample": {
             "sample_name": key["sample_name"],
             "annotation_key": {"path": str(key_path), "sha256": sha256_of_file(key_path)},
         },
         "plan": {"path": str(plan_path), "sha256": sha256_of_file(plan_path)},
-        "run": {"run_name": "udv_v2", "path": str(v2_path), "sha256": sha256_of_file(v2_path)},
+        "runs": {
+            name: {"path": str(path), "sha256": sha256_of_file(path)} for name, path in runs.items()
+        },
         "population": {"unit": "UDV", "sampled_splits": plan["v2_population_sampled_splits"]},
         "strata": key["strata"],
         "criteria": key["criteria"],
@@ -696,22 +814,26 @@ def supplement_key(
 
 def command_supplement(args: argparse.Namespace) -> None:
     config = load_validation_config(args.config)
+    inheritance = load_inheritance(config)
     sample_dir = Path(args.sample_dir)
     key_path = sample_dir / ANNOTATION_KEY
     key = load_key(key_path, "annotation")
     require_final_test(key, args.final_test)
     plan_path = Path(args.plan)
     plan = load_plan(plan_path, key_path)
-    v2_path = Path(args.udv_v2)
-    if plan["inputs"]["udv_v2"]["sha256"] != sha256_of_file(v2_path):
-        raise SystemExit(f"{plan_path} was built from another {v2_path}")
+    runs = {"udv_v1": Path(args.udv_v1), "udv_v2": Path(args.udv_v2)}
+    for name, path in runs.items():
+        if plan["inputs"][name]["sha256"] != sha256_of_file(path):
+            raise SystemExit(f"{plan_path} was built from another {path}")
     output_dir = Path(args.output_dir)
     transcripts_dir = Path(args.transcripts_dir)
     ensure_new_dir(output_dir)
     ensure_new_dir(transcripts_dir)
-    v2 = {record["id"]: record for record in load_jsonl(v2_path)}
-    entries = reannotated_records(plan, v2)
-    hearing_ids = {record["hearing_id"] for _, record, _ in entries}
+    v1 = {record["id"]: record for record in load_jsonl(runs["udv_v1"])}
+    v2 = {record["id"]: record for record in load_jsonl(runs["udv_v2"])}
+    relations = item_relations(key, plan, v1, v2, inheritance)
+    entries = reannotated_records(plan, relations, v2)
+    hearing_ids = {record["hearing_id"] for _, record, _, _ in entries}
     views = {
         hearing["id"]: hearing_view(hearing)
         for hearing in load_gated_jsonl(config.lds_path, config.lds_sha256)
@@ -726,7 +848,8 @@ def command_supplement(args: argparse.Namespace) -> None:
     write_annotation_csv(rows, csv_path, config)
     rows_by_stratum = dict(sorted(Counter(item["stratum"] for item in items.values()).items()))
     supplement = {
-        **supplement_key(key, key_path, plan, plan_path, v2_path, args.final_test),
+        **supplement_key(key, key_path, plan, plan_path, runs, inheritance, args.final_test),
+        "relation_counts": relation_counts(relations),
         "sample": {name: {"rows": count} for name, count in rows_by_stratum.items()},
         "seeds": {
             "seed": config.seed,
@@ -743,16 +866,21 @@ def command_supplement(args: argparse.Namespace) -> None:
         },
         "transcripts": write_transcripts(views, transcripts_dir),
         "transcripts_dir": str(transcripts_dir),
+        "inherited_items": inherited_section(plan, relations),
         "items": items,
     }
     write_json(supplement, output_dir / ANNOTATION_KEY)
     print(f"{SUPPLEMENT_NAME}: {len(rows)} rows to judge -> {csv_path}")
+    for question, counts in supplement["relation_counts"].items():
+        print(f"  {question:26s} {counts}")
     for name, count in rows_by_stratum.items():
         print(f"  {name:26s} rows={count}")
     print(f"  transcripts in {transcripts_dir}")
 
 
-def load_supplement(path: Path, key_path: Path, plan: Record, plan_path: Path) -> Record:
+def load_supplement(
+    path: Path, key_path: Path, plan: Record, plan_path: Path, inheritance: Record
+) -> Record:
     supplement = load_key(path / ANNOTATION_KEY, "annotation")
     if supplement.get("kind") != SUPPLEMENT_KIND:
         raise SystemExit(f"{path / ANNOTATION_KEY} is not a {SUPPLEMENT_KIND} key")
@@ -762,13 +890,119 @@ def load_supplement(path: Path, key_path: Path, plan: Record, plan_path: Path) -
         raise SystemExit(f"{path} was drawn from another annotation plan")
     if supplement["criteria_sha256"] != canonical_sha256(supplement["criteria"]):
         raise SystemExit(f"{path}: the criteria differ from the ones declared with the sample")
-    expected = {
-        item_id for item_id, entry in plan["item_plan"].items() if entry["action"] == "reannotate"
-    }
+    if supplement["inheritance_sha256"] != canonical_sha256(supplement["inheritance"]):
+        raise SystemExit(f"{path}: the inheritance section was edited after the sheet was drawn")
+    if supplement["inheritance_sha256"] != canonical_sha256(inheritance):
+        raise SystemExit(f"{path}: the inheritance section differs from the config")
+    inherited = supplement["inherited_items"]
     covered = [item["v1_item_id"] for item in supplement["items"].values()]
-    if sorted(covered) != sorted(expected):
-        raise SystemExit(f"{path}: the rows do not cover the reannotate items of the plan once")
+    if len(set(covered)) != len(covered) or set(covered) & set(inherited):
+        raise SystemExit(f"{path}: an item of the udv_v1 sample is covered more than once")
+    if set(covered) | set(inherited) != set(plan["item_plan"]):
+        raise SystemExit(f"{path}: the rows and the inherited items do not cover the plan")
+    identical = {
+        item_id for item_id, entry in plan["item_plan"].items() if entry["action"] == "inherit"
+    }
+    for item_id, entry in inherited.items():
+        if not is_inherited(entry["relation"], inheritance):
+            raise SystemExit(f"{path}: {item_id} is inherited with relation {entry['relation']}")
+        if (item_id in identical) != (entry["relation"] in ("same", "no_evidence")):
+            raise SystemExit(f"{path}: {item_id} relation disagrees with the annotation plan")
+    for item in supplement["items"].values():
+        if is_inherited(item["v1_relation"], inheritance) or item["v1_item_id"] in identical:
+            raise SystemExit(f"{path}: {item['v1_item_id']} has a row but would be inherited")
     return supplement
+
+
+def support_precision(
+    items: dict[str, Record], judged: dict[str, Record], field: str, rc: precision.ReportConfig
+) -> Record:
+    groups: dict[str, list[str]] = {}
+    for item_id, item in items.items():
+        if item["question"] != precision.SUPPORT_QUESTION:
+            continue
+        for _ in item["udv_ids"]:
+            groups.setdefault(str(item[field]), []).append(judged[item_id]["judgment"])
+    result: Record = {}
+    for name, labels in sorted(groups.items()):
+        strict = sum(1 for label in labels if label in rc.strict_success)
+        tolerant = sum(1 for label in labels if label in rc.tolerant_success)
+        result[name] = {
+            "judged_udvs": len(labels),
+            "strict_precision": wilson_interval(strict, len(labels), rc.confidence_level),
+            "tolerant_precision": wilson_interval(tolerant, len(labels), rc.confidence_level),
+        }
+    return precision.round_floats(result)
+
+
+def item_sources(inherited: dict[str, Record], supplement: Record) -> dict[str, tuple[str, str]]:
+    sources = {
+        item_id: (supplement["inherited_items"][item_id]["relation"], "udv_v1 sheet")
+        for item_id in inherited
+    }
+    for item_id, item in supplement["items"].items():
+        sources[item_id] = (item["v1_relation"], "supplementary sheet")
+    return sources
+
+
+def source_counts(
+    items: dict[str, Record],
+    judged_items: dict[str, Record],
+    sources: dict[str, tuple[str, str]],
+    names: list[str],
+) -> tuple[Record, Record]:
+    totals: Record = {}
+    for relation, sheet in sorted(set(sources.values()), key=lambda pair: RELATIONS.index(pair[0])):
+        members = [item_id for item_id in items if sources[item_id] == (relation, sheet)]
+        totals[relation] = {
+            "label_from": sheet,
+            "items": len(members),
+            "judged": sum(1 for item_id in members if item_id in judged_items),
+        }
+    by_stratum = {
+        name: {
+            relation: sum(
+                1
+                for item_id, item in items.items()
+                if item["stratum"] == name and sources[item_id][0] == relation
+            )
+            for relation in totals
+        }
+        for name in names
+    }
+    return totals, by_stratum
+
+
+def sensitivity_section(
+    judged_items: dict[str, Record],
+    judged: dict[str, Record],
+    sources: dict[str, tuple[str, str]],
+    inheritance: Record,
+    rc: precision.ReportConfig,
+) -> Record:
+    left_out = sorted(
+        item_id
+        for item_id in judged_items
+        if sources[item_id] == ("superset", "udv_v1 sheet")
+        and judged[item_id]["judgment"] not in rc.strict_success
+    )
+    kept = {item_id: item for item_id, item in judged_items.items() if item_id not in left_out}
+    return {
+        "rule": inheritance["sensitivity_rule"],
+        "superset_judged": sum(
+            1 for item_id in judged_items if sources[item_id] == ("superset", "udv_v1 sheet")
+        ),
+        "superset_left_out": len(left_out),
+        "superset_left_out_items": left_out,
+        "superset_inherited": {
+            "by_stratum": support_precision(judged_items, judged, "stratum", rc),
+            "by_tier": support_precision(judged_items, judged, "tier", rc),
+        },
+        "superset_only_if_v1_correta": {
+            "by_stratum": support_precision(kept, judged, "stratum", rc),
+            "by_tier": support_precision(kept, judged, "tier", rc),
+        },
+    }
 
 
 def combined_results(
@@ -780,7 +1014,7 @@ def combined_results(
     config: Any,
     rc: precision.ReportConfig,
 ) -> Record:
-    inherited, _ = inherited_items(key, plan)
+    inherited = plan_items(key, plan, set(supplement["inherited_items"]))
     items = {**inherited, **supplement["items"]}
     judged = {
         **{item_id: v1_valid[item_id] for item_id in inherited if item_id in v1_valid},
@@ -790,28 +1024,36 @@ def combined_results(
     names = [stratum["name"] for stratum in key["strata"]]
     population = {name: plan["v2_population_sampled_splits"].get(name, 0) for name in names}
     sample_items = dict(Counter(str(item["stratum"]) for item in items.values()))
-    sources = {
-        name: {
-            "inherited": sum(1 for item in inherited.values() if item["stratum"] == name),
-            "reannotated": sum(
-                1 for item in supplement["items"].values() if item["stratum"] == name
-            ),
-        }
-        for name in names
-    }
+    sources = item_sources(inherited, supplement)
+    totals, by_stratum = source_counts(items, judged_items, sources, names)
     complete = len(judged_items) == len(items)
     decision_valid = complete and not key["dry_run"] and not supplement["dry_run"]
+    inheritance = supplement["inheritance"]
     return {
         "status": "final" if complete else "interim",
         "rule": COMBINED_RULE,
+        "inheritance": {
+            name: inheritance[name]
+            for name in (
+                "inherit_relations",
+                "relation_rules",
+                "inheritance_rule",
+                "justification",
+                "consequence",
+                "assumption",
+            )
+        },
         "caveats": COMBINED_CAVEATS,
         "items_in_sample": len(items),
         "judged": f"{len(judged_items)} of {len(items)}",
         "judged_inherited": sum(1 for item_id in judged_items if item_id in inherited),
         "judged_reannotated": sum(1 for item_id in judged_items if item_id in supplement["items"]),
-        "sources_by_stratum": sources,
+        "sources": totals,
+        "sources_by_stratum": by_stratum,
+        "by_tier": support_precision(judged_items, judged, "tier", rc),
+        "sensitivity": sensitivity_section(judged_items, judged, sources, inheritance, rc),
         **run_results(
-            {**key, "sample": sources},
+            {**key, "sample": by_stratum},
             judged_items,
             judged,
             population,
@@ -833,7 +1075,13 @@ def supplement_results(
 ) -> tuple[Record, Record]:
     sample_dir = Path(args.sample_dir)
     supplement_dir = Path(args.supplement_dir)
-    supplement = load_supplement(supplement_dir, sample_dir / ANNOTATION_KEY, plan, Path(args.plan))
+    supplement = load_supplement(
+        supplement_dir,
+        sample_dir / ANNOTATION_KEY,
+        plan,
+        Path(args.plan),
+        load_inheritance(config),
+    )
     supplement_path = (
         Path(args.supplement_annotation)
         if args.supplement_annotation
@@ -978,6 +1226,40 @@ def print_score_summary(report: Record) -> None:
                 f"    criterion {rule['name']}: {rule['status']} "
                 f"(lower {rule['observed']['low']} vs {rule['min_wilson_lower']})"
             )
+    if "udv_v2" in report:
+        print_combined_extras(report["udv_v2"])
+
+
+def interval_text(interval: Record) -> str:
+    return f"{interval['estimate']} [{interval['low']}, {interval['high']}]"
+
+
+def print_combined_extras(combined: Record) -> None:
+    for relation, counts in combined["sources"].items():
+        print(
+            f"    source {relation:12s} items={counts['items']} judged={counts['judged']} "
+            f"label from the {counts['label_from']}"
+        )
+    for tier, result in combined["by_tier"].items():
+        print(
+            f"    tier {tier:21s} n={result['judged_udvs']} "
+            f"strict={interval_text(result['strict_precision'])} "
+            f"tolerant={interval_text(result['tolerant_precision'])}"
+        )
+    sensitivity = combined["sensitivity"]
+    print(
+        f"    sensitivity: {sensitivity['superset_left_out']} of "
+        f"{sensitivity['superset_judged']} judged superset items left out "
+        "(udv_v1 label not correta)"
+    )
+    inherited = sensitivity["superset_inherited"]["by_stratum"]
+    for name, kept in sensitivity["superset_only_if_v1_correta"]["by_stratum"].items():
+        print(
+            f"    {name:26s} strict {interval_text(inherited[name]['strict_precision'])} "
+            f"inherited vs {interval_text(kept['strict_precision'])} correta only; "
+            f"tolerant {interval_text(inherited[name]['tolerant_precision'])} vs "
+            f"{interval_text(kept['tolerant_precision'])}"
+        )
 
 
 def parse_args() -> argparse.Namespace:
@@ -1014,6 +1296,7 @@ def parse_args() -> argparse.Namespace:
     supplement.add_argument("--config", type=Path, default=Path("configs/validation_sample.toml"))
     supplement.add_argument("--sample-dir", default=DEFAULT_PATHS["sample_dir"])
     supplement.add_argument("--plan", default="artifacts/udv/udv_v2_annotation_plan.json")
+    supplement.add_argument("--udv-v1", default=DEFAULT_PATHS["v1"])
     supplement.add_argument("--udv-v2", default=DEFAULT_PATHS["v2"])
     supplement.add_argument("--final-test", action="store_true")
     supplement.add_argument(

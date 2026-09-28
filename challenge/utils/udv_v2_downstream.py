@@ -375,7 +375,6 @@ ARTIFACTS = (
 SUPPLEMENT = {
     "path": "artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv",
     "key": "artifacts/validation/human_validation_v1_udv_v2_supplement/annotation_key.json",
-    "rows_to_judge": 104,
     "score_command": (
         "uv run python -m utils.udv_v2_analysis score-annotation --final-test --annotation"
         " artifacts/validation/human_validation_v1_udv_v1/annotation.csv --supplement-dir"
@@ -411,6 +410,17 @@ NOT_RUN = (
         ),
     },
 )
+
+
+def supplement_section() -> Record:
+    with open(SUPPLEMENT["key"]) as f:
+        key = json.load(f)
+    return {
+        **SUPPLEMENT,
+        "rows_to_judge": len(key["items"]),
+        "inherited_items": len(key["inherited_items"]),
+        "relation_counts": key["relation_counts"],
+    }
 
 
 def code_hashes() -> dict[str, str]:
@@ -465,7 +475,7 @@ def build_report(profiles_path: Path) -> Record:
         "runs": runs,
         "question_overlap": question_overlap(questions["udv_v1"], questions["udv_v2"]),
         "results": {artifact.name: artifact_section(artifact) for artifact in ARTIFACTS},
-        "supplement_annotation": SUPPLEMENT,
+        "supplement_annotation": supplement_section(),
         "colleague_command": COLLEAGUE_COMMAND,
         "not_run": list(NOT_RUN),
         "code": code_hashes(),
