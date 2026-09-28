@@ -203,6 +203,8 @@ def test_score_command_reports_interim_precision_for_both_runs(tmp_path):
         plan=str(plan),
         final_test=False,
         output=str(output),
+        supplement_dir=None,
+        supplement_annotation=None,
     )
     analysis.command_score(args)
     report = json.loads(output.read_text())
@@ -286,3 +288,208 @@ def test_verifier_rule_is_the_midpoint_of_the_quantiles():
     assert result["pairs"]["queries"] == 8
     assert result["bootstrap"]["threshold"]["replicates"] == 50
     assert result["positives_below_threshold"] == 0
+
+
+def evidence_udv(udv_id: str, tier: str, text: str, start: int) -> dict:
+    record = udv(udv_id, tier, text, start)
+    record["evidence"]["speaker_turn"] = 0
+    record["proposition"] = "Disse que a frase importa."
+    record["actor"] = {"name": "Fulana", "role": "Deputada"}
+    return record
+
+
+def plan_entry(action: str, stratum: str | None, udv_ids: list[str], question: str) -> dict:
+    return {
+        "action": action,
+        "v2_stratum": stratum,
+        "v2_tiers": ["semantic_match_high"],
+        "udv_ids": udv_ids,
+        "question": question,
+    }
+
+
+def test_supplement_rows_show_the_v2_evidence_of_reannotated_items_only():
+    transcript = "Primeira frase dita. Segunda frase dita aqui. Terceira frase."
+    window = "Segunda frase dita aqui. Terceira frase."
+    start = transcript.index(window)
+    v2 = {
+        "a": evidence_udv("a", "semantic_match_high", window, start),
+        "b": evidence_udv("b", "quote_found", "Primeira frase dita.", 0),
+    }
+    plan = {
+        "item_plan": {
+            "A001": plan_entry("reannotate", "semantic_match_high", ["a"], "trecho_sustenta"),
+            "A002": plan_entry("inherit", "direct_quote", ["b"], "trecho_sustenta"),
+        }
+    }
+    entries = analysis.reannotated_records(plan, v2)
+    assert [(item_id, record["id"], name) for item_id, record, name in entries] == [
+        ("A001", "a", "semantic_match_high")
+    ]
+    view = {
+        "transcript": transcript,
+        "turns": [{"turn_index": 0, "start_char": 0, "end_char": len(transcript)}],
+        "headers": ["A SRA. FULANA"],
+    }
+    strata = analysis.key_strata(
+        {"strata": [{**key_with_items()["strata"][1], "question": "trecho_sustenta"}]}
+    )
+    items = analysis.supplement_items(entries, {1: view}, strata, 350, np.random.default_rng(0))
+    assert list(items) == ["C001"]
+    item = items["C001"]
+    assert item["v1_item_id"] == "A001" and item["stratum"] == "semantic_match_high"
+    assert item["display"]["trecho"] == window
+    assert item["display"]["contexto_antes"].endswith("Primeira frase dita.")
+    rows = analysis.sheet_rows(items)
+    assert rows[0]["julgamento"] == "" and "v1_item_id" not in rows[0]
+
+
+def test_reannotated_records_refuse_items_without_v2_evidence():
+    plan = {"item_plan": {"A001": plan_entry("reannotate", None, ["a"], "trecho_sustenta")}}
+    with pytest.raises(SystemExit, match="no evidence stratum"):
+        analysis.reannotated_records(plan, {"a": udv("a", "no_evidence", None)})
+    plan = {"item_plan": {"A001": plan_entry("reannotate", "speaker_check", ["a"], "pessoa_falou")}}
+    with pytest.raises(SystemExit, match="single-UDV evidence"):
+        analysis.reannotated_records(plan, {"a": udv("a", "no_evidence", None)})
+
+
+def scored_plan(sample):
+    item_plan = {
+        "A001": {"action": "reannotate", "v2_stratum": "direct_quote", "v2_tiers": ["quote_found"]},
+        "A002": {
+            "action": "inherit",
+            "v2_stratum": "semantic_match_high",
+            "v2_tiers": ["semantic_match_high"],
+        },
+        "A003": {"action": "inherit", "v2_stratum": "speaker_check", "v2_tiers": ["no_evidence"]},
+        "A004": {"action": "inherit", "v2_stratum": None, "v2_tiers": ["semantic_match_weak"]},
+    }
+    return {
+        "rule": "r",
+        "caveat": "c",
+        "item_plan": item_plan,
+        "v2_population_sampled_splits": {"direct_quote": 5, "semantic_match_high": 8},
+        "inputs": {
+            "annotation_key": {"sha256": analysis.sha256_of_file(sample / "annotation_key.json")}
+        },
+    }
+
+
+SUPPLEMENT_DISPLAY = {**DISPLAY, "trecho": "t v2"}
+
+
+def write_supplement(folder, key, sample, plan_path):
+    folder.mkdir()
+    criteria = key["criteria"]
+    supplement = {
+        "role": "annotation",
+        "kind": analysis.SUPPLEMENT_KIND,
+        "sample_name": analysis.SUPPLEMENT_NAME,
+        "dry_run": False,
+        "splits_used": key["splits_used"],
+        "base_sample": {
+            "annotation_key": {"sha256": analysis.sha256_of_file(sample / "annotation_key.json")}
+        },
+        "plan": {"sha256": analysis.sha256_of_file(plan_path)},
+        "criteria": criteria,
+        "criteria_sha256": analysis.canonical_sha256(criteria),
+        "strata": key["strata"],
+        "items": {
+            "C001": {
+                "question": "trecho_sustenta",
+                "stratum": "direct_quote",
+                "udv_ids": ["a"],
+                "tier": "quote_found",
+                "quote_cue_in_trecho": True,
+                "display": SUPPLEMENT_DISPLAY,
+                "v1_item_id": "A001",
+            }
+        },
+    }
+    (folder / "annotation_key.json").write_text(json.dumps(supplement))
+    return supplement
+
+
+def test_score_command_combines_inherited_and_supplementary_judgments(tmp_path):
+    key = scored_key()
+    sample = tmp_path / "sample"
+    sample.mkdir()
+    (sample / "annotation_key.json").write_text(json.dumps(key))
+    sheet = tmp_path / "filled.csv"
+    write_sheet(
+        sheet,
+        [
+            {"item_id": "A001", "julgamento": "correta"},
+            {"item_id": "A002", "julgamento": "parcial"},
+            {"item_id": "A003", "julgamento": "falou"},
+            {"item_id": "A004", "julgamento": "incorreta"},
+        ],
+    )
+    plan_path = tmp_path / "plan.json"
+    plan_path.write_text(json.dumps(scored_plan(sample)))
+    supplement_dir = tmp_path / "supplement"
+    write_supplement(supplement_dir, key, sample, plan_path)
+    supplement_sheet = supplement_dir / "annotation.csv"
+    with open(supplement_sheet, "w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(CSV_COLUMNS), delimiter=";", restval="")
+        writer.writeheader()
+        writer.writerow({**SUPPLEMENT_DISPLAY, "item_id": "C001", "julgamento": ""})
+    args = SimpleNamespace(
+        config=analysis.Path("configs/validation_sample.toml"),
+        sample_dir=str(sample),
+        annotation=str(sheet),
+        plan=str(plan_path),
+        final_test=False,
+        output=str(tmp_path / "interim.json"),
+        supplement_dir=str(supplement_dir),
+        supplement_annotation=None,
+    )
+    analysis.command_score(args)
+    interim = json.loads((tmp_path / "interim.json").read_text())
+    assert interim["status"] == "interim"
+    v2 = interim["udv_v2"]
+    assert v2["judged"] == "2 of 3" and v2["judged_reannotated"] == 0
+    assert v2["strata"]["direct_quote"]["judged_udvs"] == 0
+    assert v2["strata"]["semantic_match_high"]["tolerant_precision"]["successes"] == 1
+    assert v2["strata"]["semantic_match_high"]["population"] == 8
+    assert v2["criteria"][0]["status"] == "INTERIM_NOT_EVALUABLE"
+    with open(supplement_sheet, "w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(CSV_COLUMNS), delimiter=";", restval="")
+        writer.writeheader()
+        writer.writerow(
+            {
+                **SUPPLEMENT_DISPLAY,
+                "item_id": "C001",
+                "julgamento": "incorreta",
+                "existe_trecho_melhor": "nao",
+            }
+        )
+    args.output = str(tmp_path / "final.json")
+    analysis.command_score(args)
+    final = json.loads((tmp_path / "final.json").read_text())
+    assert final["status"] == "final" and final["udv_v2"]["status"] == "final"
+    quotes = final["udv_v2"]["strata"]["direct_quote"]
+    assert quotes["strict_precision"]["successes"] == 0 and quotes["judged_udvs"] == 1
+    assert final["udv_v1"]["strata"]["direct_quote"]["strict_precision"]["successes"] == 1
+    assert final["udv_v2"]["criteria"][0]["status"] == "FAIL"
+    assert final["udv_v2"]["sources_by_stratum"]["direct_quote"] == {
+        "inherited": 0,
+        "reannotated": 1,
+    }
+
+
+def test_load_supplement_refuses_another_plan(tmp_path):
+    key = scored_key()
+    sample = tmp_path / "sample"
+    sample.mkdir()
+    (sample / "annotation_key.json").write_text(json.dumps(key))
+    plan_path = tmp_path / "plan.json"
+    plan = scored_plan(sample)
+    plan_path.write_text(json.dumps(plan))
+    folder = tmp_path / "supplement"
+    write_supplement(folder, key, sample, plan_path)
+    loaded = analysis.load_supplement(folder, sample / "annotation_key.json", plan, plan_path)
+    assert list(loaded["items"]) == ["C001"]
+    plan_path.write_text(json.dumps({**plan, "rule": "changed"}))
+    with pytest.raises(SystemExit, match="another annotation plan"):
+        analysis.load_supplement(folder, sample / "annotation_key.json", plan, plan_path)
