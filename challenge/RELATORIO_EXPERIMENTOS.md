@@ -707,8 +707,8 @@ o painel `laya_multi_pt` +0.0944 e contra o `xnli` +0.106, ambos Holm 0.7832.
 
 #### Teste final
 
-Declarado em 25/09/2026, depois da confirmação e antes de traduzir ou pontuar qualquer opinião de teste: a
-pedido do usuário, os cinco candidatos de maior ROC AUC na validação foram avaliados uma vez no teste, ao
+Declarado em 25/09/2026, depois da confirmação e antes de traduzir ou pontuar qualquer opinião de teste: por
+decisão dos autores, os cinco candidatos de maior ROC AUC na validação foram avaliados uma vez no teste, ao
 lado das duas referências (`configs/nli_verifier_exploration_v2.toml`, `declared` da seção de teste). Fonte:
 `artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json`. 559 opiniões, 30 audiências, 89
 não inferíveis. Bootstrap pareado de 1000 réplicas de audiências, semente 42.
@@ -1053,7 +1053,7 @@ distinção entre `semantic_match_high` e `semantic_match_weak` fica cega.
 ### 7.2 Recálculo parcial em 28/09/2026
 
 O relatório final exige as duas planilhas completas (`annotation_guide.md`). Este relatório traz um
-recálculo intermediário, feito a pedido para o artigo, sobre as linhas já julgadas. Ele não é uma decisão
+recálculo intermediário, feito para o artigo, sobre as linhas já julgadas. Ele não é uma decisão
 sobre os critérios.
 
 Comando (saída gravada fora do repositório):
@@ -1229,7 +1229,7 @@ verificador.
    busca (se havia trecho melhor) não é estimável. A reanotação de 20 linhas não foi feita, então a
    concordância intra-anotador não existe. Há um único anotador.
 2. **Leitura intermediária da validação.** O protocolo manda não ver números antes de completar a anotação;
-   o recálculo parcial deste relatório quebra essa regra por pedido explícito, e quem continuar a
+   o recálculo parcial deste relatório quebra essa regra por decisão dos autores, e quem continuar a
    anotação deve saber disso.
 3. **Cegamento parcial.** Citações literais são reconhecíveis na planilha.
 4. **A validação humana é de `udv_v1`.** Ela não mede diretamente `udv_v2`, cuja evidência mudou em 1969 dos

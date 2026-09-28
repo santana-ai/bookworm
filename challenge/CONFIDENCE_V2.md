@@ -119,7 +119,7 @@ smoke (o `bge_reranker` projetava 0,71 h e levou 1,74 h; as perguntas novas do `
 Não rodaram, com o motivo:
 
 - **Qualquer LLM como juiz** (Qwen3-4B-Instruct-2507, o reserva Qwen3-1.7B, Bespoke-MiniCheck-7B):
-  decisão do usuário registrada em `not_run_amendment` antes de qualquer escore; o Laya com várias
+  decisão dos autores registrada em `not_run_amendment` antes de qualquer escore; o Laya com várias
   perguntas ocupa esse lugar.
 - **Granite Guardian 3.2-3B**: é um LLM de guarda lido por P(Yes), descartado pela mesma decisão.
 - **Bespoke-MiniCheck-7B, Lynx e TRUE (11B)**: licença não comercial (os dois primeiros) e memória de
