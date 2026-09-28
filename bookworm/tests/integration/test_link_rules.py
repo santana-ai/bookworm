@@ -19,15 +19,25 @@ from bookworm.transcript.turns import split_into_turns
 
 pytestmark = pytest.mark.dataset
 
-UDV_RUN = "udv_v1.jsonl"
 MANIFEST = "temporal_v1.json"
 EXTRA_LIBRARY_LINKS = {
-    "udv-6-1-0": "Aureo Ribeiro",
-    "udv-6-1-1": "Aureo Ribeiro",
-    "udv-58-2-0": "Soraya Santos",
-    "udv-117-0-0": "Alfredo Gaspar",
-    "udv-195-2-2": "KRISZTIAN KATONA",
+    "udv_v1.jsonl": {
+        "udv-6-1-0": "Aureo Ribeiro",
+        "udv-6-1-1": "Aureo Ribeiro",
+        "udv-58-2-0": "Soraya Santos",
+        "udv-117-0-0": "Alfredo Gaspar",
+        "udv-195-2-2": "KRISZTIAN KATONA",
+    },
+    "udv_v2.jsonl": {
+        "udv-58-2-0": "Soraya Santos",
+        "udv-117-0-0": "Alfredo Gaspar",
+        "udv-126-0-0": "Chico Alencar",
+        "udv-145-1-0": "Bia Kicis",
+        "udv-195-2-2": "KRISZTIAN KATONA",
+        "udv-197-7-0": "Luisa Canziani",
+    },
 }
+EVIDENCE_TURN_LINKS = {"udv_v1.jsonl": 2099, "udv_v2.jsonl": 2098}
 UPSTREAM_NAME_CASES = {
     "udv-40-2-0": "TOINHO DO JUDÔ",
     "udv-40-2-1": "TOINHO DO JUDÔ",
@@ -39,7 +49,19 @@ UPSTREAM_NAME_CASES = {
 
 
 @dataclass(frozen=True)
+class LinkInputs:
+    library: dict[str, str]
+    kept_by_hearing: dict[int, dict[int, str]]
+    names: dict[str, str]
+    matched_turns: dict[str, frozenset[int]]
+    multi_hearing: list[ActorSpeechRecord]
+    train: frozenset[int]
+    test: frozenset[int]
+
+
+@dataclass(frozen=True)
 class LinkRules:
+    run: str
     udvs: dict[str, UdvRecord]
     library: dict[str, str]
     evidence_turn: dict[str, str]
@@ -50,12 +72,9 @@ class LinkRules:
 
 
 @pytest.fixture(scope="module")
-def rules(
-    lds_hearings: list[HearingRecord],
-    challenge_dir: Path,
-    udv_artifacts_dir: Path,
-    split_artifacts_dir: Path,
-) -> LinkRules:
+def link_inputs(
+    lds_hearings: list[HearingRecord], challenge_dir: Path, split_artifacts_dir: Path
+) -> LinkInputs:
     config_path = challenge_dir / "configs" / "hearing_actors.toml"
     if not config_path.is_file():
         pytest.skip(f"actors config not found at {config_path}")
@@ -83,20 +102,39 @@ def rules(
     actors = collector.finish()
     manifest_path = split_artifacts_dir / MANIFEST
     names = actors.display_names()
-    udvs = {udv.id: udv for udv in load_udv_jsonl(udv_artifact_path(udv_artifacts_dir, UDV_RUN))}
     library = {
         link.udv_id: link.actor
         for link in (resolve_link(item, names) for item in pending)
         if link.actor is not None
     }
-    return LinkRules(
-        udvs=udvs,
+    return LinkInputs(
         library=library,
-        evidence_turn=evidence_turn_links(udvs.values(), kept_by_hearing, names),
+        kept_by_hearing=kept_by_hearing,
+        names=names,
         matched_turns=matched_turns,
         multi_hearing=actors.multi_hearing,
         train=load_split_selection(manifest_path, ["train"], LDS_SHA256).hearing_ids,
         test=load_split_selection(manifest_path, ["test"], LDS_SHA256).hearing_ids,
+    )
+
+
+@pytest.fixture(scope="module", params=sorted(EXTRA_LIBRARY_LINKS))
+def rules(
+    request: pytest.FixtureRequest, link_inputs: LinkInputs, udv_artifacts_dir: Path
+) -> LinkRules:
+    run = str(request.param)
+    udvs = {udv.id: udv for udv in load_udv_jsonl(udv_artifact_path(udv_artifacts_dir, run))}
+    return LinkRules(
+        run=run,
+        udvs=udvs,
+        library=link_inputs.library,
+        evidence_turn=evidence_turn_links(
+            udvs.values(), link_inputs.kept_by_hearing, link_inputs.names
+        ),
+        matched_turns=link_inputs.matched_turns,
+        multi_hearing=link_inputs.multi_hearing,
+        train=link_inputs.train,
+        test=link_inputs.test,
     )
 
 
@@ -117,7 +155,8 @@ def evidence_turn_links(
 
 def test_both_rules_cover_the_same_udvs(rules: LinkRules) -> None:
     assert set(rules.matched_turns) == set(rules.udvs)
-    assert (len(rules.udvs), len(rules.library), len(rules.evidence_turn)) == (2203, 2104, 2099)
+    counts = (len(rules.udvs), len(rules.library), len(rules.evidence_turn))
+    assert counts == (2203, 2104, EVIDENCE_TURN_LINKS[rules.run])
 
 
 def test_rules_never_disagree_when_both_link(rules: LinkRules) -> None:
@@ -128,7 +167,7 @@ def test_rules_never_disagree_when_both_link(rules: LinkRules) -> None:
 
 def test_extra_library_links_have_a_dropped_evidence_turn(rules: LinkRules) -> None:
     extra = set(rules.library) - set(rules.evidence_turn)
-    assert {uid: rules.library[uid] for uid in extra} == EXTRA_LIBRARY_LINKS
+    assert {uid: rules.library[uid] for uid in extra} == EXTRA_LIBRARY_LINKS[rules.run]
     for uid in extra:
         evidence = rules.udvs[uid].evidence
         assert evidence is not None
