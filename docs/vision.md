@@ -21,8 +21,7 @@ complementares:
    jornalísticas possam ser codificados, comparados, buscados, agrupados e parcialmente reconstruídos
    semanticamente.
 
-`bookworm` não é apenas um sumarizador, um RAG, um grafo de conhecimento ou um modelo de embeddings.
-Sua contribuição central é aprender uma representação matemática compacta da deliberação pública que
+A contribuição central do `bookworm` é aprender uma representação matemática compacta da deliberação pública que
 preserve, separadamente:
 
 - tema; atores; posições; argumentos; relações; temporalidade; relevância; evidência; incerteza;
@@ -34,14 +33,13 @@ equivalentes escritos com vocabulário diferente; avaliar a adequação de um re
 matéria jornalística à audiência de origem; detectar omissões, super-representações, distorções de
 posição e assimetrias editoriais; acompanhar a evolução temporal de temas e padrões argumentativos.
 
-A meta científica não é declarar automaticamente que um jornalista ou veículo possui "viés político".
-A meta é medir e explicar **desvios editoriais observáveis**, distinguindo factualidade, cobertura,
+A meta científica é medir e explicar **desvios editoriais observáveis**, sem declarar que um
+jornalista ou veículo tem "viés político", distinguindo factualidade, cobertura,
 seleção, enquadramento, equilíbrio, relevância e possível orientação ideológica.
 
 ## 2. O que o projeto precisa demonstrar
 
-- **Formulação científica nova.** O problema não é formulado como `transcrição → resumo`, mas como
-  `transcrição → memória deliberativa verificável → representação latente multifacetada → produtos e
+- **Formulação científica nova.** O problema é formulado como `transcrição → memória deliberativa verificável → representação latente multifacetada → produtos e
   análises auditáveis`.
 - **Hipóteses falsificáveis.** Cada componente responde a uma hipótese mensurável.
 - **Contribuição metodológica.** Um espaço latente deliberativo que preserva propriedades não
