@@ -3,7 +3,10 @@
 Este relatório reúne, num único lugar, todos os experimentos, testes, métricas e resultados produzidos
 até 28/09/2026 no repositório. Ele foi escrito para quem vai redigir o artigo do desafio Ideias em Rede
 e precisa de cada número com a sua origem. Cada número aparece com o arquivo de onde foi lido e, quando
-útil, a chave JSON. A web demo e os mockups ficam fora do escopo.
+útil, a chave JSON. A rodada de referência é `udv_v2`; `udv_v0` e `udv_v1` aparecem como histórico e como
+base de comparação. Cada etapa depois da UDV foi refeita ou conferida sobre `udv_v2`, ao lado do valor de
+`udv_v1`, em `artifacts/udv/udv_v2_downstream_report.json`. A web demo fica fora do escopo; o resumo da
+sua exportação está em `artifacts/web/export_site_udv_v2.json`.
 
 Convenções usadas no texto:
 
@@ -52,8 +55,10 @@ Resultados principais, todos rastreados nas seções seguintes:
 
 | achado | número | fonte |
 |---|---|---|
-| Opiniões com evidência localizada em `udv_v1` e `udv_v2` | 2.105 de 2.203 (90 de pessoas não resolvidas, 8 sem sentença candidata) | `artifacts/udv/udv_v2_analysis.json` |
+| Opiniões com evidência localizada em `udv_v1` e `udv_v2` | 2.105 de 2.203 (90 de pessoas não resolvidas, 8 sem unidade candidata) | `artifacts/udv/udv_v2_analysis.json` |
 | Citações literais localizadas (`quote_found`) | 277 | idem |
+| Níveis semânticos de `udv_v2` (janela de duas sentenças, corte 0.50) | 1744 `semantic_match_high`, 84 `semantic_match_weak` | idem |
+| Verificador sobre as 2105 UDVs de `udv_v2` | passam 1750 (0.8314) no corte de premissa UDV 0.2429 e 826 (0.3924) no corte do benchmark 0.7478 | `artifacts/udv/udv_v2_verifier_report.json` |
 | Recuperação no benchmark NLI (validação, sentença, `serafim_335m`) | acc@1 0.8774, MRR 0.9295 | `artifacts/experiments/retrieval/retrieval_v1/retrieval_v1_report.json` |
 | Nenhum dos 15 recuperadores alternativos supera o `serafim_335m` na sentença após Holm | E1, validação `nli` | idem |
 | Janelas de 2 sentenças contra sentença, mesmo recuperador (`nli`, validação, `serafim_335m`) | lift +0.0143 [-0.0091; 0.0409], Holm 0.4104 | idem |
@@ -61,11 +66,13 @@ Resultados principais, todos rastreados nas seções seguintes:
 | Sinais derivados do cosseno não melhoram a confiança (E5) | nenhum IC de diferença de AURC exclui zero no `nli` | `artifacts/experiments/confidence/confidence_v1/confidence_v1_report.json` |
 | Verificador primário (E3x), teste final, 559 opiniões | ROC AUC 0.9122 [0.8698; 0.9454], kappa 0.5924 | `artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json` |
 | Primário contra o cosseno Serafim na validação (confidence_v2 E-A) | ROC AUC 0.8758 contra 0.7302, Δ +0.1457 [0.0852; 0.2159], Holm 0.012 | `artifacts/experiments/confidence_v2/ea_report.json` |
-| Validação humana parcial, `quote_found` (precisão estrita) | 17 de 18, 0.9444 [0.7424; 0.9901] | recálculo desta data, seção 7 |
-| Validação humana parcial, `semantic_match_high` (precisão tolerante) | 25 de 32, 0.7812 [0.6125; 0.8898] | idem |
+| Validação humana parcial de `udv_v1`, `quote_found` (precisão estrita) | 17 de 18, 0.9444 [0.7424; 0.9901] | recálculo desta data, seção 7 |
+| Validação humana parcial de `udv_v1`, `semantic_match_high` (precisão tolerante) | 25 de 32, 0.7812 [0.6125; 0.8898] | idem |
 
-O que ainda não está resolvido: a validação humana cobre 65 de 127 linhas e nenhum critério declarado
-pode ser decidido; o critério de `quote_found` já não pode mais ser atingido quando a planilha for
+O que ainda não está resolvido: a precisão de `udv_v2` não foi medida. A amostra humana é de `udv_v1`;
+23 dos seus itens têm a mesma evidência em `udv_v2` e herdam o rótulo, e as 104 linhas da planilha
+suplementar de `udv_v2` ainda não foram julgadas (seção 7.3). A validação de `udv_v1` cobre 65 de 127
+linhas e nenhum critério declarado pode ser decidido; o critério de `quote_found` já não pode mais ser atingido quando a planilha for
 completada, porque exige zero erros em 35 e um erro já foi anotado (seção 7). O verificador foi ajustado
 com premissas de quatro trechos e aplicado a UDVs com premissa de uma sentença ou janela, uma mudança de
 domínio que não foi medida com rótulo humano.
@@ -376,11 +383,22 @@ Com a evidência mais longa, a fração de citações literais que passam no cor
 `semantic_match_high` e 0.6229 nos dois níveis semânticos (`cosine_relation.spearman`). Em 136 UDVs a
 evidência não mudou entre as versões.
 
-Observação técnica: `evidence_score_check` do mesmo relatório compara o cosseno `sentence_max` do
-verificador com `evidence.score` gravado pela UDV; só 27 de 1828 ficam dentro de 1e-4, com diferença
-máxima 0.2375. Os dois não medem a mesma coisa em `udv_v2` (o escore da UDV é o cosseno da janela inteira;
-o do verificador é o máximo por sentença), então a diferença é esperada, mas não foi documentada em
-nenhum outro arquivo.
+Conferência do escore (`udv_v2_verifier_report.json`, `evidence_score_check`). A camada do verificador
+recalcula o cosseno Serafim da evidência e o compara com `evidence.score` gravado pela UDV, para confirmar
+que as duas etapas leram o mesmo texto. Em `udv_v1` a unidade é a sentença, e a comparação usa o cosseno
+`sentence_max`: 1828 de 1828 dentro de 1e-4. Em `udv_v2` o escore da UDV é o cosseno da janela inteira, e
+uma versão anterior da checagem ainda usava o máximo por sentença (só 27 de 1828 dentro de 1e-4, diferença
+máxima 0.2375). A checagem agora usa o cosseno da premissa inteira (`max.cosine`) e separa as UDVs em que o
+texto da evidência difere do texto que o encoder leu:
+
+| grupo (UDVs semânticas de `udv_v2`) | n | diferença máxima | dentro de 1e-4 |
+|---|---|---|---|
+| texto da evidência igual ao texto codificado | 1771 | 0.0 | 1771 |
+| texto da evidência com partes que o encoder não leu (`encoded_text_differs`) | 57 | 0.0902 | ver `udv_ids` |
+
+Nas 57, o intervalo da janela na transcrição cobre também partes que não são candidatas (trechos de menos
+de 4 palavras, rubricas ou a divisão em "Sr."), então a premissa do verificador é mais longa que o texto
+que gerou o cosseno. A saída do verificador não mudou com a correção (mesmo `outputs.sha256`).
 
 ## 4. Trabalho 1: achar a evidência
 
@@ -851,7 +869,8 @@ os relatórios, e fica só no tag `research-2026-09-28`.
 
 ### 5.7 Camada do verificador sobre udv_v1
 
-Fonte: `artifacts/udv/udv_v1_verifier_report.json`.
+Fonte: `artifacts/udv/udv_v1_verifier_report.json`. Esta seção é o histórico que motivou `udv_v2`; a mesma
+camada sobre `udv_v2`, com os dois cortes, está na seção 3.5.
 
 **Problema.** Ver como a decisão do primário se distribui nas UDVs reais, com premissa de uma sentença.
 
@@ -909,8 +928,9 @@ audiências.
 Fontes: `challenge/HEARING_ACTORS.md`, `../bookworm/docs/actors.md`,
 `artifacts/hearing_actors/measurements.json`, `artifacts/hearing_actors/actor_speeches_stats.json` e
 `artifacts/hearing_actors/ambiguous_names.json`. Comandos: `uv run python -m utils.measure_hearing_actors` e
-`uv run python -m utils.build_actor_speeches`; na biblioteca, `uv run bookworm build-udvs --run-name udv_v1
---config configs/udv.toml --actors-config configs/hearing_actors.toml`.
+`uv run python -m utils.build_actor_speeches`; na biblioteca, `uv run --project ../bookworm bookworm build-udvs
+--run-name udv_v2 --config configs/udv_v2.toml --actors-config configs/hearing_actors.toml`, que grava
+também `artifacts/udv/udv_v2_actor_links.jsonl`.
 
 | medida | valor |
 |---|---|
@@ -926,7 +946,10 @@ Fontes: `challenge/HEARING_ACTORS.md`, `../bookworm/docs/actors.md`,
 Por que o corte de 50 palavras nos turnos de presidência: 42.7% das palavras dos falantes recorrentes estão
 em turnos de presidência, boa parte condução de sessão; mas 336 das 2.105 opiniões com evidência de `udv_v1`
 estão em turnos de presidência (56 citações literais). O corte de 50 mantém 2264 de 6266 turnos de
-presidência, 89.0% das palavras e 332 das 336 opiniões (`HEARING_ACTORS.md`, tabela de cortes).
+presidência, 89.0% das palavras e 332 das 336 opiniões (`HEARING_ACTORS.md`, tabela de cortes). Em
+`udv_v2` também são 336 opiniões com evidência em turno de presidência, de 118 atores (261
+`semantic_match_high`, 56 `quote_found`, 19 `semantic_match_weak`), e o corte de 50 mantém 331
+(`artifacts/hearing_actors/measurements_udv_v2.json`).
 
 Por que não filtrar por partido: dos 282 falantes recorrentes (contagem antes das fusões), 73 não têm
 partido no cabeçalho, incluindo ministros, secretários e dirigentes da sociedade civil. O critério de
@@ -945,13 +968,15 @@ no repositório.
 Resultado sobre `udv_v1` (`../bookworm/docs/actors.md`, "Duas regras de ligação"; fixado por
 `tests/integration/test_link_rules.py`):
 
-| regra | UDVs ligadas |
-|---|---|
-| turnos atribuídos | 2104 |
-| turno de evidência | 2099 |
-| divergências nas UDVs ligadas pelas duas | 0 |
+| regra | UDVs ligadas em `udv_v1` | UDVs ligadas em `udv_v2` |
+|---|---|---|
+| turnos atribuídos | 2104 | 2104 |
+| turno de evidência | 2099 | 2098 |
+| divergências nas UDVs ligadas pelas duas | 0 | 0 |
 
-As 5 ligações a mais da primeira regra são UDVs cujo turno de evidência foi descartado pela política, mas
+A coluna de `udv_v2` vem de `artifacts/udv/udv_v2_downstream_report.json` (`runs.udv_v2.link_rules`). Em
+`udv_v2` são 6 as ligações só da primeira regra (`udv-117-0-0`, `udv-126-0-0`, `udv-145-1-0`,
+`udv-195-2-2`, `udv-197-7-0`, `udv-58-2-0`). As 5 ligações a mais da primeira regra em `udv_v1` são UDVs cujo turno de evidência foi descartado pela política, mas
 que têm outros turnos mantidos da mesma pessoa. Em 6 UDVs o nome de exibição do ator difere do nome da
 matéria por causa do nome entre parênteses no cabeçalho ou de uma fusão; as duas regras escolhem o mesmo
 ator nelas. No split de teste, as duas regras dão 106 UDVs ligadas a atores com perfil, 48 atores e 27
@@ -970,8 +995,13 @@ do teste mediria cópia. Por isso o perfil de avaliação usa só audiências de
 | atores recorrentes na entrada | 301, em 198 audiências, 6323 turnos |
 | depois do filtro de treino | 264 atores, 139 audiências, 4598 turnos; 37 atores sem audiência de treino; 79 com uma só |
 | atores com perfil que falam no teste | 116 |
-| UDVs de teste de `udv_v1` | 359, das quais 106 ligadas a 48 atores com perfil, em 27 de 30 audiências |
-| níveis dessas 106 | 17 `quote_found`, 87 `semantic_match_high`, 2 `semantic_match_weak` |
+| UDVs de teste | 359, das quais 106 ligadas a 48 atores com perfil, em 27 de 30 audiências, em `udv_v1` e em `udv_v2` |
+| níveis dessas 106 em `udv_v1` | 17 `quote_found`, 87 `semantic_match_high`, 2 `semantic_match_weak` |
+| níveis dessas 106 em `udv_v2` (`train_speeches_stats_udv_v2.json`) | 17 `quote_found`, 84 `semantic_match_high`, 5 `semantic_match_weak` |
+
+As falas de treino que entram no prompt dos perfis são as mesmas nas duas rodadas (sha256 `6d5d7d0d…` em
+`train_speeches_stats.json` e `train_speeches_stats_udv_v2.json`): a ligação UDV-ator não lê a evidência, e
+o perfil não lê UDV. Por isso os perfis da rodada abaixo servem para as duas versões.
 
 Implementação: o gerador de perfis (`utils/generate_actor_profiles.py`), a conferência de perfis contra
 UDVs (`bookworm validate-profiles`) e a simulação de atores com três abordagens (só perfil; perfil com
@@ -1002,8 +1032,38 @@ Na validação (81 perguntas), k = 3 e γ = 1.0 tiveram o maior acerto da grade 
 guidance não mudou nada. Os níveis de evidência declarados pelo modelo não ordenaram o acerto como o
 desenho exige (ESPECULATIVA acima de INDIRETA nas condições 1 e 2). Limites: um modelo, quantizado em 8
 bits, uma semente; o prompt de múltipla escolha foi revisado depois de um piloto que usou perguntas de
-teste, com base na massa das letras e sem uso do acerto (`ACTOR_SIMULATION.md`). A conferência de perfis
-(`bookworm validate-profiles`) não tem rodada versionada.
+teste, com base na massa das letras e sem uso do acerto (`ACTOR_SIMULATION.md`).
+
+A simulação acima foi rodada sobre `udv_v1`. Sobre `udv_v2`, as perguntas foram reconstruídas com os
+mesmos perfis, falas e sementes (`udv_v2_downstream_report.json`, `question_overlap`): no teste, 101
+perguntas nas duas versões, 98 idênticas e 3 com mudança só de nível; na validação, 81 em `udv_v1` e 80
+em `udv_v2`, 70 idênticas, 10 com mudança de nível e 1 que sai (`udv-126-0-0`). As requisições de
+simulação são idênticas nas duas versões (`requests_sha256` `5f0a7eb5…`,
+`artifacts/actor_simulation/udv_v2_dry_run_simulation.json`). A rodada do modelo sobre `udv_v2` não foi
+feita nesta máquina; o comando está em `mlx_alternative/README.md` e grava em `mlx_alternative/runs/udv_v2`.
+
+Conferência de perfis contra UDVs (`bookworm validate-profiles`), com os perfis de treino desta rodada.
+O escore de um par é o maior cosseno Serafim entre a proposição da UDV e as sentenças de um perfil;
+acerto@1 e MRR dizem se o perfil certo fica em primeiro entre os 264. Pares `in_prompt` são UDVs de treino
+(o perfil leu aquela fala); `held_out` são UDVs de teste. Fontes:
+`artifacts/profile_validation/profile_validation_udv_v1_report.json` e
+`artifacts/profile_validation/profile_validation_udv_v2_report.json`.
+
+| medida | `udv_v1` | `udv_v2` [IC 95% por audiência] |
+|---|---|---|
+| pares `in_prompt` | 433 | 426 |
+| escore médio `in_prompt` | 0.5926 | 0.595 [0.5835; 0.6083] |
+| acerto@1 `in_prompt` | 0.4527 | 0.4577 [0.4029; 0.5126] |
+| MRR `in_prompt` | 0.5781 | 0.5848 [0.5409; 0.6307] |
+| pares `held_out` | 104 | 101 |
+| acerto@1 `held_out` | 0.0481 | 0.0495 [0.0; 0.1134] |
+| MRR `held_out` | 0.1185 | 0.1216 [0.0634; 0.1928] |
+| acerto@1 ao acaso | 0.0038 | 0.0038 |
+
+O cosseno mede proximidade de conteúdo, não implicação. Nas UDVs de teste, o perfil certo fica em primeiro
+em 0.0495 dos pares em `udv_v2`, acima do acaso (0.0038) e muito abaixo dos pares `in_prompt` (0.4577). A
+troca de `udv_v1` por `udv_v2` muda essas medidas em menos de 0.01, porque só muda o conjunto de UDVs
+elegíveis (níveis `quote_found` e `semantic_match_high`).
 
 ## 7. Validação humana (parcial)
 
@@ -1099,6 +1159,37 @@ visível; as 32 de `semantic_match_high` não têm (`by_quote_cue`). Os números
 Uma revisão exploratória anterior, não cega e sem protocolo, foi retirada desta versão (fica na tag Git
 `research-2026-09-28`); ela não é validação e não entra em nenhum número deste relatório.
 
+### 7.3 Planilha suplementar de `udv_v2`
+
+**Problema.** A amostra foi sorteada e julgada com a evidência de `udv_v1`; em `udv_v2` a evidência mudou
+na maior parte das UDVs sorteadas, então o rótulo de `udv_v1` não vale para elas.
+
+Fontes: `artifacts/udv/udv_v2_annotation_plan.json` e
+`artifacts/validation/human_validation_v1_udv_v2_supplement/annotation_key.json`. Cada item da amostra
+cuja evidência mudou vira uma linha nova, com a mesma opinião e a evidência, o contexto e o link de
+`udv_v2`, em nova ordem aleatória e com novo identificador; o identificador de `udv_v1` fica só na chave.
+
+| item | valor |
+|---|---|
+| itens da amostra que herdam o rótulo de `udv_v1` (evidência igual) | 23 |
+| linhas a julgar na planilha suplementar | 104 (18 `direct_quote`, 63 `semantic_match_high`, 17 `semantic_with_short_quote`, 6 `semantic_match_weak`) |
+| linhas julgadas | 0 |
+| critérios | os mesmos da seção 7.1 (sha256 `c4fc0116…`) |
+
+A precisão de `udv_v2` por estrato sai da combinação das duas planilhas: o item sem mudança conta com o
+rótulo de `udv_v1`, e o item com mudança conta só com o rótulo da planilha suplementar. Comando:
+
+```
+cd challenge && uv run python -m utils.udv_v2_analysis score-annotation --final-test \
+  --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
+  --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement
+```
+
+Ressalvas gravadas pelo próprio script: os itens foram sorteados nos estratos de `udv_v1`, então um item
+que mudou de estrato mantém a probabilidade de inclusão do estrato antigo; e as linhas suplementares
+mostram opiniões que o anotador já julgou com o trecho de `udv_v1`, então os dois julgamentos não são
+independentes. Até essa planilha ser julgada, a precisão de `udv_v2` é desconhecida.
+
 ## 8. Glossário de métricas
 
 Cada métrica está explicada pelo problema que resolve.
@@ -1181,10 +1272,12 @@ Dentro de `challenge/` (salvo indicação):
 | splits | `uv run python -m utils.build_splits`; `uv run python -m utils.verify_splits` |
 | benchmarks | `uv run python -m utils.build_quote_benchmark`; `uv run python -m utils.build_nli_benchmark` |
 | corte de sentença | `uv run python -m utils.calibrate_threshold` |
-| UDVs e verificação | `uv run python -m utils.build_udvs --run-name udv_v1`; `uv run python -m utils.verify_udvs --run-name udv_v1` |
+| UDVs de `udv_v1` (histórico) e verificação | `uv run python -m utils.build_udvs --run-name udv_v1`; `uv run python -m utils.verify_udvs --run-name udv_v1` |
 | cortes de `udv_v2` | `utils.calibrate_udv_v2` (subcomandos `cosine` e `verifier`) |
 | verificador sobre UDVs | `uv run python -m utils.udv_verifier --config configs/udv_v2_verifier.toml translate`, depois o subcomando `apply` |
-| análise de `udv_v2` | `uv run python -m utils.udv_v2_analysis analyze`; `score-annotation --final-test --annotation <csv>` |
+| análise de `udv_v2` | `uv run python -m utils.udv_v2_analysis analyze`; `score-annotation --final-test --annotation <csv> --supplement-dir <pasta>` |
+| etapas depois da UDV sobre `udv_v2` | `uv run python -m utils.udv_v2_downstream` |
+| exportação da demo | `uv run --project ../bookworm bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 ...` (argumentos completos em `../bookworm/web/README.md`) |
 | recuperação | `utils.retrieval_experiments` (subcomandos `queue`, `run`, `summarize`) |
 | E3 | `utils.nli_verifier_experiments` e `utils.translation` (subcomandos no `--help`) |
 | E3x | `utils.nli_verifier_exploration` (subcomandos `confirm` e `final-test`, além da seleção) |
@@ -1201,14 +1294,15 @@ das entradas e da configuração (`code`, `inputs`, `config`). A reprodução ex
 
 ### 9.4 Testes
 
-Rodados nesta data no worktree:
+Rodados em 28/09/2026 no worktree da versão de release, com os arquivos pesados restaurados da tag
+`research-2026-09-28`:
 
 | conjunto | resultado |
 |---|---|
-| `bookworm`, com `BOOKWORM_LDS_PATH=challenge/dataset/PublicHearingBR_LDS.jsonl` e `BOOKWORM_EMBEDDING_CACHE=challenge/artifacts/cache/embeddings` | 843 passaram, 4 desmarcados (marcador `model`), 84 s |
-| `bookworm`, só marcador `dataset` | 95 passaram |
-| `bookworm`, sem as variáveis de ambiente | 755 passaram, 88 pulados; cobertura total 97% (4046 linhas, 120 sem cobertura) |
-| `challenge` | 105 passaram; na versão de release, 115 passaram, sem o dataset e sem os arquivos pesados (a retirada da parte E-B do confidence_v2 removeu 3 testes) |
+| `bookworm`, com `BOOKWORM_LDS_PATH=challenge/dataset/PublicHearingBR_LDS.jsonl` e `BOOKWORM_EMBEDDING_CACHE=challenge/artifacts/cache/embeddings` | 857 passaram, 4 pulados (sem `torch` ou `transformers` no ambiente), 4 desmarcados (marcador `model`), 81 s |
+| `bookworm`, só marcador `dataset` | 100 passaram, 2 pulados |
+| `bookworm`, sem as variáveis de ambiente | 764 passaram, 97 pulados; cobertura total 96% (4404 linhas, 174 sem cobertura) |
+| `challenge` | 129 passaram, sem o dataset |
 
 Os testes de integração com marcador `dataset` refazem, a partir do LDS, a paridade byte a byte de
 `udv_v1.jsonl` e dos arquivos de falas por ator com os do `challenge/`, e as contagens das duas regras de
@@ -1232,7 +1326,8 @@ verificador.
    anotação deve saber disso.
 3. **Cegamento parcial.** Citações literais são reconhecíveis na planilha.
 4. **A validação humana é de `udv_v1`.** Ela não mede diretamente `udv_v2`, cuja evidência mudou em 1969 dos
-   2203 registros. Só 23 itens da amostra têm evidência igual nas duas versões.
+   2203 registros. Só 23 itens da amostra têm evidência igual nas duas versões; as 104 linhas da planilha
+   suplementar (seção 7.3) não foram julgadas, então a precisão de `udv_v2` é desconhecida.
 5. **Rótulo do Trabalho 2.** O verificador foi ajustado e avaliado no rótulo NLI sob recuperação (quatro
    trechos, opiniões geradas por LLM a partir da transcrição). A aplicação a UDVs (opiniões da matéria,
    premissa de uma sentença ou janela) é uma mudança de domínio não medida com rótulo humano.
@@ -1247,8 +1342,10 @@ verificador.
 12. **Identidade de atores.** Revisão só com evidência interna do dataset; homônimos exatos entre audiências
     ficam juntos sem aviso; um par segue sem resolução.
 13. **Perfis e simulação com uma rodada.** Um modelo quantizado, uma semente e 101 perguntas de teste
-    (seção 6.3); os níveis de evidência não ordenam o acerto; a conferência de perfis não tem rodada
-    versionada.
+    (seção 6.3); os níveis de evidência não ordenam o acerto; a simulação com o modelo foi rodada sobre
+    `udv_v1`, e sobre `udv_v2` só a construção das perguntas e das requisições foi conferida.
+16. **Premissa do verificador em 57 UDVs de `udv_v2`.** O intervalo da evidência inclui partes que o
+    encoder não leu, então o verificador lê um texto mais longo que o que definiu o nível (seção 3.5).
 14. **Versões de biblioteca.** Duas combinações de torch e sentence-transformers entre rodadas, sem medida
     de efeito.
 15. **Modelos não rodados.** Jev (declarado no E3 v2), juízes LLM e outros avaliadores do confidence_v2
@@ -1392,6 +1489,8 @@ documento, ou divergência explicada.
 | Contagem de falantes recorrentes | `HEARING_ACTORS.md`: 282 falantes em 2 ou mais audiências (antes das fusões, 1901 falantes) | `actors.md`: 301 atores em 2 ou mais audiências (depois das fusões e regras de descarte) | as duas, em etapas diferentes |
 | Versão do pacote Laya | `retrieval_v2_report.json`: 0.3.11 instalada | PyPI atual: 0.3.21 | 0.3.11 é a usada nos resultados e a fixada em `pyproject.toml` |
 | Perfis e simulação | versão anterior deste relatório: sem rodada versionada | `mlx_alternative/runs/qwen38_27b/` | corrigido na seção 6.3; a rodada entrou com a união dos ramos |
+| `evidence_score_check` de `udv_v2` | versão anterior de `udv_v2_verifier_report.json`: 27 de 1828 dentro de 1e-4, diferença máxima 0.2375 | versão atual: 1771 de 1771 com diferença 0.0 e 57 com texto codificado diferente, máximo 0.0902 | corrigido: a checagem comparava o máximo por sentença com o cosseno da janela; agora compara o cosseno da janela (seção 3.5) |
+| Conferência de perfis | versão anterior deste relatório: sem rodada versionada | `artifacts/profile_validation/profile_validation_udv_v1_report.json` e `profile_validation_udv_v2_report.json` | corrigido na seção 6.3 |
 
 ## Apêndice B. O que foi planejado e não rodado
 
@@ -1403,7 +1502,8 @@ documento, ou divergência explicada.
 | revisão das planilhas do E6 | sem julgamento | `fuzzy_v1_quotes_review.jsonl`, `fuzzy_v1_names_review.jsonl` |
 | checagem manual de tradução | não preenchida | `artifacts/validation/translation_spot_check_v2/` |
 | segunda metade da validação humana e reanotação de 20 linhas | pendentes | `annotation_guide.md` |
-| validação humana própria de `udv_v2` | plano existe (`artifacts/udv/udv_v2_annotation_plan.json`); nenhuma planilha nova | ADR 0006 |
-| conferência de perfis contra UDVs (`bookworm validate-profiles`) | implementada, sem rodada versionada; perfis e simulação têm a rodada da seção 6.3 | `../bookworm/docs/profile_validation.md` |
+| validação humana própria de `udv_v2` | planilha suplementar de 104 linhas gerada, nenhuma julgada (seção 7.3) | `artifacts/validation/human_validation_v1_udv_v2_supplement/` |
+| simulação de atores com o modelo sobre `udv_v2` | comando pronto, rodada não feita | `artifacts/udv/udv_v2_downstream_report.json` (`not_run`), `mlx_alternative/README.md` |
+| revisão manual dos pares da conferência de perfis | amostra declarada (`review.sizes`), planilha não gerada | `artifacts/profile_validation/profile_validation_udv_v2_report.json` |
 | auditoria editorial (índice de desvio editorial) e espaço latente multifacetado | descritos no documento de visão; sem artefato de resultado | `CONSTITUTION.md` |
 | teste do benchmark de recuperação e do E5 | não lido por desenho | `retrieval_v1_report.json`, `confidence_v1_report.json` (`final_test` falso) |
