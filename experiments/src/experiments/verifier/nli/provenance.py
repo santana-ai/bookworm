@@ -23,6 +23,7 @@ from experiments.data import nli_benchmark
 from experiments.udv import calibrate_threshold
 from experiments.verifier import (
     benchmark_inputs,
+    decision,
     decision_models,
     decision_scoring,
     runtime,
@@ -50,8 +51,9 @@ def code_hashes() -> Record:
         hub_offline,
         reporting,
         common_splits,
-        *decision_models.SOURCES,
-        *decision_scoring.SOURCES,
+        decision_models,
+        decision_scoring,
+        decision,
         stats,
         runtime,
         benchmark_inputs,

@@ -1,8 +1,5 @@
 """Decision question batteries and the per-opinion scores derived from their answers."""
 
-from types import ModuleType
-
-from experiments.verifier.decision import battery, panel
 from experiments.verifier.decision.battery import (
     CONSENSUS,
     DERIVED_SCORES,
@@ -26,11 +23,6 @@ from experiments.verifier.decision.panel import (
     order_changes,
 )
 
-SOURCES: tuple[ModuleType, ...] = (
-    battery,
-    panel,
-)
-
 __all__ = [
     "Battery",
     "BatteryError",
@@ -50,5 +42,4 @@ __all__ = [
     "order_pairs_used",
     "parse_battery",
     "score_names",
-    "SOURCES",
 ]

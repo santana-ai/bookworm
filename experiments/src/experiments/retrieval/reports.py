@@ -22,7 +22,7 @@ from experiments.common.reporting import utc_timestamp
 from experiments.retrieval.config import ExperimentConfig, RunPlan, SummaryPlan
 from experiments.retrieval.summary import DEFINITIONS
 from experiments.retrieval.workload import Workload, workload_counts
-from experiments.verifier import decision_models, decision_scoring
+from experiments.verifier import decision, decision_models, decision_scoring
 
 Record = dict[str, Any]
 
@@ -34,6 +34,7 @@ CODE_SOURCES = (
     bookworm.data.io,
     decision_models,
     decision_scoring,
+    decision,
     hub_offline,
     stats,
     RETRIEVAL_DIR,

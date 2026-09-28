@@ -1,8 +1,5 @@
 """Decision models: question types, answer cache, and the Laya and JEV backends."""
 
-from types import ModuleType
-
-from experiments.verifier.decision import answer_cache, jev, laya, questions
 from experiments.verifier.decision.answer_cache import AnswerCache
 from experiments.verifier.decision.jev import (
     DEFAULT_API_KEY_ENV,
@@ -43,13 +40,6 @@ from experiments.verifier.decision.questions import (
     sha256_text,
 )
 
-SOURCES: tuple[ModuleType, ...] = (
-    questions,
-    answer_cache,
-    laya,
-    jev,
-)
-
 __all__ = [
     "AnswerCache",
     "DEFAULT_API_KEY_ENV",
@@ -84,5 +74,4 @@ __all__ = [
     "serialize_state",
     "sha256_text",
     "urllib_transport",
-    "SOURCES",
 ]
