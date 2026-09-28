@@ -488,9 +488,11 @@ completa, sem usar as UDVs.
 
 ## Limitações
 
-- A validação humana está incompleta (relatório, seção 7). Nos estratos `semantic_match_weak` (6 UDVs)
-  e `speaker_check` (6 pessoas), o teste tem tão poucos casos que os intervalos serão largos mesmo com a
-  planilha completa.
+- Na validação humana de `udv_v1` (relatório, seção 7.2; `artifacts/udv/udv_v2_precision_final.json`),
+  os dois critérios declarados falham: `direct_quote` tem precisão estrita 0,7143 [0,5495; 0,8367]
+  (25 de 35) e `semantic_match_high` tem precisão tolerante 0,7385 [0,6205; 0,8298] (48 de 65). Nos
+  estratos `semantic_match_weak` (6 UDVs) e `speaker_check` (6 pessoas), o teste tem tão poucos casos
+  que os intervalos são largos.
 - A camada semântica, com 1.828 dos 2.105 registros com evidência (1.785 deles em alta confiança), é a
   menos sustentada: o encoder acha a sentença citada em 8,5% a 10% das consultas mascaradas e em 61%
   das não mascaradas, e o score não distingue acerto de erro. O corte de 0,45 depende do que se usa como negativo (0,50 com sentenças da

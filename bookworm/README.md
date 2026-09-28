@@ -1022,7 +1022,8 @@ modelo carregado.
   ela tem de 6 a 9 palavras; se esse primeiro degrau não é encontrado, as 6 primeiras. As palavras da
   citação depois do prefixo encontrado não são conferidas. Em `udv_v1`, o prefixo de `direct_quote`
   tem 10 palavras em 122 registros, 6 em 152 e 7 em 3 (citações de exatamente 7 palavras encontradas
-  inteiras). A validação humana das citações aceitas ainda não foi feita.
+  inteiras). Na validação humana de `udv_v1` (`../challenge/artifacts/udv/udv_v2_precision_final.json`),
+  o trecho de 35 citações sorteadas no teste sustenta a afirmação inteira em 25 e parte dela em 6.
 - **Prefixos curtos pouco distintivos.** A corroboração de `semantic_with_short_quote` aceita prefixos
   de 1 a 5 palavras; em `udv_v1` são 1 de 1 palavra, 7 de 2, 37 de 3, 65 de 4 e 1 de 5.
 - **Posição de um texto repetido no turno.** O offset é a primeira posição do texto no turno de

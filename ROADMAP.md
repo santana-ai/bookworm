@@ -81,25 +81,26 @@ Cada item tem código, configuração, testes e artefato versionado.
   perfis contra as UDVs (`bookworm validate-profiles`) versionada para as duas rodadas
   (`challenge/artifacts/profile_validation/`).
 - **Validação humana.** Amostra estratificada de 127 linhas de `udv_v1` nas audiências de teste,
-  cegamento registrado, guia do anotador e scripts de pontuação; leitura intermediária de 65 linhas
-  (relatório, seção 7.2). Planilha suplementar de `udv_v2` com as 26 linhas cuja evidência é texto
-  novo; os itens cuja evidência de `udv_v2` contém todo o trecho de `udv_v1` no mesmo turno herdam o
-  rótulo (relatório, seção 7.3).
+  cegamento registrado, guia do anotador e scripts de pontuação. As 127 linhas e as 26 da planilha
+  suplementar de `udv_v2` estão julgadas; resultado final em
+  `challenge/artifacts/udv/udv_v2_precision_final.json` (relatório, seções 7.2 a 7.4). Os dois critérios
+  declarados falham: `quote_found` com precisão estrita 0,7143 [0,5495; 0,8367] (25 de 35; 31 de 35
+  `correta` ou `parcial`), igual nas duas rodadas; `semantic_match_high` com precisão tolerante 0,7385
+  [0,6205; 0,8298] em `udv_v1` e 0,8254 [0,7138; 0,8996] em `udv_v2`, abaixo do limite inferior de 0,75.
+  Os números de `udv_v2` supõem que os 78 itens `superset` mantêm o rótulo de `udv_v1`.
 - **Biblioteca `bookworm` 1.0.0.** CLI e API para UDVs, splits, atores, perfis e exportação, com paridade
   testada contra os scripts de `challenge/`, tipagem estrita e testes sem rede.
 - **Demo web** em `bookworm/web/`.
 
 ## Pendente
 
-1. **Validação humana de `udv_v1`.** Completar as 127 linhas (hoje 65, numa planilha ainda não
-   versionada; a planilha do repositório está vazia) e a reanotação de 20 linhas para a concordância
-   intra-anotador; só então os critérios declarados podem ser decididos. O critério de `quote_found` já
-   não pode ser atingido, porque exige zero erros e um erro foi anotado.
-2. **Validação humana de `udv_v2`.** Julgar as 26 linhas de
-   `challenge/artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv` (itens `moved`);
-   os outros 101 itens herdam o rótulo de `udv_v1` (17 `same`, 78 `superset` e 6 `pessoa_falou`), pela
-   regra da seção `[udv_v2_supplement]` de `challenge/configs/validation_sample.toml`. Até lá, a precisão
-   de `udv_v2` é desconhecida.
+1. **Validação humana depois dos critérios que falharam.** A reanotação de 20 linhas (concordância
+   intra-anotador) e o campo `existe_trecho_melhor` (revocação da busca) não foram feitos. A premissa de
+   herança dos 78 itens `superset` não foi medida. Com os critérios de `quote_found` e de
+   `semantic_match_high` reprovados, a evidência das UDVs não pode ser apresentada como validada nesses
+   níveis; uma nova amostra, maior no `semantic_match_high`, seria necessária para decidir se a melhora de
+   `udv_v2` alcança o limite de 0,75.
+2. **Anotador independente.** Toda a validação tem um único anotador.
 3. **Domínio do verificador.** Medir com rótulo humano o efeito de aplicar a UDVs (premissa de uma
    citação ou janela) um verificador ajustado com quatro trechos recuperados.
 4. **Planilhas pendentes.** Revisão de citações e nomes do E6 e checagem manual da tradução.

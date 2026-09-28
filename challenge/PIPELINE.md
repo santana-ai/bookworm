@@ -466,15 +466,16 @@ Só os 26 itens `moved` (19 `semantic_match_high`, 5 `semantic_match_weak`, 2
 `uv run python -m utils.udv_v2_analysis supplement-sheet --final-test`, com a mesma opinião e a
 evidência de `udv_v2`, em nova ordem e com novos identificadores. A correspondência com `udv_v1` e a
 classe de cada linha ficam em `annotation_key.json`, na mesma pasta, que também lista os 101 itens
-herdados (17 `same`, 78 `superset`, 6 `pessoa_falou` sem evidência) com a sua classe. Nenhuma linha foi
-julgada.
+herdados (17 `same`, 78 `superset`, 6 `pessoa_falou` sem evidência) com a sua classe. As 26 linhas
+estão julgadas.
 
 **Comando de precisão.** Com as planilhas preenchidas e as chaves:
 
 ```bash
 uv run python -m utils.udv_v2_analysis score-annotation --final-test \
   --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
-  --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement
+  --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement \
+  --output artifacts/udv/udv_v2_precision_final.json
 ```
 
 Ele reusa as funções de `utils/precision_report.py` (precisão estrita e tolerante por estrato, intervalo
@@ -486,17 +487,39 @@ sensibilidade: a precisão com os `superset` contados só quando o rótulo de `u
 lado da precisão com todos herdados. O status só é final com as duas planilhas completas. Com a
 planilha incompleta, conta só as linhas com rótulo válido, informa "n julgados de N" no total e por
 estrato, lista rótulos fora do conjunto permitido sem contá-los e marca o relatório e cada critério como
-`INTERIM`. Cada execução grava um arquivo novo, `artifacts/udv/udv_v2_precision_<interim|final>_<UTC>.json`,
-que nunca é sobrescrito. `--final-test` é obrigatório porque a amostra é do teste; nada foi escolhido a
+`INTERIM`. Sem `--output`, cada execução grava um arquivo novo,
+`artifacts/udv/udv_v2_precision_<interim|final>_<UTC>.json`, que nunca é sobrescrito. `--final-test` é obrigatório porque a amostra é do teste; nada foi escolhido a
 partir dela.
 
 Critérios declarados em 2026-09-23 (`criteria` da chave): limite inferior de Wilson da precisão estrita de
 `direct_quote` de pelo menos 0,90 e da precisão tolerante de `semantic_match_high` de pelo menos 0,75.
 
-**Resultado humano provisório.** Os números intermediários da planilha em preenchimento, o estado de
-cada critério e o que ainda falta anotar estão no relatório, seção 7.2. O arquivo
-`artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` é uma leitura anterior da mesma planilha
-(31 linhas de `semantic_match_high` julgadas e um rótulo inválido) e foi substituído por esse recálculo.
+**Resultado humano final.** `artifacts/udv/udv_v2_precision_final.json`, status `final`, com as 127
+linhas de `udv_v1` e as 26 suplementares julgadas. O campo `existe_trecho_melhor` ficou vazio nas duas
+planilhas; `utils/precision_report.py` recusa planilhas assim, então os números finais vêm de
+`udv_v2_analysis score-annotation`, e o campo não foi preenchido depois.
+
+| estrato | `udv_v1`: correta / parcial / incorreta | `udv_v1`: estrita; tolerante [Wilson 95%] | `udv_v2`: correta / parcial / incorreta | `udv_v2`: estrita; tolerante [Wilson 95%] |
+|---|---|---|---|---|
+| `direct_quote` | 25 / 6 / 4 | 0,7143 [0,5495; 0,8367]; 0,8857 [0,7405; 0,9546] | igual a `udv_v1` | igual a `udv_v1` |
+| `semantic_match_high` | 35 / 13 / 17 (65) | 0,5385 [0,4185; 0,6541]; 0,7385 [0,6205; 0,8298] | 36 / 16 / 11 (63) | 0,5714 [0,4486; 0,686]; 0,8254 [0,7138; 0,8996] |
+| `semantic_with_short_quote` | 12 / 3 / 0 | 0,8 [0,5481; 0,9295]; 1,0 [0,7961; 1,0] | 14 / 3 / 0 | 0,8235 [0,5897; 0,9381]; 1,0 [0,8157; 1,0] |
+| `semantic_match_weak` | 2 / 1 / 3 | 0,3333; 0,5 | 1 / 0 / 5 | 0,1667; 0,1667 |
+
+Os dois critérios falham nas duas rodadas. `quote_found_strict_precision`: 25 de 35, limite inferior
+0,5495 contra 0,90; o trecho de citação é `correta` ou `parcial` em 31 de 35 casos, mas `correta` em só
+25. `semantic_match_high_tolerant_precision`: limite inferior 0,6205 em `udv_v1` e 0,7138 em `udv_v2`
+contra 0,75; a estimativa pontual subiu de 0,7385 para 0,8254 e os `incorreta` caíram de 17 para 11, mas
+com 63 itens passar exigiria 54 acertos tolerantes, e houve 52. Os números de `udv_v2` supõem que os 78
+itens `superset` mantêm o rótulo de `udv_v1`; com os `superset` contados só quando esse rótulo é
+`correta`, a precisão tolerante de `semantic_match_high` seria 0,8913 [0,7696; 0,9527] (seção
+`sensitivity`). No `speaker_check`, 5 das 6 pessoas sem evidência falaram na transcrição (falsa ausência
+0,8333 [0,4365; 0,9699] por pessoa). Detalhes no relatório, seções 7.2 e 7.4.
+
+Os arquivos `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` e
+`udv_v2_precision_interim_20260928T173107Z.json` são leituras intermediárias de planilhas incompletas
+(64 e 65 de 127 linhas), guardadas como histórico; o segundo ainda é o citado em
+`artifacts/udv/udv_v2_downstream_report.json`.
 
 ## Pendências e limitações
 
@@ -509,10 +532,11 @@ cada critério e o que ainda falta anotar estão no relatório, seção 7.2. O a
   intérprete (`artifacts/udv/udv_v2.jsonl`, nível `no_evidence`; `HEARING_ACTORS.md` conta 6
   participantes que falaram em Libras). Atribuir a fala do intérprete a eles daria evidência a no máximo
   8 das 2.203 opiniões. Não implementado.
-- **Validação humana de `udv_v2`.** As 26 linhas da planilha suplementar (os itens `moved`, cuja
-  evidência de `udv_v2` é texto novo) precisam de julgamento com a evidência de `udv_v2`; os 78 itens
-  `superset` e os 17 `same` herdam o rótulo de `udv_v1`. Sem essas linhas, não há precisão humana de
-  `udv_v2`.
+- **Validação humana.** Os dois critérios declarados falharam (seção "Resultado humano final"). A precisão
+  de `udv_v2` depende da premissa, não medida, de que os 78 itens `superset` mantêm o rótulo de `udv_v1`;
+  os 26 itens `moved` foram julgados por quem já tinha visto a mesma opinião com o trecho de `udv_v1`. Há
+  um anotador, a reanotação de 20 linhas não foi feita e `existe_trecho_melhor` ficou vazio, então nem a
+  concordância intra-anotador nem a revocação da busca são estimáveis.
 - **Domínio do verificador.** O primário foi ajustado com premissas de 4 chunks recuperados; nas UDVs a
   premissa é uma citação ou uma janela. O corte de premissa UDV corrige a escala no treino, mas o efeito
   da mudança de domínio na ordenação não foi medido com rótulo humano.

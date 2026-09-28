@@ -71,20 +71,23 @@ arquivo de origem:
 | Sinais derivados do cosseno como confiança (E5) | nenhum IC de diferença de AURC exclui zero |
 | Verificador primário (E3x), teste final, 559 opiniões | ROC AUC 0,9122 [0,8698; 0,9454], kappa 0,5924 |
 | Verificador contra o cosseno na validação (confidence_v2 E-A) | ROC AUC 0,8758 contra 0,7302, Δ +0,1457 [0,0852; 0,2159], Holm 0,012 |
-| Validação humana parcial de `udv_v1`, `quote_found` (precisão estrita) | 17 de 18, 0,9444 [0,7424; 0,9901] |
-| Validação humana parcial de `udv_v1`, `semantic_match_high` (precisão tolerante) | 25 de 32, 0,7812 [0,6125; 0,8898] |
+| Validação humana, `quote_found` (precisão estrita; igual em `udv_v1` e `udv_v2`) | 25 de 35, 0,7143 [0,5495; 0,8367]; critério (limite inferior ≥ 0,90) falha |
+| Validação humana, `semantic_match_high` de `udv_v1` (precisão tolerante) | 48 de 65, 0,7385 [0,6205; 0,8298]; critério (limite inferior ≥ 0,75) falha |
+| Validação humana, `semantic_match_high` de `udv_v2` (precisão tolerante, com herança) | 52 de 63, 0,8254 [0,7138; 0,8996]; critério falha |
 
 Os intervalos das linhas de recuperação e do verificador são de 95% por bootstrap de audiência; os da
-validação humana são de Wilson a 95%. As duas linhas de validação humana vêm de uma leitura
-intermediária de 65 das 127 linhas da amostra de `udv_v1`, feita numa planilha que ainda está sendo
-preenchida e será versionada quando completa; a planilha deste repositório
-(`challenge/artifacts/validation/human_validation_v1_udv_v1/annotation.csv`) ainda está vazia. Nenhum
-critério declarado da validação pode ser decidido com a leitura parcial (relatório, seção 7). A precisão
-humana de `udv_v2` não foi medida. 101 itens da amostra herdam o rótulo de `udv_v1`: 23 têm a mesma
-evidência nas duas versões e 78 têm em `udv_v2` uma evidência que contém todo o trecho de `udv_v1` no
-mesmo turno, regra declarada em `challenge/configs/validation_sample.toml` que torna a precisão
-conservadora quanto aos rótulos `parcial` e `incorreta`. As 26 linhas da planilha suplementar de
-`udv_v2`, com os itens cuja evidência é texto novo, ainda não foram julgadas (relatório, seção 7.3). O verificador foi ajustado com premissas de quatro trechos e é aplicado a evidências de uma
+validação humana são de Wilson a 95%, lidos do relatório final
+[`challenge/artifacts/udv/udv_v2_precision_final.json`](challenge/artifacts/udv/udv_v2_precision_final.json)
+(127 de 127 linhas de `udv_v1` e 26 de 26 linhas suplementares julgadas, um anotador). Os dois critérios
+declarados antes da anotação falham. Na citação literal, o trecho é `correta` ou `parcial` em 31 de 35
+casos, mas `correta` em só 25, e o critério pedia 35 de 35. No `semantic_match_high`, de `udv_v1` para
+`udv_v2` a precisão tolerante subiu de 0,7385 para 0,8254 e os `incorreta` caíram de 17 para 11, mas o
+limite inferior (0,7138) continua abaixo de 0,75: com 63 itens, passar exigiria 54 acertos, e houve 52.
+Os números de `udv_v2` supõem que 78 itens cuja evidência nova contém todo o trecho de `udv_v1` no mesmo
+turno mantêm o rótulo de `udv_v1`, premissa não medida (relatório, seção 7.4, com a linha de
+sensibilidade); 17 itens têm evidência igual e 26 foram julgados de novo. O campo `existe_trecho_melhor`
+ficou vazio e a reanotação não foi feita, então a revocação da busca e a concordância intra-anotador não
+são estimáveis. O verificador foi ajustado com premissas de quatro trechos e é aplicado a evidências de uma
 citação ou janela, uma mudança de domínio que não foi medida com rótulo humano.
 
 `udv_v0` e `udv_v1` (evidência de uma sentença, corte 0,45) ficam como histórico e base de comparação.

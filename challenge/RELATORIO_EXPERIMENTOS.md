@@ -30,7 +30,7 @@ Convenções usadas no texto:
 - [4. Trabalho 1: achar a evidência](#4-trabalho-1-achar-a-evidência)
 - [5. Trabalho 2: dizer quanto confiar na evidência](#5-trabalho-2-dizer-quanto-confiar-na-evidência)
 - [6. Atores e regras de ligação](#6-atores-e-regras-de-ligação)
-- [7. Validação humana (parcial)](#7-validação-humana-parcial)
+- [7. Validação humana](#7-validação-humana)
 - [8. Glossário de métricas](#8-glossário-de-métricas)
 - [9. Software e reprodutibilidade](#9-software-e-reprodutibilidade)
 - [10. Limitações](#10-limitações)
@@ -66,17 +66,21 @@ Resultados principais, todos rastreados nas seções seguintes:
 | Sinais derivados do cosseno não melhoram a confiança (E5) | nenhum IC de diferença de AURC exclui zero no `nli` | `artifacts/experiments/confidence/confidence_v1/confidence_v1_report.json` |
 | Verificador primário (E3x), teste final, 559 opiniões | ROC AUC 0.9122 [0.8698; 0.9454], kappa 0.5924 | `artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json` |
 | Primário contra o cosseno Serafim na validação (confidence_v2 E-A) | ROC AUC 0.8758 contra 0.7302, Δ +0.1457 [0.0852; 0.2159], Holm 0.012 | `artifacts/experiments/confidence_v2/ea_report.json` |
-| Validação humana parcial de `udv_v1`, `quote_found` (precisão estrita) | 17 de 18, 0.9444 [0.7424; 0.9901] | recálculo desta data, seção 7 |
-| Validação humana parcial de `udv_v1`, `semantic_match_high` (precisão tolerante) | 25 de 32, 0.7812 [0.6125; 0.8898] | idem |
+| Validação humana final, `quote_found` (precisão estrita; igual em `udv_v1` e `udv_v2`) | 25 de 35, 0.7143 [0.5495; 0.8367]; critério (limite inferior ≥ 0.9) FAIL | `artifacts/udv/udv_v2_precision_final.json`, seção 7 |
+| Validação humana final, `semantic_match_high` de `udv_v1` (precisão tolerante) | 48 de 65, 0.7385 [0.6205; 0.8298]; critério (limite inferior ≥ 0.75) FAIL | idem |
+| Validação humana final, `semantic_match_high` de `udv_v2` (precisão tolerante, com herança) | 52 de 63, 0.8254 [0.7138; 0.8996]; critério FAIL | idem, seção `udv_v2` |
 
-O que ainda não está resolvido: a precisão de `udv_v2` não foi medida. A amostra humana é de `udv_v1`;
-101 dos seus itens herdam o rótulo em `udv_v2` (evidência igual, ou evidência nova que contém todo o
-trecho de `udv_v1` no mesmo turno), e as 26 linhas da planilha suplementar de `udv_v2`, com os itens
-cuja evidência é texto novo, ainda não foram julgadas (seção 7.3). A validação de `udv_v1` cobre 65 de 127
-linhas e nenhum critério declarado pode ser decidido; o critério de `quote_found` já não pode mais ser atingido quando a planilha for
-completada, porque exige zero erros em 35 e um erro já foi anotado (seção 7). O verificador foi ajustado
-com premissas de quatro trechos e aplicado a UDVs com premissa de uma sentença ou janela, uma mudança de
-domínio que não foi medida com rótulo humano.
+Os dois critérios declarados da validação humana falharam, em `udv_v1` e em `udv_v2` (seção 7). A
+evidência de citação literal é `correta` ou `parcial` em 31 de 35 casos, mas `correta` em só 25; o
+critério exigia limite inferior de 0.9 na precisão estrita, o que no tamanho sorteado pedia 35 de 35. No
+`semantic_match_high`, a precisão tolerante subiu de 0.7385 em `udv_v1` para 0.8254 em `udv_v2` e os
+julgamentos `incorreta` caíram de 17 para 11, mas o limite inferior de Wilson (0.7138) ainda fica abaixo
+de 0.75: com 63 itens, passar exigiria 54 acertos, e houve 52. A precisão de `udv_v2` depende de uma
+premissa não medida: 78 itens cuja evidência nova contém todo o trecho de `udv_v1` no mesmo turno herdam
+o rótulo de `udv_v1` (seção 7.3). Há um único anotador, a reanotação de 20 linhas não foi feita e o campo
+`existe_trecho_melhor` ficou vazio, então nem a concordância intra-anotador nem a revocação da busca são
+estimáveis. O verificador foi ajustado com premissas de quatro trechos e aplicado a UDVs com premissa de
+uma sentença ou janela, uma mudança de domínio que não foi medida com rótulo humano.
 
 ## 1. Dataset e tarefa
 
@@ -1066,7 +1070,7 @@ em 0.0495 dos pares em `udv_v2`, acima do acaso (0.0038) e muito abaixo dos pare
 troca de `udv_v1` por `udv_v2` muda essas medidas em menos de 0.01, porque só muda o conjunto de UDVs
 elegíveis (níveis `quote_found` e `semantic_match_high`).
 
-## 7. Validação humana (parcial)
+## 7. Validação humana
 
 ### 7.1 Desenho da amostra
 
@@ -1111,51 +1115,62 @@ Vazamentos conhecidos do cegamento (`sample_report.json`, `blinding.known_leaks`
 `semantic_with_short_quote` são reconhecíveis porque as palavras citadas reaparecem no trecho; só a
 distinção entre `semantic_match_high` e `semantic_match_weak` fica cega.
 
-### 7.2 Recálculo parcial em 28/09/2026
+### 7.2 Resultado final de `udv_v1`
 
-O relatório final exige as duas planilhas completas (`annotation_guide.md`). Este relatório traz um
-recálculo intermediário, feito para o artigo, sobre as linhas já julgadas. Ele não é uma decisão
-sobre os critérios.
-
-Comando (saída gravada fora do repositório):
+Fonte: `artifacts/udv/udv_v2_precision_final.json`, seção `udv_v1`, status `final` (127 de 127 linhas
+com julgamento válido, 0 rótulos inválidos). Comando:
 
 ```
 cd challenge && uv run python -m utils.udv_v2_analysis score-annotation --final-test \
   --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
-  --output <arquivo temporário>
+  --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement \
+  --output artifacts/udv/udv_v2_precision_final.json
 ```
 
-Os números abaixo só se reproduzem com a versão da planilha de sha256 indicado a seguir.
+Planilha lida: `artifacts/validation/human_validation_v1_udv_v1/annotation.csv`, sha256
+`7bb2906a110c0696df351580a133c5d69f7fe05c9d14e0737c8c09090abfe345`, gravado no relatório com o caminho
+relativo a `challenge/`. O campo `existe_trecho_melhor` ficou vazio nas 127 linhas
+(`better_passage_missing`). Por isso os números finais vêm de `udv_v2_analysis score-annotation`:
+`utils/precision_report.py` recusa uma planilha com `existe_trecho_melhor` vazio, e o campo não foi
+preenchido depois do fato.
 
-Estado da planilha lida: sha256 `5d4de458fbd1ad86c0dedccaaa180b1640fb96c8a50d05071b581dba5010bbc1`; 65 de 127
-linhas julgadas; 0 rótulos inválidos; o campo `existe_trecho_melhor` está vazio nas 65. Saída gerada em
-2026-09-28T15:27:47Z, status `interim`.
-
-| estrato (`udv_v1`) | julgadas | correta / parcial / incorreta | precisão estrita [Wilson 95%] | precisão tolerante [Wilson 95%] |
+| estrato (`udv_v1`) | julgadas (população no teste) | correta / parcial / incorreta | precisão estrita [Wilson 95%] | precisão tolerante [Wilson 95%] |
 |---|---|---|---|---|
-| `direct_quote` | 18 de 35 (população 41) | 17 / 0 / 1 | 0.9444 [0.7424; 0.9901] | 0.9444 [0.7424; 0.9901] |
-| `semantic_match_high` | 32 de 65 (população 277) | 21 / 4 / 7 | 0.6562 [0.4831; 0.7959] | 0.7812 [0.6125; 0.8898] |
-| `semantic_with_short_quote` | 8 de 15 (população 22) | 8 / 0 / 0 | 1.0 [0.6756; 1.0] | 1.0 [0.6756; 1.0] |
-| `semantic_match_weak` | 4 de 6 | 1 / 1 / 2 | 0.25 [0.0456; 0.6994] | 0.5 [0.15; 0.85] |
-| `speaker_check` | 3 de 6 linhas (6 UDVs; população 13) | todas `falou` | n/a | n/a |
+| `direct_quote` | 35 (41) | 25 / 6 / 4 | 0.7143 [0.5495; 0.8367] | 0.8857 [0.7405; 0.9546] |
+| `semantic_match_high` | 65 (277) | 35 / 13 / 17 | 0.5385 [0.4185; 0.6541] | 0.7385 [0.6205; 0.8298] |
+| `semantic_with_short_quote` | 15 (22) | 12 / 3 / 0 | 0.8 [0.5481; 0.9295] | 1.0 [0.7961; 1.0] |
+| `semantic_match_weak` | 6 (6) | 2 / 1 / 3 | 0.3333 [0.0968; 0.7] | 0.5 [0.1876; 0.8124] |
 
-No `speaker_check`, todas as respostas foram `falou`: a taxa de falsa ausência (a pessoa falou, mas a
-pipeline não registrou fala utilizável) é 1.0 [0.4385; 1.0] por pessoa e 1.0 [0.6097; 1.0] por UDV, com
-3 pessoas e 6 UDVs.
+Critérios declarados em 23/09/2026:
 
-Estado dos critérios, só como leitura intermediária:
+| critério | observado | mínimo do limite inferior | acertos necessários neste n | situação |
+|---|---|---|---|---|
+| `quote_found_strict_precision` (`direct_quote`, estrita) | 25 de 35, limite inferior 0.5495 | 0.9 | 35 de 35 | FAIL |
+| `semantic_match_high_tolerant_precision` (`semantic_match_high`, tolerante) | 48 de 65, limite inferior 0.6205 | 0.75 | 56 de 65 | FAIL |
 
-| critério | valor atual | situação |
-|---|---|---|
-| `quote_found_strict_precision` | limite inferior 0.7424 contra 0.9 | não pode mais passar: exige 35 de 35 e já há 1 `incorreta` (`udv-112-4-0`) |
-| `semantic_match_high_tolerant_precision` | limite inferior 0.6125 contra 0.75 | indefinido: 7 erros em 32, até 9 permitidos em 65 |
+O que as duas falhas dizem. Na citação literal, o trecho achado contém as palavras citadas pela matéria,
+e o anotador o julgou `correta` ou `parcial` em 31 de 35 casos; mas só 25 são `correta`, porque em 6 o
+trecho sustenta só parte da afirmação e em 4 não a sustenta. Achar as palavras citadas não garante que a
+afirmação inteira da matéria esteja apoiada no trecho, e o critério, que não permitia nenhum erro em 35,
+não se sustenta. No `semantic_match_high` de `udv_v1`, 17 de 65 trechos foram julgados `incorreta`, acima
+dos 9 erros que o critério tolerava.
 
-Subconjunto sem mudança de evidência em `udv_v2` (`udv_v2_unchanged`): 23 itens da amostra; `direct_quote`
-10 de 11, 0.9091 [0.6226; 0.9838]; o critério semântico não é avaliável nesse subconjunto.
+`speaker_check` (pergunta `pessoa_falou`, 6 pessoas, 13 UDVs sem evidência): 5 das 6 pessoas falaram na
+transcrição. A taxa de falsa ausência (a pessoa falou, mas a pipeline não registrou fala utilizável) é
+0.8333 [0.4365; 0.9699] por pessoa e 0.8462 [0.5777; 0.9567] por UDV; as respostas de uma pessoa são
+copiadas para cada UDV dela, então o intervalo por pessoa é o que usa a unidade independente. As duas
+UDVs `nao_falou` são `udv-5-8-0` e `udv-5-8-1`.
 
-Todas as 18 linhas `direct_quote` julgadas e as 8 `semantic_with_short_quote` têm a pista de citação
-visível; as 32 de `semantic_match_high` não têm (`by_quote_cue`). Os números de `direct_quote` e
-`semantic_with_short_quote` não foram obtidos às cegas quanto ao modo de busca.
+Todas as 35 linhas `direct_quote` e as 15 `semantic_with_short_quote` têm a pista de citação visível; as
+65 de `semantic_match_high` e as 6 de `semantic_match_weak` não têm (`by_quote_cue`). Os números dos dois
+primeiros estratos não foram obtidos às cegas quanto ao modo de busca.
+
+Leituras intermediárias da mesma planilha, feitas antes de ela estar completa, ficaram versionadas como
+histórico e não valem como resultado: `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` e
+`artifacts/udv/udv_v2_precision_interim_20260928T173107Z.json` (este último é o citado em
+`artifacts/udv/udv_v2_downstream_report.json`, `human_precision_interim`). A versão anterior deste
+relatório trazia um recálculo de 65 das 127 linhas (sha256 `5d4de458…`), também substituído por esta
+seção.
 
 Uma revisão exploratória anterior, não cega e sem protocolo, foi retirada desta versão (fica na tag Git
 `research-2026-09-28`); ela não é validação e não entra em nenhum número deste relatório.
@@ -1194,7 +1209,7 @@ turno não transforma um trecho que sustenta a afirmação em um que não susten
 | itens `trecho_sustenta` da amostra | 121: 17 `same`, 78 `superset`, 26 `moved` |
 | itens que herdam o rótulo de `udv_v1` | 101: 17 `same` (`direct_quote`), 78 `superset` (18 `direct_quote`, 44 `semantic_match_high`, 15 `semantic_with_short_quote`, 1 `semantic_match_weak`) e 6 `pessoa_falou` |
 | linhas a julgar na planilha suplementar | 26 (19 `semantic_match_high`, 5 `semantic_match_weak`, 2 `semantic_with_short_quote`) |
-| linhas julgadas | 0 |
+| linhas julgadas | 26 de 26 (sha256 da planilha `5bb3610ec20966a6341e9d56c8d17004074265fa19377dab8167c7ed109bbe4b`); `existe_trecho_melhor` vazio nas 26 |
 | critérios | os mesmos da seção 7.1 (sha256 `c4fc0116…`) |
 | regra de herança | seção `[udv_v2_supplement]`, sha256 `f36927e2…`, copiada na chave |
 
@@ -1206,19 +1221,69 @@ A precisão de `udv_v2` por estrato e por tier sai da combinação das duas plan
 suplementar. O relatório dá o intervalo de Wilson de cada precisão, as contagens por origem (`same`,
 `superset`, `moved`) e uma linha de sensibilidade: a precisão com os itens `superset` contados só quando
 o rótulo de `udv_v1` é `correta` (os outros saem do denominador), ao lado da precisão com todos os
-`superset` herdados. O status só é final quando as duas planilhas estão completas. Comando:
-
-```
-cd challenge && uv run python -m utils.udv_v2_analysis score-annotation --final-test \
-  --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
-  --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement
-```
+`superset` herdados. O status só é final quando as duas planilhas estão completas; o comando é o da
+seção 7.2, e o resultado está na seção `udv_v2` de `artifacts/udv/udv_v2_precision_final.json`.
 
 Ressalvas gravadas pelo próprio script: os itens foram sorteados nos estratos de `udv_v1`, então um item
-que mudou de estrato mantém a probabilidade de inclusão do estrato antigo; as linhas suplementares
-mostram opiniões que o anotador já julgou com o trecho de `udv_v1`, então os dois julgamentos não são
-independentes; e um item `superset` guarda um rótulo dado a um trecho mais curto. Até a planilha
-suplementar ser julgada, a precisão de `udv_v2` é desconhecida.
+que mudou de estrato mantém a probabilidade de inclusão do estrato antigo, e os estratos de `udv_v2` não
+são amostras aleatórias simples das suas populações; as linhas suplementares mostram opiniões que o
+anotador já julgou com o trecho de `udv_v1`, então os dois julgamentos não são independentes; e um item
+`superset` guarda um rótulo dado a um trecho mais curto.
+
+### 7.4 Resultado final de `udv_v2`
+
+Fonte: `artifacts/udv/udv_v2_precision_final.json`, seção `udv_v2`, status `final`. Origem dos 127
+rótulos: 17 `same`, 78 `superset` e 6 sem evidência (`pessoa_falou`) herdam o rótulo da planilha de
+`udv_v1`; 26 `moved` usam o rótulo da planilha suplementar. O estrato de cada item é o dos seus registros
+em `udv_v2`, e a população é a contagem de `udv_v2` no teste.
+
+**Premissa de herança.** Os 78 itens `superset` contam com o rótulo que o anotador deu ao trecho mais curto
+de `udv_v1`. Isso supõe que acrescentar sentenças do mesmo turno não transforma um trecho que sustenta a
+afirmação em um que não sustenta. A premissa não foi medida; a linha de sensibilidade abaixo mostra quanto
+os números dependem dela.
+
+| estrato (`udv_v2`) | julgadas (população no teste) | correta / parcial / incorreta | precisão estrita [Wilson 95%] | precisão tolerante [Wilson 95%] |
+|---|---|---|---|---|
+| `direct_quote` | 35 (41) | 25 / 6 / 4 | 0.7143 [0.5495; 0.8367] | 0.8857 [0.7405; 0.9546] |
+| `semantic_match_high` | 63 (264) | 36 / 16 / 11 | 0.5714 [0.4486; 0.686] | 0.8254 [0.7138; 0.8996] |
+| `semantic_with_short_quote` | 17 (30) | 14 / 3 / 0 | 0.8235 [0.5897; 0.9381] | 1.0 [0.8157; 1.0] |
+| `semantic_match_weak` | 6 (11) | 1 / 0 / 5 | 0.1667 [0.0301; 0.5635] | 0.1667 [0.0301; 0.5635] |
+
+Por tier (`by_tier`): `quote_found` 35 UDVs, iguais a `direct_quote`; `semantic_match_high` 80 UDVs
+(`semantic_match_high` mais `semantic_with_short_quote`), estrita 0.625 [0.5155; 0.7231] e tolerante
+0.8625 [0.7703; 0.9215]; `semantic_match_weak` 6 UDVs, 0.1667 [0.0301; 0.5635] nas duas.
+
+| critério | observado | mínimo do limite inferior | acertos necessários neste n | situação |
+|---|---|---|---|---|
+| `quote_found_strict_precision` | 25 de 35, limite inferior 0.5495 | 0.9 | 35 de 35 | FAIL |
+| `semantic_match_high_tolerant_precision` | 52 de 63, limite inferior 0.7138 | 0.75 | 54 de 63 | FAIL |
+
+O que os números dizem. Nenhum item `direct_quote` mudou de evidência de forma que exigisse novo
+julgamento (17 `same`, 18 `superset`), então a citação literal tem em `udv_v2` os mesmos números de
+`udv_v1` e o mesmo FAIL. No `semantic_match_high`, a estimativa pontual da precisão tolerante subiu de
+0.7385 para 0.8254 e os julgamentos `incorreta` caíram de 17 para 11; o limite inferior de Wilson subiu
+de 0.6205 para 0.7138 e continua abaixo de 0.75. Com 63 itens, o critério pedia 54 acertos tolerantes, e
+houve 52. A amostra é pequena demais para que uma precisão em torno de 0.83 tenha limite inferior acima de
+0.75. A precisão estrita desse estrato é 0.5714: pouco mais da metade dos trechos sustenta a afirmação
+inteira.
+
+Sensibilidade (`sensitivity`): contando os itens `superset` só quando o rótulo de `udv_v1` é `correta`
+(29 dos 78 saem do denominador), a precisão fica:
+
+| estrato | estrita, todos herdados | estrita, `superset` só se `correta` | tolerante, todos herdados | tolerante, `superset` só se `correta` |
+|---|---|---|---|---|
+| `direct_quote` | 0.7143 [0.5495; 0.8367] | 0.9259 [0.7663; 0.9794] (27 UDVs) | 0.8857 [0.7405; 0.9546] | 0.9259 [0.7663; 0.9794] |
+| `semantic_match_high` | 0.5714 [0.4486; 0.686] | 0.7826 [0.6443; 0.8774] (46 UDVs) | 0.8254 [0.7138; 0.8996] | 0.8913 [0.7696; 0.9527] |
+| `semantic_with_short_quote` | 0.8235 [0.5897; 0.9381] | 1.0 [0.7847; 1.0] (14 UDVs) | 1.0 [0.8157; 1.0] | 1.0 [0.7847; 1.0] |
+| `semantic_match_weak` | 0.1667 [0.0301; 0.5635] | 0.2 [0.0362; 0.6245] (5 UDVs) | 0.1667 [0.0301; 0.5635] | 0.2 [0.0362; 0.6245] |
+
+A linha de sensibilidade retira do denominador os itens `superset` de rótulo `parcial` ou `incorreta`,
+cujo rótulo em `udv_v2` poderia ser melhor que o herdado, e mostra quanto a herança pesa nos números.
+Os critérios são decididos só com todos os itens herdados.
+
+Subconjunto sem nenhuma mudança de evidência (`udv_v2_unchanged`, 23 itens): `direct_quote` 15 de 17,
+0.8824 [0.6566; 0.9671]; o critério semântico não é avaliável nele. Esses itens não são uma amostra
+aleatória dos estratos de `udv_v2`.
 
 ## 8. Glossário de métricas
 
@@ -1315,7 +1380,7 @@ Dentro de `challenge/` (salvo indicação):
 | E6 | `utils.fuzzy_matching_experiments`; `uv run --no-sync python -m utils.fuzzy_review_precision` |
 | confidence_v2 | `uv run python -m utils.confidence_v2 smoke`, `decide`, `score`, `laya-smoke`, `laya-score`, `evaluate-ea` |
 | atores | `uv run python -m utils.measure_hearing_actors`; `uv run python -m utils.build_actor_speeches` |
-| amostra humana | `uv run --no-sync python -m utils.generate_validation_sample --run-name udv_v1 --final-test`; relatório final: `uv run --no-sync python -m utils.precision_report --sample-dir artifacts/validation/human_validation_v1_udv_v1 --final-test` |
+| amostra humana | `uv run --no-sync python -m utils.generate_validation_sample --run-name udv_v1 --final-test`; relatório final: `uv run python -m utils.udv_v2_analysis score-annotation --final-test --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement --output artifacts/udv/udv_v2_precision_final.json` (`utils.precision_report` recusa a planilha porque `existe_trecho_melhor` está vazio) |
 | `udv_v2` (CLI da biblioteca) | `uv run --project ../bookworm bookworm build-udvs --config configs/udv_v2.toml --run-name udv_v2`; `verify-udvs` com os mesmos argumentos e `--baseline artifacts/udv/udv_v1.jsonl` |
 | lint e tipos | `uv run ruff check .`; `uv run ruff format --check .`; `uv run mypy` |
 
@@ -1347,19 +1412,21 @@ verificador.
 
 ## 10. Limitações
 
-1. **Validação humana incompleta.** 65 de 127 linhas; nenhum critério decidido; o de `quote_found` não pode
-   mais passar. O campo `existe_trecho_melhor` está vazio em todas as linhas julgadas, então a revocação da
-   busca (se havia trecho melhor) não é estimável. A reanotação de 20 linhas não foi feita, então a
-   concordância intra-anotador não existe. Há um único anotador.
-2. **Leitura intermediária da validação.** O protocolo manda não ver números antes de completar a anotação;
-   o recálculo parcial deste relatório quebra essa regra por decisão dos autores, e quem continuar a
-   anotação deve saber disso.
+1. **Validação humana com um anotador e sem revocação.** As 127 linhas de `udv_v1` e as 26 da planilha
+   suplementar estão julgadas, e os dois critérios declarados falharam (seções 7.2 e 7.4). O campo
+   `existe_trecho_melhor` ficou vazio em todas as linhas, então a revocação da busca (se havia trecho
+   melhor) não é estimável. A reanotação de 20 linhas não foi feita, então a concordância intra-anotador
+   não existe. Há um único anotador.
+2. **Leituras intermediárias da validação.** O protocolo manda não ver números antes de completar a
+   anotação; os recálculos parciais feitos antes da planilha estar completa (seção 7.2) quebraram essa
+   regra por decisão dos autores, e o anotador viu números parciais antes de terminar.
 3. **Cegamento parcial.** Citações literais são reconhecíveis na planilha.
-4. **A validação humana é de `udv_v1`.** Ela não mede diretamente `udv_v2`, cuja evidência mudou em 1969 dos
-   2203 registros. Só 23 itens da amostra têm evidência igual nas duas versões; outros 78 herdam o rótulo porque
-   a evidência nova contém todo o trecho de `udv_v1` no mesmo turno, sob uma premissa não medida, e as
-   26 linhas da planilha suplementar (seção 7.3) não foram julgadas, então a precisão de `udv_v2` é
-   desconhecida.
+4. **A amostra humana foi sorteada em `udv_v1`.** A evidência de `udv_v2` mudou em 1969 dos 2203
+   registros. Só 23 itens da amostra têm evidência igual nas duas versões; 26 itens `moved` foram
+   julgados de novo, mas por quem já tinha visto a mesma opinião com o trecho de `udv_v1`; e 78 itens
+   `superset` herdam o rótulo de `udv_v1` sob a premissa, não medida, de que acrescentar texto do mesmo
+   turno não tira o suporte do trecho (seção 7.4, com a linha de sensibilidade). Os estratos de `udv_v2`
+   não são amostras aleatórias simples das suas populações.
 5. **Rótulo do Trabalho 2.** O verificador foi ajustado e avaliado no rótulo NLI sob recuperação (quatro
    trechos, opiniões geradas por LLM a partir da transcrição). A aplicação a UDVs (opiniões da matéria,
    premissa de uma sentença ou janela) é uma mudança de domínio não medida com rótulo humano.
@@ -1510,13 +1577,13 @@ documento, ou divergência explicada.
 
 | tema | fonte A | fonte B | situação |
 |---|---|---|---|
-| Validação humana intermediária, `semantic_match_high` | `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json`: 31 julgadas, 21 de 31, um rótulo inválido (A003) | recálculo desta data: 32 julgadas (21 `correta`, 4 `parcial`, 7 `incorreta`), 0 inválidos | vale o recálculo (a planilha mudou depois do arquivo anterior); `PIPELINE.md` deixou de copiar os números e aponta para a seção 7.2 |
+| Validação humana intermediária, `semantic_match_high` | `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` e `udv_v2_precision_interim_20260928T173107Z.json`: leituras de planilhas incompletas (64 e 65 de 127 linhas; 31 e 32 julgadas no estrato; um rótulo inválido no primeiro) | `artifacts/udv/udv_v2_precision_final.json`: 65 de 65 julgadas, 0 inválidos | vale o relatório final (seção 7.2); os intermediários ficam versionados como histórico, e `udv_v2_downstream_report.json` ainda cita o segundo em `human_precision_interim` |
 | Kappa do "melhor juiz" na validação | `PIPELINE.md`: 0.69 | `nli_verifier_v2/evaluation_report.json`: `prompt_2_deepseek-chat` 0.7114 | os dois são verdadeiros: 0.6909 é o juiz de referência escolhido no treino (`prompt_1_gpt-4o-mini-2024-07-18`), 0.7114 é o máximo visto na validação; `PIPELINE.md` agora diz isso |
 | Registros alterados de `udv_v1` para `udv_v2` | `udv_v2_analysis.json`: 1969 | `udv_v2_verify.json`, `baseline_diff.evidence_changed`: 1970 | explicado: `diff.evidence_changed` (1969) compara texto, `start_char`, `end_char` e `speaker_turn`; `diff.records_changed_any` (1970) soma `udv-6-0-6`, que só mudou de nível (cosseno 0.4838, entre os cortes 0.45 e 0.50); `baseline_diff.evidence_changed` (1970) compara o objeto `evidence` inteiro e soma `udv-117-0-0`, mesma sentença e mesmos offsets com cosseno diferente em 1.2e-7 (0.69387329 contra 0.69387317). As 1969 com evidência diferente estão nas três contagens |
 | Nome da sigla UDV | `PIPELINE.md`: "unidades documentais verificáveis" | `UDV.md` e `README.md`: "Unidade Deliberativa Verificável" | corrigido em `PIPELINE.md` |
 | Versões de biblioteca | `configs/nli_verifier.toml` e relatórios de recuperação: torch 2.13.0, sentence-transformers 5.6.1 | `udv_v2_coverage.json`: torch 2.14.0, sentence-transformers 6.1.0 | as duas; `udv_v2` é construída pela CLI de `../bookworm/`, que tem ambiente próprio |
 | Medianas do top-1 na regra degenerada | `UDV.md`: "medianas 0,655 e 0,578" (errados e corretos) | `threshold_v1.json`: medianas 0.6472 e 0.5543; 0.655 e 0.5776 são as médias | corrigido em `UDV.md` |
-| Afirmações antigas de `UDV.md` | resumo de recuperação cobre só rodadas lexicais; nenhuma linha julgada na amostra | `retrieval_v1_report.json` com todos os densos; planilha com 65 linhas julgadas | corrigido: `UDV.md` descreve só o registro e as regras de `udv_v1` e aponta para este relatório nos experimentos e na validação |
+| Afirmações antigas de `UDV.md` | resumo de recuperação cobre só rodadas lexicais; nenhuma linha julgada na amostra | `retrieval_v1_report.json` com todos os densos; planilha já com linhas julgadas | corrigido: `UDV.md` descreve só o registro e as regras de `udv_v1` e aponta para este relatório nos experimentos e na validação |
 | "Nenhum avaliador da literatura supera o primário" | `PIPELINE.md` e a seção "Resposta" de `CONFIDENCE_V2.md` | `CONFIDENCE_V2.md`, E-A: comparação direta não declarada; só estimativa pontual | corrigido nos dois documentos: a ordem é estimativa pontual sem teste |
 | Contagem de falantes recorrentes | `HEARING_ACTORS.md`: 282 falantes em 2 ou mais audiências (antes das fusões, 1901 falantes) | `actors.md`: 301 atores em 2 ou mais audiências (depois das fusões e regras de descarte) | as duas, em etapas diferentes |
 | Versão do pacote Laya | `retrieval_v2_report.json`: 0.3.11 instalada | PyPI atual: 0.3.21 | 0.3.11 é a usada nos resultados e a fixada em `pyproject.toml` |
@@ -1533,8 +1600,7 @@ documento, ou divergência explicada.
 | juízes LLM, Granite Guardian, Lynx, TRUE, SummaC, MiniCheck-RoBERTa, LettuceDetect | não rodados, com motivo | `CONFIDENCE_V2.md` |
 | revisão das planilhas do E6 | sem julgamento | `fuzzy_v1_quotes_review.jsonl`, `fuzzy_v1_names_review.jsonl` |
 | checagem manual de tradução | não preenchida | `artifacts/validation/translation_spot_check_v2/` |
-| segunda metade da validação humana e reanotação de 20 linhas | pendentes | `annotation_guide.md` |
-| validação humana própria de `udv_v2` | planilha suplementar de 26 linhas gerada (itens `moved`; os `same` e `superset` herdam o rótulo), nenhuma julgada (seção 7.3) | `artifacts/validation/human_validation_v1_udv_v2_supplement/` |
+| reanotação de 20 linhas e campo `existe_trecho_melhor` da validação humana | não feitos; as 127 linhas e as 26 suplementares estão julgadas | `annotation_guide.md` |
 | simulação de atores com o modelo sobre `udv_v2` | comando pronto, rodada não feita | `artifacts/udv/udv_v2_downstream_report.json` (`not_run`), `mlx_alternative/README.md` |
 | revisão manual dos pares da conferência de perfis | amostra declarada (`review.sizes`), planilha não gerada | `artifacts/profile_validation/profile_validation_udv_v2_report.json` |
 | auditoria editorial (índice de desvio editorial) e espaço latente multifacetado | descritos no documento de visão; sem artefato de resultado | `CONSTITUTION.md` |
