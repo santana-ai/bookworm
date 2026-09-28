@@ -340,7 +340,8 @@ Dentro de `challenge/`:
 O script roda, em ordem, `run_actor_profiles.sh` (perfis só com as audiências de `train`, ver
 `ACTOR_PROFILES.md`), `utils.evaluate_actor_simulation` e `utils.simulate_actors`, todos com o
 modelo da variável `MODEL` (o mesmo padrão de `run_actor_profiles.sh`, trocável por
-`MODEL=<modelo> ./run_simulation_pipeline.sh`). Os argumentos passados ao script vão só para o
+`MODEL=<modelo> ./run_simulation_pipeline.sh`). O padrão, `meta-llama/Llama-3.3-70B-Instruct`, é só um
+exemplo e não é o modelo da rodada versionada, que usou `mlx-community/Qwen3.8-27B-8bit` pelo backend MLX. Os argumentos passados ao script vão só para o
 gerador de perfis (`--actors`, `--limit`); as duas etapas seguintes usam todos os atores com linha
 em `artifacts/actor_profiles/actor_profiles_train.jsonl`. O script para no primeiro erro, inclusive
 quando um perfil falha, e rodar de novo retoma de onde parou. Uma falha que se repete, como um

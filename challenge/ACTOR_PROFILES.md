@@ -50,8 +50,10 @@ copiou, não o que ele permite estimar. Para esse uso, o perfil é gerado só co
 ./run_actor_profiles.sh
 ```
 
-O modelo vem da variável `MODEL` do script (um exemplo, trocável por `MODEL=<modelo>
-./run_actor_profiles.sh` ou por `--model <modelo>` na linha de comando).
+O modelo vem da variável `MODEL` do script, trocável por `MODEL=<modelo> ./run_actor_profiles.sh` ou
+por `--model <modelo>` na linha de comando. O valor padrão do script, `meta-llama/Llama-3.3-70B-Instruct`,
+é só um exemplo e não foi o modelo das rodadas versionadas: a rodada completa de perfis e simulação usou
+`mlx-community/Qwen3.8-27B-8bit` pelo backend MLX ([`mlx_alternative/README.md`](mlx_alternative/README.md)).
 
 O script roda, em ordem: `utils.download_dataset` (só se o LDS não estiver em `dataset/`),
 `utils.build_actor_speeches`, `utils.filter_actor_speeches` e `utils.generate_actor_profiles`. Os
