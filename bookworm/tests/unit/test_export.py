@@ -258,15 +258,15 @@ def test_export_rejects_records_of_another_hearing_or_encoder(
         (["per matched turn"], "coverage pipeline is missing or not an object"),
         (
             {**PIPELINE, "quote_patterns": PIPELINE["quote_patterns"][:1]},
-            "differs from the current pipeline in quote_patterns$",
+            "differs from the pipeline of the config in quote_patterns$",
         ),
         (
             {**PIPELINE, "sentence_segmentation": "whole speech", "extra": 1},
-            "differs from the current pipeline in sentence_segmentation, extra$",
+            "differs from the pipeline of the config in sentence_segmentation, extra$",
         ),
         (
             {key: value for key, value in PIPELINE.items() if key != "quote_search"},
-            "differs from the current pipeline in quote_search$",
+            "differs from the pipeline of the config in quote_search$",
         ),
     ],
 )
@@ -287,8 +287,9 @@ def test_export_rejects_a_run_of_another_pipeline(
 
 
 def test_check_run_pipeline_accepts_the_policy_of_the_run() -> None:
+    double = EvidenceSettings(MINI_THRESHOLD, quote_policy=DOUBLE_ONLY)
     check_run_pipeline(PIPELINE)
-    check_run_pipeline(pipeline_description(DOUBLE_ONLY), DOUBLE_ONLY)
+    check_run_pipeline(pipeline_description(DOUBLE_ONLY), double)
     with pytest.raises(ConfigError, match="quote_patterns"):
         check_run_pipeline(pipeline_description(DOUBLE_ONLY))
 
@@ -303,7 +304,7 @@ def test_export_quotes_follow_the_patterns_of_the_run(turns_hearing: HearingReco
         encoder,
         run_name="double",
         pipeline=pipeline_description(DOUBLE_ONLY),
-        quote_policy=DOUBLE_ONLY,
+        settings=settings,
     )
     single = next(udv for udv in exported["udvs"] if udv["id"] == "udv-3-0-2")
     assert (single["tier"], single["quotes"]) == ("semantic_match_high", [])
@@ -554,7 +555,7 @@ def test_cli_export_rejects_malformed_coverage(mini_workdir: Path) -> None:
         (None, "coverage pipeline is missing or not an object"),
         (
             pipeline_description(DOUBLE_ONLY),
-            "coverage pipeline differs from the current pipeline in quote_patterns",
+            "coverage pipeline differs from the pipeline of the config in quote_patterns",
         ),
     ],
 )

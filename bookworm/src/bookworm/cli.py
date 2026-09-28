@@ -2,7 +2,7 @@
 
 import json
 import random
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Annotated, Any
@@ -48,7 +48,12 @@ from bookworm.udv.schemas import (
 )
 from bookworm.udv.signals import SiteSignals, load_site_signals
 from bookworm.udv.site import HEARINGS_DIR_NAME, INDEX_FILE_NAME, export_site
-from bookworm.udv.verify import compare_with_baseline, coverage_hearings, verify_udv_run
+from bookworm.udv.verify import (
+    compare_with_baseline,
+    coverage_hearings,
+    coverage_threshold,
+    verify_udv_run,
+)
 
 EncoderFactory = Callable[[UdvConfig, Sequence[HearingRecord]], SentenceEncoder]
 
@@ -293,10 +298,21 @@ class ExportRun:
     pipeline: object
     encoder: CachedEncoder
     records_path: Path
+    settings: EvidenceSettings
+
+
+def check_run_threshold(coverage: Mapping[str, Any], config: UdvConfig) -> None:
+    recorded = coverage_threshold(coverage)
+    if recorded != config.embedding_threshold:
+        raise ConfigError(
+            f"the run was built with embedding_threshold {recorded}, but the config has "
+            f"{config.embedding_threshold}"
+        )
 
 
 def load_export_run(config_path: Path, run_name: str) -> ExportRun:
     config = load_udv_config(config_path)
+    settings = evidence_settings(config)
     records_path, coverage_path = run_paths(config, run_name)
     parsed = read_run_records(records_path)
     if parsed.errors:
@@ -305,7 +321,8 @@ def load_export_run(config_path: Path, run_name: str) -> ExportRun:
     hearings = load_lds(config.lds_path, config.expected_sha256)
     try:
         run_hearings = coverage_hearings(coverage, hearings)
-        check_run_pipeline(coverage.get("pipeline"))
+        check_run_pipeline(coverage.get("pipeline"), settings)
+        check_run_threshold(coverage, config)
         encoder = run_cache_encoder(config, run_hearings, coverage)
     except ConfigError as error:
         raise ConfigError(f"{coverage_path}: {error}") from error
@@ -316,6 +333,7 @@ def load_export_run(config_path: Path, run_name: str) -> ExportRun:
         coverage.get("pipeline"),
         CachedEncoder(encoder, config.cache_dir, cache_only=True),
         records_path,
+        settings,
     )
 
 
@@ -355,6 +373,7 @@ def run_export(request: ExportRequest) -> None:
         pipeline=run.pipeline,
         top_k=request.top_k,
         split=split,
+        settings=run.settings,
         signals=signals,
     )
     write_json(payload, request.output)
@@ -459,6 +478,7 @@ def run_export_site(request: SiteRequest) -> None:
         on_hearing=report_progress,
         signals=signals,
         profiles=profiles,
+        settings=run.settings,
     )
     summary: dict[str, Any] = {
         "run": request.run_name,

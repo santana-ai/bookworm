@@ -292,7 +292,36 @@ def xnli_answer(row: JsonObject, path: Path) -> JsonObject:
     }
 
 
-def verifier_decision(row: JsonObject, record: UdvRecord, path: Path) -> JsonObject | None:
+def udv_threshold_of(report: JsonObject, origin: str) -> JsonObject | None:
+    if "udv_threshold" not in report:
+        return None
+    block = field(report, ("udv_threshold",), origin)
+    interval = field(block, ("interval",), origin)
+    return {
+        "value": number_field(block, ("exact",), origin),
+        "rounded": number_field(block, ("value",), origin),
+        "rule": text_field(block, ("rule",), origin),
+        "interval": [
+            number_field(interval, ("low",), origin),
+            number_field(interval, ("high",), origin),
+        ],
+        "source": text_field(block, ("path",), origin),
+    }
+
+
+def udv_decision(row: JsonObject, record: UdvRecord, probability: float, cut: float) -> bool:
+    supported = row.get("supported_at_udv_threshold")
+    if not isinstance(supported, bool) or supported != (probability >= cut):
+        raise ConfigError(
+            f"{record.id}: supported_at_udv_threshold does not follow from the probability "
+            f"and the UDV-premise cut {cut}"
+        )
+    return supported
+
+
+def verifier_decision(
+    row: JsonObject, record: UdvRecord, path: Path, udv_cut: float | None = None
+) -> JsonObject | None:
     support_type = None if record.evidence is None else record.evidence.support_type
     if (
         row.get("hearing_id") != record.hearing_id
@@ -311,7 +340,12 @@ def verifier_decision(row: JsonObject, record: UdvRecord, path: Path) -> JsonObj
         raise ConfigError(f"{path}: {record.id} has an inconsistent verifier decision")
     if record.evidence is None:
         raise ConfigError(f"{path}: {record.id} is scored but the run record has no evidence")
-    return {"probability": float(probability), "supported": supported}
+    decision: JsonObject = {"probability": float(probability), "supported": supported}
+    if udv_cut is not None:
+        decision["supported_at_udv_threshold"] = udv_decision(
+            row, record, float(probability), udv_cut
+        )
+    return decision
 
 
 def premise_of(record: UdvRecord) -> str:
@@ -423,15 +457,19 @@ def signals_summary(
     threshold = number_field(primary, ("fit", "threshold"), origin)
     if number_field(primary, ("final_test_result", "threshold"), origin) != threshold:
         raise ConfigError(f"{origin}: primary fit and final test thresholds differ")
+    verifier: JsonObject = {
+        "name": text_field(primary, ("candidate",), origin),
+        "threshold": threshold,
+        "threshold_fitted_on": text_field(
+            primary, ("final_test_result", "threshold_fitted_on"), origin
+        ),
+        "report_sha256": sha256_of_file(report_path),
+    }
+    udv_threshold = udv_threshold_of(report, origin)
+    if udv_threshold is not None:
+        verifier["udv_threshold"] = udv_threshold
     return {
-        "verifier": {
-            "name": text_field(primary, ("candidate",), origin),
-            "threshold": threshold,
-            "threshold_fitted_on": text_field(
-                primary, ("final_test_result", "threshold_fitted_on"), origin
-            ),
-            "report_sha256": sha256_of_file(report_path),
-        },
+        "verifier": verifier,
         "scorers": {
             name: {
                 "model": text_field(reports[name], ("model", "name"), origins[name]),
@@ -461,8 +499,10 @@ def load_site_signals(
     verifier_path = checked_file(field(report, ("outputs",), origin), "verifier output", origin)
     verifier_rows = rows_by_id(read_rows(verifier_path, "verifier output"), "udv_id", verifier_path)
     check_same_ids(verifier_rows, (record.id for record in records), str(verifier_path))
+    udv_threshold = udv_threshold_of(report, origin)
+    udv_cut = None if udv_threshold is None else float(udv_threshold["value"])
     decisions = {
-        record.id: verifier_decision(verifier_rows[record.id], record, verifier_path)
+        record.id: verifier_decision(verifier_rows[record.id], record, verifier_path, udv_cut)
         for record in records
     }
     scored = [record for record in records if decisions[record.id] is not None]

@@ -37,8 +37,10 @@ from bookworm.profiles.site import (
     ProfileSiteBuilder,
     actor_slug,
     assign_slugs,
+    page_verifier_threshold,
     parse_profile,
     trim_passage,
+    verifier_of,
 )
 
 JsonObject = dict[str, Any]
@@ -401,3 +403,18 @@ def test_cli_export_site_profile_input_errors_exit_two(
     assert result.exit_code == 2
     assert message in result.stderr
     assert not (actors_workdir / "site").exists()
+
+
+def test_profile_verifier_uses_the_udv_premise_cut_when_the_export_has_one() -> None:
+    train_only = {"verifier": {"threshold": 0.75}}
+    both = {"verifier": {"threshold": 0.75, "udv_threshold": {"value": 0.25}}}
+    assert page_verifier_threshold(train_only) == 0.75
+    assert page_verifier_threshold(both) == 0.25
+    decision = {"probability": 0.4, "supported": False}
+    assert verifier_of({"signals": {"verifier": decision}}) == decision
+    with_udv = {**decision, "supported_at_udv_threshold": True}
+    assert verifier_of({"signals": {"verifier": with_udv}}) == {
+        "probability": 0.4,
+        "supported": True,
+    }
+    assert verifier_of({"signals": {"verifier": None}}) is None

@@ -278,7 +278,16 @@ def verifier_of(udv: Mapping[str, Any]) -> JsonObject | None:
     if not isinstance(signals, Mapping) or signals.get("verifier") is None:
         return None
     verifier = signals["verifier"]
-    return {"probability": verifier["probability"], "supported": verifier["supported"]}
+    supported = verifier.get("supported_at_udv_threshold", verifier["supported"])
+    return {"probability": verifier["probability"], "supported": supported}
+
+
+def page_verifier_threshold(signals: Mapping[str, Any]) -> float:
+    verifier = signals["verifier"]
+    udv_threshold = verifier.get("udv_threshold")
+    if isinstance(udv_threshold, Mapping):
+        return float(udv_threshold["value"])
+    return float(verifier["threshold"])
 
 
 def evidence_of(udv: Mapping[str, Any]) -> JsonObject | None:
@@ -372,7 +381,7 @@ class ProfileSiteBuilder:
         owners = self.owners.get(hearing_id, {})
         signals = payload.get("signals")
         if isinstance(signals, Mapping):
-            self.threshold = signals["verifier"]["threshold"]
+            self.threshold = page_verifier_threshold(signals)
         self.hearings[hearing_id] = {
             "id": hearing_id,
             "split": entry["split"],

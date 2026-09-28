@@ -13,6 +13,7 @@ from bookworm.errors import ConfigError
 from bookworm.features.encoders import CachedEncoder
 from bookworm.profiles.site import ProfileSiteBuilder, ProfileSiteExport, clear_profile_site
 from bookworm.transcript.text import normalize_whitespace
+from bookworm.udv.build import EvidenceSettings
 from bookworm.udv.export import DEFAULT_TOP_K, export_hearing, split_of
 from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
 from bookworm.udv.signals import SiteSignals
@@ -105,6 +106,7 @@ def export_site(
     on_hearing: HearingCallback | None = None,
     signals: SiteSignals | None = None,
     profiles: ProfileSiteBuilder | None = None,
+    settings: EvidenceSettings | None = None,
 ) -> SiteExport:
     """Write the demo JSON of every hearing and then ``index.json`` to ``output_dir``."""
     ordered = sorted(hearings, key=lambda hearing: hearing.id)
@@ -131,6 +133,7 @@ def export_site(
             pipeline=pipeline,
             top_k=top_k,
             split=splits.get(hearing.id),
+            settings=settings,
             signals=signals,
         )
         if run is None:

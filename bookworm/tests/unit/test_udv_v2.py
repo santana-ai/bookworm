@@ -17,6 +17,7 @@ from bookworm import (
 from bookworm.errors import ConfigError
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.coverage import pipeline_description, summarize_run
+from bookworm.udv.export import export_hearing
 from bookworm.udv.quotes import (
     DEFAULT_QUOTE_POLICY,
     extend_quote_match,
@@ -257,3 +258,29 @@ def test_udv_config_reads_the_v2_options() -> None:
         UdvConfig.from_mapping(
             minimal_config({"embedding_threshold": 0.5, "quote_extent": "whole_turn"})
         )
+
+
+def test_export_of_a_window_run_ranks_the_windows_the_run_encoded() -> None:
+    record_hearing = hearing((SEMANTIC_OPINION,))
+    encoder = CachedEncoder(StubEncoder(V2_VECTORS))
+    run = build_udvs([record_hearing], encoder, V2_SETTINGS)
+    pipeline = pipeline_description(V2_SETTINGS.quote_policy, V2_SETTINGS)
+    payload = export_hearing(
+        record_hearing, run.records, encoder, run_name="v2", pipeline=pipeline, settings=V2_SETTINGS
+    )
+    assert payload["run"]["semantic_unit"] == "window2"
+    assert payload["run"]["quote_extent"] == "full_quote"
+    udv = payload["udvs"][0]
+    units = person_units(ana_turns(), TRANSCRIPT, 2)
+    assert udv["n_candidates"] == len(units)
+    assert [candidate["text"] for candidate in udv["candidates"]] == sorted(
+        (unit.evidence_text for unit in units),
+        key=lambda text: text != WINDOW_HOSPITAL_FAMILIES,
+    )
+    top = udv["candidates"][0]
+    assert (top["start"], top["end"]) == (
+        udv["evidence"]["start_char"],
+        udv["evidence"]["end_char"],
+    )
+    with pytest.raises(ConfigError, match="pipeline of the config in semantic_unit"):
+        export_hearing(record_hearing, run.records, encoder, run_name="v2", pipeline=pipeline)

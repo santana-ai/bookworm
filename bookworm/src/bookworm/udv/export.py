@@ -16,6 +16,7 @@ from bookworm.transcript.offsets import Span, locate_sentence_span
 from bookworm.transcript.sentences import split_sentences, turn_text
 from bookworm.transcript.turns import Turn, split_into_turns
 from bookworm.udv.build import (
+    EvidenceSettings,
     PersonSpeech,
     resolve_hearing_people,
     sentence_slices_by_person,
@@ -23,9 +24,10 @@ from bookworm.udv.build import (
 )
 from bookworm.udv.coverage import pipeline_description
 from bookworm.udv.evidence import sentence_similarities
-from bookworm.udv.quotes import DEFAULT_QUOTE_POLICY, QuotePolicy, extract_quotes
+from bookworm.udv.quotes import DEFAULT_QUOTE_POLICY, extract_quotes
 from bookworm.udv.schemas import SEMANTIC_TIERS, Evidence, UdvRecord
 from bookworm.udv.signals import SiteSignals
+from bookworm.udv.windows import CandidateUnit, embedding_label, person_units, unit_size
 
 DEFAULT_TOP_K = 8
 CANDIDATE_SCORE_DECIMALS = 4
@@ -121,13 +123,12 @@ def top_candidates(
     similarities = sentence_similarities(opinion_embedding, sentence_embeddings)
     order = np.argsort(-similarities, kind="stable")[:top_k]
     return [
-        {
-            "text": sentences[index].text,
-            "score": round(float(similarities[index]), CANDIDATE_SCORE_DECIMALS),
-            "turn": sentences[index].turn_index,
-            "start": sentences[index].start,
-            "end": sentences[index].end,
-        }
+        candidate_entry(
+            sentences[index].text,
+            float(similarities[index]),
+            sentences[index].turn_index,
+            sentences[index].span,
+        )
         for index in (int(position) for position in order)
     ]
 
@@ -158,19 +159,131 @@ def check_run_records(
             )
 
 
-def check_run_pipeline(pipeline: object, policy: QuotePolicy = DEFAULT_QUOTE_POLICY) -> None:
+def check_run_pipeline(pipeline: object, settings: EvidenceSettings | None = None) -> None:
+    """Refuse a run whose recorded pipeline is not the one ``settings`` describes."""
     if not isinstance(pipeline, Mapping):
         raise ConfigError(
             "coverage pipeline is missing or not an object, so the run cannot be tied to "
-            "the current pipeline"
+            "the pipeline of its config"
         )
-    expected = pipeline_description(policy)
+    expected = (
+        pipeline_description()
+        if settings is None
+        else pipeline_description(settings.quote_policy, settings)
+    )
     differing = [key for key in expected if pipeline.get(key) != expected[key]]
     differing += [key for key in pipeline if key not in expected]
     if differing:
         raise ConfigError(
-            f"coverage pipeline differs from the current pipeline in {', '.join(differing)}"
+            f"coverage pipeline differs from the pipeline of the config in {', '.join(differing)}"
         )
+
+
+def candidate_entry(text: str, score: float, turn: int, span: Span | None) -> JsonObject:
+    return {
+        "text": text,
+        "score": round(score, CANDIDATE_SCORE_DECIMALS),
+        "turn": turn,
+        "start": None if span is None else span.start_char,
+        "end": None if span is None else span.end_char,
+    }
+
+
+def top_unit_candidates(
+    opinion_embedding: FloatMatrix,
+    unit_embeddings: FloatMatrix,
+    units: Sequence[CandidateUnit],
+    top_k: int,
+) -> list[JsonObject]:
+    if not units:
+        return []
+    similarities = sentence_similarities(opinion_embedding, unit_embeddings)
+    order = np.argsort(-similarities, kind="stable")[:top_k]
+    return [
+        candidate_entry(
+            units[index].evidence_text,
+            float(similarities[index]),
+            units[index].turn_index,
+            units[index].span,
+        )
+        for index in (int(position) for position in order)
+    ]
+
+
+@dataclass(frozen=True, slots=True)
+class HearingCandidates:
+    embeddings: FloatMatrix
+    slices: dict[int, slice]
+    sentences: dict[int, list[LocatedSentence]]
+    units: dict[int, list[CandidateUnit]]
+
+    def count(self, person: PersonSpeech) -> int:
+        if self.units:
+            return len(self.units[person.index])
+        return len(person.sentences)
+
+    def top(
+        self, person: PersonSpeech, opinion_embedding: FloatMatrix, top_k: int
+    ) -> list[JsonObject]:
+        embeddings = self.embeddings[self.slices[person.index]]
+        if self.units:
+            return top_unit_candidates(
+                opinion_embedding, embeddings, self.units[person.index], top_k
+            )
+        return top_candidates(opinion_embedding, embeddings, self.sentences[person.index], top_k)
+
+
+def hearing_candidates(
+    hearing: HearingRecord,
+    people: Sequence[PersonSpeech],
+    by_turn: Mapping[int, Sequence[LocatedSentence]],
+    encoder: CachedEncoder,
+    settings: EvidenceSettings | None,
+) -> HearingCandidates:
+    sentences = {person.index: person_sentences(person, by_turn) for person in people}
+    if settings is None or not settings.uses_windows:
+        return HearingCandidates(
+            embeddings=encoder.encode(
+                [sentence for person in people for sentence in person.sentences],
+                f"sentences_{hearing.id}",
+            ),
+            slices=sentence_slices_by_person(people),
+            sentences=sentences,
+            units={},
+        )
+    size = unit_size(settings.semantic_unit)
+    units = {
+        person.index: person_units(person.matched_turns, hearing.transcricao, size)
+        for person in people
+    }
+    slices: dict[int, slice] = {}
+    offset = 0
+    for person in people:
+        slices[person.index] = slice(offset, offset + len(units[person.index]))
+        offset += len(units[person.index])
+    return HearingCandidates(
+        embeddings=encoder.encode(
+            [unit.text for person in people for unit in units[person.index]],
+            embedding_label(settings.semantic_unit, hearing.id),
+        ),
+        slices=slices,
+        sentences=sentences,
+        units=units,
+    )
+
+
+def run_block(run_name: str, record: UdvRecord, settings: EvidenceSettings | None) -> JsonObject:
+    block: JsonObject = {
+        "name": run_name,
+        "encoder": record.method.encoder,
+        "revision": record.method.revision,
+        "threshold": record.method.embedding_threshold,
+    }
+    if settings is not None and settings.uses_windows:
+        block["semantic_unit"] = settings.semantic_unit
+    if settings is not None and settings.quote_extent != "prefix_sentence":
+        block["quote_extent"] = settings.quote_extent
+    return block
 
 
 def candidate_identity(candidate: Mapping[str, Any]) -> tuple[Any, ...]:
@@ -203,7 +316,7 @@ def check_top_candidate(record: UdvRecord, candidates: Sequence[Mapping[str, Any
     if recorded is None or top != recorded:
         raise ConfigError(
             f"{record.id}: the recorded evidence is not the top candidate sentence "
-            "(text, turn, offsets and score) under the current pipeline and encoder"
+            "(text, turn, offsets and score) under the pipeline of the config and the encoder"
         )
 
 
@@ -216,61 +329,50 @@ def export_hearing(
     pipeline: object,
     top_k: int = DEFAULT_TOP_K,
     split: SplitName | None = None,
-    quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
+    settings: EvidenceSettings | None = None,
     signals: SiteSignals | None = None,
 ) -> JsonObject:
-    """Demo JSON of one hearing, with the ``top_k`` candidate sentences of each opinion."""
+    """Demo JSON of one hearing, with the ``top_k`` candidate units of each opinion.
+
+    The candidate units are the sentences of the run, or its windows when ``settings`` has a
+    window ``semantic_unit``; without ``settings`` the run must use the default pipeline.
+    """
     if top_k < 1:
         raise ConfigError(f"top_k must be at least 1, got {top_k}")
     if not records:
         raise ConfigError(f"hearing {hearing.id}: the run has no records for it")
-    check_run_pipeline(pipeline, quote_policy)
+    check_run_pipeline(pipeline, settings)
+    policy = DEFAULT_QUOTE_POLICY if settings is None else settings.quote_policy
     transcript = hearing.transcricao
     turns = split_into_turns(transcript)
     people = resolve_hearing_people(hearing)
     check_run_records(hearing, people, records, encoder)
     by_turn = {turn.turn_index: locate_turn_sentences(turn, transcript) for turn in turns}
-    sentence_embeddings = encoder.encode(
-        [sentence for person in people for sentence in person.sentences],
-        f"sentences_{hearing.id}",
-    )
+    candidates_of = hearing_candidates(hearing, people, by_turn, encoder, settings)
     opinions = [(person, opinion) for person in people for opinion in person.participant.opinioes]
     opinion_embeddings = encoder.encode(
         [opinion for _, opinion in opinions], f"opinions_{hearing.id}"
     )
-    slices = sentence_slices_by_person(people)
-    located = {person.index: person_sentences(person, by_turn) for person in people}
     udvs: list[JsonObject] = []
     for position, ((person, _), record) in enumerate(zip(opinions, records, strict=True)):
-        candidates = top_candidates(
-            opinion_embeddings[position],
-            sentence_embeddings[slices[person.index]],
-            located[person.index],
-            top_k,
-        )
+        candidates = candidates_of.top(person, opinion_embeddings[position], top_k)
         check_top_candidate(record, candidates)
         entry = {
             **record.to_dict(),
             "candidates": candidates,
-            "n_candidates": len(person.sentences),
-            "quotes": extract_quotes(record.proposition, quote_policy.patterns),
+            "n_candidates": candidates_of.count(person),
+            "quotes": extract_quotes(record.proposition, policy.patterns),
         }
         if signals is not None:
             entry["signals"] = signals.for_record(record)
         udvs.append(entry)
-    method = records[0].method
     payload: JsonObject = {
         "hearing": hearing_summary(hearing, split),
         "transcript": transcript,
         "turns": [turn_entry(turn, by_turn[turn.turn_index]) for turn in turns],
         "people": [person_entry(person) for person in people],
         "udvs": udvs,
-        "run": {
-            "name": run_name,
-            "encoder": method.encoder,
-            "revision": method.revision,
-            "threshold": method.embedding_threshold,
-        },
+        "run": run_block(run_name, records[0], settings),
     }
     if signals is not None:
         payload["signals"] = signals.summary

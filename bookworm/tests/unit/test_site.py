@@ -12,6 +12,7 @@ from conftest import (
     MINI_THRESHOLD,
     REPOSITORY_ROOT,
     StubEncoder,
+    rewrite_config,
     stub_factory,
     unused_factory,
 )
@@ -489,3 +490,47 @@ def test_cli_export_site_never_imports_the_model_stack(mini_workdir: Path) -> No
     )
     assert result.stdout.splitlines()[-1] == "[]"
     assert (mini_workdir / "site" / "index.json").is_file()
+
+
+WINDOW_EVIDENCE = (
+    'embedding_threshold = 0.6\nsemantic_unit = "window2"\nquote_extent = "full_quote"'
+)
+
+
+def test_cli_export_site_of_a_window_run_follows_its_config(mini_workdir: Path) -> None:
+    rewrite_config(mini_workdir, "embedding_threshold = 0.6", WINDOW_EVIDENCE)
+    assert build(stub_app).exit_code == 0
+    result = site(export_only_app, "--run-name", "mini", "--output", "site")
+    assert result.exit_code == 0, result.output
+    index = json.loads((mini_workdir / "site" / "index.json").read_text(encoding="utf-8"))
+    assert index["run"] == {**MINI_RUN, "semantic_unit": "window2", "quote_extent": "full_quote"}
+    hearing = json.loads((mini_workdir / "site" / "hearings" / "1.json").read_text("utf-8"))
+    semantic = [
+        udv
+        for udv in hearing["udvs"]
+        if udv["tier"] in ("semantic_match_high", "semantic_match_weak")
+    ]
+    assert semantic
+    for udv in semantic:
+        top = udv["candidates"][0]
+        evidence = udv["evidence"]
+        assert (top["text"], top["start"], top["end"]) == (
+            evidence["text"],
+            evidence["start_char"],
+            evidence["end_char"],
+        )
+
+
+def test_cli_export_site_refuses_a_run_built_with_another_config(mini_workdir: Path) -> None:
+    rewrite_config(mini_workdir, "embedding_threshold = 0.6", WINDOW_EVIDENCE)
+    assert build(stub_app).exit_code == 0
+    rewrite_config(mini_workdir, WINDOW_EVIDENCE, "embedding_threshold = 0.6")
+    result = site(export_only_app, "--run-name", "mini", "--output", "site")
+    assert result.exit_code == 2
+    assert "differs from the pipeline of the config in semantic_unit" in result.stderr
+    rewrite_config(mini_workdir, "embedding_threshold = 0.6", WINDOW_EVIDENCE)
+    rewrite_config(mini_workdir, "embedding_threshold = 0.6", "embedding_threshold = 0.5")
+    result = site(export_only_app, "--run-name", "mini", "--output", "site")
+    assert result.exit_code == 2
+    assert "built with embedding_threshold 0.6, but the config has 0.5" in result.stderr
+    assert not (mini_workdir / "site").exists()

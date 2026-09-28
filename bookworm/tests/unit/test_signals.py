@@ -403,3 +403,58 @@ def test_load_site_signals_rejects_different_thresholds(signal_workdir: Path) ->
     records = load_udv_jsonl(Path(RECORDS))
     with pytest.raises(ConfigError, match="thresholds differ"):
         load_site_signals(Path(REPORT), records, sha256_of_file(Path(RECORDS)))
+
+
+UDV_CUT = 0.3
+
+
+def add_udv_threshold(consistent: bool = True) -> None:
+    rows = [
+        json.loads(line)
+        for line in Path("verifier/udv.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    for row in rows:
+        value = row["primary_probability"]
+        row["supported_at_udv_threshold"] = None if value is None else value >= UDV_CUT
+    scored = next(row for row in rows if row["scored"])
+    if not consistent:
+        scored["supported_at_udv_threshold"] = not scored["supported_at_udv_threshold"]
+    write_rows("verifier/udv.jsonl", rows)
+    report = json.loads(Path(REPORT).read_text(encoding="utf-8"))
+    report["outputs"] = file_entry("verifier/udv.jsonl")
+    report["udv_threshold"] = {
+        "value": UDV_CUT,
+        "exact": UDV_CUT,
+        "rule": "legacy_random",
+        "interval": {"low": 0.25, "high": 0.35},
+        "path": "calibration/udv_threshold.json",
+    }
+    write_json(report, Path(REPORT))
+
+
+def test_signals_carry_the_udv_premise_cut_when_the_report_has_one(signal_workdir: Path) -> None:
+    add_udv_threshold()
+    records = load_udv_jsonl(Path(RECORDS))
+    signals = load_site_signals(Path(REPORT), records, sha256_of_file(Path(RECORDS)))
+    assert signals.summary["verifier"]["threshold"] == 0.5
+    assert signals.summary["verifier"]["udv_threshold"] == {
+        "value": UDV_CUT,
+        "rounded": UDV_CUT,
+        "rule": "legacy_random",
+        "interval": [0.25, 0.35],
+        "source": "calibration/udv_threshold.json",
+    }
+    scored = [record for record in records if record.evidence is not None]
+    for record in scored:
+        verifier = signals.for_record(record)["verifier"]
+        assert verifier["supported"] == (verifier["probability"] >= 0.5)
+        assert verifier["supported_at_udv_threshold"] == (verifier["probability"] >= UDV_CUT)
+
+
+def test_signals_refuse_a_udv_decision_that_does_not_follow_the_cut(
+    signal_workdir: Path,
+) -> None:
+    add_udv_threshold(consistent=False)
+    records = load_udv_jsonl(Path(RECORDS))
+    with pytest.raises(ConfigError, match="supported_at_udv_threshold does not follow"):
+        load_site_signals(Path(REPORT), records, sha256_of_file(Path(RECORDS)))
