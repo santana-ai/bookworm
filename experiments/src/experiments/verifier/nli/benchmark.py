@@ -1,6 +1,5 @@
 """Benchmark rows and premise units, with checks that the NLI chunks match the transcripts."""
 
-import json
 import re
 from collections import Counter
 from dataclasses import dataclass
@@ -8,11 +7,14 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file
+from bookworm import load_gated_jsonl, load_jsonl
 
+from experiments.common.splits import SPLIT_NAMES
 from experiments.common.transcript import normalize_whitespace
-from experiments.data.nli_benchmark import iter_opinions
-from experiments.verifier.nli.config import SPLIT_NAMES, VerifierConfig
+from experiments.verifier.benchmark_inputs import (
+    check_row_split,
+)
+from experiments.verifier.nli.config import VerifierConfig
 
 Record = dict[str, Any]
 
@@ -29,23 +31,12 @@ class PremiseUnit:
     items: tuple[str, ...]
 
 
-def check_benchmark_file(config: VerifierConfig) -> Record:
-    with open(config.benchmark_report_path) as f:
-        recorded = json.load(f)["artifact"]["sha256"]
-    actual = sha256_of_file(config.benchmark_path)
-    if actual != recorded:
-        raise SystemExit(f"{config.benchmark_path}: sha256 {actual} != its report {recorded}")
-    return {"path": str(config.benchmark_path), "sha256": actual}
-
-
 def load_benchmark_rows(
     config: VerifierConfig, split_of: dict[int, str], splits: tuple[str, ...]
 ) -> list[Record]:
     rows = []
     for row in load_jsonl(config.benchmark_path):
-        manifest_split = split_of.get(row["hearing_id"])
-        if manifest_split != row["split"]:
-            raise SystemExit(f"{row['id']}: split {row['split']!r} != manifest {manifest_split!r}")
+        check_row_split(row, split_of)
         if row["split"] in splits:
             rows.append(row)
     return rows
@@ -77,24 +68,6 @@ def sample_rows(
         rng = np.random.default_rng([seed, index])
         kept.update(members[pick] for pick in rng.choice(len(members), size=limit, replace=False))
     return [row for row in rows if row["id"] in kept]
-
-
-def load_nli_chunks(config: VerifierConfig, rows: list[Record]) -> dict[str, list[str]]:
-    wanted = {row["id"]: row for row in rows}
-    chunks: dict[str, list[str]] = {}
-    for hearing, person_index, _, opinion_index, opinion in iter_opinions(
-        load_gated_jsonl(config.nli_path, config.nli_sha256)
-    ):
-        row_id = f"nli-{hearing['id']}-{person_index}-{opinion_index}"
-        if row_id not in wanted:
-            continue
-        if opinion["opiniao"] != wanted[row_id]["opinion"]:
-            raise SystemExit(f"{row_id}: the NLI opinion differs from the benchmark row")
-        chunks[row_id] = list(opinion["chunks_proximos"])
-    missing = sorted(set(wanted) - set(chunks))
-    if missing:
-        raise SystemExit(f"benchmark rows missing from the NLI file: {missing[:10]}")
-    return chunks
 
 
 def load_transcripts(config: VerifierConfig, hearing_ids: set[int]) -> dict[int, str]:

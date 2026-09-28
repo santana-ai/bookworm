@@ -9,29 +9,29 @@ from typing import Any
 import numpy as np
 from bookworm import sha256_of_file, write_json, write_jsonl
 
+from experiments.common.reporting import utc_timestamp
+from experiments.common.splits import SPLIT_NAMES, load_split_lookup
 from experiments.common.udv_run import select_device
-from experiments.udv.calibrate_threshold import (
-    describe,
-    load_split_lookup,
+from experiments.udv.calibrate_threshold import describe
+from experiments.verifier.benchmark_inputs import (
+    check_benchmark_file,
+    load_nli_chunks,
+    split_records,
 )
 from experiments.verifier.nli.benchmark import (
     PremiseUnit,
     benchmark_units,
-    check_benchmark_file,
     load_benchmark_rows,
-    load_nli_chunks,
     load_transcripts,
     sample_rows,
     verify_chunk_sources,
 )
 from experiments.verifier.nli.config import (
     DECISION_KINDS,
-    SPLIT_NAMES,
     ScorerSpec,
     VerifierConfig,
     narrowed_splits,
     selected_scorers,
-    split_records,
 )
 from experiments.verifier.nli.cosine import score_units_cosine
 from experiments.verifier.nli.cross_encoder import portuguese_probes, score_units_nli
@@ -49,7 +49,6 @@ from experiments.verifier.nli.translated import (
     open_translations,
     translation_summary,
 )
-from experiments.verifier.runtime import now
 
 Record = dict[str, Any]
 
@@ -180,7 +179,7 @@ def score_report(
         "experiment": "nli_verifier",
         "mode": mode,
         "run_name": run_name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "scorer": spec.key,
         "kind": spec.kind,
         "splits": splits,

@@ -5,9 +5,9 @@ import shlex
 from collections import Counter
 from typing import Any
 
-from bookworm import sha256_of_file, write_json, write_jsonl
+from bookworm import write_json, write_jsonl
 
-from experiments.common.reporting import utc_timestamp as now
+from experiments.common.reporting import file_record, utc_timestamp
 from experiments.retrieval.data import Query, Unit
 from experiments.retrieval.experiments import (
     build_workload,
@@ -110,7 +110,7 @@ def command_pairs(args: argparse.Namespace, config: ConfidenceConfig) -> None:
         "experiment": "confidence_policies",
         "step": "pairs",
         "run_name": run_dir.name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "splits": split_record(config, args.final_test),
         "splits_used": list(splits),
         "targets": sorted(loaded),
@@ -124,7 +124,7 @@ def command_pairs(args: argparse.Namespace, config: ConfidenceConfig) -> None:
             for rows in s.values()
         ),
         "pair_rule": config.source["entailment"]["pair"],
-        "output": {"path": str(path), "sha256": sha256_of_file(path)},
+        "output": file_record(path),
         "scoring_command": shlex.join(command),
         "inputs": inputs,
         "code": code_hashes(),

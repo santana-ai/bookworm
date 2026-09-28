@@ -6,9 +6,9 @@ import time
 from typing import Any
 
 import numpy as np
-from bookworm import sha256_of_file, write_json
+from bookworm import write_json
 
-from experiments.udv.calibrate_threshold import rounded
+from experiments.common.reporting import file_record, rounded, utc_timestamp
 from experiments.verifier.exploration.candidates import feature_candidate
 from experiments.verifier.exploration.config import (
     ExplorationConfig,
@@ -34,7 +34,6 @@ from experiments.verifier.grounding.metrics import (
     with_combinations,
 )
 from experiments.verifier.grounding.provenance import run_record
-from experiments.verifier.runtime import now
 from experiments.verifier.udv_scores.config import (
     FittedPrimary,
     candidate_scorers,
@@ -100,9 +99,7 @@ def ea_existing(
         for name, feature in EXISTING_FEATURES.items()
     }
     systems[PRIMARY] = fitted.probabilities(data)
-    sources = {
-        key: {"path": str(d.path), "sha256": sha256_of_file(d.path)} for key, d in data.items()
-    }
+    sources = {key: file_record(d.path) for key, d in data.items()}
     return {name: systems[name] for name in EXISTING}, sources
 
 
@@ -252,7 +249,7 @@ def command_evaluate_ea(args: argparse.Namespace, config: Config) -> None:
     report = {
         "experiment": config.name,
         "part": "E-A",
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "splits_read": list(EA_SPLITS),
         "label": config.raw["evaluation"]["positive_ea"],
         "label_semantics": config.raw["experiment"]["label_semantics"],

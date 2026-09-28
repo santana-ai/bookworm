@@ -13,8 +13,8 @@ import transformers
 from bookworm import sha256_of_file, write_json, write_jsonl
 
 from experiments.common.hub_offline import enforce_offline
+from experiments.common.reporting import rounded, utc_timestamp
 from experiments.common.udv_run import seed_everything, select_device
-from experiments.udv.calibrate_threshold import rounded
 from experiments.verifier.grounding.config import EA_SPLITS, Config
 from experiments.verifier.grounding.models import load_scorer as load_grounding_scorer
 from experiments.verifier.grounding.models import release
@@ -38,7 +38,6 @@ from experiments.verifier.grounding.units import (
 )
 from experiments.verifier.nli.benchmark import PremiseUnit
 from experiments.verifier.nli.translated import translation_texts
-from experiments.verifier.runtime import now
 from experiments.verifier.translate.seq2seq import load_translator, translate_missing
 from experiments.verifier.translate.store import selected_model
 
@@ -167,7 +166,7 @@ def command_translate(args: argparse.Namespace, config: Config) -> None:
             translation_config.decoding.batch_token_budget,
         )
     report = {
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "model": config.translation_model,
         "run": run,
         "store": store.summary(),
@@ -209,7 +208,7 @@ def command_smoke(args: argparse.Namespace, config: Config) -> None:
         full = full_pair_count(spec, ea, store)
         record |= {
             "status": "scored",
-            "created_at": now(),
+            "created_at": utc_timestamp(),
             "device": device,
             "model": scorer.info,
             "opinions": len(rows),
@@ -273,7 +272,7 @@ def command_decide(args: argparse.Namespace, config: Config) -> None:
             "smoke_sha256": sha256_of_file(path),
         }
     report = {
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "rule": config.raw["smoke"]["decision_rule"],
         "budget_hours": config.budget_hours,
         "decisions": decisions,
@@ -323,7 +322,7 @@ def command_score(args: argparse.Namespace, config: Config) -> None:
             written[split] = {"path": str(path), "rows": len(split_rows)}
             written[split]["sha256"] = sha256_of_file(path)
         report = {
-            "created_at": now(),
+            "created_at": utc_timestamp(),
             "candidate": key,
             "set": "ea",
             "model": scorer.info,

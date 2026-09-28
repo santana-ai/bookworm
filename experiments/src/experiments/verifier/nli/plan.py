@@ -10,6 +10,8 @@ import numpy as np
 from bookworm import write_json
 from transformers import AutoTokenizer
 
+from experiments.common.reporting import utc_timestamp
+from experiments.verifier.benchmark_inputs import split_records
 from experiments.verifier.decision.laya import LayaTokenizer
 from experiments.verifier.decision.questions import DecisionModelError
 from experiments.verifier.nli.benchmark import PremiseUnit, concatenated_premise, distinct_items
@@ -19,7 +21,6 @@ from experiments.verifier.nli.config import (
     VerifierConfig,
     scored_splits,
     selected_scorers,
-    split_records,
 )
 from experiments.verifier.nli.cosine import item_sentences
 from experiments.verifier.nli.cross_encoder import (
@@ -43,7 +44,6 @@ from experiments.verifier.nli.translated import (
     translation_summary,
     translation_texts,
 )
-from experiments.verifier.runtime import now
 
 Record = dict[str, Any]
 
@@ -353,7 +353,7 @@ def command_plan(args: argparse.Namespace, config: VerifierConfig) -> None:
     if args.timing_from is not None and declaration is not None:
         estimate = compute_estimate(plans, args.timing_from, declaration)
     report = {
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "splits": split_records(splits, args.final_test),
         "opinions": len(units),
         "plans": plans,

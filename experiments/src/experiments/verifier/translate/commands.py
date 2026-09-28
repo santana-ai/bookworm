@@ -7,11 +7,12 @@ from typing import Any
 from bookworm import write_json
 from huggingface_hub import snapshot_download
 
+from experiments.common.reporting import utc_timestamp
 from experiments.common.transcript import (
     normalize_whitespace,
 )
 from experiments.common.udv_run import select_device
-from experiments.verifier.runtime import now
+from experiments.verifier.benchmark_inputs import split_records
 from experiments.verifier.translate.config import ModelSpec, TranslationConfig
 from experiments.verifier.translate.report import (
     build_report,
@@ -21,12 +22,7 @@ from experiments.verifier.translate.report import (
     run_directory,
     texts_digest,
 )
-from experiments.verifier.translate.selection import (
-    load_units,
-    resolve_splits,
-    split_records,
-    unit_selection,
-)
+from experiments.verifier.translate.selection import load_units, resolve_splits, unit_selection
 from experiments.verifier.translate.seq2seq import (
     check_tokenizer,
     load_tokenizer,
@@ -74,7 +70,7 @@ def command_plan(args: argparse.Namespace, config: TranslationConfig) -> None:
         "experiment": "translation",
         "command": "plan",
         "run_name": args.run_name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "splits": split_records(splits, args.final_test),
         "model": {**model_record(config, spec), "tokenizer": tokenizer_info},
         "segmentation": config.segmenter.describe(),

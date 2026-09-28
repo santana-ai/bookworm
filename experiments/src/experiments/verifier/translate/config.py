@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from experiments.common.splits import SPLIT_NAMES
 from experiments.common.transcript import (
     SENTENCE_BOUNDARY_PATTERN,
     is_sentence,
@@ -14,8 +15,6 @@ from experiments.common.transcript import (
 )
 
 Record = dict[str, Any]
-
-SPLIT_NAMES = ("train", "validation", "test")
 
 
 @dataclass(frozen=True)

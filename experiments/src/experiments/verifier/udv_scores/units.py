@@ -5,8 +5,8 @@ from typing import Any
 
 from bookworm import load_jsonl
 
+from experiments.common.splits import load_split_lookup
 from experiments.common.transcript import normalize_whitespace
-from experiments.udv.calibrate_threshold import load_split_lookup
 from experiments.verifier.nli.benchmark import PremiseUnit
 from experiments.verifier.nli.config import (
     VerifierConfig,

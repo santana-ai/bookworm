@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from experiments.common.splits import SPLIT_NAMES
 from experiments.common.udv_run import UdvConfig
 from experiments.common.udv_run import load_config as load_udv_config
 from experiments.verifier.decision.battery import (
@@ -20,7 +21,6 @@ from experiments.verifier.decision.questions import DecisionModelError
 
 Record = dict[str, Any]
 
-SPLIT_NAMES = ("train", "validation", "test")
 DEVICES = ("auto", "cpu", "mps", "cuda")
 SCORER_KINDS = ("nli", "cosine", "laya", "jev")
 DECISION_KINDS = ("laya", "jev")
@@ -474,7 +474,3 @@ def selected_scorers(config: VerifierConfig, requested: list[str] | None) -> lis
     if unknown:
         raise SystemExit(f"unknown scorers {unknown}; configured: {list(config.scorers)}")
     return [config.scorers[key] for key in keys]
-
-
-def split_records(splits: tuple[str, ...], final_test: bool) -> Record:
-    return {"splits": list(splits), "final_test_flag": final_test, "test_read": "test" in splits}

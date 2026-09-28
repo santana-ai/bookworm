@@ -8,8 +8,10 @@ from typing import Any
 import numpy as np
 from bookworm import write_json
 
-from experiments.udv.calibrate_threshold import load_split_lookup
-from experiments.verifier.nli.benchmark import check_benchmark_file, load_benchmark_rows
+from experiments.common.reporting import utc_timestamp
+from experiments.common.splits import load_split_lookup
+from experiments.verifier.benchmark_inputs import check_benchmark_file
+from experiments.verifier.nli.benchmark import load_benchmark_rows
 from experiments.verifier.nli.comparisons import (
     add_derived_systems,
     declared_comparisons,
@@ -39,7 +41,6 @@ from experiments.verifier.nli.table import (
     declared_block,
     write_table,
 )
-from experiments.verifier.runtime import now
 
 Record = dict[str, Any]
 
@@ -85,7 +86,7 @@ def command_evaluate(args: argparse.Namespace, config: VerifierConfig) -> None:
     report = {
         "experiment": "nli_verifier",
         "run_name": args.run_name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "question": (
             declaration.source["question"]
             if declaration

@@ -9,8 +9,8 @@ import numpy as np
 from bookworm import load_jsonl, sha256_of_file
 from scipy.stats import spearmanr
 
+from experiments.common.reporting import rounded
 from experiments.common.transcript import normalize_whitespace, split_sentences
-from experiments.udv.calibrate_threshold import rounded
 from experiments.verifier.exploration.candidates import (
     feature_candidate,
 )

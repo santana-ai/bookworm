@@ -10,8 +10,8 @@ import numpy as np
 from bookworm import sha256_of_file
 from sklearn.metrics import roc_auc_score
 
+from experiments.common.reporting import file_record, rounded, utc_timestamp
 from experiments.common.stats import holm
-from experiments.udv.calibrate_threshold import rounded
 from experiments.verifier.exploration.candidates import (
     fixed_candidates,
     learned_candidates,
@@ -28,7 +28,6 @@ from experiments.verifier.exploration.scores import (
 )
 from experiments.verifier.nli.metrics import binary_metrics, max_f1_not_inferable_optimum
 from experiments.verifier.nli.provenance import environment
-from experiments.verifier.runtime import now
 from experiments.verifier.stats import bootstrap_p_value, finite_interval, hearing_draws
 
 Record = dict[str, Any]
@@ -212,7 +211,7 @@ def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None
     report = {
         "experiment": "nli_verifier_exploration",
         "name": config.name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "splits_read": [fit_split, confirm_split],
         "selection": {
             "path": str(out / "selection.json"),
@@ -231,7 +230,7 @@ def command_confirm(args: argparse.Namespace, config: ExplorationConfig) -> None
         "comparisons": comparisons,
         "comparison_rule": config.raw["confirmation"]["comparison_rule"],
         "label_semantics": config.verifier["benchmark"]["label_semantics"],
-        "config": {"path": str(config.path), "sha256": sha256_of_file(config.path)},
+        "config": file_record(config.path),
         "code": code_hashes(),
         "environment": environment(),
     }

@@ -9,8 +9,9 @@ import scipy
 import sklearn
 
 from experiments import retrieval
+from experiments.common import reporting, transcript, udv_run
+from experiments.common import splits as common_splits
 from experiments.common import stats as retrieval_stats
-from experiments.common import transcript, udv_run
 from experiments.common.provenance import Source, source_hashes
 from experiments.udv import calibrate_threshold
 from experiments.verifier.runtime import package_sources
@@ -23,6 +24,8 @@ CODE_MODULES: tuple[Source, ...] = (
     transcript,
     *transcript.SOURCES,
     udv_run,
+    reporting,
+    common_splits,
     calibrate_threshold,
     bookworm.data.io,
     retrieval,

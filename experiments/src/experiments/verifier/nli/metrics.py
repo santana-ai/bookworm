@@ -5,10 +5,8 @@ from typing import Any
 import numpy as np
 from sklearn.metrics import average_precision_score, roc_auc_score
 
-from experiments.udv.calibrate_threshold import (
-    rounded,
-    youden_optimum,
-)
+from experiments.common.reporting import rounded
+from experiments.udv.calibrate_threshold import youden_optimum
 from experiments.verifier.nli.config import VerifierConfig
 
 Record = dict[str, Any]

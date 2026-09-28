@@ -9,7 +9,7 @@ from typing import Any
 
 from bookworm import sha256_of_file, write_json, write_jsonl
 
-from experiments.udv.calibrate_threshold import rounded
+from experiments.common.reporting import file_record, rounded, utc_timestamp
 from experiments.verifier.exploration.candidates import (
     check_reading,
     feature_candidate,
@@ -19,7 +19,6 @@ from experiments.verifier.exploration.config import (
 )
 from experiments.verifier.exploration.scores import candidate_scores, load_scorer
 from experiments.verifier.nli.provenance import environment
-from experiments.verifier.runtime import now
 from experiments.verifier.udv_scores.analysis import (
     analysis,
     benchmark_overlap,
@@ -184,7 +183,7 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     report = {
         "experiment": "udv_verifier",
         "name": config.name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "declared": config.raw["declared"],
         "purpose": config.raw["purpose"],
         "caveats": {
@@ -235,7 +234,7 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
             "sha256": sha256_of_file(config.output_path),
         },
         "inputs": {
-            "udv": {"path": str(config.udv_path), "sha256": sha256_of_file(config.udv_path)},
+            "udv": file_record(config.udv_path),
             "splits": split_source,
             "selection": {
                 "path": str(config.selection_path),
@@ -245,10 +244,7 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
                 "path": str(config.final_test_path),
                 "sha256": sha256_of_file(config.final_test_path),
             },
-            "udv_score_files": {
-                key: {"path": str(s.path), "sha256": sha256_of_file(s.path)}
-                for key, s in udv_data.items()
-            },
+            "udv_score_files": {key: file_record(s.path) for key, s in udv_data.items()},
         },
         "score_runs": score_reports(config),
         "translation": translate_record(config),

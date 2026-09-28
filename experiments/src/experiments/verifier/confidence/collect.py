@@ -10,7 +10,7 @@ from typing import Any
 from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 
 from experiments.common.provenance import source_label
-from experiments.common.reporting import utc_timestamp as now
+from experiments.common.reporting import utc_timestamp
 from experiments.common.udv_run import load_config as load_udv_config
 from experiments.retrieval.experiments import (
     ExperimentConfig,
@@ -192,7 +192,7 @@ def command_collect(args: argparse.Namespace, config: ConfidenceConfig) -> None:
             available.append(target)
     if skipped:
         write_json(
-            {"created_at": now(), "splits_used": list(splits), "skipped": skipped},
+            {"created_at": utc_timestamp(), "splits_used": list(splits), "skipped": skipped},
             run_dir / "collect" / "skipped_targets.json",
         )
     if not available:
@@ -232,7 +232,7 @@ def command_collect(args: argparse.Namespace, config: ConfidenceConfig) -> None:
             "experiment": "confidence_policies",
             "step": "collect",
             "run_name": run_dir.name,
-            "created_at": now(),
+            "created_at": utc_timestamp(),
             "splits": split_record(config, args.final_test),
             "splits_used": list(splits),
             "hearing_filter": sorted(hearing_ids) if hearing_ids is not None else None,

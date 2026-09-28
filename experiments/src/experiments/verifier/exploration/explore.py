@@ -4,9 +4,7 @@ import argparse
 import json
 from typing import Any
 
-from bookworm import sha256_of_file
-
-from experiments.udv.calibrate_threshold import rounded
+from experiments.common.reporting import file_record, rounded, utc_timestamp
 from experiments.verifier.exploration.candidates import (
     check_reading,
     fixed_candidates,
@@ -30,7 +28,6 @@ from experiments.verifier.exploration.scores import (
     write_csv,
 )
 from experiments.verifier.nli.provenance import environment
-from experiments.verifier.runtime import now
 
 Record = dict[str, Any]
 
@@ -69,11 +66,9 @@ def command_explore(args: argparse.Namespace, config: ExplorationConfig) -> None
     selection = {
         "experiment": "nli_verifier_exploration",
         "name": config.name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "split_read": split,
-        "files_read": {
-            key: {"path": str(s.path), "sha256": sha256_of_file(s.path)} for key, s in data.items()
-        },
+        "files_read": {key: file_record(s.path) for key, s in data.items()},
         "scorers_missing": missing,
         "opinions": {
             "count": len(ids),
@@ -92,7 +87,7 @@ def command_explore(args: argparse.Namespace, config: ExplorationConfig) -> None
         "eligible_count": len(eligible),
         "selected": {k: rounded(v) if isinstance(v, float) else v for k, v in selected.items()},
         "selection_rule": config.raw["selection"]["rule"],
-        "config": {"path": str(config.path), "sha256": sha256_of_file(config.path)},
+        "config": file_record(config.path),
         "code": code_hashes(),
         "environment": environment(),
     }

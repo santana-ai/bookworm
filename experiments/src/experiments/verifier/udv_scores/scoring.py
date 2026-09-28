@@ -9,6 +9,7 @@ import transformers
 from bookworm import sha256_of_file, write_json, write_jsonl
 
 from experiments.common.hub_offline import enforce_offline
+from experiments.common.reporting import file_record, utc_timestamp
 from experiments.common.udv_run import seed_everything, select_device
 from experiments.verifier.exploration.config import (
     ExplorationConfig,
@@ -40,7 +41,6 @@ from experiments.verifier.nli.translated import (
     translation_summary,
     translation_texts,
 )
-from experiments.verifier.runtime import now
 from experiments.verifier.translate.seq2seq import load_translator, translate_missing
 from experiments.verifier.translate.store import model_record, open_store, selected_model
 from experiments.verifier.udv_scores.config import (
@@ -78,7 +78,7 @@ def command_translate(args: argparse.Namespace, config: UdvVerifierConfig) -> No
     _, units, _, _, _ = load_udvs(config, verifier)
     specs = english_specs(selected_specs(config, verifier))
     translation_config = load_translation_config(verifier)
-    report: Record = {"created_at": now(), "models": {}}
+    report: Record = {"created_at": utc_timestamp(), "models": {}}
     for model_key in dict.fromkeys(str(spec.translation_model) for spec in specs):
         spec = selected_model(translation_config, model_key)
         store = open_store(translation_config, model_key, writable=True)
@@ -173,7 +173,7 @@ def command_score(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     device = select_device(args.device or config.device)
     context = {
         "sources": {
-            "udv": {"path": str(config.udv_path), "sha256": sha256_of_file(config.udv_path)},
+            "udv": file_record(config.udv_path),
             "splits": split_source,
         },
         "premise": {"rule": config.raw["pairs"]["premise"], "concatenate_single": True},

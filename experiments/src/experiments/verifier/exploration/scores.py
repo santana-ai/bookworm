@@ -8,8 +8,8 @@ from typing import Any
 import numpy as np
 from bookworm import load_jsonl, sha256_of_file
 
-from experiments.data.nli_benchmark import load_split_lookup
-from experiments.udv.calibrate_threshold import rounded
+from experiments.common.reporting import rounded
+from experiments.common.splits import load_split_lookup
 from experiments.verifier.exploration.config import (
     EMPTY_SCORE,
     OUTPUT_ROOT,

@@ -7,8 +7,8 @@ from typing import Any
 
 from bookworm import write_json
 
-from experiments.common.reporting import utc_timestamp as now
-from experiments.udv.calibrate_threshold import load_split_lookup
+from experiments.common.reporting import utc_timestamp
+from experiments.common.splits import load_split_lookup
 from experiments.verifier.confidence.collect import collect_reports, load_features, split_record
 from experiments.verifier.confidence.config import (
     DEFINITIONS,
@@ -123,7 +123,7 @@ def command_evaluate(args: argparse.Namespace, config: ConfidenceConfig) -> None
         "experiment": "confidence_policies",
         "step": "evaluate",
         "run_name": run_dir.name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "question": "which signal best predicts that the top-1 unit of a retriever is relevant, "
         "so that a confidence tier built on it means something",
         "splits": split_record(config, args.final_test),

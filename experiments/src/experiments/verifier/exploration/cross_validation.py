@@ -8,7 +8,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.preprocessing import StandardScaler
 
-from experiments.udv.calibrate_threshold import rounded
+from experiments.common.reporting import rounded
 from experiments.verifier.exploration.candidates import feature_candidate
 from experiments.verifier.exploration.config import (
     KIND_ORDER,

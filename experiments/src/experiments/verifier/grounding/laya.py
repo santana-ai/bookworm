@@ -8,7 +8,7 @@ from typing import Any
 import numpy as np
 from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 
-from experiments.udv.calibrate_threshold import rounded
+from experiments.common.reporting import file_record, rounded, utc_timestamp
 from experiments.verifier.decision_models import DecisionQuestion, LayaDecisionModel, noul_question
 from experiments.verifier.exploration import scores as exploration_scores
 from experiments.verifier.grounding.config import LAYA_AGGREGATES, LAYA_RUN, TRUE_OPTION, Config
@@ -22,7 +22,6 @@ from experiments.verifier.nli.config import load_config as load_verifier_config
 from experiments.verifier.nli.decision import decision_requests, run_decision
 from experiments.verifier.nli.decision import laya_spec as verifier_laya_spec
 from experiments.verifier.nli.translated import english_units
-from experiments.verifier.runtime import now
 from experiments.verifier.stats import finite_interval, hearing_draws
 
 Record = dict[str, Any]
@@ -132,7 +131,7 @@ def command_laya_smoke(args: argparse.Namespace, config: Config) -> None:
             "full_pairs": full,
             "projected_hours": round(full * per_request / 3600, 3),
             "truncation": {},
-            "created_at": now(),
+            "created_at": utc_timestamp(),
         }
         write_json(record | run_record(config), path)
         print(json.dumps({k: record[k] for k in ("pairs_per_second", "projected_hours")}))
@@ -161,7 +160,7 @@ def command_laya_score(args: argparse.Namespace, config: Config) -> None:
                 "sha256": sha256_of_file(path),
             }
         report = {
-            "created_at": now(),
+            "created_at": utc_timestamp(),
             "set": "ea",
             **record,
             "files": written,
@@ -253,7 +252,7 @@ def laya_systems(
         if missing:
             raise SystemExit(f"{path}: {len(missing)} ids missing")
         battery = item_signals(rows, ids, pool)
-        sources[f"{scorer}_battery"] = {"path": str(path), "sha256": sha256_of_file(path)}
+        sources[f"{scorer}_battery"] = file_record(path)
         for how in LAYA_AGGREGATES:
             systems[f"{scorer}_{how}_q7"] = aggregate_scores(battery, q7, how)
         std, _ = spread_scores(battery, q7)
@@ -265,7 +264,7 @@ def laya_systems(
         if set(new_rows) != set(ids):
             raise SystemExit(f"{new_path}: ids differ from the evaluated set")
         merged = merge_signals(battery, item_signals(new_rows, ids, pool))
-        sources[f"laya_new_{scorer}"] = {"path": str(new_path), "sha256": sha256_of_file(new_path)}
+        sources[f"laya_new_{scorer}"] = file_record(new_path)
         for how in LAYA_AGGREGATES:
             extra[f"{scorer}_{how}_q11"] = aggregate_scores(merged, q7 + new_keys, how)
         for key in new_keys:

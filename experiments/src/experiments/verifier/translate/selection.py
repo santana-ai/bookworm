@@ -1,19 +1,22 @@
 """Benchmark opinions and NLI chunks selected for translation."""
 
-import json
 from collections import Counter
 from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Any
 
-from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file
+from bookworm import load_jsonl, sha256_of_file
 
+from experiments.common.splits import SPLIT_NAMES, load_split_lookup
 from experiments.common.transcript import (
     normalize_whitespace,
 )
-from experiments.data.nli_benchmark import iter_opinions
-from experiments.udv.calibrate_threshold import load_split_lookup
-from experiments.verifier.translate.config import SPLIT_NAMES, Segmenter, TranslationConfig
+from experiments.verifier.benchmark_inputs import (
+    check_benchmark_file,
+    check_row_split,
+    load_nli_chunks,
+)
+from experiments.verifier.translate.config import Segmenter, TranslationConfig
 from experiments.verifier.translate.store import has_content
 
 Record = dict[str, Any]
@@ -56,28 +59,13 @@ def resolve_splits(
     return chosen
 
 
-def split_records(splits: tuple[str, ...], final_test: bool) -> Record:
-    return {"splits": list(splits), "final_test_flag": final_test, "test_read": "test" in splits}
-
-
-def check_benchmark_file(config: TranslationConfig) -> Record:
-    with open(config.benchmark_report_path) as f:
-        recorded = json.load(f)["artifact"]["sha256"]
-    actual = sha256_of_file(config.benchmark_path)
-    if actual != recorded:
-        raise SystemExit(f"{config.benchmark_path}: sha256 {actual} != its report {recorded}")
-    return {"path": str(config.benchmark_path), "sha256": actual}
-
-
 def benchmark_rows(
     config: TranslationConfig, split_of: dict[int, str], splits: tuple[str, ...], limit: int | None
 ) -> list[Record]:
     rows = []
     taken: Counter[str] = Counter()
     for row in load_jsonl(config.benchmark_path):
-        manifest_split = split_of.get(row["hearing_id"])
-        if manifest_split != row["split"]:
-            raise SystemExit(f"{row['id']}: split {row['split']!r} != manifest {manifest_split!r}")
+        check_row_split(row, split_of)
         if row["split"] not in splits:
             continue
         if limit is not None and taken[row["split"]] >= limit:
@@ -87,31 +75,13 @@ def benchmark_rows(
     return rows
 
 
-def nli_chunks(config: TranslationConfig, rows: list[Record]) -> dict[str, list[str]]:
-    wanted = {row["id"]: row for row in rows}
-    chunks: dict[str, list[str]] = {}
-    for hearing, person_index, _, opinion_index, opinion in iter_opinions(
-        load_gated_jsonl(config.nli_path, config.nli_sha256)
-    ):
-        row_id = f"nli-{hearing['id']}-{person_index}-{opinion_index}"
-        if row_id not in wanted:
-            continue
-        if opinion["opiniao"] != wanted[row_id]["opinion"]:
-            raise SystemExit(f"{row_id}: the NLI opinion differs from the benchmark row")
-        chunks[row_id] = list(opinion["chunks_proximos"])
-    missing = sorted(set(wanted) - set(chunks))
-    if missing:
-        raise SystemExit(f"benchmark rows missing from the NLI file: {missing[:10]}")
-    return chunks
-
-
 def load_units(
     config: TranslationConfig, splits: tuple[str, ...], limit: int | None
 ) -> tuple[list[OpinionUnit], Record]:
     split_of, split_source = load_split_lookup(config.manifest_path, config.lds_sha256)
     benchmark = check_benchmark_file(config)
     rows = benchmark_rows(config, split_of, splits, limit)
-    chunks = nli_chunks(config, rows)
+    chunks = load_nli_chunks(config, rows)
     units = [
         OpinionUnit(
             unit_id=row["id"],

@@ -5,8 +5,9 @@ from typing import Any
 import numpy as np
 from bookworm import load_jsonl, sha256_of_file
 
+from experiments.common.reporting import rounded
 from experiments.common.stats import holm
-from experiments.udv.calibrate_threshold import interval, rounded
+from experiments.udv.calibrate_threshold import interval
 from experiments.verifier.confidence.metrics import signal_metrics
 from experiments.verifier.grounding.config import (
     COMPARED_METRICS,

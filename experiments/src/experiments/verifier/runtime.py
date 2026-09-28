@@ -1,12 +1,7 @@
-"""Clock, progress and append-only file helpers shared by the long-running verifier commands."""
+"""Progress, append-only file and package source helpers shared by the verifier commands."""
 
 import time
-from datetime import UTC, datetime
 from pathlib import Path
-
-
-def now() -> str:
-    return datetime.now(UTC).isoformat(timespec="seconds")
 
 
 def incomplete_tail(data: bytes) -> int:

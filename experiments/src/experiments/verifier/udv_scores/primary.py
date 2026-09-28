@@ -5,7 +5,7 @@ from typing import Any
 import numpy as np
 from bookworm import sha256_of_file
 
-from experiments.udv.calibrate_threshold import rounded
+from experiments.common.reporting import rounded
 from experiments.verifier.exploration.config import (
     MATCH_TOLERANCE,
     Candidate,

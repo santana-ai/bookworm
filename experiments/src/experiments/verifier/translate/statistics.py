@@ -8,8 +8,8 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from bookworm import sha256_of_file
 
+from experiments.common.reporting import file_record
 from experiments.common.transcript import (
     is_sentence,
     split_sentences,
@@ -258,7 +258,7 @@ def estimate_from_plan(plan_path: Path, timing: Record) -> Record:
             "measured_records": measured["records"],
         }
     return {
-        "plan": {"path": str(plan_path), "sha256": sha256_of_file(plan_path)},
+        "plan": file_record(plan_path),
         "plan_splits": plan["splits"],
         "plan_distinct_model_texts": texts,
         "plan_model_input_tokens": tokens,

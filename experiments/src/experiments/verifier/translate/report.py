@@ -16,18 +16,21 @@ import tokenizers
 import torch
 import transformers
 
-from experiments.common import cache_lock, hub_offline, transcript, udv_run
+from experiments.common import cache_lock, hub_offline, reporting, transcript, udv_run
+from experiments.common import splits as common_splits
 from experiments.common.hub_offline import offline_state
 from experiments.common.provenance import source_hashes
+from experiments.common.reporting import utc_timestamp
 from experiments.common.transcript import (
     normalize_whitespace,
 )
 from experiments.data import nli_benchmark
 from experiments.udv import calibrate_threshold
-from experiments.verifier import runtime
-from experiments.verifier.runtime import now, package_sources
+from experiments.verifier import benchmark_inputs, runtime
+from experiments.verifier.benchmark_inputs import split_records
+from experiments.verifier.runtime import package_sources
 from experiments.verifier.translate.config import ModelSpec, TranslationConfig
-from experiments.verifier.translate.selection import OpinionUnit, split_records, unit_selection
+from experiments.verifier.translate.selection import OpinionUnit, unit_selection
 from experiments.verifier.translate.statistics import (
     cache_timing,
     chunk_statistics,
@@ -54,7 +57,10 @@ def code_hashes() -> Record:
         calibrate_threshold,
         bookworm.data.io,
         hub_offline,
+        reporting,
+        common_splits,
         runtime,
+        benchmark_inputs,
     )
     return source_hashes(*SOURCES, *modules)
 
@@ -105,7 +111,7 @@ def build_report(
         "experiment": "translation",
         "command": args.command,
         "run_name": args.run_name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "splits": split_records(splits, args.final_test),
         "model": model_record(config, spec),
         "segmentation": config.segmenter.describe(),

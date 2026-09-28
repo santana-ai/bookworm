@@ -14,6 +14,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Protocol
 
+from experiments.common.reporting import utc_timestamp
 from experiments.verifier.decision.answer_cache import append_jsonl, read_jsonl_lines
 from experiments.verifier.decision.questions import (
     DecisionAnswer,
@@ -24,7 +25,6 @@ from experiments.verifier.decision.questions import (
     TransportError,
     parse_answer,
 )
-from experiments.verifier.runtime import now
 
 Record = dict[str, Any]
 DEFAULT_API_KEY_ENV = "TYPESAFE_API_KEY"
@@ -274,7 +274,7 @@ class JevDecisionModel:
             "model_version": self.spec.model_version,
             "endpoint": self.spec.endpoint,
             "attempt": attempt,
-            "created_at": now(),
+            "created_at": utc_timestamp(),
             "request": json.loads(body.decode()),
             **outcome,
         }

@@ -9,19 +9,15 @@ from typing import Any
 import numpy as np
 from bookworm import sha256_of_file, write_json
 
+from experiments.common.reporting import file_record, utc_timestamp
 from experiments.common.transcript import (
     is_sentence,
 )
-from experiments.verifier.runtime import now
+from experiments.verifier.benchmark_inputs import split_records
 from experiments.verifier.translate.commands import translate_selection
 from experiments.verifier.translate.config import Segmenter, SpotCheckSpec, TranslationConfig
 from experiments.verifier.translate.report import code_hashes, environment
-from experiments.verifier.translate.selection import (
-    OpinionUnit,
-    load_units,
-    resolve_splits,
-    split_records,
-)
+from experiments.verifier.translate.selection import OpinionUnit, load_units, resolve_splits
 from experiments.verifier.translate.statistics import FLAG_NAMES, output_flags
 from experiments.verifier.translate.store import (
     TranslationStore,
@@ -232,7 +228,7 @@ def command_spot_check(args: argparse.Namespace, config: TranslationConfig) -> N
     key_report = {
         "experiment": "translation_spot_check",
         "name": spot.name,
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "supersedes": raw.get("supersedes"),
         "splits": split_records(splits, False),
         "population": {"size": population_size, "rule": raw["population"]},
@@ -264,7 +260,7 @@ def command_spot_check(args: argparse.Namespace, config: TranslationConfig) -> N
         },
         "units": unit_records,
         "items": items,
-        "sheet": {"path": str(csv_path), "sha256": sha256_of_file(csv_path)},
+        "sheet": file_record(csv_path),
         "runs": runs,
         "model_info": infos,
         "stores": {key: store.summary() for key, store in stores.items()},

@@ -6,8 +6,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from experiments.common.splits import SPLIT_NAMES
 from experiments.retrieval import experiments as retrieval_experiments
-from experiments.retrieval.data import BENCHES, SPLIT_NAMES
+from experiments.retrieval.data import BENCHES
 from experiments.retrieval.experiments import (
     ExperimentConfig,
     retriever_ids,

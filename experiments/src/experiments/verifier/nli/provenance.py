@@ -14,13 +14,21 @@ import sklearn
 import torch
 import transformers
 
-from experiments.common import cache_lock, hub_offline, transcript, udv_run
+from experiments.common import cache_lock, hub_offline, reporting, transcript, udv_run
+from experiments.common import splits as common_splits
 from experiments.common import stats as retrieval_stats
 from experiments.common.hub_offline import offline_state
 from experiments.common.provenance import Source, source_hashes
 from experiments.data import nli_benchmark
 from experiments.udv import calibrate_threshold
-from experiments.verifier import decision_models, decision_scoring, runtime, stats, translation
+from experiments.verifier import (
+    benchmark_inputs,
+    decision_models,
+    decision_scoring,
+    runtime,
+    stats,
+    translation,
+)
 from experiments.verifier.runtime import package_sources
 
 Record = dict[str, Any]
@@ -40,10 +48,13 @@ def code_hashes() -> Record:
         calibrate_threshold,
         bookworm.data.io,
         hub_offline,
+        reporting,
+        common_splits,
         *decision_models.SOURCES,
         *decision_scoring.SOURCES,
         stats,
         runtime,
+        benchmark_inputs,
         retrieval_stats,
         *translation.SOURCES,
     )

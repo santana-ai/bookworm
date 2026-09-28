@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from bookworm import sha256_of_file
 
+from experiments.common.reporting import file_record, utc_timestamp
 from experiments.verifier.exploration.candidates import (
     check_reading,
     fixed_candidates,
@@ -20,7 +20,6 @@ from experiments.verifier.exploration.confirm import compare_systems, evaluate_s
 from experiments.verifier.exploration.provenance import code_hashes
 from experiments.verifier.exploration.scores import load_all, load_labels, load_scorer, output_dir
 from experiments.verifier.nli.provenance import environment
-from experiments.verifier.runtime import now
 
 Record = dict[str, Any]
 
@@ -103,15 +102,12 @@ def command_final_test(args: argparse.Namespace, config: ExplorationConfig) -> N
         "experiment": "nli_verifier_exploration",
         "name": config.name,
         "stage": "final_test",
-        "created_at": now(),
+        "created_at": utc_timestamp(),
         "splits_read": [fit_split, "test"],
         "declared": final["declared"],
         "primary": final["primary"],
         "score_run": run,
-        "files_read": {
-            key: {"path": str(s.path), "sha256": sha256_of_file(s.path)}
-            for key, s in test_data.items()
-        },
+        "files_read": {key: file_record(s.path) for key, s in test_data.items()},
         "reading_check": reading,
         "train_copy_check": same_train,
         "opinions": {
@@ -124,7 +120,7 @@ def command_final_test(args: argparse.Namespace, config: ExplorationConfig) -> N
         "comparisons": comparisons,
         "comparison_rule": final["comparison_rule"],
         "label_semantics": config.verifier["benchmark"]["label_semantics"],
-        "config": {"path": str(config.path), "sha256": sha256_of_file(config.path)},
+        "config": file_record(config.path),
         "code": code_hashes(),
         "environment": environment(),
     }

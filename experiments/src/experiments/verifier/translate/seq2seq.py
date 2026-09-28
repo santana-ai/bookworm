@@ -9,10 +9,11 @@ import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, PreTrainedConfig
 
 from experiments.common.hub_offline import pinned_weights_file
+from experiments.common.reporting import utc_timestamp
 from experiments.common.transcript import (
     normalize_whitespace,
 )
-from experiments.verifier.runtime import now, throughput
+from experiments.verifier.runtime import throughput
 from experiments.verifier.translate.config import DecodingSpec, ModelSpec
 from experiments.verifier.translate.store import (
     TranslationOutput,
@@ -72,7 +73,7 @@ def translate_missing(
             "batch_number": batches,
             "batch_texts": len(batch),
             "batch_seconds": time.perf_counter() - batch_started,
-            "created_at": now(),
+            "created_at": utc_timestamp(),
         }
         store.append(batch, outputs, provenance)
         done += len(batch)

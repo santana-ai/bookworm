@@ -6,7 +6,9 @@ from typing import Any
 
 from bookworm import sha256_of_file, write_json, write_jsonl
 
-from experiments.udv.calibrate_threshold import load_split_lookup
+from experiments.common.reporting import file_record
+from experiments.common.splits import load_split_lookup
+from experiments.verifier.benchmark_inputs import split_records
 from experiments.verifier.nli.benchmark import load_pair_units
 from experiments.verifier.nli.config import (
     DECISION_KINDS,
@@ -14,7 +16,6 @@ from experiments.verifier.nli.config import (
     VerifierConfig,
     scored_splits,
     selected_scorers,
-    split_records,
 )
 from experiments.verifier.nli.decision import check_decision_scorer
 from experiments.verifier.nli.scoring import device_of, score_report, score_units
@@ -38,7 +39,7 @@ def command_pairs(args: argparse.Namespace, config: VerifierConfig) -> None:
     out_dir = (args.output_dir or config.output_dir) / "pairs" / args.run_name
     context = {
         "sources": {
-            "input": {"path": str(args.input), "sha256": sha256_of_file(args.input)},
+            "input": file_record(args.input),
             "splits": split_source,
         },
         "format": {
