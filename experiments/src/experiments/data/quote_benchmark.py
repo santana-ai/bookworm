@@ -1,20 +1,20 @@
 import argparse
-import json
 import platform
 import re
 import time
 import tomllib
 from collections import Counter
 from dataclasses import dataclass, field
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 from bookworm import load_gated_jsonl, sha256_of_file, write_json, write_jsonl
 
-from experiments.common import transcript
-from experiments.common.provenance import source_hashes
+from experiments.common import splits, transcript
+from experiments.common.provenance import code_section
+from experiments.common.reporting import utc_timestamp
+from experiments.common.splits import SPLIT_NAMES, load_split_lookup, split_groups
 from experiments.common.transcript import (
     MIN_SENTENCE_WORDS,
     QUOTE_PATTERNS,
@@ -34,7 +34,6 @@ from experiments.common.transcript import (
 
 Record = dict[str, Any]
 
-SPLIT_NAMES = ("train", "validation", "test")
 DROP_REASONS = ("masked_too_short", "target_not_in_candidates")
 WORD_CHARACTER_PATTERN = re.compile(r"\w")
 OVERLAP_TOKEN_PATTERN = re.compile(r"\w+")
@@ -100,20 +99,6 @@ def load_config(config_path: Path) -> QuoteBenchmarkConfig:
         output_dir=Path(raw["run"]["output_dir"]),
         source=raw,
     )
-
-
-def load_split_lookup(manifest_path: Path, lds_sha256: str) -> tuple[dict[int, str], Record]:
-    with open(manifest_path) as f:
-        manifest = json.load(f)
-    if manifest["dataset"]["sha256"] != lds_sha256:
-        raise SystemExit(f"{manifest_path} was built from another LDS file")
-    lookup = {hearing_id: name for name in SPLIT_NAMES for hearing_id in manifest[name]}
-    source = {
-        "path": str(manifest_path),
-        "sha256": sha256_of_file(manifest_path),
-        "split_version": manifest["split_version"],
-    }
-    return lookup, source
 
 
 def quote_span_pattern(
@@ -479,10 +464,9 @@ def build_report(
     elapsed_seconds: float,
     config: QuoteBenchmarkConfig,
 ) -> Record:
-    groups = {name: [name] for name in SPLIT_NAMES} | {"all": list(SPLIT_NAMES)}
     return {
         "benchmark_version": config.benchmark_version,
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "created_at": utc_timestamp(),
         "sources": {
             "lds": {"path": str(config.lds_path), "sha256": config.lds_sha256},
             "splits": split_source,
@@ -547,7 +531,7 @@ def build_report(
                 transcripts,
                 config,
             )
-            for name, members in groups.items()
+            for name, members in split_groups().items()
         },
         "dropped_rows": [
             {
@@ -565,10 +549,7 @@ def build_report(
             "bytes": artifact_path.stat().st_size,
             "sha256": sha256_of_file(artifact_path),
         },
-        "code": {
-            **source_hashes(transcript, *transcript.SOURCES),
-            **source_hashes(Path(__file__)),
-        },
+        "code": code_section(*transcript.CODE_SOURCES, Path(__file__), splits),
         "timing": {"elapsed_seconds": round(elapsed_seconds, 1)},
         "environment": {
             "python": platform.python_version(),

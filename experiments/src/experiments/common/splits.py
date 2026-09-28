@@ -6,7 +6,7 @@ from typing import Any
 
 from bookworm import SPLIT_NAMES, sha256_of_file
 
-__all__ = ["SPLIT_NAMES", "load_split_lookup", "read_split_lookup", "split_lookup"]
+__all__ = ["SPLIT_NAMES", "load_split_lookup", "read_split_lookup", "split_groups", "split_lookup"]
 
 Record = dict[str, Any]
 
@@ -38,3 +38,10 @@ def load_split_lookup(manifest_path: Path, lds_sha256: str) -> tuple[dict[int, s
         "split_version": manifest["split_version"],
     }
     return split_lookup(manifest), source
+
+
+def split_groups() -> dict[str, list[str]]:
+    """Each split on its own and ``all`` of them together, the groups a benchmark report uses."""
+    groups: dict[str, list[str]] = {name: [name] for name in SPLIT_NAMES}
+    groups["all"] = list(SPLIT_NAMES)
+    return groups
