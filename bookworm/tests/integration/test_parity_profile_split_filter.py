@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 
 import pytest
-from conftest import LDS_SHA256, import_challenge_module, udv_artifact_path
+from conftest import LDS_SHA256, import_reference_module, udv_artifact_path
 
 from bookworm.actors.config import load_actors_config
 from bookworm.actors.schemas import ActorSpeechRecord, write_actor_speeches
@@ -20,34 +20,34 @@ TRAIN_SPLITS = ["train"]
 
 @pytest.fixture(scope="module")
 def multi_hearing_speeches(
-    lds_hearings: list[HearingRecord], challenge_dir: Path
+    lds_hearings: list[HearingRecord], experiments_dir: Path
 ) -> list[ActorSpeechRecord]:
-    config_path = challenge_dir / "configs" / "hearing_actors.toml"
+    config_path = experiments_dir / "configs" / "hearing_actors.toml"
     if not config_path.is_file():
         pytest.skip(f"actors config not found at {config_path}")
     return collect_actor_speeches(lds_hearings, load_actors_config(config_path)).multi_hearing
 
 
 @pytest.fixture(scope="module")
-def expected_stats_path(artifacts_dir: Path, challenge_dir: Path) -> Path:
-    config = load_split_filter_config(challenge_dir / "configs" / "actor_profiles.toml")
+def expected_stats_path(artifacts_dir: Path, experiments_dir: Path) -> Path:
+    config = load_split_filter_config(experiments_dir / "configs" / "actor_profiles.toml")
     path = artifacts_dir / config.stats_path.relative_to("artifacts")
     if not path.is_file():
         pytest.skip(f"split-filter stats not found at {path}")
     return path
 
 
-def test_split_filter_reproduces_the_challenge_stats_byte_for_byte(
+def test_split_filter_reproduces_the_experiments_stats_byte_for_byte(
     multi_hearing_speeches: list[ActorSpeechRecord],
     expected_stats_path: Path,
     split_artifacts_dir: Path,
     udv_artifacts_dir: Path,
-    challenge_dir: Path,
+    experiments_dir: Path,
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.chdir(tmp_path)
-    config = load_split_filter_config(challenge_dir / "configs" / "actor_profiles.toml")
+    config = load_split_filter_config(experiments_dir / "configs" / "actor_profiles.toml")
     config.manifest_path.parent.mkdir(parents=True)
     shutil.copy(split_artifacts_dir / "temporal_v1.json", config.manifest_path)
     config.udv_path.parent.mkdir(parents=True)
@@ -64,16 +64,16 @@ def test_split_filter_reproduces_the_challenge_stats_byte_for_byte(
     assert (evaluation["linked_actors"], evaluation["linked_hearings"]) == (48, 27)
 
 
-def test_rendered_prompts_match_the_challenge_script(
+def test_rendered_prompts_match_the_experiments_script(
     multi_hearing_speeches: list[ActorSpeechRecord],
     lds_hearings: list[HearingRecord],
-    challenge_dir: Path,
+    experiments_dir: Path,
     split_artifacts_dir: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     pytest.importorskip("transformers")
-    reference = import_challenge_module(challenge_dir, "utils.generate_actor_profiles")
-    monkeypatch.chdir(challenge_dir)
+    reference = import_reference_module(experiments_dir, "experiments.actors.generate_profiles")
+    monkeypatch.chdir(experiments_dir)
     config = reference.load_config(Path("configs/actor_profiles.toml"))
     runner = reference.ProfileRunner(
         config=config, prompts=reference.load_prompts(config), client=None

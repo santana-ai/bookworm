@@ -29,11 +29,11 @@ from bookworm.features.encoders import FloatMatrix
 LDS_SHA256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
 LDS_PATH_VARIABLE = "BOOKWORM_LDS_PATH"
 EMBEDDING_CACHE_VARIABLE = "BOOKWORM_EMBEDDING_CACHE"
-CHALLENGE_DIR_VARIABLE = "BOOKWORM_CHALLENGE_DIR"
+EXPERIMENTS_DIR_VARIABLE = "BOOKWORM_EXPERIMENTS_DIR"
 ARTIFACTS_DIR_VARIABLE = "BOOKWORM_ARTIFACTS_DIR"
 FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures"
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
-REFERENCE_PACKAGE = "utils"
+REFERENCE_PACKAGE = "experiments"
 MINI_THRESHOLD = 0.6
 MINI_CONFIG = "udv_mini.toml"
 OFFLINE_VARIABLES = ("HF_HUB_OFFLINE", "HF_DATASETS_OFFLINE", "TRANSFORMERS_OFFLINE")
@@ -104,12 +104,12 @@ def configured_path(variable: str, default: Path) -> Path:
     return Path(raw_path) if raw_path else default
 
 
-def challenge_path() -> Path:
-    return configured_path(CHALLENGE_DIR_VARIABLE, REPOSITORY_ROOT / "challenge")
+def experiments_path() -> Path:
+    return configured_path(EXPERIMENTS_DIR_VARIABLE, REPOSITORY_ROOT / "experiments")
 
 
 def artifacts_path() -> Path:
-    return configured_path(ARTIFACTS_DIR_VARIABLE, challenge_path() / "artifacts")
+    return configured_path(ARTIFACTS_DIR_VARIABLE, experiments_path() / "artifacts")
 
 
 def is_reference_package_module(name: str) -> bool:
@@ -121,8 +121,9 @@ def reference_module_name(module_path: Path) -> str:
     return f"bookworm_reference_{digest}_{module_path.stem}"
 
 
-def import_challenge_module(challenge_dir: Path, module_name: str) -> ModuleType:
-    module_path = challenge_dir.joinpath(*module_name.split(".")).with_suffix(".py")
+def import_reference_module(experiments_dir: Path, module_name: str) -> ModuleType:
+    source_dir = experiments_dir / "src"
+    module_path = source_dir.joinpath(*module_name.split(".")).with_suffix(".py")
     if not module_path.is_file():
         pytest.skip(f"reference module not found at {module_path}")
     unique_name = reference_module_name(module_path)
@@ -139,7 +140,7 @@ def import_challenge_module(challenge_dir: Path, module_name: str) -> ModuleType
     }
     writes_bytecode = sys.dont_write_bytecode
     sys.dont_write_bytecode = True
-    sys.path.insert(0, str(challenge_dir))
+    sys.path.insert(0, str(source_dir))
     sys.modules[unique_name] = module
     try:
         spec.loader.exec_module(module)
@@ -147,7 +148,7 @@ def import_challenge_module(challenge_dir: Path, module_name: str) -> ModuleType
         del sys.modules[unique_name]
         raise
     finally:
-        sys.path.remove(str(challenge_dir))
+        sys.path.remove(str(source_dir))
         sys.dont_write_bytecode = writes_bytecode
         for name in [name for name in sys.modules if is_reference_package_module(name)]:
             del sys.modules[name]
@@ -393,10 +394,10 @@ def lds_hearings(lds_path: Path) -> list[HearingRecord]:
 
 
 @pytest.fixture(scope="session")
-def challenge_dir() -> Path:
-    path = challenge_path()
+def experiments_dir() -> Path:
+    path = experiments_path()
     if not path.is_dir():
-        pytest.skip(f"challenge project not found at {path}")
+        pytest.skip(f"experiments project not found at {path}")
     return path
 
 
@@ -404,7 +405,7 @@ def challenge_dir() -> Path:
 def artifacts_dir() -> Path:
     path = artifacts_path()
     if not path.is_dir():
-        pytest.skip(f"challenge artifacts not found at {path}")
+        pytest.skip(f"experiments artifacts not found at {path}")
     return path
 
 
@@ -436,8 +437,8 @@ def split_artifacts_dir(artifacts_dir: Path) -> Path:
 
 
 @pytest.fixture(scope="session")
-def challenge_split_config_path(challenge_dir: Path) -> Path:
-    path = challenge_dir / "configs" / "splits.toml"
+def experiments_split_config_path(experiments_dir: Path) -> Path:
+    path = experiments_dir / "configs" / "splits.toml"
     if not path.is_file():
         pytest.skip(f"split config not found at {path}")
     return path

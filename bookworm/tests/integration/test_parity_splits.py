@@ -5,7 +5,7 @@ from pathlib import Path
 from types import ModuleType
 
 import pytest
-from conftest import import_challenge_module
+from conftest import import_reference_module
 from typer.testing import CliRunner
 
 from bookworm import (
@@ -49,8 +49,8 @@ def serialize(payload: JsonObject) -> str:
 
 
 @pytest.fixture(scope="module")
-def config(challenge_split_config_path: Path) -> SplitConfig:
-    return load_split_config(challenge_split_config_path)
+def config(experiments_split_config_path: Path) -> SplitConfig:
+    return load_split_config(experiments_split_config_path)
 
 
 @pytest.fixture(scope="module")
@@ -219,7 +219,7 @@ def test_injected_defects_on_the_published_manifest(
 def test_cli_rebuilds_the_artifacts_from_a_consumer_project(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
-    challenge_split_config_path: Path,
+    experiments_split_config_path: Path,
     config: SplitConfig,
     lds_path: Path,
     udv_artifacts_dir: Path,
@@ -229,7 +229,7 @@ def test_cli_rebuilds_the_artifacts_from_a_consumer_project(
     report_text: str,
 ) -> None:
     (tmp_path / "configs").mkdir()
-    (tmp_path / "configs" / "splits.toml").write_bytes(challenge_split_config_path.read_bytes())
+    (tmp_path / "configs" / "splits.toml").write_bytes(experiments_split_config_path.read_bytes())
     (tmp_path / config.lds_path).parent.mkdir(parents=True)
     (tmp_path / config.lds_path).symlink_to(lds_path.resolve())
     (tmp_path / config.udv_path).parent.mkdir(parents=True)
@@ -251,13 +251,13 @@ def test_cli_rebuilds_the_artifacts_from_a_consumer_project(
 
 
 @pytest.fixture(scope="module")
-def reference_dates(challenge_dir: Path) -> ModuleType:
-    return import_challenge_module(challenge_dir, "utils.hearing_dates")
+def reference_dates(experiments_dir: Path) -> ModuleType:
+    return import_reference_module(experiments_dir, "experiments.data.legacy_splits")
 
 
 @pytest.fixture(scope="module")
-def reference_splits(challenge_dir: Path) -> ModuleType:
-    return import_challenge_module(challenge_dir, "utils.build_splits")
+def reference_splits(experiments_dir: Path) -> ModuleType:
+    return import_reference_module(experiments_dir, "experiments.data.legacy_splits")
 
 
 @pytest.fixture(scope="module")

@@ -21,7 +21,7 @@ TRANSLATED_SCORER = "laya_en_en"
 XNLI_LABELS = ("entailment", "neutral", "contradiction")
 CONTENT_PATTERN = re.compile(r"\w")
 TRANSLATION_KEY_SEPARATOR = "\x1e"
-HEAVY_ARTIFACT_MANIFEST = "challenge/artifacts/MANIFEST_heavy.tsv"
+HEAVY_ARTIFACT_MANIFEST = "experiments/artifacts/MANIFEST_heavy.tsv"
 UNSCORED: JsonObject = {
     "scored": False,
     "verifier": None,

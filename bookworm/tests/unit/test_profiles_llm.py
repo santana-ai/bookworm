@@ -18,7 +18,7 @@ from bookworm.profiles.schemas import ProfileRecord, read_profile_lines, read_pr
 SETTINGS = ModelSettings(
     name="toy-model", device_map="cpu", temperature=0.2, top_p=0.9, max_output_tokens=5, seed=7
 )
-CHALLENGE_STYLE: dict[str, dict[str, Any]] = {
+PROJECT_STYLE: dict[str, dict[str, Any]] = {
     "input": {"speeches_path": "s.jsonl", "lds_path": "lds.jsonl", "lds_sha256": "a" * 64},
     "output": {"profiles_path": "p.jsonl"},
     "split_filter": {
@@ -61,8 +61,8 @@ def test_transformers_client_needs_a_model_name() -> None:
         load_transformers_client(SETTINGS.model_copy(update={"name": ""}))
 
 
-def test_challenge_style_config_loads() -> None:
-    config = ProfilesConfig.from_mapping(CHALLENGE_STYLE)
+def test_project_style_config_loads() -> None:
+    config = ProfilesConfig.from_mapping(PROJECT_STYLE)
     assert config.prompts_dir == Path("prompts/actor_profile")
     assert config.system_profile_file == "system_profile.md"
     assert config.model.seed == 42
@@ -76,7 +76,7 @@ def test_challenge_style_config_loads() -> None:
 
 
 def test_split_filter_config_reads_the_split_filter_table() -> None:
-    config = SplitFilterConfig.from_mapping(CHALLENGE_STYLE)
+    config = SplitFilterConfig.from_mapping(PROJECT_STYLE)
     assert (config.speeches_path, config.output_path) == (Path("s.jsonl"), Path("f.jsonl"))
     assert config.splits == ["train"]
     assert (config.eval_splits, config.udv_path) == (["test"], Path("u.jsonl"))
@@ -85,13 +85,13 @@ def test_split_filter_config_reads_the_split_filter_table() -> None:
 
 
 def test_config_without_prompt_dir_uses_packaged_prompts() -> None:
-    raw = {key: value for key, value in CHALLENGE_STYLE.items() if key != "prompts"}
+    raw = {key: value for key, value in PROJECT_STYLE.items() if key != "prompts"}
     assert ProfilesConfig.from_mapping(raw).prompts_dir == PACKAGED_PROMPTS_DIR
 
 
 @pytest.mark.parametrize("splits", [[], ["train", "train"], ["dev"], "train"])
 def test_invalid_splits_are_config_errors(splits: Any) -> None:
-    raw = {**CHALLENGE_STYLE, "split_filter": {**CHALLENGE_STYLE["split_filter"], "splits": splits}}
+    raw = {**PROJECT_STYLE, "split_filter": {**PROJECT_STYLE["split_filter"], "splits": splits}}
     with pytest.raises(ConfigError):
         SplitFilterConfig.from_mapping(raw)
 
@@ -100,16 +100,16 @@ def test_invalid_splits_are_config_errors(splits: Any) -> None:
     "eval_splits", [[], ["test", "test"], ["dev"], ["train"], ["test", "train"]]
 )
 def test_invalid_eval_splits_are_config_errors(eval_splits: Any) -> None:
-    table = {**CHALLENGE_STYLE["split_filter"], "eval_splits": eval_splits}
+    table = {**PROJECT_STYLE["split_filter"], "eval_splits": eval_splits}
     with pytest.raises(ConfigError):
-        SplitFilterConfig.from_mapping({**CHALLENGE_STYLE, "split_filter": table})
+        SplitFilterConfig.from_mapping({**PROJECT_STYLE, "split_filter": table})
 
 
 @pytest.mark.parametrize("key", ["eval_splits", "udv_path"])
 def test_split_filter_evaluation_keys_are_required(key: str) -> None:
-    table = {name: value for name, value in CHALLENGE_STYLE["split_filter"].items() if name != key}
+    table = {name: value for name, value in PROJECT_STYLE["split_filter"].items() if name != key}
     with pytest.raises(ConfigError, match=f"split_filter].{key}"):
-        SplitFilterConfig.from_mapping({**CHALLENGE_STYLE, "split_filter": table})
+        SplitFilterConfig.from_mapping({**PROJECT_STYLE, "split_filter": table})
 
 
 def test_missing_table_is_a_config_error(tmp_path: Path) -> None:
@@ -119,8 +119,8 @@ def test_missing_table_is_a_config_error(tmp_path: Path) -> None:
         load_profiles_config(path)
 
 
-def test_challenge_prompts_are_byte_copies(challenge_dir: Path) -> None:
-    source = challenge_dir / "prompts" / "actor_profile"
+def test_experiments_prompts_are_byte_copies(experiments_dir: Path) -> None:
+    source = experiments_dir / "prompts" / "actor_profile"
     for name in ("system_profile.md", "user_profile.md.j2"):
         assert (PACKAGED_PROMPTS_DIR / name).read_bytes() == (source / name).read_bytes()
 

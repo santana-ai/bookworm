@@ -73,9 +73,9 @@ class LinkRules:
 
 @pytest.fixture(scope="module")
 def link_inputs(
-    lds_hearings: list[HearingRecord], challenge_dir: Path, split_artifacts_dir: Path
+    lds_hearings: list[HearingRecord], experiments_dir: Path, split_artifacts_dir: Path
 ) -> LinkInputs:
-    config_path = challenge_dir / "configs" / "hearing_actors.toml"
+    config_path = experiments_dir / "configs" / "hearing_actors.toml"
     if not config_path.is_file():
         pytest.skip(f"actors config not found at {config_path}")
     collector = ActorCollector(load_actors_config(config_path))

@@ -9,7 +9,7 @@ from conftest import (
     FIXTURES_DIR,
     cache_only_encoder,
     directory_state,
-    import_challenge_module,
+    import_reference_module,
     udv_artifact_path,
 )
 
@@ -36,7 +36,7 @@ from bookworm.actors.speeches import (
 from bookworm.pipeline import PendingLink, pending_links, resolve_link, run_pipeline
 from bookworm.udv.verify import coverage_hearings
 
-REFERENCE_MODULE = "utils.build_actor_speeches"
+REFERENCE_MODULE = "experiments.actors.build_speeches"
 ACTORS_CONFIG_NAME = "hearing_actors.toml"
 STATS_NAME = "actor_speeches_stats.json"
 AMBIGUOUS_NAME = "ambiguous_names.json"
@@ -44,21 +44,21 @@ UDV_RUN = "udv_v1"
 
 
 @pytest.fixture(scope="module")
-def reference(challenge_dir: Path) -> ModuleType:
-    return import_challenge_module(challenge_dir, REFERENCE_MODULE)
+def reference(experiments_dir: Path) -> ModuleType:
+    return import_reference_module(experiments_dir, REFERENCE_MODULE)
 
 
 @pytest.fixture(scope="module")
-def challenge_actors_config_path(challenge_dir: Path) -> Path:
-    path = challenge_dir / "configs" / ACTORS_CONFIG_NAME
+def experiments_actors_config_path(experiments_dir: Path) -> Path:
+    path = experiments_dir / "configs" / ACTORS_CONFIG_NAME
     if not path.is_file():
         pytest.skip(f"actors config not found at {path}")
     return path
 
 
 @pytest.fixture(scope="module")
-def actors_config(challenge_actors_config_path: Path) -> ActorsConfig:
-    return load_actors_config(challenge_actors_config_path)
+def actors_config(experiments_actors_config_path: Path) -> ActorsConfig:
+    return load_actors_config(experiments_actors_config_path)
 
 
 @pytest.fixture(scope="module")
@@ -139,10 +139,10 @@ def test_ambiguous_names_match_the_versioned_artifact(
 def test_speech_records_match_the_reference_script(
     speeches: ActorSpeeches,
     reference: ModuleType,
-    challenge_actors_config_path: Path,
+    experiments_actors_config_path: Path,
     lds_path: Path,
 ) -> None:
-    expected = reference_records(reference, challenge_actors_config_path, load_jsonl(lds_path))
+    expected = reference_records(reference, experiments_actors_config_path, load_jsonl(lds_path))
     assert_same_records(speeches.records, expected)
     assert len(speeches.multi_hearing) == 301
     assert len(speeches.single_hearing) == 1550
@@ -153,13 +153,13 @@ def test_written_files_are_byte_identical_to_the_reference_script(
     lds_hearings: list[HearingRecord],
     reference: ModuleType,
     actors_config: ActorsConfig,
-    challenge_actors_config_path: Path,
+    experiments_actors_config_path: Path,
     lds_path: Path,
     tmp_path: Path,
 ) -> None:
     paths = redirected_paths(tmp_path)
     reference_config = dataclasses.replace(
-        reference.load_config(challenge_actors_config_path), lds_path=lds_path, **paths
+        reference.load_config(experiments_actors_config_path), lds_path=lds_path, **paths
     )
     reference.build(reference_config)
     reference_bytes = {name: path.read_bytes() for name, path in paths.items()}

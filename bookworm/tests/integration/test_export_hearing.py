@@ -198,11 +198,11 @@ def test_a_run_of_the_previous_pipeline_is_refused(
 
 
 def test_signals_of_hearing_70_match_the_verifier_output(
-    challenge_dir: Path, udv_artifacts_dir: Path, monkeypatch: pytest.MonkeyPatch
+    experiments_dir: Path, udv_artifacts_dir: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.chdir(challenge_dir)
+    monkeypatch.chdir(experiments_dir)
     if not TRANSLATION_CACHE_DIR.is_dir():
-        pytest.skip(f"translation cache not found at {challenge_dir / TRANSLATION_CACHE_DIR}")
+        pytest.skip(f"translation cache not found at {experiments_dir / TRANSLATION_CACHE_DIR}")
     missing = missing_signal_files(VERIFIER_REPORT)
     if missing:
         pytest.skip(

@@ -147,8 +147,8 @@ def test_integer_thresholds_keep_their_type(
     assert (near, type(near)) == (1, int)
 
 
-def test_challenge_config_still_loads(challenge_dir: Path) -> None:
-    path = challenge_dir / "configs" / "udv.toml"
+def test_experiments_config_still_loads(experiments_dir: Path) -> None:
+    path = experiments_dir / "configs" / "udv.toml"
     if not path.is_file():
         pytest.skip(f"{path} not found")
     config = load_udv_config(path)
@@ -246,11 +246,11 @@ def test_split_config_is_frozen(splits_mini_config_path: Path) -> None:
         config.__setattr__("seed", 1)
 
 
-def test_challenge_split_config_still_loads(challenge_split_config_path: Path) -> None:
-    config = load_split_config(challenge_split_config_path)
+def test_experiments_split_config_still_loads(experiments_split_config_path: Path) -> None:
+    config = load_split_config(experiments_split_config_path)
     assert config.split_version == "temporal_v1"
     assert (config.train_fraction, config.validation_fraction) == (0.7, 0.15)
     assert config.min_boundary_gap_days == 2
     assert config.lds_path == Path("dataset/PublicHearingBR_LDS.jsonl")
     assert config.udv_path == Path("artifacts/udv/udv_v0.jsonl")
-    assert config.source == tomllib.loads(challenge_split_config_path.read_text(encoding="utf-8"))
+    assert config.source == tomllib.loads(experiments_split_config_path.read_text(encoding="utf-8"))
