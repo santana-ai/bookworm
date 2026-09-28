@@ -5,6 +5,9 @@ problema que a motivou, a decisão, o efeito medido e as consequências. Uma ADR
 quando uma decisão posterior a altera; a nova ADR cita a anterior, e a anterior ganha uma linha
 "Atualizado em" no cabeçalho quando o texto dela deixa de descrever o código.
 
+As ADRs citam os caminhos do repositório na data da decisão (`challenge/utils/...`); o caminho atual
+de cada um está em [`docs/path_map.md`](../../../docs/path_map.md).
+
 ## Índice
 
 | ADR | Título | Status | Data |

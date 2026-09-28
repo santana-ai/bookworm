@@ -38,7 +38,7 @@ cd bookworm
 uv sync
 ```
 
-Para usar a partir de outro projeto `uv` (por exemplo `challenge/`), como dependência local editável:
+Para usar a partir de outro projeto `uv` (por exemplo `experiments/`), como dependência local editável:
 
 ```bash
 uv add --editable ../bookworm
@@ -64,11 +64,11 @@ O dispositivo `auto` escolhe `mps` em Apple Silicon, depois `cuda`, depois `cpu`
 ## Dados
 
 O dataset não é versionado. O arquivo usado é `PublicHearingBR_LDS.jsonl` (206 audiências), baixado do
-Hugging Face pelo script do projeto `challenge/`:
+Hugging Face pelo script do projeto `experiments/`:
 
 ```bash
-cd challenge
-uv run python -m utils.download_dataset
+cd experiments
+uv run python -m experiments.data.download
 ```
 
 O sha256 esperado do LDS é `c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0`. Toda
@@ -78,7 +78,7 @@ for outro, para que nenhum artefato seja gerado a partir de uma versão diferent
 ## Início rápido, em CPU
 
 A configuração fica no projeto que usa a biblioteca, em TOML, e os caminhos relativos são resolvidos a
-partir do diretório em que o comando roda. O layout esperado pelos TOML de `challenge/configs/` é:
+partir do diretório em que o comando roda. O layout esperado pelos TOML de `experiments/configs/` é:
 
 ```text
 projeto/
@@ -145,10 +145,10 @@ uv run bookworm verify-splits --config configs/splits.toml
 
 `verify-udvs` recalcula a execução e termina com `"problems": {}` e código 0. Com o TF-IDF, a
 separação entre `semantic_match_high` e `semantic_match_weak` não tem calibração e não deve ser
-interpretada. Dentro de `challenge/`, a verificação da execução publicada não precisa de modelo:
+interpretada. Dentro de `experiments/`, a verificação da execução publicada não precisa de modelo:
 
 ```bash
-uv run --project ../bookworm bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
+uv run bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
 ```
 
 A execução histórica `udv_v1` se confere do mesmo jeito, com `--config configs/udv.toml --run-name udv_v1`.
@@ -159,9 +159,9 @@ As UDVs e os perfis de atores saem dos mesmos turnos de fala. `build-udvs --acto
 transcrição de cada audiência uma vez e, na mesma execução, grava as UDVs, as falas por ator e a
 ligação de cada UDV com o ator a que ela pertence
 ([ADR 0005](docs/adr/0005-one-transcript-pass-for-udvs-and-actor-profiles.md)). As fusões de nomes de
-`challenge/configs/hearing_actors.toml` foram revisadas nas 206 audiências, e o comando para com
+`experiments/configs/hearing_actors.toml` foram revisadas nas 206 audiências, e o comando para com
 código 2 se alguma não casa com nenhum turno, então essa configuração exige a execução completa. Com
-os TOML de `challenge/configs/`:
+os TOML de `experiments/configs/`:
 
 ```bash
 uv run bookworm build-udvs --config configs/udv_tfidf.toml --run-name tfidf \
@@ -325,7 +325,7 @@ da execução; arquivos de outras audiências não são apagados e ficam fora do
 gravado por último, então uma exportação interrompida, nova ou com `--overwrite`, deixa o diretório
 sem índice. Nenhum arquivo leva data de criação, e duas exportações com as mesmas entradas geram os
 mesmos bytes. A exportação de `udv_v2` com `--verifier-report` e `--profiles` grava 88.438.867 bytes
-no total, com 264 perfis de ator (`challenge/artifacts/web/export_site_udv_v2.json`). Para `udv_v1`,
+no total, com 264 perfis de ator (`experiments/artifacts/web/export_site_udv_v2.json`). Para `udv_v1`,
 sem perfis, são 206 arquivos de audiência com 76.526.309 bytes no total (mediana de 329.899; o maior,
 3.377.789, é o da audiência 6, cuja transcrição tem 147.728 palavras) e um índice de 184.112 bytes. O formato está em
 [docs/data_model.md](docs/data_model.md#diretório-de-demonstração-export-site), e a página que lê
@@ -611,7 +611,7 @@ Pontos de entrada principais:
 
 ### Configuração de UDV
 
-Formato de `challenge/configs/udv.toml`:
+Formato de `experiments/configs/udv.toml`:
 
 ```toml
 [dataset]
@@ -636,7 +636,7 @@ cache_dir = "artifacts/cache/embeddings"
 Sem `kind`, `[encoder]` descreve um modelo `sentence-transformers`; com `kind = "tfidf"` (e
 `max_features` opcional), o encoder TF-IDF é ajustado nas sentenças e opiniões das audiências
 selecionadas. Chaves extras são ignoradas, e o TOML inteiro é copiado para o campo `config` do arquivo
-de cobertura. O arquivo de `challenge/` tem também as chaves de registro da calibração do corte
+de cobertura. O arquivo de `experiments/` tem também as chaves de registro da calibração do corte
 (`calibration_source`, `calibration_method`, `threshold_decision`, `previous_embedding_threshold` e a
 tabela `[calibration]`), que a biblioteca só copia.
 
@@ -660,7 +660,7 @@ construção.
 
 ### Configuração de split
 
-Formato de `challenge/configs/splits.toml`:
+Formato de `experiments/configs/splits.toml`:
 
 ```toml
 [dataset]
@@ -689,7 +689,7 @@ letras, dígitos, `.`, `_` e `-`. O TOML inteiro é copiado para o campo `config
 
 ### Configuração de atores e perfis
 
-Os formatos de `challenge/configs/hearing_actors.toml`, `actor_profiles.toml` e
+Os formatos de `experiments/configs/hearing_actors.toml`, `actor_profiles.toml` e
 `profile_validation.toml` estão em [docs/actors.md](docs/actors.md), [docs/profiles.md](docs/profiles.md)
 e [docs/profile_validation.md](docs/profile_validation.md).
 
@@ -810,7 +810,7 @@ procurados só no turno de onde a sentença veio. Em `udv_v1` e em `udv_v2` as 2
 offsets. Esta seção descreve a regra padrão, de sentença, usada em `udv_v1`; as mudanças de `udv_v2`
 (janela e citação inteira) estão na seção de configuração, nas chaves `semantic_unit` e `quote_extent`.
 
-O corte 0,45 de `challenge/configs/udv.toml` foi recalculado só com audiências do treino, pela regra
+O corte 0,45 de `experiments/configs/udv.toml` foi recalculado só com audiências do treino, pela regra
 registrada em `[evidence].threshold_decision` desse arquivo (0,47 antes, com audiências que também
 estão na validação e no teste). Ele separa `high` de `weak` e ainda não foi validado como nível de confiança. Com
 TF-IDF, a separação não tem calibração e não deve ser interpretada; o TF-IDF serve como baseline em CPU
@@ -831,7 +831,7 @@ antiga. Uma audiência vai para o treino se a data dela é até o primeiro corte
 o segundo, e para o teste nos demais casos. Todas as audiências de uma mesma data ficam no mesmo
 conjunto.
 
-Com `challenge/configs/splits.toml`, o resultado é `temporal_v1`: 144 audiências e 1.536 UDVs no treino
+Com `experiments/configs/splits.toml`, o resultado é `temporal_v1`: 144 audiências e 1.536 UDVs no treino
 (2021-11-18 a 2023-11-13), 32 e 308 na validação (2023-11-21 a 2023-12-20), 30 e 359 no teste
 (2024-03-05 a 2024-05-09).
 
@@ -893,14 +893,15 @@ Na ordem em que aparecem no relatório:
 
 ## Paridade com os scripts de referência
 
-A biblioteca é o porte, com paridade testada, dos scripts de UDV, de splits e de atores de
-`challenge/utils/` (`udv_pipeline.py`, `build_udvs.py`, `verify_udvs.py`, `dataset_io.py`,
-`hearing_dates.py`, `build_splits.py`, `verify_splits.py`, `build_actor_speeches.py`,
-`filter_actor_speeches.py` e `generate_actor_profiles.py`), na versão que segmenta as sentenças dentro
+A biblioteca é o porte, com paridade testada, dos scripts de UDV, de splits e de atores da versão de
+pesquisa, `challenge/utils/` na tag `research-2026-09-28` (`udv_pipeline.py`, `build_udvs.py`,
+`verify_udvs.py`, `dataset_io.py`, `hearing_dates.py`, `build_splits.py`, `verify_splits.py`,
+`build_actor_speeches.py`, `filter_actor_speeches.py` e `generate_actor_profiles.py`; os caminhos
+atuais estão em [`docs/path_map.md`](../docs/path_map.md)), na versão que segmenta as sentenças dentro
 de cada turno de fala ([ADR 0002](docs/adr/0002-per-turn-sentence-segmentation.md)) e aceita trechos
 entre aspas simples como citação ([ADR 0003](docs/adr/0003-single-quoted-spans-as-quotes.md)). Os
-demais scripts de `challenge/utils/` (download, medições, benchmarks, calibração e experimentos) não
-foram portados. A paridade com os artefatos em `challenge/artifacts/` é testada assim (ver
+demais módulos de `experiments/src/experiments/` (download, medições, benchmarks, calibração e
+experimentos) não foram portados. A paridade com os artefatos em `experiments/artifacts/` é testada assim (ver
 [ADR 0001](docs/adr/0001-library-scaffold-and-parity.md)):
 
 - `udv_v1.jsonl` (corte 0,45) e `udv_v1_pre.jsonl` (mesmo código, corte 0,47): reconstruídos byte a
@@ -913,13 +914,13 @@ foram portados. A paridade com os artefatos em `challenge/artifacts/` é testada
 - `temporal_v1.json`: igual byte a byte, exceto `created_at`;
 - `temporal_v1_report.json`: igual byte a byte, exceto `created_at` e `environment`.
 - falas por ator: os arquivos gravados por `build-udvs --actors-config` são iguais byte a byte aos do
-  script de referência, e as contagens batem com `challenge/artifacts/hearing_actors/` e
-  `challenge/artifacts/actor_profiles/train_speeches_stats.json`.
+  script de referência, e as contagens batem com `experiments/artifacts/hearing_actors/` e
+  `experiments/artifacts/actor_profiles/train_speeches_stats.json`.
 
 `udv_v0.jsonl` e `dev20.jsonl` foram gerados pelo código anterior às ADR 0002 e 0003 e ficam como
 registro histórico: um teste fixa a lista exata de registros que a verificação atual acusa em `udv_v0`,
 que são os que as duas decisões mudam. Os arquivos `case_insensitive_*`, `quote_patterns_*` e
-`turn_segmentation_*` de `challenge/artifacts/udv/` vêm de scripts de medição de `challenge/utils/` e
+`turn_segmentation_*` de `experiments/artifacts/udv/` vêm de `experiments.udv.measure_*` e
 não são produzidos pela biblioteca. O formato de todos os arquivos lidos e gravados está em
 [docs/data_model.md](docs/data_model.md).
 
@@ -933,7 +934,7 @@ uv run ruff check . && uv run ruff format --check . && uv run mypy && uv run pyt
 
 `ruff` usa as regras de `[tool.ruff.lint]` do `pyproject.toml`, `mypy` roda em modo estrito sobre `src`
 e `tests`, e `pytest` mede cobertura por linha. Os testes de dataset precisam do LDS real e, para as
-reconstruções byte a byte, do cache de embeddings de `challenge/`:
+reconstruções byte a byte, do cache de embeddings de `experiments/`:
 
 ```bash
 BOOKWORM_LDS_PATH=/caminho/para/challenge/dataset/PublicHearingBR_LDS.jsonl \
@@ -950,8 +951,8 @@ Marcadores:
 - `unit` e `integration`: aplicados pelo diretório (`tests/unit/`, `tests/integration/`) em
   `tests/conftest.py`. Os testes de `tests/unit/` usam só as fixtures sintéticas escritas à mão de
   `tests/fixtures/`, sem modelo e sem o dataset real. Os de `tests/integration/` comparam a biblioteca
-  com os scripts e artefatos de `challenge/`; todos têm também `dataset` ou `model`, menos um, que roda
-  o script de referência das falas por ator sobre as fixtures e é pulado sem `challenge/`.
+  com os scripts e artefatos de `experiments/`; todos têm também `dataset` ou `model`, menos um, que roda
+  o script de referência das falas por ator sobre as fixtures e é pulado sem `experiments/`.
 - `dataset`: usa o LDS real indicado por `BOOKWORM_LDS_PATH`; o teste é pulado quando a variável não
   está definida ou o arquivo não existe, e falha quando o sha256 não bate.
 - `model`: carrega o encoder Serafim do cache local do Hugging Face; é opt-in e fica fora da execução
@@ -965,27 +966,27 @@ Variáveis de ambiente:
 
 - `BOOKWORM_LDS_PATH`: o arquivo `PublicHearingBR_LDS.jsonl`.
 - `BOOKWORM_EMBEDDING_CACHE`: diretório de cache de embeddings já existente (por exemplo
-  `challenge/artifacts/cache/embeddings`). Com ele, `tests/integration/test_parity_udv_cached_rebuild.py`
+  `experiments/artifacts/cache/embeddings`). Com ele, `tests/integration/test_parity_udv_cached_rebuild.py`
   reconstrói `udv_v1` e `udv_v1_pre`, `tests/integration/test_export_hearing.py` exporta a audiência 70
   e `tests/integration/test_export_site.py` exporta as 206 audiências, só a partir do cache: o encoder
   desses testes falha em qualquer texto que não esteja no cache, o cache é aberto em modo somente
   leitura e o teste confere que nenhum arquivo do diretório foi criado ou alterado. Sem a variável,
   esses testes são pulados.
-- `BOOKWORM_CHALLENGE_DIR`: o projeto com os scripts de referência (padrão: `challenge/` do
+- `BOOKWORM_EXPERIMENTS_DIR`: o projeto com os scripts de referência (padrão: `experiments/` do
   repositório). `BOOKWORM_ARTIFACTS_DIR`: o diretório com as execuções publicadas (padrão:
-  `<BOOKWORM_CHALLENGE_DIR>/artifacts`). Um artefato ausente faz o teste correspondente ser pulado; os
+  `<BOOKWORM_EXPERIMENTS_DIR>/artifacts`). Um artefato ausente faz o teste correspondente ser pulado; os
   arquivos grandes que ficaram fora do repositório estão listados, com o comando que regenera cada um,
-  em `challenge/artifacts/MANIFEST_heavy.tsv`.
+  em `experiments/artifacts/MANIFEST_heavy.tsv`.
 - `BOOKWORM_PARITY_FULL=1`: o teste `model` reconstrói as 206 audiências de `udv_v1` em vez das 20
   primeiras.
 
-O que o marcador `dataset` cobre: os testes de deriva contra `udv_pipeline.py`, `hearing_dates.py` e
-`build_splits.py`, carregados pelo caminho do arquivo; a conferência, registro a registro, de tudo o
+O que o marcador `dataset` cobre: a paridade das datas e dos cortes de split com
+`experiments.data.legacy_splits`, carregado pelo caminho do arquivo; a conferência, registro a registro, de tudo o
 que não depende do encoder em `udv_v1.jsonl` e `udv_v1_pre.jsonl` e a igualdade byte a byte desses
 dois arquivos depois de lidos e regravados; a verificação sem problemas dos dois e a lista exata de
 problemas de `udv_v0`; a paridade byte a byte com `temporal_v1.json` (exceto `created_at`) e
 `temporal_v1_report.json` (exceto `created_at` e `environment`); as falas por ator e o filtro por split
-contra os scripts de `challenge/`; as propriedades do LDS citadas em
+contra os scripts de `experiments/`; as propriedades do LDS citadas em
 [docs/data_model.md](docs/data_model.md); os cinco defeitos injetados no manifesto real (audiência
 trocada de conjunto, audiência removida, data alterada, fronteira alterada, contador do relatório
 alterado); uma execução TF-IDF nas 20 primeiras audiências que precisa passar em todas as checagens e
@@ -1022,7 +1023,7 @@ modelo carregado.
   ela tem de 6 a 9 palavras; se esse primeiro degrau não é encontrado, as 6 primeiras. As palavras da
   citação depois do prefixo encontrado não são conferidas. Em `udv_v1`, o prefixo de `direct_quote`
   tem 10 palavras em 122 registros, 6 em 152 e 7 em 3 (citações de exatamente 7 palavras encontradas
-  inteiras). Na validação humana de `udv_v1` (`../challenge/artifacts/udv/udv_v2_precision_final.json`),
+  inteiras). Na validação humana de `udv_v1` (`../experiments/artifacts/udv/udv_v2_precision_final.json`),
   o trecho de 35 citações sorteadas no teste sustenta a afirmação inteira em 25 e parte dela em 6.
 - **Prefixos curtos pouco distintivos.** A corroboração de `semantic_with_short_quote` aceita prefixos
   de 1 a 5 palavras; em `udv_v1` são 1 de 1 palavra, 7 de 2, 37 de 3, 65 de 4 e 1 de 5.

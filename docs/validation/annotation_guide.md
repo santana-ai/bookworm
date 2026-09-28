@@ -8,19 +8,19 @@ como o trecho foi escolhido.
 
 ## Fluxo
 
-Os comandos rodam dentro de `challenge/`; `<rodada>` é o nome da rodada de UDVs escolhida. O
+Os comandos rodam dentro de `experiments/`; `<rodada>` é o nome da rodada de UDVs escolhida. O
 gerador só aceita uma rodada cujo limiar do codificador foi calibrado sem nenhuma audiência de teste
 e sem audiências do conjunto amostrado, e recusa as outras antes de ler qualquer registro; hoje só
 `udv_v1` passa nessa checagem.
 
 1. Gerar a amostra:
-   `uv run --no-sync python -m utils.generate_validation_sample --run-name <rodada> --final-test`
+   `uv run --no-sync python -m experiments.validation.generate_sample --run-name <rodada> --final-test`
 2. Anotar `artifacts/validation/human_validation_v1_<rodada>/annotation.csv`.
 3. Pelo menos 24 horas depois da última edição dessa planilha, gerar a segunda rodada:
-   `uv run --no-sync python -m utils.generate_validation_sample --stage repeat --run-name <rodada> --final-test`
+   `uv run --no-sync python -m experiments.validation.generate_sample --stage repeat --run-name <rodada> --final-test`
 4. Anotar `reannotation.csv`, na mesma pasta, sem consultar a primeira rodada.
 5. Calcular o relatório:
-   `uv run --no-sync python -m utils.precision_report --sample-dir artifacts/validation/human_validation_v1_<rodada> --final-test`
+   `uv run --no-sync python -m experiments.validation.precision_report --sample-dir artifacts/validation/human_validation_v1_<rodada> --final-test`
 
 O relatório só é calculado com as duas planilhas completas, para que nenhum número de precisão seja
 visto antes do fim da anotação. Não abra `annotation_key.json`, `reannotation_key.json` nem os

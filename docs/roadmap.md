@@ -1,9 +1,9 @@
 # Roadmap
 
-Estado do projeto em 28/09/2026, versão 1.0 do repositório. [`CONSTITUTION.md`](CONSTITUTION.md) guarda a
+Estado do projeto em 28/09/2026, versão 1.0 do repositório. [`docs/vision.md`](vision.md) guarda a
 tese e a especificação de longo prazo; este documento diz o que já foi feito, o que falta e como estão
 as entregas do desafio. Os números de cada item estão em
-[`challenge/RELATORIO_EXPERIMENTOS.md`](challenge/RELATORIO_EXPERIMENTOS.md), com o artefato de origem.
+[`docs/report.md`](report.md), com o artefato de origem.
 
 ## Norte
 
@@ -20,7 +20,7 @@ cobertura editorial e o que foi efetivamente dito numa audiência pública.
 ## Prazos
 
 Inscrição até 30/07/2026; submissão até 30/09/2026; avaliação de 01 a 15/10/2026; resultado em
-16/10/2026 ([`challenge/desafio_ideias_em_rede.md`](challenge/desafio_ideias_em_rede.md)).
+16/10/2026 ([`docs/challenge/brief.md`](challenge/brief.md)).
 
 ## Checklist de entregáveis do desafio
 
@@ -28,17 +28,17 @@ Inscrição até 30/07/2026; submissão até 30/09/2026; avaliação de 01 a 15/
 - [ ] Artigo científico de até 10 páginas no template do desafio, no repositório
       [github.com/JoaoVitorBoer/bookworm](https://github.com/JoaoVitorBoer/bookworm).
 - [x] Código-fonte documentado em repositório acessível: biblioteca `bookworm/` 1.0.0 e experimentos em
-      `challenge/`, com README, guia de reprodução, relatório, ADRs, licença e citação.
+      `experiments/`, com README, guia de reprodução, relatório, ADRs, licença e citação.
 - [ ] Vídeo de até 5 minutos.
 - [x] Demonstração interativa (recomendada): front estático em `bookworm/web/`, alimentado por
       `bookworm export-site` sobre `udv_v2`, com a verificação de atribuição por audiência e a página
-      de perfis de ator (`challenge/artifacts/web/export_site_udv_v2.json`).
-- [ ] Anexar o pacote de artefatos pesados (`challenge/artifacts/MANIFEST_heavy.tsv`) a um GitHub Release.
+      de perfis de ator (`experiments/artifacts/web/export_site_udv_v2.json`).
+- [ ] Anexar o pacote de artefatos pesados (`experiments/artifacts/MANIFEST_heavy.tsv`) a um GitHub Release.
 - [ ] Envio para rodrigo.barros@kunumi.com e gianlucca@kunumi.com até 30/09/2026.
 
 ## Escopo priorizado
 
-O `CONSTITUTION.md` descreve um programa de pesquisa amplo. Para a submissão de 2026, os itens foram
+O `docs/vision.md` descreve um programa de pesquisa amplo. Para a submissão de 2026, os itens foram
 priorizados assim:
 
 - **P0, necessário para o artigo e o vídeo:** qualidade de projeto (lint, tipos, testes); leitura e
@@ -57,7 +57,7 @@ Cada item tem código, configuração, testes e artefato versionado.
 
 - **Dataset.** Download reprodutível numa revisão fixada, com sha256 conferido em toda leitura; EDA que
   mapeia o schema real do LDS e do NLI e mostra que os dois arquivos vêm de extrações diferentes
-  (`challenge/eda_v01.ipynb`).
+  (`experiments/notebooks/eda.ipynb`).
 - **Splits temporais** (`temporal_v1`): 144 audiências de treino, 32 de validação e 30 de teste, pela
   data da matéria validada contra o próprio texto, com verificação independente
   (`bookworm build-splits`, `verify-splits`).
@@ -65,9 +65,9 @@ Cada item tem código, configuração, testes e artefato versionado.
   verificação, com o rótulo tratado como `retrieved_context_entailment`.
 - **UDVs.** `udv_v0` e `udv_v1` (sentenças, corte de cosseno calibrado no treino, `threshold_v1`) e o
   pipeline recomendado `udv_v2` (janelas de duas sentenças, citação inteira, cortes recalibrados), cada
-  uma reconstruível byte a byte e conferida por `verify-udvs` ([ADR 0006](bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md)).
+  uma reconstruível byte a byte e conferida por `verify-udvs` ([ADR 0006](../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md)).
   `udv_v2` é a rodada de referência; toda etapa seguinte foi refeita ou conferida sobre ela, ao lado do
-  valor de `udv_v1` (`challenge/artifacts/udv/udv_v2_downstream_report.json`).
+  valor de `udv_v1` (`experiments/artifacts/udv/udv_v2_downstream_report.json`).
 - **Trabalho 1, achar a evidência.** E1 e E2 (`retrieval_v1`: 16 recuperadores, sentença contra
   janelas) e `retrieval_v2` (Laya como reranqueador, resultado negativo).
 - **Trabalho 2, confiança.** E3 v1 e v2 (NLI multilíngue, Laya, tradução NLLB e M2M100), E3x
@@ -79,17 +79,17 @@ Cada item tem código, configuração, testes e artefato versionado.
   `mlx-community/Qwen3.8-27B-8bit` sobre `udv_v1`; sobre `udv_v2`, as perguntas e os pedidos da
   simulação foram reconstruídos sem modelo (98 de 101 perguntas de teste idênticas). Conferência dos
   perfis contra as UDVs (`bookworm validate-profiles`) versionada para as duas rodadas
-  (`challenge/artifacts/profile_validation/`).
+  (`experiments/artifacts/profile_validation/`).
 - **Validação humana.** Amostra estratificada de 127 linhas de `udv_v1` nas audiências de teste,
   cegamento registrado, guia do anotador e scripts de pontuação. As 127 linhas e as 26 da planilha
   suplementar de `udv_v2` estão julgadas; resultado final em
-  `challenge/artifacts/udv/udv_v2_precision_final.json` (relatório, seções 7.2 a 7.4). Os dois critérios
+  `experiments/artifacts/udv/udv_v2_precision_final.json` (relatório, seções 7.2 a 7.4). Os dois critérios
   declarados falham: `quote_found` com precisão estrita 0,7143 [0,5495; 0,8367] (25 de 35; 31 de 35
   `correta` ou `parcial`), igual nas duas rodadas; `semantic_match_high` com precisão tolerante 0,7385
   [0,6205; 0,8298] em `udv_v1` e 0,8254 [0,7138; 0,8996] em `udv_v2`, abaixo do limite inferior de 0,75.
   Os números de `udv_v2` supõem que os 78 itens `superset` mantêm o rótulo de `udv_v1`.
 - **Biblioteca `bookworm` 1.0.0.** CLI e API para UDVs, splits, atores, perfis e exportação, com paridade
-  testada contra os scripts de `challenge/`, tipagem estrita e testes sem rede.
+  testada contra os scripts de `experiments/`, tipagem estrita e testes sem rede.
 - **Demo web** em `bookworm/web/`.
 
 ## Pendente
@@ -105,12 +105,12 @@ Cada item tem código, configuração, testes e artefato versionado.
    citação ou janela) um verificador ajustado com quatro trechos recuperados.
 4. **Planilhas pendentes.** Revisão de citações e nomes do E6 e checagem manual da tradução.
 5. **Perfis.** Rodada do modelo de simulação sobre `udv_v2` (comando em
-   `challenge/mlx_alternative/README.md`) e revisão manual dos pares da conferência de perfis.
+   `docs/methodology/mlx_backend.md`) e revisão manual dos pares da conferência de perfis.
 6. **Artefatos pesados.** Publicar o pacote no GitHub Release e fixar revisões dos modelos MLX.
 7. **Split por comissão**, com a extração do nome da comissão validada antes de virar base de split.
 8. **Itens P1 e P2 não iniciados:** comparação entre audiências, busca sobre as UDVs, EDI, baseline
    TF-IDF + SVD, clusterização, testes adversariais, espaço latente e os notebooks de conceito
-   (`challenge/concepts/`).
+   (`experiments/concepts/`).
 
 ## Sinais de desvio de rota
 

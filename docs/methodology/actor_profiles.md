@@ -1,9 +1,9 @@
 # Perfis por ator
 
 Este documento descreve a etapa que transforma as falas de cada ator recorrente (arquivo
-`actors_multi_hearing.jsonl`, construído como descrito em `HEARING_ACTORS.md`) em um texto de perfil
+`actors_multi_hearing.jsonl`, construído como descrito em `docs/methodology/hearing_actors.md`) em um texto de perfil
 escrito por um LLM. O perfil vai no system prompt de outro modelo, que responde como a pessoa
-responderia (plano em `ACTOR_SIMULATION.md`); aqui o objetivo é só gerar, para cada ator, um texto
+responderia (plano em `docs/methodology/actor_simulation.md`); aqui o objetivo é só gerar, para cada ator, um texto
 denso, específico e fundamentado exclusivamente nas falas.
 
 ## Como rodar
@@ -12,11 +12,11 @@ O gerador carrega o modelo com `from_pretrained` do `transformers` (`AutoTokeniz
 `AutoModelForCausalLM`), uma vez, no início. Cada ator vira uma única geração, com todas as suas
 falas no prompt, montado pelo chat template do próprio modelo.
 
-Dentro de `challenge/`:
+Dentro de `experiments/`:
 
 ```
 uv sync
-uv run python -m utils.generate_actor_profiles --model <modelo>
+uv run python -m experiments.actors.generate_profiles --model <modelo>
 ```
 
 `<modelo>` é o id de um repositório do Hugging Face ou o caminho de uma pasta local com o modelo
@@ -28,7 +28,7 @@ ator, escrita incrementalmente.
 Outras flags (todas opcionais; o padrão vem de `configs/actor_profiles.toml`):
 
 ```
-uv run python -m utils.generate_actor_profiles \
+uv run python -m experiments.actors.generate_profiles \
   --model <modelo> \
   --output artifacts/actor_profiles/actor_profiles.jsonl \
   --actors "Erika Kokay" "Jorge Solla" \
@@ -53,15 +53,15 @@ copiou, não o que ele permite estimar. Para esse uso, o perfil é gerado só co
 O modelo vem da variável `MODEL` do script, trocável por `MODEL=<modelo> ./run_actor_profiles.sh` ou
 por `--model <modelo>` na linha de comando. O valor padrão do script, `meta-llama/Llama-3.3-70B-Instruct`,
 é só um exemplo e não foi o modelo das rodadas versionadas: a rodada completa de perfis e simulação usou
-`mlx-community/Qwen3.8-27B-8bit` pelo backend MLX ([`mlx_alternative/README.md`](mlx_alternative/README.md)).
+`mlx-community/Qwen3.8-27B-8bit` pelo backend MLX ([`docs/methodology/mlx_backend.md`](mlx_backend.md)).
 
-O script roda, em ordem: `utils.download_dataset` (só se o LDS não estiver em `dataset/`),
-`utils.build_actor_speeches`, `utils.filter_actor_speeches` e `utils.generate_actor_profiles`. Os
+O script roda, em ordem: `experiments.data.download` (só se o LDS não estiver em `dataset/`),
+`experiments.actors.build_speeches`, `experiments.actors.filter_speeches` e `experiments.actors.generate_profiles`. Os
 argumentos passados ao script vão para o gerador (`--model`, `--actors`, `--limit`). A saída é
 `artifacts/actor_profiles/actor_profiles_train.jsonl`, separada da saída com todas as audiências,
 porque a retomada pula atores pelo nome e misturaria as duas versões.
 
-`utils.filter_actor_speeches` lê a seção `[split_filter]` de `configs/actor_profiles.toml`, mantém
+`experiments.actors.filter_speeches` lê a seção `[split_filter]` de `configs/actor_profiles.toml`, mantém
 de cada ator só as audiências dos splits listados em `splits`, sem alterar os turnos, e descarta o
 ator que fica sem nenhuma. O resultado vai para `actors_multi_hearing_train.jsonl` em
 `artifacts/cache/` (não versionado, como o arquivo de origem) e as contagens, com o SHA-256 do
@@ -92,7 +92,7 @@ Tudo fica em `configs/actor_profiles.toml`:
 - `[output]`: caminho do JSONL de perfis.
 - `[split_filter]`: manifesto do split, splits mantidos (`splits`), splits de avaliação
   (`eval_splits`), arquivo de UDVs e caminhos do arquivo filtrado e das contagens, lidos só por
-  `utils.filter_actor_speeches`.
+  `experiments.actors.filter_speeches`.
 - `[prompts]`: pasta e nomes dos dois arquivos de prompt.
 - `[model]`: `name` (id do Hugging Face ou pasta local, vazio por padrão); `device_map`, repassado
   ao `from_pretrained` (com `"auto"`, o `accelerate` distribui o modelo entre as GPUs disponíveis e
@@ -178,7 +178,7 @@ contrastantes com `--actors` para um arquivo descartável e compare com a versã
   de duplicação de rodovia que era da concessionária convidada. O prompt manda atribuir ao ator
   somente o que ele mesmo defende.
 - **Turnos de presidência marcados, não removidos.** A construção do arquivo de entrada já corta os
-  turnos de presidência com menos de 50 palavras (`HEARING_ACTORS.md`); os que restam misturam
+  turnos de presidência com menos de 50 palavras (`docs/methodology/hearing_actors.md`); os que restam misturam
   condução e opinião. O template marca esses turnos com `[presidência da sessão]` e o system prompt
   manda ignorar a condução e aproveitar só o que é posição. A regra vale para qualquer turno: pedidos
   de tempo ou inscrição, citação de requerimentos, cumprimentos, agradecimentos e elogios também são

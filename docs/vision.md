@@ -4,7 +4,7 @@
 
 Este documento consolida a tese científica e a especificação de construção do `bookworm`. Ele é a
 fonte de verdade para a visão de longo prazo do projeto. Prioridades concretas para a submissão do
-desafio de 2026 (o que é P0/P1/P2) e o estado de cada entrega ficam em [`ROADMAP.md`](ROADMAP.md);
+desafio de 2026 (o que é P0/P1/P2) e o estado de cada entrega ficam em [`docs/roadmap.md`](roadmap.md);
 este documento não expira quando o desafio terminar.
 
 ---
@@ -182,24 +182,24 @@ Cada bloco pode ter dimensão distinta (ex.: \\(z_i^{topic}\\in\\mathbb{R}^{64}\
 ## 8. Baselines matemáticos
 
 - **8.1 TF-IDF + Truncated SVD** — \\(X_{tfidf}\\approx U_k\\Sigma_kV_k^\\top\\); baseline de Latent
-  Semantic Analysis. Ver `challenge/concepts/tfidf.ipynb` e `challenge/concepts/svd.ipynb`.
+  Semantic Analysis. Ver `experiments/concepts/tfidf.ipynb` e `experiments/concepts/svd.ipynb`.
 - **8.2 Matriz UDV–características + SVD** — colunas: tema, posições, atos discursivos, participantes,
   instituições, tipos de argumento, relações, confiança, posição temporal.
 - **8.3 NMF** — \\(X\\approx WH,\\quad W,H\\geq 0\\); relevante para fatores aditivos e interpretáveis.
-  Ver `challenge/concepts/nmf.ipynb`.
+  Ver `experiments/concepts/nmf.ipynb`.
 - **8.4 Fatoração tensorial** — tensor
   \\(\\mathcal{X}\\in\\mathbb{R}^{hearing\\times actor\\times topic\\times stance\\times time}\\); métodos
-  CP, Tucker, non-negative Tucker. Ver `challenge/concepts/tensor_factorization.ipynb`.
+  CP, Tucker, non-negative Tucker. Ver `experiments/concepts/tensor_factorization.ipynb`.
 - **8.5 Embeddings genéricos** — representações de sentença/documento como baseline sem supervisão
-  deliberativa. Ver `challenge/concepts/embeddings.ipynb`.
-- **8.6 Autoencoder** — \\(z=E_\\theta(x), \\hat{x}=D_\\phi(z)\\). Ver `challenge/concepts/autoencoder.ipynb`.
-- **8.7 Variational Autoencoder** — \\(q_\\theta(z|x),\\ p_\\phi(x|z)\\). Ver `challenge/concepts/vae.ipynb`.
+  deliberativa. Ver `experiments/concepts/embeddings.ipynb`.
+- **8.6 Autoencoder** — \\(z=E_\\theta(x), \\hat{x}=D_\\phi(z)\\). Ver `experiments/concepts/autoencoder.ipynb`.
+- **8.7 Variational Autoencoder** — \\(q_\\theta(z|x),\\ p_\\phi(x|z)\\). Ver `experiments/concepts/vae.ipynb`.
 - **8.8 Graph Autoencoder** — codifica estrutura de nós e relações. Ver
-  `challenge/concepts/graph_encoder.ipynb`.
+  `experiments/concepts/graph_encoder.ipynb`.
 - **8.9 Modelo contrastivo multifacetado** — aproxima pares semanticamente equivalentes e separa
-  negativos difíceis. Ver `challenge/concepts/contrastive_learning.ipynb`.
+  negativos difíceis. Ver `experiments/concepts/contrastive_learning.ipynb`.
 - **SparsePCA** — alternativa opcional aos baselines de fatoração. Ver
-  `challenge/concepts/sparse_pca.ipynb`.
+  `experiments/concepts/sparse_pca.ipynb`.
 
 ## 9. Objetivos de treinamento
 
@@ -261,7 +261,7 @@ Filtros: pessoa, comissão, data, stance, tema, nível de confiança. Métricas:
 Métodos: k-means, spherical k-means, agglomerative clustering, HDBSCAN, spectral clustering,
 clustering sobre grafo, mixtures. Avaliação: silhouette, Davies–Bouldin, estabilidade (bootstrap +
 adjusted Rand index), pureza quando houver rótulo, coerência humana, interpretabilidade, utilidade. Ver
-`challenge/concepts/clustering.ipynb` e `challenge/concepts/umap.ipynb` (redução de dimensionalidade
+`experiments/concepts/clustering.ipynb` e `experiments/concepts/umap.ipynb` (redução de dimensionalidade
 para visualização).
 
 ## 13. Avaliação de resumos
@@ -359,7 +359,7 @@ editorial; explicabilidade; benchmark; API; documentação; artigo.
 - **Paper 3** — Auditing Editorial Coverage of Public Hearings with Evidence-Grounded Representations.
 - **Paper 4** — PublicHearingBR as an NLI and Deliberative Representation Benchmark.
 
-Para a submissão de 2026, ver o escopo P0 em [`ROADMAP.md`](ROADMAP.md). O artigo do desafio (≤10
+Para a submissão de 2026, ver o escopo P0 em [`docs/roadmap.md`](roadmap.md). O artigo do desafio (≤10
 páginas) deriva de um recorte de uma dessas hipóteses, não das quatro simultaneamente.
 
 ## 22. Riscos científicos e mitigação
@@ -408,7 +408,7 @@ O projeto não deve:
 - Python `>=3.12,<3.13`; `uv` para ambiente, lock e execução; tipagem estrita; caminhos com `pathlib`;
   configuração por arquivos; sementes determinísticas.
 - Sem dados brutos versionados no Git; sem credenciais; sem notebooks como única implementação de
-  código de produção (notebooks são para exploração e para os conceitos em `challenge/concepts/`); sem
+  código de produção (notebooks são para exploração e para os conceitos em `experiments/concepts/`); sem
   chamadas remotas nos testes; componentes de LLM sempre atrás de interface; execução em CPU possível
   para baselines; GPU opcional.
 - Não implemente tudo de uma vez — trabalhe por milestones, cada um com código executável, testes,
@@ -420,11 +420,11 @@ O projeto não deve:
 `bookworm` é uma biblioteca Python — não um script nem um notebook. Ela é usada de quatro formas:
 
 1. **Biblioteca importável** — `from bookworm import ...` dentro de código Python (ex.: notebooks e
-   scripts de `challenge/`).
+   scripts de `experiments/`).
 2. **CLI** — via Typer, invocada como `uv run bookworm <comando>` (ex.: `bookworm compare`,
    `bookworm search`, `bookworm cluster`).
 3. **`bookworm init`** — comando que faz o scaffold de um projeto novo que depende de `bookworm` (ex.:
-   usado para inicializar a estrutura de `challenge/` como projeto `uv` consumidor da lib).
+   usado para inicializar a estrutura de `experiments/` como projeto `uv` consumidor da lib).
 4. **API** — serviço HTTP (`api/service.py`, `api/models.py`) expondo as mesmas operações da CLI, para
    ser consumido por um dashboard (ex.: Streamlit) ou outra aplicação.
 
@@ -434,13 +434,21 @@ biblioteca (seção 29).
 ### 25.3 Estrutura do repositório
 
 `bookworm/` é o pacote/biblioteca (entregável como "código-fonte documentado em repositório
-acessível"). `challenge/` é onde os experimentos de fato rodam: é seu próprio projeto `uv`, com
+acessível"). `experiments/` é onde os experimentos de fato rodam: é seu próprio projeto `uv`, com
 `bookworm` como dependência. A árvore abaixo é a da versão 1.0; os módulos previstos nas seções 7 a 14
 que ainda não existem (espaço latente, clusterização, avaliação de resumos, auditoria editorial) estão
-em [`ROADMAP.md`](ROADMAP.md).
+em [`docs/roadmap.md`](roadmap.md).
 
 ```text
-LICENSE, CITATION.cff, README.md, CONTRIBUTING.md, CONSTITUTION.md, ROADMAP.md
+LICENSE, CITATION.cff, README.md, CONTRIBUTING.md
+
+docs/
+├── report.md, pipeline.md   # relatório dos experimentos e pipeline recomendado
+├── methodology/             # udv, confidence, hearing_actors, actor_profiles, actor_simulation, mlx_backend
+├── validation/              # guia do anotador
+├── challenge/brief.md       # brief do desafio; o artigo do dataset é arXiv 2410.07495
+├── vision.md, roadmap.md
+└── path_map.md              # caminhos da versão de pesquisa e os desta versão
 
 bookworm/
 ├── pyproject.toml, uv.lock, .python-version
@@ -461,25 +469,23 @@ bookworm/
 │   └── integration/         # inclui os testes marcados `dataset`, que leem o LDS local
 └── web/                     # front estático da demo, alimentado pelo `bookworm export-site`
 
-challenge/
+experiments/
 ├── pyproject.toml, uv.lock  # projeto uv próprio; depende de bookworm
 ├── README.md                # guia de reprodução
-├── PIPELINE.md, RELATORIO_EXPERIMENTOS.md, UDV.md, CONFIDENCE_V2.md, ...
-├── desafio_ideias_em_rede.md, 2410.07495v2.pdf
-├── eda_v01.ipynb, splits_v00.ipynb, udv_v05.ipynb, actor_profiles_v01.ipynb
+├── src/experiments/         # data, udv, retrieval, verifier, validation, actors, common, mlx
 ├── configs/                 # uma configuração TOML por experimento
-├── utils/                   # scripts reprodutíveis de cada etapa
 ├── prompts/                 # prompts versionados dos componentes de LLM
+├── notebooks/               # eda, splits, udv, actor_profiles
+├── scripts/                 # execução encadeada dos perfis e da simulação
 ├── tests/
-├── mlx_alternative/         # execução dos perfis e da simulação em Apple Silicon (MLX)
 ├── dataset/                 # dados brutos do Hugging Face, nunca versionados
 └── artifacts/               # saídas versionadas; MANIFEST_heavy.tsv lista as que ficam fora do Git
 ```
 
 ### 25.4 Modelo de dados
 
-Validado empiricamente em `challenge/eda_v01.ipynb` contra os arquivos reais baixados de
-`unicamp-dl/PublicHearingBR` no Hugging Face (`challenge/dataset/PublicHearingBR_LDS.jsonl` e
+Validado empiricamente em `experiments/notebooks/eda.ipynb` contra os arquivos reais baixados de
+`unicamp-dl/PublicHearingBR` no Hugging Face (`experiments/dataset/PublicHearingBR_LDS.jsonl` e
 `PublicHearingBR_NLI.jsonl`) — **nunca presuma silenciosamente nomes de campos**, sempre confira contra
 o JSON real. Os modelos abaixo refletem o schema real, não o schema originalmente assumido pelos
 documentos de design.
@@ -639,7 +645,7 @@ uv run bookworm reproduce-baseline
 ### 25.7 Armazenamento de artefatos
 
 ```text
-challenge/data/artifacts/
+experiments/data/artifacts/
 └── experiment_id/
     ├── config.json
     ├── metrics.json
@@ -672,7 +678,7 @@ duplicadas; cache com hash; embeddings em float32; avaliar float16 apenas para a
 ### 25.11 Documentação
 
 - **README de `bookworm/`** — motivação, instalação, dados, execução, arquitetura, ética, citação (essa
-  documentação vive em `bookworm/README.md`, não neste `CONSTITUTION.md`).
+  documentação vive em `bookworm/README.md`, não neste `docs/vision.md`).
 - **Data card** — origem, licença, período, composição, limitações, riscos.
 - **Model card** — tarefas, métricas, falhas, grupos, uso proibido.
 

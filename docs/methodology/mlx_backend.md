@@ -1,7 +1,7 @@
 # Backend MLX para perfis e simulação de atores
 
-Esta pasta roda o pipeline de perfis e de simulação de atores (`utils/generate_actor_profiles.py`,
-`utils/evaluate_actor_simulation.py`, `utils/simulate_actors.py`) com modelos no formato MLX, em
+Esta pasta roda o pipeline de perfis e de simulação de atores (`experiments/src/experiments/actors/generate_profiles.py`,
+`experiments/src/experiments/actors/evaluate_simulation.py`, `experiments/src/experiments/actors/simulate.py`) com modelos no formato MLX, em
 Apple Silicon, sem alterar nenhum arquivo de `utils/` nem de `configs/`. O objetivo é comparar
 modelos que cabem na máquina local e escolher um para a rodada completa.
 
@@ -32,7 +32,7 @@ depende da máquina em que rodou.
 Para baixar um modelo nesse lugar:
 
 ```
-uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run download --model qwen38_27b
+uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.run download --model qwen38_27b
 ```
 
 O download lê `HF_TOKEN` de `mlx_alternative/.env` (caminho em `env_file`), quando o arquivo
@@ -50,14 +50,14 @@ raciocínio por padrão quando o modelo suporta, então a opção precisa ficar 
 
 ## Como rodar
 
-Tudo roda de dentro de `challenge/`. O `mlx-lm` entra só no ambiente da execução, sem mudar o
+Tudo roda de dentro de `experiments/`. O `mlx-lm` entra só no ambiente da execução, sem mudar o
 `pyproject.toml`:
 
 ```
-uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run smoke --model gemma4_31b
-uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.verify_backend --model gemma4_31b
-uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run all --model gemma4_31b
-uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.benchmark
+uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.run smoke --model gemma4_31b
+uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.verify_backend --model gemma4_31b
+uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.run all --model gemma4_31b
+uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.benchmark
 ```
 
 - `run smoke`: carrega o modelo e grava `runs/<id>/smoke.json`, com o fim do prompt montado pelo
@@ -68,7 +68,7 @@ uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.benchmark
   completo do prompt com os tokens já gerados. Grava `runs/<id>/verify.json`.
 - `run <etapa>`: `profiles`, `evaluate`, `simulate` ou `all`. Sem `--actors`, usa os atores de
   `short_run` (Arnaldo Jardim e Daniela Reinehr, que têm perguntas em `validation` e em `test`);
-  `--all-actors` roda todos. `--k` vai para `utils.simulate_actors`. Os tempos
+  `--all-actors` roda todos. `--k` vai para `experiments.actors.simulate`. Os tempos
   de cada etapa vão para `runs/<id>/timings.jsonl`.
 - `benchmark`: para cada modelo, mede carga, memória, velocidade de prefill e de geração num
   prompt de perfil longo (o ator com o maior prompt) e num prompt de múltipla escolha, e o ganho do
@@ -80,11 +80,11 @@ uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.benchmark
 `config_udv_v2.yaml` refaz perfis, avaliação e simulação com o modelo da rodada completa,
 `mlx-community/Qwen3.8-27B-8bit`, lendo os TOMLs de `configs/`, que apontam para
 `artifacts/udv/udv_v2.jsonl`. As saídas vão para `runs/udv_v2/qwen38_27b/` e `runs/udv_v2/shared/`;
-a rodada `udv_v1` em `runs/qwen38_27b/` não é lida nem sobrescrita. De dentro de `challenge/`:
+a rodada `udv_v1` em `runs/qwen38_27b/` não é lida nem sobrescrita. De dentro de `experiments/`:
 
 ```
-uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run download --model qwen38_27b --settings mlx_alternative/config_udv_v2.yaml
-uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run all --model qwen38_27b --all-actors --settings mlx_alternative/config_udv_v2.yaml
+uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.run download --model qwen38_27b --settings configs/mlx_udv_v2.yaml
+uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.run all --model qwen38_27b --all-actors --settings configs/mlx_udv_v2.yaml
 ```
 
 O primeiro comando só é necessário se o modelo não estiver em
@@ -126,7 +126,7 @@ nível mudou e em quaisquer diferenças de escolha de k e γ na validação.
 - A quantização em 8 bits produz outro modelo. O campo `model` dos perfis e das avaliações grava o
   `repo` do modelo MLX, e é esse modelo que precisa aparecer no artigo.
 - A decodificação gulosa e a leitura das letras foram reimplementadas sobre o `mlx-lm`. A guidance
-  da condição 3 da múltipla escolha é calculada pelo próprio `utils/evaluate_actor_simulation.py` a
+  da condição 3 da múltipla escolha é calculada pelo próprio `experiments/src/experiments/actors/evaluate_simulation.py` a
   partir dos log-probs das condições 0 e 2, sem passar pelo backend. A verificação confere a
   implementação, mas os números não coincidem bit a bit com uma rodada em `transformers`.
 - A amostragem da geração de perfis usa o gerador aleatório do MLX. A semente da configuração é

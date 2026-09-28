@@ -2,8 +2,8 @@
 
 Este documento descreve os comandos `bookworm filter-actor-speeches` e `bookworm generate-profiles`,
 que transformam as falas de cada ator recorrente em um perfil escrito por um LLM. Eles portam, com o
-mesmo comportamento, `challenge/utils/filter_actor_speeches.py` e
-`challenge/utils/generate_actor_profiles.py` (ADR 0005).
+mesmo comportamento, `experiments/src/experiments/actors/filter_speeches.py` e
+`experiments/src/experiments/actors/generate_profiles.py` (ADR 0005).
 
 ## Problema
 
@@ -25,7 +25,7 @@ passa antes por um filtro que mantém só as audiências dos splits configurados
 
 1. `bookworm build-udvs --actors-config ...` grava as falas por ator (`actors_multi_hearing.jsonl`,
    um registro por ator com fala em pelo menos duas audiências), com os mesmos bytes do script
-   `challenge/utils/build_actor_speeches.py`.
+   `experiments/src/experiments/actors/build_speeches.py`.
 2. `bookworm filter-actor-speeches` mantém de cada ator só as audiências dos splits listados, sem
    alterar os turnos, descarta o ator que fica sem nenhuma e grava o arquivo filtrado e as contagens,
    incluindo quantas UDVs dos splits de avaliação se ligam a um ator que terá perfil.
@@ -34,8 +34,8 @@ passa antes por um filtro que mantém só as audiências dos splits configurados
 
 ## Como rodar
 
-Os comandos leem a mesma configuração do `challenge/` (`configs/actor_profiles.toml`) e resolvem os
-caminhos relativos a partir do diretório em que são executados. Dentro de `challenge/`:
+Os comandos leem a mesma configuração do `experiments/` (`configs/actor_profiles.toml`) e resolvem os
+caminhos relativos a partir do diretório em que são executados. Dentro de `experiments/`:
 
 ```
 uv run bookworm filter-actor-speeches --config configs/actor_profiles.toml
@@ -92,7 +92,7 @@ Opções de `generate-profiles`:
   `splits`), `udv_path` (as UDVs usadas nas contagens de avaliação), `speeches_path` (arquivo
   filtrado) e `stats_path` (contagens). `splits_reason` é ignorada.
 - `[prompts]`: `dir`, `system_profile` e `user_profile`. Sem `dir`, valem os prompts empacotados em
-  `bookworm/profiles/prompts/`, cópias byte a byte dos de `challenge/prompts/actor_profile/`.
+  `bookworm/profiles/prompts/`, cópias byte a byte dos de `experiments/prompts/actor_profile/`.
 - `[model]`: `name`, `device_map` (repassado a `from_pretrained`; com `"auto"`, o `accelerate`
   distribui o modelo entre as GPUs e manda para a CPU o que não couber), `temperature`, `top_p`,
   `max_output_tokens` (vira `max_new_tokens`) e `seed`, fixada antes de cada geração.
@@ -113,7 +113,7 @@ as ligações a atores que continuam no arquivo filtrado, ou seja, que terão pe
 ordem:
 
 - `splits`, `udv_path` e `udv_sha256`;
-- `link`: a regra acima, em texto (a mesma frase do script do `challenge/`);
+- `link`: a regra acima, em texto (a mesma frase do script do `experiments/`);
 - `hearings`: audiências dos `eval_splits`;
 - `profiled_actors_speaking`: atores com perfil que têm algum turno nessas audiências;
 - `udvs`: UDVs dessas audiências;
@@ -189,7 +189,7 @@ O `slug` vem do nome sem acentos, em minúsculas, com hífens; nomes que colidem
 
 **Números da rodada `qwen38_27b` de treino.** Com `udv_v2` e o relatório do verificador, o resumo
 que o comando imprime, gravado em
-[`challenge/artifacts/web/export_site_udv_v2.json`](../../challenge/artifacts/web/export_site_udv_v2.json),
+[`experiments/artifacts/web/export_site_udv_v2.json`](../../experiments/artifacts/web/export_site_udv_v2.json),
 dá 264 perfis e 4.928 itens: 202 itens ligados a uma UDV, 4.290 só com frase e 436 sem frase. 660 UDVs
 têm como dono um ator com perfil. A exportação inteira, com os perfis, ocupa 88.438.867 bytes. Os
 perfis foram gerados das falas de treino, que não dependem da execução de UDV; entre `udv_v1` e
@@ -224,11 +224,11 @@ termina com código 1; erro de configuração ou de dados termina com código 2.
 - As falas por ator, o arquivo filtrado e as contagens são determinísticos. O teste com o marcador
   `dataset` (`tests/integration/test_parity_profile_split_filter.py`) refaz as falas a partir do LDS,
   roda o filtro e compara as contagens byte a byte com
-  `challenge/artifacts/actor_profiles/train_speeches_stats.json`: 301 atores, 198 audiências e 6.323
+  `experiments/artifacts/actor_profiles/train_speeches_stats.json`: 301 atores, 198 audiências e 6.323
   turnos na entrada; 264 atores, 139 das 144 audiências de treino e 4.598 turnos na saída, com 37
   atores sem audiência de treino; no bloco `evaluation`, 106 das 359 UDVs de teste ligadas a 48
   atores em 27 audiências. O mesmo arquivo confere que os prompts empacotados têm o mesmo
-  `prompt_version` do script do `challenge/` e que os prompts renderizados são idênticos para os 264
+  `prompt_version` do script do `experiments/` e que os prompts renderizados são idênticos para os 264
   atores.
 - A geração depende do modelo, da semente e do hardware: a mesma semente não garante o mesmo texto
   entre GPUs ou versões do `transformers`. O registro guarda `model` e `prompt_version`, mas não a

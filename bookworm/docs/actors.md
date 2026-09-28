@@ -1,7 +1,7 @@
 # Falas por ator
 
 Esta etapa junta tudo o que cada pessoa disse nas audiências do PublicHearingBR, audiência por
-audiência, e liga cada UDV ao ator que a disse. Ela porta `challenge/utils/build_actor_speeches.py`
+audiência, e liga cada UDV ao ator que a disse. Ela porta `experiments/src/experiments/actors/build_speeches.py`
 para a biblioteca e roda na mesma passada pela transcrição que constrói as UDVs
 ([ADR 0005](adr/0005-one-transcript-pass-for-udvs-and-actor-profiles.md)).
 
@@ -28,7 +28,7 @@ turno, sem comparar nomes de novo.
 
 ## Como rodar
 
-A etapa é uma opção de `build-udvs`. Dentro de `challenge/`:
+A etapa é uma opção de `build-udvs`. Dentro de `experiments/`:
 
 ```bash
 uv run bookworm build-udvs --run-name udv_v1 --config configs/udv.toml \
@@ -76,8 +76,8 @@ print(len(speeches.multi_hearing), speeches.stats["turns"]["kept"])
 
 ## Configuração
 
-O arquivo é o mesmo formato de `challenge/configs/hearing_actors.toml`; a tabela `[measurement]`, usada
-só pelo script de medição do `challenge/`, é ignorada.
+O arquivo é o mesmo formato de `experiments/configs/hearing_actors.toml`; a tabela `[measurement]`, usada
+só pelo script de medição do `experiments/`, é ignorada.
 
 | Chave | Uso |
 |---|---|
@@ -134,7 +134,7 @@ escolhem atores diferentes para a mesma UDV, o que faria as contagens de avalia�
   `<run>_actor_links.jsonl`): entre os turnos que a resolução de envolvidos atribuiu à pessoa da UDV,
   fica o ator com mais turnos mantidos pela política.
 - **Turno de evidência** (a regra do bloco `evaluation` de `filter-actor-speeches`, portada de
-  `challenge/utils/filter_actor_speeches.py`; ver [Perfis de atores](profiles.md#formato-dos-arquivos)):
+  `experiments/src/experiments/actors/filter_speeches.py`; ver [Perfis de atores](profiles.md#formato-dos-arquivos)):
   fica o ator dono do turno `evidence.speaker_turn` da UDV. UDV sem evidência, ou cujo turno de
   evidência foi descartado pela política, fica sem ligação.
 
@@ -149,11 +149,11 @@ Sobre `udv_v1` (2.203 UDVs) e o LDS completo:
   5, o nome do ator corresponde ao nome da UDV;
 - no split `test` de `temporal_v1`, as duas regras dão 106 UDVs ligadas a atores com perfil (duas ou
   mais audiências, pelo menos uma de treino), 48 atores e 27 audiências, os mesmos números de
-  `challenge/artifacts/actor_profiles/train_speeches_stats.json`.
+  `experiments/artifacts/actor_profiles/train_speeches_stats.json`.
 
 Como a primeira regra contém a segunda e nunca escolhe outro ator, o arquivo de ligações continua com
 ela. O bloco `evaluation` continua com a regra do turno de evidência, para reproduzir byte a byte as
-contagens do `challenge/`; em `udv_v1` test as duas coincidem.
+contagens do `experiments/`; em `udv_v1` test as duas coincidem.
 
 Em 6 UDVs o nome de exibição do ator ligado não é o nome que a matéria usa. As duas regras escolhem o
 mesmo ator nelas, porque a diferença vem de antes da ligação, da forma como o nome do ator é formado a
@@ -184,7 +184,7 @@ as duas regras a partir do LDS, de `udv_v1.jsonl` e de `temporal_v1.json`.
 
 ## Números da rodada sobre o LDS completo
 
-Com `challenge/configs/hearing_actors.toml` e o LDS de sha256
+Com `experiments/configs/hearing_actors.toml` e o LDS de sha256
 `c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0`:
 
 - 17.264 turnos; 13.190 mantidos e conferidos contra a transcrição; descartados 32 de chaves que não
@@ -200,8 +200,8 @@ Com `challenge/configs/hearing_actors.toml` e o LDS de sha256
 
 Esses números são fixados pelos testes de `tests/integration/test_parity_actor_speeches.py` (marcador
 `dataset`). Os mesmos testes conferem que os quatro arquivos gravados pela biblioteca são byte a byte
-iguais aos que `utils.build_actor_speeches` grava com a mesma configuração, que as contagens e os pares
-ambíguos são iguais aos versionados em `challenge/artifacts/hearing_actors/`, e que a passada única
+iguais aos que `experiments.actors.build_speeches` grava com a mesma configuração, que as contagens e os pares
+ambíguos são iguais aos versionados em `experiments/artifacts/hearing_actors/`, e que a passada única
 reconstrói `udv_v1.jsonl` byte a byte a partir do cache de embeddings.
 
 Os formatos dos arquivos estão em [Modelo de dados](data_model.md#falas-por-ator).

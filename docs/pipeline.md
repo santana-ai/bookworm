@@ -1,11 +1,11 @@
 # Pipeline de UDV: o que cada experimento decidiu e como rodar `udv_v2`
 
 Este documento junta, em um lugar, os experimentos que formaram a construção das UDV (Unidades
-Deliberativas Verificáveis, descritas em [`UDV.md`](UDV.md)) e o pipeline recomendado que sai deles,
+Deliberativas Verificáveis, descritas em [`docs/methodology/udv.md`](methodology/udv.md)) e o pipeline recomendado que sai deles,
 `udv_v2`. Para cada experimento: o problema, o que foi comparado, uma tabela curta e a decisão. Todo
-número cita o artefato de onde vem; os caminhos são relativos a `challenge/`, salvo quando indicado. A
+número cita o artefato de onde vem; os caminhos são relativos a `experiments/`, salvo quando indicado. A
 descrição completa de cada experimento, com todos os números, está em
-[`RELATORIO_EXPERIMENTOS.md`](RELATORIO_EXPERIMENTOS.md); os comandos, em [`README.md`](README.md).
+[`docs/report.md`](report.md); os comandos, em [`experiments/README.md`](../experiments/README.md).
 
 Splits: manifesto `artifacts/splits/temporal_v1.json`, 144 audiências de treino, 32 de validação e 30
 de teste. Nenhuma escolha deste documento usou o teste; onde há número de teste, ele foi medido depois
@@ -210,12 +210,12 @@ avaliadores publicados (MiniCheck, FactCG, AlignScore, HHEM, BGE reranker).
 |---|---|---|---|---|
 | E-A, validação (698 opiniões) | 0,730 | 0,876 | +0,146 [0,085; 0,216] | Holm 0,012 |
 
-Fontes: `artifacts/experiments/confidence_v2/ea_report.json` e [`CONFIDENCE_V2.md`](CONFIDENCE_V2.md).
+Fontes: `artifacts/experiments/confidence_v2/ea_report.json` e [`docs/methodology/confidence.md`](methodology/confidence.md).
 
 **Decisão.** O primário é a confiança adotada. Na estimativa pontual, nenhum avaliador da literatura tem
 ROC AUC maior que o primário, mas a comparação direta do primário com cada avaliador não foi declarada
-nem testada (`CONFIDENCE_V2.md`, E-A). A parte E-B do experimento, sobre UDVs com rótulos que não eram
-humanos, não está nesta versão (`CONFIDENCE_V2.md`).
+nem testada (`docs/methodology/confidence.md`, E-A). A parte E-B do experimento, sobre UDVs com rótulos que não eram
+humanos, não está nesta versão (`docs/methodology/confidence.md`).
 
 ### Camada do verificador sobre `udv_v1`
 
@@ -326,7 +326,7 @@ cada negativo novo precisaria de tradução e de pontuação (`bootstrap.method`
 ### Resultados de `udv_v2`
 
 Fonte desta subseção, salvo indicação: `artifacts/udv/udv_v2_analysis.json`, gerado por
-`uv run python -m utils.udv_v2_analysis analyze`.
+`uv run python -m experiments.udv.v2_analysis analyze`.
 
 **Níveis** (`tiers`):
 
@@ -382,7 +382,7 @@ As evidências semânticas passaram de 161 para 274 caracteres na mediana (`sema
 
 **Verificador** (`verifier`; linhas por UDV em `artifacts/udv/udv_v2_verifier.jsonl`, relatório em
 `artifacts/udv/udv_v2_verifier_report.json`, gerados por
-`uv run python -m utils.udv_verifier --config configs/udv_v2_verifier.toml translate`, `score` e
+`uv run python -m experiments.verifier.udv_verifier --config configs/udv_v2_verifier.toml translate`, `score` e
 `apply`). O reajuste do primário no treino do benchmark reproduziu C, coeficientes e corte de
 `final_test.json` (`refit_check`).
 
@@ -463,7 +463,7 @@ medida, é que uma sentença acrescentada não transforma suporte correto em inc
 Só os 26 itens `moved` (19 `semantic_match_high`, 5 `semantic_match_weak`, 2
 `semantic_with_short_quote`) estão na planilha suplementar
 `artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv`, gerada por
-`uv run python -m utils.udv_v2_analysis supplement-sheet --final-test`, com a mesma opinião e a
+`uv run python -m experiments.udv.v2_analysis supplement-sheet --final-test`, com a mesma opinião e a
 evidência de `udv_v2`, em nova ordem e com novos identificadores. A correspondência com `udv_v1` e a
 classe de cada linha ficam em `annotation_key.json`, na mesma pasta, que também lista os 101 itens
 herdados (17 `same`, 78 `superset`, 6 `pessoa_falou` sem evidência) com a sua classe. As 26 linhas
@@ -472,13 +472,13 @@ estão julgadas.
 **Comando de precisão.** Com as planilhas preenchidas e as chaves:
 
 ```bash
-uv run python -m utils.udv_v2_analysis score-annotation --final-test \
+uv run python -m experiments.udv.v2_analysis score-annotation --final-test \
   --annotation artifacts/validation/human_validation_v1_udv_v1/annotation.csv \
   --supplement-dir artifacts/validation/human_validation_v1_udv_v2_supplement \
   --output artifacts/udv/udv_v2_precision_final.json
 ```
 
-Ele reusa as funções de `utils/precision_report.py` (precisão estrita e tolerante por estrato, intervalo
+Ele reusa as funções de `experiments/src/experiments/validation/precision_report.py` (precisão estrita e tolerante por estrato, intervalo
 de Wilson a 95%, critérios congelados na chave) para `udv_v1`, para os itens herdados de `udv_v2` e, com
 `--supplement-dir`, para `udv_v2` inteira: o item `same` ou `superset` conta com o rótulo de `udv_v1` e o
 item `moved`, só com o rótulo da planilha suplementar. Essa parte dá a precisão por estrato e por tier
@@ -496,7 +496,7 @@ Critérios declarados em 2026-09-23 (`criteria` da chave): limite inferior de Wi
 
 **Resultado humano final.** `artifacts/udv/udv_v2_precision_final.json`, status `final`, com as 127
 linhas de `udv_v1` e as 26 suplementares julgadas. O campo `existe_trecho_melhor` ficou vazio nas duas
-planilhas; `utils/precision_report.py` recusa planilhas assim, então os números finais vêm de
+planilhas; `experiments/src/experiments/validation/precision_report.py` recusa planilhas assim, então os números finais vêm de
 `udv_v2_analysis score-annotation`, e o campo não foi preenchido depois.
 
 | estrato | `udv_v1`: correta / parcial / incorreta | `udv_v1`: estrita; tolerante [Wilson 95%] | `udv_v2`: correta / parcial / incorreta | `udv_v2`: estrita; tolerante [Wilson 95%] |
@@ -529,7 +529,7 @@ Os arquivos `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` e
   desligado até a planilha `artifacts/experiments/fuzzy/fuzzy_v1_names_review.jsonl` ser julgada.
 - **Libras.** Os 8 registros `no_evidence` de `udv_v2` são de 3 participantes das audiências 53 e 111
   cuja única fala registrada é a marcação "(Manifestação em LIBRAS.)"; a tradução está nos turnos do
-  intérprete (`artifacts/udv/udv_v2.jsonl`, nível `no_evidence`; `HEARING_ACTORS.md` conta 6
+  intérprete (`artifacts/udv/udv_v2.jsonl`, nível `no_evidence`; `docs/methodology/hearing_actors.md` conta 6
   participantes que falaram em Libras). Atribuir a fala do intérprete a eles daria evidência a no máximo
   8 das 2.203 opiniões. Não implementado.
 - **Validação humana.** Os dois critérios declarados falharam (seção "Resultado humano final"). A precisão

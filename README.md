@@ -23,7 +23,7 @@ erradas, por exemplo chamar de alucinação uma opinião que a matéria simplesm
   fala. É o rótulo do arquivo NLI (`retrieved_context_entailment`): diz se a opinião é inferível daqueles
   quatro trechos, não se ela é verdadeira nem se está na transcrição inteira.
 
-A tese completa, com a arquitetura de longo prazo, está em [`CONSTITUTION.md`](CONSTITUTION.md).
+A tese completa, com a arquitetura de longo prazo, está em [`docs/vision.md`](docs/vision.md).
 
 ## Dois trabalhos
 
@@ -43,7 +43,7 @@ melhor método não é o mesmo para as duas.
 
 O pipeline recomendado é `udv_v2` (decisões no
 [ADR 0006](bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md), descrição em
-[`challenge/PIPELINE.md`](challenge/PIPELINE.md)):
+[`docs/pipeline.md`](docs/pipeline.md)):
 
 1. resolve a pessoa pelo nome no cabeçalho dos turnos de fala;
 2. procura a citação da opinião (prefixo de 6 ou mais palavras) nos turnos da pessoa e estende a
@@ -55,7 +55,7 @@ O pipeline recomendado é `udv_v2` (decisões no
    decisões em dois cortes num arquivo lateral.
 
 Resultados principais, do resumo executivo de
-[`challenge/RELATORIO_EXPERIMENTOS.md`](challenge/RELATORIO_EXPERIMENTOS.md), onde cada número tem o
+[`docs/report.md`](docs/report.md), onde cada número tem o
 arquivo de origem:
 
 | achado | número |
@@ -77,7 +77,7 @@ arquivo de origem:
 
 Os intervalos das linhas de recuperação e do verificador são de 95% por bootstrap de audiência; os da
 validação humana são de Wilson a 95%, lidos do relatório final
-[`challenge/artifacts/udv/udv_v2_precision_final.json`](challenge/artifacts/udv/udv_v2_precision_final.json)
+[`experiments/artifacts/udv/udv_v2_precision_final.json`](experiments/artifacts/udv/udv_v2_precision_final.json)
 (127 de 127 linhas de `udv_v1` e 26 de 26 linhas suplementares julgadas, um anotador). Os dois critérios
 declarados antes da anotação falham. Na citação literal, o trecho é `correta` ou `parcial` em 31 de 35
 casos, mas `correta` em só 25, e o critério pedia 35 de 35. No `semantic_match_high`, de `udv_v1` para
@@ -93,7 +93,7 @@ citação ou janela, uma mudança de domínio que não foi medida com rótulo hu
 `udv_v0` e `udv_v1` (evidência de uma sentença, corte 0,45) ficam como histórico e base de comparação.
 Toda etapa depois da UDV (verificador, ligação a atores, perfis, perguntas da simulação, exportação da
 demo) foi refeita ou conferida sobre `udv_v2`, ao lado do valor de `udv_v1`, em
-[`challenge/artifacts/udv/udv_v2_downstream_report.json`](challenge/artifacts/udv/udv_v2_downstream_report.json).
+[`experiments/artifacts/udv/udv_v2_downstream_report.json`](experiments/artifacts/udv/udv_v2_downstream_report.json).
 
 ## Demo web
 
@@ -109,11 +109,12 @@ exportar e servir: [`bookworm/web/README.md`](bookworm/web/README.md).
 |---|---|
 | [`bookworm/`](bookworm/README.md) | a biblioteca Python: construção e verificação de UDVs, splits temporais, falas e perfis de atores, exportação para a demo web; CLI `bookworm` |
 | [`bookworm/docs/adr/`](bookworm/docs/adr/README.md) | decisões de arquitetura registradas |
-| [`challenge/`](challenge/README.md) | os experimentos sobre o PublicHearingBR: scripts, configurações, artefatos versionados e notebooks; o README é o guia de reprodução |
-| [`challenge/PIPELINE.md`](challenge/PIPELINE.md) | o que cada experimento decidiu e o pipeline `udv_v2` |
-| [`challenge/RELATORIO_EXPERIMENTOS.md`](challenge/RELATORIO_EXPERIMENTOS.md) | relatório completo, com a origem de cada número, limitações e referências |
-| [`CONSTITUTION.md`](CONSTITUTION.md) | tese científica e especificação de longo prazo |
-| [`ROADMAP.md`](ROADMAP.md) | estado do projeto e checklist de entregas do desafio |
+| [`experiments/`](experiments/README.md) | os experimentos sobre o PublicHearingBR: scripts, configurações, artefatos versionados e notebooks; o README é o guia de reprodução |
+| [`docs/pipeline.md`](docs/pipeline.md) | o que cada experimento decidiu e o pipeline `udv_v2` |
+| [`docs/report.md`](docs/report.md) | relatório completo, com a origem de cada número, limitações e referências |
+| [`docs/vision.md`](docs/vision.md) | tese científica e especificação de longo prazo |
+| [`docs/roadmap.md`](docs/roadmap.md) | estado do projeto e checklist de entregas do desafio |
+| [`docs/path_map.md`](docs/path_map.md) | caminhos da versão de pesquisa (tag `research-2026-09-28`) e os desta versão |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | ambiente de desenvolvimento, verificações e convenções |
 
 O artigo do desafio fica num repositório próprio:
@@ -126,22 +127,22 @@ confere a execução publicada `udv_v2` recalculando cada UDV a partir do datase
 
 ```bash
 git clone https://github.com/santana-ai/bookworm.git
-cd bookworm/challenge
+cd bookworm/experiments
 uv sync
-uv run python -m utils.download_dataset
+uv run python -m experiments.data.download
 
 cd ../bookworm
 uv sync
 uv run pytest
 
-cd ../challenge
-uv run --project ../bookworm bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
+cd ../experiments
+uv run bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
 ```
 
 O último comando termina com `"problems": {}`. Um exemplo completo com o encoder TF-IDF, que constrói
 UDVs em segundos sem GPU, está no [README da biblioteca](bookworm/README.md#início-rápido-em-cpu). A
 sequência de todas as etapas, com os comandos e o tempo de cada uma, está no
-[README de `challenge/`](challenge/README.md).
+[README de `experiments/`](experiments/README.md).
 
 ## Reprodutibilidade
 
@@ -149,18 +150,18 @@ sequência de todas as etapas, com os comandos e o tempo de cada uma, está no
   que lê o LDS guarda o sha256 do arquivo e para se ele for outro.
 - **Modelos fixados.** Todo modelo do Hugging Face é carregado offline numa revisão (commit) registrada
   na configuração do experimento; a lista, com licenças, está na seção 11.2 do relatório. Os modelos MLX
-  da rodada de perfis e simulação são a exceção: `challenge/mlx_alternative/config.yaml` não fixa
+  da rodada de perfis e simulação são a exceção: `experiments/configs/mlx.yaml` não fixa
   revisão.
 - **Sementes.** Cada experimento declara sua semente e o número de réplicas do bootstrap (relatório,
   seção 9.2); os splits, as calibrações e a amostra de validação usam semente 42.
 - **Proveniência.** Cada relatório JSON grava o sha256 da configuração, do código e das entradas que o
   produziram, e o ambiente (versões de Python e bibliotecas).
 - **Artefatos pesados.** As saídas por item das rodadas (escores, consultas, features, predições; 369
-  arquivos) não estão no Git. [`challenge/artifacts/MANIFEST_heavy.tsv`](challenge/artifacts/MANIFEST_heavy.tsv)
+  arquivos) não estão no Git. [`experiments/artifacts/MANIFEST_heavy.tsv`](experiments/artifacts/MANIFEST_heavy.tsv)
   lista cada uma com tamanho, sha256 e o comando que a regenera. Um pacote com esses arquivos será
   anexado a um GitHub Release deste repositório (pendente).
 - **Histórico.** O histórico completo de pesquisa, incluindo versões antigas de notebooks e scripts e as
-  saídas pesadas, fica na tag `research-2026-09-28`. `challenge/README.md` mostra como restaurar os
+  saídas pesadas, fica na tag `research-2026-09-28`. `experiments/README.md` mostra como restaurar os
   arquivos pesados a partir dela.
 
 ## Integridade científica
@@ -189,7 +190,7 @@ O código é distribuído sob a licença MIT ([`LICENSE`](LICENSE)).
   repositório, seguem os termos do próprio dataset, definidos pelos seus autores na página do
   Hugging Face. A licença MIT não se aplica a eles.
 - Os modelos de terceiros usados nos experimentos têm licenças próprias, listadas na seção 11.2 de
-  [`challenge/RELATORIO_EXPERIMENTOS.md`](challenge/RELATORIO_EXPERIMENTOS.md). A maioria é MIT ou
+  [`docs/report.md`](docs/report.md). A maioria é MIT ou
   Apache-2.0; o tradutor `facebook/nllb-200-distilled-600M` é CC-BY-NC-4.0 (uso não comercial), e as
   traduções derivadas dele ficam sujeitas a essa restrição. O `ruanchaves/mdeberta-v3-base-assin2-entailment`
   não declara licença no Hugging Face.

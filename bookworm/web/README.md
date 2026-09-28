@@ -16,12 +16,11 @@ grava um arquivo por audiência (`hearings/<id>.json`, o mesmo formato de `expor
 `index.json` com o resumo que a lista de matérias usa. Ele lê os embeddings só do cache gravado por
 `build-udvs`, então não carrega modelo. O comando roda a partir da pasta do projeto que tem
 `configs/udv_v2.toml`, porque os caminhos do TOML são relativos a ela. Neste repositório essa pasta é
-`challenge/`, cujo ambiente não tem a biblioteca instalada; `--project ../bookworm` usa o ambiente de
-`bookworm/` sem sair de `challenge/`:
+`experiments/`, cujo ambiente instala a biblioteca como dependência editável:
 
 ```bash
-cd challenge
-uv run --project ../bookworm bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 \
+cd experiments
+uv run bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 \
     --split-manifest artifacts/splits/temporal_v1.json \
     --verifier-report artifacts/udv/udv_v2_verifier_report.json
 ```
@@ -36,7 +35,7 @@ diferem.
 `--verifier-report` é opcional. Com ele, cada afirmação ganha o bloco `signals` que a pasta da
 afirmação mostra (a nota do verificador, as oito perguntas e a cópia em inglês que o verificador leu);
 os valores são lidos dos arquivos que o relatório do verificador registra, conferidos pelo sha256, sem
-carregar modelo. Esses arquivos, e o cache de tradução em `challenge/artifacts/cache/translation/`,
+carregar modelo. Esses arquivos, e o cache de tradução em `experiments/artifacts/cache/translation/`,
 precisam estar no lugar; se faltar algum, se um sha256 não bater ou se os ids das UDVs não forem os da
 execução, o comando para com código 2. Sem a opção, os arquivos gravados são os mesmos, byte a byte,
 de antes dela existir.
@@ -47,11 +46,11 @@ ligou as falas aos atores (por padrão `configs/hearing_actors.toml`) e `--profi
 rodada que a página mostra (por padrão, o nome do arquivo). Para os perfis de treino gerados com Qwen:
 
 ```bash
-cd challenge
-uv run --project ../bookworm bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 \
+cd experiments
+uv run bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 \
     --split-manifest artifacts/splits/temporal_v1.json \
     --verifier-report artifacts/udv/udv_v2_verifier_report.json \
-    --profiles mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl \
+    --profiles artifacts/mlx_runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl \
     --profiles-run qwen38_27b --actors-config configs/hearing_actors.toml
 ```
 
@@ -62,15 +61,15 @@ uma exportação anterior com perfis tem `actors.json` e `profiles/` apagados, p
 mostrar perfis de outra execução.
 
 Num projeto que tenha a biblioteca como dependência (`uv add --editable ../bookworm`), o mesmo comando
-é `uv run bookworm export-site ...`. A exportação precisa do LDS em `challenge/dataset/`, da execução
-em `challenge/artifacts/udv/` e do cache de embeddings em `challenge/artifacts/cache/embeddings/`; se
+é `uv run bookworm export-site ...`. A exportação precisa do LDS em `experiments/dataset/`, da execução
+em `experiments/artifacts/udv/` e do cache de embeddings em `experiments/artifacts/cache/embeddings/`; se
 faltar um arquivo do cache, o comando para com código 2 e diz qual é.
 
 Sem `--output`, os arquivos vão para `bookworm/web/app/data/` da árvore de código de onde a biblioteca
 foi instalada; `--output` escolhe outro diretório, e `--overwrite` regrava uma exportação existente. A
 pasta `app/data/` está no `.gitignore` porque os arquivos contêm as transcrições inteiras: 88.438.867
 bytes para `udv_v2` com `--verifier-report` e os perfis, segundo o resumo gravado em
-[`challenge/artifacts/web/export_site_udv_v2.json`](../../challenge/artifacts/web/export_site_udv_v2.json). O formato dos arquivos está em
+[`experiments/artifacts/web/export_site_udv_v2.json`](../../experiments/artifacts/web/export_site_udv_v2.json). O formato dos arquivos está em
 [`docs/data_model.md`](../docs/data_model.md#diretório-de-demonstração-export-site).
 
 Antes de desenhar, a página confere cada arquivo contra esse formato: todos os campos que ela usa, com
@@ -318,10 +317,10 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
 
 - Os níveis de resultado não foram validados por anotação humana; a página diz isso, mas não mostra
   nenhuma medida de acerto: a precisão de `udv_v2` ainda depende do julgamento da planilha
-  suplementar (ver [`challenge/README.md`](../../challenge/README.md)).
+  suplementar (ver [`experiments/README.md`](../../experiments/README.md)).
 - Os dois cortes do verificador vêm de artefatos: 0,7478 é o corte do treino no benchmark NLI
-  (`challenge/artifacts/udv/udv_v2_verifier_report.json`, `primary.fit.threshold`) e 0,2429 o corte
-  para premissas de UDV (`challenge/artifacts/calibration/udv_verifier_threshold_v1.json`,
+  (`experiments/artifacts/udv/udv_v2_verifier_report.json`, `primary.fit.threshold`) e 0,2429 o corte
+  para premissas de UDV (`experiments/artifacts/calibration/udv_verifier_threshold_v1.json`,
   `udv_threshold`). A página usa o segundo nas decisões e mostra o primeiro como referência.
 - Nas audiências com mais afirmações, a visão da rede inteira fica pequena e alguns rótulos de longe se
   encostam; aproximar resolve.
@@ -344,7 +343,7 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
   (frase) e 0,30 (UDV por texto parecido) foram escolhidos para a leitura da página, não medidos.
 - Na rodada `qwen38_27b` de treino, com `udv_v2`, só 202 dos 4.928 itens dos 264 perfis se ligam a
   uma UDV; 4.290 têm só uma frase parecida e 436 não têm nenhuma
-  (`challenge/artifacts/web/export_site_udv_v2.json`). A maior parte do texto dos perfis se confere lendo a
+  (`experiments/artifacts/web/export_site_udv_v2.json`). A maior parte do texto dos perfis se confere lendo a
   transcrição, sem uma afirmação da matéria ao lado.
 - Os perfis só cobrem o split de treino e os atores que falam em mais de uma audiência; a simulação de
   atores não aparece na página.

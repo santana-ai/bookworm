@@ -4,9 +4,9 @@ Este documento descreve a UDV: o problema que ela resolve, o que cada registro c
 registros são construídos a partir do PublicHearingBR e como o corte de similaridade de `udv_v1` foi
 calibrado. A rodada descrita aqui é `udv_v1`. As mudanças de `udv_v2` (janelas de duas sentenças,
 citação inteira, cortes recalibrados e confiança do verificador) estão em
-[`PIPELINE.md`](PIPELINE.md), seção "Pipeline recomendado", e na ADR 0006
+[`docs/pipeline.md`](../pipeline.md), seção "Pipeline recomendado", e na ADR 0006
 (`../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`). Os resultados dos
-experimentos e da validação humana estão em [`RELATORIO_EXPERIMENTOS.md`](RELATORIO_EXPERIMENTOS.md).
+experimentos e da validação humana estão em [`docs/report.md`](../report.md).
 Os números saem dos artefatos versionados em `artifacts/` e dos comandos indicados em cada seção.
 
 ## O problema
@@ -44,7 +44,7 @@ do que ela efetivamente disse. A UDV cria esse vínculo para cada uma das 2.203 
 
 Outras partes do projeto já dependem das UDVs ou da mesma regra de ligação: o benchmark de citações
 mascaradas (B1) usa a regra de citação literal para definir o alvo; a calibração do corte usa esse
-benchmark e os pares de citação do train; `HEARING_ACTORS.md` usa `udv_v1` para medir quantas opiniões
+benchmark e os pares de citação do train; `docs/methodology/hearing_actors.md` usa `udv_v1` para medir quantas opiniões
 publicadas vêm de turnos de presidente de sessão (336 de 2.105); e a amostra de validação humana é
 sorteada sobre `udv_v1`.
 
@@ -137,11 +137,11 @@ entre opinião e evidência.
 
 ## Como reproduzir
 
-Dentro de `challenge/`:
+Dentro de `experiments/`:
 
 ```
-uv run python -m utils.build_udvs --run-name udv_v1
-uv run python -m utils.verify_udvs --run-name udv_v1
+uv run bookworm build-udvs --run-name udv_v1
+uv run bookworm verify-udvs --run-name udv_v1
 ```
 
 `build_udvs` lê `configs/udv.toml` (caminho e SHA-256 do LDS, nome e revisão do encoder, corte de
@@ -172,21 +172,21 @@ A reprodutibilidade foi testada regenerando uma rodada antiga: `artifacts/udv/ud
 gerado de novo com o código que produziu `udv_v0` (`backup/*_2026-09-21.py`, na tag Git
 `research-2026-09-28`), é idêntico byte a byte a `udv_v0.jsonl`.
 
-Artefatos relacionados e os comandos que os geram (todos dentro de `challenge/`):
+Artefatos relacionados e os comandos que os geram (todos dentro de `experiments/`):
 
 | artefato | comando |
 |---|---|
-| `artifacts/splits/temporal_v1.json` | `uv run python -m utils.build_splits` |
-| `artifacts/benchmarks/masked_quotes_v1*` (B1) | `uv run python -m utils.build_quote_benchmark` |
-| `artifacts/benchmarks/nli_v1*` (B2) | `uv run python -m utils.build_nli_benchmark` (exige o arquivo NLI baixado) |
-| `artifacts/calibration/threshold_v1*` | `uv run python -m utils.calibrate_threshold` |
-| `artifacts/udv/turn_segmentation_*` (ADR 0002) | `uv run python -m utils.measure_turn_segmentation` |
-| `artifacts/udv/quote_patterns_*` (ADR 0003) | `uv run python -m utils.measure_quote_patterns` |
-| `artifacts/validation/human_validation_v1_udv_v1/` | `uv run --no-sync python -m utils.generate_validation_sample --run-name udv_v1 --final-test` |
+| `artifacts/splits/temporal_v1.json` | `uv run bookworm build-splits` |
+| `artifacts/benchmarks/masked_quotes_v1*` (B1) | `uv run python -m experiments.data.quote_benchmark` |
+| `artifacts/benchmarks/nli_v1*` (B2) | `uv run python -m experiments.data.nli_benchmark` (exige o arquivo NLI baixado) |
+| `artifacts/calibration/threshold_v1*` | `uv run python -m experiments.udv.calibrate_threshold` |
+| `artifacts/udv/turn_segmentation_*` (ADR 0002) | `uv run python -m experiments.udv.measure_turn_segmentation` |
+| `artifacts/udv/quote_patterns_*` (ADR 0003) | `uv run python -m experiments.udv.measure_quote_patterns` |
+| `artifacts/validation/human_validation_v1_udv_v1/` | `uv run --no-sync python -m experiments.validation.generate_sample --run-name udv_v1 --final-test` |
 
 ## Construção
 
-O código está em `utils/udv_pipeline.py` (funções) e `utils/build_udvs.py` (rodada em lote). Para cada
+O código está em `bookworm/src/bookworm/transcript/` e `bookworm/src/bookworm/udv/` (funções) e em `bookworm/src/bookworm/udv/build.py` (rodada em lote, `bookworm build-udvs`). Para cada
 audiência, as etapas são estas.
 
 ### 1. Turnos de fala
@@ -212,7 +212,7 @@ transcrição), e quem preside a sessão aparece como `PRESIDENTE` com o nome en
   aquela palavra no nome; se houver mais de um, a pessoa fica sem turno.
 
 A regra de nome contido é aceitável dentro de uma audiência, que tem poucos falantes; entre audiências
-ela junta pessoas diferentes, e por isso `HEARING_ACTORS.md` usa outra regra para identificar a mesma
+ela junta pessoas diferentes, e por isso `docs/methodology/hearing_actors.md` usa outra regra para identificar a mesma
 pessoa em audiências distintas. Resultado: 1.020 dos 1.065 participantes têm ao menos um turno; as 45
 pessoas restantes somam 90 opiniões.
 
@@ -293,7 +293,7 @@ dessa fronteira.
 Os cortes anteriores (0,25 com TF-IDF; 0,46, 0,44 e 0,47 com o encoder) foram calibrados nas 20
 primeiras audiências, que incluem audiências dos conjuntos de validação e de teste do split temporal.
 O corte atual, 0,45, foi recalculado só no train (144 audiências) por
-`uv run python -m utils.calibrate_threshold`, com saída em `artifacts/calibration/threshold_v1.json`.
+`uv run python -m experiments.udv.calibrate_threshold`, com saída em `artifacts/calibration/threshold_v1.json`.
 
 A regra primária, declarada em 22/09/2026 antes de qualquer resultado, calibrava diretamente a decisão
 que o corte toma: no benchmark de citações mascaradas (B1, abaixo), o top-1 do encoder está correto
@@ -319,7 +319,7 @@ como registrado em `threshold_decision` de `configs/udv.toml`.
 
 A troca de 0,47 para 0,45 (`udv_v1_pre` para `udv_v1`) move 9 registros de `semantic_match_weak` para
 `semantic_match_high` e não muda nenhuma evidência
-(`uv run python -m utils.verify_udvs --run-name udv_v1 --baseline artifacts/udv/udv_v1_pre.jsonl`).
+(`uv run bookworm verify-udvs --run-name udv_v1 --baseline artifacts/udv/udv_v1_pre.jsonl`).
 
 ## Versões
 
@@ -328,7 +328,7 @@ seguinte ordem: evidência só por citação literal; similaridade TF-IDF; troca
 correção do resolvedor de nomes para quatro formas de cabeçalho quase ausentes da amostra de 20
 (presidente com abreviatura no parêntese, nome social entre parênteses, marcador de tradução
 simultânea lido como nome, nomes de uma palavra); e a política de citação sem distinção de maiúsculas
-com prefixo mínimo de 6 palavras. `udv_v05.ipynb` foi executado com o código anterior às ADRs 0002 e
+com prefixo mínimo de 6 palavras. `experiments/notebooks/udv.ipynb` foi executado com o código anterior às ADRs 0002 e
 0003; reexecutá-lo com o código atual pode dar números diferentes, o que não foi medido.
 
 As rodadas completas versionadas em `artifacts/udv/`:
@@ -342,7 +342,7 @@ As rodadas completas versionadas em `artifacts/udv/`:
 De `udv_v0` para `udv_v1_pre`, 17 opiniões passam de `semantic_match_high` para `quote_found` (14 pelas
 aspas simples, 3 porque uma citação posterior da opinião casa com prefixo mais longo) e 42 registros
 têm alguma diferença na evidência: texto, posição, tipo de suporte, prefixo gravado ou score
-(`uv run python -m utils.verify_udvs --run-name udv_v1_pre --baseline artifacts/udv/udv_v0.jsonl`). As
+(`uv run bookworm verify-udvs --run-name udv_v1_pre --baseline artifacts/udv/udv_v0.jsonl`). As
 causas estão nas ADRs 0002 e 0003. `udv_v0` não passa mais em `verify_udvs`, que confere a lógica
 atual; as acusações que ele recebe estão listadas na ADR 0002.
 
@@ -429,8 +429,8 @@ cego e sem anotador independente; ela não é validação e foi retirada desta v
 ### Validação humana cega
 
 A amostra `artifacts/validation/human_validation_v1_udv_v1/` foi gerada por
-`utils/generate_validation_sample.py` com o protocolo abaixo, descrito para o anotador em
-`annotation_guide.md`.
+`experiments/src/experiments/validation/generate_sample.py` com o protocolo abaixo, descrito para o anotador em
+`docs/validation/annotation_guide.md`.
 
 - **Só audiências de teste.** A validação é usada pelos experimentos para escolher método (encoder,
   corte, unidade, reranker), então uma estimativa tirada dela seria enviesada a favor do método
@@ -474,16 +474,16 @@ Os experimentos que usam B1 e B2 para testar componentes que poderiam substituir
 UDV estão no relatório, com os números e as fontes: recuperadores e unidades (E1, E2 e retrieval_v2,
 seções 4.3 a 4.5), verificador de suporte e tradução (E3, E3x, seções 5.1 a 5.4), sinais de confiança
 (E5 e confidence_v2, seções 5.5 e 5.6) e casamento aproximado de citações e nomes (E6, seção 5.8). O
-que cada um decidiu para a construção está em [`PIPELINE.md`](PIPELINE.md).
+que cada um decidiu para a construção está em [`docs/pipeline.md`](../pipeline.md).
 
 ## Relação com os outros documentos
 
-`HEARING_ACTORS.md` separa a fala completa de cada pessoa entre audiências usando o mesmo
+`docs/methodology/hearing_actors.md` separa a fala completa de cada pessoa entre audiências usando o mesmo
 `split_into_turns`, e seus arquivos usam os mesmos nomes de campo (`actor`, `hearing_id`,
 `start_char`), de modo que uma UDV pode ser cruzada com o turno correspondente na fala do ator. As
 duas bases resolvem identidade de formas diferentes: a UDV associa o nome da matéria aos cabeçalhos de
-uma audiência pela regra de nome contido; `HEARING_ACTORS.md` associa cabeçalhos entre audiências pelo
-nome exato mais uma lista revisada de mesclas. `ACTOR_PROFILES.md` gera perfis a partir da fala
+uma audiência pela regra de nome contido; `docs/methodology/hearing_actors.md` associa cabeçalhos entre audiências pelo
+nome exato mais uma lista revisada de mesclas. `docs/methodology/actor_profiles.md` gera perfis a partir da fala
 completa, sem usar as UDVs.
 
 ## Limitações

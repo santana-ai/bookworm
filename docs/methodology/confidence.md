@@ -5,7 +5,7 @@
 O construtor de UDVs registra, para cada evidência semântica, o cosseno do codificador de produção
 (`PORTULAN/serafim-335m-portuguese-pt-sentence-encoder`) entre a proposição e a frase escolhida. O
 cosseno mede proximidade de sentido; ele não diz se a frase afirma o que a proposição afirma. O
-verificador primário do E3x (`laya_en_en:learned_cross_model_with_pt`, `utils/udv_verifier.py`) foi
+verificador primário do E3x (`laya_en_en:learned_cross_model_with_pt`, `experiments/src/experiments/verifier/udv_verifier.py`) foi
 treinado para essa segunda pergunta. Este experimento mede se o verificador é um sinal de confiança
 melhor que o cosseno e como ele se compara com os avaliadores de suporte mais usados e mais recentes
 na literatura de grounding e consistência factual.
@@ -18,7 +18,7 @@ o código, a configuração e os relatórios correspondentes. O registro complet
 
 A declaração completa (candidatos, revisões, premissas, métricas, famílias de Holm e regra do smoke)
 está em `configs/confidence_v2.toml`, escrita antes de qualquer escore novo. O código está em
-`utils/confidence_v2.py`, `utils/grounding_scorers.py` e `utils/grounding_models.py`; os testes, com
+`experiments/src/experiments/verifier/confidence_v2.py`, `experiments/src/experiments/verifier/grounding_scorers.py` e `experiments/src/experiments/verifier/grounding_models.py`; os testes, com
 avaliadores falsos, em `tests/test_confidence_v2.py`. Os artefatos ficam em
 `artifacts/experiments/confidence_v2/`.
 
@@ -157,7 +157,7 @@ Premissa: os 4 trechos recuperados, com o escore da opinião igual ao máximo en
 O conjunto de teste do benchmark não foi lido. A família de Holm principal tem 30 comparações (15
 candidatos contra o cosseno em ROC AUC e AURC); as duas combinações por posto formam uma família
 separada de 4 comparações. O verificador primário foi reajustado no treino exatamente como em
-`utils.udv_verifier.fit_primary`, e o reajuste confere com `final_test.json` (coeficientes, médias
+`experiments.verifier.udv_verifier.fit_primary`, e o reajuste confere com `final_test.json` (coeficientes, médias
 internas e limiar idênticos, `ea_report.json`, `primary.refit_check`).
 
 ### Validação (698 opiniões, 32 audiências, 76 negativos)
@@ -298,12 +298,12 @@ humano; ela depende da planilha `human_validation_v1_udv_v1` completa.
 ## Reprodução
 
 ```
-uv run python -m utils.confidence_v2 smoke
-uv run python -m utils.confidence_v2 laya-smoke
-uv run python -m utils.confidence_v2 decide
-uv run python -m utils.confidence_v2 score
-uv run python -m utils.confidence_v2 laya-score
-uv run python -m utils.confidence_v2 evaluate-ea
+uv run python -m experiments.verifier.confidence_v2 smoke
+uv run python -m experiments.verifier.confidence_v2 laya-smoke
+uv run python -m experiments.verifier.confidence_v2 decide
+uv run python -m experiments.verifier.confidence_v2 score
+uv run python -m experiments.verifier.confidence_v2 laya-score
+uv run python -m experiments.verifier.confidence_v2 evaluate-ea
 ```
 
 Os comandos com modelo rodam em `mps`, um processo por vez, com

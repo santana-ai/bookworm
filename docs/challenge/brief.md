@@ -21,7 +21,7 @@ O dataset escolhido para esta edição é o **PublicHearingBR**, um recurso espe
 
 O corpus contém transcrições oficiais de audiências públicas realizadas na Câmara dos Deputados do Brasil. Estas transcrições estão pareadas com artigos jornalísticos e resumos estruturados que indicam os participantes das sessões e suas respectivas opiniões expressas.
 
-Este material oferece uma tarefa complexa e de alta relevância, sendo ideal para o desenvolvimento de ferramentas avançadas, como as de auditoria documental. Maiores informações podem ser encontradas no artigo do dataset.
+Este material oferece uma tarefa complexa e de alta relevância, sendo ideal para o desenvolvimento de ferramentas avançadas, como as de auditoria documental. Maiores informações podem ser encontradas no artigo do dataset ([arXiv 2410.07495](https://arxiv.org/abs/2410.07495)).
 
 ---
 

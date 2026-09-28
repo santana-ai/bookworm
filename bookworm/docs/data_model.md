@@ -207,14 +207,14 @@ todas as posições conferidas contra a transcrição.
 
 A pasta de cada afirmação na demonstração web mostra, ao lado da similaridade de cosseno, a decisão do
 verificador primário, as oito perguntas que ele combina e a cópia em inglês que ele leu. Esses números
-já existem nos artefatos de `challenge/artifacts/udv/`; a opção `--verifier-report` (em
+já existem nos artefatos de `experiments/artifacts/udv/`; a opção `--verifier-report` (em
 `export-hearing` e `export-site`) copia os valores para o JSON da audiência, sem carregar modelo nem
 recalcular nada. O ponto de entrada é o relatório do verificador (`udv_v1_verifier_report.json`), que
 registra, cada um com o seu sha256: os registros da execução (`inputs.udv`), a saída do verificador
 (`outputs`), os arquivos de notas das três leituras (`inputs.udv_score_files`: `laya_multi_pt`,
 `laya_en_en`, `xnli_mdeberta`) e os relatórios dessas notas (`score_runs`). O relatório de
 `laya_en_en` diz onde está o cache de tradução (`translation.store`) e com que assinatura e segmentação
-ele foi gravado. Os caminhos do relatório são relativos à pasta de onde o comando roda (`challenge/`).
+ele foi gravado. Os caminhos do relatório são relativos à pasta de onde o comando roda (`experiments/`).
 
 Sem a opção, os arquivos gravados são os mesmos, byte a byte, de uma exportação anterior à opção (teste
 `tests/unit/test_signals.py`, que também confere que tirar os campos `signals` de uma exportação com a
@@ -322,7 +322,7 @@ tem 3.423.632, as mesmas audiências), e o índice continua com os mesmos 184.11
 ## Falas por ator
 
 Arquivos gravados por `build-udvs --actors-config` (ver [Falas por ator](actors.md)). Os quatro
-primeiros têm o formato de `challenge/utils/build_actor_speeches.py` e são byte a byte iguais aos que o
+primeiros têm o formato de `experiments/src/experiments/actors/build_speeches.py` e são byte a byte iguais aos que o
 script grava com a mesma configuração; o quinto é novo.
 
 ### Registro de falas (`single_hearing_path`, `multi_hearing_path`)

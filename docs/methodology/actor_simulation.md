@@ -1,10 +1,10 @@
 # Simulação de atores a partir do perfil
 
-Desenho e implementação do uso do perfil textual de cada ator (`ACTOR_PROFILES.md`) no system
+Desenho e implementação do uso do perfil textual de cada ator (`docs/methodology/actor_profiles.md`) no system
 prompt de outro modelo, de modo que ele responda como essa pessoa responderia, tanto sobre temas
 que ela já tratou quanto sobre temas novos. As abordagens abaixo são comparadas com o mesmo
-protocolo de avaliação. O código está em `utils/actor_simulation.py` (partes comuns),
-`utils/evaluate_actor_simulation.py` (avaliação por múltipla escolha) e `utils/simulate_actors.py`
+protocolo de avaliação. O código está em `experiments/src/experiments/actors/simulation.py` (partes comuns),
+`experiments/src/experiments/actors/evaluate_simulation.py` (avaliação por múltipla escolha) e `experiments/src/experiments/actors/simulate.py`
 (geração aberta); como rodar, o formato das saídas e as escolhas de implementação que este desenho
 deixava em aberto estão no fim do documento.
 
@@ -34,7 +34,7 @@ O prompt atual (`prompts/actor_profile/system_profile.md`, lido pela config) man
   modelo por trechos reais de fala (ver abaixo), porque estilo só descrito tende a virar caricatura.
 
 Um bloco sem apoio nas falas é omitido. O teto de 800 palavras vale para a soma dos blocos. As
-decisões de desenho estão em `ACTOR_PROFILES.md`. A troca de prompt foi decidida pela leitura de
+decisões de desenho estão em `docs/methodology/actor_profiles.md`. A troca de prompt foi decidida pela leitura de
 poucos perfis gerados durante o desenvolvimento, não por uma medida da avaliação abaixo.
 
 ## Componentes
@@ -289,7 +289,7 @@ log-probs das condições 0 e 2 (ver Avaliação).
 Cada UDV de teste ligada a um ator com perfil vira uma pergunta: nome e papel do ator, data e
 assunto da audiência de teste, e 4 proposições, a do ator e 3 de outros atores da mesma audiência,
 com o pedido de múltipla escolha acima. O acaso é 25%. Pelo relatório de
-`utils.filter_actor_speeches` (`artifacts/actor_profiles/train_speeches_stats_udv_v2.json`; o mesmo
+`experiments.actors.filter_speeches` (`artifacts/actor_profiles/train_speeches_stats_udv_v2.json`; o mesmo
 número em `train_speeches_stats.json`, da rodada `udv_v1`), são 106 das 359 UDVs de teste, de 48
 atores, em 27 das 30 audiências de teste.
 
@@ -332,14 +332,14 @@ não entram nos perfis, e nunca no teste.
 
 ## Como rodar
 
-Dentro de `challenge/`:
+Dentro de `experiments/`:
 
 ```
 ./run_simulation_pipeline.sh
 ```
 
 O script roda, em ordem, `run_actor_profiles.sh` (perfis só com as audiências de `train`, ver
-`ACTOR_PROFILES.md`), `utils.evaluate_actor_simulation` e `utils.simulate_actors`, todos com o
+`docs/methodology/actor_profiles.md`), `experiments.actors.evaluate_simulation` e `experiments.actors.simulate`, todos com o
 modelo da variável `MODEL` (o mesmo padrão de `run_actor_profiles.sh`, trocável por
 `MODEL=<modelo> ./run_simulation_pipeline.sh`). O padrão, `meta-llama/Llama-3.3-70B-Instruct`, é só um
 exemplo e não é o modelo da rodada versionada, que usou `mlx-community/Qwen3.8-27B-8bit` pelo backend MLX. Os argumentos passados ao script vão só para o
@@ -353,18 +353,18 @@ se repete), para o script de novo no mesmo ator: tire o ator com `--actors` ou a
 As etapas também rodam separadas:
 
 ```
-uv run python -m utils.evaluate_actor_simulation --model <modelo> [--actors ...] [--config ...]
-uv run python -m utils.simulate_actors --model <modelo> [--actors ...] [--requests pedidos.jsonl] \
+uv run python -m experiments.actors.evaluate_simulation --model <modelo> [--actors ...] [--config ...]
+uv run python -m experiments.actors.simulate --model <modelo> [--actors ...] [--requests pedidos.jsonl] \
   [--k N]
 ```
 
-`utils.evaluate_actor_simulation` monta as perguntas de `validation` e de `test` e confere, antes
+`experiments.actors.evaluate_simulation` monta as perguntas de `validation` e de `test` e confere, antes
 de carregar o modelo, que nenhum perfil nem as falas de treino dos atores contêm audiência desses
 dois splits. Em `validation`, mede as condições 0 e 1 e a condição 2 para cada k de `k_grid`,
 escolhe k e depois γ (condição 3, em `guidance_grid`); em seguida roda `test` só com o k e o γ
 escolhidos, junto com os níveis de evidência.
 
-`utils.simulate_actors` gera a fala das abordagens 1 e 2 com o k gravado em `evaluation.json`, ou
+`experiments.actors.simulate` gera a fala das abordagens 1 e 2 com o k gravado em `evaluation.json`, ou
 com `--k`. Sem `--requests`, faz um pedido por par (ator,
 audiência de `requests_split`) com UDV ligada, com a data e o assunto da audiência. Com
 `--requests`, lê um JSONL com `actor`, `date` (DD/MM/AAAA) e `topic`, que é o caminho para temas
@@ -477,8 +477,8 @@ O desenho acima deixava estas escolhas em aberto. Nenhuma delas foi medida:
 
 ## Pendências
 
-A rodada completa com `mlx-community/Qwen3.8-27B-8bit` está em `mlx_alternative/runs/qwen38_27b/`
-(relatório em `relatorio_rodada_completa.md`, resumo na seção 6.3 de `RELATORIO_EXPERIMENTOS.md`). Ela
+A rodada completa com `mlx-community/Qwen3.8-27B-8bit` está em `artifacts/mlx_runs/qwen38_27b/`
+(relatório em `relatorio_rodada_completa.md`, resumo na seção 6.3 de `docs/report.md`). Ela
 foi feita sobre `udv_v1`. As configurações de `configs/` apontam agora para `udv_v2`; sobre ela, só as
 perguntas e os pedidos foram reconstruídos sem modelo (`artifacts/actor_simulation/udv_v2_dry_run_evaluation.json`
 e `udv_v2_dry_run_simulation.json`): no teste, 98 das 101 perguntas são idênticas às de `udv_v1` e 3
@@ -486,7 +486,7 @@ mudam só o nível; os pedidos de simulação são idênticos (`question_overlap
 `simulation_requests_dry_run` de `artifacts/udv/udv_v2_downstream_report.json`). O que continua em
 aberto:
 
-- A rodada do modelo sobre `udv_v2`, com o comando de `mlx_alternative/README.md`, seção "Rodada sobre
+- A rodada do modelo sobre `udv_v2`, com o comando de `docs/methodology/mlx_backend.md`, seção "Rodada sobre
   `udv_v2`".
 
 - As contagens de perguntas de `validation` e de `test` (UDVs ligadas, perguntas, descartadas por

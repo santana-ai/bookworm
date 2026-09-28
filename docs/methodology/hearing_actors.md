@@ -16,11 +16,11 @@ perfil; o primeiro serve de comparação.
 
 ## Como reproduzir
 
-Os números deste documento saem de dois comandos, rodados dentro de `challenge/`:
+Os números deste documento saem de dois comandos, rodados dentro de `experiments/`:
 
 ```
-uv run python -m utils.measure_hearing_actors
-uv run python -m utils.build_actor_speeches
+uv run python -m experiments.actors.measure_hearing_actors
+uv run python -m experiments.actors.build_speeches
 ```
 
 O primeiro mede o dataset e justifica as regras; a saída fica em
@@ -37,7 +37,7 @@ reatribuições confirmados na revisão dos pares). Cada rodada leva menos de 5 
 
 A transcrição marca cada troca de falante com um cabeçalho, como `O SR. JORGE SOLLA (Bloco/PT - BA) -`
 ou `A SRA. PRESIDENTE (Erika Kokay. PT - DF) -`. Um turno é o texto entre um cabeçalho e o seguinte. A
-função `split_into_turns` (`utils/udv_pipeline.py`), a mesma usada pela UDV, encontra 17.264 turnos
+função `split_into_turns` (`bookworm/src/bookworm/transcript/turns.py`), a mesma usada pela UDV, encontra 17.264 turnos
 nas 206 audiências.
 
 O turno resolve o problema de saber quem disse o quê sem depender da matéria: a fala de uma pessoa numa
