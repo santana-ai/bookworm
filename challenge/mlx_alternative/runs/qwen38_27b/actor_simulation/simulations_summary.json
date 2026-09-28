@@ -1,0 +1,58 @@
+{
+  "model": "mlx-community/Qwen3.8-27B-8bit",
+  "prompt_version": "4a5995d1da8a",
+  "k": 3,
+  "inputs": {
+    "profiles": {
+      "path": "mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl",
+      "sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+    },
+    "train_speeches": {
+      "path": "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl",
+      "sha256": "6d5d7d0dfe525ecbbd00ed34c9b21737ab22a1a64ffdb12adf2e84097be80dba"
+    },
+    "udv": {
+      "path": "artifacts/udv/udv_v1.jsonl",
+      "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1"
+    }
+  },
+  "requests_source": "test",
+  "check_rule": "JSON objects are read anywhere in the justification (one per line is asked, but objects spread over several lines or inside code fences are read too; fragments that do not parse are counted in parse_failures). A sentence of the simulated speech is grounded when at least one object's 'frase' contains it (whitespace-normalized, ignoring trailing punctuation and leading quote marks) and every such object has a non-empty 'apoio', only ids that exist in the material of the call, and, for each cited example or excerpt, a 'copias' entry that, without enclosing quote marks, has at least 6 words and whose first 6 to 10 words are found in it by the UDV quote-prefix rule (otherwise copy_missing, copy_too_short or copy_not_found). This shows that the cited item exists and that the start of the copy is literal, not that the item supports the sentence.",
+  "requests": 53,
+  "1": {
+    "levels": {
+      "INDIRETA": 23,
+      "SEM BASE": 15,
+      "ESPECULATIVA": 7,
+      "DIRETA": 8
+    },
+    "refusals": 15,
+    "speeches": 38,
+    "truncated_speeches": 0,
+    "truncated_justifications": 0,
+    "sentences": 415,
+    "ungrounded_sentences": 27,
+    "ungrounded_fraction": 0.06506024096385542,
+    "invalid_justification_items": 0,
+    "justification_parse_failures": 2,
+    "lines_not_in_speech": 0
+  },
+  "2": {
+    "levels": {
+      "INDIRETA": 25,
+      "DIRETA": 9,
+      "SEM BASE": 13,
+      "ESPECULATIVA": 6
+    },
+    "refusals": 13,
+    "speeches": 40,
+    "truncated_speeches": 0,
+    "truncated_justifications": 0,
+    "sentences": 441,
+    "ungrounded_sentences": 34,
+    "ungrounded_fraction": 0.07709750566893424,
+    "invalid_justification_items": 0,
+    "justification_parse_failures": 0,
+    "lines_not_in_speech": 0
+  }
+}

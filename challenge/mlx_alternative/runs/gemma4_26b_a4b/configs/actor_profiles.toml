@@ -1,0 +1,29 @@
+[input]
+speeches_path = "artifacts/cache/hearing_actors/actors_multi_hearing.jsonl"
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+lds_sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+
+[output]
+profiles_path = "mlx_alternative/runs/gemma4_26b_a4b/actor_profiles/actor_profiles_train.jsonl"
+
+[split_filter]
+manifest_path = "artifacts/splits/temporal_v1.json"
+splits = ["train"]
+splits_reason = "Profiles written from train hearings only, so the published opinions of test hearings, used to evaluate them, never reach the prompt. Validation hearings are not used."
+eval_splits = ["test"]
+udv_path = "artifacts/udv/udv_v1.jsonl"
+speeches_path = "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl"
+stats_path = "mlx_alternative/runs/shared/train_speeches_stats.json"
+
+[prompts]
+dir = "prompts/actor_profile"
+system_profile = "system_profile.md"
+user_profile = "user_profile.md.j2"
+
+[model]
+name = "mlx-community/gemma-4-26b-a4b-it-8bit"
+device_map = "auto"
+temperature = 0.2
+top_p = 0.9
+max_output_tokens = 3000
+seed = 42

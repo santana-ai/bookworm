@@ -51,7 +51,7 @@ from utils.udv_pipeline import (
 Record = dict[str, Any]
 
 REFUSAL = "o material não permite estimar"
-APPROACHES = ("1", "2", "3")
+APPROACHES = ("1", "2")
 QUOTE_MARKS = '"“”'
 TRAILING_PUNCTUATION = ".!?…;:,\"'”) "
 CHECK_RULE = (
@@ -254,7 +254,6 @@ class Simulator:
     model: SimulationModel
     retriever: SpeechRetriever
     k: int
-    guidance_scale: float
 
     def messages(self, material: Material, request: Record, ask: str) -> list[Record]:
         return chat_messages(self.prompts, material, request["date"], request["topic"], ask)
@@ -266,15 +265,10 @@ class Simulator:
         )
         return {"label": parse_level(generation.text), "text": generation.text}
 
-    def speak(
-        self, material: Material, request: Record, negative: list[Record] | None
-    ) -> Generation:
+    def speak(self, material: Material, request: Record) -> Generation:
         ask = render(self.prompts.speech, name=material.name)
         return self.model.generate(
-            self.messages(material, request, ask),
-            self.config.speech_max_tokens,
-            negative=negative,
-            guidance_scale=self.guidance_scale,
+            self.messages(material, request, ask), self.config.speech_max_tokens
         )
 
     def justify(self, material: Material, request: Record, speech: str) -> Generation:
@@ -295,23 +289,14 @@ class Simulator:
         with_excerpts = base.with_excerpts(
             self.retriever.retrieve(request["actor"], request["topic"], self.k)
         )
-        negative = base.baseline()
-        negative_messages = self.messages(
-            negative, request, render(self.prompts.speech, name=negative.name)
-        )
-        levels = {"1": self.level(base, request), "2": self.level(with_excerpts, request)}
-        plans = (
-            ("1", base, "1", False),
-            ("2", with_excerpts, "2", False),
-            ("3", with_excerpts, "2", True),
-        )
+        plans = (("1", base), ("2", with_excerpts))
         approaches: Record = {}
-        for approach, material, level_key, guided in plans:
-            level = levels[level_key]
+        for approach, material in plans:
+            level = self.level(material, request)
             if level["label"] == NO_BASIS:
                 approaches[approach] = {"level": level, "output": REFUSAL}
                 continue
-            speech = self.speak(material, request, negative_messages if guided else None)
+            speech = self.speak(material, request)
             justification = self.justify(material, request, speech.text)
             approaches[approach] = {
                 "level": level,
@@ -325,12 +310,9 @@ class Simulator:
             "role": role,
             "profile_prompt_version": profile["prompt_version"],
             "k": self.k,
-            "guidance_scale": self.guidance_scale,
             "examples": [excerpt_record(example) for example in examples],
             "excerpts": [excerpt_record(excerpt) for excerpt in with_excerpts.excerpts],
-            "negative_speech": dataclasses.asdict(
-                self.model.generate(negative_messages, self.config.speech_max_tokens)
-            ),
+            "baseline_speech": dataclasses.asdict(self.speak(base.baseline(), request)),
             "approaches": approaches,
         }
 
@@ -378,13 +360,12 @@ def file_requests(path: Path, profiles: dict[str, Record]) -> list[Record]:
     return requests
 
 
-def selected_settings(config: SimulationConfig) -> tuple[int | None, float | None]:
+def selected_k(config: SimulationConfig) -> int | None:
     path = config.output_dir / "evaluation.json"
     if not path.exists():
-        return None, None
+        return None
     with open(path) as f:
-        selection = json.load(f)["selection"]
-    return selection["k"], selection["guidance_scale"]
+        return json.load(f)["selection"]["k"]
 
 
 def summarize(rows: list[Record]) -> Record:
@@ -419,8 +400,8 @@ def summarize(rows: list[Record]) -> Record:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Open generation of simulated speeches (profile, profile + excerpts, profile +"
-            " excerpts + guidance), with evidence level and a checked justification."
+            "Open generation of simulated speeches (profile, profile + excerpts), with evidence"
+            " level and a checked justification, plus the speech from the baseline material."
         )
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -433,9 +414,6 @@ def main() -> None:
         " hearing of the requests split with a linked UDV",
     )
     parser.add_argument("--k", type=int, help="excerpts per request (default: evaluation.json)")
-    parser.add_argument(
-        "--guidance-scale", type=float, help="guidance for approach 3 (default: evaluation.json)"
-    )
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     config = load_config(args.config)
@@ -443,11 +421,9 @@ def main() -> None:
         config = dataclasses.replace(config, model=args.model)
     if not config.model:
         parser.error("set [model] name in the config, or pass --model")
-    selected_k, selected_gamma = selected_settings(config)
-    k = args.k if args.k is not None else selected_k
-    gamma = args.guidance_scale if args.guidance_scale is not None else selected_gamma
-    if k is None or gamma is None:
-        parser.error("run utils.evaluate_actor_simulation first, or pass --k and --guidance-scale")
+    k = args.k if args.k is not None else selected_k(config)
+    if k is None:
+        parser.error("run utils.evaluate_actor_simulation first, or pass --k")
     prompts = load_prompts(config.prompts_dir)
     profiles = load_profiles(config.profiles_path, args.actors)
     train_records = {
@@ -482,13 +458,11 @@ def main() -> None:
         prompts.version,
         inputs["train_speeches"],
         k,
-        gamma,
     )
     logging.info(
-        "%d requests, k=%d, gamma=%s, prompts %s, loading %s",
+        "%d requests, k=%d, prompts %s, loading %s",
         len(requests),
         k,
-        gamma,
         prompts.version,
         config.model,
     )
@@ -498,7 +472,6 @@ def main() -> None:
         model=SimulationModel(config.model, config.device_map),
         retriever=SpeechRetriever(list(train_records.values()), metadata),
         k=k,
-        guidance_scale=gamma,
     )
     path = config.output_dir / "simulations.jsonl"
     done = load_rows(path, "request_id")
@@ -542,7 +515,6 @@ def main() -> None:
         "model": config.model,
         "prompt_version": prompts.version,
         "k": k,
-        "guidance_scale": gamma,
         "inputs": inputs,
         "requests_source": str(args.requests) if args.requests else config.requests_split,
         "check_rule": CHECK_RULE,

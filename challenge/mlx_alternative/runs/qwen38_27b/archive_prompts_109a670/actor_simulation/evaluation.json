@@ -1,0 +1,239 @@
+{
+  "model": "mlx-community/Qwen3.8-27B-8bit",
+  "prompt_version": "17756ceae718",
+  "letter_token_ids": {
+    "A": 32,
+    "B": 33,
+    "C": 34,
+    "D": 35
+  },
+  "encoder": {
+    "name": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+    "revision": "a01887015444f7599669c509447c5bdbce958916"
+  },
+  "inputs": {
+    "profiles": {
+      "path": "mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl",
+      "sha256": "e92fdec2faa5061b2638d56eccbf412eb7b428903631264d1e287d2220d3a4d6",
+      "actors": 2,
+      "prompt_versions": [
+        "a80b3a121fab"
+      ],
+      "models": [
+        "mlx-community/Qwen3.8-27B-8bit"
+      ]
+    },
+    "train_speeches": {
+      "path": "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl",
+      "sha256": "6d5d7d0dfe525ecbbd00ed34c9b21737ab22a1a64ffdb12adf2e84097be80dba"
+    },
+    "speeches": {
+      "path": "artifacts/cache/hearing_actors/actors_multi_hearing.jsonl",
+      "sha256": "fc24ec8edf73d73d9ff45aef45adc059d378f4f259badc2e7e336a1b97859221"
+    },
+    "udv": {
+      "path": "artifacts/udv/udv_v1.jsonl",
+      "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1"
+    },
+    "split_manifest": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd"
+    }
+  },
+  "rules": {
+    "distractors": "the other options are propositions of 3 distinct other actors of the same hearing: UDVs whose actor name differs from the target after name normalization and whose evidence turn does not belong to the target speaker; a text (whitespace-normalized) given to the target in this hearing never enters the pool, and a text shared by several other actors enters it once, under the first of them in file order; the actors and one proposition of each are drawn with random.Random(f'{seed}:{udv_id}'), and questions with fewer than 3 candidate actors are dropped",
+    "scoring": "the options are shown in the 4 cyclic rotations of a seeded shuffled order; in each rotation the log-probabilities of the letter tokens at the first assistant position (log-softmax over the whole vocabulary) are renormalized over the 4 letters; the option probabilities are averaged over rotations and the predicted option is the argmax",
+    "guidance": "condition 3 combines, per rotation, the whole-vocabulary letter log-probabilities of conditions 0 and 2 as logp0 + gamma * (logp2 - logp0) before renormalizing over the 4 letters, the same formula as transformers' UnbatchedClassifierFreeGuidanceLogitsProcessor",
+    "levels": "evidence levels are asked without the options, only on the evaluation split, for conditions 1 and 2 (condition 3 has the material of condition 2 and reuses its level); the label is the first of DIRETA, INDIRETA, ESPECULATIVA, SEM BASE that starts the greedy response",
+    "letter_mass": "letter_mass is the sum of the whole-vocabulary probabilities of the 4 letter tokens at the first assistant position, per rotation, summarized by mean and minimum over questions and rotations; condition 3 is a combination of log-probabilities, not a distribution, and is left out"
+  },
+  "selection": {
+    "counts": {
+      "split": "validation",
+      "hearings": 32,
+      "linked_udvs": 2,
+      "linked_actors": 2,
+      "dropped_without_distractors": [],
+      "questions": 2,
+      "question_actors": 2,
+      "question_hearings": 2,
+      "questions_by_tier": {
+        "quote_found": 2
+      },
+      "roles_with_party_removed": 2
+    },
+    "conditions": {
+      "0": {
+        "n": 2,
+        "accuracy": 0.0,
+        "mean_p_correct": 0.24919924263951743
+      },
+      "1": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.34323966699612335
+      }
+    },
+    "letter_mass": {
+      "0": {
+        "mean": 0.9941746167613121,
+        "min": 0.9882318836851911
+      },
+      "1": {
+        "mean": 0.9863168838303432,
+        "min": 0.97447450378139
+      },
+      "2": {
+        "mean": 0.9785109477971294,
+        "min": 0.9539084648215876
+      }
+    },
+    "k": 3,
+    "guidance_scale": 3.0,
+    "rule": "k maximizes the accuracy of condition 2 on the selection split, then gamma maximizes the accuracy of condition 3 with that k; ties go to the higher mean probability of the correct option, then to the first value in the config grid",
+    "condition_2_by_k": {
+      "3": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.3516523778854885
+      },
+      "5": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.3516523778854885
+      },
+      "10": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.3516523778854885
+      }
+    },
+    "condition_3_by_guidance_scale": {
+      "1.0": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.3516523778854885
+      },
+      "1.5": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.40733681510155617
+      },
+      "2.0": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.4431086163922527
+      },
+      "3.0": {
+        "n": 2,
+        "accuracy": 0.5,
+        "mean_p_correct": 0.4649967184366437
+      }
+    }
+  },
+  "evaluation": {
+    "counts": {
+      "split": "test",
+      "hearings": 30,
+      "linked_udvs": 5,
+      "linked_actors": 2,
+      "dropped_without_distractors": [
+        "udv-102-1-0",
+        "udv-102-1-1"
+      ],
+      "questions": 3,
+      "question_actors": 2,
+      "question_hearings": 2,
+      "questions_by_tier": {
+        "semantic_match_high": 3
+      },
+      "roles_with_party_removed": 3
+    },
+    "k": 3,
+    "guidance_scale": 3.0,
+    "conditions": {
+      "0": {
+        "name": "no profile (name and role)",
+        "n": 3,
+        "accuracy": 0.6666666666666666,
+        "mean_p_correct": 0.5166257095551323
+      },
+      "1": {
+        "name": "profile",
+        "n": 3,
+        "accuracy": 1.0,
+        "mean_p_correct": 0.5773489880126473
+      },
+      "2": {
+        "name": "profile + retrieved train excerpts",
+        "n": 3,
+        "accuracy": 1.0,
+        "mean_p_correct": 0.6794886866612359
+      },
+      "3": {
+        "name": "condition 2 combined with condition 0 by classifier-free guidance",
+        "n": 3,
+        "accuracy": 1.0,
+        "mean_p_correct": 0.7602149851815975
+      }
+    },
+    "letter_mass": {
+      "0": {
+        "mean": 0.9955698652827097,
+        "min": 0.9916622148337207
+      },
+      "1": {
+        "mean": 0.9928715701921349,
+        "min": 0.9893016365543783
+      },
+      "2": {
+        "mean": 0.9854453217437471,
+        "min": 0.9477690065259605
+      }
+    },
+    "differences": {
+      "1-0": {
+        "accuracy": 0.3333333333333333,
+        "ci95": [
+          0.0,
+          1.0
+        ]
+      },
+      "2-1": {
+        "accuracy": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "3-2": {
+        "accuracy": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "bootstrap": "paired percentile interval over 1000 resamples of whole hearings, seed 42",
+    "accuracy_by_level": {
+      "1": {
+        "SEM BASE": {
+          "n": 3,
+          "accuracy": 1.0
+        }
+      },
+      "2": {
+        "SEM BASE": {
+          "n": 3,
+          "accuracy": 1.0
+        }
+      },
+      "3": {
+        "SEM BASE": {
+          "n": 3,
+          "accuracy": 1.0
+        }
+      }
+    }
+  }
+}
