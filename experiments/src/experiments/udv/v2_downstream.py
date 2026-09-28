@@ -386,14 +386,14 @@ SUPPLEMENT = {
     ),
 }
 COLLEAGUE_COMMAND = {
-    "cwd": "challenge",
+    "cwd": "experiments",
     "download": (
-        'uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run download --model'
-        " qwen38_27b --settings mlx_alternative/config_udv_v2.yaml"
+        'uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.run download --model'
+        " qwen38_27b --settings configs/mlx_udv_v2.yaml"
     ),
     "run": (
-        'uv run --with "mlx-lm==0.31.3" python -m mlx_alternative.run all --model qwen38_27b'
-        " --all-actors --settings mlx_alternative/config_udv_v2.yaml"
+        'uv run --with "mlx-lm==0.31.3" python -m experiments.mlx.run all --model qwen38_27b'
+        " --all-actors --settings configs/mlx_udv_v2.yaml"
     ),
     "model": "mlx-community/Qwen3.8-27B-8bit",
     "revision": None,
