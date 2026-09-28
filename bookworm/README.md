@@ -1,7 +1,7 @@
 # bookworm
 
-Biblioteca Python que liga cada opinião estruturada do dataset
-[PublicHearingBR](https://huggingface.co/datasets/unicamp-dl/PublicHearingBR) a um trecho verificável
+Biblioteca Python que procura, para cada opinião estruturada do dataset
+[PublicHearingBR](https://huggingface.co/datasets/unicamp-dl/PublicHearingBR), um trecho verificável
 da transcrição da audiência, com offsets e um nível explícito que diz como a ligação foi feita.
 
 A matéria jornalística atribui opiniões aos participantes sem dizer onde, na fala, cada opinião se

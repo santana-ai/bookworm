@@ -4,8 +4,9 @@
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 
 **Para cada opinião que uma matéria jornalística atribui a um participante de audiência pública, o
-bookworm aponta o trecho da transcrição em que a própria pessoa a disse, com a posição exata, o critério
-que escolheu o trecho e, num campo separado, a confiança de que o trecho sustenta a opinião.**
+bookworm procura, na fala da própria pessoa, o trecho da transcrição que corresponde a ela e grava a
+posição exata, o critério que escolheu o trecho e, num campo separado, a confiança de que o trecho
+sustenta a opinião.**
 
 ```mermaid
 flowchart LR
@@ -50,7 +51,7 @@ validação humana.
 | Recuperação no benchmark NLI (validação, `serafim_335m`) | acc@1 0,8774, MRR 0,9295; nenhum dos 15 recuperadores alternativos o supera depois de Holm | [4.3](docs/report.md#43-e1-comparação-de-recuperadores-retrieval_v1) |
 | Janela de 2 sentenças contra sentença | lift +0,0143 [-0,0091; 0,0409], Holm 0,4104 | [4.4](docs/report.md#44-e2-comparação-de-unidades-retrieval_v1) |
 | Laya como reranqueador do top 20 (negativo) | MRR 0,8690 contra 0,9295, Holm 0,0004 | [4.5](docs/report.md#45-retrieval_v2-laya-como-reranqueador-resultado-negativo) |
-| Sinais derivados do cosseno como confiança (E5) | nenhum IC de diferença de AURC exclui zero | [5.5](docs/report.md#55-e5-sinais-de-confiança-derivados-do-recuperador-confidence_v1) |
+| Sinais derivados do cosseno como confiança (E5) | nenhum IC de diferença de AURC exclui zero no alvo primário (`serafim_335m`, sentença) | [5.5](docs/report.md#55-e5-sinais-de-confiança-derivados-do-recuperador-confidence_v1) |
 | Verificador contra cosseno, validação | ROC AUC 0,8758 contra 0,7302, Δ +0,1457 [0,0852; 0,2159], Holm 0,012 | [5.6](docs/report.md#56-confidence_v2-e-a-o-verificador-contra-avaliadores-da-literatura) |
 | Verificador, teste final (559 opiniões) | ROC AUC 0,9122 [0,8698; 0,9454], kappa 0,5924 | [5.3](docs/report.md#53-e3x-verificador-aprendido) |
 | Verificador sobre as 2.105 evidências de `udv_v2` | passam 1.750 (0,8314) no corte de premissa UDV 0,2429; 826 (0,3924) no corte do benchmark 0,7478 | [3.5](docs/report.md#35-udv_v2-janelas-citação-inteira-e-verificador) |

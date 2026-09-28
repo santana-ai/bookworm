@@ -22,7 +22,7 @@ em cada uma.
   significância (E1, retrieval_v2), e o reordenador Laya ficou pior.
 - **Trabalho 2, quanto confiar no trecho achado.** Dado o trecho escolhido, se ele sustenta a opinião.
   É um problema de separação entre trechos que sustentam e trechos que não sustentam. Aqui o cosseno
-  separa pouco (E5, AUC 0,730 na validação do NLI) e o verificador primário do E3x separa melhor (AUC
+  separa pouco (ROC AUC 0,730 na validação do benchmark NLI, no E3 v1 e no confidence_v2) e o verificador primário do E3x separa melhor (AUC
   0,876 na validação, 0,912 no teste).
 
 Por isso `udv_v2` usa o cosseno para escolher o trecho e o verificador só para dar a confiança, num

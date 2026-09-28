@@ -352,7 +352,7 @@ valor de P4.
 ### Conferência humana
 
 Com `--human-validation`, os resumos da lista, do mural e da pasta dizem o que foi conferido: uma
-pessoa julgou 121 afirmações do conjunto de teste (aspas achadas na fala, 25 de 35 corretas e 6
+pessoa julgou o trecho de 121 afirmações do conjunto de teste (aspas achadas na fala, 25 de 35 corretas e 6
 parciais; trecho parecido, 50 de 80 corretas e 19 parciais; pouco parecido, 1 de 6 correta), e os dois
 critérios fixados antes da conferência, em 23/09/2026, não foram atingidos: o limite inferior do
 intervalo de 95% para a parte de corretas nas aspas achadas ficou em 55% (o critério pedia 90%) e o

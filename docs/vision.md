@@ -77,9 +77,9 @@ O experimento baseline extraiu 4.238 opiniões. Para avaliar alucinação, o art
 falas por participante; (2) criou chunks de cinco sentenças com uma sentença de sobreposição; (3)
 construiu base vetorial por participante; (4) recuperou os quatro chunks mais similares para cada
 opinião; (5) pediu a um especialista que marcasse se a opinião poderia ser inferida dos quatro chunks.
-Resultado manual: 3.734 opiniões válidas, 504 possíveis alucinações, taxa de 11,89%. **O próprio artigo
-ressalta que esse valor é um limite superior**: uma opinião classificada como possível alucinação pode
-ter suporte em trechos que não apareceram entre os quatro recuperados.
+Resultado manual: 3.734 opiniões inferíveis e 504 não inferíveis dos quatro chunks (o artigo as chama de
+possíveis alucinações), taxa de 11,89%. **O próprio artigo ressalta que esse valor é um limite
+superior**: uma opinião não inferível dos quatro chunks pode ter suporte em trechos que não apareceram entre os quatro recuperados.
 
 ### 3.5 Baseline do artigo
 

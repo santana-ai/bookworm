@@ -92,8 +92,8 @@ posição exata, tipo de ligação e um sinal de confiança. O trabalho se divid
 separadamente:
 
 1. **Trabalho 1, achar a evidência.** Dado uma opinião e a fala da pessoa, qual trecho a sustenta.
-2. **Trabalho 2, dizer quanto confiar.** Dado o trecho escolhido, qual a chance de ele de fato sustentar a
-   opinião.
+2. **Trabalho 2, dizer quanto confiar.** Dado o trecho escolhido, qual a chance, segundo um verificador
+   treinado para essa pergunta, de ele sustentar a opinião.
 
 Resultados principais, todos rastreados nas seções seguintes:
 
@@ -107,7 +107,7 @@ Resultados principais, todos rastreados nas seções seguintes:
 | Nenhum dos 15 recuperadores alternativos supera o `serafim_335m` na sentença após Holm | E1, validação `nli` | idem |
 | Janelas de 2 sentenças contra sentença, mesmo recuperador (`nli`, validação, `serafim_335m`) | lift +0.0143 [-0.0091; 0.0409], Holm 0.4104 | idem |
 | Laya como reranqueador do top 20 (resultado negativo) | MRR 0.8690 contra 0.9295, Holm 0.0004 | `artifacts/experiments/retrieval/retrieval_v2/retrieval_v2_report.json` |
-| Sinais derivados do cosseno não melhoram a confiança (E5) | nenhum IC de diferença de AURC exclui zero no `nli` | `artifacts/experiments/confidence/confidence_v1/confidence_v1_report.json` |
+| Sinais derivados do cosseno não melhoram a confiança (E5) | nenhum IC de diferença de AURC exclui zero no `nli`, alvo primário `serafim_335m` com sentença | `artifacts/experiments/confidence/confidence_v1/confidence_v1_report.json` |
 | Verificador primário (E3x), teste final, 559 opiniões | ROC AUC 0.9122 [0.8698; 0.9454], kappa 0.5924 | `artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json` |
 | Primário contra o cosseno Serafim na validação (confidence_v2 E-A) | ROC AUC 0.8758 contra 0.7302, Δ +0.1457 [0.0852; 0.2159], Holm 0.012 | `artifacts/experiments/confidence_v2/ea_report.json` |
 | Validação humana final, `quote_found` (precisão estrita; igual em `udv_v1` e `udv_v2`) | 25 de 35, 0.7143 [0.5495; 0.8367]; critério (limite inferior ≥ 0.9) FAIL | `artifacts/udv/udv_v2_precision_final.json`, seção 7 |
