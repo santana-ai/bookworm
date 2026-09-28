@@ -15,7 +15,7 @@ Convenções usadas no texto:
 - Caminhos relativos a `experiments/`, salvo indicação. A primeira versão deste relatório leu dois ramos
   de trabalho (`bookworm_germano`, commit `fbf7a87`, com `udv_v2`, e `udv_germano`, commit `b593be4`, com
   `confidence_v2`); os dois foram unidos, e todos os artefatos citados estão nesta versão nos caminhos
-  indicados. Os comandos de cada etapa, em ordem, estão em `README.md`.
+  indicados. Os comandos de cada etapa, em ordem, estão no [guia de reprodução](reproduce.md).
 - IC 95% é intervalo de confiança de 95%. "Holm" é o p-valor ajustado pelo método de Holm dentro da
   família declarada no próprio experimento.
 - "Planejado e não rodado" significa que existe código ou declaração, mas nenhum artefato de resultado
@@ -25,16 +25,60 @@ Convenções usadas no texto:
 
 - [Resumo executivo](#resumo-executivo)
 - [1. Dataset e tarefa](#1-dataset-e-tarefa)
+  - [1.1 O que é o PublicHearingBR](#11-o-que-é-o-publichearingbr)
+  - [1.2 Três leituras parciais que o dataset contém](#12-três-leituras-parciais-que-o-dataset-contém)
+  - [1.3 Por que o arquivo NLI não resolve a ligação](#13-por-que-o-arquivo-nli-não-resolve-a-ligação)
+  - [1.4 A tarefa que o projeto define](#14-a-tarefa-que-o-projeto-define)
 - [2. Splits](#2-splits)
+  - [2.1 O problema que o split resolve](#21-o-problema-que-o-split-resolve)
+  - [2.2 Datas](#22-datas)
+  - [2.3 Fronteiras e tamanhos](#23-fronteiras-e-tamanhos)
+  - [2.4 Checagens de vazamento](#24-checagens-de-vazamento)
 - [3. UDV: versões v0, v1 e v2](#3-udv-versões-v0-v1-e-v2)
+  - [3.1 O que é uma UDV e por que cada campo existe](#31-o-que-é-uma-udv-e-por-que-cada-campo-existe)
+  - [3.2 Construção comum a v0 e v1](#32-construção-comum-a-v0-e-v1)
+  - [3.3 Calibração do corte de cosseno para sentenças (`threshold_v1`)](#33-calibração-do-corte-de-cosseno-para-sentenças-threshold_v1)
+  - [3.4 Versões v0, v1_pre e v1](#34-versões-v0-v1_pre-e-v1)
+  - [3.5 udv_v2: janelas, citação inteira e verificador](#35-udv_v2-janelas-citação-inteira-e-verificador)
 - [4. Trabalho 1: achar a evidência](#4-trabalho-1-achar-a-evidência)
+  - [4.1 B1: citações mascaradas](#41-b1-citações-mascaradas)
+  - [4.2 B2: benchmark NLI](#42-b2-benchmark-nli)
+  - [4.3 E1: comparação de recuperadores (`retrieval_v1`)](#43-e1-comparação-de-recuperadores-retrieval_v1)
+  - [4.4 E2: comparação de unidades (`retrieval_v1`)](#44-e2-comparação-de-unidades-retrieval_v1)
+  - [4.5 retrieval_v2: Laya como reranqueador (resultado negativo)](#45-retrieval_v2-laya-como-reranqueador-resultado-negativo)
 - [5. Trabalho 2: dizer quanto confiar na evidência](#5-trabalho-2-dizer-quanto-confiar-na-evidência)
+  - [5.1 E3 v1: NLI multilíngue contra o cosseno](#51-e3-v1-nli-multilíngue-contra-o-cosseno)
+  - [5.2 E3 v2: Laya, bateria de perguntas e tradução](#52-e3-v2-laya-bateria-de-perguntas-e-tradução)
+  - [5.3 E3x: verificador aprendido](#53-e3x-verificador-aprendido)
+  - [5.4 Tradução](#54-tradução)
+  - [5.5 E5: sinais de confiança derivados do recuperador (`confidence_v1`)](#55-e5-sinais-de-confiança-derivados-do-recuperador-confidence_v1)
+  - [5.6 confidence_v2 E-A: o verificador contra avaliadores da literatura](#56-confidence_v2-e-a-o-verificador-contra-avaliadores-da-literatura)
+  - [5.7 Camada do verificador sobre udv_v1](#57-camada-do-verificador-sobre-udv_v1)
+  - [5.8 E6: casamento aproximado de citações e nomes (`fuzzy_v1`)](#58-e6-casamento-aproximado-de-citações-e-nomes-fuzzy_v1)
 - [6. Atores e regras de ligação](#6-atores-e-regras-de-ligação)
+  - [6.1 Falas por ator](#61-falas-por-ator)
+  - [6.2 Duas regras de ligação UDV para ator](#62-duas-regras-de-ligação-udv-para-ator)
+  - [6.3 Perfis de ator e simulação](#63-perfis-de-ator-e-simulação)
 - [7. Validação humana](#7-validação-humana)
+  - [7.1 Desenho da amostra](#71-desenho-da-amostra)
+  - [7.2 Resultado final de `udv_v1`](#72-resultado-final-de-udv_v1)
+  - [7.3 Planilha suplementar de `udv_v2`](#73-planilha-suplementar-de-udv_v2)
+  - [7.4 Resultado final de `udv_v2`](#74-resultado-final-de-udv_v2)
 - [8. Glossário de métricas](#8-glossário-de-métricas)
 - [9. Software e reprodutibilidade](#9-software-e-reprodutibilidade)
+  - [9.1 Ambiente](#91-ambiente)
+  - [9.2 Sementes e réplicas](#92-sementes-e-réplicas)
+  - [9.3 Comandos principais](#93-comandos-principais)
+  - [9.4 Testes](#94-testes)
+  - [9.5 Decisões registradas (ADRs)](#95-decisões-registradas-adrs)
 - [10. Limitações](#10-limitações)
 - [11. Referências](#11-referências)
+  - [11.1 Dataset](#111-dataset)
+  - [11.2 Modelos usados](#112-modelos-usados)
+  - [11.3 Modelos declarados e não rodados](#113-modelos-declarados-e-não-rodados)
+  - [11.4 Arquiteturas de base e bibliotecas](#114-arquiteturas-de-base-e-bibliotecas)
+  - [11.5 Métodos e conjuntos de dados de NLI](#115-métodos-e-conjuntos-de-dados-de-nli)
+  - [11.6 Estatística](#116-estatística)
 - [Apêndice A. Inconsistências entre artefatos](#apêndice-a-inconsistências-entre-artefatos)
 - [Apêndice B. O que foi planejado e não rodado](#apêndice-b-o-que-foi-planejado-e-não-rodado)
 
@@ -87,18 +131,18 @@ uma sentença ou janela, uma mudança de domínio que não foi medida com rótul
 ### 1.1 O que é o PublicHearingBR
 
 O PublicHearingBR (Fernandes et al., arXiv 2410.07495) reúne 206 audiências públicas da Câmara dos
-Deputados. O repositório lê dois arquivos baixados do Hugging Face por `experiments/src/experiments/data/download.py` e nunca
+Deputados. O repositório lê dois arquivos baixados do Hugging Face por `experiments.data.download` e nunca
 versionados (`dataset/`).
 
 | arquivo | registros | chaves de topo | fonte |
 |---|---|---|---|
-| LDS (`PublicHearingBR_LDS.jsonl`) | 206 | `id`, `materia`, `metadados`, `transcricao` | `experiments/notebooks/eda.ipynb` |
-| NLI | 206 | `id`, `metadados_extraidos` (`assunto`, `envolvidos`, `tl_dr`) | `experiments/notebooks/eda.ipynb` |
+| LDS (`PublicHearingBR_LDS.jsonl`) | 206 | `id`, `materia`, `metadados`, `transcricao` | `notebooks/eda.ipynb` |
+| NLI | 206 | `id`, `metadados_extraidos` (`assunto`, `envolvidos`, `tl_dr`) | `notebooks/eda.ipynb` |
 
 O sha256 do LDS usado em todas as rodadas é `c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0`
 (`configs/retrieval_experiments.toml`, `[dataset].lds_sha256`, e demais configs).
 
-Medidas do EDA (`experiments/notebooks/eda.ipynb`):
+Medidas do EDA (`notebooks/eda.ipynb`):
 
 | medida | valor |
 |---|---|
@@ -114,7 +158,7 @@ Medidas do EDA (`experiments/notebooks/eda.ipynb`):
 
 ### 1.2 Três leituras parciais que o dataset contém
 
-O documento de visão do projeto (`docs/vision.md`, seção 3.6) distingue três verdades parciais, e todo
+O documento de visão do projeto ([`vision.md`](vision.md), seção 3.6) distingue três verdades parciais, e todo
 o relatório as mantém separadas:
 
 - **Documental**: o que a transcrição sustenta. É o que a UDV tenta ancorar.
@@ -132,19 +176,19 @@ nunca é chamado de verdade global.
 ### 1.3 Por que o arquivo NLI não resolve a ligação
 
 As 4.238 opiniões NLI foram geradas por um LLM a partir da transcrição, no experimento de sumarização do
-artigo do dataset, e não são as 2.203 do LDS (`docs/methodology/udv.md`, seção "O problema"). Cada opinião NLI vem com
+artigo do dataset, e não são as 2.203 do LDS ([`methodology/udv.md`](methodology/udv.md), seção "O problema"). Cada opinião NLI vem com
 `chunks_proximos` (quatro trechos) e `verificacao_alucinacao`, com a verificação manual e 12 juízes
 automáticos: 3 prompts vezes 4 modelos (`gpt-4o-mini-2024-07-18`, `gpt-4o-2024-08-06`, `deepseek-chat`,
 `sabia-3.1-2025-05-08`). A concordância desses juízes com o rótulo manual vai de 0.677 a 0.943
-(`experiments/notebooks/eda.ipynb`). O arquivo NLI é usado aqui como banco de teste do Trabalho 2 (seção 5), não como fonte
+(`notebooks/eda.ipynb`). O arquivo NLI é usado aqui como banco de teste do Trabalho 2 (seção 5), não como fonte
 de ligação.
 
 ### 1.4 A tarefa que o projeto define
 
 A UDV liga cada opinião do LDS a um trecho da fala da pessoa, com offsets exatos, índice de turno, nível
 (`tier`), tipo de suporte (`support_type`) e proveniência (`provenance`). O registro e as regras estão em
-`docs/methodology/udv.md` e, para `udv_v2`, em `docs/pipeline.md` e no ADR 0006
-(`../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`).
+[`methodology/udv.md`](methodology/udv.md) e, para `udv_v2`, em `docs/pipeline.md` e no ADR 0006
+([`bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md`](../bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md)).
 
 ## 2. Splits
 
@@ -201,11 +245,11 @@ perfis de ator, que só usa audiências de treino para construir o perfil (seç�
 | `support_type` | separa `direct_quote`, `semantic_with_short_quote` (a sentença escolhida pelo encoder contém um prefixo curto de citação) e `semantic_similarity` |
 | `provenance` | `weak` para regra de texto, `model` para encoder, `null` sem evidência; nunca apresentada como anotação humana |
 
-Fonte: `docs/methodology/udv.md`, seções "O registro" e "Construção".
+Fonte: [`methodology/udv.md`](methodology/udv.md), seções "O registro" e "Construção".
 
 ### 3.2 Construção comum a v0 e v1
 
-Etapas (`docs/methodology/udv.md`, "Construção"; código em `bookworm/src/bookworm/transcript/` e `bookworm/src/bookworm/udv/`):
+Etapas ([`methodology/udv.md`](methodology/udv.md), "Construção"; código em `bookworm/src/bookworm/transcript/` e `bookworm/src/bookworm/udv/`):
 
 1. **Turnos.** `split_into_turns` acha os cabeçalhos de fala por expressão regular: 17.264 turnos nas 206
    audiências. O turno resolve a autoria: qualquer trecho dentro dele tem autor conhecido.
@@ -219,7 +263,7 @@ Etapas (`docs/methodology/udv.md`, "Construção"; código em `bookworm/src/book
 4. **Citação literal.** Trechos de 10 caracteres ou mais entre aspas duplas, tipográficas ou simples
    (aspas simples com fronteira de palavra, ADR 0003). Prefixos de 10, 6, 4 e 3 palavras são procurados
    nos turnos da pessoa sem distinção de maiúsculas. Prefixo de 6 palavras ou mais gera `quote_found`.
-   O corte de 6 palavras veio de uma leitura exploratória sem protocolo de anotação (`docs/methodology/udv.md`); ele não foi
+   O corte de 6 palavras veio de uma leitura exploratória sem protocolo de anotação ([`methodology/udv.md`](methodology/udv.md)); ele não foi
    validado por anotação humana antes da amostra cega da seção 7.
 5. **Similaridade.** Sem citação confiável, opinião e sentenças são codificadas pelo Serafim 335m e vence a
    sentença de maior cosseno.
@@ -259,11 +303,11 @@ mesmas consultas é 0.5634.
 
 A regra `legacy_random` usa o ponto médio entre o quartil 25 dos positivos e o quartil 75 dos negativos. O
 corte adotado é 0.45 (antes 0.47). A troca move 9 registros de `semantic_match_weak` para
-`semantic_match_high` e não muda nenhuma evidência (`docs/methodology/udv.md`, "Calibração").
+`semantic_match_high` e não muda nenhuma evidência ([`methodology/udv.md`](methodology/udv.md), "Calibração").
 
 ### 3.4 Versões v0, v1_pre e v1
 
-Fonte: `docs/methodology/udv.md`, "Versões", e `artifacts/udv/udv_v0_coverage.json`, `udv_v1_pre_coverage.json`,
+Fonte: [`methodology/udv.md`](methodology/udv.md), "Versões", e `artifacts/udv/udv_v0_coverage.json`, `udv_v1_pre_coverage.json`,
 `udv_v1_coverage.json`.
 
 | rodada | data | mudança | `quote_found` | `semantic_match_high` | `semantic_match_weak` | `no_evidence` | `person_not_resolved` |
@@ -275,7 +319,7 @@ Fonte: `docs/methodology/udv.md`, "Versões", e `artifacts/udv/udv_v0_coverage.j
 Em `udv_v0`, os tipos de suporte são 260 `direct_quote`, 100 `semantic_with_short_quote` e 1745
 `semantic_similarity`, e 2104 de 2105 evidências têm offset (`udv_v0_coverage.json`). De `udv_v0` para
 `udv_v1_pre`, 17 opiniões passam de `semantic_match_high` para `quote_found` (14 pelas aspas simples, 3 por
-prefixo mais longo em outra citação) e 42 registros mudam a evidência (`docs/methodology/udv.md`). O tempo de construção de
+prefixo mais longo em outra citação) e 42 registros mudam a evidência ([`methodology/udv.md`](methodology/udv.md)). O tempo de construção de
 `udv_v1` foi 23.5 s (`udv_v1_coverage.json`).
 
 ### 3.5 udv_v2: janelas, citação inteira e verificador
@@ -827,7 +871,7 @@ o Trabalho 2.
 ### 5.6 confidence_v2 E-A: o verificador contra avaliadores da literatura
 
 Fonte: `artifacts/experiments/confidence_v2/ea_report.json` (criado 2026-09-28T09:58:40Z) e
-`docs/methodology/confidence.md`.
+[`methodology/confidence.md`](methodology/confidence.md).
 
 **Problema.** Confirmar que o primário do E3x é uma confiança melhor que o cosseno e compará-lo com
 avaliadores de consistência publicados, no mesmo rótulo e na mesma premissa.
@@ -863,7 +907,7 @@ Leitura: o primário tem a maior ROC AUC e o menor AURC de todos os sinais e é 
 nas duas métricas após Holm. A comparação direta do primário com cada avaliador da literatura não foi
 declarada; a distância para o mais próximo (`bge_reranker`, 0.034 de ROC AUC) é só uma estimativa pontual.
 
-Não rodaram, com o motivo registrado (`docs/methodology/confidence.md`): juízes LLM (Qwen3-4B-Instruct-2507, Qwen3-1.7B,
+Não rodaram, com o motivo registrado ([`methodology/confidence.md`](methodology/confidence.md)): juízes LLM (Qwen3-4B-Instruct-2507, Qwen3-1.7B,
 Bespoke-MiniCheck-7B) e Granite Guardian 3.2-3B, por decisão registrada antes de qualquer escore; Lynx e
 TRUE, por licença e memória; SummaC, por ser uma agregação de NLI por frase já coberta; MiniCheck-RoBERTa,
 por redundância; LettuceDetect, por marcar tokens e não ter português confirmado.
@@ -930,7 +974,7 @@ citação. Deve ser lida contra a concordância no controle positivo (0.612), e 
 poucas pessoas; a transcrição tem a fala inteira, mas o nome aparece com grafias diferentes entre
 audiências.
 
-Fontes: `docs/methodology/hearing_actors.md`, `../bookworm/docs/actors.md`,
+Fontes: [`methodology/hearing_actors.md`](methodology/hearing_actors.md), [`bookworm/docs/actors.md`](../bookworm/docs/actors.md),
 `artifacts/hearing_actors/measurements.json`, `artifacts/hearing_actors/actor_speeches_stats.json` e
 `artifacts/hearing_actors/ambiguous_names.json`. Comandos: `uv run python -m experiments.actors.measure_hearing_actors` e
 `uv run python -m experiments.actors.build_speeches`; na biblioteca, `uv run bookworm build-udvs
@@ -951,7 +995,7 @@ também `artifacts/udv/udv_v2_actor_links.jsonl`.
 Por que o corte de 50 palavras nos turnos de presidência: 42.7% das palavras dos falantes recorrentes estão
 em turnos de presidência, boa parte condução de sessão; mas 336 das 2.105 opiniões com evidência de `udv_v1`
 estão em turnos de presidência (56 citações literais). O corte de 50 mantém 2264 de 6266 turnos de
-presidência, 89.0% das palavras e 332 das 336 opiniões (`docs/methodology/hearing_actors.md`, tabela de cortes). Em
+presidência, 89.0% das palavras e 332 das 336 opiniões ([`methodology/hearing_actors.md`](methodology/hearing_actors.md), tabela de cortes). Em
 `udv_v2` também são 336 opiniões com evidência em turno de presidência, de 118 atores (261
 `semantic_match_high`, 56 `quote_found`, 19 `semantic_match_weak`), e o corte de 50 mantém 331
 (`artifacts/hearing_actors/measurements_udv_v2.json`).
@@ -970,7 +1014,7 @@ no repositório.
 - **Turno de evidência** (bloco `evaluation` de `filter-actor-speeches`): fica o dono do turno
   `evidence.speaker_turn`.
 
-Resultado sobre `udv_v1` (`../bookworm/docs/actors.md`, "Duas regras de ligação"; fixado por
+Resultado sobre `udv_v1` ([`bookworm/docs/actors.md`](../bookworm/docs/actors.md), "Duas regras de ligação"; fixado por
 `tests/integration/test_link_rules.py`):
 
 | regra | UDVs ligadas em `udv_v1` | UDVs ligadas em `udv_v2` |
@@ -989,8 +1033,8 @@ audiências.
 
 ### 6.3 Perfis de ator e simulação
 
-Fontes: `docs/methodology/actor_profiles.md`, `docs/methodology/actor_simulation.md`, `../bookworm/docs/profiles.md`,
-`../bookworm/docs/profile_validation.md` e `artifacts/actor_profiles/train_speeches_stats.json`.
+Fontes: [`methodology/actor_profiles.md`](methodology/actor_profiles.md), [`methodology/actor_simulation.md`](methodology/actor_simulation.md), [`bookworm/docs/profiles.md`](../bookworm/docs/profiles.md),
+[`bookworm/docs/profile_validation.md`](../bookworm/docs/profile_validation.md) e `artifacts/actor_profiles/train_speeches_stats.json`.
 
 **Problema.** Um perfil gerado com as 206 audiências já leu as falas do teste; avaliá-lo contra as opiniões
 do teste mediria cópia. Por isso o perfil de avaliação usa só audiências de treino.
@@ -1008,12 +1052,12 @@ As falas de treino que entram no prompt dos perfis são as mesmas nas duas rodad
 `train_speeches_stats.json` e `train_speeches_stats_udv_v2.json`): a ligação UDV-ator não lê a evidência, e
 o perfil não lê UDV. Por isso os perfis da rodada abaixo servem para as duas versões.
 
-Implementação: o gerador de perfis (`experiments/src/experiments/actors/generate_profiles.py`), a conferência de perfis contra
+Implementação: o gerador de perfis (`experiments.actors.generate_profiles`), a conferência de perfis contra
 UDVs (`bookworm validate-profiles`) e a simulação de atores com três abordagens (só perfil; perfil com
-recuperação; perfil com recuperação e classifier-free guidance) estão em `docs/methodology/actor_profiles.md` e
-`docs/methodology/actor_simulation.md`.
+recuperação; perfil com recuperação e classifier-free guidance) estão em [`methodology/actor_profiles.md`](methodology/actor_profiles.md) e
+[`methodology/actor_simulation.md`](methodology/actor_simulation.md).
 
-Rodada completa com o backend MLX (`docs/methodology/mlx_backend.md`), modelo `mlx-community/Qwen3.8-27B-8bit`,
+Rodada completa com o backend MLX ([`methodology/mlx_backend.md`](methodology/mlx_backend.md)), modelo `mlx-community/Qwen3.8-27B-8bit`,
 27 e 28/09/2026, num Apple M4 Max de 128 GB. Fontes: `artifacts/mlx_runs/qwen38_27b/actor_simulation/evaluation.json`
 e `artifacts/mlx_runs/qwen38_27b/relatorio_rodada_completa.md`. Perfis gerados só com as audiências de
 treino (264 atores, nenhuma falha); k e γ escolhidos na validação; resultado no teste. Múltipla escolha
@@ -1037,7 +1081,7 @@ Na validação (81 perguntas), k = 3 e γ = 1.0 tiveram o maior acerto da grade 
 guidance não mudou nada. Os níveis de evidência declarados pelo modelo não ordenaram o acerto como o
 desenho exige (ESPECULATIVA acima de INDIRETA nas condições 1 e 2). Limites: um modelo, quantizado em 8
 bits, uma semente; o prompt de múltipla escolha foi revisado depois de um piloto que usou perguntas de
-teste, com base na massa das letras e sem uso do acerto (`docs/methodology/actor_simulation.md`).
+teste, com base na massa das letras e sem uso do acerto ([`methodology/actor_simulation.md`](methodology/actor_simulation.md)).
 
 A simulação acima foi rodada sobre `udv_v1`. Sobre `udv_v2`, as perguntas foram reconstruídas com os
 mesmos perfis, falas e sementes (`udv_v2_downstream_report.json`, `question_overlap`): no teste, 101
@@ -1045,7 +1089,7 @@ perguntas nas duas versões, 98 idênticas e 3 com mudança só de nível; na va
 em `udv_v2`, 70 idênticas, 10 com mudança de nível e 1 que sai (`udv-126-0-0`). As requisições de
 simulação são idênticas nas duas versões (`requests_sha256` `5f0a7eb5…`,
 `artifacts/actor_simulation/udv_v2_dry_run_simulation.json`). A rodada do modelo sobre `udv_v2` não foi
-feita nesta máquina; o comando está em `docs/methodology/mlx_backend.md` e grava em `artifacts/mlx_runs/udv_v2`.
+feita nesta máquina; o comando está em [`methodology/mlx_backend.md`](methodology/mlx_backend.md) e grava em `artifacts/mlx_runs/udv_v2`.
 
 Conferência de perfis contra UDVs (`bookworm validate-profiles`), com os perfis de treino desta rodada.
 O escore de um par é o maior cosseno Serafim entre a proposição da UDV e as sentenças de um perfil;
@@ -1077,7 +1121,7 @@ elegíveis (níveis `quote_found` e `semantic_match_high`).
 **Problema.** Nenhum benchmark automático mede se o trecho da UDV sustenta a opinião do LDS. Isso exige
 julgamento humano, sobre audiências que nenhuma escolha de método usou.
 
-Fonte: `artifacts/validation/human_validation_v1_udv_v1/sample_report.json` e `docs/validation/annotation_guide.md`.
+Fonte: `artifacts/validation/human_validation_v1_udv_v1/sample_report.json` e [`validation/annotation_guide.md`](validation/annotation_guide.md).
 Comando: `uv run --no-sync python -m experiments.validation.generate_sample --run-name udv_v1 --final-test`.
 
 | item | valor |
@@ -1131,7 +1175,7 @@ Planilha lida: `artifacts/validation/human_validation_v1_udv_v1/annotation.csv`,
 `7bb2906a110c0696df351580a133c5d69f7fe05c9d14e0737c8c09090abfe345`, gravado no relatório com o caminho
 relativo a `experiments/`. O campo `existe_trecho_melhor` ficou vazio nas 127 linhas
 (`better_passage_missing`). Por isso os números finais vêm de `udv_v2_analysis score-annotation`:
-`experiments/src/experiments/validation/precision_report.py` recusa uma planilha com `existe_trecho_melhor` vazio, e o campo não foi
+`experiments.validation.precision_report` recusa uma planilha com `existe_trecho_melhor` vazio, e o campo não foi
 preenchido depois do fato.
 
 | estrato (`udv_v1`) | julgadas (população no teste) | correta / parcial / incorreta | precisão estrita [Wilson 95%] | precisão tolerante [Wilson 95%] |
@@ -1333,7 +1377,7 @@ Cada métrica está explicada pelo problema que resolve.
 | laya | 0.3.11 | `retrieval_v2_report.json` |
 | ambiente de `udv_v2` | torch 2.14.0, sentence-transformers 6.1.0, Python 3.12.13 | `artifacts/udv/udv_v2_coverage.json` |
 | plataforma | macOS 26.5.2 arm64 (`macOS-26.5.2-arm64-arm-64bit`), 10 CPUs | relatórios de tradução |
-| hardware | Apple M5 com aceleração MPS, fp32; máquina de 24 GB; a rodada MLX de perfis e simulação, num Apple M4 Max de 128 GB | `configs/retrieval_experiments.toml` (`batch_size_note`), `docs/methodology/confidence.md`, `artifacts/mlx_runs/qwen38_27b/relatorio_rodada_completa.md` |
+| hardware | Apple M5 com aceleração MPS, fp32; máquina de 24 GB; a rodada MLX de perfis e simulação, num Apple M4 Max de 128 GB | `configs/retrieval_experiments.toml` (`batch_size_note`), [`methodology/confidence.md`](methodology/confidence.md), `artifacts/mlx_runs/qwen38_27b/relatorio_rodada_completa.md` |
 | gerenciador | `uv` com lock por projeto (`bookworm/` e `experiments/`) | estrutura do repositório |
 | Hub | `HF_HUB_OFFLINE=1` nas rodadas; revisões de modelo fixadas | `environment.hub_offline` dos relatórios de tradução |
 
@@ -1372,7 +1416,7 @@ Dentro de `experiments/` (salvo indicação):
 | verificador sobre UDVs | `uv run python -m experiments.verifier.udv_verifier --config configs/udv_v2_verifier.toml translate`, depois o subcomando `apply` |
 | análise de `udv_v2` | `uv run python -m experiments.udv.v2_analysis analyze`; `score-annotation --final-test --annotation <csv> --supplement-dir <pasta>` |
 | etapas depois da UDV sobre `udv_v2` | `uv run python -m experiments.udv.v2_downstream` |
-| exportação da demo | `uv run bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 ...` (argumentos completos em `../bookworm/web/README.md`) |
+| exportação da demo | `uv run bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 ...` (argumentos completos em [`bookworm/web/README.md`](../bookworm/web/README.md)) |
 | recuperação | `experiments.retrieval.experiments` (subcomandos `queue`, `run`, `summarize`) |
 | E3 | `experiments.verifier.nli_experiments` e `experiments.verifier.translation` (subcomandos no `--help`) |
 | E3x | `experiments.verifier.nli_exploration` (subcomandos `confirm` e `final-test`, além da seleção) |
@@ -1397,15 +1441,15 @@ Rodados em 28/09/2026 no worktree da versão de release, com os arquivos pesados
 | `bookworm`, com `BOOKWORM_LDS_PATH=experiments/dataset/PublicHearingBR_LDS.jsonl` e `BOOKWORM_EMBEDDING_CACHE=experiments/artifacts/cache/embeddings` | 857 passaram, 4 pulados (sem `torch` ou `transformers` no ambiente), 4 desmarcados (marcador `model`), 81 s |
 | `bookworm`, só marcador `dataset` | 100 passaram, 2 pulados |
 | `bookworm`, sem as variáveis de ambiente | 764 passaram, 97 pulados; cobertura total 96% (4404 linhas, 174 sem cobertura) |
-| `challenge` | 129 passaram, sem o dataset |
+| `experiments` | 129 passaram, sem o dataset |
 
 Os testes de integração com marcador `dataset` refazem, a partir do LDS, a paridade byte a byte de
 `udv_v1.jsonl` e dos arquivos de falas por ator com os do `experiments/`, e as contagens das duas regras de
-ligação (`../bookworm/docs/actors.md`).
+ligação ([`bookworm/docs/actors.md`](../bookworm/docs/actors.md)).
 
 ### 9.5 Decisões registradas (ADRs)
 
-Em `../bookworm/docs/adr/`: 0001 estrutura da biblioteca e paridade com o `experiments/`; 0002 segmentação em
+Em [`bookworm/docs/adr/`](../bookworm/docs/adr/README.md): 0001 estrutura da biblioteca e paridade com o `experiments/`; 0002 segmentação em
 sentenças por turno; 0003 aspas simples como citação; 0004 exportações leem só o cache da rodada; 0005 uma
 passada pela transcrição para UDVs e perfis de ator; 0006 `udv_v2` com janelas, citação inteira e
 verificador.
@@ -1443,12 +1487,12 @@ verificador.
 13. **Perfis e simulação com uma rodada.** Um modelo quantizado, uma semente e 101 perguntas de teste
     (seção 6.3); os níveis de evidência não ordenam o acerto; a simulação com o modelo foi rodada sobre
     `udv_v1`, e sobre `udv_v2` só a construção das perguntas e das requisições foi conferida.
-16. **Premissa do verificador em 57 UDVs de `udv_v2`.** O intervalo da evidência inclui partes que o
-    encoder não leu, então o verificador lê um texto mais longo que o que definiu o nível (seção 3.5).
 14. **Versões de biblioteca.** Duas combinações de torch e sentence-transformers entre rodadas, sem medida
     de efeito.
 15. **Modelos não rodados.** Jev (declarado no E3 v2), juízes LLM e outros avaliadores do confidence_v2
     (seção 5.6).
+16. **Premissa do verificador em 57 UDVs de `udv_v2`.** O intervalo da evidência inclui partes que o
+    encoder não leu, então o verificador lê um texto mais longo que o que definiu o nível (seção 3.5).
 
 ## 11. Referências
 
@@ -1494,7 +1538,7 @@ os commits fixados nas configurações do repositório.
 | `Qwen/Qwen3-1.7B` | `70d244cc86ccca08cf5af4e1e306ecf908b1ad5e` | idem |
 | `ibm-granite/granite-guardian-3.2-3b-a800m` | `3de033d89b499a18d9a573b5192bf3b967ef48c5` | Padhi, I. et al. 2024. Granite Guardian. arXiv:2412.07724 (Apache-2.0) |
 | TypeSafe Jev `jev-1.13.0` | n/a | só documentação web proprietária (docs.typesafe.ai/models); artigo: a confirmar (nenhum encontrado) |
-| Lynx, TRUE, LettuceDetect, Bespoke-MiniCheck-7B | n/a | citados em `docs/methodology/confidence.md`; referências a confirmar |
+| Lynx, TRUE, LettuceDetect, Bespoke-MiniCheck-7B | n/a | citados em [`methodology/confidence.md`](methodology/confidence.md); referências a confirmar |
 
 ### 11.4 Arquiteturas de base e bibliotecas
 
@@ -1522,7 +1566,7 @@ os commits fixados nas configurações do repositório.
   original).
 - Pedregosa, F. et al. 2011. Scikit-learn: Machine Learning in Python. JMLR 12(85):2825-2830.
 - Sanchez, G. et al. 2023. Stay on topic with Classifier-Free Guidance. arXiv:2306.17806 (citado em
-  `docs/methodology/actor_simulation.md`; a confirmar).
+  [`methodology/actor_simulation.md`](methodology/actor_simulation.md); a confirmar).
 
 ### 11.5 Métodos e conjuntos de dados de NLI
 
@@ -1580,12 +1624,12 @@ documento, ou divergência explicada.
 | Validação humana intermediária, `semantic_match_high` | `artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` e `udv_v2_precision_interim_20260928T173107Z.json`: leituras de planilhas incompletas (64 e 65 de 127 linhas; 31 e 32 julgadas no estrato; um rótulo inválido no primeiro) | `artifacts/udv/udv_v2_precision_final.json`: 65 de 65 julgadas, 0 inválidos | vale o relatório final (seção 7.2); os intermediários ficam versionados como histórico, e `udv_v2_downstream_report.json` ainda cita o segundo em `human_precision_interim` |
 | Kappa do "melhor juiz" na validação | `docs/pipeline.md`: 0.69 | `nli_verifier_v2/evaluation_report.json`: `prompt_2_deepseek-chat` 0.7114 | os dois são verdadeiros: 0.6909 é o juiz de referência escolhido no treino (`prompt_1_gpt-4o-mini-2024-07-18`), 0.7114 é o máximo visto na validação; `docs/pipeline.md` agora diz isso |
 | Registros alterados de `udv_v1` para `udv_v2` | `udv_v2_analysis.json`: 1969 | `udv_v2_verify.json`, `baseline_diff.evidence_changed`: 1970 | explicado: `diff.evidence_changed` (1969) compara texto, `start_char`, `end_char` e `speaker_turn`; `diff.records_changed_any` (1970) soma `udv-6-0-6`, que só mudou de nível (cosseno 0.4838, entre os cortes 0.45 e 0.50); `baseline_diff.evidence_changed` (1970) compara o objeto `evidence` inteiro e soma `udv-117-0-0`, mesma sentença e mesmos offsets com cosseno diferente em 1.2e-7 (0.69387329 contra 0.69387317). As 1969 com evidência diferente estão nas três contagens |
-| Nome da sigla UDV | `docs/pipeline.md`: "unidades documentais verificáveis" | `docs/methodology/udv.md` e `README.md`: "Unidade Deliberativa Verificável" | corrigido em `docs/pipeline.md` |
+| Nome da sigla UDV | `docs/pipeline.md`: "unidades documentais verificáveis" | [`methodology/udv.md`](methodology/udv.md) e `README.md`: "Unidade Deliberativa Verificável" | corrigido em `docs/pipeline.md` |
 | Versões de biblioteca | `configs/nli_verifier.toml` e relatórios de recuperação: torch 2.13.0, sentence-transformers 5.6.1 | `udv_v2_coverage.json`: torch 2.14.0, sentence-transformers 6.1.0 | as duas; `udv_v2` é construída pela CLI de `../bookworm/`, que tem ambiente próprio |
-| Medianas do top-1 na regra degenerada | `docs/methodology/udv.md`: "medianas 0,655 e 0,578" (errados e corretos) | `threshold_v1.json`: medianas 0.6472 e 0.5543; 0.655 e 0.5776 são as médias | corrigido em `docs/methodology/udv.md` |
-| Afirmações antigas de `docs/methodology/udv.md` | resumo de recuperação cobre só rodadas lexicais; nenhuma linha julgada na amostra | `retrieval_v1_report.json` com todos os densos; planilha já com linhas julgadas | corrigido: `docs/methodology/udv.md` descreve só o registro e as regras de `udv_v1` e aponta para este relatório nos experimentos e na validação |
-| "Nenhum avaliador da literatura supera o primário" | `docs/pipeline.md` e a seção "Resposta" de `docs/methodology/confidence.md` | `docs/methodology/confidence.md`, E-A: comparação direta não declarada; só estimativa pontual | corrigido nos dois documentos: a ordem é estimativa pontual sem teste |
-| Contagem de falantes recorrentes | `docs/methodology/hearing_actors.md`: 282 falantes em 2 ou mais audiências (antes das fusões, 1901 falantes) | `actors.md`: 301 atores em 2 ou mais audiências (depois das fusões e regras de descarte) | as duas, em etapas diferentes |
+| Medianas do top-1 na regra degenerada | [`methodology/udv.md`](methodology/udv.md): "medianas 0,655 e 0,578" (errados e corretos) | `threshold_v1.json`: medianas 0.6472 e 0.5543; 0.655 e 0.5776 são as médias | corrigido em [`methodology/udv.md`](methodology/udv.md) |
+| Afirmações antigas de [`methodology/udv.md`](methodology/udv.md) | resumo de recuperação cobre só rodadas lexicais; nenhuma linha julgada na amostra | `retrieval_v1_report.json` com todos os densos; planilha já com linhas julgadas | corrigido: [`methodology/udv.md`](methodology/udv.md) descreve só o registro e as regras de `udv_v1` e aponta para este relatório nos experimentos e na validação |
+| "Nenhum avaliador da literatura supera o primário" | `docs/pipeline.md` e a seção "Resposta" de [`methodology/confidence.md`](methodology/confidence.md) | [`methodology/confidence.md`](methodology/confidence.md), E-A: comparação direta não declarada; só estimativa pontual | corrigido nos dois documentos: a ordem é estimativa pontual sem teste |
+| Contagem de falantes recorrentes | [`methodology/hearing_actors.md`](methodology/hearing_actors.md): 282 falantes em 2 ou mais audiências (antes das fusões, 1901 falantes) | `actors.md`: 301 atores em 2 ou mais audiências (depois das fusões e regras de descarte) | as duas, em etapas diferentes |
 | Versão do pacote Laya | `retrieval_v2_report.json`: 0.3.11 instalada | PyPI atual: 0.3.21 | 0.3.11 é a usada nos resultados e a fixada em `pyproject.toml` |
 | Perfis e simulação | versão anterior deste relatório: sem rodada versionada | `artifacts/mlx_runs/qwen38_27b/` | corrigido na seção 6.3; a rodada entrou com a união dos ramos |
 | `evidence_score_check` de `udv_v2` | versão anterior de `udv_v2_verifier_report.json`: 27 de 1828 dentro de 1e-4, diferença máxima 0.2375 | versão atual: 1771 de 1771 com diferença 0.0 e 57 com texto codificado diferente, máximo 0.0902 | corrigido: a checagem comparava o máximo por sentença com o cosseno da janela; agora compara o cosseno da janela (seção 3.5) |
@@ -1597,11 +1641,11 @@ documento, ou divergência explicada.
 |---|---|---|
 | Jev (`jev_en`, `jev_pt`) no E3 v2 | declarado, nunca rodou (`scorers_missing`) | `configs/nli_verifier.toml` |
 | e3x_v1 na validação | selecionado, nunca confirmado | `e3x_v1/selection.json` |
-| juízes LLM, Granite Guardian, Lynx, TRUE, SummaC, MiniCheck-RoBERTa, LettuceDetect | não rodados, com motivo | `docs/methodology/confidence.md` |
+| juízes LLM, Granite Guardian, Lynx, TRUE, SummaC, MiniCheck-RoBERTa, LettuceDetect | não rodados, com motivo | [`methodology/confidence.md`](methodology/confidence.md) |
 | revisão das planilhas do E6 | sem julgamento | `fuzzy_v1_quotes_review.jsonl`, `fuzzy_v1_names_review.jsonl` |
 | checagem manual de tradução | não preenchida | `artifacts/validation/translation_spot_check_v2/` |
-| reanotação de 20 linhas e campo `existe_trecho_melhor` da validação humana | não feitos; as 127 linhas e as 26 suplementares estão julgadas | `docs/validation/annotation_guide.md` |
-| simulação de atores com o modelo sobre `udv_v2` | comando pronto, rodada não feita | `artifacts/udv/udv_v2_downstream_report.json` (`not_run`), `docs/methodology/mlx_backend.md` |
+| reanotação de 20 linhas e campo `existe_trecho_melhor` da validação humana | não feitos; as 127 linhas e as 26 suplementares estão julgadas | [`validation/annotation_guide.md`](validation/annotation_guide.md) |
+| simulação de atores com o modelo sobre `udv_v2` | comando pronto, rodada não feita | `artifacts/udv/udv_v2_downstream_report.json` (`not_run`), [`methodology/mlx_backend.md`](methodology/mlx_backend.md) |
 | revisão manual dos pares da conferência de perfis | amostra declarada (`review.sizes`), planilha não gerada | `artifacts/profile_validation/profile_validation_udv_v2_report.json` |
-| auditoria editorial (índice de desvio editorial) e espaço latente multifacetado | descritos no documento de visão; sem artefato de resultado | `docs/vision.md` |
+| auditoria editorial (índice de desvio editorial) e espaço latente multifacetado | descritos no documento de visão; sem artefato de resultado | [`vision.md`](vision.md) |
 | teste do benchmark de recuperação e do E5 | não lido por desenho | `retrieval_v1_report.json`, `confidence_v1_report.json` (`final_test` falso) |
