@@ -1,0 +1,776 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Noticia+Text:wght@400;700&family=Red+Hat+Mono:wght@400;500;700&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Special+Elite&display=swap">
+<style>
+.mk-h {
+  color-scheme: light;
+  --f-ui: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-news: "Noticia Text", Georgia, "Times New Roman", serif;
+  --f-hand: "Kalam", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --f-mono: "Red Hat Mono", ui-monospace, Menlo, Consolas, monospace;
+  --f-stamp: "Special Elite", "Courier New", Courier, monospace;
+  --wood: #3B2819;
+  --cork: #B5875B;
+  --kraft: #C9A26E;
+  --kraft-lt: #E4CFA8;
+  --kraft-ink: #2A1B0E;
+  --kraft-mute: #5B4127;
+  --card: #FBFBF8;
+  --card-rule: #C9D8EC;
+  --card-top: #D9918B;
+  --pen: #1E2B4A;
+  --paper: #F7F6F1;
+  --paper-ink: #1C1C1A;
+  --paper-mute: #5A5751;
+  --paper-rule: #E6E3DA;
+  --paper-margin: #E7B1AD;
+  --carbon: #E9ECF4;
+  --carbon-ink: #26325A;
+  --red: #B3202A;
+  --red-dk: #7A131A;
+  --hl: #FFE94D;
+  --ink-q: #1C6A45;
+  --ink-h: #1F4A92;
+  --ink-w: #9A5A0E;
+  --ink-u: #454545;
+  --ink-v: #5B2E7A;
+  --on-wood: #F1E4CC;
+  --on-wood-2: #D8C6A6;
+  --sh: 0 1px 1px rgba(30, 15, 5, 0.28), 0 10px 16px -8px rgba(30, 15, 5, 0.55);
+  --sh-lift: 0 2px 3px rgba(30, 15, 5, 0.22), 0 30px 34px -12px rgba(30, 15, 5, 0.62);
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  container-type: inline-size;
+  padding: 12px 16px 34px;
+  color: var(--on-wood);
+  background-color: var(--wood);
+  background-image:
+    repeating-linear-gradient(178.6deg, rgba(0, 0, 0, 0.09) 0 2px, transparent 2px 13px),
+    repeating-linear-gradient(181.2deg, rgba(255, 228, 188, 0.035) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, #45301F, #36241A);
+  font-family: var(--f-ui);
+  -webkit-font-smoothing: antialiased;
+}
+.mk-h[hidden], .mk-h [hidden] { display: none !important; }
+.mk-h *, .mk-h *::before, .mk-h *::after { box-sizing: border-box; }
+.mk-h .mk-h-in { max-width: 1480px; margin: 0 auto; }
+.mk-h .mk-h-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mk-h button { font-family: inherit; }
+.mk-h :focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+
+.mk-h .mk-h-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 28px; margin: 0 0 12px; }
+.mk-h .mk-h-title { margin: 0; font: 800 clamp(24px, 2.6cqi, 32px)/1.04 var(--f-ui); letter-spacing: -0.015em; }
+.mk-h .mk-h-lede { margin: 4px 0 0; max-width: 72ch; font: 400 clamp(14.5px, 1.35cqi, 17px)/1.38 var(--f-ui); text-wrap: pretty; }
+.mk-h .mk-h-hed { margin: 0; max-width: 60ch; font: 700 15px/1.3 var(--f-news); color: var(--on-wood-2); }
+.mk-h .mk-h-hed small { display: block; font: 700 12px/1.3 var(--f-ui); letter-spacing: 0.07em; text-transform: uppercase; }
+
+.mk-h .mk-h-claims { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; padding: 0; list-style: none; }
+.mk-h .mk-h-chip { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 12px 6px 6px; border: 0; border-radius: 4px; cursor: pointer; text-align: left; color: var(--pen); background: var(--card); box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35); font: 600 14px/1.15 var(--f-ui); touch-action: manipulation; }
+.mk-h .mk-h-chip b { display: inline-grid; place-items: center; min-width: 28px; height: 28px; border-radius: 50%; background: var(--pen); color: #F6F3EC; font: 800 13px/1 var(--f-ui); }
+.mk-h .mk-h-chip i { font-style: normal; font: 400 12px/1 var(--f-stamp); text-transform: uppercase; color: var(--paper-mute); }
+.mk-h .mk-h-chip[aria-pressed="true"] { background: var(--hl); box-shadow: 0 0 0 2px var(--kraft-ink), 0 3px 0 rgba(0, 0, 0, 0.35); }
+.mk-h .mk-h-chip[aria-pressed="true"] b { background: var(--red); }
+.mk-h .mk-h-chip.is-done::after { content: ""; position: absolute; right: -4px; top: -4px; width: 12px; height: 12px; border-radius: 50%; background: var(--ink-v); box-shadow: 0 0 0 2px var(--card); }
+
+.mk-h .mk-h-note { position: relative; max-width: 96ch; margin: 0 0 12px; padding: 8px 12px 9px 36px; border-radius: 3px; color: var(--kraft-ink); background: var(--kraft-lt); font: 500 14px/1.38 var(--f-ui); box-shadow: 0 1px 1px rgba(30, 15, 5, 0.3), 0 10px 16px -8px rgba(0, 0, 0, 0.6); }
+.mk-h .mk-h-note::before { content: ""; position: absolute; left: 11px; top: 10px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F79A8E 0 2px, #D3342F 3.5px, #8A191B 8px); box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.38); }
+
+.mk-h .mk-h-board {
+  position: relative; padding: 26px 22px 30px; border: 14px solid; border-color: #6E4D31 #5A3D25 #4A311D #5A3D25; border-radius: 8px;
+  background-color: var(--cork);
+  background-image:
+    radial-gradient(circle at 30% 40%, rgba(105, 66, 34, 0.55) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 70% 70%, rgba(234, 198, 150, 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 50% 20%, rgba(80, 48, 22, 0.38) 0 1.5px, transparent 2.3px),
+    radial-gradient(ellipse at 50% 40%, rgba(255, 232, 196, 0.18), transparent 70%);
+  background-size: 7px 6px, 9px 11px, 13px 17px, 100% 100%;
+  box-shadow: inset 0 0 0 1px rgba(40, 20, 5, 0.35), inset 0 14px 30px rgba(40, 20, 5, 0.32), 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+  color: var(--paper-ink);
+}
+.mk-h .mk-h-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1.1fr); gap: 34px 46px; align-items: start; }
+.mk-h .mk-h-col { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+.mk-h .mk-h-wide { grid-column: 1 / -1; }
+.mk-h .mk-h-sv { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+.mk-h .mk-h-sv path { fill: none; stroke-linecap: round; }
+.mk-h .mk-h-sv .sh { stroke: rgba(35, 15, 5, 0.34); stroke-width: 3.2px; transform: translate(1.5px, 3.5px); }
+.mk-h .mk-h-sv .ln { stroke-width: 2.6px; }
+.mk-h .mk-h-sv [data-k="n"] .ln { stroke: #F4ECDA; stroke-width: 2px; }
+.mk-h .mk-h-sv [data-k="q"] .ln { stroke: var(--ink-q); stroke-width: 5px; }
+.mk-h .mk-h-sv [data-k="h"] .ln { stroke: var(--ink-h); stroke-width: 3px; }
+.mk-h .mk-h-sv [data-k="w"] .ln { stroke: var(--ink-w); stroke-dasharray: 7 6; }
+.mk-h .mk-h-sv [data-k="v"] .ln { stroke: var(--ink-v); stroke-width: 2.4px; stroke-dasharray: 12 4 2.5 4; }
+.mk-h .mk-h-sv [data-k="c"] .ln { stroke: #2E241B; stroke-width: 1.4px; stroke-dasharray: 2 5; }
+.mk-h .mk-h-sv circle { fill: #2E241B; stroke: rgba(255, 240, 220, 0.5); stroke-width: 0.8px; }
+
+.mk-h .mk-h-o { position: relative; box-shadow: var(--sh); }
+.mk-h .mk-h-pin { position: absolute; top: -9px; left: 50%; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; z-index: 3; background: radial-gradient(circle at 35% 30%, #F79A8E 0 2px, #D3342F 3.5px, #8A191B 10px); box-shadow: 2px 4px 3px rgba(0, 0, 0, 0.38); }
+.mk-h .mk-h-pin.is-brass { width: 14px; height: 14px; margin-left: -7px; top: -6px; background: radial-gradient(circle at 35% 30%, #F3E3B0 0 1.5px, #B98F3C 2.5px, #6E5014 7px); }
+.mk-h .mk-h-k { margin: 0 0 6px; font: 700 12px/1.25 var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--paper-mute); }
+.mk-h .mk-h-sm { margin: 6px 0 0; font: 500 13px/1.4 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-sm b { color: var(--paper-ink); }
+
+.mk-h .mk-h-card { padding: 14px 16px 14px; color: var(--pen); background-color: var(--card); transform: rotate(-0.6deg);
+  background-image: linear-gradient(to bottom, transparent 34px, var(--card-top) 34px, var(--card-top) 35.5px, transparent 35.5px), repeating-linear-gradient(to bottom, transparent 0 19px, var(--card-rule) 19px 20px);
+  background-position: 0 0, 0 36px; background-repeat: no-repeat, repeat; }
+.mk-h .mk-h-card-k { margin: 0 0 9px; font: 700 12px/1.15 var(--f-ui); letter-spacing: 0.035em; text-transform: uppercase; color: #5E626D; }
+.mk-h .mk-h-card-who { margin: 0; font: 700 19px/1.15 var(--f-hand); }
+.mk-h .mk-h-card-role { margin: 0 0 4px; font: 400 14px/1.25 var(--f-hand); color: #4B5570; }
+.mk-h .mk-h-card-prop { margin: 4px 0 0; font: 400 17px/1.3 var(--f-hand); text-wrap: pretty; }
+
+.mk-h .mk-h-quote { padding: 12px 16px 14px; background: #FFFDF2; transform: rotate(0.5deg); }
+.mk-h .mk-h-qt { margin: 0; font: 400 15px/1.5 var(--f-news); }
+.mk-h .mk-h-qt .is-pre { background: rgba(28, 106, 69, 0.18); box-shadow: inset 0 -2px 0 var(--ink-q); }
+.mk-h .mk-h-qt .is-also { text-decoration: underline dotted 2px var(--ink-h); text-underline-offset: 4px; }
+.mk-h .mk-h-qt .is-rest { color: #6C675E; }
+.mk-h .mk-h-qkey { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 8px 0 0; padding: 0; list-style: none; font: 500 12.5px/1.3 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-qkey span { display: inline-block; width: 22px; height: 10px; margin-right: 5px; vertical-align: middle; }
+.mk-h .mk-h-qkey .k1 { background: rgba(28, 106, 69, 0.18); box-shadow: inset 0 -2px 0 var(--ink-q); }
+.mk-h .mk-h-qkey .k2 { border-bottom: 2px dotted var(--ink-h); height: 8px; }
+
+.mk-h .mk-h-env { padding: 16px 16px 14px; color: var(--kraft-ink); background-color: var(--kraft); border-radius: 3px; transform: rotate(-0.4deg);
+  background-image: linear-gradient(155deg, transparent 49.6%, rgba(90, 60, 25, 0.28) 50%, transparent 50.6%), linear-gradient(25deg, transparent 49.6%, rgba(90, 60, 25, 0.28) 50%, transparent 50.6%), repeating-linear-gradient(97deg, rgba(90, 60, 25, 0.07) 0 1px, transparent 1px 7px);
+  background-size: 100% 70px, 100% 70px, auto; background-repeat: no-repeat, no-repeat, repeat; }
+.mk-h .mk-h-env-h { margin: 0 0 4px; font: 800 18px/1.15 var(--f-ui); }
+.mk-h .mk-h-env-t { margin: 0 0 10px; font: 500 14px/1.38 var(--f-ui); }
+.mk-h .mk-h-votes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.mk-h .mk-h-vote { min-height: 46px; padding: 4px 6px; border: 2px solid var(--kraft-ink); border-radius: 5px; background: #F6EBD3; color: var(--kraft-ink); cursor: pointer; font: 400 15px/1.05 var(--f-stamp); text-transform: uppercase; touch-action: manipulation; }
+.mk-h .mk-h-vote:hover { background: #FFF6E3; }
+.mk-h .mk-h-vote[aria-pressed="true"] { background: var(--ink-v); border-color: var(--ink-v); color: #FFFFFF; }
+.mk-h .mk-h-vote:focus-visible, .mk-h .mk-h-link:focus-visible { outline-color: var(--kraft-ink); }
+.mk-h .mk-h-link { display: inline-block; margin: 10px 0 0; padding: 6px 0; border: 0; background: none; color: var(--kraft-ink); font: 700 14px/1.2 var(--f-ui); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.mk-h .mk-h-cmp { width: 100%; margin: 10px 0 0; border-collapse: collapse; font: 500 13.5px/1.3 var(--f-ui); }
+.mk-h .mk-h-cmp th { width: 42%; padding: 5px 8px 5px 0; text-align: left; font-weight: 700; vertical-align: top; }
+.mk-h .mk-h-cmp td { padding: 5px 0; vertical-align: top; }
+.mk-h .mk-h-cmp tr + tr { border-top: 1px dashed rgba(42, 27, 14, 0.35); }
+.mk-h .mk-h-tally { margin: 10px 0 0; font: 600 13px/1.35 var(--f-ui); color: var(--kraft-mute); }
+
+.mk-h .mk-h-slip { padding: 12px 20px 12px; background: #FFFFFF;
+  clip-path: polygon(0 0, 3% 3%, 0 7%, 2.5% 12%, 0 18%, 3% 25%, 0 32%, 2.5% 40%, 0 48%, 3% 56%, 0 64%, 2.5% 72%, 0 80%, 3% 88%, 0 95%, 2% 100%, 100% 100%, 97% 95%, 100% 88%, 97.5% 80%, 100% 72%, 97% 64%, 100% 56%, 97.5% 48%, 100% 40%, 97% 32%, 100% 25%, 97.5% 18%, 100% 12%, 97% 6%, 100% 2%, 98% 0); }
+.mk-h .mk-h-slip-wrap { filter: drop-shadow(0 8px 8px rgba(30, 15, 5, 0.45)); box-shadow: none; }
+.mk-h .mk-h-slip-h { display: flex; justify-content: space-between; gap: 8px; margin: 0 0 8px; font: 700 12px/1.25 var(--f-ui); letter-spacing: 0.05em; text-transform: uppercase; color: var(--paper-mute); }
+.mk-h .mk-h-ctx { margin: 0; font: 400 13.5px/1.55 var(--f-mono); color: #77736A; }
+.mk-h .mk-h-ctx + .mk-h-ctx { margin-top: 4px; }
+.mk-h .mk-h-ev-t { margin: 6px 0; font: 500 15px/1.55 var(--f-mono); color: var(--paper-ink); }
+.mk-h .mk-h-ev-t mark { color: inherit; background: var(--hl); -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 1px 2px; }
+.mk-h .mk-h-ev-t.is-swap mark { background: #D6E4FA; }
+.mk-h .mk-h-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; }
+.mk-h .mk-h-btn { min-height: 40px; padding: 0 12px; border: 2px solid var(--paper-ink); border-radius: 5px; background: #FFFFFF; color: var(--paper-ink); font: 700 14px/1 var(--f-ui); cursor: pointer; touch-action: manipulation; }
+.mk-h .mk-h-btn:hover { background: var(--hl); }
+.mk-h .mk-h-btn:focus-visible { outline-color: var(--paper-ink); }
+.mk-h .mk-h-btn[disabled] { opacity: 0.4; cursor: default; background: #FFFFFF; }
+.mk-h .mk-h-btn.is-go { border-color: var(--red); background: var(--red); color: #FFF4EC; }
+.mk-h .mk-h-swapnote { margin: 8px 0 0; padding: 7px 10px; background: #EAF0FA; border-left: 4px solid var(--ink-h); font: 600 13px/1.35 var(--f-ui); color: var(--pen); }
+
+.mk-h .mk-h-carbon { padding: 12px 16px 13px; color: var(--carbon-ink); background-color: var(--carbon); transform: rotate(0.4deg);
+  background-image: radial-gradient(rgba(38, 50, 90, 0.07) 1px, transparent 1.3px); background-size: 3px 3px; }
+.mk-h .mk-h-carbon p.t { margin: 0 0 8px; font: 400 14px/1.5 var(--f-mono); }
+.mk-h .mk-h-carbon p.t b { display: block; font: 700 11.5px/1.3 var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; color: #4D5780; }
+.mk-h .mk-h-carbon .mk-h-k { color: #4D5780; }
+.mk-h .mk-h-carbon .mk-h-sm { color: #4D5780; }
+
+.mk-h .mk-h-voice { padding: 12px 14px 12px 26px; background-color: var(--paper);
+  background-image: linear-gradient(to right, transparent 14px, var(--paper-margin) 14px, var(--paper-margin) 15px, transparent 15px); }
+.mk-h .mk-h-turns { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.mk-h .mk-h-turn { border-bottom: 1px solid var(--paper-rule); }
+.mk-h .mk-h-turn > button { display: flex; width: 100%; gap: 10px; align-items: baseline; min-height: 40px; padding: 6px 0; border: 0; background: none; text-align: left; cursor: pointer; color: var(--paper-ink); }
+.mk-h .mk-h-turn > button:focus-visible { outline-color: var(--paper-ink); }
+.mk-h .mk-h-turn b { flex: none; min-width: 64px; font: 800 13px/1.2 var(--f-ui); }
+.mk-h .mk-h-turn span { flex: 1 1 auto; min-width: 0; font: 400 13px/1.35 var(--f-mono); color: var(--paper-mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mk-h .mk-h-turn em { flex: none; font: 600 12px/1.2 var(--f-ui); font-style: normal; color: var(--paper-mute); }
+.mk-h .mk-h-turn.is-ev > button b { color: var(--red); }
+.mk-h .mk-h-turn-body { margin: 0 0 8px; max-height: 280px; overflow: auto; padding: 6px 8px; background: #FFFFFF; font: 400 13.5px/1.55 var(--f-mono); overscroll-behavior: contain; }
+.mk-h .mk-h-turn-body mark { background: var(--hl); color: inherit; }
+.mk-h .mk-h-turn-body mark.is-cand { background: #D6E4FA; }
+
+.mk-h .mk-h-stamps { padding: 14px 16px 14px; background: var(--paper); }
+.mk-h .mk-h-judge { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 14px; align-items: end; }
+.mk-h .mk-h-judge + .mk-h-judge { margin-top: 14px; padding-top: 12px; border-top: 1px dashed #CFC9BC; }
+.mk-h .mk-h-judge-h { grid-column: 1 / -1; margin: 0; font: 800 14.5px/1.2 var(--f-ui); }
+.mk-h .mk-h-judge-h small { display: block; margin-top: 2px; font: 500 12.5px/1.3 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-rul { min-width: 0; }
+.mk-h .mk-h-rul-bar { position: relative; height: 14px; background-color: #E2C98E; background-image: repeating-linear-gradient(90deg, rgba(70, 45, 15, 0.8) 0 1px, transparent 1px 10%); background-size: 100% 45%; background-repeat: no-repeat; border-right: 1px solid rgba(70, 45, 15, 0.8); border-radius: 1px; }
+.mk-h .mk-h-rul-zone { position: absolute; top: 0; bottom: 0; right: 0; background: repeating-linear-gradient(45deg, rgba(31, 74, 146, 0.3) 0 3px, transparent 3px 6px); }
+.mk-h .mk-h-rul[data-k="v"] .mk-h-rul-zone { background: repeating-linear-gradient(45deg, rgba(91, 46, 122, 0.3) 0 3px, transparent 3px 6px); }
+.mk-h .mk-h-rul-cut { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--paper-ink); }
+.mk-h .mk-h-rul-mk { position: absolute; top: -10px; width: 0; height: 0; margin-left: -6px; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 10px solid var(--red); }
+.mk-h .mk-h-rul-mk.is-alt { border-top-color: #7B776E; }
+.mk-h .mk-h-rul-ax { position: relative; height: 15px; margin-top: 2px; font: 600 12px/15px var(--f-mono); color: var(--paper-mute); }
+.mk-h .mk-h-rul-ax span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+.mk-h .mk-h-rul-ax span:first-child { transform: none; }
+.mk-h .mk-h-rul-ax span:last-child { transform: translateX(-100%); }
+.mk-h .mk-h-rul-l { margin: 3px 0 0; font: 600 12.5px/1.3 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-ink {
+  max-width: 190px; border: 2.5px solid currentColor; border-radius: 3px; padding: 5px 8px 6px;
+  font: 400 13px/1.08 var(--f-stamp); text-transform: uppercase; text-align: center; transform: rotate(-5deg); mix-blend-mode: multiply; background: rgba(251, 251, 248, 0.4);
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='70'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 2.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='70'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 2.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.mk-h .mk-h-ink small { display: block; margin-top: 3px; font-size: 12px; letter-spacing: 0.03em; }
+.mk-h .mk-h-ink[data-t="q"] { color: var(--ink-q); border-style: double; border-width: 5px; }
+.mk-h .mk-h-ink[data-t="h"] { color: var(--ink-h); }
+.mk-h .mk-h-ink[data-t="w"] { color: var(--ink-w); border-style: dashed; }
+.mk-h .mk-h-ink[data-t="u"], .mk-h .mk-h-ink[data-t="n"] { color: var(--ink-u); border-style: dotted; border-width: 3px; }
+.mk-h .mk-h-ink[data-t="v"] { color: var(--ink-v); transform: rotate(4deg); }
+.mk-h .mk-h-ink[data-t="v0"] { color: var(--ink-v); border-style: dashed; transform: rotate(4deg); }
+.mk-h .mk-h-ink[data-t="x"] { color: #7B776E; border-style: dotted; transform: rotate(2deg); }
+.mk-h .mk-h-verdict { margin: 12px 0 0; padding: 8px 10px; background: #FFF6C4; font: 600 13.5px/1.4 var(--f-ui); color: var(--paper-ink); }
+
+.mk-h .mk-h-seal { position: relative; }
+.mk-h .mk-h-seal.is-sealed > .mk-h-seal-body { filter: blur(7px) grayscale(0.4); user-select: none; pointer-events: none; }
+.mk-h .mk-h-seal-cover { position: absolute; inset: 0; z-index: 4; display: none; place-items: center; padding: 16px; background: rgba(201, 162, 110, 0.72); }
+.mk-h .mk-h-seal.is-sealed .mk-h-seal-cover { display: grid; }
+.mk-h .mk-h-seal-cover p { margin: 0; max-width: 26ch; padding: 10px 12px; text-align: center; color: var(--kraft-ink); background: var(--kraft-lt); font: 700 14.5px/1.35 var(--f-ui); box-shadow: var(--sh); transform: rotate(-2deg); }
+.mk-h .mk-h-seal-cover p::before { content: ""; display: block; width: 34px; height: 34px; margin: -26px auto 6px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #D55A60 0 3px, #A3222B 8px, #6B0F15 17px); box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4); }
+
+.mk-h .mk-h-qs { padding: 14px 14px 12px; background: var(--paper); background-image: repeating-linear-gradient(to bottom, transparent 0 25px, var(--paper-rule) 25px 26px); }
+.mk-h .mk-h-qs-h { margin: 0 0 2px; font: 800 16px/1.2 var(--f-ui); }
+.mk-h .mk-h-qs-key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 4px 0 8px; padding: 0; list-style: none; font: 600 12.5px/1.3 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-qs-key i { display: inline-block; width: 16px; height: 9px; margin-right: 5px; vertical-align: middle; border-radius: 1px; }
+.mk-h .mk-h-qs-key .pt, .mk-h .mk-h-q .pt { background: var(--ink-v); }
+.mk-h .mk-h-qs-key .en, .mk-h .mk-h-q .en { background: #9C84B0; }
+.mk-h .mk-h-ql { margin: 0; padding: 0; list-style: none; }
+.mk-h .mk-h-q { padding: 7px 0 7px; border-bottom: 1px solid var(--paper-rule); }
+.mk-h .mk-h-q-t { display: flex; gap: 8px; margin: 0 0 4px; font: 600 13.5px/1.28 var(--f-ui); }
+.mk-h .mk-h-q-t b { flex: none; min-width: 24px; font: 800 12px/1.5 var(--f-mono); color: var(--paper-mute); }
+.mk-h .mk-h-q.is-off .mk-h-q-t { color: var(--paper-mute); }
+.mk-h .mk-h-bars { display: grid; grid-template-columns: 26px minmax(0, 1fr) 42px minmax(0, 108px); gap: 3px 6px; align-items: center; padding-left: 32px; font: 600 12px/1.2 var(--f-ui); }
+.mk-h .mk-h-bars > span:nth-child(4n + 1) { color: var(--paper-mute); font: 700 11.5px/1 var(--f-mono); }
+.mk-h .mk-h-bar { position: relative; height: 10px; background: #E7E3D8; border-radius: 1px; overflow: hidden; }
+.mk-h .mk-h-bar i { position: absolute; left: 0; top: 0; bottom: 0; }
+.mk-h .mk-h-bars .v { font: 700 12px/1 var(--f-mono); text-align: right; }
+.mk-h .mk-h-bars .c { color: var(--paper-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk-h .mk-h-flag { display: inline-block; margin: 5px 0 0 32px; padding: 2px 7px; border: 1.5px solid var(--red); border-radius: 3px; background: #FFF1EE; color: var(--red-dk); font: 700 12px/1.25 var(--f-ui); }
+.mk-h .mk-h-q-x { margin: 3px 0 0 32px; font: 500 12px/1.3 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-qs-f { margin: 8px 0 0; font: 500 12.5px/1.4 var(--f-ui); color: var(--paper-mute); }
+
+.mk-h .mk-h-more { padding: 14px 16px; color: var(--kraft-ink); background: repeating-linear-gradient(-45deg, #E4CFA8 0 10px, #DCC59C 10px 20px); border: 2px dashed rgba(42, 27, 14, 0.45); border-radius: 3px; box-shadow: none; }
+.mk-h .mk-h-more h3 { margin: 0 0 4px; font: 800 15px/1.2 var(--f-ui); }
+.mk-h .mk-h-more p { margin: 0; font: 500 13.5px/1.4 var(--f-ui); }
+
+.mk-h .mk-h-cands { padding: 16px 18px 14px; background: var(--paper); background-image: repeating-linear-gradient(to bottom, transparent 0 25px, var(--paper-rule) 25px 26px); }
+.mk-h .mk-h-cands-h { margin: 0 0 2px; font: 800 16px/1.2 var(--f-ui); }
+.mk-h .mk-h-cl { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.mk-h .mk-h-c { display: grid; grid-template-columns: 38px minmax(0, 1fr) 150px auto; gap: 10px; align-items: center; min-height: 44px; padding: 5px 8px 5px 0; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22); }
+.mk-h .mk-h-c > b { align-self: stretch; display: grid; place-items: center; background: #E7E3D8; font: 700 13px/1 var(--f-mono); }
+.mk-h .mk-h-c.is-cur { box-shadow: 0 0 0 2px var(--red), 0 3px 6px rgba(0, 0, 0, 0.25); }
+.mk-h .mk-h-c.is-cur > b { background: var(--red); color: #FFFFFF; }
+.mk-h .mk-h-c.is-orig > b { box-shadow: inset 0 -4px 0 var(--hl); }
+.mk-h .mk-h-c-t { min-width: 0; font: 400 13px/1.35 var(--f-mono); }
+.mk-h .mk-h-c-t small { display: block; font: 600 12px/1.3 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-c-s { position: relative; height: 22px; }
+.mk-h .mk-h-c-s .trk { position: absolute; left: 0; right: 44px; top: 0; bottom: 0; background: linear-gradient(#E7E3D8, #E7E3D8) no-repeat 0 6px / 100% 10px; }
+.mk-h .mk-h-c-s .bar { position: absolute; left: 0; top: 6px; height: 10px; background: var(--ink-h); border-radius: 1px; }
+.mk-h .mk-h-c-s .cut { position: absolute; top: 1px; bottom: 1px; width: 2px; margin-left: -1px; background: var(--paper-ink); }
+.mk-h .mk-h-c-s .num { position: absolute; right: 0; top: -1px; font: 700 12px/1 var(--f-mono); }
+.mk-h .mk-h-c-s.is-hidden .trk, .mk-h .mk-h-c-s.is-hidden .num { visibility: hidden; }
+.mk-h .mk-h-c-s.is-hidden::after { content: "nota lacrada"; position: absolute; left: 0; top: 4px; font: 600 12px/1 var(--f-ui); color: var(--paper-mute); }
+.mk-h .mk-h-c .mk-h-btn { min-height: 36px; font-size: 13px; }
+.mk-h .mk-h-gap { margin: 10px 0 0; font: 600 13.5px/1.4 var(--f-ui); color: var(--paper-ink); }
+
+.mk-h .mk-h-loose { padding: 14px 16px; background: #EDE6D8; }
+.mk-h .mk-h-loose ul { margin: 6px 0 0; padding: 0 0 0 18px; font: 500 13.5px/1.45 var(--f-ui); }
+
+.mk-h .mk-h-cav { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; margin: 18px 0 0; padding: 0; list-style: none; }
+.mk-h .mk-h-cav li { position: relative; padding: 12px 14px 12px 38px; color: var(--kraft-ink); background: var(--kraft-lt); border-radius: 3px; font: 500 14px/1.42 var(--f-ui); box-shadow: 0 1px 1px rgba(30, 15, 5, 0.3), 0 10px 16px -8px rgba(0, 0, 0, 0.6); }
+.mk-h .mk-h-cav li:nth-child(odd) { transform: rotate(-0.5deg); }
+.mk-h .mk-h-cav li:nth-child(even) { transform: rotate(0.4deg); }
+.mk-h .mk-h-cav li::before { content: ""; position: absolute; left: 12px; top: 13px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F79A8E 0 2px, #D3342F 3.5px, #8A191B 8px); }
+.mk-h .mk-h-cav b { display: block; margin-bottom: 2px; font-weight: 800; }
+
+@container (max-width: 1100px) {
+  .mk-h .mk-h-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  .mk-h .mk-h-col.is-c { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; }
+}
+@container (max-width: 760px) {
+  .mk-h .mk-h-board { padding: 22px 12px 22px; border-width: 10px; }
+  .mk-h .mk-h-grid { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .mk-h .mk-h-col.is-c { grid-template-columns: minmax(0, 1fr); display: flex; }
+  .mk-h .mk-h-sv { display: none; }
+  .mk-h .mk-h-c { grid-template-columns: 34px minmax(0, 1fr); padding-right: 8px; }
+  .mk-h .mk-h-c-s { grid-column: 2; }
+  .mk-h .mk-h-c .mk-h-btn { grid-column: 2; justify-self: start; margin-bottom: 4px; }
+  .mk-h .mk-h-bars { padding-left: 0; grid-template-columns: 24px minmax(0, 1fr) 40px; }
+  .mk-h .mk-h-bars .c { grid-column: 2 / -1; margin-top: -2px; }
+  .mk-h .mk-h-flag, .mk-h .mk-h-q-x { margin-left: 0; }
+  .mk-h .mk-h-judge { grid-template-columns: minmax(0, 1fr); }
+  .mk-h .mk-h-ink { justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mk-h *, .mk-h *::before, .mk-h *::after { transition: none !important; }
+}
+</style>
+
+<section class="mk-h" id="mock-h" aria-labelledby="mk-h-title">
+<div class="mk-h-in">
+  <header class="mk-h-top">
+    <div>
+      <h2 class="mk-h-title" id="mk-h-title">Pasta do caso</h2>
+      <p class="mk-h-lede">Uma afirmação por vez, com todo o material que temos sobre ela. Leia a afirmação e a frase da transcrição, dê o seu veredito e só depois abra os carimbos dos dois procedimentos.</p>
+    </div>
+    <p class="mk-h-hed" id="mk-h-hed"></p>
+  </header>
+  <ul class="mk-h-claims" id="mk-h-claims" aria-label="Afirmações da matéria"></ul>
+  <p class="mk-h-note">Nada nesta pasta foi conferido por uma pessoa. As notas vêm de modelos: servem para decidir onde ler com mais cuidado, e nenhuma delas é a chance de a afirmação estar certa.</p>
+  <div class="mk-h-board" id="mk-h-board">
+    <svg class="mk-h-sv" id="mk-h-sv" aria-hidden="true" focusable="false"></svg>
+    <div class="mk-h-grid">
+      <div class="mk-h-col is-a">
+        <article class="mk-h-o mk-h-card" id="mk-h-claim" aria-live="polite"></article>
+        <div class="mk-h-o mk-h-quote" id="mk-h-quote" hidden></div>
+        <div class="mk-h-o mk-h-env" id="mk-h-decide"></div>
+      </div>
+      <div class="mk-h-col is-b">
+        <div class="mk-h-o mk-h-slip-wrap" id="mk-h-ev"></div>
+        <div class="mk-h-o mk-h-carbon" id="mk-h-tr" hidden></div>
+        <div class="mk-h-o mk-h-voice" id="mk-h-voice" hidden></div>
+      </div>
+      <div class="mk-h-col is-c">
+        <div class="mk-h-o mk-h-stamps mk-h-seal" id="mk-h-stamps"></div>
+        <div class="mk-h-o mk-h-qs mk-h-seal" id="mk-h-qs" hidden></div>
+        <aside class="mk-h-o mk-h-more" id="mk-h-more"></aside>
+      </div>
+      <div class="mk-h-wide">
+        <div class="mk-h-o mk-h-cands" id="mk-h-cands" hidden></div>
+      </div>
+    </div>
+  </div>
+  <ul class="mk-h-cav" id="mk-h-cav" aria-label="Avisos"></ul>
+</div>
+</section>
+<script>
+(function () {
+  "use strict";
+  var root = document.getElementById("mock-h");
+  if (!root) return;
+  function q(sel) { return root.querySelector(sel); }
+  var H = window.HEARING;
+  var S = window.SIGNALS;
+  if (!H || !H.udvs || !H.turns || !S || !S.udvs) {
+    q("#mk-h-claim").textContent = "Os dados da audiência ou dos sinais não foram carregados.";
+    return;
+  }
+  var CUT = H.run && typeof H.run.threshold === "number" ? H.run.threshold : null;
+  var VCUT = S.primary.threshold;
+  var TIERS = {
+    quote_found: { k: "q", label: "Achamos o começo das aspas na fala" },
+    semantic_match_high: { k: "h", label: "Achamos um trecho parecido" },
+    semantic_match_weak: { k: "w", label: "Só achamos algo pouco parecido" },
+    no_evidence: { k: "n", label: "Não havia frase para comparar" },
+    person_not_resolved: { k: "u", label: "Não achamos a pessoa entre quem fala" }
+  };
+  var CHOICE_PT = {
+    entailment: "implica", neutral: "neutra", contradiction: "contradiz", "true": "sim", "false": "não",
+    same_position: "mesma posição", opposite_position: "posição oposta", no_position: "sem posição", unrelated: "outro assunto"
+  };
+  var LEVELS_PT = {
+    p7_coverage: ["nada", "uma pequena parte", "cerca de metade", "a maior parte", "tudo"],
+    p8_similarity: ["sem relação", "só o mesmo tema", "sentido em parte parecido", "sentido quase igual", "mesmo sentido"]
+  };
+  var PAIRS = { p2_nli_reversed: "p1_nli", p4_supports: "p3_inferable", p6_position_reversed: "p5_position" };
+  var PAIR_WHY = { p2_nli_reversed: "trocar a ordem das opções", p4_supports: "trocar a redação da pergunta", p6_position_reversed: "trocar a ordem das opções" };
+  var GAP = 0.3;
+  var VOTES = [["c", "Correta"], ["p", "Parcial"], ["i", "Incorreta"]];
+  var VOTE_PT = { c: "correta", p: "parcial", i: "incorreta" };
+
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function roundTo(x, d, how) { var f = Math.pow(10, d); return (how || Math.round)(x * f) / f; }
+  function fmt(x, cut) {
+    var d = 2, shown = roundTo(x, d);
+    if (typeof cut === "number") {
+      while (d < 4 && (x < cut) !== (shown < cut)) shown = roundTo(x, ++d);
+      if ((x < cut) !== (shown < cut)) shown = roundTo(x, d, x < cut ? Math.floor : Math.ceil);
+    }
+    return shown.toFixed(d).replace(".", ",");
+  }
+  function fmtInt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+  function fold(s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+  function words(s) { var out = [], re = /[\p{L}\p{N}]+/gu, m; while ((m = re.exec(s))) out.push({ w: fold(m[0]), s: m.index, e: m.index + m[0].length }); return out; }
+  function shorten(s, n) { if (s.length <= n) return s; var c = s.slice(0, n), sp = c.lastIndexOf(" "); return (sp > n * 0.6 ? c.slice(0, sp) : c).replace(/[\s,;:.]+$/, "") + "…"; }
+  function tno(i) { return Number(i) + 1; }
+  function plural(n, a, b) { return n === 1 ? a : b; }
+  function pct(x) { return Math.max(0, Math.min(100, x * 100)); }
+
+  var turnsByIdx = {};
+  H.turns.forEach(function (t) { turnsByIdx[t.index] = t; });
+  var peopleByName = {};
+  H.people.forEach(function (p) { peopleByName[p.name] = p; });
+  function sentenceIndex(turn, start) {
+    for (var i = 0; i < turn.sentences.length; i++) {
+      var s = turn.sentences[i];
+      if (s.start === start || (s.start <= start && s.end > start)) return i;
+    }
+    return -1;
+  }
+
+  var claims = H.udvs.map(function (u, i) { return { u: u, n: i + 1, sig: S.udvs[u.id] || { scored: false }, qd: (S.quotes || {})[u.id] || { quotes: [], prefix: null } }; });
+  var state = { cur: 0, pick: {}, vote: {}, ctx: {}, open: {} };
+
+  function evOf(c) {
+    var u = c.u, p = state.pick[u.id];
+    if (p == null || p < 0) {
+      if (!u.evidence) return null;
+      return { text: u.evidence.text, start: u.evidence.start_char, end: u.evidence.end_char, turn: u.evidence.speaker_turn, score: u.evidence.score, orig: true, cand: origCandIndex(u) };
+    }
+    var cd = u.candidates[p];
+    return { text: cd.text, start: cd.start, end: cd.end, turn: cd.turn, score: cd.score, orig: false, cand: p };
+  }
+  function origCandIndex(u) {
+    if (!u.evidence) return -1;
+    for (var i = 0; i < u.candidates.length; i++) if (u.candidates[i].text === u.evidence.text) return i;
+    return -1;
+  }
+  function origCosine(c) {
+    var u = c.u;
+    if (u.evidence && typeof u.evidence.score === "number") return u.evidence.score;
+    if (c.sig.scored && typeof c.sig.cosine_serafim === "number") return c.sig.cosine_serafim;
+    var k = origCandIndex(u);
+    return k >= 0 ? u.candidates[k].score : null;
+  }
+  function tierNow(c) {
+    var ev = evOf(c);
+    if (!ev || ev.orig) return c.u.tier;
+    return ev.score >= CUT ? "semantic_match_high" : "semantic_match_weak";
+  }
+  function revealed(c) { return !!state.vote[c.u.id] || !c.u.evidence; }
+  function judgeable(c) { return !!c.u.evidence; }
+
+  function renderHead() {
+    var d = String(H.hearing.article_date || "").split("-");
+    var date = d.length === 3 ? d[2] + "/" + d[1] + "/" + d[0] : "";
+    var title = String(H.hearing.materia || "").split(/\n+/)[0] || "";
+    q("#mk-h-hed").innerHTML = "<small>Audiência " + esc(H.hearing.id) + " · matéria de " + esc(date) + "</small>" + esc(title);
+  }
+
+  function renderChips() {
+    q("#mk-h-claims").innerHTML = claims.map(function (c, i) {
+      return '<li><button type="button" class="mk-h-chip' + (state.vote[c.u.id] ? " is-done" : "") + '" data-i="' + i + '" aria-pressed="' + (i === state.cur) + '"><b>' + c.n + "</b><span>" + esc(c.u.actor.name) + (state.vote[c.u.id] ? '<span class="mk-h-vh"> (já decidida)</span>' : "") + "</span></button></li>";
+    }).join("");
+  }
+
+  function renderClaim(c) {
+    var u = c.u;
+    q("#mk-h-claim").innerHTML = '<span class="mk-h-pin" aria-hidden="true"></span>' +
+      '<p class="mk-h-card-k">Afirmação ' + c.n + " de " + claims.length + " · a matéria atribui a</p>" +
+      '<p class="mk-h-card-who">' + esc(u.actor.name) + "</p>" +
+      (u.actor.role ? '<p class="mk-h-card-role">' + esc(u.actor.role) + "</p>" : "") +
+      '<p class="mk-h-card-prop">' + esc(u.proposition) + "</p>";
+  }
+
+  function renderQuote(c) {
+    var box = q("#mk-h-quote"), qd = c.qd, ev = evOf(c);
+    if (!qd.quotes || !qd.quotes.length) { box.hidden = true; return; }
+    box.hidden = false;
+    var evWords = {};
+    if (ev) words(ev.text).forEach(function (w) { evWords[w.w] = 1; });
+    var preWords = qd.prefix ? words(qd.prefix).length : 0;
+    var blocks = qd.quotes.map(function (quote, qi) {
+      var ws = words(quote), isHit = qd.prefix && fold(quote).indexOf(fold(qd.prefix)) === 0, out = "", last = 0;
+      ws.forEach(function (w, k) {
+        out += esc(quote.slice(last, w.s));
+        var cls = isHit && k < preWords ? "is-pre" : ev && evWords[w.w] && w.w.length > 2 ? "is-also" : "is-rest";
+        out += '<span class="' + cls + '">' + esc(quote.slice(w.s, w.e)) + "</span>";
+        last = w.e;
+      });
+      out += esc(quote.slice(last));
+      return '<p class="mk-h-qt">“' + out + "”</p>" + (qd.quotes.length > 1 ? '<p class="mk-h-sm">Trecho entre aspas ' + (qi + 1) + " de " + qd.quotes.length + " na afirmação.</p>" : "");
+    }).join("");
+    var total = qd.quotes.reduce(function (a, s) { return a + words(s).length; }, 0);
+    var msg;
+    if (qd.prefix && c.u.tier === "quote_found") {
+      msg = "O procedimento conferiu as <b>" + preWords + " primeiras palavras</b> das aspas e achou essas palavras na fala da pessoa. As outras " + (total - preWords) + " não foram conferidas. A frase da transcrição mostrada ao lado é só a frase onde esse começo aparece: se as aspas continuam em outras frases, elas ficam de fora.";
+    } else if (qd.prefix) {
+      msg = "O começo das aspas (" + preWords + " " + plural(preWords, "palavra", "palavras") + ") aparece na fala, mas é curto demais para o carimbo de aspas, que pede 6 palavras ou mais. Por isso o resultado vem da busca por semelhança.";
+    } else {
+      msg = "A afirmação tem aspas, mas o começo delas não foi achado na fala desta pessoa. O resultado vem da busca por semelhança.";
+    }
+    box.innerHTML = '<span class="mk-h-pin is-brass" aria-hidden="true"></span><p class="mk-h-k">As aspas da matéria, palavra por palavra</p>' + blocks +
+      '<ul class="mk-h-qkey"><li><span class="k1"></span>conferidas na fala</li><li><span class="k2"></span>também aparecem na frase ao lado, sem conferir a ordem</li></ul>' +
+      '<p class="mk-h-sm">' + msg + "</p>";
+  }
+
+  function renderDecide(c) {
+    var box = q("#mk-h-decide"), u = c.u, v = state.vote[u.id];
+    if (!judgeable(c)) {
+      box.innerHTML = '<p class="mk-h-env-h">Nada para julgar</p><p class="mk-h-env-t">Não há frase da transcrição ligada a esta afirmação, então não há o que comparar. Veja ao lado quem fala na audiência.</p>';
+      return;
+    }
+    var html = '<p class="mk-h-env-h">Você decide</p><p class="mk-h-env-t">A frase da transcrição sustenta o que a afirmação diz? Decida antes de abrir os carimbos. Sua escolha fica só nesta página.</p>' +
+      '<div class="mk-h-votes" role="group" aria-label="Seu veredito">' + VOTES.map(function (o) {
+        return '<button type="button" class="mk-h-vote" data-v="' + o[0] + '" aria-pressed="' + (v === o[0]) + '">' + o[1] + "</button>";
+      }).join("") + "</div>";
+    if (!v) html += '<button type="button" class="mk-h-link" data-v="skip">Pular e abrir os carimbos</button>';
+    else html += comparison(c, v);
+    html += tally();
+    box.innerHTML = html;
+  }
+
+  function cosineSays(c) {
+    var t = c.u.tier;
+    if (t === "quote_found") return "achou o começo das aspas na fala";
+    if (t === "semantic_match_high") return "achou uma frase parecida (nota " + fmt(c.u.evidence.score, CUT) + ", corte " + fmt(CUT) + ")";
+    if (t === "semantic_match_weak") return "só achou algo pouco parecido (nota " + fmt(c.u.evidence.score, CUT) + ", corte " + fmt(CUT) + ")";
+    return TIERS[t].label.toLowerCase();
+  }
+  function verifierSays(c) {
+    if (!c.sig.scored) return "não leu esta afirmação";
+    return (c.sig.supported_at_train_threshold ? "vê sustentação" : "vê pouca sustentação") + " (nota " + fmt(c.sig.primary_probability, VCUT) + ", corte " + fmt(VCUT) + ")";
+  }
+  function comparison(c, v) {
+    var rows = "";
+    if (v !== "skip") rows += "<tr><th>Você</th><td>" + VOTE_PT[v] + "</td></tr>";
+    rows += "<tr><th>Busca por semelhança</th><td>" + cosineSays(c) + "</td></tr>";
+    rows += "<tr><th>Verificador</th><td>" + verifierSays(c) + "</td></tr>";
+    return '<table class="mk-h-cmp"><caption class="mk-h-vh">Seu veredito ao lado dos dois procedimentos</caption>' + rows + "</table>";
+  }
+  function tally() {
+    var judged = claims.filter(judgeable), done = judged.filter(function (c) { var v = state.vote[c.u.id]; return v && v !== "skip"; });
+    if (!done.length) return '<p class="mk-h-tally">Nenhuma afirmação decidida ainda. Esta audiência tem ' + judged.length + " com frase para julgar.</p>";
+    var same = 0, diff = 0, part = 0;
+    done.forEach(function (c) {
+      var v = state.vote[c.u.id];
+      if (v === "p" || !c.sig.scored) { part++; return; }
+      if ((v === "c") === !!c.sig.supported_at_train_threshold) same++; else diff++;
+    });
+    return '<p class="mk-h-tally">Você decidiu ' + done.length + " de " + judged.length + ". Com o verificador: " + same + " na mesma direção, " + diff + " na direção oposta" + (part ? ", " + part + " parciais, que não entram na conta" : "") + ". Nenhum dos dois lados é o gabarito.</p>";
+  }
+
+  function renderEvidence(c) {
+    var box = q("#mk-h-ev"), u = c.u, ev = evOf(c);
+    if (!ev) {
+      var who = H.people.filter(function (p) { return p.resolved !== false; }).map(function (p) { return "<li>" + esc(p.name) + (p.role ? ", " + esc(p.role) : "") + "</li>"; }).join("");
+      box.className = "mk-h-o mk-h-loose";
+      box.innerHTML = '<span class="mk-h-pin" aria-hidden="true"></span><p class="mk-h-k">Fio solto</p><p class="mk-h-card-who" style="font-size:17px">' + esc(TIERS[u.tier].label) + '</p><p class="mk-h-sm">' +
+        (u.tier === "person_not_resolved" ? "O nome “" + esc(u.actor.name) + "” não casou com nenhum cabeçalho de turno. A pessoa pode não ter falado, ou pode aparecer na transcrição com outro nome. Quem fala nesta audiência:" : "A pessoa foi achada, mas não havia frase para comparar.") + "</p>" +
+        (u.tier === "person_not_resolved" ? "<ul>" + who + "</ul>" : "");
+      return;
+    }
+    box.className = "mk-h-o mk-h-slip-wrap";
+    var turn = turnsByIdx[ev.turn], k = turn ? sentenceIndex(turn, ev.start) : -1, n = state.ctx[u.id] || 1, before = "", after = "";
+    if (turn && k >= 0) {
+      before = turn.sentences.slice(Math.max(0, k - n), k).map(function (s) { return '<p class="mk-h-ctx">' + esc(s.text) + "</p>"; }).join("");
+      after = turn.sentences.slice(k + 1, k + 1 + n).map(function (s) { return '<p class="mk-h-ctx">' + esc(s.text) + "</p>"; }).join("");
+    }
+    var canBefore = turn && k - n > 0, canAfter = turn && k + n < turn.sentences.length - 1;
+    var person = peopleByName[u.actor.name];
+    box.innerHTML = '<div class="mk-h-slip"><p class="mk-h-slip-h"><span>' + (ev.orig ? "Frase escolhida" : "Frase " + (ev.cand + 1) + " da busca") + "</span><span>turno " + tno(ev.turn) + (turn ? " de " + H.turns.length : "") + "</span></p>" +
+      before + '<p class="mk-h-ev-t' + (ev.orig ? "" : " is-swap") + '"><mark>' + esc(ev.text) + "</mark></p>" + after +
+      '<p class="mk-h-sm">Posição ' + fmtInt(ev.start) + " a " + fmtInt(ev.end) + " de " + fmtInt(H.transcript.length) + " caracteres" + (person ? " · fala de " + esc(person.name) : "") + ".</p>" +
+      '<div class="mk-h-ctl"><button type="button" class="mk-h-btn" data-ctx="-1"' + (canBefore || canAfter ? "" : " disabled") + ">Ler mais em volta</button>" +
+      (n > 1 ? '<button type="button" class="mk-h-btn" data-ctx="0">Ler menos</button>' : "") +
+      (!ev.orig ? '<button type="button" class="mk-h-btn is-go" data-pick="-1">Voltar à frase escolhida</button>' : "") + "</div>" +
+      (!ev.orig ? '<p class="mk-h-swapnote">Você trocou a evidência. Com esta frase, a nota de semelhança seria ' + fmt(ev.score, CUT) + " e o resultado seria “" + TIERS[tierNow(c)].label.toLowerCase() + "”. O verificador só leu a frase escolhida, então não há segunda opinião para esta.</p>" : "") +
+      "</div>";
+  }
+
+  function renderTranslation(c) {
+    var box = q("#mk-h-tr"), ev = evOf(c);
+    if (!ev || !c.sig.scored) { box.hidden = true; return; }
+    box.hidden = false;
+    if (!ev.orig) {
+      box.innerHTML = '<p class="mk-h-k">Cópia em inglês</p><p class="mk-h-sm">Esta frase não foi traduzida: só a frase escolhida passou pelo verificador.</p>';
+      return;
+    }
+    var tr = c.sig.translation || {};
+    box.innerHTML = '<span class="mk-h-pin is-brass" aria-hidden="true"></span><p class="mk-h-k">Cópia em inglês que um dos modelos leu</p>' +
+      '<p class="t"><b>Frase da transcrição</b>' + esc(tr.premise_en || "sem tradução no cache") + "</p>" +
+      '<p class="t"><b>Afirmação</b>' + esc(tr.hypothesis_en || "sem tradução no cache") + "</p>" +
+      '<p class="mk-h-sm">Tradução automática (' + esc(S.translation_model.name) + "). Confira se ela diz o mesmo que o original: um erro aqui muda a resposta do modelo em inglês, e não a do modelo em português.</p>";
+  }
+
+  function renderVoice(c) {
+    var box = q("#mk-h-voice"), u = c.u, person = peopleByName[u.actor.name], ev = evOf(c);
+    if (!person || person.resolved === false || !person.turns || !person.turns.length) { box.hidden = true; return; }
+    box.hidden = false;
+    var candStarts = {};
+    u.candidates.forEach(function (cd, i) { candStarts[cd.start] = i + 1; });
+    var total = 0;
+    var items = person.turns.map(function (ti) {
+      var t = turnsByIdx[ti];
+      if (!t) return "";
+      var w = t.sentences.reduce(function (a, s) { return a + s.text.split(/\s+/).length; }, 0);
+      total += w;
+      var isEv = ev && ev.turn === ti, open = state.open[u.id + ":" + ti];
+      var first = t.sentences.length > 1 ? t.sentences[1].text : (t.sentences[0] || { text: "" }).text;
+      var body = "";
+      if (open) {
+        body = '<div class="mk-h-turn-body" tabindex="0">' + t.sentences.map(function (s) {
+          if (ev && s.start === ev.start) return "<mark>" + esc(s.text) + "</mark>";
+          if (candStarts[s.start]) return '<mark class="is-cand">' + esc(s.text) + "</mark>";
+          return esc(s.text);
+        }).join(" ") + "</div>";
+      }
+      var marks = u.candidates.filter(function (cd) { return cd.turn === ti; }).length;
+      return '<li class="mk-h-turn' + (isEv ? " is-ev" : "") + '"><button type="button" data-turn="' + ti + '" aria-expanded="' + !!open + '"><b>Turno ' + tno(ti) + "</b><span>" + esc(shorten(first, 120)) + "</span><em>" + fmtInt(w) + " palavras" + (marks ? " · " + marks + " " + plural(marks, "candidata", "candidatas") : "") + "</em></button>" + body + "</li>";
+    }).join("");
+    box.innerHTML = '<span class="mk-h-pin is-brass" aria-hidden="true"></span><p class="mk-h-k">Caderno de falas de ' + esc(person.name) + "</p>" +
+      '<p class="mk-h-sm" style="margin:0 0 6px">' + person.turns.length + " " + plural(person.turns.length, "turno", "turnos") + ", " + fmtInt(total) + " palavras nesta audiência. Abra um turno para ler a fala inteira: em amarelo a frase da evidência, em azul as outras candidatas da busca.</p>" +
+      '<ol class="mk-h-turns">' + items + "</ol>";
+  }
+
+  function ruler(value, cut, kind, label) {
+    var ax = '<span style="left:0">0</span><span style="left:' + pct(cut) + '%">' + fmt(cut) + '</span><span style="left:100%">1</span>';
+    return '<div class="mk-h-rul" data-k="' + kind + '"><div class="mk-h-rul-bar"><div class="mk-h-rul-zone" style="left:' + pct(cut) + '%"></div><div class="mk-h-rul-cut" style="left:' + pct(cut) + '%"></div>' +
+      (value == null ? "" : '<div class="mk-h-rul-mk" style="left:' + pct(value) + '%"></div>') + '</div><div class="mk-h-rul-ax">' + ax + "</div>" +
+      '<p class="mk-h-rul-l">' + label + "</p></div>";
+  }
+
+  function renderStamps(c) {
+    var box = q("#mk-h-stamps"), u = c.u, ev = evOf(c), t = tierNow(c), sig = c.sig;
+    var sealed = judgeable(c) && !revealed(c);
+    box.classList.toggle("is-sealed", sealed);
+    var a = "", b = "";
+    var cos = ev ? (ev.orig ? origCosine(c) : ev.score) : null;
+    a = '<div class="mk-h-judge"><p class="mk-h-judge-h">1. Busca por semelhança<small>Quão perto a frase está da afirmação, pelo cosseno de um modelo de frases. Mede semelhança, não verdade.</small></p>' +
+      (cos == null ? '<p class="mk-h-sm">Sem frase, sem nota.</p>' : ruler(cos, CUT, "h", "nota " + fmt(cos, CUT) + " · corte da execução " + fmt(CUT) + (t === "quote_found" ? " · nas aspas a nota não decide" : ""))) +
+      '<div class="mk-h-ink" data-t="' + TIERS[t].k + '">' + esc(TIERS[t].label) + (ev && !ev.orig ? "<small>com a frase trocada</small>" : "") + "</div></div>";
+    if (!ev) {
+      b = '<div class="mk-h-judge"><p class="mk-h-judge-h">2. Verificador<small>Sem frase, o verificador não tem o que ler.</small></p><div class="mk-h-ink" data-t="x">Sem leitura</div></div>';
+    } else if (!ev.orig || !sig.scored) {
+      b = '<div class="mk-h-judge"><p class="mk-h-judge-h">2. Verificador<small>Ele só leu a frase escolhida pela busca. Para esta frase não há nota, e a página não inventa uma.</small></p>' + ruler(null, VCUT, "v", "sem nota para esta frase") + '<div class="mk-h-ink" data-t="x">Sem segunda opinião</div></div>';
+    } else {
+      b = '<div class="mk-h-judge"><p class="mk-h-judge-h">2. Verificador<small>Modelos treinados para dizer se um texto sustenta outro. Combina as respostas de três modelos e o cosseno.</small></p>' +
+        ruler(sig.primary_probability, VCUT, "v", "nota " + fmt(sig.primary_probability, VCUT) + " · corte " + fmt(VCUT) + ", fixado no treino") +
+        '<div class="mk-h-ink" data-t="' + (sig.supported_at_train_threshold ? "v" : "v0") + '">' + (sig.supported_at_train_threshold ? "Vê sustentação" : "Vê pouca sustentação") + "</div></div>";
+    }
+    var verdict = "";
+    if (ev && ev.orig && sig.scored) {
+      var cosYes = t === "quote_found" || t === "semantic_match_high", verYes = sig.supported_at_train_threshold;
+      if (t === "quote_found") verdict = verYes ? "As aspas foram achadas e o verificador também vê sustentação na frase." : "As aspas foram achadas, mas o verificador vê pouca sustentação na frase. Leia as aspas inteiras ao lado: pode ser que só o começo coincida.";
+      else if (cosYes && !verYes) verdict = "Os dois procedimentos discordam. A frase é parecida com a afirmação, mas o verificador não acha que ela sustenta o que a afirmação diz. Veja as outras candidatas e leia em volta.";
+      else if (!cosYes && verYes) verdict = "Os dois procedimentos discordam. A frase é pouco parecida, mas o verificador vê sustentação. Leia a frase com atenção.";
+      else if (cosYes) verdict = "Os dois procedimentos vão na mesma direção. Isso não é prova: os dois podem errar juntos.";
+      else verdict = "Nenhum dos dois procedimentos acha que a frase sustenta a afirmação. Pode ser que a fala esteja em outro ponto, ou que a matéria tenha resumido de um jeito que a fala não diz.";
+    }
+    box.innerHTML = '<div class="mk-h-seal-body"><p class="mk-h-k">Carimbos</p>' + a + b + (verdict ? '<p class="mk-h-verdict">' + verdict + "</p>" : "") + "</div>" +
+      '<div class="mk-h-seal-cover"><p>Lacrado até você decidir. Dê o seu veredito ao lado ou pule.</p></div>';
+  }
+
+  function barRow(tag, cls, v, choice) {
+    return "<span>" + tag + '</span><span class="mk-h-bar"><i class="' + cls + '" style="width:' + pct(v) + '%"></i></span><span class="v">' + fmt(v) + '</span><span class="c">' + esc(choice) + "</span>";
+  }
+  function choiceText(q0, a) {
+    if (LEVELS_PT[q0.id]) return LEVELS_PT[q0.id][Number(a.choice)];
+    return CHOICE_PT[a.choice] || a.choice;
+  }
+  function renderQuestions(c) {
+    var box = q("#mk-h-qs"), ev = evOf(c), sig = c.sig;
+    if (!ev || !sig.scored) { box.hidden = true; return; }
+    box.hidden = false;
+    var sealed = !revealed(c);
+    box.classList.toggle("is-sealed", sealed);
+    if (!ev.orig) {
+      box.classList.remove("is-sealed");
+      box.innerHTML = '<p class="mk-h-qs-h">Oito perguntas ao verificador</p><p class="mk-h-sm">As perguntas só foram feitas sobre a frase escolhida. Volte a ela para ver as respostas.</p>';
+      return;
+    }
+    var pt = sig.laya.laya_multi_pt.answers, en = sig.laya.laya_en_en.answers, flags = 0;
+    var rows = S.questions.map(function (q0, i) {
+      var a = pt[q0.id], b = en[q0.id], notes = [];
+      if (Math.abs(a.signal - b.signal) >= GAP) notes.push("o modelo em português e o em inglês se afastam " + fmt(Math.abs(a.signal - b.signal)));
+      if (PAIRS[q0.id]) {
+        var pa = pt[PAIRS[q0.id]], pb = en[PAIRS[q0.id]];
+        if (Math.abs(a.signal - pa.signal) >= GAP) notes.push(PAIR_WHY[q0.id] + " mudou a resposta em português");
+        if (Math.abs(b.signal - pb.signal) >= GAP) notes.push(PAIR_WHY[q0.id] + " mudou a resposta em inglês");
+      }
+      flags += notes.length;
+      var extra = [];
+      if (a.against != null && q0.against_option) extra.push((q0.against_option === "contradiction" ? "chance de contradição" : "chance de posição oposta") + ": " + fmt(a.against) + " em português, " + fmt(b.against) + " em inglês");
+      if (!q0.in_panel) extra.push("fora da média: mede semelhança, e não sustentação");
+      return '<li class="mk-h-q' + (q0.in_panel ? "" : " is-off") + '"><p class="mk-h-q-t"><b>P' + (i + 1) + "</b><span>" + esc(q0.instructions_pt) + "</span></p>" +
+        '<div class="mk-h-bars">' + barRow("PT", "pt", a.signal, choiceText(q0, a)) + barRow("EN", "en", b.signal, choiceText(q0, b)) + "</div>" +
+        notes.map(function (n) { return '<span class="mk-h-flag">' + esc(n) + "</span>"; }).join(" ") +
+        (extra.length ? '<p class="mk-h-q-x">' + esc(extra.join(" · ")) + "</p>" : "") + "</li>";
+    }).join("");
+    box.innerHTML = '<div class="mk-h-seal-body"><p class="mk-h-qs-h">Oito perguntas ao verificador</p>' +
+      '<p class="mk-h-sm" style="margin:0">A mesma frase e a mesma afirmação, oito perguntas diferentes. As barras são a probabilidade da resposta a favor (sim, implica, mesma posição); ao lado, a resposta mais provável.</p>' +
+      '<ul class="mk-h-qs-key"><li><i class="pt"></i>modelo que leu o português</li><li><i class="en"></i>modelo que leu a cópia em inglês</li></ul>' +
+      '<ol class="mk-h-ql">' + rows + "</ol>" +
+      '<p class="mk-h-qs-f">' + (flags ? flags + " " + plural(flags, "discordância marcada", "discordâncias marcadas") : "Nenhuma discordância marcada") + ". A página marca duas respostas que se afastam " + fmt(GAP) + " ou mais; esse corte é só desta página. Média das perguntas P1 a P7: " + fmt(sig.laya.laya_multi_pt.panel) + " em português, " + fmt(sig.laya.laya_en_en.panel) + " em inglês. Outro modelo em português (mDeBERTa XNLI): implica " + fmt(sig.xnli.entailment) + ", neutra " + fmt(sig.xnli.neutral) + ", contradiz " + fmt(sig.xnli.contradiction) + ".</p></div>" +
+      '<div class="mk-h-seal-cover"><p>As respostas abrem junto com os carimbos.</p></div>';
+  }
+
+  function renderMore() {
+    var m = S.more_opinions || {};
+    var list = (m.evaluators || []);
+    q("#mk-h-more").innerHTML = "<h3>Mais segundas opiniões</h3>" + (list.length ? "<p>" + list.map(esc).join(", ") + "</p>" :
+      "<p>Outros avaliadores de sustentação estão sendo calculados (estudo " + esc(m.study || "") + "). Quando existirem, cada um entra aqui como mais um carimbo, com a sua nota e o seu corte. Por enquanto este espaço fica vazio.</p>");
+  }
+
+  function renderCands(c) {
+    var box = q("#mk-h-cands"), u = c.u, ev = evOf(c);
+    if (!u.candidates || !u.candidates.length) { box.hidden = true; return; }
+    box.hidden = false;
+    var hide = !revealed(c), orig = origCandIndex(u);
+    var items = u.candidates.map(function (cd, i) {
+      var cur = ev && ev.cand === i, isOrig = i === orig;
+      return '<li class="mk-h-c' + (cur ? " is-cur" : "") + (isOrig ? " is-orig" : "") + '"><b>' + (i + 1) + '</b><span class="mk-h-c-t">' + esc(shorten(cd.text, 190)) + "<small>turno " + tno(cd.turn) + (isOrig ? " · a escolhida" : "") + (isOrig && c.sig.scored ? " · com segunda opinião" : " · sem segunda opinião") + "</small></span>" +
+        '<span class="mk-h-c-s' + (hide ? " is-hidden" : "") + '" aria-label="' + (hide ? "nota lacrada" : "nota " + fmt(cd.score, CUT)) + '"><span class="trk"><span class="bar" style="width:' + pct(cd.score) + '%"></span><span class="cut" style="left:' + pct(CUT) + '%"></span></span><span class="num">' + fmt(cd.score, CUT) + "</span></span>" +
+        (cur ? '<span class="mk-h-sm" style="margin:0">na pasta</span>' : '<button type="button" class="mk-h-btn" data-pick="' + (isOrig ? -1 : i) + '">Prender como evidência</button>') + "</li>";
+    }).join("");
+    var gap = "";
+    if (u.candidates.length > 1 && !hide) {
+      var d = u.candidates[0].score - u.candidates[1].score;
+      gap = '<p class="mk-h-gap">A segunda frase ficou ' + fmt(d) + " abaixo da primeira. " + (d < 0.05 ? "É uma diferença pequena: as duas frases estão quase empatadas para a busca." : d > 0.2 ? "A primeira se destacou das outras." : "") + "</p>";
+    }
+    box.innerHTML = '<span class="mk-h-pin" aria-hidden="true"></span><p class="mk-h-cands-h">As ' + u.candidates.length + " frases mais parecidas nas falas desta pessoa</p>" +
+      '<p class="mk-h-sm" style="margin:0">A busca guardou estas frases, em ordem de nota. Prenda outra na pasta para ver o que mudaria. Só a primeira passou pelo verificador.</p>' +
+      '<ol class="mk-h-cl">' + items + "</ol>" + gap + (hide ? '<p class="mk-h-sm">As notas abrem depois do seu veredito.</p>' : "");
+  }
+
+  function renderCaveats() {
+    var b = S.primary.benchmark;
+    var items = [
+      ["Uma nota não é uma chance", "As duas notas medem coisas que os modelos aprenderam a medir. Nenhuma delas diz com que frequência a página acerta, porque ninguém ainda conferiu estes resultados à mão."],
+      ["O verificador foi treinado para outra situação", "Ele aprendeu a julgar uma opinião da matéria contra quatro trechos recuperados da transcrição, e aqui lê uma frase só. No teste daquela tarefa, a área sob a curva ROC foi " + fmt(b.roc_auc) + " (" + fmt(b.roc_auc_interval[0]) + " a " + fmt(b.roc_auc_interval[1]) + "). O efeito da mudança para uma frase só não foi medido."],
+      ["Nota baixa não é afirmação errada", "Uma nota baixa diz só que a frase escolhida dá pouco apoio à afirmação. A fala pode estar em outra frase, e a matéria pode resumir com outras palavras."],
+      ["A tradução pode errar", "Um dos modelos lê a cópia em inglês feita por tradução automática. Se a cópia muda o sentido, a resposta dele muda junto."]
+    ];
+    q("#mk-h-cav").innerHTML = items.map(function (x) { return "<li><b>" + esc(x[0]) + "</b>" + esc(x[1]) + "</li>"; }).join("");
+  }
+
+  function center(el, board) {
+    var r = el.getBoundingClientRect(), b = board.getBoundingClientRect();
+    return { l: r.left - b.left, r: r.right - b.left, t: r.top - b.top, b: r.bottom - b.top, cx: (r.left + r.right) / 2 - b.left, cy: (r.top + r.bottom) / 2 - b.top };
+  }
+  function thread(a, b, k) {
+    var x1 = a.r - 6, y1 = Math.min(a.b - 20, a.t + 40), x2 = b.l + 6, y2 = Math.min(b.b - 20, b.t + 40);
+    var sag = Math.min(60, Math.abs(x2 - x1) * 0.25 + 18), mx = (x1 + x2) / 2, my = Math.max(y1, y2) + sag;
+    var d = "M" + x1 + "," + y1 + " Q" + mx + "," + my + " " + x2 + "," + y2;
+    return '<g data-k="' + k + '"><path class="sh" d="' + d + '"/><path class="ln" d="' + d + '"/><circle cx="' + x1 + '" cy="' + y1 + '" r="3.2"/><circle cx="' + x2 + '" cy="' + y2 + '" r="3.2"/></g>';
+  }
+  function drawStrings() {
+    var sv = q("#mk-h-sv"), board = q("#mk-h-board");
+    if (getComputedStyle(sv).display === "none") { sv.innerHTML = ""; return; }
+    var c = claims[state.cur], claim = q("#mk-h-claim"), ev = q("#mk-h-ev"), st = q("#mk-h-stamps");
+    var A = center(claim, board), B = center(ev, board), C = center(st, board);
+    var k = revealed(c) ? TIERS[tierNow(c)].k : "n", out = "";
+    if (B.l > A.r) out += thread(A, B, k === "u" ? "n" : k);
+    if (C.l > B.r && c.u.evidence) out += thread(B, C, revealed(c) ? "v" : "n");
+    sv.setAttribute("viewBox", "0 0 " + board.clientWidth + " " + board.clientHeight);
+    sv.innerHTML = out;
+  }
+
+  function render() {
+    var c = claims[state.cur];
+    renderChips(); renderClaim(c); renderQuote(c); renderDecide(c); renderEvidence(c); renderTranslation(c); renderVoice(c); renderStamps(c); renderQuestions(c); renderCands(c);
+    requestAnimationFrame(drawStrings);
+  }
+
+  root.addEventListener("click", function (e) {
+    var t = e.target.closest("button");
+    if (!t || !root.contains(t)) return;
+    var c = claims[state.cur];
+    if (t.classList.contains("mk-h-chip")) { state.cur = Number(t.getAttribute("data-i")); render(); return; }
+    if (t.hasAttribute("data-v")) { state.vote[c.u.id] = t.getAttribute("data-v"); render(); return; }
+    if (t.hasAttribute("data-pick")) { var p = Number(t.getAttribute("data-pick")); if (p < 0) delete state.pick[c.u.id]; else state.pick[c.u.id] = p; render(); return; }
+    if (t.hasAttribute("data-ctx")) { var v = Number(t.getAttribute("data-ctx")); state.ctx[c.u.id] = v < 0 ? (state.ctx[c.u.id] || 1) + 2 : 1; render(); return; }
+    if (t.hasAttribute("data-turn")) { var key = c.u.id + ":" + t.getAttribute("data-turn"); state.open[key] = !state.open[key]; render(); }
+  });
+  var rt = null;
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(drawStrings, 80); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawStrings);
+
+  renderHead(); renderMore(); renderCaveats(); render();
+})();
+</script>

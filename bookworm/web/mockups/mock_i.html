@@ -1,0 +1,498 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Noticia+Text:wght@400;700&family=Red+Hat+Mono:wght@400;500;700&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Special+Elite&display=swap">
+<style>
+.mk-i {
+  color-scheme: light;
+  --f-ui: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-news: "Noticia Text", Georgia, "Times New Roman", serif;
+  --f-hand: "Kalam", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --f-mono: "Red Hat Mono", ui-monospace, Menlo, Consolas, monospace;
+  --f-stamp: "Special Elite", "Courier New", Courier, monospace;
+  --wood: #3B2819;
+  --cork: #B5875B;
+  --kraft: #C9A26E;
+  --kraft-lt: #E4CFA8;
+  --kraft-ink: #2A1B0E;
+  --kraft-mute: #5B4127;
+  --card: #FBFBF8;
+  --card-rule: #C9D8EC;
+  --card-top: #D9918B;
+  --pen: #1E2B4A;
+  --paper: #F7F6F1;
+  --paper-ink: #1C1C1A;
+  --paper-mute: #5A5751;
+  --paper-rule: #E6E3DA;
+  --carbon: #E9ECF4;
+  --carbon-ink: #26325A;
+  --red: #B3202A;
+  --red-dk: #7A131A;
+  --hl: #FFE94D;
+  --ink-q: #1C6A45;
+  --ink-h: #1F4A92;
+  --ink-w: #9A5A0E;
+  --ink-u: #454545;
+  --ink-v: #5B2E7A;
+  --on-wood: #F1E4CC;
+  --on-wood-2: #D8C6A6;
+  --sh: 0 1px 1px rgba(30, 15, 5, 0.28), 0 10px 16px -8px rgba(30, 15, 5, 0.55);
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  container-type: inline-size;
+  padding: 12px 16px 34px;
+  color: var(--on-wood);
+  background-color: var(--wood);
+  background-image:
+    repeating-linear-gradient(178.6deg, rgba(0, 0, 0, 0.09) 0 2px, transparent 2px 13px),
+    repeating-linear-gradient(181.2deg, rgba(255, 228, 188, 0.035) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, #45301F, #36241A);
+  font-family: var(--f-ui);
+  -webkit-font-smoothing: antialiased;
+}
+.mk-i[hidden], .mk-i [hidden] { display: none !important; }
+.mk-i *, .mk-i *::before, .mk-i *::after { box-sizing: border-box; }
+.mk-i .mk-i-in { max-width: 1480px; margin: 0 auto; }
+.mk-i .mk-i-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mk-i button, .mk-i input { font-family: inherit; }
+.mk-i :focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+
+.mk-i .mk-i-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 28px; margin: 0 0 12px; }
+.mk-i .mk-i-title { margin: 0; font: 800 clamp(24px, 2.6cqi, 32px)/1.04 var(--f-ui); letter-spacing: -0.015em; }
+.mk-i .mk-i-lede { margin: 4px 0 0; max-width: 74ch; font: 400 clamp(14.5px, 1.35cqi, 17px)/1.38 var(--f-ui); text-wrap: pretty; }
+.mk-i .mk-i-hed { margin: 0; max-width: 60ch; font: 700 15px/1.3 var(--f-news); color: var(--on-wood-2); }
+.mk-i .mk-i-hed small { display: block; font: 700 12px/1.3 var(--f-ui); letter-spacing: 0.07em; text-transform: uppercase; }
+.mk-i .mk-i-note { position: relative; max-width: 96ch; margin: 0 0 12px; padding: 8px 12px 9px 36px; border-radius: 3px; color: var(--kraft-ink); background: var(--kraft-lt); font: 500 14px/1.38 var(--f-ui); box-shadow: var(--sh); }
+.mk-i .mk-i-note::before { content: ""; position: absolute; left: 11px; top: 10px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F79A8E 0 2px, #D3342F 3.5px, #8A191B 8px); }
+
+.mk-i .mk-i-board {
+  position: relative; padding: 22px 22px 26px; border: 14px solid; border-color: #6E4D31 #5A3D25 #4A311D #5A3D25; border-radius: 8px;
+  background-color: var(--cork);
+  background-image:
+    radial-gradient(circle at 30% 40%, rgba(105, 66, 34, 0.55) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 70% 70%, rgba(234, 198, 150, 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 50% 20%, rgba(80, 48, 22, 0.38) 0 1.5px, transparent 2.3px),
+    radial-gradient(ellipse at 50% 40%, rgba(255, 232, 196, 0.18), transparent 70%);
+  background-size: 7px 6px, 9px 11px, 13px 17px, 100% 100%;
+  box-shadow: inset 0 0 0 1px rgba(40, 20, 5, 0.35), inset 0 14px 30px rgba(40, 20, 5, 0.32), 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+  color: var(--paper-ink);
+}
+.mk-i .mk-i-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr); gap: 26px 30px; align-items: start; }
+.mk-i .mk-i-o { position: relative; box-shadow: var(--sh); }
+.mk-i .mk-i-pin { position: absolute; top: -9px; left: 50%; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; z-index: 3; background: radial-gradient(circle at 35% 30%, #F79A8E 0 2px, #D3342F 3.5px, #8A191B 10px); box-shadow: 2px 4px 3px rgba(0, 0, 0, 0.38); }
+.mk-i .mk-i-k { margin: 0 0 6px; font: 700 12px/1.25 var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--paper-mute); }
+.mk-i .mk-i-sm { margin: 6px 0 0; font: 500 13px/1.4 var(--f-ui); color: var(--paper-mute); }
+.mk-i .mk-i-sm b { color: var(--paper-ink); }
+
+.mk-i .mk-i-plot { padding: 14px 14px 12px; background: var(--paper); background-image: linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px); background-size: 20px 20px; }
+.mk-i .mk-i-plot-h { margin: 0 0 2px; font: 800 17px/1.2 var(--f-ui); }
+.mk-i .mk-i-svg { display: block; width: 100%; touch-action: none; overflow: visible; }
+.mk-i .mk-i-svg text { font-family: var(--f-ui); }
+.mk-i .mk-i-ax { font: 600 12px/1 var(--f-mono); fill: var(--paper-mute); }
+.mk-i .mk-i-axl { font: 700 12.5px/1 var(--f-ui); fill: var(--paper-ink); }
+.mk-i .mk-i-qd { font: 700 12.5px/1.2 var(--f-ui); fill: var(--kraft-mute); }
+.mk-i .mk-i-zone { fill: rgba(31, 74, 146, 0.06); }
+.mk-i .mk-i-zone.v { fill: rgba(91, 46, 122, 0.07); }
+.mk-i .mk-i-cut { stroke: var(--red); stroke-width: 3px; stroke-linecap: round; }
+.mk-i .mk-i-cut.v { stroke: var(--ink-v); stroke-dasharray: 12 4 2.5 4; }
+.mk-i .mk-i-cutsh { stroke: rgba(35, 15, 5, 0.3); stroke-width: 3.4px; transform: translate(1.5px, 3px); }
+.mk-i .mk-i-handle { cursor: ew-resize; }
+.mk-i .mk-i-handle.v { cursor: ns-resize; }
+.mk-i .mk-i-handle rect { fill: #EFE0BF; stroke: rgba(60, 40, 20, 0.7); stroke-width: 1px; }
+.mk-i .mk-i-handle.h rect { fill: #FBE3E0; }
+.mk-i .mk-i-handle.v rect { fill: #ECE0F3; }
+.mk-i .mk-i-handle text { font: 700 12px/1 var(--f-mono); fill: var(--kraft-ink); pointer-events: none; }
+.mk-i .mk-i-run { stroke: #7B776E; stroke-width: 1.2px; stroke-dasharray: 2 3; }
+.mk-i .mk-i-whisk { stroke: #7B776E; stroke-width: 1.3px; }
+.mk-i .mk-i-whisk-d { fill: #FFFFFF; stroke: #7B776E; stroke-width: 1.3px; }
+.mk-i .mk-i-stem { stroke: #2E241B; stroke-width: 1px; }
+.mk-i .mk-i-true { fill: #2E241B; }
+.mk-i .mk-i-p { cursor: pointer; }
+.mk-i .mk-i-p circle.b { stroke: #FFFFFF; stroke-width: 2px; }
+.mk-i .mk-i-p[data-k="q"] circle.b { fill: var(--ink-q); stroke: #EAF4EC; stroke-width: 3px; }
+.mk-i .mk-i-p[data-k="h"] circle.b { fill: var(--ink-h); }
+.mk-i .mk-i-p[data-k="w"] circle.b { fill: #F3E3C8; stroke: var(--ink-w); stroke-dasharray: 3 2; stroke-width: 2.4px; }
+.mk-i .mk-i-p text { font: 800 12.5px/1 var(--f-ui); fill: #FFFFFF; pointer-events: none; }
+.mk-i .mk-i-p[data-k="w"] text { fill: var(--kraft-ink); }
+.mk-i .mk-i-p circle.r, .mk-i .mk-i-p circle.s { fill: none; stroke: none; }
+.mk-i .mk-i-p.is-flip circle.r { fill: none; stroke: var(--hl); stroke-width: 4px; }
+.mk-i .mk-i-p.is-sel circle.s { fill: none; stroke: var(--paper-ink); stroke-width: 2.4px; }
+.mk-i .mk-i-p:focus { outline: none; }
+.mk-i .mk-i-p:focus-visible circle.s { stroke: var(--red); stroke-width: 3px; fill: none; }
+
+.mk-i .mk-i-ctl { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 10px 20px; margin: 10px 0 0; }
+.mk-i .mk-i-range label { display: flex; justify-content: space-between; gap: 8px; font: 700 13px/1.25 var(--f-ui); }
+.mk-i .mk-i-range label output { font: 700 13px/1.25 var(--f-mono); }
+.mk-i .mk-i-range input { width: 100%; min-height: 32px; accent-color: var(--red); }
+.mk-i .mk-i-range.v input { accent-color: var(--ink-v); }
+.mk-i .mk-i-range .mk-i-sm { margin-top: 0; }
+.mk-i .mk-i-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 10px 0 0; }
+.mk-i .mk-i-btn { min-height: 40px; padding: 0 12px; border: 2px solid var(--paper-ink); border-radius: 5px; background: #FFFFFF; color: var(--paper-ink); font: 700 14px/1 var(--f-ui); cursor: pointer; touch-action: manipulation; }
+.mk-i .mk-i-btn:hover { background: var(--hl); }
+.mk-i .mk-i-btn:focus-visible, .mk-i .mk-i-check input:focus-visible { outline-color: var(--paper-ink); }
+.mk-i .mk-i-check { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font: 600 14px/1.2 var(--f-ui); cursor: pointer; }
+.mk-i .mk-i-check input { width: 20px; height: 20px; accent-color: var(--paper-ink); }
+
+.mk-i .mk-i-drawer { margin: 12px 0 0; padding: 10px 12px; background: #EDE6D8; border-top: 3px solid #8F7049; }
+.mk-i .mk-i-drawer ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+.mk-i .mk-i-dchip { display: inline-flex; gap: 8px; align-items: center; min-height: 40px; padding: 4px 10px 4px 4px; border: 2px dotted #5F5F5F; border-radius: 4px; background: #F6F3EC; color: var(--paper-ink); cursor: pointer; font: 600 13.5px/1.2 var(--f-ui); }
+.mk-i .mk-i-dchip b { display: inline-grid; place-items: center; min-width: 26px; height: 26px; border-radius: 50%; background: var(--ink-u); color: #FFFFFF; font: 800 12.5px/1 var(--f-ui); }
+.mk-i .mk-i-dchip[aria-pressed="true"] { background: var(--hl); }
+
+.mk-i .mk-i-side { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.mk-i .mk-i-tally { padding: 14px 16px; color: var(--kraft-ink); background: var(--kraft-lt); transform: rotate(0.4deg); }
+.mk-i .mk-i-tally h3 { margin: 0 0 6px; font: 800 16px/1.2 var(--f-ui); }
+.mk-i .mk-i-tbl { width: 100%; border-collapse: collapse; font: 500 13.5px/1.3 var(--f-ui); }
+.mk-i .mk-i-tbl th { padding: 4px 6px 4px 0; text-align: left; font-weight: 600; }
+.mk-i .mk-i-tbl td { padding: 4px 0; text-align: right; font: 700 13.5px/1.3 var(--f-mono); white-space: nowrap; }
+.mk-i .mk-i-tbl td small { font: 500 12px/1 var(--f-ui); color: var(--kraft-mute); }
+.mk-i .mk-i-tbl tr + tr { border-top: 1px dashed rgba(42, 27, 14, 0.3); }
+.mk-i .mk-i-flips { margin: 8px 0 0; padding: 0; list-style: none; font: 500 13.5px/1.35 var(--f-ui); }
+.mk-i .mk-i-flips li { padding: 5px 0; border-top: 1px dashed rgba(42, 27, 14, 0.3); }
+.mk-i .mk-i-flips b { font-weight: 800; }
+
+.mk-i .mk-i-file { padding: 14px 16px 14px; color: var(--pen); background-color: var(--card); background-image: linear-gradient(to bottom, transparent 34px, var(--card-top) 34px, var(--card-top) 35.5px, transparent 35.5px), repeating-linear-gradient(to bottom, transparent 0 19px, var(--card-rule) 19px 20px); background-position: 0 0, 0 36px; background-repeat: no-repeat, repeat; }
+.mk-i .mk-i-file-k { margin: 0 0 9px; font: 700 12px/1.15 var(--f-ui); letter-spacing: 0.035em; text-transform: uppercase; color: #5E626D; }
+.mk-i .mk-i-file-who { margin: 0; font: 700 18px/1.15 var(--f-hand); }
+.mk-i .mk-i-file-prop { margin: 2px 0 0; font: 400 16px/1.3 var(--f-hand); }
+.mk-i .mk-i-ev { margin: 10px 0 0; padding: 8px 10px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); font: 500 13.5px/1.5 var(--f-mono); color: var(--paper-ink); }
+.mk-i .mk-i-ev small { display: block; margin-bottom: 3px; font: 700 11.5px/1.2 var(--f-ui); letter-spacing: 0.05em; text-transform: uppercase; color: var(--paper-mute); }
+.mk-i .mk-i-ev mark { background: var(--hl); color: inherit; }
+.mk-i .mk-i-nums { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; font: 600 13.5px/1.3 var(--f-ui); color: var(--paper-ink); }
+.mk-i .mk-i-nums span b { font: 700 14px/1 var(--f-mono); }
+.mk-i .mk-i-strip { margin: 12px 0 0; }
+.mk-i .mk-i-strip-g { display: grid; grid-template-columns: 30px repeat(8, minmax(0, 1fr)); gap: 3px; align-items: center; font: 700 11.5px/1 var(--f-mono); color: var(--paper-mute); }
+.mk-i .mk-i-strip-g span { text-align: center; }
+.mk-i .mk-i-cell { height: 26px; display: grid; place-items: center; border-radius: 2px; font: 700 11px/1 var(--f-mono); }
+.mk-i .mk-i-cell.is-off { outline: 1.5px dashed #7B776E; outline-offset: -3px; }
+.mk-i .mk-i-cell.is-gap { box-shadow: 0 0 0 2px var(--red); }
+.mk-i .mk-i-strip-f { margin: 6px 0 0; font: 500 12.5px/1.35 var(--f-ui); color: var(--paper-mute); }
+.mk-i details { margin: 10px 0 0; background: var(--carbon); color: var(--carbon-ink); padding: 0 10px; }
+.mk-i details summary { min-height: 40px; display: flex; align-items: center; cursor: pointer; font: 700 13.5px/1.2 var(--f-ui); }
+.mk-i details p { margin: 0 0 8px; font: 400 13px/1.5 var(--f-mono); }
+.mk-i details p b { display: block; font: 700 11px/1.3 var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; }
+.mk-i .mk-i-cands { margin: 10px 0 0; padding: 0; list-style: none; font: 400 12.5px/1.35 var(--f-mono); }
+.mk-i .mk-i-cands li { display: grid; grid-template-columns: 22px minmax(0, 1fr) 44px; gap: 8px; padding: 4px 0; border-top: 1px solid var(--paper-rule); }
+.mk-i .mk-i-cands li b { font: 700 12px/1.35 var(--f-mono); color: var(--paper-mute); }
+.mk-i .mk-i-cands li em { font: 700 12.5px/1.35 var(--f-mono); font-style: normal; text-align: right; }
+.mk-i .mk-i-cands li span { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+.mk-i .mk-i-more { padding: 12px 14px; color: var(--kraft-ink); background: repeating-linear-gradient(-45deg, #E4CFA8 0 10px, #DCC59C 10px 20px); border: 2px dashed rgba(42, 27, 14, 0.45); border-radius: 3px; box-shadow: none; font: 500 13.5px/1.4 var(--f-ui); }
+.mk-i .mk-i-more b { display: block; font-weight: 800; }
+
+.mk-i .mk-i-cav { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; margin: 18px 0 0; padding: 0; list-style: none; }
+.mk-i .mk-i-cav li { position: relative; padding: 12px 14px 12px 38px; color: var(--kraft-ink); background: var(--kraft-lt); border-radius: 3px; font: 500 14px/1.42 var(--f-ui); box-shadow: var(--sh); }
+.mk-i .mk-i-cav li::before { content: ""; position: absolute; left: 12px; top: 13px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F79A8E 0 2px, #D3342F 3.5px, #8A191B 8px); }
+.mk-i .mk-i-cav b { display: block; margin-bottom: 2px; font-weight: 800; }
+
+@container (max-width: 980px) {
+  .mk-i .mk-i-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@container (max-width: 560px) {
+  .mk-i .mk-i-board { padding: 18px 10px 20px; border-width: 10px; }
+  .mk-i .mk-i-plot { padding: 12px 8px 10px; }
+}
+</style>
+
+<section class="mk-i" id="mock-i" aria-labelledby="mk-i-title">
+<div class="mk-i-in">
+  <header class="mk-i-top">
+    <div>
+      <h2 class="mk-i-title" id="mk-i-title">Os dois juízes</h2>
+      <p class="mk-i-lede">Cada afirmação da matéria é um alfinete. Para a direita, a frase achada é mais parecida com a afirmação; para cima, o verificador vê mais sustentação. Arraste os dois barbantes de corte e veja quais afirmações mudam de resultado.</p>
+    </div>
+    <p class="mk-i-hed" id="mk-i-hed"></p>
+  </header>
+  <p class="mk-i-note">Nenhum destes resultados foi conferido por uma pessoa. Os cortes que você escolher aqui mudam só esta página: servem para ver quão perto de cada linha cada afirmação está.</p>
+  <div class="mk-i-board">
+    <div class="mk-i-grid">
+      <div>
+        <figure class="mk-i-o mk-i-plot" id="mk-i-plot" style="margin:0">
+          <span class="mk-i-pin" aria-hidden="true"></span>
+          <figcaption class="mk-i-plot-h">Semelhança contra sustentação</figcaption>
+          <p class="mk-i-sm" style="margin:0 0 6px">Um alfinete por afirmação com frase achada. Toque num alfinete para abrir a ficha.</p>
+          <svg class="mk-i-svg" id="mk-i-svg" role="group" aria-label="Gráfico: nota de semelhança no eixo horizontal, nota do verificador no eixo vertical"></svg>
+          <p class="mk-i-sm mk-i-quad">Faixa azul: a frase passa no corte de semelhança. Faixa roxa: o verificador vê sustentação. Onde as duas se cruzam, os dois juízes concordam que há apoio; nos cantos com uma faixa só, eles discordam. Um alfinete com anel amarelo mudou de resultado com os cortes que você escolheu. O tracinho à esquerda de cada alfinete vai até a segunda frase mais parecida.</p>
+          <div class="mk-i-ctl">
+            <div class="mk-i-range">
+              <label for="mk-i-cx">Corte da semelhança <output id="mk-i-cxo"></output></label>
+              <input type="range" id="mk-i-cx" min="0.30" max="1" step="0.005">
+              <p class="mk-i-sm" id="mk-i-cxn"></p>
+            </div>
+            <div class="mk-i-range v">
+              <label for="mk-i-cy">Corte do verificador <output id="mk-i-cyo"></output></label>
+              <input type="range" id="mk-i-cy" min="0" max="1" step="0.005">
+              <p class="mk-i-sm" id="mk-i-cyn"></p>
+            </div>
+          </div>
+          <div class="mk-i-row">
+            <button type="button" class="mk-i-btn" id="mk-i-reset">Voltar aos cortes da execução</button>
+            <label class="mk-i-check"><input type="checkbox" id="mk-i-runner" checked> Mostrar a segunda frase mais parecida</label>
+          </div>
+          <div class="mk-i-drawer" id="mk-i-drawer" hidden></div>
+        </figure>
+      </div>
+      <div class="mk-i-side">
+        <div class="mk-i-o mk-i-tally" id="mk-i-tally" aria-live="polite"></div>
+        <article class="mk-i-o mk-i-file" id="mk-i-file"></article>
+        <aside class="mk-i-o mk-i-more" id="mk-i-more"></aside>
+      </div>
+    </div>
+  </div>
+  <ul class="mk-i-cav" id="mk-i-cav" aria-label="Avisos"></ul>
+</div>
+</section>
+<script>
+(function () {
+  "use strict";
+  var root = document.getElementById("mock-i");
+  if (!root) return;
+  function q(sel) { return root.querySelector(sel); }
+  var H = window.HEARING, S = window.SIGNALS;
+  if (!H || !H.udvs || !S || !S.udvs) { q("#mk-i-file").textContent = "Os dados da audiência ou dos sinais não foram carregados."; return; }
+  var RUN_CX = H.run.threshold, RUN_CY = S.primary.threshold;
+  var st = { cx: RUN_CX, cy: RUN_CY, sel: null, runner: true };
+  var XMIN = 0.3;
+  var TIERS = {
+    quote_found: { k: "q", label: "começo das aspas achado" },
+    semantic_match_high: { k: "h", label: "trecho parecido" },
+    semantic_match_weak: { k: "w", label: "pouco parecido" },
+    no_evidence: { k: "n", label: "sem frase para comparar" },
+    person_not_resolved: { k: "u", label: "pessoa não achada entre quem fala" }
+  };
+  var GAP = 0.3;
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function roundTo(x, d, how) { var f = Math.pow(10, d); return (how || Math.round)(x * f) / f; }
+  function fmt(x, cut) {
+    var d = 2, shown = roundTo(x, d);
+    if (typeof cut === "number") {
+      while (d < 4 && (x < cut) !== (shown < cut)) shown = roundTo(x, ++d);
+      if ((x < cut) !== (shown < cut)) shown = roundTo(x, d, x < cut ? Math.floor : Math.ceil);
+    }
+    return shown.toFixed(d).replace(".", ",");
+  }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function shorten(s, n) { if (s.length <= n) return s; var c = s.slice(0, n), sp = c.lastIndexOf(" "); return (sp > n * 0.6 ? c.slice(0, sp) : c).replace(/[\s,;:.]+$/, "") + "…"; }
+  function plural(n, a, b) { return n === 1 ? a : b; }
+
+  var items = H.udvs.map(function (u, i) {
+    var sig = S.udvs[u.id] || { scored: false };
+    var cos = u.evidence && typeof u.evidence.score === "number" ? u.evidence.score : sig.scored ? sig.cosine_serafim : null;
+    var ci = -1;
+    if (u.evidence) u.candidates.forEach(function (c, k) { if (ci < 0 && c.text === u.evidence.text) ci = k; });
+    var runner = null;
+    u.candidates.forEach(function (c, k) { if (k !== ci && runner == null) runner = c.score; });
+    return { u: u, n: i + 1, sig: sig, cos: cos, p: sig.scored ? sig.primary_probability : null, runner: runner };
+  });
+  var plotted = items.filter(function (it) { return it.cos != null && it.p != null; });
+  var drawer = items.filter(function (it) { return it.cos == null || it.p == null; });
+  st.sel = (plotted[0] || items[0]).n;
+
+  function tierAt(it, cx) {
+    var t = it.u.tier;
+    if (t === "semantic_match_high" || t === "semantic_match_weak") return it.cos >= cx ? "semantic_match_high" : "semantic_match_weak";
+    return t;
+  }
+  function vAt(it, cy) { return it.p == null ? null : it.p >= cy; }
+
+  var geo = null;
+  function layout() {
+    var svg = q("#mk-i-svg"), w = Math.max(280, svg.clientWidth || svg.parentNode.clientWidth - 28);
+    var h = Math.round(w < 560 ? clamp(w * 1.05, 320, 480) : clamp(w * 0.66, 300, 520));
+    var m = { l: w < 480 ? 40 : 52, r: 18, t: 48, b: w < 480 ? 50 : 54 };
+    geo = { w: w, h: h, m: m, pw: w - m.l - m.r, ph: h - m.t - m.b, r: w < 480 ? 11 : 13 };
+  }
+  function X(v) { return geo.m.l + (clamp(v, XMIN, 1) - XMIN) / (1 - XMIN) * geo.pw; }
+  function Y(v) { return geo.m.t + (1 - clamp(v, 0, 1)) * geo.ph; }
+  function invX(px) { return XMIN + (px - geo.m.l) / geo.pw * (1 - XMIN); }
+  function invY(py) { return 1 - (py - geo.m.t) / geo.ph; }
+
+  function dodge() {
+    var pts = plotted.map(function (it) { return { it: it, x: X(it.cos), y: Y(it.p), tx: X(it.cos), ty: Y(it.p) }; });
+    var R = geo.r * 2 + 3;
+    for (var iter = 0; iter < 120; iter++) {
+      var moved = false;
+      for (var a = 0; a < pts.length; a++) for (var b = a + 1; b < pts.length; b++) {
+        var dx = pts[b].x - pts[a].x, dy = pts[b].y - pts[a].y, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < R) {
+          if (d < 0.01) { dx = 0; dy = 1; d = 1; }
+          var push = (R - d) / 2, ux = dx / d, uy = dy / d;
+          pts[a].x -= ux * push; pts[a].y -= uy * push; pts[b].x += ux * push; pts[b].y += uy * push; moved = true;
+        }
+      }
+      pts.forEach(function (p) { p.x = clamp(p.x, geo.m.l + geo.r, geo.m.l + geo.pw - geo.r + 8); p.y = clamp(p.y, geo.m.t - geo.r + 6, geo.m.t + geo.ph + geo.r - 6); });
+      if (!moved) break;
+    }
+    return pts;
+  }
+
+  function drawPlot() {
+    layout();
+    var svg = q("#mk-i-svg"), g = geo, out = "";
+    svg.setAttribute("viewBox", "0 0 " + g.w + " " + g.h);
+    svg.setAttribute("height", g.h);
+    var x0 = g.m.l, x1 = g.m.l + g.pw, y0 = g.m.t, y1 = g.m.t + g.ph, cx = X(st.cx), cy = Y(st.cy);
+    out += '<rect class="mk-i-zone" x="' + cx + '" y="' + y0 + '" width="' + (x1 - cx) + '" height="' + g.ph + '"/>';
+    out += '<rect class="mk-i-zone v" x="' + x0 + '" y="' + y0 + '" width="' + g.pw + '" height="' + (cy - y0) + '"/>';
+    out += '<line x1="' + x0 + '" y1="' + y1 + '" x2="' + x1 + '" y2="' + y1 + '" stroke="#5A5751"/><line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="#5A5751"/>';
+    [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1].forEach(function (v) { out += '<text class="mk-i-ax" x="' + X(v) + '" y="' + (y1 + 16) + '" text-anchor="middle">' + fmt(v).replace(/0$/, "") + "</text>"; });
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (v) { out += '<text class="mk-i-ax" x="' + (x0 - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + fmt(v) + "</text>"; });
+    out += '<text class="mk-i-axl" x="' + x1 + '" y="' + (y1 + 36) + '" text-anchor="end">nota de semelhança da frase achada →</text>';
+    out += '<text class="mk-i-axl" x="' + (x0 - (g.w < 480 ? 36 : 48)) + '" y="' + (y0 - 36) + '">↑ nota do verificador</text>';
+    if (g.w >= 560) {
+      out += '<text class="mk-i-qd" x="' + (x1 - 62) + '" y="' + (cy - 8) + '" text-anchor="end">parecida, e o verificador vê sustentação</text>';
+      out += '<text class="mk-i-qd" x="' + (x1 - 6) + '" y="' + (y1 - 8) + '" text-anchor="end">parecida, mas o verificador vê pouca sustentação</text>';
+      out += '<text class="mk-i-qd" x="' + (x0 + 6) + '" y="' + (cy - 8) + '">pouco parecida, mas sustentada</text>';
+      out += '<text class="mk-i-qd" x="' + (x0 + 6) + '" y="' + (y1 - 8) + '">nenhum dos dois vê apoio</text>';
+    }
+    if (Math.abs(st.cx - RUN_CX) > 1e-9) out += '<line class="mk-i-run" x1="' + X(RUN_CX) + '" y1="' + y0 + '" x2="' + X(RUN_CX) + '" y2="' + y1 + '"/>';
+    if (Math.abs(st.cy - RUN_CY) > 1e-9) out += '<line class="mk-i-run" x1="' + x0 + '" y1="' + Y(RUN_CY) + '" x2="' + x1 + '" y2="' + Y(RUN_CY) + '"/>';
+    var pts = dodge();
+    if (st.runner) pts.forEach(function (p) {
+      if (p.it.runner == null) return;
+      var rx = X(p.it.runner);
+      out += '<line class="mk-i-whisk" x1="' + rx + '" y1="' + p.ty + '" x2="' + p.tx + '" y2="' + p.ty + '"/><circle class="mk-i-whisk-d" cx="' + rx + '" cy="' + p.ty + '" r="3.2"/>';
+    });
+    out += '<line class="mk-i-cutsh" x1="' + cx + '" y1="' + (y0 - 6) + '" x2="' + cx + '" y2="' + y1 + '"/><line class="mk-i-cut" x1="' + cx + '" y1="' + (y0 - 6) + '" x2="' + cx + '" y2="' + y1 + '"/>';
+    out += '<line class="mk-i-cutsh" x1="' + x0 + '" y1="' + cy + '" x2="' + (x1 + 6) + '" y2="' + cy + '"/><line class="mk-i-cut v" x1="' + x0 + '" y1="' + cy + '" x2="' + (x1 + 6) + '" y2="' + cy + '"/>';
+    pts.forEach(function (p) {
+      var it = p.it, k = TIERS[tierAt(it, st.cx)].k;
+      var flip = tierAt(it, st.cx) !== tierAt(it, RUN_CX) || vAt(it, st.cy) !== vAt(it, RUN_CY);
+      if (Math.abs(p.x - p.tx) + Math.abs(p.y - p.ty) > 1) out += '<line class="mk-i-stem" x1="' + p.tx + '" y1="' + p.ty + '" x2="' + p.x + '" y2="' + p.y + '"/>';
+      out += '<circle class="mk-i-true" cx="' + p.tx + '" cy="' + p.ty + '" r="2.2"/>';
+      out += '<g class="mk-i-p' + (flip ? " is-flip" : "") + (st.sel === it.n ? " is-sel" : "") + '" data-k="' + k + '" data-n="' + it.n + '" tabindex="0" role="button" aria-label="Afirmação ' + it.n + ", " + esc(it.u.actor.name) + ": semelhança " + fmt(it.cos) + ", verificador " + fmt(it.p) + '">' +
+        '<circle class="r" cx="' + p.x + '" cy="' + p.y + '" r="' + (g.r + 4) + '"/><circle class="b" cx="' + p.x + '" cy="' + p.y + '" r="' + g.r + '"/><circle class="s" cx="' + p.x + '" cy="' + p.y + '" r="' + (g.r + 5) + '"/>' +
+        '<text x="' + p.x + '" y="' + (p.y + 4.5) + '" text-anchor="middle">' + it.n + "</text></g>";
+    });
+    out += '<g class="mk-i-handle h" data-h="x" transform="translate(' + cx + "," + (y0 - 6) + ')"><rect x="-26" y="-22" width="52" height="20" rx="3"/><text x="0" y="-8" text-anchor="middle">' + fmt(st.cx) + "</text></g>";
+    out += '<g class="mk-i-handle v" data-h="y" transform="translate(' + (x1 + 6) + "," + cy + ')"><rect x="-52" y="-22" width="52" height="20" rx="3"/><text x="-26" y="-8" text-anchor="middle">' + fmt(st.cy) + "</text></g>";
+    svg.innerHTML = out;
+  }
+
+  function drawDrawer() {
+    var box = q("#mk-i-drawer");
+    if (!drawer.length) { box.hidden = true; return; }
+    box.hidden = false;
+    box.innerHTML = '<p class="mk-i-k" style="margin:0">Na gaveta: afirmações sem frase para os juízes lerem</p><ul>' + drawer.map(function (it) {
+      return '<li><button type="button" class="mk-i-dchip" data-n="' + it.n + '" aria-pressed="' + (st.sel === it.n) + '"><b>' + it.n + "</b>" + esc(it.u.actor.name) + "</button></li>";
+    }).join("") + "</ul>";
+  }
+
+  function drawTally() {
+    var withEv = items.filter(function (it) { return it.cos != null; });
+    var c = { q: 0, h: 0, w: 0 }, v = 0, vn = 0, flips = [];
+    withEv.forEach(function (it) {
+      c[TIERS[tierAt(it, st.cx)].k]++;
+      if (it.p != null) { if (vAt(it, st.cy)) v++; else vn++; }
+      var a = tierAt(it, RUN_CX), b = tierAt(it, st.cx), va = vAt(it, RUN_CY), vb = vAt(it, st.cy);
+      if (a !== b) flips.push("<li><b>" + it.n + ". " + esc(it.u.actor.name) + "</b>: de “" + TIERS[a].label + "” para “" + TIERS[b].label + "” (semelhança " + fmt(it.cos, st.cx) + ")</li>");
+      if (va !== vb) flips.push("<li><b>" + it.n + ". " + esc(it.u.actor.name) + "</b>: o verificador passa de “" + (va ? "vê sustentação" : "pouca sustentação") + "” para “" + (vb ? "vê sustentação" : "pouca sustentação") + "” (nota " + fmt(it.p, st.cy) + ")</li>");
+    });
+    var both = withEv.filter(function (it) { return it.p != null && (tierAt(it, st.cx) !== "semantic_match_weak") !== vAt(it, st.cy); }).length;
+    q("#mk-i-tally").innerHTML = "<h3>Com estes cortes</h3>" +
+      '<table class="mk-i-tbl"><tbody>' +
+      "<tr><th>Começo das aspas achado <small>(não depende do corte)</small></th><td>" + c.q + "</td></tr>" +
+      "<tr><th>Trecho parecido</th><td>" + c.h + "</td></tr>" +
+      "<tr><th>Só algo pouco parecido</th><td>" + c.w + "</td></tr>" +
+      "<tr><th>Verificador vê sustentação</th><td>" + v + " <small>de " + (v + vn) + "</small></td></tr>" +
+      "<tr><th>Os dois juízes discordam</th><td>" + both + " <small>de " + (v + vn) + "</small></td></tr>" +
+      "<tr><th>Sem frase para ler</th><td>" + drawer.length + "</td></tr>" +
+      "</tbody></table>" +
+      (flips.length ? '<p class="mk-i-k" style="margin:10px 0 0">Mudam em relação à execução</p><ul class="mk-i-flips">' + flips.join("") + "</ul>" : '<p class="mk-i-sm">Nenhuma afirmação muda de resultado em relação aos cortes da execução (' + fmt(RUN_CX) + " e " + fmt(RUN_CY) + ").</p>");
+  }
+
+  function cell(v, off, gap) {
+    var a = 0.12 + 0.88 * clamp(v, 0, 1), light = v < 0.55;
+    return '<span class="mk-i-cell' + (off ? " is-off" : "") + (gap ? " is-gap" : "") + '" style="background:rgba(91,46,122,' + a.toFixed(3) + ");color:" + (light ? "#2A1B0E" : "#FFFFFF") + '">' + fmt(v).replace(/^0/, "") + "</span>";
+  }
+  function drawFile() {
+    var it = items.filter(function (x) { return x.n === st.sel; })[0], u = it.u, box = q("#mk-i-file");
+    var html = '<span class="mk-i-pin" aria-hidden="true"></span><p class="mk-i-file-k">Ficha da afirmação ' + it.n + " de " + items.length + '</p><p class="mk-i-file-who">' + esc(u.actor.name) + '</p><p class="mk-i-file-prop">' + esc(u.proposition) + "</p>";
+    if (!u.evidence) {
+      html += '<p class="mk-i-sm">Resultado: <b>' + TIERS[u.tier].label + "</b>. " + (u.tier === "person_not_resolved" ? "O nome não casou com nenhum cabeçalho de turno; a pessoa pode aparecer na transcrição com outro nome. Sem frase, os dois juízes não têm o que ler." : "Não havia frase para comparar.") + "</p>";
+      box.innerHTML = html; return;
+    }
+    html += '<p class="mk-i-ev"><small>Frase achada, turno ' + (u.evidence.speaker_turn + 1) + "</small><mark>" + esc(u.evidence.text) + "</mark></p>";
+    html += '<div class="mk-i-nums"><span>semelhança <b>' + fmt(it.cos, st.cx) + "</b></span><span>verificador <b>" + (it.p == null ? "sem nota" : fmt(it.p, st.cy)) + "</b></span>" + (it.runner != null ? "<span>segunda frase <b>" + fmt(it.runner) + "</b></span>" : "") + "</div>";
+    html += '<p class="mk-i-sm">Com os cortes atuais: <b>' + TIERS[tierAt(it, st.cx)].label + "</b>" + (it.p == null ? "" : "; o verificador <b>" + (vAt(it, st.cy) ? "vê sustentação" : "vê pouca sustentação") + "</b>") + ".</p>";
+    if (it.sig.scored) {
+      var pt = it.sig.laya.laya_multi_pt.answers, en = it.sig.laya.laya_en_en.answers;
+      var head = '<span></span>' + S.questions.map(function (q0, i) { return "<span>P" + (i + 1) + "</span>"; }).join("");
+      var rowPt = "<span>PT</span>" + S.questions.map(function (q0) { return cell(pt[q0.id].signal, !q0.in_panel, Math.abs(pt[q0.id].signal - en[q0.id].signal) >= GAP); }).join("");
+      var rowEn = "<span>EN</span>" + S.questions.map(function (q0) { return cell(en[q0.id].signal, !q0.in_panel, Math.abs(pt[q0.id].signal - en[q0.id].signal) >= GAP); }).join("");
+      var gaps = S.questions.filter(function (q0) { return Math.abs(pt[q0.id].signal - en[q0.id].signal) >= GAP; }).map(function (q0) { return "P" + (S.questions.indexOf(q0) + 1); });
+      html += '<div class="mk-i-strip"><p class="mk-i-k" style="margin:0 0 4px">As oito perguntas do verificador</p><div class="mk-i-strip-g">' + head + rowPt + rowEn + "</div>" +
+        '<p class="mk-i-strip-f">Cor mais forte, resposta mais a favor. Contorno vermelho: o modelo que leu o português e o que leu a cópia em inglês se afastam ' + fmt(GAP) + " ou mais (" + (gaps.length ? gaps.join(", ") : "nenhuma pergunta") + "). Tracejado: P8 mede semelhança e fica fora da média. " + S.questions.map(function (q0, i) { return "P" + (i + 1) + ": " + q0.instructions_pt; }).join(" · ") + "</p></div>";
+      var tr = it.sig.translation || {};
+      html += "<details><summary>Ver a cópia em inglês que um dos modelos leu</summary><p><b>Frase</b>" + esc(tr.premise_en || "sem tradução") + "</p><p><b>Afirmação</b>" + esc(tr.hypothesis_en || "sem tradução") + "</p></details>";
+    }
+    html += '<ol class="mk-i-cands">' + u.candidates.slice(0, 4).map(function (c, k) {
+      return "<li><b>" + (k + 1) + "</b><span>" + esc(c.text) + "</span><em>" + fmt(c.score, st.cx) + "</em></li>";
+    }).join("") + "</ol>";
+    html += '<p class="mk-i-sm">As quatro frases mais parecidas. Só a frase achada passou pelo verificador; as outras têm só a nota de semelhança.</p>';
+    box.innerHTML = html;
+  }
+
+  function drawMore() {
+    var m = S.more_opinions || {};
+    q("#mk-i-more").innerHTML = "<b>Mais juízes</b>" + ((m.evaluators || []).length ? esc(m.evaluators.join(", ")) : "Outros avaliadores de sustentação estão sendo calculados (estudo " + esc(m.study || "") + "). Cada um vai virar mais um eixo que o leitor pode escolher no lugar do verificador. Por enquanto não há nota deles.");
+  }
+  function drawCav() {
+    var b = S.primary.benchmark;
+    q("#mk-i-cav").innerHTML = [
+      ["Uma nota não é uma chance", "Nenhum dos dois eixos diz com que frequência o resultado está certo. Isso só vai existir depois de uma conferência feita à mão."],
+      ["O corte do verificador veio de outra tarefa", "Ele foi fixado no treino de uma tarefa em que o verificador lia quatro trechos da transcrição, e não uma frase só. Lá, a área sob a curva ROC no teste foi " + fmt(b.roc_auc) + " (" + fmt(b.roc_auc_interval[0]) + " a " + fmt(b.roc_auc_interval[1]) + ")."],
+      ["Nota baixa não é afirmação errada", "Uma nota baixa diz que a frase achada apoia pouco a afirmação. A fala pode estar em outra frase."]
+    ].map(function (x) { return "<li><b>" + esc(x[0]) + "</b>" + esc(x[1]) + "</li>"; }).join("");
+  }
+  function drawControls() {
+    q("#mk-i-cx").value = st.cx; q("#mk-i-cy").value = st.cy;
+    q("#mk-i-cxo").textContent = fmt(st.cx); q("#mk-i-cyo").textContent = fmt(st.cy);
+    q("#mk-i-cxn").textContent = "Na execução: " + fmt(RUN_CX) + ". Só muda as afirmações achadas por semelhança; as aspas não dependem dele.";
+    q("#mk-i-cyn").textContent = "Fixado no treino do verificador: " + fmt(RUN_CY) + ".";
+  }
+  function head() {
+    var d = String(H.hearing.article_date || "").split("-");
+    q("#mk-i-hed").innerHTML = "<small>Audiência " + esc(H.hearing.id) + " · matéria de " + esc(d.length === 3 ? d[2] + "/" + d[1] + "/" + d[0] : "") + "</small>" + esc(String(H.hearing.materia || "").split(/\n+/)[0]);
+  }
+  function redraw(full) { drawPlot(); drawTally(); drawControls(); if (full) { drawDrawer(); drawFile(); } }
+
+  var svg = q("#mk-i-svg"), drag = null;
+  function local(e) { var r = svg.getBoundingClientRect(); return { x: (e.clientX - r.left) * geo.w / r.width, y: (e.clientY - r.top) * geo.h / r.height }; }
+  svg.addEventListener("pointerdown", function (e) {
+    var h = e.target.closest(".mk-i-handle");
+    var pt = local(e);
+    if (h) drag = h.getAttribute("data-h");
+    else if (!e.target.closest(".mk-i-p")) {
+      var dx = Math.abs(pt.x - X(st.cx)), dy = Math.abs(pt.y - Y(st.cy));
+      if (dx < 14 && pt.y > geo.m.t - 30) drag = "x"; else if (dy < 14) drag = "y";
+    }
+    if (drag) { svg.setPointerCapture(e.pointerId); e.preventDefault(); }
+  });
+  svg.addEventListener("pointermove", function (e) {
+    if (!drag) return;
+    var pt = local(e);
+    if (drag === "x") st.cx = roundTo(clamp(invX(pt.x), XMIN, 1), 3); else st.cy = roundTo(clamp(invY(pt.y), 0, 1), 3);
+    redraw(false);
+  });
+  function endDrag() { if (drag) { drag = null; drawFile(); } }
+  svg.addEventListener("pointerup", endDrag);
+  svg.addEventListener("pointercancel", endDrag);
+  root.addEventListener("click", function (e) {
+    var p = e.target.closest(".mk-i-p, .mk-i-dchip");
+    if (p) { st.sel = Number(p.getAttribute("data-n")); redraw(true); }
+  });
+  root.addEventListener("keydown", function (e) {
+    var p = e.target.closest && e.target.closest(".mk-i-p");
+    if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); st.sel = Number(p.getAttribute("data-n")); redraw(true); var again = q('.mk-i-p[data-n="' + st.sel + '"]'); if (again) again.focus(); }
+  });
+  q("#mk-i-cx").addEventListener("input", function (e) { st.cx = Number(e.target.value); redraw(false); drawFile(); });
+  q("#mk-i-cy").addEventListener("input", function (e) { st.cy = Number(e.target.value); redraw(false); drawFile(); });
+  q("#mk-i-reset").addEventListener("click", function () { st.cx = RUN_CX; st.cy = RUN_CY; redraw(true); });
+  q("#mk-i-runner").addEventListener("change", function (e) { st.runner = e.target.checked; drawPlot(); });
+  var rt = null;
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { drawPlot(); }, 80); });
+
+  head(); drawMore(); drawCav(); redraw(true);
+})();
+</script>
