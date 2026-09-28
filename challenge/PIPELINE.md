@@ -1,9 +1,11 @@
 # Pipeline de UDV: o que cada experimento decidiu e como rodar `udv_v2`
 
-Este documento junta, em um lugar, os experimentos que formaram a construção das UDV (unidades
-documentais verificáveis) e o pipeline recomendado que sai deles, `udv_v2`. Para cada experimento:
-o problema, o que foi comparado, uma tabela curta e a decisão. Todo número cita o artefato de onde
-vem; os caminhos são relativos a `challenge/`, salvo quando indicado.
+Este documento junta, em um lugar, os experimentos que formaram a construção das UDV (Unidades
+Deliberativas Verificáveis, descritas em [`UDV.md`](UDV.md)) e o pipeline recomendado que sai deles,
+`udv_v2`. Para cada experimento: o problema, o que foi comparado, uma tabela curta e a decisão. Todo
+número cita o artefato de onde vem; os caminhos são relativos a `challenge/`, salvo quando indicado. A
+descrição completa de cada experimento, com todos os números, está em
+[`RELATORIO_EXPERIMENTOS.md`](RELATORIO_EXPERIMENTOS.md); os comandos, em [`README.md`](README.md).
 
 Splits: manifesto `artifacts/splits/temporal_v1.json`, 144 audiências de treino, 32 de validação e 30
 de teste. Nenhuma escolha deste documento usou o teste; onde há número de teste, ele foi medido depois
@@ -142,15 +144,19 @@ Fontes: validação do E3 v1 em `artifacts/experiments/nli_verifier/nli_verifier
 (`systems.<sistema>.evaluation.validation.ranking`); validação do primário em
 `artifacts/experiments/nli_verifier_exploration/e3x_v2/confirmation.csv`; teste em
 `artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json` (`results`, `comparisons`).
-O melhor juiz LLM guardado tem kappa de validação 0,6909 (`judges` do mesmo relatório v1).
+O juiz LLM de referência, escolhido no treino entre os 12 guardados no dataset
+(`prompt_1_gpt-4o-mini-2024-07-18`), tem kappa de validação 0,6909 (`judges` do mesmo relatório v1); o
+maior kappa de validação entre os 12 é 0,7114 (`prompt_2_deepseek-chat`,
+`nli_verifier_v2/evaluation_report.json`), escolhido olhando a validação e por isso não usado como
+referência.
 
 No teste, o primário supera o painel Laya em ROC AUC por +0,055 [0,023; 0,100], p de Holm 0,024, e o
 XNLI por +0,111, p de Holm 0,020 (`final_test.json`, `comparisons`). Na validação, as diferenças não
 passam Holm na família grande (p de Holm 0,78, `confirmation.csv`).
 
 **Decisão.** O primário do E3x é o verificador adotado, com o corte do treino 0,7478
-(`final_test.json`, `results.<primário>.threshold`). O kappa dele (0,59) fica abaixo do melhor juiz LLM
-(0,69), então ele não substitui um juiz; ele ordena bem.
+(`final_test.json`, `results.<primário>.threshold`). O kappa dele no teste (0,59) fica abaixo do kappa
+de validação do juiz LLM de referência (0,69), então ele não substitui um juiz; ele ordena bem.
 
 ### Tradução (`translation`)
 
@@ -207,12 +213,13 @@ de linguagem; não é julgamento humano).
 | E-A, validação (698 opiniões) | 0,730 | 0,876 | +0,146 | Holm 0,012 |
 | E-B, anotação por modelo (121 UDVs) | 0,768 | 0,844 | +0,076 [0,002; 0,148] | 0,046 (Holm 0,071 com o AURC) |
 
-Fontes (checkout principal, branch `udv_germano`, commit `b593be4`):
-`challenge/artifacts/experiments/confidence_v2/ea_report.json`,
-`challenge/artifacts/experiments/confidence_v2/eb_report.json` e `challenge/CONFIDENCE_V2.md`.
+Fontes: `artifacts/experiments/confidence_v2/ea_report.json`,
+`artifacts/experiments/confidence_v2/eb_report.json` e [`CONFIDENCE_V2.md`](CONFIDENCE_V2.md).
 
-**Decisão.** O primário é a confiança adotada. Nenhum avaliador da literatura supera o primário em
-nenhuma das duas bases. No E-B a margem é pequena e o rótulo é de modelo.
+**Decisão.** O primário é a confiança adotada. Nas estimativas pontuais, nenhum avaliador da literatura
+tem ROC AUC maior que o primário em nenhuma das duas bases, mas a comparação direta do primário com cada
+avaliador não foi declarada nem testada (`CONFIDENCE_V2.md`, E-A). No E-B a margem sobre o cosseno é
+pequena e o rótulo é de modelo.
 
 ### Camada do verificador sobre `udv_v1`
 
@@ -340,7 +347,13 @@ localizados (`artifacts/udv/udv_v2_coverage.json`). `bookworm verify-udvs --conf
 reproduz o arquivo byte a byte (sha256 `02f42b28...`).
 
 **Diferença por registro contra `udv_v1`** (`diff`): 234 registros têm evidência idêntica (texto,
-`start_char`, `end_char` e `speaker_turn`) e 1.969 mudaram.
+`start_char`, `end_char` e `speaker_turn`) e 1.969 mudaram. `records_changed_any` dá 1.970 porque conta
+também a UDV em que só o nível mudou (`udv-6-0-6`, cosseno 0,4838, entre o corte antigo 0,45 e o novo
+0,50). `udv_v2_verify.json` (`baseline_diff.evidence_changed`) também dá 1.970, por outro motivo: ele
+compara o objeto `evidence` inteiro, incluindo `score`, e conta `udv-117-0-0`, cuja sentença e offsets
+são os mesmos e cujo cosseno difere em 1,2e-7 (0,69387329 contra 0,69387317). As duas rodadas usaram
+versões diferentes de torch e sentence-transformers (seção 9.1 do relatório); a causa dessa diferença
+de arredondamento não foi isolada.
 
 | tipo de mudança | registros |
 |---|---|
@@ -449,29 +462,10 @@ partir dela.
 Critérios declarados em 2026-09-23 (`criteria` da chave): limite inferior de Wilson da precisão estrita de
 `direct_quote` de pelo menos 0,90 e da precisão tolerante de `semantic_match_high` de pelo menos 0,75.
 
-**Resultado humano provisório (INTERIM).** Na planilha em preenchimento, 65 de 127 linhas têm
-julgamento; 64 têm rótulo válido e 1 (`A003`, estrato `semantic_match_high`) tem um texto livre no lugar
-do rótulo e não foi contada. Nenhuma linha tem `existe_trecho_melhor` preenchido. Fonte:
-`artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json`, que registra o sha256 da planilha lida.
-
-| estrato | julgados | estrita [IC 95%] | tolerante [IC 95%] |
-|---|---|---|---|
-| `udv_v1` `direct_quote` | 18 de 35 | 17/18 = 0,944 [0,742; 0,990] | 0,944 [0,742; 0,990] |
-| `udv_v1` `semantic_match_high` | 31 de 65 | 21/31 = 0,677 [0,501; 0,814] | 24/31 = 0,774 [0,602; 0,886] |
-| `udv_v1` `semantic_with_short_quote` | 8 de 15 | 8/8 = 1,0 [0,676; 1,0] | 1,0 [0,676; 1,0] |
-| `udv_v1` `semantic_match_weak` | 4 de 6 | 1/4 = 0,25 [0,046; 0,699] | 2/4 = 0,5 [0,150; 0,850] |
-| `udv_v2` herdado `direct_quote` | 11 de 17 | 10/11 = 0,909 [0,623; 0,984] | 0,909 [0,623; 0,984] |
-| `udv_v2` herdado, estratos semânticos | 0 | sem itens | sem itens |
-
-Nos 3 participantes de `speaker_check` já julgados, a resposta foi `falou` nos 3: a pessoa falou, mas a
-UDV ficou sem evidência utilizável.
-
-Situação dos critérios, provisória: `direct_quote` de `udv_v1` tem limite inferior 0,742 e
-`semantic_match_high` tem 0,602, os dois abaixo do exigido (`INTERIM_FAIL`). Com 18 UDVs julgadas, nem 18
-acertos em 18 alcançariam 0,90 (`min_successes_to_pass_at_this_n` nulo); com os 35 itens, o critério de
-citação só passa se todos forem `correta`, e a UDV incorreta já julgada impede isso. Para
-`semantic_match_high`, 28 acertos tolerantes em 31 seriam necessários. Em `udv_v2`, o critério semântico
-não é avaliável com a amostra atual. Esses números mudam até a planilha ser concluída.
+**Resultado humano provisório.** Os números intermediários da planilha em preenchimento, o estado de
+cada critério e o que ainda falta anotar estão no relatório, seção 7.2. O arquivo
+`artifacts/udv/udv_v2_precision_interim_20260928T143948Z.json` é uma leitura anterior da mesma planilha
+(31 linhas de `semantic_match_high` julgadas e um rótulo inválido) e foi substituído por esse recálculo.
 
 ## Pendências e limitações
 
