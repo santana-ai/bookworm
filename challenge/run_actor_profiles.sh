@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 TRAIN_SPEECHES="artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl"
 TRAIN_PROFILES="artifacts/actor_profiles/actor_profiles_train.jsonl"
-MODEL="${MODEL:-meta-llama/Llama-3.3-70B-Instruct}"
+MODEL="${MODEL:-google/gemma-4-31B-it}"
 
 if [ ! -f dataset/PublicHearingBR_LDS.jsonl ]; then
   uv run python -m utils.download_dataset

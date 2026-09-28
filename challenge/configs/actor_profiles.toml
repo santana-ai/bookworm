@@ -26,4 +26,6 @@ device_map = "auto"
 temperature = 0.2
 top_p = 0.9
 max_output_tokens = 3000
+prefill_chunk_size = 4096
+prefill_chunk_size_reason = "The prompt is prefilled in chunks of this many tokens, so the attention mask of each forward pass holds chunk x context entries instead of context x context. The longest train prompt has about 66k tokens with the gemma-4-31B-it tokenizer; its full bf16 mask alone takes 66k^2 x 2 bytes = 8.2 GiB, and prefilling it in one pass ran out of memory on 3 x 48 GB GPUs. Remove the key to prefill in one pass."
 seed = 42

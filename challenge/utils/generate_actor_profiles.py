@@ -37,6 +37,7 @@ class ProfilesConfig:
     temperature: float
     top_p: float
     max_output_tokens: int
+    prefill_chunk_size: int | None
     seed: int | None
 
 
@@ -56,6 +57,7 @@ def load_config(path: Path) -> ProfilesConfig:
         temperature=raw["model"]["temperature"],
         top_p=raw["model"]["top_p"],
         max_output_tokens=raw["model"]["max_output_tokens"],
+        prefill_chunk_size=raw["model"].get("prefill_chunk_size"),
         seed=raw["model"].get("seed"),
     )
 
@@ -93,6 +95,7 @@ class TransformersChatClient:
             temperature=self._config.temperature,
             top_p=self._config.top_p,
             max_new_tokens=self._config.max_output_tokens,
+            prefill_chunk_size=self._config.prefill_chunk_size,
         )
         input_tokens = inputs["input_ids"].shape[1]
         generated = output[0, input_tokens:]

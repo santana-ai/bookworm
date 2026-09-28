@@ -444,7 +444,7 @@ class SimulationModel:
 
     @torch.inference_mode()
     def letter_logprobs(self, messages: list[Record]) -> list[float]:
-        logits = self.model(**self._encode(messages)).logits[0, -1].float()
+        logits = self.model(**self._encode(messages), logits_to_keep=1).logits[0, -1].float()
         return torch.log_softmax(logits, dim=-1)[self.letter_ids].tolist()
 
     @torch.inference_mode()
