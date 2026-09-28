@@ -1,24 +1,41 @@
+"""One LLM-written profile per actor from the actor's train speeches: positions, criteria and
+values, declared alignments and way of arguing."""
+
 import argparse
 import dataclasses
 import hashlib
 import json
 import logging
-import re
 import time
-import tomllib
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any
 
-from bookworm import article_date, load_gated_jsonl, sha256_of_file, write_json
+from bookworm import load_jsonl
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, Template
-from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
+
+from experiments.actors.backend import TransformersChatClient
+from experiments.actors.chat import ChatClient
+from experiments.actors.cli import MODEL_HELP, configure_logging, require_model, write_report
+from experiments.actors.io import (
+    canonical_sha256,
+    file_info,
+    hearing_metadata,
+    read_jsonl_rows,
+    read_toml,
+    warn_invalid_line,
+)
 
 Record = dict[str, Any]
 
 DEFAULT_CONFIG = Path("configs/actor_profiles.toml")
-THINK_PATTERN = re.compile(r"^\s*<think>.*?</think>\s*", re.DOTALL)
+PROMPT_VERSION_LENGTH = 12
+DRY_RUN_RULE = (
+    "rendered_prompts_sha256 is the sha256 of the JSON list of [actor, system prompt, user"
+    " prompt] of every selected actor, in input order; the same value means the model"
+    " receives the same prompts"
+)
 
 
 @dataclass(frozen=True)
@@ -39,73 +56,24 @@ class ProfilesConfig:
 
 
 def load_config(path: Path) -> ProfilesConfig:
-    with open(path, "rb") as f:
-        raw = tomllib.load(f)
+    raw = read_toml(path)
+    prompts = raw["prompts"]
+    model = raw["model"]
     return ProfilesConfig(
         speeches_path=Path(raw["input"]["speeches_path"]),
         lds_path=Path(raw["input"]["lds_path"]),
         lds_sha256=raw["input"]["lds_sha256"],
         profiles_path=Path(raw["output"]["profiles_path"]),
-        prompts_dir=Path(raw["prompts"]["dir"]),
-        system_profile_file=raw["prompts"]["system_profile"],
-        user_profile_file=raw["prompts"]["user_profile"],
-        model=raw["model"]["name"],
-        device_map=raw["model"]["device_map"],
-        temperature=raw["model"]["temperature"],
-        top_p=raw["model"]["top_p"],
-        max_output_tokens=raw["model"]["max_output_tokens"],
-        seed=raw["model"].get("seed"),
+        prompts_dir=Path(prompts["dir"]),
+        system_profile_file=prompts["system_profile"],
+        user_profile_file=prompts["user_profile"],
+        model=model["name"],
+        device_map=model["device_map"],
+        temperature=model["temperature"],
+        top_p=model["top_p"],
+        max_output_tokens=model["max_output_tokens"],
+        seed=model.get("seed"),
     )
-
-
-@dataclass(frozen=True)
-class ChatResult:
-    text: str
-    input_tokens: int
-    output_tokens: int
-
-
-class ChatClient(Protocol):
-    def chat(self, system: str, user: str) -> ChatResult: ...
-
-
-class TransformersChatClient:
-    def __init__(self, config: ProfilesConfig) -> None:
-        self._config = config
-        self._tokenizer: Any = AutoTokenizer.from_pretrained(config.model)
-        self._model: Any = AutoModelForCausalLM.from_pretrained(
-            config.model, device_map=config.device_map
-        )
-
-    def chat(self, system: str, user: str) -> ChatResult:
-        inputs = self._tokenizer.apply_chat_template(
-            [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            add_generation_prompt=True,
-            return_tensors="pt",
-        ).to(self._model.device)
-        if self._config.seed is not None:
-            set_seed(self._config.seed)
-        output = self._model.generate(
-            **inputs,
-            do_sample=True,
-            temperature=self._config.temperature,
-            top_p=self._config.top_p,
-            max_new_tokens=self._config.max_output_tokens,
-        )
-        input_tokens = inputs["input_ids"].shape[1]
-        generated = output[0, input_tokens:]
-        if len(generated) >= self._config.max_output_tokens:
-            raise RuntimeError(
-                f"generation reached max_output_tokens={self._config.max_output_tokens}"
-            )
-        content = self._tokenizer.decode(generated, skip_special_tokens=True)
-        if "<think>" in content and "</think>" not in content:
-            raise RuntimeError("response contains an unterminated think block")
-        return ChatResult(
-            text=THINK_PATTERN.sub("", content).strip(),
-            input_tokens=input_tokens,
-            output_tokens=len(generated),
-        )
 
 
 @dataclass(frozen=True)
@@ -116,6 +84,7 @@ class PromptSet:
 
 
 def load_prompts(config: ProfilesConfig) -> PromptSet:
+    """The system prompt and the user template, versioned by the hash of their files."""
     environment = Environment(
         loader=FileSystemLoader(config.prompts_dir),
         undefined=StrictUndefined,
@@ -129,7 +98,7 @@ def load_prompts(config: ProfilesConfig) -> PromptSet:
         digest.update(name.encode())
         digest.update((config.prompts_dir / name).read_bytes())
     return PromptSet(
-        version=digest.hexdigest()[:12],
+        version=digest.hexdigest()[:PROMPT_VERSION_LENGTH],
         system_profile=(config.prompts_dir / config.system_profile_file).read_text(),
         user_profile=environment.get_template(config.user_profile_file),
     )
@@ -139,21 +108,8 @@ def load_hearing_metadata(config: ProfilesConfig) -> dict[int, Record]:
     return hearing_metadata(config.lds_path, config.lds_sha256)
 
 
-def hearing_metadata(lds_path: Path, lds_sha256: str) -> dict[int, Record]:
-    metadata: dict[int, Record] = {}
-    for hearing in load_gated_jsonl(lds_path, lds_sha256):
-        published = article_date(hearing["materia"])
-        if published is None:
-            raise ValueError(f"hearing {hearing['id']} has no article date")
-        metadata[hearing["id"]] = {
-            "date": published,
-            "date_br": published.strftime("%d/%m/%Y"),
-            "assunto": hearing["metadados"]["assunto"],
-        }
-    return metadata
-
-
 def actor_hearings(record: Record, metadata: dict[int, Record]) -> list[Record]:
+    """The actor's hearings in chronological order, with date, subject and turns."""
     hearings = sorted(
         record["hearings"],
         key=lambda hearing: (metadata[hearing["hearing_id"]]["date"], hearing["hearing_id"]),
@@ -178,11 +134,6 @@ def render_profile_prompt(
     return prompts.system_profile, user
 
 
-def canonical_sha256(payload: Any) -> str:
-    text = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
-    return hashlib.sha256(text.encode()).hexdigest()
-
-
 def dry_run_report(
     config: ProfilesConfig, prompts: PromptSet, records: list[Record], metadata: dict[int, Record]
 ) -> Record:
@@ -196,10 +147,7 @@ def dry_run_report(
         "prompt_version": prompts.version,
         "prompts_dir": str(config.prompts_dir),
         "inputs": {
-            "speeches": {
-                "path": str(config.speeches_path),
-                "sha256": sha256_of_file(config.speeches_path),
-            },
+            "speeches": file_info(config.speeches_path),
             "lds": {"path": str(config.lds_path), "sha256": config.lds_sha256},
         },
         "actors": len(rendered),
@@ -210,11 +158,7 @@ def dry_run_report(
             "min": min(sizes, default=0),
             "max": max(sizes, default=0),
         },
-        "rule": (
-            "rendered_prompts_sha256 is the sha256 of the JSON list of [actor, system prompt, user"
-            " prompt] of every selected actor, in input order; the same value means the model"
-            " receives the same prompts"
-        ),
+        "rule": DRY_RUN_RULE,
     }
 
 
@@ -248,23 +192,20 @@ class ProfileRunner:
 
 
 def load_done_actors(path: Path, prompt_version: str, model: str) -> set[str]:
+    """Actors already profiled in `path`, which must hold only this prompt version and model."""
     if not path.exists():
         return set()
     done: set[str] = set()
     stale: set[tuple[str, str]] = set()
-    with open(path) as f:
-        for line_number, line in enumerate(f, start=1):
-            if not line.strip():
-                continue
-            try:
-                row = json.loads(line)
-                actor, version = row["actor"], (row["prompt_version"], row["model"])
-            except (json.JSONDecodeError, KeyError):
-                logging.warning("ignoring invalid line %d in %s", line_number, path)
-                continue
-            if version != (prompt_version, model):
-                stale.add(version)
-            done.add(actor)
+    for line_number, row in read_jsonl_rows(path):
+        try:
+            actor, version = row["actor"], (row["prompt_version"], row["model"])
+        except KeyError:
+            warn_invalid_line(line_number, path)
+            continue
+        if version != (prompt_version, model):
+            stale.add(version)
+        done.add(actor)
     if stale:
         raise SystemExit(
             f"{path} has profiles from other (prompt_version, model) pairs {sorted(stale)},"
@@ -284,6 +225,33 @@ def select_records(records: list[Record], actors: list[str] | None) -> list[Reco
     return [by_name[name] for name in actors]
 
 
+@dataclass
+class RunTally:
+    """Counts of one profile run, printed at its end."""
+
+    profiles: int = 0
+    input_tokens: int = 0
+    output_tokens: int = 0
+    failures: list[str] = dataclasses.field(default_factory=list)
+
+    def add(self, row: Record) -> None:
+        self.profiles += 1
+        self.input_tokens += row["input_tokens"]
+        self.output_tokens += row["output_tokens"]
+
+    def report(self, skipped: int, elapsed: float) -> None:
+        print(
+            f"done: {self.profiles} profiles, {len(self.failures)} failures,"
+            f" {skipped} skipped (resume)"
+        )
+        print(
+            f"tokens: {self.input_tokens:,} in / {self.output_tokens:,} out,"
+            f" elapsed {elapsed / 60:.1f} min"
+        )
+        if self.failures:
+            print(f"failed actors: {self.failures}")
+
+
 def run(
     runner: ProfileRunner,
     records: list[Record],
@@ -291,6 +259,8 @@ def run(
     done: set[str],
     limit: int | None,
 ) -> int:
+    """Profile the actors not yet in the output file, appending each profile as it is written;
+    a failed actor is logged and skipped. Returns the exit code."""
     config = runner.config
     skipped = [record["actor"] for record in records if record["actor"] in done]
     todo = [record for record in records if record["actor"] not in done]
@@ -300,23 +270,18 @@ def run(
         todo = todo[:limit]
     config.profiles_path.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
-    failures: list[str] = []
-    total_input = 0
-    total_output = 0
-    successes = 0
+    tally = RunTally()
     with open(config.profiles_path, "a") as output:
         for index, record in enumerate(todo, start=1):
             try:
                 row = runner.generate(record, metadata)
             except Exception as error:
-                failures.append(record["actor"])
+                tally.failures.append(record["actor"])
                 logging.error("[%d/%d] %s failed: %s", index, len(todo), record["actor"], error)
                 continue
             output.write(json.dumps(row, ensure_ascii=False) + "\n")
             output.flush()
-            successes += 1
-            total_input += row["input_tokens"]
-            total_output += row["output_tokens"]
+            tally.add(row)
             logging.info(
                 "[%d/%d] %s: %s in / %s out tokens, %.1fs",
                 index,
@@ -326,12 +291,8 @@ def run(
                 f"{row['output_tokens']:,}",
                 row["duration_seconds"],
             )
-    elapsed = time.monotonic() - started
-    print(f"done: {successes} profiles, {len(failures)} failures, {len(skipped)} skipped (resume)")
-    print(f"tokens: {total_input:,} in / {total_output:,} out, elapsed {elapsed / 60:.1f} min")
-    if failures:
-        print(f"failed actors: {failures}")
-    return 1 if failures else 0
+    tally.report(len(skipped), time.monotonic() - started)
+    return 1 if tally.failures else 0
 
 
 def apply_overrides(config: ProfilesConfig, args: argparse.Namespace) -> ProfilesConfig:
@@ -345,7 +306,7 @@ def apply_overrides(config: ProfilesConfig, args: argparse.Namespace) -> Profile
     return dataclasses.replace(config, **overrides) if overrides else config
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Generate one LLM-written profile per actor from the per-actor speech file,"
@@ -355,7 +316,7 @@ def main() -> None:
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--input", type=Path, help="per-actor speeches JSONL (overrides config)")
     parser.add_argument("--output", type=Path, help="profiles JSONL (overrides config)")
-    parser.add_argument("--model", help="Hugging Face model id or local path (overrides config)")
+    parser.add_argument("--model", help=MODEL_HELP)
     parser.add_argument("--actors", nargs="*", help="only these actors, by exact name")
     parser.add_argument("--limit", type=int, help="process at most this many actors this run")
     parser.add_argument(
@@ -363,22 +324,22 @@ def main() -> None:
         type=Path,
         help="render every prompt without a model and write their sizes and hashes to this JSON",
     )
+    return parser
+
+
+def main() -> None:
+    parser = build_parser()
     args = parser.parse_args()
     if args.limit is not None and args.limit < 0:
         parser.error("--limit must be zero or positive")
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    configure_logging()
     config = apply_overrides(load_config(args.config), args)
-    if not config.model and args.dry_run is None:
-        parser.error("set [model] name in the config, or pass --model")
+    require_model(parser, config.model, args.dry_run is not None)
     prompts = load_prompts(config)
-    with open(config.speeches_path) as f:
-        records = [json.loads(line) for line in f]
-    records = select_records(records, args.actors)
+    records = select_records(load_jsonl(config.speeches_path), args.actors)
     metadata = load_hearing_metadata(config)
     if args.dry_run is not None:
-        report = dry_run_report(config, prompts, records, metadata)
-        write_json(report, args.dry_run)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
+        write_report(dry_run_report(config, prompts, records, metadata), args.dry_run)
         return
     done = load_done_actors(config.profiles_path, prompts.version, config.model)
     logging.info(

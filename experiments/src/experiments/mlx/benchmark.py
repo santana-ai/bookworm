@@ -1,9 +1,12 @@
+"""Speed and memory of each MLX candidate model, and a projection of the time of a full run
+from the long-context speed and the per-item times of the short run."""
+
 import argparse
 import json
 import time
 from dataclasses import replace
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
 import mlx.core as mx
 from bookworm import load_jsonl
@@ -11,9 +14,11 @@ from bookworm import load_jsonl
 import experiments.actors.evaluate_simulation as evaluation_module
 import experiments.actors.generate_profiles as profiles_module
 import experiments.actors.simulate as simulation_module
+from experiments.actors.chat import LETTERS, system_user_messages
 from experiments.actors.evaluate_simulation import rotations
-from experiments.actors.simulation import LETTERS, Material, load_config, turn_owners
+from experiments.actors.simulation import load_config, turn_owners
 from experiments.mlx.backend import MLXEngine, engine_for, release_engines
+from experiments.mlx.probe import PROFILE, choice_messages, probe_material
 from experiments.mlx.settings import (
     DEFAULT_SETTINGS,
     ModelSpec,
@@ -27,16 +32,15 @@ from experiments.mlx.settings import (
     run_paths,
     train_speeches_path,
     write_derived_configs,
+    write_json_file,
 )
-from experiments.mlx.verify_backend import PROFILE, choice_messages
 
 Record = dict[str, Any]
 
 GB = 1e9
-
-
-def profile_messages(system: str, user: str) -> list[Record]:
-    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+SECONDS_PER_HOUR = 3600
+DEFAULT_GENERATION_TOKENS = 128
+DEFAULT_PROFILE_OUTPUT_TOKENS = 1200
 
 
 def timed_prefill(engine: MLXEngine, tokens: list[int]) -> tuple[float, mx.array, list[Any]]:
@@ -83,17 +87,17 @@ def letter_pass_seconds(engine: MLXEngine, prompts: list[list[int]], prefix_cach
     return seconds / len(prompts)
 
 
+def short_run_profiles(paths: RunPaths) -> list[Record]:
+    return load_jsonl(paths.profiles) if paths.profiles.exists() else []
+
+
 def short_run_profile(paths: RunPaths) -> str | None:
-    if not paths.profiles.exists():
-        return None
-    rows = load_jsonl(paths.profiles)
+    rows = short_run_profiles(paths)
     return rows[0]["profile"] if rows else None
 
 
 def mean_profile_output(paths: RunPaths) -> float | None:
-    if not paths.profiles.exists():
-        return None
-    rows = load_jsonl(paths.profiles)
+    rows = short_run_profiles(paths)
     return sum(row["output_tokens"] for row in rows) / len(rows) if rows else None
 
 
@@ -147,57 +151,37 @@ def short_run_results(paths: RunPaths) -> Record | None:
 
 
 def hours(seconds: float | None) -> float | None:
-    return None if seconds is None else round(seconds / 3600, 2)
+    return None if seconds is None else round(seconds / SECONDS_PER_HOUR, 2)
 
 
-def measure(spec: ModelSpec, paths: RunPaths, settings: Settings) -> Record:
-    options = settings.benchmark
-    steps = int(options.get("generation_tokens", 128))
-    mx.reset_peak_memory()
-    started = time.monotonic()
-    engine = engine_for(spec.repo, spec.options)
-    load_seconds = time.monotonic() - started
-    loaded_memory = mx.get_active_memory()
-
-    profiles_config = profiles_module.load_config(paths.profiles_config)
-    prompts = profiles_module.load_prompts(profiles_config)
-    records = load_jsonl(train_speeches_path(paths))
-    metadata = profiles_module.load_hearing_metadata(profiles_config)
-    runner = profiles_module.ProfileRunner(
-        config=profiles_config, prompts=prompts, client=cast(profiles_module.ChatClient, None)
-    )
-    prompt_tokens = {
-        record["actor"]: engine.encode(profile_messages(*runner.profile_prompt(record, metadata)))
+def profile_prompt_tokens(
+    engine: MLXEngine, paths: RunPaths, records: list[Record]
+) -> dict[str, list[int]]:
+    """The tokens of every train actor's profile prompt, by actor."""
+    config = profiles_module.load_config(paths.profiles_config)
+    prompts = profiles_module.load_prompts(config)
+    metadata = profiles_module.load_hearing_metadata(config)
+    return {
+        record["actor"]: engine.encode(
+            system_user_messages(*profiles_module.render_profile_prompt(prompts, record, metadata))
+        )
         for record in records
     }
-    long_actor = options.get("long_context_actor") or max(
-        prompt_tokens, key=lambda actor: len(prompt_tokens[actor])
-    )
-    long_context = speed(engine, prompt_tokens[long_actor], steps)
-    long_context["actor"] = long_actor
-    long_context["peak_memory_gb"] = round(mx.get_peak_memory() / GB, 1)
 
-    material = Material(
-        name="Fulano de Tal", role="Deputado", profile=short_run_profile(paths) or PROFILE
-    )
-    choice_prompts = [
-        engine.encode(choice_messages(condition, order))
-        for condition in (material.baseline(), material)
-        for order in rotations(len(LETTERS))
-    ]
-    short_context = speed(engine, choice_prompts[-1], steps)
-    without_prefix = letter_pass_seconds(engine, choice_prompts, False)
-    with_prefix = letter_pass_seconds(engine, choice_prompts, True)
 
-    actors = {record["actor"] for record in records}
-    counts = full_run_counts(paths, actors)
-    timings = load_timings(paths)
-    output_mean = mean_profile_output(paths)
-    output_tokens = output_mean or float(options.get("profile_output_tokens_guess", 1200))
-    total_input = sum(len(tokens) for tokens in prompt_tokens.values())
+def project_full_run(
+    counts: Record,
+    timings: list[Record],
+    actors: int,
+    input_tokens: int,
+    output_tokens: float,
+    long_context: Record,
+) -> Record:
+    """Hours of the profile stage from the measured speeds, and of the evaluation and
+    simulation stages from the latest per-item times, when there are any."""
     profile_seconds = (
-        total_input / long_context["prefill_tokens_per_second"]
-        + len(records) * output_tokens / long_context["generation_tokens_per_second"]
+        input_tokens / long_context["prefill_tokens_per_second"]
+        + actors * output_tokens / long_context["generation_tokens_per_second"]
     )
     selection = per_item_seconds(timings, "evaluate", counts["selection_split"])
     evaluation = per_item_seconds(timings, "evaluate", counts["eval_split"])
@@ -209,6 +193,64 @@ def measure(spec: ModelSpec, paths: RunPaths, settings: Settings) -> Record:
     )
     simulate_seconds = simulation * counts["requests"] if simulation is not None else None
     parts = [profile_seconds, evaluate_seconds, simulate_seconds]
+    return {
+        "questions": {
+            counts["selection_split"]: counts[counts["selection_split"]],
+            counts["eval_split"]: counts[counts["eval_split"]],
+        },
+        "requests": counts["requests"],
+        "seconds_per_question": {
+            counts["selection_split"]: selection,
+            counts["eval_split"]: evaluation,
+        },
+        "seconds_per_request": simulation,
+        "hours": {
+            "profiles": hours(profile_seconds),
+            "evaluate": hours(evaluate_seconds),
+            "simulate": hours(simulate_seconds),
+            "total": hours(sum(parts)) if all(p is not None for p in parts) else None,
+        },
+    }
+
+
+def measure(spec: ModelSpec, paths: RunPaths, settings: Settings) -> Record:
+    options = settings.benchmark
+    steps = int(options.get("generation_tokens", DEFAULT_GENERATION_TOKENS))
+    mx.reset_peak_memory()
+    started = time.monotonic()
+    engine = engine_for(spec.repo, spec.options)
+    load_seconds = time.monotonic() - started
+    loaded_memory = mx.get_active_memory()
+
+    records = load_jsonl(train_speeches_path(paths))
+    prompt_tokens = profile_prompt_tokens(engine, paths, records)
+    long_actor = options.get("long_context_actor") or max(
+        prompt_tokens, key=lambda actor: len(prompt_tokens[actor])
+    )
+    long_context = speed(engine, prompt_tokens[long_actor], steps)
+    long_context["actor"] = long_actor
+    long_context["peak_memory_gb"] = round(mx.get_peak_memory() / GB, 1)
+
+    material = probe_material(short_run_profile(paths) or PROFILE)
+    choice_prompts = [
+        engine.encode(choice_messages(condition, order))
+        for condition in (material.baseline(), material)
+        for order in rotations(len(LETTERS))
+    ]
+    short_context = speed(engine, choice_prompts[-1], steps)
+    without_prefix = letter_pass_seconds(engine, choice_prompts, False)
+    with_prefix = letter_pass_seconds(engine, choice_prompts, True)
+
+    counts = full_run_counts(paths, {record["actor"] for record in records})
+    timings = load_timings(paths)
+    output_mean = mean_profile_output(paths)
+    output_tokens = output_mean or float(
+        options.get("profile_output_tokens_guess", DEFAULT_PROFILE_OUTPUT_TOKENS)
+    )
+    total_input = sum(len(tokens) for tokens in prompt_tokens.values())
+    projection = project_full_run(
+        counts, timings, len(records), total_input, output_tokens, long_context
+    )
     return {
         "model": spec.id,
         "repo": spec.repo,
@@ -227,22 +269,7 @@ def measure(spec: ModelSpec, paths: RunPaths, settings: Settings) -> Record:
             "profile_input_tokens": total_input,
             "profile_output_tokens_per_actor": round(output_tokens),
             "profile_output_tokens_source": "short run" if output_mean else "settings guess",
-            "questions": {
-                counts["selection_split"]: counts[counts["selection_split"]],
-                counts["eval_split"]: counts[counts["eval_split"]],
-            },
-            "requests": counts["requests"],
-            "seconds_per_question": {
-                counts["selection_split"]: selection,
-                counts["eval_split"]: evaluation,
-            },
-            "seconds_per_request": simulation,
-            "hours": {
-                "profiles": hours(profile_seconds),
-                "evaluate": hours(evaluate_seconds),
-                "simulate": hours(simulate_seconds),
-                "total": hours(sum(parts)) if all(p is not None for p in parts) else None,
-            },
+            **projection,
         },
         "short_run": short_run_results(paths),
     }
@@ -302,8 +329,7 @@ def main() -> None:
         prepare_speeches(paths)
         results[model_id] = measure(spec, paths, settings)
         release_engines()
-        output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n")
+        write_json_file(results, output)
         (settings.runs_dir / "benchmark.md").write_text(markdown(results))
         print(json.dumps(results[model_id], ensure_ascii=False, indent=2))
     print(f"wrote {output} and {settings.runs_dir / 'benchmark.md'}")

@@ -1,43 +1,43 @@
+"""Multiple-choice evaluation of the actor simulation: which of 4 propositions of the same
+hearing the actor made, from no profile (condition 0), the profile (1), the profile plus
+retrieved train excerpts (2) and conditions 2 and 0 combined by classifier-free guidance (3)."""
+
 import argparse
-import dataclasses
-import json
 import logging
 import random
-import time
 from collections import Counter, defaultdict
+from collections.abc import Iterator
 from dataclasses import dataclass
+from functools import partial
 from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
 import numpy as np
-from bookworm import load_jsonl, write_json, write_jsonl
+from bookworm import write_json
 
-from experiments.actors.generate_profiles import hearing_metadata
+from experiments.actors.backend import SimulationModel
+from experiments.actors.chat import LETTERS, SimulationBackend
+from experiments.actors.cli import configure_logging, require_model, write_report
+from experiments.actors.io import Job, canonical_sha256, file_info, fingerprint, run_resumable
 from experiments.actors.simulation import (
-    DEFAULT_CONFIG,
-    LETTERS,
     Material,
     SimulationConfig,
-    SimulationModel,
+    SimulationInputs,
     SimulationPrompts,
     SpeechRetriever,
-    canonical_sha256,
+    TurnKey,
+    add_run_arguments,
+    ask_evidence_level,
     chat_messages,
     check_disjoint,
     clean_role,
-    file_info,
-    fingerprint,
+    config_from_args,
     linked_udvs,
-    load_config,
-    load_profiles,
-    load_prompts,
-    load_rows,
+    load_inputs,
     number_profile,
-    parse_level,
     render,
     split_hearings,
-    turn_owners,
     udv_owner,
 )
 from experiments.common.transcript import load_encoder_spec, normalize_name, normalize_whitespace
@@ -83,6 +83,12 @@ LETTER_MASS_RULE = (
     " rotations; condition 3 is a combination of log-probabilities, not a distribution, and is"
     " left out"
 )
+DRY_RUN_RULE = (
+    "the questions are built as in a model run (linked UDVs, distractors, cleaned roles);"
+    " questions_sha256 is the sha256 of their JSON list, so an equal value means the model"
+    " is asked the same questions"
+)
+EVALUATION_FILE = "evaluation.json"
 LEVEL_RULE = (
     "evidence levels are asked without the options, only on the evaluation split, for conditions"
     " 1 and 2 (condition 3 has the material of condition 2 and reuses its level); the label is"
@@ -94,9 +100,10 @@ def choose_options(
     udv: Record,
     actor: str,
     hearing_udvs: list[Record],
-    owners: dict[tuple[int, int], str],
+    owners: dict[TurnKey, str],
     config: SimulationConfig,
 ) -> list[Record] | None:
+    """The target UDV and 3 seeded distractors from other actors, shuffled, or None."""
     target_name = normalize_name(udv["actor"]["name"])
     others = []
     seen = set()
@@ -129,7 +136,7 @@ def build_questions(
     split: str,
     profiles: dict[str, Record],
     udvs: list[Record],
-    owners: dict[tuple[int, int], str],
+    owners: dict[TurnKey, str],
     metadata: dict[int, Record],
 ) -> tuple[list[Record], Record]:
     hearings = split_hearings(config, split)
@@ -187,10 +194,11 @@ def rotations(size: int) -> list[list[int]]:
 class Evaluator:
     config: SimulationConfig
     prompts: SimulationPrompts
-    model: SimulationModel
+    model: SimulationBackend
     retriever: SpeechRetriever
 
     def choice_logprobs(self, material: Material, question: Record) -> list[list[float]]:
+        """Letter log-probabilities per rotation of the options, reordered by option."""
         options = question["options"]
         by_rotation = []
         for order in rotations(len(options)):
@@ -211,12 +219,14 @@ class Evaluator:
         return by_rotation
 
     def evidence_level(self, material: Material, question: Record) -> Record:
-        request = render(self.prompts.evidence, name=material.name)
-        messages = chat_messages(
-            self.prompts, material, question["date"], question["assunto"], request
+        return ask_evidence_level(
+            self.model,
+            self.prompts,
+            material,
+            question["date"],
+            question["assunto"],
+            self.config.evidence_max_tokens,
         )
-        generation = self.model.generate(messages, self.config.evidence_max_tokens)
-        return {"label": parse_level(generation.text), "text": generation.text}
 
     def score(
         self, question: Record, profile: Record, ks: tuple[int, ...], with_levels: bool
@@ -262,31 +272,19 @@ def score_split(
     run_digest: str,
     path: Path,
 ) -> list[Record]:
-    done = load_rows(path, "udv_id")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    rows = []
-    with open(path, "a") as output:
-        for index, question in enumerate(questions, start=1):
-            profile = profiles[question["actor"]]["profile"]
-            key = fingerprint(run_digest, profile, question, ks, with_levels)
-            row = done.get(question["udv_id"])
-            if row is None or row["fingerprint"] != key:
-                started = time.monotonic()
-                scored = evaluator.score(question, profiles[question["actor"]], ks, with_levels)
-                row = {**scored, "fingerprint": key}
-                output.write(json.dumps(row, ensure_ascii=False) + "\n")
-                output.flush()
-                logging.info(
-                    "[%d/%d] %s (%s): %.1fs",
-                    index,
-                    len(questions),
-                    question["udv_id"],
-                    question["actor"],
-                    time.monotonic() - started,
-                )
-            rows.append(row)
-    write_jsonl(rows, path)
-    return rows
+    """Score every question whose row in `path` is missing or stale."""
+
+    def jobs() -> Iterator[Job]:
+        for question in questions:
+            profile = profiles[question["actor"]]
+            yield Job(
+                id=question["udv_id"],
+                label=f"{question['udv_id']} ({question['actor']})",
+                fingerprint=fingerprint(run_digest, profile["profile"], question, ks, with_levels),
+                compute=partial(evaluator.score, question, profile, ks, with_levels),
+            )
+
+    return run_resumable(path, "udv_id", jobs(), len(questions))
 
 
 def softmax(values: np.ndarray) -> np.ndarray:
@@ -444,7 +442,7 @@ def print_report(summary: Record) -> None:
 def question_dry_run(
     config: SimulationConfig,
     prompt_version: str,
-    inputs: Record,
+    input_files: Record,
     questions: dict[str, list[Record]],
     counts: dict[str, Record],
 ) -> Record:
@@ -452,7 +450,7 @@ def question_dry_run(
         "dry_run": True,
         "model": config.model or None,
         "prompt_version": prompt_version,
-        "inputs": inputs,
+        "inputs": input_files,
         "splits": {
             split: {
                 "counts": counts[split],
@@ -461,67 +459,12 @@ def question_dry_run(
             }
             for split, split_questions in questions.items()
         },
-        "rule": (
-            "the questions are built as in a model run (linked UDVs, distractors, cleaned roles);"
-            " questions_sha256 is the sha256 of their JSON list, so an equal value means the model"
-            " is asked the same questions"
-        ),
+        "rule": DRY_RUN_RULE,
     }
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Multiple-choice evaluation of actor simulation: choose k and gamma on the selection"
-            " split, then score conditions 0-3 and evidence levels on the evaluation split."
-        )
-    )
-    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
-    parser.add_argument("--model", help="Hugging Face model id or local path (overrides config)")
-    parser.add_argument("--actors", nargs="*", help="only these profiled actors, by exact name")
-    parser.add_argument("--profiles", type=Path, help="profiles JSONL (overrides config)")
-    parser.add_argument(
-        "--dry-run",
-        type=Path,
-        help="build the questions of both splits without a model and write their counts to this"
-        " JSON",
-    )
-    args = parser.parse_args()
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    config = load_config(args.config)
-    if args.model is not None:
-        config = dataclasses.replace(config, model=args.model)
-    if args.profiles is not None:
-        config = dataclasses.replace(config, profiles_path=args.profiles)
-    if not config.model and args.dry_run is None:
-        parser.error("set [model] name in the config, or pass --model")
-    if config.selection_split == config.eval_split:
-        parser.error("selection_split and eval_split must differ")
-    prompts = load_prompts(config.prompts_dir)
-    profiles = load_profiles(config.profiles_path, args.actors)
-    train_records = [
-        record for record in load_jsonl(config.train_speeches_path) if record["actor"] in profiles
-    ]
-    evaluated = split_hearings(config, config.selection_split) | split_hearings(
-        config, config.eval_split
-    )
-    check_disjoint(profiles, train_records, evaluated)
-    metadata = hearing_metadata(config.lds_path, config.lds_sha256)
-    udvs = load_jsonl(config.udv_path)
-    owners = turn_owners(load_jsonl(config.speeches_path))
-    selection_questions, selection_counts = build_questions(
-        config, config.selection_split, profiles, udvs, owners, metadata
-    )
-    eval_questions, eval_counts = build_questions(
-        config, config.eval_split, profiles, udvs, owners, metadata
-    )
-    if not selection_questions or not eval_questions:
-        raise SystemExit(
-            f"no questions to score: {len(selection_questions)} on {config.selection_split},"
-            f" {len(eval_questions)} on {config.eval_split}; k and gamma are chosen on"
-            f" {config.selection_split}, so the profiled actors need questions in both splits"
-        )
-    inputs = {
+def evaluation_input_files(config: SimulationConfig, profiles: dict[str, Record]) -> Record:
+    return {
         "profiles": {
             **file_info(config.profiles_path),
             "actors": len(profiles),
@@ -533,23 +476,24 @@ def main() -> None:
         "udv": file_info(config.udv_path),
         "split_manifest": file_info(config.manifest_path),
     }
-    if args.dry_run is not None:
-        report = question_dry_run(
-            config,
-            prompts.version,
-            inputs,
-            {config.selection_split: selection_questions, config.eval_split: eval_questions},
-            {config.selection_split: selection_counts, config.eval_split: eval_counts},
-        )
-        write_json(report, args.dry_run)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
-        return
+
+
+def run_evaluation(
+    config: SimulationConfig,
+    inputs: SimulationInputs,
+    input_files: Record,
+    selection_questions: list[Record],
+    eval_questions: list[Record],
+) -> tuple[Evaluator, list[Record], Record, list[Record]]:
+    """Score the selection split over the k grid, choose k and gamma, then score the
+    evaluation split with that k and the evidence levels."""
+    prompts = inputs.prompts
     run_digest = fingerprint(
         config.model,
         config.evidence_max_tokens,
         load_encoder_spec(),
         prompts.version,
-        {name: info for name, info in inputs.items() if name != "profiles"},
+        {name: info for name, info in input_files.items() if name != "profiles"},
     )
     logging.info(
         "%d + %d questions, prompts %s, loading %s",
@@ -562,12 +506,12 @@ def main() -> None:
         config=config,
         prompts=prompts,
         model=SimulationModel(config.model, config.device_map),
-        retriever=SpeechRetriever(train_records, metadata),
+        retriever=SpeechRetriever(inputs.train_records, inputs.metadata),
     )
     selection_rows = score_split(
         evaluator,
         selection_questions,
-        profiles,
+        inputs.profiles,
         config.k_grid,
         False,
         run_digest,
@@ -577,18 +521,30 @@ def main() -> None:
     eval_rows = score_split(
         evaluator,
         eval_questions,
-        profiles,
+        inputs.profiles,
         (selection["k"],),
         True,
         run_digest,
         config.output_dir / f"choice_{config.eval_split}.jsonl",
     )
-    summary = {
+    return evaluator, selection_rows, selection, eval_rows
+
+
+def evaluation_summary(
+    config: SimulationConfig,
+    evaluator: Evaluator,
+    input_files: Record,
+    counts: dict[str, Record],
+    selection_rows: list[Record],
+    selection: Record,
+    eval_rows: list[Record],
+) -> Record:
+    return {
         "model": config.model,
-        "prompt_version": prompts.version,
+        "prompt_version": evaluator.prompts.version,
         "letter_token_ids": dict(zip(LETTERS, evaluator.model.letter_ids, strict=True)),
         "encoder": dict(zip(("name", "revision"), load_encoder_spec(), strict=True)),
-        "inputs": inputs,
+        "inputs": input_files,
         "rules": {
             "distractors": DISTRACTOR_RULE,
             "scoring": SCORING_RULE,
@@ -597,7 +553,7 @@ def main() -> None:
             "letter_mass": LETTER_MASS_RULE,
         },
         "selection": {
-            "counts": selection_counts,
+            "counts": counts[config.selection_split],
             "conditions": {
                 condition: metrics(selection_rows, condition, selection["k"], 1.0)
                 for condition in ("0", "1")
@@ -606,13 +562,70 @@ def main() -> None:
             **selection,
         },
         "evaluation": {
-            "counts": eval_counts,
+            "counts": counts[config.eval_split],
             **evaluate(eval_rows, selection["k"], selection["guidance_scale"], config),
         },
     }
-    write_json(summary, config.output_dir / "evaluation.json")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Multiple-choice evaluation of actor simulation: choose k and gamma on the selection"
+            " split, then score conditions 0-3 and evidence levels on the evaluation split."
+        )
+    )
+    add_run_arguments(parser)
+    parser.add_argument(
+        "--dry-run",
+        type=Path,
+        help="build the questions of both splits without a model and write their counts to this"
+        " JSON",
+    )
+    return parser
+
+
+def main() -> None:
+    parser = build_parser()
+    args = parser.parse_args()
+    configure_logging()
+    config = config_from_args(args)
+    require_model(parser, config.model, args.dry_run is not None)
+    if config.selection_split == config.eval_split:
+        parser.error("selection_split and eval_split must differ")
+    inputs = load_inputs(config, args.actors)
+    evaluated = split_hearings(config, config.selection_split) | split_hearings(
+        config, config.eval_split
+    )
+    check_disjoint(inputs.profiles, inputs.train_records, evaluated)
+    questions: dict[str, list[Record]] = {}
+    counts: dict[str, Record] = {}
+    for split in (config.selection_split, config.eval_split):
+        questions[split], counts[split] = build_questions(
+            config, split, inputs.profiles, inputs.udvs, inputs.owners, inputs.metadata
+        )
+    selection_questions = questions[config.selection_split]
+    eval_questions = questions[config.eval_split]
+    if not selection_questions or not eval_questions:
+        raise SystemExit(
+            f"no questions to score: {len(selection_questions)} on {config.selection_split},"
+            f" {len(eval_questions)} on {config.eval_split}; k and gamma are chosen on"
+            f" {config.selection_split}, so the profiled actors need questions in both splits"
+        )
+    input_files = evaluation_input_files(config, inputs.profiles)
+    if args.dry_run is not None:
+        report = question_dry_run(config, inputs.prompts.version, input_files, questions, counts)
+        write_report(report, args.dry_run)
+        return
+    evaluator, selection_rows, selection, eval_rows = run_evaluation(
+        config, inputs, input_files, selection_questions, eval_questions
+    )
+    summary = evaluation_summary(
+        config, evaluator, input_files, counts, selection_rows, selection, eval_rows
+    )
+    write_json(summary, config.output_dir / EVALUATION_FILE)
     print_report(summary)
-    print(f"wrote {config.output_dir / 'evaluation.json'}")
+    print(f"wrote {config.output_dir / EVALUATION_FILE}")
 
 
 if __name__ == "__main__":

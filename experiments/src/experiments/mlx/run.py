@@ -1,3 +1,7 @@
+"""Run the actor profile and simulation stages of experiments.actors with an MLX model: the
+stages are called unchanged, with the MLX classes installed in place of the transformers ones,
+and the time of each stage is appended to the run's timings file."""
+
 import argparse
 import json
 import time
@@ -11,16 +15,15 @@ import mlx.core as mx
 import experiments.actors.evaluate_simulation as evaluation_module
 import experiments.actors.generate_profiles as profiles_module
 import experiments.actors.simulate as simulation_module
-from experiments.actors.simulation import (
-    LETTERS,
-    Material,
-    chat_messages,
-    letter_token_ids,
-    load_prompts,
-    load_rows,
-    render,
-)
+from experiments.actors.chat import LETTERS, letter_token_ids
+from experiments.actors.io import load_rows
 from experiments.mlx.backend import MLXChatClient, MLXSimulationModel, engine_for
+from experiments.mlx.probe import (
+    PT_BR_QUESTION,
+    SMOKE_OPTIONS,
+    choice_messages,
+    probe_material,
+)
 from experiments.mlx.settings import (
     DEFAULT_SETTINGS,
     ModelSpec,
@@ -35,24 +38,28 @@ from experiments.mlx.settings import (
     run_paths,
     train_speeches_path,
     write_derived_configs,
+    write_json_file,
 )
 
 Record = dict[str, Any]
 
 STAGES = ("download", "smoke", "profiles", "evaluate", "simulate", "all")
-SMOKE_OPTIONS = (
-    "Defendeu a ampliação do financiamento público para a educação básica.",
-    "Criticou a demora do ministério na liberação de recursos para os municípios.",
-    "Propôs a criação de uma comissão especial para acompanhar o programa.",
-    "Afirmou que a proposta transfere custos para os estados sem compensação.",
-)
+GB = 1e9
+PROMPT_TAIL_TOKENS = 16
+CHOICE_GREEDY_TOKENS = 8
+PT_BR_SAMPLE_TOKENS = 96
 
 
 def now() -> str:
     return datetime.now(UTC).isoformat(timespec="seconds")
 
 
+def elapsed(started: float) -> float:
+    return round(time.monotonic() - started, 1)
+
+
 def install_backend(spec: ModelSpec) -> None:
+    """Replace the transformers classes of the actor modules by the MLX ones."""
     profiles_module.TransformersChatClient = partial(  # type: ignore[misc,assignment]
         MLXChatClient, options=spec.options
     )
@@ -64,7 +71,13 @@ def install_backend(spec: ModelSpec) -> None:
     )
 
 
+def row_fingerprints(path: Path, key: str) -> dict[str, str]:
+    """The fingerprint of each row of a resumable JSONL file, by row id."""
+    return {name: row["fingerprint"] for name, row in load_rows(path, key).items()}
+
+
 def install_timed_score_split(spec: ModelSpec, paths: RunPaths) -> None:
+    """Wrap score_split so that each split's scoring time is appended to the timings."""
     original = evaluation_module.score_split
 
     def timed(*args: Any, **kwargs: Any) -> list[Record]:
@@ -83,7 +96,7 @@ def install_timed_score_split(spec: ModelSpec, paths: RunPaths) -> None:
                 "model": spec.id,
                 "questions": len(rows),
                 "scored": scored,
-                "seconds": round(time.monotonic() - started, 1),
+                "seconds": elapsed(started),
                 "finished_at": now(),
             },
         )
@@ -96,15 +109,26 @@ def actor_args(actors: list[str] | None) -> list[str]:
     return ["--actors", *actors] if actors else []
 
 
+def letter_probe(spec: ModelSpec, messages: list[Record]) -> Record:
+    """Letter token ids, letter log-probabilities and the greedy answer to the probe choice."""
+    model = MLXSimulationModel(spec.repo, "auto", spec.options)
+    logprobs = model.letter_logprobs(messages)
+    return {
+        "letter_ids": dict(zip(LETTERS, model.letter_ids, strict=True)),
+        "letter_logprobs": dict(zip(LETTERS, logprobs, strict=True)),
+        "letter_mass": float(sum(mx.exp(mx.array(logprobs)).tolist())),
+        "choice_greedy": model.generate(messages, CHOICE_GREEDY_TOKENS).text,
+    }
+
+
 def smoke(spec: ModelSpec, paths: RunPaths) -> Record:
+    """Load the model, check the letter tokens and the chat template on a probe choice, and
+    time a short pt-BR answer."""
     mx.reset_peak_memory()
     started = time.monotonic()
     engine = engine_for(spec.repo, spec.options)
     load_seconds = time.monotonic() - started
-    prompts = load_prompts(Path("prompts/actor_simulation"))
-    material = Material(name="Fulano de Tal", role="Deputado", profile=None)
-    choice = render(prompts.choice, name=material.name, options=SMOKE_OPTIONS, letters=LETTERS)
-    messages = chat_messages(prompts, material, "05/03/2024", "Financiamento da educação", choice)
+    messages = choice_messages(probe_material(None), list(range(len(SMOKE_OPTIONS))))
     tokens = engine.encode(messages)
     report: Record = {
         "model": spec.id,
@@ -112,37 +136,24 @@ def smoke(spec: ModelSpec, paths: RunPaths) -> Record:
         "revision": spec.revision,
         "load_seconds": round(load_seconds, 1),
         "template_kwargs": dict(spec.options.template_kwargs),
-        "prompt_tail": engine.tokenizer.decode(tokens[-16:]),
+        "prompt_tail": engine.tokenizer.decode(tokens[-PROMPT_TAIL_TOKENS:]),
     }
     try:
-        letter_ids = letter_token_ids(engine.tokenizer)
+        letter_token_ids(engine.tokenizer)
     except SystemExit as error:
         report["letter_ids"] = None
         report["letter_error"] = str(error)
     else:
-        report["letter_ids"] = dict(zip(LETTERS, letter_ids, strict=True))
-        model = MLXSimulationModel(spec.repo, "auto", spec.options)
-        logprobs = model.letter_logprobs(messages)
-        report["letter_logprobs"] = dict(zip(LETTERS, logprobs, strict=True))
-        report["letter_mass"] = float(sum(mx.exp(mx.array(logprobs)).tolist()))
-        report["choice_greedy"] = model.generate(messages, 8).text
-    question = [
-        {"role": "user", "content": "Em duas frases, o que é uma audiência pública na Câmara?"}
-    ]
+        report |= letter_probe(spec, messages)
     started = time.monotonic()
-    generated = engine.generate_tokens(engine.encode(question), 96)
+    generated = engine.generate_tokens(engine.encode(PT_BR_QUESTION), PT_BR_SAMPLE_TOKENS)
     seconds = time.monotonic() - started
     report["pt_br_sample"] = engine.decode(generated)
     report["pt_br_sample_tokens_per_second"] = round(len(generated) / seconds, 1)
     report["contains_think"] = "<think>" in report["pt_br_sample"]
-    report["peak_memory_gb"] = round(mx.get_peak_memory() / 1e9, 1)
-    paths.root.mkdir(parents=True, exist_ok=True)
-    (paths.root / "smoke.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    report["peak_memory_gb"] = round(mx.get_peak_memory() / GB, 1)
+    write_json_file(report, paths.root / "smoke.json")
     return report
-
-
-def count_rows(path: Path, key: str) -> dict[str, str]:
-    return {name: row["fingerprint"] for name, row in load_rows(path, key).items()}
 
 
 def run_profiles(spec: ModelSpec, paths: RunPaths, actors: list[str] | None) -> None:
@@ -165,7 +176,7 @@ def run_profiles(spec: ModelSpec, paths: RunPaths, actors: list[str] | None) -> 
             "stage": "profiles",
             "model": spec.id,
             "actors": actors,
-            "seconds": round(time.monotonic() - started, 1),
+            "seconds": elapsed(started),
             "finished_at": now(),
         },
     )
@@ -184,14 +195,14 @@ def run_simulate(
     spec: ModelSpec, paths: RunPaths, actors: list[str] | None, extra: list[str]
 ) -> None:
     output = paths.simulation_dir / "simulations.jsonl"
-    before = count_rows(output, "request_id")
+    before = row_fingerprints(output, "request_id")
     started = time.monotonic()
     call_main(
         "experiments.actors.simulate",
         simulation_module.main,
         ["--config", str(paths.simulation_config), *actor_args(actors), *extra],
     )
-    after = count_rows(output, "request_id")
+    after = row_fingerprints(output, "request_id")
     append_timing(
         paths,
         {
@@ -199,13 +210,13 @@ def run_simulate(
             "model": spec.id,
             "requests": len(after),
             "generated": sum(before.get(key) != value for key, value in after.items()),
-            "seconds": round(time.monotonic() - started, 1),
+            "seconds": elapsed(started),
             "finished_at": now(),
         },
     )
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Run the actor profile and simulation pipeline of experiments.actors unchanged, with an"
@@ -219,7 +230,11 @@ def main() -> None:
     group.add_argument("--actors", nargs="+", help="actors, by exact name (default: short run)")
     group.add_argument("--all-actors", action="store_true", help="every profiled actor")
     parser.add_argument("--k", help="passed to experiments.actors.simulate")
-    args = parser.parse_args()
+    return parser
+
+
+def main() -> None:
+    args = build_parser().parse_args()
     settings = load_settings(args.settings)
     spec = model_spec(settings, args.model)
     if args.stage == "download":
@@ -230,9 +245,7 @@ def main() -> None:
     write_derived_configs(spec, paths)
     install_backend(spec)
     actors = None if args.all_actors else args.actors or list(settings.short_run_actors) or None
-    extra = []
-    if args.k is not None:
-        extra += ["--k", args.k]
+    extra = ["--k", args.k] if args.k is not None else []
     if args.stage == "smoke":
         print(json.dumps(smoke(spec, paths), ensure_ascii=False, indent=2))
         return

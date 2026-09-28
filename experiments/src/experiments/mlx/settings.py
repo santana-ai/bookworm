@@ -1,7 +1,9 @@
+"""Settings of the MLX runs (models, folders, benchmark options), the per-model configs derived
+from the base configs, and the helpers that run the experiments.actors stages in process."""
+
 import json
 import os
 import sys
-import tomllib
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -11,8 +13,9 @@ import yaml
 from huggingface_hub import snapshot_download
 
 from experiments.actors import build_speeches, filter_speeches
+from experiments.actors.io import read_toml
 from experiments.data.download import download_public_hearing_br
-from experiments.mlx.backend import BackendOptions, register_model
+from experiments.mlx.backend import DEFAULT_PREFILL_STEP, BackendOptions, register_model
 
 Record = dict[str, Any]
 
@@ -57,7 +60,7 @@ def load_settings(path: Path = DEFAULT_SETTINGS) -> Settings:
             options=BackendOptions(
                 template_kwargs=tuple(sorted((entry.get("chat_template_kwargs") or {}).items())),
                 prefix_cache=bool(backend.get("prefix_cache", True)),
-                prefill_step=int(backend.get("prefill_step", 2048)),
+                prefill_step=int(backend.get("prefill_step", DEFAULT_PREFILL_STEP)),
             ),
         )
         for model_id, entry in raw["models"].items()
@@ -144,8 +147,7 @@ def write_toml(data: Record, path: Path) -> Path:
 
 
 def read_base(name: str) -> Record:
-    with open(BASE_CONFIGS / name, "rb") as f:
-        return tomllib.load(f)
+    return read_toml(BASE_CONFIGS / name)
 
 
 @dataclass(frozen=True)
@@ -176,6 +178,7 @@ def run_paths(settings: Settings, spec: ModelSpec) -> RunPaths:
 
 
 def write_derived_configs(spec: ModelSpec, paths: RunPaths) -> None:
+    """The base configs with this run's output paths and model, under the run folder."""
     hearing_actors = read_base("hearing_actors.toml")
     hearing_actors["measurement"]["output_path"] = str(paths.shared / "measurements.json")
     hearing_actors["speeches"]["ambiguous_names_path"] = str(paths.shared / "ambiguous_names.json")
@@ -196,6 +199,7 @@ def write_derived_configs(spec: ModelSpec, paths: RunPaths) -> None:
 
 
 def call_main(module: str, main: Callable[[], None], argv: list[str]) -> None:
+    """Run a module's main() in this process with `argv`, raising only on a failing exit."""
     saved = sys.argv
     sys.argv = [module, *argv]
     try:
@@ -208,15 +212,13 @@ def call_main(module: str, main: Callable[[], None], argv: list[str]) -> None:
 
 
 def train_speeches_path(paths: RunPaths) -> Path:
-    with open(paths.profiles_config, "rb") as f:
-        return Path(tomllib.load(f)["split_filter"]["speeches_path"])
+    return Path(read_toml(paths.profiles_config)["split_filter"]["speeches_path"])
 
 
 def prepare_speeches(paths: RunPaths) -> None:
-    with open(paths.profiles_config, "rb") as f:
-        profiles = tomllib.load(f)
-    with open(paths.hearing_actors_config, "rb") as f:
-        hearing_actors = tomllib.load(f)
+    """Download the dataset and build the speech files that are missing."""
+    profiles = read_toml(paths.profiles_config)
+    hearing_actors = read_toml(paths.hearing_actors_config)
     if not Path(profiles["input"]["lds_path"]).exists():
         download_public_hearing_br(DATASET_DIR)
     if not Path(hearing_actors["speeches"]["multi_hearing_path"]).exists():
@@ -237,6 +239,11 @@ def append_timing(paths: RunPaths, entry: Record) -> None:
     paths.timings.parent.mkdir(parents=True, exist_ok=True)
     with open(paths.timings, "a") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+
+def write_json_file(payload: Record, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
 
 
 def load_timings(paths: RunPaths) -> list[Record]:

@@ -1,73 +1,62 @@
+"""Open generation of simulated speeches: for each request (actor, date, topic), an evidence
+level, a speech and its checked justification from the profile (approach 1) and from the
+profile plus retrieved train excerpts (approach 2), and a speech from the baseline material."""
+
 import argparse
 import dataclasses
 import json
 import logging
 import random
-import time
 from collections import Counter, defaultdict
+from collections.abc import Iterator
 from dataclasses import dataclass
+from functools import partial
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
-from bookworm import load_jsonl, write_json, write_jsonl
+from bookworm import load_jsonl, write_json
 
-from experiments.actors.generate_profiles import hearing_metadata
+from experiments.actors.backend import SimulationModel
+from experiments.actors.build_speeches import CHAIR_ROLE
+from experiments.actors.chat import Generation, SimulationBackend
+from experiments.actors.cli import configure_logging, require_model, write_report
+from experiments.actors.io import Job, canonical_sha256, file_info, fingerprint, run_resumable
+from experiments.actors.justification import CHECK_RULE, check_justification
 from experiments.actors.simulation import (
-    CHAIR_ROLE,
-    DEFAULT_CONFIG,
     NO_BASIS,
     Excerpt,
-    Generation,
     Material,
     SimulationConfig,
-    SimulationModel,
+    SimulationInputs,
     SimulationPrompts,
     SpeechRetriever,
-    canonical_sha256,
+    TurnKey,
+    add_run_arguments,
+    ask_evidence_level,
     chat_messages,
     check_disjoint,
     clean_role,
-    file_info,
-    fingerprint,
+    config_from_args,
     linked_udvs,
-    load_config,
-    load_profiles,
-    load_prompts,
-    load_rows,
+    load_inputs,
     number_profile,
-    parse_level,
-    profile_ids,
     render,
     split_hearings,
-    turn_owners,
     turn_sentences,
 )
-from experiments.common.transcript import (
-    TRUSTED_PREFIX_WORDS,
-    find_quote_match,
-    is_trusted_quote,
-    load_encoder_spec,
-    normalize_whitespace,
-)
+from experiments.common.transcript import load_encoder_spec
 
 Record = dict[str, Any]
 
 REFUSAL = "o material não permite estimar"
 APPROACHES = ("1", "2")
-QUOTE_MARKS = '"“”'
-TRAILING_PUNCTUATION = ".!?…;:,\"'”) "
-CHECK_RULE = (
-    "JSON objects are read anywhere in the justification (one per line is asked, but objects"
-    " spread over several lines or inside code fences are read too; fragments that do not parse"
-    " are counted in parse_failures). A sentence of the simulated speech is grounded when at"
-    " least one object's 'frase' contains it (whitespace-normalized, ignoring trailing"
-    " punctuation and leading quote marks) and every such object has a non-empty 'apoio', only"
-    " ids that exist in the material of the call, and, for each cited example or excerpt, a"
-    " 'copias' entry that,"
-    " without enclosing quote marks, has at least 6 words and whose first 6 to 10 words are"
-    " found in it by the UDV quote-prefix rule (otherwise copy_missing, copy_too_short or"
-    " copy_not_found). This shows that the cited item exists and that the start of the copy is"
-    " literal, not that the item supports the sentence."
+EVALUATION_FILE = "evaluation.json"
+SIMULATIONS_FILE = "simulations.jsonl"
+SUMMARY_FILE = "simulations_summary.json"
+K_RULE = "k comes from evaluation.json of the model run, or --k; null before that run"
+DRY_RUN_RULE = (
+    "requests, roles and speech examples are built as in a model run; an equal hash means"
+    " the model receives the same requests, roles and examples (the excerpts depend on k)"
 )
 
 
@@ -85,6 +74,8 @@ def leading_sentences(sentences: list[str], max_words: int) -> str:
 def example_candidates(
     record: Record, metadata: dict[int, Record], config: SimulationConfig
 ) -> list[Excerpt]:
+    """The non-chair turns of the actor, cut to their leading sentences after the first, that
+    keep enough words to show how the actor speaks."""
     candidates = []
     for hearing in record["hearings"]:
         info = metadata[hearing["hearing_id"]]
@@ -111,6 +102,7 @@ def example_candidates(
 def speech_examples(
     record: Record, metadata: dict[int, Record], config: SimulationConfig
 ) -> tuple[Excerpt, ...]:
+    """Seeded draw of the speech examples, from distinct hearings when there are enough."""
     by_hearing: dict[int, list[Excerpt]] = defaultdict(list)
     for candidate in example_candidates(record, metadata, config):
         by_hearing[candidate.source["hearing_id"]].append(candidate)
@@ -138,106 +130,17 @@ def speech_examples(
 def latest_role(
     record: Record,
     udvs: list[Record],
-    owners: dict[tuple[int, int], str],
+    owners: dict[TurnKey, str],
     metadata: dict[int, Record],
     parties: tuple[str, ...],
 ) -> str | None:
+    """The cleaned role of the actor's most recent linked UDV in the train hearings."""
     hearings = {hearing["hearing_id"] for hearing in record["hearings"]}
     linked = [udv for udv, _ in linked_udvs(udvs, owners, {record["actor"]}, hearings)]
     if not linked:
         return None
     latest = max(linked, key=lambda udv: (metadata[udv["hearing_id"]]["date"], udv["hearing_id"]))
     return clean_role(latest["actor"]["role"], parties)
-
-
-def copy_problem(copy: Any, source_id: str, source: str) -> str | None:
-    if not isinstance(copy, str):
-        return f"copy_missing:{source_id}"
-    text = normalize_whitespace(copy).strip(QUOTE_MARKS).strip()
-    if len(text.split()) < TRUSTED_PREFIX_WORDS:
-        return f"copy_too_short:{source_id}"
-    if not is_trusted_quote(find_quote_match(text, source)):
-        return f"copy_not_found:{source_id}"
-    return None
-
-
-def check_line(item: Record, known_ids: set[str], sources: dict[str, str]) -> Record:
-    support = item.get("apoio")
-    support = (
-        [value for value in support if isinstance(value, str)] if isinstance(support, list) else []
-    )
-    copies = cast(Record, item.get("copias")) if isinstance(item.get("copias"), dict) else {}
-    problems = [] if support else ["empty_support"]
-    for source_id in support:
-        if source_id not in known_ids:
-            problems.append(f"unknown_id:{source_id}")
-        elif source_id in sources:
-            problem = copy_problem(copies.get(source_id), source_id, sources[source_id])
-            if problem is not None:
-                problems.append(problem)
-    return {
-        "frase": normalize_whitespace(item["frase"]),
-        "apoio": support,
-        "copias": copies,
-        "problems": problems,
-    }
-
-
-def json_objects(text: str) -> tuple[list[Any], int]:
-    decoder = json.JSONDecoder()
-    objects: list[Any] = []
-    failures = 0
-    position = 0
-    while (start := text.find("{", position)) != -1:
-        try:
-            item, position = decoder.raw_decode(text, start)
-        except json.JSONDecodeError:
-            failures += 1
-            position = start + 1
-            continue
-        objects.append(item)
-    return objects, failures
-
-
-def sentence_key(text: str) -> str:
-    return normalize_whitespace(text).rstrip(TRAILING_PUNCTUATION).lstrip(QUOTE_MARKS)
-
-
-def check_justification(speech: str, justification: str, material: Material) -> Record:
-    sources = {f"E{i}": example.text for i, example in enumerate(material.examples, start=1)}
-    sources |= {f"T{i}": excerpt.text for i, excerpt in enumerate(material.excerpts, start=1)}
-    known_ids = profile_ids(material.profile) | set(sources)
-    objects, parse_failures = json_objects(justification)
-    lines: list[Record] = []
-    invalid: list[Any] = []
-    for item in objects:
-        if isinstance(item, dict) and isinstance(item.get("frase"), str) and item["frase"].strip():
-            lines.append(check_line(item, known_ids, sources))
-        else:
-            invalid.append(item)
-    sentences = []
-    for sentence in turn_sentences(speech):
-        key = sentence_key(sentence)
-        matched = [line for line in lines if key and key in line["frase"]]
-        sentences.append(
-            {
-                "sentence": sentence,
-                "lines": len(matched),
-                "grounded": bool(matched) and all(not line["problems"] for line in matched),
-            }
-        )
-    speech_text = normalize_whitespace(speech)
-    return {
-        "sentences": sentences,
-        "lines": lines,
-        "invalid_items": invalid,
-        "parse_failures": parse_failures,
-        "lines_not_in_speech": sum(
-            sentence_key(line["frase"]) not in speech_text for line in lines
-        ),
-        "n_sentences": len(sentences),
-        "n_ungrounded": sum(not sentence["grounded"] for sentence in sentences),
-    }
 
 
 def excerpt_record(excerpt: Excerpt) -> Record:
@@ -253,31 +156,46 @@ def excerpt_record(excerpt: Excerpt) -> Record:
 class Simulator:
     config: SimulationConfig
     prompts: SimulationPrompts
-    model: SimulationModel
+    model: SimulationBackend
     retriever: SpeechRetriever
     k: int
 
-    def messages(self, material: Material, request: Record, ask: str) -> list[Record]:
-        return chat_messages(self.prompts, material, request["date"], request["topic"], ask)
+    def _generate(self, material: Material, request: Record, ask: str, tokens: int) -> Generation:
+        messages = chat_messages(self.prompts, material, request["date"], request["topic"], ask)
+        return self.model.generate(messages, tokens)
 
     def level(self, material: Material, request: Record) -> Record:
-        ask = render(self.prompts.evidence, name=material.name)
-        generation = self.model.generate(
-            self.messages(material, request, ask), self.config.evidence_max_tokens
+        return ask_evidence_level(
+            self.model,
+            self.prompts,
+            material,
+            request["date"],
+            request["topic"],
+            self.config.evidence_max_tokens,
         )
-        return {"label": parse_level(generation.text), "text": generation.text}
 
     def speak(self, material: Material, request: Record) -> Generation:
         ask = render(self.prompts.speech, name=material.name)
-        return self.model.generate(
-            self.messages(material, request, ask), self.config.speech_max_tokens
-        )
+        return self._generate(material, request, ask, self.config.speech_max_tokens)
 
     def justify(self, material: Material, request: Record, speech: str) -> Generation:
         ask = render(self.prompts.justification, speech=speech)
-        return self.model.generate(
-            self.messages(material, request, ask), self.config.justification_max_tokens
-        )
+        return self._generate(material, request, ask, self.config.justification_max_tokens)
+
+    def approach(self, material: Material, request: Record) -> Record:
+        """Evidence level, then, unless it is SEM BASE, a speech and its checked justification."""
+        level = self.level(material, request)
+        if level["label"] == NO_BASIS:
+            return {"level": level, "output": REFUSAL}
+        speech = self.speak(material, request)
+        justification = self.justify(material, request, speech.text)
+        return {
+            "level": level,
+            "output": speech.text,
+            "speech": dataclasses.asdict(speech),
+            "justification": dataclasses.asdict(justification),
+            "check": check_justification(speech.text, justification.text, material),
+        }
 
     def run(
         self, request: Record, profile: Record, role: str | None, examples: tuple[Excerpt, ...]
@@ -291,22 +209,10 @@ class Simulator:
         with_excerpts = base.with_excerpts(
             self.retriever.retrieve(request["actor"], request["topic"], self.k)
         )
-        plans = (("1", base), ("2", with_excerpts))
-        approaches: Record = {}
-        for approach, material in plans:
-            level = self.level(material, request)
-            if level["label"] == NO_BASIS:
-                approaches[approach] = {"level": level, "output": REFUSAL}
-                continue
-            speech = self.speak(material, request)
-            justification = self.justify(material, request, speech.text)
-            approaches[approach] = {
-                "level": level,
-                "output": speech.text,
-                "speech": dataclasses.asdict(speech),
-                "justification": dataclasses.asdict(justification),
-                "check": check_justification(speech.text, justification.text, material),
-            }
+        approaches = {
+            approach: self.approach(material, request)
+            for approach, material in zip(APPROACHES, (base, with_excerpts), strict=True)
+        }
         return {
             **request,
             "role": role,
@@ -318,14 +224,24 @@ class Simulator:
             "approaches": approaches,
         }
 
+    def row(
+        self, request: Record, profile: Record, role: str | None, examples: tuple[Excerpt, ...]
+    ) -> Record:
+        return {
+            **self.run(request, profile, role, examples),
+            "model": self.config.model,
+            "prompt_version": self.prompts.version,
+        }
+
 
 def split_requests(
     config: SimulationConfig,
     profiles: dict[str, Record],
     udvs: list[Record],
-    owners: dict[tuple[int, int], str],
+    owners: dict[TurnKey, str],
     metadata: dict[int, Record],
 ) -> list[Record]:
+    """One request per profiled actor and hearing of the requests split with a linked UDV."""
     hearings = split_hearings(config, config.requests_split)
     pairs = sorted(
         {
@@ -362,73 +278,94 @@ def file_requests(path: Path, profiles: dict[str, Record]) -> list[Record]:
     return requests
 
 
+def load_requests(
+    config: SimulationConfig, inputs: SimulationInputs, path: Path | None
+) -> list[Record]:
+    """The requests of the file, or of the requests split, after checking that no profile or
+    train speech comes from a hearing that is asked about."""
+    if path is not None:
+        requests = file_requests(path, inputs.profiles)
+        check_disjoint(inputs.profiles, inputs.train_records, set())
+    else:
+        requests = split_requests(
+            config, inputs.profiles, inputs.udvs, inputs.owners, inputs.metadata
+        )
+        check_disjoint(
+            inputs.profiles,
+            inputs.train_records,
+            split_hearings(config, config.requests_split),
+        )
+    return requests
+
+
 def selected_k(config: SimulationConfig) -> int | None:
-    path = config.output_dir / "evaluation.json"
+    path = config.output_dir / EVALUATION_FILE
     if not path.exists():
         return None
     with open(path) as f:
-        return json.load(f)["selection"]["k"]
+        k: int = json.load(f)["selection"]["k"]
+    return k
+
+
+def approach_summary(results: list[Record]) -> Record:
+    checks = [result["check"] for result in results if "check" in result]
+    sentences = sum(check["n_sentences"] for check in checks)
+    ungrounded = sum(check["n_ungrounded"] for check in checks)
+    return {
+        "levels": dict(Counter(str(result["level"]["label"]) for result in results)),
+        "refusals": sum(result["output"] == REFUSAL for result in results),
+        "speeches": len(checks),
+        "truncated_speeches": sum(
+            result["speech"]["truncated"] for result in results if "speech" in result
+        ),
+        "truncated_justifications": sum(
+            result["justification"]["truncated"] for result in results if "justification" in result
+        ),
+        "sentences": sentences,
+        "ungrounded_sentences": ungrounded,
+        "ungrounded_fraction": ungrounded / sentences if sentences else None,
+        "invalid_justification_items": sum(len(check["invalid_items"]) for check in checks),
+        "justification_parse_failures": sum(check["parse_failures"] for check in checks),
+        "lines_not_in_speech": sum(check["lines_not_in_speech"] for check in checks),
+    }
 
 
 def summarize(rows: list[Record]) -> Record:
     summary: Record = {"requests": len(rows)}
     for approach in APPROACHES:
-        results = [row["approaches"][approach] for row in rows]
-        checks = [result["check"] for result in results if "check" in result]
-        sentences = sum(check["n_sentences"] for check in checks)
-        ungrounded = sum(check["n_ungrounded"] for check in checks)
-        summary[approach] = {
-            "levels": dict(Counter(str(result["level"]["label"]) for result in results)),
-            "refusals": sum(result["output"] == REFUSAL for result in results),
-            "speeches": len(checks),
-            "truncated_speeches": sum(
-                result["speech"]["truncated"] for result in results if "speech" in result
-            ),
-            "truncated_justifications": sum(
-                result["justification"]["truncated"]
-                for result in results
-                if "justification" in result
-            ),
-            "sentences": sentences,
-            "ungrounded_sentences": ungrounded,
-            "ungrounded_fraction": ungrounded / sentences if sentences else None,
-            "invalid_justification_items": sum(len(check["invalid_items"]) for check in checks),
-            "justification_parse_failures": sum(check["parse_failures"] for check in checks),
-            "lines_not_in_speech": sum(check["lines_not_in_speech"] for check in checks),
-        }
+        summary[approach] = approach_summary([row["approaches"][approach] for row in rows])
     return summary
 
 
 def request_dry_run(
     config: SimulationConfig,
-    prompt_version: str,
-    inputs: Record,
+    inputs: SimulationInputs,
+    input_files: Record,
     requests: list[Record],
-    train_records: dict[str, Record],
-    udvs: list[Record],
-    owners: dict[tuple[int, int], str],
-    metadata: dict[int, Record],
     k: int | None,
 ) -> Record:
+    records = {record["actor"]: record for record in inputs.train_records}
     actors = sorted({request["actor"] for request in requests})
     roles = {
-        actor: latest_role(train_records[actor], udvs, owners, metadata, config.parties)
+        actor: latest_role(
+            records[actor], inputs.udvs, inputs.owners, inputs.metadata, config.parties
+        )
         for actor in actors
     }
     examples = {
         actor: [
             excerpt_record(example)
-            for example in speech_examples(train_records[actor], metadata, config)
+            for example in speech_examples(records[actor], inputs.metadata, config)
         ]
         for actor in actors
     }
     return {
         "dry_run": True,
         "model": config.model or None,
-        "prompt_version": prompt_version,
+        "prompt_version": inputs.prompts.version,
         "k": k,
-        "k_rule": "k comes from evaluation.json of the model run, or --k; null before that run",
-        "inputs": inputs,
+        "k_rule": K_RULE,
+        "inputs": input_files,
         "requests_split": config.requests_split,
         "requests": len(requests),
         "request_actors": len(actors),
@@ -437,83 +374,19 @@ def request_dry_run(
         "roles_sha256": canonical_sha256(roles),
         "actors_without_role": sum(role is None for role in roles.values()),
         "examples_sha256": canonical_sha256(examples),
-        "rule": (
-            "requests, roles and speech examples are built as in a model run; an equal hash means"
-            " the model receives the same requests, roles and examples (the excerpts depend on k)"
-        ),
+        "rule": DRY_RUN_RULE,
     }
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Open generation of simulated speeches (profile, profile + excerpts), with evidence"
-            " level and a checked justification, plus the speech from the baseline material."
-        )
-    )
-    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
-    parser.add_argument("--model", help="Hugging Face model id or local path (overrides config)")
-    parser.add_argument("--actors", nargs="*", help="only these profiled actors, by exact name")
-    parser.add_argument(
-        "--requests",
-        type=Path,
-        help="JSONL with actor, date (DD/MM/YYYY) and topic; default: one request per actor and"
-        " hearing of the requests split with a linked UDV",
-    )
-    parser.add_argument("--k", type=int, help="excerpts per request (default: evaluation.json)")
-    parser.add_argument("--profiles", type=Path, help="profiles JSONL (overrides config)")
-    parser.add_argument(
-        "--dry-run",
-        type=Path,
-        help="build the requests, roles and examples without a model and write their counts and"
-        " hashes to this JSON",
-    )
-    args = parser.parse_args()
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    config = load_config(args.config)
-    if args.model is not None:
-        config = dataclasses.replace(config, model=args.model)
-    if args.profiles is not None:
-        config = dataclasses.replace(config, profiles_path=args.profiles)
-    dry_run = args.dry_run is not None
-    if not config.model and not dry_run:
-        parser.error("set [model] name in the config, or pass --model")
-    k = args.k if args.k is not None else selected_k(config)
-    if k is None and not dry_run:
-        parser.error("run experiments.actors.evaluate_simulation first, or pass --k")
-    prompts = load_prompts(config.prompts_dir)
-    profiles = load_profiles(config.profiles_path, args.actors)
-    train_records = {
-        record["actor"]: record
-        for record in load_jsonl(config.train_speeches_path)
-        if record["actor"] in profiles
-    }
-    metadata = hearing_metadata(config.lds_path, config.lds_sha256)
-    udvs = load_jsonl(config.udv_path)
-    owners = turn_owners(load_jsonl(config.speeches_path))
-    if args.requests is not None:
-        requests = file_requests(args.requests, profiles)
-        check_disjoint(profiles, list(train_records.values()), set())
-    else:
-        requests = split_requests(config, profiles, udvs, owners, metadata)
-        check_disjoint(
-            profiles, list(train_records.values()), split_hearings(config, config.requests_split)
-        )
-    if not requests:
-        raise SystemExit("no requests to simulate")
-    inputs = {
-        "profiles": file_info(config.profiles_path),
-        "train_speeches": file_info(config.train_speeches_path),
-        "udv": file_info(config.udv_path),
-    }
-    if args.dry_run is not None:
-        report = request_dry_run(
-            config, prompts.version, inputs, requests, train_records, udvs, owners, metadata, k
-        )
-        write_json(report, args.dry_run)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
-        return
-    assert k is not None
+def simulate_requests(
+    config: SimulationConfig,
+    inputs: SimulationInputs,
+    input_files: Record,
+    requests: list[Record],
+    k: int,
+) -> list[Record]:
+    """Simulate every request whose row in simulations.jsonl is missing or stale."""
+    prompts = inputs.prompts
     run_digest = fingerprint(
         config.model,
         config.evidence_max_tokens,
@@ -521,7 +394,7 @@ def main() -> None:
         config.justification_max_tokens,
         load_encoder_spec(),
         prompts.version,
-        inputs["train_speeches"],
+        input_files["train_speeches"],
         k,
     )
     logging.info(
@@ -535,64 +408,112 @@ def main() -> None:
         config=config,
         prompts=prompts,
         model=SimulationModel(config.model, config.device_map),
-        retriever=SpeechRetriever(list(train_records.values()), metadata),
+        retriever=SpeechRetriever(inputs.train_records, inputs.metadata),
         k=k,
     )
-    path = config.output_dir / "simulations.jsonl"
-    done = load_rows(path, "request_id")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    rows = []
-    with open(path, "a") as output:
-        for index, request in enumerate(requests, start=1):
+    records = {record["actor"]: record for record in inputs.train_records}
+
+    def jobs() -> Iterator[Job]:
+        for request in requests:
             actor = request["actor"]
-            record = train_records[actor]
-            role = latest_role(record, udvs, owners, metadata, config.parties)
-            examples = speech_examples(record, metadata, config)
+            record = records[actor]
+            role = latest_role(record, inputs.udvs, inputs.owners, inputs.metadata, config.parties)
+            examples = speech_examples(record, inputs.metadata, config)
             key = fingerprint(
                 run_digest,
-                profiles[actor]["profile"],
+                inputs.profiles[actor]["profile"],
                 request,
                 role,
                 [excerpt_record(example) for example in examples],
             )
-            row = done.get(request["request_id"])
-            if row is None or row["fingerprint"] != key:
-                started = time.monotonic()
-                simulated = simulator.run(request, profiles[actor], role, examples)
-                row = {
-                    **simulated,
-                    "model": config.model,
-                    "prompt_version": prompts.version,
-                    "fingerprint": key,
-                }
-                output.write(json.dumps(row, ensure_ascii=False) + "\n")
-                output.flush()
-                logging.info(
-                    "[%d/%d] %s: %.1fs",
-                    index,
-                    len(requests),
-                    request["request_id"],
-                    time.monotonic() - started,
-                )
-            rows.append(row)
-    write_jsonl(rows, path)
+            yield Job(
+                id=request["request_id"],
+                label=request["request_id"],
+                fingerprint=key,
+                compute=partial(simulator.row, request, inputs.profiles[actor], role, examples),
+            )
+
+    path = config.output_dir / SIMULATIONS_FILE
+    return run_resumable(path, "request_id", jobs(), len(requests))
+
+
+def write_summary(
+    config: SimulationConfig,
+    prompts: SimulationPrompts,
+    input_files: Record,
+    requests_source: str,
+    k: int,
+    rows: list[Record],
+) -> None:
     summary = {
         "model": config.model,
         "prompt_version": prompts.version,
         "k": k,
-        "inputs": inputs,
-        "requests_source": str(args.requests) if args.requests else config.requests_split,
+        "inputs": input_files,
+        "requests_source": requests_source,
         "check_rule": CHECK_RULE,
         **summarize(rows),
     }
-    write_json(summary, config.output_dir / "simulations_summary.json")
+    write_json(summary, config.output_dir / SUMMARY_FILE)
     for approach in APPROACHES:
         result = summary[approach]
         print(
             f"approach {approach}: {result['speeches']} speeches, {result['refusals']} refusals,"
             f" {result['ungrounded_sentences']}/{result['sentences']} ungrounded sentences"
         )
-    print(f"wrote {path} and {config.output_dir / 'simulations_summary.json'}")
+    print(f"wrote {config.output_dir / SIMULATIONS_FILE} and {config.output_dir / SUMMARY_FILE}")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Open generation of simulated speeches (profile, profile + excerpts), with evidence"
+            " level and a checked justification, plus the speech from the baseline material."
+        )
+    )
+    add_run_arguments(parser)
+    parser.add_argument(
+        "--requests",
+        type=Path,
+        help="JSONL with actor, date (DD/MM/YYYY) and topic; default: one request per actor and"
+        " hearing of the requests split with a linked UDV",
+    )
+    parser.add_argument("--k", type=int, help="excerpts per request (default: evaluation.json)")
+    parser.add_argument(
+        "--dry-run",
+        type=Path,
+        help="build the requests, roles and examples without a model and write their counts and"
+        " hashes to this JSON",
+    )
+    return parser
+
+
+def main() -> None:
+    parser = build_parser()
+    args = parser.parse_args()
+    configure_logging()
+    config = config_from_args(args)
+    dry_run = args.dry_run is not None
+    require_model(parser, config.model, dry_run)
+    k = args.k if args.k is not None else selected_k(config)
+    if k is None and not dry_run:
+        parser.error("run experiments.actors.evaluate_simulation first, or pass --k")
+    inputs = load_inputs(config, args.actors)
+    requests = load_requests(config, inputs, args.requests)
+    if not requests:
+        raise SystemExit("no requests to simulate")
+    input_files = {
+        "profiles": file_info(config.profiles_path),
+        "train_speeches": file_info(config.train_speeches_path),
+        "udv": file_info(config.udv_path),
+    }
+    if dry_run:
+        write_report(request_dry_run(config, inputs, input_files, requests, k), args.dry_run)
+        return
+    assert k is not None
+    rows = simulate_requests(config, inputs, input_files, requests, k)
+    requests_source = str(args.requests) if args.requests else config.requests_split
+    write_summary(config, inputs.prompts, input_files, requests_source, k, rows)
 
 
 if __name__ == "__main__":

@@ -2,8 +2,10 @@ import json
 from datetime import date
 from pathlib import Path
 
+from bookworm import sha256_of_file
+
 from experiments.actors import generate_profiles as profiles
-from experiments.actors import simulation
+from experiments.actors.io import canonical_sha256
 
 
 def profiles_config(tmp_path: Path, speeches: Path) -> profiles.ProfilesConfig:
@@ -47,8 +49,8 @@ def test_profile_dry_run_hashes_the_rendered_prompts(tmp_path):
     assert report["dry_run"] is True and report["model"] is None
     assert report["actors"] == 2
     assert report["user_prompt_chars"] == {"total": 29, "min": 14, "max": 15}
-    assert report["inputs"]["speeches"]["sha256"] == profiles.sha256_of_file(speeches)
-    expected = profiles.canonical_sha256(
+    assert report["inputs"]["speeches"]["sha256"] == sha256_of_file(speeches)
+    expected = canonical_sha256(
         [["Ana", "Sistema.", "Ana 02/01/2024"], ["Beto", "Sistema.", "Beto 03/01/2024"]]
     )
     assert report["rendered_prompts_sha256"] == expected
@@ -58,6 +60,6 @@ def test_profile_dry_run_hashes_the_rendered_prompts(tmp_path):
 
 
 def test_canonical_sha256_ignores_key_order():
-    first = simulation.canonical_sha256({"a": 1, "b": [1, 2]})
-    assert first == simulation.canonical_sha256({"b": [1, 2], "a": 1})
+    first = canonical_sha256({"a": 1, "b": [1, 2]})
+    assert first == canonical_sha256({"b": [1, 2], "a": 1})
     assert len(first) == 64

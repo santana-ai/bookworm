@@ -1,18 +1,27 @@
+"""Shared core of the actor simulation: configuration, prompts, the material given to the
+model, the UDV-to-actor link and the retrieval of train excerpts. Used by
+`experiments.actors.evaluate_simulation` and `experiments.actors.simulate`."""
+
+import argparse
 import hashlib
-import json
-import logging
 import re
-import tomllib
 from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any
 
 import numpy as np
-import torch
-from bookworm import sha256_of_file
+from bookworm import load_jsonl
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, Template
-from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from experiments.actors.build_speeches import CHAIR_ROLE
+from experiments.actors.chat import SimulationBackend, system_user_messages
+from experiments.actors.cli import MODEL_HELP
+from experiments.actors.io import (
+    hearing_metadata,
+    read_jsonl_rows,
+    read_split_hearings,
+    read_toml,
+)
 from experiments.common.transcript import (
     SENTENCE_BOUNDARY_PATTERN,
     STAGE_DIRECTION_PATTERN,
@@ -23,11 +32,10 @@ from experiments.common.transcript import (
 )
 
 Record = dict[str, Any]
+TurnKey = tuple[int, int]
 
 DEFAULT_CONFIG = Path("configs/actor_simulation.toml")
-LETTERS = ("A", "B", "C", "D")
 NO_PROFILE = "Nenhum."
-CHAIR_ROLE = "chair"
 PROFILE_BLOCKS = {
     "Posições": "P",
     "Critérios e valores": "C",
@@ -45,6 +53,8 @@ PROMPT_FILES = {
     "speech": "ask_speech.md.j2",
     "justification": "ask_justification.md.j2",
 }
+PROMPT_VERSION_LENGTH = 12
+EXCERPT_CONTEXT_SENTENCES = 1
 
 
 @dataclass(frozen=True)
@@ -78,25 +88,26 @@ class SimulationConfig:
 
 
 def load_config(path: Path) -> SimulationConfig:
-    with open(path, "rb") as f:
-        raw = tomllib.load(f)
+    raw = read_toml(path)
+    inputs = raw["input"]
+    model = raw["model"]
     evaluation = raw["evaluation"]
     generation = raw["generation"]
     return SimulationConfig(
-        profiles_path=Path(raw["input"]["profiles_path"]),
-        train_speeches_path=Path(raw["input"]["train_speeches_path"]),
-        speeches_path=Path(raw["input"]["speeches_path"]),
-        udv_path=Path(raw["input"]["udv_path"]),
-        manifest_path=Path(raw["input"]["manifest_path"]),
-        lds_path=Path(raw["input"]["lds_path"]),
-        lds_sha256=raw["input"]["lds_sha256"],
+        profiles_path=Path(inputs["profiles_path"]),
+        train_speeches_path=Path(inputs["train_speeches_path"]),
+        speeches_path=Path(inputs["speeches_path"]),
+        udv_path=Path(inputs["udv_path"]),
+        manifest_path=Path(inputs["manifest_path"]),
+        lds_path=Path(inputs["lds_path"]),
+        lds_sha256=inputs["lds_sha256"],
         output_dir=Path(raw["output"]["dir"]),
         prompts_dir=Path(raw["prompts"]["dir"]),
-        model=raw["model"]["name"],
-        device_map=raw["model"]["device_map"],
-        evidence_max_tokens=raw["model"]["evidence_max_tokens"],
-        speech_max_tokens=raw["model"]["speech_max_tokens"],
-        justification_max_tokens=raw["model"]["justification_max_tokens"],
+        model=model["name"],
+        device_map=model["device_map"],
+        evidence_max_tokens=model["evidence_max_tokens"],
+        speech_max_tokens=model["speech_max_tokens"],
+        justification_max_tokens=model["justification_max_tokens"],
         parties=tuple(raw["roles"]["parties"]),
         selection_split=evaluation["selection_split"],
         eval_split=evaluation["eval_split"],
@@ -112,6 +123,23 @@ def load_config(path: Path) -> SimulationConfig:
     )
 
 
+def add_run_arguments(parser: argparse.ArgumentParser) -> None:
+    """The options shared by the evaluation and the open generation."""
+    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--model", help=MODEL_HELP)
+    parser.add_argument("--actors", nargs="*", help="only these profiled actors, by exact name")
+    parser.add_argument("--profiles", type=Path, help="profiles JSONL (overrides config)")
+
+
+def config_from_args(args: argparse.Namespace) -> SimulationConfig:
+    config = load_config(args.config)
+    if args.model is not None:
+        config = replace(config, model=args.model)
+    if args.profiles is not None:
+        config = replace(config, profiles_path=args.profiles)
+    return config
+
+
 @dataclass(frozen=True)
 class SimulationPrompts:
     version: str
@@ -124,6 +152,7 @@ class SimulationPrompts:
 
 
 def load_prompts(prompts_dir: Path) -> SimulationPrompts:
+    """The prompt templates, versioned by the hash of their file names and contents."""
     environment = Environment(
         loader=FileSystemLoader(prompts_dir),
         undefined=StrictUndefined,
@@ -136,7 +165,7 @@ def load_prompts(prompts_dir: Path) -> SimulationPrompts:
         digest.update(name.encode())
         digest.update((prompts_dir / name).read_bytes())
     templates = {key: environment.get_template(name) for key, name in PROMPT_FILES.items()}
-    return SimulationPrompts(version=digest.hexdigest()[:12], **templates)
+    return SimulationPrompts(version=digest.hexdigest()[:PROMPT_VERSION_LENGTH], **templates)
 
 
 @dataclass(frozen=True)
@@ -150,6 +179,8 @@ class Excerpt:
 
 @dataclass(frozen=True)
 class Material:
+    """What the model knows about the simulated actor in one call."""
+
     name: str
     role: str | None
     profile: str | None
@@ -185,10 +216,26 @@ def chat_messages(
         excerpts=material.excerpts,
         request=request,
     )
-    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+    return system_user_messages(system, user)
+
+
+def ask_evidence_level(
+    model: SimulationBackend,
+    prompts: SimulationPrompts,
+    material: Material,
+    date: str,
+    assunto: str,
+    max_tokens: int,
+) -> Record:
+    """Ask how much the material supports speaking on this topic, and parse the level."""
+    request = render(prompts.evidence, name=material.name)
+    messages = chat_messages(prompts, material, date, assunto, request)
+    generation = model.generate(messages, max_tokens)
+    return {"label": parse_level(generation.text), "text": generation.text}
 
 
 def number_profile(profile: str) -> str:
+    """Number the bullets of each profile block (P1, C1, A1, F1, ...) so they can be cited."""
     lines = []
     prefix: str | None = None
     count = 0
@@ -208,6 +255,7 @@ def profile_ids(profile: str | None) -> set[str]:
 
 
 def clean_role(role: str | None, parties: tuple[str, ...]) -> str | None:
+    """The role without a '(PARTY)' or '(PARTY-UF)' parenthesis, so no party reaches a prompt."""
     if not role:
         return None
     names = "|".join(re.escape(party) for party in parties)
@@ -221,17 +269,8 @@ def parse_level(text: str) -> str | None:
 
 
 def load_profiles(path: Path, actors: list[str] | None) -> dict[str, Record]:
-    profiles: dict[str, Record] = {}
-    with open(path) as f:
-        for line_number, line in enumerate(f, start=1):
-            if not line.strip():
-                continue
-            try:
-                row = json.loads(line)
-            except json.JSONDecodeError:
-                logging.warning("ignoring invalid line %d in %s", line_number, path)
-                continue
-            profiles[row["actor"]] = row
+    """Profiles by actor, restricted to `actors` when given, each of which must have one."""
+    profiles = {row["actor"]: row for _, row in read_jsonl_rows(path)}
     if not actors:
         return profiles
     missing = [name for name in actors if name not in profiles]
@@ -241,16 +280,14 @@ def load_profiles(path: Path, actors: list[str] | None) -> dict[str, Record]:
 
 
 def split_hearings(config: SimulationConfig, split: str) -> set[int]:
-    with open(config.manifest_path) as f:
-        manifest = json.load(f)
-    if manifest["dataset"]["sha256"] != config.lds_sha256:
-        raise SystemExit(f"{config.manifest_path} was built from another LDS file")
-    return set(manifest[split])
+    return set(read_split_hearings(config.manifest_path, config.lds_sha256)[split])
 
 
 def check_disjoint(
     profiles: dict[str, Record], train_records: list[Record], hearings: set[int]
 ) -> None:
+    """Every profiled actor has train speeches, and no profile or train speech comes from an
+    evaluated hearing."""
     missing = sorted(set(profiles) - {record["actor"] for record in train_records})
     if missing:
         raise SystemExit(f"profiled actors missing from the train speeches: {missing}")
@@ -266,7 +303,8 @@ def check_disjoint(
         )
 
 
-def turn_owners(records: list[Record]) -> dict[tuple[int, int], str]:
+def turn_owners(records: list[Record]) -> dict[TurnKey, str]:
+    """The actor who speaks each (hearing_id, turn_index) of a per-actor speech file."""
     return {
         (hearing["hearing_id"], turn["turn_index"]): record["actor"]
         for record in records
@@ -275,7 +313,8 @@ def turn_owners(records: list[Record]) -> dict[tuple[int, int], str]:
     }
 
 
-def udv_owner(udv: Record, owners: dict[tuple[int, int], str]) -> str | None:
+def udv_owner(udv: Record, owners: dict[TurnKey, str]) -> str | None:
+    """The actor who owns the evidence turn of a UDV, if it has one."""
     if not udv["evidence"]:
         return None
     return owners.get((udv["hearing_id"], udv["evidence"]["speaker_turn"]))
@@ -283,10 +322,11 @@ def udv_owner(udv: Record, owners: dict[tuple[int, int], str]) -> str | None:
 
 def linked_udvs(
     udvs: list[Record],
-    owners: dict[tuple[int, int], str],
+    owners: dict[TurnKey, str],
     actors: set[str],
     hearings: set[int],
 ) -> list[tuple[Record, str]]:
+    """The UDVs of `hearings` whose evidence turn belongs to one of `actors`, with that actor."""
     linked = []
     for udv in udvs:
         if udv["hearing_id"] not in hearings:
@@ -302,38 +342,59 @@ def turn_sentences(text: str) -> list[str]:
     return [part for part in parts if part and not STAGE_DIRECTION_PATTERN.match(part)]
 
 
-def file_info(path: Path) -> Record:
-    return {"path": str(path), "sha256": sha256_of_file(path)}
+@dataclass(frozen=True)
+class SimulationInputs:
+    """The files read by both the evaluation and the open generation."""
+
+    prompts: SimulationPrompts
+    profiles: dict[str, Record]
+    train_records: list[Record]
+    metadata: dict[int, Record]
+    udvs: list[Record]
+    owners: dict[TurnKey, str]
 
 
-def fingerprint(*parts: Any) -> str:
-    payload = json.dumps(parts, ensure_ascii=False, sort_keys=True, default=str)
-    return hashlib.sha256(payload.encode()).hexdigest()[:16]
+def load_inputs(config: SimulationConfig, actors: list[str] | None) -> SimulationInputs:
+    prompts = load_prompts(config.prompts_dir)
+    profiles = load_profiles(config.profiles_path, actors)
+    return SimulationInputs(
+        prompts=prompts,
+        profiles=profiles,
+        train_records=[
+            record
+            for record in load_jsonl(config.train_speeches_path)
+            if record["actor"] in profiles
+        ],
+        metadata=hearing_metadata(config.lds_path, config.lds_sha256),
+        udvs=load_jsonl(config.udv_path),
+        owners=turn_owners(load_jsonl(config.speeches_path)),
+    )
 
 
-def canonical_sha256(payload: Any) -> str:
-    text = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
-    return hashlib.sha256(text.encode()).hexdigest()
-
-
-def load_rows(path: Path, key: str) -> dict[str, Record]:
-    if not path.exists():
-        return {}
-    rows: dict[str, Record] = {}
-    with open(path) as f:
-        for line_number, line in enumerate(f, start=1):
-            if not line.strip():
-                continue
-            try:
-                row = json.loads(line)
-            except json.JSONDecodeError:
-                logging.warning("ignoring invalid line %d in %s", line_number, path)
-                continue
-            rows[row[key]] = row
-    return rows
+def sentence_units(record: Record) -> list[Record]:
+    """One retrieval unit per sentence of the actor's turns, with the turn's sentences around it."""
+    units = []
+    for hearing in record["hearings"]:
+        for turn in hearing["turns"]:
+            sentences = turn_sentences(turn["text"])
+            for position, sentence in enumerate(sentences):
+                if is_sentence(sentence):
+                    units.append(
+                        {
+                            "hearing_id": hearing["hearing_id"],
+                            "turn_index": turn["turn_index"],
+                            "chair": turn["role"] == CHAIR_ROLE,
+                            "sentences": sentences,
+                            "position": position,
+                        }
+                    )
+    return units
 
 
 class SpeechRetriever:
+    """Retrieves, for an actor and a topic, the k train sentences closest to the topic, at most
+    one per turn, each with its neighbour sentences, in chronological order."""
+
     def __init__(self, records: list[Record], metadata: dict[int, Record]) -> None:
         self._records = {record["actor"]: record for record in records}
         self._metadata = metadata
@@ -344,24 +405,11 @@ class SpeechRetriever:
 
     def _index(self, actor: str) -> tuple[list[Record], np.ndarray]:
         if actor not in self._units:
-            units = []
-            for hearing in self._records[actor]["hearings"]:
-                for turn in hearing["turns"]:
-                    sentences = turn_sentences(turn["text"])
-                    for position, sentence in enumerate(sentences):
-                        if is_sentence(sentence):
-                            units.append(
-                                {
-                                    "hearing_id": hearing["hearing_id"],
-                                    "turn_index": turn["turn_index"],
-                                    "chair": turn["role"] == CHAIR_ROLE,
-                                    "sentences": sentences,
-                                    "position": position,
-                                }
-                            )
-            texts = [unit["sentences"][unit["position"]] for unit in units]
+            units = sentence_units(self._records[actor])
             self._units[actor] = units
-            self._embeddings[actor] = self._encode(texts)
+            self._embeddings[actor] = self._encode(
+                [unit["sentences"][unit["position"]] for unit in units]
+            )
         return self._units[actor], self._embeddings[actor]
 
     def _encode(self, texts: list[str]) -> np.ndarray:
@@ -379,34 +427,27 @@ class SpeechRetriever:
         if not units or k <= 0:
             return ()
         scores = embeddings @ self._query(query)
-        chosen: list[tuple[Record, float]] = []
-        used_turns: set[tuple[int, int]] = set()
-        for row in np.argsort(-scores, kind="stable"):
-            unit = units[row]
-            turn = (unit["hearing_id"], unit["turn_index"])
-            if turn in used_turns:
-                continue
-            used_turns.add(turn)
-            chosen.append((unit, float(scores[row])))
-            if len(chosen) == k:
-                break
-        chosen.sort(
-            key=lambda item: (
-                self._metadata[item[0]["hearing_id"]]["date"],
-                item[0]["hearing_id"],
-                item[0]["turn_index"],
-                item[0]["position"],
-            )
-        )
+        chosen = best_unit_per_turn(units, scores, k)
+        chosen.sort(key=lambda item: self._chronological_key(item[0]))
         return tuple(self._excerpt(unit, score) for unit, score in chosen)
+
+    def _chronological_key(self, unit: Record) -> tuple[Any, ...]:
+        return (
+            self._metadata[unit["hearing_id"]]["date"],
+            unit["hearing_id"],
+            unit["turn_index"],
+            unit["position"],
+        )
 
     def _excerpt(self, unit: Record, score: float) -> Excerpt:
         position = unit["position"]
         hearing = self._metadata[unit["hearing_id"]]
+        start = max(position - EXCERPT_CONTEXT_SENTENCES, 0)
+        end = position + EXCERPT_CONTEXT_SENTENCES + 1
         return Excerpt(
             date=hearing["date_br"],
             assunto=hearing["assunto"],
-            text=" ".join(unit["sentences"][max(position - 1, 0) : position + 2]),
+            text=" ".join(unit["sentences"][start:end]),
             chair=unit["chair"],
             source={
                 "hearing_id": unit["hearing_id"],
@@ -417,48 +458,19 @@ class SpeechRetriever:
         )
 
 
-def letter_token_ids(tokenizer: Any) -> list[int]:
-    ids = []
-    for letter in LETTERS:
-        encoded = tokenizer.encode(letter, add_special_tokens=False)
-        if len(encoded) != 1 or tokenizer.decode(encoded).strip() != letter:
-            raise SystemExit(
-                f"letter {letter!r} is not a single token in this tokenizer: {encoded}"
-            )
-        ids.append(encoded[0])
-    return ids
-
-
-@dataclass(frozen=True)
-class Generation:
-    text: str
-    output_tokens: int
-    truncated: bool
-
-
-class SimulationModel:
-    def __init__(self, name: str, device_map: str) -> None:
-        self.tokenizer: Any = AutoTokenizer.from_pretrained(name)
-        self.model: Any = AutoModelForCausalLM.from_pretrained(name, device_map=device_map)
-        self.letter_ids = letter_token_ids(self.tokenizer)
-
-    def _encode(self, messages: list[Record]) -> Any:
-        return self.tokenizer.apply_chat_template(
-            messages, add_generation_prompt=True, return_tensors="pt"
-        ).to(self.model.device)
-
-    @torch.inference_mode()
-    def letter_logprobs(self, messages: list[Record]) -> list[float]:
-        logits = self.model(**self._encode(messages)).logits[0, -1].float()
-        return torch.log_softmax(logits, dim=-1)[self.letter_ids].tolist()
-
-    @torch.inference_mode()
-    def generate(self, messages: list[Record], max_new_tokens: int) -> Generation:
-        inputs = self._encode(messages)
-        output = self.model.generate(**inputs, do_sample=False, max_new_tokens=max_new_tokens)
-        generated = output[0, inputs["input_ids"].shape[1] :]
-        return Generation(
-            text=self.tokenizer.decode(generated, skip_special_tokens=True).strip(),
-            output_tokens=len(generated),
-            truncated=len(generated) >= max_new_tokens,
-        )
+def best_unit_per_turn(
+    units: list[Record], scores: np.ndarray, k: int
+) -> list[tuple[Record, float]]:
+    """The k best-scored units, skipping any unit whose turn already has a better one."""
+    chosen: list[tuple[Record, float]] = []
+    used_turns: set[TurnKey] = set()
+    for row in np.argsort(-scores, kind="stable"):
+        unit = units[row]
+        turn = (unit["hearing_id"], unit["turn_index"])
+        if turn in used_turns:
+            continue
+        used_turns.add(turn)
+        chosen.append((unit, float(scores[row])))
+        if len(chosen) == k:
+            break
+    return chosen
