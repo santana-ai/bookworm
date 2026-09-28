@@ -237,3 +237,60 @@ def test_output_rows_keep_unscored_udvs_with_null_scores():
         "supported_at_train_threshold": None,
         "p4_supports": None,
     }
+
+
+def test_evidence_score_check_on_sentence_runs_compares_every_semantic_udv():
+    records = [
+        record("a", "semantic_match_high", "Uma frase inteira de evidência."),
+        record("b", "quote_found", "Outra frase com aspas no texto."),
+        record("c", "semantic_match_weak", "Mais uma frase de evidência aqui."),
+    ]
+    check = uv.evidence_score_check(
+        np.array([0.6, 0.1, 0.4]),
+        np.array([0.6, np.nan, 0.6]),
+        records,
+        ("semantic_match_high", "semantic_match_weak"),
+    )
+    assert check == {
+        "rule": uv.SENTENCE_CHECK_RULE,
+        "n": 2,
+        "max_abs_gap": 0.2,
+        "within_1e-4": 1,
+    }
+
+
+def test_evidence_score_check_on_window_runs_separates_texts_the_encoder_did_not_read():
+    records = [
+        record(
+            "a", "semantic_match_high", "Primeira frase da janela aqui. Segunda frase da janela."
+        ),
+        record(
+            "b", "semantic_match_high", "Primeira frase da janela aqui. Curta. Segunda frase dela."
+        ),
+        record("c", "quote_found", "Citação direta encontrada na fala."),
+    ]
+    check = uv.evidence_score_check(
+        np.array([0.6, 0.5, 0.1]),
+        np.array([0.6, 0.6, np.nan]),
+        records,
+        ("semantic_match_high", "semantic_match_weak"),
+        "window2",
+    )
+    assert check["semantic_udvs"] == 2
+    assert (check["n"], check["max_abs_gap"], check["within_1e-4"]) == (1, 0.0, 1)
+    assert check["encoded_text_differs"] == {
+        "n": 1,
+        "max_abs_gap": 0.1,
+        "within_1e-4": 0,
+        "udv_ids": ["b"],
+    }
+
+
+def test_semantic_unit_is_read_from_the_coverage_pipeline(tmp_path):
+    udv_path = tmp_path / "run.jsonl"
+    (tmp_path / "run_coverage.json").write_text('{"pipeline": {"semantic_unit": "window2"}}')
+    assert uv.udv_semantic_unit(udv_path) == "window2"
+    assert uv.evidence_cosine_feature("window2") == "cosine_serafim:cosine:max"
+    (tmp_path / "run_coverage.json").write_text('{"pipeline": {}}')
+    assert uv.udv_semantic_unit(udv_path) == "sentence"
+    assert uv.evidence_cosine_feature("sentence") == "cosine_serafim:sentence_max:max"

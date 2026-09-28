@@ -1,7 +1,7 @@
 {
   "experiment": "udv_verifier",
   "name": "udv_v2_verifier",
-  "created_at": "2026-09-28T14:37:27+00:00",
+  "created_at": "2026-09-28T17:59:35+00:00",
   "declared": "Declared on 2026-09-28 in ADR 0006, before any udv_v2 evidence was translated or scored. Same verifier as udv_v1_verifier (scorers, features, model, C and train threshold of the E3x v2 final test, fitted on the train split of the NLI benchmark only), applied to the udv_v2 evidence texts. It adds a second decision at the UDV-premise cut of artifacts/calibration/udv_verifier_threshold_v1.json, calibrated on train calibration pairs only; neither cut is tuned on UDV scores, and the verifier changes no UDV, tier or evidence",
   "purpose": "the UDV tiers say how the evidence was found (a literal quote, or a transcript sentence close in embedding space); they do not say whether the evidence sentence states what the proposition says. The verifier score is a second, independent reading of that question, from models trained for entailment-like decisions",
   "caveats": {
@@ -796,10 +796,76 @@
     }
   },
   "evidence_score_check": {
-    "rule": "cosine_serafim sentence_max.cosine of each semantic UDV against evidence.score",
-    "n": 1828,
-    "max_abs_gap": 0.2375,
-    "within_1e-4": 27
+    "rule": "cosine_serafim max.cosine (the cosine of the whole premise, the window the verifier read) of each semantic UDV against evidence.score (the cosine of the window the UDV builder encoded); n, max_abs_gap and within_1e-4 cover the UDVs whose premise equals the encoded text, the candidate sentences of the window joined by a space; encoded_text_differs counts the UDVs whose evidence span also holds parts that are not candidate sentences (under 4 words or stage directions), which the verifier read and the encoder did not",
+    "semantic_unit": "window2",
+    "semantic_udvs": 1828,
+    "n": 1771,
+    "max_abs_gap": 0.0,
+    "within_1e-4": 1771,
+    "encoded_text_differs": {
+      "n": 57,
+      "max_abs_gap": 0.0902,
+      "within_1e-4": 0,
+      "udv_ids": [
+        "udv-1-2-0",
+        "udv-1-7-2",
+        "udv-2-0-2",
+        "udv-6-0-10",
+        "udv-6-0-13",
+        "udv-9-1-0",
+        "udv-18-2-0",
+        "udv-19-1-0",
+        "udv-32-2-2",
+        "udv-35-0-2",
+        "udv-39-7-0",
+        "udv-42-2-1",
+        "udv-43-2-0",
+        "udv-45-0-4",
+        "udv-45-1-0",
+        "udv-50-0-3",
+        "udv-55-2-0",
+        "udv-58-4-0",
+        "udv-65-1-1",
+        "udv-67-3-0",
+        "udv-79-0-1",
+        "udv-80-6-0",
+        "udv-82-3-0",
+        "udv-92-0-1",
+        "udv-98-2-0",
+        "udv-101-3-0",
+        "udv-103-0-8",
+        "udv-103-1-0",
+        "udv-104-4-0",
+        "udv-108-6-0",
+        "udv-113-0-2",
+        "udv-115-4-1",
+        "udv-120-1-1",
+        "udv-122-0-2",
+        "udv-122-2-0",
+        "udv-133-3-0",
+        "udv-143-0-1",
+        "udv-143-2-1",
+        "udv-143-5-1",
+        "udv-144-0-1",
+        "udv-145-0-5",
+        "udv-147-3-0",
+        "udv-152-4-0",
+        "udv-168-3-3",
+        "udv-171-4-0",
+        "udv-177-2-0",
+        "udv-177-2-1",
+        "udv-177-4-2",
+        "udv-192-0-2",
+        "udv-192-1-0",
+        "udv-194-3-0",
+        "udv-195-2-2",
+        "udv-199-9-0",
+        "udv-199-10-0",
+        "udv-201-0-0",
+        "udv-202-2-2",
+        "udv-204-6-2"
+      ]
+    }
   },
   "lowest": {
     "rule": "the lowest_count UDVs of each lowest_tiers tier by primary probability (ties by udv id), with proposition and evidence text, for manual inspection",
@@ -1513,7 +1579,7 @@
     }
   },
   "timing": {
-    "apply_seconds": 35.3
+    "apply_seconds": 33.7
   },
   "config": {
     "path": "configs/udv_v2_verifier.toml",
@@ -1605,20 +1671,20 @@
     }
   },
   "code": {
-    "utils/udv_verifier.py": "c2f8a69cf0e7360fcf9f3880485e25374d104df0977c76f0b5f61153802234f8",
-    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
-    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
-    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
-    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/udv_verifier.py": "e0d650b70de30923a105abe719c5fccbd376af22e077c694c949a02fc14b02ab",
+    "utils/nli_verifier_exploration.py": "46e2c4e5cc22d8e8f119801c004046f04b6ace4bad589b8acdf4d292700b4f19",
+    "utils/nli_verifier_experiments.py": "c5f9982b4de5ef93f5efa23203ee5aabca38debce3cc10f606658190087fccba",
+    "utils/udv_pipeline.py": "51b251adb0cc8e0808d85479c595622b073e278cd3edddd3392d14e2707a179d",
+    "utils/build_udvs.py": "746167db8ffceed927daa9a668032e10bc233fccfee755f6fc23b559b3362242",
     "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
     "utils/cache_lock.py": "7ce920799be0518f2452a8eac30af478c91435916fd9bb51b81759d10e77283e",
     "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
-    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/dataset_io.py": "86615af3c1ee80ced70175c9b884c34766d0c12dfed7f013f401f7affcaa9950",
     "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9",
     "utils/decision_models.py": "e36d278be4afcba55aea6d4bbce3e224178a2632806fb4eb2d280ffe06d20362",
-    "utils/decision_scoring.py": "46aeccbd61651f9dbcf776aa50335649e512db58e5fce4534cbbb2aa0c855341",
+    "utils/decision_scoring.py": "32f79f22d204b3d400b24c10fc828acb003ef04799789d22a846b7fedd96058c",
     "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
-    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+    "utils/translation.py": "19ab6bf759db8ce54f4549451f48e3a19bfb36c75b6ac387b6cf60e57c513799"
   },
   "environment": {
     "python": "3.12.13",
@@ -1631,9 +1697,9 @@
     "laya": "0.3.11",
     "torch_threads": 4,
     "load_average": [
-      3.32,
-      7.34,
-      11.73
+      2.0,
+      1.72,
+      1.85
     ],
     "mps_available": true,
     "platform": "macOS-26.5.2-arm64-arm-64bit",

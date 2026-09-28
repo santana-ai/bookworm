@@ -43,7 +43,7 @@ from utils.nli_verifier_exploration import (
     load_labels,
     load_scorer,
 )
-from utils.udv_pipeline import normalize_whitespace
+from utils.udv_pipeline import normalize_whitespace, split_sentences
 
 Record = dict[str, Any]
 ScoreFunction = Callable[..., tuple[list[Record], Record]]
@@ -51,6 +51,22 @@ ScoreFunction = Callable[..., tuple[list[Record], Record]]
 UDV_SPLIT = "udv"
 POOLS = ("max", "mean", "concatenated")
 SUPPORT_TYPE_NONE = "none"
+SENTENCE_UNIT = "sentence"
+EVIDENCE_COSINE_FEATURES = {
+    SENTENCE_UNIT: "cosine_serafim:sentence_max:max",
+    "window": "cosine_serafim:cosine:max",
+}
+SENTENCE_CHECK_RULE = (
+    "cosine_serafim sentence_max.cosine of each semantic UDV against evidence.score"
+)
+WINDOW_CHECK_RULE = (
+    "cosine_serafim max.cosine (the cosine of the whole premise, the window the verifier read) of"
+    " each semantic UDV against evidence.score (the cosine of the window the UDV builder encoded);"
+    " n, max_abs_gap and within_1e-4 cover the UDVs whose premise equals the encoded text, the"
+    " candidate sentences of the window joined by a space; encoded_text_differs counts the UDVs"
+    " whose evidence span also holds parts that are not candidate sentences (under 4 words or"
+    " stage directions), which the verifier read and the encoder did not"
+)
 
 
 @dataclass(frozen=True)
@@ -490,16 +506,65 @@ def cosine_relation(
     return result
 
 
-def evidence_score_check(
-    recomputed: np.ndarray, recorded: np.ndarray, tiers: list[str], semantic: tuple[str, ...]
-) -> Record:
-    mask = np.array([tier in semantic for tier in tiers])
-    gaps = np.abs(recomputed[mask] - recorded[mask])
+def udv_semantic_unit(udv_path: Path) -> str:
+    coverage_path = udv_path.with_name(f"{udv_path.stem}_coverage.json")
+    with open(coverage_path) as f:
+        pipeline = json.load(f).get("pipeline") or {}
+    unit = pipeline.get("semantic_unit", SENTENCE_UNIT)
+    if not isinstance(unit, str):
+        raise SystemExit(f"{coverage_path}: pipeline.semantic_unit is not text")
+    return unit
+
+
+def evidence_cosine_feature(semantic_unit: str) -> str:
+    return EVIDENCE_COSINE_FEATURES[SENTENCE_UNIT if semantic_unit == SENTENCE_UNIT else "window"]
+
+
+def encoded_window_text(evidence_text: str) -> str:
+    return " ".join(split_sentences(normalize_whitespace(evidence_text)))
+
+
+def gap_summary(gaps: np.ndarray) -> Record:
     return {
-        "rule": "cosine_serafim sentence_max.cosine of each semantic UDV against evidence.score",
-        "n": int(mask.sum()),
+        "n": int(len(gaps)),
         "max_abs_gap": rounded(float(gaps.max())) if len(gaps) else None,
         "within_1e-4": int((gaps <= 1e-4).sum()),
+    }
+
+
+def evidence_score_check(
+    recomputed: np.ndarray,
+    recorded: np.ndarray,
+    records: list[Record],
+    semantic: tuple[str, ...],
+    semantic_unit: str = SENTENCE_UNIT,
+) -> Record:
+    mask = np.array([record["tier"] in semantic for record in records])
+    gaps = np.abs(recomputed[mask] - recorded[mask])
+    if semantic_unit == SENTENCE_UNIT:
+        return {"rule": SENTENCE_CHECK_RULE, **gap_summary(gaps)}
+    semantic_records = [record for record in records if record["tier"] in semantic]
+    equal = np.array(
+        [
+            encoded_window_text(record["evidence"]["text"])
+            == normalize_whitespace(record["evidence"]["text"])
+            for record in semantic_records
+        ],
+        dtype=bool,
+    )
+    return {
+        "rule": WINDOW_CHECK_RULE,
+        "semantic_unit": semantic_unit,
+        "semantic_udvs": int(len(gaps)),
+        **gap_summary(gaps[equal]),
+        "encoded_text_differs": {
+            **gap_summary(gaps[~equal]),
+            "udv_ids": [
+                record["id"]
+                for record, same in zip(semantic_records, equal, strict=True)
+                if not same
+            ],
+        },
     }
 
 
@@ -663,6 +728,7 @@ def analysis(
     decisions: np.ndarray,
     recomputed_cosine: np.ndarray,
     splits: list[str],
+    semantic_unit: str = SENTENCE_UNIT,
 ) -> Record:
     tiers = [record["tier"] for record in scored_records]
     types = [support_type(record) for record in scored_records]
@@ -694,7 +760,11 @@ def analysis(
             "spearman": cosine_relation(scores, evidence_scores, tiers, config.semantic_tiers),
         },
         "evidence_score_check": evidence_score_check(
-            recomputed_cosine, evidence_scores, tiers, config.semantic_tiers
+            recomputed_cosine,
+            evidence_scores,
+            scored_records,
+            config.semantic_tiers,
+            semantic_unit,
         ),
         "lowest": {
             "rule": config.raw["report"]["lowest_rule"],
@@ -742,8 +812,9 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     primary = fitted.probabilities(udv_data)
     secondary = candidate_scores(feature_candidate(config.secondary), udv_data)
     decisions = primary >= fitted.threshold
+    semantic_unit = udv_semantic_unit(config.udv_path)
     recomputed_cosine = candidate_scores(
-        feature_candidate("cosine_serafim:sentence_max:max"), udv_data
+        feature_candidate(evidence_cosine_feature(semantic_unit)), udv_data
     )
     scored = {
         unit_id: (float(p), bool(d), float(s))
@@ -808,7 +879,14 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
         "udv_reading_check": reading,
         "pool_check": pools,
         **analysis(
-            config, scored_records, primary, secondary, decisions, recomputed_cosine, splits
+            config,
+            scored_records,
+            primary,
+            secondary,
+            decisions,
+            recomputed_cosine,
+            splits,
+            semantic_unit,
         ),
         "outputs": {
             "path": str(config.output_path),
