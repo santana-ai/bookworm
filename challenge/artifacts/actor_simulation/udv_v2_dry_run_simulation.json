@@ -1,0 +1,30 @@
+{
+  "dry_run": true,
+  "model": null,
+  "prompt_version": "4a5995d1da8a",
+  "k": null,
+  "k_rule": "k comes from evaluation.json of the model run, or --k; null before that run",
+  "inputs": {
+    "profiles": {
+      "path": "mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl",
+      "sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+    },
+    "train_speeches": {
+      "path": "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl",
+      "sha256": "6d5d7d0dfe525ecbbd00ed34c9b21737ab22a1a64ffdb12adf2e84097be80dba"
+    },
+    "udv": {
+      "path": "artifacts/udv/udv_v2.jsonl",
+      "sha256": "02f42b288840400cbcfb24a613ecc7e0c82f52923de80c09faf3d246fd01fb45"
+    }
+  },
+  "requests_split": "test",
+  "requests": 53,
+  "request_actors": 48,
+  "request_hearings": 27,
+  "requests_sha256": "5f0a7eb51b4ad947f22015007705a5dd2b56e5d46185a4b3f0f4a77dc985b575",
+  "roles_sha256": "6677a0e942a133b158ed6848059f89229d69912c4938bc227fff116c3ed4b16b",
+  "actors_without_role": 21,
+  "examples_sha256": "27a08bd1c4b24bd86f562e566d8ac0d043b9c6cbb4cd1abc1556cf7df02fa9ad",
+  "rule": "requests, roles and speech examples are built as in a model run; an equal hash means the model receives the same requests, roles and examples (the excerpts depend on k)"
+}

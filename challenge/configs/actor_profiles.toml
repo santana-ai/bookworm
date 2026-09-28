@@ -11,9 +11,9 @@ manifest_path = "artifacts/splits/temporal_v1.json"
 splits = ["train"]
 splits_reason = "Profiles written from train hearings only, so the published opinions of test hearings, used to evaluate them, never reach the prompt. Validation hearings are not used."
 eval_splits = ["test"]
-udv_path = "artifacts/udv/udv_v1.jsonl"
+udv_path = "artifacts/udv/udv_v2.jsonl"
 speeches_path = "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl"
-stats_path = "artifacts/actor_profiles/train_speeches_stats.json"
+stats_path = "artifacts/actor_profiles/train_speeches_stats_udv_v2.json"
 
 [prompts]
 dir = "prompts/actor_profile"

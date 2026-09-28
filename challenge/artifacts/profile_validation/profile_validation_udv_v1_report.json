@@ -1,0 +1,205 @@
+{
+  "name": "profile_validation_udv_v1",
+  "created_at": "2026-09-28T17:29:22+00:00",
+  "config": {
+    "declaration": {
+      "declared_on": "2026-09-26",
+      "text": "Declared before any actor profile was generated. Tiers, splits, encoder, score bands and review sizes are fixed here and are not changed after the profiles or their scores are seen."
+    },
+    "inputs": {
+      "comparison_rule": "udv_v1 counterpart of configs/profile_validation.toml, run on the same day for the udv_v2 downstream report; it shares the actor links of udv_v2, whose matched-turn majority rule reads no UDV evidence, so only the tier filter differs between the two runs",
+      "udv_path": "artifacts/udv/udv_v1.jsonl",
+      "links_path": "artifacts/udv/udv_v2_actor_links.jsonl",
+      "profiles_path": "mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl",
+      "split_manifest": "artifacts/splits/temporal_v1.json"
+    },
+    "validation": {
+      "tiers": [
+        "quote_found",
+        "semantic_match_high"
+      ],
+      "generation_splits": [
+        "train"
+      ],
+      "held_out_splits": [
+        "test"
+      ],
+      "cache_dir": "artifacts/cache/embeddings",
+      "output_dir": "artifacts/profile_validation",
+      "name": "profile_validation_udv_v1",
+      "seed": 42,
+      "bootstrap_samples": 1000,
+      "confidence_level": 0.95,
+      "encoder": {
+        "name": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+        "revision": "a01887015444f7599669c509447c5bdbce958916",
+        "batch_size": 64,
+        "device": "auto"
+      }
+    },
+    "review": {
+      "seed": 42,
+      "score_bands": [
+        0.3,
+        0.5
+      ],
+      "sizes": {
+        "in_prompt": 20,
+        "held_out": 20
+      },
+      "output": "artifacts/profile_validation/profile_review_udv_v1.csv"
+    }
+  },
+  "inputs": {
+    "udvs": {
+      "path": "artifacts/udv/udv_v1.jsonl",
+      "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1"
+    },
+    "links": {
+      "path": "artifacts/udv/udv_v2_actor_links.jsonl",
+      "sha256": "829ca854fbf0b7406a95c745b899c9fa84ade90ebbbe5ae4c6d5b386296f98ea"
+    },
+    "profiles": {
+      "path": "mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl",
+      "sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+    },
+    "split_manifest": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd"
+    }
+  },
+  "split_version": "temporal_v1",
+  "encoder": {
+    "name": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+    "revision": "a01887015444f7599669c509447c5bdbce958916",
+    "cache_identity": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder@a01887015444f7599669c509447c5bdbce958916@mps",
+    "runtime": {
+      "device": "mps",
+      "max_seq_length": 128,
+      "embedding_dimension": 1024
+    }
+  },
+  "method": {
+    "tiers": [
+      "quote_found",
+      "semantic_match_high"
+    ],
+    "generation_splits": [
+      "train"
+    ],
+    "held_out_splits": [
+      "test"
+    ],
+    "sentence_segmentation": "each non-empty line of the profile split by bookworm.transcript.sentences.split_sentences",
+    "pair_score": "max cosine between the UDV proposition and the sentences of one profile",
+    "rank": "1 + number of other profiles whose score is greater than or equal to the true profile score (ties count against the true profile)",
+    "tfidf_corpus": null,
+    "note": "cosine measures content proximity, not entailment; whether a profile sentence supports the opinion is decided by the human review"
+  },
+  "counts": {
+    "udvs": 2203,
+    "profiles": 264,
+    "profile_sentences": 5608,
+    "skipped": {
+      "person_not_resolved": 90,
+      "tier_excluded": 51,
+      "no_link": 0,
+      "no_actor": 1,
+      "actor_without_profile": 1426,
+      "split_not_evaluated": 98,
+      "not_in_prompt": 0
+    },
+    "pairs": {
+      "in_prompt": 433,
+      "held_out": 104
+    }
+  },
+  "groups": {
+    "in_prompt": {
+      "pairs": 433,
+      "hearings": 131,
+      "actors": 148,
+      "splits": [
+        "train"
+      ],
+      "n_candidates": 264,
+      "chance": {
+        "acc_at_1": 0.0038,
+        "mrr": 0.0233
+      },
+      "score": {
+        "mean": 0.5926,
+        "median": 0.5963,
+        "q25": 0.5175,
+        "q75": 0.6709,
+        "min": 0.3241,
+        "max": 0.9004
+      },
+      "identification": {
+        "acc_at_1": 0.4527,
+        "mrr": 0.5781
+      },
+      "bootstrap": {
+        "unit": "hearing",
+        "method": "percentile interval over replicates that resample whole hearings",
+        "samples": 1000,
+        "confidence_level": 0.95,
+        "mean_score": [
+          0.5809,
+          0.6063
+        ],
+        "acc_at_1": [
+          0.3972,
+          0.507
+        ],
+        "mrr": [
+          0.5335,
+          0.6248
+        ]
+      }
+    },
+    "held_out": {
+      "pairs": 104,
+      "hearings": 27,
+      "actors": 48,
+      "splits": [
+        "test"
+      ],
+      "n_candidates": 264,
+      "chance": {
+        "acc_at_1": 0.0038,
+        "mrr": 0.0233
+      },
+      "score": {
+        "mean": 0.4531,
+        "median": 0.4387,
+        "q25": 0.3945,
+        "q75": 0.5259,
+        "min": 0.197,
+        "max": 0.6599
+      },
+      "identification": {
+        "acc_at_1": 0.0481,
+        "mrr": 0.1185
+      },
+      "bootstrap": {
+        "unit": "hearing",
+        "method": "percentile interval over replicates that resample whole hearings",
+        "samples": 1000,
+        "confidence_level": 0.95,
+        "mean_score": [
+          0.4193,
+          0.4846
+        ],
+        "acc_at_1": [
+          0.0,
+          0.1111
+        ],
+        "mrr": [
+          0.0617,
+          0.1885
+        ]
+      }
+    }
+  }
+}
