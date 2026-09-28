@@ -6,14 +6,17 @@ opinião se apoia. Quem quer conferir uma atribuição precisa ler a transcriç�
 cada opinião estruturada do dataset
 [PublicHearingBR](https://huggingface.co/datasets/unicamp-dl/PublicHearingBR) a um trecho verificável
 da transcrição, com offsets e um nível explícito que diz como a ligação foi feita. Cada ligação é uma
-UDV (unidade de evidência): a opinião, o participante, a sentença da transcrição que a sustenta, a
-posição dessa sentença e o critério que a escolheu.
+UDV (unidade de evidência): a opinião, o participante, o trecho da transcrição que a sustenta, a
+posição desse trecho e o critério que o escolheu. Na rodada de referência, `udv_v2`, o trecho é a
+citação inteira, quando a opinião cita a fala, ou a janela de duas sentenças mais parecida; em `udv_v1`,
+mantida como histórico, é uma sentença.
 
 A biblioteca faz quatro coisas, todas conferidas por uma verificação independente que recalcula o
 resultado a partir do dataset:
 
 - **UDVs** (`build-udvs`, `verify-udvs`): procura a citação da opinião nos turnos de fala do
-  participante e, sem citação, a sentença mais parecida no espaço de um encoder.
+  participante e, sem citação, a unidade candidata (sentença ou janela de sentenças, conforme a
+  configuração) mais parecida no espaço de um encoder.
 - **Splits temporais** (`build-splits`, `verify-splits`): separa as audiências em treino, validação e
   teste pela data da matéria, para que nenhum método seja ajustado com audiências posteriores às que
   avalia.
@@ -145,8 +148,10 @@ separação entre `semantic_match_high` e `semantic_match_weak` não tem calibra
 interpretada. Dentro de `challenge/`, a verificação da execução publicada não precisa de modelo:
 
 ```bash
-uv run bookworm verify-udvs --config configs/udv.toml --run-name udv_v1
+uv run --project ../bookworm bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
 ```
+
+A execução histórica `udv_v1` se confere do mesmo jeito, com `--config configs/udv.toml --run-name udv_v1`.
 
 ### Atores e perfis: a mesma passada das UDVs
 
@@ -193,7 +198,7 @@ versão.
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
 │ build-udvs             Build UDV records (opinion to transcript evidence) from the LDS file.     │
 │ verify-udvs            Recompute and cross-check a UDV run against the LDS file.                 │
-│ export-hearing         Write one hearing of a UDV run, with ranked candidate sentences, as demo  │
+│ export-hearing         Write one hearing of a UDV run, with ranked candidate units, as demo      │
 │                        JSON.                                                                     │
 │ export-site            Write every hearing of a UDV run as demo JSON, plus an index.json, read   │
 │                        only from the embedding cache.                                            │
@@ -270,14 +275,16 @@ imprime um relatório JSON; `--baseline` acrescenta a diferença contra uma exec
 
 Grava, em `--output`, uma audiência de uma execução no JSON lido pela demonstração
 web: transcrição, turnos com as sentenças e os offsets de cada uma, participantes, as UDV da
-execução e, para cada opinião, as `--top-k` (padrão 8) sentenças do participante mais similares a
-ela. Os embeddings vêm só do cache que `build-udvs` gravou para a execução
+execução e, para cada opinião, as `--top-k` (padrão 8) unidades candidatas do participante mais
+similares a ela, na unidade da configuração (sentenças em `udv_v1`, janelas de duas sentenças em
+`udv_v2`), com os mesmos textos e rótulos de cache que `build-udvs` usou. Os embeddings vêm só do cache que `build-udvs` gravou para a execução
 ([ADR 0004](docs/adr/0004-exports-read-only-the-run-cache.md)): o comando não carrega modelo, não
 importa `torch` e não grava nada no cache, e um embedding ausente do cache faz o comando parar com
 código 2, com o caminho do arquivo esperado. Com `--split-manifest`, o conjunto da audiência no
 manifesto entra em `hearing.split`. O comando também para com código 2 se a execução foi construída
-com outro encoder ou outra revisão, se a audiência não pertence à execução ou se os registros da
-audiência não correspondem às opiniões do LDS. O formato está em
+com outro encoder ou outra revisão, se o pipeline gravado na cobertura (unidade semântica, extensão da
+citação, política de citação) ou o corte `embedding_threshold` diferem dos de `--config`, se a
+audiência não pertence à execução ou se os registros da audiência não correspondem às opiniões do LDS. O formato está em
 [docs/data_model.md](docs/data_model.md#json-de-demonstração-export-hearing).
 
 <details>
@@ -286,15 +293,14 @@ audiência não correspondem às opiniões do LDS. O formato está em
 ```text
  Usage: bookworm export-hearing [OPTIONS]
 
- Write one hearing of a UDV run, with ranked candidate sentences, as demo JSON.
+ Write one hearing of a UDV run, with ranked candidate units, as demo JSON.
 
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
 │ *  --run-name               <str>               Basename of the run files. [required]            │
 │ *  --hearing                <int>               Hearing id to export. [required]                 │
 │ *  --output                 <path>              Path of the JSON to write. [required]            │
 │    --config                 <path>              UDV TOML config. [default: configs/udv.toml]     │
-│    --top-k                  <int range> [x>=1]  Candidate sentences kept per opinion.            │
-│                                                 [default: 8]                                     │
+│    --top-k                  <int range> [x>=1]  Candidate units kept per opinion. [default: 8]   │
 │    --split-manifest         <path>              Split manifest that names the hearing split.     │
 │    --verifier-report        <path>              Verifier report of the run; adds the verifier,   │
 │                                                 question and translation signals of each UDV.    │
@@ -318,9 +324,10 @@ apaga o `index.json` antigo antes de gravar a primeira audiência e regrava os a
 da execução; arquivos de outras audiências não são apagados e ficam fora do índice. `index.json` é
 gravado por último, então uma exportação interrompida, nova ou com `--overwrite`, deixa o diretório
 sem índice. Nenhum arquivo leva data de criação, e duas exportações com as mesmas entradas geram os
-mesmos bytes. Para `udv_v1` são 206 arquivos de audiência com 76.526.309 bytes no total (mediana de
-329.899; o maior, 3.377.789, é o da audiência 6, cuja transcrição tem 147.728 palavras) e um índice
-de 184.112 bytes. O formato está em
+mesmos bytes. A exportação de `udv_v2` com `--verifier-report` e `--profiles` grava 88.438.867 bytes
+no total, com 264 perfis de ator (`challenge/artifacts/web/export_site_udv_v2.json`). Para `udv_v1`,
+sem perfis, são 206 arquivos de audiência com 76.526.309 bytes no total (mediana de 329.899; o maior,
+3.377.789, é o da audiência 6, cuja transcrição tem 147.728 palavras) e um índice de 184.112 bytes. O formato está em
 [docs/data_model.md](docs/data_model.md#diretório-de-demonstração-export-site), e a página que lê
 esses arquivos, com o comando para servi-la, está descrita em [web/README.md](web/README.md).
 
@@ -338,12 +345,18 @@ esses arquivos, com o comando para servi-la, está descrita em [web/README.md](w
 │    --output                 <path>              Directory to write; defaults to web/app/data of  │
 │                                                 the bookworm source tree.                        │
 │    --config                 <path>              UDV TOML config. [default: configs/udv.toml]     │
-│    --top-k                  <int range> [x>=1]  Candidate sentences kept per opinion.            │
-│                                                 [default: 8]                                     │
+│    --top-k                  <int range> [x>=1]  Candidate units kept per opinion. [default: 8]   │
 │    --split-manifest         <path>              Split manifest that names each hearing split.    │
 │    --overwrite                                  Replace the files of an existing export.         │
 │    --verifier-report        <path>              Verifier report of the run; adds the verifier,   │
 │                                                 question and translation signals of each UDV.    │
+│    --profiles               <path>              Actor profiles JSONL; adds actors.json and one   │
+│                                                 profiles/<actor>.json per profiled actor.        │
+│    --actors-config          <path>              Hearing actors TOML config, used with --profiles │
+│                                                 to rebuild the speeches.                         │
+│                                                 [default: configs/hearing_actors.toml]           │
+│    --profiles-run           <str>               Name of the profile run shown on the page;       │
+│                                                 defaults to the file name.                       │
 │    --help                                       Show this message and exit.                      │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
@@ -641,7 +654,9 @@ exatamente o que fazia em `udv_v1`.
   a citação tem, sem sair do turno.
 
 `verify-udvs` lê as duas chaves da configuração gravada na cobertura e confere cada evidência com a
-mesma regra.
+mesma regra. `export-hearing` e `export-site` leem as duas chaves de `--config`, recusam uma execução
+cuja cobertura registra outro pipeline ou outro corte e ordenam as candidatas na mesma unidade da
+construção.
 
 ### Configuração de split
 
@@ -791,7 +806,9 @@ Para cada opinião desse participante:
    `(Manifestação em LIBRAS.)`): `no_evidence`.
 
 Os offsets (`start_char`, `end_char`, `speaker_turn`) apontam para a transcrição original e são
-procurados só no turno de onde a sentença veio. Em `udv_v1` as 2.105 evidências têm offsets.
+procurados só no turno de onde a sentença veio. Em `udv_v1` e em `udv_v2` as 2.105 evidências têm
+offsets. Esta seção descreve a regra padrão, de sentença, usada em `udv_v1`; as mudanças de `udv_v2`
+(janela e citação inteira) estão na seção de configuração, nas chaves `semantic_unit` e `quote_extent`.
 
 O corte 0,45 de `challenge/configs/udv.toml` foi recalculado só com audiências do treino, pela regra
 registrada em `[evidence].threshold_decision` desse arquivo (0,47 antes, com audiências que também

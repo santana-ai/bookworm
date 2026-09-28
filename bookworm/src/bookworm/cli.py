@@ -553,7 +553,7 @@ ProfileValidationConfigOption = Annotated[
 ]
 RunNameOption = Annotated[str, typer.Option("--run-name", help="Basename of the run files.")]
 TopKOption = Annotated[
-    int, typer.Option("--top-k", min=1, help="Candidate sentences kept per opinion.")
+    int, typer.Option("--top-k", min=1, help="Candidate units kept per opinion.")
 ]
 VerifierReportOption = Annotated[
     Path | None,
@@ -612,7 +612,7 @@ def add_udv_commands(app: typer.Typer, encoder_factory: EncoderFactory) -> None:
 def add_export_commands(app: typer.Typer) -> None:
     @app.command(
         "export-hearing",
-        help="Write one hearing of a UDV run, with ranked candidate sentences, as demo JSON.",
+        help="Write one hearing of a UDV run, with ranked candidate units, as demo JSON.",
     )
     def export_hearing_command(
         run_name: RunNameOption,
