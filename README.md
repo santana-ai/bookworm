@@ -1,201 +1,136 @@
 # bookworm
 
-Uma audiência pública da Câmara dos Deputados gera uma transcrição de, em média, 18 mil palavras, e a
-matéria jornalística que a cobre tem cerca de 630. A matéria atribui opiniões aos participantes, mas não
-diz em que ponto da fala cada opinião foi dita; quem quer conferir uma atribuição precisa ler a
-transcrição inteira. O `bookworm` liga cada uma das 2.203 opiniões estruturadas do dataset
-[PublicHearingBR](https://huggingface.co/datasets/unicamp-dl/PublicHearingBR) a um trecho da fala da
-própria pessoa, com a posição exata na transcrição, o critério que escolheu o trecho e um sinal de
-confiança separado. Cada ligação é uma UDV (Unidade Deliberativa Verificável). O projeto foi
-desenvolvido para o desafio Ideias em Rede, 1ª edição (Instituto Kunumi).
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 
-Uma UDV é uma ligação automática, não uma anotação humana, e não substitui a leitura da transcrição.
+**Para cada opinião que uma matéria jornalística atribui a um participante de audiência pública, o
+bookworm aponta o trecho da transcrição em que a própria pessoa a disse, com a posição exata, o critério
+que escolheu o trecho e, num campo separado, a confiança de que o trecho sustenta a opinião.**
 
-## Três verdades parciais
+```mermaid
+flowchart LR
+    O["Opinião da matéria<br/>2.203 no LDS"] --> P["Resolução da pessoa<br/>nome no cabeçalho do turno"]
+    subgraph T1["Trabalho 1: onde está o trecho?"]
+        P --> Q{"Citação com prefixo<br/>de 6+ palavras?"}
+        Q -- sim --> C["Casamento da citação<br/>até o fim da citação"]
+        Q -- não --> W["Busca de janela<br/>2 sentenças, cosseno Serafim"]
+    end
+    subgraph T2["Trabalho 2: o trecho sustenta?"]
+        V["Verificador E3x<br/>probabilidade de suporte"]
+    end
+    C --> V
+    W --> V
+    V --> U["UDV<br/>trecho, offsets, nível<br/>e confiança separada"]
+    U --> A["Atores, perfis<br/>e simulação"]
+```
 
-O dataset mistura três leituras de uma mesma audiência. Tratá-las como uma só leva a conclusões
-erradas, por exemplo chamar de alucinação uma opinião que a matéria simplesmente não selecionou.
+Uma audiência da Câmara dos Deputados tem, em média, 18.102 palavras de transcrição; a matéria que a
+cobre tem 627 e não diz em que ponto da fala cada opinião foi dita. Cada ligação que o bookworm grava é
+uma **UDV (Unidade Deliberativa Verificável)**, construída sobre o dataset
+[PublicHearingBR](https://huggingface.co/datasets/unicamp-dl/PublicHearingBR) para o desafio Ideias em
+Rede, 1ª edição (Instituto Kunumi).
 
-- **Documental:** o que a transcrição sustenta. É o que a UDV tenta ancorar.
-- **Editorial:** o que a matéria selecionou e redigiu. As 2.203 opiniões do arquivo LDS são essa
-  leitura, com a redação do jornalista.
-- **Anotada sob recuperação:** o que um especialista validou lendo só quatro trechos recuperados da
-  fala. É o rótulo do arquivo NLI (`retrieved_context_entailment`): diz se a opinião é inferível daqueles
-  quatro trechos, não se ela é verdadeira nem se está na transcrição inteira.
+**Dois trabalhos, dois métodos.** Achar o trecho é um problema de ordenação, e nenhum dos rivais testados
+superou com significância o cosseno do encoder Serafim. Dizer quanto confiar no trecho é um problema de separação, e ali
+o cosseno separa pouco: quem dá a confiança é um verificador treinado para essa pergunta. A
+probabilidade do verificador estima se o trecho sustenta a opinião; ela não é a probabilidade de a
+opinião ser verdadeira, e não muda o nível da UDV. O que cada experimento decidiu está em
+[`docs/pipeline.md`](docs/pipeline.md).
 
-A tese completa, com a arquitetura de longo prazo, está em [`docs/vision.md`](docs/vision.md).
+## Resultados
 
-## Dois trabalhos
+Números do [resumo executivo do relatório](docs/report.md#resumo-executivo), onde cada um tem o arquivo
+de origem. Intervalos de 95%: bootstrap por audiência na recuperação e no verificador, Wilson na
+validação humana.
 
-Ligar uma opinião à fala exige responder duas perguntas diferentes, e os experimentos mostram que o
-melhor método não é o mesmo para as duas.
+| achado | número | seção |
+|---|---|---|
+| Opiniões com evidência localizada (`udv_v2`) | 2.105 de 2.203; 90 de pessoas não resolvidas, 8 sem unidade candidata | [3.5](docs/report.md#35-udv_v2-janelas-citação-inteira-e-verificador) |
+| Citações literais localizadas (`quote_found`) | 277 | [3.5](docs/report.md#35-udv_v2-janelas-citação-inteira-e-verificador) |
+| Recuperação no benchmark NLI (validação, `serafim_335m`) | acc@1 0,8774, MRR 0,9295; nenhum dos 15 recuperadores alternativos o supera depois de Holm | [4.3](docs/report.md#43-e1-comparação-de-recuperadores-retrieval_v1) |
+| Janela de 2 sentenças contra sentença | lift +0,0143 [-0,0091; 0,0409], Holm 0,4104 | [4.4](docs/report.md#44-e2-comparação-de-unidades-retrieval_v1) |
+| Laya como reranqueador do top 20 (negativo) | MRR 0,8690 contra 0,9295, Holm 0,0004 | [4.5](docs/report.md#45-retrieval_v2-laya-como-reranqueador-resultado-negativo) |
+| Sinais derivados do cosseno como confiança (E5) | nenhum IC de diferença de AURC exclui zero | [5.5](docs/report.md#55-e5-sinais-de-confiança-derivados-do-recuperador-confidence_v1) |
+| Verificador contra cosseno, validação | ROC AUC 0,8758 contra 0,7302, Δ +0,1457 [0,0852; 0,2159], Holm 0,012 | [5.6](docs/report.md#56-confidence_v2-e-a-o-verificador-contra-avaliadores-da-literatura) |
+| Verificador, teste final (559 opiniões) | ROC AUC 0,9122 [0,8698; 0,9454], kappa 0,5924 | [5.3](docs/report.md#53-e3x-verificador-aprendido) |
+| Verificador sobre as 2.105 evidências de `udv_v2` | passam 1.750 (0,8314) no corte de premissa UDV 0,2429; 826 (0,3924) no corte do benchmark 0,7478 | [3.5](docs/report.md#35-udv_v2-janelas-citação-inteira-e-verificador) |
+| Validação humana, `quote_found`, precisão estrita | 25 de 35, 0,7143 [0,5495; 0,8367]; **critério (limite inferior ≥ 0,90) falha** | [7.2](docs/report.md#72-resultado-final-de-udv_v1) |
+| Validação humana, `semantic_match_high` de `udv_v1`, tolerante | 48 de 65, 0,7385 [0,6205; 0,8298]; **critério (limite inferior ≥ 0,75) falha** | [7.2](docs/report.md#72-resultado-final-de-udv_v1) |
+| Validação humana, `semantic_match_high` de `udv_v2`, tolerante | 52 de 63, 0,8254 [0,7138; 0,8996], com herança de rótulo; **critério falha** | [7.4](docs/report.md#74-resultado-final-de-udv_v2) |
+| Simulação de atores a partir do perfil, teste (101 perguntas, acaso 0,25, rodada sobre `udv_v1`) | acerto 0,4257 com perfil contra 0,3069 só com nome e cargo, +0,1188 [0,0495; 0,1965]; acrescentar trechos muda +0,0198 [-0,0286; 0,0702] | [6.3](docs/report.md#63-perfis-de-ator-e-simulação) |
 
-1. **Achar a evidência.** Entre as falas da pessoa, qual trecho corresponde à opinião. É um problema de
-   ordenação: o trecho certo precisa vir em primeiro. Quando a opinião traz uma citação literal, o trecho
-   é achado por casamento de texto; sem citação, pela similaridade de sentido entre a opinião e trechos
-   de duas sentenças.
-2. **Dizer quanto confiar.** Dado o trecho escolhido, qual a chance de ele de fato sustentar a opinião.
-   É um problema de separação: a similaridade diz que o trecho fala do mesmo assunto, mas não que afirma
-   o mesmo. Um verificador treinado para essa pergunta dá a confiança, num campo separado que não muda o
-   nível da UDV.
+> [!WARNING]
+> **Os dois critérios da validação humana, declarados antes da anotação, falharam.** Na citação literal,
+> o trecho é `correta` ou `parcial` em 31 de 35 casos, mas `correta` em só 25, e o critério pedia 35 de
+> 35. No `semantic_match_high`, de `udv_v1` para `udv_v2` a precisão tolerante subiu de 0,7385 para
+> 0,8254, mas o limite inferior (0,7138) ficou abaixo de 0,75: passar exigiria 54 acertos em 63, e houve
+> 52. Os números de `udv_v2` supõem que 78 itens cuja evidência nova contém o trecho antigo herdam o
+> rótulo de `udv_v1`, premissa não medida. Há um anotador, e nem a revocação da busca nem a
+> concordância intra-anotador são estimáveis ([relatório, seção 10](docs/report.md#10-limitações)).
 
-## Pipeline final e resultados
+## Rode em 3 comandos
 
-O pipeline recomendado é `udv_v2` (decisões no
-[ADR 0006](bookworm/docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md), descrição em
-[`docs/pipeline.md`](docs/pipeline.md)):
+Requer Python 3.12 e [uv](https://docs.astral.sh/uv/). Roda em CPU, sem modelo, e confere a rodada
+publicada `udv_v2` recalculando cada UDV a partir do dataset (cerca de 25 s depois do download).
 
-1. resolve a pessoa pelo nome no cabeçalho dos turnos de fala;
-2. procura a citação da opinião (prefixo de 6 ou mais palavras) nos turnos da pessoa e estende a
-   evidência até o fim da citação;
-3. sem citação, escolhe a janela de duas sentenças consecutivas do mesmo turno com maior cosseno no
-   encoder `PORTULAN/serafim-335m-portuguese-pt-sentence-encoder`; o nível é `semantic_match_high` a
-   partir de 0,50 e `semantic_match_weak` abaixo;
-4. aplica o verificador aprendido (E3x) ao texto da evidência e grava a probabilidade de suporte e as
-   decisões em dois cortes num arquivo lateral.
+```bash
+git clone https://github.com/santana-ai/bookworm.git && cd bookworm/experiments
+uv sync && uv run python -m experiments.data.download
+uv run bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
+```
 
-Resultados principais, do resumo executivo de
-[`docs/report.md`](docs/report.md), onde cada número tem o
-arquivo de origem:
+O último comando termina com `"problems": {}`. Um exemplo que constrói UDVs com TF-IDF em segundos está
+no [README da biblioteca](bookworm/README.md#início-rápido-em-cpu); as 25 etapas de todos os
+experimentos, no [guia de reprodução](docs/reproduce.md).
 
-| achado | número |
-|---|---|
-| Opiniões com evidência localizada (`udv_v1` e `udv_v2`) | 2.105 de 2.203 (90 de pessoas não resolvidas, 8 sem unidade candidata) |
-| Citações literais localizadas (`quote_found`) | 277 |
-| Níveis semânticos de `udv_v2` (corte de cosseno 0,50) | 1.744 `semantic_match_high`, 84 `semantic_match_weak` |
-| Verificador sobre as 2.105 evidências de `udv_v2` | passam 1.750 (0,8314) no corte de premissa UDV 0,2429 e 826 (0,3924) no corte do benchmark 0,7478 |
-| Recuperação no benchmark NLI (validação, sentença, `serafim_335m`) | acc@1 0,8774, MRR 0,9295 |
-| 15 recuperadores alternativos contra o `serafim_335m` | nenhum o supera na sentença depois de Holm |
-| Janelas de 2 sentenças contra sentença, mesmo recuperador | lift +0,0143 [-0,0091; 0,0409], Holm 0,4104 |
-| Laya como reranqueador do top 20 (resultado negativo) | MRR 0,8690 contra 0,9295, Holm 0,0004 |
-| Sinais derivados do cosseno como confiança (E5) | nenhum IC de diferença de AURC exclui zero |
-| Verificador primário (E3x), teste final, 559 opiniões | ROC AUC 0,9122 [0,8698; 0,9454], kappa 0,5924 |
-| Verificador contra o cosseno na validação (confidence_v2 E-A) | ROC AUC 0,8758 contra 0,7302, Δ +0,1457 [0,0852; 0,2159], Holm 0,012 |
-| Validação humana, `quote_found` (precisão estrita; igual em `udv_v1` e `udv_v2`) | 25 de 35, 0,7143 [0,5495; 0,8367]; critério (limite inferior ≥ 0,90) falha |
-| Validação humana, `semantic_match_high` de `udv_v1` (precisão tolerante) | 48 de 65, 0,7385 [0,6205; 0,8298]; critério (limite inferior ≥ 0,75) falha |
-| Validação humana, `semantic_match_high` de `udv_v2` (precisão tolerante, com herança) | 52 de 63, 0,8254 [0,7138; 0,8996]; critério falha |
-
-Os intervalos das linhas de recuperação e do verificador são de 95% por bootstrap de audiência; os da
-validação humana são de Wilson a 95%, lidos do relatório final
-[`experiments/artifacts/udv/udv_v2_precision_final.json`](experiments/artifacts/udv/udv_v2_precision_final.json)
-(127 de 127 linhas de `udv_v1` e 26 de 26 linhas suplementares julgadas, um anotador). Os dois critérios
-declarados antes da anotação falham. Na citação literal, o trecho é `correta` ou `parcial` em 31 de 35
-casos, mas `correta` em só 25, e o critério pedia 35 de 35. No `semantic_match_high`, de `udv_v1` para
-`udv_v2` a precisão tolerante subiu de 0,7385 para 0,8254 e os `incorreta` caíram de 17 para 11, mas o
-limite inferior (0,7138) continua abaixo de 0,75: com 63 itens, passar exigiria 54 acertos, e houve 52.
-Os números de `udv_v2` supõem que 78 itens cuja evidência nova contém todo o trecho de `udv_v1` no mesmo
-turno mantêm o rótulo de `udv_v1`, premissa não medida (relatório, seção 7.4, com a linha de
-sensibilidade); 17 itens têm evidência igual e 26 foram julgados de novo. O campo `existe_trecho_melhor`
-ficou vazio e a reanotação não foi feita, então a revocação da busca e a concordância intra-anotador não
-são estimáveis. O verificador foi ajustado com premissas de quatro trechos e é aplicado a evidências de uma
-citação ou janela, uma mudança de domínio que não foi medida com rótulo humano.
-
-`udv_v0` e `udv_v1` (evidência de uma sentença, corte 0,45) ficam como histórico e base de comparação.
-Toda etapa depois da UDV (verificador, ligação a atores, perfis, perguntas da simulação, exportação da
-demo) foi refeita ou conferida sobre `udv_v2`, ao lado do valor de `udv_v1`, em
-[`experiments/artifacts/udv/udv_v2_downstream_report.json`](experiments/artifacts/udv/udv_v2_downstream_report.json).
-
-## Demo web
-
-`bookworm/web/` é um front estático que mostra, para cada audiência, a opinião da matéria, o trecho da
-transcrição escolhido, as unidades candidatas e as duas medidas (cosseno e verificador), além de uma página
-por ator com o perfil gerado. Os dados saem de `bookworm export-site` sobre `udv_v2`; a exportação confere
-que a rodada foi construída com a configuração passada e recusa uma rodada de outra configuração. Como
-exportar e servir: [`bookworm/web/README.md`](bookworm/web/README.md).
-
-## Organização do repositório
+## O que está no repositório
 
 | caminho | o que é |
 |---|---|
-| [`bookworm/`](bookworm/README.md) | a biblioteca Python: construção e verificação de UDVs, splits temporais, falas e perfis de atores, exportação para a demo web; CLI `bookworm` |
-| [`bookworm/docs/adr/`](bookworm/docs/adr/README.md) | decisões de arquitetura registradas |
-| [`experiments/`](experiments/README.md) | os experimentos sobre o PublicHearingBR: scripts, configurações, artefatos versionados e notebooks; o README é o guia de reprodução |
-| [`docs/pipeline.md`](docs/pipeline.md) | o que cada experimento decidiu e o pipeline `udv_v2` |
-| [`docs/report.md`](docs/report.md) | relatório completo, com a origem de cada número, limitações e referências |
-| [`docs/vision.md`](docs/vision.md) | tese científica e especificação de longo prazo |
-| [`docs/roadmap.md`](docs/roadmap.md) | estado do projeto e checklist de entregas do desafio |
-| [`docs/path_map.md`](docs/path_map.md) | caminhos da versão de pesquisa (tag `research-2026-09-28`) e os desta versão |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | ambiente de desenvolvimento, verificações e convenções |
+| [`bookworm/`](bookworm/README.md) | a biblioteca Python e a CLI `bookworm`: UDVs, splits temporais, falas e perfis de atores, exportação da demo |
+| [`bookworm/web/`](bookworm/web/README.md) | a demo web: opinião, trecho escolhido, candidatas, cosseno e verificador, e uma página por ator |
+| [`experiments/`](experiments/README.md) | os experimentos: scripts, configurações, artefatos versionados e notebooks |
+| [`docs/`](docs/README.md) | relatório, pipeline, metodologia, validação, reprodução e visão; o índice diz a ordem de leitura |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | ambiente, verificações e convenções |
+| [`CITATION.cff`](CITATION.cff), [`LICENSE`](LICENSE) | como citar e licença |
 
 O artigo do desafio fica num repositório próprio:
 [github.com/JoaoVitorBoer/bookworm](https://github.com/JoaoVitorBoer/bookworm).
 
-## Início rápido
+## Três leituras de uma audiência
 
-Requer Python 3.12 e [uv](https://docs.astral.sh/uv/). O caminho abaixo roda em CPU, sem modelo, e
-confere a execução publicada `udv_v2` recalculando cada UDV a partir do dataset.
+O dataset mistura três leituras parciais, e o projeto não as confunde:
 
-```bash
-git clone https://github.com/santana-ai/bookworm.git
-cd bookworm/experiments
-uv sync
-uv run python -m experiments.data.download
+- **Documental:** o que a transcrição sustenta. É o que a UDV tenta ancorar.
+- **Editorial:** o que a matéria selecionou e redigiu. As 2.203 opiniões do arquivo LDS são essa leitura.
+- **Anotada sob recuperação:** o rótulo do arquivo NLI (`retrieved_context_entailment`) diz se um
+  especialista achou a opinião inferível de quatro trechos recuperados, não se ela é verdadeira nem se
+  está na transcrição inteira.
 
-cd ../bookworm
-uv sync
-uv run pytest
-
-cd ../experiments
-uv run bookworm verify-udvs --config configs/udv_v2.toml --run-name udv_v2
-```
-
-O último comando termina com `"problems": {}`. Um exemplo completo com o encoder TF-IDF, que constrói
-UDVs em segundos sem GPU, está no [README da biblioteca](bookworm/README.md#início-rápido-em-cpu). A
-sequência de todas as etapas, com os comandos e o tempo de cada uma, está no
-[README de `experiments/`](experiments/README.md).
-
-## Reprodutibilidade
-
-- **Dados fixados.** O download usa uma revisão fixada do dataset no Hugging Face, e toda configuração
-  que lê o LDS guarda o sha256 do arquivo e para se ele for outro.
-- **Modelos fixados.** Todo modelo do Hugging Face é carregado offline numa revisão (commit) registrada
-  na configuração do experimento; a lista, com licenças, está na seção 11.2 do relatório. Os modelos MLX
-  da rodada de perfis e simulação são a exceção: `experiments/configs/mlx.yaml` não fixa
-  revisão.
-- **Sementes.** Cada experimento declara sua semente e o número de réplicas do bootstrap (relatório,
-  seção 9.2); os splits, as calibrações e a amostra de validação usam semente 42.
-- **Proveniência.** Cada relatório JSON grava o sha256 da configuração, do código e das entradas que o
-  produziram, e o ambiente (versões de Python e bibliotecas).
-- **Artefatos pesados.** As saídas por item das rodadas (escores, consultas, features, predições; 369
-  arquivos) não estão no Git. [`experiments/artifacts/MANIFEST_heavy.tsv`](experiments/artifacts/MANIFEST_heavy.tsv)
-  lista cada uma com tamanho, sha256 e o comando que a regenera. Um pacote com esses arquivos será
-  anexado a um GitHub Release deste repositório (pendente).
-- **Histórico.** O histórico completo de pesquisa, incluindo versões antigas de notebooks e scripts e as
-  saídas pesadas, fica na tag `research-2026-09-28`. `experiments/README.md` mostra como restaurar os
-  arquivos pesados a partir dela.
+A tese completa está em [`docs/vision.md`](docs/vision.md).
 
 ## Integridade científica
 
-As regras abaixo valem para todo experimento do repositório:
+- **O teste não escolhe nada.** Splits temporais (144 audiências de treino, 32 de validação, 30 de
+  teste); cortes, métodos e hiperparâmetros saem do treino e da validação, e todo comando que lê o teste
+  exige `--final-test`.
+- **Um rótulo NLI não é verdade global**, e a probabilidade do verificador não é a probabilidade de a
+  opinião ser verdadeira.
+- **Ausência não é erro da matéria.** Uma opinião sem evidência é uma opinião para a qual o método não
+  achou trecho; nada é chamado de alucinação por isso.
+- **Nenhuma inferência de intenção política** de participantes, jornalistas ou veículos.
+- **Resultados negativos e parciais ficam como são**, e as decisões tomadas depois de ver resultados
+  estão registradas nas configurações e no relatório.
+- **Tudo é rastreável.** Dataset e modelos em revisões fixadas, sementes declaradas, e cada relatório JSON
+  grava o sha256 do código, das entradas e da configuração ([reprodução](docs/reproduce.md)).
 
-- **O conjunto de teste não escolhe nada.** Splits temporais (144 audiências de treino, 32 de validação,
-  30 de teste) separam as audiências pela data; cortes, métodos e hiperparâmetros são escolhidos no
-  treino e na validação, e todo comando que lê o teste exige a opção `--final-test`.
-- **Um rótulo NLI não é verdade global.** Ele diz se a opinião é inferível de quatro trechos
-  recuperados, e só isso.
-- **Ausência na matéria não é alucinação.** Uma opinião sem evidência é uma opinião para a qual o
-  método não achou trecho; nada é classificado como erro da matéria por isso.
-- **Nenhuma inferência de intenção política.** O projeto descreve o que é observável nos textos; não
-  infere intenção de participantes, jornalistas ou veículos.
-- **Resultados negativos e parciais são relatados como são**, e as decisões que mudaram depois de ver
-  resultados estão registradas nas configurações e no relatório.
+## Licença e citação
 
-## Licença
-
-O código é distribuído sob a licença MIT ([`LICENSE`](LICENSE)).
-
-### Dados e modelos
-
-- Os dados do PublicHearingBR, e os trechos de transcrição e de matéria reproduzidos nos artefatos deste
-  repositório, seguem os termos do próprio dataset, definidos pelos seus autores na página do
-  Hugging Face. A licença MIT não se aplica a eles.
-- Os modelos de terceiros usados nos experimentos têm licenças próprias, listadas na seção 11.2 de
-  [`docs/report.md`](docs/report.md). A maioria é MIT ou
-  Apache-2.0; o tradutor `facebook/nllb-200-distilled-600M` é CC-BY-NC-4.0 (uso não comercial), e as
-  traduções derivadas dele ficam sujeitas a essa restrição. O `ruanchaves/mdeberta-v3-base-assin2-entailment`
-  não declara licença no Hugging Face.
-
-## Citação
+O código é MIT ([`LICENSE`](LICENSE)). Os dados do PublicHearingBR, e os trechos de transcrição e de
+matéria reproduzidos nos artefatos, seguem os termos do próprio dataset. Os modelos de terceiros têm
+licenças próprias ([relatório, seção 11.2](docs/report.md#112-modelos-usados)); o tradutor
+`facebook/nllb-200-distilled-600M` é CC-BY-NC-4.0, e as traduções derivadas dele ficam sujeitas a essa
+restrição; o `ruanchaves/mdeberta-v3-base-assin2-entailment` não declara licença no Hugging Face.
 
 Os metadados de citação estão em [`CITATION.cff`](CITATION.cff). Ao usar os dados, cite também o artigo
 do dataset:
@@ -212,8 +147,4 @@ do dataset:
 }
 ```
 
-## Equipe
-
-- Arthur Germano
-- João Vitor Boer Abitante
-- Henrique Santana
+**Equipe:** Arthur Germano, João Vitor Boer Abitante, Henrique Santana.

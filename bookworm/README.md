@@ -207,4 +207,4 @@ As regras de construção de uma UDV estão em
 ## Citação
 
 Os metadados de citação estão em [`CITATION.cff`](../CITATION.cff), e o BibTeX do artigo do dataset, no
-[README do repositório](../README.md#citação).
+[README do repositório](../README.md#licença-e-citação).

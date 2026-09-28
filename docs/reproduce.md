@@ -327,7 +327,8 @@ Tudo em `artifacts/` é versionado, com duas exceções:
 - As saídas por item das rodadas de experimento (escores, consultas, features, predições e pares, 369
   arquivos) saíram do Git. [`artifacts/MANIFEST_heavy.tsv`](../experiments/artifacts/MANIFEST_heavy.tsv)
   lista cada uma com caminho, tamanho, sha256 e o comando que a regenera. Os relatórios agregados que
-  citam esses arquivos continuam versionados.
+  citam esses arquivos continuam versionados. Um pacote com esses arquivos será anexado a um GitHub
+  Release do repositório (pendente); até lá, eles se restauram da tag `research-2026-09-28`.
 
 Os comandos abaixo leem arquivos pesados de etapas anteriores e só rodam depois que eles existirem,
 regenerados pelo comando da coluna `regenerate` do manifesto ou restaurados da tag:
