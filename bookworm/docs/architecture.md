@@ -48,6 +48,7 @@ src/bookworm/
     export.py            JSON de uma audiência para a demonstração web (export-hearing)
     site.py              diretório da demonstração: um JSON por audiência e index.json (export-site)
     signals.py           sinais do verificador, das perguntas e da tradução, lidos do relatório
+    translations.py      traduções para inglês dos textos da UDV, lidas do cache de tradução
   features/
     encoders.py          protocolo SentenceEncoder, cache em disco (CachedEncoder, com modos
                          read_only e cache_only) e RunCacheEncoder, que só dá nome ao cache
@@ -67,6 +68,10 @@ src/bookworm/
     generate.py          geração retomável, com --dry-run
     schemas.py           registros de perfil
     validate.py          conferência do perfil contra as UDVs do ator
+    validation_metrics.py  escores, posições de identificação e intervalos por audiência da conferência
+    claim_matching.py    ligação de cada afirmação do perfil a um trecho e a uma UDV do ator
+    profile_text.py      seções e afirmações do perfil, slugs de ator e trechos aparados
+    site.py              páginas de ator da demonstração (actors.json e profiles/<slug>.json)
     review.py            amostra cega para julgamento humano e intervalos de Wilson
 ```
 
