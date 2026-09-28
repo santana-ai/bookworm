@@ -109,7 +109,7 @@ def write_jsonl(records: Iterable[JsonObject], path: Path) -> None:
             handle.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
-def write_json(payload: JsonObject, path: Path) -> None:
+def write_json(payload: JsonObject | list[JsonObject], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         json.dump(payload, handle, ensure_ascii=False, indent=2)
