@@ -510,7 +510,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--config", type=Path, default=Path("configs/udv.toml"))
     parser.add_argument(
-        "--legacy-pipeline", type=Path, default=Path("../backup/udv_pipeline_2026-09-21.py")
+        "--legacy-pipeline",
+        type=Path,
+        required=True,
+        help="udv_pipeline.py of the run to compare with; the 2026-09-21 one is "
+        "backup/udv_pipeline_2026-09-21.py at git tag research-2026-09-28",
     )
     parser.add_argument("--run-name", default="udv_v0", help="existing run to cross-check")
     parser.add_argument("--output-name", default="turn_segmentation")
