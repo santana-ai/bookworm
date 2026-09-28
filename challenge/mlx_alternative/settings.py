@@ -29,6 +29,7 @@ class ModelSpec:
     local_dir: Path
     description: str
     options: BackendOptions
+    revision: str | None = None
 
 
 @dataclass(frozen=True)
@@ -52,6 +53,7 @@ def load_settings(path: Path = DEFAULT_SETTINGS) -> Settings:
             repo=entry["repo"],
             local_dir=models_dir / entry["repo"],
             description=entry.get("description", ""),
+            revision=entry.get("revision"),
             options=BackendOptions(
                 template_kwargs=tuple(sorted((entry.get("chat_template_kwargs") or {}).items())),
                 prefix_cache=bool(backend.get("prefix_cache", True)),
@@ -89,7 +91,7 @@ def load_env_file(settings: Settings) -> None:
 
 def download_model(settings: Settings, spec: ModelSpec) -> Path:
     load_env_file(settings)
-    snapshot_download(repo_id=spec.repo, local_dir=spec.local_dir)
+    snapshot_download(repo_id=spec.repo, local_dir=spec.local_dir, revision=spec.revision)
     return spec.local_dir
 
 

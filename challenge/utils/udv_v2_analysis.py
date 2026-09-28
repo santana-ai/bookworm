@@ -10,15 +10,27 @@ import numpy as np
 from sklearn.metrics import cohen_kappa_score
 
 from utils import precision_report as precision
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json
+from utils.dataset_io import load_gated_jsonl, load_jsonl, sha256_of_file, write_json
 from utils.generate_validation_sample import (
     ANNOTATION_CSV,
     ANNOTATION_KEY,
+    CSV_COLUMNS,
+    Stratum,
+    ValidationConfig,
+    assign_item_ids,
+    blinding_section,
+    canonical_sha256,
+    ensure_new_dir,
+    evidence_item,
+    hearing_view,
     load_key,
     load_validation_config,
     read_annotation_csv,
     require_final_test,
+    sheet_rows,
     validate_annotation,
+    write_annotation_csv,
+    write_transcripts,
 )
 from utils.udv_pipeline import (
     SENTENCE_BOUNDARY_PATTERN,
@@ -36,6 +48,30 @@ IDENTITY_FIELDS = ("text", "start_char", "end_char", "speaker_turn")
 QUANTILES = (0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0)
 CLOSING_WORDS = 3
 NO_JUDGMENTS = "no judgments yet"
+SUPPLEMENT_NAME = "human_validation_v1_udv_v2_supplement"
+SUPPLEMENT_KIND = "udv_v2_supplement"
+SUPPLEMENT_ITEM_PREFIX = "C"
+SUPPLEMENT_ORDER_STREAM = 4
+SUPPLEMENT_RULE = (
+    "one row per item of the udv_v1 sample whose action in the annotation plan is reannotate: the "
+    "same sampled opinion, shown with its udv_v2 evidence, context and link; the rows are put in "
+    "a new random order and get new item ids, and the udv_v1 item id is kept in the key only"
+)
+COMBINED_RULE = (
+    "udv_v2 precision per stratum from every item of the udv_v1 sample: an item whose evidence did "
+    "not change keeps its judgment from the udv_v1 sheet, and an item whose evidence changed "
+    "counts only with its judgment from the supplementary sheet; the stratum of an item is the "
+    "stratum of its udv_v2 records, and the population is the udv_v2 count of the sampled splits"
+)
+COMBINED_CAVEATS = [
+    "the items were drawn from the udv_v1 strata; an item that changed stratum in udv_v2 keeps "
+    "the inclusion probability of its udv_v1 stratum, so the udv_v2 strata are not simple random "
+    "samples of the udv_v2 populations",
+    "udv_v2 UDVs of a stratum whose udv_v1 stratum was sampled at another rate, or not drawn, are "
+    "represented only through the items that were drawn",
+    "the supplementary rows show opinions the annotator already judged with their udv_v1 passage, "
+    "so their judgments are not independent of the first sheet",
+]
 DEFAULT_PATHS: Record = {
     "v1": "artifacts/udv/udv_v1.jsonl",
     "v2": "artifacts/udv/udv_v2.jsonl",
@@ -568,6 +604,254 @@ def inherited_items(key: Record, plan: Record) -> tuple[dict[str, Record], dict[
     return items, dict(counts)
 
 
+def key_strata(key: Record) -> dict[str, Stratum]:
+    return {
+        stratum["name"]: Stratum(
+            name=stratum["name"],
+            question=stratum["question"],
+            tiers=tuple(stratum["tiers"]),
+            support_types=tuple(stratum["support_types"]),
+            target=stratum.get("target", 0),
+        )
+        for stratum in key["strata"]
+    }
+
+
+def reannotated_records(plan: Record, v2: dict[str, Record]) -> list[tuple[str, Record, str]]:
+    entries: list[tuple[str, Record, str]] = []
+    for item_id, entry in sorted(plan["item_plan"].items()):
+        if entry["action"] != "reannotate":
+            continue
+        if entry["question"] != precision.SUPPORT_QUESTION or len(entry["udv_ids"]) != 1:
+            raise SystemExit(f"{item_id}: only single-UDV evidence items can be reannotated")
+        record = v2[entry["udv_ids"][0]]
+        if record.get("evidence") is None or entry["v2_stratum"] is None:
+            raise SystemExit(f"{item_id}: the udv_v2 record has no evidence stratum")
+        entries.append((item_id, record, str(entry["v2_stratum"])))
+    return entries
+
+
+def supplement_items(
+    entries: list[tuple[str, Record, str]],
+    views: dict[int, Record],
+    strata: dict[str, Stratum],
+    chars: int,
+    rng: np.random.Generator,
+) -> dict[str, Record]:
+    items = [
+        {
+            **evidence_item(record, views[record["hearing_id"]], strata[name], chars),
+            "v1_item_id": item_id,
+        }
+        for item_id, record, name in entries
+    ]
+    return assign_item_ids(items, rng, SUPPLEMENT_ITEM_PREFIX)
+
+
+def supplement_rng(config: ValidationConfig) -> np.random.Generator:
+    if SUPPLEMENT_ORDER_STREAM in config.seed_streams.values():
+        raise SystemExit(f"seed stream {SUPPLEMENT_ORDER_STREAM} is already used by the sample")
+    return np.random.default_rng([config.seed, SUPPLEMENT_ORDER_STREAM])
+
+
+def load_plan(path: Path, key_path: Path) -> Record:
+    with open(path) as f:
+        plan: Record = json.load(f)
+    if plan["inputs"]["annotation_key"]["sha256"] != sha256_of_file(key_path):
+        raise SystemExit(f"{path} was built from another annotation key")
+    return plan
+
+
+def supplement_key(
+    key: Record,
+    key_path: Path,
+    plan: Record,
+    plan_path: Path,
+    v2_path: Path,
+    final_test: bool,
+) -> Record:
+    return {
+        "role": "annotation",
+        "kind": SUPPLEMENT_KIND,
+        "sample_name": SUPPLEMENT_NAME,
+        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "dry_run": False,
+        "final_test": final_test,
+        "splits_used": key["splits_used"],
+        "splits_declared": key["splits_declared"],
+        "rule": SUPPLEMENT_RULE,
+        "base_sample": {
+            "sample_name": key["sample_name"],
+            "annotation_key": {"path": str(key_path), "sha256": sha256_of_file(key_path)},
+        },
+        "plan": {"path": str(plan_path), "sha256": sha256_of_file(plan_path)},
+        "run": {"run_name": "udv_v2", "path": str(v2_path), "sha256": sha256_of_file(v2_path)},
+        "population": {"unit": "UDV", "sampled_splits": plan["v2_population_sampled_splits"]},
+        "strata": key["strata"],
+        "criteria": key["criteria"],
+        "criteria_sha256": key["criteria_sha256"],
+        "code": {"utils/udv_v2_analysis.py": sha256_of_file(Path(__file__))},
+    }
+
+
+def command_supplement(args: argparse.Namespace) -> None:
+    config = load_validation_config(args.config)
+    sample_dir = Path(args.sample_dir)
+    key_path = sample_dir / ANNOTATION_KEY
+    key = load_key(key_path, "annotation")
+    require_final_test(key, args.final_test)
+    plan_path = Path(args.plan)
+    plan = load_plan(plan_path, key_path)
+    v2_path = Path(args.udv_v2)
+    if plan["inputs"]["udv_v2"]["sha256"] != sha256_of_file(v2_path):
+        raise SystemExit(f"{plan_path} was built from another {v2_path}")
+    output_dir = Path(args.output_dir)
+    transcripts_dir = Path(args.transcripts_dir)
+    ensure_new_dir(output_dir)
+    ensure_new_dir(transcripts_dir)
+    v2 = {record["id"]: record for record in load_jsonl(v2_path)}
+    entries = reannotated_records(plan, v2)
+    hearing_ids = {record["hearing_id"] for _, record, _ in entries}
+    views = {
+        hearing["id"]: hearing_view(hearing)
+        for hearing in load_gated_jsonl(config.lds_path, config.lds_sha256)
+        if hearing["id"] in hearing_ids
+    }
+    items = supplement_items(
+        entries, views, key_strata(key), config.context_chars, supplement_rng(config)
+    )
+    rows = sheet_rows(items)
+    blinding = blinding_section(rows, items, config)
+    csv_path = output_dir / ANNOTATION_CSV
+    write_annotation_csv(rows, csv_path, config)
+    rows_by_stratum = dict(sorted(Counter(item["stratum"] for item in items.values()).items()))
+    supplement = {
+        **supplement_key(key, key_path, plan, plan_path, v2_path, args.final_test),
+        "sample": {name: {"rows": count} for name, count in rows_by_stratum.items()},
+        "seeds": {
+            "seed": config.seed,
+            "row_order_stream": SUPPLEMENT_ORDER_STREAM,
+            "generator": "numpy PCG64",
+        },
+        "blinding": blinding,
+        "csv": {
+            "file": ANNOTATION_CSV,
+            "delimiter": config.csv_delimiter,
+            "encoding": config.csv_encoding,
+            "columns": list(CSV_COLUMNS),
+            "sha256_at_creation": sha256_of_file(csv_path),
+        },
+        "transcripts": write_transcripts(views, transcripts_dir),
+        "transcripts_dir": str(transcripts_dir),
+        "items": items,
+    }
+    write_json(supplement, output_dir / ANNOTATION_KEY)
+    print(f"{SUPPLEMENT_NAME}: {len(rows)} rows to judge -> {csv_path}")
+    for name, count in rows_by_stratum.items():
+        print(f"  {name:26s} rows={count}")
+    print(f"  transcripts in {transcripts_dir}")
+
+
+def load_supplement(path: Path, key_path: Path, plan: Record, plan_path: Path) -> Record:
+    supplement = load_key(path / ANNOTATION_KEY, "annotation")
+    if supplement.get("kind") != SUPPLEMENT_KIND:
+        raise SystemExit(f"{path / ANNOTATION_KEY} is not a {SUPPLEMENT_KIND} key")
+    if supplement["base_sample"]["annotation_key"]["sha256"] != sha256_of_file(key_path):
+        raise SystemExit(f"{path} was drawn from another annotation key")
+    if supplement["plan"]["sha256"] != sha256_of_file(plan_path):
+        raise SystemExit(f"{path} was drawn from another annotation plan")
+    if supplement["criteria_sha256"] != canonical_sha256(supplement["criteria"]):
+        raise SystemExit(f"{path}: the criteria differ from the ones declared with the sample")
+    expected = {
+        item_id for item_id, entry in plan["item_plan"].items() if entry["action"] == "reannotate"
+    }
+    covered = [item["v1_item_id"] for item in supplement["items"].values()]
+    if sorted(covered) != sorted(expected):
+        raise SystemExit(f"{path}: the rows do not cover the reannotate items of the plan once")
+    return supplement
+
+
+def combined_results(
+    key: Record,
+    plan: Record,
+    v1_valid: dict[str, Record],
+    supplement: Record,
+    supplement_valid: dict[str, Record],
+    config: Any,
+    rc: precision.ReportConfig,
+) -> Record:
+    inherited, _ = inherited_items(key, plan)
+    items = {**inherited, **supplement["items"]}
+    judged = {
+        **{item_id: v1_valid[item_id] for item_id in inherited if item_id in v1_valid},
+        **supplement_valid,
+    }
+    judged_items = {item_id: item for item_id, item in items.items() if item_id in judged}
+    names = [stratum["name"] for stratum in key["strata"]]
+    population = {name: plan["v2_population_sampled_splits"].get(name, 0) for name in names}
+    sample_items = dict(Counter(str(item["stratum"]) for item in items.values()))
+    sources = {
+        name: {
+            "inherited": sum(1 for item in inherited.values() if item["stratum"] == name),
+            "reannotated": sum(
+                1 for item in supplement["items"].values() if item["stratum"] == name
+            ),
+        }
+        for name in names
+    }
+    complete = len(judged_items) == len(items)
+    decision_valid = complete and not key["dry_run"] and not supplement["dry_run"]
+    return {
+        "status": "final" if complete else "interim",
+        "rule": COMBINED_RULE,
+        "caveats": COMBINED_CAVEATS,
+        "items_in_sample": len(items),
+        "judged": f"{len(judged_items)} of {len(items)}",
+        "judged_inherited": sum(1 for item_id in judged_items if item_id in inherited),
+        "judged_reannotated": sum(1 for item_id in judged_items if item_id in supplement["items"]),
+        "sources_by_stratum": sources,
+        **run_results(
+            {**key, "sample": sources},
+            judged_items,
+            judged,
+            population,
+            sample_items,
+            config,
+            rc,
+            decision_valid,
+        ),
+    }
+
+
+def supplement_results(
+    args: argparse.Namespace,
+    key: Record,
+    plan: Record,
+    valid: dict[str, Record],
+    config: Any,
+    rc: precision.ReportConfig,
+) -> tuple[Record, Record]:
+    sample_dir = Path(args.sample_dir)
+    supplement_dir = Path(args.supplement_dir)
+    supplement = load_supplement(supplement_dir, sample_dir / ANNOTATION_KEY, plan, Path(args.plan))
+    supplement_path = (
+        Path(args.supplement_annotation)
+        if args.supplement_annotation
+        else supplement_dir / ANNOTATION_CSV
+    )
+    judgments = partial_judgments(read_annotation_csv(supplement_path, config), supplement, config)
+    combined = combined_results(key, plan, valid, supplement, judgments["valid"], config, rc)
+    combined["invalid_labels"] = judgments["invalid_labels"]
+    source = {
+        "annotation_csv": {"path": str(supplement_path), "sha256": sha256_of_file(supplement_path)},
+        "annotation_key": {
+            "path": str(supplement_dir / ANNOTATION_KEY),
+            "sha256": sha256_of_file(supplement_dir / ANNOTATION_KEY),
+        },
+    }
+    return combined, source
+
+
 def command_score(args: argparse.Namespace) -> None:
     config = load_validation_config(args.config)
     rc = precision.load_report_config(config)
@@ -579,10 +863,7 @@ def command_score(args: argparse.Namespace) -> None:
         key["criteria"]["rules"],
         {stratum["name"]: stratum["question"] for stratum in key["strata"]},
     )
-    with open(args.plan) as f:
-        plan = json.load(f)
-    if plan["inputs"]["annotation_key"]["sha256"] != sha256_of_file(sample_dir / ANNOTATION_KEY):
-        raise SystemExit(f"{args.plan} was built from another annotation key")
+    plan = load_plan(Path(args.plan), sample_dir / ANNOTATION_KEY)
     judgments = partial_judgments(read_annotation_csv(annotation_path, config), key, config)
     valid = judgments["valid"]
     if not valid:
@@ -590,8 +871,12 @@ def command_score(args: argparse.Namespace) -> None:
             f"{NO_JUDGMENTS}: {annotation_path} has no valid julgamento in any of its "
             f"{len(key['items'])} rows; fill the sheet and run this command again"
         )
-    complete = len(valid) == len(key["items"])
-    decision_valid = complete and not key["dry_run"]
+    v1_complete = len(valid) == len(key["items"])
+    decision_valid = v1_complete and not key["dry_run"]
+    combined: tuple[Record, Record] | None = None
+    if args.supplement_dir:
+        combined = supplement_results(args, key, plan, valid, config, rc)
+    complete = v1_complete and (combined is None or combined[0]["status"] == "final")
     names = [stratum["name"] for stratum in key["strata"]]
     v1_items = {item_id: key["items"][item_id] for item_id in valid}
     v1_sample = dict(Counter(item["stratum"] for item in key["items"].values()))
@@ -654,6 +939,8 @@ def command_score(args: argparse.Namespace) -> None:
             "utils/precision_report.py": sha256_of_file(Path(precision.__file__)),
         },
     }
+    if combined is not None:
+        report["udv_v2"], report["supplement"] = combined
     output = (
         Path(args.output)
         if args.output
@@ -670,7 +957,7 @@ def print_score_summary(report: Record) -> None:
     print(f"{report['sample_name']}: {report['status'].upper()}, judged {report['judged']}")
     for label in report["invalid_labels"]:
         print(f"  not counted, label outside the allowed set: {label['item_id']}")
-    for run in ("udv_v1", "udv_v2_unchanged"):
+    for run in [name for name in ("udv_v1", "udv_v2_unchanged", "udv_v2") if name in report]:
         print(f"  {run}")
         for name, result in report[run]["strata"].items():
             if result["question"] == precision.SUPPORT_QUESTION:
@@ -710,12 +997,44 @@ def parse_args() -> argparse.Namespace:
     score.add_argument("--final-test", action="store_true")
     score.add_argument("--annotation", default=None)
     score.add_argument("--output", default=None)
+    score.add_argument(
+        "--supplement-dir",
+        default=None,
+        help="folder of the udv_v2 supplementary sheet; adds the combined udv_v2 precision",
+    )
+    score.add_argument(
+        "--supplement-annotation",
+        default=None,
+        help="filled supplementary sheet (default: annotation.csv of --supplement-dir)",
+    )
+    supplement = commands.add_parser(
+        "supplement-sheet",
+        help="write the udv_v2 sheet of the sampled items whose evidence changed, judgments empty",
+    )
+    supplement.add_argument("--config", type=Path, default=Path("configs/validation_sample.toml"))
+    supplement.add_argument("--sample-dir", default=DEFAULT_PATHS["sample_dir"])
+    supplement.add_argument("--plan", default="artifacts/udv/udv_v2_annotation_plan.json")
+    supplement.add_argument("--udv-v2", default=DEFAULT_PATHS["v2"])
+    supplement.add_argument("--final-test", action="store_true")
+    supplement.add_argument(
+        "--output-dir", default=f"artifacts/validation/{SUPPLEMENT_NAME}", help="sheet and key"
+    )
+    supplement.add_argument(
+        "--transcripts-dir",
+        default=f"artifacts/cache/validation/{SUPPLEMENT_NAME}/transcripts",
+        help="full transcripts of the hearings in the sheet (raw dataset text, not versioned)",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    {"analyze": command_analyze, "score-annotation": command_score}[args.command](args)
+    commands = {
+        "analyze": command_analyze,
+        "score-annotation": command_score,
+        "supplement-sheet": command_supplement,
+    }
+    commands[args.command](args)
 
 
 if __name__ == "__main__":

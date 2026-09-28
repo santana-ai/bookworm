@@ -14,7 +14,7 @@ from typing import Any, Protocol
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, Template
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 
-from utils.dataset_io import load_gated_jsonl
+from utils.dataset_io import load_gated_jsonl, sha256_of_file, write_json
 from utils.hearing_dates import article_date
 
 Record = dict[str, Any]
@@ -170,6 +170,56 @@ def actor_hearings(record: Record, metadata: dict[int, Record]) -> list[Record]:
     ]
 
 
+def render_profile_prompt(
+    prompts: PromptSet, record: Record, metadata: dict[int, Record]
+) -> tuple[str, str]:
+    user = prompts.user_profile.render(
+        actor_label=record["actor"],
+        hearings=actor_hearings(record, metadata),
+    )
+    return prompts.system_profile, user
+
+
+def canonical_sha256(payload: Any) -> str:
+    text = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
+def dry_run_report(
+    config: ProfilesConfig, prompts: PromptSet, records: list[Record], metadata: dict[int, Record]
+) -> Record:
+    rendered = [
+        [record["actor"], *render_profile_prompt(prompts, record, metadata)] for record in records
+    ]
+    sizes = [len(user) for _, _, user in rendered]
+    return {
+        "dry_run": True,
+        "model": config.model or None,
+        "prompt_version": prompts.version,
+        "prompts_dir": str(config.prompts_dir),
+        "inputs": {
+            "speeches": {
+                "path": str(config.speeches_path),
+                "sha256": sha256_of_file(config.speeches_path),
+            },
+            "lds": {"path": str(config.lds_path), "sha256": config.lds_sha256},
+        },
+        "actors": len(rendered),
+        "actors_sha256": canonical_sha256(sorted(record["actor"] for record in records)),
+        "rendered_prompts_sha256": canonical_sha256(rendered),
+        "user_prompt_chars": {
+            "total": sum(sizes),
+            "min": min(sizes, default=0),
+            "max": max(sizes, default=0),
+        },
+        "rule": (
+            "rendered_prompts_sha256 is the sha256 of the JSON list of [actor, system prompt, user"
+            " prompt] of every selected actor, in input order; the same value means the model"
+            " receives the same prompts"
+        ),
+    }
+
+
 @dataclass(frozen=True)
 class ProfileRunner:
     config: ProfilesConfig
@@ -177,11 +227,7 @@ class ProfileRunner:
     client: ChatClient
 
     def profile_prompt(self, record: Record, metadata: dict[int, Record]) -> tuple[str, str]:
-        user = self.prompts.user_profile.render(
-            actor_label=record["actor"],
-            hearings=actor_hearings(record, metadata),
-        )
-        return self.prompts.system_profile, user
+        return render_profile_prompt(self.prompts, record, metadata)
 
     def generate(self, record: Record, metadata: dict[int, Record]) -> Record:
         started = time.monotonic()
@@ -314,19 +360,29 @@ def main() -> None:
     parser.add_argument("--model", help="Hugging Face model id or local path (overrides config)")
     parser.add_argument("--actors", nargs="*", help="only these actors, by exact name")
     parser.add_argument("--limit", type=int, help="process at most this many actors this run")
+    parser.add_argument(
+        "--dry-run",
+        type=Path,
+        help="render every prompt without a model and write their sizes and hashes to this JSON",
+    )
     args = parser.parse_args()
     if args.limit is not None and args.limit < 0:
         parser.error("--limit must be zero or positive")
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     config = apply_overrides(load_config(args.config), args)
-    if not config.model:
+    if not config.model and args.dry_run is None:
         parser.error("set [model] name in the config, or pass --model")
     prompts = load_prompts(config)
-    done = load_done_actors(config.profiles_path, prompts.version, config.model)
     with open(config.speeches_path) as f:
         records = [json.loads(line) for line in f]
     records = select_records(records, args.actors)
     metadata = load_hearing_metadata(config)
+    if args.dry_run is not None:
+        report = dry_run_report(config, prompts, records, metadata)
+        write_json(report, args.dry_run)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    done = load_done_actors(config.profiles_path, prompts.version, config.model)
     logging.info(
         "%d actors selected, prompts %s, loading %s", len(records), prompts.version, config.model
     )

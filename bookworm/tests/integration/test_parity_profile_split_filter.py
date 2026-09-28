@@ -16,7 +16,6 @@ from bookworm.profiles.split_filter import build_split_filter, filter_speeches, 
 pytestmark = pytest.mark.dataset
 
 TRAIN_SPLITS = ["train"]
-STATS_ARTIFACT = Path("actor_profiles") / "train_speeches_stats.json"
 
 
 @pytest.fixture(scope="module")
@@ -30,8 +29,9 @@ def multi_hearing_speeches(
 
 
 @pytest.fixture(scope="module")
-def expected_stats_path(artifacts_dir: Path) -> Path:
-    path = artifacts_dir / STATS_ARTIFACT
+def expected_stats_path(artifacts_dir: Path, challenge_dir: Path) -> Path:
+    config = load_split_filter_config(challenge_dir / "configs" / "actor_profiles.toml")
+    path = artifacts_dir / config.stats_path.relative_to("artifacts")
     if not path.is_file():
         pytest.skip(f"split-filter stats not found at {path}")
     return path

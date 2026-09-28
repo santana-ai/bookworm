@@ -1,0 +1,105 @@
+{
+  "dry_run": true,
+  "model": null,
+  "prompt_version": "4a5995d1da8a",
+  "inputs": {
+    "profiles": {
+      "path": "mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl",
+      "sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc",
+      "actors": 264,
+      "prompt_versions": [
+        "a80b3a121fab"
+      ],
+      "models": [
+        "mlx-community/Qwen3.8-27B-8bit"
+      ]
+    },
+    "train_speeches": {
+      "path": "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl",
+      "sha256": "6d5d7d0dfe525ecbbd00ed34c9b21737ab22a1a64ffdb12adf2e84097be80dba"
+    },
+    "speeches": {
+      "path": "artifacts/cache/hearing_actors/actors_multi_hearing.jsonl",
+      "sha256": "fc24ec8edf73d73d9ff45aef45adc059d378f4f259badc2e7e336a1b97859221"
+    },
+    "udv": {
+      "path": "artifacts/udv/udv_v2.jsonl",
+      "sha256": "02f42b288840400cbcfb24a613ecc7e0c82f52923de80c09faf3d246fd01fb45"
+    },
+    "split_manifest": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd"
+    }
+  },
+  "splits": {
+    "validation": {
+      "counts": {
+        "split": "validation",
+        "hearings": 32,
+        "linked_udvs": 101,
+        "linked_actors": 58,
+        "dropped_without_distractors": [
+          "udv-12-0-0",
+          "udv-12-0-1",
+          "udv-12-0-2",
+          "udv-12-0-3",
+          "udv-12-0-4",
+          "udv-12-0-5",
+          "udv-12-0-6",
+          "udv-12-0-7",
+          "udv-12-2-0",
+          "udv-12-2-1",
+          "udv-25-2-0",
+          "udv-27-2-0",
+          "udv-122-1-0",
+          "udv-122-2-0",
+          "udv-122-2-1",
+          "udv-124-2-0",
+          "udv-124-2-1",
+          "udv-131-1-0",
+          "udv-131-1-1",
+          "udv-131-1-2",
+          "udv-131-1-3"
+        ],
+        "questions": 80,
+        "question_actors": 51,
+        "question_hearings": 21,
+        "questions_by_tier": {
+          "quote_found": 15,
+          "semantic_match_high": 52,
+          "semantic_match_weak": 13
+        },
+        "roles_with_party_removed": 66
+      },
+      "questions_sha256": "f455026c1f50c89396d22dde15026c1d3b6182827b6801172f077722f99933fb",
+      "udv_ids_sha256": "a1ecb1270176674010247f3c74ea50cfd3838ffe16f003d6dc799f296f17efe5"
+    },
+    "test": {
+      "counts": {
+        "split": "test",
+        "hearings": 30,
+        "linked_udvs": 106,
+        "linked_actors": 48,
+        "dropped_without_distractors": [
+          "udv-102-1-0",
+          "udv-102-1-1",
+          "udv-106-2-0",
+          "udv-111-1-0",
+          "udv-111-1-1"
+        ],
+        "questions": 101,
+        "question_actors": 46,
+        "question_hearings": 24,
+        "questions_by_tier": {
+          "quote_found": 15,
+          "semantic_match_high": 81,
+          "semantic_match_weak": 5
+        },
+        "roles_with_party_removed": 75
+      },
+      "questions_sha256": "08b44f3cf94215473d06b82e14a0ae6da3b0a83fb2af1c863a585d2df8675f14",
+      "udv_ids_sha256": "628a734483e285c7298ea4877396a9001abfe868b1469ab618815dd2023a4edb"
+    }
+  },
+  "rule": "the questions are built as in a model run (linked UDVs, distractors, cleaned roles); questions_sha256 is the sha256 of their JSON list, so an equal value means the model is asked the same questions"
+}

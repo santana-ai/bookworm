@@ -1,0 +1,25 @@
+runs_dir: mlx_alternative/runs/udv_v2
+models_dir: ~/.lmstudio/models
+env_file: mlx_alternative/.env
+
+models:
+  qwen38_27b:
+    repo: mlx-community/Qwen3.8-27B-8bit
+    revision: null
+    description: Qwen3.8 27B, dense with hybrid attention, 8-bit MLX; the model of the udv_v1 run in runs/qwen38_27b
+    chat_template_kwargs:
+      enable_thinking: false
+
+backend:
+  prefix_cache: false
+  prefill_step: 2048
+
+short_run:
+  actors:
+    - Arnaldo Jardim
+    - Daniela Reinehr
+
+benchmark:
+  long_context_actor: null
+  generation_tokens: 128
+  profile_output_tokens_guess: 1200

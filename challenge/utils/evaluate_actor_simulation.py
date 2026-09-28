@@ -20,6 +20,7 @@ from utils.actor_simulation import (
     SimulationModel,
     SimulationPrompts,
     SpeechRetriever,
+    canonical_sha256,
     chat_messages,
     check_disjoint,
     clean_role,
@@ -440,6 +441,34 @@ def print_report(summary: Record) -> None:
         print(f"  {name}: {difference['accuracy']:+.3f} [{low:+.3f}, {high:+.3f}]")
 
 
+def question_dry_run(
+    config: SimulationConfig,
+    prompt_version: str,
+    inputs: Record,
+    questions: dict[str, list[Record]],
+    counts: dict[str, Record],
+) -> Record:
+    return {
+        "dry_run": True,
+        "model": config.model or None,
+        "prompt_version": prompt_version,
+        "inputs": inputs,
+        "splits": {
+            split: {
+                "counts": counts[split],
+                "questions_sha256": canonical_sha256(split_questions),
+                "udv_ids_sha256": canonical_sha256([q["udv_id"] for q in split_questions]),
+            }
+            for split, split_questions in questions.items()
+        },
+        "rule": (
+            "the questions are built as in a model run (linked UDVs, distractors, cleaned roles);"
+            " questions_sha256 is the sha256 of their JSON list, so an equal value means the model"
+            " is asked the same questions"
+        ),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
@@ -450,12 +479,21 @@ def main() -> None:
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--model", help="Hugging Face model id or local path (overrides config)")
     parser.add_argument("--actors", nargs="*", help="only these profiled actors, by exact name")
+    parser.add_argument("--profiles", type=Path, help="profiles JSONL (overrides config)")
+    parser.add_argument(
+        "--dry-run",
+        type=Path,
+        help="build the questions of both splits without a model and write their counts to this"
+        " JSON",
+    )
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     config = load_config(args.config)
     if args.model is not None:
         config = dataclasses.replace(config, model=args.model)
-    if not config.model:
+    if args.profiles is not None:
+        config = dataclasses.replace(config, profiles_path=args.profiles)
+    if not config.model and args.dry_run is None:
         parser.error("set [model] name in the config, or pass --model")
     if config.selection_split == config.eval_split:
         parser.error("selection_split and eval_split must differ")
@@ -495,6 +533,17 @@ def main() -> None:
         "udv": file_info(config.udv_path),
         "split_manifest": file_info(config.manifest_path),
     }
+    if args.dry_run is not None:
+        report = question_dry_run(
+            config,
+            prompts.version,
+            inputs,
+            {config.selection_split: selection_questions, config.eval_split: eval_questions},
+            {config.selection_split: selection_counts, config.eval_split: eval_counts},
+        )
+        write_json(report, args.dry_run)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
     run_digest = fingerprint(
         config.model,
         config.evidence_max_tokens,
