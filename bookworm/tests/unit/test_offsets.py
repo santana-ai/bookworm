@@ -125,7 +125,8 @@ def test_evidence_never_spans_turns(fixture_name: str, request: pytest.FixtureRe
     for record in evidences:
         evidence = record.evidence
         assert evidence is not None
-        assert evidence.start_char is not None and evidence.end_char is not None
+        assert evidence.start_char is not None
+        assert evidence.end_char is not None
         assert evidence.speaker_turn is not None
         turn = turns_by_hearing[record.hearing_id][evidence.speaker_turn]
         assert turn.start_char <= evidence.start_char < evidence.end_char <= turn.end_char

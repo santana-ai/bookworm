@@ -122,7 +122,8 @@ def import_challenge_module(challenge_dir: Path, module_name: str) -> ModuleType
     if unique_name in sys.modules:
         return sys.modules[unique_name]
     spec = importlib.util.spec_from_file_location(unique_name, module_path)
-    assert spec is not None and spec.loader is not None
+    assert spec is not None
+    assert spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     saved = {
         name: sys.modules.pop(name)

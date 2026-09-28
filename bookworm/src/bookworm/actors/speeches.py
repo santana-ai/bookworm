@@ -337,7 +337,7 @@ def non_person_summary(drops: Sequence[NonPersonDrop]) -> JsonObject:
     by_key = Counter(drop.key for drop in drops)
     return {
         "turns_dropped": len(drops),
-        "by_key": {key: count for key, count in sorted(by_key.items())},
+        "by_key": dict(sorted(by_key.items())),
         "turns": [
             {"key": drop.key, "raw_name": drop.raw_name, "hearing_id": drop.hearing_id}
             for drop in drops

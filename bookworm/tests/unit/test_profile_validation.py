@@ -189,7 +189,7 @@ def rebase(raw: dict[str, object], base: Path) -> dict[str, object]:
 def test_validate_profiles_counts_skips_and_groups(config: ProfileValidationConfig) -> None:
     report = validate_profiles(config)
     assert report["counts"]["udvs"] == 12
-    assert report["counts"]["skipped"] == {reason: 1 for reason in SKIP_REASONS}
+    assert report["counts"]["skipped"] == dict.fromkeys(SKIP_REASONS, 1)
     assert report["counts"]["pairs"] == {"in_prompt": 3, "held_out": 2}
     pairs = read_pairs(config.pairs_path)
     assert [(pair.udv_id, pair.group, pair.rank) for pair in pairs] == [

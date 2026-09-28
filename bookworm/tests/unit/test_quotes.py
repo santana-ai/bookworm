@@ -378,8 +378,10 @@ def test_custom_prefix_lengths_change_the_match() -> None:
             "Marcos Pereira",
             0,
             QuoteMatch(prefix="a proposta atual de regulação cria custos altos para as", words=10),
-            "A proposta atual de regulação cria custos altos para as pequenas cooperativas do "
-            "interior.",
+            (
+                "A proposta atual de regulação cria custos altos para as pequenas cooperativas "
+                "do interior."
+            ),
         ),
         (
             1,

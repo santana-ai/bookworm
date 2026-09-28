@@ -105,7 +105,8 @@ def test_quote_part_count_counts_sentence_parts() -> None:
 def test_multi_sentence_quote_covers_the_whole_quote() -> None:
     turns = ana_turns()
     match = find_opinion_turn_quote_match(MULTI_SENTENCE_OPINION, turns)
-    assert match is not None and match.words == 10
+    assert match is not None
+    assert match.words == 10
     assert match.sentence == HOSPITAL
     extent = extend_quote_match(MULTI_SENTENCE_OPINION, match, turns)
     assert extent.rule == "suffix"
@@ -116,7 +117,8 @@ def test_multi_sentence_quote_covers_the_whole_quote() -> None:
 def test_quote_whose_end_is_not_found_covers_as_many_sentences_as_the_quote() -> None:
     turns = ana_turns()
     match = find_opinion_turn_quote_match(UNFINISHED_OPINION, turns)
-    assert match is not None and match.words == 6
+    assert match is not None
+    assert match.words == 6
     extent = extend_quote_match(UNFINISHED_OPINION, match, turns)
     assert extent.rule == "sentence_count"
     assert extent.suffix_words is None
@@ -182,8 +184,10 @@ def test_build_with_windows_and_full_quotes() -> None:
     assert all(evidence is not None for evidence in texts.values())
     first = by_id["udv-7-0-0"]
     assert first.tier == "quote_found"
-    assert first.evidence is not None and first.evidence.text == f"{HOSPITAL} {FAMILIES}"
-    assert first.evidence.start_char is not None and first.evidence.end_char is not None
+    assert first.evidence is not None
+    assert first.evidence.text == f"{HOSPITAL} {FAMILIES}"
+    assert first.evidence.start_char is not None
+    assert first.evidence.end_char is not None
     span = TRANSCRIPT[first.evidence.start_char : first.evidence.end_char]
     assert normalize_whitespace(span) == first.evidence.text
     semantic = by_id["udv-7-0-3"]

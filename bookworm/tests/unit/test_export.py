@@ -97,7 +97,8 @@ def exported(mini_hearings: dict[int, HearingRecord]) -> JsonObject:
 
 
 def slice_text(transcript: str, start: int | None, end: int | None) -> str:
-    assert start is not None and end is not None
+    assert start is not None
+    assert end is not None
     return normalize_whitespace(transcript[start:end])
 
 

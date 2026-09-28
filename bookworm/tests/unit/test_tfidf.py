@@ -60,5 +60,5 @@ def test_names_and_runtime_info() -> None:
 
 
 def test_empty_corpus_is_rejected() -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="empty vocabulary"):
         TfidfEncoder.fit([])

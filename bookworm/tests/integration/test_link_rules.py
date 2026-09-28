@@ -131,7 +131,8 @@ def test_extra_library_links_have_a_dropped_evidence_turn(rules: LinkRules) -> N
     assert {uid: rules.library[uid] for uid in extra} == EXTRA_LIBRARY_LINKS
     for uid in extra:
         evidence = rules.udvs[uid].evidence
-        assert evidence is not None and evidence.speaker_turn is not None
+        assert evidence is not None
+        assert evidence.speaker_turn is not None
         assert evidence.speaker_turn in rules.matched_turns[uid]
 
 

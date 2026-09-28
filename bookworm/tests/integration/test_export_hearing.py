@@ -78,7 +78,8 @@ def exported(
 
 
 def span_text(transcript: str, start: int | None, end: int | None) -> str:
-    assert start is not None and end is not None
+    assert start is not None
+    assert end is not None
     return normalize_whitespace(transcript[start:end])
 
 
@@ -221,7 +222,8 @@ def test_signals_of_hearing_70_match_the_verifier_output(
         if row["scored"]:
             assert found["verifier"]["probability"] == row["primary_probability"]
             assert found["laya"]["laya_multi_pt"]["p4_supports"] == row["p4_supports"]
-            assert found["translation"]["premise"] and found["translation"]["hypothesis"]
+            assert found["translation"]["premise"]
+            assert found["translation"]["hypothesis"]
     first = signals.for_record(records[0])
     assert round(first["verifier"]["probability"], 2) == 0.28
     assert first["verifier"]["supported"] is False
