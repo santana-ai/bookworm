@@ -1,9 +1,10 @@
+"""Measure per-turn sentence segmentation and quote matching against a legacy udv_pipeline."""
+
 import argparse
 import importlib.util
 import re
 import time
 from collections import Counter
-from datetime import UTC, datetime
 from pathlib import Path
 from types import ModuleType
 from typing import Any
@@ -11,7 +12,8 @@ from typing import Any
 from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 
 from experiments.common import transcript
-from experiments.common.provenance import source_hashes
+from experiments.common.provenance import code_section
+from experiments.common.reporting import utc_timestamp
 from experiments.common.transcript import (
     DOUBLE_QUOTE_PATTERNS,
     SENTENCE_BOUNDARY_PATTERN,
@@ -38,6 +40,8 @@ CONTENT_LABEL_LENGTH = 40
 LONG_CONTENT_LABEL = "<longer than 40 characters>"
 CONTEXT_CHARS = 60
 EXAMPLE_CHARS = 120
+JACCARD_DECIMALS = 4
+LEGACY_MIN_SENTENCE_WORDS = 4
 BOUNDARY_VARIANTS = {
     "legacy": r"(?<=[.!?])\s+",
     "after_any_closing_parenthesis": r"(?<=[.!?])\s+|(?<=[.!?]\))\s+",
@@ -115,7 +119,9 @@ def per_turn_sentences(pattern: re.Pattern[str], person: Record) -> list[str]:
 
 
 def is_legacy_sentence(legacy: ModuleType, part: str) -> bool:
-    return len(part.split()) >= 4 and not legacy.STAGE_DIRECTION_PATTERN.match(part)
+    return len(
+        part.split()
+    ) >= LEGACY_MIN_SENTENCE_WORDS and not legacy.STAGE_DIRECTION_PATTERN.match(part)
 
 
 def legacy_crossing_sentences(legacy: ModuleType, person: Record) -> int:
@@ -197,6 +203,23 @@ def character_class(character: str) -> str:
     return "other"
 
 
+def boundary_variants(people: list[Record]) -> Record:
+    """Per-turn sentences of each person under every boundary variant, against the legacy one."""
+    baseline_pattern = re.compile(BOUNDARY_VARIANTS["legacy"])
+    baselines = [per_turn_sentences(baseline_pattern, person) for person in people]
+    variants = {}
+    for name, source in BOUNDARY_VARIANTS.items():
+        pattern = re.compile(source)
+        changed = 0
+        sentences = 0
+        for person, baseline in zip(people, baselines, strict=True):
+            new = per_turn_sentences(pattern, person)
+            sentences += len(new)
+            changed += new != baseline
+        variants[name] = {"pattern": source, "sentences": sentences, "people_changed": changed}
+    return variants
+
+
 def measure_closing_parenthesis(people: list[Record]) -> Record:
     content: Counter[str] = Counter()
     previous: Counter[str] = Counter()
@@ -221,18 +244,6 @@ def measure_closing_parenthesis(people: list[Record]) -> Record:
             following[character_class(next_character)] += 1
             if before not in ".!?" or not next_character.isupper():
                 unusual_examples.append(context_example(hearing_id, turn, text, hit))
-    baseline_pattern = re.compile(BOUNDARY_VARIANTS["legacy"])
-    baselines = [per_turn_sentences(baseline_pattern, person) for person in people]
-    variants = {}
-    for name, source in BOUNDARY_VARIANTS.items():
-        pattern = re.compile(source)
-        changed = 0
-        sentences = 0
-        for person, baseline in zip(people, baselines, strict=True):
-            new = per_turn_sentences(pattern, person)
-            sentences += len(new)
-            changed += new != baseline
-        variants[name] = {"pattern": source, "sentences": sentences, "people_changed": changed}
     return {
         "unique_resolved_turns": len(turns),
         "occurrences": sum(content.values()),
@@ -243,7 +254,7 @@ def measure_closing_parenthesis(people: list[Record]) -> Record:
         "non_elision_followed_by": dict(following),
         "elision_examples": elision_examples,
         "non_elision_examples_not_between_punctuation_and_uppercase": unusual_examples,
-        "per_turn_variants_per_person": variants,
+        "per_turn_variants_per_person": boundary_variants(people),
     }
 
 
@@ -338,7 +349,39 @@ def short_change(old: Record | None, new: Record | None) -> str | None:
 def with_overlap(result: Record | None, opinion_text: str) -> Record | None:
     if result is None:
         return None
-    return {**result, "text_opinion_jaccard": round(token_jaccard(result["text"], opinion_text), 4)}
+    jaccard = round(token_jaccard(result["text"], opinion_text), JACCARD_DECIMALS)
+    return {**result, "text_opinion_jaccard": jaccard}
+
+
+def count_quote_results(counts: Counter[str], old: Record | None, new: Record | None) -> None:
+    counts["opinions"] += 1
+    counts["legacy_trusted"] += old is not None and old["trusted"]
+    counts["new_trusted"] += new is not None and new["trusted"]
+    counts["legacy_short"] += old is not None and not old["trusted"]
+    counts["new_short"] += new is not None and not new["trusted"]
+    counts["legacy_match_crossing_turns"] += old is not None and old["crosses_turns"]
+    if new is not None and new["trusted"]:
+        counts["new_trusted_multiple_occurrences"] += new["occurrence_count"] > 1
+        counts["new_trusted_non_first_occurrence"] += new["occurrence_index"] > 0
+        counts["new_trusted_non_first_quote"] += new["quote_index"] > 0
+        counts["new_trusted_located_in_source_turn"] += new["located_in_source_turn"]
+        counts["new_trusted_sentence_found_earlier_in_turn"] += new[
+            "sentence_found_earlier_in_turn"
+        ]
+
+
+def count_run_direct_quote(counts: Counter[str], old: Record | None, record: Record | None) -> None:
+    """Count the run's direct quotes and those the legacy pipeline reproduces exactly."""
+    evidence = record["evidence"] if record is not None else None
+    if evidence is None or evidence["support_type"] != "direct_quote":
+        return
+    counts["run_direct_quote"] += 1
+    counts["run_direct_quote_reproduced_by_legacy"] += (
+        old is not None
+        and old["trusted"]
+        and old["prefix"] == evidence["quote_prefix"]
+        and old["text"] == evidence["text"]
+    )
 
 
 def measure_quotes(
@@ -353,30 +396,9 @@ def measure_quotes(
             udv_id = f"udv-{person['hearing']['id']}-{person['index']}-{opinion_index}"
             old = legacy_quote_result(legacy, person, opinion_text)
             new = new_quote_result(person, opinion_text)
-            counts["opinions"] += 1
-            counts["legacy_trusted"] += old is not None and old["trusted"]
-            counts["new_trusted"] += new is not None and new["trusted"]
-            counts["legacy_short"] += old is not None and not old["trusted"]
-            counts["new_short"] += new is not None and not new["trusted"]
-            counts["legacy_match_crossing_turns"] += old is not None and old["crosses_turns"]
-            if new is not None and new["trusted"]:
-                counts["new_trusted_multiple_occurrences"] += new["occurrence_count"] > 1
-                counts["new_trusted_non_first_occurrence"] += new["occurrence_index"] > 0
-                counts["new_trusted_non_first_quote"] += new["quote_index"] > 0
-                counts["new_trusted_located_in_source_turn"] += new["located_in_source_turn"]
-                counts["new_trusted_sentence_found_earlier_in_turn"] += new[
-                    "sentence_found_earlier_in_turn"
-                ]
+            count_quote_results(counts, old, new)
             record = run_records.get(udv_id)
-            evidence = record["evidence"] if record is not None else None
-            if evidence is not None and evidence["support_type"] == "direct_quote":
-                counts["run_direct_quote"] += 1
-                counts["run_direct_quote_reproduced_by_legacy"] += (
-                    old is not None
-                    and old["trusted"]
-                    and old["prefix"] == evidence["quote_prefix"]
-                    and old["text"] == evidence["text"]
-                )
+            count_run_direct_quote(counts, old, record)
             short_kind = short_change(old, new)
             if short_kind is not None:
                 short_changes[short_kind] += 1
@@ -534,7 +556,7 @@ def main() -> None:
     run_records = load_jsonl(config.output_dir / f"{args.run_name}.jsonl")
     quotes, changes = measure_quotes(legacy, people, {r["id"]: r for r in run_records})
     summary = {
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "created_at": utc_timestamp(),
         "legacy_pipeline": str(args.legacy_pipeline),
         "run_name": args.run_name,
         "hearings": len(hearings),
@@ -551,8 +573,7 @@ def main() -> None:
     }
     summary["code"] = {
         str(args.legacy_pipeline): sha256_of_file(args.legacy_pipeline),
-        **source_hashes(transcript, *transcript.SOURCES),
-        **source_hashes(Path(__file__)),
+        **code_section(*transcript.CODE_SOURCES, Path(__file__)),
     }
     summary["elapsed_seconds"] = round(time.perf_counter() - started, 1)
     write_json(summary, config.output_dir / f"{args.output_name}_summary.json")

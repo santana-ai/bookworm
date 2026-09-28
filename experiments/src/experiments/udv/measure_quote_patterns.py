@@ -1,21 +1,24 @@
+"""Measure what the single-quote pattern adds to quote matching, per split, without an encoder."""
+
 import argparse
-import json
 import re
 import time
 from collections import Counter
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
+from bookworm import load_jsonl, write_json, write_jsonl
 
 from experiments.common import transcript
-from experiments.common.provenance import source_hashes
+from experiments.common.provenance import code_section
+from experiments.common.reporting import utc_timestamp
+from experiments.common.splits import SPLIT_NAMES, load_split_lookup
 from experiments.common.transcript import (
     DOUBLE_QUOTE_PATTERN,
     DOUBLE_QUOTE_PATTERNS,
     QUOTE_PATTERNS,
     SINGLE_QUOTE_PATTERN,
+    TRUSTED_PREFIX_WORDS,
     find_opinion_turn_quote_match,
     find_turn_quote_match,
     is_trusted_quote,
@@ -30,7 +33,6 @@ from experiments.common.udv_run import load_config, load_lds_records
 
 Record = dict[str, Any]
 
-SPLIT_NAMES = ("train", "validation", "test")
 CURLY_SINGLE_QUOTE_PATTERN = re.compile(r"‘([^’]{10,})’")
 APOSTROPHE_INSIDE_WORD_PATTERN = re.compile(r"\w['’]\w")
 SPAN_KINDS = {
@@ -38,20 +40,28 @@ SPAN_KINDS = {
     "single": SINGLE_QUOTE_PATTERN,
     "curly_single_not_in_pipeline": CURLY_SINGLE_QUOTE_PATTERN,
 }
-
-
-def load_split_lookup(manifest_path: Path, lds_sha256: str) -> tuple[dict[int, str], Record]:
-    with open(manifest_path) as f:
-        manifest = json.load(f)
-    if manifest["dataset"]["sha256"] != lds_sha256:
-        raise SystemExit(f"{manifest_path} was built from another LDS file")
-    lookup = {hearing_id: name for name in SPLIT_NAMES for hearing_id in manifest[name]}
-    source = {
-        "path": str(manifest_path),
-        "sha256": sha256_of_file(manifest_path),
-        "split_version": manifest["split_version"],
-    }
-    return lookup, source
+SHARE_DECIMALS = 4
+FIELD_DEFINITIONS: Record = {
+    "span_prefix_words": (
+        "per quoted span, the longest quote prefix (10, 6, 4 or 3 words) found in a "
+        "turn of the speaker; None when no prefix is found"
+    ),
+    "single_spans_inside_double": (
+        "single-quoted spans that lie inside a double-quoted span of the same opinion"
+    ),
+    "curly_single_not_in_pipeline": (
+        "spans between ‘ and ’ with 10+ characters, measured only; they are not quote "
+        "patterns of the pipeline"
+    ),
+    "with_apostrophe_inside_word": (
+        "resolved opinions with ' or ’ between two word characters, which the word "
+        "boundaries of the single-quote pattern keep out of a quote"
+    ),
+    "change_kinds": (
+        "difference between the quote match chosen with the double-quote patterns "
+        "alone and with every pattern, per opinion of a resolved person"
+    ),
+}
 
 
 def span_prefix_words(opinion_text: str, turns: list[Record]) -> dict[str, list[Record]]:
@@ -99,7 +109,9 @@ def describe_match(match: Record | None, opinion_text: str) -> Record | None:
         "turn_index": match["turn_index"],
         "start": match["start"],
         "sentence": match["sentence"],
-        "sentence_opinion_jaccard": round(token_jaccard(match["sentence"], opinion_text), 4),
+        "sentence_opinion_jaccard": round(
+            token_jaccard(match["sentence"], opinion_text), SHARE_DECIMALS
+        ),
     }
 
 
@@ -122,6 +134,17 @@ def empty_split_counts() -> Record:
     }
 
 
+def trusted_span_share(prefix_words: Counter[int | None]) -> float | None:
+    if not prefix_words:
+        return None
+    trusted = sum(
+        count
+        for words, count in prefix_words.items()
+        if words is not None and words >= TRUSTED_PREFIX_WORDS
+    )
+    return round(trusted / sum(prefix_words.values()), SHARE_DECIMALS)
+
+
 def finalize_split_counts(counts: Record) -> Record:
     words = {
         kind: {
@@ -133,13 +156,7 @@ def finalize_split_counts(counts: Record) -> Record:
         for kind, counter in counts["span_prefix_words"].items()
     }
     trusted_share = {
-        kind: round(
-            sum(v for k, v in counter.items() if k is not None and k >= 6) / sum(counter.values()),
-            4,
-        )
-        if counter
-        else None
-        for kind, counter in counts["span_prefix_words"].items()
+        kind: trusted_span_share(counter) for kind, counter in counts["span_prefix_words"].items()
     }
     return {
         **counts,
@@ -149,10 +166,47 @@ def finalize_split_counts(counts: Record) -> Record:
     }
 
 
+def count_spans(counts: Record, opinion_text: str, matched_turns: list[Record]) -> None:
+    spans = span_prefix_words(opinion_text, matched_turns)
+    counts["with_double_span"] += bool(spans["double"])
+    counts["with_single_span"] += bool(spans["single"])
+    for kind, items in spans.items():
+        counts["spans"][kind] += len(items)
+        counts["span_prefix_words"][kind].update(i["prefix_words"] for i in items)
+    counts["single_spans_inside_double"] += sum(
+        1 for item in spans["single"] if item["inside_double"]
+    )
+    counts["with_apostrophe_inside_word"] += bool(
+        APOSTROPHE_INSIDE_WORD_PATTERN.search(opinion_text)
+    )
+
+
+def compare_patterns(
+    counts: Record, opinion_text: str, matched_turns: list[Record], transcript_text: str
+) -> tuple[Record | None, Record | None, list[str]]:
+    """The match with the double-quote patterns alone, with every pattern, and how they differ."""
+    old = find_opinion_turn_quote_match(opinion_text, matched_turns, DOUBLE_QUOTE_PATTERNS)
+    new = find_opinion_turn_quote_match(opinion_text, matched_turns, QUOTE_PATTERNS)
+    counts["trusted_double_only"] += is_trusted_quote(old)
+    counts["trusted_all_patterns"] += is_trusted_quote(new)
+    if new is not None and is_trusted_quote(new):
+        counts["trusted_all_patterns_located_in_source_turn"] += (
+            locate_turn_sentence_span(
+                new["sentence"], transcript_text, matched_turns, new["turn_index"]
+            )
+            is not None
+        )
+    counts["short_double_only"] += old is not None and not is_trusted_quote(old)
+    counts["short_all_patterns"] += new is not None and not is_trusted_quote(new)
+    kinds = change_kinds(old, new)
+    counts["change_kinds"].update(kinds)
+    return old, new, kinds
+
+
 def measure(
     hearings: list[Record], split_of: dict[int, str], run_records: dict[str, Record]
 ) -> tuple[Record, list[Record]]:
-    by_split = {name: empty_split_counts() for name in SPLIT_NAMES}
+    by_split: dict[str, Record] = {name: empty_split_counts() for name in SPLIT_NAMES}
     run_tiers: Counter[str] = Counter()
     changes: list[Record] = []
     for hearing in hearings:
@@ -166,38 +220,10 @@ def measure(
                 if not matched_turns:
                     continue
                 counts["resolved_opinions"] += 1
-                spans = span_prefix_words(opinion_text, matched_turns)
-                counts["with_double_span"] += bool(spans["double"])
-                counts["with_single_span"] += bool(spans["single"])
-                for kind, items in spans.items():
-                    counts["spans"][kind] += len(items)
-                    counts["span_prefix_words"][kind].update(i["prefix_words"] for i in items)
-                counts["single_spans_inside_double"] += sum(
-                    1 for item in spans["single"] if item["inside_double"]
+                count_spans(counts, opinion_text, matched_turns)
+                old, new, kinds = compare_patterns(
+                    counts, opinion_text, matched_turns, hearing["transcricao"]
                 )
-                counts["with_apostrophe_inside_word"] += bool(
-                    APOSTROPHE_INSIDE_WORD_PATTERN.search(opinion_text)
-                )
-                old = find_opinion_turn_quote_match(
-                    opinion_text, matched_turns, DOUBLE_QUOTE_PATTERNS
-                )
-                new = find_opinion_turn_quote_match(opinion_text, matched_turns, QUOTE_PATTERNS)
-                counts["trusted_double_only"] += is_trusted_quote(old)
-                counts["trusted_all_patterns"] += is_trusted_quote(new)
-                if new is not None and is_trusted_quote(new):
-                    counts["trusted_all_patterns_located_in_source_turn"] += (
-                        locate_turn_sentence_span(
-                            new["sentence"],
-                            hearing["transcricao"],
-                            matched_turns,
-                            new["turn_index"],
-                        )
-                        is not None
-                    )
-                counts["short_double_only"] += old is not None and not is_trusted_quote(old)
-                counts["short_all_patterns"] += new is not None and not is_trusted_quote(new)
-                kinds = change_kinds(old, new)
-                counts["change_kinds"].update(kinds)
                 if not kinds:
                     continue
                 udv_id = f"udv-{hearing['id']}-{person_index}-{opinion_index}"
@@ -247,7 +273,7 @@ def main() -> None:
     run_records = {r["id"]: r for r in load_jsonl(config.output_dir / f"{args.run_name}.jsonl")}
     measured, changes = measure(hearings, split_of, run_records)
     summary = {
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "created_at": utc_timestamp(),
         "run_name": args.run_name,
         "hearings": len(hearings),
         "splits": split_source,
@@ -255,32 +281,9 @@ def main() -> None:
             "double_only": [pattern.pattern for pattern in DOUBLE_QUOTE_PATTERNS],
             "all_patterns": [pattern.pattern for pattern in QUOTE_PATTERNS],
         },
-        "field_definitions": {
-            "span_prefix_words": (
-                "per quoted span, the longest quote prefix (10, 6, 4 or 3 words) found in a "
-                "turn of the speaker; None when no prefix is found"
-            ),
-            "single_spans_inside_double": (
-                "single-quoted spans that lie inside a double-quoted span of the same opinion"
-            ),
-            "curly_single_not_in_pipeline": (
-                "spans between ‘ and ’ with 10+ characters, measured only; they are not quote "
-                "patterns of the pipeline"
-            ),
-            "with_apostrophe_inside_word": (
-                "resolved opinions with ' or ’ between two word characters, which the word "
-                "boundaries of the single-quote pattern keep out of a quote"
-            ),
-            "change_kinds": (
-                "difference between the quote match chosen with the double-quote patterns "
-                "alone and with every pattern, per opinion of a resolved person"
-            ),
-        },
+        "field_definitions": FIELD_DEFINITIONS,
         **measured,
-        "code": {
-            **source_hashes(transcript, *transcript.SOURCES),
-            **source_hashes(Path(__file__)),
-        },
+        "code": code_section(*transcript.CODE_SOURCES, Path(__file__)),
         "config": config.source,
     }
     summary["elapsed_seconds"] = round(time.perf_counter() - started, 1)

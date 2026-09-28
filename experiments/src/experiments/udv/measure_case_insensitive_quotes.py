@@ -1,3 +1,5 @@
+"""Measure what relaxing letter case in quote matching would change in the UDVs of a run."""
+
 import argparse
 import json
 import random
@@ -35,6 +37,10 @@ Record = dict[str, Any]
 RELAXED_MODES = ("first_letter", "ignore_case")
 ALL_MODES = ("exact", *RELAXED_MODES)
 CALIBRATION_RECORDS = 20
+MIN_PREFIX_CHARS = 5
+COVERAGE_DECIMALS = 3
+LOW_COVERAGE = 0.75
+SCORE_DECIMALS = 4
 COVERAGE_BUCKETS = ((1.0, "full"), (0.75, "at_least_75"), (0.5, "at_least_50"), (0.0, "below_50"))
 
 
@@ -61,7 +67,7 @@ def find_quote_match(quote: str, speech: str, mode: str) -> Record | None:
     words = quote.split()
     for length in QUOTE_PREFIX_LENGTHS:
         prefix = " ".join(words[:length])
-        if len(prefix) <= 5:
+        if len(prefix) <= MIN_PREFIX_CHARS:
             continue
         pattern = relaxed_prefix_pattern(prefix, mode)
         hit = pattern.search(speech)
@@ -131,7 +137,7 @@ def describe_match(found: Record, speech: str) -> Record:
         "sentence": enclosing_sentence_at(found["start"], found["end"], speech),
         "matched_words": matched,
         "quote_words": total,
-        "coverage": round(matched / total, 3) if total else 0.0,
+        "coverage": round(matched / total, COVERAGE_DECIMALS) if total else 0.0,
     }
 
 
@@ -167,48 +173,54 @@ def current_evidence_summary(record: Record | None) -> Record:
     }
 
 
+def opinion_candidate(
+    udv_id: str,
+    hearing: Record,
+    person: Record,
+    opinion_text: str,
+    current_by_id: dict[str, Record],
+) -> Record | None:
+    """The exact and relaxed matches of an opinion, or None when relaxing changes nothing."""
+    speech = person["speech"]
+    matches = {mode: find_opinion_match(opinion_text, speech, mode) for mode in ALL_MODES}
+    described = {
+        mode: describe_match(found, speech) if found is not None else None
+        for mode, found in matches.items()
+    }
+    statuses = {mode: match_status(described["exact"], described[mode]) for mode in RELAXED_MODES}
+    if all(status in ("none", "unchanged") for status in statuses.values()):
+        return None
+    current = current_evidence_summary(current_by_id.get(udv_id))
+    return {
+        "id": udv_id,
+        "hearing_id": hearing["id"],
+        "actor": person["participant"]["nome"],
+        "opinion": opinion_text,
+        "quote": cast(Record, matches["ignore_case"])["quote"],
+        "exact": described["exact"],
+        "first_letter": described["first_letter"],
+        "ignore_case": described["ignore_case"],
+        "status": statuses,
+        "current": current,
+        "sentence_vs_current": sentence_relation(
+            cast(Record, described["ignore_case"])["sentence"], current["text"]
+        ),
+    }
+
+
 def collect_candidates(hearings: list[Record], current_by_id: dict[str, Record]) -> list[Record]:
     candidates = []
     for hearing in hearings:
         for person in resolve_hearing_people(hearing):
             if not person["matched_turns"]:
                 continue
-            speech = person["speech"]
             for opinion_index, opinion_text in enumerate(person["participant"]["opinioes"]):
                 if not extract_quotes(opinion_text):
                     continue
-                matches = {
-                    mode: find_opinion_match(opinion_text, speech, mode) for mode in ALL_MODES
-                }
-                described = {
-                    mode: describe_match(found, speech) if found is not None else None
-                    for mode, found in matches.items()
-                }
-                statuses = {
-                    mode: match_status(described["exact"], described[mode])
-                    for mode in RELAXED_MODES
-                }
-                if all(status in ("none", "unchanged") for status in statuses.values()):
-                    continue
                 udv_id = f"udv-{hearing['id']}-{person['index']}-{opinion_index}"
-                current = current_evidence_summary(current_by_id.get(udv_id))
-                candidates.append(
-                    {
-                        "id": udv_id,
-                        "hearing_id": hearing["id"],
-                        "actor": person["participant"]["nome"],
-                        "opinion": opinion_text,
-                        "quote": cast(Record, matches["ignore_case"])["quote"],
-                        "exact": described["exact"],
-                        "first_letter": described["first_letter"],
-                        "ignore_case": described["ignore_case"],
-                        "status": statuses,
-                        "current": current,
-                        "sentence_vs_current": sentence_relation(
-                            cast(Record, described["ignore_case"])["sentence"], current["text"]
-                        ),
-                    }
-                )
+                candidate = opinion_candidate(udv_id, hearing, person, opinion_text, current_by_id)
+                if candidate is not None:
+                    candidates.append(candidate)
     return candidates
 
 
@@ -239,7 +251,7 @@ def summarize_mode(candidates: list[Record], mode: str) -> Record:
         "new_low_coverage_and_different_sentence": sum(
             1
             for c in new
-            if c[mode]["coverage"] < 0.75
+            if c[mode]["coverage"] < LOW_COVERAGE
             and sentence_relation(c[mode]["sentence"], c["current"]["text"]) == "different"
         ),
     }
@@ -399,7 +411,7 @@ def describe_existing_quotes(
                 "sentence_vs_embedding_top": sentence_relation(
                     record["evidence"]["text"], top["sentence"] if top else None
                 ),
-                "embedding_top_score": round(top["score"], 4) if top else None,
+                "embedding_top_score": round(top["score"], SCORE_DECIMALS) if top else None,
             }
         )
     return rows
@@ -491,6 +503,54 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def encoder_sections(
+    hearings: list[Record],
+    current_records: list[Record],
+    candidates: list[Record],
+    config: UdvConfig,
+) -> tuple[Record, list[Record]]:
+    """Summary sections that need the encoder, and the existing quote matches it describes."""
+    device = select_device(config.device)
+    encoder = load_encoder(config, device)
+    calibration = {}
+    for mode in ALL_MODES:
+        pairs = calibration_pairs(hearings[:CALIBRATION_RECORDS], mode, config.seed)
+        calibration[mode] = calibration_report(pair_similarities(encoder, pairs, config))
+    quote_records = [r for r in current_records if r["tier"] == "quote_found"]
+    top_matches = embedding_top_matches(hearings, quote_records, encoder, config, device)
+    add_encoder_relation(candidates, top_matches)
+    existing = describe_existing_quotes(quote_records, top_matches)
+    sections: Record = {
+        "calibration": calibration,
+        "existing_quote_found": summarize_existing_quotes(existing),
+        "policies": {
+            "trusted_prefix_words": TRUSTED_PREFIX_WORDS,
+            "encoder_condition": "quote sentence equals or overlaps the encoder top-1 sentence",
+        },
+        "projected_tiers": {
+            mode: {
+                name: project_tiers_policy(
+                    current_records, candidates, existing, mode, config.embedding_threshold, rule
+                )
+                for name, rule in POLICIES.items()
+            }
+            for mode in RELAXED_MODES
+        },
+        "projected_tiers_recalibrated_accept_all": {
+            mode: project_tiers_policy(
+                current_records,
+                candidates,
+                existing,
+                mode,
+                calibration[mode]["threshold"],
+                accepted_always,
+            )
+            for mode in RELAXED_MODES
+        },
+    }
+    return sections, existing
+
+
 def main() -> None:
     args = parse_args()
     config = load_config(args.config)
@@ -510,42 +570,8 @@ def main() -> None:
     }
     output_dir = config.output_dir
     if not args.skip_encoder:
-        device = select_device(config.device)
-        encoder = load_encoder(config, device)
-        calibration = {}
-        for mode in ALL_MODES:
-            pairs = calibration_pairs(hearings[:CALIBRATION_RECORDS], mode, config.seed)
-            calibration[mode] = calibration_report(pair_similarities(encoder, pairs, config))
-        summary["calibration"] = calibration
-        quote_records = [r for r in current_records if r["tier"] == "quote_found"]
-        top_matches = embedding_top_matches(hearings, quote_records, encoder, config, device)
-        add_encoder_relation(candidates, top_matches)
-        existing = describe_existing_quotes(quote_records, top_matches)
-        summary["existing_quote_found"] = summarize_existing_quotes(existing)
-        summary["policies"] = {
-            "trusted_prefix_words": TRUSTED_PREFIX_WORDS,
-            "encoder_condition": "quote sentence equals or overlaps the encoder top-1 sentence",
-        }
-        summary["projected_tiers"] = {
-            mode: {
-                name: project_tiers_policy(
-                    current_records, candidates, existing, mode, config.embedding_threshold, rule
-                )
-                for name, rule in POLICIES.items()
-            }
-            for mode in RELAXED_MODES
-        }
-        summary["projected_tiers_recalibrated_accept_all"] = {
-            mode: project_tiers_policy(
-                current_records,
-                candidates,
-                existing,
-                mode,
-                calibration[mode]["threshold"],
-                accepted_always,
-            )
-            for mode in RELAXED_MODES
-        }
+        sections, existing = encoder_sections(hearings, current_records, candidates, config)
+        summary.update(sections)
         write_jsonl(existing, output_dir / "case_insensitive_existing_quotes.jsonl")
 
     write_jsonl(candidates, output_dir / "case_insensitive_quotes.jsonl")
