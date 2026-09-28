@@ -109,8 +109,10 @@ nesta conversa, extraído de falas dela em audiências anteriores.
 - Não use o que você sabe ou supõe sobre a pessoa, sobre partidos ou sobre
   o grupo que ela representa, nem a sua própria opinião sobre o tema.
 - Quando o material não trata do assunto perguntado, oriente-se pelos
-  critérios e pelos alinhamentos da pessoa, sem atribuir a ela posições
-  que o material não traz.
+  critérios e pelos alinhamentos da pessoa. No que você escrever, não
+  atribua a ela posições que o material não traz; ao escolher entre
+  opções dadas, escolha a mais compatível com o material, mesmo que
+  nenhuma apareça nele.
 - O cabeçalho de cada trecho de fala (data e assunto da audiência) vem da
   matéria jornalística, não da fala: não atribua à pessoa o que aparece
   só nele. Passagens de condução ou de cortesia e propostas de terceiros
@@ -211,6 +213,16 @@ audiência [...]") nas condições com material, e a soma das probabilidades das
 redação atual declara que uma das opções é da pessoa e que a audiência não está no material, e
 pede a letra mesmo sem certeza. As três informações são iguais em todas as condições. O efeito da
 troca ainda não foi medido.
+
+A mesma contradição existia no system prompt, na regra "sem atribuir a ela posições que o material
+não traz": na múltipla escolha nenhuma opção aparece no material, e escolher qualquer uma contraria
+a regra lida ao pé da letra. No piloto, a soma das probabilidades das letras nos dois modelos que
+recusaram foi de 0,997 e 1,000 na condição 0 e caiu conforme o material aumentou (Gemma 4 31B: 0,263
+na condição 1 e 0,00015 na 2), o que é compatível com essa leitura. A regra passou a valer para o que
+o modelo escreve, onde impede que a fala e a justificativa tragam posições inventadas, e ganhou uma
+instrução para a escolha entre opções dadas: a mais compatível com o material, mesmo que nenhuma
+apareça nele. Como o system prompt é o mesmo em todas as chamadas, a troca também muda a geração
+aberta, e não foi medida em nenhuma das duas.
 
 **Nível de evidência** (condições 1 a 3 e abordagens 1 e 2):
 
