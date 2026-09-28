@@ -21,7 +21,7 @@ from bookworm.errors import BookwormError, ConfigError
 from bookworm.features.encoders import CachedEncoder, RunCacheEncoder, SentenceEncoder
 from bookworm.features.loading import load_sentence_transformer_encoder
 from bookworm.features.tfidf import TfidfEncoder
-from bookworm.pipeline import run_pipeline
+from bookworm.pipeline import PipelineRun, run_pipeline
 from bookworm.profiles.config import load_split_filter_config
 from bookworm.profiles.generate import (
     ClientFactory,
@@ -156,15 +156,45 @@ def actor_summary(actors: ActorSpeeches, links: Sequence[UdvActorLink]) -> dict[
     }
 
 
-def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
-    config = load_udv_config(request.config_path)
-    actors_config = load_run_actors_config(request.actors_config_path, config)
-    seed_everything(config.seed)
+def evidence_settings(config: UdvConfig) -> EvidenceSettings:
+    return EvidenceSettings(
+        embedding_threshold=config.embedding_threshold,
+        semantic_unit=config.semantic_unit,
+        quote_extent=config.quote_extent,
+    )
+
+
+def selected_hearings(config: UdvConfig, request: BuildRequest) -> list[HearingRecord]:
     hearings = select_hearings(
         load_lds(config.lds_path, config.expected_sha256), request.limit, request.ids or None
     )
     if not hearings:
         raise ConfigError("the hearing selection is empty")
+    return hearings
+
+
+def write_pipeline_run(
+    pipeline_run: PipelineRun,
+    summary: dict[str, Any],
+    run_paths: tuple[Path, Path],
+    links_path: Path,
+) -> dict[str, Any]:
+    records_path, coverage_path = run_paths
+    write_udv_jsonl(pipeline_run.udv.records, records_path)
+    write_json(summary, coverage_path)
+    report = {**summary["opinions"], **summary["timing"]}
+    if pipeline_run.actors is None:
+        return report
+    write_actor_outputs(pipeline_run.actors)
+    write_udv_actor_links(pipeline_run.links, links_path)
+    return {**report, **actor_summary(pipeline_run.actors, pipeline_run.links)}
+
+
+def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
+    config = load_udv_config(request.config_path)
+    actors_config = load_run_actors_config(request.actors_config_path, config)
+    seed_everything(config.seed)
+    hearings = selected_hearings(config, request)
     records_path, coverage_path = output_paths(config, request.run_name)
     links_path = actor_links_path(config, request.run_name)
     actor_paths = () if actors_config is None else (*actors_config.output_paths, links_path)
@@ -175,7 +205,6 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
         f"({encoder.cache_identity})",
         err=True,
     )
-    cached = CachedEncoder(encoder, config.cache_dir)
 
     def report_progress(number: int, hearing: HearingRecord, records: int, seconds: float) -> None:
         typer.echo(
@@ -184,11 +213,8 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
             err=True,
         )
 
-    settings = EvidenceSettings(
-        embedding_threshold=config.embedding_threshold,
-        semantic_unit=config.semantic_unit,
-        quote_extent=config.quote_extent,
-    )
+    settings = evidence_settings(config)
+    cached = CachedEncoder(encoder, config.cache_dir)
     pipeline_run = run_pipeline(
         hearings, cached, settings, actors_config, on_hearing=report_progress
     )
@@ -204,20 +230,7 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
         quote_policy=settings.quote_policy,
         settings=settings,
     )
-    write_udv_jsonl(run.records, records_path)
-    write_json(summary, coverage_path)
-    if pipeline_run.actors is None:
-        echo_json({**summary["opinions"], **summary["timing"]})
-        return
-    write_actor_outputs(pipeline_run.actors)
-    write_udv_actor_links(pipeline_run.links, links_path)
-    echo_json(
-        {
-            **summary["opinions"],
-            **summary["timing"],
-            **actor_summary(pipeline_run.actors, pipeline_run.links),
-        }
-    )
+    echo_json(write_pipeline_run(pipeline_run, summary, (records_path, coverage_path), links_path))
 
 
 def run_paths(config: UdvConfig, run_name: str) -> tuple[Path, Path]:
@@ -458,42 +471,47 @@ def echo_progress(message: str) -> None:
     typer.echo(message, err=True)
 
 
-def create_app(
-    encoder_factory: EncoderFactory = default_encoder_factory,
-    client_factory: ClientFactory = default_client_factory,
-) -> typer.Typer:
-    app = typer.Typer(
-        name="bookworm",
+def guarded[T](action: Callable[[], T]) -> T:
+    try:
+        return action()
+    except BookwormError as error:
+        raise fail(error) from error
+
+
+def exit_on_problems(ok: bool) -> None:
+    if not ok:
+        raise typer.Exit(PROBLEMS_EXIT_CODE)
+
+
+UdvConfigOption = Annotated[Path, typer.Option("--config", help="UDV TOML config.")]
+SplitConfigOption = Annotated[Path, typer.Option("--config", help="Split TOML config.")]
+ProfilesConfigOption = Annotated[Path, typer.Option("--config", help="Actor profiles TOML config.")]
+ProfileValidationConfigOption = Annotated[
+    Path, typer.Option("--config", help="Profile validation TOML config.")
+]
+RunNameOption = Annotated[str, typer.Option("--run-name", help="Basename of the run files.")]
+TopKOption = Annotated[
+    int, typer.Option("--top-k", min=1, help="Candidate sentences kept per opinion.")
+]
+VerifierReportOption = Annotated[
+    Path | None,
+    typer.Option(
+        "--verifier-report",
         help=(
-            "Build and verify evidence units (UDVs) and temporal splits of the "
-            "PublicHearingBR hearings."
+            "Verifier report of the run; adds the verifier, question and translation "
+            "signals of each UDV."
         ),
-        no_args_is_help=True,
-        add_completion=False,
-    )
+    ),
+]
 
-    @app.callback()
-    def main(
-        version: Annotated[
-            bool,
-            typer.Option(
-                "--version",
-                callback=show_version,
-                is_eager=True,
-                help="Show the version and exit.",
-            ),
-        ] = False,
-    ) -> None:
-        pass
 
+def add_udv_commands(app: typer.Typer, encoder_factory: EncoderFactory) -> None:
     @app.command(
         "build-udvs", help="Build UDV records (opinion to transcript evidence) from the LDS file."
     )
     def build_udvs_command(
         run_name: Annotated[str, typer.Option("--run-name", help="Basename of the output files.")],
-        config_path: Annotated[
-            Path, typer.Option("--config", help="UDV TOML config.")
-        ] = DEFAULT_CONFIG_PATH,
+        config_path: UdvConfigOption = DEFAULT_CONFIG_PATH,
         limit: Annotated[
             int | None, typer.Option("--limit", min=1, help="Only the first N LDS records.")
         ] = None,
@@ -516,64 +534,40 @@ def create_app(
         ] = None,
     ) -> None:
         request = BuildRequest(config_path, run_name, limit, ids, overwrite, actors_config_path)
-        try:
-            run_build(request, encoder_factory)
-        except BookwormError as error:
-            raise fail(error) from error
+        guarded(lambda: run_build(request, encoder_factory))
 
     @app.command("verify-udvs", help="Recompute and cross-check a UDV run against the LDS file.")
     def verify_udvs_command(
-        run_name: Annotated[str, typer.Option("--run-name", help="Basename of the run files.")],
-        config_path: Annotated[
-            Path, typer.Option("--config", help="UDV TOML config.")
-        ] = DEFAULT_CONFIG_PATH,
+        run_name: RunNameOption,
+        config_path: UdvConfigOption = DEFAULT_CONFIG_PATH,
         baseline: Annotated[
             Path | None, typer.Option("--baseline", help="Previous <run>.jsonl to diff against.")
         ] = None,
     ) -> None:
-        try:
-            ok = run_verify(config_path, run_name, baseline)
-        except BookwormError as error:
-            raise fail(error) from error
-        if not ok:
-            raise typer.Exit(PROBLEMS_EXIT_CODE)
+        exit_on_problems(guarded(lambda: run_verify(config_path, run_name, baseline)))
 
+
+def add_export_commands(app: typer.Typer) -> None:
     @app.command(
         "export-hearing",
         help="Write one hearing of a UDV run, with ranked candidate sentences, as demo JSON.",
     )
     def export_hearing_command(
-        run_name: Annotated[str, typer.Option("--run-name", help="Basename of the run files.")],
+        run_name: RunNameOption,
         hearing_id: Annotated[int, typer.Option("--hearing", help="Hearing id to export.")],
         output: Annotated[Path, typer.Option("--output", help="Path of the JSON to write.")],
-        config_path: Annotated[
-            Path, typer.Option("--config", help="UDV TOML config.")
-        ] = DEFAULT_CONFIG_PATH,
-        top_k: Annotated[
-            int, typer.Option("--top-k", min=1, help="Candidate sentences kept per opinion.")
-        ] = DEFAULT_TOP_K,
+        config_path: UdvConfigOption = DEFAULT_CONFIG_PATH,
+        top_k: TopKOption = DEFAULT_TOP_K,
         split_manifest: Annotated[
             Path | None,
             typer.Option("--split-manifest", help="Split manifest that names the hearing split."),
         ] = None,
-        verifier_report: Annotated[
-            Path | None,
-            typer.Option(
-                "--verifier-report",
-                help=(
-                    "Verifier report of the run; adds the verifier, question and translation "
-                    "signals of each UDV."
-                ),
-            ),
-        ] = None,
+        verifier_report: VerifierReportOption = None,
     ) -> None:
         request = ExportRequest(
             config_path, run_name, hearing_id, output, top_k, split_manifest, verifier_report
         )
-        try:
-            run_export(request)
-        except BookwormError as error:
-            raise fail(error) from error
+        guarded(lambda: run_export(request))
 
     @app.command(
         "export-site",
@@ -583,7 +577,7 @@ def create_app(
         ),
     )
     def export_site_command(
-        run_name: Annotated[str, typer.Option("--run-name", help="Basename of the run files.")],
+        run_name: RunNameOption,
         output: Annotated[
             Path | None,
             typer.Option(
@@ -591,12 +585,8 @@ def create_app(
                 help="Directory to write; defaults to web/app/data of the bookworm source tree.",
             ),
         ] = None,
-        config_path: Annotated[
-            Path, typer.Option("--config", help="UDV TOML config.")
-        ] = DEFAULT_CONFIG_PATH,
-        top_k: Annotated[
-            int, typer.Option("--top-k", min=1, help="Candidate sentences kept per opinion.")
-        ] = DEFAULT_TOP_K,
+        config_path: UdvConfigOption = DEFAULT_CONFIG_PATH,
+        top_k: TopKOption = DEFAULT_TOP_K,
         split_manifest: Annotated[
             Path | None,
             typer.Option("--split-manifest", help="Split manifest that names each hearing split."),
@@ -604,69 +594,43 @@ def create_app(
         overwrite: Annotated[
             bool, typer.Option("--overwrite", help="Replace the files of an existing export.")
         ] = False,
-        verifier_report: Annotated[
-            Path | None,
-            typer.Option(
-                "--verifier-report",
-                help=(
-                    "Verifier report of the run; adds the verifier, question and translation "
-                    "signals of each UDV."
-                ),
-            ),
-        ] = None,
+        verifier_report: VerifierReportOption = None,
     ) -> None:
         request = SiteRequest(
             config_path, run_name, output, top_k, split_manifest, overwrite, verifier_report
         )
-        try:
-            run_export_site(request)
-        except BookwormError as error:
-            raise fail(error) from error
+        guarded(lambda: run_export_site(request))
 
+
+def add_split_commands(app: typer.Typer) -> None:
     @app.command(
         "build-splits", help="Build the temporal split manifest and report from the LDS file."
     )
-    def build_splits_command(
-        config_path: Annotated[
-            Path, typer.Option("--config", help="Split TOML config.")
-        ] = DEFAULT_SPLIT_CONFIG_PATH,
-    ) -> None:
-        try:
-            run_build_splits(config_path)
-        except BookwormError as error:
-            raise fail(error) from error
+    def build_splits_command(config_path: SplitConfigOption = DEFAULT_SPLIT_CONFIG_PATH) -> None:
+        guarded(lambda: run_build_splits(config_path))
 
     @app.command(
         "verify-splits", help="Recompute and cross-check a split manifest against the LDS file."
     )
-    def verify_splits_command(
-        config_path: Annotated[
-            Path, typer.Option("--config", help="Split TOML config.")
-        ] = DEFAULT_SPLIT_CONFIG_PATH,
-    ) -> None:
-        try:
-            ok = run_verify_splits(config_path)
-        except BookwormError as error:
-            raise fail(error) from error
-        if not ok:
-            raise typer.Exit(PROBLEMS_EXIT_CODE)
+    def verify_splits_command(config_path: SplitConfigOption = DEFAULT_SPLIT_CONFIG_PATH) -> None:
+        exit_on_problems(guarded(lambda: run_verify_splits(config_path)))
 
+
+def add_profile_commands(app: typer.Typer, client_factory: ClientFactory) -> None:
     @app.command(
         "filter-actor-speeches",
         help="Keep only the hearings of the configured splits in the actor speeches file.",
     )
     def filter_actor_speeches_command(
-        config_path: Annotated[Path, typer.Option("--config", help="Actor profiles TOML config.")],
+        config_path: ProfilesConfigOption,
         output: Annotated[
             Path | None,
             typer.Option("--output", help="Filtered speeches JSONL (overrides config)."),
         ] = None,
     ) -> None:
-        try:
-            config = load_split_filter_config(config_path).with_output(output)
-            stats = build_split_filter(config)
-        except BookwormError as error:
-            raise fail(error) from error
+        stats = guarded(
+            lambda: build_split_filter(load_split_filter_config(config_path).with_output(output))
+        )
         echo_json(stats)
 
     @app.command(
@@ -674,7 +638,7 @@ def create_app(
         help="Write one LLM-written profile per actor from an actor speeches file.",
     )
     def generate_profiles_command(
-        config_path: Annotated[Path, typer.Option("--config", help="Actor profiles TOML config.")],
+        config_path: ProfilesConfigOption,
         speeches: Annotated[
             Path | None,
             typer.Option("--speeches", "--input", help="Actor speeches JSONL (overrides config)."),
@@ -701,13 +665,9 @@ def create_app(
         ] = False,
     ) -> None:
         request = GenerateRequest(config_path, speeches, output, model, actors, limit, dry_run)
-        try:
-            outcome = run_generate_profiles(request, client_factory, echo_progress)
-        except BookwormError as error:
-            raise fail(error) from error
+        outcome = guarded(lambda: run_generate_profiles(request, client_factory, echo_progress))
         echo_json(outcome.summary)
-        if not outcome.ok:
-            raise typer.Exit(PROBLEMS_EXIT_CODE)
+        exit_on_problems(outcome.ok)
 
     @app.command(
         "validate-profiles",
@@ -717,52 +677,71 @@ def create_app(
         ),
     )
     def validate_profiles_command(
-        config_path: Annotated[
-            Path, typer.Option("--config", help="Profile validation TOML config.")
-        ],
+        config_path: ProfileValidationConfigOption,
         overwrite: Annotated[
             bool, typer.Option("--overwrite", help="Replace existing pairs and report files.")
         ] = False,
     ) -> None:
-        try:
-            echo_json(run_validate_profiles(config_path, overwrite=overwrite))
-        except BookwormError as error:
-            raise fail(error) from error
+        echo_json(guarded(lambda: run_validate_profiles(config_path, overwrite=overwrite)))
 
     @app.command(
         "sample-profile-review",
         help="Draw a seeded, stratified sample of profile pairs as a CSV with empty judgments.",
     )
     def sample_profile_review_command(
-        config_path: Annotated[
-            Path, typer.Option("--config", help="Profile validation TOML config.")
-        ],
+        config_path: ProfileValidationConfigOption,
         overwrite: Annotated[
             bool, typer.Option("--overwrite", help="Replace an existing review sample.")
         ] = False,
     ) -> None:
-        try:
-            echo_json(run_sample_profile_review(config_path, overwrite=overwrite))
-        except BookwormError as error:
-            raise fail(error) from error
+        echo_json(guarded(lambda: run_sample_profile_review(config_path, overwrite=overwrite)))
 
     @app.command(
         "score-profile-review",
         help="Compute support proportions with Wilson intervals from a filled review CSV.",
     )
     def score_profile_review_command(
-        config_path: Annotated[
-            Path, typer.Option("--config", help="Profile validation TOML config.")
-        ],
+        config_path: ProfileValidationConfigOption,
         annotations: Annotated[
             Path, typer.Option("--annotations", help="Review CSV with the judgments filled in.")
         ],
     ) -> None:
-        try:
-            echo_json(run_score_profile_review(config_path, annotations))
-        except BookwormError as error:
-            raise fail(error) from error
+        echo_json(guarded(lambda: run_score_profile_review(config_path, annotations)))
 
+
+def create_app(
+    encoder_factory: EncoderFactory = default_encoder_factory,
+    client_factory: ClientFactory = default_client_factory,
+) -> typer.Typer:
+    """Build the Typer application; the factories let tests run commands without a model."""
+    app = typer.Typer(
+        name="bookworm",
+        help=(
+            "Build and verify evidence units (UDVs), temporal splits and actor profiles of the "
+            "PublicHearingBR hearings."
+        ),
+        no_args_is_help=True,
+        add_completion=False,
+    )
+
+    @app.callback()
+    def main(
+        version: Annotated[
+            bool,
+            typer.Option(
+                "--version",
+                callback=show_version,
+                is_eager=True,
+                help="Show the version and exit.",
+            ),
+        ] = False,
+    ) -> None:
+        pass
+
+    add_udv_commands(app, encoder_factory)
+    add_export_commands(app)
+    add_split_commands(app)
+    add_profile_commands(app, client_factory)
     return app
 
 

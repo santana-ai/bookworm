@@ -73,10 +73,6 @@ def score_band(score: float, edges: Sequence[float]) -> str:
     return labels[sum(1 for edge in edges if score >= edge)]
 
 
-def stratum_name(group: Group, band: str) -> str:
-    return f"{group} {band}"
-
-
 @dataclass(frozen=True)
 class Stratum:
     group: Group
