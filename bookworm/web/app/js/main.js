@@ -2,8 +2,9 @@ import { bucketSentence, NOT_CHECKED, NOT_CHECKED_SHORT, statementsSentence, TIE
 import { DataError, loadActors, loadHearing, loadIndex, loadProfile } from "./data.js";
 import { createAtlas } from "./atlas.js";
 import { caseToken, renderCase } from "./case.js";
-import { createHome, dotsHtml } from "./home.js";
-import { passageToken, profileHash, profileToken, renderProfile } from "./profile.js";
+import { createHome, tierStats } from "./home.js";
+import { reveal } from "./disclose.js";
+import { passageToken, profileHash, profileItemToken, profileToken, renderProfile } from "./profile.js";
 import { esc, fmtDate, hashToken } from "./text.js";
 import { createWall } from "./wall/wall.js";
 
@@ -26,6 +27,10 @@ let lastRoute = "";
 document.querySelectorAll("[data-note]").forEach((el) => {
   el.innerHTML = "<b>Ainda sem conferência humana.</b> " + esc(el.classList.contains("is-compact") ? NOT_CHECKED_SHORT : NOT_CHECKED);
 });
+
+function homeEls() {
+  return { root: view.home, q: $("#home-q"), sort: $("#home-sort"), lucky: $("#home-lucky"), count: $("#home-count"), list: $("#home-list"), rest: $("#home-rest"), bar: $("[data-home-bar]"), end: $("[data-home-end]"), empty: $("#home-empty") };
+}
 
 function setState(html) {
   view.state.innerHTML = html;
@@ -159,7 +164,7 @@ async function showHome(seq) {
     if (seq !== routeSeq) return;
     siteIndex = index;
     home = createHome(
-      { q: $("#home-q"), sort: $("#home-sort"), lucky: $("#home-lucky"), count: $("#home-count"), list: $("#home-list"), empty: $("#home-empty") },
+      homeEls(),
       index,
       (id) => {
         location.hash = "#h" + id;
@@ -193,7 +198,7 @@ async function ensureHome(seq) {
       if (seq !== routeSeq) return;
       siteIndex = index;
       home = createHome(
-        { q: $("#home-q"), sort: $("#home-sort"), lucky: $("#home-lucky"), count: $("#home-count"), list: $("#home-list"), empty: $("#home-empty") },
+        homeEls(),
         index,
         (hid) => {
           location.hash = "#h" + hid;
@@ -248,7 +253,7 @@ async function showHearing(id, seq, passage) {
   const tiers = tierCounts(H.udvs);
   hv.k.textContent = (date ? "Matéria de " + date + " · " : "") + "Audiência " + H.hearing.id;
   hv.title.textContent = headline;
-  hv.sum.innerHTML = '<span class="dots" aria-hidden="true">' + dotsHtml(tiers) + "</span>" + esc(statementsSentence(H.udvs.length, H.people.length) + ": " + bucketSentence(tiers));
+  hv.sum.innerHTML = tierStats(tiers, H.udvs.length, H.people.length, statementsSentence(H.udvs.length, H.people.length) + ": " + bucketSentence(tiers));
   hv.nav.innerHTML = navHtml(H.hearing.id);
   const profs = hearingProfiles(H.hearing.id);
   hv.prof.hidden = !profs.length;
@@ -342,7 +347,10 @@ async function showProfile(slug, seq) {
   document.title = shown.title + " · " + APP_TITLE;
   setState("");
   view.profile.hidden = false;
-  focusQuiet(shown.heading);
+  const item = profileItemToken(location.hash);
+  const target = item ? document.getElementById("pf-e" + item) : null;
+  if (target) flashTo(target);
+  else focusQuiet(shown.heading);
 }
 
 async function showAtlas(seq) {
@@ -421,14 +429,7 @@ document.addEventListener("click", (e) => {
   }
   const jump = t.closest("[data-jump]");
   if (jump) {
-    const el = document.getElementById(jump.dataset.jump);
-    if (el) {
-      el.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-      focusQuiet(el);
-      el.classList.remove("is-flash");
-      void el.offsetWidth;
-      el.classList.add("is-flash");
-    }
+    flashTo(document.getElementById(jump.dataset.jump));
     return;
   }
   const a = t.closest('a[href="#"]');
@@ -438,6 +439,16 @@ document.addEventListener("click", (e) => {
     else route();
   }
 });
+
+function flashTo(el) {
+  if (!el) return;
+  reveal(el);
+  el.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  focusQuiet(el);
+  el.classList.remove("is-flash");
+  void el.offsetWidth;
+  el.classList.add("is-flash");
+}
 
 function typing(el) {
   if (!el || el.nodeType !== 1) return false;

@@ -111,6 +111,36 @@ as fontes de reserva do sistema.
 
 ## O que a página mostra
 
+### Resumo primeiro, análise completa depois
+
+Toda página abre com um resumo curto, pensado para ser entendido em poucos segundos, e guarda o resto
+atrás de um único botão, "Ver análise completa" (na lista de matérias, "Ver todas as matérias"). O
+botão é um `<button>` com `aria-expanded`; aberto, ele vira "Recolher", e um segundo "Recolher" aparece
+no fim da parte aberta. Abrir mostra toda a análise de uma vez, sem outros blocos para abrir dentro
+dela. Cada tipo de página lembra, no `localStorage` do navegador, se foi deixado aberto ou fechado
+(chaves `bookworm.expand.<página>`); quando o navegador não deixa gravar, a página abre fechada e
+funciona igual.
+
+| Página | Resumo | Análise completa |
+| --- | --- | --- |
+| Lista de matérias | Busca, ordem, sorteio, a legenda dos quadradinhos e as 12 primeiras matérias da ordem e da busca atuais. | As outras matérias, na mesma ordem. |
+| Mural da audiência | Manchete, os números (afirmações, pessoas, quantas em cada resultado), os perfis de quem fala, o aviso curto e a parede com a história. | Como ler os fios, o aviso completo, os atalhos de teclado, "Pergunte à audiência" e a lista de todas as afirmações, cada uma com link para a sua pasta. |
+| Pasta da afirmação | Uma linha de veredito com as duas perguntas separadas ("Trecho encontrado por citação direta · verificador: sustenta (0,91)"), o cartão da afirmação, só a frase escolhida em amarelo e dois medidores: "Onde está o trecho?" (resultado da busca e cosseno com o corte) e "O trecho sustenta a afirmação?" (nota do verificador com o corte). | As fichas de todas as afirmações, o aviso sobre as notas e a pasta inteira descrita abaixo. |
+| Perfil | Nome, cargo, duas frases de síntese calculadas a partir dos dados, os números de participação, o selo de texto gerado por modelo e três posições, cada uma com um selo da evidência. | O dossiê inteiro descrito abaixo. |
+| Mapa do caso | Os números da exportação, a busca, os quatro atores com mais afirmações nas matérias e as três audiências mais recentes; com uma busca, os primeiros resultados. | Todos os perfis e todas as audiências. |
+| Leitor da transcrição | Só a frase marcada, com o turno e quem fala. | As frases antes e depois e os botões "Ler mais antes" e "Ler mais depois". |
+
+Um link que aponta para algo dentro da parte fechada abre essa parte antes de rolar até o alvo: é o
+caso dos números dos itens e dos selos das posições no perfil e do endereço `#perfil/<slug>/item-<n>`,
+que abre o perfil já na evidência do item `n`.
+
+A síntese do perfil não é texto do modelo: ela junta o período das audiências, quantos itens o modelo
+escreveu e quantos deles têm frase parecida ou afirmação de matéria ligada. As três posições são as
+três primeiras da seção "Posições" (ou da primeira seção, quando ela não existe), pondo antes as que
+têm afirmação de matéria ligada e depois as que têm frase parecida, na ordem em que o modelo as
+escreveu. Essa ordem mostra primeiro o que tem evidência; não diz quais posições são mais importantes
+para a pessoa.
+
 **Lista de matérias.** Cada matéria aparece como um recorte com a data, a manchete, quantas afirmações
 ela atribui a quantas pessoas e um quadradinho por afirmação, agrupado pelo resultado. A busca procura
 palavras no título, no assunto e nos nomes de quem participou, sem diferenciar acentos. A lista pode
@@ -141,14 +171,13 @@ outras partes.
 muito comuns) e mostra as cinco frases que mais combinam, com a posição de cada uma na audiência. Nada é
 gerado: todo texto mostrado foi dito na audiência.
 
-**Pasta da afirmação.** Uma página por afirmação, para quem quer ver a análise inteira de uma vez, sem
-nada para abrir ou fechar. Ela é aberta pelo botão "Abrir a pasta desta afirmação" na legenda da
+**Pasta da afirmação.** Uma página por afirmação. Ela é aberta pelo botão "Abrir a pasta desta afirmação" na legenda da
 parede, que aparece no exemplo pronto, na cena do resultado de cada afirmação e, na rede inteira,
 quando um cartão de afirmação é puxado. Dentro dela há "Voltar à audiência", os botões de afirmação
 anterior e próxima e uma ficha por afirmação, com o número, o nome e a cor do resultado. Voltar à
 audiência reabre a história na cena do resultado da afirmação que estava aberta; entrar em `#h70` por
-outro caminho abre a história do começo, como antes. A pasta tem quatro partes, lidas da esquerda para
-a direita em telas largas e uma embaixo da outra no celular:
+outro caminho abre a história do começo, como antes. Na análise completa, a pasta tem quatro partes,
+lidas da esquerda para a direita em telas largas e uma embaixo da outra no celular:
 
 | Parte | O que mostra |
 | --- | --- |
@@ -206,7 +235,8 @@ precisa ser conferida. Cada item do texto tem um número que leva à sua evidên
 frase das falas da pessoa mais parecida com o item, com link para o leitor da transcrição, e, quando
 existe, a afirmação da matéria (UDV) ligada a ele, com o nível do resultado, a nota do verificador e o
 link para a pasta. As notas adesivas só mostram números calculados na exportação (por exemplo, quantos
-itens têm UDV). Tudo fica aberto na página, sem nada a expandir.
+itens têm UDV). Tudo isso fica na análise completa; o resumo do topo está descrito em "Resumo primeiro,
+análise completa depois".
 
 **Ligações.** A pasta de uma afirmação tem o link "Ver o perfil de ..." quando a pessoa tem perfil, e o
 cabeçalho do mural lista os perfis de quem fala na audiência. Do perfil, cada audiência leva ao mural,
@@ -260,11 +290,13 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
 | `css/case.css` | A pasta da afirmação. |
 | `css/profile.css` | O dossiê do perfil. |
 | `css/nav.css` | Trilha, aba do mapa, links para os perfis e o mapa do caso. |
-| `js/main.js` | Rotas (`#h<id>`, `#h<id>-u<n>`, `#h<id>-t<turno>-p<início>-<fim>`, `#perfil/<slug>`, `#arquivo`), trilha, atalhos de teclado, carregamento, volta da pasta à cena do resultado e estados de erro. |
+| `css/disclose.css` | O botão "Ver análise completa" e os quadros de números dos resumos. |
+| `js/main.js` | Rotas (`#h<id>`, `#h<id>-u<n>`, `#h<id>-t<turno>-p<início>-<fim>`, `#perfil/<slug>`, `#perfil/<slug>/item-<n>`, `#arquivo`), trilha, atalhos de teclado, carregamento, volta da pasta à cena do resultado e estados de erro. |
 | `js/data.js` | Leitura de `data/index.json`, `data/hearings/<id>.json`, `data/actors.json` e `data/profiles/<slug>.json` e conferência do formato. |
 | `js/home.js` | Lista de matérias: busca, ordem, sorteio. |
 | `js/model.js` | Deriva do JSON da audiência os cartões, grupos, trechos, cadernos e onde cada afirmação aparece na matéria. |
-| `js/copy.js` | Os textos dos resultados, do aviso de conferência e das oito perguntas. |
+| `js/copy.js` | Os textos dos resultados, do aviso de conferência, das oito perguntas e dos resumos. |
+| `js/disclose.js` | O botão de abrir e recolher, a memória do estado no `localStorage` e a abertura por link. |
 | `js/case.js` | A pasta da afirmação. |
 | `js/profile.js` | O perfil do ator. |
 | `js/atlas.js` | O mapa do caso e a busca por ator. |
@@ -303,4 +335,6 @@ teclado em todos os controles e mostra estados de carregamento e de erro.
   transcrição, sem uma afirmação da matéria ao lado.
 - Os perfis só cobrem o split de treino e os atores que falam em mais de uma audiência; a simulação de
   atores não aparece na página.
+- O estado aberto ou fechado é lembrado por tipo de página, não por endereço: quem abre a análise de uma
+  pasta encontra as próximas pastas abertas.
 - A legenda da parede não tem link para os perfis; eles aparecem no cabeçalho do mural e nas pastas.

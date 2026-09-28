@@ -1,4 +1,5 @@
-import { CLAIM_STATES, claimState, PROFILE_MATCH_NOTE, PROFILE_NOTE, SPLIT_NAMES, tierOf, UDV_RULES } from "./copy.js";
+import { CLAIM_STATES, claimState, DISCLOSE_HINTS, PROFILE_BADGES, PROFILE_MATCH_NOTE, PROFILE_NOTE, PROFILE_NOTE_SHORT, PROFILE_TOP_NOTE, PROFILE_TOP_TITLE, SPLIT_NAMES, tierOf, UDV_RULES } from "./copy.js";
+import { bindDisclose, discloseBar, discloseEnd } from "./disclose.js";
 import { caseHash } from "./case.js";
 import { countLabel, esc, fmtDate, fmtInt, fmtScore, joinPt, plural, shorten, tno } from "./text.js";
 
@@ -23,9 +24,16 @@ export function profileHash(slug) {
   return "#perfil/" + slug;
 }
 
+const PROFILE_RE = /^#?perfil\/([a-z0-9-]+)(?:\/item-(\d+))?$/;
+
 export function profileToken(value) {
-  const m = String(value || "").match(/^#?perfil\/([a-z0-9-]+)$/);
+  const m = String(value || "").match(PROFILE_RE);
   return m ? m[1] : null;
+}
+
+export function profileItemToken(value) {
+  const m = String(value || "").match(PROFILE_RE);
+  return m && m[2] ? Number(m[2]) : null;
 }
 
 export function passageHash(p) {
@@ -120,7 +128,7 @@ function headHtml(P, ctx) {
     '<figure class="pf-pola" role="img" aria-label="Sem foto: as iniciais ' + esc(initials(a.name)) + '"><div class="pf-pola-img" aria-hidden="true"><svg class="pf-sil" viewBox="0 0 100 100"><circle cx="50" cy="38" r="17"/><path d="M16 96c3-22 17-34 34-34s31 12 34 34"/></svg><span>' + esc(initials(a.name)) + '</span></div><figcaption>' + esc(a.name) + "<small>sem foto</small></figcaption></figure>" +
     '<div class="pf-head-main">' +
     '<p class="pf-k">Dossiê de ator · ' + esc(ctx.runLabel) + "</p>" +
-    '<h1 class="pf-name" id="pf-title" tabindex="-1"><span>Perfil:</span> ' + esc(a.name) + "</h1>" +
+    '<h2 class="pf-name"><span>Perfil:</span> ' + esc(a.name) + "</h2>" +
     (q
       ? '<blockquote class="pf-quote"><p>“' + esc(shorten(q.text, QUOTE_MAX)) + '”</p><footer>Trecho da transcrição, audiência ' + q.hearing + ", turno " + tno(q.turn) + " (" + esc(q.from) + ")</footer></blockquote>"
       : "") +
@@ -327,16 +335,82 @@ function udvsHtml(P) {
   );
 }
 
+function firstSentence(text, max) {
+  const m = String(text).match(/^(.+?[.!?])(\s|$)/);
+  return shorten(m && m[1].length >= 40 ? m[1] : text, max);
+}
+
+function synthesisLines(P) {
+  const c = P.counts;
+  const when = period(P.hearings);
+  const withPassage = c.claims - c.without_evidence;
+  return [
+    when ? "Fala em audiências de " + when + "." : "",
+    "O modelo escreveu " + countLabel(c.claims, "item", "itens") + " a partir de " + countLabel(P.provenance.n_hearings, "audiência", "audiências") + "; " +
+      fmtInt(withPassage) + " " + plural(withPassage, "tem", "têm") + " frase parecida nas falas e " + fmtInt(c.with_udv) + " " + plural(c.with_udv, "está ligado", "estão ligados") + " a afirmações de matéria.",
+  ].filter(Boolean);
+}
+
+function topPositions(P) {
+  const claims = allClaims(P);
+  const pos = claims.filter((x) => /^posi/i.test(x.section));
+  const pool = pos.length ? pos : claims;
+  const rank = (x) => (x.c.udv ? 0 : x.c.passage ? 1 : 2);
+  return pool
+    .map((x, i) => ({ x, i }))
+    .sort((a, b) => rank(a.x) - rank(b.x) || a.i - b.i)
+    .slice(0, 3)
+    .map((o) => o.x);
+}
+
+function badgeHtml(x) {
+  const st = claimState(x.c);
+  const label = PROFILE_BADGES[st.k] + (st.k === "pas" ? " (" + fmtScore(x.c.passage.score) + ")" : "");
+  return '<button type="button" class="pf-badge" data-s="' + st.k + '" data-jump="pf-e' + x.n + '" aria-label="' + esc(label + ". Ver a evidência do item " + x.n) + '"><i aria-hidden="true"></i>' + esc(label) + "</button>";
+}
+
+function summaryHtml(P, ctx) {
+  const a = P.actor;
+  const read = P.hearings.filter((h) => h.in_profile).length;
+  const turns = P.hearings.reduce((n, h) => n + h.turns, 0);
+  const top = topPositions(P);
+  const stat = (n, label) => '<li class="sm-stat"><b>' + esc(fmtInt(n)) + "</b><span>" + esc(label) + "</span></li>";
+  return (
+    '<article class="pf-sheet pf-sum" aria-labelledby="pf-title"><span class="pf-tape is-a" aria-hidden="true"></span><span class="pf-tape is-b" aria-hidden="true"></span>' +
+    '<figure class="pf-pola" role="img" aria-label="Sem foto: as iniciais ' + esc(initials(a.name)) + '"><div class="pf-pola-img" aria-hidden="true"><svg class="pf-sil" viewBox="0 0 100 100"><circle cx="50" cy="38" r="17"/><path d="M16 96c3-22 17-34 34-34s31 12 34 34"/></svg><span>' + esc(initials(a.name)) + '</span></div><figcaption>' + esc(a.name) + "<small>sem foto</small></figcaption></figure>" +
+    '<div class="pf-sum-main">' +
+    '<p class="pf-k">Dossiê de ator · ' + esc(ctx.runLabel) + "</p>" +
+    '<h1 class="pf-name" id="pf-title" tabindex="-1"><span>Perfil:</span> ' + esc(a.name) + "</h1>" +
+    (a.role || a.party_uf.length ? '<p class="pf-role">' + esc(a.role || a.party_uf[0]) + "</p>" : "") +
+    '<p class="pf-syn">' + synthesisLines(P).map(esc).join(" ") + "</p>" +
+    '<ul class="sm-stats pf-stats" aria-label="Participação">' + stat(P.hearings.length, plural(P.hearings.length, "audiência", "audiências")) + stat(turns, plural(turns, "turno de fala", "turnos de fala")) + stat(read, plural(read, "lida pelo perfil", "lidas pelo perfil")) + "</ul>" +
+    '<p class="pf-gen-s"><b>Gerado por modelo.</b> ' + esc(PROFILE_NOTE_SHORT) + "</p>" +
+    "</div>" +
+    (top.length
+      ? '<section class="pf-top3" aria-labelledby="pf-top3-h"><h2 class="pf-h" id="pf-top3-h">' + icon("flag") + esc(PROFILE_TOP_TITLE) + '</h2><ol class="pf-top3-l">' +
+        top.map((x) => '<li><span class="pf-no">' + x.n + '</span><div><p class="pf-top3-t">' + esc(firstSentence(x.c.text, 190)) + "</p>" + badgeHtml(x) + "</div></li>").join("") +
+        '</ol><p class="pf-small">' + esc(PROFILE_TOP_NOTE) + "</p></section>"
+      : "") +
+    "</article>"
+  );
+}
+
 export function renderProfile(host, P, ctx) {
   const cols = sectionsHtml(P);
   host.innerHTML =
     '<div class="pf-desk">' +
     '<div class="pf-lamp" aria-hidden="true"></div>' +
+    summaryHtml(P, ctx) +
+    discloseBar("profile", "pf-more", DISCLOSE_HINTS.profile) +
+    '<div class="pf-more" id="pf-more">' +
     '<p class="note is-compact pf-warn"><b>Gerado por um modelo de linguagem.</b> ' + esc(PROFILE_NOTE) + "</p>" +
     '<div class="pf-top">' + headHtml(P, ctx) + notesHtml(P) + howHtml(P) + "</div>" +
     '<div class="pf-cols"><div class="pf-col">' + participationHtml(P) + themesHtml(P) + '</div><div class="pf-col">' + cols.left + '</div><div class="pf-col">' + cols.right + udvsHtml(P) + "</div></div>" +
     evidenceHtml(P) +
+    discloseEnd("profile", "pf-more") +
+    "</div>" +
     '<div class="pf-mug" aria-hidden="true"></div>' +
     "</div>";
+  bindDisclose(host, "profile");
   return { title: "Perfil: " + P.actor.name, heading: host.querySelector("#pf-title") };
 }

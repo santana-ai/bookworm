@@ -1,5 +1,8 @@
 import { caseHash } from "./case.js";
-import { countLabel, esc, fmtDate, fmtInt, foldText } from "./text.js";
+import { ATLAS_COPY, DISCLOSE_HINTS } from "./copy.js";
+import { bindDisclose, discloseBar, discloseEnd } from "./disclose.js";
+import { statsHtml } from "./home.js";
+import { countLabel, esc, fmtDate, foldText } from "./text.js";
 import { icon, initials, profileHash } from "./profile.js";
 
 function words(q) {
@@ -59,23 +62,39 @@ export function createAtlas(host, index, actors, onRender) {
   const hHay = hearings.map((h) => foldText([h.title, h.assunto, "audiencia " + h.id, h.actors.join(" ")].join(" ")));
   const totalUdvs = index.hearings.reduce((s, h) => s + h.n_udvs, 0);
   const pr = actors ? actors.profiles : null;
+  const stats = [
+    { n: index.hearings.length, label: "audiências" },
+    { n: totalUdvs, label: "afirmações atribuídas" },
+    { n: list.length, label: actors ? "perfis de atores" : "perfis nesta exportação" },
+  ];
   host.innerHTML =
     '<div class="at-head">' +
     '<h1 class="at-title" id="at-title" tabindex="-1">' + icon("doc") + "Mapa do caso</h1>" +
-    '<p class="lede">Tudo o que esta demonstração mostra, num lugar só: as audiências, quem a matéria cita em cada uma, o perfil dos atores que falam em mais de uma audiência, o mural de barbantes e as pastas das afirmações. A tecla <kbd>M</kbd> abre este mapa de qualquer página.</p>' +
-    '<p class="at-stats">' + esc(fmtInt(index.hearings.length) + " audiências · " + fmtInt(totalUdvs) + " afirmações · " + (actors ? fmtInt(list.length) + " perfis (rodada " + pr.run + ", " + pr.models.join(", ") + ")" : "sem perfis nesta exportação")) + "</p>" +
+    '<p class="lede">' + ATLAS_COPY.lede + "</p>" +
+    statsHtml(stats, "Números desta exportação") +
     '<div class="tools" role="search" aria-label="Procurar no mapa"><div class="field field-q"><label for="at-q">Procurar ator ou audiência</label>' +
     '<input id="at-q" type="search" autocomplete="off" spellcheck="false" placeholder="Nome, título ou número da audiência"></div></div>' +
     '<p class="count" id="at-count" aria-live="polite"></p>' +
     "</div>" +
+    '<div class="at-grid at-sum">' +
+    (actors ? '<section class="at-sec" aria-labelledby="at-sa-h"><h2 class="at-sec-h" id="at-sa-h" data-at-sa-h></h2><ol class="at-al" id="at-sal"></ol></section>' : "") +
+    '<section class="at-sec" aria-labelledby="at-sh-h"><h2 class="at-sec-h" id="at-sh-h" data-at-sh-h></h2><ol class="at-hl" id="at-shl"></ol></section>' +
+    "</div>" +
+    discloseBar("atlas", "at-more", DISCLOSE_HINTS.atlas) +
+    '<div class="at-more" id="at-more">' +
+    (actors && pr ? '<p class="at-stats">' + esc("Perfis da rodada " + pr.run + ", escritos por " + pr.models.join(", ") + ". " + ATLAS_COPY.profiles) + "</p>" : "") +
     '<div class="at-grid">' +
-    '<section class="at-sec at-actors" aria-labelledby="at-a-h"><h2 class="at-sec-h" id="at-a-h">Perfis de atores</h2>' +
+    '<section class="at-sec at-actors" aria-labelledby="at-a-h"><h2 class="at-sec-h" id="at-a-h">Todos os perfis de atores</h2>' +
     (actors
       ? '<p class="at-legend"><span><i data-k="udv"></i>item com UDV</span><span><i data-k="pas"></i>só frase parecida</span><span><i data-k="none"></i>sem frase</span></p><ol class="at-al" id="at-al"></ol>'
       : '<p class="empty">Esta exportação não tem perfis. Para incluí-los, rode <code>bookworm export-site</code> com <code>--profiles</code>; o comando está em <code>web/README.md</code>.</p>') +
     "</section>" +
-    '<section class="at-sec at-hearings" aria-labelledby="at-h-h"><h2 class="at-sec-h" id="at-h-h">Audiências</h2><ol class="at-hl" id="at-hl"></ol></section>' +
-    "</div>";
+    '<section class="at-sec at-hearings" aria-labelledby="at-h-h"><h2 class="at-sec-h" id="at-h-h">Todas as audiências</h2><ol class="at-hl" id="at-hl"></ol></section>' +
+    "</div>" + discloseEnd("atlas", "at-more") + "</div>";
+  bindDisclose(host, "atlas");
+  const sal = host.querySelector("#at-sal");
+  const shl = host.querySelector("#at-shl");
+  const topActors = list.slice().sort((a, b) => b.n_udvs - a.n_udvs || b.n_hearings - a.n_hearings || a.name.localeCompare(b.name, "pt-BR"));
   const q = host.querySelector("#at-q");
   const al = host.querySelector("#at-al");
   const hl = host.querySelector("#at-hl");
@@ -88,9 +107,17 @@ export function createAtlas(host, index, actors, onRender) {
     const shownH = hearings.filter((h, i) => hits(hHay[i], ws));
     if (al) al.innerHTML = shownA.map(actorCard).join("") || '<li class="empty">Nenhum ator com essas palavras.</li>';
     hl.innerHTML = shownH.map((h) => hearingRow(h, people[String(h.id)] || {}, bySlug)).join("") || '<li class="empty">Nenhuma audiência com essas palavras.</li>';
+    const pickA = ws.length ? shownA : topActors;
+    const hRow = (h) => hearingRow(h, people[String(h.id)] || {}, bySlug);
+    if (sal) {
+      host.querySelector("[data-at-sa-h]").textContent = ws.length ? ATLAS_COPY.foundActors : ATLAS_COPY.topActors;
+      sal.innerHTML = pickA.slice(0, ATLAS_COPY.nActors).map(actorCard).join("") || '<li class="empty">Nenhum ator com essas palavras.</li>';
+    }
+    host.querySelector("[data-at-sh-h]").textContent = ws.length ? ATLAS_COPY.foundHearings : ATLAS_COPY.recentHearings;
+    shl.innerHTML = shownH.slice(0, ATLAS_COPY.nHearings).map(hRow).join("") || '<li class="empty">Nenhuma audiência com essas palavras.</li>';
     count.textContent = ws.length
-      ? "Mostrando " + countLabel(shownA.length, "perfil", "perfis") + " e " + countLabel(shownH.length, "audiência", "audiências") + "."
-      : countLabel(list.length, "perfil", "perfis") + " em ordem alfabética; audiências das mais recentes para as mais antigas.";
+      ? "Na busca: " + countLabel(shownA.length, "perfil", "perfis") + " e " + countLabel(shownH.length, "audiência", "audiências") + ". Aqui aparecem os primeiros; a análise completa mostra todos."
+      : ATLAS_COPY.count;
     if (onRender) onRender();
   }
 

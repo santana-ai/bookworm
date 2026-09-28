@@ -1,4 +1,5 @@
-import { CASE_NOTE, NO_SECOND_OPINION, questionCopy, SPLIT_GAP } from "./copy.js";
+import { CASE_NOTE, DISCLOSE_HINTS, FINDING_SHORT, findingDetail, findingLine, NO_SECOND_OPINION, NOT_CHECKED_SHORT, questionCopy, SPLIT_GAP, SUMMARY_JOBS, VERIFIER_GAUGE_NOTE, VERIFIER_NONE, verifierLine } from "./copy.js";
+import { bindDisclose, discloseBar, discloseEnd } from "./disclose.js";
 import { LAYA_NAMES } from "./data.js";
 import { buildModel } from "./model.js";
 import { clamp, countLabel, esc, firstName, fmtDate, fmtInt, fmtScore, joinPt, markText, plural, seqIndex, tno, wordsOf } from "./text.js";
@@ -296,8 +297,54 @@ function headHtml(H, M, s) {
     '<p class="hv-k">' + (date ? "Matéria de " + esc(date) + " · " : "") + "Audiência " + id + "</p>" +
     '<h1 class="hv-title" id="cs-title" tabindex="-1">Pasta da afirmação ' + n + " de " + total + ": " + esc(s.u.actor.name) + "</h1>" +
     '<p class="hv-sum">' + esc(M.article.headline) + "</p>" +
-    chipsHtml(M, id, n) +
-    '<p class="note is-compact"><b>Sem conferência humana.</b> ' + esc(CASE_NOTE) + "</p></div>"
+    "</div>"
+  );
+}
+
+function gaugeHtml(job, answer, t, value, cut, valueText, detail) {
+  const bar =
+    value === null
+      ? '<p class="cs-g-none">' + esc(t === "q" ? "achado pelas aspas" : "sem nota") + "</p>"
+      : '<div class="cs-g-bar" role="img" aria-label="' + esc("nota " + valueText + " de 0 a 1, corte " + fmtScore(cut)) + '"><i data-t="' + t + '" style="width:' + pct(value) + '"></i><em style="left:' + pct(cut) + '"></em></div>' +
+        '<div class="cs-g-ax" aria-hidden="true"><span style="left:0">0</span><span style="left:' + pct(cut) + '">corte ' + fmtScore(cut) + '</span><span style="left:100%">1</span></div>';
+  return (
+    '<div class="cs-g"><p class="cs-g-q">' + esc(job) + '</p><p class="cs-g-a" data-t="' + t + '">' + esc(answer) + (value === null ? "" : " <b>" + esc(valueText) + "</b>") + "</p>" + bar + '<p class="cs-g-d">' + esc(detail) + "</p></div>"
+  );
+}
+
+function summaryHtml(s, H, M, prof) {
+  const u = s.u;
+  const scored = !!(H.signals && u.signals && u.signals.scored);
+  const v = scored ? u.signals.verifier : null;
+  const vcut = scored ? H.signals.verifier.threshold : null;
+  const vText = v ? fmtScore(v.probability, vcut) : "";
+  const cos = s.ev && !s.isQuote ? s.ev.score : null;
+  const cosText = cos === null ? "" : fmtScore(cos, M.CUT);
+  const find = findingLine(s.tierName);
+  const vt = v ? (v.supported ? "q" : "w") : "u";
+  const claim =
+    '<article class="cs-st cs-s-claim"><span class="wl-pin" aria-hidden="true"></span>' +
+    '<p class="wl-st-k">Afirmação ' + (s.i + 1) + " · segundo a matéria,</p>" +
+    '<p class="wl-st-who">' + esc(u.actor.name) + "</p>" +
+    (u.actor.role ? '<p class="cs-role">' + esc(u.actor.role) + "</p>" : "") +
+    '<p class="wl-st-prop cs-prop">' + markText(u.proposition, quoteMarks(s)) + "</p>" +
+    (prof ? '<p class="cs-prof"><a href="' + esc(prof.href) + '">Ver o perfil de ' + esc(prof.name) + ' <span aria-hidden="true">&rarr;</span></a></p>' : "") +
+    "</article>";
+  const passage = s.ev
+    ? '<article class="cs-pa cs-s-pa"><span class="wl-pin is-l" aria-hidden="true"></span><span class="wl-pin is-r" aria-hidden="true"></span><div class="cs-pa-in">' +
+      '<p class="wl-pa-h"><span>Trecho da audiência</span><span>turno ' + tno(s.ev.speaker_turn) + ", " + esc(M.speakerName(s.ev.speaker_turn)) + "</span></p>" +
+      '<p class="cs-pa-t"><mark>' + evidenceHtml(s, s.ev.text) + "</mark></p></div></article>"
+    : '<div class="cs-why cs-s-pa"><span class="wl-pin" aria-hidden="true"></span><p class="cs-why-h">' + esc(s.tier.label) + '</p><p class="cs-why-t">' + esc(findingDetail(s.tierName, "", "")) + "</p></div>";
+  const gauges =
+    gaugeHtml(SUMMARY_JOBS.find, FINDING_SHORT[s.tierName] || find, s.tier.k, cos, M.CUT, cosText, findingDetail(s.tierName, cosText, fmtScore(M.CUT))) +
+    (s.ev
+      ? gaugeHtml(SUMMARY_JOBS.support, v ? (v.supported ? "Sustenta" : "Não sustenta") : "Não calculado", vt, v ? v.probability : null, vcut, vText, v ? VERIFIER_GAUGE_NOTE : NO_SECOND_OPINION)
+      : '<div class="cs-g"><p class="cs-g-q">' + esc(SUMMARY_JOBS.support) + '</p><p class="cs-g-d">' + esc(VERIFIER_NONE) + "</p></div>");
+  return (
+    '<div class="wl cs cs-sum"><div class="cs-board cs-s-board">' +
+    '<p class="cs-verdict"><span data-t="' + s.tier.k + '">' + esc(find) + "</span>" + (s.ev ? '<span class="cs-verdict-sep" aria-hidden="true">·</span><span data-t="' + vt + '">' + esc(verifierLine(v, vText)) + "</span>" : "") + "</p>" +
+    '<div class="cs-s-grid">' + claim + passage + '<div class="cs-me cs-s-g">' + gauges + '<p class="cs-s-note">' + esc(NOT_CHECKED_SHORT) + "</p></div></div>" +
+    "</div>" + discloseBar("case", "cs-more", DISCLOSE_HINTS.case) + "</div>"
   );
 }
 
@@ -306,8 +353,9 @@ export function renderCase(host, H, n, profileOf) {
   const s = M.S[n - 1];
   if (!s) return null;
   const scored = !!(H.signals && s.u.signals && s.u.signals.scored);
+  const prof = profileOf ? profileOf(s.u.id) : null;
   const cols = [
-    '<section class="cs-col" aria-labelledby="cs-h1"><h2 class="cs-h" id="cs-h1"><span class="cs-hn" aria-hidden="true">1</span>O que a matéria diz</h2>' + claimHtml(s, M, profileOf ? profileOf(s.u.id) : null) + "</section>",
+    '<section class="cs-col" aria-labelledby="cs-h1"><h2 class="cs-h" id="cs-h1"><span class="cs-hn" aria-hidden="true">1</span>O que a matéria diz</h2>' + claimHtml(s, M, prof) + "</section>",
     '<section class="cs-col" aria-labelledby="cs-h2"><h2 class="cs-h" id="cs-h2"><span class="cs-hn" aria-hidden="true">2</span>O que a pessoa disse</h2>' +
       (s.ev ? passageHtml(s, M) + englishHtml(s, H) : whyHtml(s, M)) +
       (s.ev && !H.signals ? '<p class="cs-slip">' + esc(NO_SECOND_OPINION) + "</p>" : "") +
@@ -316,6 +364,12 @@ export function renderCase(host, H, n, profileOf) {
   if (scored) cols.push('<section class="cs-col" aria-labelledby="cs-h3"><h2 class="cs-h" id="cs-h3"><span class="cs-hn" aria-hidden="true">3</span>O que as medidas dizem</h2>' + measuresHtml(s, H, M) + "</section>");
   host.innerHTML =
     headHtml(H, M, s) +
-    '<div class="wl cs"><div class="cs-board"><div class="cs-grid" data-cols="' + cols.length + '">' + cols.join("") + "</div>" + candidatesHtml(s, M) + "</div></div>";
+    summaryHtml(s, H, M, prof) +
+    '<div class="cs-more" id="cs-more">' +
+    '<div class="cs-more-head">' + chipsHtml(M, H.hearing.id, n) + '<p class="note is-compact"><b>Sem conferência humana.</b> ' + esc(CASE_NOTE) + "</p></div>" +
+    '<div class="wl cs"><div class="cs-board"><div class="cs-grid" data-cols="' + cols.length + '">' + cols.join("") + "</div>" + candidatesHtml(s, M) + "</div></div>" +
+    discloseEnd("case", "cs-more") +
+    "</div>";
+  bindDisclose(host, "case");
   return { title: "Pasta da afirmação " + n + " · Audiência " + H.hearing.id, heading: host.querySelector("#cs-title") };
 }
