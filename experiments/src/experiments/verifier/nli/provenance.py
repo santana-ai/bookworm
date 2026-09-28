@@ -21,11 +21,11 @@ from experiments.common.provenance import Source, source_hashes
 from experiments.data import nli_benchmark
 from experiments.udv import calibrate_threshold
 from experiments.verifier import decision_models, decision_scoring, runtime, stats, translation
-from experiments.verifier.runtime import package_files
+from experiments.verifier.runtime import package_sources
 
 Record = dict[str, Any]
 
-SOURCE_FILES = package_files(__file__, "nli_experiments.py")
+SOURCES = package_sources(__file__, "nli_experiments.py")
 
 
 @functools.cache
@@ -47,7 +47,7 @@ def code_hashes() -> Record:
         retrieval_stats,
         *translation.SOURCES,
     )
-    return source_hashes(*SOURCE_FILES, *modules)
+    return source_hashes(*SOURCES, *modules)
 
 
 def environment() -> Record:

@@ -25,7 +25,7 @@ from experiments.common.transcript import (
 from experiments.data import nli_benchmark
 from experiments.udv import calibrate_threshold
 from experiments.verifier import runtime
-from experiments.verifier.runtime import now, package_files
+from experiments.verifier.runtime import now, package_sources
 from experiments.verifier.translate.config import ModelSpec, TranslationConfig
 from experiments.verifier.translate.selection import OpinionUnit, split_records, unit_selection
 from experiments.verifier.translate.statistics import (
@@ -39,7 +39,7 @@ from experiments.verifier.translate.store import TranslationStore, english_probe
 
 Record = dict[str, Any]
 
-SOURCE_FILES = package_files(__file__, "translation.py")
+SOURCES = package_sources(__file__, "translation.py")
 
 
 @functools.cache
@@ -56,7 +56,7 @@ def code_hashes() -> Record:
         hub_offline,
         runtime,
     )
-    return source_hashes(*SOURCE_FILES, *modules)
+    return source_hashes(*SOURCES, *modules)
 
 
 def environment() -> Record:

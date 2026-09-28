@@ -25,7 +25,7 @@ from experiments.verifier import (
 )
 from experiments.verifier import nli_experiments as experiments
 from experiments.verifier import nli_exploration as exploration
-from experiments.verifier.confidence_policies import signal_metrics
+from experiments.verifier.confidence.metrics import signal_metrics
 from experiments.verifier.decision_models import DecisionQuestion, LayaDecisionModel, noul_question
 from experiments.verifier.exploration import scores as exploration_scores
 from experiments.verifier.exploration.candidates import feature_candidate
@@ -94,7 +94,7 @@ TRUE_OPTION = "true"
 CODE_MODULES: tuple[Source, ...] = (
     grounding_scorers,
     grounding_models,
-    confidence_policies,
+    *confidence_policies.SOURCES,
     *udv_verifier.SOURCES,
     *experiments.SOURCES,
     *exploration.SOURCES,

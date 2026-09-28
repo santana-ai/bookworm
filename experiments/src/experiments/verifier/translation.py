@@ -6,9 +6,7 @@ package.
 """
 
 from experiments.verifier.translate.cli import main
-from experiments.verifier.translate.report import SOURCE_FILES, code_hashes
-
-SOURCES = SOURCE_FILES
+from experiments.verifier.translate.report import SOURCES, code_hashes
 
 __all__ = ["SOURCES", "code_hashes", "main"]
 

@@ -6,9 +6,7 @@ Run as ``python -m experiments.verifier.udv_verifier`` with the ``translate``, `
 
 from experiments.verifier.udv_scores.cli import main
 from experiments.verifier.udv_scores.primary import fit_primary
-from experiments.verifier.udv_scores.provenance import SOURCE_FILES, code_hashes
-
-SOURCES = SOURCE_FILES
+from experiments.verifier.udv_scores.provenance import SOURCES, code_hashes
 
 __all__ = ["SOURCES", "code_hashes", "fit_primary", "main"]
 

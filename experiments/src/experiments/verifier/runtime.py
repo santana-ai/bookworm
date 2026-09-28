@@ -24,7 +24,8 @@ def throughput(done: int, total: int, started: float) -> tuple[float, float]:
     return rate, minutes_left
 
 
-def package_files(module_file: str, entry_point: str) -> tuple[Path, ...]:
-    """The entry-point module next to a package and every module of that package."""
+def package_sources(module_file: str, entry_point: str) -> tuple[Path, Path]:
+    """The entry-point module next to a package and the package directory, which the code
+    section of a report expands to every module of the package."""
     package_dir = Path(module_file).resolve().parent
-    return (package_dir.parent / entry_point, *sorted(package_dir.glob("*.py")))
+    return package_dir.parent / entry_point, package_dir

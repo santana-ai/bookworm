@@ -6,9 +6,7 @@ Run as ``python -m experiments.verifier.nli_exploration`` with the ``explore``, 
 """
 
 from experiments.verifier.exploration.cli import main
-from experiments.verifier.exploration.provenance import SOURCE_FILES, code_hashes
-
-SOURCES = SOURCE_FILES
+from experiments.verifier.exploration.provenance import SOURCES, code_hashes
 
 __all__ = ["SOURCES", "code_hashes", "main"]
 
