@@ -3,8 +3,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from typing import Any
 
-from utils.build_udvs import resolve_hearing_people
-from utils.udv_pipeline import (
+from experiments.common.transcript import (
     locate_turn_sentence_span,
     normalize_whitespace,
     resolve_person_speech,
@@ -12,6 +11,7 @@ from utils.udv_pipeline import (
     split_sentences,
     turn_text,
 )
+from experiments.common.udv_run import resolve_hearing_people
 
 Record = dict[str, Any]
 

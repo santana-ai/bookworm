@@ -11,22 +11,17 @@ from functools import cache
 from pathlib import Path
 from typing import Any
 
+import bookworm.data.io
 import numpy as np
 import rapidfuzz
+from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file, write_json, write_jsonl
 from rapidfuzz import fuzz
 from rapidfuzz.distance import JaroWinkler
 from sklearn.metrics.pairwise import cosine_similarity
 
-from utils import build_udvs, dataset_io, generate_validation_sample, udv_pipeline
-from utils.build_udvs import UdvConfig, cache_key, resolve_hearing_people, sentence_slices_by_person
-from utils.dataset_io import load_gated_jsonl, load_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.generate_validation_sample import (
-    assign_item_ids,
-    canonical_sha256,
-    context_window,
-    header_text,
-)
-from utils.udv_pipeline import (
+from experiments.common import transcript, udv_run
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import (
     TRUSTED_PREFIX_WORDS,
     TURN_HEADER_PATTERN,
     WORD_TOKEN_PATTERN,
@@ -41,6 +36,19 @@ from utils.udv_pipeline import (
     strip_accents,
     turn_name_candidates,
     turn_text,
+)
+from experiments.common.udv_run import (
+    UdvConfig,
+    cache_key,
+    resolve_hearing_people,
+    sentence_slices_by_person,
+)
+from experiments.validation import generate_sample
+from experiments.validation.generate_sample import (
+    assign_item_ids,
+    canonical_sha256,
+    context_window,
+    header_text,
 )
 
 Record = dict[str, Any]
@@ -1855,13 +1863,11 @@ def build_report(
         "artifacts": artifacts,
         "review": review,
         "code": {
-            "utils/fuzzy_matching_experiments.py": sha256_of_file(Path(__file__)),
-            "utils/udv_pipeline.py": sha256_of_file(Path(udv_pipeline.__file__)),
-            "utils/build_udvs.py": sha256_of_file(Path(build_udvs.__file__)),
-            "utils/dataset_io.py": sha256_of_file(Path(dataset_io.__file__)),
-            "utils/generate_validation_sample.py": sha256_of_file(
-                Path(generate_validation_sample.__file__)
-            ),
+            **source_hashes(Path(__file__)),
+            **source_hashes(transcript, *transcript.SOURCES),
+            **source_hashes(udv_run),
+            **source_hashes(bookworm.data.io),
+            **source_hashes(generate_sample),
         },
         "timing": {"elapsed_seconds": round(elapsed_seconds, 1)},
         "environment": {
@@ -1941,7 +1947,7 @@ def main() -> None:
     split_of, split_source = load_split_lookup(config.manifest_path, config.lds_sha256)
     hearings = select_hearings(lds, split_of, splits)
     reference, reference_source = select_reference_run(config.reference_runs)
-    udv_config = build_udvs.load_config(config.udv_config_path)
+    udv_config = udv_run.load_config(config.udv_config_path)
     encoder_source = {
         "udv_config_path": str(config.udv_config_path),
         "udv_config_sha256": sha256_of_file(config.udv_config_path),
@@ -1979,7 +1985,8 @@ def main() -> None:
         "blinding_rule": config.source["review"]["blinding_rule"],
         "known_leaks": config.source["review"]["known_leaks"],
         "reviewer_opens": [str(path) for path in sheet_paths.values()],
-        "precision_command": "uv run --no-sync python -m utils.fuzzy_review_precision"
+        "precision_command": "uv run --no-sync python -m "
+        "experiments.validation.fuzzy_review_precision"
         + (" --final-test" if args.final_test else ""),
     }
     for kind in REVIEW_KINDS:

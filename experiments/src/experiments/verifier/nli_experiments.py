@@ -17,6 +17,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, cast
 
+import bookworm.data.io
 import huggingface_hub
 import laya
 import numpy as np
@@ -24,6 +25,7 @@ import sentence_transformers
 import sklearn
 import torch
 import transformers
+from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file, write_json, write_jsonl
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics import average_precision_score, roc_auc_score
 from sklearn.metrics.pairwise import cosine_similarity
@@ -34,29 +36,23 @@ from transformers import (
     PreTrainedConfig,
 )
 
-from utils import (
-    build_nli_benchmark,
-    build_udvs,
-    cache_lock,
-    calibrate_threshold,
-    dataset_io,
-    decision_models,
-    decision_scoring,
-    hub_offline,
-    retrieval_stats,
-    translation,
-    udv_pipeline,
-)
-from utils.build_nli_benchmark import iter_opinions, judge_metrics, parse_judge_key
-from utils.build_udvs import (
+from experiments.common import cache_lock, hub_offline, transcript, udv_run
+from experiments.common import stats as retrieval_stats
+from experiments.common.hub_offline import enforce_offline, offline_state, pinned_weights_file
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import normalize_whitespace, split_sentences
+from experiments.common.udv_run import (
     UdvConfig,
     encode_with_cache,
     load_encoder,
     seed_everything,
     select_device,
 )
-from utils.build_udvs import load_config as load_udv_config
-from utils.calibrate_threshold import (
+from experiments.common.udv_run import load_config as load_udv_config
+from experiments.data import nli_benchmark
+from experiments.data.nli_benchmark import iter_opinions, judge_metrics, parse_judge_key
+from experiments.udv import calibrate_threshold
+from experiments.udv.calibrate_threshold import (
     describe,
     interval,
     load_split_lookup,
@@ -65,15 +61,8 @@ from utils.calibrate_threshold import (
     unit_groups,
     youden_optimum,
 )
-from utils.dataset_io import (
-    load_gated_jsonl,
-    load_jsonl,
-    module_path,
-    sha256_of_file,
-    write_json,
-    write_jsonl,
-)
-from utils.decision_models import (
+from experiments.verifier import decision_models, decision_scoring, translation
+from experiments.verifier.decision_models import (
     DEFAULT_API_KEY_ENV,
     JEV_ENDPOINT,
     DecisionAnswer,
@@ -90,7 +79,7 @@ from utils.decision_models import (
     laya_checkpoint_dir,
     missing_key_message,
 )
-from utils.decision_scoring import (
+from experiments.verifier.decision_scoring import (
     CONSENSUS,
     DERIVED_SCORES,
     MIN_HEARINGS_FOR_P_VALUE,
@@ -110,9 +99,7 @@ from utils.decision_scoring import (
     parse_battery,
     score_names,
 )
-from utils.hub_offline import enforce_offline, offline_state, pinned_weights_file
-from utils.translation import TranslationConfig, TranslationStore
-from utils.udv_pipeline import normalize_whitespace, split_sentences
+from experiments.verifier.translation import TranslationConfig, TranslationStore
 
 Record = dict[str, Any]
 
@@ -1464,7 +1451,8 @@ def check_translations(
             f"{spec.key} (language en, translation model {model}, "
             f"{store.signature.get('model')}): {len(missing)} of {len(texts)} distinct texts of "
             f"the selected opinions and label probes have no translation in {store.path} "
-            f"(signature {store.digest[:16]}); run python -m utils.translation translate --model "
+            f"(signature {store.digest[:16]}); run python -m experiments.verifier.translation "
+            f"translate --model "
             f"{model} for these splits, or point --translation-cache-dir at a cache that has them"
         )
     return {"translation_model": model, "distinct_texts": len(texts), "missing": 0}
@@ -1884,20 +1872,20 @@ def check_score_names(rows: list[Record], spec: ScorerSpec) -> None:
 @functools.cache
 def code_hashes() -> Record:
     modules = (
-        udv_pipeline,
-        build_udvs,
-        build_nli_benchmark,
+        transcript,
+        *transcript.SOURCES,
+        udv_run,
+        nli_benchmark,
         cache_lock,
         calibrate_threshold,
-        dataset_io,
+        bookworm.data.io,
         hub_offline,
         decision_models,
         decision_scoring,
         retrieval_stats,
         translation,
     )
-    hashes = {f"utils/{module_path(m).name}": sha256_of_file(module_path(m)) for m in modules}
-    return {"utils/nli_verifier_experiments.py": sha256_of_file(Path(__file__)), **hashes}
+    return source_hashes(Path(__file__), *modules)
 
 
 def environment() -> Record:

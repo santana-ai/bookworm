@@ -6,12 +6,15 @@ from pathlib import Path
 from typing import Any, cast
 
 import mlx.core as mx
+from bookworm import load_jsonl
 
-import utils.evaluate_actor_simulation as evaluation_module
-import utils.generate_actor_profiles as profiles_module
-import utils.simulate_actors as simulation_module
-from mlx_alternative.backend import MLXEngine, engine_for, release_engines
-from mlx_alternative.settings import (
+import experiments.actors.evaluate_simulation as evaluation_module
+import experiments.actors.generate_profiles as profiles_module
+import experiments.actors.simulate as simulation_module
+from experiments.actors.evaluate_simulation import rotations
+from experiments.actors.simulation import LETTERS, Material, load_config, turn_owners
+from experiments.mlx.backend import MLXEngine, engine_for, release_engines
+from experiments.mlx.settings import (
     DEFAULT_SETTINGS,
     ModelSpec,
     RunPaths,
@@ -25,10 +28,7 @@ from mlx_alternative.settings import (
     train_speeches_path,
     write_derived_configs,
 )
-from mlx_alternative.verify_backend import PROFILE, choice_messages
-from utils.actor_simulation import LETTERS, Material, load_config, turn_owners
-from utils.dataset_io import load_jsonl
-from utils.evaluate_actor_simulation import rotations
+from experiments.mlx.verify_backend import PROFILE, choice_messages
 
 Record = dict[str, Any]
 

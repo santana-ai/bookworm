@@ -9,11 +9,11 @@ from typing import Any
 
 import numpy as np
 import torch
+from bookworm import sha256_of_file
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, Template
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from utils.dataset_io import sha256_of_file
-from utils.udv_pipeline import (
+from experiments.common.transcript import (
     SENTENCE_BOUNDARY_PATTERN,
     STAGE_DIRECTION_PATTERN,
     get_embedding_model,

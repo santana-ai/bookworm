@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 import sklearn
+from bookworm import load_gated_jsonl, sha256_of_file, write_json, write_jsonl
 from sklearn.metrics import (
     accuracy_score,
     cohen_kappa_score,
@@ -19,9 +20,9 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
 )
 
-from utils import udv_pipeline
-from utils.dataset_io import load_gated_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.udv_pipeline import (
+from experiments.common import transcript
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import (
     normalize_name,
     resolve_person_speech,
     resolve_turn_name,
@@ -712,8 +713,8 @@ def build_report(
             "include_chunk_text": config.include_chunk_text,
         },
         "code": {
-            "utils/udv_pipeline.py": sha256_of_file(Path(udv_pipeline.__file__)),
-            "utils/build_nli_benchmark.py": sha256_of_file(Path(__file__)),
+            **source_hashes(transcript, *transcript.SOURCES),
+            **source_hashes(Path(__file__)),
         },
         "timing": {"elapsed_seconds": round(elapsed_seconds, 1)},
         "environment": {

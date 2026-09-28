@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from utils.decision_models import (
+from experiments.verifier.decision_models import (
     JEV_ENDPOINT,
     AnswerCache,
     DecisionModelError,

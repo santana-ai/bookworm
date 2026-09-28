@@ -8,22 +8,24 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 
-from utils import (
+from experiments.common.provenance import source_hashes
+from experiments.common.stats import holm
+from experiments.udv.calibrate_threshold import interval, rounded
+from experiments.verifier import (
     confidence_policies,
     grounding_models,
     grounding_scorers,
     translation,
     udv_verifier,
 )
-from utils import nli_verifier_experiments as experiments
-from utils import nli_verifier_exploration as exploration
-from utils.calibrate_threshold import interval, rounded
-from utils.confidence_policies import signal_metrics
-from utils.dataset_io import load_jsonl, module_path, sha256_of_file, write_json, write_jsonl
-from utils.decision_models import DecisionQuestion, LayaDecisionModel, noul_question
-from utils.decision_scoring import bootstrap_p_value
-from utils.grounding_scorers import (
+from experiments.verifier import nli_experiments as experiments
+from experiments.verifier import nli_exploration as exploration
+from experiments.verifier.confidence_policies import signal_metrics
+from experiments.verifier.decision_models import DecisionQuestion, LayaDecisionModel, noul_question
+from experiments.verifier.decision_scoring import bootstrap_p_value
+from experiments.verifier.grounding_scorers import (
     CandidateSpec,
     PairScorer,
     ScoreCache,
@@ -31,8 +33,7 @@ from utils.grounding_scorers import (
     normalized_ranks,
     parse_candidate,
 )
-from utils.nli_verifier_experiments import PremiseUnit
-from utils.retrieval_stats import holm
+from experiments.verifier.nli_experiments import PremiseUnit
 
 Record = dict[str, Any]
 
@@ -130,8 +131,7 @@ def load_config(path: Path) -> Config:
 
 
 def code_hashes() -> Record:
-    hashes = {f"utils/{module_path(m).name}": sha256_of_file(module_path(m)) for m in CODE_MODULES}
-    return {"utils/confidence_v2.py": sha256_of_file(Path(__file__)), **hashes}
+    return source_hashes(Path(__file__), *CODE_MODULES)
 
 
 def run_record(config: Config) -> Record:

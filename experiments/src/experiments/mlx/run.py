@@ -8,11 +8,20 @@ from typing import Any
 
 import mlx.core as mx
 
-import utils.evaluate_actor_simulation as evaluation_module
-import utils.generate_actor_profiles as profiles_module
-import utils.simulate_actors as simulation_module
-from mlx_alternative.backend import MLXChatClient, MLXSimulationModel, engine_for
-from mlx_alternative.settings import (
+import experiments.actors.evaluate_simulation as evaluation_module
+import experiments.actors.generate_profiles as profiles_module
+import experiments.actors.simulate as simulation_module
+from experiments.actors.simulation import (
+    LETTERS,
+    Material,
+    chat_messages,
+    letter_token_ids,
+    load_prompts,
+    load_rows,
+    render,
+)
+from experiments.mlx.backend import MLXChatClient, MLXSimulationModel, engine_for
+from experiments.mlx.settings import (
     DEFAULT_SETTINGS,
     ModelSpec,
     RunPaths,
@@ -26,15 +35,6 @@ from mlx_alternative.settings import (
     run_paths,
     train_speeches_path,
     write_derived_configs,
-)
-from utils.actor_simulation import (
-    LETTERS,
-    Material,
-    chat_messages,
-    letter_token_ids,
-    load_prompts,
-    load_rows,
-    render,
 )
 
 Record = dict[str, Any]
@@ -149,7 +149,7 @@ def run_profiles(spec: ModelSpec, paths: RunPaths, actors: list[str] | None) -> 
     prepare_speeches(paths)
     started = time.monotonic()
     call_main(
-        "utils.generate_actor_profiles",
+        "experiments.actors.generate_profiles",
         profiles_module.main,
         [
             "--config",
@@ -174,7 +174,7 @@ def run_profiles(spec: ModelSpec, paths: RunPaths, actors: list[str] | None) -> 
 def run_evaluate(spec: ModelSpec, paths: RunPaths, actors: list[str] | None) -> None:
     install_timed_score_split(spec, paths)
     call_main(
-        "utils.evaluate_actor_simulation",
+        "experiments.actors.evaluate_simulation",
         evaluation_module.main,
         ["--config", str(paths.simulation_config), *actor_args(actors)],
     )
@@ -187,7 +187,7 @@ def run_simulate(
     before = count_rows(output, "request_id")
     started = time.monotonic()
     call_main(
-        "utils.simulate_actors",
+        "experiments.actors.simulate",
         simulation_module.main,
         ["--config", str(paths.simulation_config), *actor_args(actors), *extra],
     )
@@ -208,8 +208,8 @@ def run_simulate(
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Run the actor profile and simulation pipeline of utils/ unchanged, with an MLX model"
-            " in place of the transformers backend."
+            "Run the actor profile and simulation pipeline of experiments.actors unchanged, with an"
+            " MLX model in place of the transformers backend."
         )
     )
     parser.add_argument("stage", choices=STAGES)
@@ -218,7 +218,7 @@ def main() -> None:
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--actors", nargs="+", help="actors, by exact name (default: short run)")
     group.add_argument("--all-actors", action="store_true", help="every profiled actor")
-    parser.add_argument("--k", help="passed to utils.simulate_actors")
+    parser.add_argument("--k", help="passed to experiments.actors.simulate")
     args = parser.parse_args()
     settings = load_settings(args.settings)
     spec = model_spec(settings, args.model)

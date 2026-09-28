@@ -7,10 +7,11 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from utils import udv_pipeline
-from utils.build_udvs import load_config, load_lds_records
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.udv_pipeline import (
+from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
+
+from experiments.common import transcript
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import (
     DOUBLE_QUOTE_PATTERN,
     DOUBLE_QUOTE_PATTERNS,
     QUOTE_PATTERNS,
@@ -25,6 +26,7 @@ from utils.udv_pipeline import (
     split_into_turns,
     token_jaccard,
 )
+from experiments.common.udv_run import load_config, load_lds_records
 
 Record = dict[str, Any]
 
@@ -276,8 +278,8 @@ def main() -> None:
         },
         **measured,
         "code": {
-            "utils/udv_pipeline.py": sha256_of_file(Path(udv_pipeline.__file__)),
-            "utils/measure_quote_patterns.py": sha256_of_file(Path(__file__)),
+            **source_hashes(transcript, *transcript.SOURCES),
+            **source_hashes(Path(__file__)),
         },
         "config": config.source,
     }

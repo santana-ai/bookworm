@@ -11,18 +11,18 @@ from typing import Any
 import numpy as np
 import scipy
 import sklearn
+from bookworm import sha256_of_file, write_json
 from scipy.stats import norm
 from sklearn.metrics import cohen_kappa_score, confusion_matrix
 
-from utils.dataset_io import sha256_of_file, write_json
-from utils.generate_validation_sample import (
+from experiments.common.provenance import source_hashes
+from experiments.validation.generate_sample import (
     ANNOTATION_CSV,
     ANNOTATION_KEY,
     REANNOTATION_CSV,
     REANNOTATION_KEY,
     ValidationConfig,
     canonical_sha256,
-    code_hashes,
     existing_precision_reports,
     load_key,
     load_validation_config,
@@ -753,8 +753,8 @@ def main() -> None:
         "intra_annotator_agreement": agreement,
         "integrity": integrity,
         "code": {
-            **code_hashes(),
-            "utils/precision_report.py": sha256_of_file(Path(__file__)),
+            **source_hashes(),
+            **source_hashes(Path(__file__)),
         },
         "timing": {"elapsed_seconds": round(time.perf_counter() - started, 2)},
         "environment": {

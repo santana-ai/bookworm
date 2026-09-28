@@ -4,10 +4,10 @@ from pathlib import Path
 
 import pytest
 
-from utils import nli_verifier_experiments as e3
-from utils.cache_lock import CacheLockedError, acquire_writer_lock, lock_path
-from utils.decision_models import AnswerCache, DecisionModelError
-from utils.translation import Segmenter, TranslationStore
+from experiments.common.cache_lock import CacheLockedError, acquire_writer_lock, lock_path
+from experiments.verifier import nli_experiments as e3
+from experiments.verifier.decision_models import AnswerCache, DecisionModelError
+from experiments.verifier.translation import Segmenter, TranslationStore
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier.toml"
 SEGMENTER = Segmenter(join_abbreviations=frozenset(), join_short_parts=False)

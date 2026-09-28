@@ -14,12 +14,12 @@ from typing import Any
 
 import numpy as np
 import scipy
+from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file, write_json
 from scipy.stats import binomtest
 
-from utils import build_udvs, udv_pipeline
-from utils.build_udvs import SUPPORT_TYPES, TIERS
-from utils.dataset_io import load_gated_jsonl, load_jsonl, sha256_of_file, write_json
-from utils.udv_pipeline import (
+from experiments.common import transcript, udv_run
+from experiments.common.provenance import REPOSITORY_DIR, source_hashes
+from experiments.common.transcript import (
     TURN_HEADER_PATTERN,
     extract_quotes,
     normalize_whitespace,
@@ -28,6 +28,7 @@ from utils.udv_pipeline import (
     split_into_turns,
     strip_accents,
 )
+from experiments.common.udv_run import SUPPORT_TYPES, TIERS
 
 Record = dict[str, Any]
 
@@ -69,7 +70,6 @@ REANNOTATION_KEY = "reannotation_key.json"
 SAMPLE_REPORT = "sample_report.json"
 REANNOTATION_REPORT = "reannotation_report.json"
 PRECISION_REPORT_PATTERNS = ("precision_report*.json",)
-REPOSITORY_DIR = Path(__file__).resolve().parents[2]
 ROUND_DECIMALS = 4
 
 
@@ -845,9 +845,9 @@ def ensure_new_dir(path: Path) -> None:
 
 def code_hashes() -> Record:
     return {
-        "utils/udv_pipeline.py": sha256_of_file(Path(udv_pipeline.__file__)),
-        "utils/build_udvs.py": sha256_of_file(Path(build_udvs.__file__)),
-        "utils/generate_validation_sample.py": sha256_of_file(Path(__file__)),
+        **source_hashes(transcript, *transcript.SOURCES),
+        **source_hashes(udv_run),
+        **source_hashes(Path(__file__)),
     }
 
 

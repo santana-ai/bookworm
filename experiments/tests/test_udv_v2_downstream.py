@@ -1,8 +1,10 @@
 import json
 from pathlib import Path
+from typing import Any
 
-from utils import udv_v2_downstream as downstream
-from utils.dataset_io import Record
+from experiments.udv import v2_downstream as downstream
+
+Record = dict[str, Any]
 
 
 def udv(uid: str, hearing: int, tier: str, turn: int | None) -> Record:

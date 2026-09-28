@@ -9,15 +9,17 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 from scipy.stats import spearmanr
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-from utils import nli_verifier_experiments as experiments
-from utils import nli_verifier_exploration as exploration
-from utils.calibrate_threshold import rounded
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.nli_verifier_experiments import (
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import normalize_whitespace, split_sentences
+from experiments.udv.calibrate_threshold import rounded
+from experiments.verifier import nli_experiments as experiments
+from experiments.verifier import nli_exploration as exploration
+from experiments.verifier.nli_experiments import (
     PremiseUnit,
     ScorerSpec,
     VerifierConfig,
@@ -28,7 +30,7 @@ from utils.nli_verifier_experiments import (
     score_units,
     translation_texts,
 )
-from utils.nli_verifier_exploration import (
+from experiments.verifier.nli_exploration import (
     MATCH_TOLERANCE,
     Candidate,
     ExplorationConfig,
@@ -43,7 +45,6 @@ from utils.nli_verifier_exploration import (
     load_labels,
     load_scorer,
 )
-from utils.udv_pipeline import normalize_whitespace, split_sentences
 
 Record = dict[str, Any]
 ScoreFunction = Callable[..., tuple[list[Record], Record]]
@@ -653,8 +654,8 @@ def translate_record(config: UdvVerifierConfig) -> Record | None:
 
 def code_hashes() -> Record:
     return {
-        "utils/udv_verifier.py": sha256_of_file(Path(__file__)),
-        "utils/nli_verifier_exploration.py": sha256_of_file(Path(exploration.__file__)),
+        **source_hashes(Path(__file__)),
+        **source_hashes(exploration),
         **experiments.code_hashes(),
     }
 

@@ -12,11 +12,18 @@ from typing import Any, NamedTuple
 import numpy as np
 import sentence_transformers
 import torch
+from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from utils import build_udvs, udv_pipeline
-from utils.build_udvs import (
+from experiments.common import transcript, udv_run
+from experiments.common.provenance import module_path, source_hashes, source_label
+from experiments.common.transcript import (
+    find_opinion_turn_quote_match,
+    is_trusted_quote,
+    sentences_agree,
+)
+from experiments.common.udv_run import (
     UdvConfig,
     encode_with_cache,
     load_config,
@@ -27,8 +34,6 @@ from utils.build_udvs import (
     select_device,
     sentence_slices_by_person,
 )
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.udv_pipeline import find_opinion_turn_quote_match, is_trusted_quote, sentences_agree
 
 Record = dict[str, Any]
 
@@ -829,8 +834,8 @@ def benchmark_source(path: Path) -> Record:
     recorded = None
     if report_path.exists():
         with open(report_path) as f:
-            recorded = json.load(f).get("code", {}).get("utils/udv_pipeline.py")
-    current = sha256_of_file(Path(udv_pipeline.__file__))
+            recorded = json.load(f).get("code", {}).get(source_label(transcript))
+    current = sha256_of_file(module_path(transcript))
     return {
         "path": str(path),
         "sha256": sha256_of_file(path),
@@ -898,9 +903,9 @@ def build_report(
         "sources": sources,
         "artifacts": artifacts,
         "code": {
-            "utils/udv_pipeline.py": sha256_of_file(Path(udv_pipeline.__file__)),
-            "utils/build_udvs.py": sha256_of_file(Path(build_udvs.__file__)),
-            "utils/calibrate_threshold.py": sha256_of_file(Path(__file__)),
+            **source_hashes(transcript, *transcript.SOURCES),
+            **source_hashes(udv_run),
+            **source_hashes(Path(__file__)),
         },
         "timing": {"elapsed_seconds": round(elapsed_seconds, 1)},
         "environment": {
@@ -991,7 +996,7 @@ def main() -> None:
     if problems or unused_rows:
         raise SystemExit(
             "the masked benchmark does not match the current pipeline; rebuild it with "
-            f"utils.build_quote_benchmark: {dict(list(problems.items())[:10])} {unused_rows}"
+            f"experiments.data.quote_benchmark: {dict(list(problems.items())[:10])} {unused_rows}"
         )
     if not unmasked or not masked:
         raise SystemExit("no calibration queries: check the splits and the masked benchmark")

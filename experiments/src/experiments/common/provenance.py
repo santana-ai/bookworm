@@ -1,44 +1,37 @@
-import hashlib
-import json
+"""The ``code`` section of the reports: the source files a run depends on and their sha256.
+
+Each file is recorded under its path relative to the repository root, such as
+``experiments/src/experiments/udv/calibrate_threshold.py`` or
+``bookworm/src/bookworm/udv/quotes.py``. Reports written before the repository was reorganized
+record the old ``utils/<name>.py`` paths; ``docs/path_map.md`` maps them to the current files.
+"""
+
 from pathlib import Path
 from types import ModuleType
-from typing import Any, cast
+from typing import cast
 
-Record = dict[str, Any]
+from bookworm import sha256_of_file
 
+PROJECT_DIR = Path(__file__).resolve().parents[3]
+REPOSITORY_DIR = PROJECT_DIR.parent
 
-def sha256_of_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+Source = ModuleType | Path
 
 
 def module_path(module: ModuleType) -> Path:
     return Path(cast(str, module.__file__))
 
 
-def load_jsonl(path: Path) -> list[Record]:
-    with open(path) as f:
-        return [json.loads(line) for line in f]
+def source_path(source: Source) -> Path:
+    return module_path(source) if isinstance(source, ModuleType) else source
 
 
-def load_gated_jsonl(path: Path, expected_sha256: str) -> list[Record]:
-    actual = sha256_of_file(path)
-    if actual != expected_sha256:
-        raise SystemExit(f"{path}: sha256 {actual} != expected {expected_sha256}")
-    return load_jsonl(path)
+def source_label(source: Source) -> str:
+    path = source_path(source).resolve()
+    if path.is_relative_to(REPOSITORY_DIR):
+        return path.relative_to(REPOSITORY_DIR).as_posix()
+    return path.as_posix()
 
 
-def write_jsonl(records: list[Record], path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w") as f:
-        for record in records:
-            f.write(json.dumps(record, ensure_ascii=False) + "\n")
-
-
-def write_json(payload: Record | list[Record], path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
+def source_hashes(*sources: Source) -> dict[str, str]:
+    return {source_label(source): sha256_of_file(source_path(source)) for source in sources}

@@ -15,7 +15,7 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from utils.cache_lock import CacheLockedError, acquire_writer_lock
+from experiments.common.cache_lock import CacheLockedError, acquire_writer_lock
 
 Record = dict[str, Any]
 
@@ -423,7 +423,7 @@ def laya_checkpoint_dir(repo_id: str, revision: str, subfolder: str) -> Path:
     if not isinstance(found, str):
         raise DecisionModelError(
             f"{repo_id}@{revision} {subfolder or 'root'}: checkpoint not in the local Hugging Face "
-            "cache; run python -m utils.nli_verifier_experiments fetch"
+            "cache; run python -m experiments.verifier.nli_experiments fetch"
         )
     directory = Path(found).parent
     snapshot = directory.parent if subfolder else directory

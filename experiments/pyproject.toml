@@ -1,11 +1,12 @@
 [project]
-name = "challenge"
-version = "0.1.0"
+name = "bookworm-experiments"
+version = "1.0.0"
 description = "Experiments, analyses and reproducible artifacts of bookworm on the PublicHearingBR dataset"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
+    "bookworm[embeddings,profiles]",
     "accelerate>=1.15.0",
     "huggingface-hub>=1.24.0",
     "jinja2>=3.1.6",
@@ -21,6 +22,16 @@ dependencies = [
     "sentencepiece>=0.2.2",
 ]
 
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "experiments"
+
+[tool.uv.sources]
+bookworm = { path = "../bookworm", editable = true }
+
 [dependency-groups]
 dev = [
     "ipykernel>=7.3.0",
@@ -33,22 +44,21 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-extend-exclude = ["*.ipynb", "mlx_alternative/runs"]
+extend-exclude = ["*.ipynb"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
 
 [tool.ruff.lint.per-file-ignores]
-"utils/cache_lock.py" = ["SIM115"]
+"src/experiments/common/cache_lock.py" = ["SIM115"]
 "tests/test_cache_lock.py" = ["SIM115"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["utils", "mlx_alternative"]
+known-first-party = ["experiments"]
 
 [tool.mypy]
 python_version = "3.12"
-files = ["utils", "mlx_alternative"]
-exclude = ["mlx_alternative/runs/"]
+files = ["src"]
 disallow_untyped_defs = true
 check_untyped_defs = true
 warn_redundant_casts = true
@@ -61,4 +71,3 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]

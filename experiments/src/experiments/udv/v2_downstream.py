@@ -7,9 +7,13 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from utils import actor_simulation, evaluate_actor_simulation
-from utils.dataset_io import Record, load_jsonl, module_path, sha256_of_file, write_json
-from utils.generate_actor_profiles import hearing_metadata
+from bookworm import load_jsonl, sha256_of_file, write_json
+
+from experiments.actors import evaluate_simulation, simulation
+from experiments.actors.generate_profiles import hearing_metadata
+from experiments.common.provenance import source_hashes
+
+Record = dict[str, Any]
 
 SPEECH_FILES = (
     Path("artifacts/cache/hearing_actors/actors_single_hearing.jsonl"),
@@ -18,7 +22,7 @@ SPEECH_FILES = (
 TRAIN_SPEECHES = Path("artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl")
 MANIFEST = Path("artifacts/splits/temporal_v1.json")
 SIMULATION_CONFIG = Path("configs/actor_simulation.toml")
-PROFILES = Path("mlx_alternative/runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl")
+PROFILES = Path("artifacts/mlx_runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl")
 LINKS_V2 = Path("artifacts/udv/udv_v2_actor_links.jsonl")
 OUTPUT = Path("artifacts/udv/udv_v2_downstream_report.json")
 RUNS = {"udv_v1": Path("artifacts/udv/udv_v1.jsonl"), "udv_v2": Path("artifacts/udv/udv_v2.jsonl")}
@@ -68,7 +72,7 @@ def evidence_turn_links(
 ) -> dict[str, str]:
     links: dict[str, str] = {}
     for udv in udvs:
-        actor = actor_simulation.udv_owner(udv, owners)
+        actor = simulation.udv_owner(udv, owners)
         if actor is not None:
             links[udv["id"]] = actor
     return links
@@ -148,15 +152,15 @@ def split_tier_counts(udvs: Iterable[Record], hearing_split: Mapping[int, str]) 
 
 
 def simulation_questions(udv_path: Path, profiles_path: Path) -> dict[str, list[Record]]:
-    config = actor_simulation.load_config(SIMULATION_CONFIG)
-    profiles = actor_simulation.load_profiles(profiles_path, None)
+    config = simulation.load_config(SIMULATION_CONFIG)
+    profiles = simulation.load_profiles(profiles_path, None)
     metadata = hearing_metadata(config.lds_path, config.lds_sha256)
-    owners = actor_simulation.turn_owners(load_jsonl(config.speeches_path))
+    owners = simulation.turn_owners(load_jsonl(config.speeches_path))
     udvs = load_jsonl(udv_path)
     return {
-        split: evaluate_actor_simulation.build_questions(
-            config, split, profiles, udvs, owners, metadata
-        )[0]
+        split: evaluate_simulation.build_questions(config, split, profiles, udvs, owners, metadata)[
+            0
+        ]
         for split in (config.selection_split, config.eval_split)
     }
 
@@ -303,13 +307,13 @@ ARTIFACTS = (
             "udv_v2": "artifacts/actor_simulation/udv_v2_dry_run_evaluation.json",
         },
         ("prompt_version", "inputs", "splits"),
-        "the udv_v1 counts are the evaluation.json counts of mlx_alternative/runs/qwen38_27b; see"
+        "the udv_v1 counts are the evaluation.json counts of artifacts/mlx_runs/qwen38_27b; see"
         " question_overlap for the per question comparison",
     ),
     Artifact(
         "simulation_evaluation_model_run",
         {
-            "udv_v1": "mlx_alternative/runs/qwen38_27b/actor_simulation/evaluation.json",
+            "udv_v1": "artifacts/mlx_runs/qwen38_27b/actor_simulation/evaluation.json",
             "udv_v2": None,
         },
         (
@@ -322,7 +326,7 @@ ARTIFACTS = (
             "evaluation.differences",
         ),
         "the udv_v2 model run is the colleague command below; its runs_dir is"
-        " mlx_alternative/runs/udv_v2",
+        " artifacts/mlx_runs/udv_v2",
     ),
     Artifact(
         "simulation_requests_dry_run",
@@ -376,7 +380,7 @@ SUPPLEMENT = {
     "path": "artifacts/validation/human_validation_v1_udv_v2_supplement/annotation.csv",
     "key": "artifacts/validation/human_validation_v1_udv_v2_supplement/annotation_key.json",
     "score_command": (
-        "uv run python -m utils.udv_v2_analysis score-annotation --final-test --annotation"
+        "uv run python -m experiments.udv.v2_analysis score-annotation --final-test --annotation"
         " artifacts/validation/human_validation_v1_udv_v1/annotation.csv --supplement-dir"
         " artifacts/validation/human_validation_v1_udv_v2_supplement"
     ),
@@ -424,9 +428,8 @@ def supplement_section() -> Record:
 
 
 def code_hashes() -> dict[str, str]:
-    modules = (actor_simulation, evaluate_actor_simulation)
-    paths = [Path(__file__), *(module_path(module) for module in modules)]
-    return {f"utils/{path.name}": sha256_of_file(path) for path in paths}
+    modules = (simulation, evaluate_simulation)
+    return source_hashes(Path(__file__), *modules)
 
 
 def build_report(profiles_path: Path) -> Record:
@@ -434,7 +437,7 @@ def build_report(profiles_path: Path) -> Record:
         hearing_split = split_of(json.load(f))
     owners: dict[tuple[int, int], str] = {}
     for speech_file in SPEECH_FILES:
-        owners.update(actor_simulation.turn_owners(load_jsonl(speech_file)))
+        owners.update(simulation.turn_owners(load_jsonl(speech_file)))
     profiled = {record["actor"] for record in load_jsonl(TRAIN_SPEECHES)}
     library = library_links(LINKS_V2)
     runs: Record = {}

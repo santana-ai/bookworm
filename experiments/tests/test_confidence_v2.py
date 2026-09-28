@@ -4,9 +4,9 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from utils import confidence_v2 as cv
-from utils import grounding_scorers as gs
-from utils.nli_verifier_experiments import PremiseUnit
+from experiments.verifier import confidence_v2 as cv
+from experiments.verifier import grounding_scorers as gs
+from experiments.verifier.nli_experiments import PremiseUnit
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs" / "confidence_v2.toml"

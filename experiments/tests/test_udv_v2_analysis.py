@@ -5,10 +5,10 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from utils import calibrate_udv_v2 as calibration
-from utils import udv_v2_analysis as analysis
-from utils.calibrate_threshold import CalibrationConfig
-from utils.generate_validation_sample import CSV_COLUMNS
+from experiments.udv import calibrate_v2 as calibration
+from experiments.udv import v2_analysis as analysis
+from experiments.udv.calibrate_threshold import CalibrationConfig
+from experiments.validation.generate_sample import CSV_COLUMNS
 
 
 def udv(udv_id: str, tier: str, text: str | None, start: int = 0, prefix: str | None = None):

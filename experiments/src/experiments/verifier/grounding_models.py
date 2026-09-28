@@ -17,7 +17,7 @@ from transformers import (
     T5ForTokenClassification,
 )
 
-from utils.grounding_scorers import (
+from experiments.verifier.grounding_scorers import (
     ALIGNSCORE_IGNORED_KEYS,
     HHEM_PROMPT,
     MINICHECK_LABEL_IDS,

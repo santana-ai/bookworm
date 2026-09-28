@@ -3,12 +3,12 @@ import dataclasses
 from pathlib import Path
 
 import pytest
+from bookworm import write_json
 
-from utils import nli_verifier_experiments as e3
-from utils import translation
-from utils.dataset_io import write_json
-from utils.decision_models import AnswerCache, FakeDecisionModel, choice_question
-from utils.translation import Segmenter, TranslationOutput, TranslationStore
+from experiments.verifier import nli_experiments as e3
+from experiments.verifier import translation
+from experiments.verifier.decision_models import AnswerCache, FakeDecisionModel, choice_question
+from experiments.verifier.translation import Segmenter, TranslationOutput, TranslationStore
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier.toml"
 SIGNATURE = {"model": "fake/translator", "revision": "0" * 40}

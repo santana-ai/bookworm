@@ -7,17 +7,17 @@ from typing import Any
 import mlx.core as mx
 from mlx_lm.models.cache import make_prompt_cache
 
-from mlx_alternative.backend import MLXSimulationModel, engine_for, log_softmax
-from mlx_alternative.run import SMOKE_OPTIONS
-from mlx_alternative.settings import (
+from experiments.actors.evaluate_simulation import rotations
+from experiments.actors.simulation import LETTERS, Material, chat_messages, load_prompts, render
+from experiments.mlx.backend import MLXSimulationModel, engine_for, log_softmax
+from experiments.mlx.run import SMOKE_OPTIONS
+from experiments.mlx.settings import (
     DEFAULT_SETTINGS,
     activate_model,
     load_settings,
     model_spec,
     run_paths,
 )
-from utils.actor_simulation import LETTERS, Material, chat_messages, load_prompts, render
-from utils.evaluate_actor_simulation import rotations
 
 Record = dict[str, Any]
 

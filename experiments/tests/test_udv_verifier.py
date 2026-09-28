@@ -3,14 +3,14 @@ from types import SimpleNamespace
 
 import numpy as np
 import pytest
+from bookworm import write_jsonl
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-from utils import nli_verifier_exploration as exploration
-from utils import udv_verifier as uv
-from utils.dataset_io import write_jsonl
-from utils.nli_verifier_experiments import PremiseUnit, ScorerSpec
-from utils.nli_verifier_exploration import (
+from experiments.verifier import nli_exploration as exploration
+from experiments.verifier import udv_verifier as uv
+from experiments.verifier.nli_experiments import PremiseUnit, ScorerSpec
+from experiments.verifier.nli_exploration import (
     BATTERY_SIGNALS,
     Candidate,
     check_reading,

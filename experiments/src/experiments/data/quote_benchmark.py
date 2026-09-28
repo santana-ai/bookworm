@@ -11,10 +11,11 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from bookworm import load_gated_jsonl, sha256_of_file, write_json, write_jsonl
 
-from utils import udv_pipeline
-from utils.dataset_io import load_gated_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.udv_pipeline import (
+from experiments.common import transcript
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import (
     MIN_SENTENCE_WORDS,
     QUOTE_PATTERNS,
     SENTENCE_BOUNDARY_PATTERN,
@@ -565,8 +566,8 @@ def build_report(
             "sha256": sha256_of_file(artifact_path),
         },
         "code": {
-            "utils/udv_pipeline.py": sha256_of_file(Path(udv_pipeline.__file__)),
-            "utils/build_quote_benchmark.py": sha256_of_file(Path(__file__)),
+            **source_hashes(transcript, *transcript.SOURCES),
+            **source_hashes(Path(__file__)),
         },
         "timing": {"elapsed_seconds": round(elapsed_seconds, 1)},
         "environment": {

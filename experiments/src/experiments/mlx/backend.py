@@ -10,8 +10,8 @@ from mlx_lm import load
 from mlx_lm.models.cache import make_prompt_cache
 from mlx_lm.sample_utils import make_sampler
 
-from utils.actor_simulation import Generation, letter_token_ids
-from utils.generate_actor_profiles import THINK_PATTERN, ChatResult, ProfilesConfig
+from experiments.actors.generate_profiles import THINK_PATTERN, ChatResult, ProfilesConfig
+from experiments.actors.simulation import Generation, letter_token_ids
 
 Record = dict[str, Any]
 Sampler = Callable[[mx.array], mx.array]

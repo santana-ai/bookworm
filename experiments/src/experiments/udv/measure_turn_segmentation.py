@@ -8,10 +8,11 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from utils import udv_pipeline
-from utils.build_udvs import load_config, load_lds_records
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.udv_pipeline import (
+from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
+
+from experiments.common import transcript
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import (
     DOUBLE_QUOTE_PATTERNS,
     SENTENCE_BOUNDARY_PATTERN,
     find_opinion_turn_quote_match,
@@ -27,6 +28,7 @@ from utils.udv_pipeline import (
     token_jaccard,
     turn_text,
 )
+from experiments.common.udv_run import load_config, load_lds_records
 
 Record = dict[str, Any]
 
@@ -549,8 +551,8 @@ def main() -> None:
     }
     summary["code"] = {
         str(args.legacy_pipeline): sha256_of_file(args.legacy_pipeline),
-        "utils/udv_pipeline.py": sha256_of_file(Path(udv_pipeline.__file__)),
-        "utils/measure_turn_segmentation.py": sha256_of_file(Path(__file__)),
+        **source_hashes(transcript, *transcript.SOURCES),
+        **source_hashes(Path(__file__)),
     }
     summary["elapsed_seconds"] = round(time.perf_counter() - started, 1)
     write_json(summary, config.output_dir / f"{args.output_name}_summary.json")

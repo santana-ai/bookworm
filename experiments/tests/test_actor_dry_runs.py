@@ -2,8 +2,8 @@ import json
 from datetime import date
 from pathlib import Path
 
-from utils import actor_simulation
-from utils import generate_actor_profiles as profiles
+from experiments.actors import generate_profiles as profiles
+from experiments.actors import simulation
 
 
 def profiles_config(tmp_path: Path, speeches: Path) -> profiles.ProfilesConfig:
@@ -58,6 +58,6 @@ def test_profile_dry_run_hashes_the_rendered_prompts(tmp_path):
 
 
 def test_canonical_sha256_ignores_key_order():
-    first = actor_simulation.canonical_sha256({"a": 1, "b": [1, 2]})
-    assert first == actor_simulation.canonical_sha256({"b": [1, 2], "a": 1})
+    first = simulation.canonical_sha256({"a": 1, "b": [1, 2]})
+    assert first == simulation.canonical_sha256({"b": [1, 2], "a": 1})
     assert len(first) == 64

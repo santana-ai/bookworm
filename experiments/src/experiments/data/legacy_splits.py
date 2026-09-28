@@ -1,9 +1,20 @@
-import argparse
-import platform
+"""The split and date functions the splits notebook was written against, kept for that notebook.
+
+``notebooks/splits.ipynb`` explores the temporal split with these dict-based functions, which
+predate the library. The split itself is built and checked by ``bookworm build-splits`` and
+``bookworm verify-splits`` (``bookworm.data.splits``, ``bookworm.data.dates`` and
+``bookworm.data.verify_splits``), which reproduce ``artifacts/splits/temporal_v1.json`` and its
+report; ``bookworm/tests/integration/test_parity_splits.py`` compares the library with these
+functions on the 206 hearings. Only the functions the notebook and that test call are kept; the
+command-line entry points were removed with the scripts they belonged to.
+"""
+
+import re
 import tomllib
+import unicodedata
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
-from datetime import UTC, date, datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -11,16 +22,99 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from utils.dataset_io import load_gated_jsonl, load_jsonl, write_json
-from utils.hearing_dates import article_date, check_article_date
-
 Record = dict[str, Any]
 
-SPLIT_NAMES = ("train", "validation", "test")
-GROUPING_METHOD = (
-    "temporal: hearings ordered by the article publication date extracted from materia, "
-    "cut at dates whose gap to the next dated hearing is at least min_boundary_gap_days"
+TIMESTAMP_PATTERN = re.compile(r"(\d{2})/(\d{2})/(\d{4})\s*-\s*(\d{2}):(\d{2})")
+UPDATED_AT_PATTERN = re.compile(
+    r"Atualizado\s+em\s+(\d{2})/(\d{2})/(\d{4})\s*-\s*(\d{2}):(\d{2})", re.IGNORECASE
 )
+WEEKDAY_MENTION_PATTERN = re.compile(
+    r"(nest[ae]\s+)?(segunda|ter[cç]a|quarta|quinta|sexta)-feira\s*\((\d{1,2})\)", re.IGNORECASE
+)
+WEEKDAY_INDEX = {"segunda": 0, "terca": 1, "quarta": 2, "quinta": 3, "sexta": 4}
+MENTION_LOOKBACK_DAYS = 30
+
+
+def strip_accents(text: str) -> str:
+    return "".join(
+        character
+        for character in unicodedata.normalize("NFD", text)
+        if unicodedata.category(character) != "Mn"
+    )
+
+
+def parse_timestamp(match: re.Match[str]) -> datetime:
+    day, month, year, hour, minute = (int(group) for group in match.groups())
+    return datetime(year, month, day, hour, minute)
+
+
+def updated_spans(article: str) -> list[tuple[int, int]]:
+    return [(match.start(1), match.end(5)) for match in UPDATED_AT_PATTERN.finditer(article)]
+
+
+def published_at(article: str) -> datetime | None:
+    skip = updated_spans(article)
+    for match in TIMESTAMP_PATTERN.finditer(article):
+        if any(start <= match.start() < end for start, end in skip):
+            continue
+        return parse_timestamp(match)
+    return None
+
+
+def updated_at(article: str) -> datetime | None:
+    match = UPDATED_AT_PATTERN.search(article)
+    return parse_timestamp(match) if match else None
+
+
+def article_date(article: str) -> date | None:
+    published = published_at(article)
+    return published.date() if published else None
+
+
+def weekday_mentions(article: str) -> list[Record]:
+    return [
+        {
+            "text": match.group(0).strip(),
+            "names_current_event": match.group(1) is not None,
+            "weekday": WEEKDAY_INDEX[strip_accents(match.group(2)).lower()],
+            "day_of_month": int(match.group(3)),
+        }
+        for match in WEEKDAY_MENTION_PATTERN.finditer(article)
+    ]
+
+
+def resolve_mention_date(reference: date, day_of_month: int) -> date | None:
+    for offset in range(MENTION_LOOKBACK_DAYS + 1):
+        candidate = date.fromordinal(reference.toordinal() - offset)
+        if candidate.day == day_of_month:
+            return candidate
+    return None
+
+
+def check_weekday_mention(reference: date, mention: Record) -> Record:
+    resolved = resolve_mention_date(reference, mention["day_of_month"])
+    return {
+        "text": mention["text"],
+        "names_current_event": mention["names_current_event"],
+        "resolved_date": resolved.isoformat() if resolved else None,
+        "lag_days": reference.toordinal() - resolved.toordinal() if resolved else None,
+        "weekday_agrees": resolved is not None and resolved.weekday() == mention["weekday"],
+    }
+
+
+def check_article_date(article: str) -> Record:
+    reference = article_date(article)
+    if reference is None:
+        return {"article_date": None, "updated_at": None, "mentions": []}
+    updated = updated_at(article)
+    return {
+        "article_date": reference.isoformat(),
+        "updated_at": updated.isoformat() if updated else None,
+        "mentions": [check_weekday_mention(reference, m) for m in weekday_mentions(article)],
+    }
+
+
+SPLIT_NAMES = ("train", "validation", "test")
 
 
 @dataclass(frozen=True)
@@ -153,32 +247,6 @@ def summarize_date_extraction(records: list[Record]) -> Record:
     }
 
 
-def summarize_split(
-    ids: list[int],
-    records_by_id: dict[int, Record],
-    dates: dict[int, date],
-    udvs_by_hearing: dict[int, list[Record]],
-    total_hearings: int,
-) -> Record:
-    days = [dates[hearing_id] for hearing_id in ids]
-    udvs = [udv for hearing_id in ids for udv in udvs_by_hearing.get(hearing_id, [])]
-    return {
-        "hearings": len(ids),
-        "share_of_hearings": round(len(ids) / total_hearings, 4),
-        "first_date": min(days).isoformat(),
-        "last_date": max(days).isoformat(),
-        "distinct_dates": len(set(days)),
-        "people": sum(len(records_by_id[i]["metadados"]["envolvidos"]) for i in ids),
-        "opinions": sum(
-            len(person["opinioes"])
-            for i in ids
-            for person in records_by_id[i]["metadados"]["envolvidos"]
-        ),
-        "udvs": len(udvs),
-        "udvs_by_tier": dict(sorted(Counter(udv["tier"] for udv in udvs).items())),
-    }
-
-
 def actor_overlap(groups: dict[str, list[int]], records_by_id: dict[int, Record]) -> Record:
     splits_by_actor: dict[str, set[str]] = defaultdict(set)
     for name, ids in groups.items():
@@ -228,112 +296,88 @@ def cross_split_similarity(
     }
 
 
-def build_manifest(
-    groups: dict[str, list[int]],
-    dates: dict[int, date],
-    boundaries: Record,
-    config: SplitConfig,
-) -> Record:
-    return {
-        "split_version": config.split_version,
-        "grouping_method": GROUPING_METHOD,
-        "seed": config.seed,
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
-        "dataset": {"path": str(config.lds_path), "sha256": config.expected_sha256},
-        "date_field": "first DD/MM/YYYY - HH:MM timestamp in materia (article publication)",
-        "boundaries": boundaries,
-        "train": groups["train"],
-        "validation": groups["validation"],
-        "test": groups["test"],
-        "article_dates": {str(i): dates[i].isoformat() for i in sorted(dates)},
+MANIFEST_KEYS = ("split_version", "grouping_method", "seed", "train", "validation", "test")
+
+
+def check_manifest_shape(manifest: Record) -> list[str]:
+    problems = [f"missing_key:{key}" for key in MANIFEST_KEYS if key not in manifest]
+    for name in SPLIT_NAMES:
+        ids = manifest.get(name)
+        if ids is not None and not all(isinstance(i, int) for i in ids):
+            problems.append(f"non_integer_ids:{name}")
+    return problems
+
+
+def check_partition(manifest: Record, dates: dict[int, date]) -> list[str]:
+    assigned = [i for name in SPLIT_NAMES for i in manifest[name]]
+    problems: list[str] = []
+    for hearing_id, count in Counter(assigned).items():
+        if count > 1:
+            problems.append(f"duplicate_hearing:{hearing_id}")
+    for hearing_id in sorted(set(dates) - set(assigned)):
+        problems.append(f"unassigned_hearing:{hearing_id}")
+    for hearing_id in sorted(set(assigned) - set(dates)):
+        problems.append(f"unknown_hearing:{hearing_id}")
+    return problems
+
+
+def check_dates(manifest: Record, dates: dict[int, date]) -> list[str]:
+    recorded = manifest.get("article_dates", {})
+    problems: list[str] = []
+    if len(recorded) != len(dates):
+        problems.append(f"article_dates_size:{len(recorded)} != {len(dates)}")
+    for hearing_id, day in sorted(dates.items()):
+        if recorded.get(str(hearing_id)) != day.isoformat():
+            problems.append(f"article_date_mismatch:{hearing_id}")
+    return problems
+
+
+def check_chronology(manifest: Record, dates: dict[int, date], min_gap_days: int) -> list[str]:
+    ranges = {
+        name: (
+            min(dates[i] for i in manifest[name]),
+            max(dates[i] for i in manifest[name]),
+        )
+        for name in SPLIT_NAMES
+        if manifest[name]
     }
+    problems: list[str] = []
+    for earlier, later in (("train", "validation"), ("validation", "test")):
+        if earlier not in ranges or later not in ranges:
+            problems.append(f"empty_split:{earlier if earlier not in ranges else later}")
+            continue
+        gap = (ranges[later][0] - ranges[earlier][1]).days
+        if gap <= 0:
+            problems.append(f"not_chronological:{earlier}->{later}")
+        elif gap < min_gap_days:
+            problems.append(f"boundary_gap_below_minimum:{earlier}->{later}:{gap}")
+    days_by_split = defaultdict(set)
+    for name in SPLIT_NAMES:
+        for hearing_id in manifest[name]:
+            days_by_split[dates[hearing_id]].add(name)
+    for day, names in sorted(days_by_split.items()):
+        if len(names) > 1:
+            problems.append(f"date_straddles_splits:{day.isoformat()}")
+    return problems
 
 
-def build_report(
-    records: list[Record],
-    groups: dict[str, list[int]],
-    dates: dict[int, date],
-    boundaries: Record,
-    candidates: list[Record],
-    config: SplitConfig,
-) -> Record:
-    records_by_id = {record["id"]: record for record in records}
-    udvs_by_hearing: dict[int, list[Record]] = defaultdict(list)
-    if config.udv_path.exists():
-        for udv in load_jsonl(config.udv_path):
-            udvs_by_hearing[udv["hearing_id"]].append(udv)
-    return {
-        "split_version": config.split_version,
-        "created_at": datetime.now(UTC).isoformat(timespec="seconds"),
-        "date_extraction": summarize_date_extraction(records),
-        "calendar": {
-            "first_date": min(dates.values()).isoformat(),
-            "last_date": max(dates.values()).isoformat(),
-            "distinct_dates": len(set(dates.values())),
-            "hearings_per_date_max": max(Counter(dates.values()).values()),
-            "by_year": dict(sorted(Counter(day.year for day in dates.values()).items())),
-        },
-        "boundaries": boundaries,
-        "cut_candidates_considered": len(candidates),
-        "splits": {
-            name: summarize_split(groups[name], records_by_id, dates, udvs_by_hearing, len(records))
-            for name in SPLIT_NAMES
-        },
-        "leakage": {
-            "actors": actor_overlap(groups, records_by_id),
-            "near_duplicates": cross_split_similarity(groups, records_by_id, config),
-        },
-        "udv_source": str(config.udv_path) if config.udv_path.exists() else None,
-        "environment": {"python": platform.python_version(), "platform": platform.platform()},
-        "config": config.source,
-    }
-
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Build the temporal split manifest for the 206 hearings of the LDS file."
-    )
-    parser.add_argument("--config", type=Path, default=Path("configs/splits.toml"))
-    return parser.parse_args()
-
-
-def main() -> None:
-    args = parse_args()
-    config = load_config(args.config)
-    records = load_gated_jsonl(config.lds_path, config.expected_sha256)
-    dates = dates_by_hearing(records)
-
+def check_boundaries(manifest: Record, dates: dict[int, date], config: SplitConfig) -> list[str]:
     candidates = cut_candidates(dates, config.min_boundary_gap_days)
     train_cut = choose_boundary(candidates, config.train_fraction, None)
     validation_cut = choose_boundary(
         candidates, config.train_fraction + config.validation_fraction, train_cut["date"]
     )
-    groups = assign_splits(dates, train_cut["date"], validation_cut["date"])
-    boundaries = {
+    recomputed = {
         "train_end": train_cut["date"].isoformat(),
         "validation_start": train_cut["next_date"].isoformat(),
         "validation_end": validation_cut["date"].isoformat(),
         "test_start": validation_cut["next_date"].isoformat(),
         "train_gap_days": train_cut["gap_days"],
         "test_gap_days": validation_cut["gap_days"],
-        "train_fraction_reached": round(train_cut["fraction"], 4),
-        "validation_end_fraction_reached": round(validation_cut["fraction"], 4),
     }
-
-    manifest = build_manifest(groups, dates, boundaries, config)
-    report = build_report(records, groups, dates, boundaries, candidates, config)
-    write_json(manifest, config.output_dir / f"{config.split_version}.json")
-    write_json(report, config.output_dir / f"{config.split_version}_report.json")
-    for name in SPLIT_NAMES:
-        summary = report["splits"][name]
-        print(
-            f"{name:11s} {summary['hearings']:3d} hearings "
-            f"({summary['share_of_hearings']:.1%}) "
-            f"{summary['first_date']}..{summary['last_date']} "
-            f"{summary['udvs']:4d} udvs"
-        )
-    print(f"boundaries: {boundaries}")
-
-
-if __name__ == "__main__":
-    main()
+    recorded = manifest["boundaries"]
+    return [
+        f"boundary_mismatch:{key}: manifest {recorded.get(key)}, recomputed {value}"
+        for key, value in recomputed.items()
+        if recorded.get(key) != value
+    ]

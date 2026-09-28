@@ -8,16 +8,17 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from bookworm import load_jsonl, sha256_of_file
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.preprocessing import StandardScaler
 
-from utils.build_nli_benchmark import load_split_lookup
-from utils.calibrate_threshold import interval, rounded
-from utils.dataset_io import load_jsonl, sha256_of_file
-from utils.decision_scoring import bootstrap_p_value
-from utils.nli_verifier_experiments import (
+from experiments.common.stats import holm
+from experiments.data.nli_benchmark import load_split_lookup
+from experiments.udv.calibrate_threshold import interval, rounded
+from experiments.verifier.decision_scoring import bootstrap_p_value
+from experiments.verifier.nli_experiments import (
     binary_metrics,
     code_hashes,
     environment,
@@ -25,7 +26,6 @@ from utils.nli_verifier_experiments import (
     max_f1_not_inferable_optimum,
     now,
 )
-from utils.retrieval_stats import holm
 
 Record = dict[str, Any]
 

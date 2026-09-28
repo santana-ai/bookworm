@@ -16,35 +16,31 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Protocol
 
+import bookworm.data.io
 import huggingface_hub
 import numpy as np
 import tokenizers
 import torch
 import transformers
+from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file, write_json
 from huggingface_hub import snapshot_download
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, PreTrainedConfig
 
-from utils import (
-    build_nli_benchmark,
-    build_udvs,
-    cache_lock,
-    calibrate_threshold,
-    dataset_io,
-    hub_offline,
-    udv_pipeline,
-)
-from utils.build_nli_benchmark import iter_opinions
-from utils.build_udvs import seed_everything, select_device
-from utils.cache_lock import CacheLockedError, acquire_writer_lock
-from utils.calibrate_threshold import load_split_lookup
-from utils.dataset_io import load_gated_jsonl, load_jsonl, module_path, sha256_of_file, write_json
-from utils.hub_offline import enforce_offline, offline_state, pinned_weights_file
-from utils.udv_pipeline import (
+from experiments.common import cache_lock, hub_offline, transcript, udv_run
+from experiments.common.cache_lock import CacheLockedError, acquire_writer_lock
+from experiments.common.hub_offline import enforce_offline, offline_state, pinned_weights_file
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import (
     SENTENCE_BOUNDARY_PATTERN,
     is_sentence,
     normalize_whitespace,
     split_sentences,
 )
+from experiments.common.udv_run import seed_everything, select_device
+from experiments.data import nli_benchmark
+from experiments.data.nli_benchmark import iter_opinions
+from experiments.udv import calibrate_threshold
+from experiments.udv.calibrate_threshold import load_split_lookup
 
 Record = dict[str, Any]
 
@@ -508,8 +504,9 @@ class TranslationStore:
         if record is None:
             raise MissingTranslationError(
                 f"no translation of a {len(normalized)}-character text (key {key[:16]}) under "
-                f"signature {self.digest[:16]} in {self.path}; run python -m utils.translation "
-                f"translate --model {self.condition or '<the condition of this cache>'} for the "
+                f"signature {self.digest[:16]} in {self.path}; run python -m "
+                "experiments.verifier.translation translate --model "
+                f"{self.condition or '<the condition of this cache>'} for the "
                 "splits that contain it"
             )
         return record["translation"]
@@ -1181,16 +1178,16 @@ def estimate_from_plan(plan_path: Path, timing: Record) -> Record:
 @functools.cache
 def code_hashes() -> Record:
     modules = (
-        udv_pipeline,
-        build_udvs,
-        build_nli_benchmark,
+        transcript,
+        *transcript.SOURCES,
+        udv_run,
+        nli_benchmark,
         cache_lock,
         calibrate_threshold,
-        dataset_io,
+        bookworm.data.io,
         hub_offline,
     )
-    hashes = {f"utils/{module_path(m).name}": sha256_of_file(module_path(m)) for m in modules}
-    return {"utils/translation.py": sha256_of_file(Path(__file__)), **hashes}
+    return source_hashes(Path(__file__), *modules)
 
 
 def environment() -> Record:

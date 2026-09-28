@@ -7,11 +7,11 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from bookworm import write_json, write_jsonl
 
-from utils import nli_verifier_experiments as e3
-from utils.dataset_io import write_json, write_jsonl
-from utils.decision_models import FakeDecisionModel
-from utils.decision_scoring import apply_holm
+from experiments.verifier import nli_experiments as e3
+from experiments.verifier.decision_models import FakeDecisionModel
+from experiments.verifier.decision_scoring import apply_holm
 
 CONFIG = Path(__file__).resolve().parents[1] / "configs" / "nli_verifier.toml"
 JUDGES = ("prompt_1_gpt-4o-mini-2024-07-18", "prompt_2_deepseek-chat")

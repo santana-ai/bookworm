@@ -10,14 +10,14 @@ from typing import Any
 import yaml
 from huggingface_hub import snapshot_download
 
-from mlx_alternative.backend import BackendOptions, register_model
-from utils import build_actor_speeches, filter_actor_speeches
-from utils.download_dataset import download_public_hearing_br
+from experiments.actors import build_speeches, filter_speeches
+from experiments.data.download import download_public_hearing_br
+from experiments.mlx.backend import BackendOptions, register_model
 
 Record = dict[str, Any]
 
 MODELS_DIR_VARIABLE = "MLX_MODELS_DIR"
-DEFAULT_SETTINGS = Path("mlx_alternative/config.yaml")
+DEFAULT_SETTINGS = Path("configs/mlx.yaml")
 BASE_CONFIGS = Path("configs")
 DATASET_DIR = Path("dataset")
 
@@ -99,7 +99,7 @@ def activate_model(spec: ModelSpec) -> None:
     if not (spec.local_dir / "config.json").exists():
         raise SystemExit(
             f"{spec.repo} not found in {spec.local_dir}; download it with"
-            f" `python -m mlx_alternative.run download --model {spec.id}`, or set"
+            f" `python -m experiments.mlx.run download --model {spec.id}`, or set"
             f" {MODELS_DIR_VARIABLE} to the folder that holds <org>/<model>"
         )
     register_model(spec.repo, spec.local_dir)
@@ -221,14 +221,14 @@ def prepare_speeches(paths: RunPaths) -> None:
         download_public_hearing_br(DATASET_DIR)
     if not Path(hearing_actors["speeches"]["multi_hearing_path"]).exists():
         call_main(
-            "utils.build_actor_speeches",
-            build_actor_speeches.main,
+            "experiments.actors.build_speeches",
+            build_speeches.main,
             ["--config", str(paths.hearing_actors_config)],
         )
     if not Path(profiles["split_filter"]["speeches_path"]).exists():
         call_main(
-            "utils.filter_actor_speeches",
-            filter_actor_speeches.main,
+            "experiments.actors.filter_speeches",
+            filter_speeches.main,
             ["--config", str(paths.profiles_config)],
         )
 

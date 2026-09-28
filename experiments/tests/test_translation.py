@@ -4,8 +4,9 @@ from pathlib import Path
 
 import pytest
 
-from utils import translation
-from utils.translation import (
+from experiments.common.transcript import split_sentences
+from experiments.verifier import translation
+from experiments.verifier.translation import (
     DecodingSpec,
     MissingTranslationError,
     ModelSpec,
@@ -19,7 +20,6 @@ from utils.translation import (
     resolve_splits,
     translate_missing,
 )
-from utils.udv_pipeline import split_sentences
 
 MODEL = ModelSpec(
     role="primary",
@@ -92,7 +92,9 @@ def test_lookup_raises_clear_error_for_missing_text(tmp_path: Path) -> None:
     store = store_at(tmp_path)
     with pytest.raises(MissingTranslationError) as error:
         store.lookup("Uma frase que nunca foi traduzida.")
-    assert "python -m utils.translation translate --model <the condition" in str(error.value)
+    assert "python -m experiments.verifier.translation translate --model <the condition" in str(
+        error.value
+    )
     assert "Uma frase" not in str(error.value)
 
 

@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from utils.nli_verifier_exploration import (
+from experiments.verifier.nli_exploration import (
     Candidate,
     ScorerData,
     candidate_scores,

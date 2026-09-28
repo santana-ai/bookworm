@@ -9,7 +9,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, cast
 
-from utils.actor_simulation import (
+from bookworm import load_jsonl, write_json, write_jsonl
+
+from experiments.actors.generate_profiles import hearing_metadata
+from experiments.actors.simulation import (
     CHAIR_ROLE,
     DEFAULT_CONFIG,
     NO_BASIS,
@@ -39,9 +42,7 @@ from utils.actor_simulation import (
     turn_owners,
     turn_sentences,
 )
-from utils.dataset_io import load_jsonl, write_json, write_jsonl
-from utils.generate_actor_profiles import hearing_metadata
-from utils.udv_pipeline import (
+from experiments.common.transcript import (
     TRUSTED_PREFIX_WORDS,
     find_quote_match,
     is_trusted_quote,
@@ -479,7 +480,7 @@ def main() -> None:
         parser.error("set [model] name in the config, or pass --model")
     k = args.k if args.k is not None else selected_k(config)
     if k is None and not dry_run:
-        parser.error("run utils.evaluate_actor_simulation first, or pass --k")
+        parser.error("run experiments.actors.evaluate_simulation first, or pass --k")
     prompts = load_prompts(config.prompts_dir)
     profiles = load_profiles(config.profiles_path, args.actors)
     train_records = {

@@ -3,18 +3,18 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from utils.build_udvs import load_config as load_udv_config
-from utils.decision_models import DecisionQuestion, FakeDecisionModel, LayaSpec
-from utils.decision_scoring import BatteryQuestion
-from utils.retrieval_data import HearingData, Query, SpeakerContext, Unit
-from utils.retrieval_experiments import decision_rerank_spec, load_config
-from utils.retrieval_models import (
+from experiments.common.udv_run import load_config as load_udv_config
+from experiments.retrieval.data import HearingData, Query, SpeakerContext, Unit
+from experiments.retrieval.experiments import decision_rerank_spec, load_config
+from experiments.retrieval.models import (
     RERANK_OFFSET,
     DecisionRerankRetriever,
     Ranking,
     Runtime,
     order_by,
 )
+from experiments.verifier.decision_models import DecisionQuestion, FakeDecisionModel, LayaSpec
+from experiments.verifier.decision_scoring import BatteryQuestion
 
 CONFIG = Path("configs/retrieval_experiments.toml")
 TEXTS = ["zero", "um", "dois", "tres", "quatro", "cinco"]

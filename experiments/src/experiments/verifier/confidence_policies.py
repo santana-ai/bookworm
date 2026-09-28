@@ -14,30 +14,27 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+import bookworm.data.io
 import numpy as np
 import scipy
 import sklearn
+from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 from scipy.stats import rankdata
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import average_precision_score, roc_auc_score
 
-from utils import (
-    build_udvs,
-    calibrate_threshold,
-    dataset_io,
-    retrieval_data,
-    retrieval_experiments,
-    retrieval_models,
-    retrieval_stats,
-    retrieval_store,
-    udv_pipeline,
-)
-from utils.build_udvs import load_config as load_udv_config
-from utils.calibrate_threshold import load_split_lookup, youden_optimum
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.retrieval_data import BENCHES, SPLIT_NAMES, Query, Unit
-from utils.retrieval_experiments import (
+from experiments.common import stats as retrieval_stats
+from experiments.common import transcript, udv_run
+from experiments.common.provenance import source_hashes, source_label
+from experiments.common.stats import stream_rng
+from experiments.common.udv_run import load_config as load_udv_config
+from experiments.retrieval import data as retrieval_data
+from experiments.retrieval import experiments as retrieval_experiments
+from experiments.retrieval import models as retrieval_models
+from experiments.retrieval import store as retrieval_store
+from experiments.retrieval.data import BENCHES, SPLIT_NAMES, Query, Unit
+from experiments.retrieval.experiments import (
     ExperimentConfig,
     Workload,
     build_retriever,
@@ -47,7 +44,7 @@ from utils.retrieval_experiments import (
     retriever_ids,
     unit_mean_chars,
 )
-from utils.retrieval_models import (
+from experiments.retrieval.models import (
     DenseRetriever,
     Ranking,
     RerankRetriever,
@@ -56,8 +53,9 @@ from utils.retrieval_models import (
     Runtime,
     prefix_directory,
 )
-from utils.retrieval_stats import stream_rng
-from utils.retrieval_store import VectorStore, slug
+from experiments.retrieval.store import VectorStore, slug
+from experiments.udv import calibrate_threshold
+from experiments.udv.calibrate_threshold import load_split_lookup, youden_optimum
 
 Record = dict[str, Any]
 
@@ -71,10 +69,11 @@ ZERO_SPREAD_RELATIVE = 1.0e-12
 DEGENERATE_YOUDEN = 1.0e-12
 METRIC_CHECK_TOLERANCE = 1.0e-9
 CODE_MODULES = (
-    udv_pipeline,
-    build_udvs,
+    transcript,
+    *transcript.SOURCES,
+    udv_run,
     calibrate_threshold,
-    dataset_io,
+    bookworm.data.io,
     retrieval_data,
     retrieval_experiments,
     retrieval_models,
@@ -385,13 +384,7 @@ def environment() -> Record:
 
 
 def code_hashes() -> Record:
-    files = {
-        f"utils/{Path(module.__file__).name}": Path(module.__file__)
-        for module in CODE_MODULES
-        if module.__file__
-    }
-    files["utils/confidence_policies.py"] = Path(__file__)
-    return {name: sha256_of_file(path) for name, path in sorted(files.items())}
+    return dict(sorted(source_hashes(*CODE_MODULES, Path(__file__)).items()))
 
 
 def clean(value: Any) -> Any:
@@ -868,7 +861,7 @@ def collect_reports(run_dir: Path, names: list[str]) -> Record:
             "harness_rows_checked": report["harness_rows_checked"],
             "harness_run_reports": [item["path"] for item in report["harness_run_reports"]],
             "model_revisions": report["model_revisions"],
-            "code_sha256": report["code"].get("utils/confidence_policies.py"),
+            "code_sha256": report["code"].get(source_label(Path(__file__))),
         }
         if report["hearing_filter"] is not None:
             print(f"WARNING {name}: collected on hearings {report['hearing_filter']} only")
@@ -938,7 +931,7 @@ def command_pairs(args: argparse.Namespace, config: ConfidenceConfig) -> None:
         "--no-sync",
         "python",
         "-m",
-        "utils.nli_verifier_experiments",
+        "experiments.verifier.nli_experiments",
         "--config",
         str(config.nli_config_path),
         "pairs",

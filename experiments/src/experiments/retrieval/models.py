@@ -13,19 +13,24 @@ from rank_bm25 import BM25Okapi
 from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from utils.build_udvs import UdvConfig, cache_key
-from utils.decision_models import DecisionModel, LayaDecisionModel, LayaSpec, sha256_text
-from utils.decision_scoring import BatteryQuestion
-from utils.hub_offline import pinned_weights_file
-from utils.retrieval_data import (
+from experiments.common.hub_offline import pinned_weights_file
+from experiments.common.transcript import WORD_TOKEN_PATTERN, strip_accents
+from experiments.common.udv_run import UdvConfig, cache_key
+from experiments.retrieval.data import (
     HearingData,
     Query,
     SpeakerContext,
     Unit,
     context_key,
 )
-from utils.retrieval_store import VectorStore, pair_digest, slug, text_digest
-from utils.udv_pipeline import WORD_TOKEN_PATTERN, strip_accents
+from experiments.retrieval.store import VectorStore, pair_digest, slug, text_digest
+from experiments.verifier.decision_models import (
+    DecisionModel,
+    LayaDecisionModel,
+    LayaSpec,
+    sha256_text,
+)
+from experiments.verifier.decision_scoring import BatteryQuestion
 
 Record = dict[str, Any]
 

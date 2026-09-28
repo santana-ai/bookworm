@@ -8,10 +8,12 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from bookworm import load_jsonl, sha256_of_file, write_json, write_jsonl
 from sentence_transformers import SentenceTransformer
 
-from utils import calibrate_threshold as base
-from utils.build_udvs import (
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import normalize_whitespace
+from experiments.common.udv_run import (
     UdvConfig,
     load_config,
     load_encoder,
@@ -20,9 +22,8 @@ from utils.build_udvs import (
     seed_everything,
     select_device,
 )
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
-from utils.retrieval_data import SentenceSpan, locate_turn_sentences, window_units
-from utils.udv_pipeline import normalize_whitespace
+from experiments.retrieval.data import SentenceSpan, locate_turn_sentences, window_units
+from experiments.udv import calibrate_threshold as base
 
 Record = dict[str, Any]
 
@@ -345,7 +346,7 @@ def command_cosine(args: argparse.Namespace) -> None:
     ]
     report["adopted_threshold"] = results[adopted]["threshold"]
     report["adopted_threshold_rounded"] = results[adopted]["threshold_rounded"]
-    report["code"]["utils/calibrate_udv_v2.py"] = sha256_of_file(Path(__file__))
+    report["code"].update(source_hashes(Path(__file__)))
     write_json(report, config.output_dir / f"{config.version}.json")
     base.print_summary(report)
     print(f"adopted ({adopted}): {report['adopted_threshold']}", flush=True)
@@ -482,8 +483,8 @@ def command_verifier(args: argparse.Namespace) -> None:
             "splits": split_source,
         },
         "code": {
-            "utils/calibrate_udv_v2.py": sha256_of_file(Path(__file__)),
-            "utils/calibrate_threshold.py": sha256_of_file(Path(base.__file__)),
+            **source_hashes(Path(__file__)),
+            **source_hashes(base),
         },
     }
     output = Path(raw["output_path"])

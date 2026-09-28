@@ -5,8 +5,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from utils.dataset_io import load_gated_jsonl, write_json, write_jsonl
-from utils.udv_pipeline import (
+from bookworm import load_gated_jsonl, write_json, write_jsonl
+
+from experiments.common.transcript import (
     STAGE_DIRECTION_PATTERN,
     is_party_info,
     normalize_name,

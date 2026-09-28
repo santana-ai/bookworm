@@ -12,6 +12,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+import bookworm.data.io
 import huggingface_hub
 import numpy as np
 import rank_bm25
@@ -20,35 +21,19 @@ import sentence_transformers
 import sklearn
 import torch
 import transformers
+from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file, write_json, write_jsonl
 
-from utils import (
-    build_udvs,
-    calibrate_threshold,
-    dataset_io,
-    decision_models,
-    decision_scoring,
-    hub_offline,
-    retrieval_data,
-    retrieval_models,
-    retrieval_stats,
-    retrieval_store,
-    udv_pipeline,
-)
-from utils.build_udvs import load_config as load_udv_config
-from utils.build_udvs import seed_everything, select_device
-from utils.calibrate_threshold import load_split_lookup
-from utils.dataset_io import (
-    load_gated_jsonl,
-    load_jsonl,
-    module_path,
-    sha256_of_file,
-    write_json,
-    write_jsonl,
-)
-from utils.decision_models import LayaSpec
-from utils.decision_scoring import BatteryError, parse_battery
-from utils.hub_offline import enforce_offline, offline_environment, offline_state
-from utils.retrieval_data import (
+from experiments.common import hub_offline, transcript, udv_run
+from experiments.common import stats as retrieval_stats
+from experiments.common.hub_offline import enforce_offline, offline_environment, offline_state
+from experiments.common.provenance import source_hashes
+from experiments.common.stats import bootstrap_mean, holm, mcnemar_exact, sign_flip_test, stream_rng
+from experiments.common.udv_run import load_config as load_udv_config
+from experiments.common.udv_run import seed_everything, select_device
+from experiments.retrieval import data as retrieval_data
+from experiments.retrieval import models as retrieval_models
+from experiments.retrieval import store as retrieval_store
+from experiments.retrieval.data import (
     BENCHES,
     SPLIT_NAMES,
     UNIT_KINDS,
@@ -59,7 +44,7 @@ from utils.retrieval_data import (
     get_context,
     load_hearing,
 )
-from utils.retrieval_models import (
+from experiments.retrieval.models import (
     Bm25Retriever,
     DecisionRerankRetriever,
     DecisionRerankSpec,
@@ -73,7 +58,11 @@ from utils.retrieval_models import (
     Runtime,
     TfidfRetriever,
 )
-from utils.retrieval_stats import bootstrap_mean, holm, mcnemar_exact, sign_flip_test, stream_rng
+from experiments.udv import calibrate_threshold
+from experiments.udv.calibrate_threshold import load_split_lookup
+from experiments.verifier import decision_models, decision_scoring
+from experiments.verifier.decision_models import LayaSpec
+from experiments.verifier.decision_scoring import BatteryError, parse_battery
 
 Record = dict[str, Any]
 
@@ -82,10 +71,11 @@ RETRIEVER_KINDS = (*SPARSE_KINDS, "dense", "rrf", "rerank", "decision_rerank")
 DECISION_TRUNCATED_KEY = "premise"
 FIT_SCOPES = ("speaker", "hearing")
 CODE_MODULES = (
-    udv_pipeline,
-    build_udvs,
+    transcript,
+    *transcript.SOURCES,
+    udv_run,
     calibrate_threshold,
-    dataset_io,
+    bookworm.data.io,
     decision_models,
     decision_scoring,
     hub_offline,
@@ -552,9 +542,7 @@ def environment() -> Record:
 
 
 def code_hashes() -> Record:
-    files = {f"utils/{module_path(module).name}": module_path(module) for module in CODE_MODULES}
-    files["utils/retrieval_experiments.py"] = Path(__file__)
-    return {name: sha256_of_file(path) for name, path in sorted(files.items())}
+    return dict(sorted(source_hashes(*CODE_MODULES, Path(__file__)).items()))
 
 
 def run_name_for(args: argparse.Namespace, config: ExperimentConfig) -> str:
@@ -1082,7 +1070,7 @@ def print_summary(summaries: Record) -> None:
 
 
 def queue_commands(args: argparse.Namespace, config: ExperimentConfig) -> list[list[str]]:
-    base = [sys.executable, "-m", "utils.retrieval_experiments"]
+    base = [sys.executable, "-m", "experiments.retrieval.experiments"]
     shared = ["--config", str(args.config)]
     if args.run_name:
         shared += ["--run-name", args.run_name]

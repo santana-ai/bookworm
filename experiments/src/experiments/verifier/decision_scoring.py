@@ -7,14 +7,14 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-from utils.decision_models import (
+from experiments.common.stats import holm
+from experiments.verifier.decision_models import (
     DecisionAnswer,
     DecisionQuestion,
     choice_question,
     noul_question,
     score_question,
 )
-from utils.retrieval_stats import holm
 
 Record = dict[str, Any]
 

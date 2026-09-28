@@ -7,8 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from utils.build_splits import SPLIT_NAMES
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
+from bookworm import SPLIT_NAMES, load_jsonl, sha256_of_file, write_json, write_jsonl
 
 Record = dict[str, Any]
 

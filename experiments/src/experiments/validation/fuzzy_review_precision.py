@@ -7,13 +7,15 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+import bookworm.data.io
 import numpy as np
 import rapidfuzz
 import scipy
+from bookworm import load_jsonl, sha256_of_file, write_json
 
-from utils import dataset_io, fuzzy_matching_experiments, generate_validation_sample
-from utils.dataset_io import load_jsonl, sha256_of_file, write_json
-from utils.fuzzy_matching_experiments import (
+from experiments.common.provenance import source_hashes
+from experiments.udv import fuzzy_matching
+from experiments.udv.fuzzy_matching import (
     DISPLAY_FIELDS,
     NAME_METRICS,
     QUOTE_METHODS,
@@ -28,7 +30,8 @@ from utils.fuzzy_matching_experiments import (
     resolved_names,
     rounded,
 )
-from utils.generate_validation_sample import canonical_sha256, wilson_interval
+from experiments.validation import generate_sample
+from experiments.validation.generate_sample import canonical_sha256, wilson_interval
 
 Record = dict[str, Any]
 Entry = tuple[int, str | None]
@@ -40,7 +43,7 @@ def run_name_for(config: FuzzyConfig, final_test: bool) -> str:
 
 def load_key(path: Path, kind: str, final_test: bool) -> Record:
     if not path.exists():
-        raise SystemExit(f"{path} does not exist; run utils.fuzzy_matching_experiments first")
+        raise SystemExit(f"{path} does not exist; run experiments.udv.fuzzy_matching first")
     with open(path) as f:
         key: Record = json.load(f)
     if key.get("role") != f"fuzzy_{kind}_review_key":
@@ -308,14 +311,10 @@ def main() -> None:
         "names": precision["names"],
         "name_metrics": list(NAME_METRICS),
         "code": {
-            "utils/fuzzy_review_precision.py": sha256_of_file(Path(__file__)),
-            "utils/fuzzy_matching_experiments.py": sha256_of_file(
-                Path(fuzzy_matching_experiments.__file__)
-            ),
-            "utils/generate_validation_sample.py": sha256_of_file(
-                Path(generate_validation_sample.__file__)
-            ),
-            "utils/dataset_io.py": sha256_of_file(Path(dataset_io.__file__)),
+            **source_hashes(Path(__file__)),
+            **source_hashes(fuzzy_matching),
+            **source_hashes(generate_sample),
+            **source_hashes(bookworm.data.io),
         },
         "timing": {"elapsed_seconds": round(time.perf_counter() - started, 1)},
         "environment": {

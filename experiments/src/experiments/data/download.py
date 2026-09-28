@@ -3,10 +3,12 @@ from pathlib import Path
 
 from huggingface_hub import snapshot_download
 
+from experiments.common.provenance import PROJECT_DIR
+
 REPO_ID = "unicamp-dl/PublicHearingBR"
 ALLOW_PATTERNS = ["*.jsonl", "*.md", "*.py"]
 DEFAULT_REVISION = "2f84a44bc34df483e25c987f0ff86caad0ab3433"
-DEFAULT_TARGET_DIR = Path(__file__).resolve().parent.parent / "dataset"
+DEFAULT_TARGET_DIR = PROJECT_DIR / "dataset"
 
 
 def download_public_hearing_br(target_dir: Path, revision: str = DEFAULT_REVISION) -> Path:

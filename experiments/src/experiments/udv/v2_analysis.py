@@ -7,11 +7,18 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from bookworm import load_gated_jsonl, load_jsonl, sha256_of_file, write_json
 from sklearn.metrics import cohen_kappa_score
 
-from utils import precision_report as precision
-from utils.dataset_io import load_gated_jsonl, load_jsonl, sha256_of_file, write_json
-from utils.generate_validation_sample import (
+from experiments.common.provenance import source_hashes
+from experiments.common.transcript import (
+    SENTENCE_BOUNDARY_PATTERN,
+    extract_quotes,
+    quote_prefix_pattern,
+    quote_prefixes,
+)
+from experiments.validation import precision_report as precision
+from experiments.validation.generate_sample import (
     ANNOTATION_CSV,
     ANNOTATION_KEY,
     CSV_COLUMNS,
@@ -32,12 +39,6 @@ from utils.generate_validation_sample import (
     wilson_interval,
     write_annotation_csv,
     write_transcripts,
-)
-from utils.udv_pipeline import (
-    SENTENCE_BOUNDARY_PATTERN,
-    extract_quotes,
-    quote_prefix_pattern,
-    quote_prefixes,
 )
 
 Record = dict[str, Any]
@@ -571,7 +572,7 @@ def command_analyze(args: argparse.Namespace) -> None:
             for name, path in paths.items()
             if path.is_file()
         },
-        "code": {"utils/udv_v2_analysis.py": sha256_of_file(Path(__file__))},
+        "code": source_hashes(Path(__file__)),
     }
     write_json(report, Path(args.output))
     key = load_key(paths["sample_dir"] / ANNOTATION_KEY, "annotation")
@@ -808,7 +809,7 @@ def supplement_key(
         "strata": key["strata"],
         "criteria": key["criteria"],
         "criteria_sha256": key["criteria_sha256"],
-        "code": {"utils/udv_v2_analysis.py": sha256_of_file(Path(__file__))},
+        "code": source_hashes(Path(__file__)),
     }
 
 
@@ -1183,8 +1184,8 @@ def command_score(args: argparse.Namespace) -> None:
             ),
         },
         "code": {
-            "utils/udv_v2_analysis.py": sha256_of_file(Path(__file__)),
-            "utils/precision_report.py": sha256_of_file(Path(precision.__file__)),
+            **source_hashes(Path(__file__)),
+            **source_hashes(precision),
         },
     }
     if combined is not None:

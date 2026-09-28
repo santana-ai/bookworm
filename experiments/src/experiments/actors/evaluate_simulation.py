@@ -11,8 +11,10 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from bookworm import load_jsonl, write_json, write_jsonl
 
-from utils.actor_simulation import (
+from experiments.actors.generate_profiles import hearing_metadata
+from experiments.actors.simulation import (
     DEFAULT_CONFIG,
     LETTERS,
     Material,
@@ -38,9 +40,7 @@ from utils.actor_simulation import (
     turn_owners,
     udv_owner,
 )
-from utils.dataset_io import load_jsonl, write_json, write_jsonl
-from utils.generate_actor_profiles import hearing_metadata
-from utils.udv_pipeline import load_encoder_spec, normalize_name, normalize_whitespace
+from experiments.common.transcript import load_encoder_spec, normalize_name, normalize_whitespace
 
 Record = dict[str, Any]
 

@@ -4,8 +4,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from utils.decision_models import DecisionAnswer
-from utils.decision_scoring import (
+from experiments.verifier.decision_models import DecisionAnswer
+from experiments.verifier.decision_scoring import (
     BatteryError,
     apply_holm,
     bootstrap_p_value,
