@@ -9,6 +9,21 @@ A demonstração fica em [`app/`](app/): a lista das 206 matérias e a rede de b
 audiência. Os protótipos visuais usados para escolher essa direção ficaram só no histórico do Git
 (pasta `bookworm/web/mockups/`, removida na versão 1.0.0).
 
+## Início rápido
+
+Com a rodada `udv_v2` e o cache de embeddings no lugar (ver [guia de reprodução](../../docs/reproduce.md)):
+
+```bash
+cd experiments
+uv run bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 \
+    --split-manifest artifacts/splits/temporal_v1.json \
+    --verifier-report artifacts/udv/udv_v2_verifier_report.json
+cd ../bookworm/web/app && python3 -m http.server 8000
+```
+
+Depois, abra `http://localhost:8000/`. As seções abaixo explicam cada opção, as conferências que a
+página faz antes de desenhar e o que ela mostra.
+
 ## Gerar os dados
 
 A página não recalcula nada: ela lê arquivos JSON gravados pela biblioteca. O comando `export-site`
@@ -41,7 +56,7 @@ execução, o comando para com código 2. Sem a opção, os arquivos gravados s�
 de antes dela existir.
 
 `--profiles` é opcional e acrescenta os perfis de atores (ver [`docs/profiles.md`](../docs/profiles.md)).
-Ele recebe o JSONL gravado por `profile-actors`; `--actors-config` aponta para a configuração que
+Ele recebe o JSONL gravado por `generate-profiles`; `--actors-config` aponta para a configuração que
 ligou as falas aos atores (por padrão `configs/hearing_actors.toml`) e `--profiles-run` dá o nome da
 rodada que a página mostra (por padrão, o nome do arquivo). Para os perfis de treino gerados com Qwen:
 
@@ -60,8 +75,7 @@ O comando recusa um arquivo de perfis que não bata com as falas da configuraç�
 uma exportação anterior com perfis tem `actors.json` e `profiles/` apagados, para a página não
 mostrar perfis de outra execução.
 
-Num projeto que tenha a biblioteca como dependência (`uv add --editable ../bookworm`), o mesmo comando
-é `uv run bookworm export-site ...`. A exportação precisa do LDS em `experiments/dataset/`, da execução
+A exportação precisa do LDS em `experiments/dataset/`, da execução
 em `experiments/artifacts/udv/` e do cache de embeddings em `experiments/artifacts/cache/embeddings/`; se
 faltar um arquivo do cache, o comando para com código 2 e diz qual é.
 
@@ -72,24 +86,30 @@ bytes para `udv_v2` com `--verifier-report` e os perfis, segundo o resumo gravad
 [`experiments/artifacts/web/export_site_udv_v2.json`](../../experiments/artifacts/web/export_site_udv_v2.json). O formato dos arquivos está em
 [`docs/data_model.md`](../docs/data_model.md#diretório-de-demonstração-export-site).
 
-Antes de desenhar, a página confere cada arquivo contra esse formato: todos os campos que ela usa, com
-os tipos e os valores de `tier` e `support_type` documentados, e a coerência entre eles. Cada
-`actor.name` precisa estar em `people`; `person_not_resolved` precisa corresponder a
-`resolved: false`; só `quote_found`, `semantic_match_high` e `semantic_match_weak` têm `evidence`, e só
-`quote_found` tem `support_type` `direct_quote`; a evidência precisa estar dentro da transcrição e num
-turno da própria pessoa; no índice, a soma de `tiers` precisa ser `n_udvs`. Quando a audiência traz `signals`, a página confere
-também: o bloco do nível da audiência existe e tem perguntas com ids únicos; toda afirmação tem o seu
-bloco; `scored` é verdadeiro exatamente nas afirmações com `evidence` e, nessas, os quatro campos estão
-preenchidos (e nas outras, `null`); `supported` é igual a `probability >= threshold`; e cada valor das
-perguntas está entre 0 e 1 para todos os ids de pergunta, nas duas leituras. Uma audiência que não está
-em `index.json`, ou cujo bloco `run` difere do dele, é recusada, porque o arquivo pode ter sobrado de
-outra exportação. As posições das frases candidatas podem ser `null`, como diz o formato; essas frases
-aparecem na folha da busca, mas não acendem nenhum tracinho do caderno. A página também exige que
-`transcript_chars` seja igual ao tamanho da transcrição medido pelo navegador. A biblioteca conta
-posições em caracteres Unicode, e o navegador em unidades UTF-16; as duas contagens só coincidem
-quando a transcrição não tem caracteres fora do plano básico (como emojis), e é isso que garante que
-cada posição aponta para o texto certo. Quando uma conferência falha, a página mostra o arquivo e o
-campo em vez de desenhar a audiência com valores supostos.
+### Conferências antes de desenhar
+
+A página confere cada arquivo contra esse formato antes de desenhar, e, quando uma conferência falha,
+mostra o arquivo e o campo em vez de desenhar a audiência com valores supostos. Ela exige:
+
+- todos os campos que usa, com os tipos e os valores de `tier` e `support_type` documentados;
+- cada `actor.name` em `people`, e `person_not_resolved` correspondendo a `resolved: false`;
+- `evidence` só em `quote_found`, `semantic_match_high` e `semantic_match_weak`, e `support_type`
+  `direct_quote` só em `quote_found`;
+- a evidência dentro da transcrição e num turno da própria pessoa;
+- no índice, a soma de `tiers` igual a `n_udvs`;
+- com `signals`: o bloco do nível da audiência com perguntas de ids únicos; um bloco por afirmação;
+  `scored` verdadeiro exatamente nas afirmações com `evidence`, e nessas os quatro campos preenchidos
+  (nas outras, `null`); `supported` igual a `probability >= threshold`; cada valor das perguntas entre 0
+  e 1, para todos os ids, nas duas leituras;
+- a audiência presente em `index.json`, com o mesmo bloco `run`, porque um arquivo fora do índice pode
+  ter sobrado de outra exportação;
+- `transcript_chars` igual ao tamanho da transcrição medido pelo navegador. A biblioteca conta posições
+  em caracteres Unicode e o navegador em unidades UTF-16; as duas contagens só coincidem quando a
+  transcrição não tem caracteres fora do plano básico (como emojis), e é isso que garante que cada
+  posição aponta para o texto certo.
+
+As posições das frases candidatas podem ser `null`, como diz o formato; essas frases aparecem na folha
+da busca, mas não acendem nenhum tracinho do caderno.
 
 ## Servir a página
 
