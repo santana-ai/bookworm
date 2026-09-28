@@ -76,10 +76,20 @@ class UdvVerifierConfig:
     lowest_count: int
     output_path: Path
     report_path: Path
+    udv_threshold_path: Path | None = None
 
     @property
     def run_dir(self) -> Path:
         return exploration.SCORES_ROOT / self.name
+
+
+@dataclass(frozen=True)
+class UdvThreshold:
+    value: float
+    path: Path
+    sha256: str
+    rule: str
+    record: Record
 
 
 @dataclass(frozen=True)
@@ -122,6 +132,9 @@ def load_config(path: Path) -> UdvVerifierConfig:
         lowest_count=int(report["lowest_count"]),
         output_path=Path(outputs["output_path"]),
         report_path=Path(outputs["report_path"]),
+        udv_threshold_path=(
+            Path(scoring["udv_threshold_path"]) if "udv_threshold_path" in scoring else None
+        ),
     )
 
 
@@ -583,27 +596,64 @@ def code_hashes() -> Record:
     }
 
 
+def load_udv_threshold(path: Path, train_threshold: float) -> UdvThreshold:
+    with open(path) as f:
+        record = json.load(f)
+    if not record["leak_check"]["passed"]:
+        raise SystemExit(f"{path}: the leak check of the UDV-premise cut did not pass")
+    if abs(float(record["train_threshold"]) - train_threshold) > 1e-3:
+        raise SystemExit(f"{path}: train_threshold differs from the refitted primary threshold")
+    return UdvThreshold(
+        value=float(record["udv_threshold_exact"]),
+        path=path,
+        sha256=sha256_of_file(path),
+        rule=record["adopted_rule"],
+        record=record,
+    )
+
+
+def row_provenance(
+    config: UdvVerifierConfig, train_threshold: float, udv_threshold: UdvThreshold
+) -> Record:
+    return {
+        "verifier": config.primary,
+        "premise": "evidence.text",
+        "hypothesis": "proposition",
+        "train_threshold": rounded(train_threshold),
+        "udv_threshold": rounded(udv_threshold.value),
+        "udv_threshold_rule": udv_threshold.rule,
+        "udv_threshold_source": str(udv_threshold.path),
+        "udv_source": str(config.udv_path),
+    }
+
+
 def output_rows(
     records: list[Record],
     split_of: dict[int, str],
     scored: dict[str, tuple[float, bool, float]],
+    udv_threshold: float | None = None,
+    provenance: Record | None = None,
 ) -> list[Record]:
     rows = []
     for record in records:
         values = scored.get(record["id"])
-        rows.append(
-            {
-                "udv_id": record["id"],
-                "hearing_id": record["hearing_id"],
-                "split": split_of[record["hearing_id"]],
-                "tier": record["tier"],
-                "support_type": None if not record.get("evidence") else support_type(record),
-                "scored": values is not None,
-                "primary_probability": None if values is None else values[0],
-                "supported_at_train_threshold": None if values is None else values[1],
-                "p4_supports": None if values is None else values[2],
-            }
-        )
+        row = {
+            "udv_id": record["id"],
+            "hearing_id": record["hearing_id"],
+            "split": split_of[record["hearing_id"]],
+            "tier": record["tier"],
+            "support_type": None if not record.get("evidence") else support_type(record),
+            "scored": values is not None,
+            "primary_probability": None if values is None else values[0],
+            "supported_at_train_threshold": None if values is None else values[1],
+            "p4_supports": None if values is None else values[2],
+        }
+        if udv_threshold is not None:
+            row["supported_at_udv_threshold"] = (
+                None if values is None else values[0] >= udv_threshold
+            )
+            row["provenance"] = provenance
+        rows.append(row)
     return rows
 
 
@@ -701,7 +751,23 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
         unit_id: (float(p), bool(d), float(s))
         for unit_id, p, d, s in zip(ids, primary, decisions, secondary, strict=True)
     }
-    write_jsonl(output_rows(records, split_of, scored), config.output_path)
+    udv_threshold = (
+        None
+        if config.udv_threshold_path is None
+        else load_udv_threshold(config.udv_threshold_path, fitted.threshold)
+    )
+    write_jsonl(
+        output_rows(
+            records,
+            split_of,
+            scored,
+            None if udv_threshold is None else udv_threshold.value,
+            None
+            if udv_threshold is None
+            else row_provenance(config, fitted.threshold, udv_threshold),
+        ),
+        config.output_path,
+    )
     by_id = {record["id"]: record for record in records}
     scored_records = [by_id[unit_id] for unit_id in ids]
     splits = [unit.split for unit in units]
@@ -786,6 +852,24 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
         "code": code_hashes(),
         "environment": experiments.environment(),
     }
+    if udv_threshold is not None:
+        udv_decisions = primary >= udv_threshold.value
+        tiers = [record["tier"] for record in scored_records]
+        report["udv_threshold"] = {
+            "value": rounded(udv_threshold.value),
+            "exact": udv_threshold.value,
+            "rule": udv_threshold.rule,
+            "interval": udv_threshold.record["rules"][udv_threshold.rule]["bootstrap"]["threshold"],
+            "path": str(udv_threshold.path),
+            "sha256": udv_threshold.sha256,
+        }
+        report["supported_at_udv_threshold"] = {
+            "by_tier": supported_shares(udv_decisions, tiers),
+            "by_support_type": supported_shares(
+                udv_decisions, [support_type(r) for r in scored_records]
+            ),
+            "by_hearing_split": supported_shares(udv_decisions, splits),
+        }
     write_json(report, config.report_path)
     summary = {
         "refit_check": refit["checks"],

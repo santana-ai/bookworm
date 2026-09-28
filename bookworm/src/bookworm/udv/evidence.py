@@ -7,8 +7,14 @@ from bookworm.features.encoders import FloatMatrix
 from bookworm.transcript.offsets import Span, locate_turn_sentence_span
 from bookworm.transcript.sentences import sentences_agree
 from bookworm.transcript.turns import Turn
-from bookworm.udv.quotes import TurnQuoteMatch
+from bookworm.udv.quotes import (
+    DEFAULT_QUOTE_POLICY,
+    QuotePolicy,
+    TurnQuoteMatch,
+    extend_quote_match,
+)
 from bookworm.udv.schemas import Evidence, Provenance, SupportType, Tier
+from bookworm.udv.windows import CandidateUnit
 
 
 @dataclass(frozen=True, slots=True)
@@ -41,6 +47,18 @@ def build_quote_evidence(
     sentence = quote_match.sentence
     span = locate_turn_sentence_span(sentence, transcript, matched_turns, quote_match.turn_index)
     return evidence_from_span(sentence, "direct_quote", None, quote_match.prefix, span)
+
+
+def build_full_quote_evidence(
+    quote_match: TurnQuoteMatch,
+    opinion_text: str,
+    matched_turns: Sequence[Turn],
+    transcript: str,
+    policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
+) -> Evidence:
+    extent = extend_quote_match(opinion_text, quote_match, matched_turns, policy)
+    span = locate_turn_sentence_span(extent.text, transcript, matched_turns, quote_match.turn_index)
+    return evidence_from_span(extent.text, "direct_quote", None, quote_match.prefix, span)
 
 
 def short_quote_supports(quote_match: TurnQuoteMatch | None, sentence: str) -> bool:
@@ -87,6 +105,24 @@ def build_semantic_evidence(
         match.score,
         quote_match.prefix if supported and quote_match is not None else None,
         span,
+    )
+
+
+def build_unit_evidence(
+    opinion_embedding: FloatMatrix,
+    units: Sequence[CandidateUnit],
+    unit_embeddings: FloatMatrix,
+    quote_match: TurnQuoteMatch | None,
+) -> Evidence:
+    match = best_sentence_match(opinion_embedding, unit_embeddings)
+    unit = units[match.index]
+    supported = short_quote_supports(quote_match, unit.evidence_text)
+    return evidence_from_span(
+        unit.evidence_text,
+        "semantic_with_short_quote" if supported else "semantic_similarity",
+        match.score,
+        quote_match.prefix if supported and quote_match is not None else None,
+        unit.span,
     )
 
 

@@ -8,11 +8,14 @@ from bookworm.data.schemas import HearingRecord
 from bookworm.errors import ConfigError
 from bookworm.transcript.sentences import sentences_agree, turn_text
 from bookworm.transcript.text import normalize_whitespace
-from bookworm.udv.build import PersonSpeech, resolve_hearing_people, udv_id
+from bookworm.udv.build import EvidenceSettings, PersonSpeech, resolve_hearing_people, udv_id
 from bookworm.udv.quotes import (
     DEFAULT_QUOTE_POLICY,
+    QUOTE_EXTENTS,
+    QuoteExtentMode,
     QuotePolicy,
     TurnQuoteMatch,
+    extend_quote_match,
     find_opinion_turn_quote_match,
     is_trusted_quote,
 )
@@ -25,6 +28,13 @@ from bookworm.udv.schemas import (
     Tier,
     UdvRecord,
 )
+from bookworm.udv.windows import (
+    SEMANTIC_UNITS,
+    CandidateUnit,
+    SemanticUnit,
+    person_units,
+    unit_size,
+)
 
 JsonObject = dict[str, Any]
 PersonKey = tuple[int, int]
@@ -34,6 +44,8 @@ SCORE_BOUND = 1.0001
 SCHEMA_PROBLEM = "schema_invalid"
 COVERAGE_PROBLEM = "coverage"
 THRESHOLD_PATH = ("config", "evidence", "embedding_threshold")
+SEMANTIC_UNIT_PATH = ("config", "evidence", "semantic_unit")
+QUOTE_EXTENT_PATH = ("config", "evidence", "quote_extent")
 HEARING_IDS_PATH = ("hearings", "ids")
 
 
@@ -41,6 +53,7 @@ HEARING_IDS_PATH = ("hearings", "ids")
 class IndexedPerson:
     hearing: HearingRecord
     person: PersonSpeech
+    units: tuple[CandidateUnit, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -74,11 +87,21 @@ class UdvVerification:
         }
 
 
-def index_people(hearings: Sequence[HearingRecord]) -> dict[PersonKey, IndexedPerson]:
+def index_people(
+    hearings: Sequence[HearingRecord], semantic_unit: SemanticUnit = "sentence"
+) -> dict[PersonKey, IndexedPerson]:
     people: dict[PersonKey, IndexedPerson] = {}
+    size = unit_size(semantic_unit)
     for hearing in hearings:
         for person in resolve_hearing_people(hearing):
-            people[(hearing.id, person.index)] = IndexedPerson(hearing=hearing, person=person)
+            units = (
+                ()
+                if semantic_unit == "sentence"
+                else tuple(person_units(person.matched_turns, hearing.transcricao, size))
+            )
+            people[(hearing.id, person.index)] = IndexedPerson(
+                hearing=hearing, person=person, units=units
+            )
     return people
 
 
@@ -98,7 +121,9 @@ def check_record(
     opinion_text: str,
     threshold: float,
     policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
+    settings: EvidenceSettings | None = None,
 ) -> list[str]:
+    settings = EvidenceSettings(threshold, policy) if settings is None else settings
     problems: list[str] = []
     person = indexed.person
     participant = person.participant
@@ -126,13 +151,19 @@ def check_record(
     problems.extend(check_single_turn(evidence, person))
     quote_match = find_opinion_turn_quote_match(opinion_text, person.matched_turns, policy)
     if tier == "quote_found":
-        problems.extend(check_quote_evidence(evidence, quote_match, provenance, policy))
+        expected_text = expected_quote_text(opinion_text, quote_match, person, settings)
+        problems.extend(
+            check_quote_evidence(evidence, quote_match, provenance, policy, expected_text)
+        )
     else:
         if provenance != "model" or evidence.support_type == "direct_quote":
             problems.append("semantic_shape")
         if is_trusted_quote(quote_match, policy):
             problems.append("semantic_but_trusted_quote_findable")
-        if evidence.text not in person.sentences:
+        if settings.uses_windows:
+            if evidence.text not in {unit.evidence_text for unit in indexed.units}:
+                problems.append("evidence_not_person_window")
+        elif evidence.text not in person.sentences:
             problems.append("evidence_not_person_sentence")
         problems.extend(check_short_quote_support(evidence, quote_match, policy))
         score = evidence.score
@@ -141,8 +172,23 @@ def check_record(
         elif (tier == "semantic_match_high") != (score >= threshold):
             problems.append("tier_inconsistent_with_score")
     problems.extend(check_offsets(evidence, indexed))
-    problems.extend(check_source_turn(evidence, quote_match, person, tier, policy))
+    problems.extend(check_source_turn(evidence, quote_match, indexed, tier, policy))
     return problems
+
+
+def expected_quote_text(
+    opinion_text: str,
+    quote_match: TurnQuoteMatch | None,
+    person: PersonSpeech,
+    settings: EvidenceSettings,
+) -> str | None:
+    if quote_match is None or not is_trusted_quote(quote_match, settings.quote_policy):
+        return None
+    if settings.quote_extent == "full_quote":
+        return extend_quote_match(
+            opinion_text, quote_match, person.matched_turns, settings.quote_policy
+        ).text
+    return quote_match.sentence
 
 
 def check_single_turn(evidence: Evidence, person: PersonSpeech) -> list[str]:
@@ -156,6 +202,7 @@ def check_quote_evidence(
     quote_match: TurnQuoteMatch | None,
     provenance: Provenance | None,
     policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
+    expected_text: str | None = None,
 ) -> list[str]:
     problems: list[str] = []
     if provenance != "weak" or evidence.support_type != "direct_quote":
@@ -166,7 +213,8 @@ def check_quote_evidence(
         return [*problems, "quote_not_trusted"]
     if evidence.quote_prefix != quote_match.prefix:
         return [*problems, "quote_prefix_mismatch"]
-    if quote_match.sentence != evidence.text:
+    wanted = quote_match.sentence if expected_text is None else expected_text
+    if wanted != evidence.text:
         problems.append("quote_text_mismatch")
     return problems
 
@@ -217,10 +265,11 @@ def check_offsets(evidence: Evidence, indexed: IndexedPerson) -> list[str]:
 def check_source_turn(
     evidence: Evidence,
     quote_match: TurnQuoteMatch | None,
-    person: PersonSpeech,
+    indexed: IndexedPerson,
     tier: Tier,
     policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
 ) -> list[str]:
+    person = indexed.person
     if evidence.speaker_turn is None:
         return []
     if tier == "quote_found":
@@ -228,11 +277,15 @@ def check_source_turn(
         if trusted and quote_match is not None and evidence.speaker_turn != quote_match.turn_index:
             return ["quote_turn_mismatch"]
         return []
-    source_turns = {
-        turn_index
-        for sentence, turn_index in zip(person.sentences, person.sentence_turns, strict=True)
-        if sentence == evidence.text
-    }
+    source_turns = (
+        {unit.turn_index for unit in indexed.units if unit.evidence_text == evidence.text}
+        if indexed.units
+        else {
+            turn_index
+            for sentence, turn_index in zip(person.sentences, person.sentence_turns, strict=True)
+            if sentence == evidence.text
+        }
+    )
     if source_turns and evidence.speaker_turn not in source_turns:
         return ["semantic_turn_mismatch"]
     return []
@@ -316,6 +369,38 @@ def coverage_threshold(coverage: Mapping[str, Any]) -> float | int:
     return threshold
 
 
+def coverage_choice[ChoiceT: str](
+    coverage: Mapping[str, Any],
+    path: tuple[str, ...],
+    allowed: tuple[ChoiceT, ...],
+    default: ChoiceT,
+) -> ChoiceT:
+    found, value = json_path(coverage, path)
+    if not found:
+        return default
+    for choice in allowed:
+        if value == choice:
+            return choice
+    raise ConfigError(f"coverage {'.'.join(path)} must be one of {list(allowed)}, got {value!r}")
+
+
+def coverage_settings(
+    coverage: Mapping[str, Any], quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY
+) -> EvidenceSettings:
+    semantic_unit: SemanticUnit = coverage_choice(
+        coverage, SEMANTIC_UNIT_PATH, SEMANTIC_UNITS, "sentence"
+    )
+    quote_extent: QuoteExtentMode = coverage_choice(
+        coverage, QUOTE_EXTENT_PATH, QUOTE_EXTENTS, "prefix_sentence"
+    )
+    return EvidenceSettings(
+        embedding_threshold=coverage_threshold(coverage),
+        quote_policy=quote_policy,
+        semantic_unit=semantic_unit,
+        quote_extent=quote_extent,
+    )
+
+
 def coverage_hearing_ids(coverage: Mapping[str, Any]) -> list[int]:
     found, hearing_ids = json_path(coverage, HEARING_IDS_PATH)
     if not found or not is_json_integer_list(hearing_ids):
@@ -342,7 +427,8 @@ def verify_udv_run(
     quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
 ) -> UdvVerification:
     threshold = coverage_threshold(coverage)
-    people = index_people(coverage_hearings(coverage, hearings))
+    settings = coverage_settings(coverage, quote_policy)
+    people = index_people(coverage_hearings(coverage, hearings), settings.semantic_unit)
     expected = expected_ids(people)
 
     problems: defaultdict[str, list[str]] = defaultdict(list)
@@ -359,7 +445,9 @@ def verify_udv_run(
             problems["unexpected_id"].append(record.id)
             continue
         indexed, opinion_text = expected[record.id]
-        for problem in check_record(record, indexed, opinion_text, threshold, quote_policy):
+        for problem in check_record(
+            record, indexed, opinion_text, threshold, quote_policy, settings
+        ):
             problems[problem].append(record.id)
     for problem in check_coverage(coverage, records, people):
         problems[COVERAGE_PROBLEM].append(problem)

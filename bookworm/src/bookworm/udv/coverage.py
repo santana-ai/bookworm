@@ -8,7 +8,7 @@ import numpy as np
 
 from bookworm.data.schemas import HearingRecord
 from bookworm.transcript.sentences import SENTENCE_BOUNDARY_PATTERN
-from bookworm.udv.build import PersonSpeech
+from bookworm.udv.build import EvidenceSettings, PersonSpeech
 from bookworm.udv.quotes import DEFAULT_QUOTE_POLICY, QuotePolicy
 from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
 
@@ -18,6 +18,18 @@ SENTENCE_SEGMENTATION = "per matched turn, concatenated in turn order"
 QUOTE_SEARCH = "inside each matched turn"
 QUOTE_SELECTION = "most prefix words over all quotes, earliest quote on ties"
 QUOTE_OCCURRENCE = "max token Jaccard with the opinion for trusted prefixes, first on ties"
+SEMANTIC_UNIT_RULE = (
+    "N consecutive candidate sentences of one matched turn, stride 1, a turn with fewer than N "
+    "sentences gives one unit with all of them; the encoder reads the sentences joined by a "
+    "space, the evidence is the transcript span from the first sentence start to the last "
+    "sentence end, sentences located in sequence inside the turn"
+)
+QUOTE_EXTENT_RULE = (
+    "trusted matches only: the evidence covers the sentence parts of the source turn from the "
+    "prefix start to the end of the first quote suffix of 6, 4 or 3 words (trailing punctuation "
+    "removed) found after the prefix end within max_span_ratio x quote length characters; "
+    "without a suffix, as many sentence parts as the quote has, from the prefix sentence on"
+)
 
 
 def distribution_version(distribution: str) -> str | None:
@@ -36,7 +48,23 @@ def runtime_environment() -> JsonObject:
     }
 
 
-def pipeline_description(policy: QuotePolicy = DEFAULT_QUOTE_POLICY) -> JsonObject:
+def evidence_description(settings: EvidenceSettings) -> JsonObject:
+    description: JsonObject = {}
+    if settings.uses_windows:
+        description["semantic_unit"] = settings.semantic_unit
+        description["semantic_unit_rule"] = SEMANTIC_UNIT_RULE
+    if settings.quote_extent != "prefix_sentence":
+        description["quote_extent"] = settings.quote_extent
+        description["quote_extent_rule"] = QUOTE_EXTENT_RULE
+        description["quote_suffix_lengths"] = list(settings.quote_policy.suffix_lengths)
+        description["quote_max_span_ratio"] = settings.quote_policy.max_span_ratio
+    return description
+
+
+def pipeline_description(
+    policy: QuotePolicy = DEFAULT_QUOTE_POLICY, settings: EvidenceSettings | None = None
+) -> JsonObject:
+    extra = {} if settings is None else evidence_description(settings)
     return {
         "sentence_segmentation": SENTENCE_SEGMENTATION,
         "sentence_boundary_pattern": SENTENCE_BOUNDARY_PATTERN.pattern,
@@ -45,6 +73,7 @@ def pipeline_description(policy: QuotePolicy = DEFAULT_QUOTE_POLICY) -> JsonObje
         "quote_selection": QUOTE_SELECTION,
         "quote_occurrence": QUOTE_OCCURRENCE,
         "trusted_prefix_words": policy.trusted_prefix_words,
+        **extra,
     }
 
 
@@ -72,6 +101,7 @@ def summarize_run(
     hearing_seconds: Sequence[float],
     config_source: Mapping[str, Any],
     quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
+    settings: EvidenceSettings | None = None,
     created_at: datetime | None = None,
     environment: Mapping[str, Any] | None = None,
 ) -> JsonObject:
@@ -99,7 +129,7 @@ def summarize_run(
             support_type: sum(1 for evidence in evidences if evidence.support_type == support_type)
             for support_type in SUPPORT_TYPES
         },
-        "pipeline": pipeline_description(quote_policy),
+        "pipeline": pipeline_description(quote_policy, settings),
         "encoder_runtime": dict(encoder_runtime),
         "timing": timing_summary(hearing_seconds),
         "environment": dict(runtime_environment() if environment is None else environment),

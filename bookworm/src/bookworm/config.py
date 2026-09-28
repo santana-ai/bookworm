@@ -7,6 +7,8 @@ from typing import Annotated, Any, Literal, Self
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from bookworm.errors import ConfigError
+from bookworm.udv.quotes import QuoteExtentMode
+from bookworm.udv.windows import SemanticUnit
 
 DEFAULT_ENCODER_KIND = "sentence_transformers"
 SPLIT_VERSION_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_.-]*$"
@@ -39,6 +41,8 @@ class UdvConfig(_ConfigModel):
     expected_sha256: str
     encoder: EncoderSettings
     embedding_threshold: float | int
+    semantic_unit: SemanticUnit = "sentence"
+    quote_extent: QuoteExtentMode = "prefix_sentence"
     seed: int
     output_dir: Path
     cache_dir: Path
@@ -57,6 +61,12 @@ class UdvConfig(_ConfigModel):
                     "encoder": encoder,
                     "embedding_threshold": required(
                         source, "evidence", "embedding_threshold", origin
+                    ),
+                    "semantic_unit": section(source, "evidence", origin).get(
+                        "semantic_unit", "sentence"
+                    ),
+                    "quote_extent": section(source, "evidence", origin).get(
+                        "quote_extent", "prefix_sentence"
                     ),
                     "seed": required(source, "run", "seed", origin),
                     "output_dir": Path(required(source, "run", "output_dir", origin)),

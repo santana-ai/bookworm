@@ -220,7 +220,11 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
             err=True,
         )
 
-    settings = EvidenceSettings(embedding_threshold=config.embedding_threshold)
+    settings = EvidenceSettings(
+        embedding_threshold=config.embedding_threshold,
+        semantic_unit=config.semantic_unit,
+        quote_extent=config.quote_extent,
+    )
     pipeline_run = run_pipeline(
         hearings, cached, settings, actors_config, on_hearing=report_progress
     )
@@ -234,6 +238,7 @@ def run_build(request: BuildRequest, encoder_factory: EncoderFactory) -> None:
         hearing_seconds=run.hearing_seconds,
         config_source=config.source,
         quote_policy=settings.quote_policy,
+        settings=settings,
     )
     write_udv_jsonl(run.records, records_path)
     write_json(summary, coverage_path)

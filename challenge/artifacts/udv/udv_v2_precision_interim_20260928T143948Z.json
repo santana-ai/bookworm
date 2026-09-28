@@ -1,0 +1,1284 @@
+{
+  "created_at": "2026-09-28T14:39:48+00:00",
+  "status": "interim",
+  "status_note": "INTERIM: computed on the judged rows only; the criteria statuses below are not a decision and change as the sheet is filled",
+  "sample_name": "human_validation_v1_udv_v1",
+  "splits_used": [
+    "test"
+  ],
+  "judged": "64 of 127",
+  "judged_items": 64,
+  "items": 127,
+  "invalid_labels": [
+    {
+      "item_id": "A003",
+      "julgamento": "Acho que não está correto, mas o tema tem sentido"
+    }
+  ],
+  "invalid_labels_rule": "a filled julgamento outside the labels of its question is not counted and is listed here; the report is interim while any row is empty or invalid",
+  "better_passage_missing": 64,
+  "annotation_csv": {
+    "path": "/Users/arthur/Documents/bookworm/challenge/artifacts/validation/human_validation_v1_udv_v1/annotation.csv",
+    "sha256": "5794bca8d5eef745422069d3b6818372fee0cb94a136d41c81c2f8b05b23f33e"
+  },
+  "annotation_key": {
+    "path": "artifacts/validation/human_validation_v1_udv_v1/annotation_key.json",
+    "sha256": "088664b03a8e28dffd3a6b6ef17843f88368e8745f9816c9ddc943ef674d8b70"
+  },
+  "plan": {
+    "path": "artifacts/udv/udv_v2_annotation_plan.json",
+    "sha256": "48378459569a551026a48027f39b850aa6ac9c69dbe470ec24c98f6d3d426c0d"
+  },
+  "confidence_level": 0.95,
+  "units": "precision per UDV; the judgment of an item counts for each of its UDVs",
+  "label_semantics": {
+    "trecho_sustenta": "one annotator's reading of whether the passage, spoken by the participant, supports the statement the LDS attributes to them; it says nothing about whether the statement is true in the world",
+    "strict_precision": "share of judged UDVs of a stratum marked correta",
+    "tolerant_precision": "share of judged UDVs of a stratum marked correta or parcial",
+    "pessoa_falou": "whether the transcript records words spoken by the participant; a no_evidence or person_not_resolved UDV is counted correct when the answer is nao_falou, and nao_sei is left out of every denominator",
+    "false_absence_rate": "share of decided speaker_check answers that are falou, i.e. the participant spoke but the pipeline recorded no usable speech",
+    "population": "N_h is the number of UDVs of stratum h in the sampled splits, frozen in the key when the sample was drawn"
+  },
+  "criteria_declaration": "Declared before any human judgment of this sample exists. The criteria are copied into annotation_key.json when the sample is drawn, and the precision report flags any later change. PASS requires the Wilson lower bound of the stated metric, at the report confidence level, to reach min_wilson_lower on the stated stratum.",
+  "criteria_declared_on": "2026-09-23",
+  "udv_v1": {
+    "strata": {
+      "direct_quote": {
+        "question": "trecho_sustenta",
+        "population": 41,
+        "judged_udvs": 18,
+        "judgments": {
+          "correta": 17,
+          "parcial": 0,
+          "incorreta": 1
+        },
+        "strict_precision": {
+          "successes": 17,
+          "trials": 18,
+          "estimate": 0.9444,
+          "low": 0.7424,
+          "high": 0.9901
+        },
+        "tolerant_precision": {
+          "successes": 17,
+          "trials": 18,
+          "estimate": 0.9444,
+          "low": 0.7424,
+          "high": 0.9901
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 18,
+            "strict_precision": {
+              "successes": 17,
+              "trials": 18,
+              "estimate": 0.9444,
+              "low": 0.7424,
+              "high": 0.9901
+            },
+            "tolerant_precision": {
+              "successes": 17,
+              "trials": 18,
+              "estimate": 0.9444,
+              "low": 0.7424,
+              "high": 0.9901
+            }
+          },
+          "without_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [
+            "udv-1-4-0",
+            "udv-1-6-0",
+            "udv-100-0-0",
+            "udv-100-3-3",
+            "udv-101-2-4",
+            "udv-103-0-2",
+            "udv-104-3-1",
+            "udv-105-0-0",
+            "udv-108-0-2",
+            "udv-108-2-0",
+            "udv-110-0-1",
+            "udv-112-3-1",
+            "udv-21-2-1",
+            "udv-5-1-1",
+            "udv-5-5-2",
+            "udv-7-4-1",
+            "udv-99-2-2"
+          ],
+          "parcial": [],
+          "incorreta": [
+            "udv-112-4-0"
+          ]
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 17,
+            "trials": 18
+          },
+          "tolerant_precision": {
+            "successes": 17,
+            "trials": 18
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 35,
+          "population": 41,
+          "drawn_udvs": 35,
+          "all_taken": false,
+          "shortfall": 0,
+          "rows": 35
+        },
+        "judged_items": 18,
+        "sample_items": 35,
+        "judged_of_sample": "18 of 35"
+      },
+      "semantic_match_high": {
+        "question": "trecho_sustenta",
+        "population": 277,
+        "judged_udvs": 31,
+        "judgments": {
+          "correta": 21,
+          "parcial": 3,
+          "incorreta": 7
+        },
+        "strict_precision": {
+          "successes": 21,
+          "trials": 31,
+          "estimate": 0.6774,
+          "low": 0.5014,
+          "high": 0.8143
+        },
+        "tolerant_precision": {
+          "successes": 24,
+          "trials": 31,
+          "estimate": 0.7742,
+          "low": 0.6019,
+          "high": 0.886
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          },
+          "without_cue": {
+            "udvs": 31,
+            "strict_precision": {
+              "successes": 21,
+              "trials": 31,
+              "estimate": 0.6774,
+              "low": 0.5014,
+              "high": 0.8143
+            },
+            "tolerant_precision": {
+              "successes": 24,
+              "trials": 31,
+              "estimate": 0.7742,
+              "low": 0.6019,
+              "high": 0.886
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [
+            "udv-1-1-0",
+            "udv-1-3-1",
+            "udv-10-4-0",
+            "udv-100-3-2",
+            "udv-101-2-1",
+            "udv-102-0-0",
+            "udv-103-0-4",
+            "udv-104-1-0",
+            "udv-105-1-0",
+            "udv-107-1-1",
+            "udv-108-6-0",
+            "udv-109-3-0",
+            "udv-112-3-2",
+            "udv-113-2-0",
+            "udv-114-5-0",
+            "udv-5-0-1",
+            "udv-5-1-2",
+            "udv-5-3-1",
+            "udv-5-4-1",
+            "udv-7-4-3",
+            "udv-87-2-0"
+          ],
+          "parcial": [
+            "udv-102-1-0",
+            "udv-115-1-3",
+            "udv-177-7-0"
+          ],
+          "incorreta": [
+            "udv-100-3-1",
+            "udv-103-0-8",
+            "udv-103-2-0",
+            "udv-104-2-1",
+            "udv-108-1-2",
+            "udv-115-1-0",
+            "udv-21-0-0"
+          ]
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 21,
+            "trials": 31
+          },
+          "tolerant_precision": {
+            "successes": 24,
+            "trials": 31
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 65,
+          "population": 277,
+          "drawn_udvs": 65,
+          "all_taken": false,
+          "shortfall": 0,
+          "rows": 65
+        },
+        "judged_items": 31,
+        "sample_items": 65,
+        "judged_of_sample": "31 of 65"
+      },
+      "semantic_with_short_quote": {
+        "question": "trecho_sustenta",
+        "population": 22,
+        "judged_udvs": 8,
+        "judgments": {
+          "correta": 8,
+          "parcial": 0,
+          "incorreta": 0
+        },
+        "strict_precision": {
+          "successes": 8,
+          "trials": 8,
+          "estimate": 1.0,
+          "low": 0.6756,
+          "high": 1.0
+        },
+        "tolerant_precision": {
+          "successes": 8,
+          "trials": 8,
+          "estimate": 1.0,
+          "low": 0.6756,
+          "high": 1.0
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 8,
+            "strict_precision": {
+              "successes": 8,
+              "trials": 8,
+              "estimate": 1.0,
+              "low": 0.6756,
+              "high": 1.0
+            },
+            "tolerant_precision": {
+              "successes": 8,
+              "trials": 8,
+              "estimate": 1.0,
+              "low": 0.6756,
+              "high": 1.0
+            }
+          },
+          "without_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [
+            "udv-101-0-0",
+            "udv-101-3-0",
+            "udv-103-3-0",
+            "udv-104-4-0",
+            "udv-106-2-0",
+            "udv-23-0-1",
+            "udv-49-2-3",
+            "udv-86-4-0"
+          ],
+          "parcial": [],
+          "incorreta": []
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 8,
+            "trials": 8
+          },
+          "tolerant_precision": {
+            "successes": 8,
+            "trials": 8
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 15,
+          "population": 22,
+          "drawn_udvs": 15,
+          "all_taken": false,
+          "shortfall": 0,
+          "rows": 15
+        },
+        "judged_items": 8,
+        "sample_items": 15,
+        "judged_of_sample": "8 of 15"
+      },
+      "semantic_match_weak": {
+        "question": "trecho_sustenta",
+        "population": 6,
+        "judged_udvs": 4,
+        "judgments": {
+          "correta": 1,
+          "parcial": 1,
+          "incorreta": 2
+        },
+        "strict_precision": {
+          "successes": 1,
+          "trials": 4,
+          "estimate": 0.25,
+          "low": 0.0456,
+          "high": 0.6994
+        },
+        "tolerant_precision": {
+          "successes": 2,
+          "trials": 4,
+          "estimate": 0.5,
+          "low": 0.15,
+          "high": 0.85
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          },
+          "without_cue": {
+            "udvs": 4,
+            "strict_precision": {
+              "successes": 1,
+              "trials": 4,
+              "estimate": 0.25,
+              "low": 0.0456,
+              "high": 0.6994
+            },
+            "tolerant_precision": {
+              "successes": 2,
+              "trials": 4,
+              "estimate": 0.5,
+              "low": 0.15,
+              "high": 0.85
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [
+            "udv-1-0-0"
+          ],
+          "parcial": [
+            "udv-103-1-0"
+          ],
+          "incorreta": [
+            "udv-1-0-1",
+            "udv-113-3-0"
+          ]
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 1,
+            "trials": 4
+          },
+          "tolerant_precision": {
+            "successes": 2,
+            "trials": 4
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 15,
+          "population": 6,
+          "drawn_udvs": 6,
+          "all_taken": true,
+          "shortfall": 9,
+          "rows": 6
+        },
+        "judged_items": 4,
+        "sample_items": 6,
+        "judged_of_sample": "4 of 6"
+      },
+      "speaker_check": {
+        "question": "pessoa_falou",
+        "population": 13,
+        "judged_udvs": 6,
+        "judged_persons": 3,
+        "judgments_udvs": {
+          "falou": 6,
+          "nao_falou": 0,
+          "nao_sei": 0
+        },
+        "judgments_persons": {
+          "falou": 3,
+          "nao_falou": 0,
+          "nao_sei": 0
+        },
+        "udvs": {
+          "answers": 6,
+          "undecided": 0,
+          "correct_absence_rate": {
+            "successes": 0,
+            "trials": 6,
+            "estimate": 0.0,
+            "low": 0.0,
+            "high": 0.3903
+          },
+          "false_absence_rate": {
+            "successes": 6,
+            "trials": 6,
+            "estimate": 1.0,
+            "low": 0.6097,
+            "high": 1.0
+          }
+        },
+        "persons": {
+          "answers": 3,
+          "undecided": 0,
+          "correct_absence_rate": {
+            "successes": 0,
+            "trials": 3,
+            "estimate": 0.0,
+            "low": 0.0,
+            "high": 0.5615
+          },
+          "false_absence_rate": {
+            "successes": 3,
+            "trials": 3,
+            "estimate": 1.0,
+            "low": 0.4385,
+            "high": 1.0
+          }
+        },
+        "by_tier": {
+          "no_evidence": {
+            "udvs": {
+              "answers": 4,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 4,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.4899
+              },
+              "false_absence_rate": {
+                "successes": 4,
+                "trials": 4,
+                "estimate": 1.0,
+                "low": 0.5101,
+                "high": 1.0
+              }
+            },
+            "persons": {
+              "answers": 1,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 1,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.7935
+              },
+              "false_absence_rate": {
+                "successes": 1,
+                "trials": 1,
+                "estimate": 1.0,
+                "low": 0.2065,
+                "high": 1.0
+              }
+            }
+          },
+          "person_not_resolved": {
+            "udvs": {
+              "answers": 2,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 2,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.6576
+              },
+              "false_absence_rate": {
+                "successes": 2,
+                "trials": 2,
+                "estimate": 1.0,
+                "low": 0.3424,
+                "high": 1.0
+              }
+            },
+            "persons": {
+              "answers": 2,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 2,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.6576
+              },
+              "false_absence_rate": {
+                "successes": 2,
+                "trials": 2,
+                "estimate": 1.0,
+                "low": 0.3424,
+                "high": 1.0
+              }
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "falou": [
+            "udv-107-4-0",
+            "udv-109-1-0",
+            "udv-111-0-0",
+            "udv-111-0-1",
+            "udv-111-0-2",
+            "udv-111-0-3"
+          ],
+          "nao_falou": [],
+          "nao_sei": []
+        },
+        "clustering_note": "one answer per participant is copied to each of that participant's drawn UDVs, so UDV-level intervals treat correlated answers as independent; the person-level intervals use the independent unit",
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 0,
+            "trials": 6
+          },
+          "tolerant_precision": {
+            "successes": 0,
+            "trials": 6
+          }
+        },
+        "sample": {
+          "question": "pessoa_falou",
+          "target": 20,
+          "population": 13,
+          "drawn_udvs": 13,
+          "all_taken": true,
+          "shortfall": 7,
+          "rows": 6
+        },
+        "judged_items": 3,
+        "sample_items": 6,
+        "judged_of_sample": "3 of 6"
+      }
+    },
+    "criteria": [
+      {
+        "name": "quote_found_strict_precision",
+        "stratum": "direct_quote",
+        "metric": "strict_precision",
+        "min_wilson_lower": 0.9,
+        "status": "INTERIM_FAIL",
+        "valid_for_decision": false,
+        "observed": {
+          "successes": 17,
+          "trials": 18,
+          "estimate": 0.9444,
+          "low": 0.7424,
+          "high": 0.9901
+        },
+        "min_successes_to_pass_at_this_n": null
+      },
+      {
+        "name": "semantic_match_high_tolerant_precision",
+        "stratum": "semantic_match_high",
+        "metric": "tolerant_precision",
+        "min_wilson_lower": 0.75,
+        "status": "INTERIM_FAIL",
+        "valid_for_decision": false,
+        "observed": {
+          "successes": 24,
+          "trials": 31,
+          "estimate": 0.7742,
+          "low": 0.6019,
+          "high": 0.886
+        },
+        "min_successes_to_pass_at_this_n": 28
+      }
+    ]
+  },
+  "udv_v2_unchanged": {
+    "rule": "an item inherits its udv_v1 label for udv_v2 when every UDV of the item has the same evidence text, start_char, end_char and speaker_turn in both runs (or no evidence in both); otherwise the passage shown to the annotator is not the udv_v2 passage and the item needs a new judgment",
+    "caveat": "the inherited items are the udv_v1 items whose evidence did not change; they are not a random sample of the udv_v2 strata, so their precision describes that subset only",
+    "items_in_sample": 23,
+    "strata": {
+      "direct_quote": {
+        "question": "trecho_sustenta",
+        "population": 41,
+        "judged_udvs": 11,
+        "judgments": {
+          "correta": 10,
+          "parcial": 0,
+          "incorreta": 1
+        },
+        "strict_precision": {
+          "successes": 10,
+          "trials": 11,
+          "estimate": 0.9091,
+          "low": 0.6226,
+          "high": 0.9838
+        },
+        "tolerant_precision": {
+          "successes": 10,
+          "trials": 11,
+          "estimate": 0.9091,
+          "low": 0.6226,
+          "high": 0.9838
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 11,
+            "strict_precision": {
+              "successes": 10,
+              "trials": 11,
+              "estimate": 0.9091,
+              "low": 0.6226,
+              "high": 0.9838
+            },
+            "tolerant_precision": {
+              "successes": 10,
+              "trials": 11,
+              "estimate": 0.9091,
+              "low": 0.6226,
+              "high": 0.9838
+            }
+          },
+          "without_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [
+            "udv-1-4-0",
+            "udv-1-6-0",
+            "udv-100-3-3",
+            "udv-104-3-1",
+            "udv-108-2-0",
+            "udv-110-0-1",
+            "udv-112-3-1",
+            "udv-21-2-1",
+            "udv-5-1-1",
+            "udv-7-4-1"
+          ],
+          "parcial": [],
+          "incorreta": [
+            "udv-112-4-0"
+          ]
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 10,
+            "trials": 11
+          },
+          "tolerant_precision": {
+            "successes": 10,
+            "trials": 11
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 35,
+          "population": 41,
+          "drawn_udvs": 35,
+          "all_taken": false,
+          "shortfall": 0,
+          "rows": 35
+        },
+        "judged_items": 11,
+        "sample_items": 17,
+        "judged_of_sample": "11 of 17"
+      },
+      "semantic_match_high": {
+        "question": "trecho_sustenta",
+        "population": 264,
+        "judged_udvs": 0,
+        "judgments": {
+          "correta": 0,
+          "parcial": 0,
+          "incorreta": 0
+        },
+        "strict_precision": {
+          "successes": 0,
+          "trials": 0,
+          "estimate": null,
+          "low": null,
+          "high": null
+        },
+        "tolerant_precision": {
+          "successes": 0,
+          "trials": 0,
+          "estimate": null,
+          "low": null,
+          "high": null
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          },
+          "without_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [],
+          "parcial": [],
+          "incorreta": []
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 0,
+            "trials": 0
+          },
+          "tolerant_precision": {
+            "successes": 0,
+            "trials": 0
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 65,
+          "population": 277,
+          "drawn_udvs": 65,
+          "all_taken": false,
+          "shortfall": 0,
+          "rows": 65
+        },
+        "judged_items": 0,
+        "sample_items": 0,
+        "judged_of_sample": "0 of 0"
+      },
+      "semantic_with_short_quote": {
+        "question": "trecho_sustenta",
+        "population": 30,
+        "judged_udvs": 0,
+        "judgments": {
+          "correta": 0,
+          "parcial": 0,
+          "incorreta": 0
+        },
+        "strict_precision": {
+          "successes": 0,
+          "trials": 0,
+          "estimate": null,
+          "low": null,
+          "high": null
+        },
+        "tolerant_precision": {
+          "successes": 0,
+          "trials": 0,
+          "estimate": null,
+          "low": null,
+          "high": null
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          },
+          "without_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [],
+          "parcial": [],
+          "incorreta": []
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 0,
+            "trials": 0
+          },
+          "tolerant_precision": {
+            "successes": 0,
+            "trials": 0
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 15,
+          "population": 22,
+          "drawn_udvs": 15,
+          "all_taken": false,
+          "shortfall": 0,
+          "rows": 15
+        },
+        "judged_items": 0,
+        "sample_items": 0,
+        "judged_of_sample": "0 of 0"
+      },
+      "semantic_match_weak": {
+        "question": "trecho_sustenta",
+        "population": 11,
+        "judged_udvs": 0,
+        "judgments": {
+          "correta": 0,
+          "parcial": 0,
+          "incorreta": 0
+        },
+        "strict_precision": {
+          "successes": 0,
+          "trials": 0,
+          "estimate": null,
+          "low": null,
+          "high": null
+        },
+        "tolerant_precision": {
+          "successes": 0,
+          "trials": 0,
+          "estimate": null,
+          "low": null,
+          "high": null
+        },
+        "better_passage": {
+          "sim": 0,
+          "nao": 0,
+          "nao_procurei": 0
+        },
+        "by_quote_cue": {
+          "note": "rows whose afirmacao quotes words that reappear in trecho are recognizable on the sheet (see blinding.known_leaks in sample_report.json), so the judgment of those rows was not blind to how the passage was found",
+          "with_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          },
+          "without_cue": {
+            "udvs": 0,
+            "strict_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            },
+            "tolerant_precision": {
+              "successes": 0,
+              "trials": 0,
+              "estimate": null,
+              "low": null,
+              "high": null
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "correta": [],
+          "parcial": [],
+          "incorreta": []
+        },
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 0,
+            "trials": 0
+          },
+          "tolerant_precision": {
+            "successes": 0,
+            "trials": 0
+          }
+        },
+        "sample": {
+          "question": "trecho_sustenta",
+          "target": 15,
+          "population": 6,
+          "drawn_udvs": 6,
+          "all_taken": true,
+          "shortfall": 9,
+          "rows": 6
+        },
+        "judged_items": 0,
+        "sample_items": 0,
+        "judged_of_sample": "0 of 0"
+      },
+      "speaker_check": {
+        "question": "pessoa_falou",
+        "population": 13,
+        "judged_udvs": 6,
+        "judged_persons": 3,
+        "judgments_udvs": {
+          "falou": 6,
+          "nao_falou": 0,
+          "nao_sei": 0
+        },
+        "judgments_persons": {
+          "falou": 3,
+          "nao_falou": 0,
+          "nao_sei": 0
+        },
+        "udvs": {
+          "answers": 6,
+          "undecided": 0,
+          "correct_absence_rate": {
+            "successes": 0,
+            "trials": 6,
+            "estimate": 0.0,
+            "low": 0.0,
+            "high": 0.3903
+          },
+          "false_absence_rate": {
+            "successes": 6,
+            "trials": 6,
+            "estimate": 1.0,
+            "low": 0.6097,
+            "high": 1.0
+          }
+        },
+        "persons": {
+          "answers": 3,
+          "undecided": 0,
+          "correct_absence_rate": {
+            "successes": 0,
+            "trials": 3,
+            "estimate": 0.0,
+            "low": 0.0,
+            "high": 0.5615
+          },
+          "false_absence_rate": {
+            "successes": 3,
+            "trials": 3,
+            "estimate": 1.0,
+            "low": 0.4385,
+            "high": 1.0
+          }
+        },
+        "by_tier": {
+          "no_evidence": {
+            "udvs": {
+              "answers": 4,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 4,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.4899
+              },
+              "false_absence_rate": {
+                "successes": 4,
+                "trials": 4,
+                "estimate": 1.0,
+                "low": 0.5101,
+                "high": 1.0
+              }
+            },
+            "persons": {
+              "answers": 1,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 1,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.7935
+              },
+              "false_absence_rate": {
+                "successes": 1,
+                "trials": 1,
+                "estimate": 1.0,
+                "low": 0.2065,
+                "high": 1.0
+              }
+            }
+          },
+          "person_not_resolved": {
+            "udvs": {
+              "answers": 2,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 2,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.6576
+              },
+              "false_absence_rate": {
+                "successes": 2,
+                "trials": 2,
+                "estimate": 1.0,
+                "low": 0.3424,
+                "high": 1.0
+              }
+            },
+            "persons": {
+              "answers": 2,
+              "undecided": 0,
+              "correct_absence_rate": {
+                "successes": 0,
+                "trials": 2,
+                "estimate": 0.0,
+                "low": 0.0,
+                "high": 0.6576
+              },
+              "false_absence_rate": {
+                "successes": 2,
+                "trials": 2,
+                "estimate": 1.0,
+                "low": 0.3424,
+                "high": 1.0
+              }
+            }
+          }
+        },
+        "udv_ids_by_judgment": {
+          "falou": [
+            "udv-107-4-0",
+            "udv-109-1-0",
+            "udv-111-0-0",
+            "udv-111-0-1",
+            "udv-111-0-2",
+            "udv-111-0-3"
+          ],
+          "nao_falou": [],
+          "nao_sei": []
+        },
+        "clustering_note": "one answer per participant is copied to each of that participant's drawn UDVs, so UDV-level intervals treat correlated answers as independent; the person-level intervals use the independent unit",
+        "estimator_inputs": {
+          "strict_precision": {
+            "successes": 0,
+            "trials": 6
+          },
+          "tolerant_precision": {
+            "successes": 0,
+            "trials": 6
+          }
+        },
+        "sample": {
+          "question": "pessoa_falou",
+          "target": 20,
+          "population": 13,
+          "drawn_udvs": 13,
+          "all_taken": true,
+          "shortfall": 7,
+          "rows": 6
+        },
+        "judged_items": 3,
+        "sample_items": 6,
+        "judged_of_sample": "3 of 6"
+      }
+    },
+    "criteria": [
+      {
+        "name": "quote_found_strict_precision",
+        "stratum": "direct_quote",
+        "metric": "strict_precision",
+        "min_wilson_lower": 0.9,
+        "status": "INTERIM_FAIL",
+        "valid_for_decision": false,
+        "observed": {
+          "successes": 10,
+          "trials": 11,
+          "estimate": 0.9091,
+          "low": 0.6226,
+          "high": 0.9838
+        },
+        "min_successes_to_pass_at_this_n": null
+      },
+      {
+        "name": "semantic_match_high_tolerant_precision",
+        "stratum": "semantic_match_high",
+        "metric": "tolerant_precision",
+        "min_wilson_lower": 0.75,
+        "status": "INTERIM_NOT_EVALUABLE",
+        "valid_for_decision": false,
+        "observed": {
+          "successes": 0,
+          "trials": 0,
+          "estimate": null,
+          "low": null,
+          "high": null
+        },
+        "min_successes_to_pass_at_this_n": null
+      }
+    ]
+  },
+  "code": {
+    "utils/udv_v2_analysis.py": "d7b831f45e6c6dafad8197745217951ab328fac823c1b0520fae5ea264e3645a",
+    "utils/precision_report.py": "7ffe9e44b9386c52bf0a94c637f67e154beee8d2b481aad6932fa40f18c37e06"
+  }
+}

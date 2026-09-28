@@ -1,9 +1,9 @@
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Protocol, TypeGuard
+from typing import Literal, Protocol, TypeGuard, get_args
 
-from bookworm.transcript.sentences import enclosing_turn_sentence, turn_text
+from bookworm.transcript.sentences import enclosing_turn_sentence, sentence_part_spans, turn_text
 from bookworm.transcript.text import normalize_whitespace, strip_accents
 from bookworm.transcript.text import prefix_pattern as quote_prefix_pattern
 from bookworm.transcript.turns import Turn
@@ -12,23 +12,30 @@ __all__ = [
     "DEFAULT_QUOTE_POLICY",
     "DOUBLE_QUOTE_PATTERN",
     "DOUBLE_QUOTE_PATTERNS",
+    "QUOTE_EXTENTS",
     "QUOTE_PATTERNS",
     "SINGLE_QUOTE_PATTERN",
     "PrefixMatch",
     "PrefixOccurrence",
+    "QuoteExtent",
+    "QuoteExtentMode",
     "QuoteMatch",
     "QuotePolicy",
     "TurnQuoteMatch",
     "choose_occurrence_index",
+    "extend_quote_match",
     "extract_quotes",
     "find_opinion_quote_match",
     "find_opinion_turn_quote_match",
     "find_prefix_occurrences",
+    "find_quote_end",
     "find_quote_match",
     "find_turn_quote_match",
     "is_trusted_quote",
+    "quote_part_count",
     "quote_prefix_pattern",
     "quote_prefixes",
+    "quote_suffixes",
     "token_jaccard",
     "word_tokens",
 ]
@@ -38,6 +45,10 @@ SINGLE_QUOTE_PATTERN = re.compile(r"(?<!\w)'([^']{10,})'(?!\w)")
 DOUBLE_QUOTE_PATTERNS: tuple[re.Pattern[str], ...] = (DOUBLE_QUOTE_PATTERN,)
 QUOTE_PATTERNS: tuple[re.Pattern[str], ...] = (DOUBLE_QUOTE_PATTERN, SINGLE_QUOTE_PATTERN)
 WORD_TOKEN_PATTERN = re.compile(r"\w+")
+TRAILING_NON_WORD_PATTERN = re.compile(r"\W+$")
+QuoteExtentMode = Literal["prefix_sentence", "full_quote"]
+QUOTE_EXTENTS: tuple[QuoteExtentMode, ...] = get_args(QuoteExtentMode)
+QuoteExtentRule = Literal["suffix", "sentence_count"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -46,6 +57,8 @@ class QuotePolicy:
     min_prefix_chars: int = 6
     trusted_prefix_words: int = 6
     patterns: tuple[re.Pattern[str], ...] = QUOTE_PATTERNS
+    suffix_lengths: tuple[int, ...] = (6, 4, 3)
+    max_span_ratio: float = 2.0
 
 
 @dataclass(frozen=True, slots=True)
@@ -80,6 +93,15 @@ class TurnQuoteMatch:
     start: int
     end: int
     sentence: str
+
+
+@dataclass(frozen=True, slots=True)
+class QuoteExtent:
+    text: str
+    rule: QuoteExtentRule
+    suffix_words: int | None
+    start: int
+    end: int
 
 
 class CountedMatch(Protocol):
@@ -209,4 +231,73 @@ def find_opinion_turn_quote_match(
         start=occurrence.start,
         end=occurrence.end,
         sentence=occurrence.sentence,
+    )
+
+
+def quote_suffixes(quote: str, policy: QuotePolicy = DEFAULT_QUOTE_POLICY) -> list[tuple[str, int]]:
+    words = quote.split()
+    suffixes: list[tuple[str, int]] = []
+    for suffix_length in policy.suffix_lengths:
+        if len(words) < suffix_length:
+            continue
+        suffix = TRAILING_NON_WORD_PATTERN.sub("", " ".join(words[-suffix_length:]))
+        if len(suffix) >= policy.min_prefix_chars:
+            suffixes.append((suffix, suffix_length))
+    return suffixes
+
+
+def find_quote_end(
+    quote: str, text: str, start: int, prefix_end: int, policy: QuotePolicy = DEFAULT_QUOTE_POLICY
+) -> tuple[int, int] | None:
+    limit = start + policy.max_span_ratio * len(quote)
+    for suffix, words in quote_suffixes(quote, policy):
+        for hit in quote_prefix_pattern(suffix).finditer(text, start):
+            if hit.end() > limit:
+                break
+            if hit.end() >= prefix_end:
+                return hit.end(), words
+    return None
+
+
+def quote_part_count(quote: str) -> int:
+    return sum(
+        1
+        for start, end in sentence_part_spans(quote)
+        if WORD_TOKEN_PATTERN.search(quote[start:end])
+    )
+
+
+def sentence_count_end(text: str, start: int, prefix_end: int, parts_wanted: int) -> int:
+    parts = sentence_part_spans(text)
+    covering = [index for index, (a, b) in enumerate(parts) if a < prefix_end and start < b]
+    last = max(covering[-1], min(covering[0] + parts_wanted - 1, len(parts) - 1))
+    return parts[last][1]
+
+
+def extend_quote_match(
+    opinion_text: str,
+    match: TurnQuoteMatch,
+    turns: Sequence[Turn],
+    policy: QuotePolicy = DEFAULT_QUOTE_POLICY,
+) -> QuoteExtent:
+    quote = extract_quotes(opinion_text, policy.patterns)[match.quote_index]
+    turn = next(turn for turn in turns if turn.turn_index == match.turn_index)
+    text = turn_text(turn)
+    found = find_quote_end(quote, text, match.start, match.end, policy)
+    if found is not None:
+        end, words = found
+        return QuoteExtent(
+            text=enclosing_turn_sentence(text, match.start, end),
+            rule="suffix",
+            suffix_words=words,
+            start=match.start,
+            end=end,
+        )
+    end = sentence_count_end(text, match.start, match.end, quote_part_count(quote))
+    return QuoteExtent(
+        text=enclosing_turn_sentence(text, match.start, end),
+        rule="sentence_count",
+        suffix_words=None,
+        start=match.start,
+        end=end,
     )

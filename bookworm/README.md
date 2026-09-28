@@ -245,6 +245,22 @@ de cobertura. O arquivo de `challenge/` tem também as chaves de registro da cal
 (`calibration_source`, `calibration_method`, `threshold_decision`, `previous_embedding_threshold` e a
 tabela `[calibration]`), que a biblioteca só copia.
 
+Duas chaves opcionais de `[evidence]` ligam a construção de `udv_v2`
+([ADR 0006](docs/adr/0006-udv-v2-windows-full-quotes-and-verifier.md)); sem elas, a biblioteca faz
+exatamente o que fazia em `udv_v1`.
+
+- `semantic_unit`: `"sentence"` (padrão), `"window2"` ou `"window3"`. Com janela, a unidade candidata
+  da busca semântica são 2 ou 3 sentenças candidatas consecutivas do mesmo turno (passo 1); o encoder
+  recebe as sentenças juntadas por espaço, e a evidência guarda o trecho da transcrição da primeira à
+  última sentença. Os embeddings ficam no cache com o rótulo `window2s_<id>` ou `window3s_<id>`.
+- `quote_extent`: `"prefix_sentence"` (padrão) ou `"full_quote"`. Com `full_quote`, a evidência de
+  `quote_found` vai da sentença do prefixo até o fim da citação, achado por um sufixo de 6, 4 ou 3
+  palavras a no máximo 2 vezes o tamanho da citação; sem sufixo, cobre tantas partes de sentença quantas
+  a citação tem, sem sair do turno.
+
+`verify-udvs` lê as duas chaves da configuração gravada na cobertura e confere cada evidência com a
+mesma regra.
+
 ### Configuração de split
 
 Formato de `challenge/configs/splits.toml`:

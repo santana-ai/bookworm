@@ -3,23 +3,34 @@ from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass, field
 
 from bookworm.data.schemas import HearingRecord, Participant
-from bookworm.features.encoders import CachedEncoder
+from bookworm.features.encoders import CachedEncoder, FloatMatrix
 from bookworm.transcript.sentences import split_turn_sentences
 from bookworm.transcript.speakers import resolve_person_speech
 from bookworm.transcript.turns import Turn, split_into_turns
 from bookworm.udv.evidence import (
+    build_full_quote_evidence,
     build_quote_evidence,
     build_semantic_evidence,
+    build_unit_evidence,
     classify_tier,
     provenance_for,
 )
 from bookworm.udv.quotes import (
     DEFAULT_QUOTE_POLICY,
+    QuoteExtentMode,
     QuotePolicy,
+    TurnQuoteMatch,
     find_opinion_turn_quote_match,
     is_trusted_quote,
 )
 from bookworm.udv.schemas import Actor, Evidence, Method, UdvRecord
+from bookworm.udv.windows import (
+    CandidateUnit,
+    SemanticUnit,
+    embedding_label,
+    person_units,
+    unit_size,
+)
 
 HearingProgress = Callable[[int, HearingRecord, int, float], None]
 
@@ -42,6 +53,12 @@ class PersonSpeech:
 class EvidenceSettings:
     embedding_threshold: float | int
     quote_policy: QuotePolicy = DEFAULT_QUOTE_POLICY
+    semantic_unit: SemanticUnit = "sentence"
+    quote_extent: QuoteExtentMode = "prefix_sentence"
+
+    @property
+    def uses_windows(self) -> bool:
+        return self.semantic_unit != "sentence"
 
 
 @dataclass
@@ -129,6 +146,85 @@ def build_udv_record(
     )
 
 
+@dataclass(frozen=True, slots=True)
+class SemanticCandidates:
+    embeddings: FloatMatrix
+    slices: dict[int, slice]
+    units: dict[int, list[CandidateUnit]]
+
+
+def semantic_candidates(
+    hearing: HearingRecord,
+    people: Sequence[PersonSpeech],
+    encoder: CachedEncoder,
+    settings: EvidenceSettings,
+) -> SemanticCandidates:
+    if not settings.uses_windows:
+        all_sentences = [sentence for person in people for sentence in person.sentences]
+        return SemanticCandidates(
+            embeddings=encoder.encode(all_sentences, f"sentences_{hearing.id}"),
+            slices=sentence_slices_by_person(people),
+            units={},
+        )
+    size = unit_size(settings.semantic_unit)
+    units = {
+        person.index: person_units(person.matched_turns, hearing.transcricao, size)
+        for person in people
+    }
+    slices: dict[int, slice] = {}
+    offset = 0
+    for person in people:
+        slices[person.index] = slice(offset, offset + len(units[person.index]))
+        offset += len(units[person.index])
+    texts = [unit.text for person in people for unit in units[person.index]]
+    return SemanticCandidates(
+        embeddings=encoder.encode(texts, embedding_label(settings.semantic_unit, hearing.id)),
+        slices=slices,
+        units=units,
+    )
+
+
+def quote_evidence(
+    quote_match: TurnQuoteMatch,
+    opinion_text: str,
+    person: PersonSpeech,
+    transcript: str,
+    settings: EvidenceSettings,
+) -> Evidence:
+    if settings.quote_extent == "full_quote":
+        return build_full_quote_evidence(
+            quote_match, opinion_text, person.matched_turns, transcript, settings.quote_policy
+        )
+    return build_quote_evidence(quote_match, person.matched_turns, transcript)
+
+
+def semantic_evidence(
+    opinion_embedding: FloatMatrix,
+    person: PersonSpeech,
+    candidates: SemanticCandidates,
+    transcript: str,
+    quote_match: TurnQuoteMatch | None,
+    settings: EvidenceSettings,
+) -> Evidence | None:
+    embeddings = candidates.embeddings[candidates.slices[person.index]]
+    if settings.uses_windows:
+        units = candidates.units[person.index]
+        if not units:
+            return None
+        return build_unit_evidence(opinion_embedding, units, embeddings, quote_match)
+    if not person.sentences:
+        return None
+    return build_semantic_evidence(
+        opinion_embedding,
+        person.sentences,
+        person.sentence_turns,
+        embeddings,
+        person.matched_turns,
+        transcript,
+        quote_match,
+    )
+
+
 def build_hearing_udvs(
     hearing: HearingRecord,
     encoder: CachedEncoder,
@@ -137,15 +233,13 @@ def build_hearing_udvs(
 ) -> tuple[list[UdvRecord], list[PersonSpeech]]:
     transcript = hearing.transcricao
     people = resolve_hearing_people(hearing, turns)
-    all_sentences = [sentence for person in people for sentence in person.sentences]
-    sentence_embeddings = encoder.encode(all_sentences, f"sentences_{hearing.id}")
+    candidates = semantic_candidates(hearing, people, encoder, settings)
     opinions = [
         (person, opinion_index, opinion_text)
         for person in people
         for opinion_index, opinion_text in enumerate(person.participant.opinioes)
     ]
     opinion_embeddings = encoder.encode([text for _, _, text in opinions], f"opinions_{hearing.id}")
-    slices = sentence_slices_by_person(people)
     method = Method(
         encoder=encoder.encoder.name,
         revision=encoder.encoder.revision,
@@ -159,16 +253,15 @@ def build_hearing_udvs(
         if person.resolved:
             quote_match = find_opinion_turn_quote_match(opinion_text, person.matched_turns, policy)
             if is_trusted_quote(quote_match, policy):
-                evidence = build_quote_evidence(quote_match, person.matched_turns, transcript)
-            elif person.sentences:
-                evidence = build_semantic_evidence(
+                evidence = quote_evidence(quote_match, opinion_text, person, transcript, settings)
+            else:
+                evidence = semantic_evidence(
                     opinion_embeddings[position],
-                    person.sentences,
-                    person.sentence_turns,
-                    sentence_embeddings[slices[person.index]],
-                    person.matched_turns,
+                    person,
+                    candidates,
                     transcript,
                     quote_match,
+                    settings,
                 )
         records.append(
             build_udv_record(
