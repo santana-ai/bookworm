@@ -1,10 +1,8 @@
-import json
 from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
 import pytest
-from sklearn.metrics import roc_auc_score
 
 from utils import confidence_v2 as cv
 from utils import grounding_scorers as gs
@@ -86,19 +84,6 @@ def test_two_way_probability_and_combinations():
     assert combined["rank_max"].tolist() == pytest.approx([1.0, 2 / 3, 1.0])
 
 
-def test_delong_matches_sklearn_auc_and_is_null_for_identical_scores():
-    rng = np.random.default_rng(0)
-    positive = rng.random(80) > 0.4
-    first = rng.random(80) + positive
-    second = rng.random(80)
-    result = cv.delong_test(first, second, positive)
-    assert result["auc_first"] == pytest.approx(roc_auc_score(positive, first), abs=1e-4)
-    assert result["auc_second"] == pytest.approx(roc_auc_score(positive, second), abs=1e-4)
-    assert result["p_value"] < 0.05
-    same = cv.delong_test(first, first, positive)
-    assert same["delta"] == 0 and same["p_value"] == 1.0
-
-
 def test_paired_comparisons_use_same_replicates_and_holm():
     rng = np.random.default_rng(1)
     positive = rng.random(200) > 0.3
@@ -117,7 +102,6 @@ def test_paired_comparisons_use_same_replicates_and_holm():
     assert good_auc["delta"] > 0 and good_auc["interval"]["low"] > 0
     assert good_aurc["delta"] < 0
     assert all(e["p_holm"] >= e["p_value"] for e in entries)
-    assert cv.main_answer([good_auc]) == "better"
     assert set(result["systems"]["good"]) >= set(cv.REPORTED_METRICS)
 
 
@@ -177,21 +161,6 @@ def test_spread_flag_table_counts_negative_rates():
     assert table["flagged"] == 3 and table["unflagged"] == 5
     assert table["negative_rate_flagged"] == pytest.approx(2 / 3, abs=1e-4)
     assert table["negative_rate_unflagged"] == 0.0
-
-
-def test_annotated_udv_ids_reads_only_the_question(tmp_path):
-    key = tmp_path / "key.json"
-    items = {
-        "A001": {"question": "trecho_sustenta", "udv_ids": ["udv-2"]},
-        "A002": {"question": "outra", "udv_ids": ["udv-3", "udv-4"]},
-        "A003": {"question": "trecho_sustenta", "udv_ids": ["udv-1"]},
-    }
-    key.write_text(json.dumps({"items": items}))
-    assert cv.annotated_udv_ids(key, "trecho_sustenta") == ["udv-1", "udv-2"]
-    items["A004"] = {"question": "trecho_sustenta", "udv_ids": ["udv-5", "udv-6"]}
-    key.write_text(json.dumps({"items": items}))
-    with pytest.raises(SystemExit):
-        cv.annotated_udv_ids(key, "trecho_sustenta")
 
 
 def test_smoke_decision_rules():

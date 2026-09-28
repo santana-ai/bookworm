@@ -1,5 +1,4 @@
 import argparse
-import csv
 import json
 import time
 import tomllib
@@ -12,12 +11,11 @@ from typing import Any
 import numpy as np
 from scipy.stats import spearmanr
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import StandardScaler
 
 from utils import nli_verifier_experiments as experiments
 from utils import nli_verifier_exploration as exploration
-from utils.calibrate_threshold import interval, rounded
+from utils.calibrate_threshold import rounded
 from utils.dataset_io import load_jsonl, sha256_of_file, write_json, write_jsonl
 from utils.nli_verifier_experiments import (
     PremiseUnit,
@@ -878,129 +876,6 @@ def command_apply(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
     print(json.dumps(summary, indent=2), flush=True)
 
 
-def annotation_labels(
-    annotation: Path, key: Path, question: str, label_column: str
-) -> dict[str, str]:
-    with open(key) as f:
-        items = json.load(f)["items"]
-    with open(annotation, encoding="utf-8-sig", newline="") as f:
-        rows = list(csv.DictReader(f, delimiter=";"))
-    labels: dict[str, str] = {}
-    for row in rows:
-        item = items.get(row["item_id"])
-        if item is None:
-            raise SystemExit(f"{row['item_id']}: not in {key}")
-        if item["question"] != question or row["pergunta"] != question:
-            continue
-        if len(item["udv_ids"]) != 1:
-            raise SystemExit(f"{row['item_id']}: {question} item with several UDVs")
-        value = row[label_column].strip()
-        if not value:
-            raise SystemExit(f"{row['item_id']}: empty {label_column}")
-        labels[item["udv_ids"][0]] = value
-    return labels
-
-
-def agreement_auc(
-    scores: np.ndarray,
-    positive: np.ndarray,
-    hearings: np.ndarray,
-    samples: int,
-    seed: int,
-    level: float,
-) -> Record:
-    count = int(positive.sum())
-    if count == 0 or count == len(positive):
-        return {"n": int(len(positive)), "positives": count, "roc_auc": None}
-    draws = experiments.hearing_draws(hearings, samples, np.random.default_rng(seed))
-    values = [
-        float(roc_auc_score(positive[rows], scores[rows]))
-        for rows in draws
-        if positive[rows].any() and not positive[rows].all()
-    ]
-    return {
-        "n": int(len(positive)),
-        "positives": count,
-        "negatives": int(len(positive) - count),
-        "roc_auc": rounded(float(roc_auc_score(positive, scores))),
-        "hearing_bootstrap": interval(values, level),
-    }
-
-
-def command_annotation_agreement(args: argparse.Namespace, config: UdvVerifierConfig) -> None:
-    with open(config.report_path) as f:
-        report = json.load(f)
-    section = args.section
-    if section in report:
-        raise SystemExit(f"{config.report_path} already has a {section} section")
-    labels = annotation_labels(args.annotation, args.key, args.question, args.label_column)
-    rows = {row["udv_id"]: row for row in load_jsonl(config.output_path)}
-    missing = [udv for udv in labels if not rows.get(udv, {}).get("scored")]
-    if missing:
-        raise SystemExit(f"annotated UDVs without a verifier score: {missing[:10]}")
-    order = sorted(labels)
-    values = [labels[udv] for udv in order]
-    hearings = np.array([rows[udv]["hearing_id"] for udv in order])
-    level = float(experiments.load_config(config.verifier_config).confidence_level)
-    contrasts = {
-        "correct_vs_rest": ({"correta"}, "positive = correta; negative = parcial or incorreta"),
-        "correct_or_partial_vs_incorrect": (
-            {"correta", "parcial"},
-            "positive = correta or parcial; negative = incorreta",
-        ),
-    }
-    results: Record = {}
-    for name, (positive_labels, rule) in contrasts.items():
-        positive = np.array([value in positive_labels for value in values])
-        results[name] = {
-            "rule": rule,
-            **{
-                score: agreement_auc(
-                    np.array([rows[udv][score] for udv in order], dtype=float),
-                    positive,
-                    hearings,
-                    args.bootstrap_samples,
-                    args.seed,
-                    level,
-                )
-                for score in ("primary_probability", "p4_supports")
-            },
-        }
-    decisions = np.array([rows[udv]["supported_at_train_threshold"] for udv in order])
-    report[section] = {
-        "created_at": experiments.now(),
-        "annotator": args.annotator,
-        "scope": "agreement of the verifier scores with this annotation; it is not a comparison "
-        "with a human judgment and not an estimate of accuracy",
-        "question": args.question,
-        "label_counts": dict(sorted(Counter(values).items())),
-        "items": len(order),
-        "hearings": int(len(set(hearings.tolist()))),
-        "split_counts": dict(sorted(Counter(rows[udv]["split"] for udv in order).items())),
-        "tier_counts": dict(sorted(Counter(rows[udv]["tier"] for udv in order).items())),
-        "supported_at_train_threshold_by_label": {
-            label: {
-                "n": sum(1 for v in values if v == label),
-                "supported": int(
-                    sum(d for v, d in zip(values, decisions, strict=True) if v == label)
-                ),
-            }
-            for label in sorted(set(values))
-        },
-        "roc_auc": results,
-        "bootstrap_rule": f"{args.bootstrap_samples} hearing resamples (seed {args.seed}), "
-        "percentile interval; replicates with a single class are skipped",
-        "inputs": {
-            "annotation_sha256": sha256_of_file(args.annotation),
-            "key": {"path": str(args.key), "sha256": sha256_of_file(args.key)},
-            "verifier_output_sha256": sha256_of_file(config.output_path),
-        },
-        "code": {"utils/udv_verifier.py": sha256_of_file(Path(__file__))},
-    }
-    write_json(report, config.report_path)
-    print(json.dumps(results, indent=2), flush=True)
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Entailment-style verifier scores on the UDV evidence: translate, score "
@@ -1012,18 +887,6 @@ def parse_args() -> argparse.Namespace:
         command = commands.add_parser(name)
         command.add_argument("--device", choices=experiments.DEVICES, default=None)
     commands.add_parser("apply", help="refit the primary on train and write the UDV scores")
-    agreement = commands.add_parser(
-        "annotation-agreement",
-        help="add the ROC AUC of the verifier scores against an external annotation",
-    )
-    agreement.add_argument("--annotation", type=Path, required=True)
-    agreement.add_argument("--key", type=Path, required=True)
-    agreement.add_argument("--annotator", required=True)
-    agreement.add_argument("--section", default="annotation_agreement")
-    agreement.add_argument("--question", default="trecho_sustenta")
-    agreement.add_argument("--label-column", default="julgamento")
-    agreement.add_argument("--bootstrap-samples", type=int, default=1000)
-    agreement.add_argument("--seed", type=int, default=42)
     return parser.parse_args()
 
 
@@ -1034,7 +897,6 @@ def main() -> None:
         "translate": command_translate,
         "score": command_score,
         "apply": command_apply,
-        "annotation-agreement": command_annotation_agreement,
     }
     commands[args.command](args, config)
 

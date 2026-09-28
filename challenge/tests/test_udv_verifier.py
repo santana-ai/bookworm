@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -238,41 +237,3 @@ def test_output_rows_keep_unscored_udvs_with_null_scores():
         "supported_at_train_threshold": None,
         "p4_supports": None,
     }
-
-
-def test_annotation_labels_and_agreement(tmp_path):
-    key = tmp_path / "key.json"
-    key.write_text(
-        json.dumps(
-            {
-                "items": {
-                    "A1": {"question": "trecho_sustenta", "udv_ids": ["u1"]},
-                    "A2": {"question": "trecho_sustenta", "udv_ids": ["u2"]},
-                    "A3": {"question": "pessoa_falou", "udv_ids": ["u3", "u4"]},
-                }
-            }
-        )
-    )
-    annotation = tmp_path / "annotation.csv"
-    annotation.write_text(
-        "﻿item_id;pergunta;julgamento\n"
-        "A1;trecho_sustenta;correta\n"
-        "A2;trecho_sustenta;incorreta\n"
-        "A3;pessoa_falou;falou\n",
-        encoding="utf-8",
-    )
-    labels = uv.annotation_labels(annotation, key, "trecho_sustenta", "julgamento")
-    assert labels == {"u1": "correta", "u2": "incorreta"}
-    result = uv.agreement_auc(
-        np.array([0.9, 0.2, 0.8, 0.1]),
-        np.array([True, False, True, False]),
-        np.array([1, 1, 2, 2]),
-        50,
-        0,
-        0.95,
-    )
-    assert result["roc_auc"] == 1.0 and result["positives"] == 2
-    assert (
-        uv.agreement_auc(np.array([0.1]), np.array([True]), np.array([1]), 5, 0, 0.95)["roc_auc"]
-        is None
-    )

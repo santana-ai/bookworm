@@ -1,9 +1,9 @@
 [experiment]
 name = "confidence_v2"
 date = "2026-09-27"
-declared = "Declared on 2026-09-27, before any score of a new candidate below was computed on any benchmark opinion or UDV. Known before this declaration: the E3x v1/v2 train, validation and test results of the existing scorers (artifacts/experiments/nli_verifier_exploration/e3x_v2), the udv_v1 verifier report and its annotation_agreement section (ROC AUC 0.8442 of the primary probability and 0.6832 of p4_supports for correta against parcial or incorreta), and the E5 result that no signal beat top1_score in AURC (artifacts/experiments/confidence/confidence_v1). The cosine AUC on the annotated UDVs had not been computed. No new candidate had been loaded on any benchmark or UDV text"
+declared = "Declared on 2026-09-27, before any score of a new candidate below was computed on any benchmark opinion or UDV. Known before this declaration: the E3x v1/v2 train, validation and test results of the existing scorers (artifacts/experiments/nli_verifier_exploration/e3x_v2), the udv_v1 verifier report and an agreement section of it against labels that were not a human judgment (removed from this release, see [release]), and the E5 result that no signal beat top1_score in AURC (artifacts/experiments/confidence/confidence_v1). The cosine AUC on the annotated UDVs had not been computed. No new candidate had been loaded on any benchmark or UDV text"
 question = "is the E3x primary verifier (laya_en_en:learned_cross_model_with_pt) a better confidence signal for a UDV than the serafim cosine the UDV builder records, and how do the scorers used in the grounding and factual-consistency literature compare with both on this data"
-label_semantics = "E-A: label_inferable of the NLI benchmark (retrieved_context_entailment: an expert judged the article opinion inferable from the four retrieved chunks), not a global truth label. E-B: the trecho_sustenta judgment of the udv_v1 annotation sample, the majority of three blind passes of a language model; it is not a human judgment, and agreement with it is not accuracy"
+label_semantics = "E-A: label_inferable of the NLI benchmark (retrieved_context_entailment: an expert judged the article opinion inferable from the four retrieved chunks), not a global truth label."
 
 [inputs]
 verifier_config = "configs/nli_verifier.toml"
@@ -11,29 +11,23 @@ exploration_config = "configs/nli_verifier_exploration_v2.toml"
 udv_verifier_config = "configs/udv_verifier.toml"
 translation_config = "configs/translation.toml"
 translation_model = "nllb"
-annotation_key = "artifacts/validation/human_validation_v1_udv_v1/annotation_key.json"
-annotation_rule = "the annotation CSV is passed on the command line and never copied into the repository; the reports keep counts, hashes and aggregate metrics only"
-annotation_question = "trecho_sustenta"
-annotation_label_column = "julgamento"
 
 [splits]
 ea = ["train", "validation"]
 ea_rule = "E-A reads the train and validation opinions of the NLI benchmark only; the test opinions are never loaded, translated or scored by this experiment. The E3x primary was fitted on train, so its train numbers are in-sample and are marked as such; validation is its first out-of-sample split here"
-eb = "the UDVs of the annotated trecho_sustenta items; they all come from test-split hearings. E-B is a confirmatory report: no candidate, pool, threshold, prompt or combination is chosen or tuned on it"
 selection = "none: every declared candidate is reported. If a later choice is made from these results it uses E-A validation only"
 
 [premise]
 ea_max = "each distinct non-empty retrieved chunk is scored on its own with the opinion as hypothesis; the opinion score is the max over its chunks (an opinion with no non-empty chunk gets the minimum of the scorer: 0.0 for probabilities, the lowest score of the split for raw scores)"
 ea_concatenated = "the non-empty chunks in order joined by one space, scored as one premise, only for candidates with concatenated = true; truncation from the end of the premise to max_length is counted and reported. Secondary: not in the Holm family"
-eb = "the single evidence sentence of the UDV (evidence.text after normalize_whitespace), the production premise; one pair per UDV"
-domain_shift = "E-A premises are four transcript chunks of about 630 characters each; E-B premises are one sentence. A result on one does not transfer to the other without this caveat"
+domain_shift = "E-A premises are four transcript chunks of about 630 characters each; the production premise of a UDV is one evidence sentence. A result on E-A does not transfer to UDV evidence without this caveat"
 english_rule = "candidates with language = en read the NLLB English text from the main cache of configs/translation.toml: TranslationStore.translate_opinion(hypothesis) and TranslationStore.translate_chunk(premise item), as the laya_en_en scorer of E3; texts missing from the cache are translated with utils.translation (same model, revision and decoding) and appended to that cache before any English score"
 
 [existing]
-cosine_serafim = { ea = "nli_verifier_v1 cosine_serafim max.cosine", eb = "udv_v1_verifier cosine_serafim_udv max.cosine", role = "reference", reason = "the cosine of the production encoder between proposition and evidence sentence; on semantic tiers it equals evidence.score of udv_v1 (checked at run time), on quote_found UDVs it is computed on the same pair" }
-e3x_primary = { ea = "laya_en_en:learned_cross_model_with_pt refit on train exactly as utils.udv_verifier.fit_primary (checked against final_test.json), probabilities on train (in-sample) and validation", eb = "primary_probability of artifacts/udv/udv_v1_verifier.jsonl", role = "main contrast" }
-laya_multi_pt_p4 = { ea = "nli_verifier_v2 laya_multi_pt max.p4_supports", eb = "p4_supports of artifacts/udv/udv_v1_verifier.jsonl", role = "candidate" }
-xnli_mdeberta = { ea = "nli_verifier_v1 xnli_mdeberta max.entailment", eb = "udv_v1_verifier xnli_mdeberta_udv max.entailment", role = "candidate" }
+cosine_serafim = { ea = "nli_verifier_v1 cosine_serafim max.cosine", role = "reference", reason = "the cosine of the production encoder between proposition and evidence sentence; on semantic tiers it equals evidence.score of udv_v1 (checked at run time), on quote_found UDVs it is computed on the same pair" }
+e3x_primary = { ea = "laya_en_en:learned_cross_model_with_pt refit on train exactly as utils.udv_verifier.fit_primary (checked against final_test.json), probabilities on train (in-sample) and validation", role = "main contrast" }
+laya_multi_pt_p4 = { ea = "nli_verifier_v2 laya_multi_pt max.p4_supports", role = "candidate" }
+xnli_mdeberta = { ea = "nli_verifier_v1 xnli_mdeberta max.entailment", role = "candidate" }
 
 [new]
 order = ["minicheck_ft5", "minicheck_deberta", "factcg_deberta", "alignscore_large", "hhem_open", "bge_reranker"]
@@ -167,12 +161,12 @@ problem = "a guardrail model that flags an assistant answer not grounded in the 
 [laya]
 declared = "Declared on 2026-09-27 with not_run_amendment, before any aggregate below was computed and before any new question was asked on any text. Laya is read as a yes-probability judge asked several questions, and the questions are aggregated so that the estimate rests on more than one wording"
 scorers = ["laya_multi_pt", "laya_en_en"]
-scorers_rule = "the two Laya conditions of configs/nli_verifier.toml: laya_multi_pt on the Portuguese text with no translation, laya_en_en on the NLLB English text; the p1..p8 answers are read from the existing score files (E-A: nli_verifier_v2 scores; E-B: udv_v1_verifier scores), so no existing (premise, question) pair is asked again"
+scorers_rule = "the two Laya conditions of configs/nli_verifier.toml: laya_multi_pt on the Portuguese text with no translation, laya_en_en on the NLLB English text; the p1..p8 answers are read from the existing score files (the nli_verifier_v2 scores), so no existing (premise, question) pair is asked again"
 support_questions = ["p1_nli", "p2_nli_reversed", "p3_inferable", "p4_supports", "p5_position", "p6_position_reversed", "p7_coverage"]
 support_rule = "the battery signals of these seven questions, each already oriented so that higher means more support (p1, p2: P(entailment), the reversed option order mapped back by name; p3, p4: P(true); p5, p6: P(same_position), mapped back by name; p7: expected coverage level / 4). p8_similarity is left out because the battery declares it a similarity question, not a support question"
 aggregates = ["mean", "median", "min"]
-aggregate_rule = "per premise item, the mean, the median and the minimum of the support signals of the question set; the opinion score is the max over its non-empty items (E-A) or the value on the single evidence sentence (E-B). min is the conservative rule: it is high only when every question gives support"
-spread_rule = "per premise item, the population standard deviation of the support signals of the question set (and, reported with it, max minus min); the opinion spread is the one of the item with the highest mean aggregate (ties: first item). As a confidence signal it is read as -spread (higher = the questions agree more). As a flag, flagged = spread above the median spread of the E-A train opinions of the same scorer and question set; the share of negatives among flagged and unflagged items is reported with the hearing-bootstrap interval of their difference, in E-A (train and validation) and E-B with the same train threshold"
+aggregate_rule = "per premise item, the mean, the median and the minimum of the support signals of the question set; the opinion score is the max over its non-empty items. min is the conservative rule: it is high only when every question gives support"
+spread_rule = "per premise item, the population standard deviation of the support signals of the question set (and, reported with it, max minus min); the opinion spread is the one of the item with the highest mean aggregate (ties: first item). As a confidence signal it is read as -spread (higher = the questions agree more). As a flag, flagged = spread above the median spread of the E-A train opinions of the same scorer and question set; the share of negatives among flagged and unflagged items is reported with the hearing-bootstrap interval of their difference, in E-A train and validation"
 candidate_names = "<scorer>_<aggregate>_q7 for the seven support questions, <scorer>_<aggregate>_q11 with the four new questions added, <scorer>_spread_q7 and <scorer>_spread_q11 for the spread; the q7 aggregates are candidates of the main families; the q11 aggregates and the spreads are reported in their own tables"
 concatenated_rule = "on E-A the same aggregates are also computed on the concatenated premise answers (secondary, not in any Holm family)"
 
@@ -183,7 +177,7 @@ en = { n1_entails = "Does the `premise` entail the `hypothesis`?", n2_states = "
 pt = { n1_entails = "A `premise` implica a `hypothesis`?", n2_states = "A `premise` diz o que a `hypothesis` afirma?", n3_attributable = "Tudo o que está na `hypothesis` pode ser atribuído à `premise`?", n4_reader_agrees = "Alguém que lesse apenas a `premise` concordaria que a `hypothesis` é verdadeira?" }
 language_of = { laya_multi_pt = "pt", laya_en_en = "en" }
 signal = "P(true)"
-premises = "E-A: every distinct non-empty chunk and the concatenated premise of the train and validation opinions, the requests of the E3 battery run; E-B: the evidence sentence of the annotated UDVs"
+premises = "every distinct non-empty chunk and the concatenated premise of the train and validation opinions, the requests of the E3 battery run"
 cache_rule = "answers go to the Laya answer cache of each checkpoint (artifacts/cache/decision_models), the cache the E3 battery used, keyed by model signature, question payload and state; the new questions have new payloads, so nothing is reused for them, and a rerun reuses them"
 smoke_rule = "the 50 smoke opinions of [smoke] are asked first on mps and the projected time follows the rule of [smoke]; a scorer whose new questions exceed budget_hours is reported without q11 aggregates"
 added_value = "reported on E-A validation: <scorer>_<aggregate>_q11 minus <scorer>_<aggregate>_q7 on roc_auc and aurc with the paired hearing bootstrap, one Holm family over these comparisons; the four new questions alone (max over chunks) are also reported. The answer is positive only if the q11 interval excludes zero on the favourable side after Holm"
@@ -191,8 +185,8 @@ added_value = "reported on E-A validation: <scorer>_<aggregate>_q11 minus <score
 [outputs]
 output_dir = "artifacts/experiments/confidence_v2"
 cache_dir = "artifacts/cache/confidence_v2"
-score_rule = "per candidate and split, scores/<key>_<split>.jsonl (split train, validation or udv_annotated) with the per-item and concatenated scores and no text, and scores/<key>_<set>_report.json with model record, timing, cache counts, truncation and environment; pair scores are cached in cache_dir keyed by sha256 of the model signature, premise and hypothesis, so a rerun computes only what is missing"
-reports = "smoke/<key>.json and smoke/decision.json; ea_report.json; eb_report.json; each with config, code and input sha256, environment and timing"
+score_rule = "per candidate and split, scores/<key>_<split>.jsonl (split train or validation) with the per-item and concatenated scores and no text, and scores/<key>_<set>_report.json with model record, timing, cache counts, truncation and environment; pair scores are cached in cache_dir keyed by sha256 of the model signature, premise and hypothesis, so a rerun computes only what is missing"
+reports = "smoke/<key>.json and smoke/decision.json; ea_report.json; each with config, code and input sha256, environment and timing"
 
 [smoke]
 items = 50
@@ -203,9 +197,6 @@ decision_rule = "a candidate runs in full when it loads, passes its probe (HHEM 
 
 [evaluation]
 positive_ea = "label_inferable true"
-positive_eb = "correta"
-negative_eb = "parcial or incorreta"
-descriptive_eb = "correta or parcial against incorreta (3 negatives): ROC AUC only, no interval or test"
 metrics = ["roc_auc", "average_precision", "aurc", "e_aurc", "precision_at_0.8", "precision_at_0.9"]
 metrics_rule = "utils.confidence_policies.signal_metrics with the positive class as correct: AURC is the mean risk (share of negatives among the accepted) over the coverages j/n with ties at their expected share; precision_at_c is 1 - risk at the first ceil(c n) items, a cut set on the evaluated set itself, so it describes ranking and is not a deployable threshold"
 bootstrap_samples = 5000
@@ -216,9 +207,10 @@ seed = 42
 paired_rule = "every comparison uses the same hearing replicates for both sides; delta = candidate minus cosine_serafim (for AURC a negative delta means the candidate ranks better); two-sided p-value 2 x the smaller share of replicate deltas at or beyond zero with the (k + 1) / (B + 1) correction, capped at 1 (utils.decision_scoring.bootstrap_p_value)"
 ea_family = "E-A validation, max pool: every candidate except cosine_serafim against cosine_serafim on roc_auc and on aurc, one Holm family over all these comparisons"
 ea_train = "train numbers are reported with the same metrics and no test; the E3x primary is in-sample there"
-eb_main = "primary verifier against cosine: paired delta of ROC AUC and AURC with the hearing-bootstrap interval and bootstrap p-value, and the DeLong test of the ROC AUC difference (unclustered, so it ignores that UDVs of a hearing are not independent; the bootstrap is the clustered test). Stated as better, no detectable difference or worse: better when the interval of the AUC delta excludes zero on the positive side and the bootstrap p-value is below 0.05"
-eb_secondary = "every other candidate against cosine on roc_auc and aurc, one Holm family, reported as secondary"
-combinations = "fixed without fitting and declared here: rank_mean = the mean of the normalized ranks (average ranks for ties divided by n) of cosine_serafim and e3x_primary on the evaluated set; rank_max = the maximum of the same two normalized ranks. They are reported in E-B and in E-A validation next to the candidates, in the secondary family. No fitted combination is part of this run"
+combinations = "fixed without fitting and declared here: rank_mean = the mean of the normalized ranks (average ranks for ties divided by n) of cosine_serafim and e3x_primary on the evaluated set; rank_max = the maximum of the same two normalized ranks. They are reported in E-A validation next to the candidates, in the secondary family. No fitted combination is part of this run"
+
+[release]
+note = "E-B, the part of this experiment on the trecho_sustenta UDVs of the udv_v1 validation sample, is not in this release: its reference labels were language-model annotation passes, not a human judgment, and the script that produced them is not part of the release. Its declaration, code, score files and report are kept in tag research-2026-09-28. The smoke records (smoke/*.json and smoke/decision.json), [smoke_decision] and translate_report.json were produced while E-B was part of the run, so their full_pairs, projected_hours and requested counts include the E-B pairs and texts. ea_report.json records the sha256 of this file and of the code as they were at run time"
 
 [smoke_decision]
 recorded = "Recorded on 2026-09-27 from smoke/decision.json, after the smoke and before any full-run score; no metric against a label was computed on the smoke. Every candidate loaded and passed its probe (HHEM reproduces the seven model-card values, max gap below 1e-4), no smoke pair was truncated except one concatenated bge_reranker pair over 1024 tokens, and every projected time is within budget_hours, so all run in full. Throughput on mps, pairs per second (Laya: question answers per second) and projected hours for every E-A and E-B pair: minicheck_ft5 5.16 / 0.99 h; minicheck_deberta 2.69 / 1.91 h; factcg_deberta 2.26 / 2.27 h; alignscore_large 15.11 / 0.27 h; hhem_open 13.55 / 0.38 h; bge_reranker 7.23 / 0.71 h; Laya new questions laya_multi_pt 14.78 / 1.39 h; laya_en_en 7.77 / 2.64 h. The LLM judge size choice does not apply: no LLM judge is run (not_run_amendment)"

@@ -2,14 +2,12 @@ import argparse
 import json
 import time
 import tomllib
-from collections import Counter
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import numpy as np
-from scipy.stats import norm
 
 from utils import (
     confidence_policies,
@@ -39,8 +37,6 @@ from utils.retrieval_stats import holm
 Record = dict[str, Any]
 
 EA_SPLITS = ("train", "validation")
-EB_SPLIT = "udv_annotated"
-SETS = ("ea", "eb")
 COVERAGES = (0.8, 0.9)
 REPORTED_METRICS = (
     "roc_auc",
@@ -60,15 +56,8 @@ EXISTING_FEATURES = {
     "laya_multi_pt_p4": "laya_multi_pt:p4_supports:max",
     "xnli_mdeberta": "xnli_mdeberta:entailment:max",
 }
-EB_SCORE_FILES = {
-    "cosine_serafim": ("cosine_serafim", "max.cosine"),
-    "xnli_mdeberta": ("xnli_mdeberta", "max.entailment"),
-}
-EB_VERIFIER_FIELDS = {"e3x_primary": "primary_probability", "laya_multi_pt_p4": "p4_supports"}
 POOLS = ("max", "concatenated")
-EVIDENCE_TOLERANCE = 1e-6
-SEMANTIC_TIERS = ("semantic_match_high", "semantic_match_weak")
-LAYA_RUNS = {"ea": "nli_verifier_v2", "eb": "udv_v1_verifier"}
+LAYA_RUN = "nli_verifier_v2"
 LAYA_AGGREGATES = ("mean", "median", "min")
 TRUE_OPTION = "true"
 CODE_MODULES = (
@@ -92,9 +81,6 @@ class Config:
     udv_verifier_config: Path
     translation_config: Path
     translation_model: str
-    annotation_key: Path
-    question: str
-    label_column: str
     candidates: dict[str, CandidateSpec]
     order: tuple[str, ...]
     smoke_items: int
@@ -130,9 +116,6 @@ def load_config(path: Path) -> Config:
         udv_verifier_config=Path(inputs["udv_verifier_config"]),
         translation_config=Path(inputs["translation_config"]),
         translation_model=inputs["translation_model"],
-        annotation_key=Path(inputs["annotation_key"]),
-        question=inputs["annotation_question"],
-        label_column=inputs["annotation_label_column"],
         candidates=candidates,
         order=order,
         smoke_items=int(smoke["items"]),
@@ -165,46 +148,6 @@ def ea_units(config: Config) -> tuple[list[PremiseUnit], Record]:
     if {unit.split for unit in units} - set(EA_SPLITS):
         raise SystemExit("E-A units outside train and validation")
     return units, context
-
-
-def annotated_udv_ids(key_path: Path, question: str) -> list[str]:
-    with open(key_path) as f:
-        items = json.load(f)["items"]
-    ids = []
-    for item_id, item in sorted(items.items()):
-        if item["question"] != question:
-            continue
-        if len(item["udv_ids"]) != 1:
-            raise SystemExit(f"{item_id}: {question} item with several UDVs")
-        ids.append(item["udv_ids"][0])
-    if len(set(ids)) != len(ids):
-        raise SystemExit(f"{key_path}: a UDV appears in two {question} items")
-    return sorted(ids)
-
-
-def eb_units(config: Config) -> tuple[list[PremiseUnit], Record]:
-    udv_config = udv_verifier.load_config(config.udv_verifier_config)
-    verifier = experiments.load_config(udv_config.verifier_config)
-    _, units, _, _, split_source = udv_verifier.load_udvs(udv_config, verifier)
-    wanted = annotated_udv_ids(config.annotation_key, config.question)
-    by_id = {unit.unit_id: unit for unit in units}
-    missing = [udv for udv in wanted if udv not in by_id]
-    if missing:
-        raise SystemExit(f"annotated UDVs without evidence: {missing[:10]}")
-    context = {
-        "udv": {"path": str(udv_config.udv_path), "sha256": sha256_of_file(udv_config.udv_path)},
-        "annotation_key": {
-            "path": str(config.annotation_key),
-            "sha256": sha256_of_file(config.annotation_key),
-        },
-        "splits": split_source,
-        "hearing_splits": dict(Counter(by_id[udv].split for udv in wanted)),
-    }
-    return [by_id[udv] for udv in wanted], context
-
-
-def set_units(config: Config, name: str) -> tuple[list[PremiseUnit], Record]:
-    return ea_units(config) if name == "ea" else eb_units(config)
 
 
 def open_store(config: Config, writable: bool = False) -> tuple[Any, Any]:
@@ -326,12 +269,8 @@ def smoke_units(units: list[PremiseUnit], count: int, seed: int) -> list[Premise
     return [train[index] for index in sorted(picked.tolist())]
 
 
-def full_pair_count(
-    spec: CandidateSpec, ea: list[PremiseUnit], eb: list[PremiseUnit], store: Any
-) -> int:
-    ea_pairs = set(all_pairs(language_units(ea, spec, store), spec.concatenated))
-    eb_pairs = set(all_pairs(language_units(eb, spec, store), False))
-    return len(ea_pairs | eb_pairs)
+def full_pair_count(spec: CandidateSpec, ea: list[PremiseUnit], store: Any) -> int:
+    return len(set(all_pairs(language_units(ea, spec, store), spec.concatenated)))
 
 
 def hhem_probe(scorer: PairScorer) -> Record:
@@ -347,9 +286,8 @@ def hhem_probe(scorer: PairScorer) -> Record:
 
 def command_translate(args: argparse.Namespace, config: Config) -> None:
     ea, _ = ea_units(config)
-    eb, _ = eb_units(config)
     translation_config, store = open_store(config, writable=True)
-    texts = experiments.translation_texts([*ea, *eb], [], store)
+    texts = experiments.translation_texts(ea, [], store)
     missing = store.missing(texts)
     run: Record = {"requested": len(texts), "already_cached": len(texts) - len(missing)}
     if missing:
@@ -377,7 +315,6 @@ def command_translate(args: argparse.Namespace, config: Config) -> None:
 
 def command_smoke(args: argparse.Namespace, config: Config) -> None:
     ea, _ = ea_units(config)
-    eb, _ = eb_units(config)
     units = smoke_units(ea, config.smoke_items, config.smoke_seed)
     _, store = open_store(config)
     device = prepare_device(args.device)
@@ -406,7 +343,7 @@ def command_smoke(args: argparse.Namespace, config: Config) -> None:
         if cache.computed == 0:
             raise SystemExit(f"{key}: every smoke pair was cached, no throughput to measure")
         per_pair = seconds / cache.computed
-        full = full_pair_count(spec, ea, eb, store)
+        full = full_pair_count(spec, ea, store)
         record |= {
             "status": "scored",
             "created_at": experiments.now(),
@@ -497,55 +434,51 @@ def decided_spec(config: Config, key: str) -> CandidateSpec:
     return spec
 
 
-def split_files(config: Config, key: str, set_name: str) -> dict[str, Path]:
-    splits = EA_SPLITS if set_name == "ea" else (EB_SPLIT,)
-    return {split: config.scores_dir / f"{key}_{split}.jsonl" for split in splits}
+def split_files(config: Config, key: str) -> dict[str, Path]:
+    return {split: config.scores_dir / f"{key}_{split}.jsonl" for split in EA_SPLITS}
 
 
 def command_score(args: argparse.Namespace, config: Config) -> None:
     _, store = open_store(config)
     device = prepare_device(args.device)
-    for set_name in args.sets:
-        units, context = set_units(config, set_name)
-        for key in args.candidates or config.order:
-            spec = decided_spec(config, key)
-            files = split_files(config, key, set_name)
-            report_path = config.scores_dir / f"{key}_{set_name}_report.json"
-            if report_path.exists():
-                raise SystemExit(f"{report_path} exists")
-            concatenated = spec.concatenated and set_name == "ea"
-            spec_units = language_units(units, spec, store)
-            started = time.perf_counter()
-            scorer = grounding_models.load_scorer(spec, device)
-            cache = cache_for(config, scorer, spec, device)
-            rows = score_rows(scorer, spec_units, concatenated, cache, progress_printer(key))
-            seconds = time.perf_counter() - started
-            written: Record = {}
-            for split, path in files.items():
-                split_rows = rows if set_name == "eb" else [r for r in rows if r["split"] == split]
-                write_jsonl(split_rows, path)
-                written[split] = {"path": str(path), "rows": len(split_rows)}
-                written[split]["sha256"] = sha256_of_file(path)
-            report = {
-                "created_at": experiments.now(),
-                "candidate": key,
-                "set": set_name,
-                "model": scorer.info,
-                "language": spec.language,
-                "concatenated": concatenated,
-                "units": len(rows),
-                "cache": {"path": str(cache.path), "hits": cache.hits, "computed": cache.computed},
-                "seconds": round(seconds, 3),
-                "truncation": truncation_summary(rows),
-                "files": written,
-                "context": context,
-                "translation": store.summary() if spec.language == "en" else None,
-                **run_record(config),
-            }
-            write_json(report, report_path)
-            print(f"[{key}] {set_name}: {len(rows)} units in {seconds:.1f} s", flush=True)
-            del scorer
-            grounding_models.release(device)
+    units, context = ea_units(config)
+    for key in args.candidates or config.order:
+        spec = decided_spec(config, key)
+        report_path = config.scores_dir / f"{key}_ea_report.json"
+        if report_path.exists():
+            raise SystemExit(f"{report_path} exists")
+        spec_units = language_units(units, spec, store)
+        started = time.perf_counter()
+        scorer = grounding_models.load_scorer(spec, device)
+        cache = cache_for(config, scorer, spec, device)
+        rows = score_rows(scorer, spec_units, spec.concatenated, cache, progress_printer(key))
+        seconds = time.perf_counter() - started
+        written: Record = {}
+        for split, path in split_files(config, key).items():
+            split_rows = [r for r in rows if r["split"] == split]
+            write_jsonl(split_rows, path)
+            written[split] = {"path": str(path), "rows": len(split_rows)}
+            written[split]["sha256"] = sha256_of_file(path)
+        report = {
+            "created_at": experiments.now(),
+            "candidate": key,
+            "set": "ea",
+            "model": scorer.info,
+            "language": spec.language,
+            "concatenated": spec.concatenated,
+            "units": len(rows),
+            "cache": {"path": str(cache.path), "hits": cache.hits, "computed": cache.computed},
+            "seconds": round(seconds, 3),
+            "truncation": truncation_summary(rows),
+            "files": written,
+            "context": context,
+            "translation": store.summary() if spec.language == "en" else None,
+            **run_record(config),
+        }
+        write_json(report, report_path)
+        print(f"[{key}] ea: {len(rows)} units in {seconds:.1f} s", flush=True)
+        del scorer
+        grounding_models.release(device)
 
 
 def filled(values: list[float | None], probability: bool) -> np.ndarray:
@@ -656,38 +589,6 @@ def paired_comparisons(
         entry["p_holm"] = rounded(value)
         entry["p_value"] = rounded(entry["p_value"])
     return entries
-
-
-def structural_components(
-    scores: np.ndarray, positive: np.ndarray
-) -> tuple[np.ndarray, np.ndarray]:
-    pos, neg = scores[positive], scores[~positive]
-    psi = (pos[:, None] > neg[None, :]).astype(np.float64)
-    psi += 0.5 * (pos[:, None] == neg[None, :])
-    return psi.mean(axis=1), psi.mean(axis=0)
-
-
-def delong_test(first: np.ndarray, second: np.ndarray, positive: np.ndarray) -> Record:
-    v10_a, v01_a = structural_components(first, positive)
-    v10_b, v01_b = structural_components(second, positive)
-    m, n = len(v10_a), len(v01_a)
-    s10 = np.cov(np.vstack([v10_a, v10_b]))
-    s01 = np.cov(np.vstack([v01_a, v01_b]))
-    covariance = s10 / m + s01 / n
-    auc_a, auc_b = float(v10_a.mean()), float(v10_b.mean())
-    variance = float(covariance[0, 0] + covariance[1, 1] - 2 * covariance[0, 1])
-    delta = auc_a - auc_b
-    z = delta / np.sqrt(variance) if variance > 0 else 0.0
-    return {
-        "auc_first": rounded(auc_a),
-        "auc_second": rounded(auc_b),
-        "delta": rounded(delta),
-        "se": rounded(float(np.sqrt(max(variance, 0.0)))),
-        "z": rounded(float(z)),
-        "p_value": rounded(float(2 * norm.sf(abs(z)))),
-        "rule": "DeLong, DeLong and Clarke-Pearson (1988), structural components; items are "
-        "treated as independent",
-    }
 
 
 def evaluate_set(
@@ -815,7 +716,7 @@ def spread_thresholds(config: Config) -> tuple[dict[str, float], Record]:
     udv_config = udv_verifier.load_config(config.udv_verifier_config)
     expl = exploration.load_exploration_config(udv_config.exploration_config)
     ids, _, _ = exploration.load_labels(expl, "train")
-    _, extra, sources = laya_systems(config, "ea", "train", ids, "max")
+    _, extra, sources = laya_systems(config, "train", ids, "max")
     _, spreads = split_extra(extra)
     return {name: float(np.median(values)) for name, values in spreads.items()}, sources
 
@@ -876,7 +777,7 @@ def command_evaluate_ea(args: argparse.Namespace, config: Config) -> None:
     for split in EA_SPLITS:
         ids, labels, hearings = exploration.load_labels(expl, split)
         existing, sources = ea_existing(split, ids, fitted, expl)
-        laya_main, laya_extra, laya_sources = laya_systems(config, "ea", split, ids, "max")
+        laya_main, laya_extra, laya_sources = laya_systems(config, split, ids, "max")
         literature, literature_sources = literature_scores(config, candidates, split, ids, "max")
         base = {**existing, **laya_main, **literature}
         systems, spreads, result = evaluate_all(config, base, laya_extra, labels, hearings)
@@ -884,7 +785,7 @@ def command_evaluate_ea(args: argparse.Namespace, config: Config) -> None:
         family = [(name, REFERENCE) for name in base if name != REFERENCE]
         combos = [(name, REFERENCE) for name in COMBINATIONS]
         extra_names = [name for name in laya_extra if "_spread_" not in name]
-        joined_laya, joined_extra, _ = laya_systems(config, "ea", split, ids, "concatenated")
+        joined_laya, joined_extra, _ = laya_systems(config, split, ids, "concatenated")
         joined_literature, _ = literature_scores(config, candidates, split, ids, "concatenated")
         joined = {**joined_literature, **joined_laya, **split_extra(joined_extra)[0]}
         signals = {**systems, **{name: laya_extra[name] for name in extra_names}}
@@ -942,129 +843,6 @@ def command_evaluate_ea(args: argparse.Namespace, config: Config) -> None:
     }
     write_json(report, path)
     print_table(results["validation"], "E-A validation")
-
-
-def eb_existing(config: Config, ids: list[str]) -> tuple[dict[str, np.ndarray], Record, Record]:
-    udv_config = udv_verifier.load_config(config.udv_verifier_config)
-    verifier_rows = {row["udv_id"]: row for row in load_jsonl(udv_config.output_path)}
-    records = {row["id"]: row for row in load_jsonl(udv_config.udv_path)}
-    systems: dict[str, np.ndarray] = {}
-    sources: Record = {
-        "verifier_output": {
-            "path": str(udv_config.output_path),
-            "sha256": sha256_of_file(udv_config.output_path),
-        }
-    }
-    for name, field in EB_VERIFIER_FIELDS.items():
-        systems[name] = np.array([verifier_rows[udv][field] for udv in ids], dtype=np.float64)
-    for name, (scorer, score) in EB_SCORE_FILES.items():
-        path = experiments.score_file(udv_config.run_dir, scorer, udv_verifier.UDV_SPLIT)
-        rows = {row["id"]: row for row in load_jsonl(path)}
-        systems[name] = np.array([rows[udv]["scores"][score] for udv in ids], dtype=np.float64)
-        sources[name] = {"path": str(path), "sha256": sha256_of_file(path), "score": score}
-    gaps = [
-        abs(float(records[udv]["evidence"]["score"]) - value)
-        for udv, value in zip(ids, systems[REFERENCE], strict=True)
-        if records[udv]["tier"] in SEMANTIC_TIERS
-    ]
-    if gaps and max(gaps) > EVIDENCE_TOLERANCE:
-        raise SystemExit(f"cosine differs from evidence.score by {max(gaps)}")
-    check = {
-        "semantic_items": len(gaps),
-        "max_abs_gap_to_evidence_score": max(gaps) if gaps else None,
-        "tiers": dict(Counter(records[udv]["tier"] for udv in ids)),
-    }
-    return {name: systems[name] for name in EXISTING}, sources, check
-
-
-def command_evaluate_eb(args: argparse.Namespace, config: Config) -> None:
-    path = config.output_dir / "eb_report.json"
-    if path.exists():
-        raise SystemExit(f"{path} exists")
-    started = time.perf_counter()
-    labels = udv_verifier.annotation_labels(
-        args.annotation, config.annotation_key, config.question, config.label_column
-    )
-    ids = annotated_udv_ids(config.annotation_key, config.question)
-    if sorted(labels) != ids:
-        raise SystemExit("annotation labels and key items differ")
-    values = [labels[udv] for udv in ids]
-    units, _ = eb_units(config)
-    hearings = np.array([unit.hearing_id for unit in units])
-    existing, sources, cosine_check = eb_existing(config, ids)
-    candidates, absent = available_candidates(config, (EB_SPLIT,))
-    laya_main, laya_extra, laya_sources = laya_systems(config, "eb", EB_SPLIT, ids, "max")
-    literature, literature_sources = literature_scores(config, candidates, EB_SPLIT, ids, "max")
-    thresholds, _ = spread_thresholds(config)
-    positive = np.array([value == "correta" for value in values])
-    base = {**existing, **laya_main, **literature}
-    systems, spreads, result = evaluate_all(config, base, laya_extra, positive, hearings)
-    table, replicates = result["systems"], result["_replicates"]
-    extra_names = [name for name in laya_extra if "_spread_" not in name]
-    signals = {**systems, **{name: laya_extra[name] for name in extra_names}}
-    main = paired_comparisons(signals, positive, replicates, [(PRIMARY, REFERENCE)], config.level)
-    secondary_pairs = [(name, REFERENCE) for name in systems if name not in (REFERENCE, PRIMARY)]
-    lenient = np.array([value != "incorreta" for value in values])
-    report = {
-        "experiment": config.name,
-        "part": "E-B",
-        "created_at": experiments.now(),
-        "scope": "confirmatory; test-split hearings; labels are the majority of three blind "
-        "passes of a language model, not a human judgment; every number is agreement with that "
-        "annotation, not accuracy; nothing is chosen or tuned here",
-        "annotator": args.annotator,
-        "question": config.question,
-        "label_counts": dict(sorted(Counter(values).items())),
-        "hearing_splits": dict(Counter(unit.split for unit in units)),
-        "contrast": "positive = correta; negative = parcial or incorreta",
-        "premise": config.raw["premise"]["eb"],
-        "domain_shift": config.raw["premise"]["domain_shift"],
-        "candidates": {"literature_scored": candidates, "absent": absent},
-        "cosine_check": cosine_check,
-        "items": result["items"],
-        "hearings": result["hearings"],
-        "positives": result["positives"],
-        "negatives": result["negatives"],
-        "systems": subset_table(table, list(systems)),
-        "bootstrap": result["bootstrap"],
-        "main_contrast": {
-            "rule": config.raw["evaluation"]["eb_main"],
-            "bootstrap": main,
-            "delong": delong_test(systems[PRIMARY], systems[REFERENCE], positive),
-            "answer": main_answer(main),
-        },
-        "secondary_comparisons": paired_comparisons(
-            signals, positive, replicates, secondary_pairs, config.level
-        ),
-        "added_questions": {
-            "systems": subset_table(table, extra_names),
-            "comparisons": paired_comparisons(
-                signals, positive, replicates, added_value_pairs(laya_extra), config.level
-            ),
-            "note": "descriptive on E-B; the added-value family is the E-A validation one",
-        },
-        "spread": spread_section(spreads, thresholds, positive, hearings, table, config),
-        "descriptive_correct_or_partial_vs_incorrect": {
-            "rule": config.raw["evaluation"]["descriptive_eb"],
-            "negatives": int((~lenient).sum()),
-            "roc_auc": {
-                name: rounded(confidence_policies.roc_auc(scores, lenient))
-                for name, scores in signals.items()
-            },
-        },
-        "inputs": {
-            **sources,
-            **laya_sources,
-            **literature_sources,
-            "annotation_sha256": sha256_of_file(args.annotation),
-            "annotation_key_sha256": sha256_of_file(config.annotation_key),
-        },
-        "seconds": round(time.perf_counter() - started, 3),
-        **run_record(config),
-    }
-    write_json(report, path)
-    print_table(report, "E-B")
-    print(json.dumps(report["main_contrast"], indent=2), flush=True)
 
 
 def laya_questions(config: Config, scorer: str) -> list[DecisionQuestion]:
@@ -1147,7 +925,6 @@ def run_laya(
 
 def command_laya_smoke(args: argparse.Namespace, config: Config) -> None:
     ea, _ = ea_units(config)
-    eb, _ = eb_units(config)
     units = smoke_units(ea, config.smoke_items, config.smoke_seed)
     device = prepare_device(args.device)
     for scorer in args.scorers or config.raw["laya"]["scorers"]:
@@ -1161,21 +938,10 @@ def command_laya_smoke(args: argparse.Namespace, config: Config) -> None:
         per_request = record["seconds"] / computed
         _, spec = laya_spec(config, scorer)
         _, store = open_store(config)
-        full = (
-            len(
-                set(
-                    experiments.decision_requests(
-                        laya_units(config, ea, spec, store), " ", True, False
-                    )
-                )
-                | set(
-                    experiments.decision_requests(
-                        laya_units(config, eb, spec, store), " ", False, False
-                    )
-                )
-            )
-            * record["question_count"]
+        requests = experiments.decision_requests(
+            laya_units(config, ea, spec, store), " ", True, False
         )
+        full = len(set(requests)) * record["question_count"]
         record |= {
             "status": "scored",
             "name": f"laya_new:{scorer}",
@@ -1195,35 +961,34 @@ def command_laya_score(args: argparse.Namespace, config: Config) -> None:
     device = prepare_device(args.device)
     with open(config.smoke_dir / "decision.json") as f:
         decisions = json.load(f)["decisions"]
-    for set_name in args.sets:
-        units, context = set_units(config, set_name)
-        for scorer in args.scorers or config.raw["laya"]["scorers"]:
-            key = f"laya_new_{scorer}"
-            if decisions.get(key, {}).get("status") != "run":
-                raise SystemExit(f"{key}: not decided to run")
-            report_path = config.scores_dir / f"{key}_{set_name}_report.json"
-            if report_path.exists():
-                raise SystemExit(f"{report_path} exists")
-            rows, record = run_laya(config, scorer, units, set_name == "ea", device)
-            written: Record = {}
-            for split, path in split_files(config, key, set_name).items():
-                split_rows = rows if set_name == "eb" else [r for r in rows if r["split"] == split]
-                write_jsonl(split_rows, path)
-                written[split] = {
-                    "path": str(path),
-                    "rows": len(split_rows),
-                    "sha256": sha256_of_file(path),
-                }
-            report = {
-                "created_at": experiments.now(),
-                "set": set_name,
-                **record,
-                "files": written,
-                "context": context,
-                **run_record(config),
+    units, context = ea_units(config)
+    for scorer in args.scorers or config.raw["laya"]["scorers"]:
+        key = f"laya_new_{scorer}"
+        if decisions.get(key, {}).get("status") != "run":
+            raise SystemExit(f"{key}: not decided to run")
+        report_path = config.scores_dir / f"{key}_ea_report.json"
+        if report_path.exists():
+            raise SystemExit(f"{report_path} exists")
+        rows, record = run_laya(config, scorer, units, True, device)
+        written: Record = {}
+        for split, path in split_files(config, key).items():
+            split_rows = [r for r in rows if r["split"] == split]
+            write_jsonl(split_rows, path)
+            written[split] = {
+                "path": str(path),
+                "rows": len(split_rows),
+                "sha256": sha256_of_file(path),
             }
-            write_json(report, report_path)
-            print(f"[{key}] {set_name}: {len(rows)} units in {record['seconds']:.1f} s", flush=True)
+        report = {
+            "created_at": experiments.now(),
+            "set": "ea",
+            **record,
+            "files": written,
+            "context": context,
+            **run_record(config),
+        }
+        write_json(report, report_path)
+        print(f"[{key}] ea: {len(rows)} units in {record['seconds']:.1f} s", flush=True)
 
 
 def item_signals(rows: dict[str, Record], ids: list[str], pool: str) -> list[list[Record]]:
@@ -1287,16 +1052,13 @@ def spread_scores(
     return np.array(stds), np.array(ranges)
 
 
-def laya_battery_rows(
-    config: Config, scorer: str, set_name: str, split: str
-) -> tuple[dict[str, Record], Path]:
-    file_split = split if set_name == "ea" else udv_verifier.UDV_SPLIT
-    path = exploration.SCORES_ROOT / LAYA_RUNS[set_name] / "scores" / f"{scorer}_{file_split}.jsonl"
+def laya_battery_rows(scorer: str, split: str) -> tuple[dict[str, Record], Path]:
+    path = exploration.SCORES_ROOT / LAYA_RUN / "scores" / f"{scorer}_{split}.jsonl"
     return {row["id"]: row for row in load_jsonl(path)}, path
 
 
 def laya_systems(
-    config: Config, set_name: str, split: str, ids: list[str], pool: str
+    config: Config, split: str, ids: list[str], pool: str
 ) -> tuple[dict[str, np.ndarray], dict[str, np.ndarray], Record]:
     laya = config.raw["laya"]
     q7 = list(laya["support_questions"])
@@ -1305,7 +1067,7 @@ def laya_systems(
     extra: dict[str, np.ndarray] = {}
     sources: Record = {}
     for scorer in laya["scorers"]:
-        rows, path = laya_battery_rows(config, scorer, set_name, split)
+        rows, path = laya_battery_rows(scorer, split)
         missing = [unit for unit in ids if unit not in rows]
         if missing:
             raise SystemExit(f"{path}: {len(missing)} ids missing")
@@ -1367,18 +1129,6 @@ def spread_flag_table(
     }
 
 
-def main_answer(comparisons: list[Record]) -> str:
-    auc = next(entry for entry in comparisons if entry["metric"] == "roc_auc")
-    low, high = auc["interval"].get("low"), auc["interval"].get("high")
-    if low is None or high is None:
-        return "undetermined"
-    if low > 0 and auc["p_value"] < 0.05:
-        return "better"
-    if high < 0 and auc["p_value"] < 0.05:
-        return "worse"
-    return "no detectable difference"
-
-
 def print_table(result: Record, title: str) -> None:
     print(f"== {title}: {result['items']} items, {result['negatives']} negatives", flush=True)
     for name, metrics in result["systems"].items():
@@ -1393,8 +1143,8 @@ def print_table(result: Record, title: str) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Confidence signals for UDV evidence: literature grounding scorers against "
-        "the serafim cosine and the E3x primary, on the NLI benchmark (E-A) and the annotated "
-        "UDVs (E-B)."
+        "the serafim cosine and the E3x primary, on the train and validation opinions of the "
+        "NLI benchmark (E-A)."
     )
     parser.add_argument("--config", type=Path, default=Path("configs/confidence_v2.toml"))
     commands = parser.add_subparsers(dest="command", required=True)
@@ -1405,19 +1155,12 @@ def parse_args() -> argparse.Namespace:
             command.add_argument("--candidates", nargs="+", default=None)
         if name == "smoke":
             command.add_argument("--fallback", action="store_true")
-        if name == "score":
-            command.add_argument("--sets", nargs="+", choices=SETS, default=list(SETS))
     for name in ("laya-smoke", "laya-score"):
         command = commands.add_parser(name)
         command.add_argument("--device", choices=experiments.DEVICES, default="mps")
         command.add_argument("--scorers", nargs="+", default=None)
-        if name == "laya-score":
-            command.add_argument("--sets", nargs="+", choices=SETS, default=list(SETS))
     commands.add_parser("decide")
     commands.add_parser("evaluate-ea")
-    evaluate_eb = commands.add_parser("evaluate-eb")
-    evaluate_eb.add_argument("--annotation", type=Path, required=True)
-    evaluate_eb.add_argument("--annotator", required=True)
     return parser.parse_args()
 
 
@@ -1432,7 +1175,6 @@ def main() -> None:
         "laya-score": command_laya_score,
         "score": command_score,
         "evaluate-ea": command_evaluate_ea,
-        "evaluate-eb": command_evaluate_eb,
     }
     commands[args.command](args, config)
 
