@@ -4,8 +4,8 @@
 
 Este documento consolida a tese científica e a especificação de construção do `bookworm`. Ele é a
 fonte de verdade para a visão de longo prazo do projeto. Prioridades concretas para a submissão do
-desafio de 2026 (o que é P0/P1/P2 agora) ficam em [`CLAUDE.md`](CLAUDE.md), não aqui — este documento
-não expira quando o desafio terminar.
+desafio de 2026 (o que é P0/P1/P2) e o estado de cada entrega ficam em [`ROADMAP.md`](ROADMAP.md);
+este documento não expira quando o desafio terminar.
 
 ---
 
@@ -359,7 +359,7 @@ editorial; explicabilidade; benchmark; API; documentação; artigo.
 - **Paper 3** — Auditing Editorial Coverage of Public Hearings with Evidence-Grounded Representations.
 - **Paper 4** — PublicHearingBR as an NLI and Deliberative Representation Benchmark.
 
-Para a submissão de 2026, ver o escopo P0 em [`CLAUDE.md`](CLAUDE.md) — o artigo do desafio (≤10
+Para a submissão de 2026, ver o escopo P0 em [`ROADMAP.md`](ROADMAP.md). O artigo do desafio (≤10
 páginas) deriva de um recorte de uma dessas hipóteses, não das quatro simultaneamente.
 
 ## 22. Riscos científicos e mitigação
@@ -434,80 +434,51 @@ biblioteca (seção 29).
 ### 25.3 Estrutura do repositório
 
 `bookworm/` é o pacote/biblioteca (entregável como "código-fonte documentado em repositório
-acessível"). `challenge/` é onde os experimentos de fato rodam — é seu próprio projeto `uv`, com
-`bookworm` como dependência.
+acessível"). `challenge/` é onde os experimentos de fato rodam: é seu próprio projeto `uv`, com
+`bookworm` como dependência. A árvore abaixo é a da versão 1.0; os módulos previstos nas seções 7 a 14
+que ainda não existem (espaço latente, clusterização, avaliação de resumos, auditoria editorial) estão
+em [`ROADMAP.md`](ROADMAP.md).
 
 ```text
+LICENSE, CITATION.cff, README.md, CONTRIBUTING.md, CONSTITUTION.md, ROADMAP.md
+
 bookworm/
-├── pyproject.toml
-├── uv.lock
-├── README.md            # documentação de uso/instalação/API do bookworm (não deste CONSTITUTION.md)
-├── LICENSE
-├── Makefile
-├── .python-version
-├── .gitignore
-├── configs/
-│   ├── data.yaml
-│   ├── features.yaml
-│   ├── svd.yaml
-│   ├── nmf.yaml
-│   ├── autoencoder.yaml
-│   ├── contrastive.yaml
-│   ├── clustering.yaml
-│   └── evaluation.yaml
+├── pyproject.toml, uv.lock, .python-version
+├── README.md                # uso, instalação, CLI e API da biblioteca
 ├── docs/
-│   ├── architecture.md
-│   ├── data_model.md
-│   ├── evaluation.md
-│   ├── ethics.md
-│   └── adr/
-├── src/
-│   └── bookworm/
-│       ├── __init__.py
-│       ├── cli.py
-│       ├── config.py
-│       ├── logging.py
-│       ├── data/            # schemas, loaders, validation, normalization, splits
-│       ├── transcript/      # speakers, segmentation, chunks, offsets
-│       ├── udv/             # schemas, extraction, atomicity, evidence, verification
-│       ├── graph/           # schemas, builder, relations, temporal
-│       ├── features/        # tfidf, structured, tensors, scaling
-│       ├── latent/          # base, svd, nmf, autoencoder, contrastive, graph_encoder, aggregation, decoder
-│       ├── retrieval/       # lexical, vector, hybrid, index
-│       ├── compare/         # similarity, facets, explanation
-│       ├── cluster/         # methods, stability, interpretation
-│       ├── summary_eval/    # encode, coverage, factuality, distortion, report
-│       ├── editorial/       # article_units, omission, representation, stance_distortion, evidence_asymmetry, framing, edi
-│       ├── evaluation/      # retrieval, reconstruction, clustering, calibration, adversarial, statistics
-│       ├── experiments/     # runner, registry, artifacts
-│       └── api/             # service, models
-└── tests/
-    ├── unit/
-    ├── integration/
-    ├── property/
-    └── fixtures/
+│   ├── data_model.md, actors.md, profiles.md, profile_validation.md
+│   └── adr/                 # decisões de arquitetura (README.md é o índice)
+├── src/bookworm/
+│   ├── cli.py, config.py, pipeline.py, models.py, errors.py
+│   ├── data/                # schemas, leitura do LDS, datas, splits e sua verificação
+│   ├── transcript/          # falantes, turnos, sentenças, offsets
+│   ├── features/            # TF-IDF e codificadores de sentenças
+│   ├── udv/                 # construção, citações, evidência, janelas, sinais, verificação, exportação
+│   ├── actors/              # falas por ator
+│   └── profiles/            # perfis de atores gerados por LLM, revisão e validação
+├── tests/
+│   ├── unit/
+│   └── integration/         # inclui os testes marcados `dataset`, que leem o LDS local
+└── web/                     # front estático da demo, alimentado pelo `bookworm export-site`
 
 challenge/
-├── pyproject.toml           # projeto uv próprio; depende de bookworm
-├── uv.lock
-├── desafio_ideias_em_rede.md
-├── 2410.07495v2.pdf
-├── eda.ipynb                # análise exploratória de dados (ver CLAUDE.md)
-├── utils/
-│   └── download_dataset.py  # reproduz o download do PublicHearingBR (Hugging Face)
-├── dataset/                  # dados brutos baixados — nunca versionados no Git
-├── concepts/                # um notebook por conceito (ver seção 8 e CLAUDE.md)
-├── notebooks/                # exploração adicional, protótipos
-├── data/artifacts/            # artefatos de experimentos (ver seção 25.7)
-└── dashboard/                 # app Streamlit consumindo a API/lib do bookworm
+├── pyproject.toml, uv.lock  # projeto uv próprio; depende de bookworm
+├── README.md                # guia de reprodução
+├── PIPELINE.md, RELATORIO_EXPERIMENTOS.md, UDV.md, CONFIDENCE_V2.md, ...
+├── desafio_ideias_em_rede.md, 2410.07495v2.pdf
+├── eda_v01.ipynb, splits_v00.ipynb, udv_v05.ipynb, actor_profiles_v01.ipynb
+├── configs/                 # uma configuração TOML por experimento
+├── utils/                   # scripts reprodutíveis de cada etapa
+├── prompts/                 # prompts versionados dos componentes de LLM
+├── tests/
+├── mlx_alternative/         # execução dos perfis e da simulação em Apple Silicon (MLX)
+├── dataset/                 # dados brutos do Hugging Face, nunca versionados
+└── artifacts/               # saídas versionadas; MANIFEST_heavy.tsv lista as que ficam fora do Git
 ```
-
-Nenhum arquivo meta de agente (`CLAUDE.md`, `CONSTITUTION.md`) vive dentro de `bookworm/` ou
-`challenge/` — eles ficam só na raiz do repositório.
 
 ### 25.4 Modelo de dados
 
-Validado empiricamente em `challenge/eda.ipynb` contra os arquivos reais baixados de
+Validado empiricamente em `challenge/eda_v01.ipynb` contra os arquivos reais baixados de
 `unicamp-dl/PublicHearingBR` no Hugging Face (`challenge/dataset/PublicHearingBR_LDS.jsonl` e
 `PublicHearingBR_NLI.jsonl`) — **nunca presuma silenciosamente nomes de campos**, sempre confira contra
 o JSON real. Os modelos abaixo refletem o schema real, não o schema originalmente assumido pelos
@@ -746,14 +717,14 @@ class SummaryEvaluation(BaseModel):
 Uma tarefa só está pronta quando possui: implementação, testes, typing, docs, config, métricas,
 artefato, limitação registrada.
 
-## 27. Prompt operacional (para qualquer agente trabalhando neste repositório)
+## 27. Fluxo de trabalho
 
-> Identifique o milestone atual e inspecione o repositório antes de alterar arquivos. Proponha um
-> plano curto, implemente a menor mudança completa, execute lint, tipos e testes, e registre os
-> resultados. Não avance para o próximo milestone se os critérios de aceite não forem cumpridos. Não
-> invente o schema dos dados: inspecione os arquivos. Não use o conjunto de teste para decisões de
-> treinamento. Preserve a distinção entre verdade documental, seleção editorial e inferência limitada
-> aos chunks recuperados.
+Cada mudança parte do milestone atual e de uma inspeção do repositório e dos dados reais: o schema do
+dataset é lido dos arquivos, nunca presumido. A mudança é a menor que fica completa (código, testes,
+documentação e artefato), e só entra depois de lint, tipos e testes passarem. Um milestone só termina
+quando seus critérios de aceite são cumpridos. O conjunto de teste não entra em nenhuma decisão de
+treinamento ou seleção, e a distinção entre verdade documental, seleção editorial e inferência limitada
+aos chunks recuperados é mantida em todo artefato.
 
 ## 28. Resultado esperado
 
