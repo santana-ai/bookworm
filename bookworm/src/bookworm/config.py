@@ -14,6 +14,8 @@ from bookworm.udv.quotes import QuoteExtentMode
 from bookworm.udv.windows import SemanticUnit
 
 DEFAULT_ENCODER_KIND = "sentence_transformers"
+DEFAULT_SEMANTIC_UNIT: SemanticUnit = "sentence"
+DEFAULT_QUOTE_EXTENT: QuoteExtentMode = "prefix_sentence"
 SPLIT_VERSION_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_.-]*$"
 
 
@@ -40,8 +42,8 @@ class UdvConfig(ConfigModel):
     expected_sha256: str
     encoder: EncoderSettings
     embedding_threshold: float | int
-    semantic_unit: SemanticUnit = "sentence"
-    quote_extent: QuoteExtentMode = "prefix_sentence"
+    semantic_unit: SemanticUnit = DEFAULT_SEMANTIC_UNIT
+    quote_extent: QuoteExtentMode = DEFAULT_QUOTE_EXTENT
     seed: int
     output_dir: Path
     cache_dir: Path
@@ -61,11 +63,11 @@ class UdvConfig(ConfigModel):
                     "embedding_threshold": required(
                         source, "evidence", "embedding_threshold", origin
                     ),
-                    "semantic_unit": section(source, "evidence", origin).get(
-                        "semantic_unit", "sentence"
+                    "semantic_unit": optional(
+                        source, "evidence", "semantic_unit", DEFAULT_SEMANTIC_UNIT, origin
                     ),
-                    "quote_extent": section(source, "evidence", origin).get(
-                        "quote_extent", "prefix_sentence"
+                    "quote_extent": optional(
+                        source, "evidence", "quote_extent", DEFAULT_QUOTE_EXTENT, origin
                     ),
                     "seed": required(source, "run", "seed", origin),
                     "output_dir": Path(required(source, "run", "output_dir", origin)),
@@ -142,6 +144,10 @@ def section(raw: Mapping[str, Any], name: str, origin: str) -> Mapping[str, Any]
     if not isinstance(value, Mapping):
         raise ConfigError(f"{origin}: missing table [{name}]")
     return value
+
+
+def optional(raw: Mapping[str, Any], table: str, key: str, default: Any, origin: str) -> Any:
+    return section(raw, table, origin).get(key, default)
 
 
 def required(raw: Mapping[str, Any], table: str, key: str, origin: str) -> Any:

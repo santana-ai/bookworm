@@ -115,17 +115,18 @@ def known_ids(manifest: Mapping[str, Any], name: str, dates: Mapping[int, date])
     return [i for i in manifest[name] if i in dates]
 
 
-def check_chronology(
-    manifest: Mapping[str, Any], dates: Mapping[int, date], min_gap_days: int
-) -> list[str]:
-    ranges = {
-        name: (
-            min(dates[i] for i in known_ids(manifest, name, dates)),
-            max(dates[i] for i in known_ids(manifest, name, dates)),
-        )
-        for name in SPLIT_NAMES
-        if known_ids(manifest, name, dates)
-    }
+def split_ranges(
+    manifest: Mapping[str, Any], dates: Mapping[int, date]
+) -> dict[str, tuple[date, date]]:
+    ranges: dict[str, tuple[date, date]] = {}
+    for name in SPLIT_NAMES:
+        days = [dates[i] for i in known_ids(manifest, name, dates)]
+        if days:
+            ranges[name] = (min(days), max(days))
+    return ranges
+
+
+def check_split_order(ranges: Mapping[str, tuple[date, date]], min_gap_days: int) -> list[str]:
     problems: list[str] = []
     for earlier, later in CHRONOLOGY_PAIRS:
         if earlier not in ranges or later not in ranges:
@@ -136,14 +137,29 @@ def check_chronology(
             problems.append(f"not_chronological:{earlier}->{later}")
         elif gap < min_gap_days:
             problems.append(f"boundary_gap_below_minimum:{earlier}->{later}:{gap}")
-    days_by_split: dict[date, set[str]] = defaultdict(set)
+    return problems
+
+
+def check_straddling_dates(manifest: Mapping[str, Any], dates: Mapping[int, date]) -> list[str]:
+    splits_by_day: dict[date, set[str]] = defaultdict(set)
     for name in SPLIT_NAMES:
         for hearing_id in known_ids(manifest, name, dates):
-            days_by_split[dates[hearing_id]].add(name)
-    for day, names in sorted(days_by_split.items()):
-        if len(names) > 1:
-            problems.append(f"date_straddles_splits:{day.isoformat()}")
-    return problems
+            splits_by_day[dates[hearing_id]].add(name)
+    return [
+        f"date_straddles_splits:{day.isoformat()}"
+        for day, names in sorted(splits_by_day.items())
+        if len(names) > 1
+    ]
+
+
+def check_chronology(
+    manifest: Mapping[str, Any], dates: Mapping[int, date], min_gap_days: int
+) -> list[str]:
+    """Splits in date order, separated by the minimum gap, with no date in two splits."""
+    return [
+        *check_split_order(split_ranges(manifest, dates), min_gap_days),
+        *check_straddling_dates(manifest, dates),
+    ]
 
 
 def recompute_boundaries(dates: Mapping[int, date], config: SplitConfig) -> SplitBoundaries:
@@ -289,23 +305,24 @@ def verify_split_run(
     """Recompute a temporal split from the LDS and check a manifest and report."""
     dates = dates_by_hearing(hearings)
     extraction = summarize_date_extraction(hearings)
-    problems = check_manifest_shape(manifest)
+    shape_problems = check_manifest_shape(manifest)
     report_problems = check_report_shape(report)
-    if not problems:
-        problems.extend(check_partition(manifest, dates))
-        problems.extend(check_dates(manifest, dates))
-        problems.extend(check_chronology(manifest, dates, config.min_boundary_gap_days))
-        problems.extend(check_boundaries(manifest, dates, config))
-        problems.extend(check_assignment(manifest, dates, config))
-        problems.extend(check_gap_against_date_uncertainty(manifest, extraction))
-        problems.extend(report_problems)
-        if not report_problems:
-            problems.extend(check_report(report, manifest, hearings, udvs))
-        problems.extend(
-            check_run_metadata(manifest, report, extraction, config, not report_problems)
-        )
-    else:
-        problems.extend(report_problems)
+    report_readable = not report_problems
+    problems = (
+        [*shape_problems, *report_problems]
+        if shape_problems
+        else [
+            *check_partition(manifest, dates),
+            *check_dates(manifest, dates),
+            *check_chronology(manifest, dates, config.min_boundary_gap_days),
+            *check_boundaries(manifest, dates, config),
+            *check_assignment(manifest, dates, config),
+            *check_gap_against_date_uncertainty(manifest, extraction),
+            *report_problems,
+            *(check_report(report, manifest, hearings, udvs) if report_readable else []),
+            *check_run_metadata(manifest, report, extraction, config, report_readable),
+        ]
+    )
     ids = {name: manifest.get(name) for name in SPLIT_NAMES}
     return SplitVerification(
         split_version=manifest.get("split_version"),
