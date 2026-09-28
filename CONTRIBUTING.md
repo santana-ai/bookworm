@@ -43,7 +43,7 @@ uv run ruff check . && uv run ruff format --check . && uv run mypy && uv run pyt
 ```
 
 `mypy` roda em modo estrito nos dois projetos. Os marcadores de teste e as variáveis de ambiente estão
-descritos em [`bookworm/README.md`](bookworm/README.md#lint-tipos-e-testes).
+descritos em [`bookworm/docs/testing.md`](bookworm/docs/testing.md).
 
 ## Commits
 
