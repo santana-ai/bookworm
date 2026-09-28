@@ -1,0 +1,173 @@
+{
+  "created_at": "2026-09-27T22:40:32+00:00",
+  "candidate": "minicheck_deberta",
+  "set": "ea",
+  "model": {
+    "name": "lytang/MiniCheck-DeBERTa-v3-Large",
+    "revision": "2f2d01a54fa022a7ffadb76260e1ea8bc88c82bb",
+    "device": "mps",
+    "dtype": "float32",
+    "max_length": 2048,
+    "eos_token": "[SEP]",
+    "load_seconds": 0.99
+  },
+  "language": "en",
+  "concatenated": true,
+  "units": 3679,
+  "cache": {
+    "path": "artifacts/cache/confidence_v2/minicheck_deberta_2f2d01a54fa0_mps.jsonl",
+    "hits": 250,
+    "computed": 18072
+  },
+  "seconds": 6746.732,
+  "truncation": {
+    "items": {
+      "pairs": 14712,
+      "truncated": 0,
+      "max_tokens": 645,
+      "median_tokens": 144.0
+    },
+    "concatenated": {
+      "pairs": 3678,
+      "truncated": 0,
+      "max_tokens": 1442,
+      "median_tokens": 522.0
+    }
+  },
+  "files": {
+    "train": {
+      "path": "artifacts/experiments/confidence_v2/scores/minicheck_deberta_train.jsonl",
+      "rows": 2981,
+      "sha256": "d7812532f53c9d1ec5ce4df8cee5cbf65a8388ae4dbf477173d24a549d117d48"
+    },
+    "validation": {
+      "path": "artifacts/experiments/confidence_v2/scores/minicheck_deberta_validation.jsonl",
+      "rows": 698,
+      "sha256": "71fbfb393a40d0bbee57fe08b17e2707235d9edaa1283d084f1b302ce93df3b8"
+    }
+  },
+  "context": {
+    "sources": {
+      "lds": {
+        "path": "dataset/PublicHearingBR_LDS.jsonl",
+        "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+      },
+      "nli": {
+        "path": "dataset/PublicHearingBR_NLI.jsonl",
+        "sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+      },
+      "benchmark": {
+        "path": "artifacts/benchmarks/nli_v1.jsonl",
+        "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d"
+      },
+      "splits": {
+        "path": "artifacts/splits/temporal_v1.json",
+        "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+        "split_version": "temporal_v1"
+      }
+    },
+    "premise": {
+      "text_source": "nli_chunks",
+      "concat_separator": " ",
+      "chunk_source_verification": {
+        "method": "each located chunk is rebuilt from its benchmark offsets in the LDS transcript (segments joined by a line break) and compared with chunks_proximos after removing all whitespace; any other difference stops the run",
+        "opinions": 3679,
+        "opinions_without_chunks": 1,
+        "chunks": 14712,
+        "differ_only_in_whitespace": 1368,
+        "identical_after_whitespace_normalization": 13344
+      }
+    },
+    "subset": null
+  },
+  "translation": {
+    "path": "artifacts/cache/translation/translations_facebook-nllb-200-distilled-600m_f8d333a098d1.jsonl",
+    "signature": {
+      "model": "facebook/nllb-200-distilled-600M",
+      "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "src_lang": "por_Latn",
+      "tgt_lang": "eng_Latn",
+      "dtype": "float32",
+      "num_beams": 4,
+      "do_sample": false,
+      "length_penalty": 1.0,
+      "early_stopping": false,
+      "no_repeat_ngram_size": 0,
+      "repetition_penalty": 1.0,
+      "max_input_tokens": 512,
+      "max_new_tokens_ratio": 2.0,
+      "max_new_tokens_margin": 16,
+      "max_new_tokens_cap": 1020
+    },
+    "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+    "segmentation": {
+      "join_abbreviations": [
+        "Art.",
+        "Dr.",
+        "Dra.",
+        "Dras.",
+        "Drs.",
+        "Exma.",
+        "Exmo.",
+        "Prof.",
+        "Profa.",
+        "Profs.",
+        "Sr.",
+        "Sra.",
+        "Sras.",
+        "Srs.",
+        "V.Exa.",
+        "V.Exas.",
+        "art.",
+        "arts."
+      ],
+      "join_short_parts": true
+    },
+    "entries": 55393,
+    "entries_by_device": {
+      "cpu": 40,
+      "mps": 55353
+    },
+    "other_signature_lines": 0,
+    "incomplete_tail_bytes": 0
+  },
+  "config": {
+    "path": "configs/confidence_v2.toml",
+    "sha256": "7fdcf75ee16c0fa3533491dc8dbe0b2bd6161c8386183907f550468b86b4e720"
+  },
+  "code": {
+    "utils/confidence_v2.py": "6588af2262d5734d2bece031dbd02ba26a3e4d0a6195f99e33761df895ddc4ab",
+    "utils/grounding_scorers.py": "984aa02c58e52aee6e1bedb5b11c6bc89506772c6996075acfb61922b003a80a",
+    "utils/grounding_models.py": "10dc6650259d0b9432e0a6ba2f7e4a0475e32e584955322500aa997e05f3c0a6",
+    "utils/confidence_policies.py": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704",
+    "utils/udv_verifier.py": "61436011728deb5f0bb9985536a258557122596282d88a4a7b2cfdbc031ffcdc",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      0.71,
+      0.64,
+      0.66
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "created_at": "2026-09-28T05:56:24+00:00",
+  "set": "ea",
+  "scorer": "laya_multi_pt",
+  "model": {
+    "kind": "laya",
+    "name": "convaiinnovations/laya/multilingual",
+    "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+    "subfolder": "multilingual",
+    "laya_version": "0.3.11",
+    "checkpoint_dir": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/multilingual",
+    "weights_file": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/multilingual/model.safetensors",
+      "is_symlink": true,
+      "blob": "53499790a05bdabd4023a797e9e2776d39efd3bac72d6ddaed70495da40c6eb0",
+      "bytes": 643835514
+    },
+    "tokenizer_config": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/multilingual/tokenizer/tokenizer_config.json",
+      "is_symlink": true,
+      "blob": "c255ac0c8cb34a37d066cd0dafe313fd769d27ae",
+      "bytes": 524
+    },
+    "encoder": "jhu-clsp/mmBERT-base",
+    "max_len": 1024,
+    "head_max_len": 256,
+    "temperature_applied": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "temperature_by_options_applied": {},
+    "device": "mps",
+    "dtype": "torch.float32",
+    "parameters": 321908995,
+    "load_seconds": 2.2,
+    "batch_size": 16,
+    "truncation": "when the serialized state does not fit max_len minus the question prefix, 'premise' is cut at the last whitespace that fits, so the other keys stay whole",
+    "answer_cache": {
+      "path": "artifacts/cache/decision_models/laya_multilingual_aa8c91ca088e_mps.jsonl",
+      "signature": "laya@0.3.11@convaiinnovations/laya@aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8@multilingual@mps@float32@1024@256@premise",
+      "entries_at_start": 479400,
+      "other_signature_lines": 0
+    },
+    "counters": {
+      "requests": 73288,
+      "computed": 72288,
+      "cache_hits": 1000,
+      "forward_seconds": 7199.88,
+      "computed_input_tokens": 22538931,
+      "batches": 4580,
+      "max_rounding_gap": 5.00562473362276e-05
+    }
+  },
+  "questions": {
+    "n1_entails": {
+      "type": "noul",
+      "instructions": "A `premise` implica a `hypothesis`?"
+    },
+    "n2_states": {
+      "type": "noul",
+      "instructions": "A `premise` diz o que a `hypothesis` afirma?"
+    },
+    "n3_attributable": {
+      "type": "noul",
+      "instructions": "Tudo o que está na `hypothesis` pode ser atribuído à `premise`?"
+    },
+    "n4_reader_agrees": {
+      "type": "noul",
+      "instructions": "Alguém que lesse apenas a `premise` concordaria que a `hypothesis` é verdadeira?"
+    }
+  },
+  "requests": 18322,
+  "question_count": 4,
+  "seconds": 7209.373,
+  "counters": {
+    "requests": 73288,
+    "computed": 72288,
+    "cache_hits": 1000,
+    "forward_seconds": 7199.883987036534,
+    "computed_input_tokens": 22538931,
+    "batches": 4580,
+    "max_rounding_gap": 5.00562473362276e-05
+  },
+  "translation": null,
+  "files": {
+    "train": {
+      "path": "artifacts/experiments/confidence_v2/scores/laya_new_laya_multi_pt_train.jsonl",
+      "rows": 2981,
+      "sha256": "b6265811fee5d173efb380602a2bd48b100cc86278d2b5bd0f3ba8b5f06a1210"
+    },
+    "validation": {
+      "path": "artifacts/experiments/confidence_v2/scores/laya_new_laya_multi_pt_validation.jsonl",
+      "rows": 698,
+      "sha256": "036698296beed1e93cc2fb43a81c9cc75dd655f99ee04f2119591d291f7362ca"
+    }
+  },
+  "context": {
+    "sources": {
+      "lds": {
+        "path": "dataset/PublicHearingBR_LDS.jsonl",
+        "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+      },
+      "nli": {
+        "path": "dataset/PublicHearingBR_NLI.jsonl",
+        "sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+      },
+      "benchmark": {
+        "path": "artifacts/benchmarks/nli_v1.jsonl",
+        "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d"
+      },
+      "splits": {
+        "path": "artifacts/splits/temporal_v1.json",
+        "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+        "split_version": "temporal_v1"
+      }
+    },
+    "premise": {
+      "text_source": "nli_chunks",
+      "concat_separator": " ",
+      "chunk_source_verification": {
+        "method": "each located chunk is rebuilt from its benchmark offsets in the LDS transcript (segments joined by a line break) and compared with chunks_proximos after removing all whitespace; any other difference stops the run",
+        "opinions": 3679,
+        "opinions_without_chunks": 1,
+        "chunks": 14712,
+        "differ_only_in_whitespace": 1368,
+        "identical_after_whitespace_normalization": 13344
+      }
+    },
+    "subset": null
+  },
+  "config": {
+    "path": "configs/confidence_v2.toml",
+    "sha256": "740622ff4bfecc295659e7561f02c31454d36bb1e3ab40205d2e70b9d2b3a43c"
+  },
+  "code": {
+    "utils/confidence_v2.py": "6588af2262d5734d2bece031dbd02ba26a3e4d0a6195f99e33761df895ddc4ab",
+    "utils/grounding_scorers.py": "984aa02c58e52aee6e1bedb5b11c6bc89506772c6996075acfb61922b003a80a",
+    "utils/grounding_models.py": "10dc6650259d0b9432e0a6ba2f7e4a0475e32e584955322500aa997e05f3c0a6",
+    "utils/confidence_policies.py": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704",
+    "utils/udv_verifier.py": "61436011728deb5f0bb9985536a258557122596282d88a4a7b2cfdbc031ffcdc",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      1.18,
+      0.67,
+      0.59
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}
