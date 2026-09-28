@@ -311,6 +311,11 @@ def fingerprint(*parts: Any) -> str:
     return hashlib.sha256(payload.encode()).hexdigest()[:16]
 
 
+def canonical_sha256(payload: Any) -> str:
+    text = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
 def load_rows(path: Path, key: str) -> dict[str, Record]:
     if not path.exists():
         return {}

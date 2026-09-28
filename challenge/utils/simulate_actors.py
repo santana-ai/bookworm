@@ -20,6 +20,7 @@ from utils.actor_simulation import (
     SimulationModel,
     SimulationPrompts,
     SpeechRetriever,
+    canonical_sha256,
     chat_messages,
     check_disjoint,
     clean_role,
@@ -397,6 +398,51 @@ def summarize(rows: list[Record]) -> Record:
     return summary
 
 
+def request_dry_run(
+    config: SimulationConfig,
+    prompt_version: str,
+    inputs: Record,
+    requests: list[Record],
+    train_records: dict[str, Record],
+    udvs: list[Record],
+    owners: dict[tuple[int, int], str],
+    metadata: dict[int, Record],
+    k: int | None,
+) -> Record:
+    actors = sorted({request["actor"] for request in requests})
+    roles = {
+        actor: latest_role(train_records[actor], udvs, owners, metadata, config.parties)
+        for actor in actors
+    }
+    examples = {
+        actor: [
+            excerpt_record(example)
+            for example in speech_examples(train_records[actor], metadata, config)
+        ]
+        for actor in actors
+    }
+    return {
+        "dry_run": True,
+        "model": config.model or None,
+        "prompt_version": prompt_version,
+        "k": k,
+        "k_rule": "k comes from evaluation.json of the model run, or --k; null before that run",
+        "inputs": inputs,
+        "requests_split": config.requests_split,
+        "requests": len(requests),
+        "request_actors": len(actors),
+        "request_hearings": len({request["hearing_id"] for request in requests}),
+        "requests_sha256": canonical_sha256(requests),
+        "roles_sha256": canonical_sha256(roles),
+        "actors_without_role": sum(role is None for role in roles.values()),
+        "examples_sha256": canonical_sha256(examples),
+        "rule": (
+            "requests, roles and speech examples are built as in a model run; an equal hash means"
+            " the model receives the same requests, roles and examples (the excerpts depend on k)"
+        ),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
@@ -414,15 +460,25 @@ def main() -> None:
         " hearing of the requests split with a linked UDV",
     )
     parser.add_argument("--k", type=int, help="excerpts per request (default: evaluation.json)")
+    parser.add_argument("--profiles", type=Path, help="profiles JSONL (overrides config)")
+    parser.add_argument(
+        "--dry-run",
+        type=Path,
+        help="build the requests, roles and examples without a model and write their counts and"
+        " hashes to this JSON",
+    )
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     config = load_config(args.config)
     if args.model is not None:
         config = dataclasses.replace(config, model=args.model)
-    if not config.model:
+    if args.profiles is not None:
+        config = dataclasses.replace(config, profiles_path=args.profiles)
+    dry_run = args.dry_run is not None
+    if not config.model and not dry_run:
         parser.error("set [model] name in the config, or pass --model")
     k = args.k if args.k is not None else selected_k(config)
-    if k is None:
+    if k is None and not dry_run:
         parser.error("run utils.evaluate_actor_simulation first, or pass --k")
     prompts = load_prompts(config.prompts_dir)
     profiles = load_profiles(config.profiles_path, args.actors)
@@ -449,6 +505,14 @@ def main() -> None:
         "train_speeches": file_info(config.train_speeches_path),
         "udv": file_info(config.udv_path),
     }
+    if args.dry_run is not None:
+        report = request_dry_run(
+            config, prompts.version, inputs, requests, train_records, udvs, owners, metadata, k
+        )
+        write_json(report, args.dry_run)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    assert k is not None
     run_digest = fingerprint(
         config.model,
         config.evidence_max_tokens,
