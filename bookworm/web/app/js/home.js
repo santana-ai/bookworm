@@ -1,5 +1,6 @@
-import { bucketCounts, bucketSentence, statementsSentence } from "./copy.js";
-import { esc, fmtDate, foldText, reEsc } from "./text.js";
+import { bucketCounts, bucketSentence, DISCLOSE_HINTS, HOME_FIRST, HOME_LABELS, statementsSentence, statTiles } from "./copy.js";
+import { bindDisclose, discloseButton } from "./disclose.js";
+import { esc, fmtDate, fmtInt, foldText, reEsc } from "./text.js";
 
 const NAMES_SHOWN = 4;
 
@@ -7,6 +8,18 @@ export function dotsHtml(tiers) {
   return bucketCounts(tiers)
     .map((b) => ('<i class="dot" data-k="' + b.key + '"></i>').repeat(b.n))
     .join("");
+}
+
+export function statsHtml(tiles, label) {
+  return (
+    '<ul class="sm-stats" aria-label="' + esc(label) + '">' +
+    tiles.map((t) => '<li class="sm-stat"><b>' + (t.k ? '<i class="dot" data-k="' + t.k + '" aria-hidden="true"></i>' : "") + esc(fmtInt(t.n)) + "</b><span>" + esc(t.label) + "</span></li>").join("") +
+    "</ul>"
+  );
+}
+
+export function tierStats(tiers, nUdvs, nPeople, label) {
+  return statsHtml(statTiles(tiers, nUdvs, nPeople), label);
 }
 
 function highlight(text, words) {
@@ -89,12 +102,14 @@ export function createHome(els, index, onPick) {
   function render() {
     const words = queryWords();
     const vis = visibleRows();
-    els.list.innerHTML = vis.map((r) => cardHtml(r, words)).join("");
+    els.list.innerHTML = vis.slice(0, HOME_FIRST).map((r) => cardHtml(r, words)).join("");
+    els.rest.innerHTML = vis.slice(HOME_FIRST).map((r) => cardHtml(r, words)).join("");
     els.empty.hidden = vis.length > 0;
+    els.bar.hidden = vis.length <= HOME_FIRST;
+    els.end.hidden = vis.length <= HOME_FIRST;
+    const order = state.sort === "desc" ? "das mais recentes para as mais antigas." : "das mais antigas para as mais recentes.";
     els.count.textContent =
-      vis.length === rows.length
-        ? rows.length + " matérias, " + (state.sort === "desc" ? "das mais recentes para as mais antigas." : "das mais antigas para as mais recentes.")
-        : "Mostrando " + vis.length + " de " + rows.length + " matérias.";
+      vis.length === rows.length ? rows.length + " matérias, " + order : vis.length + " de " + rows.length + " matérias têm essas palavras, " + order;
     els.lucky.disabled = vis.length === 0;
   }
 
@@ -118,6 +133,9 @@ export function createHome(els, index, onPick) {
     onPick(r.h.id);
   }
 
+  els.bar.innerHTML = discloseButton("home", "home-more", null, HOME_LABELS) + '<p class="dz-hint">' + esc(DISCLOSE_HINTS.home) + "</p>";
+  els.end.innerHTML = discloseButton("home", "home-more", "end", HOME_LABELS);
+  bindDisclose(els.root, "home", { labels: HOME_LABELS });
   els.q.addEventListener("input", onInput);
   els.sort.addEventListener("change", onSort);
   els.lucky.addEventListener("click", onLucky);

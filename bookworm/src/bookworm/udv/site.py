@@ -11,6 +11,7 @@ from bookworm.data.schemas import HearingRecord
 from bookworm.data.splits import SplitName
 from bookworm.errors import ConfigError
 from bookworm.features.encoders import CachedEncoder
+from bookworm.profiles.site import ProfileSiteBuilder, ProfileSiteExport, clear_profile_site
 from bookworm.transcript.text import normalize_whitespace
 from bookworm.udv.export import DEFAULT_TOP_K, export_hearing, split_of
 from bookworm.udv.schemas import SUPPORT_TYPES, TIERS, UdvRecord
@@ -30,10 +31,12 @@ class SiteExport:
     index: JsonObject
     hearing_bytes: dict[int, int]
     index_bytes: int
+    profiles: ProfileSiteExport | None = None
 
     @property
     def total_bytes(self) -> int:
-        return self.index_bytes + sum(self.hearing_bytes.values())
+        extra = 0 if self.profiles is None else self.profiles.total_bytes
+        return self.index_bytes + sum(self.hearing_bytes.values()) + extra
 
 
 def display_title(materia: str, assunto: str, max_chars: int = TITLE_MAX_CHARS) -> str:
@@ -101,6 +104,7 @@ def export_site(
     split_manifest: Mapping[str, Any] | None = None,
     on_hearing: HearingCallback | None = None,
     signals: SiteSignals | None = None,
+    profiles: ProfileSiteBuilder | None = None,
 ) -> SiteExport:
     """Write the demo JSON of every hearing and then ``index.json`` to ``output_dir``."""
     ordered = sorted(hearings, key=lambda hearing: hearing.id)
@@ -114,6 +118,7 @@ def export_site(
     )
     index_path = output_dir / INDEX_FILE_NAME
     index_path.unlink(missing_ok=True)
+    clear_profile_site(output_dir)
     entries: list[JsonObject] = []
     hearing_bytes: dict[int, int] = {}
     run: JsonObject | None = None
@@ -140,8 +145,11 @@ def export_site(
         hearing_bytes[hearing.id] = path.stat().st_size
         entry = site_index_entry(payload)
         entries.append(entry)
+        if profiles is not None:
+            profiles.add_hearing(payload, entry)
         if on_hearing is not None:
             on_hearing(number, entry, hearing_bytes[hearing.id])
+    profile_site = None if profiles is None else profiles.write(output_dir, run)
     index = {"run": run, "hearings": entries}
     write_json(index, index_path)
-    return SiteExport(index, hearing_bytes, index_path.stat().st_size)
+    return SiteExport(index, hearing_bytes, index_path.stat().st_size, profile_site)

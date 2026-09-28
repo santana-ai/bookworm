@@ -1,3 +1,5 @@
+import { caseHash } from "../case.js";
+import { bindDisclose } from "../disclose.js";
 import { buildModel } from "../model.js";
 import { clamp, esc, shorten } from "../text.js";
 import { installAsk } from "./ask.js";
@@ -17,7 +19,7 @@ function collectElements(root) {
     wrap: q(".wl-wrap"), world: q(".wl-world"), cork: q(".wl-cork"), objs: q(".wl-objs"), glabs: q(".wl-glabs"),
     svLo: q(".wl-sv-lo"), svHi: q(".wl-sv-hi"), tags: q(".wl-tags"),
     reader: q(".wl-reader"), readerBody: q(".wl-reader-body"), readerPos: q(".wl-reader-pos"), readerH: q(".wl-reader-h"),
-    rdBefore: q(".wl-rd-before"), rdAfter: q(".wl-rd-after"), rdClose: q(".wl-rd-close"),
+    rdBefore: q(".wl-rd-before"), rdAfter: q(".wl-rd-after"), rdClose: q(".wl-rd-close"), rdMore: q(".wl-rd-more"), list: q(".wl-list-l"),
     next: q(".wl-next"), back: q(".wl-back"), auto: q(".wl-auto"), kase: q(".wl-case"), all: q(".wl-all"), pick: q(".wl-pick-sel"),
     capScene: q(".wl-cap-scene"), capText: q(".wl-cap-text"), cap: q(".wl-cap"), legend: q(".wl-legend"), key: q(".wl-key"), disc: q(".wl-disc"),
     zoom: q(".wl-zoom"), zin: q(".wl-zin"), zout: q(".wl-zout"), hint: q(".wl-hint"),
@@ -55,6 +57,10 @@ export function createWall(host, H) {
     '<option value="" disabled>Escolha uma afirmação</option>' +
     M.S.map((s, j) => '<option value="' + j + '">' + (j + 1) + ". " + esc(s.u.actor.name) + ": " + esc(shorten(s.u.proposition.replace(/^["“]/, ""), 58)) + "</option>").join("");
   els.disc.textContent = w.disclaimer;
+  els.list.innerHTML = M.S.map(
+    (s, j) =>
+      '<li><a href="' + caseHash(H.hearing.id, j + 1) + '"><span class="wl-list-n">' + (j + 1) + '</span><span class="wl-list-b"><span class="wl-list-w">' + esc(s.u.actor.name) + '</span><span class="wl-list-p">' + esc(shorten(s.u.proposition, 170)) + '</span></span><span class="wl-list-t" data-t="' + s.tier.k + '">' + esc(s.tier.short) + "</span></a></li>",
+  ).join("");
 
   function stageSize() {
     const vh = window.innerHeight || 800;
@@ -235,6 +241,7 @@ export function createWall(host, H) {
   els.auto.addEventListener("click", onAuto);
   els.pick.addEventListener("change", onPick);
   els.rdClose.addEventListener("click", () => w.closeReader(false));
+  els.rdMore.addEventListener("click", () => w.toggleReader());
   els.rdBefore.addEventListener("click", () => w.readMore(-1));
   els.rdAfter.addEventListener("click", () => w.readMore(1));
   els.askform.addEventListener("submit", onAskSubmit);
@@ -248,6 +255,7 @@ export function createWall(host, H) {
   if (ro) ro.observe(root);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => relayout(true));
 
+  bindDisclose(root, "wall");
   w.start();
   w.initAsk();
   relayout(true);
@@ -271,5 +279,10 @@ export function createWall(host, H) {
     w.openStatementAt(j, "result");
   }
 
-  return { destroy, openStatement };
+  function openPassage(p) {
+    if (w.destroyed) return false;
+    return w.openReaderPassage(p);
+  }
+
+  return { destroy, openStatement, openPassage };
 }

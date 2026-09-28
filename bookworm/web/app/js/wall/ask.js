@@ -1,4 +1,6 @@
 import { esc, firstName, fmtInt, foldText, joinPt, markText, shorten, tail, tno } from "../text.js";
+import { READER_SHORT } from "../copy.js";
+import { paintButton, readState, writeState } from "../disclose.js";
 import { cadId } from "./objects.js";
 
 const STOP = (
@@ -215,7 +217,7 @@ export function installAsk(w) {
     if (r.top < 0 || r.bottom > window.innerHeight) els.wrap.scrollIntoView({ block: "center", behavior: w.reduced() ? "auto" : "smooth" });
   }
 
-  const rd = { a: 0, b: 0, mark: null, back: null };
+  const rd = { a: 0, b: 0, mark: null, back: null, open: readState("reader") };
 
   function snapBack(pos) {
     const j = M.sentAt(pos);
@@ -224,6 +226,20 @@ export function installAsk(w) {
   function snapFwd(pos) {
     for (let i = Math.max(0, M.sentAt(pos)); i < allSents.length; i++) if (allSents[i].end >= pos) return allSents[i].end;
     return T.length;
+  }
+
+  function spanReader() {
+    const m = rd.mark;
+    rd.a = rd.open ? snapBack(Math.max(0, m.start - READ_SPAN)) : m.start;
+    rd.b = rd.open ? snapFwd(Math.min(T.length, m.end + READ_SPAN)) : m.end;
+  }
+
+  function toggleReader() {
+    if (!rd.mark) return;
+    rd.open = !rd.open;
+    writeState("reader", rd.open);
+    spanReader();
+    renderReader();
   }
 
   function renderReader(keep) {
@@ -237,11 +253,17 @@ export function installAsk(w) {
     const body = els.readerBody;
     const prevH = body.scrollHeight;
     const prevTop = body.scrollTop;
-    body.innerHTML = (rd.a > 0 ? "[…]\n" : "") + markText(slice, ranges) + (rd.b < T.length ? "\n[…]" : "");
-    els.readerPos.textContent =
-      "Caracteres " + fmtInt(rd.a) + " a " + fmtInt(rd.b) + " de " + fmtInt(T.length) + ". Em amarelo, " + rd.mark.label + " (turno " + tno(rd.mark.turn) + ", " + M.speakerName(rd.mark.turn) + "). Em negrito, quem pega a palavra.";
+    body.innerHTML = rd.open ? (rd.a > 0 ? "[…]\n" : "") + markText(slice, ranges) + (rd.b < T.length ? "\n[…]" : "") : markText(slice, ranges);
+    const who = "Turno " + tno(rd.mark.turn) + ", " + M.speakerName(rd.mark.turn) + ".";
+    els.readerPos.textContent = rd.open
+      ? "Caracteres " + fmtInt(rd.a) + " a " + fmtInt(rd.b) + " de " + fmtInt(T.length) + ". Em amarelo, " + rd.mark.label + " (turno " + tno(rd.mark.turn) + ", " + M.speakerName(rd.mark.turn) + "). Em negrito, quem pega a palavra."
+      : who + " " + READER_SHORT;
     els.rdBefore.disabled = rd.a <= 0;
     els.rdAfter.disabled = rd.b >= T.length;
+    els.rdBefore.hidden = !rd.open;
+    els.rdAfter.hidden = !rd.open;
+    paintButton(els.rdMore, rd.open);
+    els.reader.classList.toggle("is-short", !rd.open);
     if (keep === "before") body.scrollTop = prevTop + (body.scrollHeight - prevH);
     else if (keep === "after") body.scrollTop = prevTop;
     else {
@@ -254,8 +276,7 @@ export function installAsk(w) {
     if (w.st.auto) w.setAuto(false);
     rd.mark = mark;
     rd.back = from || document.activeElement;
-    rd.a = snapBack(Math.max(0, mark.start - READ_SPAN));
-    rd.b = snapFwd(Math.min(T.length, mark.end + READ_SPAN));
+    spanReader();
     els.readerH.textContent = title;
     els.reader.hidden = false;
     renderReader();
@@ -277,6 +298,13 @@ export function installAsk(w) {
     if (!s) return;
     scrollWallIntoView();
     openReaderAt({ start: s.start, end: s.end, turn: s.turn, label: "a frase da busca" }, "A transcrição em volta da frase", from);
+  }
+
+  function openReaderPassage(p) {
+    if (!(p.start >= 0 && p.end <= T.length && p.start <= p.end) || !M.turnsByIdx[p.turn]) return false;
+    scrollWallIntoView();
+    openReaderAt({ start: p.start, end: p.end, turn: p.turn, label: "a frase do perfil" }, "A transcrição em volta da frase do perfil", els.wrap);
+    return true;
   }
 
   function closeReader(silent) {
@@ -335,5 +363,5 @@ export function installAsk(w) {
     return false;
   }
 
-  Object.assign(w, { runAsk, initAsk, onAskClick, openReader, closeReader, readMore });
+  Object.assign(w, { runAsk, initAsk, onAskClick, openReader, openReaderPassage, closeReader, readMore, toggleReader });
 }

@@ -197,6 +197,88 @@ function checkSignals(url, data, bad) {
   });
 }
 
+const CLAIM_COUNTS = counts(["claims", "with_udv", "passage_only", "without_evidence"]);
+const MATCH = { method: STR, udv_min: NUM, passage_min: NUM, passage_min_words: INT };
+
+const ACTORS = {
+  run: RUN,
+  profiles: { run: STR, models: [STR], prompt_versions: [STR], source_sha256: STR, match: MATCH },
+  actors: [{ slug: STR, name: STR, role: nullable(STR), n_hearings: INT, n_hearings_in_profile: INT, n_turns: INT, hearing_ids: [INT], n_udvs: INT, claims: CLAIM_COUNTS }],
+  people: {},
+  udvs: {},
+};
+
+const VERIFIER = { nullable: { probability: PROB, supported: BOOL } };
+
+const PROFILE = {
+  actor: { slug: STR, name: STR, role: nullable(STR), article_names: [STR], party_uf: [STR] },
+  provenance: { run: STR, model: STR, prompt_version: STR, generated_at: STR, n_statements: INT, n_hearings: INT, hearing_ids: [INT], input_tokens: INT, output_tokens: INT, source_sha256: STR },
+  match: MATCH,
+  counts: CLAIM_COUNTS,
+  sections: [
+    {
+      title: STR,
+      claims: [
+        {
+          text: STR,
+          passage: { nullable: { hearing_id: INT, turn: INT, start: nullable(INT), end: nullable(INT), text: STR, score: NUM } },
+          udv: { nullable: { id: STR, rule: oneOf(["same_sentence", "similar_text"]), score: NUM } },
+        },
+      ],
+    },
+  ],
+  hearings: [{ id: INT, split: nullable(STR), article_date: nullable(STR), title: STR, assunto: STR, turns: INT, in_profile: BOOL, udvs: INT }],
+  udvs: [
+    {
+      id: STR,
+      hearing_id: INT,
+      n: INT,
+      article_name: STR,
+      proposition: STR,
+      tier: oneOf(TIER_ORDER),
+      evidence: { nullable: { text: STR, turn: INT, start: INT, end: INT } },
+      verifier: VERIFIER,
+      in_profile: BOOL,
+    },
+  ],
+  verifier_threshold: nullable(PROB),
+};
+
+function checkActors(url, data) {
+  walk(url, data, ACTORS, "");
+  const slugs = new Set();
+  data.actors.forEach((a, i) => {
+    if (slugs.has(a.slug)) throw new DataError("format", url, "actors[" + i + "].slug: repetido");
+    slugs.add(a.slug);
+    const c = a.claims;
+    if (c.with_udv + c.passage_only + c.without_evidence !== c.claims) throw new DataError("format", url, "actors[" + i + "].claims: a soma não é claims");
+  });
+  Object.keys(data.people).forEach((h) => {
+    Object.keys(data.people[h]).forEach((name) => {
+      if (!slugs.has(data.people[h][name])) throw new DataError("format", url, "people." + h + ": ator sem perfil");
+    });
+  });
+  Object.keys(data.udvs).forEach((id) => {
+    if (!slugs.has(data.udvs[id])) throw new DataError("format", url, "udvs." + id + ": ator sem perfil");
+  });
+  return data;
+}
+
+function checkProfile(url, data, slug) {
+  walk(url, data, PROFILE, "");
+  if (data.actor.slug !== slug) throw new DataError("format", url, "actor.slug: esperava " + slug);
+  const ids = new Set(data.udvs.map((u) => u.id));
+  let n = 0;
+  data.sections.forEach((s, i) => {
+    s.claims.forEach((c, j) => {
+      n++;
+      if (c.udv && !ids.has(c.udv.id)) throw new DataError("format", url, "sections[" + i + "].claims[" + j + "].udv: não está em udvs");
+    });
+  });
+  if (n !== data.counts.claims) throw new DataError("format", url, "counts.claims: difere do número de itens");
+  return data;
+}
+
 async function getJson(url) {
   let response;
   try {
@@ -224,6 +306,37 @@ export function loadIndex() {
     });
   }
   return indexPromise;
+}
+
+let actorsPromise = null;
+
+export function loadActors(indexRun) {
+  if (!actorsPromise) {
+    const url = "data/actors.json";
+    actorsPromise = getJson(url)
+      .then((data) => {
+        checkActors(url, data);
+        if (indexRun && !sameRun(data.run, indexRun)) throw new DataError("format", url, "run: difere do run de data/index.json, então o arquivo é de outra exportação");
+        return data;
+      })
+      .catch((error) => {
+        if (error instanceof DataError && error.kind === "missing") return null;
+        actorsPromise = null;
+        throw error;
+      });
+  }
+  return actorsPromise;
+}
+
+const profileCache = new Map();
+
+export async function loadProfile(slug) {
+  if (profileCache.has(slug)) return profileCache.get(slug);
+  const url = "data/profiles/" + encodeURIComponent(slug) + ".json";
+  const data = checkProfile(url, await getJson(url), slug);
+  profileCache.set(slug, data);
+  while (profileCache.size > CACHE_LIMIT * 2) profileCache.delete(profileCache.keys().next().value);
+  return data;
 }
 
 function sameRun(a, b) {

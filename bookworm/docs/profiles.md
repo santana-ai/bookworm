@@ -136,6 +136,61 @@ Cada linha do arquivo de perfis (`bookworm.profiles.ProfileRecord`) tem, nesta o
 - `input_tokens` e `output_tokens`, no tokenizer do modelo.
 - `generated_at` (UTC, em segundos) e `duration_seconds`.
 
+## Exportação para a demonstração
+
+A página web mostra cada perfil ao lado das falas que o sustentam. O problema que isso resolve: o
+texto do perfil é gerado por modelo e não traz citações, então quem lê não tem como saber, só pelo
+texto, de que fala saiu cada frase. `bookworm export-site --profiles <jsonl>` liga cada item do perfil
+a uma frase da transcrição e, quando existe, a uma afirmação da matéria (UDV) da mesma pessoa. O
+comando e as opções estão em [`web/README.md`](../web/README.md#gerar-os-dados).
+
+**Entrada.** O JSONL de perfis e a configuração de atores (`--actors-config`), da qual o comando refaz
+as falas por ator a partir do LDS. Antes de gravar, ele confere que, para cada perfil, `n_hearings` é o
+tamanho de `hearing_ids` e `n_statements` é a soma dos turnos da pessoa nessas audiências; se não for,
+para com código 2, porque o perfil teria sido gerado de outras falas.
+
+**Itens.** O texto do perfil é dividido em seções pelos títulos em `#` e em itens pelos marcadores `-`
+ou `*`; linhas de continuação entram no item anterior, e um texto sem título vai para a seção
+"Sem título".
+
+**Ligação de um item à fala.** Para cada ator, um TF-IDF (sem acentos, `tf` sublinear, a mesma lista de
+palavras vazias da busca da página) é ajustado sobre as frases das falas dele, com pelo menos 5
+palavras, nas audiências que o perfil leu. Cada item fica com a frase de maior cosseno, se o cosseno
+for pelo menos 0,15; abaixo disso, fica sem frase. Uma UDV da pessoa se liga ao item por uma de duas
+regras, nesta ordem:
+
+- `same_sentence`: a frase escolhida se sobrepõe à evidência da UDV, no mesmo turno;
+- `similar_text`: o cosseno entre o item e a proposição mais a evidência da UDV é pelo menos 0,30.
+
+Os dois limites foram escolhidos para a leitura da página e não foram medidos contra julgamento humano.
+A ligação diz que as palavras são parecidas, não que a frase sustenta o item. As UDVs de uma pessoa são
+as dos turnos em que ela é dona pela maioria dos caracteres; empate vai para a primeira chave em ordem
+alfabética, a mesma regra de `build-udvs`.
+
+**Saída.** Além dos arquivos da audiência, a exportação grava:
+
+- `actors.json`: `run` (o mesmo bloco de `index.json`); `profiles` (`run`, `models`, `prompt_versions`,
+  `source_sha256` do JSONL e `match`, a regra acima com os limites); `actors`, uma entrada por ator com
+  `slug`, `name`, `role`, `n_hearings`, `n_hearings_in_profile`, `n_turns`, `hearing_ids`, `n_udvs` e
+  `claims` (`claims`, `with_udv`, `passage_only`, `without_evidence`); `people`, que leva cada nome da
+  matéria de cada audiência ao `slug` do perfil; e `udvs`, que leva cada id de UDV ao `slug`.
+- `profiles/<slug>.json`, um por ator: `actor` (`slug`, `name`, `role`, `article_names`, `party_uf`);
+  `provenance` (`run`, `model`, `prompt_version`, `generated_at`, `n_statements`, `n_hearings`,
+  `hearing_ids`, `input_tokens`, `output_tokens`, `source_sha256`); `match`; `counts`; `sections`, cada
+  uma com `title` e `claims` (`text`, `passage` com `hearing_id`, `turn`, `start`, `end`, `text` e
+  `score`, ou `null`, e `udv` com `id`, `rule` e `score`, ou `null`); `hearings` (`id`, `split`,
+  `article_date`, `title`, `assunto`, `turns`, `in_profile`, `udvs`); `udvs` (`id`, `hearing_id`, `n`,
+  `article_name`, `proposition`, `tier`, `evidence`, `verifier` com `probability` e `supported` ou
+  `null`, `in_profile`); e `verifier_threshold`.
+
+O `slug` vem do nome sem acentos, em minúsculas, com hífens; nomes que colidem ganham `-2`, `-3`.
+
+**Números da rodada `qwen38_27b` de treino.** Com `udv_v1` e o relatório do verificador: 264 perfis,
+4.928 itens; 144 itens ligados a uma UDV (111 por `same_sentence`, 33 por `similar_text`), 4.348 só com
+frase e 436 sem frase. 660 UDVs têm como dono um ator com perfil; 193 atores têm pelo menos uma UDV, mas só 95
+têm algum item ligado a uma delas. Os perfis ocupam cerca de 4,8 MB (`profiles/` e `actors.json`), e a exportação
+inteira, 85,5 MB. Esses números saem do resumo JSON que o comando imprime.
+
 ## Retomada e falhas
 
 O arquivo de perfis é aberto em modo append e cada perfil é gravado assim que fica pronto. Ao rodar

@@ -1,3 +1,6 @@
+import { DISCLOSE_HINTS } from "../copy.js";
+import { discloseBar, discloseButton, discloseEnd } from "../disclose.js";
+
 export function wallMarkup() {
   return `
 <div class="wl-top">
@@ -35,8 +38,9 @@ export function wallMarkup() {
     <div class="wl-reader" role="dialog" aria-labelledby="wl-reader-h" hidden>
       <h3 class="wl-reader-h" id="wl-reader-h">A transcrição em volta do trecho</h3>
       <p class="wl-reader-pos"></p>
-      <div class="wl-reader-body" tabindex="0"></div>
+      <div class="wl-reader-body" id="wl-reader-body" tabindex="0"></div>
       <div class="wl-reader-ctl">
+        ${discloseButton("reader", "wl-reader-body").replace('class="dz-btn"', 'class="dz-btn wl-rd-more"')}
         <button type="button" class="wl-btn wl-rd-before">Ler mais antes</button>
         <button type="button" class="wl-btn wl-rd-after">Ler mais depois</button>
         <button type="button" class="wl-btn wl-btn-go wl-rd-close">Fechar</button>
@@ -56,6 +60,8 @@ export function wallMarkup() {
     </div>
   </div>
 </div>
+${discloseBar("wall", "wl-more", DISCLOSE_HINTS.wall)}
+<div class="wl-more" id="wl-more">
 <ul class="wl-key" aria-label="Como ler os fios"></ul>
 <p class="wl-disc"></p>
 <p class="wl-keys">No teclado, as setas para a direita e para a esquerda avançam e voltam, e as teclas + e &minus; aproximam e afastam a parede. Na rede inteira, arraste a parede para ver outras partes.</p>
@@ -76,5 +82,11 @@ export function wallMarkup() {
     <figcaption class="wl-astrip-cap"></figcaption>
   </figure>
   <ol class="wl-apages"></ol>
+</div>
+<section class="wl-list" aria-labelledby="wl-list-h">
+  <h3 class="wl-list-h" id="wl-list-h">Todas as afirmações desta matéria</h3>
+  <ol class="wl-list-l"></ol>
+</section>
+${discloseEnd("wall", "wl-more")}
 </div>`;
 }
