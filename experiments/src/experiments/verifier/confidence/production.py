@@ -10,6 +10,7 @@ from bookworm import load_jsonl, sha256_of_file
 from experiments.common.stats import stream_rng
 from experiments.common.udv_run import load_config as load_udv_config
 from experiments.verifier.confidence.bootstrap import (
+    FIXED,
     Replicates,
     arrays_of,
     hearing_members,
@@ -207,7 +208,7 @@ def production_on_all(
     signals = arrays.signals
     for replicate in range(config.bootstrap_samples):
         index = replicate_index(members, matrix[replicate])
-        record_policy_replicates(store, "fixed", policies, signals, arrays.correct, index)
+        record_policy_replicates(store, FIXED, policies, signals, arrays.correct, index)
     report = {}
     for policy in policies:
         accepted = accepted_by(policy, signals[policy.signal])
@@ -217,8 +218,8 @@ def production_on_all(
         report[policy.name] = {
             "threshold": policy.threshold,
             "evaluate": {k: rounded(v) if isinstance(v, float) else v for k, v in point.items()},
-            "fixed": {
-                metric: store.interval(("fixed", policy.name, metric), config.confidence_level)
+            FIXED: {
+                metric: store.interval((FIXED, policy.name, metric), config.confidence_level)
                 for metric in POLICY_METRICS
             },
         }

@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 from bookworm import load_jsonl, sha256_of_file, write_jsonl
 
+from experiments.common.reporting import file_record
 from experiments.verifier.confidence.bootstrap import arrays_of
 from experiments.verifier.confidence.config import (
     ENTAILMENT_PREFIX,
@@ -20,6 +21,7 @@ from experiments.verifier.confidence.config import (
 )
 from experiments.verifier.confidence.evaluation import evaluate_split, fit_split_description
 from experiments.verifier.confidence.policies import (
+    Arrays,
     Fitted,
     Policy,
     apply_models,
@@ -163,6 +165,99 @@ def split_counts(rows: list[Record], config: ConfidenceConfig) -> Record:
     }
 
 
+def scored_entailment_signals(
+    target: Target,
+    config: ConfidenceConfig,
+    population: dict[str, list[Record]],
+    decision_splits: tuple[str, ...],
+) -> list[str]:
+    """The entailment signals scored on every query of the splits the feature sets are fixed on."""
+    if target.unit not in config.entailment_units:
+        return []
+    return [
+        name
+        for name in config.entailment_signals
+        if all(row.get(name) is not None for split in decision_splits for row in population[split])
+    ]
+
+
+def check_final_entailment(
+    bench: str,
+    target: Target,
+    population: dict[str, list[Record]],
+    final_splits: list[str],
+    entailment_names: list[str],
+    decision_splits: tuple[str, ...],
+) -> None:
+    decided = "+".join(decision_splits)
+    for split in final_splits:
+        for name in entailment_names:
+            unscored = sum(1 for row in population[split] if row.get(name) is None)
+            if unscored:
+                raise SystemExit(
+                    f"{bench} {target.name}: {name} is scored on every "
+                    f"{decided} query but missing for {unscored} {split} "
+                    f"queries; the feature sets are fixed on {decided}, so the "
+                    f"{split} evaluation is refused until its pairs are built and scored "
+                    "(confidence_policies pairs --final-test, then nli_verifier_experiments "
+                    "pairs --final-test)"
+                )
+
+
+def check_finite_fit(bench: str, target: Target, fit: Arrays, raw_names: list[str]) -> None:
+    for name in raw_names:
+        if not np.isfinite(fit.signals[name]).all():
+            raise SystemExit(f"{bench} {target.name}: {name} is not finite on every fit row")
+
+
+def record_production_split(
+    production_rule: Record,
+    split_report: Record,
+    production: list[Policy],
+    calibration: Record,
+    split: str,
+    split_rows: list[Record],
+    evaluation_rows: list[Record],
+    split_draws: tuple[np.ndarray, np.ndarray],
+    label: str,
+    config: ConfidenceConfig,
+) -> None:
+    overlap = {
+        policy.name: calibration_overlap(
+            calibration, policy.details["udv_config_key"], split_rows, evaluation_rows
+        )
+        for policy in production
+    }
+    for name, entry in overlap.items():
+        split_report["policies"][name]["calibration_overlap"] = entry
+    production_rule["calibration_overlap"][split] = overlap
+    production_rule["all_queries"][split] = production_on_all(
+        production, split_rows, split_draws, config
+    )
+    production_rule["outside_calibration"][split] = production_outside_calibration(
+        production, calibration, split_rows, evaluation_rows, label, config
+    )
+
+
+def write_predictions(
+    rows_by_split: dict[str, list[Record]],
+    fitted: Fitted,
+    raw_names: list[str],
+    policies: list[Policy],
+    config: ConfidenceConfig,
+    run_dir: Path,
+    bench: str,
+    target: Target,
+) -> list[Record]:
+    predictions: list[Record] = []
+    for split, rows in rows_by_split.items():
+        output = prediction_rows(rows, fitted, raw_names, policies, config)
+        path = predictions_file(run_dir, bench, target.name, split)
+        write_jsonl(output, path)
+        predictions.append(file_record(path, rows=len(output)))
+    return predictions
+
+
 def evaluate_target(
     bench: str,
     target: Target,
@@ -179,24 +274,10 @@ def evaluate_target(
     fit_rows = [row for split in config.fit_splits for row in population[split]]
     decision_splits = (*config.fit_splits, *config.evaluate_splits)
     final_splits = [split for split in eval_splits if split not in decision_splits]
-    entailment_names = [
-        name
-        for name in config.entailment_signals
-        if target.unit in config.entailment_units
-        and all(row.get(name) is not None for split in decision_splits for row in population[split])
-    ]
-    for split in final_splits:
-        for name in entailment_names:
-            unscored = sum(1 for row in population[split] if row.get(name) is None)
-            if unscored:
-                raise SystemExit(
-                    f"{bench} {target.name}: {name} is scored on every "
-                    f"{'+'.join(decision_splits)} query but missing for {unscored} {split} "
-                    f"queries; the feature sets are fixed on {'+'.join(decision_splits)}, so the "
-                    f"{split} evaluation is refused until its pairs are built and scored "
-                    "(confidence_policies pairs --final-test, then nli_verifier_experiments "
-                    "pairs --final-test)"
-                )
+    entailment_names = scored_entailment_signals(target, config, population, decision_splits)
+    check_final_entailment(
+        bench, target, population, final_splits, entailment_names, decision_splits
+    )
     raw_names = [*config.base_signals, *entailment_names]
     missing_entailment = {
         name: sum(
@@ -211,9 +292,7 @@ def evaluate_target(
         if set(features) <= set(raw_names)
     }
     fit = arrays_of(fit_rows, raw_names)
-    for name in raw_names:
-        if not np.isfinite(fit.signals[name]).all():
-            raise SystemExit(f"{bench} {target.name}: {name} is not finite on every fit row")
+    check_finite_fit(bench, target, fit, raw_names)
     fitted = fit_all(fit, raw_names, feature_sets, config)
     production, production_source = production_policies(config, target)
     fit_draws = draws[config.fit_splits[0]]
@@ -246,11 +325,10 @@ def evaluate_target(
         if not evaluation_rows:
             report["evaluate"][split] = {"queries": 0}
             continue
-        evaluation = arrays_of(evaluation_rows, raw_names)
         report["evaluate"][split] = evaluate_split(
             fitted,
             fit,
-            evaluation,
+            arrays_of(evaluation_rows, raw_names),
             raw_names,
             feature_sets,
             config,
@@ -260,36 +338,26 @@ def evaluate_target(
             f"{bench}|{target.name}|{split}",
         )
         if production:
-            calibration = production_source["calibration"]
-            overlap = {
-                policy.name: calibration_overlap(
-                    calibration,
-                    policy.details["udv_config_key"],
-                    rows_by_split[split],
-                    evaluation_rows,
-                )
-                for policy in production
-            }
-            for name, entry in overlap.items():
-                report["evaluate"][split]["policies"][name]["calibration_overlap"] = entry
-            report["production_rule"]["calibration_overlap"][split] = overlap
-            report["production_rule"]["all_queries"][split] = production_on_all(
-                production, rows_by_split[split], draws[split], config
+            record_production_split(
+                report["production_rule"],
+                report["evaluate"][split],
+                production,
+                production_source["calibration"],
+                split,
+                rows_by_split[split],
+                evaluation_rows,
+                draws[split],
+                f"{bench}|{split}",
+                config,
             )
-            report["production_rule"]["outside_calibration"][split] = (
-                production_outside_calibration(
-                    production,
-                    calibration,
-                    rows_by_split[split],
-                    evaluation_rows,
-                    f"{bench}|{split}",
-                    config,
-                )
-            )
-    predictions: list[Record] = []
-    for split, rows in rows_by_split.items():
-        output = prediction_rows(rows, fitted, raw_names, fitted.policies + production, config)
-        path = predictions_file(run_dir, bench, target.name, split)
-        write_jsonl(output, path)
-        predictions.append({"path": str(path), "rows": len(output), "sha256": sha256_of_file(path)})
+    predictions = write_predictions(
+        rows_by_split,
+        fitted,
+        raw_names,
+        fitted.policies + production,
+        config,
+        run_dir,
+        bench,
+        target,
+    )
     return report, predictions

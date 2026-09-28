@@ -17,6 +17,14 @@ from experiments.verifier.confidence.records import rounded
 
 Record = dict[str, Any]
 
+FIXED = "fixed"
+REFIT = "refit"
+
+
+def bootstrap_modes(refitted: bool) -> tuple[str, ...]:
+    """Fixed replicates always; refit replicates only for what is refitted on each replicate."""
+    return (FIXED, REFIT) if refitted else (FIXED,)
+
 
 def arrays_of(rows: list[Record], names: list[str]) -> Arrays:
     return Arrays(

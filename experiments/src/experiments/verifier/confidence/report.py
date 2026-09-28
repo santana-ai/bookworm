@@ -9,6 +9,7 @@ from bookworm import write_json
 
 from experiments.common.reporting import utc_timestamp
 from experiments.common.splits import load_split_lookup
+from experiments.verifier.confidence.bootstrap import FIXED, REFIT
 from experiments.verifier.confidence.collect import collect_reports, load_features, split_record
 from experiments.verifier.confidence.config import (
     DEFINITIONS,
@@ -58,7 +59,7 @@ def primary_summary(results: Record, config: ConfidenceConfig) -> Record:
                 item: Record = {"aurc": entry["aurc"]["point"]}
                 if "difference_vs_reference" in entry:
                     difference = entry["difference_vs_reference"]["aurc"]
-                    mode = "refit" if name.startswith(LOGISTIC_PREFIX) else "fixed"
+                    mode = REFIT if name.startswith(LOGISTIC_PREFIX) else FIXED
                     interval = difference.get(mode)
                     item["difference_aurc"] = difference["point"]
                     item["interval_mode"] = mode
@@ -172,7 +173,7 @@ def print_summary(report: Record) -> None:
                 )
                 metrics = evaluation["signal_metrics"]["multi_candidate"]
                 for signal, entry in metrics.items():
-                    mode = "refit" if signal.startswith(LOGISTIC_PREFIX) else "fixed"
+                    mode = REFIT if signal.startswith(LOGISTIC_PREFIX) else FIXED
                     auc, aurc = entry["roc_auc"], entry["aurc"]
                     auc_text = "  n/a" if auc["point"] is None else f"{auc['point']:.3f}"
                     print(
@@ -183,7 +184,7 @@ def print_summary(report: Record) -> None:
                     point = entry["evaluate"]
                     precision = point.get("precision")
                     coverage = point.get("coverage")
-                    mode = "fixed" if entry["rule"] == "production" else "refit"
+                    mode = FIXED if entry["rule"] == "production" else REFIT
                     print(
                         f"  {policy:48s} precision="
                         f"{'n/a' if precision is None else f'{precision:.3f}'} "
