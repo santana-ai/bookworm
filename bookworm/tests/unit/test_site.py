@@ -18,7 +18,6 @@ from conftest import (
 )
 from typer.testing import CliRunner
 
-import bookworm.cli
 from bookworm import (
     CachedEncoder,
     ConfigError,
@@ -34,7 +33,7 @@ from bookworm import (
     pipeline_description,
     site_index_entry,
 )
-from bookworm.cli import app, create_app, default_site_dir
+from bookworm.cli import app, create_app, default_site_dir, export_commands
 from bookworm.data.io import JsonObject
 from bookworm.udv.site import TITLE_ELLIPSIS, TITLE_MAX_CHARS
 
@@ -395,7 +394,7 @@ def test_cli_export_site_default_output(
     mini_workdir: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     assert build(stub_app).exit_code == 0
-    monkeypatch.setattr(bookworm.cli, "default_site_dir", lambda: mini_workdir / "web_data")
+    monkeypatch.setattr(export_commands, "default_site_dir", lambda: mini_workdir / "web_data")
     result = site(stub_app, "--run-name", "mini")
     assert result.exit_code == 0, result.output
     assert json.loads(result.stdout)["output"] == str(mini_workdir / "web_data")

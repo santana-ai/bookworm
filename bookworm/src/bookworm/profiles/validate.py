@@ -22,8 +22,7 @@ from bookworm.data.io import (
 from bookworm.data.splits import SPLIT_NAMES, SplitName
 from bookworm.errors import ConfigError
 from bookworm.features.encoders import CachedEncoder, SentenceEncoder
-from bookworm.features.loading import load_sentence_transformer_encoder
-from bookworm.features.tfidf import TfidfEncoder
+from bookworm.features.loading import load_encoder
 from bookworm.profiles.config import (
     ProfileValidationConfig,
     ReviewSettings,
@@ -244,9 +243,7 @@ def classify_udv(
 def default_profile_encoder(
     settings: EncoderSettings, corpus: Sequence[str], seed: int
 ) -> SentenceEncoder:
-    if isinstance(settings, TfidfSettings):
-        return TfidfEncoder.fit(corpus, max_features=settings.max_features)
-    return load_sentence_transformer_encoder(settings, seed)
+    return load_encoder(settings, seed, lambda: corpus)
 
 
 def build_pairs(
