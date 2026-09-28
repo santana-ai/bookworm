@@ -1,3 +1,5 @@
+"""Download the PublicHearingBR dataset from the Hugging Face Hub at a pinned revision."""
+
 import argparse
 from pathlib import Path
 

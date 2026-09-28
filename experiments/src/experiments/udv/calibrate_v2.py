@@ -1,3 +1,6 @@
+"""Calibrate the udv_v2 cuts on the calibration splits only: the window cosine cut and the verifier
+cut for a UDV premise."""
+
 import argparse
 import json
 import time

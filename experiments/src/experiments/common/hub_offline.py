@@ -1,3 +1,6 @@
+"""Hugging Face offline mode for the model runs and the pinned weight files they read from the
+local cache."""
+
 import os
 from pathlib import Path
 from typing import Any

@@ -1,3 +1,6 @@
+"""Precision per stratum, the pre-declared criteria and agreement from the filled human validation
+sheets."""
+
 import argparse
 import math
 import platform

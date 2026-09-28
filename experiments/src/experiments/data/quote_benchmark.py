@@ -1,3 +1,6 @@
+"""Build the masked-quote benchmark: opinions with their quotes removed, ranked against the
+sentences of the person who was quoted."""
+
 import argparse
 import platform
 import re

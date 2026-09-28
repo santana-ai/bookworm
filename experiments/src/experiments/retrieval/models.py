@@ -1,3 +1,5 @@
+"""The retrievers of the harness: lexical, dense, cross-encoder rerankers and decision rerankers."""
+
 import gc
 import hashlib
 import json

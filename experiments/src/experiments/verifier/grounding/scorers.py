@@ -1,3 +1,6 @@
+"""Candidate specs, pair scores and the scorer protocol of the confidence_v2 grounding
+candidates."""
+
 import hashlib
 import json
 from collections.abc import Callable, Sequence

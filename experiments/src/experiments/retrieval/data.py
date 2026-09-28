@@ -1,3 +1,5 @@
+"""Hearings, candidate units (sentences, windows and turns) and queries of the retrieval harness."""
+
 import re
 from collections import Counter
 from dataclasses import dataclass, field

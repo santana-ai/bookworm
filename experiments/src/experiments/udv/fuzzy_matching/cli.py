@@ -1,3 +1,5 @@
+"""Command line of the fuzzy matching experiment (E6)."""
+
 import argparse
 from pathlib import Path
 

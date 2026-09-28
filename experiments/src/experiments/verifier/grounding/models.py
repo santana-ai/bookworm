@@ -1,3 +1,5 @@
+"""Torch wrappers of the literature grounding models scored in confidence_v2."""
+
 import time
 from collections.abc import Sequence
 from pathlib import Path

@@ -1,3 +1,6 @@
+"""Build the NLI benchmark: one row per opinion of the NLI file, with its chunks located in the
+LDS."""
+
 import argparse
 import bisect
 import json

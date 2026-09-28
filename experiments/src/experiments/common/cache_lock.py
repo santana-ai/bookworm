@@ -1,3 +1,6 @@
+"""A writer lock beside an append-only cache file, so two processes never append to the same
+cache."""
+
 import fcntl
 from pathlib import Path
 from typing import IO

@@ -1,3 +1,5 @@
+"""On-disk vector and score store of the retrieval harness, keyed by text digests."""
+
 import hashlib
 import json
 import os

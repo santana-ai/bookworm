@@ -1,3 +1,6 @@
+"""Hearing-level bootstrap, exact McNemar, sign-flip and Holm helpers of the retrieval
+comparisons."""
+
 import zlib
 from typing import Any
 
