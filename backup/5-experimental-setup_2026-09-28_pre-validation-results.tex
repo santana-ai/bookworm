@@ -1,0 +1,110 @@
+\section{Configura\c{c}\~ao Experimental}
+\label{sec:setup}
+
+Os experimentos respondem a duas perguntas: se a sentença que a UDV aponta como evidência sustenta a
+opinião, o que é medido por anotação humana cega numa amostra das audiências de teste
+(Seção~\ref{sec:setup-udv}), e se o perfil e os trechos recuperados aumentam a capacidade do modelo
+simulador de reconhecer a opinião que a matéria atribuiu à pessoa numa audiência que não entrou no
+perfil (Seção~\ref{sec:setup-simulacao}). Na segunda avaliação, a UDV apenas liga a opinião a um
+ator, pelo turno da evidência, e a sentença não aparece na pergunta. O resultado da simulação depende,
+portanto, da resolução da pessoa na audiência e da identificação do ator entre audiências
+(Seções~\ref{sec:metodo-udv} e~\ref{sec:metodo-atores}), sem depender da precisão do vínculo por
+similaridade semântica que a primeira avaliação mede.
+
+\subsection{Validação humana da evidência}
+\label{sec:setup-udv}
+
+\input{tables/validation-sample}
+
+% Pendente: o artigo ainda não relata a comparação do codificador com as alternativas de recuperação nas audiências de validação; opção: uma frase no parágrafo dos controles da Seção 6.1 (mesmo teste de 142/40 consultas), a partir de retrieval_v1_report.json, com entrada bib para a correção de Holm.
+A precisão da evidência é medida numa amostra cega sorteada somente nas audiências de teste, porque as
+de validação estavam reservadas, antes do sorteio, à comparação do codificador com alternativas de
+recuperação da evidência, e uma estimativa tirada delas tenderia a favorecer a alternativa escolhida.
+A amostra é estratificada pelo tipo de vínculo e tem 127 linhas, com 134 UDVs de 30 audiências
+(Tabela~\ref{tab:amostra}); os cinco estratos somam as 359 opiniões de teste
+(Seção~\ref{sec:dados-particao}). As 13 UDVs sem evidência ocupam 6 linhas, uma por pessoa, porque a
+pergunta feita a elas depende só da pessoa.
+
+Entre as UDVs semânticas, a amostra separa as que têm \emph{corroboração fraca}, marca que a UDV
+registra, sem alterar o nível, quando o prefixo mais longo da citação encontrado na fala da pessoa tem
+menos de seis palavras, o que não basta para o nível \texttt{quote\_found}, e a primeira ocorrência
+desse prefixo está na sentença escolhida pelo codificador. Nessas linhas, como nas de citação literal,
+as palavras entre aspas reaparecem na sentença, que tem assim um apoio textual além do cosseno. Com a
+separação, o estrato \texttt{semantic\_match\_high}, avaliado por um dos critérios, reúne apenas
+vínculos por similaridade.
+
+Nas linhas com evidência, o anotador vê o nome e o cargo da pessoa, a opinião, a sentença e o texto ao
+redor, e pode consultar o turno na transcrição, mas não vê o nível, o cosseno nem a marca de
+corroboração fraca. Ele julga a sentença como \emph{correta}, quando sustenta o conteúdo principal da
+opinião, inclusive a posição e os números ou nomes citados, \emph{parcial}, quando sustenta só parte da
+opinião, a mesma posição sem o detalhe principal ou tem o apoio apenas no texto ao redor, ou
+\emph{incorreta}, quando trata de outro assunto, tem a posição oposta, é condução da sessão ou é fala
+de outra pessoa, o que ele confere pelo cabeçalho do turno. Como as palavras citadas reaparecem na
+sentença nas linhas de citação literal e de corroboração fraca, o anotador pode reconhecer esses
+estratos, e só a distinção entre \texttt{semantic\_match\_high} e \texttt{semantic\_match\_weak}
+permanece cega. Nas linhas sem evidência, o anotador indica se a pessoa falou na sessão, e a UDV está
+correta quando ela não falou. Ao menos 24 horas depois do fim da primeira anotação, 20 linhas com
+evidência voltam em outra ordem, para medir a concordância do anotador consigo mesmo.
+
+Os critérios, registrados antes de qualquer julgamento, exigem que o limite inferior do intervalo de
+Wilson~\citep{wilson1927probable} de 95\% atinja 0,90 na precisão estrita (só ``correta'') da citação
+literal e 0,75 na precisão tolerante (``correta'' ou ``parcial'') do estrato
+\texttt{semantic\_match\_high}. Com os tamanhos sorteados, isso exige 35 corretas em 35 e ao menos 56
+aceitas em 65, de modo que uma única sentença parcial ou incorreta entre as de citação literal basta
+para que o primeiro critério não seja atingido.
+
+\subsection{Avaliação da simulação por múltipla escolha}
+\label{sec:setup-simulacao}
+
+\input{figures/simulation}
+
+\textbf{Perguntas.} Cada UDV de uma audiência de validação ou de teste cujo turno de evidência
+pertence a um ator com perfil gera uma pergunta, acompanhada da data e do assunto da audiência
+(Figura~\ref{fig:simulacao}). O texto da pergunta é ``Uma destas afirmações foi feita por
+\textit{nome} nesta audiência, que não aparece no material desta conversa. Qual é a mais provável?''.
+As quatro opções são a opinião da UDV, na redação do resumo estruturado, e uma opinião de cada um de
+três outros participantes da mesma audiência, com participantes e opiniões sorteados com semente fixa.
+As opiniões da própria pessoa e os textos iguais a elas são excluídos, um texto atribuído a mais de um
+participante é incluído uma única vez, e a pergunta com menos de três outros participantes é
+descartada. Como os distratores vêm da mesma audiência, eles tratam do mesmo tema, o que reduz, sem
+eliminar, a possibilidade de escolher a opção pela proximidade com o assunto. Das 101 perguntas de
+teste (Seção~\ref{sec:resultados-simulacao}), 84 vêm de UDVs \texttt{semantic\_match\_high}, 15 de
+\texttt{quote\_found} e 2 de \texttt{semantic\_match\_weak}. Antes da execução, verifica-se que
+nenhum perfil e nenhuma fala usada na recuperação contém audiência de validação ou de teste; a
+verificação não cobre o cargo, que vem da matéria da audiência avaliada.
+
+\textbf{Leitura da resposta.} A escolha é lida na distribuição de probabilidade do primeiro token
+gerado, restrita aos tokens das quatro letras, e antes da execução confere-se que cada letra é um
+único token. Como LLMs favorecem certas posições entre as
+opções~\citep{zheng2024large,pezeshkpour2024large}, cada pergunta é apresentada nas quatro rotações
+cíclicas de uma ordem sorteada. Em cada rotação, as probabilidades das letras são renormalizadas
+entre si. A probabilidade de cada opção é a
+média das rotações, a resposta é a opção de maior probabilidade, e as métricas são o acerto e a
+probabilidade média da opção correta.
+
+Como a leitura sempre escolhe uma letra e a probabilidade do primeiro token pode divergir da
+resposta escrita~\citep{wang2024answer}, cada condição registra como diagnóstico a soma das
+probabilidades das quatro letras no vocabulário inteiro. Essa soma mostra quanto da distribuição do
+primeiro token cabe às letras.
+
+\textbf{Seleção de $k$.} O número de trechos é, para cada modelo, o $k \in \{3, 5, 10\}$ de maior
+acerto da condição 2 nas audiências de validação, com empates resolvidos pela maior probabilidade média da opção correta
+e, depois, pelo menor valor da grade. No teste, a condição 2 é medida só com esse $k$.
+
+\textbf{Comparação entre condições.} A diferença de acerto entre condições vizinhas estima o efeito
+do elemento acrescentado, e o intervalo de 95\% de cada diferença é obtido por \textit{bootstrap}
+pareado de percentis, com 1.000 reamostragens de audiências inteiras~\citep{efron1993introduction}.
+As audiências são reamostradas inteiras porque as perguntas de uma audiência compartilham assunto,
+falantes e distratores. Os quatro intervalos, dois por modelo, não são ajustados para comparações
+múltiplas, e as demais medidas são descritivas.
+
+\textbf{Modelos e recursos.} Avaliamos dois LLMs, o Gemma 4 31B e o Qwen3.8 27B, este com pesos
+quantizados em 8 bits. Cada um escreve os 264 perfis a partir das falas de treino e responde às
+perguntas como modelo simulador. Na geração dos perfis, os dois prompts
+(Seção~\ref{sec:metodo-perfis}) compõem uma conversa de duas mensagens. Na geração e na simulação, as
+mensagens são formatadas pelo \textit{chat template} do próprio LLM, sem formatação adicional e com o
+modo de raciocínio desativado. A geração usa amostragem com temperatura 0,2, \textit{top-p} de 0,9 e
+limite de 3.000 tokens de saída. O Gemma é executado em três GPUs A6000 com 48 GB de VRAM cada, em
+bf16, e o Qwen, num Apple M4 Max com 128 GB de memória. Na recuperação dos trechos, o codificador é o
+Serafim 335m, na mesma versão de pesos da UDV. O código, as configurações, os prompts e as saídas
+estão em <repositório>.

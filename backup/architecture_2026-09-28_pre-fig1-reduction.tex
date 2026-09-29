@@ -1,0 +1,82 @@
+\begin{figure}[!t]
+  \centering
+  \begin{tikzpicture}[
+      font=\scriptsize,
+      box/.style={draw=figdata!75, fill=white, rounded corners=2pt, align=center, inner sep=3pt,
+                  minimum height=0.8cm},
+      data/.style={box, draw=figdata!85, fill=figdata!14},
+      pbox/.style={box, draw=figprofile!80},
+      ubox/.style={box, draw=figudv!85},
+      sbox/.style={box, draw=figsim!80},
+      lane/.style={rounded corners=3pt, inner sep=4pt},
+      plane/.style={lane, draw=figprofile!60, fill=figprofile!7},
+      ulane/.style={lane, draw=figudv!65, fill=figudv!8},
+      slane/.style={lane, draw=figsim!60, fill=figsim!7},
+      heading/.style={font=\scriptsize\bfseries, inner sep=0pt},
+      link/.style={-{Stealth[length=4.5pt]}, draw=black!65, line width=0.6pt},
+      plink/.style={link, draw=figprofile},
+      ulink/.style={link, draw=figudv},
+      slink/.style={link, draw=figsim},
+      note/.style={font=\scriptsize, text=black!60, inner sep=1.5pt},
+      pnote/.style={note, text=figprofile!85!black},
+      unote/.style={note, text=figudv!85!black},
+    ]
+    \node[data, text width=1.5cm] (tra) at (0.85,-1.75) {Transcrição};
+    \node[box, text width=2.3cm] (tur) at (3.55,-1.75) {Turnos de fala\\(o cabeçalho\\identifica o autor)};
+    \node[data, text width=2.2cm] (par) at (6.45,-1.75) {Partição temporal\\(treino, validação\\e teste)};
+    \node[data, text width=1.5cm] (res) at (0.85,-3.55) {Resumo\\estruturado};
+
+    \node[pbox, text width=2.3cm] (reg) at (3.55,0) {Registro de ator\\(mesclas e filtros)};
+    \node[pbox, text width=2.2cm] (ftr) at (6.45,0) {Falas de treino};
+
+    \node[ubox, text width=2.3cm] (pes) at (3.55,-3.55) {Resolução da pessoa\\na audiência};
+    \node[ubox, text width=2.2cm] (evi) at (6.45,-3.55) {Citação literal ou\\maior cosseno};
+    \node[ubox, text width=1.55cm] (udv) at (8.95,-3.55) {UDV\\(offsets, nível,\\proveniência)};
+
+    \node[sbox, text width=3.6cm] (per) at (12.5,0)
+      {Perfil em quatro blocos:\\Posições, Critérios e valores,\\Alinhamentos declarados,\\Forma de argumentar};
+    \node[sbox, text width=3.6cm] (sys) at (12.5,-1.65)
+      {\textit{System prompt}: instruções,\\nome, cargo e perfil numerado};
+    \node[sbox, text width=3.6cm] (msg) at (12.5,-2.75)
+      {Mensagem: data e assunto,\\$k$ trechos recuperados e pedido};
+    \node[sbox, text width=3.6cm, draw=figsim!90, fill=figsim!22] (mod) at (12.5,-4.0)
+      {Modelo simulador (condições 0 a 2)};
+    \node[sbox, text width=2.2cm, minimum height=0.7cm] (mc) at (12.5,-5.0) {Múltipla escolha};
+
+    \begin{scope}[on background layer]
+      \node[slane, fit=(per)(mc)] (sim) {};
+      \node[plane, fit=(reg)(ftr)] (bperf) {};
+      \node[ulane, fit=(pes)(evi)(udv)] (budv) {};
+      \node[draw=figsim!70, fill=figsim!14, dashed, rounded corners=3pt, inner sep=3pt,
+            fit=(sys)(msg)] (conv) {};
+    \end{scope}
+    \node[heading, text=figprofile!85!black, anchor=south west] at ($(bperf.north west)+(0,2pt)$)
+      {Perfis (Seções \ref{sec:metodo-atores} e \ref{sec:metodo-perfis})};
+    \node[heading, text=figudv!85!black, anchor=south east] at ($(budv.north east)+(0,2pt)$)
+      {UDV (Seção \ref{sec:metodo-udv})};
+    \node[heading, text=figsim!85!black, anchor=south west] at ($(sim.north west)+(0,2pt)$)
+      {Simulação (Seção \ref{sec:metodo-simulacao})};
+
+    \draw[link] (tra) -- (tur);
+    \draw[link] (tur) -- (reg);
+    \draw[link] (tur) -- (pes);
+    \draw[link] (res) -- (pes);
+    \draw[plink] (reg) -- (ftr);
+    \draw[link] (par) -- node[note, right] {treino} (ftr);
+    \draw[ulink] (pes) -- (evi);
+    \draw[ulink] (evi) -- (udv);
+    \draw[plink] (ftr) -- node[pnote, above] {LLM gerador} (per);
+    \draw[slink] (per) -- (sys);
+    \draw[plink] (ftr.south east) -- node[pnote, sloped, above] {recuperação} (msg.west);
+    \draw[slink] (conv) -- (mod);
+    \draw[slink] (mod.south -| mc) -- (mc);
+    \draw[ulink] (udv.south) |- (mc.west);
+    \node[unote, anchor=north east, align=right] at ($(udv.south)+(-0.05,-0.3)$)
+      {gabarito: opiniões de\\validação e teste};
+  \end{tikzpicture}
+  \caption{Visão geral do pipeline. O ramo da UDV liga as opiniões do resumo estruturado à fala da
+  pessoa, o ramo dos perfis usa só as falas de treino, e as opiniões das audiências de validação e de
+  teste, ligadas aos atores pelas UDVs, servem de gabarito da múltipla escolha
+  (Seção~\ref{sec:setup-simulacao}).}
+  \label{fig:arquitetura}
+\end{figure}

@@ -1,0 +1,310 @@
+\section{Abordagem Proposta}
+\label{sec:metodo}
+
+\subsection{Visão geral do pipeline}
+\label{sec:metodo-visao}
+
+\input{figures/architecture}
+
+Os três componentes da Figura~\ref{fig:arquitetura} partem dos turnos de fala da
+Seção~\ref{sec:dados-particao}, e os dois ramos que alimentam a simulação resolvem a identidade das
+pessoas de formas diferentes. A UDV (Seção~\ref{sec:metodo-udv}) associa o nome citado na matéria aos
+cabeçalhos de uma única audiência, e o ramo dos perfis (Seções~\ref{sec:metodo-atores}
+e~\ref{sec:metodo-perfis}) associa entre si cabeçalhos de audiências diferentes. Como ambos usam as
+mesmas chaves (audiência, índice do turno e offsets na transcrição), o turno que contém a evidência de
+uma UDV identifica o registro de ator correspondente, e dizemos que a opinião está ligada a esse ator.
+É por esse cruzamento que uma opinião publicada sobre uma audiência de validação ou de teste se torna
+uma pergunta sobre um ator com perfil (Seção~\ref{sec:setup}).
+
+\subsection{Unidades Deliberativas Verificáveis}
+\label{sec:metodo-udv}
+
+As opiniões do PublicHearingBR registram o que a matéria atribui a cada pessoa, mas o conjunto não
+indica que trecho da transcrição corresponde a cada opinião (Seção~\ref{sec:dados}). Sem essa
+indicação, não é possível apresentar ao leitor a passagem da fala a que a opinião se refere nem
+verificar se a fala a sustenta. A UDV estabelece o vínculo entre opinião e fala com um registro por
+opinião que aponta, quando existe, o trecho da transcrição usado como evidência
+(Figura~\ref{fig:udv}).
+
+\textbf{Resolução da pessoa.} O resumo estruturado registra o nome usado na matéria, que costuma
+diferir do cabeçalho da transcrição (``Rodrigo Marinho'' na matéria, ``RODRIGO SARAIVA MARINHO'' na
+transcrição), e quem preside a sessão aparece como \textit{PRESIDENTE}, com o nome entre parênteses.
+Cada turno fornece como candidatos o nome do cabeçalho e, quando há, o nome entre parênteses, que é o
+de quem preside nos turnos de presidência e pode ser um nome social nos demais. Um participante é
+associado a um candidato quando os dois conjuntos de palavras, sem acento e em maiúsculas, são iguais
+ou um contém o outro, desde que ambos tenham pelo menos duas palavras. Um nome formado por uma
+palavra é associado a um candidato idêntico ou, na falta deste, ao único candidato da audiência que
+contenha essa palavra; havendo mais de um, nenhum turno é associado à pessoa. O participante recebe
+os turnos de todos os candidatos a que foi associado. Com essa regra, 1.020 dos 1.065 participantes
+são associados a pelo menos um turno, e os 45 restantes respondem por 90 opiniões; a precisão da
+associação não foi medida.
+
+\input{figures/udv-example}
+
+\textbf{Sentenças candidatas.} A segmentação em sentenças é feita dentro de cada turno da pessoa, e
+cada sentença guarda o índice do turno de origem. Com isso, nenhuma sentença junta o fim de um turno
+ao início do turno seguinte da mesma pessoa, entre os quais a transcrição registra falas de outros
+participantes. São mantidas as sentenças com quatro palavras ou mais que não se reduzam a
+marcação de palco, como ``(Palmas.)'', o que resulta em 115.599 sentenças candidatas nas 206
+audiências.
+
+\textbf{Citação literal.} A matéria apresenta como fala literal os trechos entre aspas das opiniões,
+o que permite um vínculo por casamento de texto, sem modelo, mas pode editá-los. Na
+Figura~\ref{fig:udv}, ela escreve ``presidente da comissão, que é eleita'', e a transcrição registra
+``presidente que foi eleita''. Por isso, a busca usa prefixos da citação e não exige que o restante
+dela coincida com a fala.
+Das 2.113 opiniões de pessoas associadas a turnos, 960 têm alguma citação com 10 caracteres ou mais.
+De cada citação são extraídos prefixos de 10, 6, 4 e 3 palavras (a citação inteira, quando é mais
+curta que o prefixo), buscados nessa ordem em cada turno da pessoa, sem distinção entre maiúsculas e
+minúsculas e respeitando as fronteiras de palavra. Entre as citações de uma mesma opinião, prevalece a
+de prefixo encontrado mais longo e, no empate, a primeira. Quando esse prefixo tem seis palavras ou
+mais, a citação é considerada confiável, e a sentença que o contém é a evidência, com o nível
+\texttt{quote\_found}; se o prefixo atravessa o fim de uma sentença, a evidência reúne as sentenças
+que ele toca. Se o prefixo ocorre mais de uma vez na fala, é escolhida a sentença com maior índice de
+Jaccard de palavras em relação à opinião.
+
+Prefixos de três ou quatro palavras costumam ser expressões comuns, encontradas em pontos da fala sem
+relação com a citação. O limite de seis palavras foi definido a partir de uma leitura exploratória
+dos casamentos agrupados por tamanho de prefixo, sem protocolo de anotação. Das 960 opiniões com
+citação, 549 têm algum prefixo encontrado na fala da pessoa e 277 têm prefixo de seis palavras ou
+mais.
+
+\textbf{Similaridade semântica.} Quando a opinião não tem citação confiável, ela e as sentenças
+candidatas da pessoa são codificadas pelo Serafim 335m~\citep{gomes2024serafim}, um codificador de
+sentenças para o português (vetores de 1.024 dimensões, entrada limitada a 128 tokens). A evidência é
+a sentença de maior similaridade de cosseno com a opinião. Um codificador denso foi preferido ao
+TF-IDF porque representa o sentido da sentença em contexto, e a matéria costuma parafrasear a fala,
+caso em que a comparação por vocabulário compartilhado falha. Se o prefixo mais longo encontrado tem
+menos de seis palavras (prefixo curto) e a sentença que contém a sua primeira ocorrência na fala coincide com a
+escolhida pelo codificador, a UDV registra a coincidência como corroboração fraca, sem alterar o
+nível. Cada UDV registra a versão do codificador e o corte com que foi produzida.
+
+\textbf{Nível e proveniência.} O nível resume o tipo de vínculo encontrado
+(Tabela~\ref{tab:udv-niveis}), e os níveis \texttt{semantic\_match\_high} e
+\texttt{semantic\_match\_weak} indicam de que lado do corte ficou o cosseno da melhor sentença, sem
+afirmar que ela sustenta a opinião. A proveniência registra a origem do vínculo: \texttt{weak}
+(rótulo produzido por regra, sem conferência humana) para o casamento de texto e \texttt{model} para
+o codificador. Nenhum registro tem proveniência humana.
+
+\textbf{Localização e cobertura.} A sentença escolhida é localizada na transcrição original por uma
+expressão regular restrita ao turno de origem, que devolve a primeira ocorrência do texto no turno, e
+todas as 2.105 evidências foram localizadas com offsets de caracteres. As 98 opiniões restantes não
+têm evidência. Nos 8 registros \texttt{no\_evidence}, a única fala transcrita da pessoa é a marcação
+``(Manifestação em LIBRAS.)'', e entre as pessoas sem turno associado há casos de grafia divergente do
+nome, de instituições citadas como participantes e de pessoas que não falaram na sessão. Nenhum
+desses níveis indica erro da matéria.
+
+\input{tables/udv-tiers}
+
+\textbf{Calibração do corte.} O corte que separa \texttt{semantic\_match\_high} de
+\texttt{semantic\_match\_weak} foi calibrado nas audiências de treino, porque a amostra de validação
+humana é sorteada no teste e depende dessa fronteira. A regra declarada como principal escolheria o
+corte que maximizasse o índice J de Youden~\citep{youden1950index} na separação entre acertos e erros
+do codificador. As consultas dessa regra são opiniões com citação confiável das quais os trechos entre
+aspas foram removidos, e há acerto quando a sentença mais similar à opinião é a da própria citação.
+Das 183 opiniões do treino com citação confiável, 142 mantêm quatro palavras ou mais após a remoção;
+nas 41 restantes, a opinião se reduz quase inteiramente à citação. A regra se mostrou degenerada: só
+12 das 142 consultas são acertos, os erros têm cosseno mais alto que os acertos (médias de 0,655 e
+0,578, respectivamente), e o maior valor de J é zero, obtido por um corte que aceita todas as
+consultas.
+
+O corte adotado depois dessa falha vem de uma regra de pares que a declaração da regra principal
+previa só para comparação, com as 183 opiniões do treino com citação confiável como positivos, cada uma pareada com a
+sentença da própria citação. Os negativos são a mesma opinião pareada com uma sentença sorteada de
+outra audiência do treino. O corte é o ponto médio entre o primeiro quartil dos positivos (0,628) e
+o terceiro quartil dos negativos (0,281), igual a 0,454 e arredondado para 0,45 (IC 95\% por
+\textit{bootstrap} de audiências, de 0,437 a 0,469). Com negativos sorteados da fala da própria
+pessoa, que correspondem à escolha que o codificador de fato realiza, a mesma regra resultaria em
+0,50, e a escolha entre as duas variantes não foi validada. Como 43 das 1.828 UDVs semânticas (2,4\%)
+estão abaixo de 0,45, o nível \texttt{semantic\_match\_weak} reúne poucos registros, e o corte não
+foi validado como medida de confiança.
+
+\textbf{Verificação.} Um verificador separado refaz, a partir das transcrições e dos resumos
+estruturados, a resolução de pessoa, a extração das sentenças candidatas e a busca de citações de
+cada opinião. Em seguida, confere se a opinião e a pessoa coincidem com o resumo estruturado, se a
+evidência está num único turno da pessoa e se os offsets recuperam o texto registrado. Também confere
+se o nível é coerente com o resultado da busca de citações, o cosseno e o corte. Como reutiliza os procedimentos da
+construção nessas três etapas, o verificador confere a consistência dos registros com esses
+procedimentos, e não a correção deles. Ele
+também não recalcula a escolha do codificador, não confere se a sentença se repete no turno e não
+avalia se a evidência sustenta a opinião; no conjunto descrito aqui, não acusou nenhuma
+inconsistência.
+
+\subsection{Falas por ator entre audiências}
+\label{sec:metodo-atores}
+
+Como a UDV trata uma audiência de cada vez, descrever o que uma pessoa defende ao longo do tempo
+exige reunir suas falas em todas as audiências de que participou e, para isso, decidir quando
+cabeçalhos de audiências diferentes se referem à mesma pessoa. A regra de nome contido da UDV compara
+nomes dentro de uma única audiência, que tem poucos falantes; aplicada entre audiências, ela uniria
+pessoas diferentes, como ``Luiz Lima'' e ``Gustavo Luiz de Lima Correia''. Por isso, o registro de ator usa como chave o
+nome do cabeçalho sem acento e em maiúsculas (nos turnos de presidência, o nome entre parênteses),
+complementado por uma lista de mesclas.
+
+A lista de mesclas foi proposta a partir dos 153 pares de nomes candidatos, em que um nome contém o
+outro ou os dois têm as mesmas palavras, e validada com evidências do próprio conjunto. Essas
+evidências são o cargo informado na matéria, a apresentação feita pelo presidente da sessão, a
+autoapresentação, o partido e a UF do cabeçalho e a data da audiência. O resultado tem 37 grupos de mescla, uma chave
+dividida por audiência (um caso de homônimo exato) e um par sem resolução, mantido separado. 
+
+Três regras de filtragem retiram os turnos que não trazem a fala da própria pessoa ou que se limitam
+à condução da sessão. São removidos os turnos de intérprete e de tradução, cuja fala pertence a outro
+participante, os turnos de presidência com menos de 50 palavras e os turnos vazios ou formados por
+marcação de palco. Nas 206 audiências, os turnos de presidência concentram 42,7\% das palavras dos
+falantes presentes em duas ou mais audiências, contadas antes dos filtros e das mesclas, e boa parte
+dessa fala é de condução da sessão. Descartá-los por completo,
+porém, eliminaria opiniões, pois 336 das 2.105 evidências de UDV estão em turnos de presidência. O
+turno de presidência mediano tem 28 palavras, e o limite de 50 palavras mantém 2.264 dos 6.266 turnos
+de presidência, com 89\% de suas palavras, e 332 das 336 evidências.
+
+Após os três filtros restam 13.190 dos 17.264 turnos, com o texto copiado da transcrição sem limpeza
+e conferido com o intervalo indicado pelos offsets. Cada registro de ator traz o nome, o partido e
+a UF do cabeçalho e, por audiência, os turnos com índice, papel (presidência ou fala comum), offsets e
+texto. Os 301 atores que falam em duas ou mais audiências formam o material dos perfis, porque neles
+há fala de audiências diferentes, o que permite escrever o perfil com parte das audiências e avaliá-lo nas
+demais. Desses, 264 falam em pelo menos uma audiência de treino e recebem perfil
+(Seção~\ref{sec:dados-particao}), 79 deles com uma única audiência de treino.
+
+\subsection{Perfis por ator}
+\label{sec:metodo-perfis}
+
+A fala de um ator se distribui por audiências de temas diferentes e se mistura a passagens de
+condução da sessão e de cortesia. O perfil condensa essa fala em um texto escrito por um LLM e
+destinado a servir de instrução a um modelo que deve responder como a pessoa responderia, tanto sobre
+temas que ela já tratou quanto sobre temas novos. Por isso, além do que a pessoa defende, critica,
+propõe e cobra, o perfil registra os critérios que ela invoca para justificar essas posições, o que
+ela declara sobre si e sobre o próprio lado e a forma como argumenta. Na geração final, cada perfil é
+escrito com as audiências de treino (Seção~\ref{sec:dados-particao}), para que nenhuma fala ou
+opinião das audiências de validação e de teste chegue ao prompt.
+
+Cada ator recebe uma única geração, cujo prompt do usuário contém todas as suas falas de treino,
+organizadas em blocos por audiência e em ordem cronológica. Cada bloco é aberto por um cabeçalho com a
+data da matéria e o assunto registrado no resumo estruturado, e os turnos de presidência são
+precedidos da marca \texttt{[presidência da sessão]}. A data permite situar no tempo eventuais
+mudanças de posição, e o assunto ajuda a resolver referências vagas, como ``este projeto de lei''. O
+prompt de sistema impõe quatro grupos de regras, e os dois prompts estão no
+Apêndice~\ref{ap:prompt}.
+
+As regras de fonte única restringem o perfil às falas, sem conhecimento prévio sobre a pessoa, os
+partidos ou os temas em debate. Nada que apareça só no cabeçalho é atribuído à pessoa, propostas de
+terceiros que ela relata ou questiona não se tornam posições dela, e siglas, nomes e datas não são
+completados. As de condução e cortesia determinam que sejam desconsideradas passagens como
+passar a palavra, controlar o tempo e agradecer. As de blocos organizam o perfil em até quatro blocos (posições;
+critérios e valores; alinhamentos declarados; forma de argumentar), omitem o bloco sem apoio nas falas
+e proíbem deduzir valores ou alinhamentos das posições ou do partido. Na forma de argumentar, um traço
+precisa aparecer em mais de um turno sem ser contrariado. As de escrita pedem itens ordenados por
+importância, proíbem descrever o que a pessoa não disse e fixam um teto de 800 palavras, que não é
+imposto durante a geração.
+
+A divisão em blocos destina-se a separar o material que orienta respostas sobre temas já tratados
+(as posições) do material que orienta respostas sobre temas novos (os critérios, os alinhamentos
+declarados e a forma de argumentar). As proibições de inferência visam impedir que o perfil atribua à pessoa
+características do partido ou das posições que ela própria não enunciou: com um alinhamento deduzido
+do partido, o modelo que recebe o perfil responderia com base nele, e não nas falas.
+Pelo mesmo motivo, o perfil não descreve ausências, porque uma frase como ``não menciona temas de
+saúde'' poderia ser tomada como posição.
+
+As regras sobre o cabeçalho, sobre posições de terceiros, sobre siglas e nomes e sobre o bloco de
+forma de argumentar foram acrescentadas após a leitura de perfis gerados durante o desenvolvimento do
+prompt. Esses perfis foram gerados por outros LLMs e, em parte, com falas de todas as audiências,
+inclusive as de teste. Neles, o assunto da audiência aparecia como posição do ator, a proposta de um
+convidado resumida pelo presidente aparecia como proposta do próprio presidente, e siglas e sobrenomes
+eram completados com conhecimento externo às falas. Além disso, uma frase dirigida a uma única
+autoridade aparecia como traço geral da pessoa, e um traço atribuído a ela era contrariado por falas
+de outra audiência. As regras resultantes tratam da forma do perfil, e não do conteúdo de posições
+específicas, e os perfis de desenvolvimento não entram na avaliação.
+
+Os dois prompts compõem uma conversa de duas mensagens, formatada pelo \textit{chat template} do
+próprio LLM, sem formatação adicional. A geração usa amostragem com temperatura 0,2, \textit{top-p}
+de 0,9 e limite de 3.000 tokens de saída, e a semente é fixada antes de cada geração, para que o
+perfil de um ator não dependa da ordem em que os atores são processados. Uma resposta que atinge o
+limite de tokens sem terminar é considerada falha e descartada. O modelo gerador é <modelo>, e o
+prompt é enviado inteiro, sem truncamento; o maior tem <n> tokens de entrada, <dentro ou fora> da
+janela de contexto desse modelo. Cada perfil registra o modelo, a versão dos prompts, as audiências
+usadas e o número de tokens de entrada e de saída.
+
+% Pendente: trecho de um perfil real (Quadro) depois da rodada de geração com o modelo final.
+
+\subsection{Simulação de atores}
+\label{sec:metodo-simulacao}
+
+Na simulação, o perfil é fornecido a um LLM, o modelo simulador, que deve responder como a pessoa
+responderia, escolhendo entre opiniões (múltipla escolha) ou escrevendo uma fala (geração aberta); nos
+experimentos, esse modelo é o mesmo LLM que gera os perfis. Três elementos (o perfil, os trechos
+recuperados e a \textit{classifier-free guidance}, CFG) são acrescentados um de cada vez, o que define
+quatro condições encadeadas. A condição 0 recebe só o nome e o cargo da pessoa; a 1 acrescenta o
+perfil; a 2, trechos das falas de treino recuperados pelo assunto; e a 3 combina a 2 com a 0 por
+CFG.
+% Pendente: motivo de usar o mesmo LLM para gerar os perfis e para simular.
+
+\textbf{Prompt comum.} Todas as chamadas partem do mesmo prompt de sistema e diferem só no material
+incluído, porque, com instruções diferentes por condição, a diferença entre condições vizinhas e o
+contraste da CFG mediriam também a troca de instrução (Apêndice~\ref{ap:prompt-simulacao}). O prompt
+apresenta a pessoa pelo nome e pelo cargo: na múltipla escolha, o cargo registrado na matéria da
+audiência avaliada; na geração aberta, o da audiência de treino mais recente em que a pessoa tem
+opinião ligada, ou nenhum. As instruções proíbem o modelo de usar conhecimento prévio sobre a
+pessoa, os partidos e o grupo que ela representa, assim como a própria opinião. Quando o material não
+trata do assunto, as instruções orientam o modelo a se basear nos critérios e nos alinhamentos da
+pessoa. O partido não é fornecido em nenhuma condição, para que a falta de material não seja suprida
+pela posição associada a ele. A sigla entre parênteses, com ou sem a UF, é retirada do cargo
+(``Deputado (PT-SP)'' torna-se ``Deputado''), e o partido só chega ao modelo quando a própria pessoa o
+declara nas falas. Cada item do perfil no formato pedido recebe um identificador formado pela inicial do bloco e pela ordem do item (P1, C1, A1, F1), e na condição 0 o
+perfil é substituído por ``Nenhum.''.
+
+\textbf{Trechos recuperados.} Como o perfil condensa as falas de treino num texto com teto de 800
+palavras, detalhes que podem decidir uma pergunta são omitidos. Para recuperá-los, o assunto da
+audiência é codificado pelo Serafim 335m da UDV e comparado às sentenças de quatro palavras ou mais
+dos turnos da pessoa nas audiências de treino. Entram as $k$ sentenças de maior cosseno, no máximo
+uma por turno, cada uma com a sentença anterior e a seguinte do mesmo turno. Os trechos são incluídos
+na mensagem do usuário em ordem de data, para que uma mudança de posição apareça na ordem em que
+ocorreu. Cada um traz um identificador (T1 a T$k$), a data e o assunto da audiência de origem e,
+quando for o caso, a marca de presidência; o cosseno não é mostrado ao modelo.
+
+\textbf{\textit{Classifier-free guidance}.} Mesmo com o perfil no prompt, o modelo pode responder com a
+própria opinião sobre o tema ou com o que associa ao nome da pessoa. A
+CFG~\citep{ho2022classifier,sanchez2024stay} amplifica, a cada passo da geração, a diferença entre um
+prompt completo $x$ e um prompt negativo $\bar{x}$:
+\begin{equation}
+  \tilde{p}(y_t \mid y_{<t}) \propto p(y_t \mid \bar{x}, y_{<t})
+  \left[ \frac{p(y_t \mid x, y_{<t})}{p(y_t \mid \bar{x}, y_{<t})} \right]^{\gamma},
+  \label{eq:cfg}
+\end{equation}
+em que $\gamma = 1$ reproduz a geração com $x$ e $\gamma > 1$ desloca a distribuição na direção
+indicada pelo material presente em $x$ e ausente em $\bar{x}$. O prompt negativo é o da condição 0,
+com o perfil ``Nenhum.'', sem trechos e sem exemplos. Na múltipla escolha, a condição 3 aplica a
+Equação~\ref{eq:cfg} às probabilidades das letras já calculadas nas condições 0 e 2, sem passagem
+adicional pelo modelo. Restrita às quatro letras, a combinação pondera cada opção por
+$p_2^{\gamma}\, p_0^{1-\gamma}$ e, com $\gamma > 1$, penaliza as opções que a condição 0 já favorece.
+Ela é aplicada em cada rotação, antes da média entre rotações (Seção~\ref{sec:setup}), porque
+combinar depois da média produz outro resultado. A geração aberta não usa CFG, por dois resultados
+de um teste preliminar com dois atores e três modelos, em audiências de teste. Nos três modelos, a
+fala gerada só com o prompt negativo foi uma recusa por falta de material, e a combinação a cada
+token afastaria a fala dessa recusa, sem corrigir a opinião própria do modelo. Além disso, $\gamma$ é
+escolhido pelo acerto da múltipla escolha, em que a combinação age sobre um único token, e o valor
+$\gamma = 3$, escolhido para um dos modelos, tornou a fala ininteligível.
+
+\textbf{Pedidos.} Além da múltipla escolha, usada na avaliação (Seção~\ref{sec:setup}), a simulação
+tem três pedidos, todos com decodificação gulosa: a base da estimativa, a fala e a justificação
+(Apêndice~\ref{ap:prompt-simulacao}). Na base da estimativa, o modelo classifica o material como
+DIRETA, INDIRETA, ESPECULATIVA ou SEM BASE, em ordem decrescente de proximidade com o assunto. A classificação
+é feita numa chamada própria, antes da fala, porque decide se a fala é gerada: com SEM BASE, a saída
+é ``o material não permite estimar''; nos demais casos, o modelo escreve em primeira pessoa uma fala
+sobre o assunto e, numa chamada separada, a justificação dessa fala.
+
+Na geração aberta, o prompt de sistema traz também até dois exemplos fixos de fala da pessoa, de 60 a
+150 palavras, sorteados com semente fixa entre os turnos de treino que não são de presidência e,
+quando possível, de audiências diferentes. Cada exemplo começa na segunda sentença do turno, para
+excluir os cumprimentos de abertura. Os exemplos se destinam a mostrar o estilo da pessoa e são
+excluídos da múltipla escolha, porque, como contêm posições, fariam a diferença entre as condições 0
+e 1 medir também o efeito dessas falas.
+
+\textbf{Justificação conferida.} Na justificação, o modelo recebe a fala simulada e escreve, para cada
+frase, um objeto JSON com os identificadores do material que a apoia e, para cada exemplo ou trecho
+citado, a parte copiada. A conferência é automática: cada identificador precisa existir no material
+da chamada, e cada cópia é aceita quando as suas seis primeiras palavras aparecem no exemplo ou trecho
+citado, pela regra de prefixo da citação literal (Seção~\ref{sec:metodo-udv}). Uma frase é
+considerada sem fundamento quando não aparece em nenhum objeto ou quando algum objeto que a contém não
+tem apoio, cita identificador inexistente ou traz cópia ausente, com menos de seis palavras ou não
+encontrada. A conferência mostra que os itens citados existem e que o início de cada cópia é literal,
+mas não que o item sustenta a frase nem que o modelo o usou, pois a justificação é produzida depois
+da fala.

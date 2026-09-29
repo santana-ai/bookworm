@@ -1,0 +1,17 @@
+\begin{table}[!htb]
+  \centering
+  \caption{Níveis da UDV, condição de cada um e número de registros entre as 2.203 opiniões.}
+  \label{tab:udv-niveis}
+  \small
+  \begin{tabularx}{\textwidth}{@{}lXr@{}}
+    \toprule
+    \textbf{Nível} & \textbf{Condição} & \textbf{UDVs} \\
+    \midrule
+    \texttt{quote\_found}         & um prefixo de 6 palavras ou mais de uma citação da opinião (trecho entre aspas com 10 caracteres ou mais) aparece literalmente num turno da pessoa (citação confiável); proveniência \texttt{weak} & 277 \\
+    \texttt{semantic\_match\_high} & sem citação confiável; a sentença da pessoa de maior cosseno com a opinião tem cosseno $\geq 0{,}45$; proveniência \texttt{model} & 1.785 \\
+    \texttt{semantic\_match\_weak} & idem, com cosseno $< 0{,}45$ & 43 \\
+    \texttt{no\_evidence}         & a pessoa tem turnos, mas nenhuma sentença candidata & 8 \\
+    \texttt{person\_not\_resolved} & nenhum turno da transcrição foi associado à pessoa & 90 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

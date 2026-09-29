@@ -1,0 +1,39 @@
+\section{Trabalhos Relacionados}
+\label{sec:relacionados}
+
+\textbf{Posições a partir da fala.} A ciência política computacional estima posições de atores
+políticos a partir das palavras que eles usam~\citep{laver2003extracting}, inclusive a de cada
+parlamentar a partir do conjunto dos seus discursos~\citep{lauderdale2016measuring}.
+\citet{izumi2021government} aplicam essa linha a discursos de senadores brasileiros, agregados por
+partido. LLMs já foram usados para posicionar políticos tanto a partir do que o modelo sabe sobre o
+nome~\citep{wu2023large} quanto a partir da leitura dos textos dos próprios
+atores~\citep{lemens2025positioning}. Este trabalho substitui a escala por um perfil textual em
+blocos, escrito somente com a fala de cada pessoa nas audiências de treino, e avalia o perfil pelo seu
+uso na simulação. O efeito do nome observado por \citet{wu2023large} entra na condição 0, de
+controle, que recebe só o nome e o cargo.
+
+\textbf{Simulação de pessoas com LLMs.} \citet{argyle2023outofone} condicionam um LLM a perfis
+sociodemográficos para reproduzir as respostas de subpopulações, e o condicionamento ao material do
+próprio indivíduo supera o demográfico, seja com opiniões passadas no
+prompt~\citep{hwang2023aligning}, seja com entrevistas longas~\citep{park2026llm}. Respostas de
+personas, porém, variam com a redação do prompt e têm menos variância que as
+humanas~\citep{bisbee2024synthetic}, e LLMs tendem a achatar e a estereotipar
+identidades~\citep{wang2025large}. A simulação proposta trata de pessoas identificadas, usa apenas as
+falas públicas delas, declara a base da estimativa e é avaliada com opiniões publicadas sobre
+audiências posteriores às do perfil.
+
+\textbf{Decodificação contrastiva.} A CFG, proposta para modelos de difusão~\citep{ho2022classifier},
+foi adaptada a modelos de linguagem para reforçar a aderência ao prompt~\citep{sanchez2024stay}. A
+decodificação sensível ao contexto contrasta as distribuições com e sem o documento fornecido para
+reduzir respostas apoiadas só no conhecimento prévio do modelo~\citep{shi2024trusting}. A simulação
+aplica o mesmo contraste ao material da pessoa na múltipla escolha, sobre as probabilidades das quatro
+opções, com o prompt sem esse material como negativo.
+
+\textbf{Atribuição.} A geração aumentada por recuperação~\citep{lewis2020rag} fundamenta o uso de
+trechos das falas da pessoa, e a atribuição de um texto gerado a fontes
+identificadas~\citep{rashkin2023measuring} costuma ser avaliada por anotadores ou por modelos, como
+nas respostas com citações~\citep{gao2023enabling}. A UDV e a conferência da justificação verificam
+por regra a forma do vínculo, sem juiz automático. Na UDV, a evidência é uma sentença localizada por
+offsets na fala da própria pessoa; na justificação, o início de cada cópia citada é buscado
+literalmente no trecho de origem. Essa verificação por regra não avalia a escolha do codificador nem
+a sustentação de sentido.

@@ -1,0 +1,83 @@
+\begin{figure}[!t]
+  \centering
+  \begin{tikzpicture}[
+      font=\scriptsize,
+      box/.style={draw=figdata!75, fill=white, rounded corners=2pt, align=left, inner sep=3pt,
+                  execute at begin node=\hyphenpenalty 10000\relax},
+      ex/.style={box, text width=6.85cm, anchor=north west},
+      item/.style={align=left, inner sep=0pt, anchor=north west, text width=5.8cm,
+                   execute at begin node=\hyphenpenalty 10000\relax},
+      lane/.style={rounded corners=3pt, inner sep=4pt},
+      dlane/.style={lane, draw=figdata!60, fill=figdata!5},
+      plane/.style={lane, draw=figprofile!60, fill=figprofile!7},
+      heading/.style={font=\scriptsize\bfseries, inner sep=0pt, anchor=south west},
+      meta/.style={align=left, inner sep=0pt, anchor=north west, text width=7.06cm,
+                   execute at begin node=\hyphenpenalty 10000\relax},
+      btitle/.style={inner sep=0pt, anchor=north west},
+      plink/.style={-{Stealth[length=4pt]}, draw=figprofile, line width=0.5pt},
+      pnote/.style={font=\scriptsize, inner sep=0pt, text=figprofile!85!black, align=center},
+    ]
+    \def\xr{8.28}
+
+    \node[meta] (hdr) at (0,0)
+      {\textbf{Audiência de 16/08/2023 sobre:} Debate sobre a interpretação do artigo 142 da
+       Constituição [\ldots]\enspace\textcolor{black!55}{$\cdot$\enspace turno 30}};
+
+    \node[ex] (l1) at ($(hdr.south west)+(0,-4pt)$)
+      {``[\ldots] se está sendo sentida a falta do poder moderador no Brasil hoje, é porque ele pode
+       estar sendo exercido de forma errada. Nós precisamos, sim, de um poder moderador, mas não
+       podemos nos esquecer nunca das palavras do Prof.~Ives Gandra [\ldots]''};
+    \node[ex] (l2) at ($(l1.south west)+(0,-3pt)$)
+      {``Constituição não se relativiza. Ela é o que nela está escrito, e o que está escrito tem que
+       valer. [\ldots] O Constituinte, quando escreveu o art.~53, foi sábio: colocou a palavra
+       `quaisquer' [\ldots] eu invoco minha inviolabilidade [\ldots]''};
+    \node[ex] (l3) at ($(l2.south west)+(0,-3pt)$)
+      {``Eu sou Deputado Federal pelo Rio Grande do Norte [\ldots]''};
+    \node[ex] (l4) at ($(l3.south west)+(0,-3pt)$)
+      {``Fui General, Comandante de Brigada, e sempre fui contra a violência. [\ldots] Minha passagem
+       para a reserva se deu exatamente porque eu não concordava com uma ordem absurda.''};
+
+    \node[item, text=black!55] (full) at (\xr,0) {perfil completo: 621 palavras em 29 itens};
+    \node[btitle] (t1) at (\xr,0 |- l1.north) {{\color{figprofile!85!black}\textbf{Posições}}\enspace\textcolor{black!55}{P1 a P16}};
+    \node[item] (r1) at ($(t1.south west)+(0,-1.5pt)$)
+      {\textbf{P1.} Defende a existência de um poder moderador no Brasil, afirmando que, se há a sensação de sua
+       falta, é porque ele pode estar sendo exercido de forma errada.};
+    \path let \p1=(r1.south), \p2=(l2.north) in coordinate (y2) at (\xr,{min(\y1-4pt,\y2)});
+    \node[btitle] (t2) at (y2) {{\color{figprofile!85!black}\textbf{Critérios e valores}}\enspace\textcolor{black!55}{C1 a C4}};
+    \node[item] (r2) at ($(t2.south west)+(0,-1.5pt)$)
+      {\textbf{C1.} Baseia-se na literalidade da Constituição para defender que ela não seja relativizada e para
+       invocar a inviolabilidade do art.~53.};
+    \path let \p1=(r2.south), \p2=(l3.north) in coordinate (y3) at (\xr,{min(\y1-4pt,\y2)});
+    \node[btitle] (t3) at (y3) {{\color{figprofile!85!black}\textbf{Alinhamentos declarados}}\enspace\textcolor{black!55}{A1 a A4}};
+    \node[item] (r3) at ($(t3.south west)+(0,-1.5pt)$)
+      {\textbf{A1.} Declara-se Deputado Federal pelo Rio Grande do Norte.};
+    \path let \p1=(r3.south), \p2=(l4.north) in coordinate (y4) at (\xr,{min(\y1-4pt,\y2)});
+    \node[btitle] (t4) at (y4) {{\color{figprofile!85!black}\textbf{Forma de argumentar}}\enspace\textcolor{black!55}{F1 a F5}};
+    \node[item] (r4) at ($(t4.south west)+(0,-1.5pt)$)
+      {\textbf{F1.} Utiliza a própria trajetória profissional e experiência de vida (carreira militar e segurança
+       pública) para embasar suas opiniões.};
+
+    \begin{scope}[on background layer]
+      \node[dlane, fit=(hdr)(l1)(l4)(hdr.west |- r4.south)] (bfal) {};
+      \node[plane, fit=(full)(t1)(r1)(r4)(r4.west |- l4.south)] (bper) {};
+    \end{scope}
+    \node[heading, text=figdata!90!black] at ($(bfal.north west)+(0,2pt)$) {Falas de treino};
+    \node[heading, text=figprofile!85!black] at ($(bper.north west)+(0,2pt)$)
+      {Perfil de GENERAL GIRÃO};
+
+    \foreach \i in {1,...,4}
+      \draw[plink] (l\i.east) -- ($(r\i.west)+(-2pt,0)$);
+    \node[pnote, anchor=north] at ($(bfal.north east)!0.5!(bper.north west)+(0,-3pt)$)
+      {LLM\\gerador};
+  \end{tikzpicture}
+  \caption{Primeiros itens dos quatro blocos do perfil que o Gemma 4 31B escreveu para GENERAL
+  GIRÃO, reproduzidos sem correção e com os identificadores que a simulação atribui aos itens, ao lado dos
+  trechos das falas de treino que os sustentam. O ator foi
+  escolhido por regra fixa: entre os atores com pergunta de teste e com perfil de quatro blocos,
+  excluídos os dois do teste preliminar (Seção~\ref{sec:metodo-simulacao}), o de número mediano de
+  audiências de treino e, no empate, aquele cujo total de palavras nos turnos de treino, incluídos os
+  de presidência, fica mais próximo da mediana do grupo empatado. Os quatro trechos mostrados vêm do
+  mesmo turno, o mais longo das duas audiências de treino do ator, com 1.001 das suas 1.745 palavras.
+  Os cortes nos trechos e no assunto estão marcados com {[\ldots]}.}
+  \label{fig:perfil}
+\end{figure}

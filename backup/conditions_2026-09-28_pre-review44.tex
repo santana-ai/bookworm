@@ -1,0 +1,18 @@
+\begin{table}[!htb]
+  \centering
+  \caption{Condições comparadas na simulação. Nas três, o \textit{system prompt} traz as mesmas
+  instruções, o nome e o cargo da pessoa, e a mensagem do usuário traz a data e o assunto da
+  audiência e o pedido de múltipla escolha; as condições diferem apenas no perfil, incluído no
+  \textit{system prompt}, e nos trechos recuperados, incluídos na mensagem do usuário.}
+  \label{tab:condicoes}
+  \small
+  \begin{tabularx}{\textwidth}{@{}cllX@{}}
+    \toprule
+    \textbf{Condição} & \textbf{Nome} & \textbf{Perfil} & \textbf{Trechos recuperados} \\
+    \midrule
+    0 & prompt simples            & ``Nenhum.''                                 & -- \\
+    1 & prompt + perfil           & itens numerados (P1, C1, A1, F1, \ldots)    & -- \\
+    2 & prompt + perfil + trechos & itens numerados (P1, C1, A1, F1, \ldots)    & $k$ trechos (T1 a T$k$), em ordem de data \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

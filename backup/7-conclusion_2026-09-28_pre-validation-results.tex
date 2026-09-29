@@ -1,0 +1,20 @@
+\section{Conclus\~ao e Trabalhos Futuros}
+\label{sec:conclusao}
+
+A pergunta deste trabalho foi se as falas anteriores de uma pessoa, condensadas num perfil, ajudam
+um LLM a reconhecer a opinião que a imprensa lhe atribuiu numa audiência posterior. Para isso, o
+pipeline liga as opiniões publicadas sobre audiências públicas à fala de quem as emitiu e condensa a
+fala de cada ator em um perfil escrito somente a partir dela, usado para simular como a pessoa se
+posicionaria.
+
+A UDV localiza evidência candidata para 2.105 das 2.203 opiniões, mas, num controle com as 183
+opiniões de treino que contêm citação confiável, a sentença de maior cosseno coincide com a passagem
+citada em 61,2\% dos casos. A precisão dos vínculos por similaridade semântica ainda precisa ser
+medida pela validação humana. Na simulação, o perfil aumentou o acerto da múltipla escolha em 0,139
+no Gemma 4 31B e em 0,119 no Qwen3.8 27B, com intervalos de 95\% acima de zero, e os trechos
+recuperados não tiveram efeito detectado.
+
+Ficam em aberto uma condição só com os trechos recuperados, a leitura dos perfis de um modelo por
+outro e a comparação entre prompts de perfil diferentes. A resposta simulada é uma estimativa condicionada às falas públicas da
+pessoa e não equivale a uma declaração dela. Por isso, nunca deve ser apresentada como citação e
+não serve para inferir intenção política.

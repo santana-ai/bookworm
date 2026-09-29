@@ -1,0 +1,105 @@
+%==============================================================================
+%  TEMPLATE DE ARTIGO CIENTÍFICO
+%  1º Desafio de Dados do Instituto Kunumi - 2026
+%  Tema: IA e a Esfera Pública (dataset PublicHearingBR)
+%
+%  COMO USAR
+%  ---------
+%  1. Substitua os campos marcados com  <...>  pelos dados do seu grupo.
+%  2. Escreva o conteúdo nas seções já estruturadas (apague o texto-guia).
+%  3. Compile com:  pdflatex -> bibtex -> pdflatex -> pdflatex
+%  (Ou simplesmente abra no Overleaf e clique em "Recompile".)
+%
+%  REGRAS DE FORMATACAO
+%  --------------------
+%  - Límite RÍGIDO de 10 páginas, INCLUYENDO figuras, tablas y referencias.
+%  - Não altere margens, fontes ou espaçamentos definidos no preâmbulo.
+%  - O artigo deve ser avaliado por revisores conforme o padrão BRACIS.
+%==============================================================================
+
+\documentclass{desafiokunumi} % use [english] para escrever em inglês
+
+\usepackage{flafter}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,backgrounds,calc,fit,positioning}
+\definecolor{figdata}{HTML}{5B6478}
+\definecolor{figprofile}{HTML}{4B55A3}
+\definecolor{figudv}{HTML}{E0592A}
+\definecolor{figsim}{HTML}{168A7E}
+\usepackage{soul}
+\sethlcolor{figudv!28}
+\newcommand{\udvmatch}[1]{\textbf{\color{figudv!85!black}#1}}
+\soulregister{\udvmatch}{1}
+
+\renewcommand{\lstlistingname}{Quadro}
+\lstset{
+  numbers=none, xleftmargin=0pt, columns=fullflexible, keepspaces=true,
+  literate=
+    {á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ê}{{\^e}}1
+    {í}{{\'i}}1 {ó}{{\'o}}1 {ô}{{\^o}}1 {õ}{{\~o}}1 {ú}{{\'u}}1 {ü}{{\"u}}1
+    {ç}{{\c{c}}}1 {Á}{{\'A}}1 {Â}{{\^A}}1 {Ã}{{\~A}}1 {É}{{\'E}}1 {Ê}{{\^E}}1
+    {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ô}{{\^O}}1 {Õ}{{\~O}}1 {Ú}{{\'U}}1 {Ç}{{\c{C}}}1
+    {-}{{-}}1
+}
+
+% =============================================================================
+%  METADADOS DO ARTIGO
+% =============================================================================
+\title{<Título do Trabalho>}
+\subtitle{<subtítulo descritivo, se houver>}  % remova/comente se n\~ao houver
+
+% Use \textsuperscript{n} para ligar cada autor a sua instituicao.
+\authors{%
+  <Nome Autor 1>\textsuperscript{1} \quad
+  <Nome Autor 2>\textsuperscript{2} \quad
+  <Nome Autor 3>\textsuperscript{1} \quad
+  <Nome Autor 4>\textsuperscript{3}%
+}
+
+\affiliations{%
+  \textsuperscript{1}<Colab / Instituic\~ao A> \quad
+  \textsuperscript{2}<Colab / Instituic\~ao B> \quad
+  \textsuperscript{3}<Colab / Instituic\~ao C>\\[2pt]
+  \texttt{\{autor1, autor3\}@inst-a.br} \quad
+  \texttt{autor2@inst-b.br} \quad
+  \texttt{autor4@inst-c.br}%
+}
+
+% Logo do seu Colab (variac\~ao do kunuminst). Coloque o arquivo em figuras/ e
+% descomente a linha abaixo; sem ela, um placeholder e exibido no cabecalho.
+%\colablogo{Logo-PUCRIO.png}
+
+\keywords{audiências públicas; simulação de atores; perfis por ator; evidência verificável; modelos de linguagem}
+
+% =============================================================================
+%  RESUMO
+% =============================================================================
+\input{sections/0-abstract}
+
+%==============================================================================
+\begin{document}
+
+\maketitle
+
+\input{sections/1-introduction}
+\input{sections/2-related-work}
+\input{sections/3-dataset}
+\input{sections/4-method}
+\input{sections/5-experimental-setup}
+\input{sections/6-results}
+\input{sections/7-conclusion}
+\input{sections/8-acknowledgments}
+
+% =============================================================================
+%  REFERENCIAS
+% =============================================================================
+\bibliography{referencias}
+
+% =============================================================================
+%  APENDICE (opcional) --- conta para o limite de 15 paginas
+% =============================================================================
+\appendix
+\input{sections/9-appendix}
+
+\end{document}

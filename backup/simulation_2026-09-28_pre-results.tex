@@ -1,0 +1,133 @@
+\begin{figure}[!t]
+  \centering
+  \begin{tikzpicture}[
+      font=\scriptsize,
+      box/.style={draw=figdata!75, fill=white, rounded corners=2pt, align=left, inner sep=3pt},
+      pbox/.style={box, draw=figprofile!80},
+      ubox/.style={box, draw=figudv!85},
+      sbox/.style={box, draw=figsim!80},
+      lane/.style={rounded corners=3pt, inner sep=4pt},
+      plane/.style={lane, draw=figprofile!60, fill=figprofile!7},
+      ulane/.style={lane, draw=figudv!65, fill=figudv!8},
+      slane/.style={lane, draw=figsim!60, fill=figsim!7},
+      heading/.style={font=\scriptsize\bfseries, inner sep=0pt, anchor=south west},
+      chunk/.style={align=left, inner sep=0pt, anchor=north west, text width=4.1cm},
+      aside/.style={text=black!55},
+      digit/.style={font=\tiny, text=black!60, inner sep=0pt},
+      on/.style={circle, inner sep=0pt, minimum size=4.2pt, draw=figsim!85, fill=figsim!85},
+      off/.style={circle, inner sep=0pt, minimum size=4.2pt, draw=figsim!85, fill=white},
+      cell/.style={draw=figsim!60, fill=white},
+      link/.style={-{Stealth[length=4.5pt]}, draw=black!65, line width=0.6pt},
+      plink/.style={link, draw=figprofile},
+      ulink/.style={link, draw=figudv},
+      slink/.style={link, draw=figsim},
+      note/.style={font=\scriptsize, inner sep=1.5pt},
+      pnote/.style={note, text=figprofile!85!black},
+      unote/.style={note, text=figudv!85!black},
+    ]
+    \node[pbox, text width=3.1cm] (per) at (1.75,-1.25)
+      {\textbf{Perfil} de até 800 palavras, com itens numerados:\\
+       P1, \ldots\ posições\\
+       C1, \ldots\ critérios e valores\\
+       A1, \ldots\ alinhamentos declarados\\
+       F1, \ldots\ forma de argumentar};
+    \node[pbox, text width=3.1cm] (ftr) at (1.75,-3.85)
+      {\textbf{Falas de treino} da pessoa, por audiência e em ordem de data};
+    \node[ubox, text width=3.1cm] (aud) at (1.75,-6.2)
+      {\textbf{Resumo estruturado} de uma audiência de validação ou de teste\\[2pt]
+       $o$: opinião atribuída à pessoa, ligada a ela pela UDV\\[2pt]
+       $d_1$, $d_2$, $d_3$: opiniões de três outros participantes, sorteados};
+
+    \node[chunk] (s0) at (5.0,-0.2) {\textbf{Prompt de sistema}};
+    \node[chunk] (s1) at ($(s0.south west)+(0,-3pt)$)
+      {Você simula como \textit{nome}, \textit{cargo sem partido}, se posiciona em audiências
+       públicas da Câmara dos Deputados. [\ldots] \textcolor{black!55}{e três instruções}};
+    \node[chunk] (s3) at ($(s1.south west)+(0,-4pt)$)
+      {PERFIL\\\textit{itens numerados} (``Nenhum.'' na condição 0)};
+
+    \node[chunk] (m0) at ($(s3.south west)+(0,-16pt)$) {\textbf{Mensagem do usuário}};
+    \node[chunk] (m1) at ($(m0.south west)+(0,-3pt)$)
+      {AUDIÊNCIA DE \textit{data}, SOBRE: \textit{assunto}};
+    \node[chunk] (m2) at ($(m1.south west)+(0,-4pt)$)
+      {TRECHOS DE FALAS ANTERIORES DE \textit{nome}\\
+       {}[T1] \textit{data} $\cdot$ \textit{assunto de origem}\\
+       ``\textit{sentença recuperada, com a anterior e a seguinte}''\\
+       \ldots\ até [T$k$]};
+    \node[chunk] (m3) at ($(m2.south west)+(0,-4pt)$)
+      {Uma destas afirmações foi feita por \textit{nome} nesta audiência, que não aparece no
+       material desta conversa. Qual é a mais provável?\\
+       A) $d_1$\quad B) $o$\quad C) $d_2$\quad D) $d_3$\quad \textcolor{black!55}{(rotação 1)}\\
+       Responda só com a letra, mesmo sem certeza.};
+
+    \node[digit, anchor=east] at (9.3,0 |- s0) {condição};
+    \foreach \row in {s0, m0}
+      \foreach \x/\d in {9.45/0, 9.75/1, 10.05/2}
+        \node[digit] at (\x,0 |- \row) {\d};
+    \foreach \row/\a/\b/\c in {s1/1/1/1, s3/0/1/1, m1/1/1/1, m2/0/0/1, m3/1/1/1}
+      \foreach \x/\on in {9.45/\a, 9.75/\b, 10.05/\c} {
+        \ifnum\on=1 \node[on] at (\x,0 |- \row) {}; \else \node[off] at (\x,0 |- \row) {}; \fi
+      }
+
+    \node[align=center, text width=3.4cm, inner sep=0pt, anchor=north] (rtt) at (12.75,-0.2)
+      {Opções nas quatro rotações (linhas) de uma ordem sorteada};
+    \foreach \l [count=\c] in {A, B, C, D}
+      \node[font=\scriptsize\bfseries] at (11.3+0.6*\c,-0.95) {\l};
+    \foreach \r/\oc in {1/2, 2/1, 3/4, 4/3} {
+      \node[digit] at (11.5,-1.3-0.36*\r+0.36) {\r};
+      \foreach \c in {1,...,4} {
+        \ifnum\c=\oc
+          \draw[cell, fill=figudv!30] (11.02+0.6*\c,-1.14-0.36*\r+0.36) rectangle ++(0.56,-0.32);
+        \else
+          \draw[cell] (11.02+0.6*\c,-1.14-0.36*\r+0.36) rectangle ++(0.56,-0.32);
+        \fi
+      }
+    }
+    \foreach \r/\l in {1/{d_1,o,d_2,d_3}, 2/{o,d_2,d_3,d_1}, 3/{d_2,d_3,d_1,o}, 4/{d_3,d_1,o,d_2}}
+      \foreach \t [count=\c] in \l
+        \node at (11.3+0.6*\c,-1.3-0.36*\r+0.36) {$\t$};
+    \coordinate (grid) at (12.8,-2.52);
+    \coordinate (gridw) at (11.1,-1);
+    \coordinate (sysr) at (10.15,0 |- s0);
+    \coordinate (msgr) at (10.15,0 |- m0);
+
+    \node[sbox, text width=2.9cm, align=center, draw=figsim!90, fill=figsim!22] (mod) at (12.75,-3.4)
+      {\textbf{Modelo simulador}\\uma chamada por condição e rotação};
+    \node[sbox, text width=3.3cm] (prb) at (12.75,-4.55)
+      {Probabilidade de A, B, C e D no primeiro token, renormalizada entre as quatro em cada
+       rotação};
+    \node[sbox, text width=3.3cm] (avg) at (12.75,-5.7)
+      {Média de cada opção nas quatro rotações; a resposta é a de maior probabilidade};
+    \node[sbox, text width=3.3cm] (met) at (12.75,-6.75)
+      {Por condição: acerto e probabilidade média de $o$};
+
+    \begin{scope}[on background layer]
+      \node[sbox, fit=(s0)(s1)(s3)(sysr)] (sys) {};
+      \node[sbox, fit=(m0)(m1)(m2)(m3)(msgr)] (msg) {};
+      \node[slane, fit=(sys)(msg)] (conv) {};
+      \node[plane, fit=(per)(ftr)] (bperf) {};
+      \node[ulane, fit=(aud)] (baud) {};
+      \node[slane, fit=(rtt)(mod)(met)(gridw)] (read) {};
+    \end{scope}
+    \node[heading, text=figprofile!85!black] at ($(bperf.north west)+(0,2pt)$) {Perfil e trechos};
+    \node[heading, text=figudv!85!black] at ($(baud.north west)+(0,2pt)$) {Pergunta};
+    \node[heading, text=figsim!85!black] at ($(conv.north west)+(0,2pt)$)
+      {Conversa com o modelo simulador};
+    \node[heading, text=figsim!85!black] at ($(read.north west)+(0,2pt)$) {Leitura da resposta};
+
+    \draw[plink] (ftr) -- node[pnote, right] {LLM gerador} (per);
+    \draw[plink] (per.east |- s3) -- (sys.west |- s3);
+    \draw[plink] (ftr.east |- m2) -- node[pnote, above] {recuperação} (msg.west |- m2);
+    \draw[ulink] (aud.east |- m3) -- node[unote, above] {opções} (msg.west |- m3);
+    \draw[slink] (conv.east |- mod) -- (mod.west);
+    \draw[slink] (grid) -- (mod.north -| grid);
+    \draw[slink] (mod) -- (prb);
+    \draw[slink] (prb) -- (avg);
+    \draw[slink] (avg) -- (met);
+  \end{tikzpicture}
+  \caption{Pergunta de múltipla escolha da simulação. O perfil e os trechos vêm só das falas de
+  treino da pessoa, e a data, o assunto e as opções, de uma audiência de validação ou de teste. Os
+  pontos indicam as condições em que cada parte da conversa é incluída (ponto vazio: parte ausente),
+  e os campos em itálico são preenchidos a cada chamada (texto completo no
+  Apêndice~\ref{ap:prompt-simulacao}). A opinião $o$ ocupa uma posição diferente em cada rotação.}
+  \label{fig:simulacao}
+\end{figure}

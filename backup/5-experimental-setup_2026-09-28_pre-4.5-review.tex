@@ -1,0 +1,100 @@
+\section{Configura\c{c}\~ao Experimental}
+\label{sec:setup}
+
+A avaliação mede a precisão da evidência das UDVs por anotação humana (Seção~\ref{sec:setup-udv}) e
+o efeito de cada elemento da simulação por perguntas de múltipla escolha
+(Seção~\ref{sec:setup-simulacao}). O gabarito dessas perguntas são opiniões publicadas sobre
+audiências posteriores às do perfil, ligadas aos atores pelas UDVs.
+
+\subsection{Evidência das UDVs}
+\label{sec:setup-udv}
+
+% Pendente: dizer quais alternativas do vínculo por similaridade semântica foram comparadas nas audiências de validação e onde essa comparação é relatada.
+A precisão da evidência é medida numa amostra cega sorteada somente nas audiências de teste, porque
+as de validação foram usadas na comparação de alternativas do vínculo por similaridade semântica. A
+amostra tem 127 linhas (134 UDVs, 30 audiências): 35 das 41 UDVs \texttt{quote\_found}, 65 das 277
+\texttt{semantic\_match\_high} sem coincidência de prefixo curto, 15 das 22 UDVs semânticas com essa
+coincidência, as 6 \texttt{semantic\_match\_weak} restantes e as 13 UDVs sem evidência. Há
+coincidência de prefixo curto quando o prefixo mais longo da citação encontrado na fala tem menos de
+seis palavras e ocorre pela primeira vez na sentença escolhida pelo codificador, caso que a UDV
+registra como corroboração fraca (Apêndice~\ref{ap:regras-udv}). Os totais desses cinco grupos somam as 359 opiniões de teste
+(Seção~\ref{sec:dados-particao}). As 13 UDVs sem evidência ocupam 6 linhas, uma por pessoa, nas quais
+o anotador indica se a pessoa falou na sessão.
+
+Nas demais linhas, o anotador vê a opinião, a sentença e o texto ao redor, sem nível, cosseno ou
+marca de corroboração fraca, e julga a sentença como correta, parcial ou incorreta. Nas linhas de
+citação literal e de prefixo curto, as palavras citadas reaparecem na sentença, e por isso a
+distinção entre os dois níveis semânticos é a única que permanece cega. Ao menos 24 horas depois da
+primeira anotação, 20 linhas voltam em outra ordem, para medir a concordância do anotador consigo
+mesmo.
+
+Os critérios, registrados antes de qualquer julgamento, exigem que o limite inferior do intervalo de
+Wilson~\citep{wilson1927probable} de 95\% atinja 0,90 na precisão estrita (só ``correta'') da citação
+literal. No nível \texttt{semantic\_match\_high} sem prefixo curto, o mesmo limite deve atingir 0,75
+na precisão tolerante (``correta'' ou ``parcial''). Com as linhas sorteadas, isso exige 35 corretas
+em 35 e ao menos 56 aceitas em 65.
+
+\subsection{Simulação}
+\label{sec:setup-simulacao}
+
+\input{figures/simulation}
+
+Na simulação, a avaliação mede se o perfil e os trechos aumentam a capacidade do modelo simulador de
+reconhecer a opinião que a matéria atribuiu à pessoa numa audiência que não entrou no perfil. Essa
+opinião é apresentada entre outras opiniões publicadas sobre a mesma audiência.
+
+\textbf{Perguntas.} Cada UDV de uma audiência de validação ou de teste cujo turno de evidência
+pertence a um ator com perfil gera uma pergunta, acompanhada da data e do assunto da audiência (Figura~\ref{fig:simulacao}). O
+texto da pergunta é ``Uma destas afirmações foi feita por \textit{nome} nesta audiência, que não
+aparece no material desta conversa. Qual é a mais provável?''. As quatro opções são a opinião da
+UDV, na redação do resumo estruturado, e opiniões atribuídas pela matéria a três outros participantes
+da mesma audiência, sorteados com semente fixa. As opiniões da própria pessoa e os textos iguais a
+elas são excluídos, um texto atribuído a mais de um participante é incluído uma única vez, e a
+pergunta com menos de três outros participantes é descartada. Como os distratores vêm da mesma
+audiência, eles tratam do mesmo tema, o que reduz, sem eliminar, a possibilidade de escolher a opção
+pela proximidade com o assunto.
+
+Na pergunta, a UDV apenas liga a opinião a um registro de ator, pelo turno da evidência, e a
+sentença de evidência não aparece. A validade da pergunta depende, portanto, da resolução da pessoa
+na audiência e da identificação do ator entre audiências (Seção~\ref{sec:metodo-atores}); ela
+independe da precisão do vínculo por similaridade semântica. Das 106 opiniões de teste ligadas aos
+atores com falas de treino (Seção~\ref{sec:dados-particao}), 17 têm nível \texttt{quote\_found}, 87
+\texttt{semantic\_match\_high} e 2 \texttt{semantic\_match\_weak}.
+
+\textbf{Leitura da resposta.} A escolha é lida na distribuição de probabilidade do primeiro token
+gerado, restrita aos tokens das quatro letras, e antes da execução confere-se que cada letra é um
+único token. Como LLMs favorecem certas posições entre as
+opções~\citep{zheng2024large,pezeshkpour2024large}, cada pergunta é apresentada nas quatro rotações
+cíclicas de uma ordem sorteada. Em cada rotação, as probabilidades das letras são renormalizadas
+entre si. A probabilidade de cada opção é a
+média das rotações, a resposta é a opção de maior probabilidade, e as métricas são o acerto e a
+probabilidade média da opção correta.
+
+Como a leitura sempre escolhe uma letra e a probabilidade do primeiro token pode divergir da
+resposta escrita~\citep{wang2024answer}, cada condição registra como diagnóstico a soma das
+probabilidades das quatro letras no vocabulário inteiro. Essa soma mostra quanto da distribuição do
+primeiro token cabe às letras.
+
+\textbf{Seleção de $k$.} O número de trechos é, para cada modelo, o $k \in \{3, 5, 10\}$ de maior
+acerto da condição 2 nas audiências de validação, com empates resolvidos pela maior probabilidade média da opção correta
+e, depois, pelo menor valor da grade. No teste, a condição 2 é medida só com esse $k$. Antes da
+execução, verifica-se que nenhum perfil e nenhuma fala usada na recuperação contém audiência de
+validação ou de teste; a verificação não cobre o cargo, que vem da matéria da audiência avaliada.
+
+\textbf{Comparação entre condições.} A diferença de acerto entre condições vizinhas estima o efeito
+do elemento acrescentado, e o intervalo de 95\% de cada diferença é obtido por \textit{bootstrap}
+pareado de percentis, com 1.000 reamostragens de audiências inteiras~\citep{efron1993introduction}.
+As audiências são reamostradas inteiras porque as perguntas de uma audiência compartilham assunto,
+falantes e distratores. Os dois intervalos não são ajustados para comparações múltiplas, e as demais
+medidas são descritivas.
+
+\textbf{Modelos e recursos.} Avaliamos dois LLMs, o Gemma 4 31B e o Qwen3.8 27B, este com pesos
+quantizados em 8 bits. Cada um escreve os 264 perfis a partir das falas de treino e, como modelo simulador, responde às
+perguntas com os perfis que ele próprio escreveu. Os dois prompts da geração dos perfis
+(Apêndice~\ref{ap:prompt}) compõem uma conversa de duas mensagens, formatada pelo \textit{chat
+template} do próprio LLM, sem formatação adicional. A geração usa amostragem com temperatura 0,2,
+\textit{top-p} de 0,9 e limite de 3.000 tokens de saída. O Gemma é executado em <hardware> com
+<precisão numérica>, e o Qwen, num Apple M4 Max com 128 GB de memória. O codificador é o Serafim
+335m, na mesma versão de pesos da UDV. O código, as configurações, os prompts e as saídas estão em
+<repositório>.
+% Pendente: citar os relatórios técnicos do Gemma 4 e do Qwen3.8.

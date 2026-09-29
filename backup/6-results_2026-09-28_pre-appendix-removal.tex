@@ -1,0 +1,89 @@
+\section{Resultados e Discuss\~ao}
+\label{sec:resultados}
+
+\subsection{Evidência das UDVs}
+\label{sec:resultados-udv}
+
+Os controles disponíveis indicam fragilidade no vínculo por similaridade semântica: nas 183 opiniões
+de treino com citação confiável, a sentença de maior cosseno com a opinião completa é a da própria
+citação em 112 (61,2\%). O intervalo de 95\% dessa proporção, por \textit{bootstrap} de audiências,
+vai de 53,0\% a 68,8\%. Com os trechos entre aspas removidos da opinião, a sentença da citação é a
+de maior cosseno em 12 de 142 consultas do treino e em 4 de 40 da validação. Esses números mostram
+que a sentença escolhida por similaridade difere com frequência da passagem citada, mas não separam
+o erro de outra sentença que também sustente a opinião. Essa separação cabe à validação humana, na
+qual <resultado da validação humana: precisão estrita da citação literal e tolerante do nível
+\texttt{semantic\_match\_high}, com intervalos de Wilson, critérios atingidos ou não, e concordância
+do anotador consigo mesmo>.
+
+\subsection{Simulação}
+\label{sec:resultados-simulacao}
+
+\input{tables/main-results}
+
+Na validação, 81 das 102 opiniões ligadas geraram perguntas, de 51 atores em 21 audiências; as
+demais não tinham três outros participantes na mesma audiência. Com $k = 3$, 5 e 10, o acerto da
+condição 2 foi de 0,469, 0,481 e 0,481 no Gemma, com o empate resolvido em favor de $k = 5$ pela
+probabilidade média da opção correta (0,467 contra 0,465), e de 0,494, 0,481 e 0,469 no Qwen, que
+ficou com $k = 3$. No teste, 101 das 106 opiniões ligadas geraram perguntas, de 46 atores em 24
+audiências (Tabela~\ref{tab:resultados}).
+
+Nos dois modelos, a diferença de acerto entre as condições 1 e 0 foi positiva, de $+0{,}139$ no
+Gemma e de $+0{,}119$ no Qwen, com intervalos que excluem o zero. O efeito dos trechos recuperados
+não foi detectado, porque a diferença entre as condições 2 e 1, de $-0{,}020$ no Gemma e de
+$+0{,}020$ no Qwen, tem intervalos que contêm o zero. Nas perguntas de validação, as condições 0, 1 e
+2 tiveram acerto de 0,395, 0,543 e 0,481 no Gemma e de 0,358, 0,457 e 0,494 no Qwen, na mesma ordem
+observada no teste em cada modelo, mas a condição 2 da validação é a do $k$ escolhido nessas mesmas
+perguntas.
+
+No teste, a soma das probabilidades das quatro letras ficou acima de 0,999 em todas as leituras das
+condições 1 e 2 do Gemma e teve média de 0,929 e mínimo de 0,004 na condição 0. No Qwen, a média foi
+de 0,999, 0,998 e 0,999 nas condições 0, 1 e 2, com mínimo de 0,969. Nas leituras da condição 0 do
+Gemma com soma baixa, a resposta registrada resulta da renormalização de uma parcela pequena da
+distribuição, e parte da diferença entre as condições 1 e 0 nesse modelo pode vir dessas leituras em
+vez do conteúdo do perfil. No Qwen, cuja soma na condição 0 ficou acima de 0,99, a diferença teve
+tamanho semelhante.
+
+% Pendente: preencher a Figura fig:simulacao com uma pergunta de teste (itens do perfil, trechos recuperados, as quatro opções e as probabilidades nas condições 0 a 2), de um ator que não tenha entrado no teste preliminar; a regra de escolha da pergunta ainda precisa ser fixada antes da rodada final.
+
+\subsection{Limitações}
+\label{sec:limitacoes}
+
+\textbf{Gabarito.} A opção correta é a opinião que a matéria atribui à pessoa, na redação da
+matéria, e o acerto mede o reconhecimento dessa atribuição, que é uma seleção editorial do que foi
+dito. Os distratores podem coincidir com posições que a pessoa também sustenta, sobretudo nas
+condições que informam o lado dela, e essas perguntas admitem mais de uma resposta plausível. A
+frequência dessas perguntas não foi medida.
+
+\textbf{Informação comum às condições.} O nome e o cargo entram em todas as condições, e o cargo às
+vezes registra a função da pessoa na própria audiência avaliada, como relator ou presidente da
+comissão. O modelo pode associar ao nome posições conhecidas fora do conjunto. A condição 0 contém
+esses efeitos e os do assunto e da redação das opções. As diferenças entre condições os cancelam
+somente se eles se somarem ao efeito do material acrescentado, sem interagir com ele.
+
+\textbf{Pré-treinamento.} As datas de corte do pré-treinamento do Gemma 4 31B, <data de corte>, e do
+Qwen3.8 27B, <data de corte>, são <anteriores ou posteriores> ao período de teste. Se forem
+posteriores, as matérias das audiências de teste podem ter sido vistas no pré-treinamento, com
+efeito em todas as condições.
+
+\textbf{Tamanho da amostra.} As perguntas de teste são 101, em 24 audiências, e um intervalo que
+contém o zero indica que a diferença não foi detectada com essa amostra. Os dois modelos respondem
+às mesmas perguntas, e por isso um resultado que se repete nos dois não constitui uma replicação em
+amostra independente. O valor de $k$ é escolhido numa amostra de validação pequena e agrupada por audiência, em
+que diferenças de poucas perguntas entre valores da grade podem refletir ruído.
+
+\textbf{Desenho da avaliação.} Como as condições são encadeadas, a recuperação sem o perfil não é
+avaliada, e o ganho do perfil sobre a simples recuperação das falas não é medido. A avaliação
+também não separa assuntos já tratados nas falas de treino de assuntos novos.
+
+\textbf{Perfis.} Como, em cada modelo, o simulador é o mesmo LLM que escreveu os perfis, o efeito do
+perfil é medido com um leitor que compartilha o vocabulário e os vieses de quem o redigiu. Esse
+efeito pode não se repetir quando os perfis de um modelo são lidos por outro, combinação que não foi
+avaliada. Cada modelo gerou os perfis uma única vez, com uma semente, e a variação do resultado entre
+gerações não foi medida. A fidelidade dos perfis às falas não foi medida por anotação humana.
+
+\textbf{Evidência da UDV.} A precisão da associação entre o nome citado na matéria e os turnos da
+pessoa não foi medida. O corte de 0,45 entre \texttt{semantic\_match\_high} e
+\texttt{semantic\_match\_weak} não foi validado como medida de confiança, e a variante da calibração
+com negativos da própria pessoa daria 0,50 (Apêndice~\ref{ap:calibracao}). Nem a construção nem o
+verificador avaliam se a evidência sustenta a opinião, o que cabe à validação humana
+(Seção~\ref{sec:setup-udv}).

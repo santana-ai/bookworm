@@ -1,0 +1,59 @@
+\section{Introdu\c{c}\~ao}
+\label{sec:introducao}
+
+As audiências públicas das comissões da Câmara dos Deputados reúnem parlamentares, representantes
+do governo, especialistas e entidades da sociedade civil em torno de propostas legislativas e
+políticas públicas. Suas transcrições registram o que cada participante defendeu e têm em média 18
+mil palavras no PublicHearingBR~\citep{fernandes2024publichearingbr}. O público costuma conhecer as
+audiências por matérias jornalísticas que têm em média 4,2\% do tamanho da transcrição e citam, em
+média, 10,7 opiniões de 5,2 participantes. O conjunto de dados registra, num resumo estruturado, o
+que a matéria atribui a cada pessoa, mas não o ponto da fala de onde cada opinião foi extraída.
+
+Este trabalho investiga se um perfil escrito somente com as falas anteriores de uma pessoa ajuda um
+grande modelo de linguagem (LLM) a reconhecer o que a imprensa lhe atribuiu numa audiência
+posterior. Responder a essa pergunta exige localizar a fala que sustenta cada opinião publicada,
+representar, a partir da fala, o que a pessoa defende entre audiências e declarar a base de cada
+estimativa de como ela se posicionaria. Uma estimativa desse tipo pode apoiar a preparação de
+audiências e ferramentas de transparência que informem o que um participante já defendeu sobre um
+tema.
+
+LLMs usados para simular pessoas tendem, porém, a produzir respostas estereotipadas e a apagar a
+diversidade interna dos grupos~\citep{bisbee2024synthetic,wang2025large}. Por isso, a simulação
+proposta recebe como material sobre a pessoa, além do nome e do cargo, apenas as falas dela nas
+audiências de treino, não fornece ao modelo o partido registrado e declara a base de cada estimativa.
+Diferentemente dos trabalhos que condicionam LLMs a perfis sociodemográficos, a opiniões passadas ou
+a entrevistas de respondentes de questionário~\citep{argyle2023outofone,hwang2023aligning,park2026llm},
+ela trata de pessoas públicas identificadas e é avaliada com o que a imprensa lhes atribuiu em
+audiências posteriores às usadas no perfil.
+
+O primeiro dos três componentes da abordagem (Seção~\ref{sec:metodo}) é a Unidade Deliberativa
+Verificável (UDV), que procura na fala da própria pessoa uma sentença que sirva de evidência
+candidata para cada opinião do resumo estruturado. A UDV registra os offsets de caracteres da
+sentença escolhida, um nível com o tipo de vínculo e a proveniência, que indica a origem do vínculo.
+Os perfis por ator, segundo componente, são escritos por um LLM com as falas de cada pessoa nas
+audiências de treino, em blocos de posições, critérios e valores, alinhamentos declarados e forma de
+argumentar. O terceiro, a simulação, fornece o perfil a um LLM e acrescenta trechos das falas
+anteriores da pessoa recuperados pelo assunto. Nas perguntas de múltipla escolha, e não na geração
+aberta, a simulação combina as probabilidades das quatro opções com e sem esse material por
+\textit{classifier-free guidance} (CFG), o que desfavorece as opções que o modelo já escolheria só
+com o nome e o cargo.
+
+As UDVs das audiências de validação e de teste ligam as opiniões publicadas aos atores pelo turno da
+evidência, e cada opinião ligada a um ator com perfil gera uma pergunta de múltipla escolha. A opção
+correta é a opinião na redação do resumo estruturado, e a sentença de evidência não aparece na
+pergunta. As perguntas de validação escolhem dois hiperparâmetros da simulação, e as de teste medem o
+efeito do perfil, dos trechos e da CFG. O trabalho se inspira nas Trilhas A e B do desafio: a UDV e a
+recuperação restrita à fala da pessoa tratam da auditoria de documentos longos, e os perfis e a
+simulação, da mineração de opiniões e de atores.
+
+\medskip\noindent\textbf{Contribui\c{c}\~oes.} \textbf{(i)} A UDV localiza na fala da própria pessoa
+evidência candidata para 2.105 das 2.203 opiniões do PublicHearingBR, declara o nível e a
+proveniência de cada vínculo e tem a consistência dos registros conferida por um verificador
+separado. \textbf{(ii)} Os perfis por ator são escritos por um LLM com instruções que proíbem
+atribuir à pessoa o que vem do assunto da audiência, de terceiros, do partido ou de conhecimento
+externo. \textbf{(iii)} O método de simulação de atores declara a base de cada estimativa e
+acompanha a fala simulada de uma justificação cujas referências ao material são conferidas
+automaticamente. \textbf{(iv)} O protocolo de avaliação usa como gabarito opiniões publicadas sobre
+audiências posteriores às do perfil, ligadas ao ator pelo turno da evidência da UDV, com distratores
+da mesma audiência. O protocolo mede separadamente o efeito do perfil, dos trechos e da CFG; nele,
+<resultado principal>.

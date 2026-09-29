@@ -1,0 +1,52 @@
+\begin{figure}[!tb]
+  \centering
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      box/.style={draw=black!45, rounded corners=2pt, inner sep=5pt},
+      heading/.style={font=\scriptsize\bfseries, text=black!65, anchor=south west, inner sep=0pt},
+      body/.style={align=left, inner sep=0pt, anchor=north west},
+      aside/.style={body, text=black!60},
+      link/.style={-{Stealth[length=4.5pt]}, draw=black!65, line width=0.6pt},
+      note/.style={font=\scriptsize, align=center, text width=2.1cm, inner sep=1.5pt},
+    ]
+    \node[body, text width=4.3cm] (actor) at (0,0) {\textbf{Arlindo Chinaglia}};
+    \node[aside, text width=4.3cm] (role) at (actor.south west) {Deputado (PT-SP)};
+    \node[body, text width=4.3cm] (opinion) at ($(role.south west)+(0,-5pt)$)
+      {``\textbf{A resposta do Musk foi atacar} a presidente da comissão, que é eleita por todos os
+       países da Comunidade Europeia.''};
+
+    \node[body, text width=7.3cm] (header) at (6.9,0) {O SR. ARLINDO CHINAGLIA(Bloco/PT - SP) -};
+    \node[aside, text width=7.3cm] (turn) at (header.south west) {turno 27, com 876 palavras};
+    \node[body, text width=7.3cm] (speech) at ($(turn.south west)+(0,-5pt)$)
+      {[\ldots]\ \hl{\textbf{A resposta do Musk foi atacar} a presidente que foi eleita por todos os
+       países da comunidade europeia, inclusive a democrática Hungria.} Pois bem. Ali há um conjunto
+       de países democráticos. [\ldots]};
+
+    \begin{scope}[on background layer]
+      \node[box, fit=(actor)(opinion)(actor.west |- speech.south)] (lds) {};
+      \node[box, fit=(header)(speech)(header.west |- opinion.south)] (transcript) {};
+    \end{scope}
+    \node[heading] at ($(lds.north west)+(0,2pt)$) {Resumo estruturado da audiência 1};
+    \node[heading] at ($(transcript.north west)+(0,2pt)$) {Transcrição da audiência 1};
+
+    \draw[link] (lds.east |- actor.east) -- (transcript.west |- actor.east)
+      node[note, midway, above] {resolução da pessoa};
+    \draw[link] (lds.east |- opinion.center) -- (transcript.west |- opinion.center)
+      node[note, midway, above] {citação literal\\(277 opiniões)}
+      node[note, midway, below, text=black!55] {ou maior cosseno\\(1.828 opiniões)};
+
+    \node[inner sep=0pt] (record) at ($(lds.south west)!0.5!(transcript.south east)+(0,-20pt)$)
+      {\textbf{UDV}\quad evidência nos caracteres 58.193--58.327 da transcrição (turno 27)\quad
+       $\cdot$\quad nível \texttt{quote\_found}\quad $\cdot$\quad proveniência \texttt{weak}};
+    \begin{scope}[on background layer]
+      \node[box, inner xsep=0pt, fit=(record)(lds.west |- record)(transcript.east |- record)] (udv) {};
+    \end{scope}
+    \draw[link] (lds.south) -- (lds.south |- udv.north);
+    \draw[link] (transcript.south) -- (transcript.south |- udv.north);
+  \end{tikzpicture}
+  \caption{Exemplo de UDV, em que o prefixo de seis palavras da citação (em negrito) aparece
+  literalmente no turno 27 e a sentença que o contém (destacada) é a evidência. As contagens se referem
+  às 2.203 opiniões, das quais 98 não têm evidência (Tabela~\ref{tab:udv-niveis}). O turno é
+  identificado pelo seu índice, e a transcrição foi truncada em {[\ldots]}.}
+  \label{fig:udv}
+\end{figure}

@@ -1,0 +1,93 @@
+\section{Configura\c{c}\~ao Experimental}
+\label{sec:setup}
+
+A avaliação mede se o perfil, os trechos e a CFG aumentam a capacidade do modelo simulador de
+reconhecer, entre opiniões publicadas sobre a mesma audiência, a que a matéria atribuiu à pessoa numa
+audiência que não entrou no perfil. A fala gerada não serve como medida principal, porque o assunto
+da audiência, fornecido ao modelo, pode já conter a posição central da opinião: na audiência 1, do
+teste, o assunto registrado é ``Acusações de censura contra Alexandre de Moraes por exigir bloqueio de
+contas na rede social X'', e uma das opiniões é ``Acusou Alexandre de Moraes de censura ao solicitar o
+bloqueio de contas na rede social X''. Na múltipla escolha, o assunto é o mesmo para todas as opções,
+e o acerto ao acaso é conhecido (25\%).
+
+\textbf{Perguntas.} Cada UDV de uma audiência de validação ou de teste cujo turno de evidência
+pertence a um ator com perfil gera a pergunta ``Qual destas afirmações \textit{nome} fez nesta
+audiência?'', com a data e o assunto da audiência e quatro opções: a opinião da UDV, na redação do
+resumo estruturado, e opiniões atribuídas pela matéria a três outros participantes da mesma
+audiência, sorteados com semente fixa. As opiniões da própria pessoa e os textos iguais a elas não
+entram, um texto atribuído a mais de um participante entra uma só vez, e a pergunta com menos de três
+outros participantes é descartada. Como os distratores vêm da mesma audiência, eles tratam do mesmo
+tema, o que reduz, sem eliminar, a possibilidade de escolher a opção pela proximidade com o assunto.
+A UDV só liga a opinião a um registro de ator, pelo turno da evidência, e a sentença de evidência não
+aparece na pergunta; a validade da pergunta depende da resolução da pessoa na audiência e da
+identificação do ator entre audiências (Seção~\ref{sec:metodo-atores}), e não da precisão da camada
+semântica. Das 106 opiniões de teste ligadas aos atores com falas de treino
+(Seção~\ref{sec:dados-particao}), 17 têm nível \texttt{quote\_found}, 87 \texttt{semantic\_match\_high}
+e 2 \texttt{semantic\_match\_weak}.
+
+\textbf{Leitura da resposta.} A escolha é lida na distribuição da primeira posição da resposta,
+restrita aos tokens das quatro letras, e antes da execução confere-se que cada letra é um único
+token. Como LLMs favorecem certas posições entre as opções~\citep{zheng2024large,pezeshkpour2024large},
+cada pergunta é apresentada nas quatro rotações cíclicas de uma ordem sorteada. Em cada rotação, as
+probabilidades das letras (na condição 3, já combinadas pela Equação~\ref{eq:cfg}) são renormalizadas
+entre si; a probabilidade de cada opção é a média das rotações, e a resposta é a opção de maior
+probabilidade. As métricas são o acerto e a probabilidade
+média da opção correta. Como a leitura sempre escolhe uma letra e a probabilidade do primeiro token
+pode divergir da resposta escrita~\citep{wang2024answer}, a soma das probabilidades das quatro letras
+no vocabulário inteiro é registrada nas condições 0 a 2 como diagnóstico.
+
+\textbf{Seleção de $k$ e $\gamma$.} Os dois hiperparâmetros são escolhidos nas audiências de
+validação, e antes da execução verifica-se que nenhum perfil e nenhuma fala usada na recuperação
+contém audiência de validação ou de teste; a verificação não cobre o cargo, que na múltipla escolha
+vem da matéria da audiência avaliada. Primeiro, $k \in \{3, 5, 10\}$ é o valor de maior acerto da
+condição 2; depois, com esse $k$, $\gamma \in \{1;\ 1{,}5;\ 2;\ 3\}$ é o de maior acerto da condição 3,
+para que a diferença entre as condições 2 e 3 dependa só da CFG. Empates vão para a maior
+probabilidade média da opção correta e, depois, para o menor valor da grade. A escolha de
+$\gamma = 1$, que reproduz a condição 2, indicaria que a CFG não aumentou o acerto na validação, e a
+condição 3 coincidiria com a 2 no teste e na geração aberta. No teste, as condições são medidas com o
+$k$ e o $\gamma$ escolhidos.
+
+\textbf{Comparação entre condições.} A diferença de acerto entre condições vizinhas estima o efeito
+do elemento acrescentado e, como as perguntas de uma audiência compartilham assunto, falantes e
+distratores, o intervalo de 95\% de cada diferença é obtido por \textit{bootstrap} pareado de
+percentis, com 1.000 reamostragens de audiências inteiras~\citep{efron1993introduction}. Os três
+intervalos não são ajustados para comparações múltiplas, e as demais medidas são descritivas.
+
+\textbf{Base da estimativa.} No teste, as condições 1 e 2 recebem também o pedido da base da
+estimativa, sem as opções, para que a classificação não dependa dos distratores, e a condição 3
+herda a classificação da 2; respostas sem rótulo são contadas à parte. Pelo critério registrado no
+desenho da avaliação antes da execução, as classes só se sustentam se o acerto na múltipla escolha
+cair de DIRETA para ESPECULATIVA.
+
+\textbf{Geração aberta.} Para cada par formado por um ator com perfil e uma audiência de teste com
+opinião ligada a ele, o modelo recebe a data e o assunto da audiência e gera a base da estimativa nas
+condições 1 e 2, herdada pela 3, e a fala e a justificação nas condições 1 a 3, com o $k$ e o
+$\gamma$ escolhidos na múltipla escolha, em que a CFG age sobre um único token; esse $\gamma$ não foi
+ajustado para a fala, e, como o prompt da geração aberta traz os exemplos de fala, os resultados não
+são comparáveis aos da múltipla escolha na mesma condição. As falas não são comparadas às opiniões
+publicadas, e as medidas são as recusas, a fração de frases sem fundamento e as respostas
+interrompidas pelo limite de tokens (400 para a fala e 1.500 para a justificação). Como os itens do
+perfil dispensam cópia e os exemplos e trechos a exigem, a fração de frases sem fundamento mede a
+conformidade da justificação com o material de cada condição, e não a correção da fala. A fala gerada
+só com o prompt negativo também é registrada e lida como diagnóstico, para saber se ele produz uma
+opinião genérica, como a CFG supõe, ou uma recusa; essa leitura não altera o $\gamma$.
+
+\textbf{Validação humana das UDVs.} A precisão da evidência é medida numa amostra cega sorteada só
+nas audiências de teste, porque as de validação foram usadas na comparação de alternativas da camada
+semântica. A amostra tem 127 linhas (134 UDVs, 30 audiências): 35 das 41 UDVs \texttt{quote\_found},
+65 das 277 \texttt{semantic\_match\_high} sem coincidência de prefixo curto, 15 das 22 UDVs semânticas
+com essa coincidência, as 6 \texttt{semantic\_match\_weak} restantes e as 13 UDVs sem evidência, em 6
+linhas, uma por pessoa, nas quais o anotador indica se a pessoa falou na sessão. Nas demais linhas, o
+anotador vê a opinião, a sentença e o texto ao redor, sem nível, cosseno ou marca de corroboração
+fraca, e julga a sentença como correta, parcial ou incorreta; como as palavras citadas reaparecem na sentença nas
+linhas de citação literal e de prefixo curto, só a distinção entre os dois níveis semânticos fica de
+fato cega. Ao menos 24 horas depois da primeira anotação, 20 linhas voltam em outra ordem, para medir
+a concordância do anotador consigo mesmo. Os critérios, registrados antes de qualquer julgamento,
+exigem que o limite inferior do intervalo de Wilson~\citep{wilson1927probable} de 95\% atinja 0,90 na
+precisão estrita (só ``correta'') da citação literal e 0,75 na precisão tolerante (``correta'' ou
+``parcial'') do nível \texttt{semantic\_match\_high} sem prefixo curto, o que, com as linhas
+sorteadas, exige 35 corretas em 35 e ao menos 56 aceitas em 65.
+
+\textbf{Recursos.} O modelo simulador é executado em <hardware> com <precisão numérica>, e o
+codificador é o Serafim 335m, na mesma versão de pesos da UDV. A classificação da base tem limite de 8
+tokens de saída, e o código, as configurações, os prompts e as saídas estão em <repositório>.

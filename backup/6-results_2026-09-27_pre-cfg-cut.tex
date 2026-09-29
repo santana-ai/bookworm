@@ -1,0 +1,51 @@
+\section{Resultados e Discuss\~ao}
+\label{sec:resultados}
+
+\textbf{UDVs.} Os controles disponíveis indicam fragilidade na camada semântica: nas 183 opiniões de
+treino com citação confiável, a sentença de maior cosseno com a opinião completa é a da própria
+citação em 112 (61,2\%, IC 95\% por \textit{bootstrap} de audiências, de 53,0\% a 68,8\%) e, com os
+trechos entre aspas removidos, em 12 de 142 consultas do treino e em 4 de 40 da validação. Esses
+números mostram que a sentença escolhida por similaridade difere com frequência da passagem citada,
+mas não separam o erro de outra sentença que também sustente a opinião; essa separação cabe à
+validação humana, na qual <resultado da validação humana: precisão estrita da citação literal e
+tolerante do nível \texttt{semantic\_match\_high}, com intervalos de Wilson, critérios atingidos ou
+não, e concordância do anotador consigo mesmo>.
+
+\input{tables/main-results}
+
+\textbf{Simulação.} Na validação, <n> das <n> opiniões ligadas geraram perguntas, de <n> atores em
+<n> audiências, e o maior acerto foi obtido com $k = {<}k{>}$ na condição 2 e com
+$\gamma = {<}\gamma{>}$ na condição 3, e o acerto de cada valor da grade é reportado em <local>. No
+teste, <n> das 106 opiniões ligadas geraram perguntas, de <n> atores em <n> audiências
+(Tabela~\ref{tab:resultados}). A soma das probabilidades das quatro letras teve média <0,00>, <0,00>
+e <0,00> e mínimo <0,00>, <0,00> e <0,00> nas condições 0, 1 e 2. Na condição 2, as perguntas classificadas como
+DIRETA, INDIRETA, ESPECULATIVA e SEM BASE foram <n>, <n>, <n> e <n>, com acerto de <0,00>, <0,00>,
+<0,00> e <0,00>, e <n> respostas não trouxeram rótulo. Nos <n> pedidos da geração aberta, as condições
+1 e 2 produziram <n> e <n> recusas, repetidas na condição 3, a fração de frases sem fundamento foi
+<0,00>, <0,00> e <0,00> nas condições 1 a 3, e <n>, <n> e <n> falas e <n>, <n> e <n> justificações
+atingiram o limite de tokens. <Discussão dos resultados da simulação, a escrever com os números da execução.>
+
+
+\textbf{Gabarito e informação comum às condições.} A opção correta é a opinião que a matéria atribui à
+pessoa, na redação da matéria, e o acerto mede o reconhecimento dessa atribuição, que é uma seleção
+editorial do que foi dito. Os distratores podem coincidir com posições que a pessoa também sustenta,
+sobretudo nas condições que informam o lado dela, e essas perguntas admitem mais de uma resposta
+plausível; sua frequência não foi medida. O nome e o cargo, que às vezes registra a função da pessoa
+na própria audiência avaliada, como relator ou presidente da comissão, entram em todas as condições,
+e o modelo pode associar ao nome posições conhecidas fora do conjunto; a condição 0 reúne esses
+efeitos aos do assunto e da redação das opções, e as diferenças entre condições só os cancelam se
+forem aditivos. A data de corte do pré-treinamento do modelo simulador, <data de corte>, é <anterior
+ou posterior> ao período de teste; se for posterior, as matérias das audiências de teste podem ter
+sido vistas no pré-treinamento, com efeito em todas as condições.
+
+\textbf{Alcance das medidas.} As opiniões de teste ligadas a atores com perfil são no máximo 106, em
+27 audiências, e um intervalo que contém o zero indica que a diferença não foi detectada com essa
+amostra. Os valores de $k$ e de $\gamma$ são escolhidos numa amostra de validação pequena e agrupada
+por audiência, em que diferenças de poucas perguntas entre valores da grade podem refletir ruído. Como
+as condições são encadeadas, a recuperação sem o perfil não é avaliada, e o ganho do perfil sobre a
+simples recuperação das falas fica sem medida; a avaliação também não separa assuntos já tratados nas
+falas de treino de assuntos novos, exceto pela base declarada pelo modelo. Como o modelo simulador é o
+mesmo LLM que escreveu os perfis, o efeito do perfil é medido com um leitor que compartilha o
+vocabulário e os vieses de quem o redigiu, e esse efeito pode não se repetir com outro modelo
+simulador. A fidelidade dos perfis às falas não foi medida por anotação humana, e a conferência da
+justificação não cobre o restante das cópias nem a sustentação das frases.

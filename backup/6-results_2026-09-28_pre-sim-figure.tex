@@ -1,0 +1,72 @@
+\section{Resultados e Discuss\~ao}
+\label{sec:resultados}
+
+\subsection{Evidência das UDVs}
+\label{sec:resultados-udv}
+
+Os controles disponíveis indicam fragilidade no vínculo por similaridade semântica: nas 183 opiniões
+de treino com citação confiável, a sentença de maior cosseno com a opinião completa é a da própria
+citação em 112 (61,2\%). O intervalo de 95\% dessa proporção, por \textit{bootstrap} de audiências,
+vai de 53,0\% a 68,8\%. Com os trechos entre aspas removidos da opinião, a sentença da citação é a
+de maior cosseno em 12 de 142 consultas do treino e em 4 de 40 da validação. Esses números mostram
+que a sentença escolhida por similaridade difere com frequência da passagem citada, mas não separam
+o erro de outra sentença que também sustente a opinião. Essa separação cabe à validação humana, na
+qual <resultado da validação humana: precisão estrita da citação literal e tolerante do nível
+\texttt{semantic\_match\_high}, com intervalos de Wilson, critérios atingidos ou não, e concordância
+do anotador consigo mesmo>.
+
+\subsection{Simulação}
+\label{sec:resultados-simulacao}
+
+\input{tables/main-results}
+
+Na validação, <n> das <n> opiniões ligadas geraram perguntas, de <n> atores em <n> audiências. O
+maior acerto da condição 2 foi obtido com $k = {<}k{>}$, e o acerto de cada valor da grade é
+reportado em <local>. No teste, <n> das 106 opiniões ligadas
+geraram perguntas, de <n> atores em <n> audiências (Tabela~\ref{tab:resultados}). A soma das
+probabilidades das quatro letras teve média <0,00>, <0,00> e <0,00> e mínimo <0,00>, <0,00> e
+<0,00> nas condições 0, 1 e 2.
+
+<Discussão dos resultados da simulação, a escrever com os números da execução.>
+
+% Pendente: figura com um exemplo de pergunta de teste (itens do perfil, trechos recuperados, as quatro opções e as probabilidades nas condições 0 a 2), escolhida depois da rodada final, com um ator que não tenha entrado no teste preliminar.
+
+\subsection{Limitações}
+\label{sec:limitacoes}
+
+\textbf{Gabarito.} A opção correta é a opinião que a matéria atribui à pessoa, na redação da
+matéria, e o acerto mede o reconhecimento dessa atribuição, que é uma seleção editorial do que foi
+dito. Os distratores podem coincidir com posições que a pessoa também sustenta, sobretudo nas
+condições que informam o lado dela, e essas perguntas admitem mais de uma resposta plausível. A
+frequência dessas perguntas não foi medida.
+
+\textbf{Informação comum às condições.} O nome e o cargo entram em todas as condições, e o cargo às
+vezes registra a função da pessoa na própria audiência avaliada, como relator ou presidente da
+comissão. O modelo pode associar ao nome posições conhecidas fora do conjunto. A condição 0 contém
+esses efeitos e os do assunto e da redação das opções. As diferenças entre condições os cancelam
+somente se eles se somarem ao efeito do material acrescentado, sem interagir com ele.
+
+\textbf{Pré-treinamento.} A data de corte do pré-treinamento do modelo simulador, <data de corte>, é
+<anterior ou posterior> ao período de teste. Se for posterior, as matérias das audiências de teste
+podem ter sido vistas no pré-treinamento, com efeito em todas as condições.
+
+\textbf{Tamanho da amostra.} As opiniões de teste ligadas a atores com perfil são no máximo 106, em
+27 audiências, e um intervalo que contém o zero indica que a diferença não foi detectada com essa
+amostra. O valor de $k$ é escolhido numa amostra de validação pequena e agrupada por audiência, em
+que diferenças de poucas perguntas entre valores da grade podem refletir ruído.
+
+\textbf{Desenho da avaliação.} Como as condições são encadeadas, a recuperação sem o perfil não é
+avaliada, e o ganho do perfil sobre a simples recuperação das falas não é medido. A avaliação
+também não separa assuntos já tratados nas falas de treino de assuntos novos.
+
+\textbf{Perfis.} Como o modelo simulador é o mesmo LLM que escreveu os perfis, o efeito do perfil é
+medido com um leitor que compartilha o vocabulário e os vieses de quem o redigiu. Esse efeito pode
+não se repetir com outro modelo simulador. A fidelidade dos perfis às falas não foi medida por
+anotação humana.
+
+\textbf{Evidência da UDV.} A precisão da associação entre o nome citado na matéria e os turnos da
+pessoa não foi medida. O corte de 0,45 entre \texttt{semantic\_match\_high} e
+\texttt{semantic\_match\_weak} não foi validado como medida de confiança, e a variante da calibração
+com negativos da própria pessoa daria 0,50 (Apêndice~\ref{ap:calibracao}). Nem a construção nem o
+verificador avaliam se a evidência sustenta a opinião, o que cabe à validação humana
+(Seção~\ref{sec:setup-udv}).

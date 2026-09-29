@@ -1,0 +1,199 @@
+\section{Regras de construção das UDVs e dos registros de ator}
+\label{ap:regras}
+
+Este apêndice reúne as regras resumidas nas Seções~\ref{sec:metodo-udv} e~\ref{sec:metodo-atores},
+com os números que cada uma produz.
+
+\subsection{UDV}
+\label{ap:regras-udv}
+
+\textbf{Resolução da pessoa.} Cada turno fornece como candidatos o nome do cabeçalho e, quando há, o
+nome entre parênteses, que é o de quem preside nos turnos de presidência e pode ser um nome social
+nos demais. Um participante é associado a um candidato quando os dois conjuntos de palavras, sem
+acento e em maiúsculas, são iguais ou um contém o outro, desde que ambos tenham pelo menos duas
+palavras. Um nome formado por uma palavra é associado a um candidato idêntico ou, na falta deste, ao
+único candidato da audiência que contenha essa palavra; havendo mais de um, nenhum turno é associado
+à pessoa. O participante recebe os turnos de todos os candidatos a que foi associado.
+
+\textbf{Sentenças candidatas.} A segmentação em sentenças é feita dentro de cada turno da pessoa, e
+cada sentença guarda o índice do turno de origem. Com isso, nenhuma sentença junta o fim de um turno
+ao início do turno seguinte da mesma pessoa, entre os quais a transcrição registra falas de outros
+participantes. São mantidas as sentenças com quatro palavras ou mais que não se reduzam a marcação de
+palco, como ``(Palmas.)'', o que resulta em 115.599 sentenças candidatas nas 206 audiências.
+
+\textbf{Busca de citações.} De cada citação com 10 caracteres ou mais são extraídos prefixos de 10, 6,
+4 e 3 palavras (a citação inteira, quando é mais curta que o prefixo). Os prefixos são buscados nessa
+ordem em cada turno da pessoa, sem distinção entre maiúsculas e minúsculas e respeitando as fronteiras
+de palavra. Entre as citações de uma mesma opinião, prevalece a de prefixo encontrado mais longo e,
+no empate, a primeira. Se o prefixo de uma citação confiável atravessa o fim de uma sentença, a
+evidência reúne as sentenças que ele abrange. Se o prefixo ocorre mais de uma vez na fala, é
+escolhida a sentença com maior índice de Jaccard de palavras em relação à opinião.
+
+\textbf{Similaridade semântica e corroboração fraca.} O Serafim 335m produz vetores de 1.024
+dimensões, e a sua entrada é limitada a 128 tokens. Chamamos de prefixo curto o prefixo mais longo
+encontrado quando ele tem menos de seis palavras. Se a sentença que contém a primeira ocorrência de
+um prefixo curto na fala coincide com a escolhida pelo codificador, a UDV registra a coincidência
+como corroboração fraca, sem alterar o nível. Cada UDV registra a versão do codificador e o corte com
+que foi produzida.
+
+\textbf{Localização.} A sentença escolhida é localizada na transcrição original por uma expressão
+regular restrita ao turno de origem, que devolve a primeira ocorrência do texto no turno.
+
+\textbf{Alcance do verificador.} O verificador não recalcula a escolha do codificador, não confere se
+a sentença se repete no turno e não avalia se a evidência sustenta a opinião.
+
+\subsection{Calibração do corte}
+\label{ap:calibracao}
+
+\textbf{Regra principal.} A regra declarada como principal escolheria o corte que maximizasse o
+índice J de Youden~\citep{youden1950index} na separação entre acertos e erros do codificador. As
+consultas dessa regra são opiniões com citação confiável das quais os trechos entre aspas foram
+removidos, e há acerto quando a sentença mais similar à opinião é a da própria citação. Das 183
+opiniões do treino com citação confiável, 142 mantêm quatro palavras ou mais após a remoção; nas 41
+restantes, a opinião se reduz quase inteiramente à citação.
+
+\textbf{Falha da regra principal.} A regra se mostrou degenerada: só 12 das 142 consultas são
+acertos, e os erros têm cosseno mais alto que os acertos (médias de 0,655 e 0,578, respectivamente).
+O maior valor de J é zero, obtido por um corte que aceita todas as consultas.
+
+\textbf{Regra de pares.} O corte adotado depois dessa falha vem de uma regra de pares que a
+declaração da regra principal previa só para comparação. Os positivos são as 183 opiniões do treino
+com citação confiável, cada uma pareada com a sentença da própria citação, e os negativos são a mesma
+opinião pareada com uma sentença sorteada de outra audiência do treino. O corte é o ponto médio entre
+o primeiro quartil dos positivos (0,628) e o terceiro quartil dos negativos (0,281), igual a 0,454 e
+arredondado para 0,45. O intervalo de confiança de 95\% por \textit{bootstrap} de audiências vai de
+0,437 a 0,469. Como 43 das 1.828 UDVs semânticas (2,4\%) estão abaixo de 0,45, o nível
+\texttt{semantic\_match\_weak} reúne poucos registros.
+
+\textbf{Variante com negativos da própria pessoa.} Com negativos sorteados da fala da própria pessoa,
+que correspondem à escolha que o codificador de fato realiza, a mesma regra resultaria em 0,50. A
+escolha entre as duas variantes não foi validada (Seção~\ref{sec:limitacoes}).
+
+\subsection{Registro de ator}
+\label{ap:regras-atores}
+
+\textbf{Evidências das mesclas.} As evidências do próprio conjunto usadas para validar a lista de
+mesclas dos 153 pares de nomes candidatos são o cargo informado na matéria, a apresentação feita pelo
+presidente da sessão, a autoapresentação, o partido e a UF do cabeçalho e a data da audiência.
+
+\textbf{Turnos de presidência.} Nas 206 audiências, os turnos de presidência concentram 42,7\% das
+palavras dos falantes presentes em duas ou mais audiências, contadas antes dos filtros e das mesclas,
+e boa parte dessa fala é de condução da sessão. O turno de presidência mediano tem 28 palavras, e o
+limite de 50 palavras mantém 2.264 dos 6.266 turnos de presidência, com 89\% de suas palavras, e 332
+das 336 evidências de UDV nesses turnos.
+
+\textbf{Conteúdo do registro.} O texto de cada turno é copiado da transcrição sem limpeza e conferido
+com o intervalo indicado pelos offsets. Cada registro de ator traz o nome, o partido e a UF do
+cabeçalho e, por audiência, os turnos com índice, papel (presidência ou fala comum), offsets e texto.
+
+\section{Prompt de geração dos perfis}
+\label{ap:prompt}
+
+O Quadro~\ref{lst:prompt-sistema} reproduz o \textit{system prompt}, igual para todos os atores, sem
+alteração, com a marcação em Markdown original. O Quadro~\ref{lst:prompt-usuario} mostra o esquema do
+\textit{user prompt}, montado por ator. O nome é a grafia mais frequente do nome da pessoa nos cabeçalhos
+dos seus turnos, e por isso pode vir em maiúsculas; a data é a da matéria, no formato dd/mm/aaaa; o
+assunto é o registrado no resumo estruturado. No \textit{system prompt}, a linha com a data e o
+assunto é chamada de cabeçalho, e essa linha com as falas que a seguem, de bloco de falas. O bloco de
+falas se repete para cada audiência de treino do ator,
+em ordem cronológica, e dentro dele cada turno vira um parágrafo, na ordem da transcrição, com a marca
+\texttt{[presidência da sessão]} só antes dos turnos de presidência.
+
+\begin{lstlisting}[basicstyle=\footnotesize\rmfamily,breakindent=0.8em,breakatwhitespace=true,
+caption={\textit{System prompt} da geração dos perfis.},label=lst:prompt-sistema]
+Você escreve perfis de participantes de audiências públicas da Câmara dos Deputados. Cada perfil parte exclusivamente da transcrição das falas da pessoa e será usado como instrução para outro modelo, que precisa responder como essa pessoa responderia, tanto sobre temas que ela já tratou quanto sobre temas novos. Por isso o perfil registra o que a pessoa defende, os critérios que ela usa para chegar a essas posições, os alinhamentos que ela declara e a forma como argumenta.
+
+## Fonte única
+
+- Use somente o que está nas falas fornecidas. Não use conhecimento prévio sobre a pessoa, sobre partidos, sobre organizações ou sobre os temas em debate.
+- Cada bloco de falas começa com um cabeçalho com a data e o assunto da audiência. Esse cabeçalho vem da matéria jornalística sobre a audiência, não da fala da pessoa: use-o só para situar as falas no tempo e no tema, e nunca atribua à pessoa algo que aparece apenas no assunto.
+- Não atribua ideologia, filiação partidária, cargo ou intenção que não estejam ditos nas falas.
+- Não acrescente nada que a fala não traga. Não expanda nem abrevie siglas: se a fala diz só "IBDFAM", o perfil diz só "IBDFAM". Não complete nome, sobrenome, cargo, órgão ou filiação de pessoas citadas: se a fala diz só "Ministro Fulano", o perfil não diz de qual ministério; se diz só "Deputado Caio", o perfil não acrescenta sobrenome. Não atribua ano ou data a um fato que a fala menciona sem data.
+- Dados e fatos citados pela pessoa entram como afirmação dela ("afirma que", "cita levantamento segundo o qual"), nunca como fato estabelecido pelo perfil.
+- Atribua à pessoa somente as posições dela. Proposta, dado ou opinião de terceiros (convidados, colegas, órgãos) que a pessoa apenas relata, resume ou questiona não vira posição dela no perfil.
+- Preserve o grau de certeza e o qualificador exato da fala: pergunta, hipótese ou condicional não vira afirmação categórica, e todo número copiado mantém o recorte a que se refere ("para 70% dos casos o valor é X" não vira "média de X").
+- Se as falas são poucas, vagas ou apenas protocolares, escreva só os blocos que elas sustentam, com um ou dois itens cada. Não complete lacunas nem generalize a partir de um único indício.
+
+## Condução e cortesia
+
+Em qualquer turno, passagens de condução ou de protocolo (passar a palavra, controlar o tempo, pedir tempo ou inscrição, anunciar pauta, citar requerimentos, cumprimentar, agradecer, elogiar colegas ou convidados) não dizem o que a pessoa defende; desconsidere essas passagens. Turnos marcados com [presidência da sessão] trazem muito disso misturado com opinião própria. Aproveite apenas os trechos em que a pessoa se posiciona, argumenta ou propõe.
+
+## Blocos do perfil
+
+O perfil tem até quatro blocos, nesta ordem. Um bloco sem apoio nas falas é omitido inteiro, sem título e sem aviso.
+
+- Posições: o que a pessoa defende, critica, propõe e cobra, e de quem (órgãos, empresas, governos, grupos e pessoas citados nas falas). Cada item traz a posição concreta, com o vocabulário do domínio presente nas falas (nomes de projetos de lei, programas, órgãos, empresas, categorias profissionais, números). Quando a pessoa diz por que defende ou critica algo, o item traz esse motivo com as palavras dela ("rejeita a proposta porque transfere o custo para os municípios"). Os itens não levam data; a única exceção é a mudança de posição entre audiências, registrada no item com as datas ("em 14/05/2024 passou a defender").
+- Critérios e valores: os princípios que a pessoa invoca de forma geral, valendo além do caso em que foram ditos ("se o Estado é laico, deve sê-lo para todos"), e os motivos que ela usa para justificar mais de uma posição, como o que ela diz proteger, quem ela diz que uma medida prejudica ou beneficia, e que regra, direito, dado ou experiência usa como fundamento. Só entra o critério que aparece na fala como justificativa. Não deduza um valor a partir de uma posição: "defende o SUS" não autoriza "valoriza o papel do Estado". Cada item indica a posição ou as posições que o critério justifica. Critérios que se repetem em temas diferentes vêm primeiro, porque são os que orientam a pessoa fora dos temas já tratados.
+- Alinhamentos declarados: o que a pessoa declara sobre si (cargo, organização ou categoria que representa, trajetória, cidade) e sobre o próprio lado (base do governo ou oposição, bancada, frente parlamentar, com quem diz estar alinhada ou em oposição). Somente o que ela diz; não deduza alinhamento das posições, do partido ou de quem ela elogia.
+- Forma de argumentar: como a pessoa constrói o argumento e trata os interlocutores, descrito pelo comportamento observável e não por adjetivo de personalidade: que tipo de apoio usa (dados, casos da base, o que ela diz ter vivido, leis e normas citadas como tais, decisões judiciais), como trata convidados e colegas (pergunta, cobra, concorda, contesta) e expressões ou recursos que se repetem. Escreva "cobra prazos dos representantes do ministério e pede resposta por escrito", e não "combativo". Só entra o traço que aparece em mais de um turno e que nenhuma outra fala contradiz. Uma frase dirigida a uma pessoa ou a um caso específico não vira traço geral. Não descreva o que a pessoa evita fazer nem contraste com o que ela não faz. Quando o tom muda entre audiências (conciliador numa, confrontador noutra), registre cada tom e a audiência em que ele aparece, sem fundir os dois num traço único.
+
+## Escrita
+
+- Português brasileiro, terceira pessoa.
+- Cada bloco começa com o título exato em linha própria, precedido de "## " ("## Posições", "## Critérios e valores", "## Alinhamentos declarados", "## Forma de argumentar"). Os itens começam com "- ". Sem negrito nem outra marcação.
+- Os itens começam pelo verbo ("Defende que", "Critica", "Justifica", "Declara-se"), sem repetir o nome da pessoa.
+- Dentro de cada bloco, ordene os itens por importância: o que se repete em mais audiências e ocupa mais fala vem primeiro.
+- Corte frases sem conteúdo verificável ("demonstra preocupação com diversos temas", "contribui ativamente para o debate"). Uma posição ou um critério que outros participantes também tenham continua entrando se estiver nas falas.
+- Nunca descreva o que a pessoa não disse, não mencionou ou deixou de defender. O perfil contém apenas o que está nas falas, nunca a ausência de algo.
+- Comprimento proporcional ao material, com limite rígido de 800 palavras somando todos os blocos. Falas ricas em muitas audiências merecem um perfil longo e denso: registre cada posição, proposta, critério e alvo distinto, com os números, casos e datas que a pessoa cita, em vez de resumir. Perto do limite, corte os itens de menor importância, nunca comprima tudo em frases vagas. Material pobre gera perfil bem mais curto.
+- A saída é somente os blocos, sem título geral, sem preâmbulo e sem comentários sobre a tarefa.
+\end{lstlisting}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[basicstyle=\footnotesize\rmfamily,breakindent=0.8em,breakatwhitespace=true,escapeinside={(*}{*)},
+caption={Esquema do \textit{user prompt}. Os campos em itálico são preenchidos por ator, com \textit{n} igual ao número de audiências; o bloco de
+falas mostra um turno de presidência seguido de um turno comum.},label=lst:prompt-usuario]
+Escreva o perfil de (*\textit{nome do ator}*) a partir das falas abaixo, transcritas de (*\textit{n}*) audiência(s) pública(s), em ordem cronológica.
+
+=== Audiência de (*\textit{data}*) sobre: (*\textit{assunto}*) ===
+
+[presidência da sessão]
+(*\textit{texto de um turno de presidência}*)
+
+(*\textit{texto de um turno comum}*)
+\end{lstlisting}
+\end{minipage}
+
+\section{Prompts da simulação}
+\label{ap:prompt-simulacao}
+
+O Quadro~\ref{lst:sim-conversa} mostra o esquema do \textit{system prompt} e do \textit{user prompt} da
+simulação (Seção~\ref{sec:metodo-simulacao}), e o Quadro~\ref{lst:sim-pedidos} mostra o
+pedido de múltipla escolha, que ocupa o lugar do campo \textit{pedido}. Os campos em itálico são preenchidos por
+chamada, e na condição 0 o perfil é substituído por ``Nenhum.''. A seção de trechos existe apenas
+na condição 2, com a marca \texttt{[presidência da sessão]} nos trechos de turnos de presidência. As
+demais linhas são reproduzidas sem alteração.
+
+\begin{lstlisting}[basicstyle=\footnotesize\rmfamily,breakindent=0.8em,breakatwhitespace=true,escapeinside={(*}{*)},
+caption={Esquema do \textit{system prompt} e do \textit{user prompt} da simulação. Os rótulos em negrito não fazem parte dos prompts.},label=lst:sim-conversa]
+(*\textbf{\textit{System prompt}}*)
+Você simula como (*\textit{nome}*), (*\textit{cargo}*), se posiciona em audiências públicas da Câmara dos Deputados. O único material sobre a pessoa é o que aparece nesta conversa, extraído de falas dela em audiências anteriores.
+
+- Não use o que você sabe ou supõe sobre a pessoa, sobre partidos ou sobre o grupo que ela representa, nem a sua própria opinião sobre o tema.
+- Quando o material não trata do assunto perguntado, oriente-se pelos critérios e pelos alinhamentos da pessoa. No que você escrever, não atribua a ela posições que o material não traz; ao escolher entre opções dadas, escolha a mais compatível com o material, mesmo que nenhuma apareça nele.
+- O cabeçalho de cada trecho de fala (data e assunto da audiência) vem da matéria jornalística, não da fala: não atribua à pessoa o que aparece só nele. Passagens de condução ou de cortesia e propostas de terceiros que a pessoa apenas relata não são posição dela.
+
+PERFIL
+(*\textit{perfil com os itens numerados (P1, C1, A1, F1, \ldots)}*)
+
+(*\textbf{\textit{User prompt}}*)
+AUDIÊNCIA DE (*\textit{data}*), SOBRE: (*\textit{assunto}*)
+
+TRECHOS DE FALAS ANTERIORES DE (*\textit{nome}*)
+[T1] (*\textit{data} $\cdot$ \textit{assunto da audiência de origem}*)
+[presidência da sessão]
+"(*\textit{sentença recuperada, com a anterior e a seguinte do mesmo turno}*)"
+(*\textit{\ldots\ até} [T\textit{k}]*)
+
+(*\textit{pedido}*)
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize\rmfamily,breakindent=0.8em,breakatwhitespace=true,escapeinside={(*}{*)},
+caption={Pedido de múltipla escolha da simulação.},label=lst:sim-pedidos]
+Uma destas afirmações foi feita por (*\textit{nome}*) nesta audiência, que não aparece no material desta conversa. Qual é a mais provável?
+A) (*\textit{opinião}*)
+B) (*\textit{opinião}*)
+C) (*\textit{opinião}*)
+D) (*\textit{opinião}*)
+Responda só com a letra, mesmo sem certeza.
+\end{lstlisting}

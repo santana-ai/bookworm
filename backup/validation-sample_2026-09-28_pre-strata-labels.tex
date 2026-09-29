@@ -1,0 +1,20 @@
+\begin{table}[!htb]
+  \centering
+  \caption{Estratos da amostra de validação humana, sorteada nas 30 audiências de teste. Os critérios
+  usam o limite inferior do intervalo de Wilson de 95\%.}
+  \label{tab:amostra}
+  \small
+  \begin{tabularx}{\textwidth}{@{}Xrrl@{}}
+    \toprule
+    \textbf{Estrato} & \textbf{No teste} & \textbf{Sorteadas} & \textbf{Critério registrado} \\
+    \midrule
+    \texttt{quote\_found}                                   &  41 &  35 & precisão estrita $\geq 0{,}90$ (35 em 35) \\
+    \texttt{semantic\_match\_high} sem corroboração fraca   & 277 &  65 & precisão tolerante $\geq 0{,}75$ (56 em 65) \\
+    Semânticas com corroboração fraca                       &  22 &  15 & -- \\
+    \texttt{semantic\_match\_weak} sem corroboração fraca   &   6 &   6 & -- \\
+    Sem evidência                                           &  13 &  13 & -- \\
+    \midrule
+    \textbf{Total}                                          & \textbf{359} & \textbf{134} & \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
