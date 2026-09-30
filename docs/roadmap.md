@@ -24,9 +24,8 @@ Inscrição até 30/07/2026; submissão até 30/09/2026; avaliação de 01 a 15/
 
 ## Checklist de entregáveis do desafio
 
-- [ ] Inscrição da equipe (prazo 30/07/2026): confirmar o registro.
-- [ ] Artigo científico de até 10 páginas no template do desafio, no repositório
-      [github.com/JoaoVitorBoer/bookworm](https://github.com/JoaoVitorBoer/bookworm).
+- [X] Inscrição da equipe (prazo 30/07/2026): confirmar o registro.
+- [x] Artigo científico de até 15 páginas no template do desafio.
 - [x] Código-fonte documentado em repositório acessível: biblioteca `bookworm/` 1.0.0 e experimentos em
       `experiments/`, com README, guia de reprodução, relatório, ADRs, licença e citação.
 - [ ] Vídeo de até 5 minutos.
