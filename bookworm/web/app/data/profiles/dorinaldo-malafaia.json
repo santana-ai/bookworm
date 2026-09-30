@@ -1,0 +1,365 @@
+{
+  "actor": {
+    "slug": "dorinaldo-malafaia",
+    "name": "DORINALDO MALAFAIA",
+    "display_name": "DORINALDO MALAFAIA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PDT - AP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:08:12+00:00",
+    "n_statements": 10,
+    "n_hearings": 3,
+    "hearing_ids": [
+      2,
+      171,
+      199
+    ],
+    "input_tokens": 4403,
+    "output_tokens": 846,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a eliminação da malária na Amazônia e solicita à Ministra da Saúde informações sobre o andamento do plano de erradicação.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 369,
+            "start": 232788,
+            "end": 232894,
+            "text": "Primeiro, é um pedido, nós temos que eliminar a malária na Amazônia e estamos com um plano muito avançado.",
+            "score": 0.3196
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede a abertura plena do Hospital Universitário do Amapá, que considera o maior da Região Norte, para atender a população local, citando sua atuação tímida atual e sua importância na pandemia e na síndrome gripal.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 369,
+            "start": 233072,
+            "end": 233199,
+            "text": "O Hospital Universitário é um dos maiores, ou o maior da Região Norte, e ele está hoje atendendo de maneira ainda muito tímida.",
+            "score": 0.3962
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a suspensão das tarifas vermelha e amarela para Estados superavitários em energia, como o Amapá, argumentando que é inaceitável que produtores paguem as mesmas bandeiras quando os reservatórios do Sul e Sudeste estão baixos.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 96,
+            "start": 156759,
+            "end": 156883,
+            "text": "Quando os reservatórios estão em baixa no Sul e no Sudeste, nós pagamos igualmente a bandeira vermelha e a bandeira amarela.",
+            "score": 0.3315
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a concessionária Equatorial por praticar tarifas de energia elétrica de 700 a 800 reais no Amapá, classificando a situação como espoliação que está fechando comércios locais.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 96,
+            "start": 157250,
+            "end": 157357,
+            "text": "A população vive uma situação de espoliação feita pela Equatorial, que é a atual concessionária do serviço.",
+            "score": 0.3116
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério de Minas e Energia uma audiência para debater a matriz energética diferenciada do Amapá, após ofício enviado sem resposta.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 96,
+            "start": 157450,
+            "end": 157526,
+            "text": "Nós precisamos ter um posicionamento por uma matriz energética diferenciada.",
+            "score": 0.3788
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento do Sistema Único de Saúde (SUS) e a recuperação da campanha vacinal, posicionando-se contra o negacionismo científico.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 243,
+            "start": 170095,
+            "end": 170260,
+            "text": "Portanto, eu quero parabenizá-la e dizer-lhe que nós estamos num ponto de virada, começando um processo muito importante de fortalecimento do Sistema Único de Saúde.",
+            "score": 0.277
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o negacionismo é a principal ideologia a ser enfrentada no Parlamento, superando o bolsonarismo, e responsabiliza os negacionistas pelas mortes causadas pela falta de vacinação.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Solicita à Ministra da Saúde as estratégias futuras para o processo de vacinação no país.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 243,
+            "start": 170772,
+            "end": 170900,
+            "text": "Quero parabenizá-la, Ministra, e, por último, perguntar-lhe quais são as estratégias do processo de vacinação daqui para frente.",
+            "score": 0.413
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência profissional na saúde e a memória da pandemia como fundamento para defender a reconstrução do SUS e a valorização dos profissionais de saúde.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 365,
+            "start": 230311,
+            "end": 230382,
+            "text": "O povo brasileiro reconheceu o SUS, reconheceu o profissional da saúde.",
+            "score": 0.2413
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a justiça social e a equidade regional como critérios para criticar a política tarifária de energia, argumentando que Estados produtores não devem ser tratados de forma igual a consumidores deficitários.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na ciência e na história do Programa Nacional de Imunizações (PNI) para legitimar a defesa da vacinação e combater o negacionismo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 239,
+            "start": 167192,
+            "end": 167314,
+            "text": "Vimos num corredor do Ministério da Saúde a história do Programa Nacional de Imunizações, desde Oswaldo Cruz, muito antes.",
+            "score": 0.3165
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a noção de \"ponto de virada\" para justificar a urgência no enfrentamento do negacionismo e na recuperação da confiança pública nas vacinas.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 243,
+            "start": 169833,
+            "end": 169876,
+            "text": "Então, existe um ponto de virada, Ministra.",
+            "score": 0.2455
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se enfermeiro de profissão e ex-Secretário de Saúde da Superintendência de Vigilância em Saúde.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 365,
+            "start": 229391,
+            "end": 229514,
+            "text": "Eu sou enfermeiro de profissão, fui Secretário de Saúde da Superintendência de Vigilância em Saúde e acompanhei a pandemia.",
+            "score": 0.6744
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante do Amapá e membro da bancada do estado.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 96,
+            "start": 157744,
+            "end": 157865,
+            "text": "que nos atenda, que atenda a bancada do Amapá, e que possamos debater as altas tarifas de energia elétrica do meu Estado.",
+            "score": 0.2826
+          },
+          "udv": null
+        },
+        {
+          "text": "Afilia-se à Frente Parlamentar em Defesa da Vacina.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 238,
+            "start": 166252,
+            "end": 166407,
+            "text": "Agradeço, em nome da Frente Parlamentar em Defesa da Vacina, a presença do Ministério ontem na comemoração dos 50 anos do Programa Nacional de Imunizações.",
+            "score": 0.3953
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se como aliado do Governo Federal e da Ministra da Saúde, Nísia Trindade, elogiando a equipe ministerial e o Presidente Lula.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 239,
+            "start": 167715,
+            "end": 167740,
+            "text": "Temos 8 meses de Governo.",
+            "score": 0.1555
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara oposição ao bolsonarismo e ao negacionismo, que considera uma ideologia de negação e mentira.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 369,
+            "start": 232602,
+            "end": 232700,
+            "text": "A sua tarefa e da sua equipe é o negacionismo, que é a ideologia cognitiva da negação, da mentira.",
+            "score": 0.4876
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emotiva e apelativa, dirigindo-se diretamente à Ministra com tom de encorajamento e defesa pessoal (\"saia daqui com a espinha ereta\", \"não se contaminar por esse circo de horrores\").",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 365,
+            "start": 230384,
+            "end": 230525,
+            "text": "Então, eu quero lhe dizer que a senhora tem que sair daqui altiva, como é, e não se contaminar por esse circo de horrores que é o Parlamento.",
+            "score": 0.2904
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos e fatos locais (apagões de 2020, temperaturas de 42 graus, valor da conta de luz) para sustentar suas reivindicações regionais.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 96,
+            "start": 156182,
+            "end": 156282,
+            "text": "E as temperaturas, permanentes no nosso verão amazônico, eram de 37 graus, de 40 graus, de 42 graus.",
+            "score": 0.2651
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega metáforas e contrastes retóricos, como \"Zé Gotinha\" contra \"arminha\", para simbolizar a luta entre ciência e negacionismo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 243,
+            "start": 170464,
+            "end": 170597,
+            "text": "Enquanto eles usam arminha na lapela, nós usamos o Zé Gotinha, e eles morrem de medo do Zé Gotinha, é impressionante, morrem de medo.",
+            "score": 0.2813
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita eventos recentes e decisões judiciais (prisão de golpistas, inelegibilidade de Bolsonaro) para contextualizar o \"desespero\" da oposição.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Interrompe colegas de parlamento para manter o controle da palavra, demonstrando assertividade na condução de seus argumentos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 369,
+            "start": 232554,
+            "end": 232601,
+            "text": "Nós temos que enfrentar, este Parlamento, isso.",
+            "score": 0.1589
+          },
+          "udv": null
+        },
+        {
+          "text": "Repete expressões como \"negacionismo\", \"ponto de virada\" e \"espoliação\" para reforçar suas teses centrais.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 243,
+            "start": 169833,
+            "end": 169876,
+            "text": "Então, existe um ponto de virada, Ministra.",
+            "score": 0.2831
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

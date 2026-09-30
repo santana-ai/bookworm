@@ -1,0 +1,339 @@
+{
+  "actor": {
+    "slug": "maria-do-rosario",
+    "name": "MARIA DO ROSÁRIO",
+    "display_name": "Maria do Rosário",
+    "role": "Deputada (PT-RS)",
+    "article_names": [
+      "Maria do Rosário"
+    ],
+    "party_uf": [
+      "PT - RS",
+      "Bloco/PT - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:14:15+00:00",
+    "n_statements": 5,
+    "n_hearings": 2,
+    "hearing_ids": [
+      74,
+      153
+    ],
+    "input_tokens": 4229,
+    "output_tokens": 866,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 2,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o Estado brasileiro acolha e proteja na plenitude dos direitos as crianças órfãs da COVID-19, citando o número de mais de 150 mil crianças afetadas pelo que classifica como genocídio provocado pela pandemia e pelo negacionismo à ciência.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 14863,
+            "end": 14902,
+            "text": "Mais de 150 mil crianças ficaram órfãs.",
+            "score": 0.3968
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o desmonte do Bolsa Família e a implementação do Auxílio Brasil, argumentando que, embora deseje que recursos cheguem às famílias, houve a supressão de condicionantes fundamentais para os direitos da infância.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 17208,
+            "end": 17443,
+            "text": "Ainda que queiramos que os recursos cheguem às famílias, é importante que se diga que houve um desmonte do Bolsa Família e que, com esse desmonte, houve o desmonte de condicionantes fundamentais para os direitos da infância brasileira.",
+            "score": 0.6189
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma política nacional de prevenção ao assoreamento de rios, por meio da recomposição de matas ciliares e do controle da erosão, apresentando projeto de lei próprio e solicitando apoio do Governo Federal e dos Ministros Paulo Pimenta e Waldez Góes.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 103,
+            "start": 171180,
+            "end": 171375,
+            "text": "É um projeto que institui, Ministro Waldez, a política nacional de prevenção ao assoreamento de rios, por meio da recomposição de matas ciliares e do controle da erosão, e dá outras providências.",
+            "score": 0.6036
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que os planos decenais e plurianuais sejam observados nas áreas de acolhimento familiar e comunitário, combate à exploração sexual, enfrentamento da violência física e psicológica, trabalho infantil e questões de renda, rejeitando políticas que não sejam estruturantes no tema da renda.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 16357,
+            "end": 16995,
+            "text": "Quem defende o estatuto, quem defende a infância precisa assumir também o seu posicionamento claro por aqueles e aquelas que defendem a proteção integral dos direitos da criança, para que possamos ressignificar e valorizar os conselhos de direitos, os fóruns da sociedade civil organizada, para que possamos garantir que os planos decenais e plurianuais sejam observados nas áreas do direito ao acolhimento familiar e comunitário, do combate à exploração sexual, do cumprimento […]",
+            "score": 0.5535
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a ressignificação e valorização dos conselhos de direitos e dos fóruns da sociedade civil organizada, solidarizando-se com os conselheiros que vêm sendo atacados.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 18127,
+            "end": 18250,
+            "text": "Eu me solidarizo com aqueles e aquelas que participam dos conselhos e vêm sendo atacados, com a sociedade civil brasileira.",
+            "score": 0.4228
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica as mudanças na legislação ambiental que precarizaram as matas ciliares nas cidades, citando o caso de Porto Alegre, onde afirma haver 84 áreas de risco mapeadas para desabamentos.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 103,
+            "start": 171492,
+            "end": 171626,
+            "text": "Nós, ao longo dos últimos anos, fizemos mudanças na legislação ambiental que precarizaram, no ambiente das cidades, as matas ciliares.",
+            "score": 0.4445
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a proteção integral da infância e a prioridade absoluta, conforme a Constituição e a Convenção sobre os Direitos da Criança, como fundamento para defender a visão da infância até os 18 anos, rejeitando a separação entre primeira infância e adolescência.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 17816,
+            "end": 17912,
+            "text": "É isso o que está na Constituição e é isso o que está na Convenção sobre os Direitos da Criança.",
+            "score": 0.3608
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca os princípios da Revolução Francesa e as garantias fundamentais como base para afirmar que adultos cuidarem e protegendo integralmente a infância é o básico de uma civilização.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 12751,
+            "end": 12993,
+            "text": "Isso corresponde a vivermos em uma nação civilizada, com os princípios que pelo menos a Revolução Francesa nos deixou como legado, de garantias fundamentais.Nós falamos, sim, de direitos humanos das crianças e dos adolescentes sendo violados.",
+            "score": 0.279
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a defesa do ECA e da Constituição como atos de coragem em tempos de ódio e destruição, argumentando que a Constituição está sendo rompida e destruída diariamente por governantes e pelo Presidente da República, apesar do juramento feito.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 16041,
+            "end": 16356,
+            "text": "Por mais que Parlamentares, governantes, o Presidente da República, todos tenham jurado a Constituição, ela está sendo rompida e destruída todos os dias.Ao defendermos a infância na sua plenitude, estabelecemos, como disse Ana Paula, aliás, a busca por uma mudança política neste País, pela valorização do estatuto.",
+            "score": 0.2949
+          },
+          "udv": null
+        },
+        {
+          "text": "Associa a precariedade econômica e a insegurança alimentar (citando 33 milhões de brasileiros em situação de fome) à dimensão racial e ao racismo, justificando a necessidade de proteção específica à infância negra.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 13876,
+            "end": 14004,
+            "text": "Hoje, 33 milhões de brasileiros estão em situação de insegurança alimentar e de fome, uma condição que nós já havíamos superado.",
+            "score": 0.4378
+          },
+          "udv": {
+            "id": "udv-74-3-0",
+            "rule": "same_sentence",
+            "score": 0.2729
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se integrante da Comissão de Legislação Participativa e da Frente Parlamentar em Defesa dos Direitos da Criança e do Adolescente.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 11557,
+            "end": 11941,
+            "text": "Um abraço apertado a todos os integrantes da audiência pública, que participam contribuindo com esta Comissão de Legislação Participativa, hoje conduzida pela minha colega Erika Kokay, que é ativa, participante, já coordenou a Frente Parlamentar de Promoção e Defesa dos Direitos da Criança e do Adolescente e foi Relatora de uma Comissão que fez o enfrentamento da exploração sexual.",
+            "score": 0.4308
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante do Rio Grande do Sul e moradora de Porto Alegre.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 103,
+            "start": 171022,
+            "end": 171178,
+            "text": "E vários colegas Parlamentares do Rio Grande do Sul, entre eles o Deputado Alceu Moreira, o Deputado Marcon e a Deputada Reginete, assinam também o projeto.",
+            "score": 0.1765
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhada com a sociedade civil brasileira e com os mandatos das causas populares no Brasil.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 15463,
+            "end": 15523,
+            "text": "Nós temos uma sociedade civil no Brasil para ser valorizada.",
+            "score": 0.3306
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio ao Governo Federal, especificamente ao Presidente Lula e aos Ministros Paulo Pimenta e Waldez Góes, elogiando a atuação deles na reconstrução do Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 103,
+            "start": 172225,
+            "end": 172362,
+            "text": "E, por último, Ministro Waldez, o Ministro Paulo Pimenta, de acordo com o Presidente Lula, tem representado o Rio Grande em cada momento.",
+            "score": 0.3256
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos (número de órfãos, número de brasileiros em insegurança alimentar, número de áreas de risco) e referências a marcos históricos (Constituinte, anos 90, anos 2000) para contextualizar as posições.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 13876,
+            "end": 14004,
+            "text": "Hoje, 33 milhões de brasileiros estão em situação de insegurança alimentar e de fome, uma condição que nós já havíamos superado.",
+            "score": 0.1527
+          },
+          "udv": {
+            "id": "udv-74-3-0",
+            "rule": "same_sentence",
+            "score": 0.0935
+          }
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, utilizando termos como \"genocídio\", \"ato de coragem\", \"abandono total\" e \"sofrimento\" para reforçar a urgência das propostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita diretamente interlocutores (Deputada Erika Kokay, Ministros, Prefeitos) e colegas parlamentares (Deputado Alceu Moreira, Deputado Marcon, Deputada Reginete) para construir consenso e solicitar apoio a projetos de lei.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 103,
+            "start": 171022,
+            "end": 171178,
+            "text": "E vários colegas Parlamentares do Rio Grande do Sul, entre eles o Deputado Alceu Moreira, o Deputado Marcon e a Deputada Reginete, assinam também o projeto.",
+            "score": 0.5128
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura o argumento conectando a defesa de direitos específicos (infância, meio ambiente) a uma crítica política ampla ao governo anterior e à necessidade de resistência ativa.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 5,
+            "start": 15416,
+            "end": 15462,
+            "text": "Mas eu digo a vocês: essa resistência é ativa.",
+            "score": 0.2481
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 74,
+      "split": "train",
+      "article_date": "2022-07-11",
+      "title": "Debatedores apontam desafios para implementação plena do ECA",
+      "assunto": "Desafios para a implementação plena do Estatuto da Criança e do Adolescente (ECA)",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-74-3-0",
+      "hearing_id": 74,
+      "n": 6,
+      "article_name": "Maria do Rosário",
+      "proposition": "\"Eu vejo nos dias atuais que a criança e o adolescente são um espelho do abandono total em que se encontram as famílias brasileiras. São 33 milhões de pessoas colocadas em situação de insegurança alimentar, condição que nós já havíamos superado.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu vejo, nos dias atuais, que a criança e o adolescente são mais do que nunca o espelho, o espelhar perfeito do abandono total em que se encontram as famílias brasileiras. Hoje, 33 milhões de brasileiros estão em situação de insegurança alimentar e de fome, uma condição que nós já havíamos superado.",
+        "turn": 5,
+        "start": 13704,
+        "end": 14004
+      },
+      "verifier": {
+        "probability": 0.9938735153411906,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

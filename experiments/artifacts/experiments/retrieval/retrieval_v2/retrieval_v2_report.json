@@ -1,0 +1,3075 @@
+{
+  "run_name": "retrieval_v2",
+  "created_at": "2026-09-27T02:48:35+00:00",
+  "splits_used": [
+    "train",
+    "validation"
+  ],
+  "final_test": false,
+  "baseline": {
+    "retriever": "serafim_335m",
+    "unit": "sentence",
+    "retriever_role": "reference retriever of E1, compared within each unit kind",
+    "unit_role": "reference unit kind of E2, compared within each retriever",
+    "configured": true
+  },
+  "question": "given an opinion and the speaker's candidate units, which representation ranks a supporting passage first",
+  "declaration": {
+    "declared": "Declared on 2026-09-27, before any Laya score on a retrieval benchmark was computed (smoke runs included). Question: does Laya, used as a reranker of the serafim_335m top 20 sentences, put a supporting sentence first more often than serafim_335m alone? Laya had never been tested as a retriever; in E3 it only judged inferability over the four retrieved chunks.",
+    "run_name": "retrieval_v2",
+    "primary": "rerank_laya_p4: laya_multi_pt with the battery question p4_supports (the best single Portuguese question of the E3 v2 validation, ROC AUC 0.793; chosen from E3, not from any retrieval result); no translation",
+    "secondary": "rerank_laya_p3 (p3_inferable), run after the primary only if the throughput measured on the primary leaves room; no variant with translation",
+    "design": "base serafim_335m, unit sentence, top_k 20 (the value of rerank_bge and rerank_mmarco, so the three rerankers are comparable); splits train and validation only, the test split is not read; both benchmarks (masked_quotes, nli)",
+    "top_k_rule": "top_k may be lowered to 10 only if a smoke run shows that the full run would exceed about 6 hours on MPS, decided from throughput alone before any retrieval metric is seen; the value used is recorded here",
+    "run_contents": "the retrieval_v2 run holds serafim_335m (baseline), rerank_bge and rerank_mmarco on the sentence unit, recomputed from the E1 caches (their rows are checked against retrieval_v1), plus the Laya rerankers; no retrieval_v1 file is modified",
+    "evaluation": "the E1 machinery unchanged: acc@1/3/5 and MRR with hearing-bootstrap intervals; each retriever against serafim_335m on the sentence unit with exact McNemar on acc@1 and the hearing sign-flip test on the reciprocal rank; Holm over one family per benchmark, split group and test, the family holding every non-baseline retriever of the run (rerank_bge, rerank_mmarco, rerank_laya_p4 and rerank_laya_p3 if run). Laya against rerank_bge and rerank_mmarco is reported descriptively (summarize with --baseline-retriever), outside the decision",
+    "decision_rule": "Laya reranking is proposed for the UDV only if its MRR on nli validation is higher than serafim_335m with Holm-adjusted p < 0.05; otherwise it is reported as a negative result",
+    "device_and_top_k_decision": "Recorded on 2026-09-27 from throughput alone, before any retrieval metric of a Laya reranker was read: a CPU smoke run (2 hearings requested, 1 loaded, 5 queries, 100 pairs) scored 100 pairs in 2.16 s of forward time (about 46 pairs/s, 93 input tokens per pair, no truncated premise); the full train and validation run is about 67,400 pairs per variant (the pair count of rerank_bge in retrieval_v1), about 25 to 40 minutes on CPU. So top_k stays 20, the Laya rerankers run on the CPU (float32; the MPS stays free for another job on the machine and the CPU answers go to their own cache file), and the secondary rerank_laya_p3 is run after the primary. serafim_335m, rerank_bge and rerank_mmarco are recomputed on the CPU from their caches, with a check that no embedding or pair score is computed anew"
+  },
+  "benchmarks": {
+    "masked_quotes": {
+      "path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+      "query_field": "masked_opinion",
+      "candidates": "the row's candidate list (the speaker's per-turn sentences), checked against the list rebuilt from the LDS with resolve_hearing_people",
+      "relevance": "a unit is relevant when it contains a sentence listed in target_indices (the sentences that agree with the silver target sentence enclosing the trusted quote prefix)"
+    },
+    "nli": {
+      "path": "artifacts/benchmarks/nli_v1.jsonl",
+      "query_field": "opinion",
+      "filters": [
+        "label_inferable is true",
+        "person resolved to LDS turns",
+        "at least one located chunk",
+        "at least one sentence unit of the speaker overlaps a located chunk segment"
+      ],
+      "candidates": "rebuilt from person_resolution.turn_indices with split_into_turns and split_sentences on each turn, the resolution rechecked with resolve_person_speech on the NLI person name",
+      "relevance": "a unit is relevant when its character span overlaps the recorded span (chosen occurrence) of any segment of any located chunk of the opinion; the label says the opinion was judged inferable from the four retrieved chunks together (retrieved_context_entailment), not that each overlapping unit supports it"
+    }
+  },
+  "definitions": {
+    "rank": "1-based position of the first relevant unit in the retriever's order",
+    "rank_optimistic": "1 + number of non-relevant units scored strictly above the best relevant",
+    "rank_pessimistic": "1 + number of non-relevant units scored at or above the best relevant",
+    "acc_at_k": "share of queries whose rank is at most k",
+    "mrr": "mean of 1 / rank",
+    "random_acc_at_1": "mean over queries of n_relevant / n_units, the acc@1 of a uniform pick",
+    "acc_at_1_minus_random": "acc@1 minus random_acc_at_1, comparable across unit sizes",
+    "top1_chars": "characters of the top-1 unit, the evidence the retriever would hand over",
+    "ci": "percentile interval over bootstrap replicates that resample whole hearings",
+    "mcnemar": "exact two-sided binomial test on the queries where exactly one of the baseline and the other retriever has the relevant unit at rank 1; it treats queries as independent, so the hearing-bootstrap interval of the acc@1 difference is reported next to it",
+    "mrr_test": "two-sided sign-flip permutation test that flips whole hearings",
+    "lift": "per query: 1 if the rank-1 unit is relevant, else 0, minus n_relevant / n_units",
+    "retrievers_within_unit": "E1: each retriever against evaluation.baseline_retriever on the same unit kind and the same queries (exact McNemar on acc@1, hearing sign-flip on the reciprocal rank); retrievers are never tested across unit kinds",
+    "units_within_retriever": "E2: each unit kind against evaluation.baseline_unit for the same retriever and the same queries; the tested quantity is the paired difference of lift (hearing-bootstrap interval, hearing sign-flip test), reported next to the paired difference of top1_chars; raw acc@1 and MRR are shown but not tested across unit kinds, because a larger unit is relevant by chance more often (random_acc_at_1) and a query whose units are all relevant cannot be missed",
+    "holm_family": "the set of p-values adjusted together: E1|<bench>|<split group>|<unit>|<test> and E2|<bench>|<split group>|<retriever>|<test>; each adjusted p-value carries the name of its family and each family its size"
+  },
+  "summaries": {
+    "masked_quotes": {
+      "train": {
+        "sentence": {
+          "rerank_bge": {
+            "queries": 142,
+            "hearings": 87,
+            "acc_at_1": {
+              "point": 0.0775,
+              "low": 0.04,
+              "high": 0.1185
+            },
+            "acc_at_3": {
+              "point": 0.2606,
+              "low": 0.1894,
+              "high": 0.336
+            },
+            "acc_at_5": {
+              "point": 0.3732,
+              "low": 0.2905,
+              "high": 0.449
+            },
+            "mrr": {
+              "point": 0.2202,
+              "low": 0.1804,
+              "high": 0.263
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0628,
+              "low": 0.0251,
+              "high": 0.1038
+            },
+            "random_acc_at_1": 0.0147,
+            "acc_at_1_tie_bounds": [
+              0.0775,
+              0.0775
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 128.62,
+            "mean_relevant": 1.01,
+            "top1_chars": {
+              "mean": 170.4,
+              "median": 131.0
+            },
+            "mean_unit_chars": 121.7
+          },
+          "rerank_laya_p3": {
+            "queries": 142,
+            "hearings": 87,
+            "acc_at_1": {
+              "point": 0.0986,
+              "low": 0.0526,
+              "high": 0.15
+            },
+            "acc_at_3": {
+              "point": 0.1972,
+              "low": 0.1333,
+              "high": 0.2609
+            },
+            "acc_at_5": {
+              "point": 0.3169,
+              "low": 0.2381,
+              "high": 0.3971
+            },
+            "mrr": {
+              "point": 0.2126,
+              "low": 0.1667,
+              "high": 0.2621
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0839,
+              "low": 0.0382,
+              "high": 0.1336
+            },
+            "random_acc_at_1": 0.0147,
+            "acc_at_1_tie_bounds": [
+              0.0986,
+              0.0986
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 128.62,
+            "mean_relevant": 1.01,
+            "top1_chars": {
+              "mean": 221.2,
+              "median": 192.0
+            },
+            "mean_unit_chars": 121.7
+          },
+          "rerank_laya_p4": {
+            "queries": 142,
+            "hearings": 87,
+            "acc_at_1": {
+              "point": 0.0915,
+              "low": 0.0465,
+              "high": 0.1418
+            },
+            "acc_at_3": {
+              "point": 0.1901,
+              "low": 0.1286,
+              "high": 0.2555
+            },
+            "acc_at_5": {
+              "point": 0.3239,
+              "low": 0.25,
+              "high": 0.3975
+            },
+            "mrr": {
+              "point": 0.2074,
+              "low": 0.1624,
+              "high": 0.2564
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0769,
+              "low": 0.0313,
+              "high": 0.1271
+            },
+            "random_acc_at_1": 0.0147,
+            "acc_at_1_tie_bounds": [
+              0.0915,
+              0.0915
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 128.62,
+            "mean_relevant": 1.01,
+            "top1_chars": {
+              "mean": 226.1,
+              "median": 192.0
+            },
+            "mean_unit_chars": 121.7
+          },
+          "rerank_mmarco": {
+            "queries": 142,
+            "hearings": 87,
+            "acc_at_1": {
+              "point": 0.1127,
+              "low": 0.0645,
+              "high": 0.1644
+            },
+            "acc_at_3": {
+              "point": 0.2465,
+              "low": 0.1739,
+              "high": 0.3125
+            },
+            "acc_at_5": {
+              "point": 0.3239,
+              "low": 0.25,
+              "high": 0.3946
+            },
+            "mrr": {
+              "point": 0.2298,
+              "low": 0.1826,
+              "high": 0.2753
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.098,
+              "low": 0.0478,
+              "high": 0.1479
+            },
+            "random_acc_at_1": 0.0147,
+            "acc_at_1_tie_bounds": [
+              0.1127,
+              0.1127
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 128.62,
+            "mean_relevant": 1.01,
+            "top1_chars": {
+              "mean": 186.3,
+              "median": 153.5
+            },
+            "mean_unit_chars": 121.7
+          },
+          "serafim_335m": {
+            "queries": 142,
+            "hearings": 87,
+            "acc_at_1": {
+              "point": 0.0845,
+              "low": 0.0451,
+              "high": 0.1278
+            },
+            "acc_at_3": {
+              "point": 0.2535,
+              "low": 0.1769,
+              "high": 0.3292
+            },
+            "acc_at_5": {
+              "point": 0.3662,
+              "low": 0.291,
+              "high": 0.4385
+            },
+            "mrr": {
+              "point": 0.2226,
+              "low": 0.1801,
+              "high": 0.2662
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0698,
+              "low": 0.0295,
+              "high": 0.114
+            },
+            "random_acc_at_1": 0.0147,
+            "acc_at_1_tie_bounds": [
+              0.0845,
+              0.0845
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 128.62,
+            "mean_relevant": 1.01,
+            "top1_chars": {
+              "mean": 170.0,
+              "median": 143.0
+            },
+            "mean_unit_chars": 121.7
+          }
+        }
+      },
+      "validation": {
+        "sentence": {
+          "rerank_bge": {
+            "queries": 40,
+            "hearings": 24,
+            "acc_at_1": {
+              "point": 0.075,
+              "low": 0.0,
+              "high": 0.1667
+            },
+            "acc_at_3": {
+              "point": 0.3,
+              "low": 0.1628,
+              "high": 0.4324
+            },
+            "acc_at_5": {
+              "point": 0.425,
+              "low": 0.2727,
+              "high": 0.5745
+            },
+            "mrr": {
+              "point": 0.2293,
+              "low": 0.1582,
+              "high": 0.3042
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0569,
+              "low": -0.0177,
+              "high": 0.1518
+            },
+            "random_acc_at_1": 0.0181,
+            "acc_at_1_tie_bounds": [
+              0.075,
+              0.075
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 152.5,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 165.7,
+              "median": 146.0
+            },
+            "mean_unit_chars": 123.4
+          },
+          "rerank_laya_p3": {
+            "queries": 40,
+            "hearings": 24,
+            "acc_at_1": {
+              "point": 0.05,
+              "low": 0.0,
+              "high": 0.125
+            },
+            "acc_at_3": {
+              "point": 0.225,
+              "low": 0.0526,
+              "high": 0.4048
+            },
+            "acc_at_5": {
+              "point": 0.325,
+              "low": 0.1351,
+              "high": 0.5116
+            },
+            "mrr": {
+              "point": 0.1999,
+              "low": 0.1165,
+              "high": 0.2893
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0319,
+              "low": -0.0223,
+              "high": 0.1094
+            },
+            "random_acc_at_1": 0.0181,
+            "acc_at_1_tie_bounds": [
+              0.05,
+              0.05
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 152.5,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 206.3,
+              "median": 164.0
+            },
+            "mean_unit_chars": 123.4
+          },
+          "rerank_laya_p4": {
+            "queries": 40,
+            "hearings": 24,
+            "acc_at_1": {
+              "point": 0.075,
+              "low": 0.0,
+              "high": 0.1714
+            },
+            "acc_at_3": {
+              "point": 0.25,
+              "low": 0.075,
+              "high": 0.4222
+            },
+            "acc_at_5": {
+              "point": 0.325,
+              "low": 0.15,
+              "high": 0.4892
+            },
+            "mrr": {
+              "point": 0.216,
+              "low": 0.1261,
+              "high": 0.311
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0569,
+              "low": -0.0155,
+              "high": 0.1506
+            },
+            "random_acc_at_1": 0.0181,
+            "acc_at_1_tie_bounds": [
+              0.075,
+              0.075
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 152.5,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 215.3,
+              "median": 177.5
+            },
+            "mean_unit_chars": 123.4
+          },
+          "rerank_mmarco": {
+            "queries": 40,
+            "hearings": 24,
+            "acc_at_1": {
+              "point": 0.1,
+              "low": 0.0238,
+              "high": 0.2059
+            },
+            "acc_at_3": {
+              "point": 0.275,
+              "low": 0.1591,
+              "high": 0.3847
+            },
+            "acc_at_5": {
+              "point": 0.35,
+              "low": 0.2353,
+              "high": 0.4706
+            },
+            "mrr": {
+              "point": 0.224,
+              "low": 0.148,
+              "high": 0.3116
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0819,
+              "low": 0.0034,
+              "high": 0.1843
+            },
+            "random_acc_at_1": 0.0181,
+            "acc_at_1_tie_bounds": [
+              0.1,
+              0.1
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 152.5,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 192.2,
+              "median": 148.5
+            },
+            "mean_unit_chars": 123.4
+          },
+          "serafim_335m": {
+            "queries": 40,
+            "hearings": 24,
+            "acc_at_1": {
+              "point": 0.1,
+              "low": 0.0227,
+              "high": 0.2105
+            },
+            "acc_at_3": {
+              "point": 0.325,
+              "low": 0.1951,
+              "high": 0.4468
+            },
+            "acc_at_5": {
+              "point": 0.425,
+              "low": 0.2941,
+              "high": 0.5517
+            },
+            "mrr": {
+              "point": 0.2612,
+              "low": 0.1781,
+              "high": 0.3456
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0819,
+              "low": 0.0015,
+              "high": 0.1863
+            },
+            "random_acc_at_1": 0.0181,
+            "acc_at_1_tie_bounds": [
+              0.1,
+              0.1
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 152.5,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 157.7,
+              "median": 141.5
+            },
+            "mean_unit_chars": 123.4
+          }
+        }
+      },
+      "train+validation": {
+        "sentence": {
+          "rerank_bge": {
+            "queries": 182,
+            "hearings": 111,
+            "acc_at_1": {
+              "point": 0.0769,
+              "low": 0.0407,
+              "high": 0.1131
+            },
+            "acc_at_3": {
+              "point": 0.2692,
+              "low": 0.2048,
+              "high": 0.3333
+            },
+            "acc_at_5": {
+              "point": 0.3846,
+              "low": 0.3136,
+              "high": 0.4561
+            },
+            "mrr": {
+              "point": 0.2222,
+              "low": 0.1872,
+              "high": 0.2572
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0615,
+              "low": 0.0271,
+              "high": 0.0996
+            },
+            "random_acc_at_1": 0.0154,
+            "acc_at_1_tie_bounds": [
+              0.0769,
+              0.0769
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 133.87,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 169.4,
+              "median": 139.0
+            },
+            "mean_unit_chars": 122.1
+          },
+          "rerank_laya_p3": {
+            "queries": 182,
+            "hearings": 111,
+            "acc_at_1": {
+              "point": 0.0879,
+              "low": 0.0503,
+              "high": 0.1292
+            },
+            "acc_at_3": {
+              "point": 0.2033,
+              "low": 0.1397,
+              "high": 0.2673
+            },
+            "acc_at_5": {
+              "point": 0.3187,
+              "low": 0.2471,
+              "high": 0.3938
+            },
+            "mrr": {
+              "point": 0.2098,
+              "low": 0.1702,
+              "high": 0.2505
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0725,
+              "low": 0.0334,
+              "high": 0.1153
+            },
+            "random_acc_at_1": 0.0154,
+            "acc_at_1_tie_bounds": [
+              0.0879,
+              0.0879
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 133.87,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 217.9,
+              "median": 188.0
+            },
+            "mean_unit_chars": 122.1
+          },
+          "rerank_laya_p4": {
+            "queries": 182,
+            "hearings": 111,
+            "acc_at_1": {
+              "point": 0.0879,
+              "low": 0.0484,
+              "high": 0.1319
+            },
+            "acc_at_3": {
+              "point": 0.2033,
+              "low": 0.1398,
+              "high": 0.2678
+            },
+            "acc_at_5": {
+              "point": 0.3242,
+              "low": 0.2567,
+              "high": 0.3915
+            },
+            "mrr": {
+              "point": 0.2093,
+              "low": 0.1685,
+              "high": 0.2527
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0725,
+              "low": 0.0319,
+              "high": 0.1155
+            },
+            "random_acc_at_1": 0.0154,
+            "acc_at_1_tie_bounds": [
+              0.0879,
+              0.0879
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 133.87,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 223.7,
+              "median": 190.0
+            },
+            "mean_unit_chars": 122.1
+          },
+          "rerank_mmarco": {
+            "queries": 182,
+            "hearings": 111,
+            "acc_at_1": {
+              "point": 0.1099,
+              "low": 0.0659,
+              "high": 0.1543
+            },
+            "acc_at_3": {
+              "point": 0.2527,
+              "low": 0.1914,
+              "high": 0.3086
+            },
+            "acc_at_5": {
+              "point": 0.3297,
+              "low": 0.2663,
+              "high": 0.3939
+            },
+            "mrr": {
+              "point": 0.2285,
+              "low": 0.1851,
+              "high": 0.2676
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0945,
+              "low": 0.0513,
+              "high": 0.1387
+            },
+            "random_acc_at_1": 0.0154,
+            "acc_at_1_tie_bounds": [
+              0.1099,
+              0.1099
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 133.87,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 187.6,
+              "median": 153.5
+            },
+            "mean_unit_chars": 122.1
+          },
+          "serafim_335m": {
+            "queries": 182,
+            "hearings": 111,
+            "acc_at_1": {
+              "point": 0.0879,
+              "low": 0.0508,
+              "high": 0.1276
+            },
+            "acc_at_3": {
+              "point": 0.2692,
+              "low": 0.2048,
+              "high": 0.3369
+            },
+            "acc_at_5": {
+              "point": 0.3791,
+              "low": 0.314,
+              "high": 0.442
+            },
+            "mrr": {
+              "point": 0.2311,
+              "low": 0.1919,
+              "high": 0.2697
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.0725,
+              "low": 0.0347,
+              "high": 0.1132
+            },
+            "random_acc_at_1": 0.0154,
+            "acc_at_1_tie_bounds": [
+              0.0879,
+              0.0879
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 0,
+            "mean_units": 133.87,
+            "mean_relevant": 1.02,
+            "top1_chars": {
+              "mean": 167.3,
+              "median": 142.0
+            },
+            "mean_unit_chars": 122.1
+          }
+        }
+      }
+    },
+    "nli": {
+      "train": {
+        "sentence": {
+          "rerank_bge": {
+            "queries": 2602,
+            "hearings": 144,
+            "acc_at_1": {
+              "point": 0.8632,
+              "low": 0.8465,
+              "high": 0.8796
+            },
+            "acc_at_3": {
+              "point": 0.9785,
+              "low": 0.972,
+              "high": 0.9848
+            },
+            "acc_at_5": {
+              "point": 0.9912,
+              "low": 0.9868,
+              "high": 0.9949
+            },
+            "mrr": {
+              "point": 0.9197,
+              "low": 0.9088,
+              "high": 0.9298
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.5854,
+              "low": 0.5678,
+              "high": 0.602
+            },
+            "random_acc_at_1": 0.2778,
+            "acc_at_1_tie_bounds": [
+              0.8632,
+              0.8632
+            ],
+            "queries_with_tie_at_first_relevant": 1,
+            "trivial_queries": 47,
+            "mean_units": 107.26,
+            "mean_relevant": 17.57,
+            "top1_chars": {
+              "mean": 177.9,
+              "median": 145.5
+            },
+            "mean_unit_chars": 124.7
+          },
+          "rerank_laya_p3": {
+            "queries": 2602,
+            "hearings": 144,
+            "acc_at_1": {
+              "point": 0.7729,
+              "low": 0.7519,
+              "high": 0.7923
+            },
+            "acc_at_3": {
+              "point": 0.9454,
+              "low": 0.9343,
+              "high": 0.9564
+            },
+            "acc_at_5": {
+              "point": 0.9808,
+              "low": 0.9749,
+              "high": 0.9862
+            },
+            "mrr": {
+              "point": 0.8633,
+              "low": 0.8502,
+              "high": 0.8765
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.4951,
+              "low": 0.4755,
+              "high": 0.516
+            },
+            "random_acc_at_1": 0.2778,
+            "acc_at_1_tie_bounds": [
+              0.7729,
+              0.7729
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 47,
+            "mean_units": 107.26,
+            "mean_relevant": 17.57,
+            "top1_chars": {
+              "mean": 230.6,
+              "median": 207.0
+            },
+            "mean_unit_chars": 124.7
+          },
+          "rerank_laya_p4": {
+            "queries": 2602,
+            "hearings": 144,
+            "acc_at_1": {
+              "point": 0.774,
+              "low": 0.7536,
+              "high": 0.7943
+            },
+            "acc_at_3": {
+              "point": 0.947,
+              "low": 0.9352,
+              "high": 0.9578
+            },
+            "acc_at_5": {
+              "point": 0.9823,
+              "low": 0.9768,
+              "high": 0.9872
+            },
+            "mrr": {
+              "point": 0.8641,
+              "low": 0.8513,
+              "high": 0.8769
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.4963,
+              "low": 0.4768,
+              "high": 0.5164
+            },
+            "random_acc_at_1": 0.2778,
+            "acc_at_1_tie_bounds": [
+              0.774,
+              0.774
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 47,
+            "mean_units": 107.26,
+            "mean_relevant": 17.57,
+            "top1_chars": {
+              "mean": 231.7,
+              "median": 209.0
+            },
+            "mean_unit_chars": 124.7
+          },
+          "rerank_mmarco": {
+            "queries": 2602,
+            "hearings": 144,
+            "acc_at_1": {
+              "point": 0.877,
+              "low": 0.8618,
+              "high": 0.8915
+            },
+            "acc_at_3": {
+              "point": 0.9769,
+              "low": 0.9704,
+              "high": 0.9832
+            },
+            "acc_at_5": {
+              "point": 0.9904,
+              "low": 0.9862,
+              "high": 0.9943
+            },
+            "mrr": {
+              "point": 0.9277,
+              "low": 0.9181,
+              "high": 0.9365
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.5993,
+              "low": 0.582,
+              "high": 0.6166
+            },
+            "random_acc_at_1": 0.2778,
+            "acc_at_1_tie_bounds": [
+              0.877,
+              0.877
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 47,
+            "mean_units": 107.26,
+            "mean_relevant": 17.57,
+            "top1_chars": {
+              "mean": 198.8,
+              "median": 172.0
+            },
+            "mean_unit_chars": 124.7
+          },
+          "serafim_335m": {
+            "queries": 2602,
+            "hearings": 144,
+            "acc_at_1": {
+              "point": 0.864,
+              "low": 0.8469,
+              "high": 0.8791
+            },
+            "acc_at_3": {
+              "point": 0.9739,
+              "low": 0.9673,
+              "high": 0.9799
+            },
+            "acc_at_5": {
+              "point": 0.9908,
+              "low": 0.986,
+              "high": 0.9948
+            },
+            "mrr": {
+              "point": 0.9204,
+              "low": 0.9107,
+              "high": 0.9301
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.5862,
+              "low": 0.5679,
+              "high": 0.6049
+            },
+            "random_acc_at_1": 0.2778,
+            "acc_at_1_tie_bounds": [
+              0.864,
+              0.864
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 47,
+            "mean_units": 107.26,
+            "mean_relevant": 17.57,
+            "top1_chars": {
+              "mean": 173.6,
+              "median": 149.0
+            },
+            "mean_unit_chars": 124.7
+          }
+        }
+      },
+      "validation": {
+        "sentence": {
+          "rerank_bge": {
+            "queries": 620,
+            "hearings": 32,
+            "acc_at_1": {
+              "point": 0.879,
+              "low": 0.8487,
+              "high": 0.9084
+            },
+            "acc_at_3": {
+              "point": 0.9839,
+              "low": 0.9721,
+              "high": 0.9938
+            },
+            "acc_at_5": {
+              "point": 0.9968,
+              "low": 0.991,
+              "high": 1.0
+            },
+            "mrr": {
+              "point": 0.9316,
+              "low": 0.9135,
+              "high": 0.9506
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.5746,
+              "low": 0.5359,
+              "high": 0.6176
+            },
+            "random_acc_at_1": 0.3044,
+            "acc_at_1_tie_bounds": [
+              0.879,
+              0.879
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 25,
+            "mean_units": 97.7,
+            "mean_relevant": 17.22,
+            "top1_chars": {
+              "mean": 180.8,
+              "median": 148.5
+            },
+            "mean_unit_chars": 125.8
+          },
+          "rerank_laya_p3": {
+            "queries": 620,
+            "hearings": 32,
+            "acc_at_1": {
+              "point": 0.7694,
+              "low": 0.7276,
+              "high": 0.8106
+            },
+            "acc_at_3": {
+              "point": 0.9516,
+              "low": 0.933,
+              "high": 0.9688
+            },
+            "acc_at_5": {
+              "point": 0.9839,
+              "low": 0.9708,
+              "high": 0.994
+            },
+            "mrr": {
+              "point": 0.8645,
+              "low": 0.8351,
+              "high": 0.8898
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.4649,
+              "low": 0.4269,
+              "high": 0.5046
+            },
+            "random_acc_at_1": 0.3044,
+            "acc_at_1_tie_bounds": [
+              0.7694,
+              0.7694
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 25,
+            "mean_units": 97.7,
+            "mean_relevant": 17.22,
+            "top1_chars": {
+              "mean": 233.7,
+              "median": 197.0
+            },
+            "mean_unit_chars": 125.8
+          },
+          "rerank_laya_p4": {
+            "queries": 620,
+            "hearings": 32,
+            "acc_at_1": {
+              "point": 0.779,
+              "low": 0.7342,
+              "high": 0.8203
+            },
+            "acc_at_3": {
+              "point": 0.9581,
+              "low": 0.9413,
+              "high": 0.9713
+            },
+            "acc_at_5": {
+              "point": 0.9871,
+              "low": 0.973,
+              "high": 0.9967
+            },
+            "mrr": {
+              "point": 0.869,
+              "low": 0.8405,
+              "high": 0.8922
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.4746,
+              "low": 0.4357,
+              "high": 0.5153
+            },
+            "random_acc_at_1": 0.3044,
+            "acc_at_1_tie_bounds": [
+              0.779,
+              0.779
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 25,
+            "mean_units": 97.7,
+            "mean_relevant": 17.22,
+            "top1_chars": {
+              "mean": 233.5,
+              "median": 196.5
+            },
+            "mean_unit_chars": 125.8
+          },
+          "rerank_mmarco": {
+            "queries": 620,
+            "hearings": 32,
+            "acc_at_1": {
+              "point": 0.8774,
+              "low": 0.847,
+              "high": 0.908
+            },
+            "acc_at_3": {
+              "point": 0.9806,
+              "low": 0.9693,
+              "high": 0.9903
+            },
+            "acc_at_5": {
+              "point": 0.9968,
+              "low": 0.992,
+              "high": 1.0
+            },
+            "mrr": {
+              "point": 0.93,
+              "low": 0.911,
+              "high": 0.9476
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.573,
+              "low": 0.5325,
+              "high": 0.6128
+            },
+            "random_acc_at_1": 0.3044,
+            "acc_at_1_tie_bounds": [
+              0.8774,
+              0.8774
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 25,
+            "mean_units": 97.7,
+            "mean_relevant": 17.22,
+            "top1_chars": {
+              "mean": 199.5,
+              "median": 172.0
+            },
+            "mean_unit_chars": 125.8
+          },
+          "serafim_335m": {
+            "queries": 620,
+            "hearings": 32,
+            "acc_at_1": {
+              "point": 0.8774,
+              "low": 0.8396,
+              "high": 0.9095
+            },
+            "acc_at_3": {
+              "point": 0.9823,
+              "low": 0.9678,
+              "high": 0.9927
+            },
+            "acc_at_5": {
+              "point": 0.9919,
+              "low": 0.9802,
+              "high": 1.0
+            },
+            "mrr": {
+              "point": 0.9295,
+              "low": 0.9052,
+              "high": 0.9496
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.573,
+              "low": 0.5355,
+              "high": 0.6115
+            },
+            "random_acc_at_1": 0.3044,
+            "acc_at_1_tie_bounds": [
+              0.8774,
+              0.8774
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 25,
+            "mean_units": 97.7,
+            "mean_relevant": 17.22,
+            "top1_chars": {
+              "mean": 173.4,
+              "median": 149.0
+            },
+            "mean_unit_chars": 125.8
+          }
+        }
+      },
+      "train+validation": {
+        "sentence": {
+          "rerank_bge": {
+            "queries": 3222,
+            "hearings": 176,
+            "acc_at_1": {
+              "point": 0.8662,
+              "low": 0.8512,
+              "high": 0.8803
+            },
+            "acc_at_3": {
+              "point": 0.9795,
+              "low": 0.9738,
+              "high": 0.985
+            },
+            "acc_at_5": {
+              "point": 0.9922,
+              "low": 0.9885,
+              "high": 0.9952
+            },
+            "mrr": {
+              "point": 0.922,
+              "low": 0.9131,
+              "high": 0.931
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.5833,
+              "low": 0.566,
+              "high": 0.5999
+            },
+            "random_acc_at_1": 0.2829,
+            "acc_at_1_tie_bounds": [
+              0.8662,
+              0.8662
+            ],
+            "queries_with_tie_at_first_relevant": 1,
+            "trivial_queries": 72,
+            "mean_units": 105.42,
+            "mean_relevant": 17.5,
+            "top1_chars": {
+              "mean": 178.5,
+              "median": 146.0
+            },
+            "mean_unit_chars": 124.9
+          },
+          "rerank_laya_p3": {
+            "queries": 3222,
+            "hearings": 176,
+            "acc_at_1": {
+              "point": 0.7722,
+              "low": 0.7545,
+              "high": 0.79
+            },
+            "acc_at_3": {
+              "point": 0.9466,
+              "low": 0.9369,
+              "high": 0.9559
+            },
+            "acc_at_5": {
+              "point": 0.9814,
+              "low": 0.976,
+              "high": 0.9861
+            },
+            "mrr": {
+              "point": 0.8636,
+              "low": 0.8517,
+              "high": 0.8748
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.4893,
+              "low": 0.4717,
+              "high": 0.5076
+            },
+            "random_acc_at_1": 0.2829,
+            "acc_at_1_tie_bounds": [
+              0.7722,
+              0.7722
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 72,
+            "mean_units": 105.42,
+            "mean_relevant": 17.5,
+            "top1_chars": {
+              "mean": 231.2,
+              "median": 204.5
+            },
+            "mean_unit_chars": 124.9
+          },
+          "rerank_laya_p4": {
+            "queries": 3222,
+            "hearings": 176,
+            "acc_at_1": {
+              "point": 0.775,
+              "low": 0.7565,
+              "high": 0.7932
+            },
+            "acc_at_3": {
+              "point": 0.9491,
+              "low": 0.9391,
+              "high": 0.9584
+            },
+            "acc_at_5": {
+              "point": 0.9832,
+              "low": 0.9782,
+              "high": 0.9877
+            },
+            "mrr": {
+              "point": 0.865,
+              "low": 0.8541,
+              "high": 0.8767
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.4921,
+              "low": 0.4742,
+              "high": 0.512
+            },
+            "random_acc_at_1": 0.2829,
+            "acc_at_1_tie_bounds": [
+              0.775,
+              0.775
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 72,
+            "mean_units": 105.42,
+            "mean_relevant": 17.5,
+            "top1_chars": {
+              "mean": 232.0,
+              "median": 206.0
+            },
+            "mean_unit_chars": 124.9
+          },
+          "rerank_mmarco": {
+            "queries": 3222,
+            "hearings": 176,
+            "acc_at_1": {
+              "point": 0.8771,
+              "low": 0.8636,
+              "high": 0.8897
+            },
+            "acc_at_3": {
+              "point": 0.9777,
+              "low": 0.9721,
+              "high": 0.9831
+            },
+            "acc_at_5": {
+              "point": 0.9916,
+              "low": 0.9881,
+              "high": 0.9949
+            },
+            "mrr": {
+              "point": 0.9282,
+              "low": 0.92,
+              "high": 0.9366
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.5942,
+              "low": 0.5781,
+              "high": 0.6107
+            },
+            "random_acc_at_1": 0.2829,
+            "acc_at_1_tie_bounds": [
+              0.8771,
+              0.8771
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 72,
+            "mean_units": 105.42,
+            "mean_relevant": 17.5,
+            "top1_chars": {
+              "mean": 199.0,
+              "median": 172.0
+            },
+            "mean_unit_chars": 124.9
+          },
+          "serafim_335m": {
+            "queries": 3222,
+            "hearings": 176,
+            "acc_at_1": {
+              "point": 0.8665,
+              "low": 0.8515,
+              "high": 0.8807
+            },
+            "acc_at_3": {
+              "point": 0.9755,
+              "low": 0.9694,
+              "high": 0.9809
+            },
+            "acc_at_5": {
+              "point": 0.991,
+              "low": 0.9866,
+              "high": 0.995
+            },
+            "mrr": {
+              "point": 0.9221,
+              "low": 0.913,
+              "high": 0.9308
+            },
+            "acc_at_1_minus_random": {
+              "point": 0.5837,
+              "low": 0.5672,
+              "high": 0.5999
+            },
+            "random_acc_at_1": 0.2829,
+            "acc_at_1_tie_bounds": [
+              0.8665,
+              0.8665
+            ],
+            "queries_with_tie_at_first_relevant": 0,
+            "trivial_queries": 72,
+            "mean_units": 105.42,
+            "mean_relevant": 17.5,
+            "top1_chars": {
+              "mean": 173.5,
+              "median": 149.0
+            },
+            "mean_unit_chars": 124.9
+          }
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "masked_quotes": {
+      "train": {
+        "retrievers_within_unit": {
+          "sentence": {
+            "baseline": {
+              "retriever": "serafim_335m",
+              "unit": "sentence"
+            },
+            "holm_families": {
+              "E1|masked_quotes|train|sentence|acc_at_1.mcnemar": 4,
+              "E1|masked_quotes|train|sentence|mrr.sign_flip": 4
+            },
+            "items": [
+              {
+                "retriever": "rerank_bge",
+                "unit": "sentence",
+                "queries_paired": 142,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0845,
+                  "other": 0.0775,
+                  "difference": {
+                    "point": -0.007,
+                    "low": -0.0476,
+                    "high": 0.0336
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 5,
+                    "only_other_correct": 4,
+                    "discordant": 9,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2226,
+                  "other": 0.2202,
+                  "difference": {
+                    "point": -0.0024,
+                    "low": -0.0325,
+                    "high": 0.0258
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -0.34073981573981527,
+                    "samples": 10000,
+                    "p_value": 0.8763123687631237,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 170.0,
+                  "other": 170.4
+                }
+              },
+              {
+                "retriever": "rerank_laya_p3",
+                "unit": "sentence",
+                "queries_paired": 142,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0845,
+                  "other": 0.0986,
+                  "difference": {
+                    "point": 0.0141,
+                    "low": -0.0461,
+                    "high": 0.0743
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 9,
+                    "only_other_correct": 11,
+                    "discordant": 20,
+                    "p_value": 0.8238029479980469,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2226,
+                  "other": 0.2126,
+                  "difference": {
+                    "point": -0.01,
+                    "low": -0.0577,
+                    "high": 0.0399
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -1.4215919314603518,
+                    "samples": 10000,
+                    "p_value": 0.6995300469953005,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 170.0,
+                  "other": 221.2
+                }
+              },
+              {
+                "retriever": "rerank_laya_p4",
+                "unit": "sentence",
+                "queries_paired": 142,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0845,
+                  "other": 0.0915,
+                  "difference": {
+                    "point": 0.007,
+                    "low": -0.0483,
+                    "high": 0.0637
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 9,
+                    "only_other_correct": 10,
+                    "discordant": 19,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2226,
+                  "other": 0.2074,
+                  "difference": {
+                    "point": -0.0152,
+                    "low": -0.0632,
+                    "high": 0.0335
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -2.157302054670476,
+                    "samples": 10000,
+                    "p_value": 0.5538446155384461,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 170.0,
+                  "other": 226.1
+                }
+              },
+              {
+                "retriever": "rerank_mmarco",
+                "unit": "sentence",
+                "queries_paired": 142,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0845,
+                  "other": 0.1127,
+                  "difference": {
+                    "point": 0.0282,
+                    "low": -0.0263,
+                    "high": 0.0818
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 5,
+                    "only_other_correct": 9,
+                    "discordant": 14,
+                    "p_value": 0.4239501953125,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2226,
+                  "other": 0.2298,
+                  "difference": {
+                    "point": 0.0072,
+                    "low": -0.0372,
+                    "high": 0.0516
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": 1.026129688165292,
+                    "samples": 10000,
+                    "p_value": 0.7521247875212479,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 170.0,
+                  "other": 186.3
+                }
+              }
+            ]
+          }
+        },
+        "units_within_retriever": {}
+      },
+      "validation": {
+        "retrievers_within_unit": {
+          "sentence": {
+            "baseline": {
+              "retriever": "serafim_335m",
+              "unit": "sentence"
+            },
+            "holm_families": {
+              "E1|masked_quotes|validation|sentence|acc_at_1.mcnemar": 4,
+              "E1|masked_quotes|validation|sentence|mrr.sign_flip": 4
+            },
+            "items": [
+              {
+                "retriever": "rerank_bge",
+                "unit": "sentence",
+                "queries_paired": 40,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.1,
+                  "other": 0.075,
+                  "difference": {
+                    "point": -0.025,
+                    "low": -0.122,
+                    "high": 0.0571
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 2,
+                    "only_other_correct": 1,
+                    "discordant": 3,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2612,
+                  "other": 0.2293,
+                  "difference": {
+                    "point": -0.0319,
+                    "low": -0.1018,
+                    "high": 0.0463
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -1.2762227538543331,
+                    "samples": 10000,
+                    "p_value": 0.4243575642435756,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 157.7,
+                  "other": 165.7
+                }
+              },
+              {
+                "retriever": "rerank_laya_p3",
+                "unit": "sentence",
+                "queries_paired": 40,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.1,
+                  "other": 0.05,
+                  "difference": {
+                    "point": -0.05,
+                    "low": -0.1714,
+                    "high": 0.0698
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 4,
+                    "only_other_correct": 2,
+                    "discordant": 6,
+                    "p_value": 0.6875,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2612,
+                  "other": 0.1999,
+                  "difference": {
+                    "point": -0.0613,
+                    "low": -0.158,
+                    "high": 0.029
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -2.4528828197945844,
+                    "samples": 10000,
+                    "p_value": 0.21157884211578842,
+                    "p_holm": 0.8463153684631537,
+                    "holm_family": "E1|masked_quotes|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 157.7,
+                  "other": 206.3
+                }
+              },
+              {
+                "retriever": "rerank_laya_p4",
+                "unit": "sentence",
+                "queries_paired": 40,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.1,
+                  "other": 0.075,
+                  "difference": {
+                    "point": -0.025,
+                    "low": -0.1429,
+                    "high": 0.0789
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 3,
+                    "only_other_correct": 2,
+                    "discordant": 5,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2612,
+                  "other": 0.216,
+                  "difference": {
+                    "point": -0.0453,
+                    "low": -0.1437,
+                    "high": 0.038
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -1.8105487649605299,
+                    "samples": 10000,
+                    "p_value": 0.3350664933506649,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 157.7,
+                  "other": 215.3
+                }
+              },
+              {
+                "retriever": "rerank_mmarco",
+                "unit": "sentence",
+                "queries_paired": 40,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.1,
+                  "other": 0.1,
+                  "difference": {
+                    "point": 0.0,
+                    "low": -0.1282,
+                    "high": 0.1163
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 3,
+                    "only_other_correct": 3,
+                    "discordant": 6,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2612,
+                  "other": 0.224,
+                  "difference": {
+                    "point": -0.0372,
+                    "low": -0.1369,
+                    "high": 0.0805
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -1.4897676454951996,
+                    "samples": 10000,
+                    "p_value": 0.5078492150784921,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 157.7,
+                  "other": 192.2
+                }
+              }
+            ]
+          }
+        },
+        "units_within_retriever": {}
+      },
+      "train+validation": {
+        "retrievers_within_unit": {
+          "sentence": {
+            "baseline": {
+              "retriever": "serafim_335m",
+              "unit": "sentence"
+            },
+            "holm_families": {
+              "E1|masked_quotes|train+validation|sentence|acc_at_1.mcnemar": 4,
+              "E1|masked_quotes|train+validation|sentence|mrr.sign_flip": 4
+            },
+            "items": [
+              {
+                "retriever": "rerank_bge",
+                "unit": "sentence",
+                "queries_paired": 182,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0879,
+                  "other": 0.0769,
+                  "difference": {
+                    "point": -0.011,
+                    "low": -0.0497,
+                    "high": 0.0243
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 7,
+                    "only_other_correct": 5,
+                    "discordant": 12,
+                    "p_value": 0.7744140625,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2311,
+                  "other": 0.2222,
+                  "difference": {
+                    "point": -0.0089,
+                    "low": -0.0373,
+                    "high": 0.0199
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -1.6169625695941483,
+                    "samples": 10000,
+                    "p_value": 0.5343465653434657,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 167.3,
+                  "other": 169.4
+                }
+              },
+              {
+                "retriever": "rerank_laya_p3",
+                "unit": "sentence",
+                "queries_paired": 182,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0879,
+                  "other": 0.0879,
+                  "difference": {
+                    "point": 0.0,
+                    "low": -0.0514,
+                    "high": 0.0514
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 13,
+                    "only_other_correct": 13,
+                    "discordant": 26,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2311,
+                  "other": 0.2098,
+                  "difference": {
+                    "point": -0.0213,
+                    "low": -0.067,
+                    "high": 0.0231
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -3.874474751254936,
+                    "samples": 10000,
+                    "p_value": 0.35706429357064295,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 167.3,
+                  "other": 217.9
+                }
+              },
+              {
+                "retriever": "rerank_laya_p4",
+                "unit": "sentence",
+                "queries_paired": 182,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0879,
+                  "other": 0.0879,
+                  "difference": {
+                    "point": 0.0,
+                    "low": -0.0517,
+                    "high": 0.0489
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 12,
+                    "only_other_correct": 12,
+                    "discordant": 24,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2311,
+                  "other": 0.2093,
+                  "difference": {
+                    "point": -0.0218,
+                    "low": -0.0658,
+                    "high": 0.0217
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -3.9678508196310056,
+                    "samples": 10000,
+                    "p_value": 0.3294670532946705,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 167.3,
+                  "other": 223.7
+                }
+              },
+              {
+                "retriever": "rerank_mmarco",
+                "unit": "sentence",
+                "queries_paired": 182,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.0879,
+                  "other": 0.1099,
+                  "difference": {
+                    "point": 0.022,
+                    "low": -0.0282,
+                    "high": 0.0714
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 8,
+                    "only_other_correct": 12,
+                    "discordant": 20,
+                    "p_value": 0.5034446716308594,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.2311,
+                  "other": 0.2285,
+                  "difference": {
+                    "point": -0.0025,
+                    "low": -0.047,
+                    "high": 0.0393
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -0.463637957329907,
+                    "samples": 10000,
+                    "p_value": 0.9073092690730927,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|masked_quotes|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 167.3,
+                  "other": 187.6
+                }
+              }
+            ]
+          }
+        },
+        "units_within_retriever": {}
+      }
+    },
+    "nli": {
+      "train": {
+        "retrievers_within_unit": {
+          "sentence": {
+            "baseline": {
+              "retriever": "serafim_335m",
+              "unit": "sentence"
+            },
+            "holm_families": {
+              "E1|nli|train|sentence|acc_at_1.mcnemar": 4,
+              "E1|nli|train|sentence|mrr.sign_flip": 4
+            },
+            "items": [
+              {
+                "retriever": "rerank_bge",
+                "unit": "sentence",
+                "queries_paired": 2602,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.864,
+                  "other": 0.8632,
+                  "difference": {
+                    "point": -0.0008,
+                    "low": -0.016,
+                    "high": 0.0139
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 169,
+                    "only_other_correct": 167,
+                    "discordant": 336,
+                    "p_value": 0.9565042035611699,
+                    "p_holm": 0.9565042035611699,
+                    "holm_family": "E1|nli|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9204,
+                  "other": 0.9197,
+                  "difference": {
+                    "point": -0.0007,
+                    "low": -0.0084,
+                    "high": 0.0068
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -1.8427822177822177,
+                    "samples": 10000,
+                    "p_value": 0.8565143485651435,
+                    "p_holm": 0.8565143485651435,
+                    "holm_family": "E1|nli|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.6,
+                  "other": 177.9
+                }
+              },
+              {
+                "retriever": "rerank_laya_p3",
+                "unit": "sentence",
+                "queries_paired": 2602,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.864,
+                  "other": 0.7729,
+                  "difference": {
+                    "point": -0.0911,
+                    "low": -0.1089,
+                    "high": -0.0735
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 407,
+                    "only_other_correct": 170,
+                    "discordant": 577,
+                    "p_value": 2.0770627217646778e-23,
+                    "p_holm": 8.308250887058711e-23,
+                    "holm_family": "E1|nli|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9204,
+                  "other": 0.8633,
+                  "difference": {
+                    "point": -0.057,
+                    "low": -0.0681,
+                    "high": -0.0463
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -148.44380717321894,
+                    "samples": 10000,
+                    "p_value": 9.999000099990002e-05,
+                    "p_holm": 0.00039996000399960006,
+                    "holm_family": "E1|nli|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.6,
+                  "other": 230.6
+                }
+              },
+              {
+                "retriever": "rerank_laya_p4",
+                "unit": "sentence",
+                "queries_paired": 2602,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.864,
+                  "other": 0.774,
+                  "difference": {
+                    "point": -0.0899,
+                    "low": -0.1081,
+                    "high": -0.0715
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 403,
+                    "only_other_correct": 169,
+                    "discordant": 572,
+                    "p_value": 4.873784675332861e-23,
+                    "p_holm": 1.4621354025998582e-22,
+                    "holm_family": "E1|nli|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9204,
+                  "other": 0.8641,
+                  "difference": {
+                    "point": -0.0563,
+                    "low": -0.0678,
+                    "high": -0.0462
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -146.53441656382833,
+                    "samples": 10000,
+                    "p_value": 9.999000099990002e-05,
+                    "p_holm": 0.00039996000399960006,
+                    "holm_family": "E1|nli|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.6,
+                  "other": 231.7
+                }
+              },
+              {
+                "retriever": "rerank_mmarco",
+                "unit": "sentence",
+                "queries_paired": 2602,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.864,
+                  "other": 0.877,
+                  "difference": {
+                    "point": 0.0131,
+                    "low": -0.002,
+                    "high": 0.0283
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 151,
+                    "only_other_correct": 185,
+                    "discordant": 336,
+                    "p_value": 0.07165555366896356,
+                    "p_holm": 0.14331110733792712,
+                    "holm_family": "E1|nli|train|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9204,
+                  "other": 0.9277,
+                  "difference": {
+                    "point": 0.0073,
+                    "low": -0.001,
+                    "high": 0.0154
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": 19.094988344988344,
+                    "samples": 10000,
+                    "p_value": 0.0898910108989101,
+                    "p_holm": 0.1797820217978202,
+                    "holm_family": "E1|nli|train|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.6,
+                  "other": 198.8
+                }
+              }
+            ]
+          }
+        },
+        "units_within_retriever": {}
+      },
+      "validation": {
+        "retrievers_within_unit": {
+          "sentence": {
+            "baseline": {
+              "retriever": "serafim_335m",
+              "unit": "sentence"
+            },
+            "holm_families": {
+              "E1|nli|validation|sentence|acc_at_1.mcnemar": 4,
+              "E1|nli|validation|sentence|mrr.sign_flip": 4
+            },
+            "items": [
+              {
+                "retriever": "rerank_bge",
+                "unit": "sentence",
+                "queries_paired": 620,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8774,
+                  "other": 0.879,
+                  "difference": {
+                    "point": 0.0016,
+                    "low": -0.0221,
+                    "high": 0.031
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 37,
+                    "only_other_correct": 38,
+                    "discordant": 75,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|nli|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9295,
+                  "other": 0.9316,
+                  "difference": {
+                    "point": 0.0021,
+                    "low": -0.0117,
+                    "high": 0.0194
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": 1.3253968253968256,
+                    "samples": 10000,
+                    "p_value": 0.7858214178582141,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|nli|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.4,
+                  "other": 180.8
+                }
+              },
+              {
+                "retriever": "rerank_laya_p3",
+                "unit": "sentence",
+                "queries_paired": 620,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8774,
+                  "other": 0.7694,
+                  "difference": {
+                    "point": -0.1081,
+                    "low": -0.1543,
+                    "high": -0.0646
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 105,
+                    "only_other_correct": 38,
+                    "discordant": 143,
+                    "p_value": 1.885862502707227e-08,
+                    "p_holm": 7.543450010828909e-08,
+                    "holm_family": "E1|nli|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9295,
+                  "other": 0.8645,
+                  "difference": {
+                    "point": -0.065,
+                    "low": -0.0905,
+                    "high": -0.0384
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -40.28647186147186,
+                    "samples": 10000,
+                    "p_value": 0.00019998000199980003,
+                    "p_holm": 0.0005999400059994001,
+                    "holm_family": "E1|nli|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.4,
+                  "other": 233.7
+                }
+              },
+              {
+                "retriever": "rerank_laya_p4",
+                "unit": "sentence",
+                "queries_paired": 620,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8774,
+                  "other": 0.779,
+                  "difference": {
+                    "point": -0.0984,
+                    "low": -0.1427,
+                    "high": -0.0547
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 98,
+                    "only_other_correct": 37,
+                    "discordant": 135,
+                    "p_value": 1.5020945707319435e-07,
+                    "p_holm": 4.5062837121958305e-07,
+                    "holm_family": "E1|nli|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9295,
+                  "other": 0.869,
+                  "difference": {
+                    "point": -0.0605,
+                    "low": -0.0863,
+                    "high": -0.0346
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -37.506313131313135,
+                    "samples": 10000,
+                    "p_value": 9.999000099990002e-05,
+                    "p_holm": 0.00039996000399960006,
+                    "holm_family": "E1|nli|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.4,
+                  "other": 233.5
+                }
+              },
+              {
+                "retriever": "rerank_mmarco",
+                "unit": "sentence",
+                "queries_paired": 620,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8774,
+                  "other": 0.8774,
+                  "difference": {
+                    "point": 0.0,
+                    "low": -0.0246,
+                    "high": 0.0252
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 36,
+                    "only_other_correct": 36,
+                    "discordant": 72,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|nli|validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9295,
+                  "other": 0.93,
+                  "difference": {
+                    "point": 0.0005,
+                    "low": -0.0145,
+                    "high": 0.0167
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": 0.31428571428571406,
+                    "samples": 10000,
+                    "p_value": 0.9483051694830517,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|nli|validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.4,
+                  "other": 199.5
+                }
+              }
+            ]
+          }
+        },
+        "units_within_retriever": {}
+      },
+      "train+validation": {
+        "retrievers_within_unit": {
+          "sentence": {
+            "baseline": {
+              "retriever": "serafim_335m",
+              "unit": "sentence"
+            },
+            "holm_families": {
+              "E1|nli|train+validation|sentence|acc_at_1.mcnemar": 4,
+              "E1|nli|train+validation|sentence|mrr.sign_flip": 4
+            },
+            "items": [
+              {
+                "retriever": "rerank_bge",
+                "unit": "sentence",
+                "queries_paired": 3222,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8665,
+                  "other": 0.8662,
+                  "difference": {
+                    "point": -0.0003,
+                    "low": -0.0125,
+                    "high": 0.0124
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 206,
+                    "only_other_correct": 205,
+                    "discordant": 411,
+                    "p_value": 1.0,
+                    "p_holm": 1.0,
+                    "holm_family": "E1|nli|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9221,
+                  "other": 0.922,
+                  "difference": {
+                    "point": -0.0002,
+                    "low": -0.007,
+                    "high": 0.0075
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -0.5173853923853935,
+                    "samples": 10000,
+                    "p_value": 0.9655034496550345,
+                    "p_holm": 0.9655034496550345,
+                    "holm_family": "E1|nli|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.5,
+                  "other": 178.5
+                }
+              },
+              {
+                "retriever": "rerank_laya_p3",
+                "unit": "sentence",
+                "queries_paired": 3222,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8665,
+                  "other": 0.7722,
+                  "difference": {
+                    "point": -0.0944,
+                    "low": -0.1104,
+                    "high": -0.0776
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 512,
+                    "only_other_correct": 208,
+                    "discordant": 720,
+                    "p_value": 1.886398231799259e-30,
+                    "p_holm": 7.545592927197036e-30,
+                    "holm_family": "E1|nli|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9221,
+                  "other": 0.8636,
+                  "difference": {
+                    "point": -0.0586,
+                    "low": -0.0685,
+                    "high": -0.0491
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -188.7302790346908,
+                    "samples": 10000,
+                    "p_value": 9.999000099990002e-05,
+                    "p_holm": 0.00039996000399960006,
+                    "holm_family": "E1|nli|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.5,
+                  "other": 231.2
+                }
+              },
+              {
+                "retriever": "rerank_laya_p4",
+                "unit": "sentence",
+                "queries_paired": 3222,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8665,
+                  "other": 0.775,
+                  "difference": {
+                    "point": -0.0916,
+                    "low": -0.1077,
+                    "high": -0.0746
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 501,
+                    "only_other_correct": 206,
+                    "discordant": 707,
+                    "p_value": 3.0449091410570136e-29,
+                    "p_holm": 9.134727423171041e-29,
+                    "holm_family": "E1|nli|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9221,
+                  "other": 0.865,
+                  "difference": {
+                    "point": -0.0571,
+                    "low": -0.0666,
+                    "high": -0.0471
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": -184.04072969514147,
+                    "samples": 10000,
+                    "p_value": 9.999000099990002e-05,
+                    "p_holm": 0.00039996000399960006,
+                    "holm_family": "E1|nli|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.5,
+                  "other": 232.0
+                }
+              },
+              {
+                "retriever": "rerank_mmarco",
+                "unit": "sentence",
+                "queries_paired": 3222,
+                "queries_only_in_other": 0,
+                "acc_at_1": {
+                  "baseline": 0.8665,
+                  "other": 0.8771,
+                  "difference": {
+                    "point": 0.0106,
+                    "low": -0.0022,
+                    "high": 0.0233
+                  },
+                  "mcnemar": {
+                    "only_baseline_correct": 187,
+                    "only_other_correct": 221,
+                    "discordant": 408,
+                    "p_value": 0.10219570074244731,
+                    "p_holm": 0.20439140148489462,
+                    "holm_family": "E1|nli|train+validation|sentence|acc_at_1.mcnemar"
+                  }
+                },
+                "mrr": {
+                  "baseline": 0.9221,
+                  "other": 0.9282,
+                  "difference": {
+                    "point": 0.006,
+                    "low": -0.0012,
+                    "high": 0.0134
+                  },
+                  "sign_flip": {
+                    "statistic": "sum over hearings of the per-hearing sum of differences",
+                    "observed": 19.409274059274058,
+                    "samples": 10000,
+                    "p_value": 0.11148885111488852,
+                    "p_holm": 0.22297770222977703,
+                    "holm_family": "E1|nli|train+validation|sentence|mrr.sign_flip"
+                  }
+                },
+                "top1_chars_mean": {
+                  "baseline": 173.5,
+                  "other": 199.0
+                }
+              }
+            ]
+          }
+        },
+        "units_within_retriever": {}
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_bge/train.jsonl",
+      "rows": 142,
+      "sha256": "837b157b66b578e735f8f9ee715e567e24740eb61aa36f4320475926eb001fc3"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_bge/validation.jsonl",
+      "rows": 40,
+      "sha256": "18ff862b71df2ef30e6207cb38c97d3568865e6f962e00292cb217f6fd92aac8"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_laya_p3/train.jsonl",
+      "rows": 142,
+      "sha256": "26e07bd7d8bb83181ec4e58f1894be60894e04378df32318d2eea6cf880e4712"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_laya_p3/validation.jsonl",
+      "rows": 40,
+      "sha256": "d3c785f20d865391284695090c64b5e856a51cd2633e431917200b338f8d5ba8"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_laya_p4/train.jsonl",
+      "rows": 142,
+      "sha256": "649115447e623ef964d258aa70601cf6afc77a50649cd8fbe7d10a7147135ab7"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_laya_p4/validation.jsonl",
+      "rows": 40,
+      "sha256": "75701062541a6bb519e8e65c4e8c28a963f68f055998ee6a2d576bd8179c299f"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_mmarco/train.jsonl",
+      "rows": 142,
+      "sha256": "571db57ade2eadbf61e38747ca7e68828e82096a6bbef8e61816a7861af50197"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/rerank_mmarco/validation.jsonl",
+      "rows": 40,
+      "sha256": "81f87e4daa62ce55151f3463679ed2161650b01ee4072f98ca0868151b71640a"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/serafim_335m/train.jsonl",
+      "rows": 142,
+      "sha256": "3921216967186e83f4a47c42c7587030fac567033592152cb7eb7afe9f5e3ae6"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/masked_quotes/sentence/serafim_335m/validation.jsonl",
+      "rows": 40,
+      "sha256": "a2e1e41a7b9c7067986ce0f56adab9ec9c116758d71ed3ca4d5baa89d5fa2f58"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_bge/train.jsonl",
+      "rows": 2602,
+      "sha256": "c70504757108f7460a58a4c10ee37f03dec6012e8b3dd5fa8f5c7833bf5247bb"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_bge/validation.jsonl",
+      "rows": 620,
+      "sha256": "f82d127259d875a8ef1e0b213430ba682fefba2b14aafde2a202d817638e1c0b"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_laya_p3/train.jsonl",
+      "rows": 2602,
+      "sha256": "bbaf14d913f8017628300f58f3d8193b150ddc65fb34b441c399fce6c1190839"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_laya_p3/validation.jsonl",
+      "rows": 620,
+      "sha256": "be9486546c0c6bd56787265fa0ceb92f7d62b74f6d605d4fd2a07e0c54e02d99"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_laya_p4/train.jsonl",
+      "rows": 2602,
+      "sha256": "7b65d80f2f9ec0b89d01270fbb1d5506344fba65188d382a04d212dc8eaa30fc"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_laya_p4/validation.jsonl",
+      "rows": 620,
+      "sha256": "1ded873a8d97d0f0fcfe5fdd02dfab536a3dad935414c10ddd72b66364dbf40c"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_mmarco/train.jsonl",
+      "rows": 2602,
+      "sha256": "a95a5fe98bf5ccf676f0a83dd1b92e9e989754fbeb1c5e7d0f7e6065e8cc6b83"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/rerank_mmarco/validation.jsonl",
+      "rows": 620,
+      "sha256": "f402aa0bd759405b6769fd6ac17fcd8bb4a7e8359f2c6e6a0bd3b6f6ab0ae7a7"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/serafim_335m/train.jsonl",
+      "rows": 2602,
+      "sha256": "eb4109dedce873968060275f575ecb33775487fcf3af8a95230c080fb4507187"
+    },
+    {
+      "path": "artifacts/experiments/retrieval/retrieval_v2/queries/nli/sentence/serafim_335m/validation.jsonl",
+      "rows": 620,
+      "sha256": "307d7a71483e929ea79134779525e4f89544f0b05394c99faefd7874c30cb3f0"
+    }
+  ],
+  "run_reports": [
+    "artifacts/experiments/retrieval/retrieval_v2/runs/rerank_bge__train+validation__sentence__masked_quotes+nli_report.json",
+    "artifacts/experiments/retrieval/retrieval_v2/runs/rerank_laya_p3__train+validation__sentence__masked_quotes+nli_report.json",
+    "artifacts/experiments/retrieval/retrieval_v2/runs/rerank_laya_p4__train+validation__sentence__masked_quotes+nli_report.json",
+    "artifacts/experiments/retrieval/retrieval_v2/runs/rerank_mmarco__train+validation__sentence__masked_quotes+nli_report.json",
+    "artifacts/experiments/retrieval/retrieval_v2/runs/serafim_335m__train+validation__sentence__masked_quotes+nli_report.json"
+  ],
+  "code": {
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/decision_models.py": "e36d278be4afcba55aea6d4bbce3e224178a2632806fb4eb2d280ffe06d20362",
+    "utils/decision_scoring.py": "46aeccbd61651f9dbcf776aa50335649e512db58e5fce4534cbbb2aa0c855341",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9",
+    "utils/retrieval_data.py": "078477fe0834a3d5a4d92e29ad662c45185f69608f1901227f1ce12101fe58f5",
+    "utils/retrieval_experiments.py": "3d09c52c04d4c141341c3ff85f36d82fd983da95a89cc0f7fb02c35878cf2913",
+    "utils/retrieval_models.py": "f43ffac9ec0f2f723c60be226da19809b8e9b9bbd65d89dfbe2ea63e3ee192db",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/retrieval_store.py": "5d9ec1ada17896dffa15281657b8d90baf0981e1328487f2f9552cdec039d49e",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "scikit_learn": "1.9.0",
+    "rank_bm25": "0.2.2 (no __version__ attribute)",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "laya": "0.3.11",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "lds_sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "default": [
+        "train",
+        "validation"
+      ]
+    },
+    "benchmarks": {
+      "masked_quotes": {
+        "path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+        "query_field": "masked_opinion",
+        "candidates": "the row's candidate list (the speaker's per-turn sentences), checked against the list rebuilt from the LDS with resolve_hearing_people",
+        "relevance": "a unit is relevant when it contains a sentence listed in target_indices (the sentences that agree with the silver target sentence enclosing the trusted quote prefix)"
+      },
+      "nli": {
+        "path": "artifacts/benchmarks/nli_v1.jsonl",
+        "query_field": "opinion",
+        "filters": [
+          "label_inferable is true",
+          "person resolved to LDS turns",
+          "at least one located chunk",
+          "at least one sentence unit of the speaker overlaps a located chunk segment"
+        ],
+        "candidates": "rebuilt from person_resolution.turn_indices with split_into_turns and split_sentences on each turn, the resolution rechecked with resolve_person_speech on the NLI person name",
+        "relevance": "a unit is relevant when its character span overlaps the recorded span (chosen occurrence) of any segment of any located chunk of the opinion; the label says the opinion was judged inferable from the four retrieved chunks together (retrieved_context_entailment), not that each overlapping unit supports it"
+      }
+    },
+    "units": {
+      "kinds": [
+        "sentence",
+        "window2",
+        "window3",
+        "turn"
+      ],
+      "window_sizes": {
+        "window2": 2,
+        "window3": 3
+      },
+      "stride": 1,
+      "definitions": "sentence: one candidate sentence; windowN: N consecutive candidate sentences of one turn, stride 1, a turn with fewer than N sentences gives one unit with all of them, text joined by a space, span from the first sentence start to the last sentence end; turn: the whole turn text (whitespace normalized, including stage directions and parts shorter than a sentence), only turns with at least one candidate sentence"
+    },
+    "retrievers": {
+      "tfidf_word": {
+        "kind": "tfidf",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "analyzer": "word",
+        "ngram_range": [
+          1,
+          1
+        ],
+        "lowercase": true,
+        "strip_accents": "unicode",
+        "token_pattern": "(?u)\\b\\w\\w+\\b",
+        "sublinear_tf": false,
+        "min_df": 1
+      },
+      "tfidf_char": {
+        "kind": "tfidf",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "analyzer": "char_wb",
+        "ngram_range": [
+          3,
+          5
+        ],
+        "lowercase": true,
+        "strip_accents": "unicode",
+        "token_pattern": "(?u)\\b\\w\\w+\\b",
+        "sublinear_tf": false,
+        "min_df": 1
+      },
+      "bm25": {
+        "kind": "bm25",
+        "fit_scopes": [
+          "speaker",
+          "hearing"
+        ],
+        "k1": 1.5,
+        "b": 0.75,
+        "epsilon": 0.25
+      },
+      "serafim_335m": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+        "revision": "a01887015444f7599669c509447c5bdbce958916",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": true,
+        "card_notes": "config_sentence_transformers.json: prompts {} and default_prompt_name null, so no prefix; modules: Transformer (BertModel, hidden 1024) + mean Pooling, no Normalize module; sentence_bert_config.json max_seq_length 128 (production value, kept so vectors equal the build_udvs cache); trained with AnglELoss on STS."
+      },
+      "serafim_335m_ir": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder-ir",
+        "revision": "222eaea5c8df6b61d8032ffffaa9bc9febd35a2e",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "prompts {} and default_prompt_name null, no prefix in the card usage; Transformer (BertModel, 1024) + mean Pooling, no Normalize; max_seq_length 128; train-config.yaml: GISTEmbedLoss on unicamp-dl/mmarco portuguese pairs, base bertimbau-335m."
+      },
+      "serafim_900m": {
+        "kind": "dense",
+        "model": "PORTULAN/serafim-900m-portuguese-pt-sentence-encoder",
+        "revision": "8b6aac1431bf56dd4b8f6a27a98ea78d3a7c5d31",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 16,
+        "token_budget": 2048,
+        "production_cache": false,
+        "card_notes": "prompts {} and default_prompt_name null, no prefix; Transformer (DebertaV2Model, hidden 1536) + mean Pooling, no Normalize; max_seq_length 128; train-config.yaml base albertina-900m-ptpt (European Portuguese base), CoSENT on STS."
+      },
+      "e5_large": {
+        "kind": "dense",
+        "model": "intfloat/multilingual-e5-large",
+        "revision": "3d7cfbdacd47fdda877c5cd8a79fbcc4f2a574f3",
+        "query_prefix": "query: ",
+        "passage_prefix": "passage: ",
+        "max_seq_length": 512,
+        "batch_size": 16,
+        "token_budget": 8192,
+        "production_cache": false,
+        "card_notes": "README: each input must start with 'query: ' or 'passage: '; 'query: '/'passage: ' for asymmetric passage retrieval, 'query: ' on both sides for symmetric similarity; the asymmetric pair is used because the query (an opinion summary) and the passages (transcript speech) differ in length and register. No config_sentence_transformers.json prompts in the snapshot, so the prefixes are prepended to the text here. Modules: XLMRobertaModel (1024) + mean Pooling + Normalize; max_seq_length 512."
+      },
+      "bge_m3": {
+        "kind": "dense",
+        "model": "BAAI/bge-m3",
+        "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 8192,
+        "batch_size": 8,
+        "token_budget": 8192,
+        "production_cache": false,
+        "card_notes": "README: 'the BGE-M3 model no longer requires adding instructions to the queries'; dense vectors from sentence-transformers: XLMRobertaModel (1024) + CLS Pooling + Normalize; max_seq_length 8192 (native, kept; a batch never exceeds token_budget tokens, so one 8192-token sequence runs alone). Sparse and ColBERT heads (sparse_linear.pt, colbert_linear.pt) are not used."
+      },
+      "mpnet": {
+        "kind": "dense",
+        "model": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+        "revision": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "no prompts in config_sentence_transformers.json and no prefix in the card; XLMRobertaModel (768) + mean Pooling, no Normalize; max_seq_length 128; paraphrase model (symmetric)."
+      },
+      "minilm": {
+        "kind": "dense",
+        "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+        "query_prefix": "",
+        "passage_prefix": "",
+        "max_seq_length": 128,
+        "batch_size": 32,
+        "token_budget": 4096,
+        "production_cache": false,
+        "card_notes": "no prompts and no prefix; BertModel (384) + mean Pooling, no Normalize; max_seq_length 128; paraphrase model (symmetric)."
+      },
+      "hybrid_rrf": {
+        "kind": "rrf",
+        "components": [
+          "bm25_speaker",
+          "serafim_335m"
+        ],
+        "k": 60,
+        "choice": "declared before any retrieval result was computed: BM25 fitted on the speaker's units (the sparse design the benchmarks were built around) fused with the production encoder, so the hybrid measures what lexical evidence adds to the encoder already in use; another dense component may only be chosen on train"
+      },
+      "rerank_bge": {
+        "kind": "rerank",
+        "model": "BAAI/bge-reranker-v2-m3",
+        "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "max_length": 512,
+        "batch_size": 16,
+        "card_notes": "config.json: XLMRobertaForSequenceClassification with id2label {0: LABEL_0}, a single relevance logit (higher = more relevant), no sbert_ce_default_activation_function; README scores with max_length=512 and maps to [0, 1] with sigmoid only optionally. The raw logit is used (activation Identity), which gives the same order as the sigmoid without saturated ties. No query instruction for this normal (non-LLM) reranker."
+      },
+      "rerank_mmarco": {
+        "kind": "rerank",
+        "model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+        "revision": "1427fd652930e4ba29e8149678df786c240d8825",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "max_length": 512,
+        "batch_size": 32,
+        "card_notes": "config.json: XLMRobertaForSequenceClassification, id2label {0: LABEL_0}, a single logit, sbert_ce_default_activation_function Identity; tokenizer model_max_length 512; trained on machine-translated mMARCO (includes pt)."
+      },
+      "rerank_laya_p4": {
+        "kind": "decision_rerank",
+        "decision_config": "configs/nli_verifier.toml",
+        "scorer": "laya_multi_pt",
+        "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+        "question": "p4_supports",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "notes": "Laya (laya_multi_pt of configs/nli_verifier.toml: checkpoint, subfolder, max_len, head_max_len and batch_size read from that scorer, revision checked against it) used as a reranker of the serafim_335m top_k. Each pair is one Laya forward pass on the battery question p4_supports with the state {premise: candidate unit text, hypothesis: query text}, the orientation of the E3 battery (premise = transcript text, hypothesis = opinion); the score is the question's support signal, P(true). No translation. Laya answers are cached in cache.decision_dir (one file per checkpoint and device, keyed by the model signature, the question JSON and the state) and the scores in cache.rerank_dir keyed by the pair digest, so an interrupted run resumes."
+      },
+      "rerank_laya_p3": {
+        "kind": "decision_rerank",
+        "decision_config": "configs/nli_verifier.toml",
+        "scorer": "laya_multi_pt",
+        "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+        "question": "p3_inferable",
+        "base": "serafim_335m",
+        "top_k": 20,
+        "notes": "secondary variant of rerank_laya_p4 with the battery question p3_inferable (P(true) of 'Can the hypothesis be inferred from the premise?'); every other value as rerank_laya_p4"
+      }
+    },
+    "evaluation": {
+      "baseline_retriever": "serafim_335m",
+      "baseline_unit": "sentence",
+      "ks": [
+        1,
+        3,
+        5
+      ],
+      "top_n_stored": 10,
+      "score_decimals": 5,
+      "bootstrap_samples": 2000,
+      "permutation_samples": 10000,
+      "confidence_level": 0.95,
+      "seed": 42,
+      "bootstrap_unit": "hearing",
+      "multiple_comparisons": "holm, one family per question: E1 (retrievers) compares every retriever with baseline_retriever on the same unit kind, one family per benchmark, split group, unit kind and test (McNemar on acc@1, sign-flip on reciprocal rank); E2 (units) compares every unit kind with baseline_unit for the same retriever on the paired lift (hit@1 minus n_relevant / n_units), one family per benchmark, split group and retriever; no test crosses both the retriever and the unit kind, and every adjusted p-value records its family",
+      "multiple_comparisons_amendment": "Recorded on 2026-09-23, before any summarize run that included a dense retriever: the first version tested every (retriever, unit) pair against serafim_335m on sentences with raw acc@1 and MRR in one family per benchmark and split group, which mixed the retriever and unit questions and rewarded larger units for their higher chance of holding a relevant unit (random_acc_at_1 0.015 on B1 sentences vs 0.455 on B1 turns; 1,365 of 3,222 B2 turn queries have every unit relevant); the only summarize report written before this change (retrieval_v1_report.json of the sparse run) had no baseline rows, so no comparison had been computed",
+      "tie_policy": "order by score descending, candidate index ascending on ties (the argmax rule of the UDV builder); rank_optimistic and rank_pessimistic bound the rank of the first relevant unit over every tie order"
+    },
+    "cache": {
+      "embeddings_dir": "artifacts/cache/experiments/embeddings",
+      "rerank_dir": "artifacts/cache/experiments/rerank",
+      "decision_dir": "artifacts/cache/experiments/decision_models",
+      "decision_dir_note": "a Laya answer cache separate from the E3 one (configs/nli_verifier.toml decision_models.cache_dir), so the retrieval runs and the verifier runs never write the same file",
+      "shard_size": 5000,
+      "batch_size_note": "batch sizes measured on 2026-09-22 (Apple M5, MPS, fp32, serafim-335m, 512 sentences): 16 to 32 give about 2.1k tokens/s, 64 about 1.0k and 256 about 0.55k; the batch size changes vectors only at float rounding level",
+      "production_config": "configs/udv.toml"
+    },
+    "run": {
+      "run_name": "retrieval_v1",
+      "output_dir": "artifacts/experiments/retrieval",
+      "device": "auto",
+      "hf_hub_offline": true,
+      "seed": 42
+    },
+    "queue": {
+      "plan": "priority order under the measured MPS throughput: every retriever on the sentence unit (E1) and the turn unit, the four units (E2) for the production encoder, the hybrid and the small reranker; windows for other dense models and the large reranker beyond sentences are left for a later step chosen on train",
+      "steps": [
+        {
+          "retrievers": [
+            "tfidf_word",
+            "tfidf_char",
+            "bm25"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ],
+          "device": "cpu"
+        },
+        {
+          "retrievers": [
+            "serafim_335m"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "hybrid_rrf"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "minilm"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "mpnet"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "serafim_335m_ir"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "e5_large"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "rerank_mmarco"
+          ],
+          "units": [
+            "sentence",
+            "window2",
+            "window3",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "rerank_bge"
+          ],
+          "units": [
+            "sentence"
+          ]
+        },
+        {
+          "retrievers": [
+            "bge_m3"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        },
+        {
+          "retrievers": [
+            "serafim_900m"
+          ],
+          "units": [
+            "sentence",
+            "turn"
+          ]
+        }
+      ]
+    },
+    "declarations": {
+      "retrieval_v2": {
+        "declared": "Declared on 2026-09-27, before any Laya score on a retrieval benchmark was computed (smoke runs included). Question: does Laya, used as a reranker of the serafim_335m top 20 sentences, put a supporting sentence first more often than serafim_335m alone? Laya had never been tested as a retriever; in E3 it only judged inferability over the four retrieved chunks.",
+        "run_name": "retrieval_v2",
+        "primary": "rerank_laya_p4: laya_multi_pt with the battery question p4_supports (the best single Portuguese question of the E3 v2 validation, ROC AUC 0.793; chosen from E3, not from any retrieval result); no translation",
+        "secondary": "rerank_laya_p3 (p3_inferable), run after the primary only if the throughput measured on the primary leaves room; no variant with translation",
+        "design": "base serafim_335m, unit sentence, top_k 20 (the value of rerank_bge and rerank_mmarco, so the three rerankers are comparable); splits train and validation only, the test split is not read; both benchmarks (masked_quotes, nli)",
+        "top_k_rule": "top_k may be lowered to 10 only if a smoke run shows that the full run would exceed about 6 hours on MPS, decided from throughput alone before any retrieval metric is seen; the value used is recorded here",
+        "run_contents": "the retrieval_v2 run holds serafim_335m (baseline), rerank_bge and rerank_mmarco on the sentence unit, recomputed from the E1 caches (their rows are checked against retrieval_v1), plus the Laya rerankers; no retrieval_v1 file is modified",
+        "evaluation": "the E1 machinery unchanged: acc@1/3/5 and MRR with hearing-bootstrap intervals; each retriever against serafim_335m on the sentence unit with exact McNemar on acc@1 and the hearing sign-flip test on the reciprocal rank; Holm over one family per benchmark, split group and test, the family holding every non-baseline retriever of the run (rerank_bge, rerank_mmarco, rerank_laya_p4 and rerank_laya_p3 if run). Laya against rerank_bge and rerank_mmarco is reported descriptively (summarize with --baseline-retriever), outside the decision",
+        "decision_rule": "Laya reranking is proposed for the UDV only if its MRR on nli validation is higher than serafim_335m with Holm-adjusted p < 0.05; otherwise it is reported as a negative result",
+        "device_and_top_k_decision": "Recorded on 2026-09-27 from throughput alone, before any retrieval metric of a Laya reranker was read: a CPU smoke run (2 hearings requested, 1 loaded, 5 queries, 100 pairs) scored 100 pairs in 2.16 s of forward time (about 46 pairs/s, 93 input tokens per pair, no truncated premise); the full train and validation run is about 67,400 pairs per variant (the pair count of rerank_bge in retrieval_v1), about 25 to 40 minutes on CPU. So top_k stays 20, the Laya rerankers run on the CPU (float32; the MPS stays free for another job on the machine and the CPU answers go to their own cache file), and the secondary rerank_laya_p3 is run after the primary. serafim_335m, rerank_bge and rerank_mmarco are recomputed on the CPU from their caches, with a check that no embedding or pair score is computed anew"
+      }
+    }
+  }
+}

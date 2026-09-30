@@ -1,0 +1,249 @@
+{
+  "actor": {
+    "slug": "bandeira-de-mello",
+    "name": "BANDEIRA DE MELLO",
+    "display_name": "Bandeira de Mello",
+    "role": "Deputado (PSB-RJ)",
+    "article_names": [
+      "Bandeira de Mello"
+    ],
+    "party_uf": [
+      "PSB - RJ",
+      "Bloco/PSB - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:08:38+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      175,
+      183
+    ],
+    "input_tokens": 2628,
+    "output_tokens": 614,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 12,
+    "with_udv": 1,
+    "passage_only": 8,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Pede ao Ministério do Meio Ambiente (MMA) que apresente sua posição sobre o projeto de lei do mercado regulado de redução de emissões de carbono, aprovado no Senado, afirmando que a Câmara dos Deputados terá que se debruçar sobre o assunto e que o MMA vai precisar do apoio parlamentar.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 84,
+            "start": 150166,
+            "end": 150576,
+            "text": "Se foi, eu peço desculpas e depois eu ficarei sabendo da resposta, mas eu queria perguntar sobre o projeto — e certamente o MMA vai precisar de nós aqui na Câmara de Deputados —, com relação ao mercado regulado de redução de emissões de carbono, que acabou de passar ali no Senado e é um assunto de interesse do Brasil, do Ministério do Meio Ambiente, e nós aqui na Câmara vamos ter que nos debruçar sobre ele.",
+            "score": 0.5319
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Ministério da Fazenda sobre a alíquota de taxação das operadoras de apostas esportivas, citando que, nas primeiras exposições, o tamanho ideal da tributação seria em torno de 15% para evitar a clandestinidade, mas que a medida provisória (MP) aprovada fixou 18%, e que representantes do segmento alegam que, somando outros impostos, a carga chega a 30% e tantos.",
+          "passage": {
+            "hearing_id": 175,
+            "turn": 24,
+            "start": 50043,
+            "end": 50383,
+            "text": "Nas primeiras exposições que o Secretário Manssur nos fez aqui, a princípio estava estabelecido que o tamanho ideal da tributação seria em torno de 15%,por conta de uma experiência internacional que dizia que, se fosse muito mais do que isso, a clandestinidade seria tão grande que ia acabar sendo contraproducente fazer uma alíquota maior.",
+            "score": 0.3165
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Fazenda a avaliação dessa questão da carga tributária total e se há intenção de propor uma redução, ou se a alíquota de 18% se mantém sem contratemplos.",
+          "passage": {
+            "hearing_id": 175,
+            "turn": 24,
+            "start": 50651,
+            "end": 50827,
+            "text": "Queria perguntar se o Ministério da Fazenda avaliou essa questão e se pretende propor uma redução, ou se não, se é isso mesmo, e não teremos nenhum contratempo por conta disso.",
+            "score": 0.2409
+          },
+          "udv": {
+            "id": "udv-175-1-0",
+            "rule": "same_sentence",
+            "score": 0.1893
+          }
+        },
+        {
+          "text": "Pergunta sobre a outorga prevista na MP, especificamente se existe um prazo para o pagamento, se a cobrança já começou após a MP virar lei, e quantas empresas decidiram pela legalidade e desembolsaram o valor.",
+          "passage": {
+            "hearing_id": 175,
+            "turn": 26,
+            "start": 53734,
+            "end": 53942,
+            "text": "A partir do momento em que virou lei, ela já começou a ser paga, já foi paga e, se foi, quantas das empresas que operam aqui no Brasil decidiram enveredar pelo caminho da legalidade e desembolsaram a outorga?",
+            "score": 0.3969
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência internacional como critério para avaliar a alíquota de taxação das apostas, citando que alíquotas muito acima de 15% poderiam gerar clandestinidade em escala que tornaria a medida contraproducente.",
+          "passage": {
+            "hearing_id": 175,
+            "turn": 24,
+            "start": 50043,
+            "end": 50383,
+            "text": "Nas primeiras exposições que o Secretário Manssur nos fez aqui, a princípio estava estabelecido que o tamanho ideal da tributação seria em torno de 15%,por conta de uma experiência internacional que dizia que, se fosse muito mais do que isso, a clandestinidade seria tão grande que ia acabar sendo contraproducente fazer uma alíquota maior.",
+            "score": 0.2184
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se amigo da Ministra Marina Silva e elogia a equipe do Ministério do Meio Ambiente, incluindo o Secretário Capobianco e o Presidente Rodrigo Agostinho, afirmando que o trabalho deles enche de orgulho e demonstra equilíbrio e competência.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 84,
+            "start": 149192,
+            "end": 149647,
+            "text": "Em primeiro lugar, quero cumprimentar a equipe do Ministério do Meio Ambiente, chefiada pela minha amiga Ministra Marina Silva, com o Secretário Capobianco, o Presidente Rodrigo Agostinho e essedream teamque eles trouxeram e que está ali encostado na parede: o Daniel, a Edel, o André, o Maluf e o Mauro.Essa equipe do Ministério do Meio Ambiente efetivamente nos enche de orgulho, principalmente depois que nós passamos esse longo e tenebroso inverno aí.",
+            "score": 0.4259
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o BNDES é sua segunda instituição favorita, tendo defendido o órgão na Comissão de Constituição e Justiça (CCJ) pouco antes da audiência sobre o Ibama.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 84,
+            "start": 149915,
+            "end": 149954,
+            "text": "Eu estava lá na CCJ defendendo o BNDES.",
+            "score": 0.2305
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara admiração pelo Secretário Manssur, do Ministério da Fazenda, e parabeniza-o pelo trabalho realizado.",
+          "passage": {
+            "hearing_id": 175,
+            "turn": 24,
+            "start": 49548,
+            "end": 49656,
+            "text": "É um prazer mais uma vez me encontrar aqui com o Secretário Manssur, que está fazendo um belíssimo trabalho.",
+            "score": 0.2746
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Inicia as falas com cumprimentos protocolares e elogios diretos aos representantes dos ministérios presentes, citando nomes de membros da equipe técnica.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Estrutura as intervenções como perguntas diretas aos representantes do governo, focando em dúvidas específicas sobre a implementação de políticas públicas (mercado de carbono e taxação de apostas).",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita dados e alegações de terceiros (representantes do segmento de casas de apostas) para fundamentar suas perguntas, distinguindo explicitamente que se trata de \"dúvidas\" e não de questionamentos ou críticas.",
+          "passage": {
+            "hearing_id": 175,
+            "turn": 24,
+            "start": 50439,
+            "end": 50562,
+            "text": "Depois que foi aprovada a MP, alguns representantes do segmento de casa de apostas levantaram que na realidade não são 18%.",
+            "score": 0.158
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza referências a eventos recentes e contextos específicos (como a aprovação no Senado ou a edição da MP) para situar as perguntas no tempo e no processo legislativo.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 101,
+      "split": "test",
+      "article_date": "2024-04-23",
+      "title": "Torcidas organizadas pedem mudanças na Lei Geral do Esporte",
+      "assunto": "Mudanças na Lei Geral do Esporte para individualizar condutas em casos de violência em jogos de futebol",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 175,
+      "split": "train",
+      "article_date": "2023-09-12",
+      "title": "Governo pode rever alíquota de taxação das operadoras de apostas esportivas, diz assessor",
+      "assunto": "Revisão da alíquota de taxação das operadoras de apostas esportivas no Brasil",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-175-1-0",
+      "hearing_id": 175,
+      "n": 5,
+      "article_name": "Bandeira de Mello",
+      "proposition": "Questionou o assessor especial do Ministério da Fazenda sobre o percentual de taxação das operadoras de apostas esportivas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Se forem contar os outros impostos que incidem também, isso vai chegar a 30% e tantos. Queria perguntar se o Ministério da Fazenda avaliou essa questão e se pretende propor uma redução, ou se não, se é isso mesmo, e não teremos nenhum contratempo por conta disso.",
+        "turn": 24,
+        "start": 50563,
+        "end": 50827
+      },
+      "verifier": {
+        "probability": 0.14744002444768572,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

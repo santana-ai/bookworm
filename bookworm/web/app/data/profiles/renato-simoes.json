@@ -1,0 +1,332 @@
+{
+  "actor": {
+    "slug": "renato-simoes",
+    "name": "RENATO SIMÕES",
+    "display_name": "RENATO SIMÕES",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:23:16+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      74,
+      167
+    ],
+    "input_tokens": 5615,
+    "output_tokens": 979,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação de uma política pública nacional para a orfandade, argumentando que o Estado brasileiro não está aparelhado para atender a esse público, especialmente no contexto da orfandade por COVID-19, que considera um fenômeno massivo.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 77113,
+            "end": 77431,
+            "text": "O Estado brasileiro não está aparelhado para uma política pública voltada à orfandade em geral, muito menos para atender a desafios emergentes, como os citados aqui: a orfandade por feminicídio, a orfandade por desastres naturais ou crimes ambientais e, em particular, a orfandade por COVID, que é um fenômeno massivo.",
+            "score": 0.4676
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o aprimoramento do sistema de garantia de direitos para compilar dados de óbitos e assistência social (SUAS, SUS, cartórios), visando romper a invisibilidade das crianças e adolescentes órfãos e criar mecanismos de reparação.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 77461,
+            "end": 78209,
+            "text": "Então, Deputado Célio, como pretendemos fazer numa audiência que foi aprovada por esta Comissão na semana passada e que vai ser organizada especificamente sobre orfandade em decorrência da COVID, estamos trazendo nesta audiência algumas reflexões — e vou concluindo com isto —, que têm a ver, em primeiro lugar, com a criação do aprimoramento do nosso sistema de garantia de direitos, para que os dados objetivos, sejam aqueles vindos dos cartórios de registro de falecimento, de […]",
+            "score": 0.3353
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoia a instituição de um benefício previdenciário como reparação pelos crimes da pandemia, mas defende que esse benefício não pode estar isolado de uma rede de proteção social e assistência à integridade dos direitos da criança e do adolescente.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 78484,
+            "end": 79100,
+            "text": "Mas defendemos também que esse benefício não pode estar isolado de uma rede de proteção social e de assistência à integridade dos direitos da criança e adolescente em orfandade, o que seria um legado dessa geração ao conjunto da orfandade, ao conjunto dos direitos da infância e da juventude no Brasil, para que essas mortes não tenham sido em vão, para que essas famílias que se recompõem num novo núcleo familiar em torno dessas crianças e adolescentes possam ter uma […]",
+            "score": 0.3309
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a gestão da pandemia pelo Governo Bolsonaro, classificando-a como incompetente para o interesse público e responsável por um \"apagão de dados\" que impede o conhecimento da extensão da orfandade por COVID-19.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 74559,
+            "end": 74688,
+            "text": "Então, é muito maior, com certeza, a dramática situação deixada pela administração da pandemia sob a gestão do Governo Bolsonaro.",
+            "score": 0.2294
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão de uma política nacional de controle populacional de cães e gatos no Plano Plurianual (PPA), destacando que a proposta recebeu 39.980 votos na consulta participativa, tornando-se a nona mais votada.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 13148,
+            "end": 13245,
+            "text": "Essa proposta da política nacional de controle populacional de cães e gatos recebeu 39.980 votos.",
+            "score": 0.6583
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a reorganização dos Ministérios e a criação de programas coerentes com objetivos e ações orçamentárias, argumentando que a mera recriação de pastas não basta sem dotação orçamentária.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 11411,
+            "end": 11515,
+            "text": "E, ao não ter programas coerentes, eles não têm ações orçamentárias para receber recursos orçamentários.",
+            "score": 0.3183
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a participação social como método central para a construção de políticas públicas, citando o PPA participativo e as plenárias estaduais como exemplos de legitimação de demandas minoritárias que se tornam majoritárias.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 12483,
+            "end": 12579,
+            "text": "Então, quando se abre à participação social, emergem causas que são majoritárias e minoritárias.",
+            "score": 0.2787
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a noção de \"justiça de transição\" como critério para exigir memória, verdade e justiça em relação às vítimas da pandemia, aplicando esse conceito à necessidade de reparação para crianças e adolescentes órfãos.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 73216,
+            "end": 73635,
+            "text": "Isso produziu um período na nossa história que precisará de uma justiça de transição para recompor e exigirá memória, verdade e justiça não só das mais de 670 mil vítimas fatais, mas também de toda uma sociedade que teve a sua vida virada de pernas para o ar por uma gestão absolutamente incompetente para os objetivos do interesse público, ainda que tenha sido competente para promover o caos e a violação de direitos.",
+            "score": 0.2429
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a ideia de que direitos humanos são construídos historicamente e que a militância atual visa construir os \"direitos humanos do amanhã\", justificando a expansão da proteção para além da esfera tradicional humana, incluindo o meio ambiente e os animais.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 9104,
+            "end": 9167,
+            "text": "E, hoje, nós estamos construindo os direitos humanos do amanhã.",
+            "score": 0.2363
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na soberania popular e na legitimidade democrática para justificar a reconstrução de políticas públicas, argumentando que o governo eleito deve apresentar o desenho do futuro ao Parlamento no primeiro ano de mandato.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 10871,
+            "end": 11085,
+            "text": "Por isso é que o Constituinte definiu que, no primeiro ano de governo, o governante eleito, em qualquer âmbito da Federação, apresentasse ao Parlamento o desenho do futuro ao qual ele vai remeter a ação do Governo.",
+            "score": 0.3347
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a centralidade da participação social na gestão de demandas, utilizando o volume de votos e a participação em plenárias como fundamento para a priorização de políticas públicas, como a do controle populacional de animais.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 13355,
+            "end": 13472,
+            "text": "Vejam que, para o Governo do Presidente Lula, construir políticas públicas com participação social é algo muito caro.",
+            "score": 0.227
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se participante de Comissões Parlamentares em vários mandatos, tendo como prioridade os direitos da infância e da juventude.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 76344,
+            "end": 76622,
+            "text": "E digo isto até em tom autocrítico, porque participo de Comissões Parlamentares em vários mandatos e sempre tive como prioridade os direitos da infância e da juventude: hoje não nos dedicamos com a profundidade necessária ao tema da orfandade como uma lacuna de proteção social.",
+            "score": 0.4489
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter criado e presidido por 10 anos a Comissão de Direitos Humanos na Assembleia Legislativa de São Paulo.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 8146,
+            "end": 8247,
+            "text": "Eu criei e presidi por 10 anos a Comissão de Direitos Humanos na Assembleia Legislativa de São Paulo.",
+            "score": 0.6617
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara atuar na Secretaria Nacional de Participação Social, na Presidência da República, onde busca reforçar áreas inovadoras na gestão de demandas da sociedade.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 10152,
+            "end": 10440,
+            "text": "É por isso que eu tenho procurado sempre reforçar, na Secretaria Nacional de Participação Social, lá na Presidência da República, áreas que são inovadoras na gestão de demandas da sociedade que são minoritárias, mas que estão rapidamente alterando essa correlação de forças pela sua luta.",
+            "score": 0.6038
+          },
+          "udv": null
+        },
+        {
+          "text": "Afilia-se à coalizão de movimentos que busca tirar crianças e adolescentes órfãos da invisibilidade, coordenada pela Profa. Aldaiza Sposati, da PUC de São Paulo.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 76024,
+            "end": 76170,
+            "text": "Aldaiza Sposati, da PUC de São Paulo, foi nos aproximar dessa realidade a partir de toda uma rede que se colocou à disposição desse enfrentamento.",
+            "score": 0.2926
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio ao Governo do Presidente Lula e à estratégia de reconstrução de políticas públicas através do PPA participativo.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 10558,
+            "end": 10650,
+            "text": "O Governo Federal decidiu reconstruir as políticas públicas através de um PPA participativo.",
+            "score": 0.4745
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e estudos internacionais, como a publicação da revista The Lancet sobre 130 mil crianças e adolescentes em situação de orfandade, para fundamentar suas críticas e propostas.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 74814,
+            "end": 75059,
+            "text": "Entre elas, a revistaThe Lancetpublicou um estudo, a partir de dados estatísticos concebidos por pesquisas no plano internacional, de que poderíamos ter em torno de 130 mil crianças e adolescentes em situação de orfandade por COVID-19 no Brasil.",
+            "score": 0.3158
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a narrativas pessoais e episódios vividos, como a anedota sobre a ligação da senhora na Comissão de Direitos Humanos em 1997, para ilustrar a evolução histórica dos direitos.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 8248,
+            "end": 8671,
+            "text": "E me lembro bem de um episódio, logo no início da Comissão, lá em 1997, 1998, quando a nossa Secretária falou algo assim:\"Hoje eu dispensei uma ligação\".Eu perguntei:\"O que aconteceu?\"Ela respondeu que uma senhora ligou perguntando se ela, como Presidente da Comissão de Direitos Humanos, não iria tomar nenhuma atitude contra a Festa do Peão de Jaguariúna, porque era um absurdo o que estava acontecendo com os animais lá.",
+            "score": 0.2086
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e crítica ao descrever a gestão anterior como \"governo da morte\" e \"destruição\", contrastando-a com a \"soberania popular\" e a \"reconciliação\" do governo atual.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 24,
+            "start": 72427,
+            "end": 72477,
+            "text": "É um governo da morte, é um governo da destruição.",
+            "score": 0.4407
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita nomes de parlamentares e ministros (Deputado Bohn Gass, Deputado Danilo Forte, Ministro Márcio Macêdo, Ministra Simone Tebet) para demonstrar alinhamento institucional e apoio político às causas defendidas.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 3,
+            "start": 12739,
+            "end": 13009,
+            "text": "Houve 27 plenárias estaduais, das quais participaram 34 mil pessoas, lideradas pelo Ministro Márcio Macêdo e pela Ministra Simone Tebet, em cada Estado.Em vários destes, para chegar a falar — eram dez falas por Estado —, havia toda uma preparação dos movimentos sociais.",
+            "score": 0.2337
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos conectando a demanda específica (orfandade ou controle de animais) a um processo maior de participação social e legitimação democrática, usando números de votos e participantes como prova de respaldo popular.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 74,
+      "split": "train",
+      "article_date": "2022-07-11",
+      "title": "Debatedores apontam desafios para implementação plena do ECA",
+      "assunto": "Desafios para a implementação plena do Estatuto da Criança e do Adolescente (ECA)",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 167,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Especialistas cobram recursos e política pública para controle populacional de cães e gatos",
+      "assunto": "Recursos e política pública para controle populacional de cães e gatos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

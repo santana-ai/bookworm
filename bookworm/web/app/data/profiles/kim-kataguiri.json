@@ -1,0 +1,337 @@
+{
+  "actor": {
+    "slug": "kim-kataguiri",
+    "name": "KIM KATAGUIRI",
+    "display_name": "Kim Kataguiri",
+    "role": "Deputado (União-SP)",
+    "article_names": [
+      "Kim Kataguiri"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:31:46+00:00",
+    "n_statements": 47,
+    "n_hearings": 2,
+    "hearing_ids": [
+      45,
+      145
+    ],
+    "input_tokens": 6417,
+    "output_tokens": 1141,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a CPI do MST tem como objetivo principal pacificar o campo e investigar crimes perpetrados por movimentos sem-terra, citando casos específicos de extorsão pela FNL em São Paulo, destruição de moradia e ameaças no Distrito Federal, sequestro em Goiás e agressão física no sul da Bahia, todos documentados com vídeos, exames de corpo de delito e comprovantes bancários nos autos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 314,
+            "start": 162799,
+            "end": 162826,
+            "text": "falou em pacificar o campo.",
+            "score": 0.2175
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Governo Federal por não adotar protocolos para evitar agressões, sequestros e ameaças contra dissidentes e fazendeiros, e questiona a inação do Ministério Público e da polícia da Bahia diante de provas apresentadas por vítimas.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 352,
+            "start": 187972,
+            "end": 188461,
+            "text": "Ministro, perdoe-me, mas, entre acreditar na palavra de V.Exa., que é um amigo do Ministro Rui Costa, e acreditar na palavra das vítimas que trouxeram aqui os vídeos, o exame de corpo de delito, o boletim de ocorrência e a representação ao Ministério Público da Bahia, que nada fez, nem a polícia, nem o Ministério público, eu prefiro acreditar nas vítimas que trouxeram as provas das agressões e também todos os documentos, o boletim de ocorrência e a representação ao […]",
+            "score": 0.2433
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a legitimidade de invasões como método de negociação, usando como exemplo a invasão da EMBRAPA em Pernambuco, argumentando que o crime contra a propriedade não gera direito à negociação e que o atendimento de demandas após a invasão premia a ilegalidade.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 363,
+            "start": 192113,
+            "end": 192232,
+            "text": "Cometer um crime contra uma propriedade privada ou uma propriedade pública me dá legitimidade para negociar um direito?",
+            "score": 0.3057
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a \"terceirização\" ou \"privatização\" da reforma agrária, afirmando que o INCRA, no segundo mandato do Governo Dilma, delegava a escolha de terras e assentados ao MST e à CUT, prática considerada ilegal pelo Tribunal de Contas da União (TCU) em dezenas de acórdãos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 371,
+            "start": 195255,
+            "end": 195581,
+            "text": "Então, houve a terceirização ou a privatização da reforma agrária, que foi justamente um dos pontos centrais de um dos muitos, pois são dezenas de acórdãos do Tribunal de Contas da União, que atestaram irregularidades no programa de reforma agrária, não apenas, mas principalmente a partir do segundo mandato do Governo Dilma.",
+            "score": 0.4542
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Justiça a isonomia no tratamento de crimes, rejeitando a distinção entre a atuação dura contra grileiros e posseiros e o \"rito burocrático\" aplicado a lideranças do MST, e exige que o Governo trate crimes contra pessoas de forma igualitária, independentemente da autoria.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 329,
+            "start": 176173,
+            "end": 176255,
+            "text": "O que eu quero é que o Governo trate com isonomia crimes cometidos contra pessoas.",
+            "score": 0.407
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a liberação de R$ 1,27 milhão do INCRA para a 4ª Feira Nacional da Reforma Agrária do MST, apontando a falta de personalidade jurídica, prestação de contas e balanço contábil do movimento, em contraposição a entidades como FENAVINHO e FENARROZ que possuem CNPJ.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 417,
+            "start": 203681,
+            "end": 203717,
+            "text": "FENAVINHO tem CNPJ, FENARROZ também.",
+            "score": 0.3592
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que há queda real no orçamento do Ministério da Justiça para 2024, argumentando que a manutenção dos valores nominais de 2023, somada à inflação e ao descumprimento da meta fiscal que acionará gatilhos do arcabouço, resulta em redução do orçamento discricionário.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 312,
+            "start": 151168,
+            "end": 151359,
+            "text": "Significa que, se não há aumento real por parte do orçamento de cada uma das ações, há queda real, porque o orçamento fica espremido, principalmente o orçamento discricionário, do qual V.Exa.",
+            "score": 0.2822
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a imposição de uma taxa de 92% sobre compras online dos mais pobres e a acumulação de cargos por Ministros do Governo, que recebem supersalários acima do teto constitucional, alegando que isso contradiz o discurso de defesa dos pobres.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 315,
+            "start": 156896,
+            "end": 157046,
+            "text": "impõe uma taxa sobre compras de mais pobres em 92%, enquanto Ministros do Governo acumulam cargos e têm supersalários de mais de 72 mil reais por mês.",
+            "score": 0.4144
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a isonomia e o Estado de Direito como critérios centrais, exigindo que o Governo aplique a lei de forma igualitária contra todos os criminosos, sejam eles grileiros, empresários ou lideranças de movimentos sociais, rejeitando a falsa dicotomia entre defender a ordem pública e defender os movimentos sociais.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 329,
+            "start": 174757,
+            "end": 174799,
+            "text": "Parece-me que a falsa dicotomia que V.Exa.",
+            "score": 0.1764
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a Constituição e a legalidade como fundamento para rejeitar métodos de reivindicação social baseados em invasões e crimes, argumentando que o desrespeito à lei e à propriedade privada não confere legitimidade para a negociação de direitos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 365,
+            "start": 193375,
+            "end": 193457,
+            "text": "Pois foi justamente o desrespeito à lei, à propriedade e à Constituição que houve.",
+            "score": 0.3083
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a lógica orçamentária e a inflação como critérios para avaliar a política de segurança pública, sustentando que a ausência de aumento nominal no orçamento implica queda real, especialmente em despesas vegetativas e discricionárias.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 312,
+            "start": 151097,
+            "end": 151167,
+            "text": "não é exceção — é com despesas vegetativas, que crescem pela inflação.",
+            "score": 0.2679
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita o maniqueísmo político que associa a esquerda à defesa dos pobres e a direita ao ódio contra eles, defendendo que há pessoas bem e mal-intencionadas em ambos os espectros e que o debate deve focar em políticas públicas e não em estereótipos.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 312,
+            "start": 152368,
+            "end": 152597,
+            "text": "Há pessoas bem-intencionadas em ambos os espectros políticos, dispostas a discutir políticas públicas em ambos os espectros políticos; e há pessoas mal-intencionadas, e há ladrões, e há corruptos, em ambos os espectros políticos.",
+            "score": 0.4303
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da CPI do MST e afirma que os representantes do Governo e Deputados da base agiram para impedir a convocação do Ministro Rui Costa, negociando a retirada do convite em troca de apoio a requerimentos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 363,
+            "start": 190826,
+            "end": 191208,
+            "text": "Ministro, só para finalizar mesmo: se, de fato, o Ministro Rui Costa tivesse a boa vontade de vir a esta CPI, no semestre passado, quando nós apresentamos requerimentos de convite e de convocação, os representantes do Governo não teriam por 2 meses dito e nos pedido para retirar o convite e a convocação da pauta, em troca de negociar okitobstrução para aprovação de requerimentos.",
+            "score": 0.4032
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma possuir um canal no Discord utilizado para debates, apresentação de projetos de lei e cultura, e declara ter ingressado com ações judiciais que obtiveram liminares afastando membros do Governo que recebem supersalários acima do teto constitucional.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 315,
+            "start": 157277,
+            "end": 157423,
+            "text": "Eu, inclusive, já ingressei com ações e obtive liminares afastando membros do Governo que hoje recebem supersalários acima do teto constitucional.",
+            "score": 0.4941
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Baseia seus argumentos em provas documentais e audiovisuais específicas (vídeos, exames de corpo de delito, comprovantes de depósito, acórdãos do TCU, documentos do site do INCRA), enfatizando que suas afirmações não são levianas e que as vítimas cumprem o compromisso de dizer a verdade.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 352,
+            "start": 187972,
+            "end": 188461,
+            "text": "Ministro, perdoe-me, mas, entre acreditar na palavra de V.Exa., que é um amigo do Ministro Rui Costa, e acreditar na palavra das vítimas que trouxeram aqui os vídeos, o exame de corpo de delito, o boletim de ocorrência e a representação ao Ministério Público da Bahia, que nada fez, nem a polícia, nem o Ministério público, eu prefiro acreditar nas vítimas que trouxeram as provas das agressões e também todos os documentos, o boletim de ocorrência e a representação ao […]",
+            "score": 0.1646
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza perguntas retóricas e questionamentos diretos e repetitivos para pressionar os Ministros, cobrando respostas precisas sobre a existência de membros do MST em superintendências do INCRA e sobre a legalidade de liberações de recursos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 399,
+            "start": 199729,
+            "end": 199792,
+            "text": "E pessoas que são do MST e estão em superintendências do INCRA?",
+            "score": 0.2546
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem confrontadora e sarcástica, chamando o Ministro de \"malabarista retórico\" e criticando a \"argumentação rasa\" e a criação de \"falsa dicotomia\" ou \"espantalho\" por parte do Governo.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 312,
+            "start": 152336,
+            "end": 152367,
+            "text": "Essa argumentação é muito rasa.",
+            "score": 0.329
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a atuação do Governo em diferentes contextos (ex.: Força Nacional no Pará vs. inação no sul da Bahia; rigor contra grileiros vs. burocracia contra MST) para evidenciar supostas contradições e falta de isonomia.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 329,
+            "start": 176173,
+            "end": 176255,
+            "text": "O que eu quero é que o Governo trate com isonomia crimes cometidos contra pessoas.",
+            "score": 0.1844
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 45,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-16-3-0",
+      "hearing_id": 16,
+      "n": 13,
+      "article_name": "Kim Kataguiri",
+      "proposition": "Participou de momentos de bate-boca durante a audiência.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "quiser assistir ao nosso debate...\"Fazer parecer que vence.\"Não! A pessoa assistindo ao debate na íntegra, ela tem opinião própria.",
+        "turn": 35,
+        "start": 41863,
+        "end": 41994
+      },
+      "verifier": {
+        "probability": 0.12570184781992685,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

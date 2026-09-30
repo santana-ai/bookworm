@@ -1,0 +1,399 @@
+{
+  "actor": {
+    "slug": "ulysses-tavares-teixeira",
+    "name": "ULYSSES TAVARES TEIXEIRA",
+    "display_name": "ULYSSES TAVARES TEIXEIRA",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:06:32+00:00",
+    "n_statements": 9,
+    "n_hearings": 2,
+    "hearing_ids": [
+      156,
+      174
+    ],
+    "input_tokens": 14299,
+    "output_tokens": 1469,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 26,
+    "with_udv": 0,
+    "passage_only": 26,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o REVALIDA é um processo alternativo de revalidação focado na avaliação de competências individuais, e não na análise documental do processo formativo, e que o modelo atual demonstra consistência, pois a maioria dos aprovados passa na primeira ou segunda tentativa.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 1,
+            "start": 17842,
+            "end": 17955,
+            "text": "A ideia não está mais focada na avaliação do processo formativo do interessado, mas nas competências individuais.",
+            "score": 0.3321
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a participação de \"treineiros\" (candidatos sem diploma) no REVALIDA, argumentando que a prova é de revalidação de diplomas e que a presença de candidatos sem formação concluída, muitas vezes por decisão judicial, gera problemas para as universidades parceiras e para a credibilidade do exame.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 4,
+            "start": 35863,
+            "end": 35910,
+            "text": "Sim, porque ele participa por decisão judicial.",
+            "score": 0.2305
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a aplicação quadrimestral prevista na Lei nº 14.621/2023 não é viável no cronograma atual, que leva no mínimo 11 meses para execução completa, e que o INEP está em diálogo com a Comissão Interministerial de Educação e Saúde para definir um modelo de três edições anuais.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 2,
+            "start": 21211,
+            "end": 21499,
+            "text": "Com o advento da Lei nº 14.621, aprovada agora em julho de 2023, que estava focada no Programa Mais Médicos, mas que acabou alterando também a Lei do REVALIDA, está prevista a aplicação quadrimestral do exame, o que significa que precisaríamos de três edições completas ao longo de 1 ano.",
+            "score": 0.3253
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a realização de estudos comparativos com grupos de estudantes brasileiros para verificar se a dificuldade do REVALIDA está adequada, e sugere uma aproximação com agências de regulação de países vizinhos para harmonizar os graus de exigência curricular.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 6,
+            "start": 45154,
+            "end": 45199,
+            "text": "Estudos com grupos de estudantes brasileiros.",
+            "score": 0.3969
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o sistema de avaliação da educação superior (SINAES) precisa ser aperfeiçoado para reconhecer as especificidades das instituições, especialmente as comunitárias, utilizando procedimentos diversificados previstos em lei.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 7,
+            "start": 19374,
+            "end": 19446,
+            "text": "Trata-se do SINAES — Sistema Nacional de Avaliação da Educação Superior.",
+            "score": 0.3353
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o uso de uma única ficha de avaliação para todos os 43 mil cursos na avaliação in loco, propondo a criação de instrumentos específicos por área geral (como saúde ou engenharia) e a possibilidade de comissões multidisciplinares avaliarem múltiplos cursos de uma mesma instituição para reduzir custos e aumentar a precisão.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 33030,
+            "end": 33090,
+            "text": "É a mesma ficha, é o mesmo instrumento para todos os cursos.",
+            "score": 0.2144
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de uma prova específica para os cursos de licenciatura no ENADE, elaborada por professores especialistas em ensino, para avaliar competências docentes, e a implementação de um \"desempenho mínimo esperado\" como medida de interpretação dos resultados, não como nota de corte para reprovação do estudante.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 36765,
+            "end": 36827,
+            "text": "É só, vamos dizer, uma medida de interpretação dos resultados.",
+            "score": 0.3034
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a substituição dos indicadores agregados CPC e IGC por uma \"cesta de indicadores\" mais simples e diretos, separando resultados de infraestrutura, desempenho, pesquisa e extensão, com destaque para a valorização da extensão universitária.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 37361,
+            "end": 37528,
+            "text": "Por exemplo: isso é um resultado de infraestrutura; isso é um resultado de desempenho do estudante; isso é um resultado de pesquisa; isso é um resultado de extensão...",
+            "score": 0.3057
+          },
+          "udv": null
+        },
+        {
+          "text": "Sustenta que a avaliação in loco, que resultou em apenas 1,4% de notas insatisfatórias em 50 mil visitas, pode ser otimizada por outros conjuntos de indicadores, sem deixar de avaliar, mas usando o sistema de forma mais racional.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 32174,
+            "end": 32249,
+            "text": "Mas é no sentido de usar o sistema de avaliação de uma forma mais racional.",
+            "score": 0.2214
+          },
+          "udv": null
+        },
+        {
+          "text": "Aponta que a ausência de diretriz curricular nacional para cursos tecnológicos, como Estética e Cosmética, força o INEP a criar a matriz de prova a partir do catálogo, o que engessa o curso e o transforma em um \"bacharelado aligeirado\", sendo uma consequência nefasta da avaliação atual.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 29604,
+            "end": 29788,
+            "text": "Este ano, nós nos deparamos com uma dificuldade específica na elaboração das provas do curso de Tecnologia em Estética e Cosmética, porque o curso não tem diretriz curricular nacional.",
+            "score": 0.3265
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da \"confiabilidade\" e dos \"freios e contrapesos\" como fundamento para a estrutura do REVALIDA, onde diferentes comissões de docentes (elaboração, revisão, montagem, análise de itens, correção) atuam de forma independente para garantir a validade dos resultados e evitar manipulações.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 2,
+            "start": 27925,
+            "end": 27964,
+            "text": "É um mecanismo de freios e contrapesos.",
+            "score": 0.2446
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio do \"uso racional\" e a aderência aos protocolos do SUS como critério para a elaboração e correção das provas do REVALIDA, exemplificado pela limitação do número de exames solicitados na prova prática para evitar o \"chute\" de diagnósticos.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 6,
+            "start": 44118,
+            "end": 44194,
+            "text": "Enfim, havia na prova uma limitação, esta justamente focada no uso racional.",
+            "score": 0.2511
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições sobre a avaliação da educação superior no princípio constitucional da garantia da qualidade do ensino e na necessidade de reconhecer a diversidade do sistema, argumentando que instrumentos únicos não capturam as especificidades de diferentes tipos de instituições e cursos.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 7,
+            "start": 19447,
+            "end": 19632,
+            "text": "Essa lei está ligada diretamente ao princípio constitucional da garantia da qualidade do ensino e prevê vários tipos de avaliação externa, cuja realização é de responsabilidade do INEP.",
+            "score": 0.3456
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a avaliação deve ser formulada a partir do currículo, e não o contrário, criticando a situação em que a falta de diretrizes curriculares leva a avaliação a definir o que deve ser ensinado, engessando a formação.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 30265,
+            "end": 30342,
+            "text": "É o caminho inverso, a avaliação deveria ser formulada a partir do currículo.",
+            "score": 0.3023
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a eficiência e a economicidade dos processos de avaliação, argumentando que a redução do número de visitas in loco e a criação de comissões multidisciplinares permitem \"ver mais coisas, com menos gente, com menos viagem\", otimizando recursos públicos.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 34829,
+            "end": 34907,
+            "text": "Olhem só, nós já estamos vendo mais coisas, com menos gente, com menos viagem.",
+            "score": 0.3739
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se servidor do INEP, Diretor de Avaliação da Educação Superior, Doutor em Política Internacional e Comparada, Especialista em Avaliação Educacional e Estatística, e afirma não ser médico.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 1,
+            "start": 14279,
+            "end": 14430,
+            "text": "Eu sou servidor do INEP, sou Doutor em Política Internacional e Comparada, sou Especialista em Avaliação Educacional e Estatística, mas não sou médico.",
+            "score": 0.6892
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que sua equipe, de aproximadamente 30 servidores, é responsável por organizar as avaliações da educação superior no Brasil, incluindo o ENADE e o REVALIDA.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 1,
+            "start": 14973,
+            "end": 15159,
+            "text": "Então, a minha equipe, de aproximadamente 30 servidores, é responsável por organizar todas as visitasin locoa cursos e instituições de educação superior no Brasil, feitas para avaliação.",
+            "score": 0.6235
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara que o INEP é uma autarquia federal e que o REVALIDA é fortemente subsidiado pelo Governo Federal.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 2,
+            "start": 21142,
+            "end": 21209,
+            "text": "Ele sempre foi um exame fortemente subsidiado pelo Governo Federal.",
+            "score": 0.6596
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona que o INEP está em diálogo com a Comissão Interministerial de Educação e Saúde, que inclui o Ministério da Saúde e o Ministério da Educação, e que já conversou com o Ministério das Relações Exteriores.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 2,
+            "start": 21579,
+            "end": 21871,
+            "text": "Então, estamos neste momento em diálogo e em discussão com a Comissão Interministerial de Educação e Saúde, que inclui o Ministério da Saúde e o Ministério da Educação, para pensar em um modelo de aplicação e uma distribuição de atividades que façam sentido e ofereçam três aplicações ao ano.",
+            "score": 0.5243
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o INEP tem 49 universidades públicas parceiras no REVALIDA, que aceitam os resultados do exame como suficientes para a revalidação.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 2,
+            "start": 28525,
+            "end": 28605,
+            "text": "Estas são as 49 universidades públicas que são atualmente parceiras do REVALIDA.",
+            "score": 0.4731
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza extensivamente dados estatísticos e números específicos para fundamentar suas posições, como taxas de aprovação por país e instituição, número de inscrições, percentuais de aprovação por faixa de conceito no ENADE, e resultados de visitas in loco.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 6,
+            "start": 37881,
+            "end": 38010,
+            "text": "Os nossos dados nos permitem chegar ao nível da instituição, para sabermos qual instituição tem taxas de aprovação mais elevadas.",
+            "score": 0.2428
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta o processo de elaboração e aplicação das provas do REVALIDA em etapas detalhadas, descrevendo o papel de cada comissão de docentes e os mecanismos de controle de qualidade, para demonstrar a robustez e a confiabilidade do exame.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 1,
+            "start": 18465,
+            "end": 18505,
+            "text": "Esse exame é estruturado em duas etapas.",
+            "score": 0.186
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos concretos e casos específicos para ilustrar seus pontos, como a simulação de uma consulta médica na prova prática do REVALIDA, a experiência de tentar se matricular em uma universidade estrangeira para explicar a facilidade de ingresso, e a visita à UNIVALI para destacar a atuação das universidades comunitárias na extensão.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 13,
+            "start": 37781,
+            "end": 37862,
+            "text": "Eu sei que as universidades comunitárias têm uma atuação muito forte na extensão.",
+            "score": 0.2653
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom técnico e explicativo, direcionado a um público não especializado, definindo termos como \"padrão ouro\", \"matriz de referência\", e \"desempenho mínimo esperado\", e usando analogias para facilitar a compreensão.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 36564,
+            "end": 36637,
+            "text": "Não me entendam mal, o desempenho mínimo esperado não é para o estudante.",
+            "score": 0.2138
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas retóricas para provocar reflexão, como \"será que nós realmente temos 84 cursos cujo melhor resultado de avaliação é uma prova teórica?\" e \"será que nós precisamos de um mecanismo de avaliação que significa mandar uma comissão de professores in loco para todos os atos regulatórios?\".",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 11,
+            "start": 29031,
+            "end": 29198,
+            "text": "Outra provocação que eu já coloco aqui é: será que nós realmente temos 84 cursos cujo melhor resultado de avaliação é uma prova teórica aplicada no final da graduação?",
+            "score": 0.4344
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa o humor de forma leve e pontual, como ao se referir a \"trazer o spoiler do ENADE\" e a \"brincarmos\" com os dados do Painel do REVALIDA, e ao comentar que \"professor prefere falar em pé\".",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 7,
+            "start": 18229,
+            "end": 18266,
+            "text": "Professor prefere falar em pé.(Riso.)",
+            "score": 0.4219
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 156,
+      "split": "train",
+      "article_date": "2023-10-05",
+      "title": "Universidades comunitárias cobram ajustes na legislação para manter qualidade do ensino",
+      "assunto": "Ajustes na legislação para manter a qualidade do ensino em universidades comunitárias",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 174,
+      "split": "train",
+      "article_date": "2023-09-12",
+      "title": "Especialistas discordam sobre nível de dificuldade do exame Revalida",
+      "assunto": "Debate sobre a baixa taxa de aprovação no Exame Nacional de Revalidação de Diplomas Médicos (Revalida) em 2022",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

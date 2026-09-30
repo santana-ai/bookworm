@@ -1,0 +1,328 @@
+{
+  "actor": {
+    "slug": "karina-rie-ishida",
+    "name": "KARINA RIE ISHIDA",
+    "display_name": "Karina Ishida",
+    "role": "Coordenadora de campanhas da Proteção Animal Mundial (WSPA)",
+    "article_names": [
+      "Karina Ishida"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:30:08+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      95,
+      191
+    ],
+    "input_tokens": 8262,
+    "output_tokens": 1137,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a exploração animal para produção e consumo é uma das principais causas de crises de saúde pública, aumento de emissões de gases de efeito estufa e perda de biodiversidade, argumentando que a solução exige uma abordagem sistêmica que conecte esses impactos.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 42610,
+            "end": 42866,
+            "text": "Na nossa carta, defendemos que a exploração animal é uma das principais causas para o aparecimento de crises, como as de saúde pública, para o aumento das emissões de gases de efeito estufa e para a perda de biodiversidade, como a Cristina também comentou.",
+            "score": 0.5966
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a implementação de políticas e normas de bem-estar animal por empresas e governos, o uso de antibióticos apenas para fins terapêuticos, a evitação ou banimento do uso rotineiro (profilático e como promotor de crescimento) e a redução da demanda e consumo de carne por meio da diversificação de proteínas.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 7,
+            "start": 33047,
+            "end": 33479,
+            "text": "Entendemos que é importante desenvolver e implementar políticas e normas de bem-estar animal, tanto empresas como Governos; conscientizarmo-nos sobre a importância de usar antibióticos de forma responsável, uso apenas terapêutico; evitar ou mesmo banir o uso rotineiro de antibióticos; e reduzir a demanda e consumo de carne, por meio da diversificação de proteínas — por isso é importante a fala da nossa colega sobre alternativas.",
+            "score": 0.4925
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica os sistemas intensivos de produção animal, caracterizados por confinamento, altas densidades, estresse físico e mental, desmame precoce e mutilações de rotina (corte de caudas e dentes, castração), que comprometem a imunidade dos animais e elevam a suscetibilidade a doenças.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 51442,
+            "end": 51653,
+            "text": "Registro as consequências da antibioticoterapia na produção animal devido às práticas intensivas: altas densidades, seleção genética para crescimento rápido desses animais, desmame precoce, mutilações de rotina.",
+            "score": 0.3269
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que os sistemas industriais de criação intensiva de suínos favorecem a seleção e disseminação de bactérias multirresistentes, citando estudo da Proteção Animal Mundial com a Universidade Federal do Paraná (UFPR) que identificou aumento na expressão de genes de resistência a antibióticos (betalactâmicos, fluoroquinolonas, macrolídeos e agentes desinfetantes) em rios a jusante de granjas no Paraná.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 7,
+            "start": 29763,
+            "end": 29885,
+            "text": "Já encontramos genes resistentes a antibióticos betalactâmicos, fluoroquinolonas, macrolídeos e até agentes desinfetantes.",
+            "score": 0.4186
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados segundo os quais 75% dos antibióticos usados no mundo são destinados à produção animal (131 mil toneladas por ano), e que apenas 20% do uso atual é terapêutico, enquanto 80% é profilático ou promotor de crescimento.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 51295,
+            "end": 51369,
+            "text": "Isso equivale a 131 mil toneladas de antibióticos por ano nesses sistemas.",
+            "score": 0.3356
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a resistência antimicrobiana causou 1,27 milhão de mortes em 2022 e pode chegar a 10 milhões em 2050, tornando-se a principal causa de morte global, superando câncer, diabetes e doenças cardíacas.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 54515,
+            "end": 54642,
+            "text": "Esta será a principal causa de morte no mundo, superando o câncer, o diabetes, as doenças no coração, os acidentes de trânsito.",
+            "score": 0.4272
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a pecuária é responsável por mais de 60% do desmatamento da Floresta Amazônica e que 25% das emissões de gases poluentes do planeta são provocadas pela agropecuária, citando dados do Observatório do Clima que indicam 64,8% dos gases emitidos pela agropecuária.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 41647,
+            "end": 41936,
+            "text": "Há dois pontos que já foram constatados e reconhecidos, até mencionados anteriormente, que é o impacto da pecuária, responsável por mais de 60% do desmatamento da Floresta Amazônica, e a crise climática, pois 25% das emissões de gases poluentes do planeta são provocadas pela agropecuária.",
+            "score": 0.5976
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que quase 80% da safra mundial de soja é destinada à alimentação animal, gerando insegurança alimentar e pressionando o avanço de monoculturas que prejudicam ecossistemas e biodiversidade.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 47231,
+            "end": 47343,
+            "text": "Em relação à segurança alimentar, quase 80% da safra mundial de soja é destinada para a alimentação dos animais.",
+            "score": 0.5596
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a transição para sistemas sustentáveis deve considerar acordos internacionais, como os da União Europeia, que impõem restrições a produtos provenientes de desmatamento.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 49248,
+            "end": 49375,
+            "text": "Há acordos internacionais, como da União Europeia, em que já vão existir restrições para produtos provenientes de desmatamento.",
+            "score": 0.6443
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio da \"saúde única\" como fundamento para argumentar que a proteção animal, a saúde pública e a sustentabilidade ambiental estão interligadas, justificando a necessidade de ações conjuntas e não isoladas.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 46576,
+            "end": 46610,
+            "text": "Essa é uma crise de saúde pública.",
+            "score": 0.2611
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a base em evidências científicas como critério central para sustentar suas posições, citando estudos da organização, parcerias com universidades (UFPR, USP) e o IDEC, e relatórios internacionais (OMS, ONU, PAHO).",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 7,
+            "start": 26344,
+            "end": 26619,
+            "text": "Também trabalhamos muito forte com base em evidências científicas, incentivando aplicações desses estudos na prática da pecuária e fomentando evidências e aplicações que contribuam para a mudança que entendemos ser o caminho para a sustentabilidade dentro da produção animal.",
+            "score": 0.1827
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o fim do sofrimento desnecessário dos animais é um objetivo moral e prático, argumentando que animais não têm voz para lutar por seus direitos e que a mudança deve ser sistêmica, inspirando pessoas a alterar seus modos de consumo.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 39996,
+            "end": 40258,
+            "text": "Há mais de 50 anos trabalhamos com a causa, no mundo inteiro, para pôr fim ao sofrimento desnecessário dos animais, tanto animais de vida livre, silvestres, quanto animais de produção, de fazenda, inspirando pessoas a mudar definitivamente a vida desses animais.",
+            "score": 0.2708
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a viabilidade econômica da suinocultura e da pecuária depende da evolução para práticas mais sustentáveis, pois a resistência antimicrobiana e os impactos ambientais ameaçam a longevidade do setor.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 50225,
+            "end": 50275,
+            "text": "Registramos a crise de resistência antimicrobiana.",
+            "score": 0.1793
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se médica veterinária e Coordenadora de Campanhas da ONG Proteção Animal Mundial (anteriormente WSPA), organização global com sede em Londres e escritório nacional em São Paulo, atuando há mais de 50 anos em bem-estar animal.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 7,
+            "start": 25515,
+            "end": 25645,
+            "text": "Eu sou médica veterinária, Coordenadora de Campanhas da ONG Proteção Animal Mundial e espero poder contribuir para esta discussão.",
+            "score": 0.4282
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a organização trabalha para colocar um fim a sofrimentos desnecessários dentro dos sistemas, inspirando mudanças nos modos de consumo e promovendo práticas éticas e sustentáveis na produção de alimentos.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 7,
+            "start": 26088,
+            "end": 26343,
+            "text": "Nosso foco principal é trabalhar para colocar um fim a sofrimentos desnecessários dentro dos sistemas, inspirando pessoas a mudar definitivamente seus modos de consumo, considerando a implantação de práticas éticas e sustentáveis na produção de alimentos.",
+            "score": 0.6429
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita parcerias com a Universidade Federal do Paraná (UFPR), a Universidade de São Paulo (USP) e o Instituto Brasileiro de Defesa do Consumidor (IDEC) para a produção de estudos e policy papers.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 50276,
+            "end": 50605,
+            "text": "Desde 2018 esse ponto está sendo trabalhado muito fortemente na organização por meio de pesquisas com a Universidade de São Paulo, com a Universidade Federal do Paraná e com parcerias como Instituto de Defesa do Consumidor — IDEC, para trazer essa agenda à discussão com dados científicos, pautando a questão do bem-estar animal.",
+            "score": 0.4452
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura seus argumentos apresentando dados quantitativos específicos (toneladas de antibióticos, porcentagens de emissões, números de mortes) e referências a estudos científicos e organizações internacionais (OMS, ONU, PAHO) para dar credibilidade às afirmações.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza exemplos concretos e visuais (imagens de sistemas intensivos, fotografias de desmatamento em Mato Grosso, infográficos de ciclos de contaminação) para ilustrar os impactos da produção animal.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 7,
+            "start": 50826,
+            "end": 50912,
+            "text": "Dois terços estão em sistema de confinamento, os intensivos, como mostrei nas imagens.",
+            "score": 0.1701
+          },
+          "udv": null
+        },
+        {
+          "text": "Contextualiza a causa animal como transversal a outras agendas (clima, saúde, economia), buscando demonstrar a interconexão dos problemas e a necessidade de soluções integradas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom colaborativo e institucional, agradecendo a oportunidade de participar, citando colegas e especialistas presentes, e deixando materiais e contatos disponíveis para aprofundamento da discussão.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 95,
+      "split": "train",
+      "article_date": "2023-06-28",
+      "title": "Entidades cobram mais segurança sanitária na produção de alimentos de origem animal",
+      "assunto": "Segurança sanitária e sustentabilidade na produção de alimentos de origem animal",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 191,
+      "split": "train",
+      "article_date": "2023-08-17",
+      "title": "Ações de bem-estar animal podem trazer múltiplos benefícios para o Brasil, dizem especialistas",
+      "assunto": "Ações de bem-estar animal e seus benefícios para o Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-95-0-0",
+      "hearing_id": 95,
+      "n": 1,
+      "article_name": "Karina Ishida",
+      "proposition": "Citou a preocupação com o uso indiscriminado de antibióticos para fins de profilaxia e aceleração de crescimento, sobretudo de aves e suínos: \"Setenta e cinco por cento dos antibióticos do mundo são usados em produção animal. Quanto às vias de contaminação, a gente mapeou principalmente a dos rios, mas é possível identificar também que, a partir do momento em que o animal recebe essas doses de medicamento ao longo da vida, as bactérias nele vão se tornando resistentes e se disseminando e contaminando produtos orgânicos, a partir do momento em que se usam dejetos do suíno para adubo. Então, a contaminação vai para frutas, sementes, folhas e tudo isso vai chegar ao consumidor também.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, 75% dos antibióticos usados no mundo são usados para produção animal, o que é bem alarmante, para entendermos de onde vem a contribuição desse sistema para a saúde pública. Sobre vias de contaminação, nós mapeamos principalmente os rios, mas é possível identificar que, a partir do momento em que o animal começa a receber essas doses de medicamento, as bactérias nele vão se tornando resistentes e — este é o fator preocupante — vão se disseminando, vão contaminando […]",
+        "turn": 7,
+        "start": 32206,
+        "end": 32748
+      },
+      "verifier": {
+        "probability": 0.8577864238499234,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

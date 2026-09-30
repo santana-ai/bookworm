@@ -1,0 +1,336 @@
+{
+  "actor": {
+    "slug": "rafael-baldi",
+    "name": "RAFAEL BALDI",
+    "display_name": "Rafael Baldi",
+    "role": "Diretor adjunto de Produtos da Federação Brasileira de Bancos (Febraban)",
+    "article_names": [
+      "Rafael Baldi"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:15:01+00:00",
+    "n_statements": 6,
+    "n_hearings": 1,
+    "hearing_ids": [
+      142
+    ],
+    "input_tokens": 4035,
+    "output_tokens": 898,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a manutenção do crédito consignado no mercado, discordando explicitamente de posicionamentos que propõem a inexistência do produto, argumentando que é fundamental oferecer a faculdade de escolha para complementar o orçamento familiar em casos de necessidade, com taxas baixas.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 45,
+            "start": 74179,
+            "end": 74389,
+            "text": "Eu discordo um pouco desse posicionamento, porque acho que temos que ter a faculdade de escolher, no caso de uma necessidade no orçamento familiar, se podemos ou não contar com um empréstimo com uma taxa baixa.",
+            "score": 0.1738
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o crédito consignado é a modalidade de empréstimo livre para pessoa física com o menor custo, destacando que a taxa de juros é fixa e que, em caso de falecimento do tomador, a dívida é extinta sem ônus para os herdeiros, independentemente da contratação de seguro prestamista.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 25134,
+            "end": 25249,
+            "text": "Em caso de necessidade, o consignado é a modalidade de empréstimo livre para a pessoa física que tem o menor custo.",
+            "score": 0.5488
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o teto de taxa de juros do INSS, que vem caindo a cada reunião do COPOM, por causar um efeito colateral prejudicial: o afastamento de aposentados do crédito consignado, citando relatos de associações de aposentados que indicam a dificuldade de acesso ao crédito devido à taxa muito baixa.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 45,
+            "start": 74748,
+            "end": 74927,
+            "text": "O teto de taxa do INSS, que vem caindo a cada reunião do COPOM, tem trazido um efeito colateral muito prejudicial, que é o afastamento de alguns aposentados do crédito consignado.",
+            "score": 0.6609
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a principal utilização do consignado é para o pagamento de dívidas mais caras, o que contribui para a diminuição do endividamento das famílias e fomenta a economia local, reduzindo risco, inadimplência e custo da operação.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 26208,
+            "end": 26263,
+            "text": "Ele fomenta a economia local, como foi mencionado aqui.",
+            "score": 0.3554
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta dados afirmando que o consignado atende 44 milhões de pessoas, com crescimento de 68% na utilização de agosto de 2019 a agosto de 2023, sendo que servidores públicos representam mais de 50% desse mercado e o produto corresponde a um terço do saldo de empréstimo para pessoas naturais com recursos livres.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 22593,
+            "end": 22710,
+            "text": "Esse primeiro gráfico mostra um crescimento de 68% na utilização do consignado, de agosto de 2019 até agosto de 2023.",
+            "score": 0.4482
+          },
+          "udv": null
+        },
+        {
+          "text": "Destaca que, sem o consignado, as alternativas seriam o empréstimo pessoal não consignado (taxa média de 5,61% ao mês) ou o crédito de financeiras para negativados (taxa de pelo menos 20% ao mês).",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 23108,
+            "end": 23484,
+            "text": "Como eu falei, se não existisse o crédito consignado, haveria duas alternativas de empréstimos hoje: uma para aquele cliente que está bancarizado, que tem acesso a empréstimo pessoal não consignado, cuja taxa média praticada pelos bancos está em torno de 5,61%; e outra, caso esteja negativado, em que o crédito é concedido por financeiras a uma taxa de pelo menos 20% ao mês.",
+            "score": 0.514
+          },
+          "udv": null
+        },
+        {
+          "text": "Informa que 54 instituições financeiras aderentes às práticas de autorregulação representam 99% do volume do mercado de consignado, e que o sistema já aplicou 1.265 sanções em correspondentes, com 47 suspensões definitivas.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 27641,
+            "end": 27790,
+            "text": "Há 54 instituições financeiras aderentes a essas práticas, o que representa quase 100% do mercado de consignado — em termos de volume, 99% do volume.",
+            "score": 0.4832
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que as reclamações sobre assédio comercial estão diminuindo, fruto de implementações de autorregulação e certificações das instituições financeiras.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 26946,
+            "end": 27412,
+            "text": "Chamamos atenção para que, mesmo com o crescimento da carteira e do volume das operações ao longo dos anos — não vou explicar detalhes porque, digo novamente, essa apresentação vai ser passada para os senhores —, as reclamações estão diminuindo, fruto de algumas implementações importantes, tanto da autorregulação quanto das próprias instituições financeiras, que estão se certificando cada vez mais para oferecer um serviço de mais alta qualidade para os clientes.",
+            "score": 0.3074
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o critério de \"necessidade\" e \"complemento do orçamento familiar\" para justificar a existência do crédito consignado, distinguindo-o de compras por impulso e enfatizando a ponderação na contratação.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 45,
+            "start": 74450,
+            "end": 74570,
+            "text": "Estamos falando de necessidade e complemento do orçamento familiar, e as opções de empréstimo têm que ser bem avaliadas.",
+            "score": 0.2855
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a redução do endividamento e a diminuição do custo do crédito como fundamentos para a defesa do produto, argumentando que ele substitui dívidas mais caras e contribui para a solidez do mercado.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 24210,
+            "end": 24399,
+            "text": "Aqui nós trazemos um conjunto de leis e normas que visam complementar três pilares importantes para o consignado: confiabilidade e segurança; redução da informalidade; e solidez do mercado.",
+            "score": 0.158
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em dados estatísticos e pesquisas (como a realizada com associados da ABBC e FEBRABAN) para sustentar suas posições sobre o uso e o impacto do consignado.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 23486,
+            "end": 23612,
+            "text": "Nós conduzimos uma pesquisa com associados da ABBC e da FEBRABAN sobre quais os principais destinos para o crédito consignado.",
+            "score": 0.2581
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Diretor de Produtos da FEBRABAN, responsável pelo crédito consignado de servidores públicos, trabalhadores privados e do INSS.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 21527,
+            "end": 21686,
+            "text": "Sou Rafael Baldi, Diretor de Produtos da FEBRABAN, responsável pelo crédito consignado tanto de servidores públicos quando de trabalhadores privados e do INSS.",
+            "score": 0.7357
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma atuar em conjunto com a ABBC na condução de pesquisas e no desenvolvimento de iniciativas de autorregulação.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 26722,
+            "end": 26895,
+            "text": "Este é um trabalho que vem sendo desenvolvido dentro da FEBRABAN, em conjunto com a ABBC, para contribuir com a redução das reclamações sobre o assédio comercial do produto.",
+            "score": 0.1552
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza apresentação de slides para estruturar sua fala, compartilhando o material com os participantes para detalhar aspectos técnicos e normativos.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 24610,
+            "end": 24763,
+            "text": "Não se preocupem, vamos detalhar cada uma delas, mas, para poder ser mais eficiente na nossa apresentação, esse material vai ser compartilhado com vocês.",
+            "score": 0.2391
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados quantitativos específicos (percentuais, números de pessoas, taxas de juros, quantidade de sanções) para embasar seus argumentos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita pesquisas e relatos de terceiros (associações de aposentados, associados da ABBC e FEBRABAN) como apoio para suas afirmações.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 23486,
+            "end": 23612,
+            "text": "Nós conduzimos uma pesquisa com associados da ABBC e da FEBRABAN sobre quais os principais destinos para o crédito consignado.",
+            "score": 0.2624
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliador e técnico, oferecendo-se para sanar dúvidas e manter contato, e discorda de colegas de forma direta, mas fundamentada em argumentos de mercado e acesso ao crédito.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 29366,
+            "end": 29453,
+            "text": "Se ficaram dúvidas, estou à disposição para dirimi-las, bem como para qualquer contato.",
+            "score": 0.1637
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona normas e leis (como a Lei nº 10.820/2003) e mecanismos de autorregulação (Não me Perturbe, Monitoramento e Supervisão) para demonstrar a estrutura de segurança e confiabilidade do mercado.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 19,
+            "start": 24210,
+            "end": 24399,
+            "text": "Aqui nós trazemos um conjunto de leis e normas que visam complementar três pilares importantes para o consignado: confiabilidade e segurança; redução da informalidade; e solidez do mercado.",
+            "score": 0.2856
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 10,
+      "split": "test",
+      "article_date": "2024-04-26",
+      "title": "Governo quer substituir saque-aniversário do FGTS por consignado com juros mais baixos",
+      "assunto": "Substituição do saque-aniversário do FGTS por empréstimo consignado com juros mais baixos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 142,
+      "split": "train",
+      "article_date": "2023-10-30",
+      "title": "Governo afirma que regulamentação do consignado para servidores públicos será publicada até semana que vem",
+      "assunto": "Regulamentação do empréstimo consignado para servidores públicos",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-142-3-0",
+      "hearing_id": 142,
+      "n": 7,
+      "article_name": "Rafael Baldi",
+      "proposition": "Os servidores públicos têm 54,8% do crédito consignado, enquanto os aposentados do INSS ficam com 38,5%.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Os servidores públicos representam mais de 50% desse mercado. Assim, o maior mercado hoje para o consignado é o de servidores públicos, seguido por aposentados do INSS e pelo setor privado.",
+        "turn": 19,
+        "start": 22711,
+        "end": 22900
+      },
+      "verifier": {
+        "probability": 0.2545574406009235,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-142-3-1",
+      "hearing_id": 142,
+      "n": 8,
+      "article_name": "Rafael Baldi",
+      "proposition": "Pesquisa da entidade mostra que os empréstimos consignados são usados principalmente para pagar dívidas mais caras, ou 31% do total. Em seguida, vem o pagamento de despesas médicas e as contas mensais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A grande maioria respondeu que paga dívidas atrasadas, despesas médicas e contas do dia a dia. Essas são as recorrências que mais puderam ser observadas nas respostas que nós recebemos, mas, como pode ser visto aqui, o crédito consignado é usado para muitas outras necessidades, inclusive para ser aplicado em negócio próprio.",
+        "turn": 19,
+        "start": 23730,
+        "end": 24056
+      },
+      "verifier": {
+        "probability": 0.22057540250240015,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

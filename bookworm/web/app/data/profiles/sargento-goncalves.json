@@ -1,0 +1,326 @@
+{
+  "actor": {
+    "slug": "sargento-goncalves",
+    "name": "SARGENTO GONÇALVES",
+    "display_name": "Sargento Gonçalves",
+    "role": "Deputado (PL-RN)",
+    "article_names": [
+      "Sargento Gonçalves"
+    ],
+    "party_uf": [
+      "PL - RN"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:48:06+00:00",
+    "n_statements": 6,
+    "n_hearings": 3,
+    "hearing_ids": [
+      15,
+      201,
+      205
+    ],
+    "input_tokens": 4390,
+    "output_tokens": 743,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 1,
+    "passage_only": 14,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende o fortalecimento da segurança nas fronteiras brasileiras, citando a dificuldade decorrente da extensão territorial do país, e elogia os avanços legislativos e operacionais do governo anterior no combate a crimes internacionais que utilizam as fronteiras.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 32,
+            "start": 39934,
+            "end": 40011,
+            "text": "Sabemos da dificuldade que temos devido à extensão territorial do nosso País.",
+            "score": 0.2808
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a individualização das condutas dos presos nos atos de 8 de janeiro, argumentando que cidadãos de bem estão sendo punidos por crimes que não cometeram, e cobra do STF e do Senado Federal o fim das \"arbitrariedades\" judiciais.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 40,
+            "start": 54358,
+            "end": 54495,
+            "text": "Mas eu tenho rogado a Deus para que Ele aja no coração desses Ministros do STF, que aja no coração do Presidente do Senado Federal, o Sr.",
+            "score": 0.1531
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que o Ministério da Saúde suspenda a obrigatoriedade da vacinação contra a Covid-19 para crianças de 6 meses a 5 anos, permitindo que os pais decidam até que haja comprovação científica definitiva sobre os riscos e benefícios, devido à existência de correntes médicas divergentes.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 39,
+            "start": 86063,
+            "end": 86207,
+            "text": "Então, eu peço que haja apenas bom senso do Ministério da Saúde, e que ele possa esperar um pouco mais e dar essa condição de os pais decidirem.",
+            "score": 0.1824
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a união do Governo Federal, dos Governos Estaduais, dos Governos Municipais e da Casa Legislativa para trabalhar de forma séria em prol dos operadores de segurança pública.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 32,
+            "start": 41078,
+            "end": 41419,
+            "text": "Por isso, é necessário que o Governo Federal, os Governos Estaduais e os Governos Municipais se unam e que esta Casa Legislativa possa se unir e trabalhar de forma séria, a fim de contribuir com os operadores de segurança pública do nosso País, para podermos entregar um serviço de qualidade na segurança pública para todo o povo brasileiro.",
+            "score": 0.612
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Sustenta que a segurança pública é a atividade mais essencial, pois sem ela não há tranquilidade para médicos, professores ou empresários, justificando a prioridade dada ao tema em seu mandato.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 32,
+            "start": 40827,
+            "end": 40871,
+            "text": "É a atividade mais essencial das essenciais.",
+            "score": 0.3035
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência prática de 18 anos no combate ao crime como fundamento para suas posições, argumentando que a vivência no campo supera o conhecimento exclusivamente acadêmico ou científico.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 32,
+            "start": 39678,
+            "end": 39830,
+            "text": "Não desprezo o conhecimento científico e acadêmico, mas a experiência, a prática, a vivência, realmente, no combate, sem dúvida, fazem toda a diferença.",
+            "score": 0.4407
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia sua oposição à vacinação infantil obrigatória na prerrogativa parental e na dúvida científica, invocando a proteção da vida das filhas e a necessidade de bom senso do Estado diante da incerteza médica.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 32,
+            "start": 39832,
+            "end": 39933,
+            "text": "Não temos dúvida de que há uma necessidade de fortalecermos cada vez mais a segurança nas fronteiras.",
+            "score": 0.1571
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a fé cristã e a submissão a Deus como critério superior à autoridade dos tribunais superiores, argumentando que a justiça divina é a única suprema.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 40,
+            "start": 54738,
+            "end": 54814,
+            "text": "Mesmo sendo Ministros, a Suprema Corte da Justiça não é suprema sobre todos.",
+            "score": 0.2193
+          },
+          "udv": {
+            "id": "udv-201-6-0",
+            "rule": "same_sentence",
+            "score": 0.1117
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Sargento da Polícia Militar, com 18 anos de carreira (mencionando também 19 anos em outra fala), e educador físico.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 39,
+            "start": 84713,
+            "end": 84778,
+            "text": "Eu sou educador físico, policial militar de profissão há 19 anos.",
+            "score": 0.4955
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a segurança pública é a bandeira principal de seu mandato.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 32,
+            "start": 40672,
+            "end": 40721,
+            "text": "A nossa bandeira principal é a segurança pública.",
+            "score": 0.779
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento e admiração pelos Deputados Coronel Ulysses, Sanderson e Marcel van Hattem, com quem diz estar \"entrincheirado\" e \"combater\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 40,
+            "start": 55088,
+            "end": 55298,
+            "text": "Nós estamos à disposição para contribuir nisso e ficar entrincheirados com outros Deputados, ao lado dos quais temos muita honra de combater, como é o caso do Deputado Marcel van Hattem e de tantos outros aqui.",
+            "score": 0.3255
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a colaboração de coordenadores do PROARMAS no Pará, Rio Grande do Norte e Ceará, e de médicos como Dr. Thomas Medeiros, Dr. Zeballos, Dr. Caio, Dr. Francisco e Dra. Roberta Lacerda, que influenciaram suas convicções.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 14,
+            "start": 12994,
+            "end": 13165,
+            "text": "Presidente, eu só quero destacar a presença do Kleiton, coordenador do PROARMAS no Pará; a do Thiago, do Rio Grande do Norte, também um colaborador do PROARMAS; e a do Dr.",
+            "score": 0.2873
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Recorre a dados pessoais e familiares, como a experiência de 18 anos em guarnições de polícia e a decisão de não vacinar suas três filhas, para embasar argumentos sobre segurança e saúde.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 37,
+            "start": 83459,
+            "end": 83512,
+            "text": "Eu tenho três filhas e falo aqui como pai também, Dr.",
+            "score": 0.1591
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza citações bíblicas (Isaías 59:14) e apelos religiosos para contextualizar a injustiça percebida nos tribunais e para pedir intervenção divina.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 40,
+            "start": 51415,
+            "end": 51487,
+            "text": "Isaías 59:14 diz que:\"A justiça é posta de lado, e o direito é afastado.",
+            "score": 0.2377
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a experiência prática de combate com o conhecimento acadêmico, valorizando a vivência operacional.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 32,
+            "start": 39678,
+            "end": 39830,
+            "text": "Não desprezo o conhecimento científico e acadêmico, mas a experiência, a prática, a vivência, realmente, no combate, sem dúvida, fazem toda a diferença.",
+            "score": 0.4984
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emocional e pessoal, expressando angústia, impotência e amor filial, para conectar-se com os interlocutores e reforçar a urgência de suas propostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Distingue sua posição de ideologia ou negacionismo, apresentando-se como um pai e um profissional da segurança buscando bom senso e proteção.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 205,
+      "split": "train",
+      "article_date": "2023-07-11",
+      "title": "Deputados pedem mais recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do País",
+      "assunto": "Recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do Brasil",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-201-6-0",
+      "hearing_id": 201,
+      "n": 12,
+      "article_name": "Sargento Gonçalves",
+      "proposition": "Criticou a manutenção das prisões e a postura do STF.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Espero que o Senador Pacheco tenha a hombridade e a coragem de peitar, de usar a lei e dizer:\"Não podemos aceitar essas arbitrariedades em nosso País\". Mesmo sendo Ministros, a Suprema Corte da Justiça não é suprema sobre todos.",
+        "turn": 40,
+        "start": 54586,
+        "end": 54814
+      },
+      "verifier": {
+        "probability": 0.27913341775566186,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

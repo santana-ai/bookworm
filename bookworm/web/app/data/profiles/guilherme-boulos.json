@@ -1,0 +1,360 @@
+{
+  "actor": {
+    "slug": "guilherme-boulos",
+    "name": "GUILHERME BOULOS",
+    "display_name": "Guilherme Boulos",
+    "role": "Deputado (Psol-SP)",
+    "article_names": [
+      "Guilherme Boulos"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:56:19+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      55,
+      144
+    ],
+    "input_tokens": 3636,
+    "output_tokens": 948,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 1,
+    "passage_only": 19,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a revogação ou a impedição da incidência de contribuição previdenciária sobre valores acima do mínimo para servidores públicos aposentados e pensionistas, classificando a cobrança como \"confisco\" e \"covardia\".",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 11,
+            "start": 37895,
+            "end": 37971,
+            "text": "O confisco de aposentados é uma covardia, uma tremenda covardia como poucas.",
+            "score": 0.276
+          },
+          "udv": {
+            "id": "udv-55-1-0",
+            "rule": "same_sentence",
+            "score": 0.2626
+          }
+        },
+        {
+          "text": "Propõe que, em plenário, o voto siga a PEC apresentada pela Deputada Professora Luciene Cavalcante para revogar ou impedir que Estados e Municípios realizem o confisco.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 11,
+            "start": 38031,
+            "end": 38230,
+            "text": "Quando a matéria estiver em plenário, vamos seguir a PEC que a Deputada Luciene apresentou,para que possamos revogar ou impedir inclusive a possibilidade de que Estados e Municípios façam o confisco.",
+            "score": 0.4679
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a tentativa de \"demonização do serviço público\", associada a uma \"ideologia neoliberal\" que o caracteriza como ineficiente, gastador e privilegiado, argumentando que essa narrativa serve para precarizar e atacar os direitos dos servidores.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 11,
+            "start": 37118,
+            "end": 37212,
+            "text": "Esse discurso tem servido justamente para precarizar e para atacar os direitos dos servidores.",
+            "score": 0.3074
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a valorização do servidor é uma \"reivindicação civilizatória e política\", não corporativa, pois sem servidor valorizado não existe serviço público de qualidade em educação, saúde, assistência social e áreas meio.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 11,
+            "start": 37214,
+            "end": 37600,
+            "text": "O nosso desafio é mostrar para a sociedade que essa não é simplesmente uma reivindicação corporativa, que essa é uma reivindicação civilizatória e política, porque, sem servidor valorizado, não existe serviço público de qualidade na ponta, em qualquer área, na educação, na saúde, na assistência social e mesmo nas áreas meio, que são essenciais para o funcionamento da máquina pública.",
+            "score": 0.6528
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a distorção orçamentária no programa Minha Casa, Minha Vida, citando que, no ano da audiência, foram destinados 7 bilhões e 800 milhões de reais ao FAR (construtoras privadas) e apenas 1 bilhão ao FDS (entidades).",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 51101,
+            "end": 51166,
+            "text": "Este ano, foram 7 bilhões e 800 milhões ao FAR e 1 bilhão ao FDS.",
+            "score": 0.5939
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o fortalecimento do Minha Casa, Minha Vida Entidades (FDS), apontando a existência de um estoque de projetos aprovados com alvará que não têm recurso suficiente para virar obra, herdado de quatro anos de política não executada.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 51455,
+            "end": 51621,
+            "text": "Ocorre que nós temos um estoque de unidades de projetos aprovados, com alvará, que devem virar obra, e não há recurso suficiente destinado para isso, Deputado Paulão.",
+            "score": 0.4548
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a lógica do Programa Periferia Viva, que busca levar equipamentos públicos, infraestrutura, serviços e geração de emprego para as periferias, integrando qualidades urbanísticas às regiões periféricas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 52567,
+            "end": 53034,
+            "text": "Eu acho que nós temos que fazer uma discussão de cidades sustentáveis que passe cada vez mais por levar o centro para a periferia, ou seja, levar as qualidades urbanísticas, os serviços, a geração de emprego, que existem nos centros urbanos, para as regiões periféricas exatamente — acho que esse é o propósito do Periferia Viva —, e levar também a moradia popular para as regiões centrais, e o Minha Casa, Minha Vida, na modalidade retrofit, também busca fazer isso.",
+            "score": 0.4421
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiia a modalidade retrofit do Minha Casa, Minha Vida, que busca levar a moradia popular para as regiões centrais, contrariando a lógica histórica de afastar o pobre para periferias distantes.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 52567,
+            "end": 53034,
+            "text": "Eu acho que nós temos que fazer uma discussão de cidades sustentáveis que passe cada vez mais por levar o centro para a periferia, ou seja, levar as qualidades urbanísticas, os serviços, a geração de emprego, que existem nos centros urbanos, para as regiões periféricas exatamente — acho que esse é o propósito do Periferia Viva —, e levar também a moradia popular para as regiões centrais, e o Minha Casa, Minha Vida, na modalidade retrofit, também busca fazer isso.",
+            "score": 0.3684
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento de que a maioria dos servidores (mais de 90%) não possui privilégios, para refutar a narrativa de que o serviço público é uma fonte de gastos excessivos e privilégios, justificando a defesa dos direitos da categoria.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 11,
+            "start": 36920,
+            "end": 36975,
+            "text": "Aliás, não é a realidade de mais de 90% dos servidores.",
+            "score": 0.1824
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa do Minha Casa, Minha Vida Entidades na experiência prática e em dados comparativos de qualidade, citando o exemplo de Taboão da Serra, onde o programa produziu unidades de 63 m² com varanda e elevador na faixa 1, utilizando o mesmo recurso que as construtoras usavam para unidades de 39 m².",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 50604,
+            "end": 50889,
+            "text": "Nós construímos, por exemplo, lá em Taboão da Serra, também na região metropolitana de São Paulo, apartamentos com 63 metros quadrados, três dormitórios, o primeiro do Brasil a ter varanda e elevador na faixa 1, com o mesmo recurso que as construtoras faziam os de 39 metros quadrados.",
+            "score": 0.3532
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o critério de sustentabilidade urbana e integração socioespacial para justificar a política habitacional, argumentando que a moradia deve estar próxima de equipamentos, serviços e empregos, evitando a lógica de empurrar a população pobre para periferias cada vez mais distantes.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 52259,
+            "end": 52365,
+            "text": "Isso contribuía para uma lógica que levava o pobre sempre para mais longe, para periferias mais distantes.",
+            "score": 0.231
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se conterrâneo de São Paulo e membro da equipe de transição de Governo no Grupo de Cidades.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 49063,
+            "end": 49408,
+            "text": "Nós tínhamos um problema orçamentário, que eu acompanhei, como membro da equipe transição de Governo, no Grupo de Cidades, que foi resolvido por este Parlamento, com a aprovação da PEC de Transição — porque o orçamento que havia para a construção de moradias era muito pequeno e havia grande quantidade de obras paradas — as obras de mobilidade.",
+            "score": 0.3961
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter atuado por muito tempo na luta por moradia e em entidades habitacionais.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 50239,
+            "end": 50404,
+            "text": "Veja, eu atuei muito tempo na luta por moradia e entidades habitacionais e sou testemunha do quanto existe de preconceito quanto ao Minha Casa, Minha Vida Entidades.",
+            "score": 0.4046
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio político e voto à PEC da Deputada Professora Luciene Cavalcante contra o confisco previdenciário.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 11,
+            "start": 36091,
+            "end": 36169,
+            "text": "Eu quero, antes de tudo, parabenizar a Deputada Professora Luciene Cavalcante.",
+            "score": 0.3804
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parceiro do Ministro Jader Filho na condução das políticas urbanas e de moradia popular.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 48342,
+            "end": 48523,
+            "text": "Quero cumprimentá-lo, Presidente, bem como o Ministro Jader Filho, que tem sido um grande parceiro na condução das políticas urbanas e particularmente de moradia popular neste País.",
+            "score": 0.5946
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o Secretário Nacional de Periferias, Guilherme Simões, e o Vereador Edmilson Souza, de Guarulhos, como amigos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 48525,
+            "end": 48641,
+            "text": "Cumprimento os secretários que estão aqui, em nome do meu amigo Guilherme Simões, Secretário Nacional de Periferias.",
+            "score": 0.4449
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados numéricos específicos para sustentar críticas orçamentárias, como a comparação entre os valores destinados ao FAR e ao FDS no Minha Casa, Minha Vida.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 50992,
+            "end": 51100,
+            "text": "Agora, nós ainda temos uma distorção muito grande entre a quantidade de recursos destinados ao FAR e ao FDS.",
+            "score": 0.2172
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de sua base eleitoral (Taboão da Serra, região metropolitana de São Paulo) para ilustrar a eficiência de políticas públicas e a qualidade das unidades habitacionais produzidas por entidades.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 50604,
+            "end": 50889,
+            "text": "Nós construímos, por exemplo, lá em Taboão da Serra, também na região metropolitana de São Paulo, apartamentos com 63 metros quadrados, três dormitórios, o primeiro do Brasil a ter varanda e elevador na faixa 1, com o mesmo recurso que as construtoras faziam os de 39 metros quadrados.",
+            "score": 0.1908
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança e diálogo direto com o Ministro Jader Filho, pedindo esclarecimentos sobre o Programa Periferia Viva e a destinação de recursos para o FDS.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 27,
+            "start": 51787,
+            "end": 51874,
+            "text": "Quero parabenizar V.Exa., assim como o Secretário Simões, pelo Programa Periferia Viva.",
+            "score": 0.1661
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de enfrentamento político ao descrever a oposição ao serviço público como \"ideologia neoliberal\" e a cobrança previdenciária como \"covardia\".",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 11,
+            "start": 36733,
+            "end": 36919,
+            "text": "É uma ideologia neoliberal que associa o serviço público a uma coisa ineficiente, a uma coisa ruim, à gastança, a privilégios, a salários altos, e nós sabemos que essa não é a realidade.",
+            "score": 0.195
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos conectando a política habitacional à questão da periferia e da sustentabilidade urbana, propondo a integração de serviços e moradia.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 55,
+      "split": "train",
+      "article_date": "2023-04-24",
+      "title": "Sindicatos criticam incidência de contribuição de inativos sobre valores acima do mínimo",
+      "assunto": "Críticas à incidência de contribuição previdenciária sobre valores acima do mínimo para servidores públicos aposentados e pensionistas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-55-1-0",
+      "hearing_id": 55,
+      "n": 2,
+      "article_name": "Guilherme Boulos",
+      "proposition": "\"Confisco de aposentados é uma covardia.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quero dizer que vocês podem contar com o meu apoio. O confisco de aposentados é uma covardia, uma tremenda covardia como poucas.",
+        "turn": 11,
+        "start": 37843,
+        "end": 37971
+      },
+      "verifier": {
+        "probability": 0.9848600724871949,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

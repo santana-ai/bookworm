@@ -1,0 +1,344 @@
+{
+  "actor": {
+    "slug": "luciana-paula-conforti",
+    "name": "LUCIANA PAULA CONFORTI",
+    "display_name": "Luciana Paula Conforti",
+    "role": "Representante da Associação Nacional dos Magistrados da Justiça do Trabalho (Anamatra)",
+    "article_names": [
+      "Luciana Paula Conforti"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:49:56+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      65,
+      75
+    ],
+    "input_tokens": 5450,
+    "output_tokens": 1038,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 3,
+    "passage_only": 14,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a priorização de mulheres vítimas de violência doméstica no acesso a benefícios, como o FGTS, não deve depender exclusivamente do registro de boletim de ocorrência, citando o déficit de acolhimento das denúncias nos Estados evidenciado no debate sobre o Projeto de Lei nº 501, de 2019, e propondo que os entes federativos comprovem programas de melhor acolhimento para receberem verbas federais.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 7,
+            "start": 19633,
+            "end": 19904,
+            "text": "Todavia, houve um debate na Câmara dos Deputados, em agosto de 2021, sobre o Projeto de Lei nº 501, de 2019, liderado pela Deputada Tereza Nelma, em que ficou evidenciado o déficit nos Estados com relação ao acolhimento das denúncias dessas mulheres vítimas de violência.",
+            "score": 0.3801
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de garantias contra violência e assédio no trabalho nos critérios do selo do Programa Emprega + Mulher, argumentando que a qualidade das vagas deve incluir políticas claras contra essas violências para evitar que a maior empregabilidade resulte em novas vítimas.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 7,
+            "start": 20299,
+            "end": 20403,
+            "text": "Outro tema importante também, que é causa estrutural, é o que fala do selo do Programa Emprega + Mulher.",
+            "score": 0.2362
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a ratificação da Convenção nº 190 da OIT pelo Estado brasileiro, para que a norma integre o ordenamento jurídico com status de emenda constitucional, como medida paralela a qualquer programa de empregabilidade feminina.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 7,
+            "start": 21526,
+            "end": 21863,
+            "text": "Logo, é muito importante que, além de constar da medida algo que preveja que as empresas têm uma política clara contra a violência e o assédio no trabalho, também seja feita a ratificação da Convenção nº 190, da OIT, pelo Estado brasileiro, para que essa norma integre o ordenamento jurídico brasileiro comstatusde emenda constitucional.",
+            "score": 0.5295
+          },
+          "udv": {
+            "id": "udv-75-5-1",
+            "rule": "same_sentence",
+            "score": 0.443
+          }
+        },
+        {
+          "text": "Manifesta-se contrária à publicação externa da lista de varas da Justiça do Trabalho que não atingem a média trienal de casos novos, prevista no art. 27 da Resolução nº 296 do CSJT, argumentando que essa divulgação causa instabilidade e insegurança para advogados, servidores e a comunidade jurídica, e que a relação deveria ser restrita ao Conselho Superior do TST e aos tribunais envolvidos.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 45877,
+            "end": 46049,
+            "text": "27 prevê que, no mês de janeiro, haverá a publicação de uma lista com a relação das varas que não atingiram 50% da média trienal daquele tribunal, ou seja, dos casos novos.",
+            "score": 0.2943
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a presença da Justiça do Trabalho em localidades distantes dos grandes centros independe do volume de processos, sendo necessária onde há trabalho análogo à escravidão, trabalho infantil, conflitos fundiários e adoecimentos ocupacionais, rejeitando a redução de varas baseada apenas em critérios numéricos.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 48834,
+            "end": 49084,
+            "text": "Tem que haver varas em localidades em que há trabalho análogo à escravidão, trabalho infantil, unidades fabris que causam muitos adoecimentos e acidentes do trabalho, conflitos fundiários e também, por conta disso, conflitos com trabalhadores rurais.",
+            "score": 0.3893
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que não é contra alterações na jurisdição, mas opõe-se a um \"açodamento\" nessas mudanças que possa causar prejuízo ao atendimento da população e à presença do Estado em regiões vulneráveis.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 50903,
+            "end": 51206,
+            "text": "O que temos receio é que haja um açodamento nessas mudanças e que elas causem um efetivo prejuízo ao atendimento da população e, principalmente, como eu disse, a não presença do Estado em locais que, como vimos recentemente, ainda temos, lamentavelmente, trabalhadores sendo torturados por empregadores.",
+            "score": 0.3626
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a premissa de que a Justiça do Trabalho é uma \"justiça social\" para justificar a necessidade de sua presença estatal em regiões com baixa pujança econômica ou alta vulnerabilidade, independentemente do número de ajuizamentos.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 48585,
+            "end": 48833,
+            "text": "Porque a Justiça do Trabalho, que é a justiça social, tem que estar presente distante dos grandes centros,justamente onde talvez não tenhamos muitos processos, já que é uma região onde não há uma pujança econômica ou empregos — digamos — numéricos.",
+            "score": 0.2339
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a existência de \"raízes estruturais\" da desigualdade de gênero, como machismo, violência, assédio e discriminação, como fundamento para exigir que políticas de empregabilidade incluam medidas de proteção e combate a essas violências.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 7,
+            "start": 19026,
+            "end": 19268,
+            "text": "Quanto a todos esses temas que têm relação com o emprego da mulher, temos que pensar também a questão das raízes mais profundas que levam a essa desigualdade de gênero, como o machismo, a violência, o assédio, a discriminação e o preconceito.",
+            "score": 0.3516
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a análise de reestruturação da Justiça do Trabalho deve considerar aspectos sociais, econômicos e as peculiaridades regionais, e não apenas a média numérica de processos, para garantir o acesso à Justiça.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 48118,
+            "end": 48350,
+            "text": "Então, é muito importante aqui pontuar que nem todos interpretavam a resolução como deve ser, ou seja, que não é apenas a média numérica que deve ser considerada, e, sim, os aspectos sociais, econômicos, as peculiaridades regionais.",
+            "score": 0.5256
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na recente decisão do Supremo Tribunal Federal que declarou a inconstitucionalidade de partes da reforma trabalhista que impunham ônus desproporcionais aos trabalhadores, para sustentar que ainda não houve uma equalização no volume de ações trabalhistas.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 49085,
+            "end": 49412,
+            "text": "Então, há necessidade da presença do Estado e há necessidade do acesso à Justiça.Outro ponto também que devemos ressaltar é que é recente a decisão do Supremo Tribunal Federal declarando a inconstitucionalidade da reforma trabalhista na parte em que trazia ônus desproporcionais para que os trabalhadores ajuizassem suas ações.",
+            "score": 0.4694
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Vice-Presidente da Associação Nacional dos Magistrados da Justiça do Trabalho (ANAMATRA) e representante da entidade nas audiências.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 41048,
+            "end": 41244,
+            "text": "Eu represento a Associação Nacional dos Magistrados da Justiça do Trabalho, da qual sou Vice-Presidente, e temos o prazer de, mais uma vez, contribuir com debates relevantes para toda a sociedade.",
+            "score": 0.453
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a ANAMATRA se posicionou formalmente contra a discussão da Resolução nº 296 do CSJT durante a pandemia, por considerar o momento inoportuno, mas participou da construção da norma após ser convidada, levando as ponderações deliberadas internamente pelos Presidentes das AMATRAs das 24 Regiões.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 45514,
+            "end": 45630,
+            "text": "Os Presidentes das AMATRAs que atuam nas 24 Regiões dos Tribunais Regionais do Trabalho trouxeram suas preocupações.",
+            "score": 0.2611
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com a campanha liderada pela Secretaria da Mulher da Câmara dos Deputados, com participação da ANAMATRA e do Ministério Público do Trabalho, pela ratificação da Convenção nº 190 da OIT.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 7,
+            "start": 21864,
+            "end": 22036,
+            "text": "Essa campanha tem sido liderada pela Secretaria da Mulher da Câmara dos Deputados, com participação da ANAMATRA e do Ministério Público do Trabalho, entre outras entidades.",
+            "score": 0.6915
+          },
+          "udv": {
+            "id": "udv-75-5-1",
+            "rule": "same_sentence",
+            "score": 0.4684
+          }
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura os argumentos apresentando um histórico contextual antes de expor as posições, como ao detalhar a cronologia da queda de processos trabalhistas desde a reforma trabalhista de 2018 e a pandemia de 2019.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 41910,
+            "end": 42044,
+            "text": "Então, a partir da vigência da reforma trabalhista, principalmente em 2018, houve uma queda de processos e, em 2019, houve a pandemia.",
+            "score": 0.3955
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados estatísticos e pesquisas específicas para fundamentar suas críticas, como o levantamento do IPESP e FEBRABAN de março de 2022 sobre assédio no trabalho e os números de varas listadas na primeira publicação da Resolução nº 296.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 7,
+            "start": 20974,
+            "end": 21170,
+            "text": "Houve uma pesquisa, feita em março de 2022 pelo IPESP e FEBRABAN, encomendada pela FEBRABAN, que evidenciou que uma das maiores preocupações das mulheres brasileiras é sofrer violências e assédio.",
+            "score": 0.2838
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita normas e decisões judiciais como base de seus argumentos, mencionando explicitamente a Convenção nº 190 da OIT, o Projeto de Lei nº 501, de 2019, e a decisão do Supremo Tribunal Federal sobre a reforma trabalhista.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 9,
+            "start": 49085,
+            "end": 49412,
+            "text": "Então, há necessidade da presença do Estado e há necessidade do acesso à Justiça.Outro ponto também que devemos ressaltar é que é recente a decisão do Supremo Tribunal Federal declarando a inconstitucionalidade da reforma trabalhista na parte em que trazia ônus desproporcionais para que os trabalhadores ajuizassem suas ações.",
+            "score": 0.2226
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom técnico e institucional, referindo-se às deliberações internas da ANAMATRA e à participação de seus membros em comissões, e utiliza expressões como \"sistema protetivo do trabalho\" para descrever a atuação conjunta da Justiça do Trabalho, do Ministério Público do Trabalho e da fiscalização.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 7,
+            "start": 21864,
+            "end": 22036,
+            "text": "Essa campanha tem sido liderada pela Secretaria da Mulher da Câmara dos Deputados, com participação da ANAMATRA e do Ministério Público do Trabalho, entre outras entidades.",
+            "score": 0.2073
+          },
+          "udv": {
+            "id": "udv-75-5-1",
+            "rule": "same_sentence",
+            "score": 0.1029
+          }
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 65,
+      "split": "train",
+      "article_date": "2022-09-01",
+      "title": "Juiz nega intenção de conselho de extinguir varas da Justiça do Trabalho",
+      "assunto": "Discussão sobre a Resolução 296/21 do Conselho Superior da Justiça do Trabalho (CSJT) e a possível extinção de varas da Justiça do Trabalho",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 75,
+      "split": "train",
+      "article_date": "2022-07-07",
+      "title": "Debatedoras criticam medida provisória que prevê o uso do FGTS para financiar creches",
+      "assunto": "Críticas à Medida Provisória 1116/22 que prevê o uso do FGTS para financiar creches",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-75-5-0",
+      "hearing_id": 75,
+      "n": 10,
+      "article_name": "Luciana Paula Conforti",
+      "proposition": "Fez a ressalva de que a criação de um selo para estimular as empresas a adotarem boas práticas de empregabilidade feminina não garante proteção contra assédio moral e sexual: \"Temos que prestar atenção na qualidade dessas vagas de trabalho para que as mulheres não sejam vítimas de violência e assédio, principalmente diante das denúncias recentes em empresas públicas federais\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O selo fala de uma série de medidas que seriam tendentes à maior empregabilidade das mulheres. No entanto, nós temos que prestar atenção à qualidade dessas vagas de trabalho, para que as mulheres não sejam vítimas de violência e de assédio, principalmente diante das denúncias recentes em empresas públicas federais.",
+        "turn": 7,
+        "start": 20404,
+        "end": 20720
+      },
+      "verifier": {
+        "probability": 0.8990655204105635,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-75-5-1",
+      "hearing_id": 75,
+      "n": 11,
+      "article_name": "Luciana Paula Conforti",
+      "proposition": "Defendeu medidas legais mais coercitivas, como a integração ao ordenamento jurídico de norma da OIT sobre combate ao assédio contra a mulher.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Logo, é muito importante que, além de constar da medida algo que preveja que as empresas têm uma política clara contra a violência e o assédio no trabalho, também seja feita a ratificação da Convenção nº 190, da OIT, pelo Estado brasileiro, para que essa norma integre o ordenamento jurídico brasileiro comstatusde emenda constitucional. Essa campanha tem sido liderada pela Secretaria da Mulher da Câmara dos Deputados, com participação da ANAMATRA e do Ministério Público do […]",
+        "turn": 7,
+        "start": 21526,
+        "end": 22036
+      },
+      "verifier": {
+        "probability": 0.6437466880528353,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

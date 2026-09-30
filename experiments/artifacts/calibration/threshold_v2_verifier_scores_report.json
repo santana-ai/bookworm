@@ -1,0 +1,1301 @@
+{
+  "experiment": "udv_verifier",
+  "name": "udv_v2_calibration",
+  "created_at": "2026-09-28T13:40:16+00:00",
+  "declared": "Declared on 2026-09-28 in ADR 0006, before any calibration pair was scored. Scores the verifier pairs of artifacts/calibration/threshold_v2.json (train hearings only: each trusted-quote opinion against the window of its target, a legacy_random window of another train hearing and a hard_negative window of the same speaker) with the udv_v1_verifier model unchanged; utils.calibrate_udv_v2 verifier turns these scores into the UDV-premise cut",
+  "purpose": "the verifier train threshold 0.7478 was fitted on premises of four retrieved chunks; the UDV premise is one quote span or one window, so the cut is recalibrated on train pairs with the premise kind the UDVs use",
+  "caveats": {
+    "domain_shift": "the verifier was fitted on the NLI benchmark, where the hypothesis is an article opinion and the premise is the four transcript chunks retrieved for it; here the premise is one evidence sentence. This is a domain shift and its effect on the scores, the ranking and the threshold is not measured here",
+    "label_semantics": "the fitted target is label_inferable of the NLI benchmark (retrieved_context_entailment: the annotator judged the opinion inferable from the retrieved chunks). A UDV score estimates that judgment for the evidence sentence alone; it is not a global truth label, and a low score says only that the evidence sentence gives the verifier little support for the proposition",
+    "benchmark_label_semantics": "label_inferable is True when the annotator judged the opinion inferable from the four retrieved chunks (retrieved_context_entailment); it says nothing about text outside those chunks and is not a global truth label"
+  },
+  "counts": {
+    "udv_records": 549,
+    "scored": 549,
+    "unscored": 0,
+    "unscored_by_tier": {},
+    "scored_by_tier": {
+      "calibration_positive": 183,
+      "calibration_legacy_random": 183,
+      "calibration_hard_negative": 183
+    },
+    "scored_by_support_type": {
+      "semantic_similarity": 549
+    },
+    "scored_by_hearing_split": {
+      "train": 549
+    }
+  },
+  "benchmark_overlap": {
+    "rule": "UDVs whose normalized proposition equals a normalized NLI benchmark opinion, by the benchmark split of that opinion; train opinions were hypotheses of the verifier fit, paired there with retrieved chunks instead of the evidence sentence",
+    "counts": {
+      "not_in_benchmark": 549
+    }
+  },
+  "primary": {
+    "candidate": "laya_en_en:learned_cross_model_with_pt",
+    "features": 53,
+    "scorers": [
+      "laya_en_en",
+      "laya_multi_pt",
+      "xnli_mdeberta",
+      "cosine_serafim"
+    ],
+    "fit": {
+      "c": 0.01,
+      "inner_means": {
+        "0.01": 0.8681,
+        "0.1": 0.8674,
+        "1.0": 0.8618,
+        "10.0": 0.8576
+      },
+      "coefficients": {
+        "laya_en_en:p1_nli:max": 0.0528,
+        "laya_en_en:p1_nli:mean": 0.0291,
+        "laya_en_en:p1_nli:concatenated": 0.0665,
+        "laya_en_en:p2_nli_reversed:max": 0.0504,
+        "laya_en_en:p2_nli_reversed:mean": 0.0266,
+        "laya_en_en:p2_nli_reversed:concatenated": 0.06,
+        "laya_en_en:p3_inferable:max": 0.0267,
+        "laya_en_en:p3_inferable:mean": 0.0256,
+        "laya_en_en:p3_inferable:concatenated": 0.1173,
+        "laya_en_en:p4_supports:max": 0.0223,
+        "laya_en_en:p4_supports:mean": 0.03,
+        "laya_en_en:p4_supports:concatenated": 0.1258,
+        "laya_en_en:p5_position:max": 0.0626,
+        "laya_en_en:p5_position:mean": 0.0091,
+        "laya_en_en:p5_position:concatenated": 0.0508,
+        "laya_en_en:p6_position_reversed:max": 0.069,
+        "laya_en_en:p6_position_reversed:mean": 0.0061,
+        "laya_en_en:p6_position_reversed:concatenated": 0.0335,
+        "laya_en_en:p7_coverage:max": 0.0136,
+        "laya_en_en:p7_coverage:mean": -0.0258,
+        "laya_en_en:p7_coverage:concatenated": -0.0892,
+        "laya_en_en:p8_similarity:max": 0.0499,
+        "laya_en_en:p8_similarity:mean": 0.0169,
+        "laya_en_en:p8_similarity:concatenated": 0.023,
+        "laya_multi_pt:p1_nli:max": 0.0315,
+        "laya_multi_pt:p1_nli:mean": -0.0283,
+        "laya_multi_pt:p1_nli:concatenated": 0.0682,
+        "laya_multi_pt:p2_nli_reversed:max": 0.0291,
+        "laya_multi_pt:p2_nli_reversed:mean": -0.0313,
+        "laya_multi_pt:p2_nli_reversed:concatenated": 0.0684,
+        "laya_multi_pt:p3_inferable:max": 0.1003,
+        "laya_multi_pt:p3_inferable:mean": 0.0275,
+        "laya_multi_pt:p3_inferable:concatenated": 0.137,
+        "laya_multi_pt:p4_supports:max": 0.083,
+        "laya_multi_pt:p4_supports:mean": 0.0224,
+        "laya_multi_pt:p4_supports:concatenated": 0.1451,
+        "laya_multi_pt:p5_position:max": 0.005,
+        "laya_multi_pt:p5_position:mean": -0.0814,
+        "laya_multi_pt:p5_position:concatenated": -0.0081,
+        "laya_multi_pt:p6_position_reversed:max": 0.0287,
+        "laya_multi_pt:p6_position_reversed:mean": -0.0537,
+        "laya_multi_pt:p6_position_reversed:concatenated": 0.0232,
+        "laya_multi_pt:p7_coverage:max": 0.0724,
+        "laya_multi_pt:p7_coverage:mean": 0.0178,
+        "laya_multi_pt:p7_coverage:concatenated": -0.0613,
+        "laya_multi_pt:p8_similarity:max": 0.0415,
+        "laya_multi_pt:p8_similarity:mean": -0.1378,
+        "laya_multi_pt:p8_similarity:concatenated": 0.0116,
+        "xnli_mdeberta:entailment:max": 0.1742,
+        "xnli_mdeberta:entailment:mean": 0.0407,
+        "xnli_mdeberta:entailment:concatenated": 0.1523,
+        "cosine_serafim:cosine:max": 0.2045,
+        "cosine_serafim:sentence_max:max": 0.304
+      },
+      "intercept": 2.83358625415683,
+      "threshold": 0.7478214519952443,
+      "train_opinions": 2981,
+      "train_not_inferable": 339
+    },
+    "final_test_result": {
+      "roc_auc": 0.9122,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.8698,
+        "high": 0.9454,
+        "median": 0.9101,
+        "std": 0.0205
+      },
+      "threshold": 0.7478214519952443,
+      "cohen_kappa": 0.5924,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.441,
+        "high": 0.7108,
+        "median": 0.5814,
+        "std": 0.0698
+      },
+      "f1_not_inferable": 0.6633,
+      "precision_not_inferable": 0.6075,
+      "recall_not_inferable": 0.7303,
+      "role": "primary",
+      "threshold_fitted_on": "train"
+    },
+    "decision_rule": "supported_at_train_threshold = primary probability >= the train threshold (final_test.json threshold of the primary, 0.7478)"
+  },
+  "secondary": {
+    "signal": "laya_multi_pt:p4_supports:max",
+    "reason": "the laya_multi_pt answer to p4_supports alone: one question, one checkpoint and no translation step, so its reading depends on fewer components than the primary"
+  },
+  "refit_check": {
+    "compared_with": "final_test.json learned and results entries of the primary",
+    "checks": {
+      "c": true,
+      "inner_means": true,
+      "coefficients": true,
+      "threshold": true
+    },
+    "threshold_refit": 0.7478214519952443,
+    "threshold_final_test": 0.7478214519952443,
+    "threshold_abs_gap": 0.0
+  },
+  "fit_files": {
+    "laya_en_en": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v2/scores/laya_en_en_train.jsonl",
+      "sha256": "aebda1b0c1ba70b3deca497b1389112a9bacc1d792e4fa5bbc3d7d1789d5f8cf",
+      "matches_selection": true
+    },
+    "laya_multi_pt": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v2/scores/laya_multi_pt_train.jsonl",
+      "sha256": "506a6c20b92da399e891cfc493cc88b590c160fce30b8674588b6f0c86b7b365",
+      "matches_selection": true
+    },
+    "xnli_mdeberta": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v1/scores/xnli_mdeberta_train.jsonl",
+      "sha256": "65ca40d8873cecbe594e58784c5e835c063831f92cd0926e00874f7b5e0238e5",
+      "matches_selection": true
+    },
+    "cosine_serafim": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v1/scores/cosine_serafim_train.jsonl",
+      "sha256": "750438f2bbdc0b6097cb171e9314f3f945cdfebe7a67d381aa2d2382b94d77f3",
+      "matches_selection": true
+    }
+  },
+  "fit_reading_check": {
+    "laya_en_en": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "laya_multi_pt": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "xnli_mdeberta": {
+      "stored_scores_checked": [
+        "max.entailment",
+        "concatenated.entailment"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "cosine_serafim": {
+      "stored_scores_checked": [
+        "max.cosine",
+        "sentence_max.cosine"
+      ],
+      "max_abs_gap": 0.0
+    }
+  },
+  "udv_reading_check": {
+    "laya_en_en": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "laya_multi_pt": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "xnli_mdeberta": {
+      "stored_scores_checked": [
+        "max.entailment",
+        "concatenated.entailment"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "cosine_serafim": {
+      "stored_scores_checked": [
+        "max.cosine",
+        "sentence_max.cosine"
+      ],
+      "max_abs_gap": 0.0
+    }
+  },
+  "pool_check": {
+    "rule": "with one premise item the max, mean and concatenated pools of a signal coincide",
+    "max_abs_gap_by_scorer": {
+      "laya_en_en": 0.0,
+      "laya_multi_pt": 0.0,
+      "xnli_mdeberta": 0.0
+    }
+  },
+  "distributions": {
+    "primary_probability": {
+      "by_tier": {
+        "calibration_positive": {
+          "n": 183,
+          "mean": 0.667,
+          "quantiles": {
+            "0.0": 0.1267,
+            "0.05": 0.2247,
+            "0.1": 0.2689,
+            "0.25": 0.4226,
+            "0.5": 0.6709,
+            "0.75": 0.9422,
+            "0.9": 0.9924,
+            "0.95": 0.9944,
+            "1.0": 0.9964
+          }
+        },
+        "calibration_legacy_random": {
+          "n": 183,
+          "mean": 0.0567,
+          "quantiles": {
+            "0.0": 0.0139,
+            "0.05": 0.0222,
+            "0.1": 0.0254,
+            "0.25": 0.0335,
+            "0.5": 0.048,
+            "0.75": 0.0631,
+            "0.9": 0.0881,
+            "0.95": 0.1114,
+            "1.0": 0.6319
+          }
+        },
+        "calibration_hard_negative": {
+          "n": 183,
+          "mean": 0.1264,
+          "quantiles": {
+            "0.0": 0.0196,
+            "0.05": 0.0256,
+            "0.1": 0.0368,
+            "0.25": 0.0493,
+            "0.5": 0.0716,
+            "0.75": 0.1217,
+            "0.9": 0.2862,
+            "0.95": 0.4001,
+            "1.0": 0.9563
+          }
+        },
+        "all": {
+          "n": 549,
+          "mean": 0.2833,
+          "quantiles": {
+            "0.0": 0.0139,
+            "0.05": 0.0254,
+            "0.1": 0.032,
+            "0.25": 0.0483,
+            "0.5": 0.0842,
+            "0.75": 0.4733,
+            "0.9": 0.8968,
+            "0.95": 0.99,
+            "1.0": 0.9964
+          }
+        }
+      },
+      "by_support_type": {
+        "semantic_similarity": {
+          "n": 549,
+          "mean": 0.2833,
+          "quantiles": {
+            "0.0": 0.0139,
+            "0.05": 0.0254,
+            "0.1": 0.032,
+            "0.25": 0.0483,
+            "0.5": 0.0842,
+            "0.75": 0.4733,
+            "0.9": 0.8968,
+            "0.95": 0.99,
+            "1.0": 0.9964
+          }
+        },
+        "all": {
+          "n": 549,
+          "mean": 0.2833,
+          "quantiles": {
+            "0.0": 0.0139,
+            "0.05": 0.0254,
+            "0.1": 0.032,
+            "0.25": 0.0483,
+            "0.5": 0.0842,
+            "0.75": 0.4733,
+            "0.9": 0.8968,
+            "0.95": 0.99,
+            "1.0": 0.9964
+          }
+        }
+      },
+      "by_hearing_split": {
+        "train": {
+          "n": 549,
+          "mean": 0.2833,
+          "quantiles": {
+            "0.0": 0.0139,
+            "0.05": 0.0254,
+            "0.1": 0.032,
+            "0.25": 0.0483,
+            "0.5": 0.0842,
+            "0.75": 0.4733,
+            "0.9": 0.8968,
+            "0.95": 0.99,
+            "1.0": 0.9964
+          }
+        },
+        "all": {
+          "n": 549,
+          "mean": 0.2833,
+          "quantiles": {
+            "0.0": 0.0139,
+            "0.05": 0.0254,
+            "0.1": 0.032,
+            "0.25": 0.0483,
+            "0.5": 0.0842,
+            "0.75": 0.4733,
+            "0.9": 0.8968,
+            "0.95": 0.99,
+            "1.0": 0.9964
+          }
+        }
+      }
+    },
+    "p4_supports": {
+      "by_tier": {
+        "calibration_positive": {
+          "n": 183,
+          "mean": 0.4072,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.001,
+            "0.1": 0.0021,
+            "0.25": 0.0115,
+            "0.5": 0.141,
+            "0.75": 0.9551,
+            "0.9": 0.9964,
+            "0.95": 0.9973,
+            "1.0": 0.9984
+          }
+        },
+        "calibration_legacy_random": {
+          "n": 183,
+          "mean": 0.0309,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0004,
+            "0.1": 0.0007,
+            "0.25": 0.0015,
+            "0.5": 0.004,
+            "0.75": 0.0135,
+            "0.9": 0.046,
+            "0.95": 0.1569,
+            "1.0": 0.9419
+          }
+        },
+        "calibration_hard_negative": {
+          "n": 183,
+          "mean": 0.0702,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0002,
+            "0.1": 0.0007,
+            "0.25": 0.0023,
+            "0.5": 0.0064,
+            "0.75": 0.0195,
+            "0.9": 0.1952,
+            "0.95": 0.5347,
+            "1.0": 0.9345
+          }
+        },
+        "all": {
+          "n": 549,
+          "mean": 0.1694,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0005,
+            "0.1": 0.0008,
+            "0.25": 0.0024,
+            "0.5": 0.0095,
+            "0.75": 0.0936,
+            "0.9": 0.8963,
+            "0.95": 0.991,
+            "1.0": 0.9984
+          }
+        }
+      },
+      "by_support_type": {
+        "semantic_similarity": {
+          "n": 549,
+          "mean": 0.1694,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0005,
+            "0.1": 0.0008,
+            "0.25": 0.0024,
+            "0.5": 0.0095,
+            "0.75": 0.0936,
+            "0.9": 0.8963,
+            "0.95": 0.991,
+            "1.0": 0.9984
+          }
+        },
+        "all": {
+          "n": 549,
+          "mean": 0.1694,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0005,
+            "0.1": 0.0008,
+            "0.25": 0.0024,
+            "0.5": 0.0095,
+            "0.75": 0.0936,
+            "0.9": 0.8963,
+            "0.95": 0.991,
+            "1.0": 0.9984
+          }
+        }
+      },
+      "by_hearing_split": {
+        "train": {
+          "n": 549,
+          "mean": 0.1694,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0005,
+            "0.1": 0.0008,
+            "0.25": 0.0024,
+            "0.5": 0.0095,
+            "0.75": 0.0936,
+            "0.9": 0.8963,
+            "0.95": 0.991,
+            "1.0": 0.9984
+          }
+        },
+        "all": {
+          "n": 549,
+          "mean": 0.1694,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0005,
+            "0.1": 0.0008,
+            "0.25": 0.0024,
+            "0.5": 0.0095,
+            "0.75": 0.0936,
+            "0.9": 0.8963,
+            "0.95": 0.991,
+            "1.0": 0.9984
+          }
+        }
+      }
+    }
+  },
+  "supported_at_train_threshold": {
+    "by_tier": {
+      "calibration_positive": {
+        "n": 183,
+        "supported": 86,
+        "share": 0.4699
+      },
+      "calibration_legacy_random": {
+        "n": 183,
+        "supported": 0,
+        "share": 0.0
+      },
+      "calibration_hard_negative": {
+        "n": 183,
+        "supported": 4,
+        "share": 0.0219
+      },
+      "all": {
+        "n": 549,
+        "supported": 90,
+        "share": 0.1639
+      }
+    },
+    "by_support_type": {
+      "semantic_similarity": {
+        "n": 549,
+        "supported": 90,
+        "share": 0.1639
+      },
+      "all": {
+        "n": 549,
+        "supported": 90,
+        "share": 0.1639
+      }
+    },
+    "by_hearing_split": {
+      "train": {
+        "n": 549,
+        "supported": 90,
+        "share": 0.1639
+      },
+      "all": {
+        "n": 549,
+        "supported": 90,
+        "share": 0.1639
+      }
+    }
+  },
+  "cosine_relation": {
+    "rule": "Spearman correlation between each verifier score and evidence.score (the serafim cosine the UDV builder recorded) within each semantic tier and over both together",
+    "spearman": {
+      "calibration_positive": {
+        "primary_probability": {
+          "n": 183,
+          "rho": 0.5039,
+          "p_value": 3.5489994507660994e-13
+        },
+        "p4_supports": {
+          "n": 183,
+          "rho": 0.2818,
+          "p_value": 0.00011121367634754409
+        }
+      },
+      "calibration_legacy_random": {
+        "primary_probability": {
+          "n": 183,
+          "rho": 0.7911,
+          "p_value": 1.7273951503064766e-40
+        },
+        "p4_supports": {
+          "n": 183,
+          "rho": 0.1332,
+          "p_value": 0.07227586018966375
+        }
+      },
+      "calibration_hard_negative": {
+        "primary_probability": {
+          "n": 183,
+          "rho": 0.8669,
+          "p_value": 1.2846997377263635e-56
+        },
+        "p4_supports": {
+          "n": 183,
+          "rho": 0.2041,
+          "p_value": 0.005587119751313507
+        }
+      },
+      "semantic_all": {
+        "primary_probability": {
+          "n": 549,
+          "rho": 0.9324,
+          "p_value": 5.548438813460802e-244
+        },
+        "p4_supports": {
+          "n": 549,
+          "rho": 0.4844,
+          "p_value": 1.2217214552844448e-33
+        }
+      }
+    }
+  },
+  "evidence_score_check": {
+    "rule": "cosine_serafim sentence_max.cosine of each semantic UDV against evidence.score",
+    "n": 549,
+    "max_abs_gap": 0.273,
+    "within_1e-4": 12
+  },
+  "lowest": {
+    "rule": "the lowest_count UDVs of each lowest_tiers tier by primary probability (ties by udv id), with proposition and evidence text, for manual inspection",
+    "udvs": {
+      "calibration_positive": [
+        {
+          "udv_id": "udv-180-5-0:positive",
+          "hearing_id": 180,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1267,
+          "p4_supports": 0.0112,
+          "evidence_score": 0.569385,
+          "proposition": "As cotas para negros e mulheres foram uma conquista dos movimentos sociais, e mesmo com o aumento da representação política das mulheres no Brasil, o País ainda é o que tem a pior representatividade na América Latina: \"A nossa representação poderia ser muito superior não fosse o não cumprimento dessas regras, e muitos partidos fazem isso de propósito porque sabem que depois serão anistiadas. E não é porque as mulheres não querem participar da política. As mulheres e a população negra são as maiores vítimas ou as maiores beneficiárias das decisões que são tomadas aqui, porque são a maioria da população e porque são setores mais vulneráveis econômica e socialmente.\"",
+          "evidence_text": "Nós somos lanterninha na América Latina, nós estamos atrás de países como a Arábia Saudita, por exemplo, na representação política feminina. A nossa representação poderia ser muito superior se não houvesse, justamente, o não cumprimento dessas regras."
+        },
+        {
+          "udv_id": "udv-58-2-0:positive",
+          "hearing_id": 58,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1643,
+          "p4_supports": 0.0066,
+          "evidence_score": 0.529536,
+          "proposition": "As gestantes precisam primeiramente de informação: \"O primeiro ponto de violência é justamente a mulher desconhecer todos esses problemas. É ela não ter durante todo o protocolo de atendimento alguém para dizer se é melhor o parto ou a cesárea, quais são os riscos de um e de outro.\"",
+          "evidence_text": "João, na esteira do que você está colocando, o Secretário Luizinho abre dizendo que o primeiro ponto de violência é justamente a mulher desconhecer todos esses problemas."
+        },
+        {
+          "udv_id": "udv-65-1-0:positive",
+          "hearing_id": 65,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1944,
+          "p4_supports": 0.0065,
+          "evidence_score": 0.61526,
+          "proposition": "Assumiu o compromisso de defender a recomposição dos recursos da Justiça do Trabalho na análise do Orçamento: \"A Justiça do Trabalho é fundamental em um país tão desigual. Precisamos fortalecê-la e não enfraquecê-la.\"",
+          "evidence_text": "Não havendo mais o que tratar, dou por encerrada a presente audiência pública para discutir a reestruturação da Justiça do Trabalho e espero que as próximas audiências sejam para o seu fortalecimento e para o seu aparelhamento. A Justiça do Trabalho é fundamental neste País, um país tão desigual onde está havendo uma perda muito grande do ganho do capital em relação ao trabalho."
+        },
+        {
+          "udv_id": "udv-63-1-1:positive",
+          "hearing_id": 63,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2061,
+          "p4_supports": 0.0017,
+          "evidence_score": 0.682608,
+          "proposition": "Disse que 'a pandemia nos mostrou que as Ilpis existem em uma realidade de carências absurdas, com estruturas inadequadas, recursos humanos ainda insuficientes e orçamentos extremamente precários, uma total apatia do governo em relação a essas instituições'.",
+          "evidence_text": "A pandemia nos mostrou que as instituições de longa permanência existem numa realidade de carências absurdas. A maioria das instituições de longa permanência têm estruturas inadequadas, não têm os recursos humanos necessários, têm orçamentos extremamente precários."
+        },
+        {
+          "udv_id": "udv-96-4-0:positive",
+          "hearing_id": 96,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2063,
+          "p4_supports": 0.0,
+          "evidence_score": 0.676869,
+          "proposition": "Defendeu o projeto de lei e deu testemunho sobre os obstáculos que teve de enfrentar ao longo da vida, muitas vezes por falta de informação e por deficiência do Estado em lidar com a questão: \"Minha vida escolar foi caótica desde a alfabetização, chegando a ser agredido por uma professora que não compreendia o transtorno. Com a sucessão de insucesso, aconteceu comigo algo muito comum entre nós: um fraco autoconceito e baixa autoestima.\"",
+          "evidence_text": "Minha vida escolar foi caótica desde a alfabetização. Cheguei a ser agredido em sala de aula por uma professora que não compreendia o transtorno."
+        },
+        {
+          "udv_id": "udv-157-0-0:positive",
+          "hearing_id": 157,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2074,
+          "p4_supports": 0.0018,
+          "evidence_score": 0.652183,
+          "proposition": "Cinco produtos estão registrados no País, com preços entre R$ 1,7 milhão e R$ 7,6 milhões, em tratamentos de doenças como o mieloma múltiplo. Os preços são provisórios devido aos dados de segurança e eficácia ainda limitados: \"As empresas fizeram um compromisso com a Anvisa de que vão apresentar dados adicionais de segurança e de eficácia dessas terapias ao longo dos próximos anos.\"",
+          "evidence_text": "Esse foi um critério muito importante discutido pela CMED, considerando que são produtos que foram registrados pela ANVISA mediante termos de compromisso, ou seja, as empresas fizeram um compromisso com a ANVISA de que vão apresentar dados adicionais de segurança e de eficácia dessas terapias ao longo dos próximos anos. Por isso a CMED entendeu que era importante que esses preços fossem provisórios, para que pudéssemos acompanhar esses dados e também a presença desses produtos no mercado internacional."
+        },
+        {
+          "udv_id": "udv-88-1-1:positive",
+          "hearing_id": 88,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.208,
+          "p4_supports": 0.0559,
+          "evidence_score": 0.706818,
+          "proposition": "Ressaltou a importância dos investimentos feitos pela Petrobras no campus universitário mineiro: \"Temos dois prédios financiados pela Petrobras e o que tem dentro são muitos dólares por metro cúbico. São pesquisas sobre o pré-sal. Tudo construído com recursos da exploração de petróleo.\"",
+          "evidence_text": "Lá nós temos dois prédios financiados pela PETROBRAS. E o que há dentro deles são muitos dólares por metro cúbico, são pesquisas do pré-sal, realizadas especialmente no que diz respeito a aspectos tribológicos associados ao problema dosrisersque atritam no fundo do oceano."
+        },
+        {
+          "udv_id": "udv-206-2-0:positive",
+          "hearing_id": 206,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2179,
+          "p4_supports": 0.0016,
+          "evidence_score": 0.687803,
+          "proposition": "Desde 2016, existe uma portaria do Ministério da Educação para adoção de políticas afirmativas para a pós-graduação, mas, até agora, pouco foi feito, levando à evasão dos alunos mais pobres: \"O Brasil deixou de titular, de 2019 para 2020, 4 mil doutores. Ainda não temos os dados para saber quem são esses doutores, mas sabemos que as políticas de ações afirmativas juntamente com a assistência estudantil têm o poder de atrair novos talentos para a pós-graduação.\"",
+          "evidence_text": "O Brasil deixou de titular, de 2019 para 2020, 4 mil doutores. Ainda não temos os dados para saber quem são esses doutores."
+        },
+        {
+          "udv_id": "udv-197-1-0:positive",
+          "hearing_id": 197,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.221,
+          "p4_supports": 0.1205,
+          "evidence_score": 0.65671,
+          "proposition": "Citou uma visita a um instituto de pesquisa em Israel onde uma pesquisadora era sócia de uma startup e não via conflito de interesses. \"Ela mencionou: eu sou sócia dessa startup. Ao ser perguntada se não via conflito de interesses, ela não entendeu a pergunta. 'Conflito como? Estamos gerando emprego, renda, levando inovação para o mercado, atingindo outros países. Tem a receita que essa startup gera para a universidade, esse laboratório é o mais estruturado da universidade, e eu sou sócia de mais cinco'. Esse modelo já existe em diversos países.\"",
+          "evidence_text": "Ela mencionou que era sócia dessastartup, e alguém perguntou:\"E não vê conflito de interesse?\"Ela não soube responder, não entendeu a pergunta:\"Mas conflito como? Estamos gerando emprego, renda, levando inovação para o mercado, atingindo outros países."
+        },
+        {
+          "udv_id": "udv-56-3-0:positive",
+          "hearing_id": 56,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2247,
+          "p4_supports": 0.0057,
+          "evidence_score": 0.564917,
+          "proposition": "Ressaltou o aumento do tempo de uso de aparelhos eletrônicos, como celular e televisão, depois da pandemia: \"Infelizmente, muitos pais terceirizaram a educação dos seus filhos para as telas e isso vai trazer impactos gigantescos na saúde mental e física dessas crianças\"",
+          "evidence_text": "Eu estimulo meus filhos todos os dias. Agora, infelizmente, muitos pais terceirizaram a educação dos seus filhos para as telas, para osmartphone, para otablet, para o computador, para os vídeos no Youtube."
+        },
+        {
+          "udv_id": "udv-150-1-0:positive",
+          "hearing_id": 150,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.225,
+          "p4_supports": 0.0231,
+          "evidence_score": 0.684633,
+          "proposition": "As pesquisas de Santos Dumont contribuíram para o avanço na pesquisa aeroespacial no Brasil: \"E o que estamos desenvolvendo agora? O projeto do veículo lançador de microssatélites que substituiu o veículo lançador de satélites. Teremos pela primeira vez no País a capacidade, não só de produzir satélite, mas também, com um veículo lançador brasileiro, fazer o lançamento desse satélite e colocá-lo em órbita. É um projeto em conjunto com a Alemanha.\"",
+          "evidence_text": "E o que estamos desenvolvendo agora? O projeto do veículo lançador de microssatélites, que substituiu o veículo lançador de satélites."
+        },
+        {
+          "udv_id": "udv-47-4-0:positive",
+          "hearing_id": 47,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2273,
+          "p4_supports": 0.0153,
+          "evidence_score": 0.613067,
+          "proposition": "Defendeu as leis de fomento para impulsionar diversas manifestações artísticas, como rodas de samba e festejos folclóricos: \"Eu venho do segmento cultural do movimento junino, e temos trabalhado há 25 anos com todas as leis de incentivos culturais, é muito importante essa iniciativa.\"",
+          "evidence_text": "Eu venho apenas deixar o meu testemunho de como é importante a Lei Paulo Gustavo para todos os segmentos culturais. Eu venho do segmento cultural do movimento junino."
+        },
+        {
+          "udv_id": "udv-75-2-0:positive",
+          "hearing_id": 75,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2298,
+          "p4_supports": 0.0024,
+          "evidence_score": 0.625263,
+          "proposition": "Foi contrária ao trecho da MP que desobriga as empresas que adotarem o auxílio via FGTS de instalar creches em suas dependências: \"O que a medida provisória está propondo é que se esqueça o artigo da CLT. Não podemos pensar na possibilidade de esse artigo existir\".",
+          "evidence_text": "Ela foi reformada em 1967, mas não perdeu o espírito da lei, que é proteger a maternidade, proteger a criança. Então, o art. 389, § 1º, diz: O que a medida provisória está propondo é que se esqueça do art."
+        },
+        {
+          "udv_id": "udv-198-1-0:positive",
+          "hearing_id": 198,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2314,
+          "p4_supports": 0.094,
+          "evidence_score": 0.65456,
+          "proposition": "Agradeceu pela Operação Acolhida, iniciada em 2018, no governo Temer, e mantida no governo Lula: \"O Brasil tem a melhor resposta humanitária da região para nossos irmãos venezuelanos. Em menos de 72 horas, a Operação Acolhida consegue documentar os venezuelanos e garante a esse venezuelano acesso ao SUS. A resposta humanitária do Brasil para o meu povo eu vou agradecer infinitamente\".",
+          "evidence_text": "Eu agradeço por poder lembrar isso. Esta crise tem uma origem, e o Brasil tem a melhor resposta humanitária da região para nossos irmãos venezuelanos."
+        },
+        {
+          "udv_id": "udv-156-0-0:positive",
+          "hearing_id": 156,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2459,
+          "p4_supports": 0.0,
+          "evidence_score": 0.588726,
+          "proposition": "Existem cerca de 70 instituições no País que enfrentam problemas diários de custeio, fechamento de cursos, demissão de professores e concorrência com cursos de educação à distância (EAD): \"Os dados mostram que temos qualidade, mas também mostram que estamos morrendo devagarinho.\"",
+          "evidence_text": "Essas informações são singelas e decisivas. De alguma forma, os dados mostram que temos qualidade, mas também mostram que estamos morrendo devagarinho."
+        },
+        {
+          "udv_id": "udv-178-1-1:positive",
+          "hearing_id": 178,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2462,
+          "p4_supports": 0.1702,
+          "evidence_score": 0.534443,
+          "proposition": "A busca de soluções urgentes para a crise climática deve inserir o tema também no Projeto de Lei 11247/18 e apensados, que buscam a regulamentação das eólicas offshore e estão em análise na Comissão de Meio Ambiente da Câmara: \"Nós estamos trabalhando na questão do planejamento espacial marinho, que a gente até está chamando de instrumento de descarbonização, mas que não está dentro do PL 11247/18.\"",
+          "evidence_text": "Com tudo isso, nós estamos trabalhando na questão do planejamento espacial marinho, o que chamamos de instrumento de descarbonização. Mas esse planejamento não está sendo comentado no PL, Deputado."
+        },
+        {
+          "udv_id": "udv-74-4-0:positive",
+          "hearing_id": 74,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2581,
+          "p4_supports": 0.0059,
+          "evidence_score": 0.669404,
+          "proposition": "Cobra uma maior participação de crianças e adolescentes no planejamento das políticas públicas para essa faixa etária: \"O plano nacional de enfrentamento à violência contra crianças e adolescentes, recentemente publicado pelo governo federal, foi construído com a participação de pessoas físicas e sem organizações da sociedade civil. Crianças e adolescentes não foram escutados.\"",
+          "evidence_text": "Já foi mencionado o Plano Nacional de Enfrentamento à Violência Sexual contra Crianças e Adolescentes, o Plano Nacional de Enfrentamento e Erradicação do Trabalho Infantil, o Plano de Convivência Familiar e Comunitária. Esses planos não estão sendo devidamente considerados e foram — permita-me a expressão — atropelados por um plano de Governo, não um plano de Estado, que é esse plano que foi imposto à sociedade e que vai comprometer recursos públicos."
+        },
+        {
+          "udv_id": "udv-150-5-0:positive",
+          "hearing_id": 150,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.261,
+          "p4_supports": 0.001,
+          "evidence_score": 0.694592,
+          "proposition": "Divulgou a exposição “Santos Dumont: entre Máquinas e Sonhos”, em cartaz no Museu Catavento Cultural, em São Paulo, que vem recebendo de 3 mil a 12 mil pessoas por dia.",
+          "evidence_text": "Essa exposição, que foi destaque na revistaVejae noJornal Nacional,foi feita para as crianças entenderem as máquinas e os sonhos — esse é o nome da exposição,Santos Dumont: entre Máquinas e Sonhos. O curador é o Ricardo Pisanelli, mas a equipe é muito grande."
+        },
+        {
+          "udv_id": "udv-95-4-0:positive",
+          "hearing_id": 95,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.267,
+          "p4_supports": 0.0714,
+          "evidence_score": 0.631694,
+          "proposition": "Iniciou a mobilização pela votação de propostas que supram lacunas na legislação sobre segurança sanitária e sustentabilidade na produção de alimentos de origem animal: \"Eu já estive com o presidente da Câmara, Arthur Lira, para que nós tenhamos, no início do segundo semestre, uma semana de esforço concentrado da Câmara dos Deputados para aprovar projetos como esses.\"",
+          "evidence_text": "É por isso que um dos encaminhamentos importantes desta Virada Sustentável — e eu já estive com o Presidente da Câmara, o Deputado Arthur Lira, para definirmos isto — é que tenhamos, no início do segundo semestre, 1 semana, pelo menos — é claro que todos os projetos são importantes, mas precisamos escolher os prioritários —, de esforço concentrado aqui na Câmara dos Deputados para aprovar projetos como esse que você citou e também o da taxonomia verde, que é para políticas públicas, projetos, especialmente para os agentes financeiros não falarem que são sustentáveis, mas provarem que são sustentáveis.E, é claro, o fato de o IDEC estar aqui só vai nos fazer avançar nessa conscientização. Usei seu tempo, Patrycia.(Risos.)"
+        },
+        {
+          "udv_id": "udv-48-2-0:positive",
+          "hearing_id": 48,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.2767,
+          "p4_supports": 0.0148,
+          "evidence_score": 0.738962,
+          "proposition": "Afirmou que, se o caso é questionar o STF, que isso seja feito de outro jeito e não às custas dos direitos da comunidade LGBT: \"Nenhum parlamentar da extrema direita, do fundamentalismo ou os palestrantes tiveram coragem de fazer ataques diretos aos nossos direitos civis. Tergiversaram, vacilaram, questionaram o STF, chamaram de atalho a forma como a decisão foi tomada. Mas, se não questionam o conteúdo, se vossa excelência não é contra os direitos civis do meu casamento, esse projeto precisa ir para o arquivo.\"",
+          "evidence_text": "Nenhum Parlamentar da extrema direita, do fundamentalismo ou palestrante teve coragem de fazer ataques diretos aos nossos direitos civis. Tergiversaram, vacilaram, questionaram o Supremo Tribunal Federal, chamaram de atalho a forma como a decisão foi tomada."
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "path": "artifacts/calibration/threshold_v2_verifier_scores.jsonl",
+    "rows": 549,
+    "sha256": "741e2062d79a13ba55fae6a4352d615a4f433c26fa5e28ee958fb9dc6f0c482d"
+  },
+  "inputs": {
+    "udv": {
+      "path": "artifacts/calibration/threshold_v2_verifier_pairs.jsonl",
+      "sha256": "5fef2baf35271f523732cfef6c1f0ff48d26127fb37c92564281e7989526b3ee"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    },
+    "selection": {
+      "path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/selection.json",
+      "sha256": "e533b947b910d361ae35d5efbf5cd4bbb9687968d2f43d4a68c5526645891cfc"
+    },
+    "final_test": {
+      "path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json",
+      "sha256": "61bb9cdd13090cd1f1bee9295c60c3026c4a6f3644c386c3c453a91826518701"
+    },
+    "udv_score_files": {
+      "laya_en_en": {
+        "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/laya_en_en_udv.jsonl",
+        "sha256": "cf2d4d2aacf5261300ae1b4e91f16fc06e89b7061cc4917c8c1dff0a40fb4b25"
+      },
+      "laya_multi_pt": {
+        "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/laya_multi_pt_udv.jsonl",
+        "sha256": "5f3a3d7ada9a9e3ad0e7916c9dee3c8492dfa455e58a239a6a986d007929bdcb"
+      },
+      "xnli_mdeberta": {
+        "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/xnli_mdeberta_udv.jsonl",
+        "sha256": "f831423a6733c4e2e2abb49681c0e867e715e9f7d70bef8590783b24eb44b7ef"
+      },
+      "cosine_serafim": {
+        "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/cosine_serafim_udv.jsonl",
+        "sha256": "907241e3564f9b284ff657eb0a16321cb0ceab8353c36e8628143a3716e48621"
+      }
+    }
+  },
+  "score_runs": {
+    "laya_en_en": {
+      "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/laya_en_en_report.json",
+      "sha256": "bc39bff8691ec11354ffb289eff35e329bd2d849cbf6d0be79ab739ab0065ae6",
+      "created_at": "2026-09-28T13:39:21+00:00",
+      "device": "mps",
+      "timing": {
+        "premise_texts": 549,
+        "questions": 8,
+        "wall_seconds": 934.71,
+        "requests": 4392,
+        "computed": 4392,
+        "cache_hits": 0,
+        "forward_seconds": 934.31,
+        "computed_input_tokens": 798114,
+        "batches": 280,
+        "seconds_per_input_token": 0.0011706473010121361,
+        "computed_per_second": 4.7,
+        "max_rounding_gap": 5.006153886977227e-05
+      },
+      "truncation": {
+        "items_scored": 549,
+        "items_truncated": 0,
+        "items_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "concatenated_premises": 549,
+        "concatenated_truncated": 0,
+        "concatenated_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "overflow": 0,
+        "item_state_tokens": {
+          "count": 549,
+          "min": 30.0,
+          "q25": 96.0,
+          "median": 118.0,
+          "q75": 147.0,
+          "max": 261.0,
+          "mean": 122.4699
+        },
+        "concatenated_state_tokens": {
+          "count": 549,
+          "min": 30.0,
+          "q25": 96.0,
+          "median": 118.0,
+          "q75": 147.0,
+          "max": 261.0,
+          "mean": 122.4699
+        }
+      },
+      "label_probes_agreeing": "3/3",
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/laya_en_en_udv.jsonl",
+          "rows": 549,
+          "sha256": "cf2d4d2aacf5261300ae1b4e91f16fc06e89b7061cc4917c8c1dff0a40fb4b25"
+        }
+      }
+    },
+    "laya_multi_pt": {
+      "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/laya_multi_pt_report.json",
+      "sha256": "62a4c9577addb1c4e40d6091bbe5c25860d43c6259fb28c73e7aa8356252f9ce",
+      "created_at": "2026-09-28T13:39:22+00:00",
+      "device": "mps",
+      "timing": {
+        "premise_texts": 549,
+        "questions": 8,
+        "wall_seconds": 171.05,
+        "requests": 4392,
+        "computed": 4392,
+        "cache_hits": 0,
+        "forward_seconds": 170.63,
+        "computed_input_tokens": 867196,
+        "batches": 280,
+        "seconds_per_input_token": 0.00019676059391417856,
+        "computed_per_second": 25.74,
+        "max_rounding_gap": 5.002901506534485e-05
+      },
+      "truncation": {
+        "items_scored": 549,
+        "items_truncated": 0,
+        "items_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "concatenated_premises": 549,
+        "concatenated_truncated": 0,
+        "concatenated_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "overflow": 0,
+        "item_state_tokens": {
+          "count": 549,
+          "min": 26.0,
+          "q25": 109.0,
+          "median": 135.0,
+          "q75": 166.0,
+          "max": 294.0,
+          "mean": 139.949
+        },
+        "concatenated_state_tokens": {
+          "count": 549,
+          "min": 26.0,
+          "q25": 109.0,
+          "median": 135.0,
+          "q75": 166.0,
+          "max": 294.0,
+          "mean": 139.949
+        }
+      },
+      "label_probes_agreeing": "3/3",
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/laya_multi_pt_udv.jsonl",
+          "rows": 549,
+          "sha256": "5f3a3d7ada9a9e3ad0e7916c9dee3c8492dfa455e58a239a6a986d007929bdcb"
+        }
+      }
+    },
+    "xnli_mdeberta": {
+      "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/xnli_mdeberta_report.json",
+      "sha256": "6d9f1eb71f073797ac4710245a4a646fddf6a5c6ae423be39e4b5e637a3f2abf",
+      "created_at": "2026-09-28T13:39:22+00:00",
+      "device": "mps",
+      "timing": {
+        "requests": 549,
+        "computed": 549,
+        "cache_hits": 0,
+        "seconds": 25.55,
+        "computed_per_second": 21.49,
+        "model_input_tokens": 97501
+      },
+      "truncation": {
+        "items_scored": 549,
+        "items_truncated": 0,
+        "item_tokens": {
+          "count": 549,
+          "min": 29.0,
+          "q25": 135.0,
+          "median": 174.0,
+          "q75": 213.0,
+          "max": 407.0,
+          "mean": 177.5974
+        },
+        "concatenated_premises": 549,
+        "concatenated_truncated": 0,
+        "concatenated_tokens": {
+          "count": 549,
+          "min": 29.0,
+          "q25": 135.0,
+          "median": 174.0,
+          "q75": 213.0,
+          "max": 407.0,
+          "mean": 177.5974
+        }
+      },
+      "label_probes_agreeing": "3/3",
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/xnli_mdeberta_udv.jsonl",
+          "rows": 549,
+          "sha256": "f831423a6733c4e2e2abb49681c0e867e715e9f7d70bef8590783b24eb44b7ef"
+        }
+      }
+    },
+    "cosine_serafim": {
+      "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/cosine_serafim_report.json",
+      "sha256": "ac0b6cc87bf69b275de881d14f809592eecfd5438b6126dbe22439fefc6f77da",
+      "created_at": "2026-09-28T13:39:22+00:00",
+      "device": "mps",
+      "timing": {
+        "distinct_texts": 1807,
+        "seconds": 34.18,
+        "texts_per_second": 52.9
+      },
+      "truncation": {
+        "items_scored": 549,
+        "items_truncated": 18,
+        "item_tokens": {
+          "count": 549,
+          "min": 9.0,
+          "q25": 38.0,
+          "median": 54.0,
+          "q75": 74.0,
+          "max": 185.0,
+          "mean": 59.5464
+        },
+        "concatenated_premises": 0,
+        "concatenated_truncated": 0,
+        "sentences": 1090,
+        "sentences_truncated": 4,
+        "items_without_sentence": 0
+      },
+      "label_probes_agreeing": null,
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/scores/cosine_serafim_udv.jsonl",
+          "rows": 549,
+          "sha256": "907241e3564f9b284ff657eb0a16321cb0ceab8353c36e8628143a3716e48621"
+        }
+      }
+    }
+  },
+  "translation": {
+    "path": "artifacts/experiments/nli_verifier/udv_v2_calibration/translate_report.json",
+    "sha256": "f5b0e41bac82a31e6fd3a2b21c143c75a38962f3ec7f7c0909331c111d76d430",
+    "created_at": "2026-09-28T13:10:29+00:00",
+    "runs": {
+      "nllb": {
+        "requested": 1244,
+        "already_cached": 643,
+        "translated": 601,
+        "batches": 38,
+        "seconds": 547.71,
+        "texts_per_second": 1.0973,
+        "model_input_tokens": 18966,
+        "model_input_tokens_per_second": 34.63
+      }
+    },
+    "still_missing": {
+      "nllb": 0
+    }
+  },
+  "timing": {
+    "apply_seconds": 50.1
+  },
+  "config": {
+    "path": "configs/udv_v2_calibration_verifier.toml",
+    "sha256": "9751cad12a88c598adc14019d5f3bd904cfecc4d58a9f81314d64147aa43c43b",
+    "echo": {
+      "name": "udv_v2_calibration",
+      "date": "2026-09-28",
+      "declared": "Declared on 2026-09-28 in ADR 0006, before any calibration pair was scored. Scores the verifier pairs of artifacts/calibration/threshold_v2.json (train hearings only: each trusted-quote opinion against the window of its target, a legacy_random window of another train hearing and a hard_negative window of the same speaker) with the udv_v1_verifier model unchanged; utils.calibrate_udv_v2 verifier turns these scores into the UDV-premise cut",
+      "purpose": "the verifier train threshold 0.7478 was fitted on premises of four retrieved chunks; the UDV premise is one quote span or one window, so the cut is recalibrated on train pairs with the premise kind the UDVs use",
+      "inputs": {
+        "udv_path": "artifacts/calibration/threshold_v2_verifier_pairs.jsonl",
+        "verifier_config": "configs/nli_verifier.toml",
+        "exploration_config": "configs/nli_verifier_exploration_v2.toml",
+        "selection_path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/selection.json",
+        "final_test_path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json"
+      },
+      "pairs": {
+        "evidence_tiers": [
+          "calibration_positive",
+          "calibration_legacy_random",
+          "calibration_hard_negative"
+        ],
+        "premise": "evidence.text of the calibration pair (the transcript span of a window unit) after udv_pipeline.normalize_whitespace, one premise item per pair",
+        "hypothesis": "proposition after udv_pipeline.normalize_whitespace",
+        "unscored_rule": "every calibration pair has a premise; a pair without text stops the run",
+        "split_rule": "calibration pairs come from train hearings only; utils.calibrate_udv_v2 verifier checks the hearings again"
+      },
+      "scoring": {
+        "primary": "laya_en_en:learned_cross_model_with_pt",
+        "secondary": "laya_multi_pt:p4_supports:max",
+        "secondary_reason": "the laya_multi_pt answer to p4_supports alone: one question, one checkpoint and no translation step, so its reading depends on fewer components than the primary",
+        "scorers": [
+          "laya_en_en",
+          "laya_multi_pt",
+          "xnli_mdeberta",
+          "cosine_serafim"
+        ],
+        "scorers_rule": "the scorers named by the features of the primary (checked at run time) with their specs in verifier_config: laya_en_en on the NLLB English translation (translation_model nllb, as in E3x), laya_multi_pt, xnli_mdeberta and cosine_serafim on the Portuguese text",
+        "code_path": "utils.nli_verifier_experiments.score_units with concatenate_single = true, the setting of the E3 score command that produced every score file E3x read; decision answers, NLI logits, embeddings and translations are read from and appended to the existing caches, so a rerun computes only what is missing",
+        "translation_rule": "the English hypothesis is TranslationStore.translate_opinion(proposition) and the English premise TranslationStore.translate_chunk(evidence text) (sentence segments joined), from the main NLLB cache of configs/translation.toml; missing texts are translated with utils.translation (same model, revision and decoding) and appended to that cache before any English score",
+        "device": "mps",
+        "device_reason": "every E3 score file E3x read was computed on mps, and the decision, logit and embedding caches are keyed by device",
+        "pool_rule": "with one premise item, the max and mean pools are the value on that item and the concatenated premise is the same text, so the three pools of each feature coincide; the run checks that they are equal (tolerance 1e-9) and reports the largest gap. The stored max scores of every UDV score file are recomputed from the items as in E3x (tolerance 1e-9)",
+        "fit_rule": "the primary is refitted exactly as the final_test stage of E3x: L2 logistic regression on the train split of the NLI benchmark (the train score files E3x read), C chosen from c_grid by the inner grouped 3-fold rule on train, threshold max_f1_not_inferable on the train scores of the fitted model. The run stops unless the train score files have the sha256 recorded in selection.json and the refit has the C, inner means, rounded coefficients and threshold recorded in final_test.json",
+        "decision_rule": "supported_at_train_threshold = primary probability >= the train threshold (final_test.json threshold of the primary, 0.7478)"
+      },
+      "report": {
+        "quantiles": [
+          0.0,
+          0.05,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          0.95,
+          1.0
+        ],
+        "semantic_tiers": [
+          "calibration_positive",
+          "calibration_legacy_random",
+          "calibration_hard_negative"
+        ],
+        "cosine_rule": "Spearman correlation between each verifier score and evidence.score (the serafim cosine the UDV builder recorded) within each semantic tier and over both together",
+        "lowest_tiers": [
+          "calibration_positive"
+        ],
+        "lowest_count": 20,
+        "lowest_rule": "the lowest_count UDVs of each lowest_tiers tier by primary probability (ties by udv id), with proposition and evidence text, for manual inspection",
+        "domain_shift": "the verifier was fitted on the NLI benchmark, where the hypothesis is an article opinion and the premise is the four transcript chunks retrieved for it; here the premise is one evidence sentence. This is a domain shift and its effect on the scores, the ranking and the threshold is not measured here",
+        "label_semantics": "the fitted target is label_inferable of the NLI benchmark (retrieved_context_entailment: the annotator judged the opinion inferable from the retrieved chunks). A UDV score estimates that judgment for the evidence sentence alone; it is not a global truth label, and a low score says only that the evidence sentence gives the verifier little support for the proposition"
+      },
+      "outputs": {
+        "output_path": "artifacts/calibration/threshold_v2_verifier_scores.jsonl",
+        "report_path": "artifacts/calibration/threshold_v2_verifier_scores_report.json",
+        "score_run": "udv_v2_calibration",
+        "score_rule": "per-scorer score files in the E3 layout, artifacts/experiments/nli_verifier/udv_v2_calibration/scores/<scorer>_udv.jsonl and <scorer>_report.json, and translate_report.json in that folder",
+        "overwrite_rule": "apply refuses to run when output_path or report_path exists"
+      }
+    },
+    "verifier_config": {
+      "path": "configs/nli_verifier.toml",
+      "sha256": "5c01a6e6d2c9667f8f246db3b21d1988a89f8425297a96f13b60a272f5227024"
+    },
+    "exploration_config": {
+      "path": "configs/nli_verifier_exploration_v2.toml",
+      "sha256": "aea55d50a019f1e91d0f1851cde29fe66c6f4168bfd4b1c26e8b1163a1c2d71d"
+    }
+  },
+  "code": {
+    "utils/udv_verifier.py": "c2f8a69cf0e7360fcf9f3880485e25374d104df0977c76f0b5f61153802234f8",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
+    "utils/cache_lock.py": "7ce920799be0518f2452a8eac30af478c91435916fd9bb51b81759d10e77283e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9",
+    "utils/decision_models.py": "e36d278be4afcba55aea6d4bbce3e224178a2632806fb4eb2d280ffe06d20362",
+    "utils/decision_scoring.py": "46aeccbd61651f9dbcf776aa50335649e512db58e5fce4534cbbb2aa0c855341",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      1.3,
+      1.09,
+      0.85
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": null,
+      "huggingface_hub_is_offline_mode": false,
+      "transformers_is_offline_mode": false,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}

@@ -1,0 +1,379 @@
+{
+  "actor": {
+    "slug": "coronel-chrisostomo",
+    "name": "CORONEL CHRISÓSTOMO",
+    "display_name": "CORONEL CHRISÓSTOMO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PL - RO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:46:16+00:00",
+    "n_statements": 35,
+    "n_hearings": 5,
+    "hearing_ids": [
+      2,
+      15,
+      45,
+      174,
+      183
+    ],
+    "input_tokens": 7762,
+    "output_tokens": 1223,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 21,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Rejeita a atuação do MST, classificando-o como \"movimento totalmente criminoso\" e afirmando que ele mantém relação direta com a FNL e a LCP, organizações que, segundo ele, invadem, queimam casas e matam famílias em Rondônia.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 471,
+            "start": 226466,
+            "end": 226505,
+            "text": "Invadem, queimam casas, matam famílias.",
+            "score": 0.4952
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regularização fundiária em Rondônia, citando mais de 10 mil áreas embargadas que causam sofrimento aos produtores, especialmente os pequenos, e propõe o uso de 200 milhões de reais, que afirma ter descoberto em 2021 na conta do ICMBio/IBAMA (recursos da Hidrelétrica Santo Antônio), para resolver 100% da regularização no estado, estimando o custo em 70 milhões de reais.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 522,
+            "start": 241638,
+            "end": 241763,
+            "text": "Em 2021, eu descobri 200 milhões de reais na conta do ICMBio/IBAMA, que estavam parados lá desde 2016 — 200 milhões de reais.",
+            "score": 0.3821
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita a liberação ambiental para a construção da Hidrelétrica Tabajara, em Machadinho, e da Hidrelétrica Binacional Brasil-Bolívia, argumentando que Rondônia possui capacidade para resolver o problema de energia limpa do Brasil e evitar apagões futuros.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 68,
+            "start": 120580,
+            "end": 120661,
+            "text": "Nós temos em planejamento a construção da Hidrelétrica Binacional Brasil-Bolívia.",
+            "score": 0.4016
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a distribuição de receitas de energia, afirmando que Rondônia produz quase 7 megawatts (mais da metade de Itaipu) com as usinas Jirau e Santo Antônio, mas que o retorno financeiro para o estado é mínimo, beneficiando principalmente mineiros, paulistas e cariocas.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 68,
+            "start": 121075,
+            "end": 121109,
+            "text": "Jirau e Santo Antônio, como V.Exa.",
+            "score": 0.3236
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a ANM (Agência Nacional de Mineração) dialogue com os dragueiros antes de queimar as dragas, argumentando que cada draga custa em média 2 milhões de reais e que a queima leva os operadores a cometer ilegalidades; sugere também que a ANM tenha sede própria e mais funcionários em Rondônia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 69,
+            "start": 123007,
+            "end": 123063,
+            "text": "Ministro, uma draga, em média, custa 2 milhões de reais.",
+            "score": 0.3608
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a reconstrução da BR-319, classificando o veto ambiental como prejudicial à logística e ao povo da Amazônia, e apoia a prospecção de petróleo na Foz do Amazonas, argumentando que o tempo do petróleo é agora e que a região precisa de recursos para combater a pobreza.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 82,
+            "start": 147804,
+            "end": 147832,
+            "text": "O tempo do petróleo é agora.",
+            "score": 0.3868
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o curso de medicina no Brasil é feito para ricos, pois custa no mínimo 10 mil reais mensais, e critica a baixa taxa de aprovação no REVALIDA, sugerindo que a prova pode estar mal construída ou que as escolas estrangeiras são ruins, mas defende o respeito aos médicos formados no exterior.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 27,
+            "start": 79357,
+            "end": 79403,
+            "text": "Curso de medicina no Brasil é feito para rico!",
+            "score": 0.2392
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção dos hospitais militares na Amazônia para atender a população civil, citando cidades como São Gabriel da Cachoeira, Tabatinga e Cabeça do Cachorro, onde o Exército é a única estrutura de saúde para populações de 70 a 80 mil habitantes.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 27,
+            "start": 83184,
+            "end": 83367,
+            "text": "No Estado do Amazonas, Deputado Evair, há cidades de 80 mil habitantes que só têm o hospital militar para atender sua população, como é o caso de São Gabriel da Cachoeira e Tabatinga.",
+            "score": 0.4517
+          },
+          "udv": null
+        },
+        {
+          "text": "Oposição à obrigatoriedade da vacinação contra a Covid-19 em crianças de 6 meses a 5 anos, argumentando que há dúvida sobre a eficácia e segurança, e propõe a criminalização de quem mandar vacinar sem certeza de que a criança não vai pegar a doença.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 51,
+            "start": 99969,
+            "end": 100101,
+            "text": "Inclusive, Presidente, nós deveríamos criminalizar quem mandar dar vacina sem ter a certeza de que a criança não vai pegar a doença.",
+            "score": 0.3441
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência militar como critério de decisão, invocando a regra de que \"na dúvida, não se atira\", para justificar a rejeição da vacinação obrigatória em crianças e a necessidade de certeza antes de ações que afetam a população.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 51,
+            "start": 99879,
+            "end": 99903,
+            "text": "Na dúvida, não se atira!",
+            "score": 0.2828
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a soberania e o desenvolvimento econômico local, justificando a defesa das hidrelétricas e do petróleo com a necessidade de manter a riqueza no Brasil e em Rondônia, e de atender às demandas energéticas nacionais.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 68,
+            "start": 120492,
+            "end": 120541,
+            "text": "Muito se falou sobre construção de hidrelétricas.",
+            "score": 0.1555
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a ordem e a legalidade, justificando a crítica ao MST e a sugestão de diálogo com dragueiros com a ideia de que a força bruta (queima de dragas) gera ilegalidades, enquanto a conversa gera ordem.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Prioriza a presença do Estado em áreas remotas, justificando a defesa dos hospitais militares com a inexistência de médicos civis dispostos a trabalhar na Amazônia, o que gera um \"vazio monstruoso\" no atendimento à saúde.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 27,
+            "start": 82817,
+            "end": 82896,
+            "text": "Francisco, na Amazônia há um vazio monstruoso na área da medicina.Isso é geral.",
+            "score": 0.2194
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal do Estado de Rondônia e Coronel do Exército.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 82,
+            "start": 146871,
+            "end": 146947,
+            "text": "Assim é que é o Coronel Chrisóstomo, Deputado Federal do Estado de Rondônia.",
+            "score": 0.646
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser filho de uma indígena do povo tukano, quilombola e pardo, nascido no meio da Floresta Amazônica, e se apresenta como referência obrigatória para discussões sobre a Amazônia.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 82,
+            "start": 147403,
+            "end": 147472,
+            "text": "Sou filho de uma indígena do povo tukano, sou quilombola e sou pardo!",
+            "score": 0.4781
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio ao Presidente Bolsonaro, a quem chama de \"brutão\", e afirma respeito ao Presidente Lula, a quem chama de \"barbudinho\", defendendo a superação das diferenças políticas entre Direita e Esquerda em prol do Brasil.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 102,
+            "start": 175714,
+            "end": 175750,
+            "text": "E foi aprovado pelo Presidente Lula.",
+            "score": 0.245
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter convivido com o Ministro Paulo Teixeira em comissões anteriores e mantém relação de respeito com o Presidente do IBAMA, apesar das diferenças políticas.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 457,
+            "start": 223339,
+            "end": 223401,
+            "text": "Eu quero cumprimentar primeiramente o Ministro Paulo Teixeira.",
+            "score": 0.2731
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza analogias militares para explicar conceitos civis, como a comparação entre a mira de um míssil e a aplicação de vacinas, ou a referência a \"soldados\" ao se dirigir a ministros.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 51,
+            "start": 100443,
+            "end": 100497,
+            "text": "\"Não\" à aplicação de vacinas nas crianças, Presidente!",
+            "score": 0.2832
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom direto e imperativo, exigindo respostas binárias (\"sim\" ou \"não\") dos interlocutores, e critica a ambiguidade de respostas, como fez ao Ministro Paulo Teixeira.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 457,
+            "start": 223339,
+            "end": 223401,
+            "text": "Eu quero cumprimentar primeiramente o Ministro Paulo Teixeira.",
+            "score": 0.2416
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos e casos locais de Rondônia e da Amazônia (nomes de cidades, valores em reais, números de áreas embargadas) para fundamentar suas solicitações e críticas.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 512,
+            "start": 238749,
+            "end": 238813,
+            "text": "Temos na Amazônia, em Rondônia, o problema de embargos de áreas.",
+            "score": 0.1876
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa ironia e humor para desarmar interlocutores, como ao comentar a torcida do Flamengo ou a origem militar do Secretário Dr. Eder Gatti.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 49,
+            "start": 98539,
+            "end": 98581,
+            "text": "Eder Gatti e todos os outros palestrantes.",
+            "score": 0.2895
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a identidade regional e pessoal (\"filho da floresta\", \"engenheiro do Exército\") para legitimar suas opiniões sobre temas como saúde, energia e meio ambiente.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 82,
+            "start": 147343,
+            "end": 147402,
+            "text": "Sou filho da floresta, nasci no meio da Floresta Amazônica.",
+            "score": 0.281
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 25,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 174,
+      "split": "train",
+      "article_date": "2023-09-12",
+      "title": "Especialistas discordam sobre nível de dificuldade do exame Revalida",
+      "assunto": "Debate sobre a baixa taxa de aprovação no Exame Nacional de Revalidação de Diplomas Médicos (Revalida) em 2022",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

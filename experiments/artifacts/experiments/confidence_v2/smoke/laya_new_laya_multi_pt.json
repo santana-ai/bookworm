@@ -1,0 +1,132 @@
+{
+  "scorer": "laya_multi_pt",
+  "model": {
+    "kind": "laya",
+    "name": "convaiinnovations/laya/multilingual",
+    "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+    "subfolder": "multilingual",
+    "laya_version": "0.3.11",
+    "checkpoint_dir": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/multilingual",
+    "weights_file": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/multilingual/model.safetensors",
+      "is_symlink": true,
+      "blob": "53499790a05bdabd4023a797e9e2776d39efd3bac72d6ddaed70495da40c6eb0",
+      "bytes": 643835514
+    },
+    "tokenizer_config": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/multilingual/tokenizer/tokenizer_config.json",
+      "is_symlink": true,
+      "blob": "c255ac0c8cb34a37d066cd0dafe313fd769d27ae",
+      "bytes": 524
+    },
+    "encoder": "jhu-clsp/mmBERT-base",
+    "max_len": 1024,
+    "head_max_len": 256,
+    "temperature_applied": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "temperature_by_options_applied": {},
+    "device": "mps",
+    "dtype": "torch.float32",
+    "parameters": 321908995,
+    "load_seconds": 2.7,
+    "batch_size": 16,
+    "truncation": "when the serialized state does not fit max_len minus the question prefix, 'premise' is cut at the last whitespace that fits, so the other keys stay whole",
+    "answer_cache": {
+      "path": "artifacts/cache/decision_models/laya_multilingual_aa8c91ca088e_mps.jsonl",
+      "signature": "laya@0.3.11@convaiinnovations/laya@aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8@multilingual@mps@float32@1024@256@premise",
+      "entries_at_start": 478400,
+      "other_signature_lines": 0
+    },
+    "counters": {
+      "requests": 1000,
+      "computed": 1000,
+      "cache_hits": 0,
+      "forward_seconds": 67.42,
+      "computed_input_tokens": 296922,
+      "batches": 64,
+      "max_rounding_gap": 4.990176688234732e-05
+    }
+  },
+  "questions": {
+    "n1_entails": {
+      "type": "noul",
+      "instructions": "A `premise` implica a `hypothesis`?"
+    },
+    "n2_states": {
+      "type": "noul",
+      "instructions": "A `premise` diz o que a `hypothesis` afirma?"
+    },
+    "n3_attributable": {
+      "type": "noul",
+      "instructions": "Tudo o que está na `hypothesis` pode ser atribuído à `premise`?"
+    },
+    "n4_reader_agrees": {
+      "type": "noul",
+      "instructions": "Alguém que lesse apenas a `premise` concordaria que a `hypothesis` é verdadeira?"
+    }
+  },
+  "requests": 250,
+  "question_count": 4,
+  "seconds": 67.66,
+  "counters": {
+    "requests": 1000,
+    "computed": 1000,
+    "cache_hits": 0,
+    "forward_seconds": 67.42405837593833,
+    "computed_input_tokens": 296922,
+    "batches": 64,
+    "max_rounding_gap": 4.990176688234732e-05
+  },
+  "translation": null,
+  "status": "scored",
+  "name": "laya_new:laya_multi_pt",
+  "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+  "opinions": 50,
+  "pairs_per_second": 14.78,
+  "full_pairs": 73772,
+  "projected_hours": 1.387,
+  "truncation": {},
+  "created_at": "2026-09-27T19:55:44+00:00",
+  "config": {
+    "path": "configs/confidence_v2.toml",
+    "sha256": "7010a93e6df86269cacbd0f0c8b5a94b10ac1a21d6fda3b770713899f8bdfc7d"
+  },
+  "code": {
+    "utils/confidence_v2.py": "0426278c0b871eed86ba41b23a5a84f718c13fb5ca7159cbaec5384d2b5fcce5",
+    "utils/grounding_scorers.py": "984aa02c58e52aee6e1bedb5b11c6bc89506772c6996075acfb61922b003a80a",
+    "utils/grounding_models.py": "10dc6650259d0b9432e0a6ba2f7e4a0475e32e584955322500aa997e05f3c0a6",
+    "utils/confidence_policies.py": "56efe9e14e75b0525b474dbb590c300dd7ae043587ee10e1633fc26a3037d704",
+    "utils/udv_verifier.py": "61436011728deb5f0bb9985536a258557122596282d88a4a7b2cfdbc031ffcdc",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      2.9,
+      3.12,
+      2.68
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}

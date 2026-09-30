@@ -1,0 +1,186 @@
+[declaration]
+date = "2026-09-24"
+text = "Declared on 2026-09-24, before any full translation run and before any score of an English scorer existed. The model, revision, decoding, units, splits and report rules below are fixed for the English conditions of E3 (configs/nli_verifier.toml). Before the full run, only the plan command (token and segment counts, no translation) and smoke runs on at most the first 25 validation opinions (their opinions and chunks) plus the 40 spot-check sentences, on CPU, are run; they are used only to check that the code runs and to time it. This module reads no label, judge or score; apart from the join amendment recorded in [units], nothing here was chosen from translation outputs."
+second_condition_amendment = "Recorded on 2026-09-24, before any translation by facebook/m2m100_418M existed and before any full-run score of an English scorer existed. User decision of 2026-09-24: both translation models are run, as two declared translation conditions of E3 ([models] nllb and m2m100). Reason: facebook/nllb-200-distilled-600M is licensed CC-BY-NC-4.0, which allows non-commercial use only, and facebook/m2m100_418M is licensed MIT; the second condition measures how much the English results of E3 depend on the translation model, and gives an English result obtained with a permissively licensed translation. m2m100 uses the units, segmentation, splits, decoding and batching declared below for NLLB, unchanged; only the model, its revision, its language codes and its tokenizer differ, and each model has its own cache file and signature. There is no fallback model any more. History: earlier the same day facebook/m2m100_418M at this revision was declared in a [fallback] table as a technical fallback of NLLB, to be used only if NLLB could not be loaded (download or load error), behind --use-fallback and --fallback-reason; NLLB loaded, the fallback was never used (status 'declared, not used'), no m2m100 translation was ever made, and this amendment replaces the [fallback] table by [models.m2m100] and the two options by --model nllb|m2m100 (default nllb) on every command. The NLLB model, revision, signature (sha256 b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9), units, segmentation, decoding and batching are unchanged, and the NLLB full run started before this amendment continues unchanged. When this was written no m2m100 translation and no full-run E3 score existed; the NLLB full run had started on MPS at 14:51:27 UTC, and at 15:04:52 UTC (the NLLB plan rerun) the NLLB main cache held 687 MPS translations (678 of that run, 9 of the attempt stopped at 14:51 UTC) and 40 CPU translations (spot check v1); the NLLB CPU translation smoke, spot check v1 (40 NLLB translations, no judgment) and the E3 CPU smoke scores (laya_multi_pt on the first 25 train and 25 validation opinions, the NLLB English scorers on the first 25 validation opinions) existed; no smoke number, translation output, label, judge or score was used to write it. This sentence was corrected on 2026-09-24, see review_amendment."
+review_amendment = "Recorded on 2026-09-24 after a review of the second-condition amendment, before any m2m100 full-run translation, any full-run E3 score and any spot-check judgment existed; no translation quality, label, judge or score was used. (1) second_condition_amendment first said that only the CPU smoke runs existed when it was written; the NLLB full run, spot check v1 and the E3 smoke scores also existed, and the sentence now says so. (2) spot_check.supersedes was first written before the check and the removal it describes; it now records what is known of both. (3) units.chunk_rule_reason and units.join_amendment quoted short transcript sentences; they now describe them without quoting them (translation_v1/plan.json, which is not rewritten, keeps the earlier wording). (4) spot_check.display_amendment: typographic apostrophes and quotation marks are shown in their plain form on the spot-check sheet, and the key lists the rows that stay identifiable. (5) models.nllb.run_note records that the code of the running translation_v1 process was not kept. (6) run.full_run_rule declares the device of the full runs. (7) artifacts/experiments/translation/smoke_translation/report.json (NLLB CPU smoke, 12:41:24 UTC) predates the second condition: it has the earlier fallback field and no model record; it is kept as the record of that smoke and of its timing and is not regenerated."
+
+[inputs]
+nli_verifier_config = "configs/nli_verifier.toml"
+rule = "benchmark path and report, gated NLI file, split manifest, premise text source and label probes are read from the E3 config, so the translated texts are the premises and hypotheses E3 scores; premise.text_source must be nli_chunks"
+
+[splits]
+default = ["train", "validation"]
+final_test = ["test"]
+rule = "plan, translate and report read the benchmark rows of the default splits; rows of final_test hearings are read only with --final-test and nothing is chosen on them; --splits can narrow the selection (for a smoke run) but can never add a final_test split without --final-test"
+
+[models]
+default = "nllb"
+conditions = ["nllb", "m2m100"]
+rule = "each key is a declared translation condition of the E3 English scorers, which name it in translation_model; every command takes --model <key> (default nllb). The conditions share [splits], [decoding], [units], [report] and the spot check; each has its own cache file (named after its model and revision) and its own signature, so the translations of the two models never mix"
+amendment = "Recorded on 2026-09-24, see [declaration] second_condition_amendment: [model] became [models.nllb] with every value unchanged except role (primary became first_condition; role is not part of the signature), and the [fallback] table became the second condition [models.m2m100]"
+
+[models.nllb]
+role = "first_condition"
+name = "facebook/nllb-200-distilled-600M"
+revision = "f8d333a098d19b4fd9a8b18f94170487ad3f821d"
+revision_source = "huggingface_hub HfApi().model_info on 2026-09-24: sha of the main branch, commit of 2024-02-14 titled 'pipeline_tag: translation'; main is the only branch"
+weights_file = "pytorch_model.bin"
+weights_note = "the pinned snapshot has no safetensors file; pytorch_model.bin is loaded by transformers with torch.load(weights_only=True)"
+architecture = "M2M100ForConditionalGeneration (config.json): 12 encoder and 12 decoder layers, d_model 1024, vocabulary 256,206, max_position_embeddings 1024"
+intended_use = "README: research in machine translation, single sentence translation among 200 languages; not intended for document translation; trained with inputs of at most 512 tokens, longer inputs may degrade"
+license = "CC-BY-NC-4.0"
+license_reason = "CC-BY-NC-4.0 allows non-commercial use and sharing of adapted material with attribution. This is a non-commercial research experiment: the translations are intermediate inputs of the E3 English scorers, stored only in the Git-ignored cache and not redistributed; the versioned artifacts hold counts, distributions and hashes, the translations of the three hand-written label probes and the 40 spot-check sentences, each attributed to this model and revision. Any commercial use of the translations would need another model."
+src_lang = "por_Latn"
+tgt_lang = "eng_Latn"
+src_token = "por_Latn"
+tgt_token = "eng_Latn"
+language_rule = "the tokenizer is created with src_lang, so each input is [src_token] tokens [</s>]; generation is forced to start with tgt_token (forced_bos_token_id); both ids are checked against the loaded tokenizer at every load"
+dtype = "float32"
+dtype_reason = "config.json torch_dtype float32; the same dtype on CPU and MPS"
+run_note = "Recorded on 2026-09-24 after a review, while the full NLLB run translation_v1 (translate --device mps) was running. Its process started at 14:51:27 UTC (11:51:27 in the local run log) and executes the utils/translation.py it imported then, a version written after the batching amendment and before the second-condition edits, which modified the file at 15:04 UTC. That version was not kept and its sha256 was not recorded (the code hash in translation_v1/plan.json, 74fcdc128b44..., is from 12:39:21 UTC, before batch_token_budget existed), so the utils/translation.py hash that translation_v1/report.json records identifies no kept file. The current code (utils/translation.py sha256 d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98) reproduces what the run does: replaying its batching with the NLLB tokenizer and the cache opened read-only, at 16:17 UTC, gives 45,224 texts missing at its start, the count the run printed, and the 663 batches it had written (10,518 records, all on mps with batch size 16 and budget 2048) match the replay in composition (0 of 663 differ) and in model input tokens (0 records differ); the 9 MPS records written at 14:47 UTC by the attempt stopped before this run (same batch size and budget) are cached texts for the replay and are not replayed; the NLLB signature, units and model_texts sha256 are unchanged. After the run ends, report --model nllb --run-name translation_v1_report (read-only, no model loaded) writes a report of the same cache whose code hash matches a file on disk, and both reports are kept."
+
+[models.m2m100]
+role = "second_condition"
+name = "facebook/m2m100_418M"
+revision = "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636"
+revision_source = "huggingface_hub HfApi().model_info on 2026-09-24: sha of the main branch"
+history = "declared on 2026-09-24 as the technical fallback of NLLB ([fallback], status 'declared, not used'), never used in that role; a translation condition of its own since the second_condition_amendment of the same day"
+fetched = "python -m utils.translation fetch --model m2m100 on 2026-09-24 downloaded the pinned snapshot: README.md, config.json, generation_config.json, special_tokens_map.json, tokenizer_config.json, vocab.json, sentencepiece.bpe.model and pytorch_model.bin"
+weights_file = "pytorch_model.bin"
+weights_note = "the pinned snapshot has no safetensors file; pytorch_model.bin (1,935,796,948 bytes, 512 tensors, every tensor float32) is loaded by transformers with torch.load(weights_only=True)"
+architecture = "M2M100ForConditionalGeneration (config.json at the pinned revision, sha256 df0ae43e4e4b0d7e3c97b7f447857a70ef6b6a2aa1f145cedbcc730d95f67134): 12 encoder and 12 decoder layers, d_model 1024, 16 attention heads, feed-forward dimension 4096, vocabulary 128,112, max_position_embeddings 1024; config.json has no torch_dtype; dropout 0.1 and encoder and decoder layerdrop 0.05 are training settings, inactive in eval mode"
+intended_use = "README at the pinned revision (sha256 1fd660f130aedc5ecf1796b47ab47d43d3c4b36541f5387b7adb3df75cb5dfdb): a multilingual encoder-decoder model trained for many-to-many translation, directly between the 9,900 directions of 100 languages, Portuguese (pt) and English (en) among them; the target language id is forced as the first generated token with forced_bos_token_id; M2M100Tokenizer needs sentencepiece. The card has no intended-use, limitations, training-length or input-length section; it cites the paper arXiv 2010.11125 (Fan et al., Beyond English-Centric Multilingual Machine Translation)"
+license = "MIT"
+license_reason = "MIT allows use, copying, modification and redistribution, commercial use included, with the copyright and permission notice. The translations are handled as the NLLB ones: intermediate inputs of the E3 English scorers, stored only in the Git-ignored cache; the versioned artifacts hold counts, distributions and hashes, the translations of the three hand-written label probes and the spot-check sentences, each attributed to this model and revision"
+src_lang = "pt"
+tgt_lang = "en"
+src_token = "__pt__"
+tgt_token = "__en__"
+language_rule = "as for NLLB: the tokenizer is created with src_lang, so each input is [src_token] tokens [</s>]; generation is forced to start with tgt_token (forced_bos_token_id); both ids are checked against the loaded tokenizer at every load"
+tokenizer_check = "checked on 2026-09-24 on the real tokenizer at the pinned revision, before any translation: M2M100Tokenizer (sentencepiece, no fast tokenizer), created with src_lang pt; 'Bom dia a todos.' is [__pt__ 128075, 5 content tokens, </s> 2]; 2 special tokens per input; right padding with pad id 1; __en__ is id 128022 and get_lang_id('en') gives the same id; decode with skip_special_tokens removes __en__ and </s>. This is the NLLB layout ([src_token] tokens [</s>], one forced target token after the decoder start token), so Seq2SeqTranslator, check_tokenizer and the output token count serve both models unchanged"
+dtype = "float32"
+dtype_reason = "config.json has no torch_dtype and every tensor of pytorch_model.bin is float32; the same dtype on CPU and MPS"
+generation_config_note = "generation_config.json sets num_beams 5, early_stopping true and max_length 200; every [decoding] value is passed explicitly to generate, so the decoding is the one declared in [decoding], identical to NLLB's"
+plan_note = "plan --model m2m100 (artifacts/experiments/translation/translation_v1_m2m100/plan.json, 2026-09-24, tokenizer only, no translation): the same 45,273 distinct model texts as NLLB over train and validation plus the label probes (the same ordered list, sha256 88a580af77c41d80d80d310d96ac4f8ddd83aff3c141acafe7610fa942df6a65), 1,587,175 model input tokens against 1,559,288 for NLLB (+1.8%), longest input 405 tokens (q99 115), none over max_input_tokens 512; the m2m100 card states no input limit and max_input_tokens applies unchanged. Batches are formed from each model's own token counts, so the two conditions do not share a batch composition"
+
+[decoding]
+num_beams = 4
+do_sample = false
+length_penalty = 1.0
+early_stopping = false
+no_repeat_ngram_size = 0
+repetition_penalty = 1.0
+decoding_rule = "deterministic beam search with 4 beams, no sampling, no repetition penalty and no n-gram blocking, so degenerate repetition is measured rather than hidden; every value is passed explicitly to generate"
+max_input_tokens = 512
+max_input_rule = "inputs are tokenized with truncation at max_input_tokens, counting the language code and </s> (the model card training limit); a truncated input is counted by plan and flagged in the cache and the report"
+max_new_tokens_ratio = 2.0
+max_new_tokens_margin = 16
+max_new_tokens_cap = 1020
+max_new_tokens_rule = "generation_config.json max_length 200 is overridden: the max_new_tokens of a batch is min(max_new_tokens_cap, ceil(max_new_tokens_ratio x the longest model input of the batch, in tokens after truncation) + max_new_tokens_margin); an output that reaches it without </s> is flagged hit_max_new_tokens, and an output longer than ratio x its own input + margin is flagged long_output, which marks every output the batch composition could have cut"
+batch_size = 16
+batch_token_budget = 2048
+batching_rule = "the distinct texts still missing from the cache are sorted by model input length before truncation, longest first (stable, ties in first-occurrence order), and grouped in that order: a batch takes the next text while it holds fewer than batch_size texts and its number of texts plus one, times the model input tokens of its first (longest) text, stays within batch_token_budget; a batch always holds at least one text; batch_token_budget = 0 gives batches of batch_size"
+batching_amendment = "Recorded on 2026-09-24, before any translation of the full run existed. The first full run on MPS (started 09:44, stopped at 11:45) wrote no batch in two hours: its first batch held the 16 longest units (up to 412 model input tokens, max_new_tokens up to 840, 4 beams, 64 sequences), whose decoder cache alone needs about 5 GB, and the machine was swapping (20.0 of 20.5 GB of swap in use). batch_token_budget was added so the few long units go in smaller batches: with 2048, texts of up to 128 model input tokens (more than 99% of the planned texts, q99 113) still go in batches of 16 and the 412-token unit goes in a batch of 4. It changes only how the missing texts are grouped; model, revision, units and decoding are unchanged, batch size and budget are not part of the cache signature, and each cache record stores its batch size, budget and batch number. Decided from memory use, elapsed time and the planned token counts only; no label, judge or score was read"
+determinism_note = "decoding is deterministic for a given batch and device; float32 rounding in padded batches and between devices can in rare cases change a beam, so each cache record stores the device, batch size and batch number, the first translation of a text is kept, and the report counts the records of each device"
+
+[units]
+opinion_rule = "each opinion is translated whole: the benchmark opinion after udv_pipeline.normalize_whitespace, the hypothesis text E3 scores"
+chunk_rule = "each premise chunk is chunks_proximos[position] of the gated NLI file after udv_pipeline.normalize_whitespace, the premise text E3 scores. The chunk is cut at the sentence boundaries of udv_pipeline.split_sentences (SENTENCE_BOUNDARY_PATTERN) and every non-empty part is kept in order; the join rule below then merges some parts into translation units; each distinct unit is translated once, and the English chunk is the non-empty translations of its units joined by one space"
+chunk_rule_reason = "split_sentences also drops parts shorter than 4 words and stage directions (udv_pipeline.is_sentence). Counted by the plan command on the 9,908 distinct train and validation chunks, before any translation: joining only the split_sentences sentences would remove 5,333 of 1,043,920 words (0.51%) from 1,962 chunks (19.8%), among them short content sentences such as one-word answers and three-word statements, so the English premise would not carry the same text as the Portuguese premise E3 scores. Keeping every part keeps every word of the chunk in the English premise. Decided from word counts only; no translation, label or score was read"
+join_abbreviations = ["Sr.", "Sra.", "Srs.", "Sras.", "Dr.", "Dra.", "Drs.", "Dras.", "V.Exa.", "V.Exas.", "Prof.", "Profa.", "Profs.", "Exmo.", "Exma.", "art.", "arts.", "Art."]
+join_short_parts = true
+join_rule = "walking the parts of a chunk in order, a part (or the text accumulated so far) is joined by one space to the next part when its last whitespace token is in join_abbreviations or, with join_short_parts, when udv_pipeline.is_sentence rejects it (fewer than 4 words, or only a stage direction); text still pending at the end of the chunk is joined to the previous unit, or is the only unit. Every word of the chunk stays in exactly one unit. Setting join_abbreviations = [] and join_short_parts = false gives one unit per boundary part"
+join_amendment = "Recorded on 2026-09-24, before any full translation run and before any English score existed. A debug run on the first validation opinion (27 texts, CPU, cache and report outside artifacts) showed content absent from the source in the translations of parts cut at an abbreviation (a part made of a single form of address, a part ending in a form of address) and a short closing formula of thanks translated twice, the known weakness of the model on inputs much shorter than a sentence. The join rule was added after that run; the model, revision and decoding were not changed. The abbreviation list holds the forms of address and legal abbreviations that end non-final parts, counted by the plan command without translation (join_abbreviation_last_token_counts: Sr. 473, Dr. 319, art. 319, Sra. 238, V.Exa. 164, Dra. 131, Prof. 81, Profa. 61, Srs. 52, Sras. 22, Exmo. 16, V.Exas. 14, arts. 12, Exma. 3, Art. 1; Drs., Dras. and Profs. complete the forms and do not occur). Of the 43,777 distinct boundary parts of the train and validation chunks and the label probes, 1,561 end in a listed abbreviation and 1,307 are rejected by is_sentence; after the rule there are 41,599 distinct units, 2 of them still shorter than a sentence (chunks with no sentence), and 2,636 of the 9,911 distinct chunks have joined parts. No label, judge or score was read"
+verbatim_rule = "a part without any letter or digit (for example ')') is copied unchanged and never sent to the model"
+empty_rule = "an empty chunk gives an empty English chunk; E3 does not score empty chunks"
+probe_rule = "each [label_probes] premise of the E3 config is translated as a chunk and each hypothesis as an opinion; the probe translations are written to every report"
+deduplication = "opinions and parts share one cache keyed by text, so a text is translated once whatever its role, split or position"
+
+[cache]
+dir = "artifacts/cache/translation"
+rule = "one JSONL file per model and revision; each line holds key = sha256 of the signature digest (sha256 of the canonical JSON of model, revision, languages, dtype and decoding parameters) and the whitespace-normalized source text, plus the source, the translation, token counts, flags and provenance (device, batch size, batch number, seconds). Lines are appended batch by batch in one write, so an interrupted run resumes from the last complete batch; a translate run cuts an incomplete last line, a read-only open ignores it, and a malformed complete line stops the run. One writer at a time: translate and spot-check (without --cached-only) must not run together on the same cache, while any number of read-only stores (the E3 scorers) can open it during a run"
+models_rule = "each translation condition of [models] has its own file in this directory (translations_<model>_<revision[:12]>.jsonl) and its own signature; a command opens only the cache of its --model as a writer, and spot-check opens the caches of the other conditions read-only (added on 2026-09-24 with the second condition)"
+
+[report]
+output_dir = "artifacts/experiments/translation"
+degenerate_ngram = 4
+degenerate_min_count = 4
+degenerate_rule = "an output is degenerate when some 4-gram of lowercased word tokens (\\w+) occurs at least 4 times, overlaps counted; the same test on the source separates repetition already present in the speech from repetition added by the model"
+identical_rule = "the output equals its whitespace-normalized source; verbatim parts are not counted"
+doubled_length_rule = "an output is flagged doubled_length when it has more than twice the tokens of its input (content tokens of the model tokenizer), which catches a short input translated twice"
+length_ratio_rule = "tokens: output tokens / input tokens of the model tokenizer, language codes and </s> excluded; characters: output characters / source characters; English chunk characters / Portuguese chunk characters per distinct chunk"
+content_rule = "the versioned report holds counts, distributions, timing, cache keys and hashes; it holds no transcript or article text, translated or not, except the label probes"
+estimate_rule = "report --estimate-from-plan extrapolates a full run from a plan.json: measured seconds per model input token of the selected cache records x the plan input tokens, and measured seconds per text x the plan distinct texts, separately per device; a device without records has no estimate"
+
+[spot_check]
+name = "translation_spot_check_v2"
+supersedes = "translation_spot_check_v1: 40 rows with the NLLB translation only, generated on 2026-09-24 before the second condition existed; v2 shows the same 40 units with both translations. Its untracked folder was removed at 15:21:58 UTC (the last modification time of artifacts/validation, which holds only v2 and a folder of 2026-09-23), after its draws, NLLB cache keys and flags had been copied to a scratch file (15:16:36 UTC) and after v2 was written (15:20:45 UTC); v2 draws the same units, in the same order, with the same NLLB cache keys. A check made before the removal found the three judgment columns (adequacao, fluencia, observacao) of its 40 rows empty, all 120 cells; the time and output of that check were not saved, and neither the v1 sheet nor its sha256 was kept, so the check cannot be repeated or verified now. This text was corrected on 2026-09-24 (see [declaration] review_amendment): its first version was written at about 15:04 UTC, before the check and the removal it described."
+supersede_rule = "added on 2026-09-24: a sheet with any judgment filled in is never overwritten (the command refuses) and is never removed; a sheet without judgment may be regenerated in place, and the new key records the sha256 and the filled judgment cells of the sheet it replaced (replaced_sheet)"
+amendment = "Recorded on 2026-09-24 with the second translation condition, before any m2m100 translation and before any judgment existed: the population, size, seed and draw rule of v1 are unchanged, so v2 draws the same 40 units; each unit is shown once per condition of models (80 rows) in a blind order given by order_seed, and the key file says which row is which. Nothing here was chosen from a translation, label, judge or score"
+output_dir = "artifacts/validation"
+split = "validation"
+population = "distinct translation units of validation chunks (after the join rule) that udv_pipeline.is_sentence accepts (at least 4 words, not a stage direction), in first-occurrence order of the benchmark file"
+size = 40
+seed = 42
+draw_rule = "numpy default_rng(seed).choice(population size, size, replace=False); units are numbered U01..U40 in draw order"
+models = ["nllb", "m2m100"]
+order_seed = 20260924
+order_rule = "the rows are built in draw order, one row per unit and model in the order of models (U01 nllb, U01 m2m100, U02 nllb, ...); numpy default_rng(order_seed).permutation(number of rows) gives the sheet order, sheet row i holding built row permutation[i]; item ids T01..T80 follow the sheet order"
+item_id_prefix = "T"
+csv_delimiter = ";"
+csv_encoding = "utf-8-sig"
+csv_reason = "same convention as the human validation sheets: Excel in a pt-BR locale splits on semicolons"
+columns = ["item_id", "texto_pt", "traducao_en", "adequacao", "fluencia", "observacao"]
+judgment_columns = ["adequacao", "fluencia", "observacao"]
+display_normalization = { "\u2018" = "'", "\u2019" = "'", "\u201C" = "\"", "\u201D" = "\"" }
+display_rule = "on the sheet only, each translation is shown with display_normalization applied (the typographic single and double quotation marks, U+2018, U+2019, U+201C and U+201D, replaced by their plain ASCII forms), so the sheet shows the translations E3 reads up to these glyphs; the key keeps translation_sha256, the hash of the exact text E3 reads, and adds for each row display_normalized and sheet_translation_sha256, the hash of the text shown"
+display_amendment = "Recorded on 2026-09-24 after a review, before any judgment existed. In the first v2 sheet the apostrophe glyph told the models apart: the plain apostrophe occurred only in NLLB rows (10 rows) and U+2019 only in m2m100 rows (3 rows), and no texto_pt holds either, so a reader could group 13 rows by model, 24 with the other row of each unit. The first v2 sheet (spot_check.csv sha256 142ed559635ea63054b310027416fe208e73263550b51c18bd0c71c4d14d5ec6, 0 of its 240 judgment cells filled) was replaced in place by a sheet regenerated with the same seeds, so the draws, the order and the item ids are unchanged and only the shown text of the rows with a typographic mark changed (T62, T63 and T74). The mapping covers only typographic variants of the apostrophe and of the quotation marks, so no word, number or punctuation choice of a model is changed. blinding_check in the key lists every character still found in the rows of one model only and the rows it makes identifiable; after the regeneration this is the em dash, which m2m100 keeps from the source in 1 row and NLLB drops in the other row of that unit, so 2 rows of 1 unit stay identifiable, and the judgments can be reported with and without them. Decided from the characters of the shown translations only; no translation quality, label, judge or score was used."
+blinding = "the sheet shows only an item id, the source and one translation, in the shuffled order; the unit, the model, hearing and opinion ids, token counts and every automatic flag of each row are written to spot_check_key.json, which the annotator does not open before finishing"
+cache_rule = "the sheet shows the translations E3 reads: each condition is read from its main cache under its own signature. spot-check --model <key> translates the missing units of that model only, into that model's main cache, on the device of --device; the caches of the other conditions are opened read-only and the command stops, before loading any model or writing anything, if one of them lacks a unit (it never translates for another model). A writer is opened only when the selected model has a missing unit; spot-check --cached-only opens every cache read-only and loads no model. The command refuses to overwrite a sheet that has any judgment filled in"
+labels_rule = "the sample uses no label, judge or score; it checks translation quality only and no E3 choice is made from it"
+readme = """
+# Checagem manual da tradução (translation_spot_check_v2)
+
+A planilha `spot_check.csv` tem 80 linhas, feitas a partir de 40 trechos de transcrição sorteados
+(semente 42) entre as unidades de tradução dos trechos de validação. Cada trecho foi traduzido para o
+inglês por dois tradutores automáticos, facebook/nllb-200-distilled-600M e facebook/m2m100_418M, nas
+revisões fixadas em `configs/translation.toml`.
+
+Cada frase aparece duas vezes, em linhas diferentes e fora de ordem, cada vez com a tradução de um
+dos dois tradutores; as duas traduções podem até coincidir. Julgue cada linha por si só, sem procurar
+a outra linha da mesma frase para comparar, e não tente adivinhar qual tradutor produziu a tradução.
+
+Cada unidade é uma frase da transcrição; quando uma frase tem menos de quatro palavras ou termina em
+abreviação (Sr., Dra., V.Exa., art.), ela aparece unida à frase seguinte, ou, no fim do trecho, à
+frase anterior, exatamente como foi traduzida. Nas traduções, apóstrofos e aspas tipográficos
+aparecem na forma simples (' e ").
+
+Para cada linha, leia `texto_pt` inteiro e depois `traducao_en`, e preencha:
+
+- `adequacao` (1 a 4): quanto do sentido de `texto_pt` está em `traducao_en`.
+  4: todo o sentido. 3: quase todo, com perda ou erro que não muda a afirmação.
+  2: parte do sentido, ou um erro que muda a afirmação (negação perdida, sujeito trocado, número errado).
+  1: pouco ou nada do sentido, ou sentido oposto.
+- `fluencia` (1 a 4): quão correto é o inglês, lido sozinho, sem olhar o português.
+  4: inglês correto. 3: compreensível, com erros pequenos. 2: difícil de entender. 1: incompreensível.
+- `observacao` (opcional): o tipo de erro, por exemplo nome próprio traduzido, negação perdida,
+  repetição, trecho omitido, termo técnico ou jurídico errado.
+
+Julgue a tradução da frase como ela está, mesmo quando a frase original estiver incompleta ou mal
+transcrita; nesse caso, anote em `observacao`. Não use outro tradutor automático como referência e
+não abra `spot_check_key.json` antes de terminar: ele diz qual tradutor produziu cada linha e traz os
+identificadores das audiências e as marcações automáticas de cada item.
+
+A planilha é regenerada por `python -m utils.translation spot-check`, que se recusa a sobrescrever
+um arquivo com qualquer julgamento preenchido.
+"""
+
+[run]
+seed = 42
+device = "auto"
+full_run_rule = "Recorded on 2026-09-24 after a review, before any m2m100 full-run translation: the full translate run of each condition uses --device mps, one condition at a time (the m2m100 run starts only after the NLLB run translation_v1 has ended), so the two conditions differ in the model and not in the device. The 40 spot-check units of each condition were translated on CPU before its full run and keep that translation (the first translation of a text is kept): at 16:21 UTC the NLLB cache held CPU records for exactly those 40 units and MPS records for every other text (11,623 records), and the m2m100 cache held only the 40 CPU records. Each E3 score report records its translation store with entries_by_device, and the evaluation report repeats it for each scorer (scorers.<key>.translation.store), so the device mix of both caches is reported next to T01 to T03"
+hf_hub_offline = true
+hf_hub_offline_rule = "every command except fetch switches huggingface_hub to offline mode before any model is loaded (utils.hub_offline.enforce_offline) and loads config, tokenizer and weights with local_files_only from the pinned snapshot; fetch downloads the pinned revision into the local Hugging Face cache"
+progress_every_batches = 10
+mps_allocator_env = { PYTORCH_MPS_HIGH_WATERMARK_RATIO = "0.7", PYTORCH_MPS_LOW_WATERMARK_RATIO = "0.4" }
+mps_allocator_rule = "Recorded on 2026-09-24. Every full translate run on MPS is launched with these environment variables set in the shell before Python starts (env PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.7 PYTORCH_MPS_LOW_WATERMARK_RATIO=0.4 uv run ...). They bound the PyTorch MPS caching allocator relative to the device recommended working set (17.76 GB on this 24 GB machine): with the defaults (low 1.4, high 1.7) the second NLLB attempt reached a 27 GB process footprint and swapped on its third batch; with these values the process stayed near 9 GB. They change memory reuse only, not any computed value; the NLLB run translation_v1 (started 11:51:27 local) was the first run with them, and the 9 records of the attempt stopped at 11:51 were computed with the defaults."

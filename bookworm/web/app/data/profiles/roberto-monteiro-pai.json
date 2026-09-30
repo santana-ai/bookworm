@@ -1,0 +1,390 @@
+{
+  "actor": {
+    "slug": "roberto-monteiro-pai",
+    "name": "ROBERTO MONTEIRO PAI",
+    "display_name": "Roberto Monteiro Pai",
+    "role": "Deputado (PL-RJ)",
+    "article_names": [
+      "Roberto Monteiro Pai"
+    ],
+    "party_uf": [
+      "PL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:29:23+00:00",
+    "n_statements": 55,
+    "n_hearings": 3,
+    "hearing_ids": [
+      6,
+      171,
+      199
+    ],
+    "input_tokens": 8323,
+    "output_tokens": 1024,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a gestão dos hospitais federais no Rio de Janeiro, apontando que, em 7 meses, não houve avanço de fato, com hospitais desabastecidos e obras necessárias (cozinha do Andaraí, subestação do Hospital de Bonsucesso e Hospital do Cérebro) não saindo do papel.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 351,
+            "start": 223083,
+            "end": 223229,
+            "text": "As obras tão necessárias, como a cozinha do Andaraí, a subestação do Hospital de Bonsucesso e o Hospital do Cérebro, não saíram do papel, por quê?",
+            "score": 0.5965
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a resolução de serviços fechados nos hospitais federais do Rio devido a equipamentos quebrados, especificamente os aparelhos de Raios X, mamografia e endoscopia do Hospital de Bonsucesso e o angiógrafo do Hospital dos Servidores do Estado, questionando por que o problema não foi resolvido em 7 meses.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 351,
+            "start": 222661,
+            "end": 222804,
+            "text": "Os aparelhos de Raios X, mamografia e endoscopia do Hospital de Bonsucesso e o angiógrafo do Hospital dos Servidores do Estado estão quebrados.",
+            "score": 0.6672
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a 123Milhas sobre o plano para sanear o prejuízo causado a cerca de 700 mil consumidores e a 1.100 funcionários demitidos, cobrando prazos e garantias para a resolução do problema.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1045,
+            "start": 252481,
+            "end": 252645,
+            "text": "Certamente, já foi dito aqui, qual é o plano ou o projeto para poder também sanear esse prejuízo não somente aos 700 mil consumidores, como também aos funcionários?",
+            "score": 0.4678
+          },
+          "udv": null
+        },
+        {
+          "text": "Interroga a 123Milhas sobre a capacidade de pagamento, questionando como a empresa comprou novas milhas em 1 dia útil após o deferimento da recuperação judicial, sem honrar dívidas antigas, e se possui bens materiais ou se os sócios têm recursos para cobrir a \"dívida bilionária\" em caso de falência.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4839,
+            "start": 868254,
+            "end": 868345,
+            "text": "Os sócios têm dinheiro e bens que possam cobrir essa dívida bilionária em caso de falência?",
+            "score": 0.4491
+          },
+          "udv": null
+        },
+        {
+          "text": "Pergunta à 123Milhas se a empresa dará continuidade ao negócio, mesmo que com outro nome, e se a população brasileira viverá outra experiência semelhante.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3401,
+            "start": 617758,
+            "end": 617836,
+            "text": "A população brasileira não viverá, portanto, mais outra experiência como esta?",
+            "score": 0.5046
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a 123Milhas e a MaxMilhas poderiam estar mentindo ao negar relação com o fluxo de caixa, pois enviaram e-mail em 28 de agosto informando a impossibilidade de pagamento, o que poderia configurar falso testemunho.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3389,
+            "start": 615638,
+            "end": 615792,
+            "text": "Então, eles estariam mentindo se dissessem que não tinham relação com o fluxo de caixa da 123Milhas, podendo ser presos em flagrante por falso testemunho.",
+            "score": 0.3726
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que, se tivesse sido abortado, não teria a oportunidade de estar diante da Ministra da Saúde, utilizando sua história pessoal para contextualizar a importância da vida e dos esclarecimentos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 282,
+            "start": 208432,
+            "end": 208607,
+            "text": "Só finalizo dizendo o seguinte: eu já disse numa outra ocasião e vou repetir que, se eu tivesse sido abortado, eu não teria a oportunidade de estar diante de V.Exa., Ministra.",
+            "score": 0.4613
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a fé em Deus e a Bíblia como fundamento para suas falas, citando passagens como \"o amor ao dinheiro é a raiz de todos os males\" e \"o homem cria projetos, mas a palavra final vem de Deus\", para justificar a necessidade de ética nos negócios e a consulta a Deus em decisões empresariais.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1045,
+            "start": 251692,
+            "end": 251782,
+            "text": "Há outra palavra que a Bíblia me apresenta: o amor ao dinheiro é a raiz de todos os males.",
+            "score": 0.4038
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a empatia e a colocação no lugar do outro como critério para tratar os funcionários demitidos da 123Milhas, pedindo que a empresa aja como se estivesse no lugar deles.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 2203,
+            "start": 446742,
+            "end": 446773,
+            "text": "Mas se coloquem no lugar deles.",
+            "score": 0.3438
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autenticidade e a paz como valores centrais, afirmando que, como pastor, não consegue ser grosseiro ou entrar em guerra, e que sua expressão é pautada pela fé cristã.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1045,
+            "start": 248765,
+            "end": 248793,
+            "text": "Então, é forma de expressão.",
+            "score": 0.2468
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a consciência é inescapável e que, na eternidade, todos darão conta para Deus dos seus atos, usando isso para pressionar a 123Milhas a agir com integridade.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 282,
+            "start": 209116,
+            "end": 209184,
+            "text": "E, na eternidade, todos nós daremos conta para Deus dos nossos atos.",
+            "score": 0.3842
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal pelo Estado do Rio de Janeiro, filiado ao Partido Liberal (PL).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 344,
+            "start": 220500,
+            "end": 220584,
+            "text": "Ministra, eu sou do Partido Liberal, popularmente o PL, do Estado do Rio de Janeiro.",
+            "score": 0.6255
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como pastor e pai de Gabriel Monteiro e da Deputada Estadual Giselle Monteiro.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3782,
+            "start": 671820,
+            "end": 671915,
+            "text": "Sou Deputado Roberto Monteiro, pai de Gabriel Monteiro e da Deputada Estadual Giselle Monteiro.",
+            "score": 0.7384
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter recebido quase 100 mil votos em 14 dias, e que sua filha, a Deputada Estadual, também recebeu 100 mil votos.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1045,
+            "start": 249634,
+            "end": 249835,
+            "text": "Eu dou satisfação ao povo, porque estou onde estou porque o povo conferiu quase 100 mil votos a mim — e à Estadual, minha filha, 100 mil votos —, em 14 dias, diferentemente de tudo no cenário político.",
+            "score": 0.605
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se membro da Comissão de Defesa do Consumidor.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1045,
+            "start": 249430,
+            "end": 249517,
+            "text": "E eu recebi muitas cobranças, porque eu também sou da Comissão de Defesa do Consumidor.",
+            "score": 0.505
+          },
+          "udv": null
+        },
+        {
+          "text": "Relata ter vivido em situação de vulnerabilidade social, tendo nascido em um prostíbulo, vivido em uma instituição de menores (Padre Severino/Dom Bosco) na Ilha do Governador, e sido adotado por um casal.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4849,
+            "start": 870406,
+            "end": 870630,
+            "text": "Alguém foi lá e denunciou; trepou com ela e foi lá depois denunciar:“Tem uma criança lá no prostíbulo”.E aí fui levado para uma instituição de menor — isso na cidade do Rio, na capital, num bairro chamado Ilha do Governador.",
+            "score": 0.185
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter retornado recentemente à instituição de menores para conversar com os detentos, incentivando-os a sair da vida do crime.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4850,
+            "start": 874363,
+            "end": 874430,
+            "text": "Mas saiam da vida do crime, porque é ou cadeia ou sarjeta ou morte.",
+            "score": 0.2004
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza frequentemente referências bíblicas e religiosas para embasar seus argumentos, citando passagens específicas e conectando-as ao contexto da audiência.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem coloquial e emocional, misturando temas sérios com anedotas pessoais e referências a sua vida (ex.: \"comendo uma pizza\", \"botafoguense\").",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas e incisivas às empresas e autoridades, cobrando respostas específicas sobre números, prazos e responsabilidades.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Demonstra empatia pelos afetados (consumidores e funcionários), pedindo que as empresas se coloquem no lugar deles.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 2203,
+            "start": 446742,
+            "end": 446773,
+            "text": "Mas se coloquem no lugar deles.",
+            "score": 0.5217
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa sua história pessoal de superação e fé como recurso retórico para se conectar com o público e reforçar suas mensagens.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom conciliador e pacífico, mesmo em situações de conflito, afirmando que \"é da paz\" e que não consegue \"entrar em guerra\".",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 282,
+            "start": 208084,
+            "end": 208108,
+            "text": "Ministra, eu sou da paz.",
+            "score": 0.1826
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 6,
+      "split": "train",
+      "article_date": "2023-09-06",
+      "title": "Sócio da 123milhas diz que passagens precisaram ser suspensas porque preços não seguiram previsões",
+      "assunto": "Suspensão de passagens promocionais pela 123milhas devido a previsões de preços não cumpridas e recuperação judicial da empresa",
+      "turns": 45,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-133-10-0",
+      "hearing_id": 133,
+      "n": 14,
+      "article_name": "Roberto Monteiro Pai",
+      "proposition": "Criticou o grupo Enel e a ausência do seu presidente.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Já há 5 dias, grande parte daquele Município, não diferente de São Gonçalo, está sem luz, e o pessoal está fazendo mobilização na Alameda São Boaventura. Estão fazendo um badernaço reprovando o caos que eles estão vivendo.",
+        "turn": 46,
+        "start": 43452,
+        "end": 43674
+      },
+      "verifier": {
+        "probability": 0.06451792179359554,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

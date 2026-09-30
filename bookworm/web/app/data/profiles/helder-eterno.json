@@ -1,0 +1,302 @@
+{
+  "actor": {
+    "slug": "helder-eterno",
+    "name": "HÉLDER ETERNO",
+    "display_name": "HÉLDER ETERNO",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:57:37+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      51
+    ],
+    "input_tokens": 4008,
+    "output_tokens": 976,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a extensão universitária deve receber financiamento permanente e suficiente, integrado ao orçamento discricionário das instituições, e não apenas por meio de fomentos complementares, argumentando que a ausência de orçamento para uma dimensão constitucional afronta o art. 207 da Constituição Federal.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 22513,
+            "end": 22625,
+            "text": "O que eu aponto aqui é que a ausência ou a escassez do orçamento para a extensão afronta a Constituição Federal.",
+            "score": 0.3313
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o tratamento da extensão como atividade marginal no financiamento das instituições públicas, citando o Censo da Extensão (ano-base 2022) segundo o qual apenas 1,8% do orçamento discricionário das instituições é destinado a ações de extensão, o que leva muitos professores a utilizarem orçamentos próprios.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 22075,
+            "end": 22277,
+            "text": "Vejam este dado levantado no Censo da Extensão, ano-base 2022, abrangendo todas as universidades, um dado médio: apenas 1,8% do orçamento discricionário das instituições é devotado às ações de extensão.",
+            "score": 0.3752
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a inserção curricular da extensão em 10% da carga horária total dos cursos, conforme a Lei nº 13.005/2014 (Plano Nacional de Educação), apontando que a Casa não definiu como concretizar essa inserção por falta de consignação orçamentária nas matrizes federais, estaduais e municipais.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 19339,
+            "end": 19628,
+            "text": "A universalização aconteceu por meio de uma lei desta Casa, a Lei nº 13.005, de 2014, que aprovou o Plano Nacional de Educação, que obriga todas as instituições de ensino superior a inserir a extensão em 10% do total da carga horária, o que é necessário para o desenvolvimento da extensão.",
+            "score": 0.4631
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o retorno e redimensionamento do PROEXT como fomento complementar, mas insuficiente para a sustentabilidade da extensão, e defende a inclusão da extensão nas linhas de fomento das Fundações de Amparo à Pesquisa.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 24842,
+            "end": 25195,
+            "text": "Estão em questão o redimensionamento do PROEXT, Alexandre, sem dúvida alguma, como programa de fomento complementar à extensão e à participação da extensão nas linhas de fomento das Fundações de Amparo à Pesquisa, com o entendimento de que a extensão operacionaliza a indissociabilidade e desenvolve pesquisas comprometidas com o desenvolvimento social.",
+            "score": 0.4586
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoi a criação do Programa Universidades e Institutos sem Muros, apresentado pelo Ministério da Educação, que estabelece um pacto federativo entre União, Estados e Municípios para o desenvolvimento de projetos integradores nos territórios.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 24296,
+            "end": 24756,
+            "text": "A criação do Programa Universidades e Institutos sem Muros, já apresentado pelo Ministério da Educação a partir de um projeto de lei — eu espero contar com V.Exa., Deputada, para colocá-lo no Congresso — e debatido no Congresso Nacional, coloca as instituições de ensino superior no desenvolvimento das políticas públicas, ante o estabelecimento de um pacto federativo entre Estados, Municípios e União para garantir o desenvolvimento de projetos integradores.",
+            "score": 0.5501
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de ações interministeriais que articulem ensino, pesquisa e extensão, vinculadas a programas de distribuição de renda como o Bolsa Família, e a criação do INDSH (Instituto Nacional de Desenvolvimento Social e Humano), à semelhança dos INCTs, para orçamentar ações de educação popular.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 25611,
+            "end": 25991,
+            "text": "Fazem parte deste processo a criação de ações interministeriais que articulem o ensino, a pesquisa e a extensão e estejam vinculadas a programas de distribuição de renda, como o Programa Bolsa Família, e, à semelhança dos INCTs, o INDSH, Instituto Nacional de Desenvolvimento Social e Humano nos territórios, para orçamentar ações voltadas à educação popular por meio da extensão.",
+            "score": 0.8087
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o redimensionamento da FINEP para abarcar o fomento a programas de extensão em interface com pesquisa e tecnologia, alinhando-se ao discurso do Presidente Lula sobre o comprometimento das pesquisas com o desenvolvimento social.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 25357,
+            "end": 25609,
+            "text": "A extensão pode dar fortes respostas a esta indagação do Presidente da República, tanto quanto o redimensionamento da FINEP, para abarcar o fomento a programas de extensão em interface com a pesquisa e a tecnologia para desenvolvimento nos territórios.",
+            "score": 0.4977
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que as instituições de ensino superior podem atuar como braços de desenvolvimento de projetos sociais já existentes, utilizando orçamentos já consignados em diferentes ministérios, em vez de criar novos orçamentos isolados.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 24002,
+            "end": 24192,
+            "text": "Nós queremos o orçamento que já está consignado em diferentes projetos sociais, porque as instituições de ensino superior podem ser braços de desenvolvimento destes projetos nos territórios.",
+            "score": 0.4056
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a indissociabilidade entre ensino, pesquisa e extensão como princípio constitucional, argumentando que a extensão é a \"operacionalizadora\" dessa indissociabilidade e que fazê-la implica pesquisas comprometidas com o desenvolvimento social.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 17355,
+            "end": 17422,
+            "text": "A extensão, Deputada, é a operacionalizadora da indissociabilidade.",
+            "score": 0.4275
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a universalização da extensão como critério para exigir a inserção curricular em todos os projetos pedagógicos, rejeitando a visão de que a extensão é um apêndice do ensino ou da pesquisa.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 18991,
+            "end": 19337,
+            "text": "Com a universalização, foi necessária a inserção curricular da extensão em todos os projetos pedagógicos de todos os cursos, porque não se trata de um apêndice do ensino nem de um apêndice da pesquisa, mas, no conjunto do ensino e da pesquisa, da própria natureza do que é a universidade, do que é o instituto federal, do que é o ensino superior.",
+            "score": 0.4497
+          },
+          "udv": null
+        },
+        {
+          "text": "Fundamenta suas propostas na capacidade da extensão de mobilizar políticas públicas sociais e promover transformação nos territórios, citando a presença das instituições de ensino superior em todo o território nacional como potencial para o desenvolvimento social.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 20568,
+            "end": 20705,
+            "text": "A extensão, Deputada, poderia, de uma forma muito consistente, mobilizar todas as políticas públicas sociais para o melhoramento do País.",
+            "score": 0.2846
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Fórum de Pró-Reitores de Extensão (FORPROEX), que reúne 156 instituições, incluindo universidades federais, institutos federais, universidades municipais, estaduais e CEFETs.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 16731,
+            "end": 16854,
+            "text": "Estou falando pelas universidades federais, institutos federais, universidades municipais, universidades estaduais, CEFETs.",
+            "score": 0.6056
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter um profundo diálogo com o Ministério da Educação na busca de soluções para a inserção curricular e o orçamento da extensão.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 18401,
+            "end": 18563,
+            "text": "Nós temos um profundo diálogo hoje com o Ministério da Educação na busca de soluções para a questão da inserção curricular da extensão e do orçamento da extensão.",
+            "score": 0.7861
+          },
+          "udv": null
+        },
+        {
+          "text": "Alinha-se às pautas do atual Governo Federal, citando a defesa de \"colocar o pobre no orçamento\" e o discurso do Presidente Lula sobre o comprometimento das pesquisas com o desenvolvimento social.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 25197,
+            "end": 25356,
+            "text": "O Presidente Lula, em determinado discurso, disse aos reitores que está preocupado e quer que as pesquisas tenham comprometimento com o desenvolvimento social.",
+            "score": 0.396
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos do Censo da Extensão e números de atividades realizadas (4.290 programas, 41 mil projetos, 16 mil cursos, 28 mil eventos, 5 mil prestações de serviço, 96 mil atividades) para sustentar a relevância e o impacto da extensão.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 23023,
+            "end": 23326,
+            "text": "No ano passado, 4.290 programas foram desenvolvidos nas instituições de ensino superior; 41 mil projetos de extensão foram realizados; mais de 16 mil cursos foram oferecidos; mais de 28 mil eventos foram organizados implicando, envolvendo movimentos sociais; e houve mais de 5 mil prestações de serviço.",
+            "score": 0.5102
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre à Constituição Federal (art. 207) e à Lei nº 13.005/2014 como fundamentos normativos para exigir o cumprimento de direitos e deveres orçamentários.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 19339,
+            "end": 19628,
+            "text": "A universalização aconteceu por meio de uma lei desta Casa, a Lei nº 13.005, de 2014, que aprovou o Plano Nacional de Educação, que obriga todas as instituições de ensino superior a inserir a extensão em 10% do total da carga horária, o que é necessário para o desenvolvimento da extensão.",
+            "score": 0.2165
+          },
+          "udv": null
+        },
+        {
+          "text": "Dirige-se diretamente à Deputada e ao representante do Ministério da Educação (Alexandre), combinando agradecimentos com cobranças específicas por soluções orçamentárias e legislativas.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 18401,
+            "end": 18563,
+            "text": "Nós temos um profundo diálogo hoje com o Ministério da Educação na busca de soluções para a questão da inserção curricular da extensão e do orçamento da extensão.",
+            "score": 0.1726
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de urgência e gravidade ao descrever a situação orçamentária (\"extremamente sério\", \"extremamente grave\", \"grande problema\"), associando a falta de financiamento à afronta constitucional.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 9,
+            "start": 22846,
+            "end": 22892,
+            "text": "Isso é extremamente sério, extremamente grave.",
+            "score": 0.4947
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 18,
+      "split": "validation",
+      "article_date": "2023-12-11",
+      "title": "Presidente da Capes pede extra de R$ 150 milhões para financiar a formação de professores",
+      "assunto": "Pedido de aporte adicional de R$ 150 milhões para financiar a formação de professores através do Pibid",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 51,
+      "split": "train",
+      "article_date": "2023-05-25",
+      "title": "Extensão universitária depende de financiamento permanente, defendem debatedores",
+      "assunto": "Financiamento permanente e integração dos programas de extensão universitária com políticas governamentais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

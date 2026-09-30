@@ -1,0 +1,463 @@
+{
+  "actor": {
+    "slug": "lafayette-de-andrada",
+    "name": "LAFAYETTE DE ANDRADA",
+    "display_name": "Lafayette de Andrada",
+    "role": "Deputado (Republicanos-MG)",
+    "article_names": [
+      "Lafayette de Andrada"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - MG",
+      "REPUBLICANOS - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:34:46+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      80,
+      183
+    ],
+    "input_tokens": 4067,
+    "output_tokens": 934,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 2,
+    "passage_only": 13,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a regulamentação da atividade de lobby, advocacy e relações institucionais e governamentais (IRELGOV), argumentando que a escuta de grupos de interesse é necessária para a democracia e para a tomada de decisões republicanas, pois permite que o Parlamento e o Governo conheçam a realidade e as consequências das propostas legislativas para os setores impactados.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 35,
+            "start": 71336,
+            "end": 71747,
+            "text": "Na verdade, mais do que grupos de interesses, de defesa de interesses, a atividade de representação é necessária para a democracia, é necessária para a República onde quer que exista tomada de decisões, porque não é possível que um indivíduo sozinho resolva tomar decisões que vão trazer consequências em todo o País sem conhecer profundamente a realidade, as consequências daquela decisão que ele está tomando.",
+            "score": 0.2724
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a aglutinação ou hibridação do PL 4.391/21 com o projeto de autoria do Deputado Carlos Zarattini, afirmando que ambos possuem aspectos positivos que devem ser aproveitados para criar uma legislação benfeita e transparente sobre o tema.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 35,
+            "start": 74167,
+            "end": 74402,
+            "text": "Para concluir meu tempo — e não quero cansá-los —, temos, na verdade, dois projetos na Casa: o que está tramitando agora, o PL 4.391/21, mas também um projeto anterior de autoria do Deputado Carlos Zarattini que traz um foco diferente.",
+            "score": 0.3248
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a cobrança da OCDE pela regulamentação do lobby no Brasil como um dos motivos para a urgência da legislação.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 35,
+            "start": 75453,
+            "end": 75529,
+            "text": "E ela está cobrando do Brasil, para que tenhamos também essa regulamentação.",
+            "score": 0.2116
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o veto do IBAMA à licença para testes de exploração de petróleo pela Petrobras na Foz do Amazonas, argumentando que os testes estariam a 400 quilômetros da foz e que a Guiana já realiza exploração efetiva na região, o que geraria potenciais danos maiores à fauna marinha do que os testes brasileiros.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 33602,
+            "end": 33765,
+            "text": "De acordo com as notícias da imprensa, em relação ao IBAMA principalmente, os testes que a PETROBRAS desejava fazer estariam a 400 quilômetros de distância da foz.",
+            "score": 0.3293
+          },
+          "udv": {
+            "id": "udv-183-2-0",
+            "rule": "same_sentence",
+            "score": 0.2717
+          }
+        },
+        {
+          "text": "Defende que o Brasil não pode deixar de utilizar o potencial de petróleo na região da Foz do Amazonas, caracterizando-o como uma riqueza econômica e fonte de energia que não pode ser desperdiçada com a tecnologia atual.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 34428,
+            "end": 34617,
+            "text": "Além disso, ao que parece, existe lá o potencial de uma bacia grande — e deve haver mesmo, porque na Guiana está explorando.É uma riqueza econômica que o Brasil não pode deixar de utilizar.",
+            "score": 0.3722
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o desenvolvimento de pequenas hidrelétricas (PCHs) e centrais geradoras hidrelétricas (CGHs), afirmando que são a melhor forma de geração de energia por serem firmes e limpas, e que servem de retaguarda para as fontes intermitentes (eólica e solar).",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 35053,
+            "end": 35132,
+            "text": "Trata-se da geração de energia pelas pequenas hidrelétricas, as PCHs e as CGHs.",
+            "score": 0.4287
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a dificuldade de licenciamento das PCHs e CGHs em comparação com a energia solar e eólica, propondo a destravagem desses processos para aproveitar o potencial hídrico do Brasil e a indústria nacional de turbinas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 36600,
+            "end": 36709,
+            "text": "Porém, o licenciamento delas é muito dificultado, em comparação com o da energia solar e o da energia eólica.",
+            "score": 0.3405
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a produção de energia por pequenas hidrelétricas não traz danos ambientais e ajuda a perenizar os rios, destacando os fortes compromissos de manutenção dos rios ao lado.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 36535,
+            "end": 36599,
+            "text": "Os compromissos de manutenção dos rios ao lado são muito fortes.",
+            "score": 0.6164
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da transparência e da legitimidade republicana como fundamento para a defesa da regulamentação do lobby, argumentando que a escuta da sociedade é necessária para evitar decisões desconectadas da realidade e para garantir que a representação de interesses seja cristalina.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 35,
+            "start": 71336,
+            "end": 71747,
+            "text": "Na verdade, mais do que grupos de interesses, de defesa de interesses, a atividade de representação é necessária para a democracia, é necessária para a República onde quer que exista tomada de decisões, porque não é possível que um indivíduo sozinho resolva tomar decisões que vão trazer consequências em todo o País sem conhecer profundamente a realidade, as consequências daquela decisão que ele está tomando.",
+            "score": 0.251
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o argumento da soberania econômica e da exploração de recursos naturais como critério para defender a exploração de petróleo na Foz do Amazonas, contrastando os riscos de testes brasileiros com a exploração já existente na Guiana.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 33155,
+            "end": 33349,
+            "text": "O convite aos senhores para virem a esta Comissão se deu há alguns meses, quando se anunciou a intenção da PETROBRAS de fazer testes para exploração de petróleo na região da Foz do Rio Amazonas.",
+            "score": 0.2236
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa das pequenas hidrelétricas no critério da segurança energética e da sustentabilidade do sistema elétrico, valorizando a energia firme e a capacidade de suporte às fontes renováveis intermitentes, além do desenvolvimento da indústria nacional.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 35180,
+            "end": 35365,
+            "text": "As hidrelétricas são o que há de melhor em termos de geração de energia, porque é uma energia firme, uma energia limpa, enfim, é a que dá sustentação para o sistema elétrico brasileiro.",
+            "score": 0.2568
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Líder, solicitando a agregação de seu tempo de fala na audiência de 30/08/2023.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 32644,
+            "end": 32698,
+            "text": "Presidente, eu peço para agregar o meu tempo de Líder.",
+            "score": 0.2667
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se plenamente favorável a uma legislação que traga transparência institucional ao tema do lobby, oferecendo seu apoio ao Deputado Augusto Coutinho, autor da emenda e presidente da audiência de 28/06/2022.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 35,
+            "start": 74807,
+            "end": 74912,
+            "text": "Sou plenamente favorável a uma legislação que traga transparência, de maneira institucional, a esse tema.",
+            "score": 0.5014
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a analogia e o exemplo prático para ilustrar a necessidade de escuta dos setores impactados, como o caso de uma lei sobre enfermeiros, para demonstrar a importância do lobby na correção de textos legislativos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de \"reflexão\" ao apresentar críticas ou questionamentos a autoridades presentes, como a Ministra Marina Silva e o Presidente do IBAMA, evitando a confrontação direta e buscando o diálogo sobre os aspectos técnicos e geopolíticos das decisões ambientais.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 32802,
+            "end": 32924,
+            "text": "Presidente; a ilustre Ministra Marina Silva; o nosso colega ex-Deputado Rodrigo Agostinho, hoje Presidente do IBAMA; o Sr.",
+            "score": 0.2309
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados geográficos e comparativos internacionais, como a distância de 400 quilômetros dos testes de petróleo e a exploração na Guiana, para sustentar seus argumentos sobre a viabilidade e a necessidade de exploração de recursos naturais.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 5,
+            "start": 33602,
+            "end": 33765,
+            "text": "De acordo com as notícias da imprensa, em relação ao IBAMA principalmente, os testes que a PETROBRAS desejava fazer estariam a 400 quilômetros de distância da foz.",
+            "score": 0.1996
+          },
+          "udv": {
+            "id": "udv-183-2-0",
+            "rule": "same_sentence",
+            "score": 0.1667
+          }
+        },
+        {
+          "text": "Estrutura seus argumentos em tópicos claros, separando as questões de regulamentação do lobby das questões ambientais e energéticas, e utilizando a presença de autoridades específicas para direcionar perguntas e reflexões pontuais.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 17,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Em seminário na Câmara, especialistas discordam sobre ativismo judicial",
+      "assunto": "Debate sobre ativismo judicial na Câmara dos Deputados",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 80,
+      "split": "train",
+      "article_date": "2022-06-28",
+      "title": "Relator apresentará nova versão para a regulamentação do lobby",
+      "assunto": "Regulamentação do lobby junto ao poder público",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 104,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Deputados reafirmam interesse da Câmara em participar de definição das regras de renovação das concessões das…",
+      "assunto": "Participação da Câmara na definição das regras de renovação das concessões das distribuidoras de energia elétrica",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-17-2-0",
+      "hearing_id": 17,
+      "n": 6,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "O Parlamento deve tratar sobre certos assuntos, ainda que seja ao não votar nada sobre o tema: \"Quem tem competência e quem deve exprimir a voz da população, os anseios do povo, da sociedade, é o Poder Legislativo. Ele que foi votado, ele que foi escolhido para isso. E, se o Poder Legislativo silencia em função de determinado tema, muitas vezes é um silêncio eloquente, é porque não há o amadurecimento necessário ainda para legislar sobre aquilo.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Quem tem competência e quem deve exprimir a voz da população, os anseios do povo, da sociedade, é o Poder Legislativo. Ele é que foi votado, ele é que foi escolhido para isso. E se, frequentemente, o Poder Legislativo silencia em função de determinado tema, muitas vezes é um silêncio eloquente, é porque não há o necessário amadurecimento ainda para legislar sobre aquilo.",
+        "turn": 17,
+        "start": 77417,
+        "end": 77790
+      },
+      "verifier": {
+        "probability": 0.9772731277893495,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-80-6-0",
+      "hearing_id": 80,
+      "n": 12,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "Defendeu regras para o lobby.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E, para isso, é fundamental — e, aí, eu quero aplaudir — nós regulamentamos esta atividade que é comumente chamada comolobbye que, muitas vezes, é malvista, é incompreendida. Por quê? Muitas vezes acontecem — e acontecem, sim — reuniões a portas fechadas em que o interesse menor está acontecendo.Então, é preciso que tenhamos, sim, um farol, que seja de maneira cristalina, que seja uma representação transparente, mas que é legítimo.",
+        "turn": 35,
+        "start": 73386,
+        "end": 73821
+      },
+      "verifier": {
+        "probability": 0.9775183515493341,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-80-6-1",
+      "hearing_id": 80,
+      "n": 13,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "\"Cada decisão que é tomada tem repercussão fortíssima na sociedade. Quando afeta algum ramo da atividade econômica ou nicho específico, eles precisam ser escutados, e é disso que se trata o lobby.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É necessário que o Governo, como instituição, que o Parlamento, como instituição — e os Parlamentares —, escutem a sociedade, porque cada decisão que é tomada aqui tem uma repercussão fortíssima na sociedade. E quando essa tomada de decisão acontece em algum ramo da atividade econômica, em algum nicho específico, esse nicho, essa atividade precisa ser escutada.",
+        "turn": 35,
+        "start": 71824,
+        "end": 72187
+      },
+      "verifier": {
+        "probability": 0.5681555108085025,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-80-6-2",
+      "hearing_id": 80,
+      "n": 14,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "\"São as pessoas que são impactadas trazendo a sua visão, não há nada de não republicano nisso.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "São pessoas que são impactadas por aquela tomada de decisão e vêm aqui trazer a sua visão, trazer ajuste, trazer complemento, trazer reclamações sobre aquela proposta legislativa que está acontecendo. Não há nada de não republicano nisso, não há nada de incorreto nisso.",
+        "turn": 35,
+        "start": 72219,
+        "end": 72489
+      },
+      "verifier": {
+        "probability": 0.9890859693631158,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-104-2-0",
+      "hearing_id": 104,
+      "n": 5,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "Defendeu uma nova concepção para renovar as concessões.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Na renovação das concessões, o modelo deve adotar uma nova concepção, como foi dito aqui por todos que me antecederam. Lamentavelmente, quando houve a convocação desta audiência pública, ainda não tinha sido apensado um projeto de nossa autoria, o Projeto de Lei nº 970, de 2024, que já está apensado ao Projeto de Lei nº 4.831, de 2023.",
+        "turn": 41,
+        "start": 122127,
+        "end": 122464
+      },
+      "verifier": {
+        "probability": 0.9894605392884277,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-104-2-1",
+      "hearing_id": 104,
+      "n": 6,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "Apresentou um projeto de lei (PL 970/24) que condiciona a prorrogações dos contratos a uma série de exigências, como estudo técnico prévio que fundamente a vantagem da medida e consulta pública.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nas concessões de rodovias, são exigidos das concessionárias que pretendem a renovação: caderno de obrigações, cronograma de investimentos, audiências públicas, discussão com o TCU. Isso tudo está na lei das concessões das rodovias.Eu trouxe isso no PL 970/24, que já está apensado.",
+        "turn": 41,
+        "start": 122538,
+        "end": 122820
+      },
+      "verifier": {
+        "probability": 0.7814260187387149,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-104-2-2",
+      "hearing_id": 104,
+      "n": 7,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "Criticou as distribuidoras por estarem criando dificuldade para conectar as unidades de geração distribuída à rede elétrica: \"As distribuidoras não estão obedecendo à lei, não estão obedecendo às próprias resoluções da Aneel\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Hoje, as concessionárias não cumprem a lei, não cumprem a regulação e, quando a ANEEL as autua, tudo fica por isso mesmo. Segundo os dados que me chegam, houve no último ano cerca de 17 mil reclamações à ANEEL de consumidores que tentaram buscar empreendimentos de geração distribuída em todo o Brasil.",
+        "turn": 41,
+        "start": 123009,
+        "end": 123312
+      },
+      "verifier": {
+        "probability": 0.5635122280384167,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-183-2-0",
+      "hearing_id": 183,
+      "n": 10,
+      "article_name": "Lafayette de Andrada",
+      "proposition": "O pedido da Petrobras se restringe à perfuração de um poço com o objetivo de verificar a existência ou não de jazida petrolífera na Margem Equatorial: \"Os testes que a Petrobras deseja fazer estavam a 400 km de distância da foz. Me parece longínquo e seriam testes.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "De acordo com as notícias da imprensa, em relação ao IBAMA principalmente, os testes que a PETROBRAS desejava fazer estariam a 400 quilômetros de distância da foz. Parece-me longínquo, e seriam testes.",
+        "turn": 5,
+        "start": 33602,
+        "end": 33803
+      },
+      "verifier": {
+        "probability": 0.8734022257706158,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

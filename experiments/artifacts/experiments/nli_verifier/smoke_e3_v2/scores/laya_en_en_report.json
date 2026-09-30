@@ -1,0 +1,1403 @@
+{
+  "experiment": "nli_verifier",
+  "mode": "benchmark",
+  "run_name": "smoke_e3_v2",
+  "created_at": "2026-09-24T13:27:56+00:00",
+  "scorer": "laya_en_en",
+  "kind": "laya",
+  "splits": {
+    "splits": [
+      "validation"
+    ],
+    "final_test_flag": false,
+    "test_read": false
+  },
+  "language": "en",
+  "counts": {
+    "units": 25,
+    "by_split": {
+      "validation": 25
+    },
+    "hearings": 1,
+    "no_premise": 0,
+    "no_premise_ids": [],
+    "item_count_histogram": {
+      "4": 25
+    }
+  },
+  "truncation": {
+    "items_scored": 100,
+    "items_truncated": 0,
+    "items_truncated_by_question": {
+      "p1_nli": 0,
+      "p2_nli_reversed": 0,
+      "p3_inferable": 0,
+      "p4_supports": 0,
+      "p5_position": 0,
+      "p6_position_reversed": 0,
+      "p7_coverage": 0,
+      "p8_similarity": 0
+    },
+    "concatenated_premises": 25,
+    "concatenated_truncated": 21,
+    "concatenated_truncated_by_question": {
+      "p1_nli": 18,
+      "p2_nli_reversed": 18,
+      "p3_inferable": 18,
+      "p4_supports": 18,
+      "p5_position": 21,
+      "p6_position_reversed": 21,
+      "p7_coverage": 19,
+      "p8_similarity": 19
+    },
+    "overflow": 0,
+    "item_state_tokens": {
+      "count": 100,
+      "min": 59.0,
+      "q25": 132.5,
+      "median": 159.5,
+      "q75": 179.0,
+      "max": 256.0,
+      "mean": 157.14
+    },
+    "concatenated_state_tokens": {
+      "count": 25,
+      "min": 375.0,
+      "q25": 457.0,
+      "median": 526.0,
+      "q75": 633.0,
+      "max": 766.0,
+      "mean": 543.4
+    },
+    "kept_premise_char_fraction_when_truncated": {
+      "count": 21,
+      "min": 0.5424,
+      "q25": 0.6565,
+      "median": 0.7951,
+      "q75": 0.8596,
+      "max": 0.9924,
+      "mean": 0.7631
+    }
+  },
+  "model": {
+    "kind": "laya",
+    "name": "convaiinnovations/laya",
+    "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+    "subfolder": "",
+    "laya_version": "0.3.11",
+    "checkpoint_dir": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+    "weights_file": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/model.safetensors",
+      "is_symlink": true,
+      "blob": "dd8562d713759821a0bc049e79abd09e5817d218d18fa51478ad16986d018764",
+      "bytes": 842609210
+    },
+    "tokenizer_config": {
+      "path": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8/tokenizer/tokenizer_config.json",
+      "is_symlink": true,
+      "blob": "9fd800115c5c92353220aa66addfce67a9135f32",
+      "bytes": 308
+    },
+    "encoder": "answerdotai/ModernBERT-large",
+    "max_len": 512,
+    "head_max_len": 192,
+    "temperature_applied": [
+      1.6369030475616455,
+      1.2514300346374512,
+      1.983399510383606
+    ],
+    "temperature_by_options_applied": {
+      "choice:3-5": 1.7601518630981445,
+      "choice:6-10": 1.0000158548355103,
+      "score:3-5": 1.2514300346374512,
+      "noul:2": 1.983399510383606,
+      "choice:11+": 0.5,
+      "choice:2": 1.9063563346862793
+    },
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "parameters": 421293827,
+    "load_seconds": 3.8,
+    "batch_size": 16,
+    "truncation": "when the serialized state does not fit max_len minus the question prefix, 'premise' is cut at the last whitespace that fits, so the other keys stay whole",
+    "answer_cache": {
+      "path": "artifacts/cache/decision_models/laya_root_aa8c91ca088e_cpu.jsonl",
+      "signature": "laya@0.3.11@convaiinnovations/laya@aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8@root@cpu@float32@512@192@premise",
+      "entries_at_start": 0,
+      "other_signature_lines": 0
+    },
+    "counters": {
+      "requests": 1024,
+      "computed": 1024,
+      "cache_hits": 0,
+      "forward_seconds": 229.05,
+      "computed_input_tokens": 276015,
+      "batches": 72,
+      "max_rounding_gap": 4.994501751162672e-05
+    }
+  },
+  "label_probes": {
+    "probes": [
+      {
+        "premise": "The men are carefully putting their bags in the trunk of a car.",
+        "hypothesis": "The men are putting luggage in the trunk of a car.",
+        "question": "p1_nli",
+        "expected": "entailment",
+        "predicted": "entailment",
+        "answers": {
+          "p1_nli": {
+            "probabilities": {
+              "entailment": 0.689960928462028,
+              "neutral": 0.26703367384285576,
+              "contradiction": 0.04300539769511632
+            },
+            "choice": "entailment"
+          },
+          "p2_nli_reversed": {
+            "probabilities": {
+              "contradiction": 0.03792903351401506,
+              "neutral": 0.23443716891189162,
+              "entailment": 0.7276337975740933
+            },
+            "choice": "entailment"
+          },
+          "p3_inferable": {
+            "probabilities": {
+              "false": 0.15519236903425318,
+              "true": 0.8448076309657468
+            },
+            "choice": "true"
+          },
+          "p4_supports": {
+            "probabilities": {
+              "false": 0.1449787950410338,
+              "true": 0.8550212049589662
+            },
+            "choice": "true"
+          },
+          "p5_position": {
+            "probabilities": {
+              "same_position": 0.85788267441951,
+              "opposite_position": 0.04941663687371104,
+              "no_position": 0.04486074401528459,
+              "unrelated": 0.047839944691494475
+            },
+            "choice": "same_position"
+          },
+          "p6_position_reversed": {
+            "probabilities": {
+              "unrelated": 0.05162367880218036,
+              "no_position": 0.0635043992032776,
+              "opposite_position": 0.05306997521256783,
+              "same_position": 0.8318019467819743
+            },
+            "choice": "same_position"
+          },
+          "p7_coverage": {
+            "probabilities": {
+              "0": 0.009058190507963852,
+              "1": 0.09056239360548024,
+              "2": 0.28356399670562754,
+              "3": 0.33532219849836087,
+              "4": 0.2814932206825676
+            },
+            "choice": "3",
+            "expected_level": 2.7896298652420883
+          },
+          "p8_similarity": {
+            "probabilities": {
+              "0": 0.01043727086392509,
+              "1": 0.14639592694028486,
+              "2": 0.17126947978407506,
+              "3": 0.36274286539033607,
+              "4": 0.30915445702137906
+            },
+            "choice": "3",
+            "expected_level": 2.813781310764959
+          }
+        },
+        "agrees": true
+      },
+      {
+        "premise": "The public hearing was held in the Chamber of Deputies on Wednesday, attended by six guests.",
+        "hypothesis": "The public hearing was canceled and it didn't happen.",
+        "question": "p1_nli",
+        "expected": "contradiction",
+        "predicted": "contradiction",
+        "answers": {
+          "p1_nli": {
+            "probabilities": {
+              "entailment": 0.003946892265145918,
+              "neutral": 0.007556401709080396,
+              "contradiction": 0.9884967060257737
+            },
+            "choice": "contradiction"
+          },
+          "p2_nli_reversed": {
+            "probabilities": {
+              "contradiction": 0.9898192403268958,
+              "neutral": 0.0068044810024814,
+              "entailment": 0.0033762786706226975
+            },
+            "choice": "contradiction"
+          },
+          "p3_inferable": {
+            "probabilities": {
+              "false": 0.9999580041604775,
+              "true": 4.1995839522549156e-05
+            },
+            "choice": "false"
+          },
+          "p4_supports": {
+            "probabilities": {
+              "false": 0.9999712090158039,
+              "true": 2.879098419603938e-05
+            },
+            "choice": "false"
+          },
+          "p5_position": {
+            "probabilities": {
+              "same_position": 0.001982025175196037,
+              "opposite_position": 0.5953759370476726,
+              "no_position": 0.3998664702475815,
+              "unrelated": 0.0027755675295500124
+            },
+            "choice": "opposite_position"
+          },
+          "p6_position_reversed": {
+            "probabilities": {
+              "unrelated": 0.0014930734269459035,
+              "no_position": 0.5901811700831576,
+              "opposite_position": 0.4070021770292118,
+              "same_position": 0.0013235794606847363
+            },
+            "choice": "no_position"
+          },
+          "p7_coverage": {
+            "probabilities": {
+              "0": 0.9873812154153966,
+              "1": 0.0035772040433755896,
+              "2": 0.004231890622056692,
+              "3": 0.002619626817559627,
+              "4": 0.0021900631016115706
+            },
+            "choice": "0",
+            "expected_level": 0.028660118146614136
+          },
+          "p8_similarity": {
+            "probabilities": {
+              "0": 0.2605341756995593,
+              "1": 0.2628425710653925,
+              "2": 0.19734790898242388,
+              "3": 0.1452739968953885,
+              "4": 0.13400134735723576
+            },
+            "choice": "1",
+            "expected_level": 1.6293657691453487
+          }
+        },
+        "agrees": true
+      },
+      {
+        "premise": "The deputy advocated an increase in the federal health budget.",
+        "hypothesis": "The deputy is affiliated to an opposition party.",
+        "question": "p1_nli",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "answers": {
+          "p1_nli": {
+            "probabilities": {
+              "entailment": 0.018030879919485675,
+              "neutral": 0.9504493430334185,
+              "contradiction": 0.03151977704709577
+            },
+            "choice": "neutral"
+          },
+          "p2_nli_reversed": {
+            "probabilities": {
+              "contradiction": 0.027343221146587205,
+              "neutral": 0.9536052877117441,
+              "entailment": 0.019051491141668632
+            },
+            "choice": "neutral"
+          },
+          "p3_inferable": {
+            "probabilities": {
+              "false": 0.9451120977463687,
+              "true": 0.05488790225363123
+            },
+            "choice": "false"
+          },
+          "p4_supports": {
+            "probabilities": {
+              "false": 0.9673279541459563,
+              "true": 0.032672045854043735
+            },
+            "choice": "false"
+          },
+          "p5_position": {
+            "probabilities": {
+              "same_position": 0.11418137553974546,
+              "opposite_position": 0.2811911371803939,
+              "no_position": 0.38238152336312226,
+              "unrelated": 0.22224596391673845
+            },
+            "choice": "no_position"
+          },
+          "p6_position_reversed": {
+            "probabilities": {
+              "unrelated": 0.1720417538432464,
+              "no_position": 0.3286330295043922,
+              "opposite_position": 0.38062775910725644,
+              "same_position": 0.11869745754510481
+            },
+            "choice": "opposite_position"
+          },
+          "p7_coverage": {
+            "probabilities": {
+              "0": 0.02704175883448532,
+              "1": 0.5442311699444619,
+              "2": 0.3530884489200974,
+              "3": 0.062091661354451544,
+              "4": 0.013546960946504014
+            },
+            "choice": "1",
+            "expected_level": 1.4908708956340273
+          },
+          "p8_similarity": {
+            "probabilities": {
+              "0": 0.04402374897723051,
+              "1": 0.20771055737728192,
+              "2": 0.5894003109306183,
+              "3": 0.1247983881984085,
+              "4": 0.0340669945164608
+            },
+            "choice": "2",
+            "expected_level": 1.8971743218995871
+          }
+        },
+        "agrees": true
+      }
+    ],
+    "agreeing": 3,
+    "total": 3
+  },
+  "questions": {
+    "p1_nli": {
+      "payload": {
+        "type": "choice",
+        "instructions": "What is the relationship between `premise` and `hypothesis`?",
+        "criteria": {
+          "entailment": "the premise implies the hypothesis is true",
+          "neutral": "the premise neither implies nor contradicts the hypothesis",
+          "contradiction": "the premise implies the hypothesis is false"
+        }
+      },
+      "support_option": "entailment",
+      "against_option": "contradiction",
+      "against_signal": "not_contradiction",
+      "reverses": null
+    },
+    "p2_nli_reversed": {
+      "payload": {
+        "type": "choice",
+        "instructions": "What is the relationship between `premise` and `hypothesis`?",
+        "criteria": {
+          "contradiction": "the premise implies the hypothesis is false",
+          "neutral": "the premise neither implies nor contradicts the hypothesis",
+          "entailment": "the premise implies the hypothesis is true"
+        }
+      },
+      "support_option": "entailment",
+      "against_option": null,
+      "against_signal": null,
+      "reverses": "p1_nli"
+    },
+    "p3_inferable": {
+      "payload": {
+        "type": "noul",
+        "instructions": "Can the `hypothesis` be inferred from the `premise`?"
+      },
+      "support_option": null,
+      "against_option": null,
+      "against_signal": null,
+      "reverses": null
+    },
+    "p4_supports": {
+      "payload": {
+        "type": "noul",
+        "instructions": "Does the `premise` support the `hypothesis`?"
+      },
+      "support_option": null,
+      "against_option": null,
+      "against_signal": null,
+      "reverses": null
+    },
+    "p5_position": {
+      "payload": {
+        "type": "choice",
+        "instructions": "What position does the `premise` take on the claim made in the `hypothesis`?",
+        "criteria": {
+          "same_position": "the premise states the same position as the hypothesis",
+          "opposite_position": "the premise states the opposite position",
+          "no_position": "the premise is on the same topic but takes no position on the claim",
+          "unrelated": "the premise is about something else"
+        }
+      },
+      "support_option": "same_position",
+      "against_option": "opposite_position",
+      "against_signal": "not_opposite",
+      "reverses": null
+    },
+    "p6_position_reversed": {
+      "payload": {
+        "type": "choice",
+        "instructions": "What position does the `premise` take on the claim made in the `hypothesis`?",
+        "criteria": {
+          "unrelated": "the premise is about something else",
+          "no_position": "the premise is on the same topic but takes no position on the claim",
+          "opposite_position": "the premise states the opposite position",
+          "same_position": "the premise states the same position as the hypothesis"
+        }
+      },
+      "support_option": "same_position",
+      "against_option": null,
+      "against_signal": null,
+      "reverses": "p5_position"
+    },
+    "p7_coverage": {
+      "payload": {
+        "type": "score",
+        "instructions": "How much of the `hypothesis` is stated in the `premise`?",
+        "criteria": [
+          "none of it",
+          "a small part of it",
+          "about half of it",
+          "most of it",
+          "all of it"
+        ]
+      },
+      "support_option": null,
+      "against_option": null,
+      "against_signal": null,
+      "reverses": null
+    },
+    "p8_similarity": {
+      "payload": {
+        "type": "score",
+        "instructions": "How similar in meaning are the `premise` and the `hypothesis`?",
+        "criteria": [
+          "unrelated",
+          "same topic only",
+          "partly similar meaning",
+          "mostly similar meaning",
+          "same meaning"
+        ]
+      },
+      "support_option": null,
+      "against_option": null,
+      "against_signal": null,
+      "reverses": null
+    }
+  },
+  "order_pairs_used": {
+    "nli_order_mean": [
+      "p1_nli",
+      "p2_nli_reversed"
+    ],
+    "position_order_mean": [
+      "p5_position",
+      "p6_position_reversed"
+    ]
+  },
+  "timing": {
+    "premise_texts": 125,
+    "questions": 8,
+    "wall_seconds": 227.49,
+    "requests": 1000,
+    "computed": 1000,
+    "cache_hits": 0,
+    "forward_seconds": 227.02,
+    "computed_input_tokens": 273697,
+    "batches": 64,
+    "seconds_per_input_token": 0.0008294573926641506,
+    "computed_per_second": 4.4,
+    "max_rounding_gap": 4.994501751162672e-05
+  },
+  "checks": {
+    "checkpoint_dir": "/Users/arthur/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots/aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+    "translation": {
+      "distinct_texts": 356,
+      "missing": 0
+    }
+  },
+  "translation": {
+    "config": {
+      "path": "configs/translation.toml",
+      "sha256": "36d3eb2934d6a25be03fdc0b85ab5e8e197256d2b445d0f78bbf83a6425f2030"
+    },
+    "store": {
+      "path": "artifacts/cache/translation_smoke/translations_facebook-nllb-200-distilled-600m_f8d333a098d1.jsonl",
+      "signature": {
+        "model": "facebook/nllb-200-distilled-600M",
+        "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+        "src_lang": "por_Latn",
+        "tgt_lang": "eng_Latn",
+        "dtype": "float32",
+        "num_beams": 4,
+        "do_sample": false,
+        "length_penalty": 1.0,
+        "early_stopping": false,
+        "no_repeat_ngram_size": 0,
+        "repetition_penalty": 1.0,
+        "max_input_tokens": 512,
+        "max_new_tokens_ratio": 2.0,
+        "max_new_tokens_margin": 16,
+        "max_new_tokens_cap": 1020
+      },
+      "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+      "segmentation": {
+        "join_abbreviations": [
+          "Art.",
+          "Dr.",
+          "Dra.",
+          "Dras.",
+          "Drs.",
+          "Exma.",
+          "Exmo.",
+          "Prof.",
+          "Profa.",
+          "Profs.",
+          "Sr.",
+          "Sra.",
+          "Sras.",
+          "Srs.",
+          "V.Exa.",
+          "V.Exas.",
+          "art.",
+          "arts."
+        ],
+        "join_short_parts": true
+      },
+      "entries": 356,
+      "entries_by_device": {
+        "cpu": 356
+      },
+      "other_signature_lines": 0,
+      "incomplete_tail_bytes": 0
+    },
+    "rule": "a scorer with language = en reads every premise chunk, hypothesis and label probe from the read-only TranslationStore of utils.translation (the cache of the declared NLLB run in configs/translation.toml): the English hypothesis is translate_opinion(opinion), each English chunk is translate_chunk(chunk) at the same position (an empty chunk stays empty), and the English concatenated premise is the non-empty English chunks, in order, joined by premise.concat_separator. Before any model is loaded, the score command checks that every text of the selected opinions has a translation and stops, naming the cache file and the count, if one is missing. score --translation-cache-dir can point the store at another cache directory of the same signature (the smoke cache); the store summary (path, signature, entries by device) is written to every score report"
+  },
+  "sources": {
+    "lds": {
+      "path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "nli": {
+      "path": "dataset/PublicHearingBR_NLI.jsonl",
+      "sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "benchmark": {
+      "path": "artifacts/benchmarks/nli_v1.jsonl",
+      "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    }
+  },
+  "premise": {
+    "text_source": "nli_chunks",
+    "concat_separator": " ",
+    "chunk_source_verification": {
+      "method": "each located chunk is rebuilt from its benchmark offsets in the LDS transcript (segments joined by a line break) and compared with chunks_proximos after removing all whitespace; any other difference stops the run",
+      "opinions": 25,
+      "opinions_without_chunks": 0,
+      "chunks": 100,
+      "differ_only_in_whitespace": 6,
+      "identical_after_whitespace_normalization": 94
+    }
+  },
+  "subset": {
+    "limit_per_split": 25,
+    "rule": "first rows of each split in file order"
+  },
+  "files": {
+    "validation": {
+      "path": "artifacts/experiments/nli_verifier/smoke_e3_v2/scores/laya_en_en_validation.jsonl",
+      "rows": 25,
+      "sha256": "861701ee4065ad7ccf145b6c44e0d986395d3128a8c0faa0f55466f719dc04e0"
+    }
+  },
+  "code": {
+    "utils/nli_verifier_experiments.py": "2f7931f259b272d2608462234633265d9df687a6dcb3882f7746c337a221a896",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9",
+    "utils/decision_models.py": "739ebd0df7d967c96713c82fed0f3c511ecd14d095dc8414d717745d752a349b",
+    "utils/decision_scoring.py": "46aeccbd61651f9dbcf776aa50335649e512db58e5fce4534cbbb2aa0c855341",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/translation.py": "74fcdc128b44eabe90a7d7d16c5216f4b2b29393507c70c567a6d80eab57b7c2"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      6.21,
+      5.92,
+      4.82
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "lds_sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0",
+      "nli_path": "dataset/PublicHearingBR_NLI.jsonl",
+      "nli_sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "benchmark": {
+      "path": "artifacts/benchmarks/nli_v1.jsonl",
+      "report_path": "artifacts/benchmarks/nli_v1_report.json",
+      "label_semantics": "label_inferable is True when the annotator judged the opinion inferable from the four retrieved chunks (retrieved_context_entailment); it says nothing about text outside those chunks and is not a global truth label"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "fit": [
+        "train"
+      ],
+      "evaluate": [
+        "validation"
+      ],
+      "final_test": [
+        "test"
+      ],
+      "rule": "thresholds are fitted on the fit splits only and applied unchanged to the evaluate splits; the final_test splits are scored and evaluated only with --final-test, and nothing is chosen on them"
+    },
+    "premise": {
+      "text_source": "nli_chunks",
+      "text_source_options": [
+        "nli_chunks",
+        "lds_offsets"
+      ],
+      "text_source_reason": "nli_chunks is chunks_proximos[position] of the gated NLI file, the literal text the annotator read; lds_offsets rebuilds each chunk from the benchmark offsets in the LDS transcript (segments joined by a line break). Every run rebuilds both and stops if any located chunk differs from the NLI text in anything but whitespace, so the two sources carry the same tokens; nli_chunks keeps the spacing the annotator saw where the transcript has none (whitespace_inserted segments).",
+      "item_normalization": "udv_pipeline.normalize_whitespace on each chunk",
+      "concat_separator": " ",
+      "concat_rule": "concatenated premise: the non-empty chunks in their original order, duplicates kept as the annotator saw them, joined by concat_separator and truncated from the end of the premise (truncation only_first) to the model max_length",
+      "max_rule": "per-chunk mode scores each distinct non-empty chunk on its own, so concatenation never truncates a chunk; a single chunk plus the opinion can still exceed max_length (82 of the 14,644 chunk pairs of train and validation, counted by the plan command) and is then truncated from the end of the chunk. The aggregate over chunks is named in the score: max.entailment is the maximum over chunks of P(entailment) (the opinion is inferable if some chunk entails it); min.not_contradiction is the minimum over chunks of 1 - P(contradiction), that is 1 - the maximum P(contradiction) (the opinion is as contradicted as its most contradicting chunk)",
+      "score_naming_amendment": "Recorded on 2026-09-23, before any full-run score was evaluated: the second per-chunk XNLI score was first written as max.not_contradiction although it was always computed as 1 - max over chunks of P(contradiction), the minimum over chunks of 1 - P(contradiction); it is renamed min.not_contradiction with the value unchanged. Score files written before the rename are refused by evaluate and are rewritten by rerunning score, which reads every logit from the cache. The smoke validation ROC AUC 0.3947 of smoke_e3_rerun belongs to this minimum aggregate.",
+      "empty_item_rule": "a chunk that is empty after whitespace normalization is not scored and is written as null",
+      "no_premise_rule": "an opinion with no non-empty chunk (nli-141-1-0 has 0 chunks; nli-99-5-0 and nli-99-5-1 have 4 whitespace chunks) gets the minimum value of every score (0.0 for probabilities, -1.0 for cosine), that is, it is predicted not inferable, and is counted in the reports"
+    },
+    "encoder": {
+      "udv_config_path": "configs/udv.toml",
+      "cache_dir": "artifacts/cache/nli_verifier",
+      "rule": "the cosine scorer loads the production encoder through utils.build_udvs (load_encoder, encode_with_cache) with the [encoder] section of udv_config_path; its name and revision must equal scorers.cosine_serafim"
+    },
+    "scorers": {
+      "cosine_serafim": {
+        "kind": "cosine",
+        "name": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+        "revision": "a01887015444f7599669c509447c5bdbce958916",
+        "prompt": "none: config_sentence_transformers.json has prompts = {} and default_prompt_name = null, and the production UDV builder encodes without a prompt",
+        "normalization": "none: raw embeddings compared with sklearn cosine_similarity, as in utils.build_udvs",
+        "max_seq_length": 128,
+        "max_seq_length_source": "sentence_bert_config.json max_seq_length = 128; chunks longer than that are truncated by the encoder, which is why sentence_max is also reported",
+        "pooling": "1_Pooling/config.json pooling_mode_mean_tokens = true",
+        "scores": [
+          "max.cosine",
+          "sentence_max.cosine"
+        ],
+        "scores_definition": "max.cosine: max over chunks of cosine(opinion, chunk); sentence_max.cosine: max over the sentences of all chunks (udv_pipeline.split_sentences, the production segmentation; a chunk with no sentence counts as one sentence)"
+      },
+      "xnli_mdeberta": {
+        "kind": "nli",
+        "name": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+        "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+        "labels": [
+          "entailment",
+          "neutral",
+          "contradiction"
+        ],
+        "label_source": "config.json id2label {0: entailment, 1: neutral, 2: contradiction} (label2id agrees); README NLI example uses label_names in the same order; checked against the loaded model config at every run",
+        "input_order": "premise first, hypothesis second: README tokenizer(premise, hypothesis, truncation=True)",
+        "max_length": 512,
+        "max_length_source": "config.json max_position_embeddings = 512 and tokenizer_config.json model_max_length = 512",
+        "dtype": "float32",
+        "dtype_reason": "README: mDeBERTa currently does not support FP16; config.json torch_dtype float16 is only the storage dtype, so the weights are loaded as float32",
+        "batch_size": 16,
+        "training_data": "multilingual-NLI-26lang-2mil7 (machine-translated MNLI, Fever-NLI, ANLI, LingNLI, WANLI, pt included) plus the XNLI validation set",
+        "scores": [
+          "max.entailment",
+          "min.not_contradiction",
+          "concatenated.entailment",
+          "concatenated.not_contradiction"
+        ],
+        "scores_definition": "entailment: P(entailment); not_contradiction: 1 - P(contradiction); max.entailment = max over chunks of P(entailment); min.not_contradiction = min over chunks of 1 - P(contradiction) = 1 - max over chunks of P(contradiction); concatenated.* = the same quantity on the single concatenated premise",
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ]
+      },
+      "assin2_mdeberta": {
+        "kind": "nli",
+        "name": "ruanchaves/mdeberta-v3-base-assin2-entailment",
+        "revision": "68c1e5976bc51b085869cfe98b69e32aaa178d42",
+        "labels": [
+          "not_entailment",
+          "entailment"
+        ],
+        "label_source": "config.json id2label is {0: 0, 1: 1} and names nothing; README section Labels: 0 = there is no entailment between premise and hypothesis, 1 = there is entailment. The loaded config cannot confirm the names, so the label probes are the empirical check",
+        "input_order": "premise first, hypothesis second: README tokenizer(*([s1], [s2])) with s1 the premise; ASSIN 2 pairs are ordered (premise, hypothesis)",
+        "max_length": 512,
+        "max_length_source": "config.json max_position_embeddings = 512; tokenizer_config.json model_max_length is unset (1e30), so the limit comes from the model config",
+        "dtype": "float32",
+        "dtype_reason": "config.json torch_dtype float32",
+        "batch_size": 16,
+        "training_data": "ASSIN 2 recognizing textual entailment, 6,500 short Portuguese sentence pairs (all_results.json train_samples); the premises here are chunks of about 630 characters, far longer than ASSIN 2 sentences",
+        "scores": [
+          "max.entailment",
+          "concatenated.entailment"
+        ],
+        "scores_definition": "entailment: P(label 1)",
+        "probe_expected": [
+          "entailment",
+          "not_entailment",
+          "not_entailment"
+        ]
+      },
+      "laya_multi_pt": {
+        "kind": "laya",
+        "language": "pt",
+        "name": "convaiinnovations/laya",
+        "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+        "revision_source": "Hugging Face sha of the model repo on 2026-09-23, Apache-2.0",
+        "subfolder": "multilingual",
+        "checkpoint": "laya-multilingual: mmBERT-base encoder (jhu-clsp/mmBERT-base), 322M parameters, 100+ languages, model card at the pinned revision",
+        "max_length": 1024,
+        "head_max_length": 256,
+        "max_length_source": "multilingual/rl_agent_config.json max_len = 1024 and head_max_len = 256, checked against the loaded agent at every run",
+        "temperature": "multilingual/rl_agent_config.json temperature = [1.0, 1.0, 1.0] and no temperature_by_options: the probabilities are the plain softmax of the option logits; the model card says the checkpoints ship over-confident and that probabilities should be recalibrated before being trusted, which only threshold-free ranking and train-fitted thresholds are used for here",
+        "batch_size": 16,
+        "questions": [
+          "p1_nli",
+          "p2_nli_reversed",
+          "p3_inferable",
+          "p4_supports",
+          "p5_position",
+          "p6_position_reversed",
+          "p7_coverage",
+          "p8_similarity"
+        ],
+        "concatenated": true,
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ],
+        "probe_rule": "the argmax of p1_nli on each [label_probes] pair (translated for language en) is compared with probe_expected; every answer of every question on the probes is written to the score report; nothing is chosen from them"
+      },
+      "laya_multi_en": {
+        "kind": "laya",
+        "language": "en",
+        "name": "convaiinnovations/laya",
+        "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+        "subfolder": "multilingual",
+        "checkpoint": "the laya_multi_pt checkpoint on the English translation, so the difference with laya_multi_pt is the translation step alone",
+        "max_length": 1024,
+        "head_max_length": 256,
+        "batch_size": 16,
+        "questions": [
+          "p1_nli",
+          "p2_nli_reversed",
+          "p3_inferable",
+          "p4_supports",
+          "p5_position",
+          "p6_position_reversed",
+          "p7_coverage",
+          "p8_similarity"
+        ],
+        "concatenated": true,
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ]
+      },
+      "laya_en_en": {
+        "kind": "laya",
+        "language": "en",
+        "name": "convaiinnovations/laya",
+        "revision": "aa8c91ca088ec597df95a0d1c76b3063cb2ae5e8",
+        "subfolder": "",
+        "checkpoint": "the English checkpoint at the repo root: ModernBERT-large encoder (answerdotai/ModernBERT-large), 421M parameters",
+        "checkpoint_choice": "Decided on 2026-09-24 from the model card at the pinned revision (README.md, sha256 4f41c3fd535306740af62321c95133226b74568df19d71cc0c9e492b39f2362a), before any score. The card lists three checkpoints: the repo root, 'English text, guardrails, email triage'; multilingual; and typed-decisions, 'the four typed-decisions workflows (0.766 acc)', which the card says is fine-tuned on that benchmark's own training split while the base checkpoints are near chance on it. The Router, which the card calls the recommended entry point, sends English text to the root checkpoint and chooses only between root and multilingual; the root has the card's best English XNLI accuracy (0.860 against 0.843 for multilingual). The root is therefore the checkpoint the author recommends for English choice and noul questions, and typed-decisions is not used. Known limit, recorded before any score: the card says noul answers can follow the false/true option labels instead of the state, most strongly on this checkpoint (issue 156); p3 and p4 are asked unchanged so that the battery stays identical across scorers, and the workaround the card suggests (a two-option choice) is not added",
+        "max_length": 512,
+        "head_max_length": 192,
+        "max_length_source": "rl_agent_config.json max_len = 512 and head_max_len = 192 (the card: about 320 tokens for the state), checked at every run; the concatenated premise of four chunks does not fit and is truncated, counted by plan and score",
+        "temperature": "rl_agent_config.json ships fitted temperatures (choice:2 1.906, choice:3-5 1.760, score:3-5 1.251, noul:2 1.983, clamped by laya to [0.5, 5]); they are applied as laya applies them",
+        "batch_size": 16,
+        "questions": [
+          "p1_nli",
+          "p2_nli_reversed",
+          "p3_inferable",
+          "p4_supports",
+          "p5_position",
+          "p6_position_reversed",
+          "p7_coverage",
+          "p8_similarity"
+        ],
+        "concatenated": true,
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ]
+      },
+      "xnli_mdeberta_en": {
+        "kind": "nli",
+        "language": "en",
+        "name": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+        "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+        "role": "translation control: the v1 primary model, unchanged, on the English translation, so the effect of translating can be separated from the effect of changing the model",
+        "labels": [
+          "entailment",
+          "neutral",
+          "contradiction"
+        ],
+        "label_source": "as xnli_mdeberta",
+        "input_order": "premise first, hypothesis second, as xnli_mdeberta",
+        "max_length": 512,
+        "dtype": "float32",
+        "batch_size": 16,
+        "scores": [
+          "max.entailment",
+          "min.not_contradiction",
+          "concatenated.entailment",
+          "concatenated.not_contradiction"
+        ],
+        "scores_definition": "as xnli_mdeberta, on the English texts",
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ],
+        "cache_rule": "its logits go to its own cache file (nli_xnli_mdeberta_en_<revision>_<device>.jsonl), so English and Portuguese requests never share entries"
+      },
+      "jev_en": {
+        "kind": "jev",
+        "language": "en",
+        "name": "typesafe/jev",
+        "revision": "jev-1.13.0",
+        "revision_rule": "the versioned model id, not an alias; the response model field must equal it",
+        "endpoint": "https://api.typesafe.ai/v1/systemone",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "questions": [
+          "p1_nli",
+          "p2_nli_reversed",
+          "p3_inferable",
+          "p4_supports",
+          "p5_position",
+          "p6_position_reversed",
+          "p7_coverage",
+          "p8_similarity"
+        ],
+        "concatenated": true,
+        "question_mapping": "none needed: the Jev API takes the battery questions as they are (choice with a criteria map, noul without criteria, score with 5 levels); noul answers noul = P(true), read as probabilities {false: 1 - noul, true: noul}",
+        "timeout_seconds": 60.0,
+        "max_retries": 6,
+        "backoff_initial_seconds": 2.0,
+        "backoff_max_seconds": 60.0,
+        "requests_per_minute": 300,
+        "max_concurrency": 4,
+        "rate_limit_reason": "a quarter of the documented 1,200 requests per minute, since the docs say the limits change without notice",
+        "price_usd_per_million_input_tokens": 0.042,
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ]
+      },
+      "jev_pt": {
+        "kind": "jev",
+        "language": "pt",
+        "name": "typesafe/jev",
+        "revision": "jev-1.13.0",
+        "role": "secondary: Jev on the Portuguese text, so the translation effect on Jev (jev_en vs jev_pt) can be measured; the docs say English is the primary training language",
+        "endpoint": "https://api.typesafe.ai/v1/systemone",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "questions": [
+          "p1_nli",
+          "p2_nli_reversed",
+          "p3_inferable",
+          "p4_supports",
+          "p5_position",
+          "p6_position_reversed",
+          "p7_coverage",
+          "p8_similarity"
+        ],
+        "concatenated": true,
+        "timeout_seconds": 60.0,
+        "max_retries": 6,
+        "backoff_initial_seconds": 2.0,
+        "backoff_max_seconds": 60.0,
+        "requests_per_minute": 300,
+        "max_concurrency": 4,
+        "price_usd_per_million_input_tokens": 0.042,
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ]
+      }
+    },
+    "label_probes": {
+      "purpose": "sanity check of the label order on three hand-written pairs, recorded in every score report; not used to choose or fit anything",
+      "premises": [
+        "Os homens estão cuidadosamente colocando as malas no porta-malas de um carro.",
+        "A audiência pública foi realizada na Câmara dos Deputados nesta quarta-feira, com a presença de seis convidados.",
+        "O deputado defendeu o aumento do orçamento federal para a saúde."
+      ],
+      "hypotheses": [
+        "Os homens estão colocando bagagens dentro do porta-malas de um carro.",
+        "A audiência pública foi cancelada e não aconteceu.",
+        "O deputado é filiado a um partido de oposição."
+      ],
+      "source": "the first pair is the README example of ruanchaves/mdeberta-v3-base-assin2-entailment"
+    },
+    "evaluation": {
+      "primary_system": "xnli_mdeberta.max.entailment",
+      "primary_metric": "roc_auc",
+      "primary_declaration": "Declared on 2026-09-22, before any NLI or cosine score on the benchmark was computed. Primary system: the 3-way multilingual NLI model scored per chunk (no truncation by concatenation), P(entailment) as the inferable score. Primary metric: validation ROC AUC against label_inferable with a hearing-bootstrap interval. Primary thresholded comparison: Cohen's kappa at the threshold fitted on train by max_f1_not_inferable, against the reference judge. Every other system, score and rule is reported for comparison. Correction of 2026-09-23, choice unchanged: the parenthesis first read (no chunk truncated), but the plan command later counted 82 chunk pairs over 512 tokens; smoke tests on 25 validation opinions were run after this declaration and did not change it.",
+      "reference_cosine_system": "cosine_serafim.max.cosine",
+      "scorers": [
+        "cosine_serafim",
+        "xnli_mdeberta",
+        "assin2_mdeberta"
+      ],
+      "scorers_rule": "the scorers of the nli_verifier_v1 declaration above; a run without its own [declarations.<run>] table (v1 and its smoke runs) is evaluated with these scorers and these declarations, unchanged; later runs declare their scorers, primary system and comparisons in [declarations.<run>]",
+      "reference_judge_rule": "the stored LLM judge with the highest Cohen's kappa on the fit splits (first in file order on ties); chosen on train, never on validation",
+      "threshold_rules": [
+        "youden",
+        "max_f1_not_inferable",
+        "fixed_probability"
+      ],
+      "threshold_rules_definition": "predict inferable when score >= t. youden: t maximizes TPR - FPR with inferable as the positive class (calibrate_threshold.youden_optimum, lowest t on ties, midpoint between the lowest kept and the highest excluded score); max_f1_not_inferable: t maximizes F1 of the not_inferable class, lowest t on ties, same midpoint rule; fixed_probability: t = fixed_probability_threshold without fitting, only for probability scores",
+      "fixed_probability_threshold": 0.5,
+      "bootstrap_samples": 1000,
+      "bootstrap_unit": "hearing",
+      "bootstrap_unit_reason": "opinions of the same hearing share speakers, topic and retrieved chunks, so they are not independent; each replicate resamples whole hearings of the evaluate split and, independently, of the fit split",
+      "bootstrap_intervals": "fixed_threshold: the train-fitted threshold applied to each resampled evaluate split; refit_threshold: the threshold refitted on each resampled fit split and applied to the resampled evaluate split, so the interval also carries the threshold uncertainty",
+      "confidence_level": 0.95,
+      "seed": 42
+    },
+    "pairs": {
+      "default_scorers": [
+        "xnli_mdeberta",
+        "assin2_mdeberta"
+      ],
+      "input_format": "JSONL, one object per line: pair_id (string, unique in the file), query_id (string, e.g. a UDV id), hearing_id (integer, used for the split guard), proposition (string, the hypothesis), evidence (string, or a non-empty list of strings, the premise items), meta (optional object, copied unchanged)",
+      "output_format": "JSONL per scorer, same order as the input: pair_id, query_id, hearing_id, split, scorer, model, revision, item_count, nonempty_items, no_premise, items (per evidence item: probabilities by label name, tokens, truncated; cosine, tokens, truncated for the cosine scorer; null for an empty item), concatenated (same fields, only when more than one non-empty item), scores (max.entailment, min.not_contradiction for 3-way models, concatenated.* when concatenated is present; max.cosine and sentence_max.cosine for the cosine scorer), meta",
+      "output_location": "<output_dir>/pairs/<run_name>/<scorer>.jsonl and <scorer>_report.json",
+      "split_rule": "every hearing_id must be in the split manifest; pairs from final_test hearings are refused unless --final-test is passed"
+    },
+    "run": {
+      "seed": 42,
+      "device": "auto",
+      "hf_hub_offline": true,
+      "hf_hub_offline_rule": "every command switches huggingface_hub to offline mode before any model is loaded (utils.hub_offline.enforce_offline) and loads configs, tokenizers and weights with local_files_only from the pinned snapshot; the NLI model loads the first weights file present in that snapshot (model.safetensors before pytorch_model.bin) with use_safetensors set to its format, and the file, snapshot and blob are recorded in model.weights_file",
+      "output_dir": "artifacts/experiments/nli_verifier",
+      "progress_every_batches": 25,
+      "logit_cache": "NLI logits are appended batch by batch to <encoder.cache_dir>/nli_<scorer>_<revision>_<device>.jsonl, keyed by sha256 of model, revision, dtype, max_length, device, premise and hypothesis, so an interrupted run resumes and a later --final-test run only computes the new pairs"
+    },
+    "decision_battery": {
+      "declared": "Declared on 2026-09-24, before any Laya or Jev score on the benchmark was computed. It replaces the three-question draft (the 3-way choice, its reversed order and one noul question): the battery below keeps those three and adds five more, so that the conclusion rests on several wordings and question types instead of one. The same questions, with the same English wording, are sent to every decision-model scorer (Laya checkpoints and Jev) in every language condition; only the state text changes between the Portuguese text and its English translation.",
+      "state_keys": [
+        "premise",
+        "hypothesis"
+      ],
+      "state_rule": "premise: one whitespace-normalized chunk of the gated NLI file (per-chunk mode) or all non-empty chunks joined in order (concatenated mode); hypothesis: the article opinion. No other key is sent: an earlier attribution question with a speaker key was dropped before any score because 14,483 of the 14,484 chunks of resolved people in train and validation are spoken by the person the opinion is attributed to, so who-said-it carries no information on this benchmark",
+      "signal_direction": "every question yields one support signal in [0, 1] where higher means the premise gives more support to the hypothesis",
+      "questions": [
+        "p1_nli",
+        "p2_nli_reversed",
+        "p3_inferable",
+        "p4_supports",
+        "p5_position",
+        "p6_position_reversed",
+        "p7_coverage",
+        "p8_similarity"
+      ],
+      "p1_nli": {
+        "type": "choice",
+        "instructions": "What is the relationship between `premise` and `hypothesis`?",
+        "options": [
+          "entailment",
+          "neutral",
+          "contradiction"
+        ],
+        "criteria": {
+          "entailment": "the premise implies the hypothesis is true",
+          "neutral": "the premise neither implies nor contradicts the hypothesis",
+          "contradiction": "the premise implies the hypothesis is false"
+        },
+        "signal": "P(entailment)",
+        "also_reported": "1 - P(contradiction)",
+        "support_option": "entailment",
+        "against_option": "contradiction",
+        "against_signal": "not_contradiction"
+      },
+      "p2_nli_reversed": {
+        "type": "choice",
+        "same_as": "p1_nli",
+        "options": [
+          "contradiction",
+          "neutral",
+          "entailment"
+        ],
+        "signal": "P(entailment), mapped back by option name",
+        "support_option": "entailment",
+        "purpose": "order-bias control: the argmax change rate between p1 and p2 is reported, and their mean is the order-averaged NLI signal"
+      },
+      "p3_inferable": {
+        "type": "noul",
+        "instructions": "Can the `hypothesis` be inferred from the `premise`?",
+        "signal": "P(true)"
+      },
+      "p4_supports": {
+        "type": "noul",
+        "instructions": "Does the `premise` support the `hypothesis`?",
+        "signal": "P(true)",
+        "purpose": "a second wording of p3, to measure sensitivity to phrasing"
+      },
+      "p5_position": {
+        "type": "choice",
+        "instructions": "What position does the `premise` take on the claim made in the `hypothesis`?",
+        "options": [
+          "same_position",
+          "opposite_position",
+          "no_position",
+          "unrelated"
+        ],
+        "criteria": {
+          "same_position": "the premise states the same position as the hypothesis",
+          "opposite_position": "the premise states the opposite position",
+          "no_position": "the premise is on the same topic but takes no position on the claim",
+          "unrelated": "the premise is about something else"
+        },
+        "signal": "P(same_position)",
+        "also_reported": "P(opposite_position)",
+        "support_option": "same_position",
+        "against_option": "opposite_position",
+        "against_signal": "not_opposite"
+      },
+      "p6_position_reversed": {
+        "type": "choice",
+        "same_as": "p5_position",
+        "options": [
+          "unrelated",
+          "no_position",
+          "opposite_position",
+          "same_position"
+        ],
+        "signal": "P(same_position), mapped back by option name",
+        "support_option": "same_position",
+        "purpose": "order-bias control for p5, as p2 is for p1"
+      },
+      "p7_coverage": {
+        "type": "score",
+        "instructions": "How much of the `hypothesis` is stated in the `premise`?",
+        "levels": [
+          "none of it",
+          "a small part of it",
+          "about half of it",
+          "most of it",
+          "all of it"
+        ],
+        "signal": "expected level index divided by 4"
+      },
+      "p8_similarity": {
+        "type": "score",
+        "instructions": "How similar in meaning are the `premise` and the `hypothesis`?",
+        "levels": [
+          "unrelated",
+          "same topic only",
+          "partly similar meaning",
+          "mostly similar meaning",
+          "same meaning"
+        ],
+        "signal": "expected level index divided by 4",
+        "purpose": "semantic similarity, reported next to the cosine scorer; not part of the panel because similarity is not what the annotator judged"
+      },
+      "aggregation": {
+        "units": "every question is asked for each non-empty chunk (max over chunks is the opinion score) and for the concatenated premise",
+        "panel": "panel = mean of five support signals: mean(p1, p2), p3, p4, mean(p5, p6), p7; computed per chunk and then maximized over chunks (panel.max), and on the concatenated premise (panel.concatenated)",
+        "primary": "panel.max of each decision-model scorer; the primary new system is laya_multi_pt.panel.max",
+        "consensus": "consensus.max: majority vote over the five panel components, each thresholded at its own train-fitted max_f1_not_inferable threshold; ties count as inferable",
+        "stacked": "stacked.max: logistic regression on the eight per-opinion max signals, fitted on train only (fixed L2 penalty C = 1.0, standardized inputs, seed 42) and applied unchanged to validation; secondary",
+        "per_question": "every question is also reported alone, with max and concatenated, as a secondary system; no question or aggregate is chosen by its validation result",
+        "robustness": "reported on validation: argmax change rate p1 vs p2 and p5 vs p6, pairwise Cohen kappa between the thresholded panel components, and the share of opinions where all components agree",
+        "metrics": "higher is better for ROC AUC and Cohen kappa; lower is better for the order change rate",
+        "order_pairs": {
+          "nli_order_mean": [
+            "p1_nli",
+            "p2_nli_reversed"
+          ],
+          "position_order_mean": [
+            "p5_position",
+            "p6_position_reversed"
+          ]
+        },
+        "panel_components": [
+          "nli_order_mean",
+          "p3_inferable",
+          "p4_supports",
+          "position_order_mean",
+          "p7_coverage"
+        ],
+        "stacked_features": [
+          "p1_nli",
+          "p2_nli_reversed",
+          "p3_inferable",
+          "p4_supports",
+          "p5_position",
+          "p6_position_reversed",
+          "p7_coverage",
+          "p8_similarity"
+        ],
+        "stacked_c": 1.0,
+        "stacked_seed": 42,
+        "consensus_rule": "max_f1_not_inferable",
+        "machine_readable_amendment": "Recorded on 2026-09-24, before any Laya or Jev score existed, smoke runs included: the keys support_option, against_option, against_signal, order_pairs, panel_components, stacked_features, stacked_c, stacked_seed and consensus_rule restate the text of this battery in a form the code reads; they change no question, wording or aggregate. Two readings are fixed here. (1) Score names follow the <aggregate>.<signal> convention of the v1 score files: panel.max is the system max.panel, panel.concatenated is concatenated.panel, consensus.max is max.consensus and stacked.max is max.stacked; the signals of the order pairs are nli_order_mean (mean of p1 and p2) and position_order_mean (mean of p5 and p6). (2) The also_reported quantities are written as support signals, so that higher always means more support: 1 - P(contradiction) of p1 is not_contradiction and 1 - P(opposite_position) of p5 is not_opposite, each aggregated with the minimum over chunks (min.not_contradiction, min.not_opposite) as in v1, and also on the concatenated premise; not_opposite ranks premises in the reverse order of P(opposite_position). The score questions p7 and p8 give the expected level index, from the answer probabilities, divided by the number of levels minus one (4).",
+        "compute_rule": "if the measured cost of the full train and validation run of every scorer exceeds 8 hours, drop in this order until it fits: p8 for the English conditions, the concatenated premise for laya_multi_en, then p2 and p6 for the English conditions (their panel then uses p1 and p5 alone, and the report says so); laya_multi_pt always runs the full battery"
+      }
+    },
+    "translation": {
+      "config_path": "configs/translation.toml",
+      "rule": "a scorer with language = en reads every premise chunk, hypothesis and label probe from the read-only TranslationStore of utils.translation (the cache of the declared NLLB run in configs/translation.toml): the English hypothesis is translate_opinion(opinion), each English chunk is translate_chunk(chunk) at the same position (an empty chunk stays empty), and the English concatenated premise is the non-empty English chunks, in order, joined by premise.concat_separator. Before any model is loaded, the score command checks that every text of the selected opinions has a translation and stops, naming the cache file and the count, if one is missing. score --translation-cache-dir can point the store at another cache directory of the same signature (the smoke cache); the store summary (path, signature, entries by device) is written to every score report"
+    },
+    "decision_models": {
+      "cache_dir": "artifacts/cache/decision_models",
+      "laya_package": "laya==0.3.11 (PyPI, Apache-2.0), locked in uv.lock; adding it changed no other locked version (torch 2.13.0, transformers 5.14.1, sentence-transformers 5.6.1)",
+      "laya_rule": "the checkpoint is loaded with laya.load from its folder in the pinned Hugging Face snapshot (python -m utils.nli_verifier_experiments fetch downloads rl_agent_config.json, model.safetensors, tokenizer/* and encoder/* of the pinned revision), in offline mode; the run stops if laya rewrites the snapshot tokenizer config, if the loaded max_len or head_max_len differ from the scorer, or if the model is not on the requested device. Each question is one forward pass over [CLS] question [SEP] options [SEP] state [SEP] (laya.common.build_sequence); the option logits are captured with a forward hook on the decision model, the probabilities are softmax(logit / T) with the temperature laya applies (T = 1 for the multilingual checkpoint), and every probability is checked against the rounded probability laya returns (at most 1.5e-4 apart), so the scores use the unrounded values of the library's own answer. The confidence and action fields are not read",
+      "laya_truncation": "the state is the JSON object {premise, hypothesis} (laya serializes it with json.dumps); when it does not fit max_len minus the question prefix, the premise is cut at the last whitespace that fits, so the hypothesis always reaches the model whole (laya itself would cut the end of the JSON, which is the hypothesis). Truncated premises and the kept share of characters are counted per question in every score report",
+      "laya_cache": "answers are appended batch by batch to <cache_dir>/laya_<subfolder>_<revision>_<device>.jsonl, keyed by sha256 of the model signature (laya version, repo, revision, subfolder, device, float32, max_len, head_max_len, truncated key), the question JSON and the untruncated state JSON, so an interrupted run resumes; each line holds the option logits, the temperature, token counts and the truncation record",
+      "jev_docs": "read on 2026-09-24: https://docs.typesafe.ai/api.md (POST https://api.typesafe.ai/v1/systemone, Authorization: Bearer <key>, body {state, model, questions}; noul answers noul = P(yes); choice answers choice and probabilities over the criteria keys, at most 255 options; score answers score, legend and probabilities over the level indices, 2 to 10 levels; 401, 422, 429, 529 errors, retry 429 and 529 with exponential backoff), https://docs.typesafe.ai/models.md (jev-1.13.0, aliases jev-latest and jev-preview, versioned ids accepted in the model field, the response model field reports the version that answered, 250,000 tokens per second and 1,200 requests per minute, 64k tokens per request, USD 0.042 per million input tokens, English is the primary training language, SDKs honor the retry-after header), https://docs.typesafe.ai/confidence.md and https://docs.typesafe.ai/model-jaggedness/jev-1.13.md. None of these pages documents another route, so only the direct endpoint is implemented",
+      "jev_client": "utils.decision_models.JevDecisionModel: one POST per premise text with state = {premise, hypothesis} and every selected question in the same request (the docs: Jev ingests the state once and evaluates every question against it); the questions are the battery payloads, identical to the Laya ones (the Jev schema and the Laya schema are the same); the key is read from the environment variable named by api_key_env and is never logged or written; retries on 429, 500, 502, 503, 504, 529 and connection errors with exponential backoff (retry-after honored), a shared rate limit and a bounded number of concurrent requests; the response model field must equal the pinned version or the run stops",
+      "jev_replay": "every attempt, request body and response (never the headers) is appended to <cache_dir>/jev_<model_version>.jsonl, keyed by sha256 of the model version and the exact request body; a request with a recorded HTTP 200 answer is never sent again, and score --decision-mode replay answers only from recorded responses (ReplayDecisionModel) and stops on any miss",
+      "jev_nondeterminism": "the API has no seed and repeated calls flip about 0.5 to 2.2 percent of labels (our earlier research), so the first recorded answer of each request is the one scored, and a rerun reads it from the replay cache instead of calling again",
+      "jev_terms": "TypeSafe's terms forbid using outputs to train a model that imitates the service: Jev outputs are never used as training labels or targets anywhere. The only fitted systems that read Jev outputs are the stacked logistic regression and the consensus thresholds of the Jev scorers, which use them as input features with the annotator label as the target, the use the provider's own autoresearch cookbook describes (a downstream classical model trained on Jev probabilities)"
+    },
+    "declarations": {
+      "nli_verifier_v2": {
+        "date": "2026-09-24",
+        "declared": "Declared on 2026-09-24, before any full-run score of a Laya, Jev or English scorer existed. Smoke runs on CPU, on at most the first 25 validation opinions and the first 25 train opinions (the evaluate command needs train scores to fit thresholds), are used only to check that the code runs and to time it; nothing in this declaration or in [decision_battery] is changed from their numbers. Thresholds and every fitted quantity (threshold rules, the reference judge, the consensus thresholds, the stacked regression) are fitted on train and reported on validation; test is scored only with --final-test and nothing is chosen on it. Everything below is reported, not only the best system. The label is label_inferable (retrieved_context_entailment: the annotator judged the opinion inferable from the four retrieved chunks), never global truth.",
+        "question": "can decision models (Laya, Jev) tell, as the annotator did, whether an article opinion is inferable from the four retrieved transcript chunks, in Portuguese and after translation into English, compared with the v1 systems (cosine, mDeBERTa XNLI, mDeBERTa ASSIN2) and the 12 stored LLM judges",
+        "scorers": [
+          "laya_multi_pt",
+          "laya_multi_en",
+          "laya_en_en",
+          "xnli_mdeberta_en",
+          "jev_en",
+          "jev_pt"
+        ],
+        "imported": {
+          "cosine_serafim": "nli_verifier_v1",
+          "xnli_mdeberta": "nli_verifier_v1",
+          "assin2_mdeberta": "nli_verifier_v1"
+        },
+        "imported_rule": "the v1 systems are read from the v1 score files (artifacts/experiments/nli_verifier/nli_verifier_v1/scores), not recomputed: same opinions, same score names, the sha256 of each file is written to the evaluation report, and the v1 artifacts are not modified. Every imported file must contain every opinion scored by the run's own scorers, and only those opinions are read (for a smoke run, the smoke subset)",
+        "missing_rule": "a declared scorer without score files for every fit and evaluate split (Jev without an API key) is listed in scorers_missing and its systems and comparisons are reported as missing; the run does not fail",
+        "primary_system": "laya_multi_pt.max.panel",
+        "primary_metric": "roc_auc",
+        "primary_declaration": "Primary new system: laya_multi_pt.max.panel (the battery's panel.max of laya_multi_pt, [decision_battery.aggregation] primary). Reason, fixed before any score: the multilingual checkpoint reads the Portuguese text the annotator read, with no translation step that can add or remove content; the panel averages five support signals (order-averaged NLI choice, two noul wordings, order-averaged position choice, coverage), so the result depends less on one wording or on the option order, both of which the earlier smoke test showed to move Laya's answers; per-chunk scoring with the maximum over chunks never truncates a chunk for the concatenation, as in the v1 primary. Primary metric: validation ROC AUC against label_inferable with a 1000-replicate hearing bootstrap interval (seed 42). Primary thresholded result: Cohen's kappa at the threshold fitted on train by max_f1_not_inferable, compared with the reference judge. Every other system, score, question and rule is reported as secondary.",
+        "per_scorer_primary": "for the other decision-model scorers the compared system is <scorer>.max.panel; for xnli_mdeberta_en it is max.entailment, the score of the v1 primary",
+        "comparison_rule": "every declared comparison is a paired difference on validation (system minus reference), with the same 1000 hearing-bootstrap replicates for both sides; its p-value is two-sided, 2 x the smaller share of replicates at or beyond zero, with the (k + 1) / (B + 1) correction, capped at 1; Holm's correction is applied once over the whole list below, in the declared order; a comparison with a missing system enters the correction with p = 1, so the family size never depends on which scorers ran. ROC AUC comparisons also report the deltas of average precision of not_inferable and of kappa at max_f1_not_inferable, uncorrected",
+        "comparisons": [
+          {
+            "name": "C01_translation_effect_laya_multilingual",
+            "system": "laya_multi_en.max.panel",
+            "reference": "laya_multi_pt.max.panel",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C02_english_checkpoint_on_translation_vs_multilingual_on_portuguese",
+            "system": "laya_en_en.max.panel",
+            "reference": "laya_multi_pt.max.panel",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C03_translation_effect_xnli",
+            "system": "xnli_mdeberta_en.max.entailment",
+            "reference": "xnli_mdeberta.max.entailment",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C04_laya_multi_pt_vs_v1_primary",
+            "system": "laya_multi_pt.max.panel",
+            "reference": "xnli_mdeberta.max.entailment",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C05_laya_multi_en_vs_v1_primary",
+            "system": "laya_multi_en.max.panel",
+            "reference": "xnli_mdeberta.max.entailment",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C06_laya_en_en_vs_v1_primary",
+            "system": "laya_en_en.max.panel",
+            "reference": "xnli_mdeberta.max.entailment",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C07_translation_effect_jev",
+            "system": "jev_en.max.panel",
+            "reference": "jev_pt.max.panel",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C08_jev_en_vs_v1_primary",
+            "system": "jev_en.max.panel",
+            "reference": "xnli_mdeberta.max.entailment",
+            "metric": "roc_auc"
+          },
+          {
+            "name": "C09_laya_multi_pt_vs_reference_judge",
+            "system": "laya_multi_pt.max.panel",
+            "reference": "reference_judge",
+            "metric": "cohen_kappa"
+          },
+          {
+            "name": "C10_laya_multi_en_vs_reference_judge",
+            "system": "laya_multi_en.max.panel",
+            "reference": "reference_judge",
+            "metric": "cohen_kappa"
+          },
+          {
+            "name": "C11_laya_en_en_vs_reference_judge",
+            "system": "laya_en_en.max.panel",
+            "reference": "reference_judge",
+            "metric": "cohen_kappa"
+          },
+          {
+            "name": "C12_xnli_mdeberta_en_vs_reference_judge",
+            "system": "xnli_mdeberta_en.max.entailment",
+            "reference": "reference_judge",
+            "metric": "cohen_kappa"
+          },
+          {
+            "name": "C13_jev_en_vs_reference_judge",
+            "system": "jev_en.max.panel",
+            "reference": "reference_judge",
+            "metric": "cohen_kappa"
+          },
+          {
+            "name": "C14_jev_pt_vs_reference_judge",
+            "system": "jev_pt.max.panel",
+            "reference": "reference_judge",
+            "metric": "cohen_kappa"
+          }
+        ],
+        "derived": {
+          "consensus": "max.consensus of each decision-model scorer: for each panel component c (nli_order_mean, p3_inferable, p4_supports, position_order_mean, p7_coverage), the system max.c is thresholded at its max_f1_not_inferable threshold fitted on the whole train split; the score is the share of components that predict inferable; its fixed_probability rule (0.5) is the declared majority vote, with ties counted as inferable; the threshold-refit bootstrap intervals refit only the threshold on the share, not the component thresholds",
+          "stacked": "max.stacked of each decision-model scorer: sklearn LogisticRegression (C = stacked_c, random_state = stacked_seed, lbfgs, max_iter 1000) on the standardized max.<question> scores of the selected questions, fitted on the whole train split against label_inferable and applied unchanged to validation; secondary; the refit bootstrap intervals refit only the threshold on its probability, not the regression",
+          "robustness": "reported on validation for each decision-model scorer: the argmax change rate of each order pair (p1 vs p2, p5 vs p6) over the scored chunks, the concatenated premises and both pooled; the pairwise Cohen kappa between the five panel components thresholded at their train-fitted max_f1_not_inferable thresholds, and the share of opinions where all five agree"
+        },
+        "compute": {
+          "budget_hours": 8.0,
+          "scope": "local compute (CPU or MPS) of the full train and validation score runs of laya_multi_pt, laya_multi_en, laya_en_en and xnli_mdeberta_en. The Jev scorers run remotely, can run at the same time as a local job, and are estimated separately (requests, tokens, cost and wall time at the declared rate limit); they are not counted in the 8 hours",
+          "estimate_rule": "plan --timing-from <smoke run directory>: for each local scorer, the seconds per model input token measured in its smoke score report (forward seconds / computed input tokens, on the smoke's device), times the model input tokens the plan counts for the full train and validation run; a scorer without a smoke report on that device has no estimate and the plan says so. English token counts need the full translation; before it exists, the plan counts the Portuguese texts with the same tokenizer and marks the estimate as a proxy",
+          "device_rule": "the rule is applied with the timing of the device the full run will use. CPU timing comes from the CPU smoke. MPS timing needs a timing smoke on MPS (the same 25 plus 25 opinions, a new smoke run name) once no other MPS job is running; until then the MPS cost is unknown and is not assumed",
+          "drop_rule": "if the local estimate exceeds budget_hours, apply the steps of drop_order cumulatively, in order, until it fits (the steps restate [decision_battery.aggregation] compute_rule); laya_multi_pt and xnli_mdeberta_en always run in full. If the estimate still exceeds the budget after every step, nothing more is dropped automatically: the plan reports it and the decision is taken, and dated here, before the full run",
+          "local_scorers": [
+            "laya_multi_pt",
+            "laya_multi_en",
+            "laya_en_en",
+            "xnli_mdeberta_en"
+          ],
+          "remote_scorers": [
+            "jev_en",
+            "jev_pt"
+          ],
+          "drop_order": [
+            "p8_english_conditions",
+            "concatenated_laya_multi_en",
+            "p2_p6_english_conditions"
+          ],
+          "application": "the chosen steps are written into the scorer tables (questions, concatenated) with a dated note before the full run, so the score reports of the full run carry them",
+          "drop_steps": {
+            "p8_english_conditions": {
+              "text": "remove p8_similarity from laya_multi_en and laya_en_en",
+              "scorers": [
+                "laya_multi_en",
+                "laya_en_en"
+              ],
+              "questions": [
+                "p8_similarity"
+              ],
+              "modes": [
+                "chunk",
+                "concatenated"
+              ]
+            },
+            "concatenated_laya_multi_en": {
+              "text": "set concatenated = false for laya_multi_en",
+              "scorers": [
+                "laya_multi_en"
+              ],
+              "questions": [
+                "p1_nli",
+                "p2_nli_reversed",
+                "p3_inferable",
+                "p4_supports",
+                "p5_position",
+                "p6_position_reversed",
+                "p7_coverage",
+                "p8_similarity"
+              ],
+              "modes": [
+                "concatenated"
+              ]
+            },
+            "p2_p6_english_conditions": {
+              "text": "remove p2_nli_reversed and p6_position_reversed from laya_multi_en and laya_en_en; their order-mean signals then use p1 and p5 alone, and the report lists the members used",
+              "scorers": [
+                "laya_multi_en",
+                "laya_en_en"
+              ],
+              "questions": [
+                "p2_nli_reversed",
+                "p6_position_reversed"
+              ],
+              "modes": [
+                "chunk",
+                "concatenated"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

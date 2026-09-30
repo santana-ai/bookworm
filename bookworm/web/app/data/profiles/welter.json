@@ -1,0 +1,277 @@
+{
+  "actor": {
+    "slug": "welter",
+    "name": "WELTER",
+    "display_name": "WELTER",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:21:27+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      2,
+      183
+    ],
+    "input_tokens": 2786,
+    "output_tokens": 781,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 14,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a retomada dos direitos do povo brasileiro quanto à venda da ELETROBRAS, pedindo ao Ministro Alexandre Silveira que não se canse de buscar a solução judicial, mesmo sabendo que a decisão é do Supremo, para viabilizar políticas públicas e o avanço de novas fontes de energia, como o hidrogênio verde.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 114627,
+            "end": 114801,
+            "text": "Queria fazer um pedido a V.Exa.: que não se canse de buscar a solução — eu sei que a decisão é do Supremo — para conseguir os nossos direitos, os direitos do povo brasileiro.",
+            "score": 0.3627
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a gestão do sistema elétrico brasileiro, questionando o que deixou de ser feito nos últimos anos para diminuir o risco de colapso e cobrando explicações sobre se houve intervenção humana ou erro técnico de investimento, especialmente considerando a sobra de água e a ocorrência do problema em plena luz do dia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 115494,
+            "end": 115653,
+            "text": "O que deixou de ser feito de fato — o senhor já deixou implícito e até explícito nas suas falas —, nos últimos anos, para que diminuíssemos o risco de colapso?",
+            "score": 0.3039
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o desenvolvimento econômico deve passar pelos princípios da sustentabilidade econômica, social e ambiental, e que o Ministério do Meio Ambiente deve estruturar-se para acelerar os processos de licenciamento dentro da norma legal, permitindo o crescimento, a distribuição de renda e a geração de emprego.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 30,
+            "start": 58421,
+            "end": 58511,
+            "text": "Então temos que achar formas para acelerar os processos de licenças dentro da norma legal.",
+            "score": 0.3163
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a contratação de mais pessoal para o Ministério do Meio Ambiente, apontando a falta de gente para acelerar as licenças e a necessidade de achar recurso na Fazenda para atender às demandas de estruturação.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 30,
+            "start": 58231,
+            "end": 58320,
+            "text": "Temos realmente que achar recurso na Fazenda para atender essas demandas de estruturação.",
+            "score": 0.5117
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a Ministra Marina Silva sobre a quantidade de licenças emitidas pelo IBAMA para a PETROBRAS na atual gestão, o status do licenciamento da Bacia Potiguar, a utilidade das AAAS (Avaliação Ambiental de Área Sedimentar) e os fundamentos do indeferimento da licença do bloco FZA-M-59.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 30,
+            "start": 58656,
+            "end": 58776,
+            "text": "Qual é a importância e a utilidade das AAAS — Avaliação Ambiental de Área Sedimentar — para o processo de licenciamento?",
+            "score": 0.4311
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a apresentação da primeira planta de biometano no Paraná, prevista para o dia 15, que vai abastecer caminhões de leite ou de lixo em pequenas propriedades com a transformação de dejetos de suíno, como exemplo de nova forma de energia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 115025,
+            "end": 115239,
+            "text": "Lá no Paraná, por exemplo, no dia 15, vai ocorrer a apresentação da primeira planta de biometano, que vai abastecer caminhões de leite ou caminhões de lixo em pequenas propriedades, com a transformação dos dejetos.",
+            "score": 0.8285
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a abundância de recursos naturais do Brasil (sol, água, terras férteis, minérios) como fundamento para defender que o País é o mais rico do mundo e deve aproveitar essa riqueza para implementar políticas públicas e novas fontes de energia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 114324,
+            "end": 114423,
+            "text": "Nosso País tem sol abundante, água abundante, terras férteis, minérios abundantes, riqueza natural.",
+            "score": 0.3785
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio do desenvolvimento com sustentabilidade ambiental, econômica e social como critério geral para justificar a necessidade de equilibrar o crescimento econômico com a proteção das gerações futuras e a garantia de licenças possíveis dentro de arranjos combinados com o setor público e privado.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 30,
+            "start": 57586,
+            "end": 57890,
+            "text": "E o planejamento que o Ministério deve ter agora deve ser usado exatamente porque o Brasil precisa crescer, desenvolver, distribuir renda, gerar emprego e permitir as licenças possíveis dentro dos arranjos combinados com o setor público e privado, que muitas vezes são a maioria que executam os projetos.",
+            "score": 0.2662
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que o planejamento do Ministério do Meio Ambiente é estratégico para o desenvolvimento do País, devendo ser usado para permitir o crescimento, a distribuição de renda e a geração de emprego, desde que não se atropele o processo legal.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 30,
+            "start": 57891,
+            "end": 57970,
+            "text": "Desde que não se atropele o processo legal, aquilo que é bem pactuado funciona.",
+            "score": 0.3147
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado da Casa e expressa orgulho pela indicação da Ministra Marina Silva pelo Presidente Lula, reconhecendo sua competência e qualidades.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 30,
+            "start": 57501,
+            "end": 57585,
+            "text": "Eu tenho orgulho disso porque sei da sua competência e das qualidades da sua equipe.",
+            "score": 0.2896
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Brasil espera respostas rápidas sobre o colapso elétrico e que a capacidade de mobilização das lideranças do Sul do País poderia causar um caos se o problema não fosse resolvido.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 116356,
+            "end": 116509,
+            "text": "Se ficasse esse tempo todo no Sul do País, haveria um caos, por causa da capacidade de mobilização daquele pessoal, das nossas lideranças do Sul do País.",
+            "score": 0.3679
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas diretas e repetitivas para cobrar respostas específicas de ministros e convidados, como \"O que deixou de ser feito de fato?\" e \"Quantos já foram contratados?\", insistindo na necessidade de esclarecimentos para evitar erros futuros.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 115494,
+            "end": 115653,
+            "text": "O que deixou de ser feito de fato — o senhor já deixou implícito e até explícito nas suas falas —, nos últimos anos, para que diminuíssemos o risco de colapso?",
+            "score": 0.1869
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, como \"indignação\", \"incomodou o povo brasileiro\" e \"ouse\", para reforçar suas cobranças e defender suas posições.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 116274,
+            "end": 116307,
+            "text": "Isso incomodou o povo brasileiro.",
+            "score": 0.4032
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos concretos e locais, como a planta de biometano no Paraná e a situação das lideranças do Sul do País, para ilustrar seus argumentos e conectar o debate nacional à realidade regional.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 64,
+            "start": 116356,
+            "end": 116509,
+            "text": "Se ficasse esse tempo todo no Sul do País, haveria um caos, por causa da capacidade de mobilização daquele pessoal, das nossas lideranças do Sul do País.",
+            "score": 0.1816
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

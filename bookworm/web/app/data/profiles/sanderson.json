@@ -1,0 +1,509 @@
+{
+  "actor": {
+    "slug": "sanderson",
+    "name": "Sanderson",
+    "display_name": "Sanderson",
+    "role": "Deputado (PL-RS)",
+    "article_names": [
+      "Sanderson"
+    ],
+    "party_uf": [
+      "PL - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:45:46+00:00",
+    "n_statements": 47,
+    "n_hearings": 2,
+    "hearing_ids": [
+      201,
+      205
+    ],
+    "input_tokens": 24004,
+    "output_tokens": 1148,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 1,
+    "passage_only": 19,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a Constituição Federal determina que a União seja responsável pela cobertura fronteiriça, criticando a \"negligência federal\" e a falta de priorização dos Governos Federais desde 1988, o que forçou as Polícias Militares estaduais a atuarem de forma delegada para suprir a ausência do Estado.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 12,
+            "start": 6960,
+            "end": 7223,
+            "text": "A negligência federal, a falta de priorização dos Governos Federais, todos que se sucederam desde 1988, fizeram que com que o Brasil, com essas riquezas todas e com o tamanho gigantesco que tem, tivesse que contar com o apoiamento decisivo das polícias militares.",
+            "score": 0.3904
+          },
+          "udv": {
+            "id": "udv-205-2-1",
+            "rule": "similar_text",
+            "score": 0.3558
+          }
+        },
+        {
+          "text": "Propõe a inclusão de policiais militares e civis que atuam em regime de fronteira no recebimento da indenização de fronteira, argumentando que não há proibição constitucional ou legal e que a medida é necessária para reter o efetivo em regiões de difícil acesso.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 63,
+            "start": 159689,
+            "end": 159776,
+            "text": "Os policiais civis também atuam, mas, de forma mais específica, os policiais militares.",
+            "score": 0.3365
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Poder Executivo Federal a criação de um recurso vinculado para a segurança pública, comparando o orçamento do Ministério da Justiça (10 bilhões de reais) com os de Saúde (200 bilhões) e Educação (180 bilhões), e critica o Parlamento por não ter legislado sobre isso.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 49,
+            "start": 100339,
+            "end": 100407,
+            "text": "Para a educação são 180 bilhões de reais, e só para a parte federal.",
+            "score": 0.4973
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação da Polícia Rodoviária Federal e da Polícia Federal no combate ao narcotráfico, questionando a ausência de dados sobre apreensões nos últimos 6 meses e exigindo respostas formais da PRF.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 40,
+            "start": 63236,
+            "end": 63446,
+            "text": "De duas, uma, ou as apreensões não acontecem mais, ou elas são sigilosas, porque nós acompanhamos pela imprensa, até pelas redes sociais, sequenciais atuações da Polícia Rodoviária Federal e da Polícia Federal.",
+            "score": 0.2409
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a narrativa de \"golpe de Estado\" para os atos de 8 de janeiro, afirmando que golpe sem força militar ou policial não existe na história, e defende que a maioria das 1.500 pessoas presas são inocentes, primárias e sem provas de conduta criminosa.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 4,
+            "start": 17203,
+            "end": 17240,
+            "text": "Golpe de Estado sem força não existe.",
+            "score": 0.4588
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia abusos no sistema de justiça nos casos de 8 de janeiro, incluindo prisões em flagrante ilegais, desrespeito às prerrogativas da advocacia, uso de tornozeleiras eletrônicas que causam feridas físicas e a falta de individualização das condutas pelo Ministério Público.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 4,
+            "start": 14472,
+            "end": 14650,
+            "text": "Porque o tema objeto do requerimento do Deputado Marcel van Hattem éDebate sobre prisões ilegais de 8 de janeiro e de 9 de janeiro e o desrespeito às prorrogativas dos advogados.",
+            "score": 0.2337
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Supremo Tribunal Federal por legislar sobre a descriminalização do uso de drogas, classificando a ação como sem pertinência e contra o anseio nacional, e cobra a retirada da pauta do julgamento.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 108,
+            "start": 118990,
+            "end": 119312,
+            "text": "A Comissão de Segurança Pública oficiou ao STF — e tem prerrogativa e legitimidade para isso; afinal de contas, representamos o povo brasileiro — e solicitou que essa ação que está sendo julgada naquela Corte, que vai contra a lei, contra a Constituição, descriminalizando o porte e uso de drogas, fosse retirada de pauta.",
+            "score": 0.2714
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a OAB por sua omissão na defesa dos advogados que tiveram suas prerrogativas violadas, argumentando que a entidade, única corporação prevista na Constituição, não está fazendo jus à sua importância e perdendo crédito.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 108,
+            "start": 122935,
+            "end": 122969,
+            "text": "A OAB vai acabar perdendo crédito.",
+            "score": 0.3096
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a obstrução regimental na Câmara e no Senado como ferramenta legal para forçar o Congresso a agir contra os abusos do Poder Judiciário e restabelecer a soberania nacional.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 190,
+            "start": 246554,
+            "end": 246588,
+            "text": "A obstrução é regimental, é legal.",
+            "score": 0.4383
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a inelegibilidade de Jair Bolsonaro, classificando o julgamento como absurdo e um ilícito civil eleitoral, e defende que o Presidente Lula deve agir como chefe de Estado de todos os brasileiros, abandonando o \"ódio\" e a \"vingança\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 241,
+            "start": 347004,
+            "end": 347117,
+            "text": "Jair Bolsonaro, sem ter cometido crime algum, num ilícito civil eleitoral, teve seus direitos políticos cassados.",
+            "score": 0.3256
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio do devido processo legal e do duplo grau de jurisdição como cláusulas pétreas, argumentando que cidadãos não podem ser privados desses direitos sem abrir mão deles, ao contrário de parlamentares que optam pelo foro por prerrogativa de função.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 108,
+            "start": 117240,
+            "end": 117286,
+            "text": "Os Parlamentares optam pelo foro privilegiado.",
+            "score": 0.2826
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio do ônus da prova, afirmando que a responsabilidade de provar a culpa é do Estado e do Ministério Público, e que, na ausência de prova material de dano ou crime, as pessoas devem ser liberadas imediatamente.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 173,
+            "start": 214272,
+            "end": 214404,
+            "text": "Um aluno do primeiro semestre de direito sabe que o ônus da prova, a responsabilidade da prova é do Estado, é do Ministério Público.",
+            "score": 0.4246
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na separação dos poderes e na equivalência entre eles, mas afirma que o Legislativo tem papel preponderante por ser eleito pelo povo, devendo fiscalizar os demais Poderes com rigor.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 331,
+            "start": 406113,
+            "end": 406171,
+            "text": "O nosso papel, aliás, é o de fiscalizar os demais Poderes.",
+            "score": 0.4978
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a atuação das Polícias Militares de Fronteira como casos de sucesso e essenciais para a segurança nacional, justificando a necessidade de incentivos financeiros e reconhecimento legal para esses agentes.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 12,
+            "start": 7224,
+            "end": 7431,
+            "text": "E aí temos casos emblemáticos no Mato Grosso, em especial, assim como no Estado do Acre, onde as unidades das Polícias Militares de Fronteira são casos de sucesso — e no Paraná também — para o mundo inteiro.",
+            "score": 0.2852
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a segurança pública é um serviço público essencial, assim como saúde e educação, e portanto merece tratamento orçamentário equivalente com recursos vinculados.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 49,
+            "start": 99972,
+            "end": 100129,
+            "text": "Se os serviços públicos essenciais são educação, saúde e segurança pública — e são —, temos saúde e educação com recursos vinculados; segurança pública, não.",
+            "score": 0.4532
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Segurança Pública e Combate ao Crime Organizado da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 40,
+            "start": 64061,
+            "end": 64142,
+            "text": "A Comissão de Segurança Pública e Combate ao Crime Organizado está atenta a isso.",
+            "score": 0.588
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter 25 anos de carreira na Polícia Federal, tendo trabalhado por 8 anos em áreas de fronteira (Bagé e Santo Ângelo).",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 12,
+            "start": 5080,
+            "end": 5280,
+            "text": "Conheço esta matéria, trabalhei na Polícia Federal por8 anos em áreas de fronteira; 5 anos em Bagé, fronteira entre Brasil e Uruguai, e mais 3 anos em Santo Ângelo, fronteira entre Brasil e Argentina.",
+            "score": 0.5512
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parte da oposição ao governo atual, alinhado com o Deputado Marcel van Hattem, o Senador Eduardo Girão e outros parlamentares na defesa dos presos de 8 de janeiro e na crítica ao STF.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 329,
+            "start": 402172,
+            "end": 402303,
+            "text": "Esta é uma das frentes de que participamos: eu, o Senador Eduardo Girão, meu amigo; o Deputado Marcel van Hattem e o Deputado Prof.",
+            "score": 0.3346
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara proximidade política com o ex-Presidente Jair Bolsonaro e apoio à sua candidatura e atuação.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 241,
+            "start": 346854,
+            "end": 347003,
+            "text": "Aquele que era o Presidente da República, que é uma pessoa com quem eu tenho proximidade política, foi considerado inelegível num julgamento absurdo.",
+            "score": 0.2543
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados concretos e comparações orçamentárias para sustentar críticas à gestão pública e à alocação de recursos para segurança.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 49,
+            "start": 99972,
+            "end": 100129,
+            "text": "Se os serviços públicos essenciais são educação, saúde e segurança pública — e são —, temos saúde e educação com recursos vinculados; segurança pública, não.",
+            "score": 0.1644
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos pessoais de sua experiência na Polícia Federal para validar suas críticas operacionais e jurídicas, como a descrição de como um flagrante deveria ser conduzido.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e moralista, usando termos como \"covardia\", \"ódio\", \"vingança\" e \"pessoas de bem\" para enquadrar o debate e mobilizar apoio.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra prazos e respostas formais de órgãos públicos, como a PRF e o STF, e utiliza a ameaça de obstrução parlamentar como instrumento de pressão.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Trata os convidados e colegas com elogios frequentes e cumprimentos protocolares, mas mantém um tom confrontador em relação a instituições como o STF, o Ministério Público e a OAB, quando critica suas ações ou omissões.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 33,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 205,
+      "split": "train",
+      "article_date": "2023-07-11",
+      "title": "Deputados pedem mais recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do País",
+      "assunto": "Recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do Brasil",
+      "turns": 14,
+      "in_profile": true,
+      "udvs": 4
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-103-4-0",
+      "hearing_id": 103,
+      "n": 19,
+      "article_name": "Sanderson",
+      "proposition": "Elogiou a disposição de Lewandowski pelo diálogo: \"Iniciamos hoje uma relação civilizada entre a Câmara dos Deputados e o ministro, que deve ficar, pelo menos, três anos à frente da Pasta. E a Comissão de Segurança Pública vai ficar esses três anos fiscalizando.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este é o início dessa relação. O Ministro deve ficar pelo menos 3 anos à frente da Pasta, e a Comissão de Segurança Pública vai ficar esses 3 anos fiscalizando, cobrando.",
+        "turn": 7,
+        "start": 11187,
+        "end": 11357
+      },
+      "verifier": {
+        "probability": 0.298013449017189,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-201-1-0",
+      "hearing_id": 201,
+      "n": 3,
+      "article_name": "Sanderson",
+      "proposition": "\"O objetivo é jogar luzes sobre uma situação que muitos ouvem falar apenas pela imprensa.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O objetivo é jogar luzes sobre uma situação que muitos ouvem falar apenas pela imprensa, por interlocutores ou narradores que têm interesse, que são parte interessada em fazer com que a verdade desapareça.",
+        "turn": 0,
+        "start": 3765,
+        "end": 3970
+      },
+      "verifier": {
+        "probability": 0.9909130528497198,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-201-1-1",
+      "hearing_id": 201,
+      "n": 4,
+      "article_name": "Sanderson",
+      "proposition": "\"Estamos vendo pessoas com 60, 70 anos, que nunca pisaram numa delegacia, sendo tratados como facínoras.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Deputado Sargento Gonçalves, é um prazer tê-lo aqui. E aí, Deputado van Hattem, nós vimos ali pessoas com 60 anos, 65 anos, 70 anos que nunca pisaram em uma delegacia de polícia sendo tratadas como facínoras.",
+        "turn": 8,
+        "start": 23190,
+        "end": 23398
+      },
+      "verifier": {
+        "probability": 0.9919378199190158,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-205-2-0",
+      "hearing_id": 205,
+      "n": 12,
+      "article_name": "Sanderson",
+      "proposition": "Salientou que é papel da União fazer a segurança das fronteiras, seja por meio da Polícia Federal ou das Forças Armadas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Se quisermos, podemos até mudar a Constituição Federal — não é, Coronel Ulysses? —, mas a Constituição determina que é papel da União fazer a cobertura fronteiriça, seja pelas forças policiais, seja pelas Forças Armadas.",
+        "turn": 12,
+        "start": 6541,
+        "end": 6761
+      },
+      "verifier": {
+        "probability": 0.9179666314362475,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-205-2-1",
+      "hearing_id": 205,
+      "n": 13,
+      "article_name": "Sanderson",
+      "proposition": "Considera que há negligência do governo federal, e as Polícias Militares dos estados tiveram que assumir muitas vezes o papel que caberia à União.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "—, mas a Constituição determina que é papel da União fazer a cobertura fronteiriça, seja pelas forças policiais, seja pelas Forças Armadas. E as PMs, que são as polícias estaduais — que, constitucionalmente, não têm esse papel —, graças a Deus entraram nesse processo nos últimos 30 anos para ajudar, considerando a negligência federal.",
+        "turn": 12,
+        "start": 6622,
+        "end": 6959
+      },
+      "verifier": {
+        "probability": 0.8748366642240599,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-205-2-2",
+      "hearing_id": 205,
+      "n": 14,
+      "article_name": "Sanderson",
+      "proposition": "Listou alguns desafios que o País enfrenta na fronteira: \"Temos problemas no Sul do Brasil, no extremo sul, na fronteira com Uruguai, tráfico de armas inclusive. Temos na fronteira do Paraná, em Foz do Iguaçu, problema forte com contrabando e tráfico de drogas e também tráfico de armas. No Mato Grosso, tráfico de drogas e tráfico de armas. Subindo, na Amazônia, Rondônia, Acre, problemas seríssimos de tráfico de drogas.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Temos problemas no Sul do Brasil, no extremo sul, lá com o Uruguai, com o tráfico de armas, inclusive. Na fronteira do Paraná, meu amigo Coronel Ulysses, em Foz do Iguaçu, etc., temos um problema forte com contrabando, tráfico de drogas e também tráfico de armas.",
+        "turn": 12,
+        "start": 5434,
+        "end": 5697
+      },
+      "verifier": {
+        "probability": 0.9914731031099622,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-205-2-3",
+      "hearing_id": 205,
+      "n": 15,
+      "article_name": "Sanderson",
+      "proposition": "Citou o contrabando de armas que ocorre pela via marítima, por meio dos portos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E em não se fazendo presente o Estado, o Brasil se transforma em chamariz para toda sorte de crime, inclusive o tráfico de drogas. Mas, no caso dos portos do Rio de Janeiro, há muito tráfico de armas.",
+        "turn": 12,
+        "start": 6096,
+        "end": 6296
+      },
+      "verifier": {
+        "probability": 0.9632595135069634,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

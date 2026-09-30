@@ -1,0 +1,368 @@
+{
+  "actor": {
+    "slug": "junio-amaral",
+    "name": "JUNIO AMARAL",
+    "display_name": "Junio Amaral",
+    "role": "Deputado (PL-MG)",
+    "article_names": [
+      "Junio Amaral"
+    ],
+    "party_uf": [
+      "PL - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:26:36+00:00",
+    "n_statements": 12,
+    "n_hearings": 2,
+    "hearing_ids": [
+      145,
+      199
+    ],
+    "input_tokens": 3681,
+    "output_tokens": 951,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 3,
+    "passage_only": 17,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a Resolução nº 715 do Conselho Nacional de Saúde (CNS), aprovada por unanimidade com a participação de membros do Governo, por considerá-la uma afronta ao Legislativo e por relativizar o aborto, estimular a legalização das drogas e da hormonoterapia, em confronto com a legislação vigente que criminaliza as drogas e proíbe o aborto, salvo nos casos previstos em lei.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 83,
+            "start": 57236,
+            "end": 57362,
+            "text": "E hoje o que está posto na legislação é a criminalização das drogas e a proibição do aborto, salvo nos casos previstos em lei.",
+            "score": 0.3762
+          },
+          "udv": {
+            "id": "udv-199-7-0",
+            "rule": "same_sentence",
+            "score": 0.3507
+          }
+        },
+        {
+          "text": "Questiona a posição do Ministério da Saúde sobre a preservação da vida, cobrando esclarecimento se o órgão milita \"pró-aborto\" ou \"pró-vida\", especialmente após a resposta superficial a um requerimento de maio sobre a viabilidade fetal e a participação da Ministra na elaboração da referida resolução.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 83,
+            "start": 58068,
+            "end": 58435,
+            "text": "Em uma das perguntas, eu coloquei o seguinte:\"O Ministério da Saúde manterá uma posição de preservação da vida e contra o feticídio, principalmente nos casos em que houver viabilidade fetal?\"A resposta do Ministério eu não vou ler aqui por causa do tempo, mas é bem superficial, em consonância com a lei, dando a entender que o Ministério não iria militar nessa área.",
+            "score": 0.2987
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a desligação do Brasil da Declaração do Consenso de Genebra, nos primeiros dias do governo, como uma iniciativa pró-vida que foi abandonada, questionando os motivos dessa decisão.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 86,
+            "start": 63802,
+            "end": 63963,
+            "text": "A senhora sabe me responder por que o Governo Lula, logo nos primeiros dias, desligou o Brasil da Declaração do Consenso de Genebra, que tem iniciativa pró-vida?",
+            "score": 0.5135
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a falta de insumos básicos na ponta da linha, especificamente em Contagem (MG), apontando a ausência de amoxicilina, lancetas para diabéticos e uma fila de quase 10 mil pessoas para exames básicos, caracterizando a situação como \"caos absoluto\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 83,
+            "start": 57869,
+            "end": 57967,
+            "text": "Na minha cidade, há uma fila de quase 10 mil pessoas, esperando para fazer os exames mais básicos.",
+            "score": 0.4706
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência do Ministro da Justiça em comissões e as justificativas apresentadas, classificando a postura como ofensiva aos parlamentares e aos agentes de segurança, e questionando se a postura belicosa e os resultados do Ministério são as causas reais das convocações.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 23582,
+            "end": 23704,
+            "text": "É muito lamentável a postura do senhor, não apenas se limitando à sua ausência, mas também às justificativas apresentadas.",
+            "score": 0.3285
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a necessidade de atenção à saúde mental dos policiais, citando índices de suicídio acima de qualquer outra profissão e a dificuldade de acesso a esses dados, além de apontar o desprezo do governo para com o tema.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 25260,
+            "end": 25348,
+            "text": "E vemos que eles estão acima de qualquer outra profissão, por mais estressante que seja.",
+            "score": 0.26
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o dado de 138 policiais mortos em serviço ou em razão dele no ano de 2023, classificando a situação de \"autoextermínio\" como dramática e causa de desmotivação e indignação na corporação.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 25403,
+            "end": 25594,
+            "text": "Eu me preocupo com os policiais na ponta da linha, em razão dos índices de homicídios de que são vítimas.Neste ano, já tivemos 138 policiais mortos em serviço ou em razão dele — só neste ano.",
+            "score": 0.4353
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a inexistência de um gerente ou diretor para o Programa Nacional de Qualidade de Vida para Profissionais da Segurança Pública, instituído pela Lei nº 13.675, de 11 de junho de 2018, conforme resposta do Ministério da Justiça a um requerimento de informação.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 43,
+            "start": 32133,
+            "end": 32310,
+            "text": "Ministro, o Programa Nacional de Qualidade de Vida para Profissionais de Segurança Pública foi instituído por meio da Lei nº 13.675, de 11 de junho de 2018; nós estamos em 2023.",
+            "score": 0.6414
+          },
+          "udv": null
+        },
+        {
+          "text": "Refuta a tese de que a violência aumentou com a política de armas do governo anterior, utilizando dados de homicídios: 61 mil em 2016 (último ano do PT) contra 40 mil em 2022, apontando uma redução de um quarto.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 26854,
+            "end": 27002,
+            "text": "No entanto, no último ano do Governo do PT, em 2016, houve 61 mil homicídios; em 2022, já não havia mais crime de pandemia algum, 40 mil homicídios.",
+            "score": 0.4793
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Justiça uma meta concreta para reduzir os homicídios abaixo do índice de 40 mil registrado em 2022.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 43,
+            "start": 32765,
+            "end": 32933,
+            "text": "A partir das estratégias do seu Ministério, que eu tenho certeza que trabalha com metas, qual é a meta do seu Ministério para reduzir os homicídios abaixo desse índice?",
+            "score": 0.419
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a prerrogativa exclusiva do Legislativo para legislar como fundamento para criticar resoluções de conselhos que alteram ou relativizam a lei, como a Resolução nº 715 do CNS.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 83,
+            "start": 57134,
+            "end": 57235,
+            "text": "Isso, no meu ponto de vista, é uma afronta ao Legislativo, que é quem tem a prerrogativa de legislar.",
+            "score": 0.2795
+          },
+          "udv": {
+            "id": "udv-199-7-0",
+            "rule": "same_sentence",
+            "score": 0.2304
+          }
+        },
+        {
+          "text": "Utiliza a condição de policial militar e o porte de arma como base para defender a honra e a responsabilidade dos agentes de segurança, rejeitando a ideia de que eles colocam pessoas em risco de forma irresponsável.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 23834,
+            "end": 24012,
+            "text": "Eu tenho porte de arma e jamais a utilizei de maneira irresponsável, jamais coloquei qualquer pessoa em risco, a não ser nos casos previstos em lei, como excludente de ilicitude.",
+            "score": 0.2204
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em dados estatísticos de homicídios e suicídios para sustentar suas críticas e cobrar metas de redução, valorizando a fiscalização baseada em números e resultados.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 24466,
+            "end": 24514,
+            "text": "Será que não são pelos resultados do Ministério?",
+            "score": 0.199
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro do segundo mandato e integrante da Comissão de Segurança Pública.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 23705,
+            "end": 23833,
+            "text": "Isso é ofensivo não apenas por eu ser Parlamentar nesta Casa, agora, no segundo mandato, mas também por eu ser policial militar.",
+            "score": 0.2283
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como policial militar.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 25012,
+            "end": 25137,
+            "text": "Nós temos entre os policiais, na profissão policial, independentemente de ser militar, civil ou federal, índices de suicídio.",
+            "score": 0.2624
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que seu município, Contagem (MG), é governado pelo PT.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 86,
+            "start": 63384,
+            "end": 63507,
+            "text": "Ministra, a respeito da responsabilidade dos Municípios em relação à saúde, em Contagem, minha cidade, quem governa é o PT.",
+            "score": 0.2266
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e números (filas, índices de homicídios, anos de governo) para fundamentar suas críticas e cobrar respostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador e indignado, especialmente ao tratar da ausência de ministros e da postura do governo em relação a temas como saúde mental e segurança.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 20,
+            "start": 24751,
+            "end": 25011,
+            "text": "Entre vários quesitos, lá na ponta da linha, que eu, como policial militar, observo e com os quais me preocupo neste mandato e desde o primeiro dia do Governo anterior, está um dos temas que menos é tratado por este Governo, que é a saúde mental dos policiais.",
+            "score": 0.1838
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas e retóricas, cobrando explicações e compromissos concretos dos representantes do governo.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 43,
+            "start": 32447,
+            "end": 32596,
+            "text": "Precisamos de compromissos concretos, por isso a pergunta que fiz limitada ao porquê da ausência de um diretor, um gestor, um gerente desse programa.",
+            "score": 0.1898
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita leis e programas específicos (Lei nº 13.675, Programa Nacional de Qualidade de Vida) para demonstrar o descumprimento de obrigações legais.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 43,
+            "start": 32133,
+            "end": 32310,
+            "text": "Ministro, o Programa Nacional de Qualidade de Vida para Profissionais de Segurança Pública foi instituído por meio da Lei nº 13.675, de 11 de junho de 2018; nós estamos em 2023.",
+            "score": 0.3404
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza expressões como \"caos absoluto\", \"afronta ao Legislativo\" e \"ofensivo\" para caracterizar as situações que critica.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 83,
+            "start": 57134,
+            "end": 57235,
+            "text": "Isso, no meu ponto de vista, é uma afronta ao Legislativo, que é quem tem a prerrogativa de legislar.",
+            "score": 0.2127
+          },
+          "udv": {
+            "id": "udv-199-7-0",
+            "rule": "same_sentence",
+            "score": 0.1142
+          }
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-199-7-0",
+      "hearing_id": 199,
+      "n": 17,
+      "article_name": "Junio Amaral",
+      "proposition": "Criticou orientações da Resolução 715/23 relacionadas à maconha, à população LGBTQIA+ e ao aborto: \"Do meu ponto de vista, é uma afronta ao Legislativo, que tem a prerrogativa de legislar. E hoje o que está posto [na legislação] é a criminalização da droga, o que está posto é a proibição do aborto, salvo nos casos previstos em lei.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Isso, no meu ponto de vista, é uma afronta ao Legislativo, que é quem tem a prerrogativa de legislar. E hoje o que está posto na legislação é a criminalização das drogas e a proibição do aborto, salvo nos casos previstos em lei.",
+        "turn": 83,
+        "start": 57134,
+        "end": 57362
+      },
+      "verifier": {
+        "probability": 0.673468718668492,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

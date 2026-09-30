@@ -1,0 +1,395 @@
+{
+  "actor": {
+    "slug": "suelaine-carneiro",
+    "name": "SUELAINE CARNEIRO",
+    "display_name": "Suelaine Carneiro",
+    "role": "Coordenadora do programa de educação do Geledés Instituto da Mulher Negra",
+    "article_names": [
+      "Suelaine Carneiro"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:58:13+00:00",
+    "n_statements": 5,
+    "n_hearings": 2,
+    "hearing_ids": [
+      163,
+      170
+    ],
+    "input_tokens": 5087,
+    "output_tokens": 928,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 2,
+    "passage_only": 18,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o racismo deve ser parte integrante de todas as políticas públicas para a primeira infância, reivindicando a construção de compromissos e ações que garantam os direitos de crianças negras, indígenas, quilombolas e de terreiros.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 4405,
+            "end": 4544,
+            "text": "Por isso, estamos aqui reivindicando a construção de compromissos e ações que garantam os direitos dessas crianças no presente e no futuro.",
+            "score": 0.4923
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe dez diretrizes para a elaboração e adequação de políticas e programas que contemplem a diversidade das crianças brasileiras, visando o pleno desenvolvimento e o respeito à diversidade étnico-racial, cultural e religiosa.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 6409,
+            "end": 6722,
+            "text": "Para isso, propomos dez diretrizes que auxiliam na elaboração e adequação de políticas e programas que contemplem a diversidade das crianças brasileiras e que crianças negras, indígenas, quilombolas e de terreiro tenham direito à liberdade, ao respeito e às condições dignas de existência e pleno desenvolvimento.",
+            "score": 0.5831
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a inoperância do Governo Federal durante a pandemia, que optou por plataformas digitais sem garantir conectividade ou computadores, resultando em que as meninas negras foram as que menos conseguiram se dedicar às tarefas escolares.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 63164,
+            "end": 63265,
+            "text": "Segundo a pesquisa, as meninas negras foram as que menos conseguiram se dedicar às tarefas escolares.",
+            "score": 0.4654
+          },
+          "udv": {
+            "id": "udv-163-1-1",
+            "rule": "same_sentence",
+            "score": 0.2575
+          }
+        },
+        {
+          "text": "Exige a efetivação da Lei nº 10.639, de 2003, para tornar a educação das relações étnico-raciais uma proposta educacional permanente, e não apenas um projeto, além de incorporar a equidade racial nas licenciaturas.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 69189,
+            "end": 69341,
+            "text": "Além disso, por meio da Lei nº 10.639, de 2003, podemos tornar a educação das relações étnico-raciais como uma proposta educacional, e não mais projeto.",
+            "score": 0.6849
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a implementação e fiscalização do VAAR (Valor Aluno Atualizado de Renda) do FUNDEB, citando avanços na diminuição da desigualdade racial em municípios que já o implementaram.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 69759,
+            "end": 70026,
+            "text": "Cida Bento têm se debruçado e mostrado que Municípios que implementaram o VAAR já têm avançado na diminuição da desigualdade racial.Então, essa é uma política que precisa de fiscalização, implementação, acompanhamento.Além disso, precisamos garantir o direito à vida.",
+            "score": 0.3911
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma renda básica permanente para as famílias negras, argumentando que as cotas devem durar enquanto forem necessárias.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 68708,
+            "end": 68830,
+            "text": "Como temos falado também sobre as cotas, que devem durar enquanto forem necessárias, vamos pensar em uma renda permanente.",
+            "score": 0.6374
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a escola cívico-militar e o homeschooling, defendendo uma educação que desenvolva a capacidade crítica e a formação para a autonomia de crianças, jovens e adultos negros.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 70230,
+            "end": 70413,
+            "text": "Precisamos de uma educação que desenvolva a capacidade crítica, a formação para autonomia de crianças, jovens negros e adultos, para que possamos ter a compreensão da nossa cidadania.",
+            "score": 0.6132
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra ações intersetoriais entre o Parlamento, os Ministérios e a sociedade civil, afirmando que a educação sozinha não consegue enfrentar as desigualdades estruturais.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 62040,
+            "end": 62187,
+            "text": "Para nós, é uma oportunidade única dialogar com o Parlamento e sermos ouvidas, dialogar com as representações dos Ministérios e da sociedade civil.",
+            "score": 0.2559
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da proteção integral como fundamento para exigir que as trajetórias e possibilidades de crianças negras e indígenas não sejam marcadas pelo pertencimento racial, que implica acesso diferenciado aos bens sociais.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 4545,
+            "end": 4887,
+            "text": "É nosso desejo desconstruir as indiferenças que cercam os debates sobre as violações e violências que marcam a vida de crianças negras e indígenas, assim como ampliar o compromisso com a proteção integral delas, pois suas trajetórias e possibilidades são marcadas pelo pertencimento racial, implicando no acesso diferenciado aos bens sociais.",
+            "score": 0.5026
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a necessidade de políticas específicas com base no diagnóstico de que o racismo é uma ideologia presente nas relações entre pessoas, no desenho das políticas públicas, nas estruturas de Governo e nas formas de organização do Estado.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 4068,
+            "end": 4403,
+            "text": "O compromisso desse grupo articulador é atuar em defesa dos direitos de crianças negras, indígenas, quilombolas e de terreiros e no enfrentamento do racismo, uma ideologia presente nas relações entre pessoas e grupos, no desenho e desenvolvimento das políticas públicas, nas estruturas de Governo e nas formas de organização do Estado.",
+            "score": 0.5663
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que abordar os efeitos socioeconômicos e psicossociais do racismo desde a primeira infância é necessário para alterar as relações sociais e as práticas nos serviços públicos, atendendo às especificidades das famílias negras e indígenas.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 7159,
+            "end": 7626,
+            "text": "Compreendemos que abordar os efeitos socioeconômicos e psicossociais do racismo desde a primeira infância possibilita alterar as relações sociais, assim como as práticas nos serviços e equipamentos públicos de forma que os serviços prestados atendam às necessidades, especificidades das famílias negras e indígenas, da realização de ações que valorizem suas histórias e culturas, as contribuições materiais e imateriais de negros e indígenas no passado e no presente.",
+            "score": 0.6036
+          },
+          "udv": {
+            "id": "udv-170-0-0",
+            "rule": "same_sentence",
+            "score": 0.6068
+          }
+        },
+        {
+          "text": "Baseia suas críticas na constatação de que as meninas negras se sentem descartáveis desde a primeira infância, silenciadas no espaço escolar e sobrecarregadas com trabalhos domésticos e cuidados familiares, o que impede o pleno exercício da cidadania.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 63731,
+            "end": 64008,
+            "text": "Via de regra, estudantes negros estavam sozinhos na sua casa, sem poder contar com a orientação de outros familiares, principalmente no que diz respeito às meninas negras, que também eram responsáveis por muitos trabalhos domésticos e pelo cuidado de outros membros da família.",
+            "score": 0.1546
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Geledés, organização que atua há 35 anos na denúncia de racismo e sexismo e em soluções propositivas em diálogo com o movimento negro e feminista.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 62229,
+            "end": 62529,
+            "text": "O Geledés tem atuado, nesses 35 anos, tanto na denúncia de racismo e de sexismo quanto, principalmente, de forma propositiva, em diálogo com o movimento negro, com o movimento feminista sobre soluções para o enfrentamento das desigualdades que estruturam a nossa sociedade, a partir de raça e gênero.",
+            "score": 0.5596
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma atuar em nome do Grupo Articulador Primeira Infância no Centro, constituído pelo Geledés em articulação com outras dez organizações da sociedade civil que atuam contra o racismo, o sexismo, o etnocídio e o racismo religioso.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 3717,
+            "end": 3921,
+            "text": "Geledés, em articulação com outras dez organizações da sociedade civil que atuam contra o racismo, o sexismo, o etnocídio e o racismo religioso, constituiu o Grupo Articulador Primeira Infância no Centro.",
+            "score": 0.8341
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica o compromisso do grupo articulador com a defesa dos direitos de crianças negras, indígenas, quilombolas e de terreiros e no enfrentamento do racismo.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 4068,
+            "end": 4403,
+            "text": "O compromisso desse grupo articulador é atuar em defesa dos direitos de crianças negras, indígenas, quilombolas e de terreiros e no enfrentamento do racismo, uma ideologia presente nas relações entre pessoas e grupos, no desenho e desenvolvimento das políticas públicas, nas estruturas de Governo e nas formas de organização do Estado.",
+            "score": 0.5596
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos e qualitativos de pesquisas próprias e de parceiros, como o Instituto Alana, para sustentar diagnósticos sobre desigualdade no acesso à saúde, creche, habitação e mortalidade.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 5480,
+            "end": 6192,
+            "text": "Então, cientes da necessidade de ampliar as compreensões e ações contra o racismo desde a primeira infância, elaboramos uma carta compromisso, que entregamos aos Parlamentares no ano passado, em 2022, e também no início deste ano, assim como disponibilizamos para toda a sociedade, na qual demonstramos, por meio de dados quantitativos e qualitativos, o diagnóstico sobre a situação das crianças negras e indígenas no que diz respeito à permanente desigualdade no acesso ao […]",
+            "score": 0.278
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a relatos diretos e frases de estudantes negras (ex: \"eu sonho em não passar fome\") para ilustrar a vulnerabilidade e a impossibilidade de sonhar, humanizando os dados estatísticos.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 21,
+            "start": 66810,
+            "end": 67273,
+            "text": "Três frases —\"eu sonho em não passar fome\";\"uma menina colocou um sabonete na minha carteira\"e\"eu vou sair do projeto porque tenho que cuidar do meu primo\"— sintetizam essa situação de vulnerabilidade ainda, de impossibilidade de sonhar, como já foi dito nesta Mesa.Refiro-me às possibilidades que as meninas têm para sonhar ou não, de ampliar suas informações, mas, principalmente, o quanto elas já tem noção do quanto são descartáveis desde a primeira infância.",
+            "score": 0.3108
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita especialistas, como a Profa. Dra. Eliane Cavalleiro, para fundamentar a existência de linguagem não verbal preconceituosa no espaço escolar.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 5063,
+            "end": 5478,
+            "text": "Eliane Cavalleiro:\"No espaço escolar há toda uma linguagem não verbal expressa por meio de comportamentos sociais e disposições — formas de tratamentos, atitudes, gestos, tons de voz e outras —, que transmite valores marcadamente preconceituosos e discriminatórios\".Essas situações fazem com que crianças negras e indígenas saibam que não estão recebendo o mesmo tratamento que as crianças de outros grupos raciais.",
+            "score": 0.2535
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de convocação e urgência, apelando para o compromisso coletivo (\"Sejamos todos nós... comprometidos\") e destacando a capacidade de realização das meninas negras quando lhes é dada uma oportunidade.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 35,
+            "start": 77922,
+            "end": 78023,
+            "text": "Sejamos todos nós, todas nós, todes nós comprometidas e comprometidos com o sonho das meninas negras.",
+            "score": 0.2912
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura os argumentos conectando o passado (pandemia, primeira infância) com o presente (escola, ensino superior) e o futuro (desdobramentos políticos), exigindo continuidade nas ações.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 1,
+            "start": 4405,
+            "end": 4544,
+            "text": "Por isso, estamos aqui reivindicando a construção de compromissos e ações que garantam os direitos dessas crianças no presente e no futuro.",
+            "score": 0.1827
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 163,
+      "split": "train",
+      "article_date": "2023-09-22",
+      "title": "Educadora sugere criação de grupo de trabalho na Câmara para discutir a educação de meninas e mulheres negras",
+      "assunto": "Discussão sobre a educação de meninas e mulheres negras na Câmara dos Deputados",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 170,
+      "split": "train",
+      "article_date": "2023-06-29",
+      "title": "Movimentos sociais denunciam o racismo na primeira infância",
+      "assunto": "Denúncia do racismo na primeira infância debatida na Comissão de Direitos Humanos da Câmara dos Deputados",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-163-1-0",
+      "hearing_id": 163,
+      "n": 4,
+      "article_name": "Suelaine Carneiro",
+      "proposition": "Apresentou pesquisa mostrando que as meninas negras foram as mais prejudicadas na vida escolar na pandemia de Covid-19: \"A grande maioria delas não tinha acesso às plataformas digitais, que foi a opção tanto de governo municipal quanto estadual frente à inoperância do governo federal.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "A pesquisa mostrou que a grande maioria delas não tinha acesso às plataformas digitais, que foi aquela opção, tanto de Governos Municipais quanto de Governos Estaduais, perante a inoperância do Governo Federal.",
+        "turn": 21,
+        "start": 62838,
+        "end": 63048
+      },
+      "verifier": {
+        "probability": 0.5996057703102623,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-163-1-1",
+      "hearing_id": 163,
+      "n": 5,
+      "article_name": "Suelaine Carneiro",
+      "proposition": "O contexto político na pandemia complicou a condição de estudantes em geral, \"mas ainda mais de estudantes negros.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Esse contexto político complicou mais ainda a condição de estudantes em geral, em particular de estudantes negros. Segundo a pesquisa, as meninas negras foram as que menos conseguiram se dedicar às tarefas escolares.",
+        "turn": 21,
+        "start": 63049,
+        "end": 63265
+      },
+      "verifier": {
+        "probability": 0.8880196196333386,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-170-0-0",
+      "hearing_id": 170,
+      "n": 1,
+      "article_name": "Suelaine Carneiro",
+      "proposition": "Necessidade de desconstruir indiferenças e enfrentar a permanente desigualdade em relação a acesso a serviços de saúde, creche, pré-escola, saneamento básico e condições adequadas de moradia: \"Compreendemos que abordar os efeitos socioeconômicos e psicossociais do racismo desde a primeira infância possibilita alterar as relações sociais, assim como as práticas nos serviços e equipamentos públicos, de forma que os serviços prestados atendam as necessidade e especificidades das famílias negras e indígenas\".",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Compreendemos que abordar os efeitos socioeconômicos e psicossociais do racismo desde a primeira infância possibilita alterar as relações sociais, assim como as práticas nos serviços e equipamentos públicos de forma que os serviços prestados atendam às necessidades, especificidades das famílias negras e indígenas, da realização de ações que valorizem suas histórias e culturas, as contribuições materiais e imateriais de negros e indígenas no passado e no presente.",
+        "turn": 1,
+        "start": 7159,
+        "end": 7626
+      },
+      "verifier": {
+        "probability": 0.9586414801839174,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

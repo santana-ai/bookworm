@@ -1,0 +1,409 @@
+{
+  "actor": {
+    "slug": "aliel-machado",
+    "name": "Aliel Machado",
+    "display_name": "Aliel Machado",
+    "role": "Deputado (PV-PR)",
+    "article_names": [
+      "Aliel Machado"
+    ],
+    "party_uf": [
+      "Bloco/PV - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:42:31+00:00",
+    "n_statements": 17,
+    "n_hearings": 4,
+    "hearing_ids": [
+      41,
+      52,
+      155,
+      199
+    ],
+    "input_tokens": 9558,
+    "output_tokens": 1143,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a ratificação e aprovação da Convenção Interamericana sobre a Proteção dos Direitos Humanos dos Idosos, argumentando que o tema está \"na gaveta\" e que a aprovação é uma necessidade para o País, um compromisso do Brasil como signatário e um princípio defendido pelo Governo.",
+          "passage": {
+            "hearing_id": 41,
+            "turn": 0,
+            "start": 178,
+            "end": 374,
+            "text": "Esta reunião foi convocada para debater a ratificação da Convenção Interamericana sobre a Proteção dos Direitos Humanos dos Idosos, em atendimento ao Requerimento nº 13, de 2023, de minha autoria.",
+            "score": 0.331
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o \"Governo negacionista\" anterior por ter ceifado vidas durante a pandemia e por ter dilacerado programas como o Farmácia Popular e o Mais Médicos por questão ideológica, retirando a oportunidade de atendimento digno de pessoas pobres e humildes.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 357,
+            "start": 225764,
+            "end": 225977,
+            "text": "São ações concretas, como o Farmácia Popular e o Programa Mais Médicos, dilacerados pelo Governo anterior, que, por questão ideológica, tirou a oportunidade de um ser pobre, humilde, ter atendimento com dignidade.",
+            "score": 0.4379
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que combater o etarismo exige a implementação prática de políticas públicas que garantam os direitos previstos na legislação e na Constituição, e não apenas o combate ao preconceito.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 11,
+            "start": 42104,
+            "end": 42171,
+            "text": "Combater o etarismo não é apenas combater as formas de preconceito.",
+            "score": 0.4218
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra dos Ministérios a aplicação de recursos pertinentes por meio de políticas públicas e reforça publicamente o compromisso de brigar por orçamento, afirmando que sem financiamento não há como avançar, independentemente da boa vontade.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 6,
+            "start": 52336,
+            "end": 52418,
+            "text": "Reforço publicamente aqui, Alexandre, o nosso compromisso de brigar por orçamento.",
+            "score": 0.3612
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a divulgação de exemplares do Estatuto da Pessoa Idosa em braille, em parceria com a Rede Ibero-Americana de Associações de Idosos (RIAAM), Câmaras Municipais e Assembleias Legislativas, para potencializar a acessibilidade e o conhecimento da lei.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 0,
+            "start": 385,
+            "end": 598,
+            "text": "Antes de dar início aos debates, eu informo ao Plenário que esta Comissão foi presenteada com o primeiro Estatuto da Pessoa Idosa, em braille, pela Rede Ibero-Americana de Associações de Idosos — RIAAM, do Brasil.",
+            "score": 0.4324
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a implementação do projeto do Tribunal Regional Eleitoral do Paraná, que atende idosos em casas de longa permanência, como referência nacional de cidadania e protagonismo positivo, buscando transformá-lo em lei.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 17,
+            "start": 72845,
+            "end": 73046,
+            "text": "É um trabalho desenvolvido pelo Tribunal Regional Eleitoral do Paraná que virou uma referência nacional, levando cidadania plena, de fato e de direito, aos nossos idosos, às casas de longa permanência.",
+            "score": 0.4942
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Estatuto da Pessoa Idosa (Lei nº 10.741, de 2003) é muito mais do que filas preferenciais e vagas de estacionamento, garantindo dignidade em saúde, educação, trabalho, previdência e habitação, e protegendo contra violência física e psicológica.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 0,
+            "start": 3784,
+            "end": 3845,
+            "text": "A lei protege os idosos da violência física e da psicológica.",
+            "score": 0.3405
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a fé e a empatia como fundamentos para a ação política e pública, declarando-se batizado, crismado e casado na igreja, e afirmando que a prática do amor ao próximo e o respeito a Deus são essenciais para a reconstrução do País.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 361,
+            "start": 227893,
+            "end": 227948,
+            "text": "Ministra, eu sou batizado, crismado e casado na igreja.",
+            "score": 0.3802
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a desigualdade social como critério central para a análise das políticas de envelhecimento, argumentando que \"subir a idade significa aprofundar as desigualdades do Brasil\" e que grupos como a população negra, LGBTQIA+ e pobre envelhecem precocemente e sofrem violências ao longo da vida.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 0,
+            "start": 4640,
+            "end": 4702,
+            "text": "Subir a idade significa aprofundar as desigualdades do Brasil.",
+            "score": 0.4622
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em dados demográficos e de mortalidade para justificar a urgência das políticas, citando o IBGE (aumento de 6% para 15% de idosos entre 1980 e a atualidade, projetando 25% em 2040) e a pesquisadora Ana Amélia Camarano (idosos não negros morrem 6,4 anos mais tarde que os negros; mulheres negras morrem 4,9 anos mais cedo que as não negras).",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 0,
+            "start": 4945,
+            "end": 5059,
+            "text": "Segundo a pesquisadora, com base nos dados de 2021, idosos não negros morrem 6,4 anos mais tarde do que os negros.",
+            "score": 0.4503
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a decisão política deve ser tomada com \"emoção\" e \"coração\", além da razão, para ser mais humana e piedosa, citando o Papa Francisco e a experiência do TRE-PR como exemplos de que a emoção reduz erros e aumenta a participação social.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 21,
+            "start": 90728,
+            "end": 90810,
+            "text": "Porque quem está sentado na cadeira de tomada de decisões é alguém que tem emoção.",
+            "score": 0.2052
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a aprovação da Convenção Interamericana impacta as negociações econômicas do País e a imagem do Brasil, vinculando a defesa de direitos humanos à responsabilidade em assuntos de cooperação internacional.",
+          "passage": {
+            "hearing_id": 41,
+            "turn": 2,
+            "start": 15161,
+            "end": 15352,
+            "text": "Veja que a articulação política e todos os objetivos que nós temos passam também pela responsabilidade das ações que nós temos em relação a assuntos que tratam de cooperação e de compromisso.",
+            "score": 0.2104
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Defesa dos Direitos da Pessoa Idosa da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 11,
+            "start": 44212,
+            "end": 44294,
+            "text": "Está aqui o Secretário Nacional de Promoção e Defesa dos Direitos da Pessoa Idosa.",
+            "score": 0.3956
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado ao Governo atual, elogiando a Ministra Nísia e o Ministério da Saúde, e declarando que o apoio à aprovação da Convenção é um princípio defendido pelo Governo que venceu a eleição.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 12,
+            "start": 64278,
+            "end": 64425,
+            "text": "E talvez o mês de outubro seja um dos mais simbólicos, porque é algo fundamental, é um princípio defendido pelo nosso Governo que venceu a eleição.",
+            "score": 0.36
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita articulações com o Deputado Arthur Lira (Presidente da Casa), a Associação dos Magistrados do Brasil (AMB) e o Secretário Nacional dos Direitos da Pessoa Idosa, Alexandre da Silva, como parceiros na pauta.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 6,
+            "start": 52112,
+            "end": 52220,
+            "text": "Muito obrigado, Alexandre da Silva, nosso Secretário Nacional dos Direitos da Pessoa Idosa, pela explanação.",
+            "score": 0.3896
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciono a presença e o apoio do Deputado Zeca Dirceu, Líder da Federação Brasil da Esperança, e da Deputada Flávia Morais, como aliados na Comissão.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 10,
+            "start": 62385,
+            "end": 62563,
+            "text": "Antes, eu quero agradecer a presença do nosso Presidente e Líder da bancada da Federação Brasil da Esperança, o Deputado Zeca Dirceu, colega do Paraná, a quem já passo a palavra.",
+            "score": 0.4846
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emotiva e religiosa, invocando \"bênçãos de Deus\", \"amor\", \"dignidade\" e \"esperança\" para conectar-se com o público e justificar suas posições.",
+          "passage": {
+            "hearing_id": 41,
+            "turn": 0,
+            "start": 49,
+            "end": 176,
+            "text": "Invocando as bênçãos de Deus, declaro aberta a reunião de audiência pública da Comissão de Defesa dos Direitos da Pessoa Idosa.",
+            "score": 0.248
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos concretos e locais de sucesso, como o programa \"Cidade Amiga do Idoso\" em Manoel Ribas (PR) e o projeto do TRE-PR, para demonstrar que soluções práticas existem e devem ser replicadas.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 11,
+            "start": 43346,
+            "end": 43639,
+            "text": "Cito o exemplo de dedicação da Mirian, o exemplo aqui dos nossos palestrantes, o exemplo que o Município de Manoel Ribas dará na próxima sexta-feira, quando lançará o programa Cidade Amiga do Idoso, através do trabalho do Vereador Jean, que é um enfermeiro muito dedicado ao tema, nosso amigo.",
+            "score": 0.221
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta o \"Governo anterior\" (negacionista, ideológico) com o \"Governo atual\" (reconstrutor, prático) para legitimar suas críticas e propostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa dados estatísticos específicos (IBGE, IPEA) para embasar argumentos sobre a urgência demográfica e as desigualdades raciais e de gênero no envelhecimento.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Trata os convidados com deferência e elogio, chamando-os de \"ilustres\", \"queridos\" e \"honra\", e utiliza a audiência como ferramenta de formação de lideranças e articulação política.",
+          "passage": {
+            "hearing_id": 41,
+            "turn": 0,
+            "start": 470,
+            "end": 549,
+            "text": "Agradeço muito a presença e o aceite do convite dos nossos ilustres convidados.",
+            "score": 0.1888
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 41,
+      "split": "train",
+      "article_date": "2023-06-28",
+      "title": "Debatedores pedem aprovação de acordo sobre proteção dos direitos de pessoas idosas",
+      "assunto": "Aprovação da Convenção Interamericana sobre a Proteção dos Direitos Humanos dos Idosos",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 52,
+      "split": "train",
+      "article_date": "2023-05-18",
+      "title": "Educação, legislação e convivência entre as gerações podem diminuir preconceito contra idosos",
+      "assunto": "Discussão sobre o preconceito contra idosos e medidas para combatê-lo",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 155,
+      "split": "train",
+      "article_date": "2023-10-05",
+      "title": "Nos 20 anos do Estatuto do Idoso, especialistas pedem consolidação de políticas públicas",
+      "assunto": "Consolidação de políticas públicas para idosos no contexto dos 20 anos do Estatuto do Idoso",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-41-1-0",
+      "hearing_id": 41,
+      "n": 3,
+      "article_name": "Aliel Machado",
+      "proposition": "Considera constrangedor que o projeto ainda não tenha sido aprovado: \"Nós estamos agora em um processo de articulação para a aprovação dessa que é uma necessidade para o nosso país, e nos constrange ter isso na pauta há tanto tempo e ainda não termos conseguido. Já me reuni com o presidente desta Casa, que se comprometeu em nos ajudar a pautar a matéria.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acredito que a reunião desta audiência pública ficará registrada na história, visto que estamos agora num processo de articulação para aprovação desta que é uma necessidade para o nosso País. Constrange-nos, há tanto tempo, ter isso na pauta, para aprovação, e ainda não termos conseguido.",
+        "turn": 0,
+        "start": 551,
+        "end": 840
+      },
+      "verifier": {
+        "probability": 0.6546661891763139,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-155-0-0",
+      "hearing_id": 155,
+      "n": 1,
+      "article_name": "Aliel Machado",
+      "proposition": "Lamentou que o Estatuto do Idoso ainda seja pouco conhecido e tenha determinações legais desobedecidas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Brasil avançou consideravelmente na proteção das pessoas mais velhas, mas há, ainda, parte de determinações legais que não é obedecida. Outro desafio observado é o pouco conhecimento da sociedade acerca do Estatuto, o que prejudica também a sua execução.",
+        "turn": 0,
+        "start": 1477,
+        "end": 1733
+      },
+      "verifier": {
+        "probability": 0.5874063453423684,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-155-0-1",
+      "hearing_id": 155,
+      "n": 2,
+      "article_name": "Aliel Machado",
+      "proposition": "Lembrou que o Estatudo do Idoso foi criado em um momento de transição demográfica e enumerou algumas conquistas que vão além das vagas e filas preferenciais, prioridade no julgamento dos processos judiciais e rapidez na restituição do Imposto de Renda: \"Ele busca garantir a dignidade dos idosos em áreas como saúde, educação, cultura, lazer, trabalho, previdência social e habitação. Por exemplo: o estatuto dá o direito a acompanhante em tempo integral nas internações hospitalares. Também prevê proteção aos aumentos abusivos nos planos de saúde, vantagens nos concursos públicos em caso de empate com mais jovens e quota de 3% nas casas ou apartamentos à venda em programas habitacionais financiados com verba pública.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Ele busca garantir a dignidade dos idosos em áreas como saúde, educação, cultura, lazer, trabalho, previdência social e habitação. O Estatuto dá às pessoas idosas, por exemplo, rapidez na restituição do Imposto de Renda, prioridade nos julgamentos em processos judiciaise direito a acompanhante em tempo integral nas internações hospitalares. Também prevê proteção contra aumentos abusivos nos planos de saúde, vantagem nos concursos públicos em casos de empate com candidatos […]",
+        "turn": 0,
+        "start": 3189,
+        "end": 3783
+      },
+      "verifier": {
+        "probability": 0.4840112721499155,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

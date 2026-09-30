@@ -1,0 +1,64 @@
+[exploration]
+name = "e3x_v2"
+date = "2026-09-25"
+declared = "Declared on 2026-09-25, after e3x_v1 and before any e3x_v2 number was computed. e3x_v2 repeats every candidate of e3x_v1 (same inputs, folds, pools, panels and selection rule) and adds three cross-model learned candidates in cross_models, requested by the user after the e3x_v1 results: the English Laya checkpoint (laya_en_en, then its m2m100 twin) with the same xnli_mdeberta and cosine_serafim features as the e3x_v1 cross model, and laya_en_en together with laya_multi_pt and those features. Disclosure: before this declaration, the train cross-validation results of e3x_v1 (laya_en_en:learned 0.827, the laya_multi_pt cross model 0.851) and the final validation results of nli_verifier_v2 (laya_en_en.max.panel had the highest validation ROC AUC, 0.806) had been seen. The new candidates are therefore chosen with knowledge of validation, and a validation confirmation of an e3x_v2 candidate is not independent of validation; the test split stays unread and is the independent check. e3x_v1 and its selection are kept unchanged; only one of e3x_v1 and e3x_v2 is confirmed on validation"
+verifier_config = "configs/nli_verifier.toml"
+fit_split = "train"
+confirm_split = "validation"
+split_rule = "explore reads only the train score files (<scorer>_train.jsonl) and the train rows of the benchmark; no validation or test file is opened by it. confirm reads validation once, for the one selected candidate and the references, and refuses to run when its output already exists"
+
+[exploration.inputs]
+decision_scorers = { laya_multi_pt = "nli_verifier_v2", laya_multi_en = "nli_verifier_v2", laya_en_en = "nli_verifier_v2", laya_multi_en_m2m100 = "nli_verifier_v2", laya_en_en_m2m100 = "nli_verifier_v2" }
+nli_scorers = { xnli_mdeberta = "nli_verifier_v1", assin2_mdeberta = "nli_verifier_v1", xnli_mdeberta_en = "nli_verifier_v2", xnli_mdeberta_en_m2m100 = "nli_verifier_v2" }
+cosine_scorers = { cosine_serafim = "nli_verifier_v1" }
+missing_rule = "a listed scorer without a train score file is skipped and named in the report"
+
+[exploration.candidates]
+decision_signals = ["p1_nli", "p2_nli_reversed", "p3_inferable", "p4_supports", "p5_position", "p6_position_reversed", "p7_coverage", "p8_similarity", "nli_order_mean", "position_order_mean"]
+order_pairs = { nli_order_mean = ["p1_nli", "p2_nli_reversed"], position_order_mean = ["p5_position", "p6_position_reversed"] }
+panel_components = ["nli_order_mean", "p3_inferable", "p4_supports", "position_order_mean", "p7_coverage", "p8_similarity"]
+panel_min_size = 2
+nli_signals = ["entailment"]
+cosine_signals = ["cosine", "sentence_max"]
+pools = ["max", "mean", "top2_mean", "noisy_or", "concatenated"]
+pool_rule = "each signal is read per non-empty chunk and pooled into one opinion score: max, mean, mean of the two largest (the only one when there is one chunk), noisy_or = 1 - prod(1 - s), or read from the concatenated premise when the scorer has one; an opinion with no premise scores 0.0 (-1.0 for the cosine scorer), as in the score files. A panel is the mean of its components per chunk, then pooled the same way (concatenated: the mean of the concatenated signals). The recomputed max pool must equal the stored max.<signal> and max.panel of the score files (tolerance 1e-9), which checks the reading"
+learned_rule = "L2 logistic regression (lbfgs, max_iter 2000, standardized inputs, random_state 42) on the max, mean and concatenated pools of the eight battery signals of one decision scorer (24 features); cross_model adds the max, mean and concatenated entailment of xnli_mdeberta and the max cosine and sentence_max of cosine_serafim to laya_multi_pt. C is chosen from c_grid by an inner stratified group 3-fold split by hearing, inside each outer training part, by mean inner ROC AUC"
+c_grid = [0.01, 0.1, 1.0, 10.0]
+inner_splits = 3
+cross_model = { base = "laya_multi_pt", extra = ["xnli_mdeberta:entailment:max", "xnli_mdeberta:entailment:mean", "xnli_mdeberta:entailment:concatenated", "cosine_serafim:cosine:max", "cosine_serafim:sentence_max:max"] }
+cross_models = [
+  { name = "cross_model", bases = ["laya_en_en"], extra = ["xnli_mdeberta:entailment:max", "xnli_mdeberta:entailment:mean", "xnli_mdeberta:entailment:concatenated", "cosine_serafim:cosine:max", "cosine_serafim:sentence_max:max"] },
+  { name = "cross_model", bases = ["laya_en_en_m2m100"], extra = ["xnli_mdeberta:entailment:max", "xnli_mdeberta:entailment:mean", "xnli_mdeberta:entailment:concatenated", "cosine_serafim:cosine:max", "cosine_serafim:sentence_max:max"] },
+  { name = "cross_model_with_pt", bases = ["laya_en_en", "laya_multi_pt"], extra = ["xnli_mdeberta:entailment:max", "xnli_mdeberta:entailment:mean", "xnli_mdeberta:entailment:concatenated", "cosine_serafim:cosine:max", "cosine_serafim:sentence_max:max"] },
+]
+
+[exploration.cv]
+n_splits = 5
+repeats = 5
+seed = 20260925
+rule = "sklearn StratifiedGroupKFold(n_splits, shuffle=True, random_state=seed + repeat) over the train opinions, groups = hearing_id, stratified by label_inferable; every candidate is scored on the same 25 folds. ROC AUC is computed per held-out fold; Cohen kappa per held-out fold uses the max_f1_not_inferable threshold fitted on the other folds"
+
+[exploration.selection]
+metric = "roc_auc"
+rule = "best = the candidate with the highest mean held-out ROC AUC over the 25 folds; se = standard deviation of its 25 fold values / sqrt(n_splits). Eligible = every candidate whose mean is at least best - se. The selected candidate is the simplest eligible one: first by kind (signal, then panel, then learned), then by number of panel components, then by mean ROC AUC. The mean CV ROC AUC of the selected candidate is biased upward by the selection among all candidates and is not reported as its expected performance"
+references = ["laya_multi_pt:panel:max", "xnli_mdeberta:entailment:max"]
+
+[exploration.confirmation]
+references = ["laya_multi_pt:panel:max", "xnli_mdeberta:entailment:max"]
+bootstrap_samples = 1000
+seed = 42
+threshold_rule = "max_f1_not_inferable, fitted on the whole train split; a learned candidate is refit on the whole train split with C chosen by the inner rule on the whole train split"
+cv_floor = 0.80
+scope_amendment = "Recorded on 2026-09-25, after the e3x_v2 explore run and before any validation number of an exploration candidate was computed. At the user's request, confirm evaluates on validation the selected candidate and every e3x_v2 candidate whose mean CV ROC AUC on train is at least cv_floor (196 candidates), instead of the selected candidate alone. Consequence: once several candidates are read on validation, choosing among them by their validation result makes validation a selection set; the validation result of the candidate so chosen is biased upward and is not reported as its expected performance. The selected candidate of the train rule is reported first and apart. Every candidate is compared with both references; Holm runs over all ROC AUC comparisons together. The test split stays unread; the one candidate carried to it is chosen and dated before test is read"
+comparison_rule = "paired hearing bootstrap on validation (the same replicates for both sides), delta = selected minus reference for ROC AUC and Cohen kappa; two-sided p-value 2 x the smaller share at or beyond zero with the (k + 1) / (B + 1) correction, capped at 1; Holm over the ROC AUC comparisons against the two references"
+
+[exploration.final_test]
+date = "2026-09-25"
+declared = "Declared on 2026-09-25, after the e3x_v2 validation confirmation and before any test opinion was translated or scored. At the user's request, the five candidates with the highest validation ROC AUC in e3x_v2/confirmation.csv are evaluated once on the test split, next to the two references. Every model is fitted exactly as for the confirmation: learned candidates on the whole train split with C chosen by the inner rule on train, thresholds max_f1_not_inferable on train; validation is not added to the fit, so test measures the same fitted systems that validation measured. Primary test result: the candidate selected by the train rule, laya_en_en:learned_cross_model_with_pt, fixed before validation was read; the other four are reported with it, and the best of the five on test is not reported as the expected performance of a chosen system. The test result chooses nothing: no candidate, parameter or rule of any experiment is changed after it"
+candidates = ["laya_en_en:learned_cross_model_with_pt", "laya_en_en:learned_cross_model", "laya_en_en_m2m100:learned_cross_model", "laya_multi_pt:learned_cross_model", "laya_en_en:learned"]
+candidates_source = "the five rows with role selected or above_cv_floor and the highest roc_auc in artifacts/experiments/nli_verifier_exploration/e3x_v2/confirmation.csv; final-test refuses a list that differs from that file"
+primary = "laya_en_en:learned_cross_model_with_pt"
+references = ["laya_multi_pt:panel:max", "xnli_mdeberta:entailment:max"]
+score_run = "final_test_e3x"
+score_rule = "the test opinions are translated with both translation models (utils.translation translate --final-test) and scored by laya_en_en, laya_en_en_m2m100, laya_multi_pt, xnli_mdeberta and cosine_serafim with score --final-test --run-name final_test_e3x, so the nli_verifier_v1 and nli_verifier_v2 score files are not touched; the run also rewrites train and validation from the answer caches, and final-test refuses to run unless those train files have the same scores as the files explore read"
+comparison_rule = "paired hearing bootstrap on test (1000 replicates, seed 42), delta = candidate minus reference for ROC AUC and Cohen kappa; p-value as in the confirmation; Holm over the ten ROC AUC comparisons (five candidates x two references)"

@@ -1,0 +1,339 @@
+{
+  "actor": {
+    "slug": "cleo-bohn-de-lima",
+    "name": "CLÉO BOHN DE LIMA",
+    "display_name": "CLÉO BOHN DE LIMA",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:43:20+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      94,
+      160
+    ],
+    "input_tokens": 3964,
+    "output_tokens": 1084,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 21,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a inclusão escolar como pré-requisito fundamental para a inclusão em outros espaços sociais, especialmente no mercado de trabalho e na empregabilidade, argumentando que a escola é o caminho para a conquista desses espaços.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 29,
+            "start": 83430,
+            "end": 83498,
+            "text": "A inclusão em todos os demais espaços depende da inclusão na escola.",
+            "score": 0.3199
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Educação (MEC) e do Governo Federal a implementação de tecnologias assistivas em todas as escolas, citando o compromisso assumido pelo MEC e a necessidade de recursos orçamentários para viabilizar avanços na educação inclusiva.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 29,
+            "start": 84996,
+            "end": 85261,
+            "text": "Esperamos que — há o compromisso do MEC — sejam implementadas em todas as escolas as tecnologias assistivas, uma ferramenta importantíssima, e tudo o mais que foi relacionado pelo Pedro Lucas, que falou como profissional, além de outros que fizeram suas exposições.",
+            "score": 0.2507
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige o fortalecimento do Atendimento Educacional Especializado (AEE), com a criação de salas de atendimento especializado e a capacitação dos professores, apontando a falta de recursos financeiros como a principal barreira para o avanço das políticas públicas.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 66265,
+            "end": 66412,
+            "text": "Precisamos também do AEE — Atendimento Educacional Especializado fortalecido, com salas de atendimento especializado e capacitação dos professores.",
+            "score": 0.6171
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a falta de empatia e o tratamento inadequado de pessoas com deficiência nas escolas, relatando a observação de alunos autistas no chão em sala de aula e a justificativa de \"intervenção possível\" como insuficiente, exigindo respeito e solidariedade.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 66567,
+            "end": 66631,
+            "text": "Está sendo feita a intervenção que é possível\".A empatia é zero.",
+            "score": 0.2326
+          },
+          "udv": null
+        },
+        {
+          "text": "Alerta para a falta de estrutura de acolhimento e diagnóstico para pessoas com autismo associado à síndrome de Down, citando a dificuldade do CRIS Down em Brasília para encaminhar adolescentes e jovens com diagnóstico tardio, e a ausência de espaços específicos, com as pessoas distribuídas nos CAPS.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 64298,
+            "end": 64340,
+            "text": "Essas pessoas estão distribuídas nos CAPS.",
+            "score": 0.3444
+          },
+          "udv": null
+        },
+        {
+          "text": "Chama a atenção para o envelhecimento das pessoas com deficiência e de seus cuidadores, apontando que a expectativa de vida de pessoas com síndrome de Down subiu de 50 para 68 ou 70 anos, e questiona onde essas pessoas e seus cuidadores idosos estarão na velhice, cobrando que o Plano Viver sem Limite 2 contemple essa questão.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 65337,
+            "end": 65472,
+            "text": "O Governo discute o Plano Viver sem Limite 2, que esperamos que contemple a questão do envelhecimento das pessoas com síndrome de Down.",
+            "score": 0.4562
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção e o cumprimento da Lei Brasileira de Inclusão e da Convenção sobre os Direitos das Pessoas com Deficiência, afirmando que o papel dos movimentos é exigir o cumprimento dessas normas e não parar de falar sobre a causa.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 67130,
+            "end": 67175,
+            "text": "Nós construímos a Lei Brasileira de Inclusão.",
+            "score": 0.2681
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiia a instalação da comissão nacional pelo MEC para rever a Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva, na qual a Federação Brasileira das Associações de Síndrome de Down possui assento, e espera avanços em políticas públicas e recursos.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 65782,
+            "end": 65951,
+            "text": "Estamos com muita esperança, porque o MEC instalou ontem a comissão nacional que vai rever a Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva.",
+            "score": 0.5266
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência pessoal como mãe de uma pessoa com síndrome de Down (Giovana, 14 anos) como fundamento para suas posições sobre inclusão escolar e direitos, relatando a luta diária e a crença na educação inclusiva para as gerações futuras, mesmo quando os resultados não são imediatos.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 29,
+            "start": 82986,
+            "end": 83037,
+            "text": "Eu tenho uma filha de 14 anos com síndrome de Down.",
+            "score": 0.2278
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio de que pessoas com deficiência já nascem cidadãs de direitos, baseando-se na construção histórica de movimentos anteriores, e usa isso como critério para defender que todos têm condição de estar na escola comum.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 29,
+            "start": 85845,
+            "end": 85907,
+            "text": "Hoje as pessoas com deficiência já nascem cidadãs de direitos.",
+            "score": 0.417
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a inclusão em todos os espaços depende da inclusão na escola, estabelecendo a educação como critério central para a cidadania e a autonomia das pessoas com deficiência.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 29,
+            "start": 83430,
+            "end": 83498,
+            "text": "A inclusão em todos os demais espaços depende da inclusão na escola.",
+            "score": 0.4862
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa o envelhecimento das pessoas com deficiência e de seus cuidadores como critério para cobrar políticas públicas de longo prazo, argumentando que a falta de inclusão escolar e no mercado de trabalho hoje gera problemas de acolhimento na velhice.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 64957,
+            "end": 65089,
+            "text": "Onde é que essas pessoas vão estar na velhice, na terceira idade, caso não consigam estar, hoje, na escola e no mercado de trabalho?",
+            "score": 0.254
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Federação Brasileira das Associações de Síndrome de Down, organização que representa nos espaços públicos e conselhos as deficiências de síndrome de Down, autismo, deficiência intelectual e outras.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 62671,
+            "end": 62955,
+            "text": "Temos como associada aqui no Distrito Federal a DF Down e um trabalho conjunto com os movimentos da síndrome de Down, do autismo, da deficiência intelectual e de todas as deficiências, porque a federação acaba representando nos espaços públicos e nos conselhos as demais deficiências.",
+            "score": 0.4969
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a federação tem como associada no Distrito Federal a DF Down e trabalha em conjunto com os movimentos de síndrome de Down, autismo, deficiência intelectual e todas as deficiências.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 62671,
+            "end": 62955,
+            "text": "Temos como associada aqui no Distrito Federal a DF Down e um trabalho conjunto com os movimentos da síndrome de Down, do autismo, da deficiência intelectual e de todas as deficiências, porque a federação acaba representando nos espaços públicos e nos conselhos as demais deficiências.",
+            "score": 0.7079
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara que a federação possui assento na comissão nacional instalada pelo MEC para rever a Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 65782,
+            "end": 65951,
+            "text": "Estamos com muita esperança, porque o MEC instalou ontem a comissão nacional que vai rever a Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva.",
+            "score": 0.6362
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a existência de autodefensores espalhados pelo Brasil, oriundos da escola comum, representando a federação, como o caso de Vinicius.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 29,
+            "start": 84379,
+            "end": 84490,
+            "text": "Nós temos autodefensores espalhados pelo Brasil todo.A grande e maciça maioria deles é oriunda da escola comum.",
+            "score": 0.3885
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Combina dados estatísticos (expectativa de vida, percentual de autismo associado à síndrome de Down) com relatos pessoais e observações diretas (filha na escola, autista no chão) para sustentar suas posições.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 66462,
+            "end": 66521,
+            "text": "Na escola da minha filha, eu vejo autista no chão até hoje.",
+            "score": 0.304
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem direta e emocional, apelando para a empatia e o respeito, e critica a falta de empatia nas escolas com exemplos concretos.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 66632,
+            "end": 66675,
+            "text": "Muitas vezes, trata-se de falta de empatia.",
+            "score": 0.2503
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita nomes de parlamentares, técnicos do MEC e representantes de organizações para contextualizar suas falas e demonstrar alinhamento ou cobrança, como Deputada Erika Kokay, Deputado Glauber, Prof. Décio, Pedro Lucas e Profa. Marinalva.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 62146,
+            "end": 62293,
+            "text": "Primeiramente, eu queria parabenizar a Deputada Erika Kokay, que sempre está atenta a esta Comissão, também a nossa causa e às datas comemorativas.",
+            "score": 0.1805
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza frases de efeito e slogans do movimento, como \"já entramos na escola e de lá não vamos sair\" e \"Todos, em caixa-alta, têm condição de estar na escola comum\", para reforçar suas demandas.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 29,
+            "start": 85944,
+            "end": 86031,
+            "text": "Todos têm direitos, sim, e Todos, em caixa-alta, têm condição de estar na escola comum.",
+            "score": 0.5036
+          },
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom de cobrança firme, mas colaborativo, reconhecendo os avanços (Lei Brasileira de Inclusão, comissão do MEC) enquanto insiste na necessidade de recursos e implementação efetiva.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 30,
+            "start": 67130,
+            "end": 67175,
+            "text": "Nós construímos a Lei Brasileira de Inclusão.",
+            "score": 0.2716
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 94,
+      "split": "train",
+      "article_date": "2023-06-28",
+      "title": "Representantes de pessoas autistas cobram oportunidades e respeito às singularidades",
+      "assunto": "Garantia de oportunidades e respeito às singularidades das pessoas autistas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 160,
+      "split": "train",
+      "article_date": "2023-10-02",
+      "title": "Especialistas apontam falta de recursos para a educação inclusiva",
+      "assunto": "Falta de recursos para a educação inclusiva",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

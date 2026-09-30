@@ -1,0 +1,40 @@
+[input]
+profiles_path = "mlx_alternative/runs/gemma4_31b/actor_profiles/actor_profiles_train.jsonl"
+train_speeches_path = "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl"
+speeches_path = "artifacts/cache/hearing_actors/actors_multi_hearing.jsonl"
+udv_path = "artifacts/udv/udv_v1.jsonl"
+manifest_path = "artifacts/splits/temporal_v1.json"
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+lds_sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+
+[output]
+dir = "mlx_alternative/runs/gemma4_31b/actor_simulation"
+
+[prompts]
+dir = "prompts/actor_simulation"
+
+[model]
+name = "lmstudio-community/gemma-4-31B-it-MLX-8bit"
+device_map = "auto"
+evidence_max_tokens = 8
+speech_max_tokens = 400
+justification_max_tokens = 1500
+
+[roles]
+parties = ["Cidadania", "DEM", "MDB", "Novo", "Patriota", "PCdoB", "PDT", "PL", "Pode", "PODE", "Podemos", "PP", "PRD", "Pros", "PSB", "PSD", "PSDB", "Psol", "PT", "PV", "Republicanos", "Solidariedade", "União"]
+parties_reason = "Party names found as '(PARTY-UF)' in the cargo of deputies in udv_v1, plus Pros, which appears only without UF. A parenthesis holding one of them, with or without '-UF', is removed from the role so the party never reaches the prompt."
+
+[evaluation]
+selection_split = "validation"
+eval_split = "test"
+k_grid = [3, 5, 10]
+guidance_grid = [1.0, 1.5, 2.0, 3.0]
+bootstrap_samples = 1000
+seed = 42
+
+[generation]
+requests_split = "test"
+examples = 2
+example_min_words = 60
+example_max_words = 150
+seed = 42

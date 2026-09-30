@@ -1,0 +1,43 @@
+[dataset]
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+lds_sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+nli_path = "dataset/PublicHearingBR_NLI.jsonl"
+nli_sha256 = "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+
+[splits]
+manifest_path = "artifacts/splits/temporal_v1.json"
+
+[labels]
+manual_field = "verificacao_manual"
+judge_field = "alucinacao"
+true_means = "not_inferable"
+polarity_source = "arXiv 2410.07495v2, section 4.2.2 (3 734 valid opinions, 504 possible hallucinations) and Appendix C, Tables 5 to 8"
+paper_manual_counts = { inferable = 3734, not_inferable = 504 }
+
+[labels.paper_confusion]
+cell_order = ["valid_as_valid", "valid_as_hallucination", "hallucination_as_valid", "hallucination_as_hallucination"]
+"prompt_1_gpt-4o-mini-2024-07-18" = [3673, 61, 181, 323]
+"prompt_2_gpt-4o-mini-2024-07-18" = [3274, 460, 89, 415]
+"prompt_3_gpt-4o-mini-2024-07-18" = [2405, 1329, 39, 465]
+"prompt_1_gpt-4o-2024-08-06" = [3561, 173, 165, 339]
+"prompt_2_gpt-4o-2024-08-06" = [3276, 458, 90, 414]
+"prompt_3_gpt-4o-2024-08-06" = [2922, 812, 46, 458]
+"prompt_1_deepseek-chat" = [3666, 68, 241, 263]
+"prompt_2_deepseek-chat" = [3585, 149, 167, 337]
+"prompt_3_deepseek-chat" = [3300, 434, 95, 409]
+"prompt_1_sabia-3.1-2025-05-08" = [3677, 57, 255, 249]
+"prompt_2_sabia-3.1-2025-05-08" = [3647, 87, 221, 283]
+"prompt_3_sabia-3.1-2025-05-08" = [3632, 102, 208, 296]
+
+[evaluation.scopes]
+train_validation = ["train", "validation"]
+test = ["test"]
+
+[output]
+include_chunk_text = false
+top_unreachable_speakers = 15
+
+[run]
+benchmark_version = "nli_v1"
+seed = 42
+output_dir = "artifacts/benchmarks"

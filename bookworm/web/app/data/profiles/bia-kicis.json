@@ -1,0 +1,548 @@
+{
+  "actor": {
+    "slug": "bia-kicis",
+    "name": "Bia Kicis",
+    "display_name": "Bia Kicis",
+    "role": "Deputada (PL-DF)",
+    "article_names": [
+      "Bia Kicis"
+    ],
+    "party_uf": [
+      "PL - DF"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:13:44+00:00",
+    "n_statements": 63,
+    "n_hearings": 6,
+    "hearing_ids": [
+      2,
+      15,
+      75,
+      145,
+      199,
+      201
+    ],
+    "input_tokens": 19275,
+    "output_tokens": 1099,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 1,
+    "passage_only": 17,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Oposição à obrigatoriedade da vacinação contra a COVID-19 em crianças de 6 meses a 5 anos, argumentando que o Brasil seria pioneiro em impor tal medida enquanto o resto do mundo apenas recomenda, e defendendo que o Estado não utilize \"mão de ferro\" para obrigar pais ou cortar benefícios sociais (como o Bolsa Família) de famílias que se recusem a vacinar.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 123,
+            "start": 155853,
+            "end": 156055,
+            "text": "Mas não vamos trazer a mão do Estado pesada, a mão de ferro do Estado para tirar Bolsa Família de criança pobre, que vai ser obrigada a se vacinar, porque há pais que não vão querer vacinar assim mesmo.",
+            "score": 0.2908
+          },
+          "udv": null
+        },
+        {
+          "text": "Defesa do direito constitucional dos pais de tutelar as crianças, rejeitando a ideia de que as crianças pertencem ao Estado, e exigindo dados e estudos adicionais antes da imposição de vacinas, citando o aumento de mortes súbitas e problemas cardíacos em jovens no Distrito Federal.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 0,
+            "start": 4042,
+            "end": 4122,
+            "text": "Perdoem-me aqueles que acham que as crianças pertencem ao Estado e não aos pais.",
+            "score": 0.2551
+          },
+          "udv": null
+        },
+        {
+          "text": "Crítica à atuação do Supremo Tribunal Federal (STF) e do Ministro Alexandre de Moraes, acusando-os de violar garantias fundamentais, impor regime de detenção inadequado aos presos dos atos de 8 de janeiro e impedir o acesso de advogados e parlamentares aos autos e aos detidos, o que classifica como \"terrorismo contra os patriotas\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 144,
+            "start": 179784,
+            "end": 180101,
+            "text": "E eu posso dizer que os meus advogados não conseguem acesso aos autos, assim como a maioria dos advogados em todos esses inquéritos ilegais e inconstitucionais.Depois de muito acionarem a OAB, a instituição entrou com um pedido perante o Supremo Tribunal Federal, dizendo que os advogados não tinham acesso aos autos.",
+            "score": 0.2383
+          },
+          "udv": null
+        },
+        {
+          "text": "Proposta de redução do poder do STF, retirando-lhe a competência originária processual penal e o foro privilegiado, para que a Corte atue apenas como Corte Constitucional e respeite o devido processo legal.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 107,
+            "start": 113633,
+            "end": 113753,
+            "text": "Por exemplo, nós temos projetos para reduzir o poder do Supremo Tribunal Federal para que seja uma Corte Constitucional.",
+            "score": 0.2482
+          },
+          "udv": null
+        },
+        {
+          "text": "Questionamento à Ministra da Saúde sobre a compra de insulina de laboratório sem registro na ANVISA e a preterição da vacina japonesa contra a dengue (experimentada há mais de 10 anos) em favor da vacina nacional, ainda em desenvolvimento, enquanto há picos de mortalidade por dengue.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 0,
+            "start": 1584,
+            "end": 2514,
+            "text": "5) Preterição da vacina japonesa contra a dengue, autorizada pela ANVISA, em favor de vacina nacional, ainda em produção — Requerimento nº 264, de minha autoria; 6) Processo de incorporação ao SUS de vacina já existente contra a dengue e o desenvolvimento da vacina nacional para amplo uso na população — Requerimento nº 265, do Deputado Evair Vieira de Melo; 7) Aquisição emergencial internacional, junto à empresa GlobalX Technology Limited, de 1,3 milhão de unidades de […]",
+            "score": 0.3262
+          },
+          "udv": null
+        },
+        {
+          "text": "Defesa do programa QualiSUS Cardio, criticando sua revogação pelo Ministério da Saúde por considerar um retrocesso voltar à tabela antiga do SUS sem levar em conta a qualidade do serviço, citando a economia de 280 milhões de reais obtida com o realinhamento de preços de órteses, próteses e materiais especiais (OPME).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 321,
+            "start": 211679,
+            "end": 211848,
+            "text": "Um dos pilares desse programa foi o realinhamento dos preços das órteses, próteses e materiais especiais (OPME), o que resultou numa economia gigantesca, de 280 milhões.",
+            "score": 0.5129
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobrança ao Ministério de Minas e Energia sobre as causas do apagão elétrico, rejeitando a tese de culpa da desestatização da ELETROBRAS e pedindo esclarecimentos sobre falhas estruturais e a modernização do setor via nova Lei Geral de Energia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 1,
+            "start": 8648,
+            "end": 8762,
+            "text": "Temos a proposta da nova Lei Geral de Energia, que visa exatamente modernizar o setor, sempre com muita segurança.",
+            "score": 0.2879
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoio à Medida Provisória nº 1.116/22, que permite o uso do FGTS para financiar creches, valorizando a iniciativa de compartilhar tarefas domésticas entre os pais e o Selo Emprega + Mulher como ferramenta de transformação cultural e não coercitiva.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 18,
+            "start": 39045,
+            "end": 39347,
+            "text": "Essa medida provisória, na verdade, com o Selo Emprega +Mulher, assim como o Ministério da Mulher já o faz, fomenta trabalhar exatamente a sensibilização, a transformação cultural, para que as empresas percebam que esse selo atrai o olhar da sociedade, que deve ser um olhar de simpatia para a empresa.",
+            "score": 0.2848
+          },
+          "udv": {
+            "id": "udv-75-6-0",
+            "rule": "same_sentence",
+            "score": 0.2263
+          }
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valorização da liberdade individual e da família como núcleo primário, invocando o direito dos pais de decidir sobre a saúde dos filhos e rejeitando a tirania estatal sobre a vida privada.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 0,
+            "start": 3770,
+            "end": 3847,
+            "text": "Por isso, eu sou uma pessoa pró-ciência, pró-verdade, pró-vida e pró-família.",
+            "score": 0.1796
+          },
+          "udv": null
+        },
+        {
+          "text": "Ceticismo em relação à imutabilidade da ciência, defendendo que a ciência é feita de questionamento, teses e antíteses, e que rótulos como \"negacionista\" são anticientíficos e usados para censurar o debate legítimo.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 173,
+            "start": 91643,
+            "end": 91800,
+            "text": "Questionamento passou a ser anticiência, quando todo mundo sabe que a ciência é feita de questionamento, que a ciência é feita com base em teses e antíteses.",
+            "score": 0.441
+          },
+          "udv": null
+        },
+        {
+          "text": "Defesa das garantias constitucionais e do devido processo legal como pilares da democracia, argumentando que a violação dessas garantias contra um grupo político abre a porteira para a opressão contra todos os cidadãos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 107,
+            "start": 112842,
+            "end": 112969,
+            "text": "Aliás, nada permite, porque o que está sendo desrespeitado é o devido processo legal, as garantias processuais penais rasgadas.",
+            "score": 0.2597
+          },
+          "udv": null
+        },
+        {
+          "text": "Preferência por medidas de sensibilização e transformação cultural em vez de imposições coercitivas, aplicável tanto às políticas de trabalho feminino quanto à saúde pública.",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 18,
+            "start": 38810,
+            "end": 39019,
+            "text": "Eu acredito que é muito importante e muito mais salutar — e isso tem resultado muito mais longevo e fértil — trabalharmos na base, na transformação da cultura, ao invés de trabalharmos com medidas coercitivas.",
+            "score": 0.1833
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se advogada, ex-Procuradora do Distrito Federal por 24 anos, inscrita na OAB sob o número 5758.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 144,
+            "start": 179475,
+            "end": 179567,
+            "text": "Rafael, além de Deputada, eu sou advogada e fui procuradora do Distrito Federal por 24 anos.",
+            "score": 0.474
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como membro da base do Governo Bolsonaro e da Oposição ao governo atual, atuando como Presidente da Comissão de Fiscalização Financeira e Controle e ex-Presidente da Comissão de Constituição e Justiça (CCJ).",
+          "passage": {
+            "hearing_id": 75,
+            "turn": 22,
+            "start": 48774,
+            "end": 48875,
+            "text": "Essa é uma pauta importantíssima e fundamental para o Governo Bolsonaro, para toda a base do Governo.",
+            "score": 0.3342
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser a Deputada mais votada do Distrito Federal, com 214.733 votos, e proporcionalmente a mais votada do Brasil.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 121,
+            "start": 154295,
+            "end": 154393,
+            "text": "Eu fui a Deputada mais votada do DF disparadamente e, no Brasil, proporcionalmente, a mais votada.",
+            "score": 0.5477
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se pró-ciência, pró-verdade, pró-vida e pró-família, e afirma que seus filhos e até seu animal de estimação são vacinados, diferenciando-se do movimento \"antivax\".",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 0,
+            "start": 3770,
+            "end": 3847,
+            "text": "Por isso, eu sou uma pessoa pró-ciência, pró-verdade, pró-vida e pró-família.",
+            "score": 0.3681
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e casos concretos para sustentar críticas, como o número de votos recebidos, o valor da economia do QualiSUS Cardio e o aumento percentual de mortes súbitas no DF.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 121,
+            "start": 152673,
+            "end": 152756,
+            "text": "Então, se essa vacina pode inclusive levar ao aumento de mortes no mundo inteiro...",
+            "score": 0.1703
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e expressões de impacto, como \"boi de piranha\" para o papel do Brasil na vacinação infantil e \"fajutice\" para descrever audiências de custódia.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 107,
+            "start": 114350,
+            "end": 114608,
+            "text": "Mas nós estamos aqui todos os dias lutando, como também os seus representados, os seus advogados, para que os seus familiares possam ir para casa, porque essas audiências de custódia — e tive informações de juízes que participaram delas — foram uma fajutice.",
+            "score": 0.2016
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador com autoridades do Executivo e Judiciário, cobrando respostas diretas de Ministros e acusando o STF de ilegalidade, mas mantém postura protocolar e respeitosa com colegas parlamentares e convidados técnicos durante a condução das sessões.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita a própria trajetória profissional e eleitoral para legitimar suas falas, associando sua experiência como Procuradora e sua representatividade popular à defesa das prerrogativas e da liberdade.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 1,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Jornalistas acusam Alexandre de Moraes de censura ao exigir bloqueio de contas da rede social X",
+      "assunto": "Acusações de censura contra Alexandre de Moraes por exigir bloqueio de contas na rede social X",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 15,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 12,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 75,
+      "split": "train",
+      "article_date": "2022-07-07",
+      "title": "Debatedoras criticam medida provisória que prevê o uso do FGTS para financiar creches",
+      "assunto": "Críticas à Medida Provisória 1116/22 que prevê o uso do FGTS para financiar creches",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 18,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 17,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-15-2-0",
+      "hearing_id": 15,
+      "n": 10,
+      "article_name": "Bia Kicis",
+      "proposition": "Os parlamentares não são 'antivacinas'.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O mundo não está obrigando nem adultos nem crianças a tomar essa vacina. É preciso continuar estudando, sem desacreditar a imunidade natural que nós temos.",
+        "turn": 123,
+        "start": 156486,
+        "end": 156641
+      },
+      "verifier": {
+        "probability": 0.15471871259005576,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-15-2-1",
+      "hearing_id": 15,
+      "n": 11,
+      "article_name": "Bia Kicis",
+      "proposition": "A discussão não deve ser politizada: \"Existe uma elite globalista que quer, sim, forçar essa vacinação, inclusive em bebês, e o Brasil está sendo pioneiro nessa obrigação. No resto do mundo, até pode se recomendar, mas não se obriga. Vão começar pelo Brasil pra depois começar a obrigar nos outros lugares também?\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Existe uma elite globalista que quer, sim, forçar essa vacinação, inclusive em bebês, e o Brasil está sendo pioneiro nessa obrigação. No resto do mundo, até se pode recomendar, mas não se obriga. Vai começar pelo Brasil, para depois obrigarem nos outros lugares também?",
+        "turn": 121,
+        "start": 151818,
+        "end": 152087
+      },
+      "verifier": {
+        "probability": 0.6345089432604436,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-75-6-0",
+      "hearing_id": 75,
+      "n": 12,
+      "article_name": "Bia Kicis",
+      "proposition": "Defendeu a criação do selo: \"O que a MP fomenta com o selo é trabalhar exatamente na transformação cultural para que as empresas percebam que esse selo acaba atraindo o olhar de simpatia da sociedade para aquela empresa, e isso acaba afetando o lucro\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Essa medida provisória, na verdade, com o Selo Emprega +Mulher, assim como o Ministério da Mulher já o faz, fomenta trabalhar exatamente a sensibilização, a transformação cultural, para que as empresas percebam que esse selo atrai o olhar da sociedade, que deve ser um olhar de simpatia para a empresa. E isso acaba afetando até mesmo a venda do produto e o lucro da empresa.",
+        "turn": 18,
+        "start": 39045,
+        "end": 39420
+      },
+      "verifier": {
+        "probability": 0.9849231973079261,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-129-1-0",
+      "hearing_id": 129,
+      "n": 6,
+      "article_name": "Bia Kicis",
+      "proposition": "Contrária à obrigatoriedade da vacinação contra a Covid para crianças.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Entretanto, a vacina da COVID-19 precisa ser debatida. Se a pessoa quiser levar o filho para se vacinar, que o leve.",
+        "turn": 42,
+        "start": 62013,
+        "end": 62129
+      },
+      "verifier": {
+        "probability": 0.2537536132378662,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-1-1",
+      "hearing_id": 129,
+      "n": 7,
+      "article_name": "Bia Kicis",
+      "proposition": "Afirmou que já realizou audiências públicas com vários médicos que trabalham com vacinas e todos são contra a medida.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Pelo que sabemos, grandes médicos são contrários a essa obrigatoriedade. A terceira audiência é exatamente esta, com a Ministra da Saúde, para que ela manifeste o seu posicionamento, o posicionamento oficial.",
+        "turn": 0,
+        "start": 8065,
+        "end": 8274
+      },
+      "verifier": {
+        "probability": 0.30289482500353615,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-1-2",
+      "hearing_id": 129,
+      "n": 8,
+      "article_name": "Bia Kicis",
+      "proposition": "O imunizante não deveria ser chamado de vacina, mas de terapia gênica. O assunto precisa de mais debates: \"Nós somos todos favoráveis às vacinas que estão no PNI há muito tempo, que são vacinas seguras, de eficácia comprovada, mas essa, o próprio FDA chama de terapia gênica.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Nós somos todos favoráveis às vacinas que estão no PNI há muito tempo, que são vacinas seguras, de eficácia comprovada. Algumas já deram problema lá atrás e foram retiradas. O próprio FDA chama isso de terapia gênica.",
+        "turn": 42,
+        "start": 61569,
+        "end": 61787
+      },
+      "verifier": {
+        "probability": 0.5111318028852682,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-145-1-0",
+      "hearing_id": 145,
+      "n": 11,
+      "article_name": "Bia Kicis",
+      "proposition": "Pediu comedimento a deputados governistas e da oposição durante a reunião.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Deputados, por gentileza, podemos fazer silêncio!? Deputado, vou pedir silêncio!",
+        "turn": 114,
+        "start": 52050,
+        "end": 52131
+      },
+      "verifier": {
+        "probability": 0.18702536310605355,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-2-0",
+      "hearing_id": 199,
+      "n": 12,
+      "article_name": "Bia Kicis",
+      "proposition": "Mostrou preocupação com os riscos à população devido à compra emergencial de insulina.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Ministra, os meus requerimentos versam sobre uma questão que já foi abordada aqui pela Deputada Adriana Ventura, a questão da insulina. Causou-nos, realmente, espécie vermos que foi autorizada a compra de insulina por um laboratório que não tem registro na ANVISA.",
+        "turn": 173,
+        "start": 90818,
+        "end": 91082
+      },
+      "verifier": {
+        "probability": 0.2756538147723408,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

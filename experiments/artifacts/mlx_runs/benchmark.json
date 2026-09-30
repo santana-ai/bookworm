@@ -1,0 +1,215 @@
+{
+  "gemma4_31b": {
+    "model": "gemma4_31b",
+    "repo": "lmstudio-community/gemma-4-31B-it-MLX-8bit",
+    "prefix_cache_in_runs": false,
+    "load_seconds": 5.7,
+    "loaded_memory_gb": 32.6,
+    "long_context": {
+      "prompt_tokens": 66366,
+      "prefill_seconds": 422.68,
+      "prefill_tokens_per_second": 157.0,
+      "generation_tokens_per_second": 10.4,
+      "actor": "Erika Kokay",
+      "peak_memory_gb": 50.3
+    },
+    "short_context": {
+      "prompt_tokens": 780,
+      "prefill_seconds": 3.79,
+      "prefill_tokens_per_second": 205.7,
+      "generation_tokens_per_second": 13.6
+    },
+    "letter_pass_seconds": {
+      "without_prefix_cache": 2.68,
+      "with_prefix_cache": 1.54,
+      "speedup": 1.74
+    },
+    "full_run": {
+      "actors": 264,
+      "profile_input_tokens": 1724149,
+      "profile_output_tokens_per_actor": 301,
+      "profile_output_tokens_source": "short run",
+      "questions": {
+        "validation": 81,
+        "test": 101
+      },
+      "requests": 53,
+      "seconds_per_question": {
+        "validation": 76.1,
+        "test": 49.23333333333333
+      },
+      "seconds_per_request": 122.73333333333333,
+      "hours": {
+        "profiles": 5.17,
+        "evaluate": 3.09,
+        "simulate": 1.81,
+        "total": 10.07
+      }
+    },
+    "short_run": {
+      "questions": 3,
+      "accuracy": {
+        "0": 1.0,
+        "1": 0.6666666666666666,
+        "2": 0.6666666666666666,
+        "3": 0.6666666666666666
+      },
+      "letter_mass": {
+        "0": {
+          "mean": 0.9970067438660183,
+          "min": 0.9732297601346721
+        },
+        "1": {
+          "mean": 0.2634689681234077,
+          "min": 8.214227386564018e-05
+        },
+        "2": {
+          "mean": 0.00014682302919990988,
+          "min": 5.617557091900461e-05
+        }
+      }
+    }
+  },
+  "qwen38_27b": {
+    "model": "qwen38_27b",
+    "repo": "mlx-community/Qwen3.8-27B-8bit",
+    "prefix_cache_in_runs": false,
+    "load_seconds": 4.8,
+    "loaded_memory_gb": 28.6,
+    "long_context": {
+      "prompt_tokens": 65700,
+      "prefill_seconds": 317.39,
+      "prefill_tokens_per_second": 207.0,
+      "generation_tokens_per_second": 13.3,
+      "actor": "Erika Kokay",
+      "peak_memory_gb": 42.1
+    },
+    "short_context": {
+      "prompt_tokens": 1113,
+      "prefill_seconds": 4.37,
+      "prefill_tokens_per_second": 254.8,
+      "generation_tokens_per_second": 15.9
+    },
+    "letter_pass_seconds": {
+      "without_prefix_cache": 2.85,
+      "with_prefix_cache": 1.6,
+      "speedup": 1.78
+    },
+    "full_run": {
+      "actors": 264,
+      "profile_input_tokens": 1708357,
+      "profile_output_tokens_per_actor": 546,
+      "profile_output_tokens_source": "short run",
+      "questions": {
+        "validation": 81,
+        "test": 101
+      },
+      "requests": 53,
+      "seconds_per_question": {
+        "validation": 76.6,
+        "test": 48.73333333333333
+      },
+      "seconds_per_request": 89.83333333333333,
+      "hours": {
+        "profiles": 5.3,
+        "evaluate": 3.09,
+        "simulate": 1.32,
+        "total": 9.72
+      }
+    },
+    "short_run": {
+      "questions": 3,
+      "accuracy": {
+        "0": 0.6666666666666666,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      },
+      "letter_mass": {
+        "0": {
+          "mean": 0.9955698652827097,
+          "min": 0.9916622148337207
+        },
+        "1": {
+          "mean": 0.9928715701921349,
+          "min": 0.9893016365543783
+        },
+        "2": {
+          "mean": 0.9854453217437471,
+          "min": 0.9477690065259605
+        }
+      }
+    }
+  },
+  "gemma4_26b_a4b": {
+    "model": "gemma4_26b_a4b",
+    "repo": "mlx-community/gemma-4-26b-a4b-it-8bit",
+    "prefix_cache_in_runs": false,
+    "load_seconds": 4.8,
+    "loaded_memory_gb": 26.8,
+    "long_context": {
+      "prompt_tokens": 66366,
+      "prefill_seconds": 65.14,
+      "prefill_tokens_per_second": 1018.8,
+      "generation_tokens_per_second": 47.8,
+      "actor": "Erika Kokay",
+      "peak_memory_gb": 33.9
+    },
+    "short_context": {
+      "prompt_tokens": 876,
+      "prefill_seconds": 0.67,
+      "prefill_tokens_per_second": 1303.0,
+      "generation_tokens_per_second": 73.7
+    },
+    "letter_pass_seconds": {
+      "without_prefix_cache": 0.41,
+      "with_prefix_cache": 0.28,
+      "speedup": 1.46
+    },
+    "full_run": {
+      "actors": 264,
+      "profile_input_tokens": 1724149,
+      "profile_output_tokens_per_actor": 414,
+      "profile_output_tokens_source": "short run",
+      "questions": {
+        "validation": 81,
+        "test": 101
+      },
+      "requests": 53,
+      "seconds_per_question": {
+        "validation": 11.7,
+        "test": 7.566666666666666
+      },
+      "seconds_per_request": 12.533333333333333,
+      "hours": {
+        "profiles": 1.11,
+        "evaluate": 0.48,
+        "simulate": 0.18,
+        "total": 1.77
+      }
+    },
+    "short_run": {
+      "questions": 3,
+      "accuracy": {
+        "0": 0.6666666666666666,
+        "1": 0.6666666666666666,
+        "2": 0.6666666666666666,
+        "3": 0.6666666666666666
+      },
+      "letter_mass": {
+        "0": {
+          "mean": 0.9999886871175344,
+          "min": 0.9999512481789237
+        },
+        "1": {
+          "mean": 0.9995116656833591,
+          "min": 0.9967064851295359
+        },
+        "2": {
+          "mean": 0.15115448803001205,
+          "min": 0.0001027313452295881
+        }
+      }
+    }
+  }
+}

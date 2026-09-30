@@ -1,0 +1,290 @@
+{
+  "actor": {
+    "slug": "delegado-caveira",
+    "name": "DELEGADO CAVEIRA",
+    "display_name": "DELEGADO CAVEIRA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PL - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:00:20+00:00",
+    "n_statements": 13,
+    "n_hearings": 2,
+    "hearing_ids": [
+      6,
+      145
+    ],
+    "input_tokens": 3550,
+    "output_tokens": 828,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 13,
+    "without_evidence": 5
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a responsabilização criminal imediata de Ramiro Julio Soares Madureira e de toda a família Madureira, classificando a atuação da 123milhas como estelionato (art. 171 do Código Penal), organização criminosa (art. 288) e falso testemunho (art. 342), além de infrações ao Código de Defesa do Consumidor.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 921,
+            "start": 222983,
+            "end": 223032,
+            "text": "171 do Código Penal é muito claro: é estelionato.",
+            "score": 0.2998
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Presidente da Comissão a representação imediata pela prisão preventiva de todos os envolvidos, direta ou indiretamente, na empresa, bem como o confisco total dos bens e o rastreamento de recursos supostamente desviados para paraísos fiscais.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 921,
+            "start": 224246,
+            "end": 224574,
+            "text": "Todas as pessoas envolvidas, direta ou indiretamente, por essa empresa falida, fajuta, estariam sendo representadas pela prisão preventiva; toda a família Madureira, que está querendo destruir os sonhos de vários trabalhadores, bem como aqueles que, diretamente ou indiretamente, participaram desta trama da pirâmide financeira.",
+            "score": 0.2316
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a 123milhas vende o que não tem e engana o público, citando um investimento de mais de 1 bilhão de reais em publicidade e comparando a situação à pirâmide financeira Avestruz Master.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 921,
+            "start": 223790,
+            "end": 223961,
+            "text": "Um investimento de mais de 1 bilhão de reais em publicidade — eu acho que só perdeu para o PT para enganar tanta gente assim —, fez muito bom uso da publicidade no Brasil.",
+            "score": 0.2513
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação do Ministro Flávio Dino na segurança pública, classificando-a como incompetente, e aponta a supressão de filmagens do dia 8 de janeiro como exemplo dessa falha.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 232,
+            "start": 113806,
+            "end": 113908,
+            "text": "É muito clara e evidente a incompetência do Ministro Flávio Dino quando se trata de segurança pública.",
+            "score": 0.3075
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a operação de desintrusão na Terra Indígena Apyterewa, no Pará, onde mais de 150 viaturas de forças federais (Polícia Federal, PRF, IBAMA) atuam para retirar quase 3 mil famílias residentes há décadas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 232,
+            "start": 114931,
+            "end": 115170,
+            "text": "Hoje nós sabemos que lá estão mais de 150 viaturas da Polícia Federal, Polícia Rodoviária Federal, IBAMA, enfim, diversas forças de segurança pública, para retirar quase 3 mil famílias que já estão lá há 10 anos, 20 anos, 30 anos, 40 anos.",
+            "score": 0.4304
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que agentes de segurança pública mataram um lavrador na Terra Indígena Ituna-Itatá e compara a ação estatal à \"Faixa de Gaza\", alegando o uso de bombas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 232,
+            "start": 115342,
+            "end": 115415,
+            "text": "mataram um lavrador, outro produtor rural, na Terra Indígena Ituna-Itatá.",
+            "score": 0.4732
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a remoção das famílias indígenas deve ser precedida de assistência social e indenização pelos bens, sob pena de resistência e novas mortes.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Questiona a responsabilidade pelas eventuais mortes na Apyterewa, atribuindo-a ao Ministro Flávio Dino, ao Presidente Lula ou ao Governador do Pará, que teria permitido a Força Nacional.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 232,
+            "start": 116093,
+            "end": 116205,
+            "text": "Ministro, seria de V.Exa., do Presidente Lula ou do Governador do Estado do Pará, que permitiu a Força Nacional?",
+            "score": 0.4363
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a tipificação penal do Código Penal como fundamento para exigir punição severa e prisão preventiva, argumentando que a impunidade favorece empresários que \"enganam todo mundo\".",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 921,
+            "start": 222983,
+            "end": 223032,
+            "text": "171 do Código Penal é muito claro: é estelionato.",
+            "score": 0.2091
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se no princípio de que o Estado deve garantir assistência social e indenização prévia antes de realizar remoções forçadas, justificando a crítica à operação na Apyterewa pela ausência dessas medidas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca a proteção dos direitos dos consumidores e dos trabalhadores prejudicados, caracterizando a perda de dinheiro como \"roubo\" e \"prejuízo\" que exige reparação integral.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se delegado há 12 anos e afirma ter trabalhado em delegacia por vários anos.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 921,
+            "start": 224096,
+            "end": 224245,
+            "text": "Se fosse na minha delegacia, onde eu trabalhei vários anos, com toda a certeza, estariam com todas as representações prontas, como prisão preventiva.",
+            "score": 0.2842
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parlamentar com imunidade para falar e posiciona-se contra a atuação do governo federal na segurança pública e nas políticas de terras indígenas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 911,
+            "start": 221785,
+            "end": 221827,
+            "text": "Eu tenho imunidade parlamentar para falar.",
+            "score": 0.3788
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem agressiva e adjetivação forte (\"estelionatário\", \"fajuta\", \"nefasta\", \"debochado\") para deslegitimar os interlocutores e as empresas criticadas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 916,
+            "start": 222170,
+            "end": 222199,
+            "text": "Ele é um estelionatário, sim!",
+            "score": 0.2235
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita artigos específicos do Código Penal e do Código de Defesa do Consumidor para embasar suas acusações e propostas de punição.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 921,
+            "start": 223245,
+            "end": 223315,
+            "text": "342; e ainda diversos outros crimes do Código de Defesa do Consumidor.",
+            "score": 0.3225
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega comparações retóricas, como a comparação da 123milhas com o PT em termos de publicidade enganosa e a comparação da operação indígena com a Faixa de Gaza.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador, interrompendo e exigindo silêncio de advogados e empresários presentes, e dirige cobranças diretas e imperativas ao Presidente da Comissão e ao Ministro convidado.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa dados quantitativos (700 mil pessoas, 1 bilhão em publicidade, 150 viaturas, 3 mil famílias) para dimensionar o impacto das situações criticadas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 907,
+            "start": 220996,
+            "end": 221086,
+            "text": "São mais de 700 mil pessoas que estão tomando prejuízo, estão sendo literalmente roubadas.",
+            "score": 0.2541
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 6,
+      "split": "train",
+      "article_date": "2023-09-06",
+      "title": "Sócio da 123milhas diz que passagens precisaram ser suspensas porque preços não seguiram previsões",
+      "assunto": "Suspensão de passagens promocionais pela 123milhas devido a previsões de preços não cumpridas e recuperação judicial da empresa",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 87,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Relatório da regulamentação do trabalho de motoristas de aplicativo deve ser apresentado antes do recesso",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 9,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

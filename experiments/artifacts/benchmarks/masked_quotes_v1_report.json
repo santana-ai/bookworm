@@ -1,0 +1,1529 @@
+{
+  "benchmark_version": "masked_quotes_v1",
+  "created_at": "2026-09-23T02:20:11+00:00",
+  "sources": {
+    "lds": {
+      "path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    }
+  },
+  "label_semantics": {
+    "target": "silver label: the sentence of the person's own turn that encloses the matched quote prefix of 6+ words, found by string matching and not validated by a human; the masked opinion keeps only the text outside quote marks, which may describe a passage other than the one holding the quote",
+    "task": "rank the candidates (every sentence of the person, per-turn segmentation) for the masked opinion; a hit is any index in target_indices",
+    "split_use": "rows carry split; the test split must not be used to choose anything"
+  },
+  "field_definitions": {
+    "masked_opinion": "opinion with every span between a configured pair of quote marks removed together with the marks, then whitespace normalized; for word_bounded pairs the opening mark must not follow a word character and the closing mark must not precede one, so an apostrophe inside a word is not a quote mark",
+    "masked_with_quote_characters_left": "kept rows whose masked_opinion still has any character of QUOTE_CHARACTERS, configured or not",
+    "masked_with_extracted_quote_left": "kept rows whose masked_opinion still contains a quote extracted by the pipeline's quote patterns",
+    "quote_characters_left_without_word_bounded_pairs_kept": "kept rows that would still have a quote character if the mask used only masking.quote_pairs, which measures what the word_bounded pairs remove",
+    "masked_word_count": "whitespace tokens of masked_opinion with a word character",
+    "removed_quote_spans": "number of quoted spans removed by the mask",
+    "target.start_char": "first match of the target text inside the target turn of the transcript",
+    "target_indices": "candidate indices whose sentence agrees with target.text",
+    "verbatim_overlap": "longest run of consecutive shared tokens (lowercase, accents stripped, \\w+) between the target and the original or the masked opinion",
+    "random_acc_at_1": "mean over rows of len(target_indices) / n_candidates",
+    "splits.*.opinions": "nested counts over every LDS opinion: resolved person, then at least one extracted quote, then a matched prefix of any length, then a trusted prefix",
+    "splits.*.considered": "opinions with a trusted quote, before the drop rules"
+  },
+  "pipeline": {
+    "person_resolution": "resolve_person_speech over split_into_turns",
+    "sentence_segmentation": "per matched turn, concatenated in turn order",
+    "sentence_boundary_pattern": "(?<=[.!?])\\s+|(?<=[.!?]\\))(?<!\\(\\.\\.\\.\\))\\s+",
+    "min_sentence_words": 4,
+    "quote_patterns": [
+      "“([^”]{10,})”|\"([^\"]{10,})\"",
+      "(?<!\\w)'([^']{10,})'(?!\\w)"
+    ],
+    "quote_search": "inside each matched turn",
+    "quote_selection": "most prefix words over all quotes, earliest quote on ties",
+    "quote_occurrence": "max token Jaccard with the opinion for trusted prefixes, first on ties",
+    "trusted_prefix_words": 6,
+    "target_agreement": "sentences_agree: equal strings, or one contained in the other"
+  },
+  "quote_characters": "\"'«»‘’‚‛“”„‟‹›",
+  "min_masked_words_audit": {
+    "split": "train",
+    "min_masked_words": 4,
+    "rule": "On train, 183 opinions have a trusted quote; after masking, 36 keep 0 words, 2 keep 1 word (a bare reporting verb), 3 keep 2 words (a reporting verb followed by que) and none keeps 3 words, the next value being 4. Any minimum from 3 to 4 drops the same 41 train rows, and a minimum of 2 would keep reporting verbs with no content, so the tie is broken by the minimum the pipeline already requires of a candidate sentence (MIN_SENTENCE_WORDS = 4) rather than by validation or test rows. The report section min_masked_words_audit recomputes this histogram and lists the train texts it rests on.",
+    "considered": 183,
+    "word_count_histogram": {
+      "0": 36,
+      "1": 2,
+      "2": 3,
+      "4": 1,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 4,
+      "9": 3,
+      "10": 5,
+      "11": 5,
+      "12": 7,
+      "13": 9,
+      "14": 12,
+      "15": 6,
+      "16": 4,
+      "17": 15,
+      "18": 4,
+      "19": 6,
+      "20": 8,
+      "21": 3,
+      "22": 1,
+      "23": 3,
+      "24": 4,
+      "25": 7,
+      "26": 2,
+      "27": 1,
+      "28": 4,
+      "30": 3,
+      "31": 2,
+      "32": 2,
+      "33": 1,
+      "34": 2,
+      "35": 2,
+      "37": 2,
+      "39": 2,
+      "40": 2,
+      "42": 1
+    },
+    "rows_below_min": 41,
+    "largest_dropped_word_count": 2,
+    "smallest_kept_word_count": 4,
+    "texts_up_to_audit_max_words": [
+      {
+        "id": "udv-2-0-5",
+        "masked_word_count": 0,
+        "masked_opinion": "."
+      },
+      {
+        "id": "udv-6-4-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-8-0-2",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-15-0-4",
+        "masked_word_count": 0,
+        "masked_opinion": "."
+      },
+      {
+        "id": "udv-38-1-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-41-2-3",
+        "masked_word_count": 0,
+        "masked_opinion": "."
+      },
+      {
+        "id": "udv-44-0-2",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-53-3-3",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-60-3-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-64-2-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-67-0-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-67-1-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-67-2-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-68-0-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-70-2-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-71-0-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-76-1-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-79-2-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-92-1-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-97-0-2",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-97-0-4",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-134-3-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-145-0-4",
+        "masked_word_count": 0,
+        "masked_opinion": "."
+      },
+      {
+        "id": "udv-148-2-2",
+        "masked_word_count": 0,
+        "masked_opinion": "."
+      },
+      {
+        "id": "udv-160-1-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-169-5-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-172-0-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-179-0-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-179-0-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-180-3-2",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-182-0-2",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-182-2-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-183-0-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-184-1-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-192-0-1",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-201-1-0",
+        "masked_word_count": 0,
+        "masked_opinion": ""
+      },
+      {
+        "id": "udv-82-2-1",
+        "masked_word_count": 1,
+        "masked_opinion": "Cantou:"
+      },
+      {
+        "id": "udv-154-0-0",
+        "masked_word_count": 1,
+        "masked_opinion": "Disse:"
+      },
+      {
+        "id": "udv-63-0-1",
+        "masked_word_count": 2,
+        "masked_opinion": "Observou que ."
+      },
+      {
+        "id": "udv-63-1-1",
+        "masked_word_count": 2,
+        "masked_opinion": "Disse que ."
+      },
+      {
+        "id": "udv-73-4-1",
+        "masked_word_count": 2,
+        "masked_opinion": "Comentou que ."
+      },
+      {
+        "id": "udv-183-1-1",
+        "masked_word_count": 4,
+        "masked_opinion": "Não existe à Petrobras:"
+      },
+      {
+        "id": "udv-48-0-1",
+        "masked_word_count": 5,
+        "masked_opinion": "Rebateu acusações de fundamentalismo religioso:"
+      },
+      {
+        "id": "udv-161-0-3",
+        "masked_word_count": 5,
+        "masked_opinion": "Não considera os preços excessivos:"
+      },
+      {
+        "id": "udv-199-11-0",
+        "masked_word_count": 5,
+        "masked_opinion": "Apoiou a ministra Nísia Trindade:"
+      },
+      {
+        "id": "udv-15-2-1",
+        "masked_word_count": 6,
+        "masked_opinion": "A discussão não deve ser politizada:"
+      },
+      {
+        "id": "udv-58-2-0",
+        "masked_word_count": 6,
+        "masked_opinion": "As gestantes precisam primeiramente de informação:"
+      },
+      {
+        "id": "udv-178-2-0",
+        "masked_word_count": 6,
+        "masked_opinion": "Cobrou transição energética com justiça climática:"
+      },
+      {
+        "id": "udv-75-0-0",
+        "masked_word_count": 7,
+        "masked_opinion": "Criticou o financiamento de creche via FGTS: ."
+      },
+      {
+        "id": "udv-158-3-0",
+        "masked_word_count": 7,
+        "masked_opinion": "Sem regulamentação, o é quem sai perdendo:"
+      },
+      {
+        "id": "udv-179-1-3",
+        "masked_word_count": 7,
+        "masked_opinion": "No Brasil, os ajustes poderiam ser feitos ."
+      },
+      {
+        "id": "udv-6-5-0",
+        "masked_word_count": 8,
+        "masked_opinion": "O modelo de negócios da empresa é irregular:"
+      },
+      {
+        "id": "udv-15-1-3",
+        "masked_word_count": 8,
+        "masked_opinion": "A vacina não impede a transmissão da doença: ."
+      },
+      {
+        "id": "udv-48-0-2",
+        "masked_word_count": 8,
+        "masked_opinion": "Negou que seu texto estivesse tirando direitos adquiridos:"
+      },
+      {
+        "id": "udv-182-1-0",
+        "masked_word_count": 8,
+        "masked_opinion": "Relatou reajustes de até 96% em planos coletivos:"
+      }
+    ]
+  },
+  "splits": {
+    "train": {
+      "hearings": 144,
+      "opinions": {
+        "total": 1536,
+        "with_resolved_person": 1456,
+        "with_extracted_quote": 651,
+        "with_quote_match": 370,
+        "with_trusted_quote": 183
+      },
+      "considered": 183,
+      "kept": 142,
+      "dropped": {
+        "total": 41,
+        "by_reason": {
+          "masked_too_short": 41,
+          "target_not_in_candidates": 0
+        }
+      },
+      "masked_word_count_considered": {
+        "count": 183,
+        "min": 0,
+        "p25": 6.0,
+        "median": 14.0,
+        "p75": 20.0,
+        "max": 42,
+        "mean": 14.38,
+        "histogram": {
+          "0": 36,
+          "1": 2,
+          "2": 3,
+          "4": 1,
+          "5": 3,
+          "6": 3,
+          "7": 3,
+          "8": 4,
+          "9": 3,
+          "10": 5,
+          "11": 5,
+          "12": 7,
+          "13": 9,
+          "14": 12,
+          "15": 6,
+          "16": 4,
+          "17": 15,
+          "18": 4,
+          "19": 6,
+          "20": 8,
+          "21": 3,
+          "22": 1,
+          "23": 3,
+          "24": 4,
+          "25": 7,
+          "26": 2,
+          "27": 1,
+          "28": 4,
+          "30": 3,
+          "31": 2,
+          "32": 2,
+          "33": 1,
+          "34": 2,
+          "35": 2,
+          "37": 2,
+          "39": 2,
+          "40": 2,
+          "42": 1
+        }
+      },
+      "masked_word_count_kept": {
+        "count": 142,
+        "min": 4,
+        "p25": 13.0,
+        "median": 17.0,
+        "p75": 24.0,
+        "max": 42,
+        "mean": 18.47
+      },
+      "removed_quote_spans_kept": {
+        "1": 129,
+        "2": 13
+      },
+      "prefix_words_kept": {
+        "6": 76,
+        "7": 2,
+        "10": 64
+      },
+      "chosen_quote_index_kept": {
+        "0": 133,
+        "1": 9
+      },
+      "candidates_kept": {
+        "count": 142,
+        "min": 11,
+        "p25": 51.5,
+        "median": 90.0,
+        "p75": 143.75,
+        "max": 891,
+        "mean": 128.62,
+        "total": 18264
+      },
+      "targets_per_row_kept": {
+        "1": 140,
+        "2": 2
+      },
+      "random_acc_at_1": 0.0147,
+      "target_checks_kept": {
+        "offsets_located": 142,
+        "offset_text_matches": 142,
+        "target_is_exact_candidate": 140,
+        "target_index_in_target_turn": 142,
+        "target_index_in_other_turn": 0,
+        "masked_with_quote_characters_left": 0,
+        "masked_with_quote_characters_left_ids": [],
+        "masked_with_extracted_quote_left": 0
+      },
+      "quote_characters_left_without_word_bounded_pairs_kept": {
+        "rows": 9,
+        "ids": [
+          "udv-39-3-0",
+          "udv-39-8-0",
+          "udv-52-3-1",
+          "udv-69-2-0",
+          "udv-154-1-0",
+          "udv-154-1-1",
+          "udv-154-2-1",
+          "udv-154-3-0",
+          "udv-189-0-1"
+        ]
+      },
+      "verbatim_overlap_kept": {
+        "original_longest_run": {
+          "count": 142,
+          "min": 6,
+          "p25": 8.0,
+          "median": 11.0,
+          "p75": 15.0,
+          "max": 54,
+          "mean": 12.77
+        },
+        "masked_longest_run": {
+          "0": 10,
+          "1": 81,
+          "2": 32,
+          "3": 16,
+          "4": 1,
+          "5": 1,
+          "7": 1
+        },
+        "masked_run_at_least_trusted_prefix": 1
+      }
+    },
+    "validation": {
+      "hearings": 32,
+      "opinions": {
+        "total": 308,
+        "with_resolved_person": 305,
+        "with_extracted_quote": 144,
+        "with_quote_match": 90,
+        "with_trusted_quote": 53
+      },
+      "considered": 53,
+      "kept": 40,
+      "dropped": {
+        "total": 13,
+        "by_reason": {
+          "masked_too_short": 13,
+          "target_not_in_candidates": 0
+        }
+      },
+      "masked_word_count_considered": {
+        "count": 53,
+        "min": 0,
+        "p25": 5.0,
+        "median": 15.0,
+        "p75": 20.0,
+        "max": 49,
+        "mean": 14.77,
+        "histogram": {
+          "0": 11,
+          "1": 1,
+          "2": 1,
+          "5": 1,
+          "8": 1,
+          "9": 3,
+          "10": 1,
+          "11": 1,
+          "13": 1,
+          "14": 5,
+          "15": 3,
+          "16": 1,
+          "17": 2,
+          "18": 3,
+          "19": 3,
+          "20": 3,
+          "21": 1,
+          "22": 2,
+          "25": 2,
+          "27": 1,
+          "31": 1,
+          "33": 1,
+          "35": 1,
+          "39": 1,
+          "41": 1,
+          "49": 1
+        }
+      },
+      "masked_word_count_kept": {
+        "count": 40,
+        "min": 5,
+        "p25": 14.0,
+        "median": 18.0,
+        "p75": 22.0,
+        "max": 49,
+        "mean": 19.5
+      },
+      "removed_quote_spans_kept": {
+        "1": 38,
+        "2": 2
+      },
+      "prefix_words_kept": {
+        "6": 24,
+        "7": 1,
+        "10": 15
+      },
+      "chosen_quote_index_kept": {
+        "0": 39,
+        "1": 1
+      },
+      "candidates_kept": {
+        "count": 40,
+        "min": 6,
+        "p25": 66.25,
+        "median": 100.0,
+        "p75": 247.0,
+        "max": 504,
+        "mean": 152.5,
+        "total": 6100
+      },
+      "targets_per_row_kept": {
+        "1": 39,
+        "2": 1
+      },
+      "random_acc_at_1": 0.0181,
+      "target_checks_kept": {
+        "offsets_located": 40,
+        "offset_text_matches": 40,
+        "target_is_exact_candidate": 39,
+        "target_index_in_target_turn": 40,
+        "target_index_in_other_turn": 0,
+        "masked_with_quote_characters_left": 0,
+        "masked_with_quote_characters_left_ids": [],
+        "masked_with_extracted_quote_left": 0
+      },
+      "quote_characters_left_without_word_bounded_pairs_kept": {
+        "rows": 3,
+        "ids": [
+          "udv-119-0-3",
+          "udv-128-0-0",
+          "udv-128-1-0"
+        ]
+      },
+      "verbatim_overlap_kept": {
+        "original_longest_run": {
+          "count": 40,
+          "min": 6,
+          "p25": 7.0,
+          "median": 10.0,
+          "p75": 13.0,
+          "max": 24,
+          "mean": 11.03
+        },
+        "masked_longest_run": {
+          "0": 3,
+          "1": 27,
+          "2": 5,
+          "3": 3,
+          "4": 2
+        },
+        "masked_run_at_least_trusted_prefix": 0
+      }
+    },
+    "test": {
+      "hearings": 30,
+      "opinions": {
+        "total": 359,
+        "with_resolved_person": 352,
+        "with_extracted_quote": 165,
+        "with_quote_match": 89,
+        "with_trusted_quote": 41
+      },
+      "considered": 41,
+      "kept": 28,
+      "dropped": {
+        "total": 13,
+        "by_reason": {
+          "masked_too_short": 13,
+          "target_not_in_candidates": 0
+        }
+      },
+      "masked_word_count_considered": {
+        "count": 41,
+        "min": 0,
+        "p25": 0.0,
+        "median": 15.0,
+        "p75": 19.0,
+        "max": 44,
+        "mean": 12.8,
+        "histogram": {
+          "0": 13,
+          "8": 1,
+          "9": 1,
+          "11": 1,
+          "12": 2,
+          "13": 1,
+          "14": 1,
+          "15": 2,
+          "16": 3,
+          "17": 4,
+          "19": 2,
+          "20": 1,
+          "21": 1,
+          "22": 1,
+          "23": 2,
+          "24": 1,
+          "25": 1,
+          "28": 1,
+          "32": 1,
+          "44": 1
+        }
+      },
+      "masked_word_count_kept": {
+        "count": 28,
+        "min": 8,
+        "p25": 14.75,
+        "median": 17.0,
+        "p75": 22.25,
+        "max": 44,
+        "mean": 18.75
+      },
+      "removed_quote_spans_kept": {
+        "1": 24,
+        "2": 4
+      },
+      "prefix_words_kept": {
+        "6": 16,
+        "10": 12
+      },
+      "chosen_quote_index_kept": {
+        "0": 25,
+        "1": 3
+      },
+      "candidates_kept": {
+        "count": 28,
+        "min": 14,
+        "p25": 45.25,
+        "median": 99.0,
+        "p75": 144.75,
+        "max": 663,
+        "mean": 126.0,
+        "total": 3528
+      },
+      "targets_per_row_kept": {
+        "1": 28
+      },
+      "random_acc_at_1": 0.0167,
+      "target_checks_kept": {
+        "offsets_located": 28,
+        "offset_text_matches": 28,
+        "target_is_exact_candidate": 28,
+        "target_index_in_target_turn": 28,
+        "target_index_in_other_turn": 0,
+        "masked_with_quote_characters_left": 0,
+        "masked_with_quote_characters_left_ids": [],
+        "masked_with_extracted_quote_left": 0
+      },
+      "quote_characters_left_without_word_bounded_pairs_kept": {
+        "rows": 1,
+        "ids": [
+          "udv-111-1-1"
+        ]
+      },
+      "verbatim_overlap_kept": {
+        "original_longest_run": {
+          "count": 28,
+          "min": 6,
+          "p25": 7.75,
+          "median": 10.0,
+          "p75": 13.0,
+          "max": 26,
+          "mean": 11.07
+        },
+        "masked_longest_run": {
+          "0": 1,
+          "1": 19,
+          "2": 7,
+          "3": 1
+        },
+        "masked_run_at_least_trusted_prefix": 0
+      }
+    },
+    "all": {
+      "hearings": 206,
+      "opinions": {
+        "total": 2203,
+        "with_resolved_person": 2113,
+        "with_extracted_quote": 960,
+        "with_quote_match": 549,
+        "with_trusted_quote": 277
+      },
+      "considered": 277,
+      "kept": 210,
+      "dropped": {
+        "total": 67,
+        "by_reason": {
+          "masked_too_short": 67,
+          "target_not_in_candidates": 0
+        }
+      },
+      "masked_word_count_considered": {
+        "count": 277,
+        "min": 0,
+        "p25": 5.0,
+        "median": 14.0,
+        "p75": 20.0,
+        "max": 49,
+        "mean": 14.22,
+        "histogram": {
+          "0": 60,
+          "1": 3,
+          "2": 4,
+          "4": 1,
+          "5": 4,
+          "6": 3,
+          "7": 3,
+          "8": 6,
+          "9": 7,
+          "10": 6,
+          "11": 7,
+          "12": 9,
+          "13": 11,
+          "14": 18,
+          "15": 11,
+          "16": 8,
+          "17": 21,
+          "18": 7,
+          "19": 11,
+          "20": 12,
+          "21": 5,
+          "22": 4,
+          "23": 5,
+          "24": 5,
+          "25": 10,
+          "26": 2,
+          "27": 2,
+          "28": 5,
+          "30": 3,
+          "31": 3,
+          "32": 3,
+          "33": 2,
+          "34": 2,
+          "35": 3,
+          "37": 2,
+          "39": 3,
+          "40": 2,
+          "41": 1,
+          "42": 1,
+          "44": 1,
+          "49": 1
+        }
+      },
+      "masked_word_count_kept": {
+        "count": 210,
+        "min": 4,
+        "p25": 13.0,
+        "median": 17.0,
+        "p75": 23.0,
+        "max": 49,
+        "mean": 18.7
+      },
+      "removed_quote_spans_kept": {
+        "1": 191,
+        "2": 19
+      },
+      "prefix_words_kept": {
+        "6": 116,
+        "7": 3,
+        "10": 91
+      },
+      "chosen_quote_index_kept": {
+        "0": 197,
+        "1": 13
+      },
+      "candidates_kept": {
+        "count": 210,
+        "min": 6,
+        "p25": 52.25,
+        "median": 92.0,
+        "p75": 151.0,
+        "max": 891,
+        "mean": 132.82,
+        "total": 27892
+      },
+      "targets_per_row_kept": {
+        "1": 207,
+        "2": 3
+      },
+      "random_acc_at_1": 0.0156,
+      "target_checks_kept": {
+        "offsets_located": 210,
+        "offset_text_matches": 210,
+        "target_is_exact_candidate": 207,
+        "target_index_in_target_turn": 210,
+        "target_index_in_other_turn": 0,
+        "masked_with_quote_characters_left": 0,
+        "masked_with_quote_characters_left_ids": [],
+        "masked_with_extracted_quote_left": 0
+      },
+      "quote_characters_left_without_word_bounded_pairs_kept": {
+        "rows": 13,
+        "ids": [
+          "udv-39-3-0",
+          "udv-39-8-0",
+          "udv-52-3-1",
+          "udv-69-2-0",
+          "udv-111-1-1",
+          "udv-119-0-3",
+          "udv-128-0-0",
+          "udv-128-1-0",
+          "udv-154-1-0",
+          "udv-154-1-1",
+          "udv-154-2-1",
+          "udv-154-3-0",
+          "udv-189-0-1"
+        ]
+      },
+      "verbatim_overlap_kept": {
+        "original_longest_run": {
+          "count": 210,
+          "min": 6,
+          "p25": 8.0,
+          "median": 10.0,
+          "p75": 14.0,
+          "max": 54,
+          "mean": 12.21
+        },
+        "masked_longest_run": {
+          "0": 14,
+          "1": 127,
+          "2": 44,
+          "3": 20,
+          "4": 3,
+          "5": 1,
+          "7": 1
+        },
+        "masked_run_at_least_trusted_prefix": 1
+      }
+    }
+  },
+  "dropped_rows": [
+    {
+      "id": "udv-1-3-4",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-2-0-5",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-5-0-2",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-5-1-1",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-6-4-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-7-4-1",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-8-0-2",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-10-3-1",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-11-0-0",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 2
+    },
+    {
+      "id": "udv-11-2-0",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-11-3-0",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-13-0-0",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-15-0-4",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-16-0-5",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-16-4-0",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-18-0-2",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-30-1-1",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-38-1-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-41-2-3",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-44-0-2",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-53-3-3",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-60-3-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-63-0-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 2
+    },
+    {
+      "id": "udv-63-1-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 2
+    },
+    {
+      "id": "udv-64-2-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-67-0-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-67-1-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-67-2-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-68-0-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-70-2-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-71-0-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-73-4-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 2
+    },
+    {
+      "id": "udv-76-1-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-79-2-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-82-2-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 1
+    },
+    {
+      "id": "udv-87-1-1",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-92-1-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-97-0-2",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-97-0-4",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-99-3-2",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-100-3-3",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-101-2-4",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-102-0-3",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-108-0-2",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-110-0-1",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-113-0-1",
+      "split": "test",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-116-2-0",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-120-0-0",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-125-1-2",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-128-3-2",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 1
+    },
+    {
+      "id": "udv-132-0-1",
+      "split": "validation",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-134-3-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-145-0-4",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-148-2-2",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-154-0-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 1
+    },
+    {
+      "id": "udv-160-1-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-169-5-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-172-0-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-179-0-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-179-0-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-180-3-2",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-182-0-2",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-182-2-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-183-0-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-184-1-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-192-0-1",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    },
+    {
+      "id": "udv-201-1-0",
+      "split": "train",
+      "reasons": [
+        "masked_too_short"
+      ],
+      "masked_word_count": 0
+    }
+  ],
+  "artifact": {
+    "path": "artifacts/benchmarks/masked_quotes_v1.jsonl",
+    "rows": 210,
+    "bytes": 3805590,
+    "sha256": "1b82286f03635013a153b8882bcc6fc96efa28b674ecddd965a4972d983e4223"
+  },
+  "code": {
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_quote_benchmark.py": "8311621d38fcb05ec66941a2e30cc1b52dbee6205221af6926ce8b483644fa9a"
+  },
+  "timing": {
+    "elapsed_seconds": 5.9
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "lds_sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json"
+    },
+    "masking": {
+      "quote_pairs": [
+        [
+          "“",
+          "”"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "‘",
+          "’"
+        ]
+      ],
+      "word_bounded_quote_pairs": [
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "min_masked_words": 4,
+      "min_masked_words_split": "train",
+      "min_masked_words_rule": "On train, 183 opinions have a trusted quote; after masking, 36 keep 0 words, 2 keep 1 word (a bare reporting verb), 3 keep 2 words (a reporting verb followed by que) and none keeps 3 words, the next value being 4. Any minimum from 3 to 4 drops the same 41 train rows, and a minimum of 2 would keep reporting verbs with no content, so the tie is broken by the minimum the pipeline already requires of a candidate sentence (MIN_SENTENCE_WORDS = 4) rather than by validation or test rows. The report section min_masked_words_audit recomputes this histogram and lists the train texts it rests on.",
+      "audit_max_words": 8
+    },
+    "run": {
+      "benchmark_version": "masked_quotes_v1",
+      "output_dir": "artifacts/benchmarks"
+    }
+  }
+}

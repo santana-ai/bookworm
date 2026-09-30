@@ -1,0 +1,356 @@
+{
+  "actor": {
+    "slug": "priscila-costa",
+    "name": "PRISCILA COSTA",
+    "display_name": "Priscila Costa",
+    "role": "Deputada (PL-CE)",
+    "article_names": [
+      "Priscila Costa"
+    ],
+    "party_uf": [
+      "PL - CE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:06:30+00:00",
+    "n_statements": 13,
+    "n_hearings": 2,
+    "hearing_ids": [
+      171,
+      199
+    ],
+    "input_tokens": 4718,
+    "output_tokens": 1240,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a Resolução nº 715/2023 do Conselho Nacional de Saúde, assinada pela Ministra da Saúde, por considerar que o item 46, que reconhece terreiros e casas de religião de matriz africana como equipamentos promotores de saúde, carece de base científica e possui caráter político-religioso, em detrimento de outras religiões.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 311,
+            "start": 206628,
+            "end": 206883,
+            "text": "Vamos, então, à Resolução nº 715, de 2023, assinada por V.Exa., que, no item 46, pede que se reconheçam terreiros, terreiras, barracões, casas de religião como equipamentos promotores de saúde e cura complementares do SUS no processo de promoção da saúde.",
+            "score": 0.4166
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a oferta de terapia hormonal para adolescentes a partir de 14 anos prevista na Resolução nº 715/2023, argumentando que a medida expõe crianças vulneráveis e confusas a riscos, citando o Manual de Sexualidade e Psicologia da Associação Pediátrica Americana, segundo o qual 75% das crianças com crise de identidade sexual, após a puberdade, serão reconhecidas com o próprio sexo biológico.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 313,
+            "start": 209400,
+            "end": 209637,
+            "text": "Então, o que fez com oManual de Sexualidade e Psicologia, daAssociação Pediátrica Americana, que diz que, de 95% das crianças que têm crise de identidade sexual, 75%, após a puberdade, serão reconhecidas com o seu próprio sexo biológico?",
+            "score": 0.534
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a vida intrauterina e critica a ADPF 442 no STF, associada ao PSOL, e a Resolução nº 715/2023, que segundo ela propõe a legalização do aborto para combater desigualdades estruturais e ampliar políticas de transferência de renda, questionando como a morte de crianças no ventre poderia ampliar políticas sociais.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 115,
+            "start": 110988,
+            "end": 111368,
+            "text": "A resolução do CNS, assinada pela Ministra aqui presente, fala que a legalização do aborto será executada para garantir a intersetorialidade das ações de saúde, que a legalização do aborto vai existir para combater as desigualdades estruturais e históricas, que o assassinato de crianças no ventre será uma ferramenta para ampliar as políticas sociais e de transferência de renda.",
+            "score": 0.4538
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a punição e investigação dos participantes do Consórcio Nordeste, incluindo os Ministros Camilo Santana, Rui Costa e Wellington Dias, pela compra de 300 respiradores por 48 milhões de reais de uma empresa com 10 meses de existência e comercializadora de maconha, que nunca chegaram, causando mortes no Nordeste.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 116,
+            "start": 112223,
+            "end": 112394,
+            "text": "Eles pegaram o nosso dinheiro, da população nordestina, e compraram 300 respiradores a 48 milhões de uma empresa que tinha 10 meses de existência e comercializava maconha.",
+            "score": 0.3868
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a posição da ANVISA e do Governo sobre a vacina Sputnik, alegando que o então Governador Camilo Santana defendeu eficácia superior a 90% e foi contrariado pela agência, e pergunta quem cometeu \"fake news\" entre o Ministro e a ANVISA.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 116,
+            "start": 113278,
+            "end": 113446,
+            "text": "O Governador Camilo Santana, Governador do Ceará à época, hoje Ministro da Educação, tentou comprar a Sputnik, alegando inclusive que ela teria mais de 90% de eficácia.",
+            "score": 0.3941
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a FIOCRUZ e a Ministra da Saúde, na época Presidente da instituição, por não banir a vacina AstraZeneca no Brasil, mesmo banida em mais de 20 países (como Suécia, Dinamarca, Áustria, Itália, Espanha, Portugal, Irlanda, Romênia, Tailândia, Islândia e Noruega), e por recomendar seu uso em grávidas, prática proibida nesses países.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 120,
+            "start": 114430,
+            "end": 114641,
+            "text": "Eu poderia citar a Suécia, a Dinamarca, a Áustria e a Itália que baniram a AstraZeneca; a Espanha, Portugal e a Irlanda baniram a AstraZeneca; a Romênia, a Tailândia, a Islândia, a Noruega baniram a AstraZeneca.",
+            "score": 0.5037
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o sigilo imposto pela FIOCRUZ aos contratos e documentos da AstraZeneca, que só serão acessíveis em 2036, e os custos de 750 mil reais para esse sigilo, exigindo explicações sobre o que há nesses documentos que represente risco à saúde da população.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 120,
+            "start": 115527,
+            "end": 115731,
+            "text": "Porque a população brasileira, por causa de uma atitude da Ministra da Saúde, que então era Presidente da FIOCRUZ, só saberá, só terá as informações sobre os contratos e documentos da AstraZeneca em 2036.",
+            "score": 0.2952
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a defesa da punição de médicos que divulgam \"fake news\" com a atuação da Rede Globo, que, segundo ela, incentivou a realização do carnaval durante a pandemia, e pergunta se a emissora também será punida.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 123,
+            "start": 118014,
+            "end": 118066,
+            "text": "Você vai punir também a Rede Globo ou só os médicos?",
+            "score": 0.282
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o Governo Bolsonaro na gestão inicial da pandemia, alegando que o Presidente declarou estado de emergência e recomendou o cancelamento de manifestações carnavalescas, alinhado à FIOCRUZ, que em maio de 2020 alegou que o vírus já circulava no Brasil antes do primeiro caso anunciado.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 120,
+            "start": 116512,
+            "end": 116943,
+            "text": "Porém, a FIOCRUZ, em maio de 2020, alegou que o vírus da COVID já estava circulando no Brasil muito antes de anunciar o primeiro caso, ou seja, muito antes do carnaval, pessoas contaminadas já estavam transitando no Brasil.E o Presidente Bolsonaro, como primeira medida contra a pandemia, declarou estado de emergência e recomendou que não houvesse manifestações carnavalescas, sendo ele, da mesma forma, concordante com a FIOCRUZ.",
+            "score": 0.5518
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a separação entre ciência e fé como critério para avaliar políticas de saúde, exigindo que medidas técnicas, como o reconhecimento de práticas religiosas ou a hormonoterapia adolescente, sejam fundamentadas em estudos científicos e consenso de pares, e não em ideologia ou religião.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 313,
+            "start": 209341,
+            "end": 209399,
+            "text": "O Ministério da Saúde não se apoia em estudos científicos?",
+            "score": 0.2046
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a proteção da vida intrauterina como fundamento para criticar políticas de saúde reprodutiva e direitos sexuais, posicionando-se contra a legalização do aborto e a transição hormonal precoce.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 115,
+            "start": 110988,
+            "end": 111368,
+            "text": "A resolução do CNS, assinada pela Ministra aqui presente, fala que a legalização do aborto será executada para garantir a intersetorialidade das ações de saúde, que a legalização do aborto vai existir para combater as desigualdades estruturais e históricas, que o assassinato de crianças no ventre será uma ferramenta para ampliar as políticas sociais e de transferência de renda.",
+            "score": 0.1514
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o argumento da responsabilidade estatal e da transparência para cobrar investigações sobre supostos crimes contra a saúde pública, como a compra irregular de respiradores e o sigilo de contratos de vacinas, associando a falta de punição a uma desvalorização da vida da população nordestina e negra.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se mãe de quatro crianças e gestante em idade avançada, utilizando sua condição de mulher com útero para se posicionar em defesa da vida intrauterina.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 115,
+            "start": 109216,
+            "end": 109318,
+            "text": "Então, como mãe de quatro crianças, eu quero falar em nome de uma mulher, de uma mulher que tem útero.",
+            "score": 0.4139
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante da população do Ceará e do Nordeste, citando-se como vítima de supostos crimes contra a saúde pública na região durante a pandemia.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 116,
+            "start": 112136,
+            "end": 112222,
+            "text": "Lá, durante a pandemia, nós fomos vítimas de uma quadrilha chamada Consórcio Nordeste.",
+            "score": 0.2232
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhada com a Deputada Chris Tonietto, em nome da qual faz perguntas à Ministra da Saúde, e critica o PSOL e a Deputada que defendeu o direito de se posicionar sobre o aborto por ter útero.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 115,
+            "start": 110434,
+            "end": 110509,
+            "text": "A Deputada Chris Tonietto não está aqui, porque está amamentando sua filha.",
+            "score": 0.2829
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas retóricas e diretas à Ministra da Saúde para expor supostas contradições entre o discurso técnico da gestora e as medidas adotadas, como a falta de estudos científicos para a Resolução nº 715/2023.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 313,
+            "start": 209341,
+            "end": 209399,
+            "text": "O Ministério da Saúde não se apoia em estudos científicos?",
+            "score": 0.2366
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos, como números de casos, valores em dinheiro, nomes de países e datas, para sustentar suas críticas, embora alguns dados sejam apresentados como afirmações suas sem fonte externa verificável no contexto da fala.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emocional e apelativa, invocando a condição de mãe e gestante, e utilizando termos como \"perversidade\", \"genocidas\" e \"assassinato\" para descrever políticas de saúde e partidos políticos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 115,
+            "start": 110510,
+            "end": 110627,
+            "text": "Ela está amamentando outra mulher, que poderá ser vítima de partidos genocidas, como o da Deputada que aqui teve voz.",
+            "score": 0.1669
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a postura do Ministério da Saúde em punir médicos com a suposta impunidade de políticos e grandes mídia, criando um argumento de hipocrisia institucional.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 123,
+            "start": 118014,
+            "end": 118066,
+            "text": "Você vai punir também a Rede Globo ou só os médicos?",
+            "score": 0.1767
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita documentos e manuais específicos, como o Manual de Sexualidade e Psicologia da Associação Pediátrica Americana e a Resolução nº 715/2023, para fundamentar suas críticas técnicas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 313,
+            "start": 209638,
+            "end": 209911,
+            "text": "Apresentar, nessa resolução assinada pela Ministra do Governo Lula, uma hormonoterapia no processo de puberdade, quando essas crianças estão vulneráveis e confusas, conforme oManual de Sexualidade e Psicologia,da Associação Pediátrica Americana, não seria uma perversidade?",
+            "score": 0.2741
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-171-3-0",
+      "hearing_id": 171,
+      "n": 10,
+      "article_name": "Priscila Costa",
+      "proposition": "Questionou resoluções oriundas da 17ª Conferência Nacional de Saúde, realizada em junho, como a 'revisão da cartilha de pessoas trans' e 'redução da idade de início de hormonização para 14 anos'.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Essa é uma pergunta. Esses países também proibiram o uso da AstraZeneca em grávidas.",
+        "turn": 120,
+        "start": 114905,
+        "end": 114990
+      },
+      "verifier": {
+        "probability": 0.09945929993078573,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-6-0",
+      "hearing_id": 199,
+      "n": 16,
+      "article_name": "Priscila Costa",
+      "proposition": "Criticou orientações da Resolução 715/23 relacionadas à maconha, à população LGBTQIA+ e ao aborto.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Bem, sendo bem clara, digo que nós acabamos vendo aqui o caráter político-religioso dessa peça que é a resolução. Não há nada de técnico, nada de científico, visto que a Ministra não apresentou nenhum estudo científico que elevasse certas religiões à categoria de promotores de saúde e cura e fizesse com que outras religiões fossem preteridas por essa resolução, que ela assinou.",
+        "turn": 313,
+        "start": 208773,
+        "end": 209153
+      },
+      "verifier": {
+        "probability": 0.08331020375880692,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

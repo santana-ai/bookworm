@@ -1,0 +1,402 @@
+{
+  "actor": {
+    "slug": "julio-lopes",
+    "name": "JULIO LOPES",
+    "display_name": "Julio Lopes",
+    "role": "Deputado (PP-RJ)",
+    "article_names": [
+      "Julio Lopes"
+    ],
+    "party_uf": [
+      "Bloco/PP - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:24:16+00:00",
+    "n_statements": 19,
+    "n_hearings": 3,
+    "hearing_ids": [
+      2,
+      6,
+      183
+    ],
+    "input_tokens": 6924,
+    "output_tokens": 1106,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o ONS falhou não apenas no sistema elétrico, mas também no sistema de monitoramento, comparando-o a um sistema antimíssil que não detectou a movimentação necessária para evitar o colapso; cobra a identificação da falha de detecção ou alternância no monitoramento para permitir melhor planejamento.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 92,
+            "start": 150735,
+            "end": 150908,
+            "text": "Há uma falha intrínseca ao sistema, mas há também uma falha de detecção, ou uma falha de monitoramento, ou uma falha de alternância no sistema de monitoramento dos senhores.",
+            "score": 0.4611
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige solução executiva e imediata para o pagamento dos royalties da mineração aos municípios, classificando o atraso de 4 meses como \"mortal\" para prefeituras dependentes desse recurso; propõe que a ANM realize pagamentos da parte incontroversa enquanto se discute o novo decreto.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 113,
+            "start": 185145,
+            "end": 185323,
+            "text": "Talvez, Presidente, nós pudéssemos pedir à ANM que fizesse alguns pagamentos daquela parte incontroversa, porque uma espera de mais 2 meses vai sacrificar muito esses Municípios.",
+            "score": 0.2822
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o convite do Presidente da ELETROBRAS, Ivan Monteiro, para a Comissão de Minas e Energia, argumentando que o Legislativo deve usar instrumentos de pressão e controle para exigir que a empresa atue conforme os interesses da população, sem depender exclusivamente do STF.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 92,
+            "start": 152648,
+            "end": 152844,
+            "text": "Nós também temos, no Legislativo, instrumentos de pressão, instrumentos de controle, instrumentos de verificação, para pressionar a empresa a agir na direção do que o País e a população pretendem.",
+            "score": 0.3341
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a lentidão do licenciamento ambiental no Brasil, citando que o processo na Foz do Amazonas dura 9 anos, enquanto concorrentes como Suriname e Guiana Francesa licenciam reservas em 1 ou 2 anos; defende que o IBAMA acelere o licenciamento com compensações ambientais e alta tecnologia, comparando a postura brasileira à dos EUA (Reserva de Willow) e da Noruega.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 58,
+            "start": 103295,
+            "end": 103362,
+            "text": "A própria Guiana, o licenciamento lá vem de 2 anos atrás, Ministra.",
+            "score": 0.2421
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a riqueza petrolífera brasileira está \"enterrada\" e perde valor com o tempo, sendo necessário extrair para gerar desenvolvimento; critica a alteração do processo de concessão que, segundo ele, atrasou a exploração em 10 anos.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 58,
+            "start": 103795,
+            "end": 103935,
+            "text": "Já fizemos a enorme burrada de fazermos aquela alteração do processo de concessão que atrasou em 10 anos a exploração de petróleo no Brasil.",
+            "score": 0.3956
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a integração dos 67 sistemas de monitoramento ambiental do IBAMA, propondo a criação de um sistema de Business Intelligence (BI) e o uso de satélites para monitorar roubo de combustível e vazamentos, citando como exemplo o satélite contratado pela empresa de gestão de água no Rio de Janeiro.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 58,
+            "start": 104321,
+            "end": 104431,
+            "text": "O IBAMA tem 67 sistemas de monitoramento de sustentabilidade ambiental, mas esses sistemas não são integrados.",
+            "score": 0.2979
+          },
+          "udv": null
+        },
+        {
+          "text": "Na CPI da 123Milhas, questiona a gestão da empresa ao apontar que ela foi o segundo maior anunciante do Brasil, investindo 1,18 bilhão de reais em publicidade, o que representa quase metade da dívida de 2,5 bilhões de reais; cobra explicações sobre a prudência dessa despesa e se ela induziu consumidores ao erro.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 418,
+            "start": 110625,
+            "end": 110728,
+            "text": "Por que se investiu 1,18 bilhões de reais no ano passado, segundo foi publicado no jornalMeio&Mensagem?",
+            "score": 0.2346
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a correção do valor dos vouchers de indenização aos credores da 123Milhas, argumentando que não correspondem aos valores das passagens, e solicita o plano de pagamento dos 700 mil credores, sugerindo uma escala de prioridade para casos de saúde ou urgência comprovada.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 426,
+            "start": 116434,
+            "end": 116526,
+            "text": "E quero pedir que os senhores nos enviem, se possível, esse plano de pagamento dos credores.",
+            "score": 0.2364
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a comparação internacional como critério para avaliar a eficiência regulatória e ambiental, argumentando que o Brasil não pode ser mais severo ou lento que EUA, Noruega, Suriname e Guiana Francesa em licenciamentos e exploração de recursos.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 58,
+            "start": 102333,
+            "end": 102568,
+            "text": "Se nós fizermos uma comparação, estamos falando do Suriname, mas, se falarmos da Guiana Francesa, é pior, porque a Guiana já está em exploração de uma reserva de petróleo que é 60% da reserva brasileira, do total da reserva brasileira.",
+            "score": 0.2346
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a urgência econômica e a deterioração do valor dos recursos naturais (petróleo) como justificativa para a aceleração de processos burocráticos e licenciamentos.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 58,
+            "start": 103760,
+            "end": 103794,
+            "text": "O petróleo perde valor a cada dia.",
+            "score": 0.1828
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência pessoal e em dados de mercado (Kantar IBOPE Media, Meio&Mensagem) para sustentar críticas à gestão de empresas privadas, especialmente no que tange à publicidade e à responsabilidade com o consumidor.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 422,
+            "start": 112409,
+            "end": 112539,
+            "text": "Eu entendo perfeitamente, mas é uma publicação que tem credibilidade no setor de publicidade e mídia, pois a Kantar IBOPE Media...",
+            "score": 0.2315
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transparência e a integração tecnológica como requisitos para a eficácia de órgãos de controle e monitoramento, seja no setor elétrico (ONS), ambiental (IBAMA) ou de abastecimento (ANP).",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 92,
+            "start": 149682,
+            "end": 150036,
+            "text": "Sou tão fã, que eu entrei no TCU com uma ação de obrigação de fazer à ANP, para que se constitua um painel de controle, um sistema de controle do monitoramento nacional de petróleo e abastecimento nacional de petróleo, à equivalência do que os senhores fazem no ONS, de tão bem feito e de tão importante que é o sistema de controle estabelecido pelo ONS.",
+            "score": 0.2266
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da área de planejamento, não engenheiro, e afirma ter trabalhado para o estabelecimento do royalty da mineração.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 92,
+            "start": 150038,
+            "end": 150089,
+            "text": "Eu não sou engenheiro, sou da área de planejamento.",
+            "score": 0.3877
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como \"muito fã\" do ONS, tendo entrado com ação no TCU para que a ANP criasse um painel de controle similar ao do ONS.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 92,
+            "start": 149682,
+            "end": 150036,
+            "text": "Sou tão fã, que eu entrei no TCU com uma ação de obrigação de fazer à ANP, para que se constitua um painel de controle, um sistema de controle do monitoramento nacional de petróleo e abastecimento nacional de petróleo, à equivalência do que os senhores fazem no ONS, de tão bem feito e de tão importante que é o sistema de controle estabelecido pelo ONS.",
+            "score": 0.377
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter feito uma obrigação de fazer à ANP para fiscalização de roubo de combustível.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 58,
+            "start": 106536,
+            "end": 106633,
+            "text": "Eu fiz uma obrigação de fazer lá para ANP, porque ela tem obrigação de fiscalizar isso, Ministra.",
+            "score": 0.438
+          },
+          "udv": null
+        },
+        {
+          "text": "Participa da Comissão de Minas e Energia e da CPI da 123Milhas, atuando como parlamentar que propõe requerimentos e questiona gestores.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 418,
+            "start": 109547,
+            "end": 109593,
+            "text": "O que eu quero perguntar aos gestores é que...",
+            "score": 0.1914
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza analogias técnicas e cotidianas para explicar falhas sistêmicas, como a comparação do monitoramento do ONS com um sistema antimíssil.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 92,
+            "start": 150187,
+            "end": 150481,
+            "text": "O sistema falhou, mas o sistema de monitoramento da falha também falhou, porque, como eu disse aqui no dia, o sistema de monitoramento que os senhores montaram é como um sistema antimíssil: se vem o míssil, os senhores têm que detectar algo e impedir que o míssil caia sobre o nosso território.",
+            "score": 0.2059
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos e publicações de terceiros (Kantar IBOPE Media, Meio&Mensagem) para embasar questionamentos a empresas, mantendo um tom de cobrança, mas reconhecendo a credibilidade das fontes.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 422,
+            "start": 112409,
+            "end": 112539,
+            "text": "Eu entendo perfeitamente, mas é uma publicação que tem credibilidade no setor de publicidade e mídia, pois a Kantar IBOPE Media...",
+            "score": 0.2326
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina elogios iniciais a autoridades (Ministros, Presidentes de órgãos) com críticas diretas à ineficiência ou lentidão dos processos, buscando uma intercessão ou ação executiva imediata.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Relata experiências pessoais (viagem frustrada com a 123Milhas) para ilustrar o impacto das falhas corporativas no consumidor, utilizando o caso como prenúncio de problemas maiores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Propõe soluções concretas e tecnológicas (satélites, BI, integração de sistemas) como alternativas para a ineficiência apontada nos órgãos públicos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 6,
+      "split": "train",
+      "article_date": "2023-09-06",
+      "title": "Sócio da 123milhas diz que passagens precisaram ser suspensas porque preços não seguiram previsões",
+      "assunto": "Suspensão de passagens promocionais pela 123milhas devido a previsões de preços não cumpridas e recuperação judicial da empresa",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 104,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Deputados reafirmam interesse da Câmara em participar de definição das regras de renovação das concessões das…",
+      "assunto": "Participação da Câmara na definição das regras de renovação das concessões das distribuidoras de energia elétrica",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-133-6-0",
+      "hearing_id": 133,
+      "n": 10,
+      "article_name": "Julio Lopes",
+      "proposition": "Disse estar insatisfeito com a atuação da empresa, mas ponderou que o caso de São Paulo foi provocado por eventos climáticos extremos, que devem se tornar mais frequentes no País.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Sabe por que estou falando de evento climático, Presidente? Porque o que aconteceu em São Paulo, o que está acontecendo no Rio de Janeiro, o que está acontecendo no Brasil inteiro são eventos climáticos absolutamente fora do contexto usual e que fizeram as companhias serem submetidas a situações absolutamente inusuais, com ventos de 150 quilômetros e 400 árvores derrubadas em cima das redes, que são todas aéreas.",
+        "turn": 48,
+        "start": 48537,
+        "end": 48953
+      },
+      "verifier": {
+        "probability": 0.19597972488761367,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-183-3-0",
+      "hearing_id": 183,
+      "n": 11,
+      "article_name": "Julio Lopes",
+      "proposition": "A Guiana e o Suriname, países próximos ao Amapá, já estão explorando petróleo na Margem Equatorial: \"O Suriname identificou uma reserva de petróleo em 2020, começou o licenciamento em 2021 e em 2023 já está em exploração, uma reserva do tamanho de 27% da reserva brasileira.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Presidente Gabriel Nunes, se nós formos ver o Suriname, por exemplo, ele identificou uma reserva de petróleo em 2020 e começou o licenciamento em 2021. Em 2023, já está em exploração no Suriname uma reserva do tamanho de 27% da reserva brasileira.",
+        "turn": 58,
+        "start": 101170,
+        "end": 101417
+      },
+      "verifier": {
+        "probability": 0.9031831507915258,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

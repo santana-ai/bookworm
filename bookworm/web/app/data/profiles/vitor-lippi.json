@@ -1,0 +1,533 @@
+{
+  "actor": {
+    "slug": "vitor-lippi",
+    "name": "Vitor Lippi",
+    "display_name": "Vitor Lippi",
+    "role": "Deputado (PSDB-SP)",
+    "article_names": [
+      "Vitor Lippi"
+    ],
+    "party_uf": [
+      "Bloco/PSDB - SP",
+      "PSDB - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:18:10+00:00",
+    "n_statements": 22,
+    "n_hearings": 5,
+    "hearing_ids": [
+      61,
+      184,
+      192,
+      193,
+      197
+    ],
+    "input_tokens": 15758,
+    "output_tokens": 1161,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 27,
+    "with_udv": 1,
+    "passage_only": 25,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende o fortalecimento da indústria nacional como a melhor agenda para o desenvolvimento do Brasil, argumentando que a geração de emprego é o melhor programa social e que a indústria agrega valor, gera riqueza e cadeias produtivas.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 49,
+            "start": 133608,
+            "end": 133679,
+            "text": "Eu acho que a geração de emprego é o melhor programa social que existe.",
+            "score": 0.4371
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o ambiente de negócios brasileiro, citando que o país ocupa o 184º lugar no ranking do pior sistema tributário e o 124º (ou 123º, em outra fala) no pior ambiente de negócios, o que encarece a produção em 25% em média em relação à média mundial.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 17,
+            "start": 37067,
+            "end": 37276,
+            "text": "Nós ocupamos o 184º lugar em relação ao pior sistema tributário do mundo e o 124º lugar em relação ao pior ambiente de negócios do mundo.Aqui são quatro vezes mais caros os impostos sobre a folha de pagamento.",
+            "score": 0.4587
+          },
+          "udv": {
+            "id": "udv-61-5-0",
+            "rule": "same_sentence",
+            "score": 0.4294
+          }
+        },
+        {
+          "text": "Cobra a aprovação da reforma tributária, classificando-a como a maior inimiga do crescimento empresarial e fundamental para reduzir o \"Custo Brasil\" e melhorar a competitividade.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 17,
+            "start": 38656,
+            "end": 38742,
+            "text": "Ela é a maior inimiga do crescimento empresarial do Brasil e das indústrias inclusive.",
+            "score": 0.4733
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia o custo do financiamento no Brasil como o mais caro do mundo, comparando a taxa de juros de 30% a 40% ao ano com a inadimplência de apenas 5% e a baixa procura por crédito (apenas 20% das empresas vão ao mercado financeiro, segundo a ABIMAQ).",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 44,
+            "start": 118528,
+            "end": 118613,
+            "text": "Segundo dados da ABIMAQ, apenas 20% das empresas no Brasil vão ao mercado financeiro.",
+            "score": 0.5561
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um programa \"Desenrola\" para microempresários e defende que o Parlamento enfrente a questão dos juros altos, que considera inviável para a vida das pessoas e empresas.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 44,
+            "start": 118321,
+            "end": 118402,
+            "text": "Eu não tenho dúvida de que essa é uma questão para ser resolvida pelo Parlamento.",
+            "score": 0.1515
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a revisão da Lei do Bem para ampliar a inovação aberta, a participação de startups e dar segurança fiscal às empresas, permitindo o uso do benefício mesmo em anos sem lucro.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 24,
+            "start": 99786,
+            "end": 100145,
+            "text": "Além disso, a Lei do Bem, que está caminhando, poderá ampliar significativamente a inovação aberta, ampliar a participação dasstartups,modernizar e dar continuidade e segurança a quem tem o benefício, para que, mesmo nos anos de regime fiscal em que ele não tenha lucro, ele possa utilizar esse recurso, assim como apontam as melhores práticas internacionais.",
+            "score": 0.4812
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a burocracia excessiva e o rigorismo dos órgãos de controle, como o TCU, que, segundo afirma, desestimulam a pesquisa porque \"dá mais trabalho prestar conta do que fazer pesquisa\".",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 24,
+            "start": 103071,
+            "end": 103345,
+            "text": "Aproveitei para dizer ao Presidente Bruno Dantas que o TCU é muito importante, que foi criado para proteger o Brasil da corrupção, mas que, no entanto, ouvi de pesquisadores que eles não querem mais fazer pesquisa porque dá mais trabalho prestar conta do que fazer pesquisa.",
+            "score": 0.3633
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a tese de obsolescência programada em celulares, argumentando que a linha de produção gera produtos idênticos e que 95% dos semicondutores vêm do exterior, o que impede o controle intencional da durabilidade.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 23,
+            "start": 65793,
+            "end": 65841,
+            "text": "Na linha de produção, os produtos são idênticos.",
+            "score": 0.4357
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a ampliação da produção nacional de semicondutores, de 5% para 10%, 15% ou 20%, citando a nova lei de semicondutores de sua autoria e a necessidade de soberania e economia.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 23,
+            "start": 70545,
+            "end": 70749,
+            "text": "Nós estamos numa luta muito grande, Deputado Márcio, para ampliarmos, em vez de 5%, em 10%, 15% ou 20% a produção de semicondutores no Brasil, que hoje são o elemento tecnológico mais importante do mundo.",
+            "score": 0.3393
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o uso estratégico das compras públicas para desenvolver tecnologias nacionais, como órteses e próteses, para reduzir custos e aumentar a capacidade do SUS.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 14,
+            "start": 72902,
+            "end": 72982,
+            "text": "Por exemplo, um dos maiores desafios do SUS no Brasil são as órteses e próteses.",
+            "score": 0.3332
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a segurança jurídica para investimentos em PPPs e concessões, apontando o Brasil como um dos países mais inseguros para investir.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 49,
+            "start": 135086,
+            "end": 135301,
+            "text": "O Brasil, infelizmente, é um dos países mais inseguros do mundo para se investir, inclusive nós precisamos tanto de investimento internacional, e, portanto, precisamos melhorar a segurança para as PPPs e concessões.",
+            "score": 0.4804
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a comparação internacional como critério central para justificar suas posições, argumentando que o Brasil deve se alinhar às melhores práticas de países como Israel, Finlândia, Alemanha e EUA para crescer.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 23,
+            "start": 68048,
+            "end": 68087,
+            "text": "As melhores do mundo estão aqui também.",
+            "score": 0.1923
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a visão sistêmica e estratégica, criticando a fragmentação das políticas públicas e defendendo a integração entre governo, universidades e empresas (modelo \"triple helix\" ou \"penta hélice\").",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 14,
+            "start": 71296,
+            "end": 71439,
+            "text": "Essa visão sistêmica, essa visão holística, essa visão estratégica acaba fazendo toda a diferença, porque aproveitamos melhor aquilo que temos.",
+            "score": 0.2321
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a ciência, tecnologia e inovação são pilares fundamentais para o futuro do Brasil, gerando emprego, desenvolvimento e prosperidade, e que \"ciência e tecnologia não dá voto, mas dá futuro\".",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 24,
+            "start": 98361,
+            "end": 98529,
+            "text": "Eu brinco entre os nossos nobres pares que ciência e tecnologia não dá voto, mas dá futuro, dá emprego, dá desenvolvimento, dá um País muito melhor para todos.(Palmas.)",
+            "score": 0.4616
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a geração de emprego é o melhor programa social, justificando a prioridade dada à indústria e à competitividade em detrimento de apenas ampliar programas sociais.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 49,
+            "start": 133608,
+            "end": 133679,
+            "text": "Eu acho que a geração de emprego é o melhor programa social que existe.",
+            "score": 0.4281
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a lógica dos órgãos de controle de que \"todo mundo é desonesto\", argumentando que isso impede os honestos de trabalharem e trava o país.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 24,
+            "start": 102283,
+            "end": 102379,
+            "text": "Eu costumo dizer que os órgãos de controle trabalham com a lógica de que todo mundo é desonesto.",
+            "score": 0.461
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se médico, sem experiência no mercado financeiro ou empresarial, e afirma estar na vida pública há 30 anos.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 24,
+            "start": 100296,
+            "end": 100329,
+            "text": "Estou na vida pública há 30 anos.",
+            "score": 0.4619
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como autor da nova lei de semicondutores no Brasil e relator da lei da Deputada Luisa Canziani sobre a Lei do Bem.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 23,
+            "start": 70491,
+            "end": 70544,
+            "text": "Eu sou autor da nova lei de semicondutores no Brasil.",
+            "score": 0.5885
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Prefeito de Sorocaba, onde apoiou o PROCON e realizou estudos sobre improbidade administrativa.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 24,
+            "start": 101152,
+            "end": 101205,
+            "text": "A lei de improbidade administrativa era uma confusão.",
+            "score": 0.3045
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara estar alinhado com a agenda do Governo Federal, reconhecendo acertos do Ministério da Ciência, Tecnologia e Inovação, do BNDES e do MDIC.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 40,
+            "start": 118272,
+            "end": 118505,
+            "text": "Quero aqui reconhecer que o Ministério da Ciência, Tecnologia e Inovação está com a agenda correta; que o BNDES está com a agenda correta; que o Ministério do Desenvolvimento, Indústria, Comércio e Serviços está com a agenda correta.",
+            "score": 0.3573
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita ter convidado grandes empresas e investidores para definir cinco objetivos de sua atuação parlamentar: reforma tributária, trabalhista, juros altos, segurança para investimentos e custo dos portos.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 49,
+            "start": 133240,
+            "end": 133314,
+            "text": "Quando eu vim aqui para este Parlamento, eu tinha cinco grandes objetivos.",
+            "score": 0.2711
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e rankings internacionais para fundamentar suas críticas, como posições no ranking do FMI ou da OCDE sobre tributação e ambiente de negócios.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 40,
+            "start": 118952,
+            "end": 118997,
+            "text": "Cito também o ambiente de negócios no Brasil.",
+            "score": 0.2046
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e exemplos pessoais para ilustrar pontos complexos, como a comparação da taxa de juros com a orientação dada a seu filho para não pegar dinheiro em banco.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 49,
+            "start": 137959,
+            "end": 138037,
+            "text": "Terceiro:\"Nunca pegue dinheiro em banco, porque você não vai conseguir pagar\".",
+            "score": 0.1614
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliador e colaborativo, cumprimentando palestrantes e colegas, e propõe a construção conjunta de soluções no Parlamento.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega a retórica da \"oportunidade perdida\", destacando as vantagens comparativas do Brasil (agro, energia verde, mercado consumidor) que não estão sendo aproveitadas.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 40,
+            "start": 119617,
+            "end": 119694,
+            "text": "Acho que o Brasil é o único país do mundo em que está sobrando energia verde.",
+            "score": 0.2427
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita casos específicos de sua base eleitoral, como os estudos sobre improbidade administrativa em Sorocaba, para demonstrar a injustiça de leis vigentes.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 24,
+            "start": 101152,
+            "end": 101205,
+            "text": "A lei de improbidade administrativa era uma confusão.",
+            "score": 0.2544
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza expressões como \"monstros\" para descrever os problemas estruturais (tributário e juros) e \"heróis\" para se referir aos empreendedores.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 44,
+            "start": 117721,
+            "end": 117790,
+            "text": "Isso e o custo dos juros para as empresas traz gravíssimos problemas.",
+            "score": 0.1998
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 7,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Deputados defendem regulamentação paralela da reforma tributária",
+      "assunto": "Regulamentação da reforma tributária",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 61,
+      "split": "train",
+      "article_date": "2022-11-30",
+      "title": "Entidades patronais defendem política de retomada do setor industrial",
+      "assunto": "Defesa de uma política de retomada do setor industrial por entidades patronais",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 184,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Participantes de audiência pública pedem votação de mudanças na Lei do Bem",
+      "assunto": "Discussão sobre mudanças na Lei do Bem para facilitar a colaboração entre universidades, empresas e governo e promover inovações",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 192,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Entidades de defesa do consumidor e representante da indústria divergem sobre redução da vida útil de celulares",
+      "assunto": "Redução da vida útil de celulares e obsolescência programada",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 193,
+      "split": "train",
+      "article_date": "2023-08-15",
+      "title": "Microempresários querem programa Desenrola para o setor; BC defende política de juros",
+      "assunto": "Microempresários defendem a criação de um programa Desenrola para enfrentar o endividamento agravado por altas taxas de juros",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 197,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Marco Legal da Inovação precisa ser revisto, afirmam especialistas",
+      "assunto": "Revisão do Marco Legal da Inovação para facilitar sua operacionalização",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-61-5-0",
+      "hearing_id": 61,
+      "n": 8,
+      "article_name": "Vitor Lippi",
+      "proposition": "\"O problema do não crescimento não é dentro da indústria, é fora dela. Temos o 184º pior sistema tributário do mundo. O 124º pior ambiente de negócios do planeta. A área de pesquisa e desenvolvimento ainda deixa muito a desejar.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós ocupamos o 184º lugar em relação ao pior sistema tributário do mundo e o 124º lugar em relação ao pior ambiente de negócios do mundo.Aqui são quatro vezes mais caros os impostos sobre a folha de pagamento. A área de P&D no Brasil ainda deixa muito a desejar.",
+        "turn": 17,
+        "start": 37067,
+        "end": 37330
+      },
+      "verifier": {
+        "probability": 0.632361908634832,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-184-1-0",
+      "hearing_id": 184,
+      "n": 2,
+      "article_name": "Vitor Lippi",
+      "proposition": "\"Temos consciência da importância da nova Lei do Bem, que realmente traz algumas contribuições importantes para dar mais estabilidade para as empresas e sustentabilidade de curto, médio e longo prazo\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Temos consciência da importância da nova Lei do Bem, que, realmente, traz algumas contribuições importantes para dar mais estabilidade para as empresas e sustentabilidade de curto, médio e longo prazo.",
+        "turn": 10,
+        "start": 49821,
+        "end": 50022
+      },
+      "verifier": {
+        "probability": 0.9958044861964056,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-184-1-1",
+      "hearing_id": 184,
+      "n": 3,
+      "article_name": "Vitor Lippi",
+      "proposition": "A colaboração entre universidades, empresas e governo permite mais eficiência na alocação de recursos, melhora a competitividade das empresas, fortalece as universidades, gera riqueza e empregos e promove o desenvolvimento econômico e social.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Lembramos que este é um modelo que deu certo em importantes países do mundo, como a Finlândia, o Japão, a Alemanha, Israel e outros países que se desenvolveram muito ancorados no desenvolvimento tecnológico e na inovação, sempre fortalecendo essa parceria entre governo, universidade e empresa; governo, instituições de pesquisa e empresa. Isso, também entre nós, pode fazer com que haja uma transformação do conhecimento em riqueza, em solução, em inovação, em competitividade […]",
+        "turn": 0,
+        "start": 384,
+        "end": 990
+      },
+      "verifier": {
+        "probability": 0.8205489069122407,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-193-3-0",
+      "hearing_id": 193,
+      "n": 6,
+      "article_name": "Vitor Lippi",
+      "proposition": "Afirmou que o Brasil ainda tem os “piores ambientes de negócio” do mundo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E sabemos que, infelizmente, o Brasil tem um dos piores ambientes de negócios do mundo. Se não me falha a memória, é o 123º pior segundo as últimas análises.",
+        "turn": 18,
+        "start": 60246,
+        "end": 60403
+      },
+      "verifier": {
+        "probability": 0.8990237613172992,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

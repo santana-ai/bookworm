@@ -1,0 +1,402 @@
+{
+  "actor": {
+    "slug": "tadeu-veneri",
+    "name": "Tadeu Veneri",
+    "display_name": "Tadeu Veneri",
+    "role": "Deputado (PT-PR)",
+    "article_names": [
+      "Tadeu Veneri"
+    ],
+    "party_uf": [
+      "Bloco/PT - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:59:34+00:00",
+    "n_statements": 9,
+    "n_hearings": 5,
+    "hearing_ids": [
+      2,
+      15,
+      153,
+      171,
+      199
+    ],
+    "input_tokens": 4894,
+    "output_tokens": 962,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a vacinação como medida essencial para salvar vidas, citando o exemplo pessoal de ter perdido um irmão para a meningite e a obrigatoriedade vacinal implementada na década de 1970 após epidemias.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 102,
+            "start": 133727,
+            "end": 133762,
+            "text": "Eu perdi um irmão para a meningite.",
+            "score": 0.2145
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a lógica de não obrigatoriedade da vacinação infantil contra a Covid-19, argumentando que essa postura pode se expandir para outros casos, levando a uma situação grave e irreversível em que ninguém seria vacinado contra a vontade.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 102,
+            "start": 133856,
+            "end": 133924,
+            "text": "Hoje a lógica é não haver obrigatoriedade de vacinação das crianças.",
+            "score": 0.2105
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Governo Federal sobre o avanço do Transtorno do Espectro Autista (TEA), destacando que se trata de um transtorno e não de uma doença, e cobra medidas governamentais diante da perspectiva de aumento no número de crianças afetadas sem conhecimento científico consolidado sobre o tratamento.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 182,
+            "start": 99561,
+            "end": 99912,
+            "text": "Porque, como nós conversamos antes — há 10 anos nós acompanhamos a questão do autismo —, a perspectiva que nós temos é de que em pouco tempo teremos um número muito grande de crianças que já nascerão com o transtorno, e sem que nós tenhamos conhecimento científico sobre como fazer esse tratamento, uma vez que o TEA não é uma doença, é um transtorno.",
+            "score": 0.3815
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a venda da COPEL pelo Governo do Paraná, afirmando que a outorga foi de 3,5 bilhões de reais, valor muito inferior aos 9 bilhões de reais que, em sua avaliação, deveriam ter sido obtidos.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 27,
+            "start": 70929,
+            "end": 71077,
+            "text": "Eu falei ao senhor que nós deveríamos ter 9 bilhões de reais de outorga, e tivemos 3,5 bilhões de reais por conta da forma como foi feita a outorga.",
+            "score": 0.434
+          },
+          "udv": null
+        },
+        {
+          "text": "Alerta para a concentração privada no setor energético, citando a participação da 3G Capital na ELETROBRAS e na COPEL, e questiona o Ministério de Minas e Energia sobre as providências para evitar o monopólio privado e a redução de quadros técnicos que pode inviabilizar as empresas.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 27,
+            "start": 68855,
+            "end": 69005,
+            "text": "Ministro, porque não sei se o Ministério de Minas e Energia tem acompanhado a concentração privada de grandes, mas poucos, grupos no setor energético.",
+            "score": 0.3389
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o programa Mais Médicos como \"revolucionário\" e cobra do Ministério da Saúde informações sobre o número de inscritos, a proporção de brasileiros e a perspectiva de atendimento do programa.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 182,
+            "start": 99222,
+            "end": 99270,
+            "text": "Qual é a perspectiva de atendimento do programa?",
+            "score": 0.5153
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a política de \"neoliberalismo equivocado\" que prioriza o superávit em detrimento da saúde, argumentando que o Brasil gasta menos com saúde que a maioria dos países da OCDE e da América Latina, o que resulta em mortes evitáveis.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 176,
+            "start": 138459,
+            "end": 138704,
+            "text": "Eu vi domingo uma matéria que me chamou muito a atenção, num debate feito numa das principais redes de rádio do nosso País, no qual se dizia que nós gastamos menos com saúde que a maioria dos países, não só da OCDE, mas também da América Latina.",
+            "score": 0.3361
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a situação de enchentes no Paraná, especificamente no Vale do Iguaçu e em União Vitória, onde 60% da cidade estava coberta pela água, com perda de acesso pelas rodovias BR-153 e BR-476, e falta de internet e energia elétrica.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 101,
+            "start": 168654,
+            "end": 168844,
+            "text": "Acabei de receber agora a informação de que a cheia ultrapassou 10 metros no Vale do Iguaçu, 60% da cidade de União Vitória, que tem entre 50 mil e 60 mil habitantes, está coberta pela água.",
+            "score": 0.3536
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a solidariedade com o Sistema Único de Saúde (SUS) e com os defensores da opinião da Ministra da Saúde como fundamento para criticar o \"patrulhamento\" e a hipocrisia de parlamentares que acusam opiniões alheias, invocando passagens bíblicas (Mateus 23: 27-28) para reforçar a ideia de que a crítica a opiniões legítimas é uma forma de hipocrisia.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 176,
+            "start": 139377,
+            "end": 139612,
+            "text": "Deputadas, para aqueles que falam tanto em religião, Deputado Pastor Henrique, e que às vezes o acusam, uma parte da Bíblia que eu acho extremamente interessante, em Mateus 23: 27-28:\"Ai de vocês, mestres da lei e fariseus, hipócritas!",
+            "score": 0.1694
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da vacinação na premissa de que a vacina é melhor que a doença (exemplo: meningite) e na necessidade de esclarecimento da população, independentemente de paixões políticas ou filiações partidárias.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 182,
+            "start": 98980,
+            "end": 99049,
+            "text": "Nós defendemos a vacina, porque é melhor a vacina do que a meningite.",
+            "score": 0.2993
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a analogia do sistema heliocêntrico e a crítica aos \"jesuítas\" e à religião para argumentar contra o uso de costumes e fé para negar evidências ou impor visões de mundo centradas em interesses particulares.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 176,
+            "start": 139057,
+            "end": 139322,
+            "text": "Mas os jesuítas o culpavam, a religião o culpava, porque era interessante usar a religião e os costumes para dizer, primeiro, que a Terra era plana; segundo, que o Sol girava em torno da Terra — hoje parece que algumas pessoas acham que o mundo gira em torno delas.",
+            "score": 0.1749
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se bancário e morador de Curitiba, Paraná.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 102,
+            "start": 132263,
+            "end": 132293,
+            "text": "Eu sou do Paraná, de Curitiba.",
+            "score": 0.3797
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma solidariedade aos companheiros gaúchos afetados pelas enchentes e destaca a situação semelhante no Paraná.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 101,
+            "start": 168435,
+            "end": 168498,
+            "text": "Eu estou aqui solidário a todos os nossos companheiros gaúchos.",
+            "score": 0.2821
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica o Governo do Estado do Paraná como opositor ao Governo Federal, mas ressalta que o debate sobre a saúde e a vacinação não deve ser tratado como questão de governo A, B ou C.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 102,
+            "start": 132804,
+            "end": 132877,
+            "text": "O Governo do Estado do Paraná é, como se sabe, opositor do Governo atual.",
+            "score": 0.4896
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos específicos e recentes para sustentar seus argumentos, como o número de casos de Covid-19 em Curitiba e no Paraná, o valor da outorga da COPEL e a adesão vacinal.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 102,
+            "start": 132263,
+            "end": 132293,
+            "text": "Eu sou do Paraná, de Curitiba.",
+            "score": 0.1966
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos pessoais e familiares, como a perda de um irmão para a meningite e a vacinação de seus filhos e netos, para humanizar o debate e reforçar a urgência das medidas de saúde pública.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 102,
+            "start": 133727,
+            "end": 133762,
+            "text": "Eu perdi um irmão para a meningite.",
+            "score": 0.2233
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega recursos retóricos como analogias (Galileu, sistema heliocêntrico), citações bíblicas e referências a eventos históricos (epidemia de meningite na década de 1970) para contextualizar e fortalecer suas posições.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 102,
+            "start": 133635,
+            "end": 133726,
+            "text": "Na década de 70, foi obrigatória a vacinação depois da epidemia de meningite que aconteceu.",
+            "score": 0.1995
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta aos ministros e autoridades presentes, formulando perguntas específicas sobre programas governamentais e políticas públicas, e demonstrando preocupação com a concentração de poder econômico no setor energético.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 21,
+      "split": "test",
+      "article_date": "2024-04-03",
+      "title": "Empregados da Caixa e lotéricos temem possível privatização do controle das loterias",
+      "assunto": "Possível privatização do controle das loterias da Caixa Econômica Federal",
+      "turns": 11,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-21-4-0",
+      "hearing_id": 21,
+      "n": 12,
+      "article_name": "Tadeu Veneri",
+      "proposition": "Demonstrou preocupação com a eventual privatização das loterias da Caixa sem qualquer autorização do Congresso.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós fizemos um convite ao Presidente da Caixa Econômica, que foi aprovado na Comissão de Fiscalização Financeira e Controle, para que venha à Comissão fazer justamente um debate a respeito desse ponto específico. Obviamente, isso depende da agenda do Presidente, porque não pode ser uma convocação.",
+        "turn": 34,
+        "start": 66880,
+        "end": 67178
+      },
+      "verifier": {
+        "probability": 0.1448205510093798,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-21-4-1",
+      "hearing_id": 21,
+      "n": 13,
+      "article_name": "Tadeu Veneri",
+      "proposition": "Sugeriu que o banco retire a proposta e abra um diálogo para esclarecer os detalhes da criação da subsidiária.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós fizemos um convite, e esperamos que ele seja aceito, para que o Presidente venha até a Câmara Federal e nos esclareça outros pontos além desses que já foram levantados aqui. Também foi convidado para vir hoje o representante da Caixa Econômica.",
+        "turn": 34,
+        "start": 67179,
+        "end": 67428
+      },
+      "verifier": {
+        "probability": 0.133310167083965,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

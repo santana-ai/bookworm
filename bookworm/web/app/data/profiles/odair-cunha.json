@@ -1,0 +1,243 @@
+{
+  "actor": {
+    "slug": "odair-cunha",
+    "name": "ODAIR CUNHA",
+    "display_name": "ODAIR CUNHA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:47:54+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      2,
+      183
+    ],
+    "input_tokens": 3444,
+    "output_tokens": 765,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 14,
+    "with_udv": 0,
+    "passage_only": 12,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o RAP (Relatório de Análise de Performance) finalizado em 45 dias deve fornecer um diagnóstico seguro e objetivo para o Ministério de Minas e Energia, permitindo a implementação de medidas que evitem a repetição de eventos críticos no sistema elétrico, como o ocorrido em 15 de agosto.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 60927,
+            "end": 61172,
+            "text": "O senhor pode dizer se, nesse RAP finalizado, teremos uma clareza objetiva para informar o Ministério de Minas e Energia do que deve ser feito no sistema elétrico brasileiro, a fim de que eventos como esse de 15 de agosto não voltem a acontecer?",
+            "score": 0.3206
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a adequação dos reguladores de tensão instalados no sistema elétrico brasileiro, argumentando que foram projetados para uma época anterior à entrada massiva de energia eólica e solar, e indaga se as novas linhas de transmissão contarão com equipamentos mais modernos para lidar com a tensão oscilante das renováveis.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 61387,
+            "end": 61568,
+            "text": "Se esses reguladores de tensão foram instalados quando não tínhamos ainda a entrada da energia eólica e da energia solar com tamanha importância, podemos dizer que essa é a questão?",
+            "score": 0.3565
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a redução da representação do Governo Federal no Conselho de Administração da ELETROBRAS, afirmando que o Congresso Nacional foi \"induzido a erro\" ao abrir mão do direito de voto de 43% (correspondente à participação acionária do governo), restando apenas 10%.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 62778,
+            "end": 62928,
+            "text": "O Congresso Nacional foi induzido a erro quando abriu mão do tamanho da representação que o Governo tem exatamente no Conselho da ELETROBRAS.(Palmas.)",
+            "score": 0.4323
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a correção judicial pelo Supremo Tribunal Federal do erro na alteração da representação governamental na ELETROBRAS, ressaltando que a empresa é responsável por 40% da rede de transmissão nacional e que o governo deve honrar suas ações.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 62609,
+            "end": 62689,
+            "text": "Nós temos uma empresa que é responsável por 40% da rede de transmissão nacional.",
+            "score": 0.4846
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma câmara de projetos prioritários no âmbito do Ministério de Minas e Energia ou do IBAMA para dar tratamento diferenciado a projetos de alto interesse público, como a exploração de petróleo na margem equatorial, evitando que todos os processos de licenciamento sejam tratados de forma igualitária.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 66,
+            "start": 113075,
+            "end": 113252,
+            "text": "Nós poderíamos criar, no âmbito do Ministério ou do IBAMA, uma câmara de projetos prioritários, em que os projetos de alto interesse público pudessem ter tratamento prioritário?",
+            "score": 0.5246
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o incentivo aos biocombustíveis como forma de reduzir drasticamente as emissões de carbono no Brasil, citando a Aliança Global para os Biocombustíveis assinada pelos presidentes do Brasil, dos EUA e do Primeiro-Ministro da Índia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 64173,
+            "end": 64333,
+            "text": "é o que seria essa Aliança Global para os Biocombustíveis, assinada pelo Presidente Lula, pelo Presidente americano, o Biden, e pelo Primeiro-Ministro da Índia.",
+            "score": 0.3904
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a necessidade de um \"pacto de governabilidade\" entre os atores do setor elétrico, incluindo o Congresso Nacional, para organizar o Sistema Elétrico Brasileiro, rejeitando a ideia de que o sistema é uma \"casa da mãe Joana\" onde todos interferem sem coordenação.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 61688,
+            "end": 62017,
+            "text": "Também de alguma maneira, o Ministro Alexandre Silveira tratou isso: o sistema elétrico brasileiro não pode ser a casa da mãe Joana, onde todo mundo entra, todo mundo põe a mão e todo mundo acha que manda.É preciso que haja um pacto de governabilidade entre os atores do setor, o que implica necessariamente o Congresso Nacional.",
+            "score": 0.4049
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio da proporcionalidade no licenciamento ambiental, argumentando que processos de diferentes magnitudes e impactos não podem ser tratados de forma uniforme, sob pena de inviabilizar a resolução dos problemas do país.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da participação governamental na ELETROBRAS no direito de voto proporcional à participação acionária (43%), considerando a responsabilidade do governo com a infraestrutura de transmissão.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 63484,
+            "end": 63538,
+            "text": "Nós não podemos abrir mão dos 43% do direito de votar.",
+            "score": 0.1786
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se mineiro e expressa satisfação com a presença de um ministro de Minas Gerais à frente do Ministério de Minas e Energia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 59994,
+            "end": 60266,
+            "text": "Ao cumprimentar o nosso Ministro, quero dizer da nossa alegria e satisfação, enquanto mineiros, de ter alguém da estatura, da grandeza, da competência e da dedicação do Ministro Alexandre Silveira à frente de um Ministério que tem a ver com o nosso Estado de Minas Gerais.",
+            "score": 0.3588
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter votado contra a alteração da representação governamental na ELETROBRAS, distinguindo-se da maioria da Câmara e do Senado que aprovou a medida.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 63422,
+            "end": 63483,
+            "text": "A maioria desta Casa e do Senado Federal foi induzida a erro.",
+            "score": 0.2099
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza metáforas e referências culturais para ilustrar pontos, como a comparação do sistema elétrico com a \"casa da mãe Joana\" e a citação do conto do moleiro alemão (\"Ainda há juízes em Berlim\") para referir-se ao papel regulatório do IBAMA.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 66,
+            "start": 111788,
+            "end": 111837,
+            "text": "E a frase é célebre: \"Ainda há juízes em Berlim\".",
+            "score": 0.1723
+          },
+          "udv": null
+        },
+        {
+          "text": "Formula perguntas diretas aos ministros presentes para obter esclarecimentos técnicos e políticos, como sobre o conteúdo do RAP e a natureza da Aliança Global para os Biocombustíveis.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 18,
+            "start": 64173,
+            "end": 64333,
+            "text": "é o que seria essa Aliança Global para os Biocombustíveis, assinada pelo Presidente Lula, pelo Presidente americano, o Biden, e pelo Primeiro-Ministro da Índia.",
+            "score": 0.1575
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de cobrança e expectativa de correção de erros institucionais, especialmente em relação ao papel do STF e à representação governamental em estatais.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

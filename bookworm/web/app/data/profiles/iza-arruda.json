@@ -1,0 +1,357 @@
+{
+  "actor": {
+    "slug": "iza-arruda",
+    "name": "Iza Arruda",
+    "display_name": "Iza Arruda",
+    "role": "Deputada (MDB-PE)",
+    "article_names": [
+      "Iza Arruda"
+    ],
+    "party_uf": [
+      "Bloco/MDB - PE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:08:28+00:00",
+    "n_statements": 13,
+    "n_hearings": 2,
+    "hearing_ids": [
+      140,
+      185
+    ],
+    "input_tokens": 5905,
+    "output_tokens": 889,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 2,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a ampliação e a efetividade da triagem neonatal obrigatória no SUS, especificamente o teste do pezinho, para garantir a saúde da criança e reduzir custos do SUS, citando a Lei nº 14.154/21 como marco legal.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 0,
+            "start": 873,
+            "end": 1248,
+            "text": "Esta reunião de audiência pública foi convocada nos termos do Requerimento nº 156, de 2023, de minha autoria, para debater o panorama atual da triagem neonatal obrigatória no SUS, a partir do teste do pezinho, e os desafios para a ampliação do exame, essencial para a saúde da criança, bem como os próximos passos para a implementação da Lei nº 14.154, de 26 de maio de 2021.",
+            "score": 0.3745
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a união de esforços entre os Governos Federal, Estadual e Municipal e a sociedade civil para aumentar as estatísticas de cobertura do exame, apontando a desigualdade entre estados (cita 98% de cobertura até 7 dias no Distrito Federal contra 24% em Pernambuco) como um problema a ser revertido.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 10,
+            "start": 32289,
+            "end": 32415,
+            "text": "Esse é o momento oportuno de vermos as estatísticas: 98% aqui no Distrito Federal até 7 dias e 24% até 7 dias no nosso Estado.",
+            "score": 0.3978
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a extensão da conscientização sobre a triagem neonatal para além do mês de junho (Junho Lilás), estendendo-a para julho, agosto e setembro, visando aumentar o número de vidas modificadas pela abordagem inicial nos primeiros dias de vida.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 2,
+            "start": 18893,
+            "end": 19122,
+            "text": "É muito importante que nós possamos estender este mês de junho ao mês de julho, de agosto, de setembro, para aumentar as estatísticas de quantas vidas podem ser modificadas através da abordagem inicial nos primeiros dias de vida.",
+            "score": 0.598
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de grupos de trabalho (GT) para mudar o fluxo da triagem neonatal e a interiorização da capacitação dos profissionais, argumentando que isso é essencial para ter um fluxo contínuo e efetivo do programa.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 22,
+            "start": 72453,
+            "end": 72520,
+            "text": "Aí, sim, conseguimos ter um fluxo contínuo para a triagem neonatal.",
+            "score": 0.3647
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a triagem neonatal não é apenas um exame, mas um grande programa que exige busca ativa, continuidade e capacitação para que o benefício seja concluído, criticando o desconhecimento e o preconceito de famílias em relação ao teste em crianças saudáveis.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 17,
+            "start": 59577,
+            "end": 59724,
+            "text": "Ainda há muito desconhecimento e muito preconceito por parte de famílias com relação à realização de um teste em uma criança teoricamente saudável.",
+            "score": 0.3142
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a importância da vacinação e do combate à desinformação, citando dados de que há 2,7 milhões de crianças nas Américas sem vacinas contra difteria, tétano e coqueluche, e que a região passou de segunda maior para segunda pior cobertura vacinal desde 2010.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 0,
+            "start": 1862,
+            "end": 2015,
+            "text": "Em 2010, os relatos eram de que as Américas eram a região com a segunda maior cobertura vacinal; hoje, são a região com a segunda pior cobertura vacinal.",
+            "score": 0.5038
+          },
+          "udv": {
+            "id": "udv-140-1-0",
+            "rule": "same_sentence",
+            "score": 0.6175
+          }
+        },
+        {
+          "text": "Defende a descentralização das ações de saúde, citando programas municipais de Vitória de Santo Antão (PE) como exemplo de sucesso no aumento de imunizações, como o Programa Feira Viva, Saúde em Casa e Saúde Até Mais Tarde.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 2,
+            "start": 32741,
+            "end": 32806,
+            "text": "Temos o Programa Saúde em Casa e o Programa Saúde Até Mais Tarde.",
+            "score": 0.4036
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Justifica a defesa da triagem neonatal e da vacinação com o argumento de que essas medidas salvam vidas e reduzem custos para o Sistema Único de Saúde (SUS), protegendo a qualidade de vida do cidadão.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 14,
+            "start": 50964,
+            "end": 51075,
+            "text": "E a triagem neonatal, realmente, passa a ser esse primeiro passo para garantirmos qualidade de vida ao cidadão.",
+            "score": 0.2964
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a redução de desigualdades regionais como critério para cobrar políticas públicas, argumentando que cada estado tem uma realidade diferente e que é necessário construir políticas específicas para alcançar o objetivo de cobertura universal.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 12,
+            "start": 41882,
+            "end": 41941,
+            "text": "Nós entendemos que cada Estado tem uma realidade diferente.",
+            "score": 0.2934
+          },
+          "udv": {
+            "id": "udv-185-1-0",
+            "rule": "same_sentence",
+            "score": 0.4058
+          }
+        },
+        {
+          "text": "Valoriza o papel da sociedade civil, voluntários e mães atípicas na conscientização e no combate ao preconceito, vendo a união entre governo e sociedade como fundamental para o sucesso das políticas de saúde.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 10,
+            "start": 32416,
+            "end": 32638,
+            "text": "Nós precisamos de verdade revolucionar esses dados e trazer a conscientização de todas as esferas — Governo Federal, Estadual, Municipal, sociedade civil —, para mostrar ao País o tanto que Pernambuco vem se desenvolvendo.",
+            "score": 0.1994
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal em seu primeiro mandato, representante de Pernambuco, especificamente do município de Vitória de Santo Antão.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 2,
+            "start": 32534,
+            "end": 32672,
+            "text": "Em Pernambuco, em Vitória de Santo Antão, meu Município, temos alguns programas, e o senhor falou sobre a importância da descentralização.",
+            "score": 0.4125
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como autora dos Requerimentos nº 156/2023 e nº 97/2023, que convocaram as audiências públicas sobre triagem neonatal e surtos de doenças nas Américas, respectivamente.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 0,
+            "start": 622,
+            "end": 832,
+            "text": "Esta reunião de audiência pública foi convocada nos termos do Requerimento nº 97, de 2023, da Comissão de Saúde, de minha autoria — Deputada Iza Arruda —, para debater o risco de surtos de doenças nas Américas.",
+            "score": 0.3035
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhada com a Comissão de Saúde da Câmara dos Deputados, onde preside as audiências.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 17,
+            "start": 59767,
+            "end": 60011,
+            "text": "Eu acredito que, através de audiências públicas, de conscientização, trazendo essa discussão para a Câmara dos Deputados, para a Casa Legislativa, junto com a sociedade civil, junto com outros Deputados, nós conseguimos, sim, fazer a diferença.",
+            "score": 0.2575
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio e orgulho pelo trabalho do Grupo Mulheres do Brasil e do Grupo Unidos pela Vacina, citando-os como revolucionários para a saúde pública no Brasil.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 10,
+            "start": 31868,
+            "end": 32005,
+            "text": "Roseana Faneco, que é bem verdade que o Grupo Mulheres do Brasil e o Grupo Unidos pela Vacina revolucionam a saúde pública do nosso País.",
+            "score": 0.561
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e comparações regionais (como a diferença de cobertura entre DF e PE) para fundamentar suas cobranças e propostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de políticas públicas locais (programas de Vitória de Santo Antão) para ilustrar a viabilidade e a eficácia de propostas de descentralização e capacitação.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 2,
+            "start": 32534,
+            "end": 32672,
+            "text": "Em Pernambuco, em Vitória de Santo Antão, meu Município, temos alguns programas, e o senhor falou sobre a importância da descentralização.",
+            "score": 0.3572
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom acolhedor e de reconhecimento, agradecendo explicitamente a presença de convidados, elogiando o trabalho de organizações da sociedade civil e destacando a importância da participação de mães e voluntários.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 17,
+            "start": 59725,
+            "end": 59765,
+            "text": "Então, esse trabalho é muito importante.",
+            "score": 0.1719
+          },
+          "udv": null
+        },
+        {
+          "text": "Reforça a ideia de \"união de esforços\" e \"passos que importam\" como recursos retóricos recorrentes para mobilizar os interlocutores em torno da ação conjunta entre diferentes esferas de governo e sociedade.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 14,
+            "start": 51076,
+            "end": 51177,
+            "text": "É por isso que Pernambuco traz esse projeto Passos que Importam, pois, de verdade, eles bem importam.",
+            "score": 0.188
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 12,
+      "split": "validation",
+      "article_date": "2023-12-19",
+      "title": "Mulheres com deficiência são as maiores vítimas de violações de direitos, apontam especialistas",
+      "assunto": "Violações de direitos de mulheres com deficiência",
+      "turns": 10,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 140,
+      "split": "train",
+      "article_date": "2023-11-07",
+      "title": "Diretor da Opas aponta lições da pandemia e providências para próximas emergências sanitárias",
+      "assunto": "Lições da pandemia e providências para futuras emergências sanitárias, com foco na vacinação e combate à desinformação",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 185,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Cobertura do teste do pezinho é muito desigual no estados brasileiros, aponta levantamento",
+      "assunto": "Desigualdade na cobertura do teste do pezinho nos estados brasileiros e desafios para a ampliação do exame conforme a Lei 14.154/21",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-140-1-0",
+      "hearing_id": 140,
+      "n": 10,
+      "article_name": "Iza Arruda",
+      "proposition": "Parte do problema de surtos de doenças no continente americano é devido à queda nos resultados das campanhas de vacinação, em razão de fake news: \"Nós temos hoje registros de 2,7 milhões de crianças que não receberam vacinas contra difteria, tétano, coqueluche. Em 2010, tínhamos relatos de que as Américas eram a segunda região de maior cobertura vacinal. E hoje é a segunda região com a pior cobertura vacinal.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Há registros hoje de 2,7 milhões de crianças que não receberam vacinas contra difteria, tétano, coqueluche. Em 2010, os relatos eram de que as Américas eram a região com a segunda maior cobertura vacinal; hoje, são a região com a segunda pior cobertura vacinal.",
+        "turn": 0,
+        "start": 1754,
+        "end": 2015
+      },
+      "verifier": {
+        "probability": 0.39577881609554777,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-185-1-0",
+      "hearing_id": 185,
+      "n": 5,
+      "article_name": "Iza Arruda",
+      "proposition": "Enfatizou a necessidade de políticas públicas que preencham as particularidades dos estados brasileiros: \"A gente entende que cada estado tem uma realidade diferente e é importante que a gente construa essas políticas públicas para alcançar o objetivo\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós entendemos que cada Estado tem uma realidade diferente. Por isso, é importante que construamos essas políticas públicas para alcançarmos esse objetivo.",
+        "turn": 12,
+        "start": 41882,
+        "end": 42037
+      },
+      "verifier": {
+        "probability": 0.6744248978580852,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

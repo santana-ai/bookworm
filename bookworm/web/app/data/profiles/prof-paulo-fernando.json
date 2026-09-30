@@ -1,0 +1,668 @@
+{
+  "actor": {
+    "slug": "prof-paulo-fernando",
+    "name": "Prof. Paulo Fernando",
+    "display_name": "Prof. Paulo Fernando",
+    "role": "Deputado (Republicanos-DF)",
+    "article_names": [
+      "Prof. Paulo Fernando"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - DF"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:10:36+00:00",
+    "n_statements": 39,
+    "n_hearings": 11,
+    "hearing_ids": [
+      33,
+      35,
+      36,
+      41,
+      42,
+      54,
+      137,
+      142,
+      178,
+      187,
+      201
+    ],
+    "input_tokens": 13366,
+    "output_tokens": 1672,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 32,
+    "with_udv": 0,
+    "passage_only": 30,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação da PEC 169/2019, que permite a acumulação de dois cargos públicos para professores, argumentando que a medida assegura a liberdade de escolha profissional e que a Constituição já garante a livre atividade profissional desde que atendidas as qualificações legais.",
+          "passage": {
+            "hearing_id": 137,
+            "turn": 10,
+            "start": 44607,
+            "end": 44753,
+            "text": "A própria Constituição assevera que é livre a atividade do exercício profissional, atendidas as qualificações profissionais que a lei estabelecer.",
+            "score": 0.3281
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a visão \"estatizante\" de exigir dedicação exclusiva ou lotação em uma mesma escola, afirmando que isso foge da realidade dos professores, que atuam em redes públicas, privadas, confessionais, comunitais, em plataformas online e em diferentes níveis de ensino.",
+          "passage": {
+            "hearing_id": 137,
+            "turn": 10,
+            "start": 45175,
+            "end": 45425,
+            "text": "Então, quando eu vejo — e aí eu peço vênia ao primeiro expositor, ou foi o segundo, que fez a apresentação — alguém dizendo que tem que ter lotação em uma mesma escola, uma dedicação exclusiva, penso que isso foge da realidade dos nossos professores.",
+            "score": 0.3246
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de Juizados Especiais Eleitorais para combater a corrupção eleitoral e defende que a Justiça Eleitoral, e não o candidato, forneça as certidões de quitação eleitoral.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 32,
+            "start": 140204,
+            "end": 140333,
+            "text": "Então, eu queria compartilhar a ideia do movimento de combate à corrupção eleitoral na criação dos Juizados Especiais Eleitorais.",
+            "score": 0.4902
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a prioridade no julgamento de registros de candidatura e cassações, citando o caso de Sergipe onde a cassação às vésperas da eleição anulou 447.922 votos e alterou o resultado, e argumenta que o recálculo de votos (como no caso do PRONA/Enéas) deve seguir a lógica de preencher vagas com os menos votados da chapa vencedora.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 32,
+            "start": 140683,
+            "end": 140996,
+            "text": "Walber Agra, falou sobre a prioridade do julgamento do registro da candidatura e das cassações, e eu trago à baila um fato pitoresco ocorrido em Sergipe na última eleição, em que o candidato a Governador Valmir de Francisquinho, do PL, às vésperas da eleição, faltando 2 ou 3 dias, teve a sua candidatura cassada.",
+            "score": 0.2534
+          },
+          "udv": null
+        },
+        {
+          "text": "Discorda da aplicação imediata do quociente eleitoral de 80/20, defendendo que, por segurança jurídica, a nova regra só deve valer para a próxima eleição, e critica a incoerência de partidos que perderam a eleição e agora recorrem contra a proposta que eles mesmos apoiaram.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 32,
+            "start": 141569,
+            "end": 141681,
+            "text": "Eu acho que, em face da questão da segurança jurídica, no cômputo de votos só pode valer para a próxima eleição.",
+            "score": 0.3043
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de cota para mulheres na direção partidária (nacional, estadual e distrital) como pré-requisito para a efetivação da cota de candidatas, argumentando que sem presença na executiva, as mulheres ficam em defasagem.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 32,
+            "start": 142639,
+            "end": 142859,
+            "text": "Enquanto não houver uma cota para as mulheres na executiva do partido nacional, estadual e distrital, elas ficarão em defasagem, porque elas, na executiva nacional, poderão defender os interesses das candidatas mulheres.",
+            "score": 0.5301
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a ordem das cédulas eletrônicas deve ser majoritária primeiro e proporcional depois, para evitar que o eleitor, ao digitar o número do candidato majoritário (ex: 22, 13), confirme acidentalmente o voto de legenda para deputado.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 32,
+            "start": 143327,
+            "end": 143438,
+            "text": "Por isso, eu defendo a tese de que o voto da cédula deveria ser primeiro o majoritário e depois o proporcional.",
+            "score": 0.3121
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a liberdade econômica e a livre iniciativa, manifestando \"arrepio\" com proposições que pedem intervenção do Estado, e argumenta que a atividade de praticagem é privada, citando o art. 170 da Constituição e decisões de Tribunais Superiores.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 17,
+            "start": 37871,
+            "end": 37954,
+            "text": "170, da liberdade econômica, que a atividade de praticagem é uma atividade privada.",
+            "score": 0.4868
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a alteração da Lei nº 1.079/1950 (Lei do Impeachment) para tipificar como crime de responsabilidade a usurpação de competência pelo Supremo Tribunal Federal e a prolação de decisões fora do âmbito territorial de sua jurisdição, visando evitar o \"ativismo\" judicial.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 120,
+            "start": 141730,
+            "end": 142267,
+            "text": "Que haverá crime de responsabilidade quando o Supremo Tribunal Federal usurpar a competência do Poder Legislativo, do Poder Executivo, do Ministério Público e do Tribunal de Contas e, muito importante, quando o Supremo proferir despachos, decisões e votos fora do âmbito territorial de sua jurisdição,que é, em minha opinião, o caso aqui em tela(palmas), já que as pessoas que estão presas não têm foro privilegiado e evidentemente os processos deveriam estar tramitando na […]",
+            "score": 0.3604
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta o PL 3.286/2023, que prevê recurso ao Plenário do Senado contra o indeferimento monocrático de pedidos de impeachment contra Ministros do STF, e sugere enquadramento por crime de responsabilidade para omissão do Presidente da Casa em despachar pedidos de impeachment.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 120,
+            "start": 140936,
+            "end": 141123,
+            "text": "Então, o meu projeto prevê que, no caso do indeferimento de pedido deimpeachmentcontra Ministro do Supremo, cabe recurso ao Plenário do Senado, mediante a subscrição de um décimo dos Srs.",
+            "score": 0.2143
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a obrigatoriedade do diploma de jornalismo, citando o dispositivo constitucional que exige qualificações profissionais e a PEC 206/2012, e critica a avaliação do MEC para cursos de comunicação quando a atividade não exige formação.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 11,
+            "start": 46460,
+            "end": 46694,
+            "text": "E, como advogado, quero dizer que há um dispositivo constitucional que diz que é livre a atividade profissional, desde que atendidas as qualificações profissionais que a lei estabelecer, e a lei estabelece a atividade dos jornalistas.",
+            "score": 0.258
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação dos jogos de azar para destinar percentual da arrecadação à prevenção da ludopatia, citando dados do Instituto de Psiquiatria da USP que apontam idosos, aposentados e mulheres como principais afetados.",
+          "passage": {
+            "hearing_id": 41,
+            "turn": 18,
+            "start": 59983,
+            "end": 60195,
+            "text": "Ministro, e juntamente ao Ministério da Saúde, a demanda de atuar nessa discussão da regulamentação dos jogos, para se destinar o percentual da arrecadação dos jogos nisto: na prevenção e na questão da ludopatia.",
+            "score": 0.3997
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a viabilização do voto itinerante para a comunidade cigana, similar ao previsto para policiais na legislação eleitoral, e destaca a importância da língua cigana (calon/rom) e do acesso à educação (homeschooling) para o grupo.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 29,
+            "start": 88989,
+            "end": 89255,
+            "text": "Na condição de advogado eleitoral, digo que existe na legislação eleitoral a previsão de que os policiais podem votar de maneira itinerante no dia das eleições, e essa mesma alternativa não é dada à comunidade cigana em relação às votações.(Manifestação na plateia.)",
+            "score": 0.2756
+          },
+          "udv": null
+        },
+        {
+          "text": "Como Relator do PL 2.591/2023, esclarece que o projeto não altera o teto do consignado, mas alerta para os riscos de endividamento em cartões de crédito e benefício, onde juros altos e limites automáticos geram \"bola de neve\" de dívidas.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 54,
+            "start": 83742,
+            "end": 83915,
+            "text": "Observamos de maneira inequívoca que os riscos associados desse crédito consignado se mostram cada vez maiores no contexto dos cartões de crédito e nos cartões de benefício.",
+            "score": 0.3081
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Gestão a publicação do decreto e portaria sobre o consignado, e questiona a FEBRABAN sobre o número de reclamações no programa \"Não me Perturbe\", citando casos de assédio telefônico a aposentados.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 26,
+            "start": 44272,
+            "end": 44325,
+            "text": "O representante da FEBRABAN falou do Não me Perturbe.",
+            "score": 0.303
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a liberdade econômica e a livre iniciativa como princípios orientadores, usando-os para criticar intervenções estatais excessivas (praticagem) e defender a autonomia profissional (professores, jornalistas).",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 23,
+            "start": 40200,
+            "end": 40336,
+            "text": "Então, como eu disse, nós temos uma posição partidária em defesa da livre iniciativa, da liberdade econômica, de sempre abrir o mercado.",
+            "score": 0.2334
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a segurança jurídica como critério para rejeitar a aplicação imediata de novas regras eleitorais (80/20), argumentando que mudanças devem valer para o futuro.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 32,
+            "start": 141569,
+            "end": 141681,
+            "text": "Eu acho que, em face da questão da segurança jurídica, no cômputo de votos só pode valer para a próxima eleição.",
+            "score": 0.2059
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na separação de poderes e na competência constitucional para criticar o ativismo judicial do STF, defendendo que o Judiciário não deve legislar ou invadir a competência de outros poderes.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 40,
+            "start": 72142,
+            "end": 72172,
+            "text": "A competência é do Ministério.",
+            "score": 0.2625
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a liberdade de escolha profissional, citando a Constituição para defender o direito do indivíduo de acumular cargos ou escolher sua jornada de trabalho, desde que qualificado.",
+          "passage": {
+            "hearing_id": 137,
+            "turn": 10,
+            "start": 44523,
+            "end": 44605,
+            "text": "Esta é a palavra-chave desta PEC: a liberdade de escolha que o professor deve ter.",
+            "score": 0.1605
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa a realidade prática e a experiência de campo (como usuário do metrô, professor, advogado, radialista) para fundamentar suas posições, argumentando que propostas teóricas ou estatizantes ignoram a complexidade do dia a dia.",
+          "passage": {
+            "hearing_id": 137,
+            "turn": 10,
+            "start": 47103,
+            "end": 47181,
+            "text": "Você pode ser também professor, como eu, e Deputado e jornalista e radialista.",
+            "score": 0.1986
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro titular da Comissão de Direitos Humanos e da Comissão de Legislação Participativa, e membro da Comissão de Educação e da CPMI de 8 de Janeiro.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 17,
+            "start": 53434,
+            "end": 53578,
+            "text": "Como membro titular da Comissão de Direitos Humanos e da Comissão de Legislação Participativa, eu não poderia deixar de participar deste debate.",
+            "score": 0.6004
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser Deputado Federal pelo Republicanos do Distrito Federal, tendo sido suplente e reassumido o mandato recentemente.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 0,
+            "start": 2544,
+            "end": 2739,
+            "text": "Em virtude de ser suplente de Deputado Federal, pelo Republicanos do DF, o meu titular voltou ao mandato no mês passado, razão pela qual eu saí da Comissão e, obviamente, também saí da relatoria.",
+            "score": 0.306
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter sido assessor no Ministério da Mulher, da Família e dos Direitos Humanos na gestão passada, ocupando o cargo de Secretário Nacional do Idoso Adjunto.",
+          "passage": {
+            "hearing_id": 41,
+            "turn": 8,
+            "start": 42493,
+            "end": 42539,
+            "text": "Eu era o Secretário Nacional do Idoso Adjunto.",
+            "score": 0.5065
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como advogado, professor de Regimento Interno e Processo Legislativo (com 34/35 anos de Casa), apresentador de rádio há quase 20 anos e ex-diretor de rádio.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 11,
+            "start": 46209,
+            "end": 46458,
+            "text": "Presidente, caro Deputado Amaro Neto, colega de partido, de bancada, eu não faço parte da Comissão de Comunicação, mas fiz questão de acompanhar o debate, até mesmo porque eu sou apresentador de rádio há quase 20 anos, e fui também diretor de rádio.",
+            "score": 0.3714
+          },
+          "udv": null
+        },
+        {
+          "text": "Afilia-se à Frente Parlamentar Mista do Uso Saudável das Tecnologias Digitais, lançada em conjunto com a Senadora Damares, e à Frente Parlamentar em Defesa dos Motoristas de Aplicativos.",
+          "passage": {
+            "hearing_id": 54,
+            "turn": 6,
+            "start": 20587,
+            "end": 20746,
+            "text": "Eu e a Senadora Damares estamos lançando a Frente Parlamentar Mista do Uso Saudável das Tecnologias Digitais, da qual V.Exa., inclusive, é um dos subscritores.",
+            "score": 0.6362
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ser botafoguense e amigo de infância do Dr. Melillo (flamenguista), e amigo do Deputado Prof. Reginaldo Veras (vascaíno).",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 31,
+            "start": 139910,
+            "end": 139955,
+            "text": "Relator, em nome do meu amigo de infância Dr.",
+            "score": 0.4592
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Combina argumentos jurídicos (citação de leis, constituição, decisões judiciais) com exemplos práticos e anedotas pessoais (caso do metrô, experiência no PRONA, casos de clientes) para tornar o debate acessível.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa perguntas retóricas e indagações diretas a convidados (ex: \"Onde está a OAB?\", \"Qual o prazo do decreto?\") para cobrar respostas e pressionar por ações.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 4,
+            "start": 15983,
+            "end": 16054,
+            "text": "A senhora já tem um prazo para a expedição desse decreto e da portaria?",
+            "score": 0.1599
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem coloquial e expressões de impacto (\"bola de neve\", \"luz no fim do túnel\", \"arrepio\") para enfatizar pontos críticos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 340,
+            "start": 429568,
+            "end": 429701,
+            "text": "Quero dizer também do nosso compromisso na condição de Deputado de apresentar esses projetos de lei, que são uma luz no fim do túnel.",
+            "score": 0.2695
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos (números de votos, anos de leis, valores de tarifas) para dar concretude aos argumentos, mesmo quando admite não ser especialista na área técnica.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Demonstra tom conciliatório ao convidar para colaboração (\"parecer a quatro mãos\") e ao reconhecer a contribuição de colegas, mas torna-se firme ao discordar de propostas que considera incoerentes ou estatizantes.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 23,
+            "start": 40437,
+            "end": 40488,
+            "text": "Podemos fazer esse parecer a quatro mãos, se V.Exa.",
+            "score": 0.2669
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a referências religiosas (\"Deus não nos pede a vitória...\") e culturais (futebol, rádio) para criar conexão com o público e os interlocutores.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 340,
+            "start": 430295,
+            "end": 430427,
+            "text": "Para terminar, quero dizer que Deus não nos pede a vitória, Ele nos pede a luta, pois a vitória já é nossa porque estamos com Jesus.",
+            "score": 0.3334
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 27,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Debatedores apontam que uso da inteligência artificial pode afetar resultado eleitoral",
+      "assunto": "Uso da inteligência artificial no processo eleitoral e suas possíveis consequências",
+      "turns": 10,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 29,
+      "split": "validation",
+      "article_date": "2023-11-24",
+      "title": "Debatedores apontam medidas para reduzir mortes violentas de jovens negros",
+      "assunto": "Medidas para reduzir mortes violentas de jovens negros",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 33,
+      "split": "train",
+      "article_date": "2023-10-26",
+      "title": "Debatedores defendem diploma de jornalismo como remédio contra notícias falsas",
+      "assunto": "Defesa da obrigatoriedade do diploma de jornalismo como medida contra a desinformação e notícias falsas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 35,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Especialistas sugerem prazo maior para registro de candidaturas em minirreforma eleitoral",
+      "assunto": "Sugestões para a minirreforma eleitoral, incluindo prazo maior para registro de candidaturas e regras para campanhas na internet",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 36,
+      "split": "train",
+      "article_date": "2023-09-01",
+      "title": "Regulação econômica da praticagem no Brasil põe de lados opostos contratantes e profissionais",
+      "assunto": "Regulação econômica dos serviços de praticagem no Brasil",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 41,
+      "split": "train",
+      "article_date": "2023-06-28",
+      "title": "Debatedores pedem aprovação de acordo sobre proteção dos direitos de pessoas idosas",
+      "assunto": "Aprovação da Convenção Interamericana sobre a Proteção dos Direitos Humanos dos Idosos",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 42,
+      "split": "train",
+      "article_date": "2023-06-15",
+      "title": "Debatedores reivindicam aprovação de PEC que cria tarifa zero no transporte público",
+      "assunto": "Aprovação da PEC 25/23 que estabelece tarifa zero no transporte público",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 54,
+      "split": "train",
+      "article_date": "2023-06-27",
+      "title": "Especialistas sugerem grupo de trabalho e aprovação de lei para lidar com dependência tecnológica",
+      "assunto": "Dependência tecnológica e propostas legislativas para lidar com o problema",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 127,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Debatedores cobram política nacional de cuidados para idosos",
+      "assunto": "Política nacional de cuidados para idosos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 130,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Representantes do audiovisual sugerem a deputados medidas para estimular o setor",
+      "assunto": "Medidas sugeridas por representantes do setor audiovisual brasileiro para enfrentar a concorrência do cinema e do streaming norte-americanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 137,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Debatedores discordam sobre possibilidade de professor ter dois cargos públicos em áreas diferentes",
+      "assunto": "Debate sobre a possibilidade de professores da rede pública terem dois cargos públicos em áreas diferentes",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 142,
+      "split": "train",
+      "article_date": "2023-10-30",
+      "title": "Governo afirma que regulamentação do consignado para servidores públicos será publicada até semana que vem",
+      "assunto": "Regulamentação do empréstimo consignado para servidores públicos",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 178,
+      "split": "train",
+      "article_date": "2023-09-05",
+      "title": "Ibama defende planejamento marinho para reduzir impacto dos parques de energia eólica em alto-mar",
+      "assunto": "Planejamento marinho para reduzir impacto dos parques de energia eólica em alto-mar",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 187,
+      "split": "train",
+      "article_date": "2023-08-24",
+      "title": "Etnias ciganas pedem acesso a políticas públicas e reconhecimento pelo Censo",
+      "assunto": "Discussão sobre o Estatuto do Povo Cigano e a inclusão dos ciganos em políticas públicas e no Censo demográfico brasileiro",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-27-2-0",
+      "hearing_id": 27,
+      "n": 4,
+      "article_name": "Prof. Paulo Fernando",
+      "proposition": "Considerou insuficiente a pena de multa estipulada em projeto de lei que tramita na Câmara. Está preocupado que se estabeleça como sanção apenas uma multa, de R$ 5 mil a R$ 30 mil: \"Muitas vezes, dentro desse ringue que é a disputa eleitoral, às vezes é melhor você ter uma atividade de inteligência e contrainteligência e é melhor pagar a multa, porque o resultado às vezes é compensatório.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Preocupa-me que se coloque a questão de procedimento e coloque como sanção apenas uma multa de 5 mil a 30 mil reais. Às vezes, dentro desse ringue que é a disputa eleitoral, é melhor uma atividade de inteligência ou contrainteligência e pagar a multa, porque o resultado pode ser compensatório.",
+        "turn": 8,
+        "start": 38724,
+        "end": 39018
+      },
+      "verifier": {
+        "probability": 0.8898507746882138,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-137-2-0",
+      "hearing_id": 137,
+      "n": 7,
+      "article_name": "Prof. Paulo Fernando",
+      "proposition": "A medida tem o sentido de assegurar a liberdade de escolha do professor: \"Uma vez tendo a devida qualificação, compete a ele, profissional, escolher se quer trabalhar 20 horas, 40 horas, 60 horas. O texto apresentado não está falando da dedicação exclusiva, ele não define o que é cargo técnico nem cientifico, não está voltado apenas para o ensino superior - essa PEC abrange todo o exercício do magistério, em toda a sua amplitude.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Pois bem, uma vez tendo a devida qualificação, compete a ele, profissional, escolher se quer trabalhar 20 horas, se quer trabalhar 40 horas, se quer trabalhar 60 horas. Obviamente, as nossas audiências públicas servem de embasamento, servem de subsídio para que nós possamos proferir um parecer, acompanhado da nossa Consultoria Legislativa da Câmara, mas, muitas vezes, as pessoas colocam uma visão muito estatizante.",
+        "turn": 10,
+        "start": 44754,
+        "end": 45173
+      },
+      "verifier": {
+        "probability": 0.7207952362323825,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-142-2-0",
+      "hearing_id": 142,
+      "n": 6,
+      "article_name": "Prof. Paulo Fernando",
+      "proposition": "Os contratantes de cartão consignado estão em grande risco: \"Quando você tem uma parcela restrita, de 5% da remuneração para pagar o saldo devedor, é comum que a fatura não seja paga integralmente. Isso leva a multas e juros sobre a parcela restante; que, obviamente, também não será paga.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E o risco maior advém desse descasamento entre o saldo devedor e a margem exclusiva, ou seja, quando você tem uma parcela muito restrita, a 5% da remuneração para pagar o saldo devedor, é muito comum que a fatura não seja paga integralmente, o que enseja obviamente numa cobrança de multa sobre o valor líquido da fatura e o acréscimo cada vez maior de juros à parcela restante, que provavelmente também não será paga na sua totalidade, gerando o que nós chamamos de bola de […]",
+        "turn": 54,
+        "start": 84372,
+        "end": 84993
+      },
+      "verifier": {
+        "probability": 0.9701997353363254,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

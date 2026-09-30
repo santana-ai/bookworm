@@ -1,0 +1,301 @@
+{
+  "actor": {
+    "slug": "jose-medeiros",
+    "name": "JOSÉ MEDEIROS",
+    "display_name": "José Medeiros",
+    "role": "Deputado (PL-MT)",
+    "article_names": [
+      "José Medeiros"
+    ],
+    "party_uf": [
+      "PL - MT"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:21:44+00:00",
+    "n_statements": 6,
+    "n_hearings": 1,
+    "hearing_ids": [
+      201
+    ],
+    "input_tokens": 3104,
+    "output_tokens": 921,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 2,
+    "passage_only": 12,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a democracia brasileira está sob ataque não pelas ações dos manifestantes de 8 de janeiro, mas por uma \"cortina de fumaça\" que mantém a população quieta, utilizando a democracia como pano de fundo para a manutenção de 2 mil presos políticos, jornalistas exilados e religiosos presos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 33,
+            "start": 44767,
+            "end": 45035,
+            "text": "Nós estamos num momento muito peculiar da história do Brasil pelo seguinte: a democracia tem sido muito usada como pano de fundo para, inclusive, a manutenção de 2 mil presos políticos, pessoas processadas, jornalistas exilados, presos, pastores presos, padres presos.",
+            "score": 0.4111
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a democracia não é derrubada por atos de vandalismo, como quebra de vidros ou vandalização de prédios, nem por um \"golpe dado por tiozões do WhatsApp, senhoras idosas, crianças e alguns cadeirantes\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 33,
+            "start": 45837,
+            "end": 45985,
+            "text": "E muito menos, como foi dito aqui, uma democracia não cai por um golpe dado por tiozões do WhatsApp, senhoras idosas, crianças e alguns cadeirantes.",
+            "score": 0.634
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o STF e o Ministério Público por violarem prerrogativas do Legislativo e dos advogados, citando o desdém de um Ministro em não mandar nada ao Legislativo como um ato atípico e desrespeitoso.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 34,
+            "start": 46767,
+            "end": 46902,
+            "text": "O simples fato de o Ministro desdenhar, não mandar nada é um desrespeito ao Legislativo.É totalmente atípico o que nós estamos vivendo.",
+            "score": 0.333
+          },
+          "udv": {
+            "id": "udv-201-5-0",
+            "rule": "same_sentence",
+            "score": 0.2917
+          }
+        },
+        {
+          "text": "Argumenta que não é crime criticar o STF, o Legislativo ou o Executivo, nem manifestar desejo de fechamento dessas casas, classificando isso como opinião legítima em uma democracia.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 34,
+            "start": 46904,
+            "end": 47094,
+            "text": "Outra coisa, Presidente, que eu gostaria de frisar aqui é que não é crime criticar o STF, não é crime criticar Ministro, não é crime criticar o Legislativo, não é crime criticar o Executivo.",
+            "score": 0.3772
+          },
+          "udv": {
+            "id": "udv-201-5-0",
+            "rule": "same_sentence",
+            "score": 0.2933
+          }
+        },
+        {
+          "text": "Denuncia o caso da Deputada Carla Zambelli como exemplo de \"cegueira voluntária\" do Governo, que se declara vítima, e afirma que há indícios de \"flagrante preparado\" com \"todas as digitais\" do Estado.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 34,
+            "start": 48008,
+            "end": 48129,
+            "text": "E o que notamos é que há todas as digitais e que isso tem cara de flagrante preparado, tem cheiro de flagrante preparado.",
+            "score": 0.3185
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que os Ministros do STF deixem seus mandatos e se candidatem a cargos eletivos para que enfrentem o \"ônus\" da crítica e do contraponto político, em vez de atuarem como \"players políticos\" buscando apenas o \"bônus\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 34,
+            "start": 48584,
+            "end": 48660,
+            "text": "Atuar na seara política advém também o ônus, que é a crítica, o contraponto.",
+            "score": 0.2215
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que os envolvidos nos atos de 8 de janeiro sejam tratados da mesma forma que os envolvidos nos atos de 2017, citando o caso da \"turma do Boulos\", que feriu 39 policiais.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 38,
+            "start": 50223,
+            "end": 50483,
+            "text": "Presidente, é interessante a sua fala e é interessante também ressalvarmos o seguinte: mesmo esses que quebraram, que invadiram, nós repudiamos; mas que sejam tratados do mesmo jeito que a turma do Boulos, em 2017, quando quebraram e feriram 39 policiais aqui.",
+            "score": 0.302
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita o rótulo de \"bolsonarista\" para si e para outros opositores, definindo o termo como uma alcunha criada para rotular e marginalizar todos os brasileiros que não concordam com a Esquerda, incluindo os que participaram das manifestações de 2013.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 118,
+            "start": 137622,
+            "end": 137752,
+            "text": "Porque bolsonarista é a alcunha ou o rótulo que eles colocaram em todos os brasileiros que passaram a não concordar com esse tipo.",
+            "score": 0.3077
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Sustenta que o respeito à lei é o material dos pilares da democracia e não pode ser relativizado, devendo ser aplicado a todos, o que justifica sua crítica à seletividade na aplicação da lei contra opositores.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 33,
+            "start": 45400,
+            "end": 45485,
+            "text": "O respeito à lei não é uma coisa que se pode relativizar, é para todos, é para todos!",
+            "score": 0.3345
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio do equilíbrio de contrapontos como fundamento para defender a liberdade de expressão e criticar a atuação de juízes, delegados e promotores que, segundo ele, atuam como \"vítimas\" e \"players políticos\" sem aceitar a crítica.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na igualdade de tratamento perante a lei para exigir que os presos de 8 de janeiro sejam julgados com os mesmos critérios aplicados a outros grupos em eventos anteriores, como os de 2017.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se alinhado com a oposição ao Governo e ao STF, posicionando-se contra a narrativa oficial de golpe e a favor da defesa dos presos políticos e da liberdade de expressão.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parte do grupo rotulado como \"bolsonarista\", redefinindo o termo para incluir todos os opositores à Esquerda, desde as manifestações de 2013.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 118,
+            "start": 137753,
+            "end": 137899,
+            "text": "Bolsonarista foi o termo que eles passaram a usar para rotular todos aqueles que foram, em 2013, para as ruas e que tiraram a Presidente do poder.",
+            "score": 0.2085
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza metáforas esportivas e de jogo para descrever a relação entre os poderes, afirmando que \"jogamos contra um time\" onde \"o juiz está jogando junto\" e as decisões não são balizadas na lei.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 33,
+            "start": 46238,
+            "end": 46471,
+            "text": "Eu tenho outra preocupação, Presidente van Hattem, a de que, neste momento, nós estamos com uma sensação de que estamos jogando contra um time, que há um juiz, e o juiz está jogando junto, porque as decisões não são balizadas na lei.",
+            "score": 0.4394
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e recentes, como a multa de 300 mil reais aplicada ao Monark e o caso da Deputada Carla Zambelli, para ilustrar a perseguição a quem tem opinião e a seletividade da justiça.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 33,
+            "start": 45037,
+            "end": 45102,
+            "text": "Ontem eu vi o que aconteceu com o Monark: 300 mil reais de multa.",
+            "score": 0.3853
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador e direto, usando expressões como \"espernearem muito\", \"o couro come\" e \"desmascarar juízes\" para criticar a atuação do Judiciário e propor a mudança de narrativa.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 34,
+            "start": 48397,
+            "end": 48583,
+            "text": "Talvez não, mas nós temos a possibilidade — encerro — de mudar a narrativa que está posta e desmascarar juízes que estão simplesmente atuando comoplayerspolíticos, mas querem só o bônus.",
+            "score": 0.158
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona diretamente os interlocutores, como a Deputada Adriana Ventura, discordando abertamente de suas premissas e redefinindo os termos do debate para enquadrar a oposição em sua narrativa.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 118,
+            "start": 137507,
+            "end": 137558,
+            "text": "Deputada Adriana Ventura, eu vou ter que discordar.",
+            "score": 0.3044
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 17,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Em seminário na Câmara, especialistas discordam sobre ativismo judicial",
+      "assunto": "Debate sobre ativismo judicial na Câmara dos Deputados",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-201-5-0",
+      "hearing_id": 201,
+      "n": 11,
+      "article_name": "José Medeiros",
+      "proposition": "Criticou a manutenção das prisões e a postura do STF.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O simples fato de o Ministro desdenhar, não mandar nada é um desrespeito ao Legislativo.É totalmente atípico o que nós estamos vivendo. Outra coisa, Presidente, que eu gostaria de frisar aqui é que não é crime criticar o STF, não é crime criticar Ministro, não é crime criticar o Legislativo, não é crime criticar o Executivo.",
+        "turn": 34,
+        "start": 46767,
+        "end": 47094
+      },
+      "verifier": {
+        "probability": 0.2846339903391737,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

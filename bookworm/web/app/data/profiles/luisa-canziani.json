@@ -1,0 +1,383 @@
+{
+  "actor": {
+    "slug": "luisa-canziani",
+    "name": "Luisa Canziani",
+    "display_name": "Luisa Canziani",
+    "role": "Deputada (PSD-PR)",
+    "article_names": [
+      "Luisa Canziani"
+    ],
+    "party_uf": [
+      "Bloco/PSD - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:52:17+00:00",
+    "n_statements": 12,
+    "n_hearings": 4,
+    "hearing_ids": [
+      50,
+      150,
+      184,
+      197
+    ],
+    "input_tokens": 5418,
+    "output_tokens": 800,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 3,
+    "passage_only": 12,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a promoção da sinergia entre o Governo, as universidades e o setor produtivo como condição para a geração de inovação, argumentando que a dissociação entre esses atores impede o avanço do país.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 21,
+            "start": 96260,
+            "end": 96459,
+            "text": "Nós precisamos avançar cada vez mais, para que não haja dissociação, para que as ações ocorram entre as universidades, o Governo e o setor produtivo, para que essa sinergia fique cada vez mais clara.",
+            "score": 0.329
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a inovação é um instrumento de transformação social, política e econômica, e que a conscientização dos estudantes nas escolas é parte do processo de honrar o legado de figuras como Santos Dumont.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 19,
+            "start": 38661,
+            "end": 38813,
+            "text": "Acredito que esse deve ser o espírito de todos nós que acreditamos que a inovação é um grande instrumento de transformação social, política e econômica.",
+            "score": 0.414
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a urgência de atuar para que a convergência entre os setores ocorra, citando o cenário de que \"ou nós inovamos ou nós seremos alijados do processo\".",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 21,
+            "start": 96507,
+            "end": 96594,
+            "text": "Como disse o Deputado Vitor Lippi, ou nós inovamos ou nós seremos alijados do processo.",
+            "score": 0.4402
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece o papel da Força Aérea Brasileira na repatriação de cidadãos brasileiros de Israel, destacando o uso da aeronave KC-30 e o retorno de 215 passageiros em um dos voos.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 2,
+            "start": 8538,
+            "end": 8984,
+            "text": "Eu tive a informação do General Tomás que hoje será o sétimo voo de repatriação de brasileiros, com a aeronave KC-30, com previsão de retorno ao Brasil de 215 passageiros, na medida em que o pouso realizado em Tel Aviv foi no dia de hoje.Então, quero deixar todo o nosso reconhecimento, toda a nossa gratidão pelo brilhante trabalho que a nossa Força Aérea tem feito em meio a esse conflito, para trazer os nossos cidadãos em segurança para casa.",
+            "score": 0.3584
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a Lei Geral das Atividades Espaciais, aprovada pela Comissão, como instrumento para trazer segurança jurídica à exploração espacial pelo país.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 5,
+            "start": 24423,
+            "end": 24493,
+            "text": "Aqui na Comissão pudemos aprovar a Lei Geral das Atividades Espaciais.",
+            "score": 0.4393
+          },
+          "udv": {
+            "id": "udv-150-4-0",
+            "rule": "same_sentence",
+            "score": 0.2901
+          }
+        },
+        {
+          "text": "Propõe a criação do Grupo de Estudos sobre Transformação Digital e Inovação na Comissão, com a finalidade de promover estudos, análises e apresentação de sugestões de emendas aos projetos de lei relativos ao tema.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 21,
+            "start": 43896,
+            "end": 44213,
+            "text": "Antes, porém, quero informar que, no âmbito da nossa Comissão, nós criamos o Grupo de Estudos sobre Transformação Digital e Inovação, com a finalidade de promover estudos, análises e apresentação de sugestões de emendas aos projetos de lei e de soluções específicas relativas ao tema transformação digital e inovação.",
+            "score": 0.7095
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a desapropriação da área das Cataratas do Iguaçu como patrimônio de todos os brasileiros, atribuíndo a iniciativa à ação de Santos Dumont junto ao Governador do Paraná, Affonso Camargo.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 7,
+            "start": 31521,
+            "end": 31955,
+            "text": "Quando viu as Cataratas do Iguaçu, ele se assustou e proferiu a seguinte frase, de acordo com aqueles que estudam a vida de Santos Dumont:\"Estas maravilhas não podem pertencer a um particular.\" Depois disso, Santos Dumont foi até Affonso Camargo, o Governador do Estado do Paraná à época, e fez toda a interlocução para que a área das Cataratas do Iguaçu fosse desapropriada e pudesse se tornar um patrimônio de todos os brasileiros.",
+            "score": 0.4073
+          },
+          "udv": {
+            "id": "udv-150-4-1",
+            "rule": "same_sentence",
+            "score": 0.3525
+          }
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a comparação com outros países, onde a sinergia entre governo, universidades e setor produtivo é \"muito bem estruturada\", como critério para justificar a necessidade de avanço no Brasil.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 21,
+            "start": 96141,
+            "end": 96259,
+            "text": "Quando visitamos outros países, Deputado Vitor Lippi, vemos que essa sinergia acontece de forma muito bem estruturada.",
+            "score": 0.3021
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a dignidade e a saúde como objetivos centrais, ao cumprimentar a audiência sobre HIV/aids e hepatites virais, afirmando que a discussão contribui para \"mais saúde, mais dignidade para todos\".",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 27,
+            "start": 73136,
+            "end": 73292,
+            "text": "Certamente, essa discussão engrandecerá esta Comissão, a Câmara dos Deputados e o Brasil, é claro, no sentido de haver mais saúde, mais dignidadepara todos.",
+            "score": 0.1589
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência pessoal de visita a outros países para fundamentar a crítica à falta de estruturação da colaboração entre os setores no Brasil.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Município de Barra do Jacaré, que representa \"com muito orgulho\" em Brasília.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 21,
+            "start": 42622,
+            "end": 42860,
+            "text": "Antes de encerrar, eu gostaria de agradecer aos meus parceiros que estão aqui, o Vereador Alexsander e também o Vereador Edimar dos Santos, do Município de Barra do Jacaré, meu Município, que com muito orgulho represento aqui em Brasília.",
+            "score": 0.4388
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como \"boa paranaense\", vinculando-se ao estado do Paraná ao discutir o legado de Santos Dumont e as Cataratas do Iguaçu.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 7,
+            "start": 31213,
+            "end": 31457,
+            "text": "Como o senhor falou, eu, que sou uma boa paranaense, não poderia também deixar de ressaltar o papel de Santos Dumont para o turismo brasileiro, especialmente para que todos nós tivéssemos as Cataratas do Iguaçu como um legado para a humanidade.",
+            "score": 0.3753
+          },
+          "udv": {
+            "id": "udv-150-4-1",
+            "rule": "same_sentence",
+            "score": 0.3058
+          }
+        },
+        {
+          "text": "Afirma que os cuidados paliativos são \"uma das minhas grandes missões de vida\", citando a reunião com a Ministra Nísia e a especialista Dra. Ana Claudia Arantes.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 5,
+            "start": 32273,
+            "end": 32487,
+            "text": "Recebemos a Ministra Nísia para falar de um tema que é muito caro a mim e é uma das minhas grandes missões de vida, que são os cuidados paliativos, com uma grande especialista que temos aqui no Brasil, que é a Dra.",
+            "score": 0.5771
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se autora do Requerimento nº 26, de 2023, que motivou a audiência sobre os 150 anos de Santos Dumont.",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 0,
+            "start": 253,
+            "end": 370,
+            "text": "Esta audiência pública está sendo realizada em virtude da aprovação do Requerimento nº 26, de 2023, de minha autoria.",
+            "score": 0.3618
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza cumprimentos e elogios extensos aos participantes, colegas e convidados como recurso recorrente, descrevendo apresentações como \"brilhantes\" e \"excepcionais\".",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 21,
+            "start": 44495,
+            "end": 44637,
+            "text": "Muito obrigada pela presença de vocês, especialmente aos nossos convidados palestrantes pelas brilhantes contribuições trazidas a esse debate.",
+            "score": 0.1799
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos e fatos concretos para sustentar seus argumentos, como o número de passageiros repatriados (215), o modelo da aeronave (KC-30) e a data da visita ao laboratório Sirius (9 de novembro).",
+          "passage": {
+            "hearing_id": 150,
+            "turn": 21,
+            "start": 42914,
+            "end": 43106,
+            "text": "Quero também informar que nós, membros da Comissão, ao lado da nossa Ministra Luciana Santos, da Ciência, Tecnologia e Inovação, faremos uma visita ao laboratório Sirius, no dia 9 de novembro.",
+            "score": 0.2062
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a primeira pessoa do plural (\"nós\", \"nosso país\") para incluir a audiência e os parlamentares na construção de uma narrativa coletiva de inovação e progresso.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz referência a experiências pessoais, como visitas a outros países e a conexão com o Paraná, para dar credibilidade e proximidade aos seus argumentos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Combina a condução protocolar da sessão com a inserção de opiniões e posicionamentos, utilizando a presidência da audiência para destacar temas que considera prioritários, como a inovação e a saúde.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 50,
+      "split": "train",
+      "article_date": "2023-05-26",
+      "title": "Especialistas defendem atualização de protocolos de tratamento para aids e hepatites virais",
+      "assunto": "Atualização de protocolos de tratamento para HIV/aids e hepatites virais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 150,
+      "split": "train",
+      "article_date": "2023-10-18",
+      "title": "Comissão de Ciência, Tecnologia e Inovação lembra os 150 anos de nascimento de Santos Dumont",
+      "assunto": "Comemoração dos 150 anos de nascimento de Santos Dumont e suas contribuições para a aviação e outras áreas",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 184,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Participantes de audiência pública pedem votação de mudanças na Lei do Bem",
+      "assunto": "Discussão sobre mudanças na Lei do Bem para facilitar a colaboração entre universidades, empresas e governo e promover inovações",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 197,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Marco Legal da Inovação precisa ser revisto, afirmam especialistas",
+      "assunto": "Revisão do Marco Legal da Inovação para facilitar sua operacionalização",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-150-4-0",
+      "hearing_id": 150,
+      "n": 6,
+      "article_name": "Luisa Canziani",
+      "proposition": "As pesquisas feitas por Santos Dumont na área de medição da pressão atmosférica impulsionaram avanços na meteorologia e em outras disciplinas científicas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O senhor nos deu um panorama muito importante a respeito da contribuição de Santos Dumont para a Força Aérea Brasileira e, consequentemente, para que tenhamos um País com cada vez mais oportunidades através da exploração espacial, por exemplo. Aqui na Comissão pudemos aprovar a Lei Geral das Atividades Espaciais.",
+        "turn": 5,
+        "start": 24178,
+        "end": 24493
+      },
+      "verifier": {
+        "probability": 0.14942490279102785,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-150-4-1",
+      "hearing_id": 150,
+      "n": 7,
+      "article_name": "Luisa Canziani",
+      "proposition": "Santos Dumont contribuiu em diversas outras áreas da ciência, e até no turismo: \"Especialmente para que todos nós tivéssemos as nossas Cataratas do Iguaçu como um legado para humanidade. Santos Dumont foi visitar a fazenda à época e, quando viu as Cataratas do Iguaçu, ele se assustou e proferiu a seguinte frase, de acordo com aqueles que estudam a vida de Santos Dumont: ‘essas maravilhas não podem pertencer a um particular’. E depois disso, Santos Dumont foi até o governador à época, Afonso Camata, do Paraná, e fez toda interlocução para que nós tivéssemos a desapropriação da área para que as cataratas do Iguaçu pudessem se tornar um patrimônio de todos os brasileiros.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Como o senhor falou, eu, que sou uma boa paranaense, não poderia também deixar de ressaltar o papel de Santos Dumont para o turismo brasileiro, especialmente para que todos nós tivéssemos as Cataratas do Iguaçu como um legado para a humanidade. Santos Dumont teve um convite para visitar a fazenda, à época. Quando viu as Cataratas do Iguaçu, ele se assustou e proferiu a seguinte frase, de acordo com aqueles que estudam a vida de Santos Dumont:\"Estas maravilhas não podem […]",
+        "turn": 7,
+        "start": 31213,
+        "end": 31955
+      },
+      "verifier": {
+        "probability": 0.5690468902341232,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-197-7-0",
+      "hearing_id": 197,
+      "n": 19,
+      "article_name": "Luisa Canziani",
+      "proposition": "Argumentou que é necessário avaliar os benefícios, as limitações e gargalos na legislação.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Muito obrigada pela sua exposição, pelas reflexões trazidas. De fato, o senhor nos trouxe muitosinsights, inclusive relacionados a projeto que esta Comissão haverá de propor.",
+        "turn": 7,
+        "start": 45348,
+        "end": 45523
+      },
+      "verifier": {
+        "probability": 0.09736717461304135,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

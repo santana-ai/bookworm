@@ -1,0 +1,271 @@
+{
+  "actor": {
+    "slug": "pezenti",
+    "name": "Pezenti",
+    "display_name": "Pezenti",
+    "role": "Deputado (MDB-SC)",
+    "article_names": [
+      "Pezenti"
+    ],
+    "party_uf": [
+      "Bloco/MDB - SC"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:02:37+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      205
+    ],
+    "input_tokens": 2611,
+    "output_tokens": 619,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 14,
+    "with_udv": 0,
+    "passage_only": 13,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o Governo Federal assuma a responsabilidade de conter o contrabando nas fronteiras do Brasil, cobrando providências rígidas diante do aumento anual do problema.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 97877,
+            "end": 98147,
+            "text": "Então, eu gostaria de reconhecer os esforços da nossa polícia e fazer, mais uma vez, um apelo para que o Governo Federal assuma isso, encare no osso do peito e tome providências rígidas para conter esse contrabando que, a cada ano que passa, tem aumentado do nosso País.",
+            "score": 0.3088
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a fronteira brasileira, especificamente o ponto de entrada em Dionísio Cerqueira, por funcionar como uma \"peneira\" que permite a entrada de produtos legais e ilegais, impactando negativamente a produção agrícola local.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 96106,
+            "end": 96228,
+            "text": "Dionísio Cerqueira é um ponto de entrada de muitos produtos legais, mas é também um ponto de entrada de muito contrabando.",
+            "score": 0.5079
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para que o Governo Federal dê atenção à entrada ilegal de alho e cebola, argumentando que essa prática estava acabando com a produção agrícola do Estado de Santa Catarina, derrubando os preços e impedindo os produtores de venderem seus produtos.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 96229,
+            "end": 96529,
+            "text": "No início deste ano, eu estive no Ministério da Agricultura e Pecuária e no Ministério do Desenvolvimento Agrário e Agricultura Familiar e fiz um apelo para que o Governo desse atenção à entrada ilegal de alho e de cebola, o que estava acabando, literalmente, com a produção agrícola do nosso Estado.",
+            "score": 0.3557
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece a atuação da Polícia Federal na coibição do contrabando de produtos agropecuários, citando que a fiscalização contra o alho ilegal resultou também na barragem de cebola, doce de leite e outros produtos ilegais.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 97145,
+            "end": 97296,
+            "text": "O objetivo era segurar a entrada de alho, e nós conseguimos barrar a entrada de cebola, a entrada de doce de leite e de muitos outros produtos ilegais.",
+            "score": 0.3072
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia o impacto do cigarro ilegal contrabandeado do Paraguai, afirmando que hoje se consome mais cigarro contrabandeado no Brasil do que cigarro legal, o que prejudica a cultura do tabaco em Santa Catarina, Paraná e Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 97635,
+            "end": 97796,
+            "text": "Hoje já se consome mais cigarro contrabandeado no Brasil do que cigarro legal, um cigarro contrabandeado produzido no Paraguai, sem controle nenhum de qualidade.",
+            "score": 0.5438
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o impacto econômico direto sobre os produtores rurais e o sustento dos municípios como fundamento para suas críticas ao contrabando, justificando a cobrança por fiscalização rigorosa.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a fiscalização eficaz contra um tipo de contrabando (como o de alho) gera efeitos positivos colaterais na redução de outros ilícitos (cebola, doce de leite), validando a necessidade de ações policiais firmes.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 97145,
+            "end": 97296,
+            "text": "O objetivo era segurar a entrada de alho, e nós conseguimos barrar a entrada de cebola, a entrada de doce de leite e de muitos outros produtos ilegais.",
+            "score": 0.1631
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante de Ituporanga, em Santa Catarina, referida por ele como a \"capital da cebola\".",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 95810,
+            "end": 96010,
+            "text": "Também estão aqui nos prestigiando neste dia o Moacir Vieira e o Nilso Crespi, Vereadores de Rio do Sul.Rio do Sul é um Município muito próximo de onde eu resíduo, que é Ituporanga, capital da cebola.",
+            "score": 0.2041
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma não fazer parte da Comissão de Segurança Pública e Combate ao Crime Organizado, mas destaca que fez questão de participar do debate porque o assunto interessa sobremaneira à sua região.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 98210,
+            "end": 98302,
+            "text": "Mesmo eu não fazendo parte desta Comissão de Segurança, eu fiz questão de fazer esse aparte.",
+            "score": 0.3145
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a presença de vereadores de Itapema e Rio do Sul, buscando recursos para esses municípios e destacando a contribuição deles para a União.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 95602,
+            "end": 95808,
+            "text": "Eles estão aqui nos visitando e também buscando recursos para o Município de Itapema, que tanto contribui com a União, e, infelizmente, uma parcela muito pequena desse valor acaba voltando para o seu cofre.",
+            "score": 0.2472
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos concretos e locais, como a situação dos produtores de alho e cebola em Santa Catarina, para ilustrar os efeitos do contrabando.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 96530,
+            "end": 96580,
+            "text": "Os produtores de alho não tinham para quem vender.",
+            "score": 0.1981
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega expressões coloquiais e metáforas para explicar a dinâmica da fiscalização, como \"atira no coelho e acaba acertando uma lebre, um javali, uma capivara\".",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 97021,
+            "end": 97144,
+            "text": "É assim que funciona uma fiscalização como esta: você atira no coelho e acaba acertando uma lebre, um javali, uma capivara.",
+            "score": 0.6148
+          },
+          "udv": null
+        },
+        {
+          "text": "Realiza cumprimentos e agradecimentos protocolares aos deputados e vereadores presentes antes de entrar no mérito da questão.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 95424,
+            "end": 95498,
+            "text": "De Itapema, estão presentes os Vereadores Alexandre Xepa, Leo Cordeiro, D.",
+            "score": 0.175
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a experiência pessoal de visitas a ministérios (Agricultura e Pecuária e Desenvolvimento Agrário e Agricultura Familiar) para demonstrar o esforço em buscar soluções para o problema.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 48,
+            "start": 96229,
+            "end": 96529,
+            "text": "No início deste ano, eu estive no Ministério da Agricultura e Pecuária e no Ministério do Desenvolvimento Agrário e Agricultura Familiar e fiz um apelo para que o Governo desse atenção à entrada ilegal de alho e de cebola, o que estava acabando, literalmente, com a produção agrícola do nosso Estado.",
+            "score": 0.302
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 106,
+      "split": "test",
+      "article_date": "2024-04-11",
+      "title": "Governo sinaliza mudanças no seguro rural para atender produtores de várias culturas",
+      "assunto": "Mudanças no seguro rural do Proagro para atender produtores de várias culturas",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 205,
+      "split": "train",
+      "article_date": "2023-07-11",
+      "title": "Deputados pedem mais recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do País",
+      "assunto": "Recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-106-2-0",
+      "hearing_id": 106,
+      "n": 5,
+      "article_name": "Pezenti",
+      "proposition": "O governo precisa cortar despesas, mas ele não considera altos os gastos com o Proagro: \"Eu acho que R$ 8 bilhões gastos no Proagro são bastante dinheiro, mas não para um governo que gasta R$ 16 bilhões em Lei Rouanet para incentivo à cultura.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu acho que 8 bilhões de reais gastos no PROAGRO é bastante dinheiro, mas, para um governo que gasta 16 bilhões de reais em Lei Rouanet, para incentivar a cultura... E a cultura precisa, sim, ser incentivada.",
+        "turn": 8,
+        "start": 49756,
+        "end": 49964
+      },
+      "verifier": {
+        "probability": 0.3953446648477842,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

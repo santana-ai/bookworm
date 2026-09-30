@@ -1,0 +1,339 @@
+{
+  "actor": {
+    "slug": "helena-lima",
+    "name": "HELENA LIMA",
+    "display_name": "HELENA LIMA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/MDB - RR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:58:59+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      58,
+      144
+    ],
+    "input_tokens": 3202,
+    "output_tokens": 915,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Questiona a ausência da Secretária Cecília Lorenzon na audiência sobre violência obstétrica, argumentando que, por ser mulher, ela atenderia melhor às necessidades do debate.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 37,
+            "start": 67676,
+            "end": 67754,
+            "text": "Nós esperávamos aqui nesta Comissão a presença da Secretária Cecília Lorenzon.",
+            "score": 0.2728
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Secretário-Adjunto de Saúde a apresentação dos protocolos e medidas adotados pela Secretaria para minimizar as mortes maternas e a violência obstétrica no Estado de Roraima.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 37,
+            "start": 67881,
+            "end": 68051,
+            "text": "A segunda pergunta é: quais são os protocolos e as medidas que a Secretaria está tomando para minimizar o problema das mortes maternas e a violência obstétrica no Estado?",
+            "score": 0.6021
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a situação de colapso da Operação Acolhida em Roraima, afirmando que a entrada mensal de 10 mil a 12 mil venezuelanos pela fronteira supera a capacidade de atendimento, resultando em perda de qualidade de vida em Pacaraima e Boa Vista.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 128014,
+            "end": 128190,
+            "text": "A Operação Acolhida faz um trabalho para fornecer abrigo e alimentação para esses venezuelanos, mas isso hoje está em colapso, porque entram 12 mil venezuelanos todos os meses.",
+            "score": 0.3146
+          },
+          "udv": null
+        },
+        {
+          "text": "Relata a ocupação de espaços públicos e privados por imigrantes, citando a presença de mais de 5 mil pessoas na Rodoviária Internacional de Boa Vista e a invasão de praças, órgãos públicos e quadras de esporte.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 128390,
+            "end": 128555,
+            "text": "Se fizerem uma imagem da Rodoviária Internacional de Boa Vista, verão que há mais de 5 mil pessoas em torno da rodoviária, dormindo na grama, nas praças, nos bancos.",
+            "score": 0.3509
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a desintrusão de mais de 20 mil garimpeiros da área ianomâmi pelo Governo Federal direcionou essa população para Boa Vista em busca de emprego, sobrecarregando os serviços públicos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129289,
+            "end": 129375,
+            "text": "Nós passamos por uma desintrusão de garimpeiros na área ianomâmi pelo Governo Federal.",
+            "score": 0.505
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados da única maternidade do Estado, afirmando que, a cada dez crianças nascidas, oito são filhas de venezuelanos, e que os indígenas também são atendidos nesse local.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129717,
+            "end": 129817,
+            "text": "Em nossa única maternidade do Estado, a cada dez crianças nascidas, oito são filhos de venezuelanos.",
+            "score": 0.6158
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a precariedade dos serviços públicos não se deve à falta de estrutura, mas ao aumento triplicado ou quadruplicado da demanda, que excede a oferta de médicos, enfermeiros e remédios.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129519,
+            "end": 129574,
+            "text": "Todos os nossos serviços públicos estão congestionados.",
+            "score": 0.1781
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede ao Ministério das Cidades a construção de abrigos fora das cidades, criticando os abrigos urbanos por gerarem problemas e tirarem a qualidade de vida dos brasileiros.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129969,
+            "end": 130157,
+            "text": "Nós precisamos de mais abrigos fora das cidades, porque esses abrigos dentro das cidades estão gerando ainda mais problemas, tirando a qualidade de vida que nós brasileiros tínhamos antes.",
+            "score": 0.5224
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a falta de saneamento básico e água potável para os indígenas, atribuindo a contaminação dos rios ao mercúrio proveniente do garimpo clandestino.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 130631,
+            "end": 130756,
+            "text": "Os indígenas não têm água potável, porque os rios estão contaminados com mercúrio, devido à atividade garimpeira clandestina.",
+            "score": 0.3669
+          },
+          "udv": null
+        },
+        {
+          "text": "Aponta a falta de casas de apoio para as equipes de saúde que atuam nas áreas indígenas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 130839,
+            "end": 130968,
+            "text": "As equipes de saúde que vão atender nessas áreas não têm onde dormir, não têm uma casa de apoio para ficar durante o atendimento.",
+            "score": 0.332
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica a falta de regularização fundiária no interior de Roraima como o principal obstáculo para que os Prefeitos cadastrem propostas no Programa Minha Casa, Minha Vida, pedindo apoio do Ministério para resolver o problema.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 82,
+            "start": 131367,
+            "end": 131469,
+            "text": "Os Prefeitos não registram as propostas porque não há regularização fundiária nas cidades do interior.",
+            "score": 0.4132
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a sobrecarga da demanda como critério para justificar a insuficiência dos serviços públicos, afastando a responsabilidade da estrutura estatal e apontando para o volume de pessoas atendidas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129519,
+            "end": 129574,
+            "text": "Todos os nossos serviços públicos estão congestionados.",
+            "score": 0.1791
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a proteção da qualidade de vida dos brasileiros como fundamento para criticar a presença de abrigos dentro das cidades e a ocupação de espaços públicos por imigrantes.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129969,
+            "end": 130157,
+            "text": "Nós precisamos de mais abrigos fora das cidades, porque esses abrigos dentro das cidades estão gerando ainda mais problemas, tirando a qualidade de vida que nós brasileiros tínhamos antes.",
+            "score": 0.3978
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Estado de Roraima.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 127551,
+            "end": 127656,
+            "text": "O Estado de Roraima fica depois do Estado do Amazonas e faz fronteira com a Venezuela e a Guiana Inglesa.",
+            "score": 0.2355
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser do MDB e declara admiração pelo Ministro Jader Filho, classificando-o como simpático, simples e transparente.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 78,
+            "start": 126334,
+            "end": 126364,
+            "text": "Bom dia, Ministro Jader Filho.",
+            "score": 0.2946
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a Oposição elogia o Ministro Jader Filho, usando isso como prova de sua popularidade.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 78,
+            "start": 126334,
+            "end": 126364,
+            "text": "Bom dia, Ministro Jader Filho.",
+            "score": 0.3346
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara que os Parlamentares do Estado de Roraima estão pedindo socorro e buscando apoio de todos os Ministérios do Governo Federal.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 128707,
+            "end": 128819,
+            "text": "Nós Parlamentares do Estado estamos pedindo socorro e buscando apoio de todos os Ministérios do Governo Federal.",
+            "score": 0.8704
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos específicos para sustentar suas alegações, como o número de imigrantes mensais, a quantidade de pessoas na rodoviária, a proporção de nascidos de venezuelanos na maternidade e o número de garimpeiros desintrudados.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de urgência e apelo emocional, utilizando expressões como \"pedindo socorro\", \"gritando por socorro\" e \"situação caótica\" para descrever a realidade do Estado.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129138,
+            "end": 129226,
+            "text": "Nós estamos realmente pedindo socorro ao Governo, porque a nossa situação é bem caótica.",
+            "score": 0.3542
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura o argumento apresentando um cenário de múltiplos problemas interligados (imigração, desintrusão de garimpeiros, estiagem, falta de saneamento) para demonstrar a complexidade da crise.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 129289,
+            "end": 129375,
+            "text": "Nós passamos por uma desintrusão de garimpeiros na área ianomâmi pelo Governo Federal.",
+            "score": 0.1664
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue explicitamente a causa do problema (aumento da demanda) da suposta falha estrutural (serviço público precário) para direcionar a responsabilidade.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 80,
+            "start": 130263,
+            "end": 130301,
+            "text": "É o serviço público que está precário?",
+            "score": 0.4509
+          },
+          "udv": null
+        },
+        {
+          "text": "Cumprimenta e elogia os presentes, especialmente o Ministro, antes de apresentar suas demandas, estabelecendo um tom cordial inicial.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 58,
+      "split": "train",
+      "article_date": "2023-04-19",
+      "title": "Debatedores dizem que mulheres negras e pobres são maiores vítimas violência obstétrica",
+      "assunto": "Violência obstétrica e morte materna, com foco nas mulheres negras, indígenas e de baixa renda",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

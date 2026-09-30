@@ -1,0 +1,349 @@
+{
+  "actor": {
+    "slug": "andreia-siqueira",
+    "name": "Andreia Siqueira",
+    "display_name": "Andreia Siqueira",
+    "role": "Deputada (MDB-PA)",
+    "article_names": [
+      "Andreia Siqueira"
+    ],
+    "party_uf": [
+      "Bloco/MDB - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:52:54+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      57,
+      190
+    ],
+    "input_tokens": 2827,
+    "output_tokens": 712,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Propõe o Projeto de Lei nº 1.633, de 2023, que torna obrigatória a contratação de profissionais de segurança para a portaria de instituições de ensino federais, estaduais, municipais e distritais, visando controlar a entrada e saída de pessoas.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 73319,
+            "end": 73635,
+            "text": "Eu propus o Projeto de Lei nº 1.633, de 2023, que dispõe sobre a obrigatoriedade das instituições de ensino federais, estaduais, municipais e distritais de garantir a segurança da comunidade escolar através da contratação de profissionais de segurança, para estarem na portaria, vendo quem entra e quem sai, é claro.",
+            "score": 0.5441
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a implementação de um plano abrangente de segurança escolar que inclua medidas preventivas, procedimentos de emergência, tecnologias de segurança, treinamento de funcionários e alunos, e colaboração entre escolas, comunidade e agências de Segurança Pública.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 72669,
+            "end": 72829,
+            "text": "É preciso desenvolver um plano abrangente de segurança escolar que inclua medidas preventivas, procedimentos de emergências, tecnologias de segurança adequadas.",
+            "score": 0.5741
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a presença física de psicólogos e assistentes sociais nas escolas, rejeitando o modelo em que esses profissionais atuam apenas em palestras, e critica a escassez desses profissionais, citando o caso do Município de Tucuruí, onde mais de 20 mil alunos contam com apenas três assistentes sociais e três psicólogas.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 74094,
+            "end": 74248,
+            "text": "Nós temos mais de 20 mil alunos nas escolas públicas, e apenas três assistentes sociais e três psicólogas contratadas para cuidar de todas essas crianças.",
+            "score": 0.5017
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a repressão e prevenção de crimes cibernéticos, como o bullying, e o melhoramento da saúde mental dos alunos por meio de equipes multidisciplinares, além da promoção de uma cultura de respeito às diversidades nas escolas.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 73794,
+            "end": 74005,
+            "text": "Por fim, o mais importante para a prevenção é o melhoramento da saúde mental dos alunos através de uma equipe multidisciplinar, que já é lei, e que se promova uma cultura de respeito às diversidades nas escolas.",
+            "score": 0.4307
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a negligência do Estado em relação às doenças raras, apontando diagnósticos atrasados, falta de tratamentos apropriados e escassez de profissionais de saúde capacitados como problemas que precisam ser enfrentados com seriedade.",
+          "passage": {
+            "hearing_id": 190,
+            "turn": 42,
+            "start": 94808,
+            "end": 94971,
+            "text": "Diagnósticos atrasados, falta de tratamentos apropriados e escassez de profissionais de saúde capacitados são problemas que precisam ser enfrentados com seriedade.",
+            "score": 0.805
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o desenvolvimento de estratégias para garantir que a saúde pública seja verdadeiramente inclusiva, atendendo às necessidades de todos, independentemente da raridade da condição médica.",
+          "passage": {
+            "hearing_id": 190,
+            "turn": 42,
+            "start": 94972,
+            "end": 95162,
+            "text": "Precisamos desenvolver estratégias para garantir que a saúde pública seja verdadeiramente inclusiva, atendendo às necessidades de todos, independentemente da raridade da sua condição médica.",
+            "score": 0.8364
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Justifica a defesa da segurança escolar e da saúde mental argumentando que as crianças são \"bens mais preciosos\" dos pais e necessitam de um ambiente seguro e saudável.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 72831,
+            "end": 73089,
+            "text": "Nossas crianças necessitam de um ambiente seguro e saudável nas escolas, com funcionários e alunos treinados, procedimentos de emergência com sistemas de monitoramento, segurança e a colaboração entre as escolas, a comunidade e agências de Segurança Pública.",
+            "score": 0.3607
+          },
+          "udv": null
+        },
+        {
+          "text": "Fundamenta a defesa das políticas para doenças raras no princípio de que o sucesso de uma sociedade é medido pelo cuidado com os mais vulneráveis, e que o dever do representante do povo é garantir que ninguém seja deixado para trás, independentemente das circunstâncias médicas individuais.",
+          "passage": {
+            "hearing_id": 190,
+            "turn": 42,
+            "start": 94649,
+            "end": 94806,
+            "text": "Na qualidade de representante do povo, o nosso dever é garantir que ninguém seja deixado para trás, independentemente das circunstâncias médicas individuais.",
+            "score": 0.671
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência pessoal e familiar como fundamento para a defesa das políticas de saúde, citando um familiar com a Doença de Machado-Joseph (\"doença do tropeço\") que não teve solução para tratamento em Brasília.",
+          "passage": {
+            "hearing_id": 190,
+            "turn": 42,
+            "start": 95632,
+            "end": 95725,
+            "text": "Eu tenho um familiar que tem a Doença de Machado-Joseph, que é a chamada \"doença do tropeço\".",
+            "score": 0.5325
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal e representante do povo.",
+          "passage": {
+            "hearing_id": 190,
+            "turn": 42,
+            "start": 94649,
+            "end": 94806,
+            "text": "Na qualidade de representante do povo, o nosso dever é garantir que ninguém seja deixado para trás, independentemente das circunstâncias médicas individuais.",
+            "score": 0.2479
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se primeira-dama do Município de Tucuruí, esposa do Prefeito.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 74007,
+            "end": 74093,
+            "text": "Eu sou do Município de Tucuruí, sou primeira-dama desse Município, esposa do Prefeito.",
+            "score": 0.7317
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara que atua em Brasília defendendo o Estado do Pará e as crianças e adolescentes das escolas.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 74780,
+            "end": 74946,
+            "text": "Então, eu estarei aqui em Brasília, como Deputada, defendendo o Estado do Pará e também defendendo todas as nossas crianças e adolescentes que estão naquelas escolas.",
+            "score": 0.6317
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara que o mandato está à disposição para unir esforços em prol das causas apresentadas.",
+          "passage": {
+            "hearing_id": 190,
+            "turn": 42,
+            "start": 95489,
+            "end": 95514,
+            "text": "Contem com o meu mandato.",
+            "score": 0.2186
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos locais para ilustrar a carência de serviços, como a proporção entre alunos e profissionais de saúde mental em Tucuruí.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 22,
+            "start": 74553,
+            "end": 74671,
+            "text": "É muito importante a saúde mental dos alunos, o combate aobullying, para que possamos trabalhar em prol desses alunos.",
+            "score": 0.1712
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a relatos pessoais e familiares para humanizar o debate e demonstrar a urgência das políticas públicas, especialmente no tema das doenças raras.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, referindo-se às crianças como \"bens mais preciosos\" e usando expressões como \"contem comigo\" e \"contem com o meu mandato\" para reforçar o compromisso com as pautas.",
+          "passage": {
+            "hearing_id": 190,
+            "turn": 42,
+            "start": 95489,
+            "end": 95514,
+            "text": "Contem com o meu mandato.",
+            "score": 0.4241
+          },
+          "udv": null
+        },
+        {
+          "text": "Parabeniza colegas e convidados pela condução das audiências e pela iniciativa dos requerimentos, mantendo um tom cordial e colaborativo.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 5,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados, especialistas e familiares cobram cumprimento dos direitos das pessoas com autismo",
+      "assunto": "Cumprimento dos direitos das pessoas com autismo",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 57,
+      "split": "train",
+      "article_date": "2023-04-20",
+      "title": "Guardas armados não resolvem problema de violência nas escolas, dizem especialistas",
+      "assunto": "Discussão sobre a eficácia de guardas armados e medidas de segurança nas escolas para combater a violência",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 190,
+      "split": "train",
+      "article_date": "2023-08-23",
+      "title": "Entidades criticam falta de apoio a pesquisas clínicas sobre doenças raras no Brasil",
+      "assunto": "Falta de apoio a pesquisas clínicas sobre doenças raras no Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-5-0-0",
+      "hearing_id": 5,
+      "n": 1,
+      "article_name": "Andreia Siqueira",
+      "proposition": "Pediu apoio do governo federal para que os municípios menores tenham centro de reabilitação para pessoas com TEA.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós estamos aqui hoje para discutir políticas públicas e inclusão e para pedir ao Governo Federal que dê apoio a esses Municípios menores, para que tenham condições de ajudar e acolher todas essas crianças. Precisa haver um centro em cada cidade.",
+        "turn": 1,
+        "start": 6894,
+        "end": 7140
+      },
+      "verifier": {
+        "probability": 0.24295096826176737,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-5-0-1",
+      "hearing_id": 5,
+      "n": 2,
+      "article_name": "Andreia Siqueira",
+      "proposition": "Destacou que faltam profissionais especializados: \"A dificuldade de ter um neuropediatra em cada município, a dificuldade de ter uma equipe multidisciplinar, que é o fonoaudiólogo, terapeuta ocupacional, estas são duas categorias que são raras.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A luta é ainda maior para conseguir atendimento nos centros. Em todos os lugares por onde andei quando fui candidata, havia dificuldade de manter um neuropediatra em cada Município; havia dificuldade de manter uma equipe multidisciplinar, com fonoaudiólogo e terapeuta ocupacional, duas categorias raras, principalmente no interior do Pará.",
+        "turn": 1,
+        "start": 7641,
+        "end": 7981
+      },
+      "verifier": {
+        "probability": 0.9780984631567714,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-5-0-2",
+      "hearing_id": 5,
+      "n": 3,
+      "article_name": "Andreia Siqueira",
+      "proposition": "\"Eu vi muitas mães lutando para conseguir um laudo para seus filhos, e a luta maior é conseguir atendimento nos centros.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Eu vi muitas mães lutando para conseguir apenas um laudo para seu filho. A luta é ainda maior para conseguir atendimento nos centros.",
+        "turn": 1,
+        "start": 7568,
+        "end": 7701
+      },
+      "verifier": {
+        "probability": 0.9236383543065603,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

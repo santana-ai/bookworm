@@ -1,0 +1,441 @@
+{
+  "actor": {
+    "slug": "orlando-silva",
+    "name": "Orlando Silva",
+    "display_name": "Orlando Silva",
+    "role": "Deputado (PCdoB-SP)",
+    "article_names": [
+      "Orlando Silva"
+    ],
+    "party_uf": [
+      "PCdoB - SP",
+      "Bloco/PCdoB - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:49:18+00:00",
+    "n_statements": 24,
+    "n_hearings": 3,
+    "hearing_ids": [
+      67,
+      83,
+      145
+    ],
+    "input_tokens": 7968,
+    "output_tokens": 821,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 4,
+    "passage_only": 14,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a humanização das cidades e a superação das violações de direitos da população em situação de rua, argumentando que esse grupo atravessa todas as demais violações de direitos humanos, além da negação do acesso à moradia.",
+          "passage": {
+            "hearing_id": 83,
+            "turn": 34,
+            "start": 78846,
+            "end": 79090,
+            "text": "Antonio Vitor, tratamos de um grupo populacional que concentra, talvez, uma das principais violações de direitos humanos, porque esse grupo atravessa todas as demais violações, além, evidentemente, da negação do acesso a um teto, a uma moradia.",
+            "score": 0.5767
+          },
+          "udv": {
+            "id": "udv-83-3-1",
+            "rule": "similar_text",
+            "score": 0.3917
+          }
+        },
+        {
+          "text": "Relata o Projeto de Lei de iniciativa do Senador Fabiano Contarato, sobre a humanização das cidades, e afirma ter protocolado o relatório na Comissão de Constituição e Justiça para acelerar a tramitação, visando aprovar a matéria em prazo breve.",
+          "passage": {
+            "hearing_id": 83,
+            "turn": 28,
+            "start": 62694,
+            "end": 63106,
+            "text": "Agradeço muito a contribuição do Eduardo de Carvalho Mota e aproveito a oportunidade, já que ele fez referência às dificuldades da arquitetura das cidades, que são adversas e agressivas à população em situação de rua, para registrar que encaminhei ontem à Comissão de Constituição e Justiça o relatório de um projeto de lei de iniciativa do Senador Fabiano Contarato, que tramita, Eduardo, neste momento, na CCJ.",
+            "score": 0.3253
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Presidente da Câmara a constituição de uma Comissão Especial para dar via rápida à tramitação do Projeto de Lei nº 1.501, de 2022, que veda despejos durante a pandemia, e critica a dependência exclusiva de decisões judiciais, como a liminar do Ministro Barroso.",
+          "passage": {
+            "hearing_id": 83,
+            "turn": 20,
+            "start": 45683,
+            "end": 45860,
+            "text": "Aproveito a oportunidade para registrar que a Deputada Natália Bonavides protocolou o Projeto de Lei nº 1.501, de 2022, que versa sobre a vedação de despejos durante a pandemia.",
+            "score": 0.289
+          },
+          "udv": {
+            "id": "udv-83-3-2",
+            "rule": "same_sentence",
+            "score": 0.2178
+          }
+        },
+        {
+          "text": "Critica a precarização das relações de trabalho e a imposição de normas regulamentares pelo Governo sem ouvir as centrais sindicais, o que agravou as lesões aos trabalhadores.",
+          "passage": {
+            "hearing_id": 67,
+            "turn": 0,
+            "start": 5960,
+            "end": 6070,
+            "text": "E a precarização das relações de trabalho, no último período, agravou enormemente as lesões aos trabalhadores.",
+            "score": 0.4838
+          },
+          "udv": {
+            "id": "udv-67-1-0",
+            "rule": "same_sentence",
+            "score": 0.3327
+          }
+        },
+        {
+          "text": "Defende a retomada da fiscalização pelo Ministério do Trabalho e a intervenção do Ministério Público do Trabalho para preservar a integridade física e a saúde mental dos trabalhadores.",
+          "passage": {
+            "hearing_id": 67,
+            "turn": 0,
+            "start": 6499,
+            "end": 6784,
+            "text": "Então, é muito importante que nós retomemos a fiscalização pelo Ministério do Trabalho e que o Ministério Público do Trabalho possa também intervir, de modo que tenhamos a preservação da integridade física e da saúde mental dos trabalhadores, que considero outro tema muito importante.",
+            "score": 0.558
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia o impacto da lesão física na saúde mental dos trabalhadores, citando períodos com suicídios em fábricas e a necessidade de atenção ao assédio moral.",
+          "passage": {
+            "hearing_id": 67,
+            "turn": 18,
+            "start": 25982,
+            "end": 26043,
+            "text": "E o assédio moral também merece muito cuidado, muita atenção.",
+            "score": 0.3122
+          },
+          "udv": null
+        },
+        {
+          "text": "Saúda a atuação profissional da Polícia Federal e da Polícia Rodoviária Federal e defende que o Congresso Nacional garanta o orçamento necessário para essas corporações.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 167,
+            "start": 92708,
+            "end": 92936,
+            "text": "O Congresso Nacional será chamado a dar a sua contribuição para garantir o orçamento necessário para que tanto a Polícia Federal quanto a Polícia Rodoviária Federal possam cumprir com os seus objetivos, cumprir com a sua missão.",
+            "score": 0.4905
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia as medidas do Governo do Presidente Lula no campo da segurança pública, especificamente o controle das armas, e atribui ao Governo Bolsonaro a responsabilidade pela facilitação do acesso às armas e pela violência nas periferias.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 167,
+            "start": 93280,
+            "end": 93397,
+            "text": "As medidas mais estratégicas do Governo do Presidente Lula no campo da segurança pública estão no controle das armas.",
+            "score": 0.6298
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe um trabalho cooperado na segurança pública, sem distinção partidária dos Governadores, ampliando repasses e garantindo operações conjuntas para enfrentar a violência e as organizações criminosas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 167,
+            "start": 94302,
+            "end": 94435,
+            "text": "Que nós tenhamos coragem de estruturar um plano e de enfrentar a violência e as organizações criminosas que infelicitam o nosso País.",
+            "score": 0.3014
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a Constituição Federal e o Regimento Interno da Câmara como fundamentos para exigir o cumprimento das normas processuais, como na questão de ordem sobre o âmbito de atuação de um Ministro de Estado.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 65,
+            "start": 38134,
+            "end": 38157,
+            "text": "É uma questão de ordem.",
+            "score": 0.3499
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em dados estatísticos para justificar a urgência de medidas legislativas, como a afirmação de que a cada 40 minutos ocorre um acidente de trabalho no Brasil e a constatação de aumento de 4 vezes da população em situação de rua em São Paulo nos últimos 10 anos.",
+          "passage": {
+            "hearing_id": 83,
+            "turn": 34,
+            "start": 77125,
+            "end": 77250,
+            "text": "Eu vivo na cidade de São Paulo, onde, nos últimos 10 anos, constatamos um aumento de 4 vezes da população em situação de rua.",
+            "score": 0.4549
+          },
+          "udv": {
+            "id": "udv-83-3-1",
+            "rule": "same_sentence",
+            "score": 0.2742
+          }
+        },
+        {
+          "text": "Invoca a proteção da integridade física e da saúde mental como critérios centrais para a avaliação das políticas de trabalho e segurança.",
+          "passage": {
+            "hearing_id": 67,
+            "turn": 0,
+            "start": 6499,
+            "end": 6784,
+            "text": "Então, é muito importante que nós retomemos a fiscalização pelo Ministério do Trabalho e que o Ministério Público do Trabalho possa também intervir, de modo que tenhamos a preservação da integridade física e da saúde mental dos trabalhadores, que considero outro tema muito importante.",
+            "score": 0.2779
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Direitos Humanos e Minorias da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 67,
+            "turn": 0,
+            "start": 2001,
+            "end": 2055,
+            "text": "Esta aqui é a Comissão de Direitos Humanos e Minorias.",
+            "score": 0.643
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma viver na cidade de São Paulo e ter presenciado a mudança de perfil da população em situação de rua, incluindo a presença de famílias inteiras.",
+          "passage": {
+            "hearing_id": 83,
+            "turn": 34,
+            "start": 77475,
+            "end": 77556,
+            "text": "Nós percebemos a mudança de perfil, inclusive, dessa população ao longo do tempo.",
+            "score": 0.2614
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara admiração pela trajetória do Ministro Flávio Dino e apoio às políticas de segurança pública do Governo do Presidente Lula.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 167,
+            "start": 93280,
+            "end": 93397,
+            "text": "As medidas mais estratégicas do Governo do Presidente Lula no campo da segurança pública estão no controle das armas.",
+            "score": 0.3446
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados numéricos e estatísticas para sustentar suas posições, como os índices de acidentes de trabalho e o crescimento da população de rua.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita casos concretos e locais, como a Cracolândia em São Paulo e o crime em Sapopemba, para ilustrar a gravidade dos temas debatidos.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 167,
+            "start": 93461,
+            "end": 93596,
+            "text": "Esta semana o meu Estado ficou consternado com o crime brutal que aconteceu no bairro de Sapopemba, na Zona Leste, numa escola pública.",
+            "score": 0.1579
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, usando termos como \"escandalosos\", \"drama\" e \"consternado\" para enfatizar a urgência das questões.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra prazos e ações concretas de outros órgãos e parlamentares, como a constituição de comissões especiais e a pautação de projetos de lei.",
+          "passage": {
+            "hearing_id": 67,
+            "turn": 0,
+            "start": 631,
+            "end": 842,
+            "text": "A Comissão mais importante é a Comissão de Constituição e Justiça e de Cidadania, chamada CCJ, que valida todos os projetos de lei, ao conferir se esses projetos estão de acordo com a nossa Constituição Federal.",
+            "score": 0.2486
+          },
+          "udv": null
+        },
+        {
+          "text": "Demonstra respeito e reconhecimento aos participantes, agradecendo contribuições e elogiando a atuação de convidados e colegas.",
+          "passage": {
+            "hearing_id": 83,
+            "turn": 34,
+            "start": 78198,
+            "end": 78298,
+            "text": "Eu quero encerrar esta audiência pública agradecendo a cada um e a cada uma que deram contribuições.",
+            "score": 0.2356
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 67,
+      "split": "train",
+      "article_date": "2022-08-25",
+      "title": "Em audiência na Câmara, trabalhadores com lesão pedem maior tempo de estabilidade",
+      "assunto": "Debate sobre mudanças na legislação para assegurar direitos dos trabalhadores portadores de lesão",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 83,
+      "split": "train",
+      "article_date": "2022-06-23",
+      "title": "Especialistas apontam acesso à moradia como “porta de entrada” dos demais direitos da população de rua",
+      "assunto": "Acesso à moradia como condição central para a superação das violações de direitos da população de rua",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 4
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-67-1-0",
+      "hearing_id": 67,
+      "n": 3,
+      "article_name": "Orlando Silva",
+      "proposition": "\"A precarização das relações de trabalho no último período agravou enormemente as lesões. Por isso é importante que a Câmara adote medidas na legislação que sejam protetivas do ambiente do trabalho.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "E a precarização das relações de trabalho, no último período, agravou enormemente as lesões aos trabalhadores. Por isso, é muito importante que a Câmara dos Deputados conheça essa realidade e adote medidas na legislação que sejam protetivas do ambiente do trabalho.",
+        "turn": 0,
+        "start": 5960,
+        "end": 6225
+      },
+      "verifier": {
+        "probability": 0.9945788855324543,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-83-3-0",
+      "hearing_id": 83,
+      "n": 6,
+      "article_name": "Orlando Silva",
+      "proposition": "Quer a aprovação da proposta (PL 488/21) que proíbe o uso de técnicas de arquitetura hostil em espaços públicos.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Ronan, para que o Presidente Arthur Lira constitua uma Comissão Especial e que dê via rápida para a tramitação desse projeto, de modo a demonstrar que nós não aguardamos apenas uma decisão do Poder Judiciário, que o Poder Legislativo pode e deve agir, como já agiu em outro momento. Eu faço referência aqui ao prazo vincendo agora, no próximo dia 30, de uma resolução liminar do Ministro Barroso que veda os despejos durante a pandemia da COVID-19, uma matéria da mais absoluta […]",
+        "turn": 20,
+        "start": 46134,
+        "end": 46623
+      },
+      "verifier": {
+        "probability": 0.69564814709146,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-83-3-1",
+      "hearing_id": 83,
+      "n": 7,
+      "article_name": "Orlando Silva",
+      "proposition": "\"Na cidade de São Paulo consta que, nos últimos anos, houve crescimento de quatro vezes na população em situação de rua. São famílias inteiras. Percebe-se, inclusive, resquício de utensílios e mobília de alguém que já teve uma casa algum dia. Trata-se de um grupo populacional que concentra as principais violações de direitos humanos, porque atravessam esse grupo todas as demais violações, além, evidentemente, da negação de acesso a um teto, a uma moradia\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu vivo na cidade de São Paulo, onde, nos últimos 10 anos, constatamos um aumento de 4 vezes da população em situação de rua. Esses números são impressionantes.",
+        "turn": 34,
+        "start": 77125,
+        "end": 77285
+      },
+      "verifier": {
+        "probability": 0.225413421976452,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-83-3-2",
+      "hearing_id": 83,
+      "n": 8,
+      "article_name": "Orlando Silva",
+      "proposition": "Espera que o Supremo Tribunal Federal prorrogue o prazo da decisão judicial (ADPF 828) que restringe remoções e despejos forçados durante a pandemia.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Aproveito a oportunidade para registrar que a Deputada Natália Bonavides protocolou o Projeto de Lei nº 1.501, de 2022, que versa sobre a vedação de despejos durante a pandemia. Em que pese ter havido redução das taxas de letalidade sobretudo, há uma retomada dos casos diagnosticados de COVID.",
+        "turn": 20,
+        "start": 45683,
+        "end": 45978
+      },
+      "verifier": {
+        "probability": 0.15001099163879442,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-83-3-3",
+      "hearing_id": 83,
+      "n": 9,
+      "article_name": "Orlando Silva",
+      "proposition": "Defendeu a criação de comissão especial da Câmara para analisar com urgência o projeto de lei (PL 1501/22) que disciplina os despejos após 30 de junho.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Ronan, para que o Presidente Arthur Lira constitua uma Comissão Especial e que dê via rápida para a tramitação desse projeto, de modo a demonstrar que nós não aguardamos apenas uma decisão do Poder Judiciário, que o Poder Legislativo pode e deve agir, como já agiu em outro momento. Eu faço referência aqui ao prazo vincendo agora, no próximo dia 30, de uma resolução liminar do Ministro Barroso que veda os despejos durante a pandemia da COVID-19, uma matéria da mais absoluta […]",
+        "turn": 20,
+        "start": 46134,
+        "end": 46623
+      },
+      "verifier": {
+        "probability": 0.2661595754927126,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

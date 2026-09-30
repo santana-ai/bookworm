@@ -1,0 +1,787 @@
+{
+  "actor": {
+    "slug": "ministra-nisia-trindade-lima",
+    "name": "MINISTRA NÍSIA TRINDADE LIMA",
+    "display_name": "Nísia Trindade",
+    "role": "Ministra da Saúde",
+    "article_names": [
+      "Nísia Trindade"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:36:05+00:00",
+    "n_statements": 85,
+    "n_hearings": 2,
+    "hearing_ids": [
+      171,
+      199
+    ],
+    "input_tokens": 36405,
+    "output_tokens": 1289,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 3,
+    "passage_only": 18,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a reconstrução e o fortalecimento do SUS como prioridade central da gestão, citando a aprovação da PEC da Transição como viabilizadora de programas como o Farmácia Popular (vinculado ao Bolsa Família para 55 milhões de beneficiários), a expansão do Mais Médicos (meta de 28 mil médicos) e a criação de 9.600 novas equipes de atenção primária.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 1,
+            "start": 7195,
+            "end": 7309,
+            "text": "Expandimos a atenção primária com a criação de quase 9.600 novas equipes em cerca de 4 mil Municípios brasileiros.",
+            "score": 0.3202
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o \"descaso\" e o sucateamento do sistema de saúde pelo governo anterior, apontando o relatório de transição e a situação dos hospitais federais do Rio de Janeiro (reabertura de 305 leitos e contratação de 221 profissionais) como evidências da degradação herdada.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 3,
+            "start": 20255,
+            "end": 20338,
+            "text": "Os hospitais federais do Rio de Janeiro são outro ponto importante do requerimento.",
+            "score": 0.2659
+          },
+          "udv": {
+            "id": "udv-199-0-9",
+            "rule": "similar_text",
+            "score": 0.3604
+          }
+        },
+        {
+          "text": "Defende a autossuficiência do Brasil na produção de insumos estratégicos, como insulina e imunoglobulina, via fortalecimento da HEMOBRÁS e do complexo econômico-industrial da saúde, argumentando que a dependência externa expôs a vulnerabilidade nacional durante a pandemia.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 78,
+            "start": 53898,
+            "end": 54166,
+            "text": "Isso tem que estar em primeiro lugar, mas, ao mesmo tempo, temos que trabalhar, sim, para o fortalecimento do complexo econômico industrial da saúde, de modo a garantir que não vivamos situações como essa da insulina, da imunoglobulina e de tantos outros medicamentos.",
+            "score": 0.2847
+          },
+          "udv": {
+            "id": "udv-199-0-0",
+            "rule": "same_sentence",
+            "score": 0.3694
+          }
+        },
+        {
+          "text": "Rejeita a incorporação imediata de tecnologias sem análise prévia da CONITEC, explicando que o processo exige registro na ANVISA, precificação pela CMED e avaliação de custo-efetividade, sustentabilidade e impacto na saúde coletiva, como no caso da vacina Qdenga contra a dengue.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 1,
+            "start": 15372,
+            "end": 15473,
+            "text": "Um dos requerimentos — por isso fiz esse contexto — questiona sobre a vacina Qdenga, contra a dengue.",
+            "score": 0.2375
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a vacinação obrigatória como condicionalidade do Bolsa Família e combate veemente o negacionismo e as fake news, classificando a desinformação sobre vacinas como \"criminosa\" e citando estudo da FIOCRUZ/UFBA que atribui às vacinas a salvação de cerca de 100 milhões de vidas no Brasil.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 175,
+            "start": 94878,
+            "end": 95198,
+            "text": "No caso da vacina contra a COVID-19, eu devo dizer que um estudo realizado também pela FIOCRUZ e pela UFBA, e que é referência para a ANVISA, demonstrou que a vacinação, seja com a vacina produzida pelo Instituto Butantan, seja com a produzida pela FIOCRUZ, seja com a da Pfizer, seja com a da Janssen, ela salvou vidas.",
+            "score": 0.1762
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se pela estrita observância da legislação vigente em temas sensíveis: no aborto, limita a atuação do Ministério aos casos legais (risco de vida, estupro, anencefalia); nas drogas, adota a ótica da saúde pública e redução de danos; na transexualidade, mantém os procedimentos do SUS para maiores de 18 anos, condicionando mudanças a avaliações científicas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 161,
+            "start": 88041,
+            "end": 88211,
+            "text": "Como visão de saúde coletiva, o Ministério da Saúde continuará cumprindo o que estabelece no SUS, que é a transexualidade e todos esses procedimentos a partir de 18 anos.",
+            "score": 0.2316
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a homologação das resoluções da 17ª Conferência Nacional de Saúde como reconhecimento da participação social, mas submete sua implementação a análise legal, financeira e programática, rejeitando a ideia de \"veto\" ministerial.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 60,
+            "start": 63403,
+            "end": 63648,
+            "text": "Em relação à Resolução nº 715, eu já abordei aqui que ela faz parte das resoluções da 17ª Conferência Nacional de Saúde, que é um fórum com participação social junto ao Ministério da Saúde, um fórum oficial, a maior conferência da área de saúde.",
+            "score": 0.2718
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o subfinanciamento histórico da saúde, apontando que o Brasil é o país de sistema universal com menor gasto público em saúde, e defende o aumento progressivo do percentual do PIB destinado à saúde, além do novo PAC (30,5 bilhões de reais) para infraestrutura e universalização do SAMU.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 178,
+            "start": 148230,
+            "end": 148316,
+            "text": "O Brasil, de fato, é o país de sistema universal que menos tem gasto público em saúde.",
+            "score": 0.3789
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio da integralidade e da participação social como pilares do SUS, justificando a pactuação com CONASS e CONASEMS e a valorização das conferências como instâncias legais de controle social.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 30,
+            "start": 29151,
+            "end": 29186,
+            "text": "Foi uma grande participação social.",
+            "score": 0.3168
+          },
+          "udv": {
+            "id": "udv-171-0-2",
+            "rule": "same_sentence",
+            "score": 0.1002
+          }
+        },
+        {
+          "text": "Utiliza a evidência científica e o consenso por pares como fundamento para decisões em saúde, distinguindo rigorosamente o questionamento legítimo da desinformação deliberada, e defende que a ciência deve ser acessível à sociedade sem ser \"verdade absoluta\".",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 53,
+            "start": 52641,
+            "end": 52725,
+            "text": "Ele tem que ser um questionamento fundamentado em evidências, em avaliação de pares.",
+            "score": 0.1928
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na proteção da vida e na redução das desigualdades históricas, citando a mortalidade materna, o racismo estrutural na saúde e as disparidades regionais (como a falta de radioterapia em Bagé/RS) como problemas que exigem ação estatal imediata.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 238,
+            "start": 144133,
+            "end": 144294,
+            "text": "Registro que estamos com uma ação muito importante na área da saúde da mulher, de forma integral, porque um dos piores índices do Brasil é a mortalidade materna.",
+            "score": 0.1788
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a separação entre religião e Estado, mas afirma que todas as religiões podem contribuir para a promoção da saúde, desde que haja diálogo e respeito à diversidade, alinhando-se à Constituição brasileira.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 60,
+            "start": 66101,
+            "end": 66174,
+            "text": "Eu acho que todas as religiões podem contribuir para a promoção da saúde.",
+            "score": 0.4492
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a priorização de políticas públicas pela visão de saúde coletiva e epidemiológica, argumentando que a vacina é um bem de proteção social e não apenas individual, e que a liberdade individual tem limite na responsabilidade com o outro.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 256,
+            "start": 163942,
+            "end": 164122,
+            "text": "Não se trata do Brasil nem do Ministério da Saúde, mas, sim, da proteção que se deve dar à sociedade, o que repercute também na proteção individual, com visão da proteção coletiva.",
+            "score": 0.3782
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Ministra da Saúde do Governo do Presidente Lula, sem filiação partidária, mas reconhecendo que o cargo é político e a serviço de um projeto eleito pela maioria.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 19,
+            "start": 29066,
+            "end": 29196,
+            "text": "Eu não tenho filiação partidária, mas quem está no Governo está a serviço de um projeto político eleito pela maioria da população.",
+            "score": 0.713
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como ex-Presidente da FIOCRUZ, pesquisadora, membro da Academia Brasileira de Ciências e da Academia Mundial de Ciências, com formação em ciências sociais e mestrado em ciência política.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 135,
+            "start": 81219,
+            "end": 81415,
+            "text": "Não vou dizer todos os meus atributos como pesquisadora, como ex-Presidente da FIOCRUZ, como membro da Academia Brasileira de Ciências e da Academia Mundial de Ciências, porque não se trata disso.",
+            "score": 0.7228
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma alinhamento com a base do governo e com a oposição no âmbito do diálogo republicano, destacando a realização de 196 audiências com parlamentares de todos os partidos até julho de 2023.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 3,
+            "start": 22255,
+            "end": 22651,
+            "text": "Até julho de 2023, realizei 196 audiências com Parlamentares de todos os partidos e pretendo continuar, Deputada Bia Kicis, seja na Comissão de Fiscalização, seja na Comissão de Saúde, seja na Comissão da Mulher, seja em qualquer outra Comissão do nosso Parlamento, aberta ao diálogo e a uma construção conjunta em prol da democracia e da responsabilidade com o processo de fortalecimento do SUS.",
+            "score": 0.2886
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a coordenação do Grupo Executivo do Complexo Econômico-Industrial da Saúde junto ao Vice-Presidente Geraldo Alckmin e a atuação conjunta com Ministros como Flávio Dino e Juscelino Filho.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 30,
+            "start": 25563,
+            "end": 25882,
+            "text": "Eu creio também que é importante convidá-los a estarem presentes no próximo dia 28 — o convite seguirá em breve — na agenda do Grupo Executivo do Complexo Econômico-Industrial da Saúde, que tenho a satisfação de poder coordenar com o Vice-Presidente e Ministro do Desenvolvimento, Indústria e Comércio, Geraldo Alckmin.",
+            "score": 0.3392
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura suas falas com base em dados quantitativos específicos (números de leitos, médicos, investimentos em reais, percentuais de redução de filas) e em marcos legais (Lei do SUS, RDC da ANVISA, decisões do STF).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 1,
+            "start": 9059,
+            "end": 9116,
+            "text": "Também lançamos o Programa Nacional de Redução das Filas.",
+            "score": 0.1745
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a didática e a paciência pedagógica, comparando-se a uma professora que busca esclarecer o processo de incorporação de tecnologias e a dinâmica das conferências, mesmo sob pressão de interrupções.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Responde a críticas com firmeza, mas mantém o tom de respeito institucional, rejeitando acusações de \"indicação política\" ou \"falta de competência\" com base em comissões de avaliação e em sua trajetória técnica.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 383,
+            "start": 240417,
+            "end": 240546,
+            "text": "Reiteradamente, tanto pela base de apoio ao nosso Governo como pela Oposição, eu sou referida como a técnica:\"A Ministra técnica.",
+            "score": 0.1606
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e locais (como a inauguração da Infovia em Santarém ou a situação dos ianomâmis) para ilustrar a aplicação das políticas nacionais, conectando a gestão federal à realidade das microrregiões.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 256,
+            "start": 165497,
+            "end": 165525,
+            "text": "Este é um dado da realidade.",
+            "score": 0.1639
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue claramente entre \"dúvida científica\" e \"fake news\", usando essa dicotomia para defender a legitimidade das vacinas e criticar a desinformação, sem censurar o debate acadêmico.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 175,
+            "start": 93765,
+            "end": 93839,
+            "text": "Questionamento é muito diferente de desinformação e das chamadasfake news.",
+            "score": 0.1813
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 37,
+      "in_profile": false,
+      "udvs": 5
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 7
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 74,
+      "in_profile": true,
+      "udvs": 10
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-129-0-0",
+      "hearing_id": 129,
+      "n": 1,
+      "article_name": "Nísia Trindade",
+      "proposition": "Defende a inclusão da vacina contra Covid-19 para crianças de 6 meses a 5 anos no Programa Nacional de Imunização, pois a medida segue recomendação de sociedades científicas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, trata-se de um direito das nossas crianças que eu quero aqui reiterar. A vacina COVID-19 foi incluída, a partir dessas premissas, no Programa Nacional de Imunizações e, a partir de 2024, portanto, o imunizante, assim como a vacina contra a pólio, assim como a vacina contra o sarampo e tantas outras vacinas, tem que estar disponível — no caso da vacina contra a COVID-19, será disponibilizada para as crianças entre 6 meses e 5 anos de idade.",
+        "turn": 3,
+        "start": 18843,
+        "end": 19294
+      },
+      "verifier": {
+        "probability": 0.28116660410306704,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-0-1",
+      "hearing_id": 129,
+      "n": 2,
+      "article_name": "Nísia Trindade",
+      "proposition": "Em 2023, o País registrou 3.379 casos de síndrome respiratória aguda grave por Covid-19 em menores de 1 ano, e 1.707 casos na faixa de 1 a 4 anos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Até a Semana Epidemiológica 46 de 2023, foram identificados 3.379 casos de Síndrome Respiratória Aguda Grave por COVID-19 em menores de 1 ano e 1.707 casos na faixa etária de 1 a 4 anos. Destes, 99 casos em menores de 1 ano e 31 casos na faixa etária de 1 a 4 anos, infelizmente, evoluíram para óbito.",
+        "turn": 3,
+        "start": 17665,
+        "end": 17966
+      },
+      "verifier": {
+        "probability": 0.9856972831747124,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-0-2",
+      "hearing_id": 129,
+      "n": 3,
+      "article_name": "Nísia Trindade",
+      "proposition": "A vacina é o mais recomendado: \"A indicação é muito clara e está baseada em um dado muito simples: 110 mortes de crianças por Covid em 2023, é esse o dado que leva a essa determinação.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O nosso Programa Nacional de Imunizações é baseado em evidências, baseado na análise de especialistas e das principais sociedades científicas sobre o tema. E essa análise está baseada num dado muito simples: 110 mortes de criança por COVID–19, em 2023.",
+        "turn": 44,
+        "start": 67195,
+        "end": 67447
+      },
+      "verifier": {
+        "probability": 0.40145376551552314,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-0-3",
+      "hearing_id": 129,
+      "n": 4,
+      "article_name": "Nísia Trindade",
+      "proposition": "Afirmou que a declaração de Bia Kicis sobre a vacina ser uma terapia gênica \"é mentirosa\": \"O FDA jamais falou que a vacina de RNA mensageiro é uma terapia gênica. Esse é o problema que nós temos hoje, as falas são feitas como se houvesse verdades por trás, e não há verdade.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O FDA jamais falou que a vacina de RNA mensageiro é uma terapia gênica. Não existe esse tipo de afirmação. Então, este é o problema que existe hoje: as falas são feitas como se houvesse verdades por trás, e não há verdade, não existe nenhuma afirmação de que a vacina de mRNA mensageiro é uma terapia gênica.",
+        "turn": 44,
+        "start": 66463,
+        "end": 66771
+      },
+      "verifier": {
+        "probability": 0.8753819538282307,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-0-4",
+      "hearing_id": 129,
+      "n": 5,
+      "article_name": "Nísia Trindade",
+      "proposition": "Falar contra as vacinas é uma temeridade, que coloca em risco a saúde e a vida da população: \"Devo dizer da temeridade do que está sendo colocado aqui, por quem está atacando, sim, a proteção à vida que a vacina dá. Não se sabem, inclusive, as implicações neurológicas da Covid, não se sabem muitas das implicações no aparelho circulatório, os casos de trombose entre as pessoas que têm Covid são muito maiores do que naqueles que não têm.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mais do que isso, está atacando a proteção à vida que a vacina dá. Não se sabe o efeito hoje da COVID–19, inclusive as implicações neurológicas.",
+        "turn": 44,
+        "start": 67621,
+        "end": 67765
+      },
+      "verifier": {
+        "probability": 0.8593294048110184,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-171-0-0",
+      "hearing_id": 171,
+      "n": 1,
+      "article_name": "Nísia Trindade",
+      "proposition": "Rebateu polêmicas com a oposição ao governo federal e detalhou os investimentos na área da saúde dentro do novo Programa de Aceleração do Crescimento (PAC).",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quero também destacar que o novo PAC — Programa de Aceleração do Crescimento, recentemente aprovado e divulgado pelo Presidente da República, o Presidente Lula, inclui um aporte expressivo de recursos para a saúde, na ordem de 30,5 bilhões de reais em todos os eixos de atuação do Ministério da Saúde, visando a extensão da atenção à saúde, com a construção de unidades básicas, um investimento muito importante para a universalização do SAMU. A apresentação ficará disponível […]",
+        "turn": 30,
+        "start": 13498,
+        "end": 14044
+      },
+      "verifier": {
+        "probability": 0.23179093751317748,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-0-1",
+      "hearing_id": 171,
+      "n": 2,
+      "article_name": "Nísia Trindade",
+      "proposition": "Reafirmou que o combate às fakenews é um dos desafios de comunicação do Ministério da Saúde: \"Não se trata de dúvida ou mesmo de reproduzir conteúdo falso ou equivocado. Trata-se de sistematicamente e deliberadamente divulgar mentiras que têm efeitos negativos sobre a saúde e a vida das pessoas. Infelizmente, essas fakenews são propagadas pelas pessoas mais diversas, inclusive profissionais de saúde.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Não se trata de dúvida ou mesmo de reproduzir um conteúdo falso equivocado. Trata-se de, sistemática e deliberadamente, divulgar mentiras que têm efeitos negativos sobre a saúde e sobre a vida das pessoas. Dou um exemplo recente:fake newsde que um partido político, no caso o Partido dos Trabalhadores, tinha aberto comportas de barragens no Estado do Rio Grande do Sul, uma coisa totalmente inverossímil, mas que vai se propalando.",
+        "turn": 30,
+        "start": 27231,
+        "end": 27664
+      },
+      "verifier": {
+        "probability": 0.6304206431007754,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-0-2",
+      "hearing_id": 171,
+      "n": 3,
+      "article_name": "Nísia Trindade",
+      "proposition": "Disse que a participação da sociedade civil é fundamental na atual gestão e que as sugestões são sempre tratadas de acordo com a legislação e o programa de governo: \"Nós tivemos recorde de participação nessa conferência, com muitos aportes positivos para o SUS e para as políticas públicas. Nós agiremos sempre observando a lei.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Foi uma grande participação social. Nós tivemos um recorde de participação nessa conferência, com muitos aportes positivos para o SUS e para as políticas públicas, e agiremos de acordo com a legislação, de acordo com os compromissos programáticos maiores, escolhidos pela nossa sociedade na campanha do Presidente Lula e do Vice-Presidente Alckmin, na condução dessas políticas, sempre observando a lei.",
+        "turn": 30,
+        "start": 29151,
+        "end": 29554
+      },
+      "verifier": {
+        "probability": 0.8856029849344775,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-0-3",
+      "hearing_id": 171,
+      "n": 4,
+      "article_name": "Nísia Trindade",
+      "proposition": "Rebateu críticas sobre suposto atraso na liberação de recursos oriundos de emendas parlamentares, afirmando que já houve empenho de 76% das emendas e efetivo pagamento de 46%, com execução bem superior a 2021.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, esse é o quadro relacionado às emendas de RP 6 e de RP 7, são as individuais obrigatórias e as de bancada obrigatórias. Na verdade, nós temos hoje um empenhamento de 76,5% e um pagamento já na ordem de 46%.",
+        "turn": 30,
+        "start": 22729,
+        "end": 22942
+      },
+      "verifier": {
+        "probability": 0.5915884893121578,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-0-4",
+      "hearing_id": 171,
+      "n": 5,
+      "article_name": "Nísia Trindade",
+      "proposition": "Atualizou a chamada 'agenda positiva' da pasta, prevendo R$ 7,4 bilhões de investimentos em atenção primária até 2026 e outros R$ 13,8 bilhões em atenção especializada: \"Inclui aporte expressivo de R$ 30,5 bilhões em todos os eixos de atuação do Ministério da Saúde, visando extensão da atenção à saúde, construção de unidades básicas e universalização do SAMU.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quero também destacar que o novo PAC — Programa de Aceleração do Crescimento, recentemente aprovado e divulgado pelo Presidente da República, o Presidente Lula, inclui um aporte expressivo de recursos para a saúde, na ordem de 30,5 bilhões de reais em todos os eixos de atuação do Ministério da Saúde, visando a extensão da atenção à saúde, com a construção de unidades básicas, um investimento muito importante para a universalização do SAMU. A apresentação ficará disponível […]",
+        "turn": 30,
+        "start": 13498,
+        "end": 14044
+      },
+      "verifier": {
+        "probability": 0.8673594669865706,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-0-5",
+      "hearing_id": 171,
+      "n": 6,
+      "article_name": "Nísia Trindade",
+      "proposition": "Citou o incremento de R$ 86 milhões no orçamento dos hospitais filantrópicos; a garantia de R$ 540 milhões na Política Nacional de Saúde da Pessoa com Deficiência, com foco nos centros de reabilitação; o apoio ao Rio Grande do Sul na recuperação das estruturas de saúde destruídas por enchentes e ciclones; e a reabertura de 321 leitos nos hospitais federais do Rio de Janeiro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, atualizando os dados — depois posso me estender mais —, nós reabrimos 321 leitos desde que assumimos a gestão, em janeiro. Estamos trabalhando com a questão da contratação de profissionais, já foram contratados 223 profissionais, e estamos no processo de recomposição de mais 600 vagas que se encontram ociosas, isso também a partir do apoio da Câmara, na medida provisória que foi aprovada e que nos garante esse tipo de atenção.",
+        "turn": 30,
+        "start": 19245,
+        "end": 19682
+      },
+      "verifier": {
+        "probability": 0.40601470797678474,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-0-6",
+      "hearing_id": 171,
+      "n": 7,
+      "article_name": "Nísia Trindade",
+      "proposition": "Comemorou a Lei 14.621/23, de ampliação do Programa Mais Médicos, em vigor desde julho, mencionando que 13 mil novas vagas foram abertas neste ano, atingindo o número recorde de 18,5 mil médicos em atuação em regiões de maior vulnerabilidade.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu queria começar fazendo, nesta atualização, um agradecimento à Câmara dos Deputados pela aprovação da Lei do Mais Médicos para o Brasil e dizer que nós conseguimos, em tempo recorde, alcançar, neste momento, incluindo médicos de programas anteriores, 18.500 médicos em atuação no Brasil, presentes em todas as Regiões brasileiras. Esse é um recorde histórico, e eu tenho acompanhado de perto o início do trabalho desses médicos junto aos Municípios, aos Prefeitos e aos […]",
+        "turn": 30,
+        "start": 12690,
+        "end": 13194
+      },
+      "verifier": {
+        "probability": 0.4093564880243346,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-0",
+      "hearing_id": 199,
+      "n": 1,
+      "article_name": "Nísia Trindade",
+      "proposition": "Defendeu a autossuficiência na produção de insumos para a saúde.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A nossa orientação central é garantir o acesso. Isso tem que estar em primeiro lugar, mas, ao mesmo tempo, temos que trabalhar, sim, para o fortalecimento do complexo econômico industrial da saúde, de modo a garantir que não vivamos situações como essa da insulina, da imunoglobulina e de tantos outros medicamentos.",
+        "turn": 78,
+        "start": 53850,
+        "end": 54166
+      },
+      "verifier": {
+        "probability": 0.4378212128823701,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-1",
+      "hearing_id": 199,
+      "n": 2,
+      "article_name": "Nísia Trindade",
+      "proposition": "Propôs um pacto para fortalecer o complexo econômico-industrial da área.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Nós estamos consolidando essa consulta, para definir uma ação específica. Também temos apoiado algumas iniciativas.",
+        "turn": 188,
+        "start": 103078,
+        "end": 103193
+      },
+      "verifier": {
+        "probability": 0.10353190250898023,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-2",
+      "hearing_id": 199,
+      "n": 3,
+      "article_name": "Nísia Trindade",
+      "proposition": "\"A pandemia de Covid-19 mostrou a vulnerabilidade do nosso País frente a tecnologias [de saúde], algumas complexas, como as vacinas, e outras muito simples, como luvas e máscaras. Não havia suprimentos para atender a população.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A pandemia de COVID-19 — como sabem, eu estive na linha de frente como Presidente da FIOCRUZ — mostrou a vulnerabilidade do nosso País frente a tecnologias: algumas complexas, como as vacinas, e outras muito simples, como ventiladores, luvas e máscaras. E o Brasil não tinha suprimento para atender à sua população.",
+        "turn": 1,
+        "start": 9910,
+        "end": 10225
+      },
+      "verifier": {
+        "probability": 0.9841813049756969,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-3",
+      "hearing_id": 199,
+      "n": 4,
+      "article_name": "Nísia Trindade",
+      "proposition": "Afirmou que a compra emergencial de insulina análoga de ação rápida e imunoglobulina humana decorreu do baixo estoque dos produtos no Brasil.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A insulina é um problema no Brasil há algum tempo. O Brasil está atrasado com relação à disponibilização e produção de alguns medicamentos essenciais, como é o caso da insulina para diabetes.",
+        "turn": 1,
+        "start": 18768,
+        "end": 18959
+      },
+      "verifier": {
+        "probability": 0.4856919360683948,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-4",
+      "hearing_id": 199,
+      "n": 5,
+      "article_name": "Nísia Trindade",
+      "proposition": "A compra emergial de insulina seguiu os trâmites exigidos: \"A compra internacional foi autorizada pela Anvisa, por sua diretoria, por unanimidade.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "No caso, a empresa, é membro do The International Council for Harmonisation - ICH. Por isso, a ANVISA aprovou a nossa compra Internacional por unanimidade.",
+        "turn": 81,
+        "start": 56013,
+        "end": 56168
+      },
+      "verifier": {
+        "probability": 0.43765238539519064,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-5",
+      "hearing_id": 199,
+      "n": 6,
+      "article_name": "Nísia Trindade",
+      "proposition": "Informou que o laboratório japonês Takeda entrou com pedido de incorporação ao SUS da vacina para prevenção da dengue: \"Se houver a decisão de que deve ser incorporada, isso ocorrerá com base em critérios técnicos e com base no interesse do SUS.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Se houver a decisão de que deve ser incorporada — assim é feito historicamente no Sistema Único de Saúde —, isso ocorrerá, de forma independente, com base em critérios técnicos e no interesse do Sistema Único de Saúde.",
+        "turn": 67,
+        "start": 40836,
+        "end": 41054
+      },
+      "verifier": {
+        "probability": 0.5510468543132794,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-6",
+      "hearing_id": 199,
+      "n": 7,
+      "article_name": "Nísia Trindade",
+      "proposition": "Afirmou que a homologação da Resolução 715/23 é uma medida de praxe, exigida pela legislação, e que não representa apoio a todas as orientações da resolução.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Em 2019, não houve essa homologação, mas o que se deve fazer é homologar. E o que significa homologar?",
+        "turn": 84,
+        "start": 60396,
+        "end": 60498
+      },
+      "verifier": {
+        "probability": 0.1936818012458327,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-7",
+      "hearing_id": 199,
+      "n": 8,
+      "article_name": "Nísia Trindade",
+      "proposition": "\"A nossa posição é clara: seremos estritos ao cumprimento da lei e ela determina os casos em que se considera legal a efetivação do aborto.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Especificamente em relação ao aborto, a nossa posição é clara, e o senhora já a leu na resposta ao seu requerimento. Seremos estritos em relação ao cumprimento da lei.",
+        "turn": 84,
+        "start": 61472,
+        "end": 61639
+      },
+      "verifier": {
+        "probability": 0.72856090876332,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-8",
+      "hearing_id": 199,
+      "n": 9,
+      "article_name": "Nísia Trindade",
+      "proposition": "Afirmou que a incorporação do canabidiol ao SUS vai depender de análise da Conitec: \"São os estudos científicos que devem falar mais forte.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Com relação à vacina da dengue, deixo mais claro que será analisada pela comissão de incorporação tecnológica. Se houver a decisão de que deve ser incorporada — assim é feito historicamente no Sistema Único de Saúde —, isso ocorrerá, de forma independente, com base em critérios técnicos e no interesse do Sistema Único de Saúde.",
+        "turn": 67,
+        "start": 40725,
+        "end": 41054
+      },
+      "verifier": {
+        "probability": 0.3249674434097652,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-0-9",
+      "hearing_id": 199,
+      "n": 10,
+      "article_name": "Nísia Trindade",
+      "proposition": "Elencou medidas tomadas para recuperar os seis hospitais federais do Rio de Janeiro, incluindo a reabertura de 305 leitos e a contratação de novos profissionais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Reabrimos 305 leitos, de janeiro até junho de 2023; aumentamos consultas e cirurgias, sendo mais 15.653 consultas e quase 2 mil cirurgias; foram contratados 221 profissionais, e estamos em processo de recomposição das vagas ociosas. Esse trabalho tem sido intenso, e agradeço o esforço do nosso diretor-geral de hospitais no Rio de Janeiro, aqui presente em nossa reunião.",
+        "turn": 3,
+        "start": 20571,
+        "end": 20943
+      },
+      "verifier": {
+        "probability": 0.8146516545243258,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

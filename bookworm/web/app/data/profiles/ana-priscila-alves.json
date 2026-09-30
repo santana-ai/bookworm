@@ -1,0 +1,418 @@
+{
+  "actor": {
+    "slug": "ana-priscila-alves",
+    "name": "ANA PRISCILA ALVES",
+    "display_name": "Ana Priscila Alves",
+    "role": "Vice-presidente da Associação Nacional dos Pós-Graduandos (ANPG)",
+    "article_names": [
+      "Ana Priscila Alves"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:50:22+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      168,
+      188
+    ],
+    "input_tokens": 4541,
+    "output_tokens": 856,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 3,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação de políticas públicas específicas e diversificadas para mulheres na pós-graduação, incluindo cotas e ações afirmativas, argumentando que 45,7% dos programas de pós-graduação ainda não possuem tais medidas.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 60880,
+            "end": 61005,
+            "text": "Precisamos de políticas públicas específicas, inclusive cotas e ações afirmativas, que ainda são um desafio na pós-graduação.",
+            "score": 0.5138
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a derrubada do Decreto nº 997, de 1993, que proíbe a criação de novas creches nas universidades, classificando a norma como uma barreira urgente a ser removida pelo Parlamento.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 64488,
+            "end": 64593,
+            "text": "Existe um decreto, o Decreto nº 997, desde 1993, que proíbe a criação de novas creches nas universidades.",
+            "score": 0.5744
+          },
+          "udv": {
+            "id": "udv-188-4-1",
+            "rule": "same_sentence",
+            "score": 0.6395
+          }
+        },
+        {
+          "text": "Propõe a ampliação da licença-maternidade de 4 para 6 meses para todas as pós-graduandas, não apenas bolsistas, e a garantia de extensão de prazo e de bolsa para todas.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 63881,
+            "end": 63969,
+            "text": "E todas as pós-graduandas precisam ter acesso a extensão de prazo e a extensão de bolsa.",
+            "score": 0.4966
+          },
+          "udv": {
+            "id": "udv-188-4-0",
+            "rule": "similar_text",
+            "score": 0.5038
+          }
+        },
+        {
+          "text": "Cobra a implementação de auxílio-maternidade e auxílio-creche para mães com filhos de mais de 6 anos, além da criação de espaços de acolhimento para crianças nas universidades.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 64084,
+            "end": 64202,
+            "text": "Precisamos debater auxílio-maternidade, além de auxílio-creche, para abarcar as mães que têm filhos de mais de 6 anos.",
+            "score": 0.6403
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de direitos trabalhistas básicos, como a Previdência Social e a licença-doença, apontando que a pós-graduação brasileira opera em um cenário de \"sem direitos\" e que a reforma da Previdência prejudicou especialmente a juventude.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 9,
+            "start": 62595,
+            "end": 62786,
+            "text": "É importante lembrar que nesse período de desmonte de direitos aconteceu uma reforma da Previdência e que os principais afetados pela reforma da Previdência fomos nós da juventude brasileira.",
+            "score": 0.3702
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a violência de gênero na academia, citando o caso do professor Boaventura e a trajetória da pesquisadora Jaqueline Goes, e cobra que a academia se responsabilize coletivamente pela segurança das mulheres.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 62218,
+            "end": 62403,
+            "text": "E é importante que o conjunto da academia se responsabilize pela vida das mulheres, porque todos os programas de pós-graduação têm um professor que as mulheres não indicam para ninguém.",
+            "score": 0.2866
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a empregabilidade das mulheres tituladas é insuficiente, citando que 96% das pessoas que perderam emprego na pandemia eram mulheres, e defende políticas que garantam emprego digno após a titulação.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 65948,
+            "end": 66059,
+            "text": "Mas é importante destacar um dado absurdo do período da pandemia: 96% das pessoas que perderam o emprego — 96%!",
+            "score": 0.4338
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a socialização do cuidado como pré-requisito para o avanço das mulheres na ciência, exigindo transporte público de qualidade e comida digna.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 65416,
+            "end": 65538,
+            "text": "Precisamos de transporte público de qualidade, de comida digna, senão não vai avançar a realidade das mulheres na ciência.",
+            "score": 0.505
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Sustenta que a formulação de políticas públicas eficazes depende exclusivamente do acesso a dados precisos, justificando a produção do Dossiê Florestan Fernandes após um \"apagão de dados\".",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 59114,
+            "end": 59163,
+            "text": "Nesse último período, tivemos um apagão de dados.",
+            "score": 0.2349
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a interseccionalidade como critério central, afirmando que as mulheres não são um grupo único e que as demandas de mulheres negras, indígenas, brancas, LGBTs e mães são distintas e exigem respostas específicas.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 60822,
+            "end": 60879,
+            "text": "Somos mulheres negras, indígenas, brancas, LGBTs, mães...",
+            "score": 0.4546
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa de direitos na premissa de que a pós-graduação possui um caráter híbrido, sendo simultaneamente espaço de formação estudantil e de trabalho intelectual, o que exige a aplicação de direitos de ambas as categorias.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 9,
+            "start": 61247,
+            "end": 61317,
+            "text": "O que podemos ver hoje é um cenário de uma pós-graduação sem direitos.",
+            "score": 0.1873
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de uma \"vida livre de violência\" como valor inegociável, argumentando que a violência contra a mulher é estrutural e não se limita ao período recente de governo negacionista.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 63191,
+            "end": 63279,
+            "text": "Queremos uma vida livre de violência, e é importante que esse compromisso seja coletivo.",
+            "score": 0.2606
+          },
+          "udv": {
+            "id": "udv-188-4-4",
+            "rule": "same_sentence",
+            "score": 0.2095
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Vice-Presidenta da ANPG (Associação Nacional de Pós-Graduandos).",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 9,
+            "start": 60984,
+            "end": 61080,
+            "text": "Eu sou a Ana Priscila, Vice-Presidenta da ANPG, hoje mestranda em sociologia pelo IESP, na UERJ.",
+            "score": 0.274
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como graduada em gestão pública pela UFRJ e mestranda em sociologia no IESP/UERJ.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 58600,
+            "end": 58684,
+            "text": "Sou graduada em gestão pública pela UFRJ e faço mestrado em sociologia no IESP/UERJ.",
+            "score": 0.708
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma alinhamento com a Deputada Ana Pimentel, a Presidenta Mercedes Bustamante e a Ministra Luciana Santos, elogiando publicamente a atuação delas na defesa das pautas das mulheres.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 66844,
+            "end": 67318,
+            "text": "Nós termos uma Deputada como Ana Pimentel, que traz a nossa pauta aqui, é fundamental.(Palmas.)Termos uma Presidenta como a Mercedes Bustamante, que atenta para a demanda das mulheres, é fundamental.(Palmas.)Termos uma Ministra como a Luciana Santos, uma mulher negra, atenta às nossas demandas, é fundamental.(Palmas.)É imprescindível nos organizarmos para garantir que teremos mais dessas mulheres que trazem a nossa pauta para o espaço público e para os espaços de poder.",
+            "score": 0.3081
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos específicos de pesquisas próprias (Dossiê Florestan Fernandes) e de órgãos oficiais (GEMAA, Ministério do Trabalho) para fundamentar suas críticas, como os índices de problemas emocionais e de perda de emprego.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 66077,
+            "end": 66115,
+            "text": "Esse dado é do Ministério do Trabalho.",
+            "score": 0.2177
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de cobrança direta ao Parlamento, utilizando perguntas retóricas (\"Quanto vale a ciência brasileira?\") e chamadas para ação (\"Vamos cobrar, vamos demandar\").",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 9,
+            "start": 63192,
+            "end": 63288,
+            "text": "Inclusive, perguntamos: quanto vale a ciência brasileira e quanto vale o pesquisador brasileiro?",
+            "score": 0.3099
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de trajetórias individuais (como a de Jaqueline Goes) para ilustrar a violência estrutural e a necessidade de mudança cultural na academia.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Conclui seus discursos com apelos para a organização coletiva e para a divulgação de campanhas, como o abaixo-assinado da ANPG, buscando engajamento ativo dos presentes.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 12,
+            "start": 62605,
+            "end": 62664,
+            "text": "Essa precisa ser uma tarefa coletiva, de todos e todas nós.",
+            "score": 0.1508
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 168,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Debatedores defendem melhoria das condições da pós-graduação no Brasil",
+      "assunto": "Melhoria das condições da pós-graduação no Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 188,
+      "split": "train",
+      "article_date": "2023-08-24",
+      "title": "Mulheres são apenas 1/3 de pós-graduandos em ciências exatas e tecnológicas e têm financiamento menor",
+      "assunto": "Disparidade de gênero na pós-graduação em ciências exatas e tecnológicas e financiamento menor para mulheres",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 5
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-188-4-0",
+      "hearing_id": 188,
+      "n": 22,
+      "article_name": "Ana Priscila Alves",
+      "proposition": "A licença maternidade é de quatro meses e apenas para bolsistas, sendo necessário avançar na licença de seis meses para todas as pós-graduandas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Hoje nós temos a licença, mas apenas para bolsistas, e de 4 meses. Nós precisamos avançar para a licença de 6 meses para todas.",
+        "turn": 12,
+        "start": 63753,
+        "end": 63880
+      },
+      "verifier": {
+        "probability": 0.8692086454883455,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-188-4-1",
+      "hearing_id": 188,
+      "n": 23,
+      "article_name": "Ana Priscila Alves",
+      "proposition": "Pediu compromisso do Parlamento para a derrubada urgente do decreto (997/93) que proíbe a criação de novas creches nas universidades.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu queria fazer uma provocação aqui. Existe um decreto, o Decreto nº 997, desde 1993, que proíbe a criação de novas creches nas universidades.",
+        "turn": 12,
+        "start": 64451,
+        "end": 64593
+      },
+      "verifier": {
+        "probability": 0.3403310874075063,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-188-4-2",
+      "hearing_id": 188,
+      "n": 24,
+      "article_name": "Ana Priscila Alves",
+      "proposition": "Chamou a atenção para dados do Dossiê Florestan Fernandes, mostrando que mulheres brancas e negras relatam, entre as dificuldades enfrentadas, problemas emocionais, o que não afeta os homens.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É importante frisar os problemas emocionais, que é algo que aparece entre as mulheres brancas e negras e não aparece entre os homens, nem entre brancos, nem entre negros. O que tem levado as mulheres a ter esse adoecimento mental na pós-graduação?",
+        "turn": 12,
+        "start": 60038,
+        "end": 60285
+      },
+      "verifier": {
+        "probability": 0.47721820814894095,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-188-4-3",
+      "hearing_id": 188,
+      "n": 25,
+      "article_name": "Ana Priscila Alves",
+      "proposition": "Considera importante pesquisar o que tem levado ao adoecimento das mulheres na pós-graduação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O que tem levado as mulheres a ter esse adoecimento mental na pós-graduação? Frisar essa pauta é importante.",
+        "turn": 12,
+        "start": 60209,
+        "end": 60317
+      },
+      "verifier": {
+        "probability": 0.9498918832839239,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-188-4-4",
+      "hearing_id": 188,
+      "n": 26,
+      "article_name": "Ana Priscila Alves",
+      "proposition": "Citou a necessidade de coibir o assédio sexual dentro da universidade.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não é essa a marca que nós queremos para as mulheres na ciência. Queremos uma vida livre de violência, e é importante que esse compromisso seja coletivo.",
+        "turn": 12,
+        "start": 63126,
+        "end": 63279
+      },
+      "verifier": {
+        "probability": 0.3978942228411579,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "actor": {
+    "slug": "marcelo-queiroz",
+    "name": "Marcelo Queiroz",
+    "display_name": "Marcelo Queiroz",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PP - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:04:36+00:00",
+    "n_statements": 7,
+    "n_hearings": 1,
+    "hearing_ids": [
+      167
+    ],
+    "input_tokens": 4802,
+    "output_tokens": 757,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a castração é a base de qualquer outra política pública de controle populacional de cães e gatos, citando o programa do Rio de Janeiro como exemplo de modelo que deu certo, embora reconheça que tudo pode ser aprimorado.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 2,
+            "start": 6308,
+            "end": 6376,
+            "text": "Eu acho que a castração é a base de qualquer outra política pública.",
+            "score": 0.3931
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a alocação de orçamento para a execução prática da política, argumentando que o discurso sem recursos leva ao descredenciamento do orçamento participativo e que o esforço tem um limite orçamentário.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 38,
+            "start": 94052,
+            "end": 94160,
+            "text": "E eu acho que não colocar o orçamento significa um processo de descredenciamento do orçamento participativo.",
+            "score": 0.3489
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a licitação do valor da castração em vez da contratação direta de veículos ou clínicas estatais, visando diluir responsabilidades e proteger o gestor público, uma vez que o CPF ou CNPJ do contratado fica antes do do gestor.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 20,
+            "start": 69465,
+            "end": 69517,
+            "text": "Trata-se do princípio da proteção do gestor público.",
+            "score": 0.1954
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transparência e a impessoalidade nos processos de licitação, destacando que os mais de 16 contratos do Rio de Janeiro são licitados online, garantindo que o serviço seja prestado independentemente de alinhamento político.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 20,
+            "start": 68171,
+            "end": 68277,
+            "text": "Ela não mencionou, mas todos aqueles contratos — são mais de 16 contratos — são licitados de formaon-line.",
+            "score": 0.278
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o papel do Legislativo é de cobrança ao Executivo, especialmente após a obtenção de 40 mil votos no Gov.br, e que a ausência de orçamento compromete a credibilidade do processo participativo.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 38,
+            "start": 93636,
+            "end": 93685,
+            "text": "Não foi simples conseguir 40 mil votos no Gov.br.",
+            "score": 0.4131
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia a atuação da Dra. Vanessa Negrini, representante do Governo Federal, reconhecendo o esforço e a parceria com o Legislativo, mas mantém a cobrança por resultados práticos e orçamentários.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 0,
+            "start": 514,
+            "end": 650,
+            "text": "Vanessa Negrini, Diretora do Departamento de Proteção, Defesa e Direitos Animais do Ministério do Meio Ambiente e Mudança do Clima; Dra.",
+            "score": 0.1572
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da proteção do gestor público como fundamento para a terceirização dos serviços de castração, justificando a medida pela necessidade de evitar responsabilização pessoal (CPF estourado) dos servidores e gestores.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 20,
+            "start": 69465,
+            "end": 69517,
+            "text": "Trata-se do princípio da proteção do gestor público.",
+            "score": 0.3569
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a transparência e a impessoalidade como pilares da política pública, argumentando que a licitação online garante que o indivíduo seja atendido da mesma forma, independentemente de ser da situação ou oposição.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 20,
+            "start": 68141,
+            "end": 68170,
+            "text": "O primeiro é a transparência.",
+            "score": 0.1749
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência prática de gestão (como Secretário de Administração, Meio Ambiente e Agricultura no Rio de Janeiro) para justificar as propostas de modelo de contratação e execução.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 20,
+            "start": 69392,
+            "end": 69464,
+            "text": "Eu já fui Secretário de Administração, de Meio Ambiente, de Agricultura.",
+            "score": 0.4808
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Cultura da Câmara dos Deputados e membro titular da Comissão de Meio Ambiente.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 2,
+            "start": 5248,
+            "end": 5328,
+            "text": "O Deputado Fred, por ser Líder, não pode ser membro titular de Comissão nenhuma.",
+            "score": 0.3727
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parceiro do Governo Federal, apesar de seu partido (Progressistas) ter entrado no Governo recentemente, e afirma atuar no papel de cobrança para colocar as coisas no lugar.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 38,
+            "start": 94192,
+            "end": 94366,
+            "text": "Apesar de o meu partido ter entrado ontem no Governo, desde o primeiro dia, como Presidente da Comissão de Cultura, eu tenho sido, o máximo que eu posso, parceiro do Governo.",
+            "score": 0.3634
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter idealizado o programa de castração do Rio de Janeiro quando foi Secretário, e cita a Dra. Camila Costa como sucessora nesse trabalho.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 2,
+            "start": 6003,
+            "end": 6148,
+            "text": "Eu tive a honra de acrescentar entre os convidados a Camila, que hoje segue um trabalho que eu idealizei quando fui Secretário no Rio de Janeiro.",
+            "score": 0.2835
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionam-se como aliados na Frente Parlamentar em Defesa dos Animais os Deputados Felipe Becari, Ganem, Delegado Bruno Lima, Duarte, Célio Studart, Nilto Tatto e Marx Beltrão.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 38,
+            "start": 95030,
+            "end": 95248,
+            "text": "Vamos fazer o nosso blocão junto com os Deputados Felipe, Ganem, Delegado Bruno Lima, que é um grande parceiro meu e do Deputado Matheus aqui, Duarte, Célio Studart, que está como Secretário, Nilto Tatto, Marx Beltrão.",
+            "score": 0.636
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Argumenta com base em dados operacionais específicos, como o volume de 350 castrações por dia por Castramóvel e a equipe de 24 pessoas, para contextualizar a escala do programa.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 20,
+            "start": 68969,
+            "end": 69019,
+            "text": "Cada equipe do Castramóvel chega a ter 24 pessoas.",
+            "score": 0.3945
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência pessoal em cargos de secretaria para fundamentar suas propostas de gestão e contratação, citando casos de gestores públicos com problemas de responsabilidade civil.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de parceria com o Executivo, elogiando os esforços da representante do Governo, mas mantém uma postura firme na cobrança por orçamento e execução prática.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos de sucesso (modelo do Rio de Janeiro) e a números de participação popular (40 mil votos) para reforçar a legitimidade e a urgência da política pública.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 20,
+            "start": 68278,
+            "end": 68349,
+            "text": "Isso é uma base da política pública e tem funcionado no Rio de Janeiro.",
+            "score": 0.265
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 130,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Representantes do audiovisual sugerem a deputados medidas para estimular o setor",
+      "assunto": "Medidas sugeridas por representantes do setor audiovisual brasileiro para enfrentar a concorrência do cinema e do streaming norte-americanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 167,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Especialistas cobram recursos e política pública para controle populacional de cães e gatos",
+      "assunto": "Recursos e política pública para controle populacional de cães e gatos",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

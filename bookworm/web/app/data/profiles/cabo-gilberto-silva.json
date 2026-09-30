@@ -1,0 +1,424 @@
+{
+  "actor": {
+    "slug": "cabo-gilberto-silva",
+    "name": "CABO GILBERTO SILVA",
+    "display_name": "Cabo Gilberto Silva",
+    "role": "Deputado (PL-PB)",
+    "article_names": [
+      "Cabo Gilberto Silva"
+    ],
+    "party_uf": [
+      "PL - PB"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:18:21+00:00",
+    "n_statements": 16,
+    "n_hearings": 2,
+    "hearing_ids": [
+      145,
+      201
+    ],
+    "input_tokens": 4943,
+    "output_tokens": 1255,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 27,
+    "with_udv": 1,
+    "passage_only": 21,
+    "without_evidence": 5
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a individualização das condutas dos presos nos atos de 8 de janeiro, argumentando que a legislação permite prisão apenas em flagrante delito ou com mandado, e que os detidos no ginásio da Polícia Federal não se enquadram nessas hipóteses, pois o flagrante ocorreu apenas no dia 8 nas instalações da Praça dos Três Poderes.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 28049,
+            "end": 28216,
+            "text": "Flagrante delito não era, porque as pessoas que foram presas em flagrante delito, Presidente, foram presas no próprio dia 8, nas instalações da Praça dos Três Poderes.",
+            "score": 0.4059
+          },
+          "udv": null
+        },
+        {
+          "text": "Negativa a caracterização dos atos de 8 de janeiro como tentativa de golpe de Estado, classificando os fatos como depredação de patrimônio público e desafiando a existência de um golpe sem o emprego de armas ou força.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 30758,
+            "end": 30807,
+            "text": "O que houve foi depredação do patrimônio público.",
+            "score": 0.3387
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica as prisões realizadas no dia 9 de janeiro como ilegais, inconstitucionais e arbitrárias, afirmando que mais de 2 mil pessoas foram presas, incluindo idosos, crianças e pessoas com enfermidades, sem representarem risco à sociedade.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 30251,
+            "end": 30377,
+            "text": "Crianças foram presas, idosas foram presas, pessoas com enfermidades foram presas, sem representarem nenhum risco à sociedade.",
+            "score": 0.5093
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a violação do direito à audiência de custódia em 24 horas, alegando que os presos ficaram retidos no ginásio da Polícia Federal por períodos superiores ao legal, com base no relato de advogados presentes e em sua própria visita aos locais.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 29449,
+            "end": 29559,
+            "text": "O direito à audiência de custódia, Deputado Sanderson, não foi preservado — as 24 horas —, pessoas passaram...",
+            "score": 0.3115
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o Ministro Alexandre de Moraes de atuar ao arrepio da lei, citando a invasão do Congresso Nacional pela Polícia Federal e a decisão de afastar o Governador do Distrito Federal sem amparo legal, além de não prender figuras como o Ministro Flávio Dino ou o \"General de Lula\", a quem atribui provas de infiltração.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 189,
+            "start": 244933,
+            "end": 245131,
+            "text": "Ontem, mais uma vez, o Parlamento foi vítima de uma ação e de uma invasão por parte da Polícia Federal, cumprindo mais uma decisão inconstitucional do Ministro Alexandre de Moraes ao arrepio da lei.",
+            "score": 0.3691
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a obstrução de todo o processo legislativo no Congresso Nacional até que a Constituição seja respeitada e os três Poderes voltem a ser harmônicos, caracterizando a situação atual como \"ditadura da toga\" ou \"ditadura do Judiciário\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 189,
+            "start": 245774,
+            "end": 246238,
+            "text": "O mínimo que nós, Parlamentares, podemos fazer é tentar obstruir todas as matérias legislativas do Congresso Nacional, que está sendo desmoralizado e esvaziado por conta da omissão, por conta da prevaricação do Senador pamonha Rodrigo Pacheco, enquanto a Constituição Federal não voltar a ser respeitada e os três Poderes da República Federativa do Brasilnão voltarem a ser harmônicos, sem o superpoder da República que estamos vivendo hoje com a ditadura da toga.",
+            "score": 0.27
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Senador Rodrigo Pacheco por omissão e prevaricação, utilizando o termo \"pamonha\" para descrevê-lo, e cobra que o Senado freie os abusos da Suprema Corte.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 32463,
+            "end": 32640,
+            "text": "E vocês estão fazendo o quê?\"Nós ficamos algemados, impossibilitados, porque compete ao Senado Federal frear os abusos da Suprema Corte, mas o Congresso tem à frente um pamonha.",
+            "score": 0.2967
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a perícia encontrou apenas 47 digitais no evento, utilizando esse dado para sustentar que a maioria dos presos não estava presente na Praça dos Três Poderes.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 176,
+            "start": 215696,
+            "end": 215814,
+            "text": "Presidente, vale lembrar — não sei se já falaram aqui — que a perícia só encontrou 47 digitais, ou seja, 47 pessoas...",
+            "score": 0.3624
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o caso do Exército Brasileiro na Segunda Guerra Mundial, que prendeu mais de 20 mil alemães nazistas com dignidade, para contrastar com o tratamento dado aos presos de 8 de janeiro, incluindo a imposição de tornozeleiras eletrônicas a quem não cometeu crime.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 189,
+            "start": 241810,
+            "end": 242049,
+            "text": "Como bem disse aqui o advogado que me antecedeu, naquele fato histórico da Segunda Guerra, em que o Exército Brasileiro prendeu mais de 20 mil alemães, naquela época, em meados da década de 40, aquelas pessoas foram tratadas com dignidade.",
+            "score": 0.3326
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia condições degradantes nos locais de detenção, mencionando especificamente que mulheres ficaram sem absorventes e precisaram revezar calcinhas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Pede a inclusão de quatro policiais legislativos do Senado Federal como convidados em nova audiência para que expliquem a mudança de versão em suas oitivas.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 235,
+            "start": 337404,
+            "end": 337608,
+            "text": "Já convidamos para essa nova audiência os quatro policiais legislativos do Senado para que possamos ouvi-los e saber por que eles mudaram de versão em suas oitivas, de forma simples, educada e civilizada.",
+            "score": 0.4742
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a Constituição Federal como fundamento principal para suas críticas, citando especificamente o artigo 53 (inviolabilidade dos parlamentares) e o artigo 129 (funções do Ministério Público), argumentando que a desobediência a esses artigos configura desmoralização do ordenamento jurídico.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 32140,
+            "end": 32184,
+            "text": "53 da Constituição, rasgando a Constituição.",
+            "score": 0.2185
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio da dignidade da pessoa humana e o Estado de Direito para criticar o tratamento dado aos presos, comparando-o com o tratamento dado a prisioneiros de guerra nazistas e alegando que o Brasil vive em um Estado de exceção.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 189,
+            "start": 243151,
+            "end": 243220,
+            "text": "Vejam só a gravidade do que está acontecendo com o Estado de Direito.",
+            "score": 0.1694
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na presunção de inocência e na legalidade das prisões para defender que a responsabilização deve ser individualizada, rejeitando a responsabilização coletiva ou por associação.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a democracia está ameaçada pela \"ditadura do Judiciário\", que possui um \"ar de democracia\" mas tolhe prerrogativas e direitos fundamentais, justificando a necessidade de resistência parlamentar.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 31488,
+            "end": 31564,
+            "text": "A ditadura do Judiciário é a pior que existe, porque há um ar de democracia.",
+            "score": 0.4009
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal e afirma sentir-se desmoralizado diariamente em seu mandato.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 31975,
+            "end": 32038,
+            "text": "Eu sou Deputado Federal e me sinto desmoralizado todos os dias.",
+            "score": 0.2778
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como gaúcho, agradecendo ao Presidente da sessão, Deputado Sanderson, por ser também do Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 27039,
+            "end": 27067,
+            "text": "O Rio Grande do Sul é forte.",
+            "score": 0.4988
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com o \"movimento conservador\" e com \"patriotas\", utilizando essa terminologia para se referir aos presos e apoiadores.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 28788,
+            "end": 28966,
+            "text": "Ele apareceu abrindo a porta para pessoas tirarem fotos, estavam preparadas para isso, ou seja, havia um cenário e, infelizmente, algumas pessoas do movimento conservador caíram.",
+            "score": 0.1577
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona discordância de ações do Governador do Distrito Federal, especificamente na pandemia, mas destaca que ele é do MDB e não do seu partido, ao criticar seu afastamento.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 189,
+            "start": 244425,
+            "end": 244452,
+            "text": "Nem do nosso partido ele é.",
+            "score": 0.2197
+          },
+          "udv": null
+        },
+        {
+          "text": "Parabeniza o Deputado Marcel van Hattem pela propositura da audiência e elogia o trabalho do Senador Eduardo Girão.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 26791,
+            "end": 26973,
+            "text": "Parlamentares, parabenizo o Deputado Marcel van Hattem pela propositura, esse Parlamentar que vem desempenhando um excelente trabalho em defesa da democracia verdadeiramente falando.",
+            "score": 0.4016
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emotiva e confrontadora, empregando termos como \"pamonha\" para se referir ao Senador Rodrigo Pacheco e \"ditadura\" para descrever a atuação do Judiciário.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 189,
+            "start": 245208,
+            "end": 245433,
+            "text": "Presidente, e aos demais Parlamentares, já que temos um pamonha à frente do Congresso Nacional, que é o Senador Rodrigo Pacheco, com todo o respeito ao Senador pamonha Rodrigo Pacheco, que é a maior autoridade do Congresso...",
+            "score": 0.2993
+          },
+          "udv": {
+            "id": "udv-201-7-0",
+            "rule": "same_sentence",
+            "score": 0.2924
+          }
+        },
+        {
+          "text": "Recorre a dados específicos, como o número de presos (mais de 2 mil), o número de digitais encontradas (47) e a duração da audiência de custódia, para sustentar suas alegações.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 176,
+            "start": 215696,
+            "end": 215814,
+            "text": "Presidente, vale lembrar — não sei se já falaram aqui — que a perícia só encontrou 47 digitais, ou seja, 47 pessoas...",
+            "score": 0.187
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz apelos diretos à plateia e aos parlamentares, utilizando perguntas retóricas (\"Foi assim ou não foi?\") e desafios (\"Diga-me, em que lugar do planeta aconteceu golpe...\").",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 17,
+            "start": 30627,
+            "end": 30757,
+            "text": "Diga-me, eu faço este desafio: em que lugar do planeta aconteceu golpe de Estado efetivamente sem utilização de armas, sem força?",
+            "score": 0.3378
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita experiências pessoais, como sua visita ao ginásio da Polícia Federal acompanhada de advogados e parlamentares, para dar credibilidade às denúncias.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 189,
+            "start": 241689,
+            "end": 241808,
+            "text": "Foram presas mais de 2 mil pessoas, que foram conduzidas, Deputado Delegado Ramagem, para o ginásio da Polícia Federal.",
+            "score": 0.1814
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza comparações históricas, como o caso dos prisioneiros nazistas na Segunda Guerra, para ilustrar o que considera tratamento indigno.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra ações concretas dos parlamentares, como a obstrução legislativa e a convocação de novos depoentes, e expressa indignação com a omissão do Senado.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom de urgência e indignação, interrompendo-se para pedir tempo ou espaço para falar, e buscando a palavra para reforçar pontos específicos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 17,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Em seminário na Câmara, especialistas discordam sobre ativismo judicial",
+      "assunto": "Debate sobre ativismo judicial na Câmara dos Deputados",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-201-7-0",
+      "hearing_id": 201,
+      "n": 13,
+      "article_name": "Cabo Gilberto Silva",
+      "proposition": "Cobrou uma posição do presidente do Congresso Nacional e do Senado, Rodrigo Pacheco, acerca da atuação do STF.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Presidente, e aos demais Parlamentares, já que temos um pamonha à frente do Congresso Nacional, que é o Senador Rodrigo Pacheco, com todo o respeito ao Senador pamonha Rodrigo Pacheco, que é a maior autoridade do Congresso... Já que temos um pamonha à frente do Congresso Nacional, Sr.",
+        "turn": 189,
+        "start": 245208,
+        "end": 245493
+      },
+      "verifier": {
+        "probability": 0.2516500669020673,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

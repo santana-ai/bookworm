@@ -1,0 +1,265 @@
+{
+  "split_version": "temporal_v1",
+  "created_at": "2026-09-21T21:13:27+00:00",
+  "date_extraction": {
+    "hearings": 206,
+    "with_publication_timestamp": 206,
+    "with_update_timestamp": 13,
+    "with_current_event_mention": 156,
+    "confirmed_by_at_least_one_mention": 155,
+    "confirmed_by_no_mention": 1,
+    "current_event_mentions": 159,
+    "weekday_agrees": 157,
+    "weekday_disagrees": 2,
+    "lag_days_when_agreeing": {
+      "0": 142,
+      "1": 15
+    },
+    "disagreements": [
+      {
+        "hearing_id": 111,
+        "article_date": "2024-03-26",
+        "mention": "nesta terça-feira (23)",
+        "resolved_date": "2024-03-23"
+      },
+      {
+        "hearing_id": 116,
+        "article_date": "2023-12-13",
+        "mention": "nesta quinta-feira (14)",
+        "resolved_date": "2023-11-14"
+      }
+    ],
+    "hearings_without_any_agreeing_mention": [
+      111
+    ]
+  },
+  "calendar": {
+    "first_date": "2021-11-18",
+    "last_date": "2024-05-09",
+    "distinct_dates": 128,
+    "hearings_per_date_max": 5,
+    "by_year": {
+      "2021": 3,
+      "2022": 32,
+      "2023": 141,
+      "2024": 30
+    }
+  },
+  "boundaries": {
+    "train_end": "2023-11-13",
+    "validation_start": "2023-11-21",
+    "validation_end": "2023-12-20",
+    "test_start": "2024-03-05",
+    "train_gap_days": 8,
+    "test_gap_days": 76,
+    "train_fraction_reached": 0.699,
+    "validation_end_fraction_reached": 0.8544
+  },
+  "cut_candidates_considered": 65,
+  "splits": {
+    "train": {
+      "hearings": 144,
+      "share_of_hearings": 0.699,
+      "first_date": "2021-11-18",
+      "last_date": "2023-11-13",
+      "distinct_dates": 94,
+      "people": 745,
+      "opinions": 1536,
+      "udvs": 1536,
+      "udvs_by_tier": {
+        "no_evidence": 2,
+        "person_not_resolved": 80,
+        "quote_found": 171,
+        "semantic_match_high": 1246,
+        "semantic_match_weak": 37
+      }
+    },
+    "validation": {
+      "hearings": 32,
+      "share_of_hearings": 0.1553,
+      "first_date": "2023-11-21",
+      "last_date": "2023-12-20",
+      "distinct_dates": 15,
+      "people": 161,
+      "opinions": 308,
+      "udvs": 308,
+      "udvs_by_tier": {
+        "person_not_resolved": 3,
+        "quote_found": 49,
+        "semantic_match_high": 249,
+        "semantic_match_weak": 7
+      }
+    },
+    "test": {
+      "hearings": 30,
+      "share_of_hearings": 0.1456,
+      "first_date": "2024-03-05",
+      "last_date": "2024-05-09",
+      "distinct_dates": 19,
+      "people": 159,
+      "opinions": 359,
+      "udvs": 359,
+      "udvs_by_tier": {
+        "no_evidence": 6,
+        "person_not_resolved": 7,
+        "quote_found": 40,
+        "semantic_match_high": 298,
+        "semantic_match_weak": 8
+      }
+    }
+  },
+  "leakage": {
+    "actors": {
+      "distinct_actors": 879,
+      "in_more_than_one_split": 55,
+      "in_train_and_test": 24
+    },
+    "near_duplicates": {
+      "method": "tfidf cosine over materia, min_df=2, sublinear_tf",
+      "threshold": 0.5,
+      "cross_split_pairs": 9888,
+      "above_threshold": 0,
+      "max": 0.459,
+      "p99": 0.185,
+      "median": 0.099,
+      "top_pairs": [
+        {
+          "similarity": 0.459,
+          "hearings": [
+            68,
+            105
+          ],
+          "splits": [
+            "train",
+            "test"
+          ]
+        },
+        {
+          "similarity": 0.397,
+          "hearings": [
+            15,
+            129
+          ],
+          "splits": [
+            "train",
+            "validation"
+          ]
+        },
+        {
+          "similarity": 0.334,
+          "hearings": [
+            94,
+            5
+          ],
+          "splits": [
+            "train",
+            "test"
+          ]
+        },
+        {
+          "similarity": 0.331,
+          "hearings": [
+            194,
+            19
+          ],
+          "splits": [
+            "train",
+            "validation"
+          ]
+        },
+        {
+          "similarity": 0.308,
+          "hearings": [
+            123,
+            114
+          ],
+          "splits": [
+            "validation",
+            "test"
+          ]
+        },
+        {
+          "similarity": 0.29,
+          "hearings": [
+            59,
+            13
+          ],
+          "splits": [
+            "train",
+            "validation"
+          ]
+        },
+        {
+          "similarity": 0.29,
+          "hearings": [
+            98,
+            100
+          ],
+          "splits": [
+            "train",
+            "test"
+          ]
+        },
+        {
+          "similarity": 0.284,
+          "hearings": [
+            96,
+            5
+          ],
+          "splits": [
+            "train",
+            "test"
+          ]
+        },
+        {
+          "similarity": 0.283,
+          "hearings": [
+            146,
+            126
+          ],
+          "splits": [
+            "train",
+            "validation"
+          ]
+        },
+        {
+          "similarity": 0.272,
+          "hearings": [
+            144,
+            113
+          ],
+          "splits": [
+            "train",
+            "test"
+          ]
+        }
+      ]
+    }
+  },
+  "udv_source": "artifacts/udv/udv_v0.jsonl",
+  "environment": {
+    "python": "3.12.12",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "temporal": {
+      "split_version": "temporal_v1",
+      "train_fraction": 0.7,
+      "validation_fraction": 0.15,
+      "min_boundary_gap_days": 2
+    },
+    "leakage": {
+      "near_duplicate_threshold": 0.5,
+      "near_duplicate_pairs": 10
+    },
+    "run": {
+      "seed": 42,
+      "output_dir": "artifacts/splits",
+      "udv_path": "artifacts/udv/udv_v0.jsonl"
+    }
+  }
+}

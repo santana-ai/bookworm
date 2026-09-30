@@ -1,0 +1,391 @@
+{
+  "actor": {
+    "slug": "ze-neto",
+    "name": "Zé Neto",
+    "display_name": "Zé Neto",
+    "role": "Deputado (PT-BA)",
+    "article_names": [
+      "Zé Neto"
+    ],
+    "party_uf": [
+      "Bloco/PT - BA",
+      "PT - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:22:56+00:00",
+    "n_statements": 6,
+    "n_hearings": 3,
+    "hearing_ids": [
+      22,
+      61,
+      193
+    ],
+    "input_tokens": 6579,
+    "output_tokens": 985,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 1,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação de uma comissão interministerial para tratar da política de importação, inovação e fomento, argumentando que esses temas não são de responsabilidade exclusiva de um único ministério e que a transição de governo deve ser de partida, não de chegada, para dar início a novos experimentos técnicos.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 58868,
+            "end": 58949,
+            "text": "Eu defendo que a transição, Deputado Sidney, não seja de chegada, mas de partida.",
+            "score": 0.2344
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a política de importação e a abertura comercial indiscriminada, defendendo a proteção do mercado interno e a produção nacional como base para a soberania, o emprego e a renda. Cita o exemplo dos Estados Unidos, que investiram 1,2 trilhão em infraestrutura e criaram comitês interministeriais para a cadeia produtiva interna, como modelo a ser seguido.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 60230,
+            "end": 60271,
+            "text": "Os Estados Unidos investiram 1,2 trilhão.",
+            "score": 0.3492
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o papel do BNDES no desenvolvimento interno da indústria, comércio e serviços, rejeitando a ideia de que o banco deve buscar lucro financeiro em detrimento da retroalimentação do investimento no país. Critica a \"radiografia\" (ou \"ressonância\") feita no BNDES, afirmando que a estruturação do banco visa sua venda ou entrega.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 27,
+            "start": 57500,
+            "end": 57644,
+            "text": "Na sua função precípua, o BNDES trata do desenvolvimento interno da nossa indústria, do nosso comércio, dos nossos serviços, e não de dar lucro.",
+            "score": 0.308
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a regulamentação do e-commerce e do comércio digital, defendendo a criação de um marco regulatório que proteja a indústria e o varejo nacionais sem aumentar impostos, mas seguindo o modelo de países como China, Japão e Reino Unido. Cita dados segundo os quais 72% do consumo digital vem de fora e estima um rombo de 52 bilhões na economia.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 1,
+            "start": 5388,
+            "end": 5482,
+            "text": "A expectativa é de que este ano ou o ano que vem o rombo na economia ultrapasse os 52 bilhões.",
+            "score": 0.2588
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o Banco Central não deve ter a inflação como única responsabilidade, propondo a discussão de outras responsabilidades, como o desenvolvimento regional, o emprego e a renda, para evitar que o mercado financeiro se sobreponha ao mercado consumidor e ao setor produtivo.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 19,
+            "start": 61950,
+            "end": 62035,
+            "text": "O Banco Central fica mais importante do que o mercado consumidor e o setor produtivo.",
+            "score": 0.4053
+          },
+          "udv": {
+            "id": "udv-193-2-0",
+            "rule": "same_sentence",
+            "score": 0.3706
+          }
+        },
+        {
+          "text": "Critica a desoneração da folha de pagamento como tema esgotado para os 17 setores já beneficiados, defendendo a busca por novos setores para o debate, e rejeita a comparação com outros países que apenas impõem regras sem adotar as mesmas políticas de fomento.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 59551,
+            "end": 59710,
+            "text": "Por exemplo, o tema de que nós estamos tratando hoje, a desoneração da folha, é um tema valioso, porque esses 17 setores que já são desonerados não vão voltar.",
+            "score": 0.3159
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a soberania nacional e a industrialização como princípios fundamentais para a redemocratização e o desenvolvimento do país, argumentando que a proteção do mercado interno é uma prática comum entre os regimes liberais avançados.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 63456,
+            "end": 63645,
+            "text": "Mas que sempre esteja como horizonte nosso a proteção do mercado interno, que é o que está sendo feito no mundo inteiro pelos mais avançados regimes liberais que estamos vivendo pelo mundo.",
+            "score": 0.3533
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o argumento da \"disputa de Estado\" em oposição à \"disputa ideológica\", defendendo que as políticas econômicas devem priorizar o interesse nacional e a competitividade do setor produtivo, evitando a desindustrialização e a perda de divisas.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 1,
+            "start": 5681,
+            "end": 5889,
+            "text": "Demos olhar para o nosso País com o olhar de disputa de Estado e nunca de disputa ideológica, porque agora está em jogo o Brasil.Não está em jogo outra coisa, senão não deixarmos que o Brasil fique para trás.",
+            "score": 0.2104
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na necessidade de gerar emprego, renda e melhorar o poder aquisitivo do trabalhador, vendo a produção nacional como o meio para alcançar a altivez e o respeito internacional do Brasil.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 63647,
+            "end": 64164,
+            "text": "Vamos tratar de cuidar um pouco da produção, para gerar emprego, renda, melhorar o salário, que é uma coisa que eu defendo muito aqui.Vamos cuidar do poder aquisitivo do trabalhador, do serviço público e da tecnologia e inovação e vamos respeitar e valorizar a mão de obra, para o nosso mercado ter a capacidade de consumir mais, gerar mais riqueza para o nosso Brasil e fazer com que tenhamos altivez e soberania para ser respeitados como Poder Executivo e como Poder […]",
+            "score": 0.3772
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da equipe de transição da área da indústria e comércio, desenvolvimento econômico e serviços, participando ativamente das conversas com a CNI e a CNC.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 27,
+            "start": 55373,
+            "end": 55588,
+            "text": "Esta semana estivemos na CNI — e estou participando, assim como V.Exa., Deputado Sidney Leite, da equipe de transição da área da indústria e comércio, desenvolvimento econômico e serviços — e temos conversado muito.",
+            "score": 0.5062
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como coordenador da Frente Parlamentar do Empreendedorismo e Vice-Presidente da Frente Parlamentar de Comércio, onde trabalha na elaboração de um marco regulatório para o e-commerce.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 1,
+            "start": 4401,
+            "end": 4676,
+            "text": "A pergunta que eu fiz ao Ministro foi exatamente sobre qual era o pensamento do Governo, já que lá na Frente Parlamentar de Comércio, de que sou Vice-Presidente, junto com essa Frente de Empreendedorismo, nós estamos a debater um marco regulatório para apresentar ao Governo.",
+            "score": 0.4878
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com o Governo do Presidente Lula e o Vice-Presidente Alckmin, caracterizando a coalizão como uma \"frente de redemocratização\" que inclui a defesa da soberania e da industrialização.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 62403,
+            "end": 62548,
+            "text": "O Presidente Lula vem aí junto com o Vice-Presidente Alckmin e com as forças políticas que vão fazendo uma frente de redemocratização deste País.",
+            "score": 0.3995
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a participação de partidos como PSD e PSDB nas discussões da transição, afirmando que todos têm espaço para debater, e declara divergência madura com colegas, como o Deputado Otto, em temas específicos.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 58723,
+            "end": 58815,
+            "text": "Os partidos estão tendo espaço, muito espaço para debater conosco, inclusive o PSD e o PSDB.",
+            "score": 0.4251
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza analogias históricas e culturais, como a referência a Khrushchev e a citação de Chico Buarque, para ilustrar pontos sobre soberania e responsabilidade política.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 61500,
+            "end": 61611,
+            "text": "Eu gosto muito de um dos gênios não é só da música, mas também da inteligência brasileira, que é Chico Buarque.",
+            "score": 0.1961
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados quantitativos e exemplos internacionais, como o investimento de 1,2 trilhão dos EUA e a legislação de países asiáticos e europeus, para sustentar suas propostas de política industrial e regulatória.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom direto e, por vezes, confrontador, usando expressões coloquiais (\"arretado\", \"esculhambamos\", \"nigeiro\") e questionamentos retóricos para criticar a política de importação e a postura de outros países.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 28,
+            "start": 59808,
+            "end": 59834,
+            "text": "Eu fico arretado com isso.",
+            "score": 0.1521
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra respostas e posicionamentos de ministros e representantes de órgãos, como o Ministro Rui Costa e o Presidente do Banco Central, e utiliza a experiência pessoal, como a conversa com sua filha sobre o impacto do e-commerce, para humanizar o debate econômico.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 19,
+            "start": 62943,
+            "end": 63143,
+            "text": "Portanto, aqui, na Comissão de Desenvolvimento Econômico, o que nós vamos fazer não é tirar a autonomia do Banco Central, mas discutir quais são as responsabilidades do Banco Central além da inflação.",
+            "score": 0.1561
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 22,
+      "split": "train",
+      "article_date": "2023-06-21",
+      "title": "Debatedores apontam necessidade de mais regulamentação do e-commerce, especialmente para importações",
+      "assunto": "Necessidade de mais regulamentação do e-commerce, especialmente para importações",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 25,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Debatedores apontam urgência para socorrer produtores do norte de Minas em seca sem precedentes",
+      "assunto": "Urgência para socorrer produtores do norte de Minas Gerais devido à seca sem precedentes",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 61,
+      "split": "train",
+      "article_date": "2022-11-30",
+      "title": "Entidades patronais defendem política de retomada do setor industrial",
+      "assunto": "Defesa de uma política de retomada do setor industrial por entidades patronais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 193,
+      "split": "train",
+      "article_date": "2023-08-15",
+      "title": "Microempresários querem programa Desenrola para o setor; BC defende política de juros",
+      "assunto": "Microempresários defendem a criação de um programa Desenrola para enfrentar o endividamento agravado por altas taxas de juros",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-22-2-0",
+      "hearing_id": 22,
+      "n": 6,
+      "article_name": "Zé Neto",
+      "proposition": "O setor precisa de um marco regulatório o mais rapidamente possível, capaz de garantir uma competição adequada, e proteger o setor produtivo brasileiro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Enfim, é o que está sendo feito na Ásia, no Japão, principalmente na China, para que tenhamos condição de proteger mais a nossa indústria, o nosso comércio, especialmente o nosso varejo, dando-lhe condições de competitividade adequadas, evidentemente garantindo para esse tema um tratamento moderno, mas que, acima de tudo, respeite o setor produtivo nacional e dê a ele condições necessárias. Quero mais uma vez parabenizá-lo pelo tema.",
+        "turn": 1,
+        "start": 4949,
+        "end": 5387
+      },
+      "verifier": {
+        "probability": 0.2867924023517481,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-22-2-1",
+      "hearing_id": 22,
+      "n": 7,
+      "article_name": "Zé Neto",
+      "proposition": "A expectativa é que o segmento cresça 24% neste ano.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acredita-se que 24% vai ser o crescimento este ano. É um estrago muito grande na indústria, é um estrago inacreditável no comércio, especialmente no varejo.",
+        "turn": 1,
+        "start": 4081,
+        "end": 4237
+      },
+      "verifier": {
+        "probability": 0.9926290424223247,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-61-6-0",
+      "hearing_id": 61,
+      "n": 9,
+      "article_name": "Zé Neto",
+      "proposition": "Defendeu a criação de um comitê interministerial para discutir uma política industrial: \"A transição não deve acabar no dia 30 [de dezembro]. Deve começar nessa data um novo experimento, de câmaras técnicas, de temas que devem ser tratados de forma interministerial.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Essa transição não deve acabar dia 30. Ela deve dar início, dia 30, a um novo experimento, de novas câmaras técnicas, de temas que devem ser tratados de forma interministerial.",
+        "turn": 28,
+        "start": 58950,
+        "end": 59126
+      },
+      "verifier": {
+        "probability": 0.44598759173134295,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-193-2-0",
+      "hearing_id": 193,
+      "n": 5,
+      "article_name": "Zé Neto",
+      "proposition": "Criticou a atual política do Banco Central, afirmando que o mercado financeiro tem se revelado mais importante do que o mercado consumidor e o setor produtivo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Banco Central fica mais importante do que o mercado consumidor e o setor produtivo. Em nenhum país do mundo, principalmente no mundo civilizado, há o que há no Brasil.",
+        "turn": 19,
+        "start": 61950,
+        "end": 62120
+      },
+      "verifier": {
+        "probability": 0.36406189202917644,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

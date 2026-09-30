@@ -1,0 +1,255 @@
+{
+  "actor": {
+    "slug": "joaquim-passarinho",
+    "name": "Joaquim Passarinho",
+    "display_name": "Joaquim Passarinho",
+    "role": "Presidente da Frente Parlamentar Mista do Empreendedorismo, deputado (PL-PA)",
+    "article_names": [
+      "Joaquim Passarinho"
+    ],
+    "party_uf": [
+      "PL - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:13:42+00:00",
+    "n_statements": 6,
+    "n_hearings": 2,
+    "hearing_ids": [
+      58,
+      183
+    ],
+    "input_tokens": 3459,
+    "output_tokens": 291,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 7,
+    "with_udv": 0,
+    "passage_only": 4,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a necessidade de ouvir especialistas e divergências para que a Comissão possa propor legislação que melhore a situação da violência obstétrica e da morte materna, tema que considera muito importante e caro para todos.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 41,
+            "start": 69503,
+            "end": 69687,
+            "text": "Quero contribuir num certo momento para que possamos definir alguma coisa, para que esta Comissão possa propor alguma legislação que melhore este tema, que é muito caro para todos nós.",
+            "score": 0.3296
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a participação inicial focada em ouvir, com a intenção de contribuir posteriormente com proposições legislativas na área da saúde e direitos das mulheres.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se participante da audiência com o objetivo principal de aprender e ouvir, antes de fazer qualquer tipo de proposição.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 41,
+            "start": 69837,
+            "end": 69938,
+            "text": "E minha vinda à Comissão é mais para ouvir, inicialmente, para depois fazer algum tipo de proposição.",
+            "score": 0.3208
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como membro da Comissão de Minas e Energia, atuando na condução de sessões e no estabelecimento de acordos de procedimentos para debates sobre temas ambientais e energéticos.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 0,
+            "start": 1708,
+            "end": 1807,
+            "text": "Obedecida a ordem de inscrição, falarão três membros da Comissão de Minas e Energia, por 3 minutos.",
+            "score": 0.1908
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Adota postura de escuta ativa e humildade intelectual, declarando explicitamente que veio \"mais para aprender\" e \"ouvir mais\", priorizando a coleta de informações antes de se posicionar.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Na condução de sessões, estabelece regras claras de tempo e ordem de fala, buscando garantir que todos os inscritos tenham oportunidade de se manifestar e que os convidados não sejam interrompidos durante suas exposições.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza o diálogo e a mediação para controlar a dinâmica da audiência, pedindo silêncio e foco, e elogiando a assistência quando esta respeita as regras de conduta estabelecidas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 0,
+            "start": 76,
+            "end": 138,
+            "text": "Eu gostaria de pedir um pouco de silêncio à nossa assistência.",
+            "score": 0.1912
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 7,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Deputados defendem regulamentação paralela da reforma tributária",
+      "assunto": "Regulamentação da reforma tributária",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 5
+    },
+    {
+      "id": 58,
+      "split": "train",
+      "article_date": "2023-04-19",
+      "title": "Debatedores dizem que mulheres negras e pobres são maiores vítimas violência obstétrica",
+      "assunto": "Violência obstétrica e morte materna, com foco nas mulheres negras, indígenas e de baixa renda",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-7-4-0",
+      "hearing_id": 7,
+      "n": 9,
+      "article_name": "Joaquim Passarinho",
+      "proposition": "Ponderou que as propostas de regulamentação apresentadas anteriormente não antagonizam os projetos do governo: \"Primeiro não pode ser contra o governo, porque não sabemos qual é a proposta do governo.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu tenho visto algumas manifestações sobre o projeto, meu amigo Deputado Arnaldo Jardim, e se ele vai de encontro às propostas do Governo. Primeiro, o projeto não pode ser contra o Governo ou ir de encontro às propostas do Governo, até porque nós não sabemos qual é a proposta do Governo.",
+        "turn": 5,
+        "start": 19265,
+        "end": 19554
+      },
+      "verifier": {
+        "probability": 0.8895961002313664,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-7-4-1",
+      "hearing_id": 7,
+      "n": 10,
+      "article_name": "Joaquim Passarinho",
+      "proposition": "\"A partir do momento em que o governo apresentou seus grupos de trabalho, e não houve uma abertura para discutir com a sociedade, resolvemos fazer grupos paralelos, não antagônicos, ouvindo a sociedade, para apresentar as propostas.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "A partir do momento em que o Governo apresentou seus 19 grupos de trabalho e não houve uma abertura para a sociedade nem para a Casa participarem dos debates, nós resolvemos fazer grupos paralelos, não antagônicos, usando a mesma estratégia do Governo e ouvindo a sociedade.",
+        "turn": 5,
+        "start": 20121,
+        "end": 20395
+      },
+      "verifier": {
+        "probability": 0.9480979420835411,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-7-4-2",
+      "hearing_id": 7,
+      "n": 11,
+      "article_name": "Joaquim Passarinho",
+      "proposition": "\"A adesão foi até maior do que a gente pensava no início, mostrando a força que o Parlamento tem quando chama a sociedade para debater os temas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A adesão a essa discussão foi algo bem representativo, talvez até um pouco maior do que nós pensávamos no início que seria, o que mostra a força do Parlamento quando chama a sociedade para debater, discutir os temas. Trata-se de temas importantes.",
+        "turn": 5,
+        "start": 20947,
+        "end": 21195
+      },
+      "verifier": {
+        "probability": 0.9936677743024861,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-7-4-3",
+      "hearing_id": 7,
+      "n": 12,
+      "article_name": "Joaquim Passarinho",
+      "proposition": "Observou que o governo já perdeu prazo para apresentação de alguns projetos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Governo tem, notadamente, perdido alguns prazos. Lembramos que o prazo para a reforma do Imposto de Renda já venceu, e o projeto não veio.",
+        "turn": 5,
+        "start": 21933,
+        "end": 22073
+      },
+      "verifier": {
+        "probability": 0.9070972919492158,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-7-4-4",
+      "hearing_id": 7,
+      "n": 13,
+      "article_name": "Joaquim Passarinho",
+      "proposition": "\"Não podemos chegar às vésperas de uma votação desinformados.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A nossa preocupação é que isso chegue às vésperas de uma votação e nos pegue desinformados. Por isso, a ideia era realizar um amplo debate.",
+        "turn": 5,
+        "start": 22074,
+        "end": 22213
+      },
+      "verifier": {
+        "probability": 0.5380939805369946,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

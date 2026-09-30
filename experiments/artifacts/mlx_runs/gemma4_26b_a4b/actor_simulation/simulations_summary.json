@@ -1,0 +1,71 @@
+{
+  "model": "mlx-community/gemma-4-26b-a4b-it-8bit",
+  "prompt_version": "17756ceae718",
+  "k": 3,
+  "guidance_scale": 1.5,
+  "inputs": {
+    "profiles": {
+      "path": "mlx_alternative/runs/gemma4_26b_a4b/actor_profiles/actor_profiles_train.jsonl",
+      "sha256": "d7905d1b92fecc74b76938a8cc4fb6941c61d28bef9d33aff2875b798f253d52"
+    },
+    "train_speeches": {
+      "path": "artifacts/cache/hearing_actors/actors_multi_hearing_train.jsonl",
+      "sha256": "6d5d7d0dfe525ecbbd00ed34c9b21737ab22a1a64ffdb12adf2e84097be80dba"
+    },
+    "udv": {
+      "path": "artifacts/udv/udv_v1.jsonl",
+      "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1"
+    }
+  },
+  "requests_source": "test",
+  "check_rule": "JSON objects are read anywhere in the justification (one per line is asked, but objects spread over several lines or inside code fences are read too; fragments that do not parse are counted in parse_failures). A sentence of the simulated speech is grounded when at least one object's 'frase' contains it (whitespace-normalized, ignoring trailing punctuation and leading quote marks) and every such object has a non-empty 'apoio', only ids that exist in the material of the call, and, for each cited example or excerpt, a 'copias' entry that, without enclosing quote marks, has at least 6 words and whose first 6 to 10 words are found in it by the UDV quote-prefix rule (otherwise copy_missing, copy_too_short or copy_not_found). This shows that the cited item exists and that the start of the copy is literal, not that the item supports the sentence.",
+  "requests": 3,
+  "1": {
+    "levels": {
+      "SEM BASE": 2,
+      "INDIRETA": 1
+    },
+    "refusals": 2,
+    "speeches": 1,
+    "truncated_speeches": 0,
+    "truncated_justifications": 0,
+    "sentences": 5,
+    "ungrounded_sentences": 2,
+    "ungrounded_fraction": 0.4,
+    "invalid_justification_items": 0,
+    "justification_parse_failures": 0,
+    "lines_not_in_speech": 0
+  },
+  "2": {
+    "levels": {
+      "SEM BASE": 2,
+      "INDIRETA": 1
+    },
+    "refusals": 2,
+    "speeches": 1,
+    "truncated_speeches": 0,
+    "truncated_justifications": 0,
+    "sentences": 5,
+    "ungrounded_sentences": 0,
+    "ungrounded_fraction": 0.0,
+    "invalid_justification_items": 0,
+    "justification_parse_failures": 0,
+    "lines_not_in_speech": 0
+  },
+  "3": {
+    "levels": {
+      "SEM BASE": 2,
+      "INDIRETA": 1
+    },
+    "refusals": 2,
+    "speeches": 1,
+    "truncated_speeches": 0,
+    "truncated_justifications": 0,
+    "sentences": 5,
+    "ungrounded_sentences": 2,
+    "ungrounded_fraction": 0.4,
+    "invalid_justification_items": 0,
+    "justification_parse_failures": 0,
+    "lines_not_in_speech": 0
+  }
+}

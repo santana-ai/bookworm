@@ -1,0 +1,179 @@
+{
+  "calibration_version": "udv_verifier_threshold_v1",
+  "created_at": "2026-09-28T13:40:21+00:00",
+  "score": "primary_probability of laya_en_en:learned_cross_model_with_pt (E3x v2 final test), refitted on the NLI benchmark train split by utils.udv_verifier apply",
+  "declaration": "Declared on 2026-09-28 in ADR 0006, before any verifier score of a calibration pair was computed: the UDV-premise cut is the midpoint of the 0.25 quantile of the primary probability on the positive pairs of threshold_v2 and the 0.75 quantile on their legacy_random negatives, train hearings only; the hard_negative variant is reported and not adopted.",
+  "adopted_rule": "legacy_random",
+  "udv_threshold": 0.2429,
+  "udv_threshold_exact": 0.2428652360502445,
+  "train_threshold": 0.7478,
+  "rules": {
+    "legacy_random": {
+      "pairs": {
+        "queries": 183,
+        "hearings": 106,
+        "positives": 183,
+        "negatives": 183
+      },
+      "threshold": 0.2429,
+      "threshold_exact": 0.2428652360502445,
+      "threshold_rounded": 0.2429,
+      "positive_quantile_value": 0.4226,
+      "negative_quantile_value": 0.0631,
+      "positives_below_threshold": 14,
+      "negatives_at_or_above_threshold": 2,
+      "positive_scores": {
+        "count": 183,
+        "min": 0.1267,
+        "q25": 0.4226,
+        "median": 0.6709,
+        "q75": 0.9422,
+        "max": 0.9964,
+        "mean": 0.667
+      },
+      "negative_scores": {
+        "count": 183,
+        "min": 0.0139,
+        "q25": 0.0335,
+        "median": 0.048,
+        "q75": 0.0631,
+        "max": 0.6319,
+        "mean": 0.0567
+      },
+      "bootstrap": {
+        "threshold": {
+          "replicates": 1000,
+          "low": 0.221,
+          "high": 0.2782,
+          "median": 0.2433,
+          "std": 0.0153
+        },
+        "positive_quantile_value": {
+          "replicates": 1000,
+          "low": 0.3784,
+          "high": 0.4922,
+          "median": 0.423,
+          "std": 0.0305
+        },
+        "negative_quantile_value": {
+          "replicates": 1000,
+          "low": 0.059,
+          "high": 0.0685,
+          "median": 0.0631,
+          "std": 0.0024
+        }
+      }
+    },
+    "hard_negative": {
+      "pairs": {
+        "queries": 183,
+        "hearings": 106,
+        "positives": 183,
+        "negatives": 183
+      },
+      "threshold": 0.2722,
+      "threshold_exact": 0.27217221475710407,
+      "threshold_rounded": 0.2722,
+      "positive_quantile_value": 0.4226,
+      "negative_quantile_value": 0.1217,
+      "positives_below_threshold": 19,
+      "negatives_at_or_above_threshold": 21,
+      "positive_scores": {
+        "count": 183,
+        "min": 0.1267,
+        "q25": 0.4226,
+        "median": 0.6709,
+        "q75": 0.9422,
+        "max": 0.9964,
+        "mean": 0.667
+      },
+      "negative_scores": {
+        "count": 183,
+        "min": 0.0196,
+        "q25": 0.0493,
+        "median": 0.0716,
+        "q75": 0.1217,
+        "max": 0.9563,
+        "mean": 0.1264
+      },
+      "bootstrap": {
+        "threshold": {
+          "replicates": 1000,
+          "low": 0.2485,
+          "high": 0.319,
+          "median": 0.2739,
+          "std": 0.0177
+        },
+        "positive_quantile_value": {
+          "replicates": 1000,
+          "low": 0.3771,
+          "high": 0.4968,
+          "median": 0.4248,
+          "std": 0.0318
+        },
+        "negative_quantile_value": {
+          "replicates": 1000,
+          "low": 0.1049,
+          "high": 0.1559,
+          "median": 0.1211,
+          "std": 0.014
+        }
+      }
+    }
+  },
+  "pairs_at_train_threshold": {
+    "positive": {
+      "n": 183,
+      "at_or_above": 86,
+      "share": 0.4699
+    },
+    "legacy_random": {
+      "n": 183,
+      "at_or_above": 0,
+      "share": 0.0
+    },
+    "hard_negative": {
+      "n": 183,
+      "at_or_above": 4,
+      "share": 0.0219
+    }
+  },
+  "bootstrap": {
+    "samples": 1000,
+    "unit": "hearing",
+    "confidence_level": 0.95,
+    "method": "percentile over hearing resamples of the fixed pairs drawn by the cosine calibration; negatives are not redrawn, because every negative needs a translation and a verifier score",
+    "seed": 42
+  },
+  "leak_check": {
+    "calibration_splits": [
+      "train"
+    ],
+    "hearings_used": 133,
+    "hearings_outside_calibration_splits": [],
+    "passed": true
+  },
+  "sources": {
+    "cosine_calibration": {
+      "path": "artifacts/calibration/threshold_v2.json",
+      "sha256": "cf765fdfac4c55b290f545af35952841595288d74dec5575d4af9bd438d6e3af"
+    },
+    "pairs": {
+      "path": "artifacts/calibration/threshold_v2_verifier_pairs.jsonl",
+      "sha256": "5fef2baf35271f523732cfef6c1f0ff48d26127fb37c92564281e7989526b3ee"
+    },
+    "scores": {
+      "path": "artifacts/calibration/threshold_v2_verifier_scores.jsonl",
+      "sha256": "741e2062d79a13ba55fae6a4352d615a4f433c26fa5e28ee958fb9dc6f0c482d"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    }
+  },
+  "code": {
+    "utils/calibrate_udv_v2.py": "cc850fe4620f6bc52ead6624349bd3a721222709e1589f83d2d6b3bb866a09f6",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f"
+  }
+}

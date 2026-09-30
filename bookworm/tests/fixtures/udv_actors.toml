@@ -1,0 +1,17 @@
+[dataset]
+lds_path = "lds_actors.jsonl"
+sha256 = "bb3b7cdd7aa8cf9befb7932f190ca955d0f3e43dc6803bc883ae36d5252c5be1"
+
+[encoder]
+name = "stub-encoder"
+revision = "stub-revision-1"
+batch_size = 8
+device = "cpu"
+
+[evidence]
+embedding_threshold = 0.6
+
+[run]
+seed = 42
+output_dir = "out"
+cache_dir = "cache"

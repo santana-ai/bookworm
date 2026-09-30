@@ -1,0 +1,492 @@
+{
+  "actor": {
+    "slug": "caio-vianna",
+    "name": "Caio Vianna",
+    "display_name": "Caio Vianna",
+    "role": "Deputado (PSD-RJ)",
+    "article_names": [
+      "Caio Vianna"
+    ],
+    "party_uf": [
+      "Bloco/PSD - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:22:06+00:00",
+    "n_statements": 577,
+    "n_hearings": 3,
+    "hearing_ids": [
+      6,
+      138,
+      166
+    ],
+    "input_tokens": 32761,
+    "output_tokens": 1207,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 27,
+    "with_udv": 2,
+    "passage_only": 25,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a 123Milhas utilize o processo de recuperação judicial para devolver integralmente o valor aos clientes, criticando a oferta de vouchers fracionados e sem possibilidade de consolidação como uma solução \"péssima\" e um \"grande erro\" que gerou desespero no mercado e risco reputacional.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 978,
+            "start": 239091,
+            "end": 239385,
+            "text": "Minha opinião em relação a isso é bem direta: eu acho que ovoucherfoi um erro, e um grande erro, que vocês precisam corrigir agora, com um processo de recuperação judicial, para que consigam devolver, de forma integral, este valor aos clientes.Eu acho que este tem que ser o objetivo principal.",
+            "score": 0.3031
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a gestão financeira do grupo 123Milhas/HotMilhas/MaxMilhas, argumentando que a alegação de que o produto Promo representava parcela pequena da operação (7% a 15%) não faz sentido diante do rombo de 2 bilhões de reais, pois a empresa deveria ter caixa suficiente para cobrir o prejuízo se as finanças fossem saudáveis.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 347,
+            "start": 92518,
+            "end": 92797,
+            "text": "Se o senhor tinha saúde financeira, se estava com as suas finanças saudáveis, e aí o senhor chega a esse ponto de pedir uma recuperação judicial dizendo que era um percentual pequeno da sua operação, se era um percentual pequeno, o senhor tinha caixa suficiente para cobrir isso.",
+            "score": 0.2508
+          },
+          "udv": {
+            "id": "udv-6-4-0",
+            "rule": "same_sentence",
+            "score": 0.3097
+          }
+        },
+        {
+          "text": "Afirma que o dinheiro recebido dos clientes pelas passagens Promo ficava parado na conta bancária sem investimento, mas que foi utilizado pela empresa para outras finalidades, como publicidade, impedindo a devolução imediata aos clientes.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 341,
+            "start": 91483,
+            "end": 91515,
+            "text": "Ficava parado na conta do banco?",
+            "score": 0.3502
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a estrutura societária encadeada entre 123Milhas, HotMilhas, MaxMilhas e Novum, apontando que a operação de compra de milhas pela HotMilhas e revenda de passagens para a 123Milhas, com os mesmos sócios, é \"esquisita\" e dificulta a compreensão da operação, além de gerar lucros internos desnecessários.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3580,
+            "start": 644854,
+            "end": 644968,
+            "text": "E os sócios proprietários da 123Milhas são os mesmos da HotMilhas, que são os mesmos da Novum, que é a dona que...",
+            "score": 0.3509
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a prática de enviar e-mails orientando clientes a mentir para burlar a legislação das companhias aéreas na venda de milhas, classificando o documento como \"criminoso\" e uma \"bomba\" que visa acobertar a venda direta de ativos digitais.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1676,
+            "start": 361582,
+            "end": 361609,
+            "text": "Esse documento é uma bomba!",
+            "score": 0.3172
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação do mercado de compra e venda de milhas, argumentando que a inovação é necessária, mas que a ausência de regras permitiu lesões a consumidores, e propõe que a CPI elabore projetos de lei para regular o setor.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4448,
+            "start": 808307,
+            "end": 808351,
+            "text": "Estou fazendo a compra e a venda de milhas\".",
+            "score": 0.2155
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o uso da tecnologia blockchain na administração pública para garantir transparência, rastreabilidade e imutabilidade dos dados, citando a redução de custos de 5,5 bilhões de dirhans em Dubai como exemplo de eficiência.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 57,
+            "start": 119746,
+            "end": 119933,
+            "text": "O Governo de Dubai, após implementar uma série de sistemas utilizandoblockchainna sua administração, conseguiu garantir uma redução de custo, em 1 ano, na ordem de 5,5 bilhões de dirhans.",
+            "score": 0.3558
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a estrutura atual de proteção de dados no Brasil, afirmando que os bancos de dados relacionais são inseguros e que o cidadão não é o dono de seus dados, que estão sob controle de empresas ou governos vulneráveis a ataques.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 67,
+            "start": 133480,
+            "end": 133732,
+            "text": "Portanto, a minha pergunta inicial neste tópico é se os sistemas tradicionais que nós temos hoje, os bancos de dados relacionais, são seguros e se são, de fato, a melhor tecnologia que nós temos para garantir a proteção dos dados do cidadão brasileiro.",
+            "score": 0.2678
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra da ANPD a aplicação de sanções efetivas contra empresas que vazam dados, argumentando que a falta de punições incentiva a negligência na segurança, e aponta a estrutura reduzida da agência (com apenas três pessoas para monitoramento) como um problema grave.",
+          "passage": {
+            "hearing_id": 138,
+            "turn": 12,
+            "start": 20698,
+            "end": 20779,
+            "text": "Inclusive, eu me assustei ao ver que há três pessoas para fazer um monitoramento.",
+            "score": 0.2241
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação de projetos de lei para dar perenidade aos dados públicos e facilitar a auditoria de moedas sociais, criticando a concentração de recursos de múltiplas prefeituras em contas únicas que impossibilitam o controle.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 83,
+            "start": 155900,
+            "end": 156242,
+            "text": "Nós teremos uma capacidade muito maior de controle, porque apenas no Estado do Rio de Janeiro, meu Estado, nós conseguimos obter a informação de que uma única empresa é responsável por mais de 150 moedas sociais e que todos os dinheiros de todas as Prefeituras caem numa única conta, o que impossibilita o trabalho de auditoria e de controle.",
+            "score": 0.208
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a inovação tecnológica, mas exige que ela venha acompanhada de regulamentação adequada para proteger o consumidor e evitar abusos, como visto nos casos de milhas e criptomoedas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3585,
+            "start": 646407,
+            "end": 646463,
+            "text": "Eu acho que esse foi o problema do consumidor com vocês.",
+            "score": 0.153
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza a proteção do consumidor e a devolução integral de valores, rejeitando soluções que transfiram o risco ou a complexidade para o cidadão, como vouchers não consolidáveis.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3585,
+            "start": 646407,
+            "end": 646463,
+            "text": "Eu acho que esse foi o problema do consumidor com vocês.",
+            "score": 0.1674
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transparência e a imutabilidade dos dados públicos como mecanismos essenciais para combater a corrupção e garantir o controle social, argumentando que dados de gastos públicos não devem poder ser apagados.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 85,
+            "start": 161774,
+            "end": 161953,
+            "text": "A imutabilidade doblockchainpode tornar isso uma realidade, reforçando a integridade das nossas instituições, combatendo a corrupção e dando mais transparência aos dados públicos.",
+            "score": 0.2945
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera a segurança dos dados pessoais um direito fundamental do cidadão, criticando sistemas que não garantem a privacidade e a integridade das informações sensíveis, como dados de saúde.",
+          "passage": {
+            "hearing_id": 138,
+            "turn": 0,
+            "start": 1066,
+            "end": 1413,
+            "text": "Como eu já vinha falando com o nosso Diretor-Presidente Waldemar, acho que este é um momento de extrema importância para discutirmos a proteção de dados pessoais do brasileiro, tendo em vista que hoje nós utilizamos sistemas e populamos esses sistemas, esses bancos de dados, com as nossas informações pessoais, muitas vezes informações sensíveis.",
+            "score": 0.298
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a lógica de gestão financeira para questionar a viabilidade das operações, argumentando que empresas com alto faturamento e margens de lucro devem ter caixa para honrar compromissos com clientes.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 964,
+            "start": 232123,
+            "end": 232341,
+            "text": "Para que vocês tivessem a ascensão que tiveram, tornando-se uma das maiores empresas do Brasil e uma das empresas que mais investiram, por exemplo, em publicidade, para isso, é preciso ter um fluxo de caixa muito alto.",
+            "score": 0.1588
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal e membro da CPI que apura a suspensão de passagens promocionais pela 123Milhas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3611,
+            "start": 650750,
+            "end": 650842,
+            "text": "A senhora tem informação se com as passagens promocionais do pacote Promo que era vendido...",
+            "score": 0.2435
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Secretário de Ciência, Tecnologia e Inovação no Município de Niterói.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 57,
+            "start": 121504,
+            "end": 121580,
+            "text": "Eu fui Secretário de Ciência, Tecnologia e Inovação no Município de Niterói.",
+            "score": 0.7582
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara vir da área de inovação e Tecnologia da Informação (TI).",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4448,
+            "start": 807060,
+            "end": 807154,
+            "text": "Eu venho da área de inovação, sou da área de TI e acho que nós temos que inovar mesmo no País.",
+            "score": 0.443
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estudar blockchain desde 2013.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 20,
+            "start": 95940,
+            "end": 95983,
+            "text": "Estudo a tecnologia deblockchaindesde 2013.",
+            "score": 0.2553
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionou ter protocolado projetos de lei para transparência de dados públicos e regulamentação de moedas sociais.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 83,
+            "start": 153252,
+            "end": 153536,
+            "text": "Eu queria dizer aos senhores que uma das iniciativas que nosso mandato proporcionou nesta Casa foi a de protocolarum projeto de lei exatamente para dar capacidade de transparência, rastreabilidade, auditabilidade e mutabilidade aos dados públicos, que não têm por que não ser perenes.",
+            "score": 0.2038
+          },
+          "udv": null
+        },
+        {
+          "text": "Referiu-se ao Deputado Aureo e ao seu projeto de marco legal das criptomoedas como exemplo positivo de regulamentação.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4448,
+            "start": 807155,
+            "end": 807293,
+            "text": "No entanto, nós precisamos regular, como o Deputado Aureo fez, e fez muito bem, com o projeto do marco legal regulatório das criptomoedas.",
+            "score": 0.5261
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas diretas e sequenciais para confrontar os depoentes com inconsistências lógicas, como a relação entre o percentual pequeno do produto Promo e o tamanho do rombo financeiro.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 347,
+            "start": 92518,
+            "end": 92797,
+            "text": "Se o senhor tinha saúde financeira, se estava com as suas finanças saudáveis, e aí o senhor chega a esse ponto de pedir uma recuperação judicial dizendo que era um percentual pequeno da sua operação, se era um percentual pequeno, o senhor tinha caixa suficiente para cobrir isso.",
+            "score": 0.181
+          },
+          "udv": {
+            "id": "udv-6-4-0",
+            "rule": "same_sentence",
+            "score": 0.1561
+          }
+        },
+        {
+          "text": "Emprega analogias do cotidiano (compra de celular, caneta Bic, lua de mel) para ilustrar a inadequação de soluções empresariais e a natureza de ativos digitais.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4407,
+            "start": 800740,
+            "end": 800801,
+            "text": "Minha pergunta é sobre uma caneta Bic, que está na minha mão.",
+            "score": 0.2562
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos (faturamento de 6 bilhões, lucro de 40 a 50 milhões, dívida de 2 bilhões, redução de custos em Dubai) para fundamentar suas críticas e propostas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4339,
+            "start": 789870,
+            "end": 789914,
+            "text": "De 40 a 50 milhões de lucro líquido por ano.",
+            "score": 0.3284
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom respeitoso, mas firme, elogiando a inovação dos empresários, mas cobrando explicações claras sobre a gestão e a responsabilidade com os clientes.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4438,
+            "start": 804419,
+            "end": 804458,
+            "text": "Então, acho que não seria de bom-tom...",
+            "score": 0.1708
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a relatos de terceiros (clientes, funcionários da Casa) para evidenciar o impacto negativo das decisões empresariais na população.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1539,
+            "start": 340235,
+            "end": 340269,
+            "text": "Augusto nas decisões da MaxMilhas?",
+            "score": 0.1755
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe soluções legislativas e regulatórias como caminho para resolver problemas de mercado e proteger o cidadão.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 1483,
+            "start": 332856,
+            "end": 332891,
+            "text": "E como que vai resolver isso agora?",
+            "score": 0.2238
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 6,
+      "split": "train",
+      "article_date": "2023-09-06",
+      "title": "Sócio da 123milhas diz que passagens precisaram ser suspensas porque preços não seguiram previsões",
+      "assunto": "Suspensão de passagens promocionais pela 123milhas devido a previsões de preços não cumpridas e recuperação judicial da empresa",
+      "turns": 546,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 138,
+      "split": "train",
+      "article_date": "2023-11-07",
+      "title": "Presidente da ANPD pede concurso para agência; divisão de fiscalização tem apenas 5 funcionários",
+      "assunto": "Pedido de concurso público e fortalecimento da Agência Nacional de Proteção de Dados (ANPD)",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 166,
+      "split": "train",
+      "article_date": "2023-09-20",
+      "title": "Especialistas defendem uso de tecnologia blockchain no serviço público",
+      "assunto": "Uso da tecnologia blockchain no serviço público",
+      "turns": 21,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-6-4-0",
+      "hearing_id": 6,
+      "n": 22,
+      "article_name": "Caio Vianna",
+      "proposition": "\"Não faz sentido. Se o senhor tinha saúde financeira, com suas finanças saudáveis. E aí o senhor chega nesse ponto, pedindo uma recuperação judicial, dizendo que era um percentual pequeno da operação. Se era um percentual pequeno, o senhor tinha caixa suficiente para pagar isso.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Não faz sentido. Se o senhor tinha saúde financeira, se estava com as suas finanças saudáveis, e aí o senhor chega a esse ponto de pedir uma recuperação judicial dizendo que era um percentual pequeno da sua operação, se era um percentual pequeno, o senhor tinha caixa suficiente para cobrir isso. Não está fazendo sentido.",
+        "turn": 347,
+        "start": 92501,
+        "end": 92823
+      },
+      "verifier": {
+        "probability": 0.9947881344525532,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-138-1-0",
+      "hearing_id": 138,
+      "n": 12,
+      "article_name": "Caio Vianna",
+      "proposition": "Os dados são hoje um ativo valioso, e é preciso dar mais condições para a agência desenvolver seu trabalho: \"Muitas vezes a gente faz um cadastro e imediatamente nosso telefone já está tocando com uma outra empresa que a gente não fez o cadastro oferecendo algum tipo de serviço, ou mandando e-mail ou mandando SMS, importunando inclusive o dia-a-dia do cidadão que está trabalhando. Então, isso é uma questão que a gente precisa avançar, precisa ter apoio deste Parlamento para que a ANPD possa desenvolver esse trabalho com cada vez mais eficiência, para que a gente possa proteger os cidadãos brasileiros dessas investidas e proteger os seus dados também.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Muitas vezes, fazemos um cadastro, e, imediatamente, o nosso telefone já está tocando, com outra empresa, com a qual não fizemos o cadastro, oferecendo algum tipo de serviço, ou mandandoe-mail, ou mandando SMS, importunando, inclusive, o dia a dia do cidadão que está trabalhando. Então, essa é uma questão na qual precisamos avançar, para a qual precisamos ter o apoio deste Parlamento, a fim de que a ANPD possa desenvolver esse trabalho com cada vez mais eficiência, com o […]",
+        "turn": 0,
+        "start": 1928,
+        "end": 2491
+      },
+      "verifier": {
+        "probability": 0.9630566005707792,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-166-0-0",
+      "hearing_id": 166,
+      "n": 1,
+      "article_name": "Caio Vianna",
+      "proposition": "O poder público brasileiro deve participar do esforço de pesquisa e aplicação da tecnologia blockchain: \"Acredito que estamos diante de uma grande possibilidade de inovação. O Brasil não pode e não deve ficar para traz nessa discussão\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu acredito que nós estamos diante de outra grande possibilidade de inovação, a das redes de registros distribuídos, assim como a dablockchain. Portanto, eu acho que o Brasil não pode e não deve ficar para trás nesta discussão.",
+        "turn": 20,
+        "start": 96226,
+        "end": 96454
+      },
+      "verifier": {
+        "probability": 0.42234477207083576,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,1821 @@
+{
+  "role": "annotation",
+  "kind": "udv_v2_supplement",
+  "sample_name": "human_validation_v1_udv_v2_supplement",
+  "created_at": "2026-09-28T18:52:27+00:00",
+  "dry_run": false,
+  "final_test": true,
+  "splits_used": [
+    "test"
+  ],
+  "splits_declared": [
+    "test"
+  ],
+  "rule": "one row per item of the udv_v1 sample whose udv_v2 evidence is moved under the relation rules of the inheritance section: the same sampled opinion, shown with its udv_v2 evidence, context and link; the rows are put in a new random order and get new item ids, and the udv_v1 item id and relation are kept in the key only",
+  "inheritance": {
+    "inherit_relations": [
+      "same",
+      "superset"
+    ],
+    "declared_on": "2026-09-28",
+    "declaration": "Declared before any row of the udv_v2 supplementary sheet was judged. utils.udv_v2_analysis supplement-sheet copies this section into the supplementary annotation_key.json, and score-annotation refuses a key whose copy differs from this section.",
+    "relation_rules": {
+      "same": "the udv_v2 evidence has the start_char, end_char and speaker_turn of the udv_v1 evidence",
+      "superset": "same speaker_turn, udv_v2 start_char <= udv_v1 start_char and udv_v2 end_char >= udv_v1 end_char, not same: the udv_v2 passage holds the whole udv_v1 passage and adds text of the same turn",
+      "moved": "any other case: another turn, a udv_v2 passage that leaves out part of the udv_v1 passage, or evidence in one run only",
+      "no_evidence": "no evidence in either run (the pessoa_falou items); the item keeps its udv_v1 label, as in the annotation plan"
+    },
+    "multi_udv_rule": "an item is moved if any of its UDVs is moved, same if every UDV is same, no_evidence if every UDV is no_evidence, superset otherwise",
+    "inheritance_rule": "an item whose relation is in inherit_relations, or no_evidence, keeps its udv_v1 human label for udv_v2; only the moved items get a row in the supplementary sheet",
+    "label_independence": "the relation is computed from the udv_v1 and udv_v2 offsets and speaker turns only; no human label is read to decide which items are inherited",
+    "justification": "the text added to a superset passage belongs to the same speaker turn, so the text that supported a udv_v1 passage judged correta is still in the udv_v2 passage, and a passage judged parcial or incorreta can only keep or improve its support when text of the same speaker is added",
+    "consequence": "the udv_v2 precision is conservative with respect to the superset items judged parcial or incorreta in udv_v1, whose udv_v2 label could be better than the inherited one",
+    "assumption": "adding a sentence of the same speaker turn does not turn a passage that supports the statement into one that does not",
+    "sensitivity_rule": "the report also gives the precision with the superset items counted only when their udv_v1 label is correta (the others are left out of the denominator), next to the precision with every superset item inherited"
+  },
+  "inheritance_sha256": "f36927e297960487b9a2b84a93b0d0582113c687c6f8fb26dcbc71976c291b50",
+  "base_sample": {
+    "sample_name": "human_validation_v1_udv_v1",
+    "annotation_key": {
+      "path": "artifacts/validation/human_validation_v1_udv_v1/annotation_key.json",
+      "sha256": "088664b03a8e28dffd3a6b6ef17843f88368e8745f9816c9ddc943ef674d8b70"
+    }
+  },
+  "plan": {
+    "path": "artifacts/udv/udv_v2_annotation_plan.json",
+    "sha256": "48378459569a551026a48027f39b850aa6ac9c69dbe470ec24c98f6d3d426c0d"
+  },
+  "runs": {
+    "udv_v1": {
+      "path": "artifacts/udv/udv_v1.jsonl",
+      "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1"
+    },
+    "udv_v2": {
+      "path": "artifacts/udv/udv_v2.jsonl",
+      "sha256": "02f42b288840400cbcfb24a613ecc7e0c82f52923de80c09faf3d246fd01fb45"
+    }
+  },
+  "population": {
+    "unit": "UDV",
+    "sampled_splits": {
+      "direct_quote": 41,
+      "semantic_match_high": 264,
+      "semantic_with_short_quote": 30,
+      "semantic_match_weak": 11,
+      "speaker_check": 13
+    }
+  },
+  "strata": [
+    {
+      "name": "direct_quote",
+      "question": "trecho_sustenta",
+      "tiers": [
+        "quote_found"
+      ],
+      "support_types": [
+        "direct_quote"
+      ],
+      "target": 35
+    },
+    {
+      "name": "semantic_match_high",
+      "question": "trecho_sustenta",
+      "tiers": [
+        "semantic_match_high"
+      ],
+      "support_types": [
+        "semantic_similarity"
+      ],
+      "target": 65
+    },
+    {
+      "name": "semantic_with_short_quote",
+      "question": "trecho_sustenta",
+      "tiers": [
+        "semantic_match_high",
+        "semantic_match_weak"
+      ],
+      "support_types": [
+        "semantic_with_short_quote"
+      ],
+      "target": 15
+    },
+    {
+      "name": "semantic_match_weak",
+      "question": "trecho_sustenta",
+      "tiers": [
+        "semantic_match_weak"
+      ],
+      "support_types": [
+        "semantic_similarity"
+      ],
+      "target": 15
+    },
+    {
+      "name": "speaker_check",
+      "question": "pessoa_falou",
+      "tiers": [
+        "no_evidence",
+        "person_not_resolved"
+      ],
+      "support_types": [
+        "none"
+      ],
+      "target": 20
+    }
+  ],
+  "criteria": {
+    "declared_on": "2026-09-23",
+    "declaration": "Declared before any human judgment of this sample exists. The criteria are copied into annotation_key.json when the sample is drawn, and the precision report flags any later change. PASS requires the Wilson lower bound of the stated metric, at the report confidence level, to reach min_wilson_lower on the stated stratum.",
+    "rules": [
+      {
+        "name": "quote_found_strict_precision",
+        "stratum": "direct_quote",
+        "metric": "strict_precision",
+        "min_wilson_lower": 0.9
+      },
+      {
+        "name": "semantic_match_high_tolerant_precision",
+        "stratum": "semantic_match_high",
+        "metric": "tolerant_precision",
+        "min_wilson_lower": 0.75
+      }
+    ]
+  },
+  "criteria_sha256": "c4fc0116acd057ee20d04d1ea328a8b56d6f55ef7801b699b3213a7c98e63322",
+  "code": {
+    "utils/udv_v2_analysis.py": "c9a010c89a3f2eaa9044e631dd900d1252a33b1b0fbf8e343fadbc5590fb9074"
+  },
+  "relation_counts": {
+    "pessoa_falou": {
+      "no_evidence": 6
+    },
+    "trecho_sustenta": {
+      "same": 17,
+      "superset": 78,
+      "moved": 26
+    }
+  },
+  "sample": {
+    "semantic_match_high": {
+      "rows": 19
+    },
+    "semantic_match_weak": {
+      "rows": 5
+    },
+    "semantic_with_short_quote": {
+      "rows": 2
+    }
+  },
+  "seeds": {
+    "seed": 42,
+    "row_order_stream": 4,
+    "generator": "numpy PCG64"
+  },
+  "blinding": {
+    "csv_columns": [
+      "item_id",
+      "hearing_id",
+      "pergunta",
+      "participante",
+      "cargo",
+      "afirmacao",
+      "trecho",
+      "contexto_antes",
+      "contexto_depois",
+      "link",
+      "julgamento",
+      "existe_trecho_melhor",
+      "observacao"
+    ],
+    "hidden_in_key_only": [
+      "udv_ids",
+      "stratum",
+      "tier",
+      "support_type",
+      "score",
+      "quote_prefix",
+      "quote_cue_in_trecho"
+    ],
+    "row_order": "random permutation (seed stream row_order); item ids follow the row order",
+    "forbidden_token_hits": 0,
+    "known_leaks": [
+      "a direct_quote item can be recognized when the afirmacao holds a quotation whose words reappear in trecho",
+      "a semantic_with_short_quote item is recognizable in the same way: this support type is assigned only when a quote prefix of the afirmacao is found in the sentence that becomes trecho, so the quoted words reappear in trecho; semantic_similarity items (the semantic_match_high and semantic_match_weak strata) show the cue only by coincidence, so only high against weak stays blind",
+      "pessoa_falou rows are recognizable by their question, which is asked only of the speaker_check stratum"
+    ],
+    "quote_cue": {
+      "definition": "quote_cue_in_trecho is true when a quotation extracted from afirmacao (udv_pipeline.extract_quotes) has a prefix of 10, 6, 4 or 3 words (udv_pipeline.quote_prefixes) that udv_pipeline.quote_prefix_pattern finds in trecho; it is stored per item in the key only and the precision report splits each evidence stratum by it",
+      "rows_by_stratum": {
+        "direct_quote": {
+          "rows": 0,
+          "with_cue": 0
+        },
+        "semantic_match_high": {
+          "rows": 19,
+          "with_cue": 0
+        },
+        "semantic_with_short_quote": {
+          "rows": 2,
+          "with_cue": 2
+        },
+        "semantic_match_weak": {
+          "rows": 5,
+          "with_cue": 0
+        }
+      }
+    }
+  },
+  "csv": {
+    "file": "annotation.csv",
+    "delimiter": ";",
+    "encoding": "utf-8-sig",
+    "columns": [
+      "item_id",
+      "hearing_id",
+      "pergunta",
+      "participante",
+      "cargo",
+      "afirmacao",
+      "trecho",
+      "contexto_antes",
+      "contexto_depois",
+      "link",
+      "julgamento",
+      "existe_trecho_melhor",
+      "observacao"
+    ],
+    "sha256_at_creation": "b813354255b7d13daa539a22fec121c2e71131ce200587046186b93558854f38"
+  },
+  "transcripts": {
+    "dir": "artifacts/cache/validation/human_validation_v1_udv_v2_supplement/transcripts",
+    "files": 17,
+    "hearing_ids": [
+      1,
+      3,
+      5,
+      10,
+      49,
+      87,
+      99,
+      100,
+      102,
+      103,
+      104,
+      105,
+      108,
+      109,
+      112,
+      113,
+      115
+    ]
+  },
+  "transcripts_dir": "artifacts/cache/validation/human_validation_v1_udv_v2_supplement/transcripts",
+  "inherited_items": {
+    "A001": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A003": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A005": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A006": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A007": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A008": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A009": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A010": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A011": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A013": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A015": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A016": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A017": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A018": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A019": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A020": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A021": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A022": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A023": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A024": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A025": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A026": {
+      "relation": "no_evidence",
+      "question": "pessoa_falou",
+      "v2_stratum": "speaker_check",
+      "v2_tiers": [
+        "person_not_resolved"
+      ]
+    },
+    "A027": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A028": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A029": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A031": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A033": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A034": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A035": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A036": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A037": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_weak",
+      "v2_tiers": [
+        "semantic_match_weak"
+      ]
+    },
+    "A039": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A041": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A042": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A046": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A048": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A050": {
+      "relation": "no_evidence",
+      "question": "pessoa_falou",
+      "v2_stratum": "speaker_check",
+      "v2_tiers": [
+        "person_not_resolved"
+      ]
+    },
+    "A051": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A052": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A053": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A054": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A055": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A056": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A057": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A058": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A059": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A060": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A061": {
+      "relation": "no_evidence",
+      "question": "pessoa_falou",
+      "v2_stratum": "speaker_check",
+      "v2_tiers": [
+        "no_evidence",
+        "no_evidence",
+        "no_evidence",
+        "no_evidence"
+      ]
+    },
+    "A063": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A065": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A066": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A067": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A068": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A069": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A070": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A072": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A073": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A075": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A076": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A077": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A078": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A079": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A080": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A081": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A082": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A083": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A084": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A085": {
+      "relation": "no_evidence",
+      "question": "pessoa_falou",
+      "v2_stratum": "speaker_check",
+      "v2_tiers": [
+        "person_not_resolved",
+        "person_not_resolved"
+      ]
+    },
+    "A086": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A088": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A089": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A090": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A091": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A092": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A093": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A094": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A095": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A096": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A097": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A098": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A099": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A100": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A102": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A103": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A104": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A105": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A106": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_with_short_quote",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A107": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A108": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A109": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A110": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A111": {
+      "relation": "no_evidence",
+      "question": "pessoa_falou",
+      "v2_stratum": "speaker_check",
+      "v2_tiers": [
+        "no_evidence",
+        "no_evidence"
+      ]
+    },
+    "A112": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A114": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A117": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A118": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A119": {
+      "relation": "same",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A120": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    },
+    "A124": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "direct_quote",
+      "v2_tiers": [
+        "quote_found"
+      ]
+    },
+    "A126": {
+      "relation": "no_evidence",
+      "question": "pessoa_falou",
+      "v2_stratum": "speaker_check",
+      "v2_tiers": [
+        "person_not_resolved",
+        "person_not_resolved",
+        "person_not_resolved"
+      ]
+    },
+    "A127": {
+      "relation": "superset",
+      "question": "trecho_sustenta",
+      "v2_stratum": "semantic_match_high",
+      "v2_tiers": [
+        "semantic_match_high"
+      ]
+    }
+  },
+  "items": {
+    "C001": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-49-2-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.6679971814155579,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 10,
+      "start_char": 41545,
+      "end_char": 41736,
+      "display": {
+        "hearing_id": "49",
+        "pergunta": "trecho_sustenta",
+        "participante": "Dagnor Schneider",
+        "cargo": "Presidente da Federação das Empresas de Transporte de Carga e Logística de Santa Catarina",
+        "afirmacao": "A obra para a construção dos túneis deveria ser contemplada ainda no atual contrato, e não numa eventual extensão.",
+        "trecho": "Nós acreditamos que essa obra poderia ser contemplada não necessariamente na extensão do contrato, porque nós temos ainda 9 anos de contrato remanescente. Qual é a preocupação que nós temos?",
+        "contexto_antes": "… Já existe um EVTEA na Secretaria de Infraestrutura. A Deputada deve ter conhecimento disso. Foi no Governo anterior que se iniciou esse projeto. Trata-se de um projeto estratégico para a solução definitiva do problema que nós temos de fluidez de trânsito. Digo isso independentemente da obra do Morro dos Cavalos, que é necessária, é importante.",
+        "contexto_depois": "Vamos retroagir mais um pouquinho. A duplicação da BR-101 foi feita há 20 anos. Quando houve a mobilização pela duplicação, a BR-101 era pista simples em duplo sentido e estava colapsada. Faz 20 anos que houve a duplicação.O que nós vivenciamos hoje? Mais uma vez, o colapso, a mesma situação.Estendendo o contrato da Arteris com a mesma …",
+        "link": "caracteres 41.545–41.736 do turno 10; cabeçalho do turno: O SR. DAGNOR SCHNEIDER"
+      },
+      "v1_item_id": "A123",
+      "v1_relation": "moved"
+    },
+    "C002": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-3-0-2"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.6273581385612488,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 1,
+      "start_char": 21237,
+      "end_char": 21503,
+      "display": {
+        "hearing_id": "3",
+        "pergunta": "trecho_sustenta",
+        "participante": "Luiz Marinho",
+        "cargo": "Ministro do Trabalho e Emprego",
+        "afirmacao": "O FGTS voltará a servir como proteção para o trabalhador no desemprego e como fonte de financiamento da infraestrutura.",
+        "trecho": "Nós precisamos resgatar e fortalecer o Fundo de Garantia, para proteger a poupança dos trabalhadores e o fundo de investimento. Ao mesmo tempo, queremos oferecer uma alternativa de crédito aos trabalhadores com o consignado em folha de pagamento a partir do eSocial.",
+        "contexto_antes": "… para oferecer esse crédito, e a esmagadora maioria dos empregadores não fez convênio com os bancos, portanto não ofertou essa linha de crédito aos seus trabalhadores e trabalhadoras. Acho que os sindicatos também falharam nesse processo, e essa é a situação hoje. Qual é a solução que nós estamos sugerindo, de forma muito tranquila, serena?",
+        "contexto_depois": "Com a ferramenta tecnológica do eSocial e o Fundo de Garantia Digital, é plenamente possível oferecer aos trabalhadores a possibilidade de, a partir da sua folha de pagamento dada em garantia, ele ter acesso a um crédito tão barato quanto o que ele tem do Fundo de Garantia. Com esse formato, não vai mais ser preciso o empregador autorizar ou …",
+        "link": "caracteres 21.237–21.503 do turno 1; cabeçalho do turno: O SR. MINISTRO LUIZ MARINHO"
+      },
+      "v1_item_id": "A101",
+      "v1_relation": "moved"
+    },
+    "C003": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-99-2-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.6476119756698608,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 45,
+      "start_char": 77833,
+      "end_char": 78122,
+      "display": {
+        "hearing_id": "99",
+        "pergunta": "trecho_sustenta",
+        "participante": "Vinicius Limongi",
+        "cargo": "Chefe do Programa Mundial de Alimentos da Organização das Nações Unidas (ONU)",
+        "afirmacao": "Mulheres e crianças são as maiores vítimas da fome que acomete a região da Faixa de Gaza.",
+        "trecho": "Hoje, são mais de 1 milhão de pessoas em Gaza nesse indicador 5, e há uma projeção especial para o norte de Gaza, que indica que até junho 70% da população esteja nessa situação. É o que chamamos de catástrofe alimentar, situação em que nem mesmo a ajuda humanitária protege essas pessoas.",
+        "contexto_antes": "… que é a situação de catástrofe. Nesse nível, o IPC 5, há risco de morte iminente, pois as pessoas não têm acesso, nem mínimo, diário, e nem de forma constante, aos alimentos. É quando acontecem, por exemplo, doenças que afetam principalmente crianças. O caso de Gaza é único, porque nunca houve um índice tão alto como esse IPC 5 em nenhum lugar.",
+        "contexto_depois": "A nossa postura hoje, como eu disse, já é de atuar, e estamos prontos para expandir o máximo possível essa ajuda. Temos financiamento, não o suficiente, mas a única condição que nos impede hoje de atender toda a população em risco é justamente o acesso. Esse é o maior problema que nós temos hoje. Vou falar aqui um pouco sobre esse contexto e …",
+        "link": "caracteres 77.833–78.122 do turno 45; cabeçalho do turno: O SR. VINÍCIUS LIMONGI"
+      },
+      "v1_item_id": "A125",
+      "v1_relation": "moved"
+    },
+    "C004": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-103-0-8"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.7061282396316528,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 86,
+      "start_char": 98759,
+      "end_char": 98924,
+      "display": {
+        "hearing_id": "103",
+        "pergunta": "trecho_sustenta",
+        "participante": "Ricardo Lewandowski",
+        "cargo": "Ministro da Justiça",
+        "afirmacao": "Admitiu ajustes no decreto sobre CACs, desde que discutidos tecnicamente: \"Não podemos tapar os olhos e dizer que os CACs não existem. Congregam cerca de um milhão, estão na realidade e, a partir disso, serão regulamentados de acordo com suas características e particularidades.\"",
+        "trecho": "haverão de convir, regulamentar o exercício daqueles que estão inscritos como CACs, porque também não pode ser um \"liberou geral\". Não é? É preciso haver requisitos.",
+        "contexto_antes": "… a nossa responsabilidade pelos CACs será efetivada a partir do dia 1º de janeiro de 2025. É claro que já podemos começar a pensar, a debater, a receber grupos de Parlamentares que representam essa categoria. Disse anteriormente que os CACs, goste-se ou não dos CACs, existem. Simplesmente não dá para erradicá-los da realidade. É preciso, V.Exas.",
+        "contexto_depois": "V.Exas., que são legisladores, mais do que ninguém sabem que a ação humana precisa ser regulamentada por uma lei ou por um decreto, enfim, por uma norma jurídica qualquer. [fim do turno]",
+        "link": "caracteres 98.759–98.924 do turno 86; cabeçalho do turno: O SR. MINISTRO RICARDO LEWANDOWSKI"
+      },
+      "v1_item_id": "A047",
+      "v1_relation": "moved"
+    },
+    "C005": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-10-0-3"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.7142611742019653,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 2,
+      "start_char": 15186,
+      "end_char": 15329,
+      "display": {
+        "hearing_id": "10",
+        "pergunta": "trecho_sustenta",
+        "participante": "Carlos Augusto Simões",
+        "cargo": "Secretário de Proteção ao Trabalhador do Ministério do Trabalho e Emprego",
+        "afirmacao": "66,3% dos trabalhadores que têm contas ativas no FGTS possuem saldo de até quatro salários mínimos, ou R$ 5.648,00. Quase metade deles está no saque-aniversário.",
+        "trecho": "Hoje, são 66,3% dos trabalhadores. Do total daqueles que participam de cotistas, 31,8% estão no saque-rescisão, 35% estão no saque-aniversário.",
+        "contexto_antes": "… termos de estabilidade ou instabilidade para a sustentabilidade desse fundo no médio e longo prazo. Eu estou partindo da premissa, como Governo, de que pretendemos trabalhar com o horizonte de sustentabilidade do Fundo de Garantia do Tempo de Serviço. Na próxima página, estou ilustrando para os senhores o total de cotistas do Fundo de Garantia.",
+        "contexto_depois": "Isso ocorre na faixa de até 4 salários mínimos. Digo isso só para que fique claro. O que se quer dizer com esse quadro por extratos de renda? É exatamente na faixa de trabalhadores que recebem até 4 salários mínimos que se concentra hoje aquele volume de trabalhadores com participação maior no saque-aniversário do que no saque-rescisão. Aqui se …",
+        "link": "caracteres 15.186–15.329 do turno 2; cabeçalho do turno: O SR. CARLOS AUGUSTO SIMÕES GONÇALVEZ JÚNIOR"
+      },
+      "v1_item_id": "A113",
+      "v1_relation": "moved"
+    },
+    "C006": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_weak",
+      "udv_ids": [
+        "udv-108-6-1"
+      ],
+      "tier": "semantic_match_weak",
+      "support_type": "semantic_similarity",
+      "score": 0.42514562606811523,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 55,
+      "start_char": 94726,
+      "end_char": 95141,
+      "display": {
+        "hearing_id": "108",
+        "pergunta": "trecho_sustenta",
+        "participante": "Magda Mofatto",
+        "cargo": "Deputada (PRD-GO)",
+        "afirmacao": "O ministério enviou ofício comunicando sobre o não comparecimento de representantes por motivo de agenda.",
+        "trecho": "O convite foi para que ele viesse pessoalmente, ou participasse pela plataforma Zoom, ou mandasse alguém apto para discutir sobre o PERSE, inclusive para responder perguntas que porventura nós tivéssemos para esclarecimento do tema. Infelizmente, apenas ontem, às 17h11min, obtivemos a seguinte resposta: Infelizmente, mais uma vez, o Governo não nos dá a devida atenção, a consideração que precisamos e merecemos.",
+        "contexto_antes": "… Câmara de Vasconcellos pelos esclarecimentos prestados. No dia 27 de março, após a aprovação do requerimento de realização desta audiência pública, foi enviado a S.Exa. o Sr. Fernando Haddad, Ministro da Fazenda, um convite de participação nesta audiência pública. Esta Comissão insistiu muito para que ele nos retornasse confirmando a presença.",
+        "contexto_depois": "Passo a palavra agora para o Sr. João Alberto Ribeiro Pinheiro, Presidente da Associação Brasileira de Bares e Restaurantes do Distrito Federal — ABRASEL-DF, representando também a União Nacional de Entidades do Comércio e Serviços — UNECS. Fico feliz que V.Sa. esteja presente conosco. [fim do turno]",
+        "link": "caracteres 94.726–95.141 do turno 55; cabeçalho do turno: A SRA. PRESIDENTE(Magda Mofatto. Bloco/PRD - GO)"
+      },
+      "v1_item_id": "A087",
+      "v1_relation": "moved"
+    },
+    "C007": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-87-1-2"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.5308541059494019,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 129,
+      "start_char": 227883,
+      "end_char": 227965,
+      "display": {
+        "hearing_id": "87",
+        "pergunta": "trecho_sustenta",
+        "participante": "Luiz Marinho",
+        "cargo": "Ministro do Trabalho",
+        "afirmacao": "É contra o enquadramento do motorista de aplicativo no regime do microempreendedor individual (MEI), porque ficaria menos amparado na seguridade social.",
+        "trecho": "Para o MEI caminhoneiro, a tarifa é maior, é de 12%. E o empregador não contribui.",
+        "contexto_antes": "… importante isso. O MEI não tem negociação. Permitam-me dizer francamente isto a vocês: esqueçam o MEI. Não vai rolar. No que depender do Governo, o MEI não rola. Eu tenho que ser franco com vocês, senão ficamos nos enganando, insistindo, insistindo. Esqueçam. O MEI, no que depender do Governo, não rola. Não rola porque não tem sustentabilidade.",
+        "contexto_depois": "O empregador tem que contribuir, para dar sustentabilidade à Previdência! Não é verdade que a preocupação é arrecadatória. Não é imposto isso aqui, é contribuição para o sistema de proteção social, para não acontecer o que aconteceu com muita gente que já se lascou nesta vida, e a família ficou desguarnecida. É disso que se trata. Não vamos …",
+        "link": "caracteres 227.883–227.965 do turno 129; cabeçalho do turno: O SR. MINISTRO LUIZ MARINHO"
+      },
+      "v1_item_id": "A116",
+      "v1_relation": "moved"
+    },
+    "C008": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-10-4-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.7359358668327332,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 57,
+      "start_char": 101222,
+      "end_char": 101451,
+      "display": {
+        "hearing_id": "10",
+        "pergunta": "trecho_sustenta",
+        "participante": "Clóvis Scherer",
+        "cargo": "Representante da bancada dos trabalhadores no Conselho Curador do FGTS",
+        "afirmacao": "É preciso rever o saque-aniversário porque alguns trabalhadores fazem até 28 operações de antecipações de saques, comprometendo quase todo o saldo.",
+        "trecho": "Há trabalhadores que praticamente comprometem o seu saldo até o fim da vida laboral. E nós temos também outra deturpação, que é a possibilidade de se estabelecer diversos contratos simultâneos de antecipação de saque-aniversário.",
+        "contexto_antes": "… com a antecipação desse saque-aniversário. Outro ponto é que a antecipação do saque deturpou a finalidade, que era uma finalidade de proporção a um baixo custo. Acontece que a voracidade do setor financeiro criou a possibilidade de antecipação de até 28 aniversários, 30 aniversários, ou 30 ciclos. Nós temos estatísticas da Caixa mostrando isso.",
+        "contexto_depois": "Há trabalhadores que chegam a ter 14 contratos de financiamento simultâneos em vigor, o que faz com que todo o seu saldo seja comprometido em operações de alienação fiduciária.Não sobra nada, muito embora a lei tenha previsto os tetos máximos de comprometimento de saldo, que, no máximo, seria de 50% para aquelas contas de menor valor. Na …",
+        "link": "caracteres 101.222–101.451 do turno 57; cabeçalho do turno: O SR. CLÓVIS ROBERTO SCHERER"
+      },
+      "v1_item_id": "A044",
+      "v1_relation": "moved"
+    },
+    "C009": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-113-2-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.6994974613189697,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 2,
+      "start_char": 8306,
+      "end_char": 8531,
+      "display": {
+        "hearing_id": "113",
+        "pergunta": "trecho_sustenta",
+        "participante": "Vera Campelo",
+        "cargo": "Coordenadora dos serviços de proteção em calamidades públicas e emergências do Sistema Único de Assistência Social",
+        "afirmacao": "Defendeu ajustes na legislação para ampliar o atendimento: \"É preciso pensar em outros tipos de situação, como a crise migratória dos venezuelanos, a situação dos Yanomami e as pessoas que vivem nas ruas. A gente está trabalhando na alteração da nossa legislação para ampliar esse atendimento e não focar em apenas um ponto.\"",
+        "trecho": "Contudo, quando falamos do contexto de emergência, temos que ampliar esse atendimento. Temos que pensar também nos públicos especiais, temos que voltar o olhar para os quilombolas, os ribeirinhos, os migrantes, os refugiados.",
+        "contexto_antes": "… falamos em situação de emergência, a assistência social tem um papel essencial nessa situação. O papel da assistência social hoje é o de levar o atendimento aos públicos vulneráveis. Então, dentro do contexto da assistência social, estamos falando do atendimento de crianças, de pessoas idosas, de pessoas com deficiência, de mulheres gestantes.",
+        "contexto_depois": "E, quando ocorre a situação de emergência, esse atendimento amplia-se mais ainda, porque vamos ter como público da assistência social não só o público vulnerável, mas todas as pessoas que são afetadas pela situação de emergência. Nós viemos aqui para falar sobre as ações de prevenção, mas precisamos também, para além das ações de prevenção, …",
+        "link": "caracteres 8.306–8.531 do turno 2; cabeçalho do turno: A SRA. VERA LÚCIA CAMPELO DA SILVA"
+      },
+      "v1_item_id": "A004",
+      "v1_relation": "moved"
+    },
+    "C010": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-103-2-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.5088441371917725,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 25,
+      "start_char": 24313,
+      "end_char": 24707,
+      "display": {
+        "hearing_id": "103",
+        "pergunta": "trecho_sustenta",
+        "participante": "Delegado Paulo Bilynskyj",
+        "cargo": "Deputado (PL-SP)",
+        "afirmacao": "Criticou o Decreto 11.615/23, que afeta os CACs quanto ao acesso a armas e munições.",
+        "trecho": "Assim iniciamos a exposição. No dia 1º de janeiro de 2023, início do Governo Lula, um decreto retirou do cidadão de bem, aquele cidadão que tem laudo psicológico, que tem laudo técnico, que tem mais de 25 anos de idade, que não tem antecedentes criminais, a capacidade de possuir essa arma, de adquirir essa arma, de fazer o porte de trânsito dessa arma, calibre 9 milímetros e qualquer outra.",
+        "contexto_antes": "… Rodoviária Federal foi da ponto 40 para a 9 milímetros. A Polícia Federal sempre usou a 9 milímetros. A Polícia Legislativa, graças a Deus, hoje porta a 9 milímetros. Por quê? Porque esse é um calibre apto à capacidade de promover a defesa do indivíduo. Qualquer coisa menor do que 9 milímetros compromete a capacidade de defesa do indivíduo.",
+        "contexto_depois": "Eu questiono o senhor especificamente a respeito de três pontos do decreto, que acredito, Ministro, que, com a sua experiência jurídica, com sua experiência à frente de diversos órgãos, com a sua experiência como Ministro da Justiça e Segurança Pública, o senhor pode apreciar com cuidado. Em primeiro lugar, a distância mínima estabelecida pelo …",
+        "link": "caracteres 24.313–24.707 do turno 25; cabeçalho do turno: O SR. DELEGADO PAULO BILYNSKYJ(PL - SP)"
+      },
+      "v1_item_id": "A043",
+      "v1_relation": "moved"
+    },
+    "C011": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-1-0-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.5168445110321045,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 17,
+      "start_char": 37802,
+      "end_char": 37963,
+      "display": {
+        "hearing_id": "1",
+        "pergunta": "trecho_sustenta",
+        "participante": "Michael Shellenberger",
+        "cargo": "Jornalista norte-americano",
+        "afirmacao": "Acusou Alexandre de Moraes de censura ao solicitar o bloqueio de contas na rede social X.",
+        "trecho": "Foi esse tipo de censura que vimos no Twitter Files Brasil. O Juiz Alexandre de Moraes fica muito preocupado em entender qualquer pessoa está usando essahashtag.",
+        "contexto_antes": "… o discurso que diz que é preciso defender a democracia por censurar preocupações sobre as eleições. Eu faço uma pergunta: como vão saber, se houver um problema com a eleição, se não houver liberdade de expressão sobre assuntos das eleições? Se pensarem por um momento, não pode haver. Então, não pode haver democracia e essa forma de censura.",
+        "contexto_depois": "Parece um pânico. É uma reação muito irracional, mas também uma forma de tentar censurar seus inimigos políticos. Eu só queria dizer que tenho uma esperança de que, no Brasil, a racionalidade está voltando. Vimos os editoriais noEstado de S.Paulo, naFolha. Depois de passar desinformação sobre meu testemunho no Senado, na semana passada, …",
+        "link": "caracteres 37.802–37.963 do turno 17; cabeçalho do turno: O SR. MICHAEL SHELLENBERGER"
+      },
+      "v1_item_id": "A064",
+      "v1_relation": "moved"
+    },
+    "C012": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_weak",
+      "udv_ids": [
+        "udv-87-5-0"
+      ],
+      "tier": "semantic_match_weak",
+      "support_type": "semantic_similarity",
+      "score": 0.48073285818099976,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 28,
+      "start_char": 83228,
+      "end_char": 83568,
+      "display": {
+        "hearing_id": "87",
+        "pergunta": "trecho_sustenta",
+        "participante": "Rodrigo Porto",
+        "cargo": "Representante do aplicativo Indrive",
+        "afirmacao": "Acha que a proposta do governo beneficia os interesses do 99 e da Uber e inviabiliza o seu aplicativo.",
+        "trecho": "Então, o motorista, no final das contas, estaria pagando os 1,87%, que seriam retidos pela plataforma, e ele, ou o passageiro, teria o repasse do valor de 5% que compete à plataforma. Nesse contexto, eu acho importante salientar que a longo prazo o projeto do jeito que está incentivaria dois movimentos específicos por parte das empresas.",
+        "contexto_antes": "… com que a empresa tivesse que repassar esse custo para o motorista no final das contas. Entendemos que isso não é justo.Esse reajuste, no fim das contas, representaria o fim do nosso principal fator concorrencial. Estamos falando desde o começo que a tarifa é de 10%. Logo, um reajuste total representaria o aumento da tarifa de 10% para 15%.",
+        "contexto_depois": "O primeiro seria, como eu disse, o aumento das taxas, a médio e a longo prazo, para cobrir esses custos, e, no segundo momento, a concentração de mercado nas empresas que têm uma maior capacidade financeira para diluir esses custos e não fazer esse repasse de maneira inicial, naquele primeiro momento seguinte à aprovação do projeto, o que …",
+        "link": "caracteres 83.228–83.568 do turno 28; cabeçalho do turno: O SR. RODRIGO PORTO"
+      },
+      "v1_item_id": "A122",
+      "v1_relation": "moved"
+    },
+    "C013": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-105-1-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.706561803817749,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 2,
+      "start_char": 8818,
+      "end_char": 9001,
+      "display": {
+        "hearing_id": "105",
+        "pergunta": "trecho_sustenta",
+        "participante": "Vanessa Pirolo",
+        "cargo": "Coordenadora da Coalizão Vozes do Advocacy",
+        "afirmacao": "Se o Estado investir mais na prevenção, o número de pessoas improdutivas pode cair: \"[Se a pessoa tiver a doença], vai requerer do Estado uma aposentadoria antecipada, vai precisar de cuidador, de investimento, e esse custo vai aumentar assustadoramente no futuro. Precisamos trabalhar com a prevenção.\"",
+        "trecho": "E assim ela vai precisar de um cuidador, ela vai precisar de investimento, e esse custo vai aumentar assustadoramente no futuro. Então, hoje nós precisamos trabalhar com a prevenção.",
+        "contexto_antes": "… muito sério que enfrentamos é a falta de adesão ao tratamento, por inúmeros fatores. Precisamos sensibilizar o Ministério para investir mais, a fim de que os Estados e os Municípios reduzam essa fila, e assim consigamos que essa pessoa não se torne improdutiva, porque ela vai requerer do Estado, do Município, uma aposentadoria antecipada.",
+        "contexto_depois": "É tão difícil, há tantas searas. Eu tenho conversado com tantas pessoas de tantas patologias, outras organizações, e nós não estamos conseguindo hoje ter nenhum encaminhamento do Ministério da Saúde com relação a problemas de retina.Nós não temos encaminhamento absolutamente nenhum em nefrologia. Isso é muito sério. Nós temos inúmeros problemas …",
+        "link": "caracteres 8.818–9.001 do turno 2; cabeçalho do turno: A SRA. VANESSA PIROLO"
+      },
+      "v1_item_id": "A040",
+      "v1_relation": "moved"
+    },
+    "C014": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-115-1-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.6694655418395996,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 16,
+      "start_char": 50328,
+      "end_char": 50450,
+      "display": {
+        "hearing_id": "115",
+        "pergunta": "trecho_sustenta",
+        "participante": "Luciana Gatti",
+        "cargo": "Coordenadora do Laboratório de Gases do Efeito Estufa do Instituto Nacional de Pesquisas Espaciais (LaGEE/INPE)",
+        "afirmacao": "Apresentou mapas de anomalias de temperatura para provar que o recente aquecimento da superfície dos oceanos vai muito além do fenômeno El Niño, que tem ação mais específica no Pacífico Equatorial.",
+        "trecho": "O El Niño fica nessa faixa do Oceano Pacífico, na região do Equador. Realmente, está muito mais quente, mas não é só isso!",
+        "contexto_antes": "… também estão vendo que há muitas regiões muito mais quentes? Todos vocês muito provavelmente escutaram muito falar do El Niño no ano passado. Parecia que toda a culpa era do El Niño. Desculpem-me, isso foi falta de informação de quem deu as notícias. A culpa é de todo o planeta. Vejam como todos os oceanos acima do Equador estavam mais quentes.",
+        "contexto_depois": "Todos os oceanos para cima do Equador estão muito mais quentes. Na Amazônia, chove menos, sob a influência do El Niño. Chove menos na Amazônia quando as temperaturas de todo o Oceano Atlântico Norte também ficam mais quentes. Os dois fatores aconteceram no ano passado. E há o desmatamento na Amazônia, que está fazendo chover menos. Então, …",
+        "link": "caracteres 50.328–50.450 do turno 16; cabeçalho do turno: A SRA. LUCIANA VANNI GATTI"
+      },
+      "v1_item_id": "A030",
+      "v1_relation": "moved"
+    },
+    "C015": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_weak",
+      "udv_ids": [
+        "udv-109-3-0"
+      ],
+      "tier": "semantic_match_weak",
+      "support_type": "semantic_similarity",
+      "score": 0.4778735041618347,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 70,
+      "start_char": 163708,
+      "end_char": 163877,
+      "display": {
+        "hearing_id": "109",
+        "pergunta": "trecho_sustenta",
+        "participante": "Gaguim",
+        "cargo": "Deputado (União-TO)",
+        "afirmacao": "É favorável à aprovação da Proposta de Emenda à Constituição (PEC) 504/10, que reconhece a Caatinga como patrimônio nacional.",
+        "trecho": "Nós aprovamos agora, e o Presidente da República sancionou, a Lei da Agricultura Familiar. Hoje, temos mais de 20 milhões de pequenos produtores na agricultura familiar.",
+        "contexto_antes": "[início do turno]",
+        "contexto_depois": "São esses que entram nesse financiamento. Senão, entram só os grandes, e os pequenos ficam todos de fora. Então, Ministro, essa lei foi sancionada na semana passada, pelo Presidente da República. Foi um projeto de lei meu para a agricultura familiar. São 20 milhões de pequenos produtores, assentamentos. Esse é que é o Norte mesmo. [fim do turno]",
+        "link": "caracteres 163.708–163.877 do turno 70; cabeçalho do turno: O SR. CARLOS HENRIQUE GAGUIM(Bloco/UNIÃO - TO)"
+      },
+      "v1_item_id": "A032",
+      "v1_relation": "moved"
+    },
+    "C016": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-104-2-2"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.7154215574264526,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 41,
+      "start_char": 123009,
+      "end_char": 123312,
+      "display": {
+        "hearing_id": "104",
+        "pergunta": "trecho_sustenta",
+        "participante": "Lafayette de Andrada",
+        "cargo": "Deputado (Republicanos-MG)",
+        "afirmacao": "Criticou as distribuidoras por estarem criando dificuldade para conectar as unidades de geração distribuída à rede elétrica: \"As distribuidoras não estão obedecendo à lei, não estão obedecendo às próprias resoluções da Aneel\"",
+        "trecho": "Hoje, as concessionárias não cumprem a lei, não cumprem a regulação e, quando a ANEEL as autua, tudo fica por isso mesmo. Segundo os dados que me chegam, houve no último ano cerca de 17 mil reclamações à ANEEL de consumidores que tentaram buscar empreendimentos de geração distribuída em todo o Brasil.",
+        "contexto_antes": "… investimentos, audiências públicas, discussão com o TCU. Isso tudo está na lei das concessões das rodovias.Eu trouxe isso no PL 970/24, que já está apensado. Penso que isso também deveria estar presente, além de outros critérios importantíssimos, como vários que foram ditos aqui, de fiscalização e de punição pelo não cumprimento dos critérios.",
+        "contexto_depois": "Isso mostra que alguma falha que está acontecendo com as distribuidoras é recorrente. Numa reunião desta Comissão na semana passada, eu trouxe exemplos que beiravam o ridículo. Um deles foi o da concessionária sugerindo que o gerador de energia solar produza a partir das 19 horas. Além disso, negou-se conexão de 1 quilowatt porque potencialmente …",
+        "link": "caracteres 123.009–123.312 do turno 41; cabeçalho do turno: O SR. LAFAYETTE DE ANDRADA(Bloco/REPUBLICANOS - MG)"
+      },
+      "v1_item_id": "A071",
+      "v1_relation": "moved"
+    },
+    "C017": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-5-4-1"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.7767829895019531,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 9,
+      "start_char": 24342,
+      "end_char": 24499,
+      "display": {
+        "hearing_id": "5",
+        "pergunta": "trecho_sustenta",
+        "participante": "Viviani Guimarães",
+        "cargo": "Diretora do Grupo Mais Inclusão",
+        "afirmacao": "Ressaltou que não basta receber o estudante na escola, mas é preciso de um planejamento para que cada estudante realmente aprenda e se desenvolva: \"Se a criança não estiver aprendendo, não é inclusão.\"",
+        "trecho": "Claro que é importante a pessoa estar na escola, mas ela precisa participar das atividades e precisa aprender. Se isso não estiver ocorrendo, não é inclusão.",
+        "contexto_antes": "… sei de onde ele está partindo, se não sei quais são as dificuldades que ele tem, se não sei, principalmente, quais são as potencialidades que esse estudante tem, eu não tenho como fazer com que ele aprenda. Dizer-se inclusivo porque simplesmente está recebendo uma pessoa na sua escola é mentira. A permanência é só o primeiro passo da inclusão.",
+        "contexto_depois": "Então, eu sou a favor desse importante parecer para que, realmente, consigamos fazer com que as pessoas com autismo ou com qualquer outra deficiência ou dificuldade de aprendizagem possam realmente se desenvolver. Obrigada.(Palmas.) [fim do turno]",
+        "link": "caracteres 24.342–24.499 do turno 9; cabeçalho do turno: A SRA. VIVIANI GUIMARÃES"
+      },
+      "v1_item_id": "A038",
+      "v1_relation": "moved"
+    },
+    "C018": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_with_short_quote",
+      "udv_ids": [
+        "udv-112-3-2"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_with_short_quote",
+      "score": 0.698893129825592,
+      "quote_prefix": "Muitos motoristas morreram,",
+      "quote_cue_in_trecho": true,
+      "speaker_turn": 21,
+      "start_char": 34372,
+      "end_char": 34599,
+      "display": {
+        "hearing_id": "112",
+        "pergunta": "trecho_sustenta",
+        "participante": "Carina Mineia dos Santos Trindade",
+        "cargo": "Representante da Federação Nacional dos Sindicatos dos Motoristas de Aplicativos",
+        "afirmacao": "Entre as demandas apresentadas pelos trabalhadores nessas pesquisas estão a necessidade de cobertura às suas famílias e a criação oficial da categoria, o que os retiraria da invisibilidade: \"Muitos motoristas morreram, infelizmente, e a gente depende de ações na Justiça para que a família receba alguma coisa.\"",
+        "trecho": "Em relação à Previdência Social, como bem lembrou o Abel, muitos motoristas morreram, infelizmente. Dependemos de entrar na Justiça para que suas famílias recebam alguma coisa, porque as plataformas não pagam a nenhuma família.",
+        "contexto_antes": "… criação de uma categoria. Quero salientar que é muito importante para nós, porque, como categoria, conseguiremos que sejam criadas políticas públicas para atuarmos em favor do que o trabalhador precisa realmente na ponta. Então, a criação de uma categoria — hoje não a temos, hoje somos invisibilizados — é muito importante e está prevista no PL.",
+        "contexto_depois": "No Rio Grande do Sul, quase 50 trabalhadores foram mortos enquanto trabalhavam pelas plataformas. É importante que a Previdência garanta que os familiares recebam alguma coisa em caso de morte desses trabalhadores, e até em caso de acidente, para que os trabalhadores que sofram acidente não dependam de vaquinha para viver. Como bem lembrou o …",
+        "link": "caracteres 34.372–34.599 do turno 21; cabeçalho do turno: A SRA. CARINA MINEIA DOS SANTOS TRINDADE"
+      },
+      "v1_item_id": "A049",
+      "v1_relation": "moved"
+    },
+    "C019": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-109-0-2"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.5783421993255615,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 62,
+      "start_char": 130026,
+      "end_char": 130454,
+      "display": {
+        "hearing_id": "109",
+        "pergunta": "trecho_sustenta",
+        "participante": "Waldez Góes",
+        "cargo": "Ministro da Integração e do Desenvolvimento Regional",
+        "afirmacao": "Pediu mudanças na lei que trata do Fundo Nacional para Calamidades Públicas, Proteção e Defesa Civil (Funcap), para adaptá-la a todas as situações emergenciais.",
+        "trecho": "Mais de 2.100 Municípios decretaram situação de emergência, dos 5.565. Isso é desafiador, e vamos precisar algumas vezes revisitar as normas, flexibilizá-las, seja por um ato do Congresso Nacional, seja por um ato do Executivo, seja por um ato administrativo que a lei geral permita, como temos feito inclusive nos planos de trabalho, com o estabelecimento de critérios novos para que os Prefeitos possam inserir suas propostas.",
+        "contexto_antes": "… excesso de água, precisamos revisitar as normas, porque nem vamos descumpri-las, nem vamos mantê-las sob uma rigidez que não nos permita mudá-las quando os desafios de 2 anos ou 3 anos passados são outros hoje. Nós vivemos o ano passado, de janeiro a dezembro, com estiagens e com chuvas, ciclones, enfim. Só não tivemos terremotos. Tudo tivemos.",
+        "contexto_depois": "Sobre a rota que eu chamo de bioceânica e o Deputado Padovani chama de rota capricórnio — chamamos de bioceânica porque ela sai do Atlântico e vai para o Pacífico —, ela nos dá a possibilidade de reduzir o trajeto para o continente asiático em mais de 10 dias. Como está isso? A Ministra Simone Tebet fez um trabalho brilhante. Existe um debate …",
+        "link": "caracteres 130.026–130.454 do turno 62; cabeçalho do turno: O SR. MINISTRO WALDEZ GÓES"
+      },
+      "v1_item_id": "A115",
+      "v1_relation": "moved"
+    },
+    "C020": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_weak",
+      "udv_ids": [
+        "udv-1-0-1"
+      ],
+      "tier": "semantic_match_weak",
+      "support_type": "semantic_similarity",
+      "score": 0.45158982276916504,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 61,
+      "start_char": 108257,
+      "end_char": 108378,
+      "display": {
+        "hearing_id": "1",
+        "pergunta": "trecho_sustenta",
+        "participante": "Michael Shellenberger",
+        "cargo": "Jornalista norte-americano",
+        "afirmacao": "Divulgou, no início do mês, um compilado de e-mails trocados por funcionários da plataforma X a respeito de decisões judiciais brasileiras que envolviam a rede social e investigações ao longo do período de 2020 a 2022. O caso ficou conhecido como Twitter Files Brasil",
+        "trecho": "Até eu chegar ao Brasil, eu cometi mais um erro, através do X. Não foi no Twitter Files, estão certos todos os fatos ali.",
+        "contexto_antes": "[início do turno] Muito obrigado. Eu queria terminar oferecendo uma confissão. A confissão minha é que eu sou uma pessoa que comete erros. Eu tenho escritos dois livros, por exemplo, de 400 páginas, e eu descrevo os erros que eu fiz nos livros no passado. Eu tenho cem páginas de referências para corrigir tudo.",
+        "contexto_depois": "Mas eu cometi um erro em outra reportagem, em outra postagem que eu fiz. Depois, eu fiz uma correção. Logo depois da postagem, eu pedi desculpas. Tudo bem, normal, é como o jornalismo funciona. Um advogado do PT disse que eu tinha mentido, o que é uma coisa muito diferente. Eu cometi o erro e me senti envergonhado porque não gosto de cometer …",
+        "link": "caracteres 108.257–108.378 do turno 61; cabeçalho do turno: O SR. MICHAEL SHELLENBERGER"
+      },
+      "v1_item_id": "A062",
+      "v1_relation": "moved"
+    },
+    "C021": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_with_short_quote",
+      "udv_ids": [
+        "udv-1-3-1"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_with_short_quote",
+      "score": 0.7561720609664917,
+      "quote_prefix": "Portanto, tentar caracterizar",
+      "quote_cue_in_trecho": true,
+      "speaker_turn": 27,
+      "start_char": 56733,
+      "end_char": 56953,
+      "display": {
+        "hearing_id": "1",
+        "pergunta": "trecho_sustenta",
+        "participante": "Arlindo Chinaglia",
+        "cargo": "Deputado (PT-SP)",
+        "afirmacao": "Apontou que, de 2012 a 2021, na soma das solicitações de remoção por país recebidas pela plataforma X, o Brasil figura em antepenúltimo da lista: \"Portanto, tentar caracterizar que, no Brasil de hoje, e desde 2012, haja uma atitude de censura é um exagero retórico que se transforma em mentira.\"",
+        "trecho": "O Brasil é o antepenúltimo da lista, onde chega ao traço. Portanto, tentar caracterizar que no Brasil de hoje haja, eu diria, uma atitude ao longo dos anos, desde 2012, é um exagero retórico que se transforma em mentira.",
+        "contexto_antes": "… do próprio X: Japão, que alguém pode até chamar de ditadura nessa altura do campeonato, são em torno de 100 mil; Turquia, em torno de 60 mil; Rússia, um pouco menos; Índia, menos da metade; Coreia do Sul, pouco menos do que a Índia; França, menos ainda; Paquistão, Indonésia, Estados Unidos, Estados Árabes, Brasil, Alemanha e Reino Unido.",
+        "contexto_depois": "Perdoem-me. Terceiro ponto. Aqui eu vou fazer uma provocação, estou dizendo que é provocação mesmo. Aqui há uma defesa quase intransigente por parte de alguns, não todos — registre-se —, daquilo que Netanyahu faz hoje na Faixa de Gaza. Quando me refiro à defesa do Netanyahu opino que ele não representa todo o povo judeu, mas eu quero defender …",
+        "link": "caracteres 56.733–56.953 do turno 27; cabeçalho do turno: O SR. ARLINDO CHINAGLIA(Bloco/PT - SP)"
+      },
+      "v1_item_id": "A045",
+      "v1_relation": "moved"
+    },
+    "C022": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-102-1-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.536836564540863,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 12,
+      "start_char": 31841,
+      "end_char": 32125,
+      "display": {
+        "hearing_id": "102",
+        "pergunta": "trecho_sustenta",
+        "participante": "Arnaldo Jardim",
+        "cargo": "Deputado (Cidadania-SP) e presidente da Comissão Especial sobre Transição Energética e Produção de Hidrogênio Verde",
+        "afirmacao": "O Brasil oferece um conjunto competitivo de opções de combustíveis limpos para a navegação.",
+        "trecho": "Então, nós estamos aqui estudando e debatendo, ao lado da questão do etanol, do biodiesel, do biometano, outros combustíveis que podem diminuir isso, como o combustível sustentável de aviação. Nós estamos discutindo como diminuir também esse impacto ambiental do combustível marítimo.",
+        "contexto_antes": "… como os que aqui estão, diligentes, discutem as alternativas para a transição energética, descarbonização. Hoje o nosso tema aqui sobre combustível marítimo. Toda essa movimentação que nós temos de navios é responsável, conforme os dados que acabaram de ser apresentados, por cerca de 3% de tudo que se emite de gás de efeito estufa na atmosfera.",
+        "contexto_depois": "Passo a palavra, neste instante, à Dra. Francielle Carvalho, que está aqui nos ouvindo há tempo. Francielle, muito obrigado. Ela é pesquisadora do International Council on Clean Transportation, que é o Fórum Internacional de Transporte Limpo, posso assim traduzir resumidamente. Dra. Francielle, por favor, V.Sa. tem a palavra. [fim do turno]",
+        "link": "caracteres 31.841–32.125 do turno 12; cabeçalho do turno: O SR. PRESIDENTE(Arnaldo Jardim. Bloco/CIDADANIA - SP)"
+      },
+      "v1_item_id": "A014",
+      "v1_relation": "moved"
+    },
+    "C023": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-87-1-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.6879966259002686,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 73,
+      "start_char": 162160,
+      "end_char": 162306,
+      "display": {
+        "hearing_id": "87",
+        "pergunta": "trecho_sustenta",
+        "participante": "Luiz Marinho",
+        "cargo": "Ministro do Trabalho",
+        "afirmacao": "A regulamentação pode ser por hora ou por quilômetro, a depender da melhor formulação preferida pelos motoristas.",
+        "trecho": "Eu, pessoalmente, não faço questão de ser por hora ou por quilômetro. Isso vai depender de qual será a melhor formulação para a proteção de vocês.",
+        "contexto_antes": "… não falou contra isso, não é? Ou é liberal total que nem isso se aceita? Não existe uma coisa tão liberal que não exija regulamentação. Então, a regulamentação é uma necessidade. A partir desse ponto de vista, eu acho que nós começamos a dar o primeiro passo, a subir o primeiro degrau da escada. Agora, se é por quilômetro, se é por hora...",
+        "contexto_depois": "O projeto só faz sentido se houver a proteção de vocês. Eu queria dizer o seguinte: o Governo colocou urgência, porque sabíamos que, aqui, há 60 projetos, 70 projetos, 80 projetos tramitando. Por isso, a coisa não anda. Esse projeto, construído em mesa, o Governo encaminhou com pedido de urgência. Houve toda uma narrativa... É preciso falar das …",
+        "link": "caracteres 162.160–162.306 do turno 73; cabeçalho do turno: O SR. MINISTRO LUIZ MARINHO"
+      },
+      "v1_item_id": "A121",
+      "v1_relation": "moved"
+    },
+    "C024": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_weak",
+      "udv_ids": [
+        "udv-103-1-0"
+      ],
+      "tier": "semantic_match_weak",
+      "support_type": "semantic_similarity",
+      "score": 0.35201144218444824,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 61,
+      "start_char": 71971,
+      "end_char": 72080,
+      "display": {
+        "hearing_id": "103",
+        "pergunta": "trecho_sustenta",
+        "participante": "General Girão",
+        "cargo": "Deputado (PL-RN)",
+        "afirmacao": "Manteve as críticas ao governo.",
+        "trecho": "Não podemos entrar nessavibe. Concluo, Sr. Ministro — sei que me faltam só 43 segundos — dizendo o seguinte.",
+        "contexto_antes": "… Por favor, para determinados crimes, a audiência de custódia só pode liberar o preso... Aí, sim, o juiz que fizer isso que seja chamado pelo corregedor e seja punido, para que situação como a que aconteceu quando o corregedor de Justiça, monocraticamente, decidiu punir a Juíza Gabriela Hardt e outros juízes também não ocorra. Isso é lamentável.",
+        "contexto_depois": "Esse problema das \"saidinhas\" é um problema sério. Eu peço desculpas, sei que o senhor não vai responder, mas o veto do Presidente Lula correspondeu a uma atitude política, para os 80% dos eleitores dele, os que estavam nos presídios — foi mais ou menos isso que a estatística mostrou, quase 100%. Está bom, mas 80 e poucos por cento, não estou …",
+        "link": "caracteres 71.971–72.080 do turno 61; cabeçalho do turno: O SR. GENERAL GIRÃO(PL - RN)"
+      },
+      "v1_item_id": "A002",
+      "v1_relation": "moved"
+    },
+    "C025": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-115-5-0"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.741698145866394,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 4,
+      "start_char": 22815,
+      "end_char": 23215,
+      "display": {
+        "hearing_id": "115",
+        "pergunta": "trecho_sustenta",
+        "participante": "Saulo Rodrigues",
+        "cargo": "Professor do Centro de Desenvolvimento Sustentável da Universidade de Brasília",
+        "afirmacao": "Defendeu ações conjuntas de adaptação e mitigação no Plano Clima, em vigor desde 2009.",
+        "trecho": "E, de fato, tivemos o Plano Nacional de Adaptação à Mudança Climática, de 2009, e depois o Plano Nacional de Adaptação, em 2016. E, agora, eu acho muito louvável que o Governo Federal tenha decidido, por meio do Ministério do Meio Ambiente, que coordena esse esforço, junto com o MCTI, elaborar um Plano Clima que integre esforços de adaptação e de mitigação, porque não dá para separar essas coisas.",
+        "contexto_antes": "… Regional. E é isso que está sendo feito na revisão do Plano Clima. E uma das críticas que nós fazíamos, exatamente acompanhando essa agenda climática desde a academia, é que estavam sendo tratadas a tal da agenda da mitigação e a agenda da adaptação de forma separada, estanque, como se uma coisa não tivesse nada a ver com a outra.",
+        "contexto_depois": "Então, é muito importante, porque existem sinergias e conflitos também, muitas vezes, entre as ações planejadas, tratar desses elementos de forma integrada. Eu queria deixar esse recado, Deputado Tarcísio Motta, falando mais uma vez da minha alegria de estar aqui, e agradecer o convite. Eu falei para o Deputado aqui que a minha filha, de 18 …",
+        "link": "caracteres 22.815–23.215 do turno 4; cabeçalho do turno: O SR. SAULO RODRIGUES PEREIRA FILHO"
+      },
+      "v1_item_id": "A074",
+      "v1_relation": "moved"
+    },
+    "C026": {
+      "question": "trecho_sustenta",
+      "stratum": "semantic_match_high",
+      "udv_ids": [
+        "udv-100-3-1"
+      ],
+      "tier": "semantic_match_high",
+      "support_type": "semantic_similarity",
+      "score": 0.6677364110946655,
+      "quote_prefix": null,
+      "quote_cue_in_trecho": false,
+      "speaker_turn": 19,
+      "start_char": 52821,
+      "end_char": 53131,
+      "display": {
+        "hearing_id": "100",
+        "pergunta": "trecho_sustenta",
+        "participante": "Rodrigo Santana",
+        "cargo": "Representante da Autoridade Nacional de Proteção de Dados",
+        "afirmacao": "É crucial aumentar o controle do que os filhos fazem nas redes.",
+        "trecho": "O perfilamento é algo muito utilizado por todas as plataformas, mas, no caso de criança, nós temos que tomar bastante cuidado. A questão do controle parental, que eu comentei, é preciso solucioná-la comsoftwaresem que os responsáveis consigam acompanhar, assim como a questão de evitar essas técnicas denudge.",
+        "contexto_antes": "… daquela plataforma. A configuração deve ser de alta privacidade por padrão, porque a criança pode ser induzida. Então, você já vai lá e seta uma configuração de alto padrão para que ela não seja induzida a expor imagens e tudo isso. A questão da desativação da geolocalização é superimportante, assim como a desativação do perfilamento.",
+        "contexto_depois": "Aqui, há dois guias muito relevantes que nós utilizamos, que são da Autoridade Francesa e da Irlandesa. Com relação à proteção de dados, como eu comentei, no art. 4º, existe a exceção. A LGPD é aplicada no tratamento de dados. Aqui, ela não está relacionada à questão do crime, mas é ali que ele se inicia. Então, uma plataforma que já toma …",
+        "link": "caracteres 52.821–53.131 do turno 19; cabeçalho do turno: O SR. RODRIGO SANTANA DOS SANTOS"
+      },
+      "v1_item_id": "A012",
+      "v1_relation": "moved"
+    }
+  }
+}

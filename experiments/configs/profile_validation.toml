@@ -1,0 +1,32 @@
+[declaration]
+declared_on = "2026-09-26"
+text = "Declared before any actor profile was generated. Tiers, splits, encoder, score bands and review sizes are fixed here and are not changed after the profiles or their scores are seen."
+
+[inputs]
+udv_path = "artifacts/udv/udv_v2.jsonl"
+links_path = "artifacts/udv/udv_v2_actor_links.jsonl"
+profiles_path = "artifacts/mlx_runs/qwen38_27b/actor_profiles/actor_profiles_train.jsonl"
+split_manifest = "artifacts/splits/temporal_v1.json"
+
+[validation]
+tiers = ["quote_found", "semantic_match_high"]
+generation_splits = ["train"]
+held_out_splits = ["test"]
+cache_dir = "artifacts/cache/embeddings"
+output_dir = "artifacts/profile_validation"
+name = "profile_validation_udv_v2"
+seed = 42
+bootstrap_samples = 1000
+confidence_level = 0.95
+
+[validation.encoder]
+name = "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder"
+revision = "a01887015444f7599669c509447c5bdbce958916"
+batch_size = 64
+device = "auto"
+
+[review]
+seed = 42
+score_bands = [0.3, 0.5]
+sizes = { in_prompt = 20, held_out = 20 }
+output = "artifacts/profile_validation/profile_review_udv_v2.csv"

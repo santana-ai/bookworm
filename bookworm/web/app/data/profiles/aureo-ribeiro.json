@@ -1,0 +1,616 @@
+{
+  "actor": {
+    "slug": "aureo-ribeiro",
+    "name": "Aureo Ribeiro",
+    "display_name": "Aureo Ribeiro",
+    "role": "Deputado (Solidariedade-RJ)",
+    "article_names": [
+      "Aureo Ribeiro"
+    ],
+    "party_uf": [
+      "Bloco/SOLIDARIEDADE - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:07:48+00:00",
+    "n_statements": 97,
+    "n_hearings": 6,
+    "hearing_ids": [
+      6,
+      8,
+      47,
+      54,
+      182,
+      199
+    ],
+    "input_tokens": 21197,
+    "output_tokens": 1172,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 25,
+    "with_udv": 3,
+    "passage_only": 20,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação de um grupo de trabalho na Comissão de Cultura e a formação de uma frente parlamentar para debater a dependência tecnológica, visando aprofundar a legislação brasileira sobre o tema.",
+          "passage": {
+            "hearing_id": 54,
+            "turn": 11,
+            "start": 30927,
+            "end": 31231,
+            "text": "Pela sua fala, o Deputado Paulo fará parte também desse grupo de trabalho, que pode ser votado aqui na Comissão de Cultura, para debater e aprofundar o tema da dependência tecnológica, até criando aqui — vou convidar o Deputado Paulo — uma frente parlamentar para debater o assunto no Congresso Nacional.",
+            "score": 0.4499
+          },
+          "udv": {
+            "id": "udv-54-0-2",
+            "rule": "similar_text",
+            "score": 0.4071
+          }
+        },
+        {
+          "text": "Critica a tramitação do Projeto de Lei nº 2.498, de 2015, de sua autoria, que trata da dependência tecnológica, apontando que a falta de relator na Comissão de Saúde se deve à \"força das big techs\".",
+          "passage": {
+            "hearing_id": 54,
+            "turn": 11,
+            "start": 30317,
+            "end": 30534,
+            "text": "O Projeto de Lei nº 2.498, de 2015, de minha autoria, já passou pela Comissão de Ciência e Tecnologia e hoje está na Comissão de Saúde, mas, pela força dasbig techs, ainda não há Relator designado para tratar do tema.",
+            "score": 0.5112
+          },
+          "udv": {
+            "id": "udv-54-0-1",
+            "rule": "same_sentence",
+            "score": 0.4552
+          }
+        },
+        {
+          "text": "Cobra do Ministério da Saúde explicações sobre contratos emergenciais sem licitação em hospitais federais do Rio de Janeiro, especificamente no Hospital Federal dos Servidores e no Hospital Geral de Bonsucesso, questionando a capacidade técnica das empresas contratadas e a má administração de recursos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 265,
+            "start": 172885,
+            "end": 173028,
+            "text": "Uma reportagem doG1mostra que todos os contratos do Hospital Geral de Bonsucesso foram feitos de forma emergencial, o que dispensa a licitação.",
+            "score": 0.3168
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a inclusão dos hospitais federais do Rio de Janeiro em um \"parque\" de saúde e cobra a resolução das filas de espera no Instituto Nacional de Traumatologia e Ortopedia Jamil Haddad (INTO) e no Instituto Nacional do Câncer (INCA).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 265,
+            "start": 173432,
+            "end": 173638,
+            "text": "se no Instituto Nacional de Traumatologia e Ortopedia Jamil Haddad, o INTO, e no Instituto Nacional do Câncer, o INCA, ambos no Estado do Rio de Janeiro, tem jeito de acabar com a fila gigantesca de espera.",
+            "score": 0.6618
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação urgente do Projeto de Lei nº 3.942, de 2023, para estender o prazo de execução dos recursos da Lei Paulo Gustavo até 30 de junho de 2024, argumentando que a regulamentação tardia impediu a aplicação dos recursos no setor cultural.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 36,
+            "start": 43350,
+            "end": 43735,
+            "text": "Então, eu faço um apelo a esta Comissão para que possamos, como Comissão de Cultura, pedir urgência ao Plenário na aprovação da lei — isto tem que ser feito por projeto de lei — que estende o prazo até 30 de junho de 2024, permitindo a boa aplicação dos recursos da Lei Paulo Gustavo para os fazedores de cultura, o nosso audiovisual e a volta do investimento na cultura do nosso País.",
+            "score": 0.409
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica os reajustes dos planos de saúde coletivos, citando dados do Instituto de Defesa do Consumidor (IDEC) que mostram aumentos superiores a 50% em cinco anos, e questiona a ANS sobre os critérios de fiscalização e a fuga das operadoras para modalidades com regulação mais flexível.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 54,
+            "start": 104685,
+            "end": 104862,
+            "text": "Lembro aqui que protocolei uma proposta de fiscalização, a PFC 29, de 2023, a fim de acompanhar a atuação da ANS frente aos abusos cometidos pelas operadoras de planos de saúde.",
+            "score": 0.1971
+          },
+          "udv": null
+        },
+        {
+          "text": "Investiga a 123Milhas e a HotMilhas na CPI das Pirâmides Financeiras, classificando o modelo de negócio como análogo a uma pirâmide financeira devido à promessa de retornos exorbitantes, falta de produto real e insustentabilidade.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4028,
+            "start": 726647,
+            "end": 727654,
+            "text": "Reforço que o foco desta Comissão Parlamentar de Inquérito é investigar as pirâmides financeiras, um esquema fraudulento cujas principais características são: promessa de retornos exorbitantes, o que percebemos aqui com as passagens vendidas em valores muito abaixo dos praticadosno mercado; necessidade de um recrutamento contínuo, que é o que parece estar presente no caso da 123Milhas; publicidade intensa para possibilitar o recrutamento contínuo, o que facilmente […]",
+            "score": 0.2646
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a legalidade da transação de milhas aéreas, argumentando que a prática de intermediar milhas sem taxa de intermediação explícita no contrato e sem regulamentação clara configura possível fraude e crime tributário.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 232,
+            "start": 64769,
+            "end": 64822,
+            "text": "E a gente tem que tratar de um crime aqui tributário.",
+            "score": 0.2743
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a prática de \"dumping\" pela 123Milhas, ao vender passagens abaixo do custo de mercado para captar clientes, e solicita a oficialização de representação ao CADE.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 627,
+            "start": 150425,
+            "end": 150499,
+            "text": "Literalmente, uma liquidação abaixo do custo, ou desejado abaixo do custo.",
+            "score": 0.2762
+          },
+          "udv": null
+        },
+        {
+          "text": "Aponta a existência de e-mails da HotMilhas instruíndo clientes a mentir para companhias aéreas sobre a venda de milhas, classificando a conduta como criminosa e de falsidade ideológica.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 236,
+            "start": 65908,
+            "end": 66045,
+            "text": "Muitas vezes, eu posso até falar que você está tratando nessa relação de uma falsidade ideológica, que você trata como se fosse a pessoa.",
+            "score": 0.1713
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação clara do mercado de milhas aéreas e ativos digitais no Brasil, destacando a ausência de legislação específica para a precificação, tributação e custódia desses ativos.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3882,
+            "start": 697825,
+            "end": 697911,
+            "text": "Existe uma regulamentação da Receita Federal que trata de custódia de ativos digitais.",
+            "score": 0.3823
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a proteção do consumidor como fundamento para criticar práticas empresariais, invocando o Código de Defesa do Consumidor (art. 51) para invalidar cláusulas abusivas e a variação unilateral de preços.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 4049,
+            "start": 731481,
+            "end": 731595,
+            "text": "51 do Código de Defesa do Consumidor trata sobre cláusulas abusivas ao consumidor, que são nulas de pleno direito.",
+            "score": 0.4767
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas críticas em dados estatísticos e reportagens de veículos de imprensa (Folha de S. Paulo, G1, UOL, IDEC) para sustentar alegações de má gestão, fraudes e abusos de mercado.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Valoriza a transparência e a clareza contratual, exigindo que taxas de intermediação e critérios de reajuste sejam explícitos e acessíveis ao cidadão.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 54,
+            "start": 104327,
+            "end": 104404,
+            "text": "Quais os critérios utilizados para definição do reajuste dos planos de saúde?",
+            "score": 0.2124
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a saúde pública e o bem-estar social como justificativa para cobrar melhorias em hospitais federais e no combate a doenças como a dependência tecnológica.",
+          "passage": {
+            "hearing_id": 54,
+            "turn": 5,
+            "start": 19733,
+            "end": 19899,
+            "text": "Cristiano, quais recomendações o senhor teria para os Governos e órgãos reguladores no sentido de abordar a dependência tecnológica como um problema de saúde pública?",
+            "score": 0.2024
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Projeto de Lei nº 2.498, de 2015, e do Projeto de Lei nº 3.942, de 2023.",
+          "passage": {
+            "hearing_id": 54,
+            "turn": 11,
+            "start": 30317,
+            "end": 30534,
+            "text": "O Projeto de Lei nº 2.498, de 2015, de minha autoria, já passou pela Comissão de Ciência e Tecnologia e hoje está na Comissão de Saúde, mas, pela força dasbig techs, ainda não há Relator designado para tratar do tema.",
+            "score": 0.3259
+          },
+          "udv": {
+            "id": "udv-54-0-1",
+            "rule": "same_sentence",
+            "score": 0.2623
+          }
+        },
+        {
+          "text": "Identifica-se como Deputado Federal da Comissão de Cultura e membro da CPI das Pirâmides Financeiras.",
+          "passage": {
+            "hearing_id": 54,
+            "turn": 2,
+            "start": 8290,
+            "end": 8352,
+            "text": "Paulo Fernando, nosso Deputado Federal da Comissão de Cultura.",
+            "score": 0.4177
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser de Duque de Caxias, no Rio de Janeiro, e relata ter sido atendido na infância no Hospital Federal dos Servidores do Estado.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 272,
+            "start": 178495,
+            "end": 178621,
+            "text": "Ministra, eu sou de Duque de Caxias e durante toda a minha infância fui atendido no Hospital Federal dos Servidores do Estado.",
+            "score": 0.6545
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se autor do Marco Legal da Criptoeconomia no Brasil e defensor de ativos digitais desde 2015.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 3821,
+            "start": 686631,
+            "end": 686827,
+            "text": "E eu estou muito preparado até para a gente entrar nesse debate, porque desde 2015 eu sou defensor de ativos digitais nesta Casa Legislativa e sou autor do Marco Legal da Criptoeconomia no Brasil.",
+            "score": 0.6408
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a bancada do Rio de Janeiro na cobrança de melhorias para a saúde pública do estado.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 272,
+            "start": 177875,
+            "end": 177956,
+            "text": "já recebeu toda a bancada do Rio de Janeiro para tratarmos desse tema específico.",
+            "score": 0.2917
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Constrói argumentos baseados em perguntas diretas e específicas, frequentemente citando números exatos, datas e nomes de empresas ou órgãos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza exemplos concretos e casos individuais (como o relato de um cliente nas redes sociais) para ilustrar o impacto das falhas empresariais na população.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 24,
+            "start": 17233,
+            "end": 17293,
+            "text": "Isso tudo com ampla divulgação na mídia e nas redes sociais.",
+            "score": 0.1736
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom confrontador em audiências de investigação, usando termos como \"golpe\", \"calote\", \"criminoso\" e \"falsidade ideológica\" para descrever as práticas das empresas investigadas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 236,
+            "start": 65908,
+            "end": 66045,
+            "text": "Muitas vezes, eu posso até falar que você está tratando nessa relação de uma falsidade ideológica, que você trata como se fosse a pessoa.",
+            "score": 0.157
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e explicações técnicas simplificadas (como o exemplo do \"João\" e da \"Maria\" na transação de milhas) para elucidar a complexidade dos modelos de negócio aos demais parlamentares.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 232,
+            "start": 64137,
+            "end": 64260,
+            "text": "Você emite a passagem para a Maria nas milhas do João.A Maria já está com a passagem na mão, emitida com as milhas do João.",
+            "score": 0.2772
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita decisões judiciais e normas legais (como o art. 342 do Código Penal e o art. 51 do CDC) para fundamentar suas indagações e acusações.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 0,
+            "start": 342,
+            "end": 379,
+            "text": "Nos termos do parágrafo único do art.",
+            "score": 0.1869
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 5,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados, especialistas e familiares cobram cumprimento dos direitos das pessoas com autismo",
+      "assunto": "Cumprimento dos direitos das pessoas com autismo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 6,
+      "split": "train",
+      "article_date": "2023-09-06",
+      "title": "Sócio da 123milhas diz que passagens precisaram ser suspensas porque preços não seguiram previsões",
+      "assunto": "Suspensão de passagens promocionais pela 123milhas devido a previsões de preços não cumpridas e recuperação judicial da empresa",
+      "turns": 78,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 8,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Banco Central espera concluir regulação do mercado de criptomoedas até meados de 2024",
+      "assunto": "Regulação do mercado de criptomoedas no Brasil",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 47,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores comemoram melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "assunto": "Melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 54,
+      "split": "train",
+      "article_date": "2023-06-27",
+      "title": "Especialistas sugerem grupo de trabalho e aprovação de lei para lidar com dependência tecnológica",
+      "assunto": "Dependência tecnológica e propostas legislativas para lidar com o problema",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 182,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Entidades que defendem consumidor pedem regulação para reajustes de planos de saúde coletivos",
+      "assunto": "Regulação dos reajustes dos planos de saúde coletivos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-6-1-0",
+      "hearing_id": 6,
+      "n": 16,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Quis saber por que clientes que venderam milhas para a empresa através da Hotmilhas também não receberam pela transação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O que o senhor tem a falar para essas pessoas que estão falando aqui:\"Questione ele sobre a HotMilhas. Fizeram a intermediação de milhas, a gente vendeu as milhas, e não recebeu\".",
+        "turn": 195,
+        "start": 57001,
+        "end": 57180
+      },
+      "verifier": {
+        "probability": 0.9312339869320955,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-6-1-1",
+      "hearing_id": 6,
+      "n": 17,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Leu e-mails que seriam da empresa Hotmilhas para clientes, nos quais a empresa pedia a eles que não dissessem à companhia aérea que tinham vendido suas milhas para terceiros.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este aqui é oe-mailinstitucional de HotMilhas, que coloca:\"Fique atento às ligações telefônicas. A companhia aérea pode entrar em contato com você para confirmar as emissões das passagens aéreas.",
+        "turn": 2004,
+        "start": 402640,
+        "end": 402835
+      },
+      "verifier": {
+        "probability": 0.2875732860099654,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-8-1-0",
+      "hearing_id": 8,
+      "n": 9,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Questionou de que maneira a regulação poderá impedir que corretoras de moedas virtuais se envolvam em esquemas de pirâmide financeira e de lavagem de dinheiro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Como os reguladores impedirão que as corretoras de criptomoedas se envolvam em fraudes como pirâmides financeiras? Como os reguladores, de maneira geral, protegerão os investidores de perderem o seu dinheiro em investimentos em criptomoedas, uma vez que se trata de ativos especulativos?",
+        "turn": 6,
+        "start": 44310,
+        "end": 44597
+      },
+      "verifier": {
+        "probability": 0.86359955730732,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-8-1-1",
+      "hearing_id": 8,
+      "n": 10,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Questionou como proteger as pessoas que investem nesses ativos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Como os reguladores, de maneira geral, protegerão os investidores de perderem o seu dinheiro em investimentos em criptomoedas, uma vez que se trata de ativos especulativos? Que medidas serão tomadas para evitar que as corretoras de criptomoedas sejam utilizadas para facilitar a lavagem de dinheiro e outras atividades criminosas?",
+        "turn": 6,
+        "start": 44425,
+        "end": 44755
+      },
+      "verifier": {
+        "probability": 0.9827333090404777,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-54-0-0",
+      "hearing_id": 54,
+      "n": 1,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Apresentou um projeto de lei (PL 2498/15) propondo a criação de centros de atenção aos usuários compulsivos de serviços de internet e redes sociais.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Eu tive oportunidade de apresentar um projeto de lei que tramita na Câmara dos Deputados, tratando do assunto, para que possamos aqui, através de audiências públicas, escutar especialistas, aprofundar e debater um tema que vai ser muito importante para a sociedade. Cresce o número de dependentes tecnológicos no Brasil.",
+        "turn": 5,
+        "start": 17568,
+        "end": 17888
+      },
+      "verifier": {
+        "probability": 0.10813966579023296,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-54-0-1",
+      "hearing_id": 54,
+      "n": 2,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Lamentou a tramitação lenta da proposta na Casa, atribuindo-a à pressão das big techs.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Projeto de Lei nº 2.498, de 2015, de minha autoria, já passou pela Comissão de Ciência e Tecnologia e hoje está na Comissão de Saúde, mas, pela força dasbig techs, ainda não há Relator designado para tratar do tema. Esse é um projeto importante, de 2015, já está há quase 8 anos tramitando na Câmara dos Deputados, mas infelizmente ainda não teve andamento, por tratar de um tema que tem forte presença aqui na Câmara dos Deputados.",
+        "turn": 11,
+        "start": 30317,
+        "end": 30751
+      },
+      "verifier": {
+        "probability": 0.378251547293422,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-54-0-2",
+      "hearing_id": 54,
+      "n": 3,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Gostou da sugestão da criação de um grupo de trabalho na Comissão de Cultura e quer propor também uma frente parlamentar para tratar do tema: \"Acho que a sugestão aqui no senhor Cristiano Nabuco é fundamental para a Câmara dos Deputados: estabelecer um grupo de trabalho para que a gente possa debater neste grupo de trabalho a legislação brasileira e como vamos enfrentar este grande problema, que não é só do Brasil, mas do mundo.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acho que a sugestão do Sr. Cristiano Nabuco é fundamental para a Câmara de Deputados, que é estabelecer um grupo de trabalho, para que possamos debater, nesse grupo de trabalho, a legislação brasileira e como vamos enfrentar esse grande problema, que não é só do Brasil, mas do mundo.",
+        "turn": 5,
+        "start": 18026,
+        "end": 18310
+      },
+      "verifier": {
+        "probability": 0.42912422499362973,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-133-9-0",
+      "hearing_id": 133,
+      "n": 13,
+      "article_name": "Aureo Ribeiro",
+      "proposition": "Criticou o grupo Enel e a ausência do seu presidente.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acho um desrespeito do Presidente da ENEL não comparecer. Acho que precisamos aqui debater os dados.",
+        "turn": 40,
+        "start": 40648,
+        "end": 40748
+      },
+      "verifier": {
+        "probability": 0.9520041826928191,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

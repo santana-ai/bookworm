@@ -1,0 +1,281 @@
+{
+  "actor": {
+    "slug": "pedro-campos",
+    "name": "PEDRO CAMPOS",
+    "display_name": "Pedro Campos",
+    "role": "Deputado",
+    "article_names": [
+      "Pedro Campos"
+    ],
+    "party_uf": [
+      "Bloco/PSB - PE",
+      "PSB - PE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:00:23+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      2,
+      183
+    ],
+    "input_tokens": 3354,
+    "output_tokens": 757,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 0,
+    "passage_only": 12,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a investigação sobre o evento de queda no rendimento de usinas no Ceará deve esclarecer o tipo de fonte (eólica ou solar) e as precauções necessárias, para evitar a \"vilanização\" das energias renováveis.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 83,
+            "start": 134471,
+            "end": 134592,
+            "text": "Também é importante deixar claro se essas usinas eram ou não usinas, de que tipo de geração — de energia eólica ou solar.",
+            "score": 0.3078
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério de Minas e Energia uma política de \"transição energética justa e inclusiva\" no Nordeste, garantindo que os ganhos da geração renovável resultem em barateamento da conta de energia, geração de emprego e renda, preço de arrendamento justo para famílias e industrialização regional.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 83,
+            "start": 135182,
+            "end": 135855,
+            "text": "Então, como o Ministério de Minas e Energia tem encarado, dentro dessa transição energética, o desafio da distribuição desses ganhos esplêndidos da geração de energia renovável no Nordeste, para que garantamos que esses investimentos não deixem o homem e a mulher do campo olhando aquela pá girando, sem ver o desenvolvimento chegar dentro da sua casa, com o barateamento da sua conta de energia; com a oportunidade de geração de emprego e de renda; com a oportunidade de um […]",
+            "score": 0.485
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Ministério sobre a retomada de investimentos em refino de petróleo, citando especificamente a duplicação da Refinaria Abreu e Lima, em Pernambuco, e a busca por autossuficiência em derivados como vetor de desenvolvimento regional.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 83,
+            "start": 136067,
+            "end": 136405,
+            "text": "Como o Ministério vem encarando essa situação da não existência de capacidade de refino dos derivados de petróleo — sabemos que é um problema histórico do Brasil — e da possibilidade de retomar investimentos importantes, como a duplicação da Refinaria Abreu e Lima, no Estado de Pernambuco, que já está dentro da programação da PETROBRAS?",
+            "score": 0.4197
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende uma política de estabilização de preços de combustíveis que não siga o preço de paridade de importação, propondo o uso de dividendos, participação da União na PETROBRAS e imposto de exportação para equalizar preços internos e proteger o consumidor de flutuações.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 83,
+            "start": 136728,
+            "end": 137185,
+            "text": "O atual Presidente da PETROBRAS, Jean Paul Prates, enquanto esteve no Senado, conduziu muito bem essa discussão, teve a oportunidade de relatar projetos acerca desse tema e propor uma política de estabilização de preços, fazendo uso dos recursos de dividendos, da própria participação da União no contexto da PETROBRAS, inclusive, colocando a possibilidade do imposto de exportação como algo utilizado para a equalização e estabilização dos preços internos.",
+            "score": 0.3987
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Ministério do Meio Ambiente sobre o espaço dos biocombustíveis (biodiesel) e das energias renováveis no Plano de Transformação Ecológica, visando reduzir a demanda por fósseis e gerar crescimento econômico sustentável no Nordeste.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 32,
+            "start": 61360,
+            "end": 61963,
+            "text": "Indo para os questionamentos em relação ao Plano de Transformação Ecológica, de que o Ministério vem tratando junto com o Ministério da Fazenda, gostaria de perguntar o seguinte: dentro desse plano, qual é o espaço do avanço dos biocombustíveis, da presença do biodiesel para diminuir exatamente essa demanda pelos combustíveis fósseis e também a presença das energias renováveis dentro desse contexto, não só para diminuir essa demanda dos combustíveis fósseis, mas também para […]",
+            "score": 0.5199
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobre informações sobre o monitoramento do desmatamento na Caatinga e relata a tramitação de um projeto de lei sobre o zoneamento econômico e ecológico desse bioma.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 32,
+            "start": 62102,
+            "end": 62199,
+            "text": "Aqui estou relatando um projeto de lei que trata do zoneamento econômico e ecológico desse bioma.",
+            "score": 0.5312
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a história econômica do Nordeste (ciclos do pau-brasil e da cana-de-açúcar) como fundamento para argumentar que a abundância de recursos naturais não garante desenvolvimento local se não houver divisão equilibrada dos ganhos, justificando sua cobrança por inclusão social na transição energética.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 83,
+            "start": 135011,
+            "end": 135180,
+            "text": "Vivemos o ciclo da cana-de-açúcar, com abundância de recursos e com uma dificuldade enorme de exploração e de divisão equilibrada dos ganhos da exploração desse recurso.",
+            "score": 0.3108
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a metáfora da \"pega de boi no mato\" para justificar a dificuldade e a necessidade de esforço ativo na recuperação das políticas ambientais, contrastando com a passividade do \"deixar a boiada passar\", e cita a redução de 42% no desmatamento da Amazônia como evidência de que a política atual está funcionando.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 32,
+            "start": 59739,
+            "end": 60049,
+            "text": "É muito difícil assumir um trabalho de preservação do meio ambiente depois da política do \"deixar a boiada passar\", até porque quem é do Sertão pernambucano, quem conhece pega de boi no mato sabe que o trabalho de botar a boiada para dentro do cercado é muito maior do que o trabalho de deixar a boiada passar.",
+            "score": 0.2534
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza o debate técnico e a discussão de ideias como método para resolver divergências políticas, citando a relação de cooperação e enfrentamento com seu pai, Eduardo Campos, como exemplo de que convicções distintas não impedem a colaboração.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 32,
+            "start": 60983,
+            "end": 61278,
+            "text": "Eu tenho certeza de que as suas posições em relação a todos esses temas são profundamente enraizadas nas suas convicções do melhor para o Brasil e que a discussão tem que ser feita realmente no termo das ideias, do debate técnico e das convicções que tem cada um e que cada um leva nesse debate.",
+            "score": 0.3038
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da Região Nordeste e do Sertão pernambucano, referenciando-se como \"quem é do Sertão pernambucano\".",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 32,
+            "start": 59739,
+            "end": 60049,
+            "text": "É muito difícil assumir um trabalho de preservação do meio ambiente depois da política do \"deixar a boiada passar\", até porque quem é do Sertão pernambucano, quem conhece pega de boi no mato sabe que o trabalho de botar a boiada para dentro do cercado é muito maior do que o trabalho de deixar a boiada passar.",
+            "score": 0.1995
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser filho de Eduardo Campos, ex-Ministro da Ciência e Tecnologia, e menciona a relação de cooperação e enfrentamento ideológico que teve com a Ministra Marina Silva.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 32,
+            "start": 60549,
+            "end": 60671,
+            "text": "teve a oportunidade de ser Ministra do Meio Ambiente ao lado do meu pai, Eduardo Campos, Ministro da Ciência e Tecnologia.",
+            "score": 0.4447
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura suas falas iniciando com cumprimentos e elogios ao trabalho dos ministros presentes, antes de passar aos questionamentos técnicos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza metáforas regionais e culturais (como a \"pega de boi no mato\") para ilustrar conceitos de gestão pública e política ambiental.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 32,
+            "start": 59739,
+            "end": 60049,
+            "text": "É muito difícil assumir um trabalho de preservação do meio ambiente depois da política do \"deixar a boiada passar\", até porque quem é do Sertão pernambucano, quem conhece pega de boi no mato sabe que o trabalho de botar a boiada para dentro do cercado é muito maior do que o trabalho de deixar a boiada passar.",
+            "score": 0.1511
+          },
+          "udv": null
+        },
+        {
+          "text": "Formula perguntas diretas aos ministros sobre políticas específicas, vinculando sempre a questão técnica ao impacto social e econômico na sua região de origem.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos (como a redução de 42% no desmatamento) e fatos históricos (ciclos econômicos do Nordeste) para sustentar seus argumentos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 109,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Ministro da Integração afirma que Plano Nacional de Defesa Civil sai no segundo semestre",
+      "assunto": "Plano Nacional de Proteção e Defesa Civil (PNPDC) e outras políticas regionais",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-109-2-0",
+      "hearing_id": 109,
+      "n": 6,
+      "article_name": "Pedro Campos",
+      "proposition": "Defendeu a aprovação do projeto que institui uma política de proteção da Caatinga (PL 4623/19).",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O primeiro tem relação com a Caatinga. É muito boa a sugestão de a incluirmos na pauta.",
+        "turn": 40,
+        "start": 90198,
+        "end": 90285
+      },
+      "verifier": {
+        "probability": 0.2038147060456527,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

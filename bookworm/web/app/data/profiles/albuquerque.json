@@ -1,0 +1,295 @@
+{
+  "actor": {
+    "slug": "albuquerque",
+    "name": "ALBUQUERQUE",
+    "display_name": "Albuquerque",
+    "role": "Deputado (Republicanos-RR)",
+    "article_names": [
+      "Albuquerque"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - RR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:24:19+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      43
+    ],
+    "input_tokens": 2992,
+    "output_tokens": 908,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a Lei nº 13.954/2019 por impor um \"salário miserável\" aos QEs (Quartelados de Elite), alegando que a norma flagela os combatentes e causa fome a sargentos, cabos e soldados.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 98397,
+            "end": 98574,
+            "text": "Iremos ao Estado de Roraima, quando apresentarei os QEs que estão passando fome por receberem um salário miserável por conta da Lei nº 13.954, de 2019.Eu conheço essa realidade!",
+            "score": 0.4047
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Defesa e do Deputado Glauber a visita in loco às residências de sargentos em situação de vulnerabilidade, citando especificamente os casos do Sargento Sá, do Sargento França e do Sargento Trajano em Roraima, para demonstrar a realidade vivida pelos militares.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 98648,
+            "end": 98735,
+            "text": "Vamos lá, à casa do Sargento Sá, à casa do Sargento França, à casa do Sargento Trajano.",
+            "score": 0.3757
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a falta de humanidade no tratamento dado às Forças Armadas aos QEs, classificando a situação como \"ato de covardia\" e \"vergonha\" para o Exército Brasileiro e para as Forças Armadas.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 101399,
+            "end": 101431,
+            "text": "Vergonha para as Forças Armadas!",
+            "score": 0.4765
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Alto Comando e o Brigadeiro Heraldo sobre a manutenção de práticas disciplinares que, segundo ele, equivalem a \"prisão domiciliar\", impedindo direitos básicos como educar filhos ou frequentar estabelecimentos comerciais, como pizzarias, devido à insuficiência salarial.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 100919,
+            "end": 101074,
+            "text": "O que nós sentimos aqui é como se fosse prisão domiciliar, por não termos o direito de educar nossos filhos, por não termos o direito de ir a uma pizzaria.",
+            "score": 0.1944
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede ao Presidente Lula e ao Ministro da Defesa que estabeleçam um prazo definido (início e fim) para o reparo da situação, solicitando ajuda para garantir mais 10 ou 15 anos de vida com dignidade aos militares.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 101659,
+            "end": 101821,
+            "text": "Peço ao Presidente Lula que nos ajude a ter mais, talvez, 10 anos, 15 anos de vida, e que possamos ter uma vida com dignidade, porque nós contribuímos com o País.",
+            "score": 0.4039
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um grupo de trabalho para avançar no tema, argumentando que é uma solução simples e que o Ministro da Defesa entenderá a necessidade de reconhecer as pretensões dos representantes dos QEs.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 61,
+            "start": 135165,
+            "end": 135255,
+            "text": "Eu acho que, para podermos avançar nesse tema, é tão fácil montarmos um grupo de trabalho!",
+            "score": 0.2745
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que os generais e oficiais só alcançaram suas posições graças ao cumprimento da missão pelos cabos, soldados e sargentos, que enfrentaram a Amazônia, a malária e o abandono familiar, e critica o não reconhecimento desses esforços.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 99291,
+            "end": 99406,
+            "text": "Se hoje há generais aposentados ou na ativa é porque os cabos, os soldados e os sargentos cumpriram a missão deles.",
+            "score": 0.2496
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o lema \"Braço forte, mão amiga\" como critério de conduta, argumentando que ele foi usado apenas para promover oficiais e generais, enquanto serve para \"enterrar as famílias e os combatentes verdadeiros\", evidenciando uma falha no reconhecimento da base da hierarquia militar.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 99737,
+            "end": 99811,
+            "text": "O lema é esse, Deputado Glauber, Deputada Fernanda:Braço forte, mão amiga.",
+            "score": 0.2994
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência pessoal de ter sido cabo e ter servido na fronteira como fundamento para sua indignação, afirmando que não se arrepende de ter ido, mas se arrepende de ver as condições atuais dos QEs, o que valida sua crítica à gestão do Alto Comando.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 99052,
+            "end": 99144,
+            "text": "Eu me arrependo é de ver, no dia de hoje, as condições em que vivem os QEs em todo o Brasil.",
+            "score": 0.1844
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia sua argumentação na ideia de que os militares contribuíram para o País e para a grandeza das Forças Armadas, e que, portanto, têm direito a uma vida com dignidade e respeito ao ser humano, não podendo ser tratados como presos ou abandonados à morte.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 101659,
+            "end": 101821,
+            "text": "Peço ao Presidente Lula que nos ajude a ter mais, talvez, 10 anos, 15 anos de vida, e que possamos ter uma vida com dignidade, porque nós contribuímos com o País.",
+            "score": 0.1706
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se ex-cabo das Forças Armadas, tendo servido na fronteira, e identifica-se com os QEs, cabos, soldados e sargentos presentes na audiência.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 97933,
+            "end": 98084,
+            "text": "Bom dia, Presidente Fernanda, Deputado Glauber, Deputados presentes, senhoras e senhores, todos os cabos e soldados presentes nesta audiência.(Palmas.)",
+            "score": 0.2482
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com os 50 mil cidadãos brasileiros (QEs) que, segundo ele, tiveram a coragem de colocar os oficiais onde estão, e posiciona-se contra a postura do Alto Comando e do Brigadeiro Heraldo.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 100176,
+            "end": 100278,
+            "text": "Venha enfrentar aqui os 50 mil cidadãos brasileiros que tiveram a coragem de colocar vocês onde estão!",
+            "score": 0.5458
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emocional e apelativa, empregando repetições enfáticas (\"Vergonha! Vergonha!\", \"Vamos lá! Vamos lá!\") e perguntas retóricas dirigidas diretamente ao Brigadeiro Heraldo e ao Alto Comando.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 101399,
+            "end": 101431,
+            "text": "Vergonha para as Forças Armadas!",
+            "score": 0.221
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e pessoais, como a visita à casa de um terceiro-sargento em Boa Vista que não pode ir a uma pizzaria por não pagar a conta de energia, para ilustrar a gravidade da situação salarial.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 101075,
+            "end": 101295,
+            "text": "Ao chegar a Boa Vista e ir à casa de um colega terceiro-sargento, eu o ouvi dizer:\"Albuquerque, eu não tenho o direito de ir a uma pizzaria com a minha família, porque senão eu não pago a conta de energia da minha casa\".",
+            "score": 0.4251
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a postura passada do Alto Comando (prisões sumárias de cabos e soldados) com a atual, argumentando que a situação atual é uma forma de \"prisão social\" e \"domiciliar\" mais cruel, pois afeta a dignidade familiar.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Direciona cobranças específicas a autoridades presentes ou ausentes (Presidente Lula, Ministro da Defesa, Brigadeiro Heraldo), pedindo ações concretas como visitas, prazos para reparo e criação de grupos de trabalho.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 36,
+            "start": 101463,
+            "end": 101641,
+            "text": "Com isso, eu quero dizer, e aqui pedir ao Presidente Lula, ao Ministro da Defesa: vamos sim, Glauber, provocar que essa data, para se fazer esse reparo, tenha início e tenha fim.",
+            "score": 0.1934
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 43,
+      "split": "train",
+      "article_date": "2023-06-07",
+      "title": "Deputados defendem debate com a Defesa sobre mudanças no sistema de proteção social dos militares",
+      "assunto": "Debate sobre mudanças no sistema de proteção social dos militares e os efeitos da Lei 13.954/19",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-43-2-0",
+      "hearing_id": 43,
+      "n": 4,
+      "article_name": "Albuquerque",
+      "proposition": "Apoia a criação de um grupo de trabalho para discutir o sistema de proteção social dos militares.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Eu peço que coloque no coração das Forças Armadas, no seu escalão superior, que não haverá mal nenhum em reconhecer aquilo que é pretendido pelos nobres colegas, através de suas representatividades. Muito obrigado. Estamos sempre à disposição.(Palmas.)",
+        "turn": 61,
+        "start": 135297,
+        "end": 135551
+      },
+      "verifier": {
+        "probability": 0.1269249608313032,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

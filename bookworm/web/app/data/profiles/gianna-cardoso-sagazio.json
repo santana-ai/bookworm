@@ -1,0 +1,431 @@
+{
+  "actor": {
+    "slug": "gianna-cardoso-sagazio",
+    "name": "GIANNA CARDOSO SAGAZIO",
+    "display_name": "Gianna Sagazio",
+    "role": "Diretora de Inovação da Confederação Nacional da Indústria (CNI)",
+    "article_names": [
+      "Gianna Sagazio"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:51:16+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      184,
+      197
+    ],
+    "input_tokens": 6034,
+    "output_tokens": 1197,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 2,
+    "passage_only": 21,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação imediata do PL da Lei do Bem, de autoria da Deputada Luisa Canziani, argumentando que é o principal instrumento fiscal para incentivar a inovação empresarial, alinhado às práticas de países da OCDE, e que sua restrição atual limita o impacto econômico e a contratação de pesquisadores.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 65162,
+            "end": 65299,
+            "text": "Entendemos que esse é o principal instrumento fiscal para incentivar os projetos de inovação, alinhado com as melhores práticas do mundo.",
+            "score": 0.3837
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a revisão do Marco Legal da Inovação para permitir a previsão de despesas operacionais e administrativas em instrumentos firmados com ICTs, empresas, fundações de apoio e agências de fomento, visando aumentar a eficiência dos projetos.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 66735,
+            "end": 66998,
+            "text": "Mas precisamos avançar em outros pontos, como, por exemplo, a possibilidade de previsão de despesas operacionais e administrativas em instrumentos firmados com os ICTs, com as empresas, com as fundações de apoio, com as agências de fomento e com os pesquisadores.",
+            "score": 0.6235
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autonomia gerencial, orçamentária e financeira para ICTs públicas que exercem atividades de produção e oferta de bens e serviços, citando como referência os países onde a inovação é prioridade.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 67000,
+            "end": 67201,
+            "text": "Também acreditamos que é possível avançar na permissão para que as ICTs públicas que exercem atividades de produção e de oferta de bens e serviços tenham autonomia gerencial, orçamentária e financeira.",
+            "score": 0.6879
+          },
+          "udv": {
+            "id": "udv-197-5-0",
+            "rule": "same_sentence",
+            "score": 0.5064
+          }
+        },
+        {
+          "text": "Cobra segurança jurídica para a concessão de bolsas a preceptores de residências médicas e profissionais bolsistas de projetos de ensino, pesquisa e extensão, apontando a ausência dessa garantia como um entrave atual.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 67371,
+            "end": 67549,
+            "text": "Também é preciso prover segurança jurídica para a concessão de bolsas aos preceptores de residências médicas e profissionais bolsistas de projetos de ensino, pesquisa e extensão.",
+            "score": 0.7011
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a isenção do Imposto de Importação e do Imposto sobre Produtos Industrializados para importações de empresas em projetos de P&D, buscando igualdade de condições.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 67630,
+            "end": 67794,
+            "text": "—, e trazer igualdade para as importações das empresas em projetos de P&D por meio da isenção do Imposto de Importação e do Imposto sobre Produtos Industrializados.",
+            "score": 0.7816
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere permitir que ICTs públicas, por meio de fundações de apoio, viabilizem projetos de produção e comercialização de insumos, produtos e serviços resultantes de atividades acadêmicas, além de assegurar a participação no capital social de empresas.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 67796,
+            "end": 68080,
+            "text": "Aqui, algumas outras melhorias, como permitir que as ICTs públicas possam, por meio das fundações de apoio, viabilizar os projetos de produção e fornecimento de insumos, produtos e serviços e também comercializar os materiais resultantes das atividades de ensino, pesquisa e extensão.",
+            "score": 0.5075
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento do art. 26 da Lei de Inovação para inserir temas de ciência, tecnologia e inovação na formação dos alunos, citando a educação STEAM e a falta de disciplinas como propriedade intelectual em cursos de direito.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 68249,
+            "end": 68378,
+            "text": "26 da Lei de Inovação, a fim de garantir a inserção dos temas referentes à ciência, tecnologia e inovação na formação dos alunos.",
+            "score": 0.4267
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que as políticas orientadas por missão devem ser de âmbito nacional (\"de país\") e não apenas institucionais, exigindo nova governança e aprimoramento do marco regulatório para convergir as escolhas estratégicas.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 47932,
+            "end": 47987,
+            "text": "Tem-se falado muito em políticas orientadas por missão.",
+            "score": 0.3316
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a retomada de programas como o Inova Empresa e destaca a eficácia da EMBRAPII, que possui mais de 10 mil pesquisadores, como exemplo de articulação bem-sucedida entre governo, academia e setor empresarial.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 46344,
+            "end": 46702,
+            "text": "Por isso, eu trago aqui o programa Inova Empresa, que realmente achamos que gerou externalidades, resultados muito favoráveis.E nós estamos bastante animados com a possibilidade da retomada desses programas e instrumentos.Este é um exemplo: a nossa EMBRAPII — eu gostaria de reforçar que este dado não está na apresentação — tem mais de 10 mil pesquisadores.",
+            "score": 0.3698
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma agenda estratégica de longo prazo para a ciência, tecnologia e inovação, construída por todos os atores do ecossistema, rejeitando a fragmentação entre os sistemas de educação/pesquisa e produção/inovação.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 41442,
+            "end": 41511,
+            "text": "Então, realmente precisamos de uma agenda estratégica de longo prazo.",
+            "score": 0.3948
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza rankings internacionais, como o Global Innovation Index (54ª posição em 132 países) e o IMD (60ª posição em 64 países), como fundamento para argumentar que a posição do Brasil é incompatível com sua capacidade produtiva, acadêmica e econômica, justificando a urgência de reformas.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 63420,
+            "end": 63504,
+            "text": "Aqui vocês veem que o Brasil, neste último ano, ocupou a 54ª posição, em 132 países.",
+            "score": 0.2907
+          },
+          "udv": {
+            "id": "udv-197-5-1",
+            "rule": "same_sentence",
+            "score": 0.3935
+          }
+        },
+        {
+          "text": "Invoca a necessidade de \"segurança jurídica\" como critério central para justificar propostas de autonomia para ICTs e proteção a bolsas, argumentando que a ausência dessa segurança gera \"fuga de cérebros\" da academia e do setor empresarial.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 69368,
+            "end": 69531,
+            "text": "Quando falamos na importância de criar segurança jurídica, queremos assegurar que não aconteça a famosa fuga de cérebros da academia e também do setor empresarial.",
+            "score": 0.3551
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na correlação entre capacidade de inovação e geração de riqueza e qualidade de vida, citando dados de que o Brasil, em 2011, ocupava a 7ª posição como economia mundial mas a 47ª em inovação, para defender que a inovação é a estratégia central de desenvolvimento.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 44508,
+            "end": 44647,
+            "text": "Então, existe uma correlação entre a capacidade do País de inovar e a capacidade de criar riqueza e qualidade de vida para a sua população.",
+            "score": 0.3577
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que o investimento público é fundamental em áreas onde o setor privado não atua, servindo para alavancar o investimento privado, e que a discussão sobre impacto fiscal deve considerar a qualidade do gasto, citando que os gastos com pesquisa e inovação representam apenas 1,57% do PIB.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 23,
+            "start": 98688,
+            "end": 98789,
+            "text": "Os gastos com pesquisa científica e inovação tecnológica ficam em 13º lugar, com apenas 1,57% do PIB.",
+            "score": 0.2695
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da CNI e da Mobilização Empresarial pela Inovação (MEI), organização que coordena há 15 anos e que é parceira do Global Innovation Index.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 64622,
+            "end": 64724,
+            "text": "A CNI coordena a Mobilização Empresarial pela Inovação há 15 anos — estamos completando 15 anos agora.",
+            "score": 0.5107
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a CNI e a MEI participaram da formulação do Marco Legal da Inovação e da regulamentação, além de terem apoiado o PL da Lei do Bem e o PL do FNDCT.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 64847,
+            "end": 64998,
+            "text": "Participamos, durante 6 anos, da formulação do marco, contribuindo com a visão do setor empresarial, e também da formulação da regulamentação do marco.",
+            "score": 0.2898
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com o Deputado Vitor Lippi, a quem se dirige para cobrar a votação do PL da Lei do Bem, e com a Deputada Luisa Canziani, autora da proposta.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 43353,
+            "end": 43604,
+            "text": "Então, Deputado Vitor Lippi, o senhor, como Relator desse PL, de autoria da Deputada Canziani, eu estou fazendo aqui, realmente, um apelo, em nome da CNI — e isso foi conversado internamente —, para que esse PL entre em votação o mais rápido possível.",
+            "score": 0.3438
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a CNI atua não apenas defendendo a agenda da indústria, mas comprometida com o desenvolvimento do País e a geração de empregos de qualidade.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 45187,
+            "end": 45336,
+            "text": "E nós, na CNI, falamos isso não apenas defendendo uma agenda da indústria, mas também porque nós estamos comprometidos com o desenvolvimento do País.",
+            "score": 0.5434
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos e rankings internacionais (Global Innovation Index, IMD, PINTEC) para contextualizar a posição do Brasil e fundamentar a urgência das propostas.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 43709,
+            "end": 43784,
+            "text": "Nos dados do Índice Global de Inovação, o Brasil fica numa posição mediana.",
+            "score": 0.2492
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o modelo da \"penta-hélice\" para descrever a complexidade e complementariedade dos atores do ecossistema de inovação, incluindo governo, universidade, empresas, empreendedores e capital de risco.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 45394,
+            "end": 45607,
+            "text": "Ele é triplo, mas eu acho que recentemente temos mais atores e setores que também influenciam fortemente nessa articulação, que são os empreendedores, o capital de risco, as corporações, o Governo, a universidade.",
+            "score": 0.3415
+          },
+          "udv": null
+        },
+        {
+          "text": "Dirige apelos diretos a parlamentares específicos (Deputado Vitor Lippi) para cobrar ações legislativas, como a votação de projetos, e utiliza a presença de autoridades (Presidente do CNPq, Presidente da EMBRAPA) para validar pontos de convergência.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 16,
+            "start": 62549,
+            "end": 62978,
+            "text": "Quero saudar também o nosso Deputado Vitor Lippi, que está sempre conosco nas pautas, em defesa da ciência, tecnologia e inovação; todos os Deputados e Deputadas aqui presentes; o nosso Presidente do CNPq, Ricardo Galvão; o Francisco Saboya, Presidente da EMBRAPA; o Bruno Portela, da AGU; o Paulo Foina, da ABIPTI; o Odir Dellagostin, da CGEE e Presidente da CONFAP, e todas as pessoas que estão aqui presentes nos acompanhando.",
+            "score": 0.2379
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de sucesso, como a EMBRAPII e o programa Inova Empresa, para ilustrar a eficácia da articulação entre setores e justificar a necessidade de manutenção e expansão desses instrumentos.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 46344,
+            "end": 46702,
+            "text": "Por isso, eu trago aqui o programa Inova Empresa, que realmente achamos que gerou externalidades, resultados muito favoráveis.E nós estamos bastante animados com a possibilidade da retomada desses programas e instrumentos.Este é um exemplo: a nossa EMBRAPII — eu gostaria de reforçar que este dado não está na apresentação — tem mais de 10 mil pesquisadores.",
+            "score": 0.2408
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de urgência e foco em resultados, enfatizando a necessidade de \"senso de urgência\" e \"resultados de país rápidos\" para evitar o aumento do gap de competitividade.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 9,
+            "start": 48714,
+            "end": 48831,
+            "text": "Mas precisamos fazer isso com mais senso de urgência e eficácia, porque nós precisamos de resultados de país rápidos.",
+            "score": 0.4565
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 184,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Participantes de audiência pública pedem votação de mudanças na Lei do Bem",
+      "assunto": "Discussão sobre mudanças na Lei do Bem para facilitar a colaboração entre universidades, empresas e governo e promover inovações",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 197,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Marco Legal da Inovação precisa ser revisto, afirmam especialistas",
+      "assunto": "Revisão do Marco Legal da Inovação para facilitar sua operacionalização",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-184-0-0",
+      "hearing_id": 184,
+      "n": 1,
+      "article_name": "Gianna Sagazio",
+      "proposition": "Solicitou que as empresas possam usar o excedente de recursos destinados à pesquisa tecnológica em anos posteriores para cumprimento da legislação: \"A gente está falando do único instrumento fiscal que o Brasil tem para apoiar as empresas a inovar\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Estamos falando do único instrumento fiscal que o Brasil tem para apoiar as empresas a inovarem. Entendemos que, por princípio conceitual, talvez a área econômica não esteja de acordo, talvez nunca estará.",
+        "turn": 9,
+        "start": 42541,
+        "end": 42746
+      },
+      "verifier": {
+        "probability": 0.823923314417328,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-197-5-0",
+      "hearing_id": 197,
+      "n": 13,
+      "article_name": "Gianna Sagazio",
+      "proposition": "Citou o projeto de lei em tramitação no Senado (PLS 226/16) que concede autonomia financeira aos institutos de ciência e tecnologia públicos e dá segurança jurídica para a concessão de bolsas e isenção de impostos de importação para empresas em projetos de pesquisa e desenvolvimento.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Também acreditamos que é possível avançar na permissão para que as ICTs públicas que exercem atividades de produção e de oferta de bens e serviços tenham autonomia gerencial, orçamentária e financeira. Isso é o que acontece nos países em que a ciência, tecnologia e inovação é prioridade.",
+        "turn": 16,
+        "start": 67000,
+        "end": 67288
+      },
+      "verifier": {
+        "probability": 0.18412121008431678,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-197-5-1",
+      "hearing_id": 197,
+      "n": 14,
+      "article_name": "Gianna Sagazio",
+      "proposition": "Lembrou que o Brasil está na posição 54 entre 132 países no índice global de inovação e ocupa a sexagésima posição em 64 países no ranking de competitividade.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós, na CNI, na MEI, Mobilização Empresarial pela Inovação, somos parceiros do Global Innovation Index, que é o principal relatório que mede a capacidade dos países de inovar. Aqui vocês veem que o Brasil, neste último ano, ocupou a 54ª posição, em 132 países.",
+        "turn": 16,
+        "start": 63244,
+        "end": 63504
+      },
+      "verifier": {
+        "probability": 0.2566823870172282,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

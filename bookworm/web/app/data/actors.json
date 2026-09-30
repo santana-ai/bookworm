@@ -1,0 +1,7091 @@
+{
+  "run": {
+    "name": "udv_v2",
+    "encoder": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+    "revision": "a01887015444f7599669c509447c5bdbce958916",
+    "threshold": 0.5,
+    "semantic_unit": "window2",
+    "quote_extent": "full_quote"
+  },
+  "profiles": {
+    "run": "qwen38_27b",
+    "models": [
+      "mlx-community/Qwen3.8-27B-8bit"
+    ],
+    "prompt_versions": [
+      "a80b3a121fab"
+    ],
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc",
+    "match": {
+      "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+      "udv_min": 0.3,
+      "passage_min": 0.15,
+      "passage_min_words": 5
+    }
+  },
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  },
+  "actors": [
+    {
+      "slug": "acacio-favacho",
+      "name": "ACÁCIO FAVACHO",
+      "display_name": "ACÁCIO FAVACHO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        44,
+        144
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "adriana-ventura",
+      "name": "ADRIANA VENTURA",
+      "display_name": "Adriana Ventura",
+      "role": "Deputada (Novo-SP)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 4,
+      "n_turns": 16,
+      "hearing_ids": [
+        1,
+        16,
+        80,
+        145,
+        199,
+        201
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "afonso-hamm",
+      "name": "AFONSO HAMM",
+      "display_name": "Afonso Hamm",
+      "role": "Deputado (PP-RS)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 18,
+      "hearing_ids": [
+        1,
+        122,
+        153,
+        171
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "alberto-mourao",
+      "name": "ALBERTO MOURÃO",
+      "display_name": "Alberto Mourão",
+      "role": "Deputado (MDB-SP)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        118,
+        199
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 16,
+        "with_udv": 1,
+        "passage_only": 15,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "albuquerque",
+      "name": "ALBUQUERQUE",
+      "display_name": "Albuquerque",
+      "role": "Deputado (Republicanos-RR)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        43,
+        103
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "alencar-santana",
+      "name": "ALENCAR SANTANA",
+      "display_name": "Alencar Santana",
+      "role": "Deputado (PT-SP)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 1,
+      "n_turns": 16,
+      "hearing_ids": [
+        17,
+        39,
+        103,
+        129
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 11,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "alessandra-almeida",
+      "name": "ALESSANDRA ALMEIDA",
+      "display_name": "ALESSANDRA ALMEIDA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        147,
+        170
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "alex-andre-vargem",
+      "name": "ALEX ANDRÉ VARGEM",
+      "display_name": "ALEX ANDRÉ VARGEM",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        187,
+        198
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "alexandre-da-silva",
+      "name": "ALEXANDRE DA SILVA",
+      "display_name": "Alexandre da Silva",
+      "role": "Secretário Nacional de Promoção e Defesa dos Direitos da Pessoa Idosa",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 4,
+      "n_turns": 13,
+      "hearing_ids": [
+        41,
+        52,
+        110,
+        149,
+        155
+      ],
+      "n_udvs": 10,
+      "claims": {
+        "claims": 24,
+        "with_udv": 0,
+        "passage_only": 23,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "alexandre-kalache",
+      "name": "ALEXANDRE KALACHE",
+      "display_name": "Alexandre Kalache",
+      "role": "Médico e presidente do Centro Internacional de Longevidade Brasil (ILC-BR)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 9,
+      "hearing_ids": [
+        60,
+        110,
+        155
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 21,
+        "with_udv": 1,
+        "passage_only": 19,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "alexandre-sampaio-de-abreu",
+      "name": "ALEXANDRE SAMPAIO DE ABREU",
+      "display_name": "ALEXANDRE SAMPAIO DE ABREU",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 2,
+      "hearing_ids": [
+        38,
+        108
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "alice-castilho",
+      "name": "ALICE CASTILHO",
+      "display_name": "ALICE CASTILHO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        117,
+        153
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "amira-awada",
+      "name": "AMIRA AWADA",
+      "display_name": "Amira Awada",
+      "role": "Presidente do Instituto Vidas Raras",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        185,
+        204
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 15,
+        "with_udv": 1,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "ana-priscila-alves",
+      "name": "ANA PRISCILA ALVES",
+      "display_name": "Ana Priscila Alves",
+      "role": "Vice-presidente da Associação Nacional dos Pós-Graduandos (ANPG)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        168,
+        188
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 19,
+        "with_udv": 3,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "angela-aboin",
+      "name": "ANGELA ABOIN",
+      "display_name": "Ângela Gomes",
+      "role": "Representante da Federação da Associação de Cannabis Terapêutica",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 6,
+      "hearing_ids": [
+        126,
+        146
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 2,
+        "passage_only": 18,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "anna-paula-feminella",
+      "name": "ANNA PAULA FEMINELLA",
+      "display_name": "Anna Paula Feminella",
+      "role": "Secretária Nacional dos Direitos da Pessoa com Deficiência",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        12,
+        160
+      ],
+      "n_udvs": 11,
+      "claims": {
+        "claims": 23,
+        "with_udv": 2,
+        "passage_only": 19,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "antonia-lucia",
+      "name": "ANTÔNIA LÚCIA",
+      "display_name": "ANTÔNIA LÚCIA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        159,
+        182
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "aristides-moura",
+      "name": "ARISTIDES MOURA",
+      "display_name": "Aristides Moura",
+      "role": "Gerente de Relacionamento com Autoridades de Investigação e Assuntos Digitais da Microsoft",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 6,
+      "hearing_ids": [
+        98,
+        100
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 13,
+        "with_udv": 1,
+        "passage_only": 9,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "arnaldo-furman-bordon",
+      "name": "ARNALDO FURMAN BORDON",
+      "display_name": "Arnaldo Furman Bordon",
+      "role": "Presidente da Sociedade Brasileira de Retina e Vítreo",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 8,
+      "hearing_ids": [
+        68,
+        105
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 17,
+        "with_udv": 2,
+        "passage_only": 11,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "arthur-de-almeida-medeiros",
+      "name": "ARTHUR DE ALMEIDA MEDEIROS",
+      "display_name": "Arthur de Almeida Medeiros",
+      "role": "Coordenador-geral de Saúde da Pessoa com Deficiência do Ministério da Saúde",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 5,
+      "hearing_ids": [
+        12,
+        200
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "augusto-puppio",
+      "name": "AUGUSTO PUPPIO",
+      "display_name": "AUGUSTO PUPPIO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        37,
+        183
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "abilio-brunini",
+      "name": "Abilio Brunini",
+      "display_name": "Abilio Brunini",
+      "role": "Deputado (PL-MT)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 4,
+      "n_turns": 48,
+      "hearing_ids": [
+        17,
+        94,
+        99,
+        144,
+        171,
+        194
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 26,
+        "with_udv": 0,
+        "passage_only": 24,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "airton-faleiro",
+      "name": "Airton Faleiro",
+      "display_name": "Airton Faleiro",
+      "role": "Deputado (PT-PA)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 9,
+      "hearing_ids": [
+        3,
+        158,
+        162
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 2,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "alexandre-lindenmeyer",
+      "name": "Alexandre Lindenmeyer",
+      "display_name": "Alexandre Lindenmeyer",
+      "role": "Deputado (PT-RS)",
+      "n_hearings": 7,
+      "n_hearings_in_profile": 3,
+      "n_turns": 22,
+      "hearing_ids": [
+        3,
+        51,
+        52,
+        87,
+        110,
+        120,
+        149
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 16,
+        "with_udv": 1,
+        "passage_only": 13,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "alfredinho",
+      "name": "Alfredinho",
+      "display_name": "Alfredinho",
+      "role": "Deputado (PT-SP)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 14,
+      "hearing_ids": [
+        3,
+        10,
+        47,
+        144
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 3,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "alfredo-gaspar",
+      "name": "Alfredo Gaspar",
+      "display_name": "Alfredo Gaspar",
+      "role": "Deputado (União-AL)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 2,
+      "n_turns": 682,
+      "hearing_ids": [
+        6,
+        103,
+        116,
+        117,
+        205
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "alice-portugal",
+      "name": "Alice Portugal",
+      "display_name": "Alice Portugal",
+      "role": "Deputada (PCdoB-BA)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 14,
+      "hearing_ids": [
+        168,
+        202
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 24,
+        "with_udv": 3,
+        "passage_only": 17,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "aliel-machado",
+      "name": "Aliel Machado",
+      "display_name": "Aliel Machado",
+      "role": "Deputado (PV-PR)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 4,
+      "n_turns": 17,
+      "hearing_ids": [
+        41,
+        52,
+        155,
+        199
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "amaro-neto",
+      "name": "Amaro Neto",
+      "display_name": "Amaro Neto",
+      "role": "Deputado (Republicanos-ES)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 19,
+      "hearing_ids": [
+        4,
+        33,
+        38
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 16,
+        "with_udv": 1,
+        "passage_only": 12,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "amalia-barros",
+      "name": "Amália Barros",
+      "display_name": "Amália Barros",
+      "role": "Deputada (PL-MT)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 14,
+      "hearing_ids": [
+        53,
+        111
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "ana-paula-lima",
+      "name": "Ana Paula Lima",
+      "display_name": "Ana Paula Lima",
+      "role": "Deputada (PT-SC)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 3,
+      "n_turns": 24,
+      "hearing_ids": [
+        30,
+        34,
+        57,
+        118,
+        123,
+        171
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 22,
+        "with_udv": 2,
+        "passage_only": 20,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "ana-pimentel",
+      "name": "Ana Pimentel",
+      "display_name": "Ana Pimentel",
+      "role": "Deputada (PT-MG)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 4,
+      "n_turns": 19,
+      "hearing_ids": [
+        171,
+        188,
+        199,
+        203
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 28,
+        "with_udv": 2,
+        "passage_only": 26,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "andreia-siqueira",
+      "name": "Andreia Siqueira",
+      "display_name": "Andreia Siqueira",
+      "role": "Deputada (MDB-PA)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        5,
+        57,
+        190
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "andre-fernandes",
+      "name": "André Fernandes",
+      "display_name": "André Fernandes",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 8,
+      "hearing_ids": [
+        199,
+        201
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "angela-amin",
+      "name": "Angela Amin",
+      "display_name": "Angela Amin",
+      "role": "Deputada (PP-SC)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 6,
+      "hearing_ids": [
+        88,
+        92
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 20,
+        "with_udv": 1,
+        "passage_only": 17,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "any-ortiz",
+      "name": "Any Ortiz",
+      "display_name": "Any Ortiz",
+      "role": "Deputada (Cidadania-RS)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 5,
+      "n_turns": 29,
+      "hearing_ids": [
+        58,
+        153,
+        179,
+        189,
+        195
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 5
+      }
+    },
+    {
+      "slug": "arnaldo-jardim",
+      "name": "Arnaldo Jardim",
+      "display_name": "Arnaldo Jardim",
+      "role": "Deputado (Cidadania-SP)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 1,
+      "n_turns": 15,
+      "hearing_ids": [
+        2,
+        7,
+        102,
+        133
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "augusto-coutinho",
+      "name": "Augusto Coutinho",
+      "display_name": "Augusto Coutinho",
+      "role": "Deputado (Republicanos-PE)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 14,
+      "hearing_ids": [
+        80,
+        87,
+        116
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 18,
+        "with_udv": 1,
+        "passage_only": 15,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "aureo-ribeiro",
+      "name": "Aureo Ribeiro",
+      "display_name": "Aureo Ribeiro",
+      "role": "Deputado (Solidariedade-RJ)",
+      "n_hearings": 9,
+      "n_hearings_in_profile": 6,
+      "n_turns": 107,
+      "hearing_ids": [
+        5,
+        6,
+        8,
+        47,
+        54,
+        129,
+        133,
+        182,
+        199
+      ],
+      "n_udvs": 8,
+      "claims": {
+        "claims": 25,
+        "with_udv": 3,
+        "passage_only": 20,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "bandeira-de-mello",
+      "name": "BANDEIRA DE MELLO",
+      "display_name": "Bandeira de Mello",
+      "role": "Deputado (PSB-RJ)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        101,
+        175,
+        183
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 12,
+        "with_udv": 1,
+        "passage_only": 8,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "bebeto",
+      "name": "BEBETO",
+      "display_name": "Bebeto",
+      "role": "Deputado (PP-RJ)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        19,
+        101,
+        144
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 14,
+        "with_udv": 2,
+        "passage_only": 12,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "benes-leocadio",
+      "name": "BENES LEOCÁDIO",
+      "display_name": "Benes Leocádio",
+      "role": "Deputado (União-RN)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 6,
+      "hearing_ids": [
+        2,
+        91,
+        183
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "bohn-gass",
+      "name": "BOHN GASS",
+      "display_name": "Bohn Gass",
+      "role": "Deputado (PT-RS)",
+      "n_hearings": 7,
+      "n_hearings_in_profile": 2,
+      "n_turns": 26,
+      "hearing_ids": [
+        3,
+        106,
+        115,
+        122,
+        124,
+        171,
+        199
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "braulina-baniwa",
+      "name": "BRAULINA BANIWA",
+      "display_name": "BRAULINA BANIWA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        20,
+        136
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "benedita-da-silva",
+      "name": "Benedita da Silva",
+      "display_name": "Benedita da Silva",
+      "role": "Deputada (PT-RJ)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 2,
+      "hearing_ids": [
+        29,
+        82
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 4,
+        "with_udv": 0,
+        "passage_only": 4,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "bia-kicis",
+      "name": "Bia Kicis",
+      "display_name": "Bia Kicis",
+      "role": "Deputada (PL-DF)",
+      "n_hearings": 9,
+      "n_hearings_in_profile": 6,
+      "n_turns": 94,
+      "hearing_ids": [
+        1,
+        2,
+        15,
+        16,
+        75,
+        129,
+        145,
+        199,
+        201
+      ],
+      "n_udvs": 8,
+      "claims": {
+        "claims": 20,
+        "with_udv": 1,
+        "passage_only": 17,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "bibo-nunes",
+      "name": "Bibo Nunes",
+      "display_name": "Bibo Nunes",
+      "role": "Deputado (PL-RS)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 9,
+      "hearing_ids": [
+        38,
+        108,
+        153
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "cabo-gilberto-silva",
+      "name": "CABO GILBERTO SILVA",
+      "display_name": "Cabo Gilberto Silva",
+      "role": "Deputado (PL-PB)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 23,
+      "hearing_ids": [
+        3,
+        17,
+        145,
+        201
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 27,
+        "with_udv": 1,
+        "passage_only": 21,
+        "without_evidence": 5
+      }
+    },
+    {
+      "slug": "carla-zambelli",
+      "name": "CARLA ZAMBELLI",
+      "display_name": "CARLA ZAMBELLI",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 21,
+      "hearing_ids": [
+        129,
+        145
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "carlos-giannazi",
+      "name": "CARLOS GIANNAZI",
+      "display_name": "Carlos Giannazi",
+      "role": "Deputado estadual de São Paulo (Psol)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 5,
+      "hearing_ids": [
+        24,
+        55,
+        135,
+        176
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "carlos-henrique-gaguim",
+      "name": "CARLOS HENRIQUE GAGUIM",
+      "display_name": "Gaguim",
+      "role": "Deputado (União-TO)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        109,
+        153
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 7,
+        "with_udv": 0,
+        "passage_only": 5,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "carlos-jordy",
+      "name": "CARLOS JORDY",
+      "display_name": "Carlos Jordy",
+      "role": "Deputado (PL-RJ)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 7,
+      "hearing_ids": [
+        145,
+        199
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "carlos-zarattini",
+      "name": "CARLOS ZARATTINI",
+      "display_name": "Carlos Zarattini",
+      "role": "Deputado (PT-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        2,
+        39,
+        116
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "carol-dartora",
+      "name": "CAROL DARTORA",
+      "display_name": "CAROL DARTORA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        170,
+        206
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "celso-giannazi",
+      "name": "CELSO GIANNAZI",
+      "display_name": "CELSO GIANNAZI",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        24,
+        55,
+        176
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "charlene-da-silva-borges",
+      "name": "CHARLENE DA SILVA BORGES",
+      "display_name": "CHARLENE DA SILVA BORGES",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 5,
+      "hearing_ids": [
+        147,
+        172,
+        187
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 27,
+        "with_udv": 0,
+        "passage_only": 27,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "cleo-bohn-de-lima",
+      "name": "CLÉO BOHN DE LIMA",
+      "display_name": "CLÉO BOHN DE LIMA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        94,
+        160
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 21,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "coronel-assis",
+      "name": "CORONEL ASSIS",
+      "display_name": "CORONEL ASSIS",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 10,
+      "hearing_ids": [
+        87,
+        205
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "coronel-chrisostomo",
+      "name": "CORONEL CHRISÓSTOMO",
+      "display_name": "CORONEL CHRISÓSTOMO",
+      "role": null,
+      "n_hearings": 5,
+      "n_hearings_in_profile": 5,
+      "n_turns": 35,
+      "hearing_ids": [
+        2,
+        15,
+        45,
+        174,
+        183
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 21,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "caio-vianna",
+      "name": "Caio Vianna",
+      "display_name": "Caio Vianna",
+      "role": "Deputado (PSD-RJ)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 577,
+      "hearing_ids": [
+        6,
+        138,
+        166
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 27,
+        "with_udv": 2,
+        "passage_only": 25,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "carlos-gomes",
+      "name": "Carlos Gomes",
+      "display_name": "Carlos Gomes",
+      "role": "Deputado (Republicanos-RS)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 12,
+      "hearing_ids": [
+        38,
+        153
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 19,
+        "with_udv": 4,
+        "passage_only": 13,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "celso-russomanno",
+      "name": "Celso Russomanno",
+      "display_name": "Celso Russomanno",
+      "role": "Deputado (Republicanos-SP)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 3,
+      "n_turns": 40,
+      "hearing_ids": [
+        133,
+        143,
+        157,
+        177,
+        182
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "cezinha-de-madureira",
+      "name": "Cezinha de Madureira",
+      "display_name": "Cezinha de Madureira",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 11,
+      "hearing_ids": [
+        4,
+        144
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 6,
+        "with_udv": 0,
+        "passage_only": 5,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "chico-alencar",
+      "name": "Chico Alencar",
+      "display_name": "Chico Alencar",
+      "role": "Deputado (Psol-RJ)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 3,
+      "n_turns": 15,
+      "hearing_ids": [
+        16,
+        20,
+        48,
+        115,
+        126,
+        180
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "cleber-verde",
+      "name": "Cleber Verde",
+      "display_name": "Cleber Verde",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        44,
+        50
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "coronel-meira",
+      "name": "Coronel Meira",
+      "display_name": "Coronel Meira",
+      "role": "Deputado (PL-PE)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 22,
+      "hearing_ids": [
+        36,
+        45,
+        103
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "celia-xakriaba",
+      "name": "Célia Xakriabá",
+      "display_name": "Célia Xakriabá",
+      "role": "Deputada (Psol-MG)",
+      "n_hearings": 7,
+      "n_hearings_in_profile": 7,
+      "n_turns": 39,
+      "hearing_ids": [
+        20,
+        48,
+        136,
+        139,
+        169,
+        183,
+        186
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 27,
+        "with_udv": 3,
+        "passage_only": 23,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "daniel-barbosa",
+      "name": "DANIEL BARBOSA",
+      "display_name": "DANIEL BARBOSA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        31,
+        168
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 12,
+        "with_udv": 0,
+        "passage_only": 10,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "daniel-trzeciak",
+      "name": "DANIEL TRZECIAK",
+      "display_name": "Daniel Trzeciak",
+      "role": "Deputado (PSDB-RS), jornalista",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 2,
+      "hearing_ids": [
+        33,
+        108
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 21,
+        "with_udv": 1,
+        "passage_only": 19,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "delegado-caveira",
+      "name": "DELEGADO CAVEIRA",
+      "display_name": "DELEGADO CAVEIRA",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 27,
+      "hearing_ids": [
+        6,
+        87,
+        103,
+        145
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 5
+      }
+    },
+    {
+      "slug": "delegado-paulo-bilynskyj",
+      "name": "DELEGADO PAULO BILYNSKYJ",
+      "display_name": "Delegado Paulo Bilynskyj",
+      "role": "Deputado (PL-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 35,
+      "hearing_ids": [
+        15,
+        16,
+        103
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "delegado-eder-mauro",
+      "name": "DELEGADO ÉDER MAURO",
+      "display_name": "Delegado Éder Mauro",
+      "role": "Deputado (PL-PA)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 38,
+      "hearing_ids": [
+        99,
+        145,
+        171,
+        180
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 22,
+        "with_udv": 1,
+        "passage_only": 18,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "deyvid-souza-bacelar-da-silva",
+      "name": "DEYVID SOUZA BACELAR DA SILVA",
+      "display_name": "Deyvid Bacelar",
+      "role": "Coordenador-geral da Federação Única dos Petroleiros (FUP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 6,
+      "hearing_ids": [
+        44,
+        71,
+        78
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 22,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "domingos-savio",
+      "name": "DOMINGOS SÁVIO",
+      "display_name": "Domingos Sávio",
+      "role": "Deputado (PL-MG)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 14,
+      "hearing_ids": [
+        7,
+        122,
+        171
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 8,
+        "with_udv": 0,
+        "passage_only": 7,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "dorinaldo-malafaia",
+      "name": "DORINALDO MALAFAIA",
+      "display_name": "DORINALDO MALAFAIA",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 14,
+      "hearing_ids": [
+        2,
+        129,
+        171,
+        199
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 23,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "dr-frederico",
+      "name": "DR. FREDERICO",
+      "display_name": "DR. FREDERICO",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        15,
+        129,
+        171
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "duarte-jr",
+      "name": "DUARTE JR.",
+      "display_name": "DUARTE JR.",
+      "role": null,
+      "n_hearings": 5,
+      "n_hearings_in_profile": 4,
+      "n_turns": 102,
+      "hearing_ids": [
+        6,
+        53,
+        115,
+        145,
+        182
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 24,
+        "with_udv": 0,
+        "passage_only": 21,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "duda-salabert",
+      "name": "DUDA SALABERT",
+      "display_name": "Duda Salabert",
+      "role": "Deputada (PDT-MG)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        14,
+        48,
+        183
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 23,
+        "with_udv": 0,
+        "passage_only": 23,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "daiana-santos",
+      "name": "Daiana Santos",
+      "display_name": "Daiana Santos",
+      "role": "Deputada (PCdoB-RS)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 21,
+      "hearing_ids": [
+        50,
+        115,
+        147
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 21,
+        "with_udv": 1,
+        "passage_only": 17,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "dandara",
+      "name": "Dandara",
+      "display_name": "Dandara",
+      "role": "Deputada (PT-MG)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 4,
+      "n_turns": 39,
+      "hearing_ids": [
+        18,
+        51,
+        169,
+        199,
+        206
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 28,
+        "with_udv": 0,
+        "passage_only": 25,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "daniel-agrobom",
+      "name": "Daniel Agrobom",
+      "display_name": "Daniel Agrobom",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 1,
+      "n_turns": 21,
+      "hearing_ids": [
+        87,
+        112,
+        124,
+        137
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 1,
+        "with_udv": 0,
+        "passage_only": 1,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "daniela-reinehr",
+      "name": "Daniela Reinehr",
+      "display_name": "Daniela Reinehr",
+      "role": "Deputada (PL-SC)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 1,
+      "n_turns": 15,
+      "hearing_ids": [
+        5,
+        49,
+        53,
+        128
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 10,
+        "with_udv": 0,
+        "passage_only": 10,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "danilo-forte",
+      "name": "Danilo Forte",
+      "display_name": "Danilo Forte",
+      "role": "Deputado (União-CE)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 3,
+      "n_turns": 38,
+      "hearing_ids": [
+        2,
+        7,
+        91,
+        104,
+        165
+      ],
+      "n_udvs": 11,
+      "claims": {
+        "claims": 27,
+        "with_udv": 4,
+        "passage_only": 21,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "defensor-stelio-dener",
+      "name": "Defensor Stélio Dener",
+      "display_name": "Defensor Stélio Dener",
+      "role": "Deputado (Republicanos-RR)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 9,
+      "hearing_ids": [
+        47,
+        86,
+        139,
+        186
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 15,
+        "with_udv": 1,
+        "passage_only": 13,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "denis-bezerra",
+      "name": "Denis Bezerra",
+      "display_name": "Denis Bezerra",
+      "role": "Deputado (PSB-CE)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 10,
+      "hearing_ids": [
+        63,
+        73
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 22,
+        "with_udv": 4,
+        "passage_only": 16,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "dr-luiz-ovando",
+      "name": "Dr. Luiz Ovando",
+      "display_name": "Dr. Luiz Ovando",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 20,
+      "hearing_ids": [
+        56,
+        58,
+        129,
+        171
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 23,
+        "with_udv": 0,
+        "passage_only": 22,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "dr-zacharias-calil",
+      "name": "Dr. Zacharias Calil",
+      "display_name": "Dr. Zacharias Calil",
+      "role": "Deputado (União-GO)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 4,
+      "n_turns": 37,
+      "hearing_ids": [
+        37,
+        60,
+        68,
+        105,
+        181
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 20,
+        "with_udv": 4,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "decio-nascimento-guimaraes",
+      "name": "DÉCIO NASCIMENTO GUIMARÃES",
+      "display_name": "Décio Nascimento Guimarães",
+      "role": "Representante do Ministério da Educação e chefe do setor de educação inclusiva",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        160,
+        176
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 23,
+        "with_udv": 0,
+        "passage_only": 23,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "edison-joao-costa",
+      "name": "EDISON JOÃO COSTA",
+      "display_name": "EDISON JOÃO COSTA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        10,
+        142
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "eduardo-bolsonaro",
+      "name": "EDUARDO BOLSONARO",
+      "display_name": "Eduardo Bolsonaro",
+      "role": "Deputado (PL-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 16,
+      "hearing_ids": [
+        16,
+        129,
+        199
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "erika-kokay",
+      "name": "Erika Kokay",
+      "display_name": "Erika Kokay",
+      "role": "Deputada (PT-DF)",
+      "n_hearings": 30,
+      "n_hearings_in_profile": 22,
+      "n_turns": 129,
+      "hearing_ids": [
+        3,
+        5,
+        12,
+        21,
+        29,
+        32,
+        42,
+        48,
+        53,
+        55,
+        72,
+        74,
+        76,
+        82,
+        84,
+        85,
+        87,
+        89,
+        94,
+        96,
+        119,
+        127,
+        135,
+        147,
+        151,
+        152,
+        169,
+        170,
+        190,
+        200
+      ],
+      "n_udvs": 27,
+      "claims": {
+        "claims": 28,
+        "with_udv": 2,
+        "passage_only": 23,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "evair-vieira-de-melo",
+      "name": "Evair Vieira de Melo",
+      "display_name": "Evair Vieira de Melo",
+      "role": "Deputado (PP-ES)",
+      "n_hearings": 8,
+      "n_hearings_in_profile": 4,
+      "n_turns": 60,
+      "hearing_ids": [
+        16,
+        86,
+        116,
+        129,
+        145,
+        174,
+        183,
+        199
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 32,
+        "with_udv": 1,
+        "passage_only": 30,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "fausto-augusto-junior",
+      "name": "FAUSTO AUGUSTO JÚNIOR",
+      "display_name": "Fausto Augusto Júnior",
+      "role": "Diretor-técnico do Departamento Intersindical, de Estatística e Estudos Socioeconômicos (Dieese)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 5,
+      "hearing_ids": [
+        87,
+        97
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 17,
+        "with_udv": 1,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "fernanda-pessoa",
+      "name": "FERNANDA PESSOA",
+      "display_name": "FERNANDA PESSOA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 6,
+      "hearing_ids": [
+        185,
+        199
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 12,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "fernando-cotta",
+      "name": "FERNANDO COTTA",
+      "display_name": "Fernando Cotta",
+      "role": "Presidente de honra do Movimento Orgulho Autista Brasil",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        5,
+        94
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 23,
+        "with_udv": 0,
+        "passage_only": 21,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "fernando-korn-malerbi",
+      "name": "FERNANDO KORN MALERBI",
+      "display_name": "Fernando Korn Malerbi",
+      "role": "Coordenador do Departamento de Doenças Oculares da Sociedade Brasileira de Diabetes (SBD)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        68,
+        105
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "filipe-barros",
+      "name": "FILIPE BARROS",
+      "display_name": "Filipe Barros",
+      "role": "Deputado (PL-PR)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        1,
+        39
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 16,
+        "with_udv": 1,
+        "passage_only": 10,
+        "without_evidence": 5
+      }
+    },
+    {
+      "slug": "flavio-nogueira",
+      "name": "FLÁVIO NOGUEIRA",
+      "display_name": "Flávio Nogueira",
+      "role": "Deputado (PT-PI)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        39,
+        116
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 15,
+        "with_udv": 1,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "franciane-bayer",
+      "name": "FRANCIANE BAYER",
+      "display_name": "Franciane Bayer",
+      "role": "Deputada (Republicanos-RS)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 6,
+      "hearing_ids": [
+        15,
+        171
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 1,
+        "passage_only": 19,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "francilene-procopio-garcia",
+      "name": "FRANCILENE PROCÓPIO GARCIA",
+      "display_name": "FRANCILENE PROCÓPIO GARCIA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        184,
+        197
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "felipe-rigoni",
+      "name": "Felipe Rigoni",
+      "display_name": "Felipe Rigoni",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 8,
+      "hearing_ids": [
+        79,
+        92
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "fernanda-melchionna",
+      "name": "Fernanda Melchionna",
+      "display_name": "Fernanda Melchionna",
+      "role": "Deputada (Psol-RS)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 15,
+      "hearing_ids": [
+        43,
+        99,
+        153,
+        180
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 25,
+        "with_udv": 0,
+        "passage_only": 23,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "fernando-mineiro",
+      "name": "Fernando Mineiro",
+      "display_name": "Fernando Mineiro",
+      "role": "Deputado (PT-RN)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 10,
+      "hearing_ids": [
+        11,
+        137,
+        169
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 21,
+        "with_udv": 1,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "flavia-morais",
+      "name": "Flávia Morais",
+      "display_name": "Flávia Morais",
+      "role": "Deputada (PDT-GO)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 12,
+      "hearing_ids": [
+        3,
+        93,
+        155,
+        159
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 24,
+        "with_udv": 1,
+        "passage_only": 20,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "gabriel-mota",
+      "name": "GABRIEL MOTA",
+      "display_name": "GABRIEL MOTA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        44,
+        122
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 11,
+        "with_udv": 0,
+        "passage_only": 9,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "general-girao",
+      "name": "GENERAL GIRÃO",
+      "display_name": "General Girão",
+      "role": "Deputado (PL-RN)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 2,
+      "n_turns": 10,
+      "hearing_ids": [
+        1,
+        15,
+        39,
+        103,
+        116
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 27,
+        "with_udv": 2,
+        "passage_only": 23,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "george-neves-lodder",
+      "name": "GEORGE NEVES LODDER",
+      "display_name": "George Neves Lodder",
+      "role": "Procurador da República do Ministério Público Federal",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 11,
+      "hearing_ids": [
+        98,
+        100
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "gianna-cardoso-sagazio",
+      "name": "GIANNA CARDOSO SAGAZIO",
+      "display_name": "Gianna Sagazio",
+      "role": "Diretora de Inovação da Confederação Nacional da Indústria (CNI)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        184,
+        197
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 23,
+        "with_udv": 2,
+        "passage_only": 21,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "guilherme-boulos",
+      "name": "GUILHERME BOULOS",
+      "display_name": "Guilherme Boulos",
+      "role": "Deputado (Psol-SP)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        55,
+        144
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 21,
+        "with_udv": 1,
+        "passage_only": 19,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "gabriel-nunes",
+      "name": "Gabriel Nunes",
+      "display_name": "Gabriel Nunes",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        109,
+        183
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 5,
+        "with_udv": 0,
+        "passage_only": 4,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "geraldo-mendes",
+      "name": "Geraldo Mendes",
+      "display_name": "Geraldo Mendes",
+      "role": "Deputado (União-PR)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        2,
+        173
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "geraldo-resende",
+      "name": "Geraldo Resende",
+      "display_name": "Geraldo Resende",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 9,
+      "hearing_ids": [
+        5,
+        58,
+        123,
+        159
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "gisela-simona",
+      "name": "Gisela Simona",
+      "display_name": "Gisela Simona",
+      "role": "Deputada (União-MT)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 3,
+      "n_turns": 19,
+      "hearing_ids": [
+        28,
+        100,
+        143,
+        157,
+        177,
+        182
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 21,
+        "with_udv": 2,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "glauber-braga",
+      "name": "Glauber Braga",
+      "display_name": "Glauber Braga",
+      "role": "Deputado (Psol-RJ)",
+      "n_hearings": 7,
+      "n_hearings_in_profile": 3,
+      "n_turns": 63,
+      "hearing_ids": [
+        42,
+        43,
+        99,
+        112,
+        116,
+        126,
+        160
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 21,
+        "with_udv": 2,
+        "passage_only": 16,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "helder-salomao",
+      "name": "HELDER SALOMÃO",
+      "display_name": "Helder Salomão",
+      "role": "Deputado (PT-ES), relator parcial da comissão externa",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        13,
+        51
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 2,
+        "with_udv": 0,
+        "passage_only": 0,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "helena-lima",
+      "name": "HELENA LIMA",
+      "display_name": "HELENA LIMA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        58,
+        144
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "helio-lopes",
+      "name": "HELIO LOPES",
+      "display_name": "HELIO LOPES",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 12,
+      "hearing_ids": [
+        16,
+        171
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "henderson-pinto",
+      "name": "HENDERSON PINTO",
+      "display_name": "HENDERSON PINTO",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 8,
+      "hearing_ids": [
+        44,
+        109,
+        124
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "helder-eterno",
+      "name": "HÉLDER ETERNO",
+      "display_name": "HÉLDER ETERNO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        18,
+        51
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "helio-leite",
+      "name": "HÉLIO LEITE",
+      "display_name": "HÉLIO LEITE",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        144,
+        183
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "igor-timo",
+      "name": "IGOR TIMO",
+      "display_name": "IGOR TIMO",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 148,
+      "hearing_ids": [
+        2,
+        6,
+        118
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 21,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "ismael-alexandrino",
+      "name": "Ismael Alexandrino",
+      "display_name": "Ismael Alexandrino",
+      "role": "Deputado (PSD-GO)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 2,
+      "n_turns": 33,
+      "hearing_ids": [
+        101,
+        103,
+        114,
+        148,
+        171
+      ],
+      "n_udvs": 8,
+      "claims": {
+        "claims": 24,
+        "with_udv": 1,
+        "passage_only": 22,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "ivan-valente",
+      "name": "Ivan Valente",
+      "display_name": "Ivan Valente",
+      "role": "Deputado (Psol-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 19,
+      "hearing_ids": [
+        14,
+        44,
+        133
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 20,
+        "with_udv": 2,
+        "passage_only": 16,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "iza-arruda",
+      "name": "Iza Arruda",
+      "display_name": "Iza Arruda",
+      "role": "Deputada (MDB-PE)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 23,
+      "hearing_ids": [
+        12,
+        140,
+        185
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 18,
+        "with_udv": 2,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "jeferson-dias-barbosa",
+      "name": "JEFERSON DIAS BARBOSA",
+      "display_name": "Jeferson Barbosa",
+      "role": "Assessor da presidência da Autoridade Nacional de Proteção de Dados (ANPD)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 9,
+      "hearing_ids": [
+        138,
+        166
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 17,
+        "with_udv": 2,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "johnny-amorim-liberato",
+      "name": "JOHNNY AMORIM LIBERATO",
+      "display_name": "JOHNNY AMORIM LIBERATO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        11,
+        153
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "jose-guimaraes",
+      "name": "JOSÉ GUIMARÃES",
+      "display_name": "JOSÉ GUIMARÃES",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        145,
+        199
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 5,
+        "with_udv": 0,
+        "passage_only": 5,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "jose-medeiros",
+      "name": "JOSÉ MEDEIROS",
+      "display_name": "José Medeiros",
+      "role": "Deputado (PL-MT)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 9,
+      "hearing_ids": [
+        17,
+        201
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 17,
+        "with_udv": 2,
+        "passage_only": 12,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "joao-carlos-bacelar",
+      "name": "JOÃO CARLOS BACELAR",
+      "display_name": "Bacelar",
+      "role": "Deputado (PV-BA)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        2,
+        133
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "joao-daniel",
+      "name": "JOÃO DANIEL",
+      "display_name": "JOÃO DANIEL",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 6,
+      "hearing_ids": [
+        11,
+        74,
+        99,
+        144
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "joao-moura",
+      "name": "JOÃO MOURA",
+      "display_name": "João Moura",
+      "role": "Representante do Ministério dos Direitos Humanos",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        24,
+        151
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 15,
+        "with_udv": 1,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "julio-lopes",
+      "name": "JULIO LOPES",
+      "display_name": "Julio Lopes",
+      "role": "Deputado (PP-RJ)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 3,
+      "n_turns": 25,
+      "hearing_ids": [
+        2,
+        6,
+        104,
+        116,
+        133,
+        183
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "junio-amaral",
+      "name": "JUNIO AMARAL",
+      "display_name": "Junio Amaral",
+      "role": "Deputado (PL-MG)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 12,
+      "hearing_ids": [
+        145,
+        199
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 21,
+        "with_udv": 3,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "juvandia-moreira-leite",
+      "name": "JUVANDIA MOREIRA LEITE",
+      "display_name": "Juvândia Moreira Leite",
+      "role": "Dirigente da Central Única dos Trabalhadores (CUT)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        21,
+        75
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "jandira-feghali",
+      "name": "Jandira Feghali",
+      "display_name": "Jandira Feghali",
+      "role": "Deputada (PCdoB-RJ)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 14,
+      "hearing_ids": [
+        130,
+        184
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 10,
+        "with_udv": 0,
+        "passage_only": 9,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "joaquim-passarinho",
+      "name": "Joaquim Passarinho",
+      "display_name": "Joaquim Passarinho",
+      "role": "Presidente da Frente Parlamentar Mista do Empreendedorismo, deputado (PL-PA)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 7,
+      "hearing_ids": [
+        7,
+        58,
+        183
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 7,
+        "with_udv": 0,
+        "passage_only": 4,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "jonas-donizette",
+      "name": "Jonas Donizette",
+      "display_name": "Jonas Donizette",
+      "role": "Deputado (PSB-SP)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 14,
+      "hearing_ids": [
+        116,
+        194
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 18,
+        "with_udv": 2,
+        "passage_only": 13,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "jorge-braz",
+      "name": "Jorge Braz",
+      "display_name": "Jorge Braz",
+      "role": "Deputado (Republicanos-RJ), presidente da Comissão de Defesa do Consumidor",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        28,
+        182
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "jorge-goetten",
+      "name": "Jorge Goetten",
+      "display_name": "Jorge Goetten",
+      "role": "Deputado (PL-SC)",
+      "n_hearings": 7,
+      "n_hearings_in_profile": 2,
+      "n_turns": 22,
+      "hearing_ids": [
+        44,
+        102,
+        108,
+        113,
+        115,
+        118,
+        193
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 23,
+        "with_udv": 2,
+        "passage_only": 21,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "jorge-solla",
+      "name": "Jorge Solla",
+      "display_name": "Jorge Solla",
+      "role": "Deputado (PT-BA)",
+      "n_hearings": 8,
+      "n_hearings_in_profile": 5,
+      "n_turns": 57,
+      "hearing_ids": [
+        15,
+        16,
+        129,
+        131,
+        140,
+        145,
+        171,
+        199
+      ],
+      "n_udvs": 11,
+      "claims": {
+        "claims": 20,
+        "with_udv": 1,
+        "passage_only": 17,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "josenildo",
+      "name": "Josenildo",
+      "display_name": "Josenildo",
+      "role": "Deputado (PDT-AP) e presidente da Comissão de Indústria, Comércio e Serviços",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 33,
+      "hearing_ids": [
+        2,
+        87,
+        145,
+        199
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "juninho-do-pneu",
+      "name": "Juninho do Pneu",
+      "display_name": "Juninho do Pneu",
+      "role": "Deputado (União-RJ)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 15,
+      "hearing_ids": [
+        19,
+        161,
+        194
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "junior-ferrari",
+      "name": "Júnior Ferrari",
+      "display_name": "Júnior Ferrari",
+      "role": "Deputado (PSD-PA)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 8,
+      "hearing_ids": [
+        23,
+        183
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 4,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "karina-rie-ishida",
+      "name": "KARINA RIE ISHIDA",
+      "display_name": "Karina Ishida",
+      "role": "Coordenadora de campanhas da Proteção Animal Mundial (WSPA)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        95,
+        191
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "kim-kataguiri",
+      "name": "KIM KATAGUIRI",
+      "display_name": "Kim Kataguiri",
+      "role": "Deputado (União-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 53,
+      "hearing_ids": [
+        16,
+        45,
+        145
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "kleber-karipuna",
+      "name": "KLEBER KARIPUNA",
+      "display_name": "Kleber Karipuna",
+      "role": "Coordenador da Articulação dos Povos Indígenas no Brasil",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        136,
+        158
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "lafayette-de-andrada",
+      "name": "LAFAYETTE DE ANDRADA",
+      "display_name": "Lafayette de Andrada",
+      "role": "Deputado (Republicanos-MG)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 8,
+      "hearing_ids": [
+        17,
+        80,
+        104,
+        183
+      ],
+      "n_udvs": 8,
+      "claims": {
+        "claims": 17,
+        "with_udv": 2,
+        "passage_only": 13,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "laura-carneiro",
+      "name": "LAURA CARNEIRO",
+      "display_name": "LAURA CARNEIRO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 17,
+      "hearing_ids": [
+        165,
+        171
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 11,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "leonardo-monteiro",
+      "name": "LEONARDO MONTEIRO",
+      "display_name": "LEONARDO MONTEIRO",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        2,
+        3,
+        25
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 13,
+        "with_udv": 0,
+        "passage_only": 12,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "leonardo-moura-vilela",
+      "name": "LEONARDO MOURA VILELA",
+      "display_name": "LEONARDO MOURA VILELA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        123,
+        159
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "lindbergh-farias",
+      "name": "LINDBERGH FARIAS",
+      "display_name": "Lindbergh Farias",
+      "role": "Deputado (PT-RJ)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 3,
+      "n_turns": 16,
+      "hearing_ids": [
+        3,
+        39,
+        103,
+        145,
+        199
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 17,
+        "with_udv": 1,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "lucas-jose-ramos-lopes",
+      "name": "LUCAS JOSÉ RAMOS LOPES",
+      "display_name": "Lucas José Ramos Lopes",
+      "role": "Coordenador da Coalizão pelo Fim da Violência contra Crianças e Adolescentes",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        30,
+        74
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 20,
+        "with_udv": 2,
+        "passage_only": 18,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "luciana-paula-conforti",
+      "name": "LUCIANA PAULA CONFORTI",
+      "display_name": "Luciana Paula Conforti",
+      "role": "Representante da Associação Nacional dos Magistrados da Justiça do Trabalho (Anamatra)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        65,
+        75
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 17,
+        "with_udv": 3,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "luciano-chaves-boeira",
+      "name": "LUCIANO CHAVES BOEIRA",
+      "display_name": "Luciano Chaves Boeira",
+      "role": "Representante do Rio Grande do Sul",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 5,
+      "hearing_ids": [
+        107,
+        153
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "luiz-legnani",
+      "name": "LUIZ LEGÑANI",
+      "display_name": "LUIZ LEGÑANI",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        73,
+        155
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "luiz-lima",
+      "name": "LUIZ LIMA",
+      "display_name": "Luiz Lima",
+      "role": "Deputado (PL-RJ) e Presidente da Comissão do Esporte",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 17,
+      "hearing_ids": [
+        16,
+        37,
+        40,
+        129
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 24,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "lula-da-fonte",
+      "name": "LULA DA FONTE",
+      "display_name": "Lula da Fonte",
+      "role": "Deputado (PP-PE)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 10,
+      "hearing_ids": [
+        161,
+        171
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 17,
+        "with_udv": 1,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "leo-prates",
+      "name": "Leo Prates",
+      "display_name": "Leo Prates",
+      "role": "Deputado (PDT-BA) e presidente da comissão especial",
+      "n_hearings": 9,
+      "n_hearings_in_profile": 3,
+      "n_turns": 15,
+      "hearing_ids": [
+        2,
+        3,
+        86,
+        107,
+        113,
+        115,
+        118,
+        152,
+        183
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 25,
+        "with_udv": 0,
+        "passage_only": 22,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "leonidas-cristino",
+      "name": "Leônidas Cristino",
+      "display_name": "Leônidas Cristino",
+      "role": "Deputado (PDT-CE)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 23,
+      "hearing_ids": [
+        23,
+        102,
+        134,
+        144
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 14,
+        "with_udv": 1,
+        "passage_only": 11,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "lucas-ramos",
+      "name": "Lucas Ramos",
+      "display_name": "Lucas Ramos",
+      "role": "Deputado (PSB-PE)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 2,
+      "n_turns": 24,
+      "hearing_ids": [
+        3,
+        10,
+        22,
+        50,
+        87
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 24,
+        "with_udv": 1,
+        "passage_only": 21,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "luisa-canziani",
+      "name": "Luisa Canziani",
+      "display_name": "Luisa Canziani",
+      "role": "Deputada (PSD-PR)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 4,
+      "n_turns": 12,
+      "hearing_ids": [
+        50,
+        150,
+        184,
+        197
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 19,
+        "with_udv": 3,
+        "passage_only": 12,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "luiz-couto",
+      "name": "Luiz Couto",
+      "display_name": "Luiz Couto",
+      "role": "Deputado (PT-PB)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 4,
+      "n_turns": 28,
+      "hearing_ids": [
+        110,
+        127,
+        151,
+        172,
+        178,
+        203
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 21,
+        "with_udv": 2,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "luizianne-lins",
+      "name": "Luizianne Lins",
+      "display_name": "Luizianne Lins",
+      "role": "Deputada (PT-CE)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 3,
+      "n_turns": 40,
+      "hearing_ids": [
+        26,
+        29,
+        127,
+        187,
+        198,
+        203
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 21,
+        "with_udv": 1,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "leda-borges",
+      "name": "Lêda Borges",
+      "display_name": "Lêda Borges",
+      "role": "Deputada (PSDB-GO)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 35,
+      "hearing_ids": [
+        154,
+        165,
+        203
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 23,
+        "with_udv": 3,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "lidice-da-mata",
+      "name": "Lídice da Mata",
+      "display_name": "Lídice da Mata",
+      "role": "Deputada (PSB-BA)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 3,
+      "n_turns": 28,
+      "hearing_ids": [
+        51,
+        69,
+        130,
+        131,
+        145
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 24,
+        "with_udv": 2,
+        "passage_only": 21,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "marcelo-de-souza-do-nascimento",
+      "name": "MARCELO DE SOUZA DO NASCIMENTO",
+      "display_name": "Marcelo de Souza do Nascimento",
+      "role": "Diretor-geral do Procon-DF",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        73,
+        192
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 18,
+        "with_udv": 2,
+        "passage_only": 16,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "marcelo-lima",
+      "name": "MARCELO LIMA",
+      "display_name": "MARCELO LIMA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 14,
+      "hearing_ids": [
+        144,
+        199
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "marcon",
+      "name": "MARCON",
+      "display_name": "MARCON",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 7,
+      "hearing_ids": [
+        45,
+        153
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "margo-gomes-de-oliveira-karnikowski",
+      "name": "MARGÔ GOMES DE OLIVEIRA KARNIKOWSKI",
+      "display_name": "MARGÔ GOMES DE OLIVEIRA KARNIKOWSKI",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        127,
+        155
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "maria-do-rosario",
+      "name": "MARIA DO ROSÁRIO",
+      "display_name": "Maria do Rosário",
+      "role": "Deputada (PT-RS)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 6,
+      "hearing_ids": [
+        74,
+        129,
+        153
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 18,
+        "with_udv": 2,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "mariana-breim",
+      "name": "MARIANA BREIM",
+      "display_name": "Mariana Breim",
+      "role": "Diretora de políticas educacionais do Instituto Península",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        18,
+        31
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 12,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "marina-rongo",
+      "name": "MARINA RONGO",
+      "display_name": "Marina Rongo",
+      "role": "ONG Conectas Direitos Humanos",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        32,
+        198
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 1,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "mario-avelino",
+      "name": "MARIO AVELINO",
+      "display_name": "Mario Avelino",
+      "role": "Presidente do Instituto Fundo de Garantia do Trabalhador",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 8,
+      "hearing_ids": [
+        10,
+        66
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 22,
+        "with_udv": 1,
+        "passage_only": 20,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "marivaldo-de-castro-pereira",
+      "name": "MARIVALDO DE CASTRO PEREIRA",
+      "display_name": "MARIVALDO DE CASTRO PEREIRA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        12,
+        172
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "marta-licia-teles-brito-de-jesus",
+      "name": "MARTA LICIA TELES BRITO DE JESUS",
+      "display_name": "MARTA LICIA TELES BRITO DE JESUS",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        31,
+        206
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "marx-beltrao",
+      "name": "MARX BELTRÃO",
+      "display_name": "Marx Beltrão",
+      "role": "Deputado (PP-AL)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 18,
+      "hearing_ids": [
+        117,
+        167
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "max-maciel",
+      "name": "MAX MACIEL",
+      "display_name": "Max Maciel",
+      "role": "Deputado distrital",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        42,
+        47
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 26,
+        "with_udv": 2,
+        "passage_only": 21,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "melillo-dinis-do-nascimento",
+      "name": "MELILLO DINIS DO NASCIMENTO",
+      "display_name": "MELILLO DINIS DO NASCIMENTO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 10,
+      "hearing_ids": [
+        27,
+        35
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "mercedes-bustamante",
+      "name": "MERCEDES BUSTAMANTE",
+      "display_name": "Mercedes Bustamante",
+      "role": "Presidente da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        18,
+        168,
+        188
+      ],
+      "n_udvs": 15,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "merlong-solano",
+      "name": "MERLONG SOLANO",
+      "display_name": "MERLONG SOLANO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 4,
+      "hearing_ids": [
+        2,
+        103
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 13,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "mersinho-lucena",
+      "name": "MERSINHO LUCENA",
+      "display_name": "MERSINHO LUCENA",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 17,
+      "hearing_ids": [
+        6,
+        7,
+        130
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "messias-donato",
+      "name": "MESSIAS DONATO",
+      "display_name": "MESSIAS DONATO",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        13,
+        16,
+        103,
+        201
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "ministra-nisia-trindade-lima",
+      "name": "MINISTRA NÍSIA TRINDADE LIMA",
+      "display_name": "Nísia Trindade",
+      "role": "Ministra da Saúde",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 122,
+      "hearing_ids": [
+        129,
+        171,
+        199
+      ],
+      "n_udvs": 22,
+      "claims": {
+        "claims": 22,
+        "with_udv": 3,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "ministro-waldez-goes",
+      "name": "MINISTRO WALDEZ GÓES",
+      "display_name": "Waldez Góes",
+      "role": "Ministro da Integração e do Desenvolvimento Regional",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 45,
+      "hearing_ids": [
+        109,
+        153
+      ],
+      "n_udvs": 8,
+      "claims": {
+        "claims": 19,
+        "with_udv": 1,
+        "passage_only": 16,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "marcel-van-hattem",
+      "name": "Marcel van Hattem",
+      "display_name": "Marcel van Hattem",
+      "role": "Deputado (Novo-RS)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 55,
+      "hearing_ids": [
+        1,
+        100,
+        153,
+        201
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 20,
+        "with_udv": 2,
+        "passage_only": 16,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "marcelo-queiroz",
+      "name": "Marcelo Queiroz",
+      "display_name": "Marcelo Queiroz",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 8,
+      "hearing_ids": [
+        130,
+        167
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 17,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "marcos-pollon",
+      "name": "Marcos Pollon",
+      "display_name": "Marcos Pollon",
+      "role": "Deputado (PL-MS)",
+      "n_hearings": 7,
+      "n_hearings_in_profile": 3,
+      "n_turns": 46,
+      "hearing_ids": [
+        16,
+        17,
+        103,
+        122,
+        148,
+        201,
+        205
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 26,
+        "with_udv": 2,
+        "passage_only": 19,
+        "without_evidence": 5
+      }
+    },
+    {
+      "slug": "max-lemos",
+      "name": "Max Lemos",
+      "display_name": "Max Lemos",
+      "role": "Deputado (PDT-RJ)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 31,
+      "hearing_ids": [
+        133,
+        144,
+        164,
+        183
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 22,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "marcio-correa",
+      "name": "MÁRCIO CORREA",
+      "display_name": "MÁRCIO CORREA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        144,
+        171
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "marcio-jerry",
+      "name": "Márcio Jerry",
+      "display_name": "Márcio Jerry",
+      "role": "Deputado (PCdoB-MA)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 10,
+      "hearing_ids": [
+        12,
+        53,
+        152
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 22,
+        "with_udv": 1,
+        "passage_only": 18,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "marcio-marinho",
+      "name": "Márcio Marinho",
+      "display_name": "Márcio Marinho",
+      "role": "Deputado (Republicanos-BA)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 37,
+      "hearing_ids": [
+        40,
+        182,
+        192
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 18,
+        "with_udv": 4,
+        "passage_only": 13,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "nikolas-ferreira",
+      "name": "NIKOLAS FERREIRA",
+      "display_name": "Nikolas Ferreira",
+      "role": "Deputado (PL-MG)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 3,
+      "n_turns": 23,
+      "hearing_ids": [
+        16,
+        129,
+        145,
+        199,
+        201
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "nilto-tatto",
+      "name": "NILTO TATTO",
+      "display_name": "Nilto Tatto",
+      "role": "Deputado (PT-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 8,
+      "hearing_ids": [
+        7,
+        45,
+        183
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 9,
+        "without_evidence": 6
+      }
+    },
+    {
+      "slug": "neto-carletto",
+      "name": "Neto Carletto",
+      "display_name": "Neto Carletto",
+      "role": "Deputado (PP-BA)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 9,
+      "hearing_ids": [
+        144,
+        161
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 23,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "odair-cunha",
+      "name": "ODAIR CUNHA",
+      "display_name": "ODAIR CUNHA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        2,
+        183
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 12,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "orlando-silva",
+      "name": "Orlando Silva",
+      "display_name": "Orlando Silva",
+      "role": "Deputado (PCdoB-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 24,
+      "hearing_ids": [
+        67,
+        83,
+        145
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 20,
+        "with_udv": 4,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "osmar-terra",
+      "name": "Osmar Terra",
+      "display_name": "Osmar Terra",
+      "role": "Deputado (MDB-RS)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 4,
+      "n_turns": 30,
+      "hearing_ids": [
+        15,
+        129,
+        146,
+        171,
+        201
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "paulo-guedes",
+      "name": "PAULO GUEDES",
+      "display_name": "PAULO GUEDES",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 10,
+      "hearing_ids": [
+        2,
+        25,
+        109
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 13,
+        "with_udv": 0,
+        "passage_only": 11,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "paulo-pedro",
+      "name": "PAULO PEDRO",
+      "display_name": "Paulo Pedro de Carvalho",
+      "role": "Coordenador da ASA na Caatinga de Pernambuco",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 3,
+      "hearing_ids": [
+        11,
+        169
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 17,
+        "with_udv": 2,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "pedro-aihara",
+      "name": "PEDRO AIHARA",
+      "display_name": "Pedro Aihara",
+      "role": "Deputado (Patriota-MG)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        13,
+        16,
+        103,
+        118,
+        144
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "pedro-campos",
+      "name": "PEDRO CAMPOS",
+      "display_name": "Pedro Campos",
+      "role": "Deputado",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        2,
+        109,
+        183
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 12,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "phellip-alexander-alcantara-ponce",
+      "name": "PHELLIP ALEXANDER ALCANTARA PONCE",
+      "display_name": "PHELLIP ALEXANDER ALCANTARA PONCE",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        53,
+        94
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 13,
+        "with_udv": 0,
+        "passage_only": 12,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "pr-marco-feliciano",
+      "name": "PR. MARCO FELICIANO",
+      "display_name": "PR. MARCO FELICIANO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        48,
+        199
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "priscila-costa",
+      "name": "PRISCILA COSTA",
+      "display_name": "Priscila Costa",
+      "role": "Deputada (PL-CE)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 13,
+      "hearing_ids": [
+        171,
+        199
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "priscila-gebrim-louly",
+      "name": "PRISCILA GEBRIM LOULY",
+      "display_name": "Priscila Louly",
+      "role": "Coordenadora-geral de Avaliação de Tecnologias em Saúde do Ministério da Saúde",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        50,
+        62
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "padre-joao",
+      "name": "Padre João",
+      "display_name": "Padre João",
+      "role": "Deputado (PT-MG)",
+      "n_hearings": 8,
+      "n_hearings_in_profile": 5,
+      "n_turns": 48,
+      "hearing_ids": [
+        2,
+        13,
+        59,
+        99,
+        129,
+        146,
+        183,
+        199
+      ],
+      "n_udvs": 8,
+      "claims": {
+        "claims": 27,
+        "with_udv": 3,
+        "passage_only": 22,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "pastor-henrique-vieira",
+      "name": "Pastor Henrique Vieira",
+      "display_name": "Pastor Henrique Vieira",
+      "role": "Deputado (Psol-RJ)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 3,
+      "n_turns": 26,
+      "hearing_ids": [
+        16,
+        29,
+        48,
+        57,
+        103,
+        171
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 21,
+        "with_udv": 2,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "paulo-teixeira",
+      "name": "Paulo Teixeira",
+      "display_name": "Paulo Teixeira",
+      "role": "Deputado (PT-SP)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 4,
+      "n_turns": 249,
+      "hearing_ids": [
+        45,
+        65,
+        74,
+        83
+      ],
+      "n_udvs": 9,
+      "claims": {
+        "claims": 31,
+        "with_udv": 1,
+        "passage_only": 30,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "paulao",
+      "name": "Paulão",
+      "display_name": "Paulão",
+      "role": "Deputado (PT-AL)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 24,
+      "hearing_ids": [
+        29,
+        157,
+        182
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 15,
+        "with_udv": 1,
+        "passage_only": 11,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "pedro-uczai",
+      "name": "Pedro Uczai",
+      "display_name": "Pedro Uczai",
+      "role": "Deputado (PT-SC) e coordenador da frente parlamentar em defesa do setor",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 11,
+      "hearing_ids": [
+        126,
+        156,
+        199
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "pezenti",
+      "name": "Pezenti",
+      "display_name": "Pezenti",
+      "role": "Deputado (MDB-SC)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 9,
+      "hearing_ids": [
+        106,
+        205
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "prof-paulo-fernando",
+      "name": "Prof. Paulo Fernando",
+      "display_name": "Prof. Paulo Fernando",
+      "role": "Deputado (Republicanos-DF)",
+      "n_hearings": 16,
+      "n_hearings_in_profile": 11,
+      "n_turns": 56,
+      "hearing_ids": [
+        16,
+        27,
+        29,
+        33,
+        35,
+        36,
+        41,
+        42,
+        54,
+        127,
+        130,
+        137,
+        142,
+        178,
+        187,
+        201
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 32,
+        "with_udv": 0,
+        "passage_only": 30,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "professora-goreth",
+      "name": "Professora Goreth",
+      "display_name": "Professora Goreth",
+      "role": "Deputada (PDT-AP)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        31,
+        200
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 16,
+        "with_udv": 1,
+        "passage_only": 13,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "professora-luciene-cavalcante",
+      "name": "Professora Luciene Cavalcante",
+      "display_name": "Professora Luciene Cavalcante",
+      "role": "Deputada (Psol-SP)",
+      "n_hearings": 8,
+      "n_hearings_in_profile": 5,
+      "n_turns": 44,
+      "hearing_ids": [
+        14,
+        24,
+        32,
+        55,
+        118,
+        135,
+        141,
+        176
+      ],
+      "n_udvs": 9,
+      "claims": {
+        "claims": 25,
+        "with_udv": 0,
+        "passage_only": 23,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "rafael-baldi",
+      "name": "RAFAEL BALDI",
+      "display_name": "Rafael Baldi",
+      "role": "Diretor adjunto de Produtos da Federação Brasileira de Bancos (Febraban)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 7,
+      "hearing_ids": [
+        10,
+        142
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "raphael-franco-castelo-branco-carvalho",
+      "name": "RAPHAEL FRANCO CASTELO BRANCO CARVALHO",
+      "display_name": "RAPHAEL FRANCO CASTELO BRANCO CARVALHO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 6,
+      "hearing_ids": [
+        127,
+        155
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "raquel-branquinho",
+      "name": "RAQUEL BRANQUINHO",
+      "display_name": "Raquel Branquinho",
+      "role": "Procuradora regional de República",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        35,
+        180
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "renato-simoes",
+      "name": "RENATO SIMÕES",
+      "display_name": "RENATO SIMÕES",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 3,
+      "hearing_ids": [
+        74,
+        167
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "ricardo-magnus-osorio-galvao",
+      "name": "RICARDO MAGNUS OSÓRIO GALVÃO",
+      "display_name": "Ricardo Galvão",
+      "role": "Presidente do Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 5,
+      "hearing_ids": [
+        168,
+        184,
+        197
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 18,
+        "with_udv": 1,
+        "passage_only": 16,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "ricardo-salles",
+      "name": "RICARDO SALLES",
+      "display_name": "Ricardo Salles",
+      "role": "Deputado (PL-SP)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 148,
+      "hearing_ids": [
+        45,
+        116,
+        183
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 24,
+        "with_udv": 1,
+        "passage_only": 22,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "roberto-monteiro-pai",
+      "name": "ROBERTO MONTEIRO PAI",
+      "display_name": "Roberto Monteiro Pai",
+      "role": "Deputado (PL-RJ)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 3,
+      "n_turns": 57,
+      "hearing_ids": [
+        6,
+        103,
+        133,
+        171,
+        199
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 23,
+        "with_udv": 0,
+        "passage_only": 19,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "rodrigo-saraiva-marinho",
+      "name": "RODRIGO SARAIVA MARINHO",
+      "display_name": "Rodrigo Saraiva",
+      "role": "Professor da Fundação Escola Superior de Advocacia do Ceará e da Pós-Graduação da Universidade de Fortaleza",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 1,
+      "n_turns": 16,
+      "hearing_ids": [
+        10,
+        17,
+        87,
+        177,
+        201
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "rodrigo-valadares",
+      "name": "RODRIGO VALADARES",
+      "display_name": "Rodrigo Valadares",
+      "role": "Deputado (União-SE)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 5,
+      "hearing_ids": [
+        116,
+        201
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 11,
+        "with_udv": 1,
+        "passage_only": 9,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "roselene-candida-alves",
+      "name": "ROSELENE CANDIDA ALVES",
+      "display_name": "Roselene Alves",
+      "role": "Representante da Secretaria Nacional dos Direitos das Pessoas com Deficiência do Ministério dos Direitos Humanos e da Cidadania",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 2,
+      "hearing_ids": [
+        5,
+        94
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 12,
+        "with_udv": 4,
+        "passage_only": 6,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "rosangela-moro",
+      "name": "ROSÂNGELA MORO",
+      "display_name": "Rosângela Moro",
+      "role": "Deputada (União-SP)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 2,
+      "hearing_ids": [
+        34,
+        204
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 21,
+        "with_udv": 4,
+        "passage_only": 15,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "raimundo-santos",
+      "name": "Raimundo Santos",
+      "display_name": "Raimundo Santos",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 5,
+      "hearing_ids": [
+        166,
+        184,
+        197
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "reginete-bispo",
+      "name": "Reginete Bispo",
+      "display_name": "Reginete Bispo",
+      "role": "Deputada (PT-RS)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 21,
+      "hearing_ids": [
+        99,
+        153,
+        163,
+        172
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "rejane-dias",
+      "name": "Rejane Dias",
+      "display_name": "Rejane Dias",
+      "role": "Deputada (PT-PI)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 17,
+      "hearing_ids": [
+        62,
+        89
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 20,
+        "with_udv": 1,
+        "passage_only": 17,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "rodrigo-agostinho",
+      "name": "Rodrigo Agostinho",
+      "display_name": "Rodrigo Agostinho",
+      "role": "Presidente do Ibama",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 13,
+      "hearing_ids": [
+        44,
+        70,
+        183
+      ],
+      "n_udvs": 12,
+      "claims": {
+        "claims": 24,
+        "with_udv": 3,
+        "passage_only": 20,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "rodrigo-de-castro",
+      "name": "Rodrigo de Castro",
+      "display_name": "Rodrigo de Castro",
+      "role": "Deputado (União-MG) e presidente da Comissão de Minas e Energia",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 12,
+      "hearing_ids": [
+        2,
+        109,
+        133,
+        173
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "rogerio-correia",
+      "name": "Rogério Correia",
+      "display_name": "Rogério Correia",
+      "role": "Deputado (PT-MG)",
+      "n_hearings": 8,
+      "n_hearings_in_profile": 4,
+      "n_turns": 81,
+      "hearing_ids": [
+        3,
+        13,
+        16,
+        18,
+        45,
+        71,
+        72,
+        169
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 29,
+        "with_udv": 0,
+        "passage_only": 28,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "rubens-pereira-junior",
+      "name": "Rubens Pereira Júnior",
+      "display_name": "Rubens Pereira Júnior",
+      "role": "Deputado (PT-MA)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 26,
+      "hearing_ids": [
+        35,
+        145,
+        199
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 20,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "rui-falcao",
+      "name": "Rui Falcão",
+      "display_name": "Rui Falcão",
+      "role": "Deputado, presidente da Comissão de Constituição e Justiça e de Cidadania (CCJ)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 16,
+      "hearing_ids": [
+        17,
+        39
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 6,
+        "with_udv": 0,
+        "passage_only": 6,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "sargento-fahur",
+      "name": "SARGENTO FAHUR",
+      "display_name": "SARGENTO FAHUR",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 1,
+      "n_turns": 5,
+      "hearing_ids": [
+        16,
+        103,
+        201
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 20,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "sargento-goncalves",
+      "name": "SARGENTO GONÇALVES",
+      "display_name": "Sargento Gonçalves",
+      "role": "Deputado (PL-RN)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 10,
+      "hearing_ids": [
+        15,
+        103,
+        201,
+        205
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 17,
+        "with_udv": 1,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "sargento-portugal",
+      "name": "SARGENTO PORTUGAL",
+      "display_name": "Sargento Portugal",
+      "role": "Deputado (Pode-RJ)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 5,
+      "hearing_ids": [
+        43,
+        103
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 20,
+        "with_udv": 1,
+        "passage_only": 17,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "silvia-waiapi",
+      "name": "SILVIA WAIÃPI",
+      "display_name": "SILVIA WAIÃPI",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 4,
+      "hearing_ids": [
+        39,
+        115,
+        135,
+        191
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "suelaine-carneiro",
+      "name": "SUELAINE CARNEIRO",
+      "display_name": "Suelaine Carneiro",
+      "role": "Coordenadora do programa de educação do Geledés Instituto da Mulher Negra",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        163,
+        170
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 20,
+        "with_udv": 2,
+        "passage_only": 18,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "sanderson",
+      "name": "Sanderson",
+      "display_name": "Sanderson",
+      "role": "Deputado (PL-RS)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 60,
+      "hearing_ids": [
+        16,
+        103,
+        201,
+        205
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 24,
+        "with_udv": 1,
+        "passage_only": 19,
+        "without_evidence": 4
+      }
+    },
+    {
+      "slug": "sidney-leite",
+      "name": "Sidney Leite",
+      "display_name": "Sidney Leite",
+      "role": "Deputado (PSD-AM)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 12,
+      "hearing_ids": [
+        61,
+        183
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 25,
+        "with_udv": 0,
+        "passage_only": 22,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "silvia-cristina",
+      "name": "Silvia Cristina",
+      "display_name": "Silvia Cristina",
+      "role": "Deputada (PL-RO)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 5,
+      "hearing_ids": [
+        159,
+        161,
+        171
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 19,
+        "with_udv": 1,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "silvye-alves",
+      "name": "Silvye Alves",
+      "display_name": "Silvye Alves",
+      "role": "Deputada (União-GO)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 16,
+      "hearing_ids": [
+        100,
+        165
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 15,
+        "with_udv": 0,
+        "passage_only": 13,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "soraya-santos",
+      "name": "Soraya Santos",
+      "display_name": "Soraya Santos",
+      "role": "Deputada e presidente da Comissão",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 23,
+      "hearing_ids": [
+        50,
+        58,
+        130,
+        166
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 16,
+        "without_evidence": 5
+      }
+    },
+    {
+      "slug": "samia-bomfim",
+      "name": "SÂMIA BOMFIM",
+      "display_name": "Sâmia Bomfim",
+      "role": "Deputada (Psol-SP)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 11,
+      "hearing_ids": [
+        48,
+        112,
+        171,
+        180
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 16,
+        "with_udv": 1,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "sergio-ricardo-moreira-de-castro",
+      "name": "SÉRGIO RICARDO MOREIRA DE CASTRO",
+      "display_name": "SÉRGIO RICARDO MOREIRA DE CASTRO",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 5,
+      "hearing_ids": [
+        79,
+        205
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "tadeu-veneri",
+      "name": "Tadeu Veneri",
+      "display_name": "Tadeu Veneri",
+      "role": "Deputado (PT-PR)",
+      "n_hearings": 8,
+      "n_hearings_in_profile": 5,
+      "n_turns": 25,
+      "hearing_ids": [
+        2,
+        15,
+        16,
+        21,
+        129,
+        153,
+        171,
+        199
+      ],
+      "n_udvs": 2,
+      "claims": {
+        "claims": 18,
+        "with_udv": 0,
+        "passage_only": 17,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "taliria-petrone",
+      "name": "Talíria Petrone",
+      "display_name": "Talíria Petrone",
+      "role": "Deputada (Psol-RJ)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 6,
+      "n_turns": 40,
+      "hearing_ids": [
+        45,
+        70,
+        141,
+        146,
+        178,
+        186
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 19,
+        "with_udv": 2,
+        "passage_only": 16,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "tarcisio-motta",
+      "name": "Tarcísio Motta",
+      "display_name": "Tarcísio Motta",
+      "role": "Deputado (Psol-RJ)",
+      "n_hearings": 7,
+      "n_hearings_in_profile": 3,
+      "n_turns": 19,
+      "hearing_ids": [
+        20,
+        47,
+        57,
+        86,
+        113,
+        115,
+        118
+      ],
+      "n_udvs": 3,
+      "claims": {
+        "claims": 19,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "tiao-medeiros",
+      "name": "Tião Medeiros",
+      "display_name": "Tião Medeiros",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 11,
+      "hearing_ids": [
+        122,
+        153
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 1,
+        "with_udv": 0,
+        "passage_only": 1,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "tulio-gadelha",
+      "name": "TÚLIO GADÊLHA",
+      "display_name": "TÚLIO GADÊLHA",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 6,
+      "hearing_ids": [
+        3,
+        169,
+        183
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 16,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "ulysses-tavares-teixeira",
+      "name": "ULYSSES TAVARES TEIXEIRA",
+      "display_name": "ULYSSES TAVARES TEIXEIRA",
+      "role": null,
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 9,
+      "hearing_ids": [
+        156,
+        174
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 26,
+        "with_udv": 0,
+        "passage_only": 26,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "vanessa-negrini",
+      "name": "VANESSA NEGRINI",
+      "display_name": "Vanessa Negrini",
+      "role": "Diretora do Departamento de Proteção, Defesa e Direitos Animais do Ministério do Meio Ambiente",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 3,
+      "n_turns": 8,
+      "hearing_ids": [
+        95,
+        167,
+        191
+      ],
+      "n_udvs": 7,
+      "claims": {
+        "claims": 20,
+        "with_udv": 5,
+        "passage_only": 13,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "vanessa-pirolo",
+      "name": "VANESSA PIROLO",
+      "display_name": "Vanessa Pirolo",
+      "role": "Coordenadora da Coalizão Vozes do Advocacy",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 11,
+      "hearing_ids": [
+        68,
+        105
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 17,
+        "with_udv": 2,
+        "passage_only": 14,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "victor-hugo-iocca",
+      "name": "VICTOR HUGO IOCCA",
+      "display_name": "Victor Iocca",
+      "role": "Representante da Associação dos Grandes Consumidores Industriais de Energia e de Consumidores Livres (Abrace)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 2,
+      "hearing_ids": [
+        91,
+        104
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 17,
+        "with_udv": 1,
+        "passage_only": 14,
+        "without_evidence": 2
+      }
+    },
+    {
+      "slug": "vinicius-soares",
+      "name": "VINÍCIUS SOARES",
+      "display_name": "Vinícius Soares",
+      "role": "Presidente da Associação Nacional de Pós-Graduandos",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 2,
+      "n_turns": 4,
+      "hearing_ids": [
+        168,
+        206
+      ],
+      "n_udvs": 6,
+      "claims": {
+        "claims": 21,
+        "with_udv": 5,
+        "passage_only": 16,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "vitor-hugo-do-amaral-ferreira",
+      "name": "VITOR HUGO DO AMARAL FERREIRA",
+      "display_name": "Vitor Hugo Ferreira",
+      "role": "Diretor do Departamento de Proteção e Defesa do Consumidor da Secretaria Nacional do Consumidor (Senacon) do Ministério da Justiça",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 3,
+      "n_turns": 10,
+      "hearing_ids": [
+        28,
+        101,
+        142,
+        161,
+        182
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 22,
+        "with_udv": 0,
+        "passage_only": 22,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "vicentinho",
+      "name": "Vicentinho",
+      "display_name": "Vicentinho",
+      "role": "Deputado (PT-SP)",
+      "n_hearings": 2,
+      "n_hearings_in_profile": 1,
+      "n_turns": 15,
+      "hearing_ids": [
+        3,
+        97
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 22,
+        "with_udv": 1,
+        "passage_only": 20,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "vitor-lippi",
+      "name": "Vitor Lippi",
+      "display_name": "Vitor Lippi",
+      "role": "Deputado (PSDB-SP)",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 5,
+      "n_turns": 23,
+      "hearing_ids": [
+        7,
+        61,
+        184,
+        192,
+        193,
+        197
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 27,
+        "with_udv": 1,
+        "passage_only": 25,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "welter",
+      "name": "WELTER",
+      "display_name": "WELTER",
+      "role": null,
+      "n_hearings": 4,
+      "n_hearings_in_profile": 2,
+      "n_turns": 8,
+      "hearing_ids": [
+        2,
+        16,
+        122,
+        183
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 14,
+        "with_udv": 0,
+        "passage_only": 14,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "weliton-prado",
+      "name": "Weliton Prado",
+      "display_name": "Weliton Prado",
+      "role": "Deputado, presidente da Comissão Especial de Combate ao Câncer no Brasil",
+      "n_hearings": 6,
+      "n_hearings_in_profile": 4,
+      "n_turns": 36,
+      "hearing_ids": [
+        5,
+        111,
+        159,
+        171,
+        176,
+        199
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 24,
+        "with_udv": 0,
+        "passage_only": 24,
+        "without_evidence": 0
+      }
+    },
+    {
+      "slug": "zucco",
+      "name": "Zucco",
+      "display_name": "Zucco",
+      "role": "Deputado (Republicanos-RS)",
+      "n_hearings": 5,
+      "n_hearings_in_profile": 2,
+      "n_turns": 17,
+      "hearing_ids": [
+        16,
+        45,
+        103,
+        129,
+        153
+      ],
+      "n_udvs": 1,
+      "claims": {
+        "claims": 11,
+        "with_udv": 1,
+        "passage_only": 7,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "ze-trovao",
+      "name": "ZÉ TROVÃO",
+      "display_name": "ZÉ TROVÃO",
+      "role": null,
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 14,
+      "hearing_ids": [
+        122,
+        144,
+        201
+      ],
+      "n_udvs": 0,
+      "claims": {
+        "claims": 21,
+        "with_udv": 0,
+        "passage_only": 18,
+        "without_evidence": 3
+      }
+    },
+    {
+      "slug": "ze-neto",
+      "name": "Zé Neto",
+      "display_name": "Zé Neto",
+      "role": "Deputado (PT-BA)",
+      "n_hearings": 4,
+      "n_hearings_in_profile": 3,
+      "n_turns": 7,
+      "hearing_ids": [
+        22,
+        25,
+        61,
+        193
+      ],
+      "n_udvs": 4,
+      "claims": {
+        "claims": 17,
+        "with_udv": 1,
+        "passage_only": 15,
+        "without_evidence": 1
+      }
+    },
+    {
+      "slug": "ze-silva",
+      "name": "Zé Silva",
+      "display_name": "Zé Silva",
+      "role": "Deputado (Solidariedade-MG)",
+      "n_hearings": 3,
+      "n_hearings_in_profile": 2,
+      "n_turns": 45,
+      "hearing_ids": [
+        25,
+        46,
+        95
+      ],
+      "n_udvs": 5,
+      "claims": {
+        "claims": 26,
+        "with_udv": 2,
+        "passage_only": 22,
+        "without_evidence": 2
+      }
+    }
+  ],
+  "people": {
+    "1": {
+      "Marcel van Hattem": "marcel-van-hattem",
+      "Filipe Barros": "filipe-barros"
+    },
+    "2": {
+      "Rodrigo de Castro": "rodrigo-de-castro"
+    },
+    "4": {
+      "Amaro Neto": "amaro-neto"
+    },
+    "5": {
+      "Andreia Siqueira": "andreia-siqueira",
+      "Fernando Cotta": "fernando-cotta",
+      "Roselene Alves": "roselene-candida-alves",
+      "Erika Kokay": "erika-kokay"
+    },
+    "6": {
+      "Aureo Ribeiro": "aureo-ribeiro",
+      "Caio Vianna": "caio-vianna",
+      "Alfredo Gaspar": "alfredo-gaspar"
+    },
+    "7": {
+      "Danilo Forte": "danilo-forte",
+      "Arnaldo Jardim": "arnaldo-jardim",
+      "Joaquim Passarinho": "joaquim-passarinho",
+      "Domingos Sávio": "domingos-savio",
+      "Nilto Tatto": "nilto-tatto"
+    },
+    "8": {
+      "Aureo Ribeiro": "aureo-ribeiro"
+    },
+    "11": {
+      "Paulo Pedro de Carvalho": "paulo-pedro",
+      "Fernando Mineiro": "fernando-mineiro"
+    },
+    "12": {
+      "Anna Paula Feminella": "anna-paula-feminella",
+      "Arthur de Almeida Medeiros": "arthur-de-almeida-medeiros"
+    },
+    "13": {
+      "Helder Salomão": "helder-salomao",
+      "Pedro Aihara": "pedro-aihara",
+      "Padre João": "padre-joao",
+      "Rogério Correia": "rogerio-correia"
+    },
+    "14": {
+      "Ivan Valente": "ivan-valente",
+      "Professora Luciene Cavalcante": "professora-luciene-cavalcante",
+      "Duda Salabert": "duda-salabert"
+    },
+    "15": {
+      "Bia Kicis": "bia-kicis",
+      "Jorge Solla": "jorge-solla"
+    },
+    "16": {
+      "Adriana Ventura": "adriana-ventura",
+      "Eduardo Bolsonaro": "eduardo-bolsonaro",
+      "Kim Kataguiri": "kim-kataguiri",
+      "Marcos Pollon": "marcos-pollon",
+      "Chico Alencar": "chico-alencar",
+      "Pedro Aihara": "pedro-aihara",
+      "Jorge Solla": "jorge-solla"
+    },
+    "17": {
+      "Rodrigo Saraiva": "rodrigo-saraiva-marinho",
+      "Lafayette de Andrada": "lafayette-de-andrada",
+      "Alencar Santana": "alencar-santana"
+    },
+    "18": {
+      "Mercedes Maria da Cunha Bustamante": "mercedes-bustamante",
+      "Rogério Correia": "rogerio-correia",
+      "Mariana Breim": "mariana-breim",
+      "Dandara": "dandara"
+    },
+    "19": {
+      "Juninho do Pneu": "juninho-do-pneu"
+    },
+    "20": {
+      "Célia Xakriabá": "celia-xakriaba"
+    },
+    "21": {
+      "Juvandia Moreira": "juvandia-moreira-leite",
+      "Erika Kokay": "erika-kokay",
+      "Tadeu Veneri": "tadeu-veneri"
+    },
+    "22": {
+      "Zé Neto": "ze-neto",
+      "Lucas Ramos": "lucas-ramos"
+    },
+    "23": {
+      "Leônidas Cristino": "leonidas-cristino"
+    },
+    "24": {
+      "Professora Luciene Cavalcante": "professora-luciene-cavalcante"
+    },
+    "25": {
+      "Zé Silva": "ze-silva"
+    },
+    "26": {
+      "Luizianne Lins": "luizianne-lins"
+    },
+    "27": {
+      "Prof. Paulo Fernando": "prof-paulo-fernando"
+    },
+    "28": {
+      "Jorge Braz": "jorge-braz"
+    },
+    "29": {
+      "Benedita da Silva": "benedita-da-silva",
+      "Paulão": "paulao"
+    },
+    "30": {
+      "Ana Paula Lima": "ana-paula-lima",
+      "Lucas José Ramos Lopes": "lucas-jose-ramos-lopes"
+    },
+    "33": {
+      "Amaro Neto": "amaro-neto",
+      "Daniel Trzeciak": "daniel-trzeciak"
+    },
+    "34": {
+      "Rosângela Moro": "rosangela-moro"
+    },
+    "35": {
+      "Rubens Pereira Júnior": "rubens-pereira-junior"
+    },
+    "36": {
+      "Coronel Meira": "coronel-meira"
+    },
+    "37": {
+      "Dr. Zacharias Calil": "dr-zacharias-calil",
+      "Luiz Lima": "luiz-lima"
+    },
+    "38": {
+      "Carlos Gomes": "carlos-gomes"
+    },
+    "39": {
+      "Rui Falcão": "rui-falcao",
+      "Flávio Nogueira": "flavio-nogueira",
+      "Filipe Barros": "filipe-barros",
+      "Lindbergh Farias": "lindbergh-farias",
+      "General Girão": "general-girao"
+    },
+    "40": {
+      "Márcio Marinho": "marcio-marinho",
+      "Luiz Lima": "luiz-lima"
+    },
+    "41": {
+      "Alexandre da Silva": "alexandre-da-silva",
+      "Aliel Machado": "aliel-machado"
+    },
+    "42": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "43": {
+      "Glauber Braga": "glauber-braga",
+      "Fernanda Melchionna": "fernanda-melchionna",
+      "Albuquerque": "albuquerque",
+      "Sargento Portugal": "sargento-portugal"
+    },
+    "44": {
+      "Rodrigo Agostinho": "rodrigo-agostinho",
+      "Ivan Valente": "ivan-valente"
+    },
+    "45": {
+      "Paulo Teixeira": "paulo-teixeira",
+      "Ricardo Salles": "ricardo-salles",
+      "Coronel Meira": "coronel-meira"
+    },
+    "46": {
+      "Zé Silva": "ze-silva"
+    },
+    "47": {
+      "Tarcísio Motta": "tarcisio-motta",
+      "Max Maciel": "max-maciel",
+      "Alfredinho": "alfredinho",
+      "Defensor Stélio Dener": "defensor-stelio-dener"
+    },
+    "48": {
+      "Pastor Henrique Vieira": "pastor-henrique-vieira"
+    },
+    "49": {
+      "Daniela Reinehr": "daniela-reinehr"
+    },
+    "50": {
+      "Daiana Santos": "daiana-santos"
+    },
+    "51": {
+      "Dandara": "dandara",
+      "Lídice da Mata": "lidice-da-mata"
+    },
+    "52": {
+      "Alexandre da Silva": "alexandre-da-silva"
+    },
+    "53": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "54": {
+      "Aureo Ribeiro": "aureo-ribeiro"
+    },
+    "55": {
+      "Professora Luciene Cavalcante": "professora-luciene-cavalcante",
+      "Guilherme Boulos": "guilherme-boulos",
+      "Carlos Giannazi": "carlos-giannazi"
+    },
+    "57": {
+      "Pastor Henrique Vieira": "pastor-henrique-vieira",
+      "Ana Paula Lima": "ana-paula-lima"
+    },
+    "58": {
+      "Soraya Santos": "soraya-santos"
+    },
+    "59": {
+      "Padre João": "padre-joao"
+    },
+    "60": {
+      "Dr. Zacharias Calil": "dr-zacharias-calil",
+      "Alexandre Kalache": "alexandre-kalache"
+    },
+    "61": {
+      "Sidney Leite": "sidney-leite",
+      "Vitor Lippi": "vitor-lippi",
+      "Zé Neto": "ze-neto"
+    },
+    "62": {
+      "Rejane Dias": "rejane-dias",
+      "Priscila Louly": "priscila-gebrim-louly"
+    },
+    "63": {
+      "Denis Bezerra": "denis-bezerra"
+    },
+    "65": {
+      "Paulo Teixeira": "paulo-teixeira"
+    },
+    "66": {
+      "Mario Avelino": "mario-avelino"
+    },
+    "67": {
+      "Orlando Silva": "orlando-silva"
+    },
+    "68": {
+      "Arnaldo Bordon": "arnaldo-furman-bordon",
+      "Vanessa Pirolo": "vanessa-pirolo",
+      "Dr. Zacharias Calil": "dr-zacharias-calil"
+    },
+    "69": {
+      "Lídice da Mata": "lidice-da-mata"
+    },
+    "70": {
+      "Talíria Petrone": "taliria-petrone",
+      "Rodrigo Agostinho": "rodrigo-agostinho"
+    },
+    "71": {
+      "Rogério Correia": "rogerio-correia",
+      "Deyvid Bacelar": "deyvid-souza-bacelar-da-silva"
+    },
+    "72": {
+      "Rogério Correia": "rogerio-correia"
+    },
+    "73": {
+      "Marcelo de Souza do Nascimento": "marcelo-de-souza-do-nascimento"
+    },
+    "74": {
+      "Maria do Rosário": "maria-do-rosario",
+      "Lucas Lopes": "lucas-jose-ramos-lopes",
+      "Erika Kokay": "erika-kokay"
+    },
+    "75": {
+      "Juvândia Moreira Leite": "juvandia-moreira-leite",
+      "Luciana Paula Conforti": "luciana-paula-conforti",
+      "Bia Kicis": "bia-kicis"
+    },
+    "76": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "80": {
+      "Augusto Coutinho": "augusto-coutinho",
+      "Adriana Ventura": "adriana-ventura",
+      "Lafayette de Andrada": "lafayette-de-andrada"
+    },
+    "82": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "83": {
+      "Orlando Silva": "orlando-silva"
+    },
+    "84": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "85": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "86": {
+      "Evair Vieira de Melo": "evair-vieira-de-melo",
+      "Leo Prates": "leo-prates"
+    },
+    "87": {
+      "Augusto Coutinho": "augusto-coutinho",
+      "Josenildo": "josenildo"
+    },
+    "88": {
+      "Angela Amin": "angela-amin"
+    },
+    "89": {
+      "Rejane Dias": "rejane-dias",
+      "Érika Kokay": "erika-kokay"
+    },
+    "91": {
+      "Victor Iocca": "victor-hugo-iocca",
+      "Danilo Forte": "danilo-forte",
+      "Benes Leocádio": "benes-leocadio"
+    },
+    "93": {
+      "Flávia Morais": "flavia-morais"
+    },
+    "94": {
+      "Erika Kokay": "erika-kokay",
+      "Roselene Alves": "roselene-candida-alves"
+    },
+    "95": {
+      "Karina Ishida": "karina-rie-ishida",
+      "Vanessa Negrini": "vanessa-negrini",
+      "Zé Silva": "ze-silva"
+    },
+    "97": {
+      "Vicentinho": "vicentinho",
+      "Fausto Augusto Júnior": "fausto-augusto-junior"
+    },
+    "98": {
+      "George Lodder": "george-neves-lodder",
+      "Aristides Moura": "aristides-moura"
+    },
+    "99": {
+      "Padre João": "padre-joao",
+      "Abilio Brunini": "abilio-brunini"
+    },
+    "100": {
+      "Silvye Alves": "silvye-alves",
+      "George Neves Lodder": "george-neves-lodder"
+    },
+    "101": {
+      "Ismael Alexandrino": "ismael-alexandrino"
+    },
+    "102": {
+      "Arnaldo Jardim": "arnaldo-jardim"
+    },
+    "103": {
+      "General Girão": "general-girao",
+      "Delegado Paulo Bilynskyj": "delegado-paulo-bilynskyj",
+      "Pastor Henrique Vieira": "pastor-henrique-vieira",
+      "Sanderson": "sanderson"
+    },
+    "104": {
+      "Danilo Forte": "danilo-forte",
+      "Lafayette de Andrada": "lafayette-de-andrada"
+    },
+    "105": {
+      "Dr. Zacharias Calil": "dr-zacharias-calil",
+      "Vanessa Pirolo": "vanessa-pirolo",
+      "Fernando Korn Malerbi": "fernando-korn-malerbi",
+      "Arnaldo Furman Bordon": "arnaldo-furman-bordon"
+    },
+    "106": {
+      "Pezenti": "pezenti"
+    },
+    "107": {
+      "Luciano Chaves Boeira": "luciano-chaves-boeira"
+    },
+    "108": {
+      "Bibo Nunes": "bibo-nunes",
+      "Jorge Goetten": "jorge-goetten"
+    },
+    "109": {
+      "Waldez Góes": "ministro-waldez-goes",
+      "Pedro Campos": "pedro-campos",
+      "Gaguim": "carlos-henrique-gaguim"
+    },
+    "110": {
+      "Luiz Couto": "luiz-couto",
+      "Alexandre Lindenmeyer": "alexandre-lindenmeyer",
+      "Alexandre da Silva": "alexandre-da-silva"
+    },
+    "111": {
+      "Amália Barros": "amalia-barros"
+    },
+    "112": {
+      "Glauber Braga": "glauber-braga"
+    },
+    "113": {
+      "Leo Prates": "leo-prates"
+    },
+    "114": {
+      "Ismael Alexandrino": "ismael-alexandrino"
+    },
+    "115": {
+      "Tarcísio Motta": "tarcisio-motta"
+    },
+    "116": {
+      "Evair Vieira de Melo": "evair-vieira-de-melo",
+      "Augusto Coutinho": "augusto-coutinho",
+      "Carlos Zarattini": "carlos-zarattini"
+    },
+    "117": {
+      "Alfredo Gaspar": "alfredo-gaspar",
+      "Marx Beltrão": "marx-beltrao"
+    },
+    "118": {
+      "Tarcísio Motta": "tarcisio-motta",
+      "Pedro Aihara": "pedro-aihara",
+      "Jorge Goetten": "jorge-goetten",
+      "Leo Prates": "leo-prates"
+    },
+    "120": {
+      "Alexandre Lindenmeyer": "alexandre-lindenmeyer"
+    },
+    "122": {
+      "Afonso Hamm": "afonso-hamm",
+      "Domingos Sávio": "domingos-savio"
+    },
+    "124": {
+      "Bohn Gass": "bohn-gass"
+    },
+    "126": {
+      "Chico Alencar": "chico-alencar"
+    },
+    "127": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "128": {
+      "Daniela Reinehr": "daniela-reinehr"
+    },
+    "129": {
+      "Nísia Trindade": "ministra-nisia-trindade-lima",
+      "Bia Kicis": "bia-kicis",
+      "Eduardo Bolsonaro": "eduardo-bolsonaro",
+      "Jorge Solla": "jorge-solla"
+    },
+    "130": {
+      "Jandira Feghali": "jandira-feghali",
+      "Lídice da Mata": "lidice-da-mata"
+    },
+    "131": {
+      "Jorge Solla": "jorge-solla"
+    },
+    "133": {
+      "Rodrigo de Castro": "rodrigo-de-castro",
+      "Ivan Valente": "ivan-valente",
+      "Arnaldo Jardim": "arnaldo-jardim",
+      "Max Lemos": "max-lemos",
+      "Julio Lopes": "julio-lopes",
+      "Bacelar": "joao-carlos-bacelar",
+      "Celso Russomanno": "celso-russomanno",
+      "Aureo Ribeiro": "aureo-ribeiro",
+      "Roberto Monteiro Pai": "roberto-monteiro-pai"
+    },
+    "134": {
+      "Leônidas Cristino": "leonidas-cristino"
+    },
+    "135": {
+      "Professora Luciene Cavalcante": "professora-luciene-cavalcante"
+    },
+    "136": {
+      "Kleber Karipuna": "kleber-karipuna",
+      "Célia Xakriabá": "celia-xakriaba"
+    },
+    "137": {
+      "Prof. Paulo Fernando": "prof-paulo-fernando",
+      "Fernando Mineiro": "fernando-mineiro"
+    },
+    "138": {
+      "Caio Vianna": "caio-vianna"
+    },
+    "139": {
+      "Célia Xakriabá": "celia-xakriaba"
+    },
+    "140": {
+      "Iza Arruda": "iza-arruda",
+      "Jorge Solla": "jorge-solla"
+    },
+    "141": {
+      "Professora Luciene Cavalcante": "professora-luciene-cavalcante",
+      "Talíria Petrone": "taliria-petrone"
+    },
+    "142": {
+      "Prof. Paulo Fernando": "prof-paulo-fernando",
+      "Rafael Baldi": "rafael-baldi",
+      "Vitor Hugo Ferreira": "vitor-hugo-do-amaral-ferreira"
+    },
+    "143": {
+      "Gisela Simona": "gisela-simona"
+    },
+    "144": {
+      "Bebeto": "bebeto"
+    },
+    "145": {
+      "Bia Kicis": "bia-kicis",
+      "Evair Vieira de Melo": "evair-vieira-de-melo",
+      "Nikolas Ferreira": "nikolas-ferreira"
+    },
+    "146": {
+      "Padre João": "padre-joao",
+      "Ângela Gomes": "angela-aboin"
+    },
+    "147": {
+      "Daiana Santos": "daiana-santos"
+    },
+    "148": {
+      "Marcos Pollon": "marcos-pollon",
+      "Ismael Alexandrino": "ismael-alexandrino"
+    },
+    "149": {
+      "Alexandre Lindenmeyer": "alexandre-lindenmeyer",
+      "Alexandre da Silva": "alexandre-da-silva"
+    },
+    "150": {
+      "Luisa Canziani": "luisa-canziani"
+    },
+    "151": {
+      "Luiz Couto": "luiz-couto",
+      "João Moura": "joao-moura",
+      "Erika Kokay": "erika-kokay"
+    },
+    "152": {
+      "Márcio Jerry": "marcio-jerry"
+    },
+    "153": {
+      "Waldez Góes": "ministro-waldez-goes",
+      "Marcel van Hattem": "marcel-van-hattem",
+      "Zucco": "zucco"
+    },
+    "154": {
+      "Lêda Borges": "leda-borges"
+    },
+    "155": {
+      "Aliel Machado": "aliel-machado",
+      "Alexandre Kalache": "alexandre-kalache",
+      "Alexandre da Silva": "alexandre-da-silva"
+    },
+    "156": {
+      "Pedro Uczai": "pedro-uczai"
+    },
+    "157": {
+      "Paulão": "paulao"
+    },
+    "158": {
+      "Kleber Karipuna": "kleber-karipuna",
+      "Airton Faleiro": "airton-faleiro"
+    },
+    "159": {
+      "Weliton Prado": "weliton-prado",
+      "Silvia Cristina": "silvia-cristina"
+    },
+    "160": {
+      "Anna Paula Feminella": "anna-paula-feminella",
+      "Décio Nascimento Guimarães": "decio-nascimento-guimaraes",
+      "Glauber Braga": "glauber-braga"
+    },
+    "161": {
+      "Neto Carletto": "neto-carletto"
+    },
+    "163": {
+      "Suelaine Carneiro": "suelaine-carneiro",
+      "Reginete Bispo": "reginete-bispo"
+    },
+    "164": {
+      "Max Lemos": "max-lemos"
+    },
+    "165": {
+      "Danilo Forte": "danilo-forte",
+      "Lêda Borges": "leda-borges"
+    },
+    "166": {
+      "Caio Vianna": "caio-vianna",
+      "Jeferson Barbosa": "jeferson-dias-barbosa"
+    },
+    "167": {
+      "Vanessa Negrini": "vanessa-negrini"
+    },
+    "168": {
+      "Vinícius Soares": "vinicius-soares",
+      "Ricardo Galvão": "ricardo-magnus-osorio-galvao",
+      "Mercedes Bustamante": "mercedes-bustamante",
+      "Alice Portugal": "alice-portugal"
+    },
+    "169": {
+      "Paulo Pedro de Carvalho": "paulo-pedro",
+      "Célia Xakriabá": "celia-xakriaba",
+      "Dandara": "dandara"
+    },
+    "170": {
+      "Suelaine Carneiro": "suelaine-carneiro",
+      "Erika Kokay": "erika-kokay"
+    },
+    "171": {
+      "Nísia Trindade": "ministra-nisia-trindade-lima",
+      "Osmar Terra": "osmar-terra",
+      "Franciane Bayer": "franciane-bayer",
+      "Priscila Costa": "priscila-costa",
+      "Ana Paula Lima": "ana-paula-lima",
+      "Sâmia Bomfim": "samia-bomfim",
+      "Lula da Fonte": "lula-da-fonte"
+    },
+    "172": {
+      "Reginete Bispo": "reginete-bispo",
+      "Luiz Couto": "luiz-couto"
+    },
+    "173": {
+      "Geraldo Mendes": "geraldo-mendes"
+    },
+    "174": {
+      "Evair Vieira de Melo": "evair-vieira-de-melo"
+    },
+    "175": {
+      "Bandeira de Mello": "bandeira-de-mello"
+    },
+    "176": {
+      "Professora Luciene Cavalcante": "professora-luciene-cavalcante"
+    },
+    "177": {
+      "Celso Russomanno": "celso-russomanno"
+    },
+    "178": {
+      "Talíria Petrone": "taliria-petrone"
+    },
+    "179": {
+      "Any Ortiz": "any-ortiz"
+    },
+    "180": {
+      "Raquel Branquinho": "raquel-branquinho",
+      "Delegado Éder Mauro": "delegado-eder-mauro",
+      "Sâmia Bomfim": "samia-bomfim"
+    },
+    "181": {
+      "Dr. Zacharias Calil": "dr-zacharias-calil"
+    },
+    "182": {
+      "Márcio Marinho": "marcio-marinho"
+    },
+    "183": {
+      "Rodrigo Agostinho": "rodrigo-agostinho",
+      "Lafayette de Andrada": "lafayette-de-andrada",
+      "Julio Lopes": "julio-lopes",
+      "Júnior Ferrari": "junior-ferrari",
+      "Sidney Leite": "sidney-leite",
+      "Ricardo Salles": "ricardo-salles"
+    },
+    "184": {
+      "Gianna Sagazio": "gianna-cardoso-sagazio",
+      "Vitor Lippi": "vitor-lippi",
+      "Ricardo Galvão": "ricardo-magnus-osorio-galvao"
+    },
+    "185": {
+      "Iza Arruda": "iza-arruda"
+    },
+    "186": {
+      "Talíria Petrone": "taliria-petrone"
+    },
+    "187": {
+      "Luizianne Lins": "luizianne-lins"
+    },
+    "188": {
+      "Mercedes Bustamante": "mercedes-bustamante",
+      "Ana Priscila Alves": "ana-priscila-alves",
+      "Ana Pimentel": "ana-pimentel"
+    },
+    "189": {
+      "Any Ortiz": "any-ortiz"
+    },
+    "190": {
+      "Erika Kokay": "erika-kokay"
+    },
+    "191": {
+      "Vanessa Negrini": "vanessa-negrini"
+    },
+    "192": {
+      "Marcelo de Souza do Nascimento": "marcelo-de-souza-do-nascimento",
+      "Márcio Marinho": "marcio-marinho"
+    },
+    "193": {
+      "Jorge Goetten": "jorge-goetten",
+      "Zé Neto": "ze-neto",
+      "Vitor Lippi": "vitor-lippi"
+    },
+    "194": {
+      "Jonas Donizette": "jonas-donizette"
+    },
+    "195": {
+      "Any Ortiz": "any-ortiz"
+    },
+    "197": {
+      "Ricardo Galvão": "ricardo-magnus-osorio-galvao",
+      "Gianna Sagazio": "gianna-cardoso-sagazio",
+      "Luisa Canziani": "luisa-canziani"
+    },
+    "198": {
+      "Marina Rongo": "marina-rongo",
+      "Luizianne Lins": "luizianne-lins"
+    },
+    "199": {
+      "Nísia Trindade": "ministra-nisia-trindade-lima",
+      "Adriana Ventura": "adriana-ventura",
+      "Bia Kicis": "bia-kicis",
+      "Alberto Mourão": "alberto-mourao",
+      "Evair Vieira de Melo": "evair-vieira-de-melo",
+      "Nikolas Ferreira": "nikolas-ferreira",
+      "Priscila Costa": "priscila-costa",
+      "Junio Amaral": "junio-amaral",
+      "Padre João": "padre-joao",
+      "Carlos Jordy": "carlos-jordy",
+      "Rubens Pereira Júnior": "rubens-pereira-junior",
+      "Jorge Solla": "jorge-solla"
+    },
+    "200": {
+      "Erika Kokay": "erika-kokay",
+      "Professora Goreth": "professora-goreth"
+    },
+    "201": {
+      "Marcel van Hattem": "marcel-van-hattem",
+      "Sanderson": "sanderson",
+      "Rodrigo Valadares": "rodrigo-valadares",
+      "José Medeiros": "jose-medeiros",
+      "Sargento Gonçalves": "sargento-goncalves",
+      "Cabo Gilberto Silva": "cabo-gilberto-silva"
+    },
+    "202": {
+      "Alice Portugal": "alice-portugal"
+    },
+    "203": {
+      "Ana Pimentel": "ana-pimentel",
+      "Lêda Borges": "leda-borges"
+    },
+    "204": {
+      "Rosângela Moro": "rosangela-moro",
+      "Amira Awada": "amira-awada"
+    },
+    "205": {
+      "Sanderson": "sanderson",
+      "Marcos Pollon": "marcos-pollon"
+    },
+    "206": {
+      "Vinícius Soares": "vinicius-soares",
+      "Dandara": "dandara"
+    }
+  },
+  "udvs": {
+    "udv-1-2-0": "marcel-van-hattem",
+    "udv-1-2-1": "marcel-van-hattem",
+    "udv-1-2-2": "marcel-van-hattem",
+    "udv-1-2-3": "marcel-van-hattem",
+    "udv-1-4-0": "filipe-barros",
+    "udv-100-0-0": "silvye-alves",
+    "udv-100-2-0": "george-neves-lodder",
+    "udv-100-2-1": "george-neves-lodder",
+    "udv-101-2-0": "ismael-alexandrino",
+    "udv-101-2-1": "ismael-alexandrino",
+    "udv-101-2-2": "ismael-alexandrino",
+    "udv-101-2-3": "ismael-alexandrino",
+    "udv-101-2-4": "ismael-alexandrino",
+    "udv-102-1-0": "arnaldo-jardim",
+    "udv-102-1-1": "arnaldo-jardim",
+    "udv-103-1-0": "general-girao",
+    "udv-103-1-1": "general-girao",
+    "udv-103-2-0": "delegado-paulo-bilynskyj",
+    "udv-103-2-1": "delegado-paulo-bilynskyj",
+    "udv-103-3-0": "pastor-henrique-vieira",
+    "udv-103-4-0": "sanderson",
+    "udv-104-1-0": "danilo-forte",
+    "udv-104-1-1": "danilo-forte",
+    "udv-104-2-0": "lafayette-de-andrada",
+    "udv-104-2-1": "lafayette-de-andrada",
+    "udv-104-2-2": "lafayette-de-andrada",
+    "udv-105-0-0": "dr-zacharias-calil",
+    "udv-105-1-0": "vanessa-pirolo",
+    "udv-105-1-1": "vanessa-pirolo",
+    "udv-105-2-0": "fernando-korn-malerbi",
+    "udv-105-2-1": "fernando-korn-malerbi",
+    "udv-105-2-2": "fernando-korn-malerbi",
+    "udv-105-3-0": "arnaldo-furman-bordon",
+    "udv-106-2-0": "pezenti",
+    "udv-107-2-0": "luciano-chaves-boeira",
+    "udv-108-2-0": "bibo-nunes",
+    "udv-108-2-1": "bibo-nunes",
+    "udv-108-3-0": "jorge-goetten",
+    "udv-109-0-0": "ministro-waldez-goes",
+    "udv-109-0-1": "ministro-waldez-goes",
+    "udv-109-0-2": "ministro-waldez-goes",
+    "udv-109-0-3": "ministro-waldez-goes",
+    "udv-109-2-0": "pedro-campos",
+    "udv-109-3-0": "carlos-henrique-gaguim",
+    "udv-109-3-1": "carlos-henrique-gaguim",
+    "udv-11-2-0": "paulo-pedro",
+    "udv-11-3-0": "fernando-mineiro",
+    "udv-110-0-0": "luiz-couto",
+    "udv-110-0-1": "luiz-couto",
+    "udv-110-1-0": "alexandre-lindenmeyer",
+    "udv-110-1-1": "alexandre-lindenmeyer",
+    "udv-110-3-0": "alexandre-da-silva",
+    "udv-110-3-1": "alexandre-da-silva",
+    "udv-111-1-0": "amalia-barros",
+    "udv-111-1-1": "amalia-barros",
+    "udv-112-4-0": "glauber-braga",
+    "udv-113-3-0": "leo-prates",
+    "udv-113-3-1": "leo-prates",
+    "udv-114-3-0": "ismael-alexandrino",
+    "udv-115-3-0": "tarcisio-motta",
+    "udv-116-1-0": "evair-vieira-de-melo",
+    "udv-116-3-0": "augusto-coutinho",
+    "udv-116-4-0": "carlos-zarattini",
+    "udv-117-0-0": "alfredo-gaspar",
+    "udv-117-0-1": "alfredo-gaspar",
+    "udv-117-3-0": "marx-beltrao",
+    "udv-118-2-0": "tarcisio-motta",
+    "udv-118-3-0": "pedro-aihara",
+    "udv-118-4-0": "jorge-goetten",
+    "udv-118-5-0": "leo-prates",
+    "udv-12-0-0": "anna-paula-feminella",
+    "udv-12-0-1": "anna-paula-feminella",
+    "udv-12-0-2": "anna-paula-feminella",
+    "udv-12-0-3": "anna-paula-feminella",
+    "udv-12-0-4": "anna-paula-feminella",
+    "udv-12-0-5": "anna-paula-feminella",
+    "udv-12-0-6": "anna-paula-feminella",
+    "udv-12-0-7": "anna-paula-feminella",
+    "udv-12-2-0": "arthur-de-almeida-medeiros",
+    "udv-12-2-1": "arthur-de-almeida-medeiros",
+    "udv-120-4-0": "alexandre-lindenmeyer",
+    "udv-122-1-0": "afonso-hamm",
+    "udv-122-2-0": "domingos-savio",
+    "udv-122-2-1": "domingos-savio",
+    "udv-124-2-0": "bohn-gass",
+    "udv-124-2-1": "bohn-gass",
+    "udv-126-0-0": "chico-alencar",
+    "udv-126-0-1": "chico-alencar",
+    "udv-126-0-2": "chico-alencar",
+    "udv-127-2-0": "erika-kokay",
+    "udv-128-0-0": "daniela-reinehr",
+    "udv-129-0-0": "ministra-nisia-trindade-lima",
+    "udv-129-0-1": "ministra-nisia-trindade-lima",
+    "udv-129-0-2": "ministra-nisia-trindade-lima",
+    "udv-129-0-3": "ministra-nisia-trindade-lima",
+    "udv-129-0-4": "ministra-nisia-trindade-lima",
+    "udv-129-1-0": "bia-kicis",
+    "udv-129-1-1": "bia-kicis",
+    "udv-129-1-2": "bia-kicis",
+    "udv-129-2-0": "eduardo-bolsonaro",
+    "udv-129-2-1": "eduardo-bolsonaro",
+    "udv-129-2-2": "eduardo-bolsonaro",
+    "udv-129-3-0": "jorge-solla",
+    "udv-129-3-1": "jorge-solla",
+    "udv-129-3-2": "jorge-solla",
+    "udv-13-2-0": "helder-salomao",
+    "udv-13-3-0": "pedro-aihara",
+    "udv-13-4-0": "padre-joao",
+    "udv-13-8-0": "rogerio-correia",
+    "udv-130-0-0": "jandira-feghali",
+    "udv-130-0-1": "jandira-feghali",
+    "udv-130-1-0": "lidice-da-mata",
+    "udv-131-1-0": "jorge-solla",
+    "udv-131-1-1": "jorge-solla",
+    "udv-131-1-2": "jorge-solla",
+    "udv-131-1-3": "jorge-solla",
+    "udv-133-0-0": "rodrigo-de-castro",
+    "udv-133-0-1": "rodrigo-de-castro",
+    "udv-133-0-2": "rodrigo-de-castro",
+    "udv-133-1-0": "ivan-valente",
+    "udv-133-10-0": "roberto-monteiro-pai",
+    "udv-133-2-0": "arnaldo-jardim",
+    "udv-133-3-0": "max-lemos",
+    "udv-133-3-1": "max-lemos",
+    "udv-133-6-0": "julio-lopes",
+    "udv-133-7-0": "joao-carlos-bacelar",
+    "udv-133-8-0": "celso-russomanno",
+    "udv-133-9-0": "aureo-ribeiro",
+    "udv-134-4-0": "leonidas-cristino",
+    "udv-135-4-0": "professora-luciene-cavalcante",
+    "udv-135-4-1": "professora-luciene-cavalcante",
+    "udv-136-1-0": "kleber-karipuna",
+    "udv-136-2-0": "celia-xakriaba",
+    "udv-136-2-1": "celia-xakriaba",
+    "udv-137-2-0": "prof-paulo-fernando",
+    "udv-137-3-0": "fernando-mineiro",
+    "udv-138-1-0": "caio-vianna",
+    "udv-139-1-0": "celia-xakriaba",
+    "udv-139-1-1": "celia-xakriaba",
+    "udv-14-6-0": "ivan-valente",
+    "udv-14-7-0": "professora-luciene-cavalcante",
+    "udv-14-8-0": "duda-salabert",
+    "udv-140-1-0": "iza-arruda",
+    "udv-140-2-0": "jorge-solla",
+    "udv-141-3-0": "professora-luciene-cavalcante",
+    "udv-141-4-0": "taliria-petrone",
+    "udv-142-2-0": "prof-paulo-fernando",
+    "udv-142-3-0": "rafael-baldi",
+    "udv-142-3-1": "rafael-baldi",
+    "udv-142-4-0": "vitor-hugo-do-amaral-ferreira",
+    "udv-143-3-0": "gisela-simona",
+    "udv-143-3-1": "gisela-simona",
+    "udv-144-2-0": "bebeto",
+    "udv-145-1-0": "bia-kicis",
+    "udv-145-2-0": "evair-vieira-de-melo",
+    "udv-145-3-0": "nikolas-ferreira",
+    "udv-146-0-0": "padre-joao",
+    "udv-146-2-0": "angela-aboin",
+    "udv-147-0-0": "daiana-santos",
+    "udv-148-0-0": "marcos-pollon",
+    "udv-148-0-1": "marcos-pollon",
+    "udv-148-1-0": "ismael-alexandrino",
+    "udv-148-1-1": "ismael-alexandrino",
+    "udv-149-0-0": "alexandre-lindenmeyer",
+    "udv-149-2-0": "alexandre-da-silva",
+    "udv-15-2-0": "bia-kicis",
+    "udv-15-2-1": "bia-kicis",
+    "udv-15-3-0": "jorge-solla",
+    "udv-150-4-0": "luisa-canziani",
+    "udv-150-4-1": "luisa-canziani",
+    "udv-151-0-0": "luiz-couto",
+    "udv-151-1-0": "joao-moura",
+    "udv-151-3-0": "erika-kokay",
+    "udv-152-1-0": "marcio-jerry",
+    "udv-153-1-0": "ministro-waldez-goes",
+    "udv-153-1-1": "ministro-waldez-goes",
+    "udv-153-1-2": "ministro-waldez-goes",
+    "udv-153-1-3": "ministro-waldez-goes",
+    "udv-153-2-0": "marcel-van-hattem",
+    "udv-153-4-0": "zucco",
+    "udv-154-0-0": "leda-borges",
+    "udv-155-0-0": "aliel-machado",
+    "udv-155-0-1": "aliel-machado",
+    "udv-155-1-0": "alexandre-kalache",
+    "udv-155-3-0": "alexandre-da-silva",
+    "udv-156-2-0": "pedro-uczai",
+    "udv-156-2-1": "pedro-uczai",
+    "udv-156-2-2": "pedro-uczai",
+    "udv-157-3-0": "paulao",
+    "udv-157-3-1": "paulao",
+    "udv-158-2-0": "kleber-karipuna",
+    "udv-158-2-1": "kleber-karipuna",
+    "udv-158-3-0": "airton-faleiro",
+    "udv-159-1-0": "weliton-prado",
+    "udv-159-3-0": "silvia-cristina",
+    "udv-16-1-0": "adriana-ventura",
+    "udv-16-2-0": "eduardo-bolsonaro",
+    "udv-16-3-0": "kim-kataguiri",
+    "udv-16-4-0": "marcos-pollon",
+    "udv-16-5-0": "chico-alencar",
+    "udv-16-6-0": "pedro-aihara",
+    "udv-16-7-0": "jorge-solla",
+    "udv-160-0-0": "anna-paula-feminella",
+    "udv-160-0-1": "anna-paula-feminella",
+    "udv-160-0-2": "anna-paula-feminella",
+    "udv-160-2-0": "decio-nascimento-guimaraes",
+    "udv-160-3-0": "glauber-braga",
+    "udv-160-3-1": "glauber-braga",
+    "udv-161-2-0": "neto-carletto",
+    "udv-163-1-0": "suelaine-carneiro",
+    "udv-163-1-1": "suelaine-carneiro",
+    "udv-163-4-0": "reginete-bispo",
+    "udv-164-3-0": "max-lemos",
+    "udv-165-0-0": "danilo-forte",
+    "udv-165-0-1": "danilo-forte",
+    "udv-165-0-2": "danilo-forte",
+    "udv-165-0-3": "danilo-forte",
+    "udv-165-0-4": "danilo-forte",
+    "udv-165-4-0": "leda-borges",
+    "udv-166-0-0": "caio-vianna",
+    "udv-166-3-0": "jeferson-dias-barbosa",
+    "udv-166-3-1": "jeferson-dias-barbosa",
+    "udv-166-3-2": "jeferson-dias-barbosa",
+    "udv-166-3-3": "jeferson-dias-barbosa",
+    "udv-167-0-0": "vanessa-negrini",
+    "udv-167-0-1": "vanessa-negrini",
+    "udv-167-0-2": "vanessa-negrini",
+    "udv-167-0-3": "vanessa-negrini",
+    "udv-167-0-4": "vanessa-negrini",
+    "udv-168-0-0": "vinicius-soares",
+    "udv-168-0-1": "vinicius-soares",
+    "udv-168-0-2": "vinicius-soares",
+    "udv-168-0-3": "vinicius-soares",
+    "udv-168-0-4": "vinicius-soares",
+    "udv-168-1-0": "ricardo-magnus-osorio-galvao",
+    "udv-168-1-1": "ricardo-magnus-osorio-galvao",
+    "udv-168-1-2": "ricardo-magnus-osorio-galvao",
+    "udv-168-1-3": "ricardo-magnus-osorio-galvao",
+    "udv-168-2-0": "mercedes-bustamante",
+    "udv-168-2-1": "mercedes-bustamante",
+    "udv-168-2-2": "mercedes-bustamante",
+    "udv-168-2-3": "mercedes-bustamante",
+    "udv-168-3-0": "alice-portugal",
+    "udv-168-3-1": "alice-portugal",
+    "udv-168-3-2": "alice-portugal",
+    "udv-168-3-3": "alice-portugal",
+    "udv-168-3-4": "alice-portugal",
+    "udv-169-1-0": "paulo-pedro",
+    "udv-169-1-1": "paulo-pedro",
+    "udv-169-4-0": "celia-xakriaba",
+    "udv-169-5-0": "dandara",
+    "udv-169-5-1": "dandara",
+    "udv-17-0-0": "rodrigo-saraiva-marinho",
+    "udv-17-0-1": "rodrigo-saraiva-marinho",
+    "udv-17-2-0": "lafayette-de-andrada",
+    "udv-17-3-0": "alencar-santana",
+    "udv-170-0-0": "suelaine-carneiro",
+    "udv-170-4-0": "erika-kokay",
+    "udv-171-0-0": "ministra-nisia-trindade-lima",
+    "udv-171-0-1": "ministra-nisia-trindade-lima",
+    "udv-171-0-2": "ministra-nisia-trindade-lima",
+    "udv-171-0-3": "ministra-nisia-trindade-lima",
+    "udv-171-0-4": "ministra-nisia-trindade-lima",
+    "udv-171-0-5": "ministra-nisia-trindade-lima",
+    "udv-171-0-6": "ministra-nisia-trindade-lima",
+    "udv-171-1-0": "osmar-terra",
+    "udv-171-2-0": "franciane-bayer",
+    "udv-171-3-0": "priscila-costa",
+    "udv-171-5-0": "ana-paula-lima",
+    "udv-171-5-1": "ana-paula-lima",
+    "udv-171-5-2": "ana-paula-lima",
+    "udv-171-6-0": "samia-bomfim",
+    "udv-171-7-0": "lula-da-fonte",
+    "udv-172-0-0": "reginete-bispo",
+    "udv-172-0-1": "reginete-bispo",
+    "udv-172-0-2": "reginete-bispo",
+    "udv-172-3-0": "luiz-couto",
+    "udv-173-0-0": "geraldo-mendes",
+    "udv-174-2-0": "evair-vieira-de-melo",
+    "udv-174-2-1": "evair-vieira-de-melo",
+    "udv-175-1-0": "bandeira-de-mello",
+    "udv-176-3-0": "professora-luciene-cavalcante",
+    "udv-177-0-0": "celso-russomanno",
+    "udv-177-0-1": "celso-russomanno",
+    "udv-178-2-0": "taliria-petrone",
+    "udv-179-0-0": "any-ortiz",
+    "udv-179-0-1": "any-ortiz",
+    "udv-18-0-0": "mercedes-bustamante",
+    "udv-18-0-1": "mercedes-bustamante",
+    "udv-18-0-2": "mercedes-bustamante",
+    "udv-18-1-0": "rogerio-correia",
+    "udv-18-2-0": "mariana-breim",
+    "udv-18-3-0": "dandara",
+    "udv-18-3-1": "dandara",
+    "udv-180-1-0": "raquel-branquinho",
+    "udv-180-4-0": "delegado-eder-mauro",
+    "udv-180-5-0": "samia-bomfim",
+    "udv-180-5-1": "samia-bomfim",
+    "udv-181-2-0": "dr-zacharias-calil",
+    "udv-182-0-0": "marcio-marinho",
+    "udv-182-0-1": "marcio-marinho",
+    "udv-182-0-2": "marcio-marinho",
+    "udv-183-1-0": "rodrigo-agostinho",
+    "udv-183-1-1": "rodrigo-agostinho",
+    "udv-183-1-2": "rodrigo-agostinho",
+    "udv-183-1-3": "rodrigo-agostinho",
+    "udv-183-1-4": "rodrigo-agostinho",
+    "udv-183-1-5": "rodrigo-agostinho",
+    "udv-183-2-0": "lafayette-de-andrada",
+    "udv-183-3-0": "julio-lopes",
+    "udv-183-4-0": "junior-ferrari",
+    "udv-183-5-0": "sidney-leite",
+    "udv-183-6-0": "ricardo-salles",
+    "udv-184-0-0": "gianna-cardoso-sagazio",
+    "udv-184-1-0": "vitor-lippi",
+    "udv-184-1-1": "vitor-lippi",
+    "udv-184-3-0": "ricardo-magnus-osorio-galvao",
+    "udv-185-1-0": "iza-arruda",
+    "udv-186-0-0": "taliria-petrone",
+    "udv-186-0-1": "taliria-petrone",
+    "udv-186-0-2": "taliria-petrone",
+    "udv-187-2-0": "luizianne-lins",
+    "udv-188-1-0": "mercedes-bustamante",
+    "udv-188-1-1": "mercedes-bustamante",
+    "udv-188-1-2": "mercedes-bustamante",
+    "udv-188-1-3": "mercedes-bustamante",
+    "udv-188-1-4": "mercedes-bustamante",
+    "udv-188-1-5": "mercedes-bustamante",
+    "udv-188-1-6": "mercedes-bustamante",
+    "udv-188-1-7": "mercedes-bustamante",
+    "udv-188-4-0": "ana-priscila-alves",
+    "udv-188-4-1": "ana-priscila-alves",
+    "udv-188-4-2": "ana-priscila-alves",
+    "udv-188-4-3": "ana-priscila-alves",
+    "udv-188-4-4": "ana-priscila-alves",
+    "udv-188-5-0": "ana-pimentel",
+    "udv-189-3-0": "any-ortiz",
+    "udv-189-3-1": "any-ortiz",
+    "udv-19-1-0": "juninho-do-pneu",
+    "udv-190-3-0": "erika-kokay",
+    "udv-190-3-1": "erika-kokay",
+    "udv-191-3-0": "vanessa-negrini",
+    "udv-192-2-0": "marcelo-de-souza-do-nascimento",
+    "udv-192-4-0": "marcio-marinho",
+    "udv-192-4-1": "marcio-marinho",
+    "udv-192-4-2": "marcio-marinho",
+    "udv-193-1-0": "jorge-goetten",
+    "udv-193-1-1": "jorge-goetten",
+    "udv-193-2-0": "ze-neto",
+    "udv-193-3-0": "vitor-lippi",
+    "udv-194-3-0": "jonas-donizette",
+    "udv-194-3-1": "jonas-donizette",
+    "udv-195-3-0": "any-ortiz",
+    "udv-197-3-0": "ricardo-magnus-osorio-galvao",
+    "udv-197-5-0": "gianna-cardoso-sagazio",
+    "udv-197-5-1": "gianna-cardoso-sagazio",
+    "udv-197-7-0": "luisa-canziani",
+    "udv-198-2-0": "marina-rongo",
+    "udv-198-5-0": "luizianne-lins",
+    "udv-199-0-0": "ministra-nisia-trindade-lima",
+    "udv-199-0-1": "ministra-nisia-trindade-lima",
+    "udv-199-0-2": "ministra-nisia-trindade-lima",
+    "udv-199-0-3": "ministra-nisia-trindade-lima",
+    "udv-199-0-4": "ministra-nisia-trindade-lima",
+    "udv-199-0-5": "ministra-nisia-trindade-lima",
+    "udv-199-0-6": "ministra-nisia-trindade-lima",
+    "udv-199-0-7": "ministra-nisia-trindade-lima",
+    "udv-199-0-8": "ministra-nisia-trindade-lima",
+    "udv-199-0-9": "ministra-nisia-trindade-lima",
+    "udv-199-1-0": "adriana-ventura",
+    "udv-199-10-0": "rubens-pereira-junior",
+    "udv-199-11-0": "jorge-solla",
+    "udv-199-2-0": "bia-kicis",
+    "udv-199-3-0": "alberto-mourao",
+    "udv-199-4-0": "evair-vieira-de-melo",
+    "udv-199-5-0": "nikolas-ferreira",
+    "udv-199-6-0": "priscila-costa",
+    "udv-199-7-0": "junio-amaral",
+    "udv-199-8-0": "padre-joao",
+    "udv-199-9-0": "carlos-jordy",
+    "udv-199-9-1": "carlos-jordy",
+    "udv-199-9-2": "carlos-jordy",
+    "udv-2-1-0": "rodrigo-de-castro",
+    "udv-20-1-0": "celia-xakriaba",
+    "udv-200-2-0": "erika-kokay",
+    "udv-200-2-1": "erika-kokay",
+    "udv-200-2-2": "erika-kokay",
+    "udv-200-3-0": "professora-goreth",
+    "udv-201-0-0": "marcel-van-hattem",
+    "udv-201-0-1": "marcel-van-hattem",
+    "udv-201-1-0": "sanderson",
+    "udv-201-1-1": "sanderson",
+    "udv-201-3-0": "rodrigo-valadares",
+    "udv-201-5-0": "jose-medeiros",
+    "udv-201-6-0": "sargento-goncalves",
+    "udv-201-7-0": "cabo-gilberto-silva",
+    "udv-202-0-0": "alice-portugal",
+    "udv-202-0-1": "alice-portugal",
+    "udv-203-3-0": "ana-pimentel",
+    "udv-203-4-0": "leda-borges",
+    "udv-203-4-1": "leda-borges",
+    "udv-204-3-0": "rosangela-moro",
+    "udv-204-3-1": "rosangela-moro",
+    "udv-204-3-2": "rosangela-moro",
+    "udv-204-4-0": "amira-awada",
+    "udv-205-2-0": "sanderson",
+    "udv-205-2-1": "sanderson",
+    "udv-205-2-2": "sanderson",
+    "udv-205-2-3": "sanderson",
+    "udv-205-8-0": "marcos-pollon",
+    "udv-206-2-0": "vinicius-soares",
+    "udv-206-3-0": "dandara",
+    "udv-21-0-0": "juvandia-moreira-leite",
+    "udv-21-0-1": "juvandia-moreira-leite",
+    "udv-21-0-2": "juvandia-moreira-leite",
+    "udv-21-3-0": "erika-kokay",
+    "udv-21-3-1": "erika-kokay",
+    "udv-21-4-0": "tadeu-veneri",
+    "udv-21-4-1": "tadeu-veneri",
+    "udv-22-2-0": "ze-neto",
+    "udv-22-2-1": "ze-neto",
+    "udv-22-4-0": "lucas-ramos",
+    "udv-23-3-0": "leonidas-cristino",
+    "udv-24-3-0": "professora-luciene-cavalcante",
+    "udv-24-3-1": "professora-luciene-cavalcante",
+    "udv-24-3-2": "professora-luciene-cavalcante",
+    "udv-25-2-0": "ze-silva",
+    "udv-26-1-0": "luizianne-lins",
+    "udv-27-2-0": "prof-paulo-fernando",
+    "udv-28-3-0": "jorge-braz",
+    "udv-28-3-1": "jorge-braz",
+    "udv-29-0-0": "benedita-da-silva",
+    "udv-29-4-0": "paulao",
+    "udv-30-0-0": "ana-paula-lima",
+    "udv-30-0-1": "ana-paula-lima",
+    "udv-30-1-0": "lucas-jose-ramos-lopes",
+    "udv-30-1-1": "lucas-jose-ramos-lopes",
+    "udv-33-4-0": "amaro-neto",
+    "udv-33-5-0": "daniel-trzeciak",
+    "udv-33-5-1": "daniel-trzeciak",
+    "udv-33-5-2": "daniel-trzeciak",
+    "udv-34-2-0": "rosangela-moro",
+    "udv-35-4-0": "rubens-pereira-junior",
+    "udv-35-4-1": "rubens-pereira-junior",
+    "udv-35-4-2": "rubens-pereira-junior",
+    "udv-35-4-3": "rubens-pereira-junior",
+    "udv-36-2-0": "coronel-meira",
+    "udv-37-2-0": "dr-zacharias-calil",
+    "udv-37-3-0": "luiz-lima",
+    "udv-38-2-0": "carlos-gomes",
+    "udv-38-2-1": "carlos-gomes",
+    "udv-38-2-2": "carlos-gomes",
+    "udv-38-2-3": "carlos-gomes",
+    "udv-38-2-4": "carlos-gomes",
+    "udv-38-2-5": "carlos-gomes",
+    "udv-39-0-0": "rui-falcao",
+    "udv-39-0-1": "rui-falcao",
+    "udv-39-2-0": "flavio-nogueira",
+    "udv-39-5-0": "filipe-barros",
+    "udv-39-6-0": "lindbergh-farias",
+    "udv-39-7-0": "general-girao",
+    "udv-39-7-1": "general-girao",
+    "udv-4-1-0": "amaro-neto",
+    "udv-40-0-0": "marcio-marinho",
+    "udv-40-3-0": "luiz-lima",
+    "udv-41-0-0": "alexandre-da-silva",
+    "udv-41-0-1": "alexandre-da-silva",
+    "udv-41-1-0": "aliel-machado",
+    "udv-42-4-0": "erika-kokay",
+    "udv-42-4-1": "erika-kokay",
+    "udv-43-0-0": "glauber-braga",
+    "udv-43-1-0": "fernanda-melchionna",
+    "udv-43-1-1": "fernanda-melchionna",
+    "udv-43-2-0": "albuquerque",
+    "udv-43-3-0": "sargento-portugal",
+    "udv-44-0-0": "rodrigo-agostinho",
+    "udv-44-0-1": "rodrigo-agostinho",
+    "udv-44-0-2": "rodrigo-agostinho",
+    "udv-44-5-0": "ivan-valente",
+    "udv-44-5-1": "ivan-valente",
+    "udv-45-0-0": "paulo-teixeira",
+    "udv-45-0-1": "paulo-teixeira",
+    "udv-45-0-2": "paulo-teixeira",
+    "udv-45-0-3": "paulo-teixeira",
+    "udv-45-0-4": "paulo-teixeira",
+    "udv-45-0-5": "paulo-teixeira",
+    "udv-45-1-0": "ricardo-salles",
+    "udv-45-1-1": "ricardo-salles",
+    "udv-45-1-2": "ricardo-salles",
+    "udv-45-3-0": "coronel-meira",
+    "udv-46-0-0": "ze-silva",
+    "udv-46-0-1": "ze-silva",
+    "udv-46-0-2": "ze-silva",
+    "udv-47-1-0": "tarcisio-motta",
+    "udv-47-2-0": "max-maciel",
+    "udv-47-3-0": "alfredinho",
+    "udv-47-4-0": "defensor-stelio-dener",
+    "udv-48-3-0": "pastor-henrique-vieira",
+    "udv-49-1-0": "daniela-reinehr",
+    "udv-49-1-1": "daniela-reinehr",
+    "udv-5-0-0": "andreia-siqueira",
+    "udv-5-0-1": "andreia-siqueira",
+    "udv-5-0-2": "andreia-siqueira",
+    "udv-5-2-0": "fernando-cotta",
+    "udv-5-5-0": "roselene-candida-alves",
+    "udv-5-5-1": "roselene-candida-alves",
+    "udv-5-5-2": "roselene-candida-alves",
+    "udv-5-7-0": "erika-kokay",
+    "udv-5-7-1": "erika-kokay",
+    "udv-50-2-0": "daiana-santos",
+    "udv-51-2-0": "dandara",
+    "udv-51-4-0": "lidice-da-mata",
+    "udv-51-4-1": "lidice-da-mata",
+    "udv-51-4-2": "lidice-da-mata",
+    "udv-52-2-0": "alexandre-da-silva",
+    "udv-52-2-1": "alexandre-da-silva",
+    "udv-52-2-2": "alexandre-da-silva",
+    "udv-52-2-3": "alexandre-da-silva",
+    "udv-53-3-0": "erika-kokay",
+    "udv-53-3-1": "erika-kokay",
+    "udv-53-3-2": "erika-kokay",
+    "udv-53-3-3": "erika-kokay",
+    "udv-53-3-4": "erika-kokay",
+    "udv-54-0-0": "aureo-ribeiro",
+    "udv-54-0-1": "aureo-ribeiro",
+    "udv-54-0-2": "aureo-ribeiro",
+    "udv-55-0-0": "professora-luciene-cavalcante",
+    "udv-55-1-0": "guilherme-boulos",
+    "udv-55-3-0": "carlos-giannazi",
+    "udv-57-2-0": "pastor-henrique-vieira",
+    "udv-57-2-1": "pastor-henrique-vieira",
+    "udv-57-2-2": "pastor-henrique-vieira",
+    "udv-57-2-3": "pastor-henrique-vieira",
+    "udv-57-4-0": "ana-paula-lima",
+    "udv-58-2-0": "soraya-santos",
+    "udv-59-1-0": "padre-joao",
+    "udv-59-1-1": "padre-joao",
+    "udv-6-1-0": "aureo-ribeiro",
+    "udv-6-1-1": "aureo-ribeiro",
+    "udv-6-4-0": "caio-vianna",
+    "udv-6-5-0": "alfredo-gaspar",
+    "udv-60-0-0": "dr-zacharias-calil",
+    "udv-60-0-1": "dr-zacharias-calil",
+    "udv-60-3-0": "alexandre-kalache",
+    "udv-60-3-1": "alexandre-kalache",
+    "udv-61-0-0": "sidney-leite",
+    "udv-61-5-0": "vitor-lippi",
+    "udv-61-6-0": "ze-neto",
+    "udv-62-2-0": "rejane-dias",
+    "udv-62-2-1": "rejane-dias",
+    "udv-62-3-0": "priscila-gebrim-louly",
+    "udv-62-3-1": "priscila-gebrim-louly",
+    "udv-62-3-2": "priscila-gebrim-louly",
+    "udv-62-3-3": "priscila-gebrim-louly",
+    "udv-63-2-0": "denis-bezerra",
+    "udv-63-2-1": "denis-bezerra",
+    "udv-63-2-2": "denis-bezerra",
+    "udv-65-1-0": "paulo-teixeira",
+    "udv-65-1-1": "paulo-teixeira",
+    "udv-65-1-2": "paulo-teixeira",
+    "udv-66-1-0": "mario-avelino",
+    "udv-66-1-1": "mario-avelino",
+    "udv-66-1-2": "mario-avelino",
+    "udv-67-1-0": "orlando-silva",
+    "udv-68-0-0": "arnaldo-furman-bordon",
+    "udv-68-0-1": "arnaldo-furman-bordon",
+    "udv-68-0-2": "arnaldo-furman-bordon",
+    "udv-68-0-3": "arnaldo-furman-bordon",
+    "udv-68-1-0": "vanessa-pirolo",
+    "udv-68-1-1": "vanessa-pirolo",
+    "udv-68-1-2": "vanessa-pirolo",
+    "udv-68-2-0": "dr-zacharias-calil",
+    "udv-68-2-1": "dr-zacharias-calil",
+    "udv-69-2-0": "lidice-da-mata",
+    "udv-7-0-0": "danilo-forte",
+    "udv-7-0-1": "danilo-forte",
+    "udv-7-3-0": "arnaldo-jardim",
+    "udv-7-4-0": "joaquim-passarinho",
+    "udv-7-4-1": "joaquim-passarinho",
+    "udv-7-4-2": "joaquim-passarinho",
+    "udv-7-4-3": "joaquim-passarinho",
+    "udv-7-4-4": "joaquim-passarinho",
+    "udv-7-5-0": "domingos-savio",
+    "udv-7-6-0": "nilto-tatto",
+    "udv-7-6-1": "nilto-tatto",
+    "udv-70-3-0": "taliria-petrone",
+    "udv-70-3-1": "taliria-petrone",
+    "udv-70-4-0": "rodrigo-agostinho",
+    "udv-70-4-1": "rodrigo-agostinho",
+    "udv-70-4-2": "rodrigo-agostinho",
+    "udv-71-0-0": "rogerio-correia",
+    "udv-71-0-1": "rogerio-correia",
+    "udv-71-2-0": "deyvid-souza-bacelar-da-silva",
+    "udv-71-2-1": "deyvid-souza-bacelar-da-silva",
+    "udv-72-2-0": "rogerio-correia",
+    "udv-72-2-1": "rogerio-correia",
+    "udv-73-4-0": "marcelo-de-souza-do-nascimento",
+    "udv-73-4-1": "marcelo-de-souza-do-nascimento",
+    "udv-73-4-2": "marcelo-de-souza-do-nascimento",
+    "udv-73-4-3": "marcelo-de-souza-do-nascimento",
+    "udv-74-3-0": "maria-do-rosario",
+    "udv-74-4-0": "lucas-jose-ramos-lopes",
+    "udv-74-5-0": "erika-kokay",
+    "udv-75-3-0": "juvandia-moreira-leite",
+    "udv-75-5-0": "luciana-paula-conforti",
+    "udv-75-5-1": "luciana-paula-conforti",
+    "udv-75-6-0": "bia-kicis",
+    "udv-76-4-0": "erika-kokay",
+    "udv-8-1-0": "aureo-ribeiro",
+    "udv-8-1-1": "aureo-ribeiro",
+    "udv-80-0-0": "augusto-coutinho",
+    "udv-80-0-1": "augusto-coutinho",
+    "udv-80-0-2": "augusto-coutinho",
+    "udv-80-5-0": "adriana-ventura",
+    "udv-80-6-0": "lafayette-de-andrada",
+    "udv-80-6-1": "lafayette-de-andrada",
+    "udv-80-6-2": "lafayette-de-andrada",
+    "udv-82-5-0": "erika-kokay",
+    "udv-83-3-0": "orlando-silva",
+    "udv-83-3-1": "orlando-silva",
+    "udv-83-3-2": "orlando-silva",
+    "udv-83-3-3": "orlando-silva",
+    "udv-84-0-0": "erika-kokay",
+    "udv-84-0-1": "erika-kokay",
+    "udv-85-1-0": "erika-kokay",
+    "udv-86-5-0": "evair-vieira-de-melo",
+    "udv-86-5-1": "evair-vieira-de-melo",
+    "udv-86-6-0": "leo-prates",
+    "udv-87-0-0": "augusto-coutinho",
+    "udv-87-0-1": "augusto-coutinho",
+    "udv-87-0-2": "augusto-coutinho",
+    "udv-87-7-0": "josenildo",
+    "udv-88-3-0": "angela-amin",
+    "udv-88-3-1": "angela-amin",
+    "udv-89-4-0": "rejane-dias",
+    "udv-89-4-1": "rejane-dias",
+    "udv-89-5-0": "erika-kokay",
+    "udv-91-4-0": "victor-hugo-iocca",
+    "udv-91-8-0": "danilo-forte",
+    "udv-91-8-1": "danilo-forte",
+    "udv-91-9-0": "benes-leocadio",
+    "udv-93-3-0": "flavia-morais",
+    "udv-93-3-1": "flavia-morais",
+    "udv-94-0-0": "erika-kokay",
+    "udv-94-3-0": "roselene-candida-alves",
+    "udv-94-3-1": "roselene-candida-alves",
+    "udv-95-0-0": "karina-rie-ishida",
+    "udv-95-3-0": "vanessa-negrini",
+    "udv-95-4-0": "ze-silva",
+    "udv-97-1-0": "vicentinho",
+    "udv-97-2-0": "fausto-augusto-junior",
+    "udv-97-2-1": "fausto-augusto-junior",
+    "udv-98-0-0": "george-neves-lodder",
+    "udv-98-4-0": "aristides-moura",
+    "udv-99-3-0": "padre-joao",
+    "udv-99-3-1": "padre-joao",
+    "udv-99-3-2": "padre-joao",
+    "udv-99-5-0": "abilio-brunini",
+    "udv-99-5-1": "abilio-brunini",
+    "udv-99-5-2": "abilio-brunini"
+  }
+}

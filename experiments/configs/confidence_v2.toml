@@ -1,0 +1,217 @@
+[experiment]
+name = "confidence_v2"
+date = "2026-09-27"
+declared = "Declared on 2026-09-27, before any score of a new candidate below was computed on any benchmark opinion or UDV. Known before this declaration: the E3x v1/v2 train, validation and test results of the existing scorers (artifacts/experiments/nli_verifier_exploration/e3x_v2), the udv_v1 verifier report and an agreement section of it against labels that were not a human judgment (removed from this release, see [release]), and the E5 result that no signal beat top1_score in AURC (artifacts/experiments/confidence/confidence_v1). The cosine AUC on the annotated UDVs had not been computed. No new candidate had been loaded on any benchmark or UDV text"
+question = "is the E3x primary verifier (laya_en_en:learned_cross_model_with_pt) a better confidence signal for a UDV than the serafim cosine the UDV builder records, and how do the scorers used in the grounding and factual-consistency literature compare with both on this data"
+label_semantics = "E-A: label_inferable of the NLI benchmark (retrieved_context_entailment: an expert judged the article opinion inferable from the four retrieved chunks), not a global truth label."
+
+[inputs]
+verifier_config = "configs/nli_verifier.toml"
+exploration_config = "configs/nli_verifier_exploration_v2.toml"
+udv_verifier_config = "configs/udv_verifier.toml"
+translation_config = "configs/translation.toml"
+translation_model = "nllb"
+
+[splits]
+ea = ["train", "validation"]
+ea_rule = "E-A reads the train and validation opinions of the NLI benchmark only; the test opinions are never loaded, translated or scored by this experiment. The E3x primary was fitted on train, so its train numbers are in-sample and are marked as such; validation is its first out-of-sample split here"
+selection = "none: every declared candidate is reported. If a later choice is made from these results it uses E-A validation only"
+
+[premise]
+ea_max = "each distinct non-empty retrieved chunk is scored on its own with the opinion as hypothesis; the opinion score is the max over its chunks (an opinion with no non-empty chunk gets the minimum of the scorer: 0.0 for probabilities, the lowest score of the split for raw scores)"
+ea_concatenated = "the non-empty chunks in order joined by one space, scored as one premise, only for candidates with concatenated = true; truncation from the end of the premise to max_length is counted and reported. Secondary: not in the Holm family"
+domain_shift = "E-A premises are four transcript chunks of about 630 characters each; the production premise of a UDV is one evidence sentence. A result on E-A does not transfer to UDV evidence without this caveat"
+english_rule = "candidates with language = en read the NLLB English text from the main cache of configs/translation.toml: TranslationStore.translate_opinion(hypothesis) and TranslationStore.translate_chunk(premise item), as the laya_en_en scorer of E3; texts missing from the cache are translated with utils.translation (same model, revision and decoding) and appended to that cache before any English score"
+
+[existing]
+cosine_serafim = { ea = "nli_verifier_v1 cosine_serafim max.cosine", role = "reference", reason = "the cosine of the production encoder between proposition and evidence sentence; on semantic tiers it equals evidence.score of udv_v1 (checked at run time), on quote_found UDVs it is computed on the same pair" }
+e3x_primary = { ea = "laya_en_en:learned_cross_model_with_pt refit on train exactly as utils.udv_verifier.fit_primary (checked against final_test.json), probabilities on train (in-sample) and validation", role = "main contrast" }
+laya_multi_pt_p4 = { ea = "nli_verifier_v2 laya_multi_pt max.p4_supports", role = "candidate" }
+xnli_mdeberta = { ea = "nli_verifier_v1 xnli_mdeberta max.entailment", role = "candidate" }
+
+[new]
+order = ["minicheck_ft5", "minicheck_deberta", "factcg_deberta", "alignscore_large", "hhem_open", "bge_reranker"]
+not_run = ["qwen3_judge", "granite_guardian"]
+not_run_amendment = "Recorded on 2026-09-27, before any score of any candidate on a benchmark opinion or UDV: by decision of the user, no local instruction LLM is run as a judge (Qwen3-4B-Instruct-2507, its 1.7B fallback, Bespoke-MiniCheck-7B or any other). Laya, which answers the same kind of yes-probability question at a lower cost, is used in its place with several questions ([laya] below). The two LLM tables stay in this file as the record of what was declared and probed; granite_guardian, a 3B guardrail LLM read through P(Yes), is dropped by the same decision. Before this amendment both LLMs had been loaded once on the seven HHEM model-card example pairs and one hand-written pair to check loading and the Yes/No tokens; no benchmark or UDV text was given to them"
+rule = "every candidate is run only after the smoke below; a candidate whose checkpoint cannot be downloaded or loaded, or whose license does not allow research use, is dropped and reported with the reason. Every checkpoint is loaded offline at the pinned revision"
+
+[new.minicheck_ft5]
+kind = "minicheck_t5"
+name = "lytang/MiniCheck-Flan-T5-Large"
+revision = "96eafd01cee2d16cf81aaa2fb226b14f422a37b3"
+license = "MIT (model card)"
+language = "en"
+max_length = 2048
+concatenated = true
+batch_size = 8
+dtype = "float32"
+input = "tokenizer('predict: ' + premise + eos_token + hypothesis, truncation, max_length) as in minicheck/inference.py; decoder_input_ids = [0]; score = softmax over the first-step logits of token ids [3, 209] (no support, support), index 1"
+problem = "document-level fact checking of LLM output against grounding documents at a small fraction of the cost of a GPT-4 judge"
+
+[new.minicheck_deberta]
+kind = "minicheck_encoder"
+name = "lytang/MiniCheck-DeBERTa-v3-Large"
+revision = "2f2d01a54fa022a7ffadb76260e1ea8bc88c82bb"
+license = "MIT (model card)"
+language = "en"
+max_length = 2048
+concatenated = true
+batch_size = 8
+dtype = "float32"
+input = "tokenizer(premise + eos_token + hypothesis, truncation, max_length) as in minicheck/inference.py; score = softmax(logits)[:, 1]"
+problem = "the same task as minicheck_ft5 with an encoder backbone"
+
+[new.factcg_deberta]
+kind = "factcg"
+name = "yaxili96/FactCG-DeBERTa-v3-Large"
+revision = "0430e3509dbd28d2dff7a117c0eae25359ff3e80"
+files = ["*.json", "model.safetensors", "spm.model"]
+files_reason = "the repository also ships a Lightning checkpoint of the same model; only the Hugging Face weights are downloaded and read, as factcg/inference.py does with use_hf_ckpt"
+license = "MIT (model card and code repository)"
+language = "en"
+max_length = 2048
+concatenated = true
+batch_size = 2
+batch_size_amendment = "lowered from 8 on 2026-09-27 after the full run stopped with an MPS out-of-memory error at pair 1,792 of 18,072 (the instruction template makes the inputs longer than those of minicheck_deberta); the batch size does not enter the cache signature and does not change what is computed, and the 2,426 pairs already cached are kept"
+dtype = "float32"
+template = "{premise}\n\nChoose your answer: based on the paragraph above can we conclude that \"{hypothesis}\"?\n\nOPTIONS:\n- Yes\n- No\nI think the answer is "
+input = "the INSTRUCTION_TEMPLATE of factcg/utils.py filled with premise and hypothesis, tokenized as one text (truncation, max_length 2048) as factcg/inference.py does for DeBERTa; score = softmax(logits)[:, 1]"
+problem = "fact checkers trained on synthetic data miss claims that need several hops over the document; FactCG trains on claims generated from multi-hop paths of a graph extracted from the document"
+
+[new.alignscore_large]
+kind = "alignscore"
+name = "yzha/AlignScore"
+revision = "8509e78d25bb914939fc585c626500c9b2944249"
+checkpoint_file = "AlignScore-large.ckpt"
+backbone = "FacebookAI/roberta-large"
+backbone_revision = "722cf37b1afa9454edce342e7895e588b6ff1d59"
+backbone_files = ["*.json", "merges.txt", "vocab.json"]
+license = "MIT (model card and code repository)"
+language = "en"
+max_length = 512
+concatenated = false
+concatenated_reason = "RoBERTa has 512 absolute positions and the concatenated premise plus opinion exceeds them for most opinions; the native nli_sp mode splits the context into chunks of about 350 tokens and takes the max over chunks, which is what the per-chunk max already does with the retrieved chunks"
+batch_size = 16
+dtype = "float32"
+input = "tokenizer(premise, hypothesis, truncation only_first, max_length 512); score = softmax of the 3-way head (tri_layer on the pooler output), index 0 (aligned), as in AlignScore nli_sp; the hypothesis is not split into sentences (the native mode averages over claim sentences; opinions are mostly one sentence and every other candidate reads the whole hypothesis)"
+load_rule = "the Lightning checkpoint is read with torch.load(weights_only=True); the state_dict keys under base_model.* are loaded into RobertaModel with the pooler, tri_layer.* into a Linear(1024, 3) (mlm_head, bin_layer and reg_layer are not used); any missing encoder key, or unexpected key other than the embeddings position_ids buffer, stops the run"
+problem = "a single general alignment function trained on many tasks (NLI, QA, paraphrase, fact verification, summarization) for factual consistency of generated text"
+
+[new.hhem_open]
+kind = "hhem"
+name = "vectara/hallucination_evaluation_model"
+revision = "8e4a2e6e96c708cc76c2344f7e4757df2515292c"
+foundation = "google/flan-t5-base"
+foundation_revision = "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+foundation_files = ["*.json", "spiece.model"]
+license = "Apache-2.0 (model card)"
+language = "en"
+max_length = 2048
+concatenated = true
+batch_size = 16
+dtype = "float32"
+input = "prompt '<pad> Determine if the hypothesis is true given the premise?\\n\\nPremise: {premise}\\n\\nHypothesis: {hypothesis}' of configuration_hhem_v2.py, tokenized by the flan-t5-base tokenizer; T5ForTokenClassification (2 labels), score = softmax(logits[:, 0, :])[:, 1] (consistent), as HHEMv2ForSequenceClassification.predict"
+load_rule = "the remote code is not executed: T5ForTokenClassification is built from the pinned flan-t5-base config with 2 labels and loaded with the t5.* weights of model.safetensors; every weight key must be used. The model card examples are scored as a probe and must match the card values to 2 decimals"
+problem = "detecting hallucinations of RAG answers and summaries against the retrieved source, sized for production use"
+
+[new.bge_reranker]
+kind = "reranker"
+name = "BAAI/bge-reranker-v2-m3"
+revision = "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+license = "Apache-2.0 (model card)"
+language = "pt"
+max_length = 1024
+concatenated = true
+batch_size = 16
+dtype = "float32"
+input = "tokenizer(query = hypothesis, passage = premise, truncation only_second, max_length); score = the raw relevance logit, as the rerank_bge retriever of configs/retrieval_experiments.toml (sigmoid would give the same order)"
+problem = "multilingual passage reranking for retrieval; it scores relevance, not entailment, and is included as the confidence signal a retrieval pipeline already has"
+
+[new.qwen3_judge]
+kind = "llm_judge"
+name = "Qwen/Qwen3-4B-Instruct-2507"
+revision = "cdbee75f17c01a7cc42f958dc650907174af0554"
+fallback_name = "Qwen/Qwen3-1.7B"
+fallback_revision = "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+license = "Apache-2.0 (both model cards)"
+language = "pt"
+language_reason = "the model is multilingual and reads the Portuguese text directly, as production would; the instruction is in English so that the answer tokens are the single tokens Yes and No"
+max_length = 4096
+concatenated = true
+batch_size = 4
+dtype = "bfloat16"
+size_rule = "a 7B model in bfloat16 (about 15 GB of weights) does not fit under PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.7 on this 24 GB machine, so the largest judge tried is the 4B model; the 1.7B fallback (enable_thinking false in the chat template) is used only if the 4B fails the smoke rule below"
+prompt = "Passage:\n{premise}\n\nClaim:\n{hypothesis}\n\nDoes the passage support the claim? Answer with Yes or No only."
+input = "one user message with the prompt, chat template with add_generation_prompt; one forward pass; score = P(Yes) / (P(Yes) + P(No)) over the next-token logits of the first token of 'Yes' and 'No'; the share of probability mass on the two tokens is reported; a prompt longer than max_length stops the run instead of being truncated"
+problem = "an instruction-tuned LLM asked a yes/no support question and read through the probability of yes, the scoring used by LLM-as-a-judge faithfulness metrics with logprobs"
+
+[new.granite_guardian]
+kind = "granite_guardian"
+name = "ibm-granite/granite-guardian-3.2-3b-a800m"
+revision = "3de033d89b499a18d9a573b5192bf3b967ef48c5"
+license = "Apache-2.0 (model card)"
+language = "en"
+max_length = 4096
+concatenated = true
+batch_size = 4
+dtype = "bfloat16"
+input = "messages [{role: context, content: premise}, {role: assistant, content: hypothesis}], chat template with guardian_config {risk_name: groundedness} and add_generation_prompt, as the model card; P(risk) = P(Yes) / (P(Yes) + P(No)) over the next-token logits; score = 1 - P(risk); a prompt longer than max_length stops the run instead of being truncated"
+problem = "a guardrail model that flags an assistant answer not grounded in the provided context, one of several risk definitions of the same checkpoint"
+
+[laya]
+declared = "Declared on 2026-09-27 with not_run_amendment, before any aggregate below was computed and before any new question was asked on any text. Laya is read as a yes-probability judge asked several questions, and the questions are aggregated so that the estimate rests on more than one wording"
+scorers = ["laya_multi_pt", "laya_en_en"]
+scorers_rule = "the two Laya conditions of configs/nli_verifier.toml: laya_multi_pt on the Portuguese text with no translation, laya_en_en on the NLLB English text; the p1..p8 answers are read from the existing score files (the nli_verifier_v2 scores), so no existing (premise, question) pair is asked again"
+support_questions = ["p1_nli", "p2_nli_reversed", "p3_inferable", "p4_supports", "p5_position", "p6_position_reversed", "p7_coverage"]
+support_rule = "the battery signals of these seven questions, each already oriented so that higher means more support (p1, p2: P(entailment), the reversed option order mapped back by name; p3, p4: P(true); p5, p6: P(same_position), mapped back by name; p7: expected coverage level / 4). p8_similarity is left out because the battery declares it a similarity question, not a support question"
+aggregates = ["mean", "median", "min"]
+aggregate_rule = "per premise item, the mean, the median and the minimum of the support signals of the question set; the opinion score is the max over its non-empty items. min is the conservative rule: it is high only when every question gives support"
+spread_rule = "per premise item, the population standard deviation of the support signals of the question set (and, reported with it, max minus min); the opinion spread is the one of the item with the highest mean aggregate (ties: first item). As a confidence signal it is read as -spread (higher = the questions agree more). As a flag, flagged = spread above the median spread of the E-A train opinions of the same scorer and question set; the share of negatives among flagged and unflagged items is reported with the hearing-bootstrap interval of their difference, in E-A train and validation"
+candidate_names = "<scorer>_<aggregate>_q7 for the seven support questions, <scorer>_<aggregate>_q11 with the four new questions added, <scorer>_spread_q7 and <scorer>_spread_q11 for the spread; the q7 aggregates are candidates of the main families; the q11 aggregates and the spreads are reported in their own tables"
+concatenated_rule = "on E-A the same aggregates are also computed on the concatenated premise answers (secondary, not in any Holm family)"
+
+[laya.new_questions]
+declared = "Written and declared on 2026-09-27, before any of them was asked on any text. Four paraphrases of the support question, type noul with no criteria, the payload format of p3 and p4; the state keys stay premise and hypothesis. laya_multi_pt receives the Portuguese (pt-BR) wording, laya_en_en the English wording"
+keys = ["n1_entails", "n2_states", "n3_attributable", "n4_reader_agrees"]
+en = { n1_entails = "Does the `premise` entail the `hypothesis`?", n2_states = "Does the `premise` say what the `hypothesis` states?", n3_attributable = "Can everything in the `hypothesis` be attributed to the `premise`?", n4_reader_agrees = "Would someone who read only the `premise` agree that the `hypothesis` is true?" }
+pt = { n1_entails = "A `premise` implica a `hypothesis`?", n2_states = "A `premise` diz o que a `hypothesis` afirma?", n3_attributable = "Tudo o que está na `hypothesis` pode ser atribuído à `premise`?", n4_reader_agrees = "Alguém que lesse apenas a `premise` concordaria que a `hypothesis` é verdadeira?" }
+language_of = { laya_multi_pt = "pt", laya_en_en = "en" }
+signal = "P(true)"
+premises = "every distinct non-empty chunk and the concatenated premise of the train and validation opinions, the requests of the E3 battery run"
+cache_rule = "answers go to the Laya answer cache of each checkpoint (artifacts/cache/decision_models), the cache the E3 battery used, keyed by model signature, question payload and state; the new questions have new payloads, so nothing is reused for them, and a rerun reuses them"
+smoke_rule = "the 50 smoke opinions of [smoke] are asked first on mps and the projected time follows the rule of [smoke]; a scorer whose new questions exceed budget_hours is reported without q11 aggregates"
+added_value = "reported on E-A validation: <scorer>_<aggregate>_q11 minus <scorer>_<aggregate>_q7 on roc_auc and aurc with the paired hearing bootstrap, one Holm family over these comparisons; the four new questions alone (max over chunks) are also reported. The answer is positive only if the q11 interval excludes zero on the favourable side after Holm"
+
+[outputs]
+output_dir = "artifacts/experiments/confidence_v2"
+cache_dir = "artifacts/cache/confidence_v2"
+score_rule = "per candidate and split, scores/<key>_<split>.jsonl (split train or validation) with the per-item and concatenated scores and no text, and scores/<key>_<set>_report.json with model record, timing, cache counts, truncation and environment; pair scores are cached in cache_dir keyed by sha256 of the model signature, premise and hypothesis, so a rerun computes only what is missing"
+reports = "smoke/<key>.json and smoke/decision.json; ea_report.json; each with config, code and input sha256, environment and timing"
+
+[smoke]
+items = 50
+rule = "50 train opinions of the NLI benchmark drawn with numpy default_rng(seed 20260927) without replacement; every chunk pair and concatenated pair of those opinions is scored by each new candidate on mps, one process at a time. The smoke records load status, pairs per second, truncation and the probe outputs; no metric against a label is computed on the smoke and its scores are not reused as results (the full run recomputes them into the same cache, so identical pairs are cache hits with the same values)"
+seed = 20260927
+budget_hours = 5.0
+decision_rule = "a candidate runs in full when it loads, passes its probe (HHEM card examples; Yes/No mass above 0.5 on average for the LLM candidates) and its projected time for every E-A and E-B pair (smoke seconds per pair times the full pair count) is at most budget_hours; otherwise it is dropped, or for the qwen3 judge the 1.7B fallback is smoked under the same rule. The decision and the throughputs are written to smoke/decision.json and to [smoke_decision] of this file before the full run starts"
+
+[evaluation]
+positive_ea = "label_inferable true"
+metrics = ["roc_auc", "average_precision", "aurc", "e_aurc", "precision_at_0.8", "precision_at_0.9"]
+metrics_rule = "utils.confidence_policies.signal_metrics with the positive class as correct: AURC is the mean risk (share of negatives among the accepted) over the coverages j/n with ties at their expected share; precision_at_c is 1 - risk at the first ceil(c n) items, a cut set on the evaluated set itself, so it describes ranking and is not a deployable threshold"
+bootstrap_samples = 5000
+bootstrap_amendment = "Recorded on 2026-09-27, during the full scoring run and before any evaluation that includes a new candidate: bootstrap_samples was 1000. With B replicates the smallest bootstrap p-value is 2 / (B + 1), about 0.002 for B = 1000, and Holm multiplies the smallest p-value by the family size (about 30 comparisons in the E-A validation family), so no comparison could reach 0.05 whatever the data. B = 5000 gives a smallest p-value of about 0.0004. A code check of the evaluation, run before this amendment into a scratch directory on the existing systems only (cosine, E3x primary, p4, xnli and the q7 Laya aggregates) and, for E-B, on synthetic random labels, is the only evaluation output that existed; it chose nothing"
+bootstrap_unit = "hearing"
+confidence_level = 0.95
+seed = 42
+paired_rule = "every comparison uses the same hearing replicates for both sides; delta = candidate minus cosine_serafim (for AURC a negative delta means the candidate ranks better); two-sided p-value 2 x the smaller share of replicate deltas at or beyond zero with the (k + 1) / (B + 1) correction, capped at 1 (utils.decision_scoring.bootstrap_p_value)"
+ea_family = "E-A validation, max pool: every candidate except cosine_serafim against cosine_serafim on roc_auc and on aurc, one Holm family over all these comparisons"
+ea_train = "train numbers are reported with the same metrics and no test; the E3x primary is in-sample there"
+combinations = "fixed without fitting and declared here: rank_mean = the mean of the normalized ranks (average ranks for ties divided by n) of cosine_serafim and e3x_primary on the evaluated set; rank_max = the maximum of the same two normalized ranks. They are reported in E-A validation next to the candidates, in the secondary family. No fitted combination is part of this run"
+
+[release]
+note = "E-B, the part of this experiment on the trecho_sustenta UDVs of the udv_v1 validation sample, is not in this release: its reference labels were language-model annotation passes, not a human judgment, and the script that produced them is not part of the release. Its declaration, code, score files and report are kept in tag research-2026-09-28. The smoke records (smoke/*.json and smoke/decision.json), [smoke_decision] and translate_report.json were produced while E-B was part of the run, so their full_pairs, projected_hours and requested counts include the E-B pairs and texts. ea_report.json records the sha256 of this file and of the code as they were at run time"
+
+[smoke_decision]
+recorded = "Recorded on 2026-09-27 from smoke/decision.json, after the smoke and before any full-run score; no metric against a label was computed on the smoke. Every candidate loaded and passed its probe (HHEM reproduces the seven model-card values, max gap below 1e-4), no smoke pair was truncated except one concatenated bge_reranker pair over 1024 tokens, and every projected time is within budget_hours, so all run in full. Throughput on mps, pairs per second (Laya: question answers per second) and projected hours for every E-A and E-B pair: minicheck_ft5 5.16 / 0.99 h; minicheck_deberta 2.69 / 1.91 h; factcg_deberta 2.26 / 2.27 h; alignscore_large 15.11 / 0.27 h; hhem_open 13.55 / 0.38 h; bge_reranker 7.23 / 0.71 h; Laya new questions laya_multi_pt 14.78 / 1.39 h; laya_en_en 7.77 / 2.64 h. The LLM judge size choice does not apply: no LLM judge is run (not_run_amendment)"
+run = ["minicheck_ft5", "minicheck_deberta", "factcg_deberta", "alignscore_large", "hhem_open", "bge_reranker", "laya_new_laya_multi_pt", "laya_new_laya_en_en"]

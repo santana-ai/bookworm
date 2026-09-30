@@ -1,0 +1,428 @@
+{
+  "actor": {
+    "slug": "ricardo-magnus-osorio-galvao",
+    "name": "RICARDO MAGNUS OSÓRIO GALVÃO",
+    "display_name": "Ricardo Galvão",
+    "role": "Presidente do Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq)",
+    "article_names": [
+      "Ricardo Galvão"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:25:04+00:00",
+    "n_statements": 5,
+    "n_hearings": 3,
+    "hearing_ids": [
+      168,
+      184,
+      197
+    ],
+    "input_tokens": 9548,
+    "output_tokens": 1082,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 1,
+    "passage_only": 16,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a revisão do Marco Legal da Inovação deve focar na operacionalização e no entendimento jurídico, e não apenas na alteração legislativa, argumentando que a Consultoria Jurídica da União (CGU) e a Advocacia-Geral da União (AGU) proíbem práticas permitidas pela Lei nº 13.243/2016, como a contratação de pessoal via fundações de apoio para ICTs públicas e a compra de equipamentos de pesquisa sem licitação internacional.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 3,
+            "start": 14532,
+            "end": 14617,
+            "text": "A Lei nº 13.243, de 2016, tratou muito bem isso, por exemplo, quando defende, no art.",
+            "score": 0.2221
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ineficiência dos processos de compra de equipamentos de pesquisa, citando o caso do supercomputador do INPE, onde a aprovação pela CGU levou 1 ano e 2 meses para um valor de R$ 9,5 milhões, e a impossibilidade de realizar concorrência pública para itens únicos.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 10,
+            "start": 51652,
+            "end": 51694,
+            "text": "E eu perguntei: como concorrência pública?",
+            "score": 0.221
+          },
+          "udv": {
+            "id": "udv-197-3-0",
+            "rule": "same_sentence",
+            "score": 0.1701
+          }
+        },
+        {
+          "text": "Propõe a criação de instituições que façam a ponte entre a academia e o setor produtivo para realizar análise prospectiva e identificar aplicações de mercado para a pesquisa científica, comparando a ausência dessas estruturas no Brasil com o modelo do CERN na Suíça.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 3,
+            "start": 20058,
+            "end": 20133,
+            "text": "Faltam instituições que façam a ponte entre a academia e o setor produtivo.",
+            "score": 0.4322
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a contratação de doutores para atuar em empresas, especialmente nas áreas de TI e administração, argumentando que a reindustrialização brasileira não pode se basear no fordismo, mas sim na economia do conhecimento e na inovação acionada pela ciência.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 5,
+            "start": 44878,
+            "end": 44931,
+            "text": "Não há uma empresa de inovação acionada pela ciência!",
+            "score": 0.2835
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a adoção do modelo holandês para pós-graduandos, estabelecendo contratos temporários com CLT para doutorandos, tratando-os como profissionais de pesquisa e não como alunos, com a necessidade de recursos adicionais para INSS e seguro-saúde que não onerem os orçamentos atuais do CNPq e da CAPES.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 5,
+            "start": 47514,
+            "end": 47773,
+            "text": "É claro que nós esperamos, Deputada, que haja recursos para pagamento do seguro-saúde e do INSS, e que esses recursos não saiam dos orçamentos atuais do CNPq e da CAPES.(Risos.)É preciso ter recursos adicionais, senão haverá uma redução dos nossos orçamentos.",
+            "score": 0.3822
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra dos parlamentares atenção especial ao setor de ciência e tecnologia no PLOA, alertando para a tendência de cortes orçamentários e pedindo que emendas parlamentares sejam articuladas para fomento à interação entre empresas e indústria, e não apenas para bolsas.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 29,
+            "start": 106511,
+            "end": 106672,
+            "text": "Então, se puderem, atuem numa certa articulação nas propostas de emendas parlamentares, visando exatamente a essa questão da interação entre empresa e indústria.",
+            "score": 0.2281
+          },
+          "udv": null
+        },
+        {
+          "text": "Oposição explícita ao uso do Fundo Nacional de Desenvolvimento Científico e Tecnológico (FNDCT) para cobrir déficits em outras áreas, citando o precedente do programa Ciência sem Fronteiras, que retirou R$ 13 bilhões do fundo, prejudicando laboratórios de pesquisa.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 25,
+            "start": 88903,
+            "end": 89059,
+            "text": "No Ciência sem Fronteiras, tiraram 13 bilhões de reais do FNDCT, recursos essenciais para os laboratórios de pesquisa e para o aumento da ciência no Brasil.",
+            "score": 0.3328
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a premissa de que \"tecnologia de ponta não se compra\" para justificar a necessidade de laboratórios de pesquisa internos nas empresas, citando o caso da empresa japonesa Nichia e a descoberta do LED azul como exemplo de que a manutenção de pequenos laboratórios é viável e gera alto retorno.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 3,
+            "start": 18087,
+            "end": 18151,
+            "text": "Eu gosto de dar o exemplo da empresa Nichia, que fez o LED azul.",
+            "score": 0.2801
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas críticas à burocracia no argumento de que a insegurança jurídica (\"espada de Dâmocles\") impede gestores públicos de inovar, exemplificado pelo caso do ex-diretor do INPE Gilberto Câmara, que teve bens bloqueados por 3 anos ao tomar decisão contrária à AGU para lançar o satélite CBERS-4.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 10,
+            "start": 52568,
+            "end": 52777,
+            "text": "Dou o exemplo, para terminar essa reclamação, do caso do meu grande amigo Gilberto Câmara, Diretor do INPE, que, para lançar o satélite CBERS-4, teve que tomar uma decisão contrária ao Advogado-Geral da União.",
+            "score": 0.4564
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a autonomia do pesquisador acadêmico, afirmando que a função primária do cientista é a descoberta científica e a curiosidade, e que a inovação é uma consequência que deve ser incentivada, mas não imposta como obrigação individual.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Defende a comparação do Brasil com países de porte similar ou em desenvolvimento, como Portugal, para demonstrar deficiências orçamentárias e estruturais, rejeitando comparações diretas com os Estados Unidos.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 5,
+            "start": 48962,
+            "end": 49050,
+            "text": "Às vezes pessoas comparam a nossa situação com a dos Estados Unidos ou de outros países.",
+            "score": 0.2359
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se ex-Diretor do Centro Brasileiro de Pesquisas Físicas e do Instituto Nacional de Pesquisas Espaciais (INPE), ex-Professor da Universidade de São Paulo (USP) e ex-Presidente da Sociedade Brasileira de Física.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 10,
+            "start": 47391,
+            "end": 47660,
+            "text": "Muitos dos pontos que eles levantaram eu gostaria de realçar agora, Deputada, como usuário, como ex-Diretor do Centro Brasileiro de Pesquisas Físicas, e, depois, como ex-Diretor do Instituto Nacional de Pesquisas Espaciais, sobre a questão da utilização do marco legal.",
+            "score": 0.5314
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter participado da elaboração do Marco Legal da Inovação e cita sua experiência internacional em pesquisa nos Estados Unidos, Holanda, Itália, Portugal e Inglaterra.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 3,
+            "start": 14083,
+            "end": 14397,
+            "text": "A minha experiência — todos sabem que eu estudei nos Estados Unidos, trabalhei na Holanda, trabalhei na Itália, trabalhei em Portugal, trabalhei na Inglaterra — com relação à interação entre academia e empresa mostra que muitas coisas que eram feitas na academia, produtos, eram encomendadas diretamente à empresa.",
+            "score": 0.3017
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como usuário do sistema de fomento e da legislação, e não apenas como representante de uma agência, ao apresentar suas críticas.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 10,
+            "start": 47095,
+            "end": 47198,
+            "text": "Mas eu vou falar hoje, principalmente, não como Presidente de uma agência de fomento, mas como usuário.",
+            "score": 0.35
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos concretos e específicos de sua gestão no INPE, como o Laboratório de Integração e Testes e o supercomputador, para ilustrar falhas na aplicação da lei, evitando generalizações abstratas.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 10,
+            "start": 49032,
+            "end": 49207,
+            "text": "Vou dar um exemplo: um grande exemplo do INPE é o Laboratório de Integração e Testes, o melhor laboratório abaixo do Equador de integração de satélites para missões espaciais.",
+            "score": 0.2351
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados quantitativos para sustentar suas teses, como o orçamento do CNPq (R$ 1,6 bilhão), o número de bolsas de iniciação científica (46 mil) e a comparação orçamentária com a Fundação para a Ciência e a Tecnologia de Portugal (R$ 3 bilhões).",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 5,
+            "start": 49161,
+            "end": 49240,
+            "text": "Sabem qual é o orçamento da Fundação para a Ciência e a Tecnologia de Portugal?",
+            "score": 0.3474
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom direto e, por vezes, irritado ao tratar da burocracia jurídica, chegando a mencionar ter desligado o microfone por frustração, mas mantém a cordialidade ao cumprimentar parlamentares e colegas.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 10,
+            "start": 50590,
+            "end": 50664,
+            "text": "Eu até desliguei o microfone sem querer, porque eu fico irritado com isso.",
+            "score": 0.2064
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos em vetores lógicos, como a interação academia-empresa, empresa-academia e a ação articuladora do Estado, para organizar a complexidade do tema da inovação.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 3,
+            "start": 12678,
+            "end": 12801,
+            "text": "Primeiro, academia e empresa; depois, empresa e academia; e depois, ação integradora ou articuladora que o Estado deve ter.",
+            "score": 0.4494
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 168,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Debatedores defendem melhoria das condições da pós-graduação no Brasil",
+      "assunto": "Melhoria das condições da pós-graduação no Brasil",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 4
+    },
+    {
+      "id": 184,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Participantes de audiência pública pedem votação de mudanças na Lei do Bem",
+      "assunto": "Discussão sobre mudanças na Lei do Bem para facilitar a colaboração entre universidades, empresas e governo e promover inovações",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 197,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Marco Legal da Inovação precisa ser revisto, afirmam especialistas",
+      "assunto": "Revisão do Marco Legal da Inovação para facilitar sua operacionalização",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-168-1-0",
+      "hearing_id": 168,
+      "n": 6,
+      "article_name": "Ricardo Galvão",
+      "proposition": "A falta de perspectiva profissional é um sério problema.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "As empresas precisam ter seu processo de desenvolvimento. Chamem e levem doutores para atuarem também na administração e também nas humanidades!",
+        "turn": 5,
+        "start": 45119,
+        "end": 45263
+      },
+      "verifier": {
+        "probability": 0.15840758199316,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-1-1",
+      "hearing_id": 168,
+      "n": 7,
+      "article_name": "Ricardo Galvão",
+      "proposition": "O Brasil sempre formou mestres e doutores para atuar em pesquisa. O desafio agora seria promover a ocupação desses profissionais também nos setores produtivos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "As empresas precisam ter seu processo de desenvolvimento. Chamem e levem doutores para atuarem também na administração e também nas humanidades!",
+        "turn": 5,
+        "start": 45119,
+        "end": 45263
+      },
+      "verifier": {
+        "probability": 0.26642135079467916,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-1-2",
+      "hearing_id": 168,
+      "n": 8,
+      "article_name": "Ricardo Galvão",
+      "proposition": "Uma pesquisa recente mostrou mudança radical na natureza das principais empresas do mundo. Enquanto em 2013 as corporações mais importantes estavam no comércio, como Wall Mart, em 2023, as seis maiores são do setor tecnologia.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Havia, por exemplo, empresas também de comércio, como Walmart, em 5º ou 6º lugar. Mostrou que agora, em 2022 ou 2023, creio, as 6 maiores empresas, as mais potentes do mundo todo, estão na área de TI, com grande desenvolvimento.",
+        "turn": 5,
+        "start": 44290,
+        "end": 44518
+      },
+      "verifier": {
+        "probability": 0.6633073801416005,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-1-3",
+      "hearing_id": 168,
+      "n": 9,
+      "article_name": "Ricardo Galvão",
+      "proposition": "No Brasil, ao contrário, não houve alteração no perfil das empresas. As cinco maiores instituições em 2013 e hoje seriam bancos: \"Nós estamos agora avançando na economia do conhecimento, e, se o País não tiver um nível muito alto de formação, e também até uma sociedade que tenha alfabetização científica mais aprofundada, nós vamos ficar para trás.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós sempre tivemos esta perspectiva e muito pouco a perspectiva de empreendedorismo, da importância de doutores nas empresas. Isso vai ser absolutamente essencial se nós quisermos evoluir na economia do conhecimento.",
+        "turn": 5,
+        "start": 43114,
+        "end": 43330
+      },
+      "verifier": {
+        "probability": 0.2205692784184611,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-184-3-0",
+      "hearing_id": 184,
+      "n": 6,
+      "article_name": "Ricardo Galvão",
+      "proposition": "Sem integração, há barreiras para os investimentos necessários: \"Temos uma dificuldade muito grande, por exemplo, de colocar contratos direto nas empresas para desenvolver componentes. Nunca era reconhecido pela consultoria jurídica da União como uma coisa possível de ser realizada. E isso é um problema seríssimo\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu, como Diretor do Instituto Nacional de Pesquisas Espaciais, sempre tive muita dificuldade de colocar contratos diretos nas empresas para desenvolver componentes de satélites, para fazer partes de satélites. Isso não era reconhecido pela consultoria jurídica da União como uma coisa possível de ser feita, e isso é um problema seríssimo.",
+        "turn": 3,
+        "start": 15714,
+        "end": 16053
+      },
+      "verifier": {
+        "probability": 0.6138208520171703,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-197-3-0",
+      "hearing_id": 197,
+      "n": 8,
+      "article_name": "Ricardo Galvão",
+      "proposition": "A legislação precisa ser revista para ser melhor executada: \"Um instrumento de pesquisa, um supercomputador, só tem um fabricante. Só tem ele. Quando fui instruir o processo para comprar partes para modernizar o computador, não foi aceito. 'Por que você não faz uma concorrência pública? Você abre um jornal, tem preço de laptop', perguntaram.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Quando se compra um instrumento de pesquisa, um supercomputador, só há aquele fabricante; só há ele. Então, quando eu fui instruir um processo para comprar partes para modernizar um computador, não aceitaram. E me perguntaram por que eu não fazia uma concorrência pública. E eu perguntei: como concorrência pública? \"Eu abro o jornal e vejo o preço de laptop.",
+        "turn": 10,
+        "start": 51379,
+        "end": 51738
+      },
+      "verifier": {
+        "probability": 0.7189242608155388,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

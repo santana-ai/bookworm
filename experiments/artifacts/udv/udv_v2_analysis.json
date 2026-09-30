@@ -1,0 +1,949 @@
+{
+  "created_at": "2026-09-28T17:34:43+00:00",
+  "cuts": {
+    "cosine": {
+      "rule": "legacy_random",
+      "threshold": 0.5015,
+      "threshold_rounded": 0.5,
+      "bootstrap": {
+        "replicates": 1000,
+        "low": 0.4858,
+        "high": 0.5129,
+        "median": 0.4958,
+        "std": 0.0068
+      },
+      "other_rules": {
+        "hard_negative": {
+          "threshold": 0.572,
+          "bootstrap": {
+            "replicates": 1000,
+            "low": 0.5685,
+            "high": 0.607,
+            "median": 0.5847,
+            "std": 0.0097
+          }
+        },
+        "masked_hard_negative": {
+          "threshold": 0.4432,
+          "bootstrap": {
+            "replicates": 1000,
+            "low": 0.4101,
+            "high": 0.4671,
+            "median": 0.4396,
+            "std": 0.0146
+          }
+        },
+        "masked_top1_youden": {
+          "threshold": 0.6878,
+          "bootstrap": {
+            "replicates": 1000,
+            "low": 0.5278,
+            "high": 0.802,
+            "median": 0.6878,
+            "std": 0.0717
+          }
+        }
+      },
+      "leak_check_passed": true,
+      "hearings_used": 144
+    },
+    "verifier": {
+      "train_threshold": 0.7478,
+      "udv_threshold": 0.2429,
+      "udv_threshold_rule": "legacy_random",
+      "udv_threshold_bootstrap": {
+        "replicates": 1000,
+        "low": 0.221,
+        "high": 0.2782,
+        "median": 0.2433,
+        "std": 0.0153
+      },
+      "hard_negative_threshold": 0.2722,
+      "hard_negative_bootstrap": {
+        "replicates": 1000,
+        "low": 0.2485,
+        "high": 0.319,
+        "median": 0.2739,
+        "std": 0.0177
+      },
+      "leak_check_passed": true
+    }
+  },
+  "tiers": {
+    "udv_v1": {
+      "all": {
+        "semantic_match_weak": 43,
+        "semantic_match_high": 1785,
+        "quote_found": 277,
+        "person_not_resolved": 90,
+        "no_evidence": 8
+      },
+      "train": {
+        "semantic_match_high": 1239,
+        "quote_found": 183,
+        "person_not_resolved": 80,
+        "semantic_match_weak": 32,
+        "no_evidence": 2
+      },
+      "validation": {
+        "quote_found": 53,
+        "semantic_match_high": 247,
+        "semantic_match_weak": 5,
+        "person_not_resolved": 3
+      },
+      "test": {
+        "semantic_match_weak": 6,
+        "semantic_match_high": 299,
+        "quote_found": 41,
+        "person_not_resolved": 7,
+        "no_evidence": 6
+      }
+    },
+    "udv_v2": {
+      "all": {
+        "semantic_match_high": 1744,
+        "semantic_match_weak": 84,
+        "quote_found": 277,
+        "person_not_resolved": 90,
+        "no_evidence": 8
+      },
+      "train": {
+        "semantic_match_high": 1217,
+        "quote_found": 183,
+        "semantic_match_weak": 54,
+        "person_not_resolved": 80,
+        "no_evidence": 2
+      },
+      "validation": {
+        "quote_found": 53,
+        "semantic_match_high": 233,
+        "semantic_match_weak": 19,
+        "person_not_resolved": 3
+      },
+      "test": {
+        "semantic_match_high": 294,
+        "semantic_match_weak": 11,
+        "quote_found": 41,
+        "person_not_resolved": 7,
+        "no_evidence": 6
+      }
+    }
+  },
+  "diff": {
+    "records": 2203,
+    "evidence_identical": 234,
+    "evidence_changed": 1969,
+    "records_changed_any": 1970,
+    "identity_fields": [
+      "text",
+      "start_char",
+      "end_char",
+      "speaker_turn"
+    ],
+    "kinds": {
+      "quote_extended": 152,
+      "same_tier_same_evidence": 233,
+      "tier_only": 1,
+      "window_contains_v1_sentence": 1343,
+      "window_elsewhere": 474
+    },
+    "kinds_by_v1_tier": {
+      "no_evidence": {
+        "same_tier_same_evidence": 8
+      },
+      "person_not_resolved": {
+        "same_tier_same_evidence": 90
+      },
+      "quote_found": {
+        "quote_extended": 152,
+        "same_tier_same_evidence": 125
+      },
+      "semantic_match_high": {
+        "same_tier_same_evidence": 10,
+        "tier_only": 1,
+        "window_contains_v1_sentence": 1324,
+        "window_elsewhere": 450
+      },
+      "semantic_match_weak": {
+        "window_contains_v1_sentence": 19,
+        "window_elsewhere": 24
+      }
+    },
+    "kinds_by_split": {
+      "test": {
+        "quote_extended": 22,
+        "same_tier_same_evidence": 32,
+        "window_contains_v1_sentence": 224,
+        "window_elsewhere": 81
+      },
+      "train": {
+        "quote_extended": 100,
+        "same_tier_same_evidence": 174,
+        "tier_only": 1,
+        "window_contains_v1_sentence": 932,
+        "window_elsewhere": 329
+      },
+      "validation": {
+        "quote_extended": 30,
+        "same_tier_same_evidence": 27,
+        "window_contains_v1_sentence": 187,
+        "window_elsewhere": 64
+      }
+    },
+    "tier_moves": {
+      "no_evidence->no_evidence": 8,
+      "person_not_resolved->person_not_resolved": 90,
+      "quote_found->quote_found": 277,
+      "semantic_match_high->semantic_match_high": 1742,
+      "semantic_match_high->semantic_match_weak": 43,
+      "semantic_match_weak->semantic_match_high": 2,
+      "semantic_match_weak->semantic_match_weak": 41
+    },
+    "kind_rules": {
+      "same_tier_same_evidence": "evidence text and offsets identical, same tier",
+      "tier_only": "evidence identical, tier changed",
+      "quote_extended": "quote_found in both, the v1 text is contained in the v2 text",
+      "quote_changed": "quote_found in both, the v1 text is not contained in the v2 text",
+      "window_contains_v1_sentence": "semantic in both, the v2 window holds the v1 sentence",
+      "window_elsewhere": "semantic in both, the v2 window does not hold the v1 sentence",
+      "other": "any other change"
+    }
+  },
+  "quote_evidence": {
+    "udv_v1": {
+      "records": 277,
+      "chars": {
+        "n": 277,
+        "mean": 193.1155,
+        "quantiles": {
+          "0.0": 32.0,
+          "0.1": 72.6,
+          "0.25": 110.0,
+          "0.5": 172.0,
+          "0.75": 252.0,
+          "0.9": 328.6,
+          "1.0": 695.0
+        }
+      },
+      "words": {
+        "n": 277,
+        "mean": 31.2996,
+        "quantiles": {
+          "0.0": 6.0,
+          "0.1": 12.0,
+          "0.25": 18.0,
+          "0.5": 27.0,
+          "0.75": 41.0,
+          "0.9": 54.0,
+          "1.0": 115.0
+        }
+      },
+      "sentence_parts": {
+        "n": 277,
+        "mean": 1.0181,
+        "quantiles": {
+          "0.0": 1.0,
+          "0.1": 1.0,
+          "0.25": 1.0,
+          "0.5": 1.0,
+          "0.75": 1.0,
+          "0.9": 1.0,
+          "1.0": 2.0
+        }
+      },
+      "quote_identified": 277,
+      "quote_parts": {
+        "n": 277,
+        "mean": 1.7726,
+        "quantiles": {
+          "0.0": 1.0,
+          "0.1": 1.0,
+          "0.25": 1.0,
+          "0.5": 2.0,
+          "0.75": 2.0,
+          "0.9": 3.0,
+          "1.0": 7.0
+        }
+      },
+      "multi_part_quotes": 139,
+      "closing_words_in_evidence": 82,
+      "closing_words_rule": "the last 3 words of the quote whose prefix is evidence.quote_prefix, trailing punctuation removed, found in the evidence text with the prefix pattern"
+    },
+    "udv_v2": {
+      "records": 277,
+      "chars": {
+        "n": 277,
+        "mean": 302.7509,
+        "quantiles": {
+          "0.0": 32.0,
+          "0.1": 133.0,
+          "0.25": 196.0,
+          "0.5": 274.0,
+          "0.75": 389.0,
+          "0.9": 501.8,
+          "1.0": 1272.0
+        }
+      },
+      "words": {
+        "n": 277,
+        "mean": 48.9783,
+        "quantiles": {
+          "0.0": 6.0,
+          "0.1": 21.0,
+          "0.25": 31.0,
+          "0.5": 45.0,
+          "0.75": 63.0,
+          "0.9": 81.0,
+          "1.0": 198.0
+        }
+      },
+      "sentence_parts": {
+        "n": 277,
+        "mean": 1.9242,
+        "quantiles": {
+          "0.0": 1.0,
+          "0.1": 1.0,
+          "0.25": 1.0,
+          "0.5": 2.0,
+          "0.75": 2.0,
+          "0.9": 3.0,
+          "1.0": 8.0
+        }
+      },
+      "quote_identified": 277,
+      "quote_parts": {
+        "n": 277,
+        "mean": 1.7726,
+        "quantiles": {
+          "0.0": 1.0,
+          "0.1": 1.0,
+          "0.25": 1.0,
+          "0.5": 2.0,
+          "0.75": 2.0,
+          "0.9": 3.0,
+          "1.0": 7.0
+        }
+      },
+      "multi_part_quotes": 139,
+      "closing_words_in_evidence": 172,
+      "closing_words_rule": "the last 3 words of the quote whose prefix is evidence.quote_prefix, trailing punctuation removed, found in the evidence text with the prefix pattern"
+    }
+  },
+  "semantic_evidence": {
+    "udv_v1": {
+      "records": 1828,
+      "chars": {
+        "n": 1828,
+        "mean": 187.8042,
+        "quantiles": {
+          "0.0": 21.0,
+          "0.1": 76.0,
+          "0.25": 109.0,
+          "0.5": 161.0,
+          "0.75": 238.0,
+          "0.9": 332.0,
+          "1.0": 1400.0
+        }
+      },
+      "scores": {
+        "n": 1828,
+        "mean": 0.6842,
+        "quantiles": {
+          "0.0": 0.2754,
+          "0.1": 0.548,
+          "0.25": 0.616,
+          "0.5": 0.6845,
+          "0.75": 0.7559,
+          "0.9": 0.8215,
+          "1.0": 0.9886
+        }
+      }
+    },
+    "udv_v2": {
+      "records": 1828,
+      "chars": {
+        "n": 1828,
+        "mean": 300.5137,
+        "quantiles": {
+          "0.0": 25.0,
+          "0.1": 147.0,
+          "0.25": 200.0,
+          "0.5": 274.0,
+          "0.75": 369.0,
+          "0.9": 489.9,
+          "1.0": 1681.0
+        }
+      },
+      "scores": {
+        "n": 1828,
+        "mean": 0.6902,
+        "quantiles": {
+          "0.0": 0.2795,
+          "0.1": 0.548,
+          "0.25": 0.6176,
+          "0.5": 0.6885,
+          "0.75": 0.7695,
+          "0.9": 0.8319,
+          "1.0": 0.9751
+        }
+      }
+    }
+  },
+  "verifier": {
+    "distributions_by_tier_and_split": {
+      "quote_found": {
+        "all": {
+          "n": 277,
+          "mean": 0.6798,
+          "quantiles": {
+            "0.0": 0.1051,
+            "0.1": 0.2637,
+            "0.25": 0.4344,
+            "0.5": 0.7243,
+            "0.75": 0.9605,
+            "0.9": 0.9935,
+            "1.0": 0.9967
+          }
+        },
+        "train": {
+          "n": 183,
+          "mean": 0.6709,
+          "quantiles": {
+            "0.0": 0.1329,
+            "0.1": 0.2583,
+            "0.25": 0.4379,
+            "0.5": 0.703,
+            "0.75": 0.9668,
+            "0.9": 0.9937,
+            "1.0": 0.9967
+          }
+        },
+        "validation": {
+          "n": 53,
+          "mean": 0.6765,
+          "quantiles": {
+            "0.0": 0.1403,
+            "0.1": 0.3126,
+            "0.25": 0.4102,
+            "0.5": 0.7111,
+            "0.75": 0.9528,
+            "0.9": 0.991,
+            "1.0": 0.9965
+          }
+        },
+        "test": {
+          "n": 41,
+          "mean": 0.7234,
+          "quantiles": {
+            "0.0": 0.1051,
+            "0.1": 0.2745,
+            "0.25": 0.479,
+            "0.5": 0.8329,
+            "0.75": 0.9615,
+            "0.9": 0.9946,
+            "1.0": 0.9967
+          }
+        }
+      },
+      "semantic_match_high": {
+        "all": {
+          "n": 1744,
+          "mean": 0.5963,
+          "quantiles": {
+            "0.0": 0.0916,
+            "0.1": 0.2114,
+            "0.25": 0.3083,
+            "0.5": 0.5855,
+            "0.75": 0.9149,
+            "0.9": 0.9864,
+            "1.0": 0.9964
+          }
+        },
+        "train": {
+          "n": 1217,
+          "mean": 0.5986,
+          "quantiles": {
+            "0.0": 0.1141,
+            "0.1": 0.2111,
+            "0.25": 0.3001,
+            "0.5": 0.5951,
+            "0.75": 0.9194,
+            "0.9": 0.9865,
+            "1.0": 0.9958
+          }
+        },
+        "validation": {
+          "n": 233,
+          "mean": 0.5947,
+          "quantiles": {
+            "0.0": 0.1234,
+            "0.1": 0.2146,
+            "0.25": 0.3284,
+            "0.5": 0.564,
+            "0.75": 0.9042,
+            "0.9": 0.986,
+            "1.0": 0.9964
+          }
+        },
+        "test": {
+          "n": 294,
+          "mean": 0.5882,
+          "quantiles": {
+            "0.0": 0.0916,
+            "0.1": 0.216,
+            "0.25": 0.3079,
+            "0.5": 0.5756,
+            "0.75": 0.8985,
+            "0.9": 0.9872,
+            "1.0": 0.9957
+          }
+        }
+      },
+      "semantic_match_weak": {
+        "all": {
+          "n": 84,
+          "mean": 0.1954,
+          "quantiles": {
+            "0.0": 0.0513,
+            "0.1": 0.0816,
+            "0.25": 0.0996,
+            "0.5": 0.1256,
+            "0.75": 0.2083,
+            "0.9": 0.3661,
+            "1.0": 0.9573
+          }
+        },
+        "train": {
+          "n": 54,
+          "mean": 0.1794,
+          "quantiles": {
+            "0.0": 0.0515,
+            "0.1": 0.0855,
+            "0.25": 0.0995,
+            "0.5": 0.1248,
+            "0.75": 0.1738,
+            "0.9": 0.317,
+            "1.0": 0.9573
+          }
+        },
+        "validation": {
+          "n": 19,
+          "mean": 0.227,
+          "quantiles": {
+            "0.0": 0.0587,
+            "0.1": 0.0721,
+            "0.25": 0.1062,
+            "0.5": 0.1329,
+            "0.75": 0.2555,
+            "0.9": 0.6184,
+            "1.0": 0.6751
+          }
+        },
+        "test": {
+          "n": 11,
+          "mean": 0.2195,
+          "quantiles": {
+            "0.0": 0.0513,
+            "0.1": 0.0764,
+            "0.25": 0.1068,
+            "0.5": 0.125,
+            "0.75": 0.3022,
+            "0.9": 0.4592,
+            "1.0": 0.64
+          }
+        }
+      }
+    },
+    "passing_train_threshold": {
+      "all": {
+        "n": 2105,
+        "passing": 826,
+        "share": 0.3924,
+        "by_split": {
+          "train": {
+            "n": 1454,
+            "passing": 572
+          },
+          "validation": {
+            "n": 305,
+            "passing": 110
+          },
+          "test": {
+            "n": 346,
+            "passing": 144
+          }
+        }
+      },
+      "quote_found": {
+        "n": 277,
+        "passing": 133,
+        "share": 0.4801,
+        "by_split": {
+          "train": {
+            "n": 183,
+            "passing": 83
+          },
+          "validation": {
+            "n": 53,
+            "passing": 25
+          },
+          "test": {
+            "n": 41,
+            "passing": 25
+          }
+        }
+      },
+      "semantic_match_high": {
+        "n": 1744,
+        "passing": 691,
+        "share": 0.3962,
+        "by_split": {
+          "train": {
+            "n": 1217,
+            "passing": 487
+          },
+          "validation": {
+            "n": 233,
+            "passing": 85
+          },
+          "test": {
+            "n": 294,
+            "passing": 119
+          }
+        }
+      },
+      "semantic_match_weak": {
+        "n": 84,
+        "passing": 2,
+        "share": 0.0238,
+        "by_split": {
+          "train": {
+            "n": 54,
+            "passing": 2
+          },
+          "validation": {
+            "n": 19,
+            "passing": 0
+          },
+          "test": {
+            "n": 11,
+            "passing": 0
+          }
+        }
+      }
+    },
+    "passing_udv_threshold": {
+      "all": {
+        "n": 2105,
+        "passing": 1750,
+        "share": 0.8314,
+        "by_split": {
+          "train": {
+            "n": 1454,
+            "passing": 1198
+          },
+          "validation": {
+            "n": 305,
+            "passing": 257
+          },
+          "test": {
+            "n": 346,
+            "passing": 295
+          }
+        }
+      },
+      "quote_found": {
+        "n": 277,
+        "passing": 256,
+        "share": 0.9242,
+        "by_split": {
+          "train": {
+            "n": 183,
+            "passing": 169
+          },
+          "validation": {
+            "n": 53,
+            "passing": 49
+          },
+          "test": {
+            "n": 41,
+            "passing": 38
+          }
+        }
+      },
+      "semantic_match_high": {
+        "n": 1744,
+        "passing": 1476,
+        "share": 0.8463,
+        "by_split": {
+          "train": {
+            "n": 1217,
+            "passing": 1021
+          },
+          "validation": {
+            "n": 233,
+            "passing": 202
+          },
+          "test": {
+            "n": 294,
+            "passing": 253
+          }
+        }
+      },
+      "semantic_match_weak": {
+        "n": 84,
+        "passing": 18,
+        "share": 0.2143,
+        "by_split": {
+          "train": {
+            "n": 54,
+            "passing": 8
+          },
+          "validation": {
+            "n": 19,
+            "passing": 6
+          },
+          "test": {
+            "n": 11,
+            "passing": 4
+          }
+        }
+      }
+    },
+    "udv_v1_passing_train_threshold": {
+      "all": {
+        "n": 2105,
+        "passing": 489,
+        "share": 0.2323,
+        "by_split": {
+          "train": {
+            "n": 1454,
+            "passing": 340
+          },
+          "validation": {
+            "n": 305,
+            "passing": 70
+          },
+          "test": {
+            "n": 346,
+            "passing": 79
+          }
+        }
+      },
+      "quote_found": {
+        "n": 277,
+        "passing": 78,
+        "share": 0.2816,
+        "by_split": {
+          "train": {
+            "n": 183,
+            "passing": 49
+          },
+          "validation": {
+            "n": 53,
+            "passing": 14
+          },
+          "test": {
+            "n": 41,
+            "passing": 15
+          }
+        }
+      },
+      "semantic_match_high": {
+        "n": 1785,
+        "passing": 411,
+        "share": 0.2303,
+        "by_split": {
+          "train": {
+            "n": 1239,
+            "passing": 291
+          },
+          "validation": {
+            "n": 247,
+            "passing": 56
+          },
+          "test": {
+            "n": 299,
+            "passing": 64
+          }
+        }
+      },
+      "semantic_match_weak": {
+        "n": 43,
+        "passing": 0,
+        "share": 0.0,
+        "by_split": {
+          "train": {
+            "n": 32,
+            "passing": 0
+          },
+          "validation": {
+            "n": 5,
+            "passing": 0
+          },
+          "test": {
+            "n": 6,
+            "passing": 0
+          }
+        }
+      }
+    },
+    "cosine_tier_agreement": {
+      "rule": "semantic UDVs only: tier semantic_match_high (window cosine at or above the cosine cut) against the verifier decision; Cohen kappa of the two booleans",
+      "train_threshold": {
+        "n": 1828,
+        "table": {
+          "high_and_passing": 691,
+          "high_not_passing": 1053,
+          "weak_and_passing": 2,
+          "weak_not_passing": 82
+        },
+        "raw_agreement": 0.4229,
+        "cohen_kappa": 0.0535
+      },
+      "udv_threshold": {
+        "n": 1828,
+        "table": {
+          "high_and_passing": 1476,
+          "high_not_passing": 268,
+          "weak_and_passing": 18,
+          "weak_not_passing": 66
+        },
+        "raw_agreement": 0.8435,
+        "cohen_kappa": 0.2616
+      }
+    },
+    "spearman_with_cosine": {
+      "semantic_match_high": {
+        "primary_probability": {
+          "n": 1744,
+          "rho": 0.5839,
+          "p_value": 5.980366750792741e-160
+        },
+        "p4_supports": {
+          "n": 1744,
+          "rho": 0.4249,
+          "p_value": 2.0759919341564217e-77
+        }
+      },
+      "semantic_match_weak": {
+        "primary_probability": {
+          "n": 84,
+          "rho": 0.4955,
+          "p_value": 1.6470085391248313e-06
+        },
+        "p4_supports": {
+          "n": 84,
+          "rho": 0.1081,
+          "p_value": 0.32773620764804945
+        }
+      },
+      "semantic_all": {
+        "primary_probability": {
+          "n": 1828,
+          "rho": 0.6229,
+          "p_value": 6.567603089882011e-197
+        },
+        "p4_supports": {
+          "n": 1828,
+          "rho": 0.4567,
+          "p_value": 7.373926351815253e-95
+        }
+      }
+    },
+    "v1_vs_v2": {
+      "evidence_changed": {
+        "n": 1969,
+        "v1_mean": 0.4777,
+        "v2_mean": 0.5899,
+        "v2_higher": 1312,
+        "v1_train_threshold_passing": 435,
+        "v2_train_threshold_passing": 772,
+        "max_abs_gap": 0.899607
+      },
+      "evidence_unchanged": {
+        "n": 136,
+        "v1_mean": 0.6127,
+        "v2_mean": 0.6127,
+        "v2_higher": 3,
+        "v1_train_threshold_passing": 54,
+        "v2_train_threshold_passing": 54,
+        "max_abs_gap": 0.0
+      },
+      "by_v2_tier": {
+        "quote_found": {
+          "n": 152,
+          "v1_mean": 0.4307,
+          "v2_mean": 0.7151,
+          "v2_higher": 134,
+          "v1_train_threshold_passing": 25,
+          "v2_train_threshold_passing": 80,
+          "max_abs_gap": 0.899607
+        },
+        "semantic_match_high": {
+          "n": 1734,
+          "v1_mean": 0.4958,
+          "v2_mean": 0.5977,
+          "v2_higher": 1138,
+          "v1_train_threshold_passing": 408,
+          "v2_train_threshold_passing": 690,
+          "max_abs_gap": 0.77478
+        },
+        "semantic_match_weak": {
+          "n": 83,
+          "v1_mean": 0.1855,
+          "v2_mean": 0.1965,
+          "v2_higher": 40,
+          "v1_train_threshold_passing": 2,
+          "v2_train_threshold_passing": 2,
+          "max_abs_gap": 0.698667
+        }
+      }
+    }
+  },
+  "inputs": {
+    "v1": {
+      "path": "artifacts/udv/udv_v1.jsonl",
+      "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1"
+    },
+    "v2": {
+      "path": "artifacts/udv/udv_v2.jsonl",
+      "sha256": "02f42b288840400cbcfb24a613ecc7e0c82f52923de80c09faf3d246fd01fb45"
+    },
+    "v1_coverage": {
+      "path": "artifacts/udv/udv_v1_coverage.json",
+      "sha256": "a63bb61d5a82cbdf28c8ff9c827092ba92868c5c412d315372a2d8200ba95bdd"
+    },
+    "v2_coverage": {
+      "path": "artifacts/udv/udv_v2_coverage.json",
+      "sha256": "923e5fc6d7014ebac59271e05b952df74ca34dcdc256f73b84f887e74e9fe9a6"
+    },
+    "v1_verifier": {
+      "path": "artifacts/udv/udv_v1_verifier.jsonl",
+      "sha256": "0f5edd686d4b1c3779ccda06c620cfe03d8fc86a24bd156cfa49624476253367"
+    },
+    "v2_verifier": {
+      "path": "artifacts/udv/udv_v2_verifier.jsonl",
+      "sha256": "26bf245921b359263585f55274c45d8b1b70ca30253ce5f99cad0ede09d2f4e7"
+    },
+    "v2_verifier_report": {
+      "path": "artifacts/udv/udv_v2_verifier_report.json",
+      "sha256": "ba46dd8830f49306bc6dc16ebadea0a1b6d5560dd67c0c2ef63ff8e5ca261044"
+    },
+    "cosine_calibration": {
+      "path": "artifacts/calibration/threshold_v2.json",
+      "sha256": "cf765fdfac4c55b290f545af35952841595288d74dec5575d4af9bd438d6e3af"
+    },
+    "verifier_calibration": {
+      "path": "artifacts/calibration/udv_verifier_threshold_v1.json",
+      "sha256": "acd4130d04db1bc6d6fafd4848c310ef4e4087a8debd5877a059e855af6c366e"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd"
+    }
+  },
+  "code": {
+    "utils/udv_v2_analysis.py": "9407c4760aeb5ff0609e79a9302869407efe6f92f72d90f873f65028f5f9e1b5"
+  }
+}

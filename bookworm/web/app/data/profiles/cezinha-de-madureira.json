@@ -1,0 +1,144 @@
+{
+  "actor": {
+    "slug": "cezinha-de-madureira",
+    "name": "Cezinha de Madureira",
+    "display_name": "Cezinha de Madureira",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PSD - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:37:53+00:00",
+    "n_statements": 11,
+    "n_hearings": 2,
+    "hearing_ids": [
+      4,
+      144
+    ],
+    "input_tokens": 3687,
+    "output_tokens": 248,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 6,
+    "with_udv": 0,
+    "passage_only": 5,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor de requerimentos apresentados na Câmara dos Deputados para convocar o Ministro de Estado das Cidades, Jader Barbalho Filho, para audiência pública na Comissão de Viação e Transportes.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 0,
+            "start": 381,
+            "end": 538,
+            "text": "Jader Barbalho Filho, Ministro de Estado das Cidades, que comparece com a finalidade de prestar informações sobre as prioridades da Pasta para o ano de 2023.",
+            "score": 0.277
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Deputado Estadual antes de se tornar Deputado Federal.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 0,
+            "start": 1197,
+            "end": 1303,
+            "text": "Aliás, quando eu deixei de ser Deputado Estadual e passei a ser Deputado Federal, encontrei aqui um irmão.",
+            "score": 0.3543
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter sido convocado pelo Presidente Amaro Neto para participar da audiência sobre a Anatel.",
+          "passage": {
+            "hearing_id": 4,
+            "turn": 4,
+            "start": 18029,
+            "end": 18081,
+            "text": "O Presidente Amaro Neto me convocou para estar aqui.",
+            "score": 0.4459
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza tom cordial e informal ao se dirigir a colegas e autoridades, incluindo piadas e referências a compromissos pessoais ou de terceiros (ex.: \"o Deputado Denis está alegre\", \"eu pago o almoço\").",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 0,
+            "start": 956,
+            "end": 989,
+            "text": "Até o Deputado Denis está alegre.",
+            "score": 0.3118
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia publicamente a interlocução e a parceria de ministros e presidentes de órgãos, citando especificamente a \"elegância\" e o \"trabalho\" do presidente da Anatel e a \"boa interlocução\" do Ministro das Cidades.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 12,
+            "start": 5800,
+            "end": 5880,
+            "text": "Quero dar esse testemunho por ele ter sempre uma boa interlocução com todos nós.",
+            "score": 0.2785
+          },
+          "udv": null
+        },
+        {
+          "text": "Conduz a sessão com foco em procedimentos logísticos, como prazos de inscrição, ordem de fala e controle de tempo, pedindo gentileza aos presentes para manter o silêncio durante as falas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 4,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Anatel trabalha com operadoras de telefonia para evitar pane em São Paulo",
+      "assunto": "Trabalho da Anatel com operadoras de telefonia para evitar pane em São Paulo após temporal e discussão sobre a modernização das leis de telecomunicações",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

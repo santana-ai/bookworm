@@ -1,0 +1,646 @@
+{
+  "experiment": "translation",
+  "command": "translate",
+  "run_name": "smoke_translation",
+  "created_at": "2026-09-24T12:41:24+00:00",
+  "splits": {
+    "splits": [
+      "validation"
+    ],
+    "final_test_flag": false,
+    "test_read": false
+  },
+  "fallback": {
+    "used": false,
+    "reason": null
+  },
+  "segmentation": {
+    "join_abbreviations": [
+      "Art.",
+      "Dr.",
+      "Dra.",
+      "Dras.",
+      "Drs.",
+      "Exma.",
+      "Exmo.",
+      "Prof.",
+      "Profa.",
+      "Profs.",
+      "Sr.",
+      "Sra.",
+      "Sras.",
+      "Srs.",
+      "V.Exa.",
+      "V.Exas.",
+      "art.",
+      "arts."
+    ],
+    "join_short_parts": true
+  },
+  "counts": {
+    "opinions": 25,
+    "opinions_by_split": {
+      "validation": 25
+    },
+    "hearings": 1,
+    "chunk_slots": 100,
+    "empty_chunk_slots": 0,
+    "distinct_opinions_with_probes": 28,
+    "distinct_chunks_with_probes": 81,
+    "distinct_segments": 328,
+    "distinct_segments_accepted_by_is_sentence": 328,
+    "distinct_segments_shorter_than_a_sentence": 0,
+    "distinct_verbatim_segments": 0,
+    "distinct_boundary_parts": 346,
+    "distinct_boundary_parts_ending_in_join_abbreviation": 11,
+    "distinct_boundary_parts_rejected_by_is_sentence": 16,
+    "join_abbreviation_last_token_counts": {
+      "Dr.": 2,
+      "Dra.": 4,
+      "Sr.": 1,
+      "Sra.": 1
+    },
+    "chunks_with_joined_parts": 14,
+    "segments_per_chunk": {
+      "n": 81,
+      "mean": 4.5802,
+      "q00": 1.0,
+      "q01": 1.0,
+      "q05": 2.0,
+      "q25": 5.0,
+      "q50": 5.0,
+      "q75": 5.0,
+      "q95": 5.0,
+      "q99": 6.0,
+      "q100": 6.0
+    },
+    "distinct_model_texts": 356
+  },
+  "coverage": {
+    "model_texts_missing": 0,
+    "complete": true
+  },
+  "opinions": {
+    "texts": 28,
+    "translated": 28,
+    "missing": 0,
+    "flags": {
+      "empty": 0,
+      "identical": 0,
+      "degenerate": 0,
+      "degenerate_not_in_source": 0,
+      "input_truncated": 0,
+      "hit_max_new_tokens": 0,
+      "long_output": 0,
+      "doubled_length": 0
+    },
+    "flagged_keys": {},
+    "input_tokens": {
+      "n": 28,
+      "mean": 20.5,
+      "q00": 8.0,
+      "q01": 9.1,
+      "q05": 12.0,
+      "q25": 16.0,
+      "q50": 20.5,
+      "q75": 25.2,
+      "q95": 31.6,
+      "q99": 35.9,
+      "q100": 37.0
+    },
+    "output_tokens": {
+      "n": 28,
+      "mean": 18.9,
+      "q00": 8.0,
+      "q01": 8.3,
+      "q05": 9.7,
+      "q25": 14.0,
+      "q50": 19.5,
+      "q75": 22.2,
+      "q95": 25.0,
+      "q99": 37.4,
+      "q100": 42.0
+    },
+    "token_ratio": {
+      "n": 28,
+      "mean": 0.9257,
+      "q00": 0.6897,
+      "q01": 0.6998,
+      "q05": 0.7352,
+      "q25": 0.8544,
+      "q50": 0.8968,
+      "q75": 1.0,
+      "q95": 1.1556,
+      "q99": 1.184,
+      "q100": 1.1905
+    },
+    "character_ratio": {
+      "n": 28,
+      "mean": 1.0015,
+      "q00": 0.7246,
+      "q01": 0.7303,
+      "q05": 0.7717,
+      "q25": 0.9335,
+      "q50": 1.0,
+      "q75": 1.0674,
+      "q95": 1.2025,
+      "q99": 1.2643,
+      "q100": 1.2727
+    },
+    "devices": {
+      "cpu": 28
+    }
+  },
+  "segments": {
+    "texts": 328,
+    "translated": 328,
+    "missing": 0,
+    "flags": {
+      "empty": 0,
+      "identical": 0,
+      "degenerate": 1,
+      "degenerate_not_in_source": 1,
+      "input_truncated": 0,
+      "hit_max_new_tokens": 0,
+      "long_output": 0,
+      "doubled_length": 0
+    },
+    "flagged_keys": {
+      "degenerate": [
+        "8da6b21366c19d9854ee8e27d4e9b4f94ea7520b914a47eb1263a7e4f70df36e"
+      ],
+      "degenerate_not_in_source": [
+        "8da6b21366c19d9854ee8e27d4e9b4f94ea7520b914a47eb1263a7e4f70df36e"
+      ]
+    },
+    "input_tokens": {
+      "n": 328,
+      "mean": 33.6,
+      "q00": 5.0,
+      "q01": 6.0,
+      "q05": 9.0,
+      "q25": 19.8,
+      "q50": 31.0,
+      "q75": 40.0,
+      "q95": 69.6,
+      "q99": 116.7,
+      "q100": 186.0
+    },
+    "output_tokens": {
+      "n": 328,
+      "mean": 30.3,
+      "q00": 6.0,
+      "q01": 7.0,
+      "q05": 9.0,
+      "q25": 18.0,
+      "q50": 27.0,
+      "q75": 38.0,
+      "q95": 59.6,
+      "q99": 94.8,
+      "q100": 165.0
+    },
+    "token_ratio": {
+      "n": 328,
+      "mean": 0.927,
+      "q00": 0.4528,
+      "q01": 0.564,
+      "q05": 0.7143,
+      "q25": 0.8355,
+      "q50": 0.9173,
+      "q75": 1.0,
+      "q95": 1.1667,
+      "q99": 1.3077,
+      "q100": 1.5
+    },
+    "character_ratio": {
+      "n": 328,
+      "mean": 0.9675,
+      "q00": 0.5169,
+      "q01": 0.6853,
+      "q05": 0.7581,
+      "q25": 0.8978,
+      "q50": 0.9706,
+      "q75": 1.0479,
+      "q95": 1.1593,
+      "q99": 1.2371,
+      "q100": 1.32
+    },
+    "devices": {
+      "cpu": 328
+    }
+  },
+  "chunks": {
+    "distinct_chunks": 78,
+    "chunks_with_missing_segments": 0,
+    "character_ratio": {
+      "n": 78,
+      "mean": 0.9627,
+      "q00": 0.7032,
+      "q01": 0.7733,
+      "q05": 0.8733,
+      "q25": 0.9287,
+      "q50": 0.9631,
+      "q75": 1.0052,
+      "q95": 1.0526,
+      "q99": 1.0799,
+      "q100": 1.1218
+    },
+    "seconds_per_chunk": {
+      "n": 78,
+      "mean": 1.6503,
+      "q00": 0.4274,
+      "q01": 0.4574,
+      "q05": 0.714,
+      "q25": 1.124,
+      "q50": 1.3955,
+      "q75": 1.7323,
+      "q95": 3.0812,
+      "q99": 4.6067,
+      "q100": 4.7423
+    },
+    "seconds_per_chunk_rule": "sum over the distinct parts of a chunk of the per-text seconds (batch seconds / batch texts) of their cache records; a part shared by chunks counts in each"
+  },
+  "timing": {
+    "this_run": {
+      "requested": 356,
+      "already_cached": 0,
+      "translated": 356,
+      "batches": 23,
+      "seconds": 117.39,
+      "texts_per_second": 3.0327,
+      "model_input_tokens": 12312,
+      "model_input_tokens_per_second": 104.89,
+      "model_loaded": true
+    },
+    "cache": {
+      "rule": "per-text seconds are batch seconds / batch texts, summed over the cache records of the selected texts; a text translated by an earlier run counts with its own timing",
+      "all_texts": {
+        "cpu": {
+          "records": 356,
+          "seconds": 117.37,
+          "model_input_tokens": 12312,
+          "seconds_per_text": 0.3297,
+          "seconds_per_model_input_token": 0.009533
+        }
+      },
+      "opinions": {
+        "cpu": {
+          "records": 28,
+          "seconds": 5.17,
+          "model_input_tokens": 630,
+          "seconds_per_text": 0.1846,
+          "seconds_per_model_input_token": 0.008206
+        }
+      },
+      "segments": {
+        "cpu": {
+          "records": 328,
+          "seconds": 112.2,
+          "model_input_tokens": 11682,
+          "seconds_per_text": 0.3421,
+          "seconds_per_model_input_token": 0.009604
+        }
+      }
+    }
+  },
+  "label_probes": [
+    {
+      "premise": "Os homens estão cuidadosamente colocando as malas no porta-malas de um carro.",
+      "hypothesis": "Os homens estão colocando bagagens dentro do porta-malas de um carro.",
+      "premise_en": "The men are carefully putting their bags in the trunk of a car.",
+      "hypothesis_en": "The men are putting luggage in the trunk of a car."
+    },
+    {
+      "premise": "A audiência pública foi realizada na Câmara dos Deputados nesta quarta-feira, com a presença de seis convidados.",
+      "hypothesis": "A audiência pública foi cancelada e não aconteceu.",
+      "premise_en": "The public hearing was held in the Chamber of Deputies on Wednesday, attended by six guests.",
+      "hypothesis_en": "The public hearing was canceled and it didn't happen."
+    },
+    {
+      "premise": "O deputado defendeu o aumento do orçamento federal para a saúde.",
+      "hypothesis": "O deputado é filiado a um partido de oposição.",
+      "premise_en": "The deputy advocated an increase in the federal health budget.",
+      "hypothesis_en": "The deputy is affiliated to an opposition party."
+    }
+  ],
+  "store": {
+    "path": "artifacts/cache/translation_smoke/translations_facebook-nllb-200-distilled-600m_f8d333a098d1.jsonl",
+    "signature": {
+      "model": "facebook/nllb-200-distilled-600M",
+      "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "src_lang": "por_Latn",
+      "tgt_lang": "eng_Latn",
+      "dtype": "float32",
+      "num_beams": 4,
+      "do_sample": false,
+      "length_penalty": 1.0,
+      "early_stopping": false,
+      "no_repeat_ngram_size": 0,
+      "repetition_penalty": 1.0,
+      "max_input_tokens": 512,
+      "max_new_tokens_ratio": 2.0,
+      "max_new_tokens_margin": 16,
+      "max_new_tokens_cap": 1020
+    },
+    "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+    "segmentation": {
+      "join_abbreviations": [
+        "Art.",
+        "Dr.",
+        "Dra.",
+        "Dras.",
+        "Drs.",
+        "Exma.",
+        "Exmo.",
+        "Prof.",
+        "Profa.",
+        "Profs.",
+        "Sr.",
+        "Sra.",
+        "Sras.",
+        "Srs.",
+        "V.Exa.",
+        "V.Exas.",
+        "art.",
+        "arts."
+      ],
+      "join_short_parts": true
+    },
+    "entries": 356,
+    "entries_by_device": {
+      "cpu": 356
+    },
+    "other_signature_lines": 0,
+    "incomplete_tail_bytes": 0
+  },
+  "sources": {
+    "nli": {
+      "path": "dataset/PublicHearingBR_NLI.jsonl",
+      "sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "benchmark": {
+      "path": "artifacts/benchmarks/nli_v1.jsonl",
+      "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    },
+    "nli_verifier_config": {
+      "path": "configs/nli_verifier.toml",
+      "sha256": "ff0c35d0e64a6c70aebde35f042261a6f8449a88738e5fc796b8a64532420de0"
+    }
+  },
+  "subset": {
+    "limit_per_split": 25,
+    "rule": "first rows of each split in file order"
+  },
+  "code": {
+    "utils/translation.py": "74fcdc128b44eabe90a7d7d16c5216f4b2b29393507c70c567a6d80eab57b7c2",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "tokenizers": "0.22.2",
+    "huggingface_hub": "1.24.0",
+    "mps_available": true,
+    "torch_threads": 4,
+    "cpu_count": 10,
+    "load_average": [
+      4.46,
+      3.85,
+      3.22
+    ],
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  },
+  "config": {
+    "translation": {
+      "declaration": {
+        "date": "2026-09-24",
+        "text": "Declared on 2026-09-24, before any full translation run and before any score of an English scorer existed. The model, revision, decoding, units, splits and report rules below are fixed for the English conditions of E3 (configs/nli_verifier.toml). Before the full run, only the plan command (token and segment counts, no translation) and smoke runs on at most the first 25 validation opinions (their opinions and chunks) plus the 40 spot-check sentences, on CPU, are run; they are used only to check that the code runs and to time it. This module reads no label, judge or score; apart from the join amendment recorded in [units], nothing here was chosen from translation outputs."
+      },
+      "inputs": {
+        "nli_verifier_config": "configs/nli_verifier.toml",
+        "rule": "benchmark path and report, gated NLI file, split manifest, premise text source and label probes are read from the E3 config, so the translated texts are the premises and hypotheses E3 scores; premise.text_source must be nli_chunks"
+      },
+      "splits": {
+        "default": [
+          "train",
+          "validation"
+        ],
+        "final_test": [
+          "test"
+        ],
+        "rule": "plan, translate and report read the benchmark rows of the default splits; rows of final_test hearings are read only with --final-test and nothing is chosen on them; --splits can narrow the selection (for a smoke run) but can never add a final_test split without --final-test"
+      },
+      "model": {
+        "role": "primary",
+        "name": "facebook/nllb-200-distilled-600M",
+        "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+        "revision_source": "huggingface_hub HfApi().model_info on 2026-09-24: sha of the main branch, commit of 2024-02-14 titled 'pipeline_tag: translation'; main is the only branch",
+        "weights_file": "pytorch_model.bin",
+        "weights_note": "the pinned snapshot has no safetensors file; pytorch_model.bin is loaded by transformers with torch.load(weights_only=True)",
+        "architecture": "M2M100ForConditionalGeneration (config.json): 12 encoder and 12 decoder layers, d_model 1024, vocabulary 256,206, max_position_embeddings 1024",
+        "intended_use": "README: research in machine translation, single sentence translation among 200 languages; not intended for document translation; trained with inputs of at most 512 tokens, longer inputs may degrade",
+        "license": "CC-BY-NC-4.0",
+        "license_reason": "CC-BY-NC-4.0 allows non-commercial use and sharing of adapted material with attribution. This is a non-commercial research experiment: the translations are intermediate inputs of the E3 English scorers, stored only in the Git-ignored cache and not redistributed; the versioned artifacts hold counts, distributions and hashes, the translations of the three hand-written label probes and the 40 spot-check sentences, each attributed to this model and revision. Any commercial use of the translations would need another model.",
+        "src_lang": "por_Latn",
+        "tgt_lang": "eng_Latn",
+        "src_token": "por_Latn",
+        "tgt_token": "eng_Latn",
+        "language_rule": "the tokenizer is created with src_lang, so each input is [src_token] tokens [</s>]; generation is forced to start with tgt_token (forced_bos_token_id); both ids are checked against the loaded tokenizer at every load",
+        "dtype": "float32",
+        "dtype_reason": "config.json torch_dtype float32; the same dtype on CPU and MPS"
+      },
+      "fallback": {
+        "role": "fallback",
+        "name": "facebook/m2m100_418M",
+        "revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+        "revision_source": "huggingface_hub HfApi().model_info on 2026-09-24: sha of the main branch",
+        "license": "MIT",
+        "src_lang": "pt",
+        "tgt_lang": "en",
+        "src_token": "__pt__",
+        "tgt_token": "__en__",
+        "dtype": "float32",
+        "rule": "used only if the primary model cannot be loaded for a technical reason (download or load error), never because of its outputs, timing or any score; it needs --use-fallback with --fallback-reason, the reason is written to every report, and its cache entries carry their own signature and file, so the two models never mix",
+        "status": "declared, not used"
+      },
+      "decoding": {
+        "num_beams": 4,
+        "do_sample": false,
+        "length_penalty": 1.0,
+        "early_stopping": false,
+        "no_repeat_ngram_size": 0,
+        "repetition_penalty": 1.0,
+        "decoding_rule": "deterministic beam search with 4 beams, no sampling, no repetition penalty and no n-gram blocking, so degenerate repetition is measured rather than hidden; every value is passed explicitly to generate",
+        "max_input_tokens": 512,
+        "max_input_rule": "inputs are tokenized with truncation at max_input_tokens, counting the language code and </s> (the model card training limit); a truncated input is counted by plan and flagged in the cache and the report",
+        "max_new_tokens_ratio": 2.0,
+        "max_new_tokens_margin": 16,
+        "max_new_tokens_cap": 1020,
+        "max_new_tokens_rule": "generation_config.json max_length 200 is overridden: the max_new_tokens of a batch is min(max_new_tokens_cap, ceil(max_new_tokens_ratio x the longest model input of the batch, in tokens after truncation) + max_new_tokens_margin); an output that reaches it without </s> is flagged hit_max_new_tokens, and an output longer than ratio x its own input + margin is flagged long_output, which marks every output the batch composition could have cut",
+        "batch_size": 16,
+        "batching_rule": "the distinct texts still missing from the cache are sorted by model input length, longest first (stable, ties in first-occurrence order), and cut into batches of batch_size",
+        "determinism_note": "decoding is deterministic for a given batch and device; float32 rounding in padded batches and between devices can in rare cases change a beam, so each cache record stores the device, batch size and batch number, the first translation of a text is kept, and the report counts the records of each device"
+      },
+      "units": {
+        "opinion_rule": "each opinion is translated whole: the benchmark opinion after udv_pipeline.normalize_whitespace, the hypothesis text E3 scores",
+        "chunk_rule": "each premise chunk is chunks_proximos[position] of the gated NLI file after udv_pipeline.normalize_whitespace, the premise text E3 scores. The chunk is cut at the sentence boundaries of udv_pipeline.split_sentences (SENTENCE_BOUNDARY_PATTERN) and every non-empty part is kept in order; the join rule below then merges some parts into translation units; each distinct unit is translated once, and the English chunk is the non-empty translations of its units joined by one space",
+        "chunk_rule_reason": "split_sentences also drops parts shorter than 4 words and stage directions (udv_pipeline.is_sentence). Counted by the plan command on the 9,908 distinct train and validation chunks, before any translation: joining only the split_sentences sentences would remove 5,333 of 1,043,920 words (0.51%) from 1,962 chunks (19.8%), among them short content sentences such as 'Não.' or 'Isso nos preocupa.', so the English premise would not carry the same text as the Portuguese premise E3 scores. Keeping every part keeps every word of the chunk in the English premise. Decided from word counts only; no translation, label or score was read",
+        "join_abbreviations": [
+          "Sr.",
+          "Sra.",
+          "Srs.",
+          "Sras.",
+          "Dr.",
+          "Dra.",
+          "Drs.",
+          "Dras.",
+          "V.Exa.",
+          "V.Exas.",
+          "Prof.",
+          "Profa.",
+          "Profs.",
+          "Exmo.",
+          "Exma.",
+          "art.",
+          "arts.",
+          "Art."
+        ],
+        "join_short_parts": true,
+        "join_rule": "walking the parts of a chunk in order, a part (or the text accumulated so far) is joined by one space to the next part when its last whitespace token is in join_abbreviations or, with join_short_parts, when udv_pipeline.is_sentence rejects it (fewer than 4 words, or only a stage direction); text still pending at the end of the chunk is joined to the previous unit, or is the only unit. Every word of the chunk stays in exactly one unit. Setting join_abbreviations = [] and join_short_parts = false gives one unit per boundary part",
+        "join_amendment": "Recorded on 2026-09-24, before any full translation run and before any English score existed. A debug run on the first validation opinion (27 texts, CPU, cache and report outside artifacts) showed content absent from the source in the translations of parts cut at an abbreviation (a one-word part 'Dra.', a part ending in 'V.Exa.') and a short part translated twice ('Muito obrigado.'), the known weakness of the model on inputs much shorter than a sentence. The join rule was added after that run; the model, revision and decoding were not changed. The abbreviation list holds the forms of address and legal abbreviations that end non-final parts, counted by the plan command without translation (join_abbreviation_last_token_counts: Sr. 473, Dr. 319, art. 319, Sra. 238, V.Exa. 164, Dra. 131, Prof. 81, Profa. 61, Srs. 52, Sras. 22, Exmo. 16, V.Exas. 14, arts. 12, Exma. 3, Art. 1; Drs., Dras. and Profs. complete the forms and do not occur). Of the 43,777 distinct boundary parts of the train and validation chunks and the label probes, 1,561 end in a listed abbreviation and 1,307 are rejected by is_sentence; after the rule there are 41,599 distinct units, 2 of them still shorter than a sentence (chunks with no sentence), and 2,636 of the 9,911 distinct chunks have joined parts. No label, judge or score was read",
+        "verbatim_rule": "a part without any letter or digit (for example ')') is copied unchanged and never sent to the model",
+        "empty_rule": "an empty chunk gives an empty English chunk; E3 does not score empty chunks",
+        "probe_rule": "each [label_probes] premise of the E3 config is translated as a chunk and each hypothesis as an opinion; the probe translations are written to every report",
+        "deduplication": "opinions and parts share one cache keyed by text, so a text is translated once whatever its role, split or position"
+      },
+      "cache": {
+        "dir": "artifacts/cache/translation",
+        "rule": "one JSONL file per model and revision; each line holds key = sha256 of the signature digest (sha256 of the canonical JSON of model, revision, languages, dtype and decoding parameters) and the whitespace-normalized source text, plus the source, the translation, token counts, flags and provenance (device, batch size, batch number, seconds). Lines are appended batch by batch in one write, so an interrupted run resumes from the last complete batch; a translate run cuts an incomplete last line, a read-only open ignores it, and a malformed complete line stops the run. One writer at a time: translate and spot-check (without --cached-only) must not run together on the same cache, while any number of read-only stores (the E3 scorers) can open it during a run"
+      },
+      "report": {
+        "output_dir": "artifacts/experiments/translation",
+        "degenerate_ngram": 4,
+        "degenerate_min_count": 4,
+        "degenerate_rule": "an output is degenerate when some 4-gram of lowercased word tokens (\\w+) occurs at least 4 times, overlaps counted; the same test on the source separates repetition already present in the speech from repetition added by the model",
+        "identical_rule": "the output equals its whitespace-normalized source; verbatim parts are not counted",
+        "doubled_length_rule": "an output is flagged doubled_length when it has more than twice the tokens of its input (content tokens of the model tokenizer), which catches a short input translated twice",
+        "length_ratio_rule": "tokens: output tokens / input tokens of the model tokenizer, language codes and </s> excluded; characters: output characters / source characters; English chunk characters / Portuguese chunk characters per distinct chunk",
+        "content_rule": "the versioned report holds counts, distributions, timing, cache keys and hashes; it holds no transcript or article text, translated or not, except the label probes",
+        "estimate_rule": "report --estimate-from-plan extrapolates a full run from a plan.json: measured seconds per model input token of the selected cache records x the plan input tokens, and measured seconds per text x the plan distinct texts, separately per device; a device without records has no estimate"
+      },
+      "spot_check": {
+        "name": "translation_spot_check_v1",
+        "output_dir": "artifacts/validation",
+        "split": "validation",
+        "population": "distinct translation units of validation chunks (after the join rule) that udv_pipeline.is_sentence accepts (at least 4 words, not a stage direction), in first-occurrence order of the benchmark file",
+        "size": 40,
+        "seed": 42,
+        "draw_rule": "numpy default_rng(seed).choice(population size, size, replace=False); rows follow the draw order",
+        "item_id_prefix": "T",
+        "csv_delimiter": ";",
+        "csv_encoding": "utf-8-sig",
+        "csv_reason": "same convention as the human validation sheets: Excel in a pt-BR locale splits on semicolons",
+        "columns": [
+          "item_id",
+          "texto_pt",
+          "traducao_en",
+          "adequacao",
+          "fluencia",
+          "observacao"
+        ],
+        "judgment_columns": [
+          "adequacao",
+          "fluencia",
+          "observacao"
+        ],
+        "blinding": "the sheet shows only an item id, the source and its translation, in draw order; hearing, opinion ids, token counts and every automatic flag are written to spot_check_key.json, which the annotator does not open before finishing",
+        "cache_rule": "the sentences are translated into the main cache with the declared model and decoding, so the sheet shows the translations E3 reads; spot-check --cached-only rebuilds it without loading the model; the command refuses to overwrite a sheet that has any judgment filled in",
+        "labels_rule": "the sample uses no label, judge or score; it checks translation quality only and no E3 choice is made from it",
+        "readme": "# Checagem manual da tradução (translation_spot_check_v1)\n\nA planilha `spot_check.csv` tem 40 trechos de transcrição sorteados (semente 42) entre as unidades de\ntradução dos trechos de validação, cada um com a tradução automática para o inglês feita pelo modelo\nfacebook/nllb-200-distilled-600M, na revisão fixada em `configs/translation.toml`. Cada unidade é\numa frase da transcrição; quando uma frase tem menos de quatro palavras ou termina em abreviação\n(Sr., Dra., V.Exa., art.), ela aparece unida à frase seguinte, exatamente como foi traduzida.\n\nPara cada linha, leia `texto_pt` inteiro e depois `traducao_en`, e preencha:\n\n- `adequacao` (1 a 4): quanto do sentido de `texto_pt` está em `traducao_en`.\n  4: todo o sentido. 3: quase todo, com perda ou erro que não muda a afirmação.\n  2: parte do sentido, ou um erro que muda a afirmação (negação perdida, sujeito trocado, número errado).\n  1: pouco ou nada do sentido, ou sentido oposto.\n- `fluencia` (1 a 4): quão correto é o inglês, lido sozinho, sem olhar o português.\n  4: inglês correto. 3: compreensível, com erros pequenos. 2: difícil de entender. 1: incompreensível.\n- `observacao` (opcional): o tipo de erro, por exemplo nome próprio traduzido, negação perdida,\n  repetição, trecho omitido, termo técnico ou jurídico errado.\n\nJulgue a tradução da frase como ela está, mesmo quando a frase original estiver incompleta ou mal\ntranscrita; nesse caso, anote em `observacao`. Não use outro tradutor automático como referência e\nnão abra `spot_check_key.json` antes de terminar: ele traz os identificadores das audiências e as\nmarcações automáticas de cada item.\n\nA planilha é regenerada por `python -m utils.translation spot-check`, que se recusa a sobrescrever\num arquivo com qualquer julgamento preenchido.\n"
+      },
+      "run": {
+        "seed": 42,
+        "device": "auto",
+        "hf_hub_offline": true,
+        "hf_hub_offline_rule": "every command except fetch switches huggingface_hub to offline mode before any model is loaded (utils.hub_offline.enforce_offline) and loads config, tokenizer and weights with local_files_only from the pinned snapshot; fetch downloads the pinned revision into the local Hugging Face cache",
+        "progress_every_batches": 10
+      }
+    },
+    "nli_verifier": {
+      "path": "configs/nli_verifier.toml"
+    }
+  },
+  "estimate": {
+    "plan": {
+      "path": "artifacts/experiments/translation/translation_v1/plan.json",
+      "sha256": "e343938d37abb350769a64bddeecf48254561ba7308cb354141603bd5ce8d16f"
+    },
+    "plan_splits": {
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "final_test_flag": false,
+      "test_read": false
+    },
+    "plan_distinct_model_texts": 45273,
+    "plan_model_input_tokens": 1559288,
+    "by_device": {
+      "cpu": {
+        "from_tokens_hours": 4.13,
+        "from_texts_hours": 4.15,
+        "measured_records": 356
+      }
+    },
+    "devices_without_measurement": [
+      "mps"
+    ],
+    "note": "an extrapolation from the measured records, not a measurement; the time of a device without records is unknown until measured"
+  },
+  "model_info": {
+    "role": "primary",
+    "name": "facebook/nllb-200-distilled-600M",
+    "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+    "resolved_commit": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+    "license": "CC-BY-NC-4.0",
+    "weights_file": {
+      "file": "pytorch_model.bin",
+      "path": "/Users/arthur/.cache/huggingface/hub/models--facebook--nllb-200-distilled-600M/snapshots/f8d333a098d19b4fd9a8b18f94170487ad3f821d/pytorch_model.bin",
+      "snapshot": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "snapshot_is_pinned_revision": true,
+      "blob": "c266c2cfd19758b6d09c1fc31ecdf1e485509035f6b51dfe84f1ada83eefcc42",
+      "format": "pytorch_bin"
+    },
+    "tokenizer": {
+      "tokenizer_class": "NllbTokenizer",
+      "source_token_id": 256141,
+      "target_token_id": 256047,
+      "special_tokens_per_input": 2,
+      "input_layout": "[src_token] tokens [</s>], checked on a probe sentence"
+    },
+    "dtype": "torch.float32",
+    "device": "cpu",
+    "parameters": 615073792,
+    "torch_threads": 4,
+    "load_seconds": 0.5
+  }
+}

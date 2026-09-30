@@ -1,0 +1,337 @@
+{
+  "actor": {
+    "slug": "priscila-gebrim-louly",
+    "name": "PRISCILA GEBRIM LOULY",
+    "display_name": "Priscila Louly",
+    "role": "Coordenadora-geral de Avaliação de Tecnologias em Saúde do Ministério da Saúde",
+    "article_names": [
+      "Priscila Louly"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:07:52+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      50,
+      62
+    ],
+    "input_tokens": 5907,
+    "output_tokens": 925,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 13,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a avaliação de tecnologias no SUS deve seguir rigorosamente o padrão metodológico de Avaliação de Tecnologias em Saúde, considerando evidências científicas de eficácia, segurança e efetividade, além de estudos de custo-efetividade e impacto orçamentário.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 1,
+            "start": 6162,
+            "end": 6440,
+            "text": "Esse processo de avaliação deve levar em consideração as evidências científicas de eficácia, segurança e efetividade da tecnologia, assim como estudos de avaliação econômica, que são estudos de custo-efetividade, o impacto orçamentário que essa incorporação traz para o sistema.",
+            "score": 0.5442
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a recomendação final da CONITEC é um insumo para a decisão do Secretário da SECTICS, que pode acatar ou não a recomendação e solicitar audiências públicas para auxiliá-lo na decisão.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 1,
+            "start": 5913,
+            "end": 6041,
+            "text": "Nesse momento, o Secretário pode também solicitar uma audiência pública, caso ele julgue necessário, para auxiliá-lo na decisão.",
+            "score": 0.4359
+          },
+          "udv": null
+        },
+        {
+          "text": "Informa que, para a amiloidose hereditária, o inotersena teve recomendação de não incorporação em outubro de 2022 devido a um custo estimado de 1,9 milhão de reais por paciente/ano e impacto orçamentário de 240 milhões a 1,3 bilhão de reais em 5 anos, apesar de evidências de redução de níveis de transtirretina e estabilização da doença.",
+          "passage": {
+            "hearing_id": 62,
+            "turn": 3,
+            "start": 9079,
+            "end": 9369,
+            "text": "O estudo de custo-efetividade mostrou um resultado de 3,7 milhões de reais por ano de vida ajustados pela qualidade — esse é um parâmetro de custo-efetividade que é utilizado e avaliado pela CONITEC, e o impacto orçamentário dele foi de 240 milhões de reais a 1,3 bilhão de reais em 5 anos.",
+            "score": 0.3999
+          },
+          "udv": null
+        },
+        {
+          "text": "Relata que o patisirana e o tafamidis (para cardiomiopatia amiloide) também receberam recomendações preliminares de não incorporação, com o tafamidis apresentando custo de 315 mil reais por paciente/ano e custo-efetividade de 473 mil reais por ano de vida ajustado pela qualidade.",
+          "passage": {
+            "hearing_id": 62,
+            "turn": 3,
+            "start": 10999,
+            "end": 11312,
+            "text": "O custo para esse tratamento já é um pouco mais baixo do que o dos demais, sendo de 315 mil reais por paciente/ano, tendo um custo-efetividade de 473 mil reais por ano de vida ajustado pela qualidade, ou seja, o quanto de benefício a mais ele apresenta em relação ao que nós já temos em tratamentos para a doença.",
+            "score": 0.5537
+          },
+          "udv": null
+        },
+        {
+          "text": "Esclarece que, para HIV/AIDS e hepatites virais, os protocolos clínicos e diretrizes terapêuticas (PCDT) não são obrigatórios para o recebimento da tecnologia na ponta, pois a logística e aquisição são específicas da SVSA, sendo a CONITEC responsável apenas pela revisão final para submissão.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 1,
+            "start": 9753,
+            "end": 10144,
+            "text": "Em relação ao tema específico desta audiência pública, que são as tecnologias e os protocolos de HIV/AIDS e hepatites virais, nós apenas esclarecemos que para a assistência desses pacientes no âmbito da SVSA — Secretaria de Vigilância em Saúde e Ambiente, não há uma obrigatoriedade de PCDT — Protocolos Clínicos e Diretrizes Terapêuticas para que o paciente receba a tecnologia lá na ponta.",
+            "score": 0.4208
+          },
+          "udv": null
+        },
+        {
+          "text": "Destaca que o decreto de 2022 alterou a estrutura da CONITEC, criando três comitês específicos (Medicamento, Produtos e Procedimentos, e Protocolo Clínico) e aumentando o número de membros para 15, incluindo representantes da Associação Médica Brasileira e da REBRATS.",
+          "passage": {
+            "hearing_id": 62,
+            "turn": 3,
+            "start": 4696,
+            "end": 4877,
+            "text": "Essa alteração transforma o plenário, que era único, em três comitês: Comitê de Medicamento, Comitê de Produtos e Procedimentos e Comitê de Protocolo Clínico e Diretriz Terapêutica.",
+            "score": 0.289
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a atualização de protocolos clínicos e diretrizes terapêuticas deixou de ser obrigatória a cada 2 anos, passando a ocorrer sempre que houver incorporação, alteração ou exclusão de tecnologia ou novos estudos científicos.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 1,
+            "start": 8007,
+            "end": 8472,
+            "text": "Há também uma questão importante que esse novo decreto traz em relação a protocolos clínicos e diretrizes terapêuticas: antes havia a obrigatoriedade de atualização a cada 2 anos, e agora a atualização desses protocolos se dá sempre que houver uma incorporação, alteração ou exclusão de tecnologia no SUS e quando houver novos estudos e evidências científicas identificados que possam alterar a conduta e a orientação em relação ao tratamento de determinada doença.",
+            "score": 0.4398
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a sustentabilidade financeira do Sistema Único de Saúde como critério central para a decisão de incorporação, justificando as não incorporações de medicamentos de alto custo (como inotersena e tafamidis) pela necessidade de avaliar o impacto orçamentário e a condição de sustentabilidade da tecnologia para um sistema complexo.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 1,
+            "start": 7112,
+            "end": 7540,
+            "text": "Para a tomada de decisão, o comitê leva em consideração aspectos clínicos, aspectos econômicos e aspectos relacionados à questão do paciente — ética, aceitabilidade daquela tecnologia por parte dos pacientes, conveniência — e também à questão organizacional — difusão, acessibilidade, logística, condição de sustentabilidade daquela tecnologia para ser incluída num sistema tão grande e complexo quanto o Sistema Único de Saúde.",
+            "score": 0.2718
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a transparência e a participação social como fundamentos do processo, justificando a obrigatoriedade de consulta pública e a disponibilização de todos os relatórios e reuniões no site da CONITEC e no YouTube.",
+          "passage": {
+            "hearing_id": 62,
+            "turn": 3,
+            "start": 6637,
+            "end": 6779,
+            "text": "Nós incluímos todas as contribuições e as análises vindas da consulta pública, e esses relatórios são todos disponibilizados nositeda CONITEC.",
+            "score": 0.1727
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na legislação (Lei nº 12.401/2011) e nos decretos vigentes para definir os prazos de avaliação (180 dias, prorrogáveis por 90) e de disponibilização (180 dias após a portaria), usando a norma como limite e referência para o fluxo de trabalho.",
+          "passage": {
+            "hearing_id": 62,
+            "turn": 3,
+            "start": 5421,
+            "end": 5674,
+            "text": "As regras para incorporação de tecnologia são definidas na Lei nº 12.401, de 2011, que diz que, a partir do momento que a CONITEC recebe uma solicitação de incorporação, ela tem um prazo de 180 dias, prorrogável por mais 90 dias, para fazer a avaliação.",
+            "score": 0.3616
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Ministério da Saúde, especificamente do Departamento de Gestão e Incorporação de Tecnologias em Saúde (DGITIS), que exerce a Secretaria-Executiva da CONITEC.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 1,
+            "start": 4721,
+            "end": 5006,
+            "text": "Além dos comitês, há uma Secretaria Executiva, que hoje é exercida pelo Departamento de Gestão e Incorporação de Tecnologias em Saúde, que faz parte da Secretaria de Ciência, Tecnologia, Inovação e Complexo da Saúde do Ministério da Saúde — esse é o departamento do qual eu faço parte.",
+            "score": 0.4403
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parte da estrutura que assessora o Ministério da Saúde nas atribuições relativas à incorporação, exclusão ou alteração de tecnologias e na constituição de protocolos clínicos.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 1,
+            "start": 3616,
+            "end": 3906,
+            "text": "A CONITEC é um órgão colegiado integrante da estrutura do Ministério da Saúde e tem por objetivo assessorar a Pasta nas atribuições relativas a incorporação, exclusão ou alteração de tecnologias em saúde e também na constituição e alteração de protocolos clínicos e diretrizes terapêuticas.",
+            "score": 0.61
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura a fala de forma técnica e descritiva, detalhando o fluxo burocrático e legal da CONITEC antes de abordar os temas específicos das audiências.",
+          "passage": {
+            "hearing_id": 62,
+            "turn": 3,
+            "start": 3265,
+            "end": 3308,
+            "text": "Inicio minha fala com minha audiodescrição.",
+            "score": 0.1511
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados quantitativos precisos (custos, números de pacientes, prazos, quantidades de demandas) para sustentar as informações sobre as tecnologias em avaliação.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom institucional e neutro, apresentando as recomendações de não incorporação como resultado do processo avaliativo e não como opinião pessoal, enfatizando a disponibilidade dos relatórios para verificação pública.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com cortesia protocolar, agradecendo o convite e colocando-se à disposição para questionamentos futuros, mesmo quando não pode permanecer para a sessão de perguntas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 50,
+      "split": "train",
+      "article_date": "2023-05-26",
+      "title": "Especialistas defendem atualização de protocolos de tratamento para aids e hepatites virais",
+      "assunto": "Atualização de protocolos de tratamento para HIV/aids e hepatites virais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 62,
+      "split": "train",
+      "article_date": "2022-11-29",
+      "title": "Debatedores cobram oferta gratuita de novos medicamentos para tratar amiloidose no SUS",
+      "assunto": "Oferta gratuita de novos medicamentos para tratar amiloidose no SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 4
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-62-3-0",
+      "hearing_id": 62,
+      "n": 8,
+      "article_name": "Priscila Louly",
+      "proposition": "Atualmente, o protocolo clínico e as diretrizes terapêuticas da doença apontam, na fase mais inicial, para o transplante de fígado, já que a transtiretina familiar amiloidotica é produzida pelo órgão, ou para o uso de Tafamidis quando o transplante não é recomendado.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Hoje nós temos, aqui no Ministério da Saúde, um protocolo clínico de diretrizes terapêuticas sobre a amiloidose hereditária. Para essa doença, hoje, é recomendado o transplante hepático na forma mais inicial da doença, antes que os danos causados pelos depósitos tenham acontecido, e também o uso de tafamidis para o tratamento da amiloidose associada à transtirretina em pacientes adultos com polineuropatia em estágio inicial da doença e que não podem ser submetidos a […]",
+        "turn": 3,
+        "start": 7771,
+        "end": 8263
+      },
+      "verifier": {
+        "probability": 0.9245313848619394,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-62-3-1",
+      "hearing_id": 62,
+      "n": 9,
+      "article_name": "Priscila Louly",
+      "proposition": "A incorporação de tecnologias ao SUS leva em conta aspectos clínicos, econômicos, organizacionais e dos pacientes.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A Avaliação de Tecnologias em Saúde leva em consideração aspectos clínicos, econômicos, organizacionais e aspectos relacionados ao paciente: impacto social, ética, reações psicológicas, conveniência para o paciente, entre outros aspectos. Tudo isso é levado em consideração para a tomada de decisão baseada em evidência.",
+        "turn": 3,
+        "start": 6781,
+        "end": 7101
+      },
+      "verifier": {
+        "probability": 0.8462121722034107,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-62-3-2",
+      "hearing_id": 62,
+      "n": 10,
+      "article_name": "Priscila Louly",
+      "proposition": "Reiterou a conclusão da Conitec de não recomendar a incorporação das novas drogas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Esse medicamento passou ainda pela recomendação preliminar da CONITEC em novembro, que recomendou a não incorporação do produto. Os resultados são bem próximos ao do inotersena, tanto os resultados de eficácia quanto os de segurança.",
+        "turn": 3,
+        "start": 10035,
+        "end": 10268
+      },
+      "verifier": {
+        "probability": 0.9306432678614436,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-62-3-3",
+      "hearing_id": 62,
+      "n": 11,
+      "article_name": "Priscila Louly",
+      "proposition": "No caso do Inotersena, o ministério realizará uma audiência pública no dia 7 de dezembro para debater a incorporação do remédio no SUS.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Essa demanda foi encaminhada para a secretária, que decidiu abrir uma audiência pública antes da decisão final. Então, esse tema vai para uma audiência pública no próximo dia 7 de dezembro, às 14 horas.",
+        "turn": 3,
+        "start": 9451,
+        "end": 9654
+      },
+      "verifier": {
+        "probability": 0.24199330915017817,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

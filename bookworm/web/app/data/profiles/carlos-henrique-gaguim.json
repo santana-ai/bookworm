@@ -1,0 +1,194 @@
+{
+  "actor": {
+    "slug": "carlos-henrique-gaguim",
+    "name": "CARLOS HENRIQUE GAGUIM",
+    "display_name": "Gaguim",
+    "role": "Deputado (União-TO)",
+    "article_names": [
+      "Gaguim"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - TO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:27:12+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      153
+    ],
+    "input_tokens": 1889,
+    "output_tokens": 264,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 7,
+    "with_udv": 0,
+    "passage_only": 5,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul pode ser viabilizada por meio do Governo, do Ministério ou via Município.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 166,
+            "start": 262136,
+            "end": 262179,
+            "text": "O Ministério pode fazer isso via Município.",
+            "score": 0.2712
+          },
+          "udv": null
+        },
+        {
+          "text": "Indica que, para os parlamentares, a solução pode passar pela rubrica das emendas de bancada impositivas.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 166,
+            "start": 262021,
+            "end": 262135,
+            "text": "Aos Parlamentares se abre a rubrica das emendas de bancada impositivas, e coloca-se via Governo ou via Ministério.",
+            "score": 0.4632
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a discussão sobre a operacionalização da medida ocorra na CMO (Comissão de Meio Ambiente).",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da CMO (Comissão de Meio Ambiente).",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 169,
+            "start": 262984,
+            "end": 263056,
+            "text": "Nós vamos discutir isso na CMO, porque eu estou na CMO, certo, Deputado?",
+            "score": 0.1792
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter recebido atendimento do Ministro em questão no Tocantins, durante a seca, quando o Ministério disponibilizou toda a sua estrutura e equipe para auxiliar o estado, mesmo sem ser da competência direta do órgão.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 166,
+            "start": 261868,
+            "end": 261975,
+            "text": "Ele colocou toda a estrutura do Ministério com a equipe para nos ajudar lá no Tocantins na questão da seca.",
+            "score": 0.3726
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a experiência prévia de atendimento recebido pelo Ministério em outra situação de emergência (seca no Tocantins) como base para elogiar a atuação do Ministro e sugerir a continuidade do apoio institucional.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Apresenta caminhos institucionais concretos (Governo, Ministério, Município, emendas de bancada impositivas) para a implementação da proposta, em vez de apenas criticar ou apoiar abstratamente.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 166,
+            "start": 262021,
+            "end": 262135,
+            "text": "Aos Parlamentares se abre a rubrica das emendas de bancada impositivas, e coloca-se via Governo ou via Ministério.",
+            "score": 0.2461
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 109,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Ministro da Integração afirma que Plano Nacional de Defesa Civil sai no segundo semestre",
+      "assunto": "Plano Nacional de Proteção e Defesa Civil (PNPDC) e outras políticas regionais",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-109-3-0",
+      "hearing_id": 109,
+      "n": 7,
+      "article_name": "Gaguim",
+      "proposition": "É favorável à aprovação da Proposta de Emenda à Constituição (PEC) 504/10, que reconhece a Caatinga como patrimônio nacional.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Nós aprovamos agora, e o Presidente da República sancionou, a Lei da Agricultura Familiar. Hoje, temos mais de 20 milhões de pequenos produtores na agricultura familiar.",
+        "turn": 70,
+        "start": 163708,
+        "end": 163877
+      },
+      "verifier": {
+        "probability": 0.2665157091501941,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-109-3-1",
+      "hearing_id": 109,
+      "n": 8,
+      "article_name": "Gaguim",
+      "proposition": "Propôs levar o assunto para a reunião do Colégio de Líderes.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Sobre a Proposta de Emenda à Constituição nº 504, de 2010, eu liguei há pouco para o Líder Elmar. Na próxima reunião ele vai colocá-la como prioridade.",
+        "turn": 52,
+        "start": 115446,
+        "end": 115597
+      },
+      "verifier": {
+        "probability": 0.1858300449228194,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

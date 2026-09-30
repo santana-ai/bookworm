@@ -1,0 +1,137 @@
+[project]
+name = "bookworm"
+version = "1.0.0"
+description = "Verifiable evidence units (UDVs) linking structured opinions to public hearing transcripts."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Arthur Germano", email = "a.merode@edu.pucrs.br" },
+    { name = "João Vitor Boer Abitante" },
+    { name = "Henrique Santana" },
+]
+requires-python = ">=3.12"
+keywords = ["nlp", "portuguese", "public-hearings", "attribution", "evidence", "retrieval"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: Portuguese (Brazilian)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
+dependencies = [
+    "jinja2>=3.1",
+    "numpy>=2.0",
+    "pydantic>=2.7",
+    "scikit-learn>=1.5",
+    "typer>=0.12",
+]
+
+[project.optional-dependencies]
+embeddings = [
+    "sentence-transformers>=5.0",
+    "torch>=2.4",
+]
+profiles = [
+    "accelerate>=1.0",
+    "torch>=2.4",
+    "transformers>=4.46",
+]
+
+[project.scripts]
+bookworm = "bookworm.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    "ruff>=0.8",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "C90",
+    "E",
+    "F",
+    "W",
+    "I",
+    "N",
+    "UP",
+    "B",
+    "C4",
+    "SIM",
+    "PIE",
+    "PTH",
+    "RET",
+    "ISC",
+    "PT",
+    "T20",
+    "PERF",
+    "RUF",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.isort]
+known-first-party = ["bookworm"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+mypy_path = "tests"
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = [
+    "sklearn",
+    "sklearn.*",
+    "sentence_transformers",
+    "sentence_transformers.*",
+    "torch",
+    "torch.*",
+    "transformers",
+    "transformers.*",
+    "accelerate",
+    "accelerate.*",
+]
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not model' --strict-markers --cov=bookworm --cov-report=term-missing"
+markers = [
+    "unit: test under tests/unit, on hand-written fixtures; applied by directory",
+    "integration: test under tests/integration, on the real dataset and published artifacts; applied by directory",
+    "dataset: needs the real PublicHearingBR LDS file, located through BOOKWORM_LDS_PATH",
+    "model: loads a sentence-transformers encoder from the local Hugging Face cache; opt-in, excluded from default runs",
+]
+
+[tool.coverage.run]
+branch = false
+core = "sysmon"
+source = ["bookworm"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

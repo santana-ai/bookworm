@@ -1,0 +1,553 @@
+{
+  "actor": {
+    "slug": "dandara",
+    "name": "Dandara",
+    "display_name": "Dandara",
+    "role": "Deputada (PT-MG)",
+    "article_names": [
+      "Dandara"
+    ],
+    "party_uf": [
+      "Bloco/PT - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:51:53+00:00",
+    "n_statements": 25,
+    "n_hearings": 4,
+    "hearing_ids": [
+      51,
+      169,
+      199,
+      206
+    ],
+    "input_tokens": 10622,
+    "output_tokens": 1255,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 28,
+    "with_udv": 0,
+    "passage_only": 25,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende o financiamento permanente e a curricularização da extensão universitária, alinhando-se à Meta 12.7 do Plano Nacional de Educação, para superar a elitização da educação e democratizar o acesso à ciência.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 26,
+            "start": 91812,
+            "end": 91981,
+            "text": "Nós sabemos que o Plano Nacional de Educação, dentro das suas metas, tem como objetivo também, na Meta 12.7, tanto a questão do financiamento como a da curricularização.",
+            "score": 0.4283
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o \"quadripé universitário\" (ensino, pesquisa, extensão e assistência estudantil), argumentando que sem permanência e assistência estudantil não há ensino, pesquisa nem extensão, e criticando a invisibilização dos problemas sociais no contexto acadêmico.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 26,
+            "start": 92921,
+            "end": 93059,
+            "text": "Eu defendo, Deputada, o quadripé universitário, porque, sem permanência, sem assistência estudantil, não há ensino, pesquisa nem extensão.",
+            "score": 0.6827
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a revisão e o aprimoramento da Lei de Cotas (Lei 12.711/12), propondo a extensão da reserva de vagas para a pós-graduação (mestrado e doutorado), o combate a fraudes e distorções nos processos seletivos e a criação de condições reais de permanência para estudantes cotistas.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 42,
+            "start": 122619,
+            "end": 122836,
+            "text": "É preciso combater as fraudes que ainda acometem as instituições no processo seletivo, dar consequência ao projeto político das cotas e assegurar a reserva de vagas também na pós-graduação, no mestrado e no doutorado.",
+            "score": 0.3091
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a aplicação insuficiente das cotas para pessoas com deficiência, apontando que esse grupo possui o menor nível de acesso, e cobra a criação de mecanismos específicos para estimular a ocupação dessas vagas.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 26,
+            "start": 73851,
+            "end": 73948,
+            "text": "Então, precisamos realmente pensar mecanismos, criar, bem como estimular a ocupação dessas vagas.",
+            "score": 0.3403
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a revisão do Código Florestal (Lei de Proteção da Vegetação Nativa) e do Cadastro Ambiental Rural (CAR), criticando a baixa fiscalização e a utilização dessas normas por grandes proprietários para burlar a proteção ambiental e realizar grilagem de terras.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 14,
+            "start": 70270,
+            "end": 70386,
+            "text": "É urgente, Deputada Célia, que façamos uma revisão na Lei de Proteção da Vegetação Nativa, o nosso Código Florestal.",
+            "score": 0.3995
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o aumento das áreas de conservação no Cerrado, citando que as atuais não chegam a 7% e que as metas de Aichi exigem no mínimo 20% para garantir as funções ecossistêmicas.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 14,
+            "start": 71421,
+            "end": 71593,
+            "text": "As próprias metas de Aichi nos mostram que é preciso ser, no mínimo, 20% de áreas protegidas, conservadas, para se garantirem as funções básicas ecossistêmicas de um bioma.",
+            "score": 0.4189
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a titularização de terras quilombolas e indígenas no Cerrado e o fortalecimento da economia popular solidária e do modelo agroflorestal, argumentando que a proteção do bioma depende dos povos tradicionais.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 14,
+            "start": 72357,
+            "end": 72511,
+            "text": "Precisamos de políticas públicas para fortalecer a economia popular solidária, para fortalecer o modelo agroflorestal, de fato, com perspectiva de avanço.",
+            "score": 0.3746
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiada na Proposta de Emenda à Constituição nº 504, de 2010, defende a criação de uma legislação própria para a proteção e preservação do Cerrado.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 14,
+            "start": 72513,
+            "end": 72676,
+            "text": "Quero também dizer da importância da Proposta de Emenda à Constituição nº 504, de 2010, porque nós precisamos ter uma legislação própria de proteção e preservação.",
+            "score": 0.7508
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a revogação do Novo Ensino Médio, apontando os institutos federais como um modelo de ensino médio aliado ao técnico que funciona, e cobra a equiparação da qualidade das escolas estaduais à dos institutos federais.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 38,
+            "start": 105419,
+            "end": 105650,
+            "text": "E eu não tenho nenhuma dúvida ao afirmar que já temos um modelo de ensino médio aliado ao ensino técnico — com ensino, pesquisa, extensão, assistência estudantil — dando certo no nosso País, que é o formato dos institutos federais.",
+            "score": 0.4501
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que o Sistema Único de Saúde (SUS) atenda à diversidade humana, criticando a postura de gestores que tentam definir quem pode ou não menstruar.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 166,
+            "start": 89148,
+            "end": 89212,
+            "text": "O Sistema Único de Saúde tem que atender todo o povo brasileiro.",
+            "score": 0.3341
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência pessoal como cotista e ex-aluna de PIBID (Programa Institucional de Bolsas de Iniciação à Docência) para justificar a importância da assistência estudantil e da extensão universitária na formação de profissionais e na transformação social.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 26,
+            "start": 93060,
+            "end": 93166,
+            "text": "Nós precisamos reconhecer que hoje, neste País, a extensão tem cumprido o papel de assistência estudantil.",
+            "score": 0.1522
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a história da opressão racial e da colonização como fundamento para a defesa das ações afirmativas, argumentando que a desigualdade racial é uma herança criminosa que exige reparação através da educação.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 42,
+            "start": 121583,
+            "end": 121787,
+            "text": "A profunda desigualdade racial entre negros, indígenas e brancos em praticamente todas as esferas da sociedade é resultado de mais de 3 séculos de opressão racial contra a população não branca deste País.",
+            "score": 0.2291
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa do Cerrado na sua função ecológica como \"berço das águas\" e na sua biodiversidade, comparando a destruição do bioma a \"botar fogo em uma biblioteca sem ela nunca ter sido lida\".",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 14,
+            "start": 69100,
+            "end": 69140,
+            "text": "Para nós, o Cerrado é o berço das águas.",
+            "score": 0.3897
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a ocupação de espaços de poder por mulheres negras, indígenas e pessoas com deficiência como um ato transformador e mobilizador, essencial para a democracia e para a representação do povo brasileiro.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 42,
+            "start": 123292,
+            "end": 123418,
+            "text": "Um dos pilares da democracia é fazer com que os seus representantes tenham cor, origem, cheiro, identidade de povo brasileiro.",
+            "score": 0.1854
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a educação como ferramenta de emancipação e desenvolvimento humano integral, rejeitando a noção de educação apenas como transmissão de saberes dissociada da realidade.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 26,
+            "start": 92227,
+            "end": 92384,
+            "text": "É um desafio conseguir transcender essa mera noção da educação enquanto transmissão de saberes, em uma perspectiva muito individual, dissociada da realidade.",
+            "score": 0.4116
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal, Relatora da revisão da Lei de Cotas na Comissão de Educação da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 23,
+            "start": 67955,
+            "end": 68060,
+            "text": "Foi uma alegria grande ter vocês contribuindo com este debate histórico das cotas aqui na Câmara Federal.",
+            "score": 0.2668
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser a primeira Deputada cotista no Congresso Nacional e declara-se \"cotista orgulhosa\" da graduação e da pós-graduação.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 42,
+            "start": 124297,
+            "end": 124413,
+            "text": "Tenho muito orgulho de dizer, e digo a todo momento, que sou uma cotista orgulhosa, da graduação e da pós-graduação.",
+            "score": 0.5042
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como \"cerradeira\", nascida e criada em Uberlândia, no Triângulo Mineiro, e declara afinidade com a luta dos povos do Cerrado.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 14,
+            "start": 69749,
+            "end": 69937,
+            "text": "Como Deputada nascida e criada no Cerrado — sou de Uberlândia, no Triângulo Mineiro —, não posso deixar de registrar que não nos cabe mais cuidar e tratar apenas do resultado, do problema.",
+            "score": 0.4026
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara coordenação da Frente Parlamentar Mista Antirracismo na Câmara dos Deputados, em parceria com o Senador Paulo Paim.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 19,
+            "start": 51428,
+            "end": 51532,
+            "text": "Eu tenho a alegria de dividir a coordenação da Frente Parlamentar Mista Antirracismo com o Senador Paim.",
+            "score": 0.6558
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter feito Pedagogia na Universidade Federal de Uberlândia e mestrado na UFMG, e declara vínculo com a UFBA através do Pró-Reitor Hélder.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 26,
+            "start": 93226,
+            "end": 93281,
+            "text": "Eu fiz pedagogia na Universidade Federal de Uberlândia.",
+            "score": 0.428
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com o movimento negro, o movimento estudantil (UNE, UBES, ANPG), o movimento indígena, o movimento quilombola e o movimento anticapacitista.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 42,
+            "start": 123999,
+            "end": 124295,
+            "text": "Acho que essa é a força do movimento negro, do movimento indígena, do movimento quilombola, do movimento anticapacitista, dos movimentos que transformam em profundidade a nossa sociedade,essa capacidade de passar o cajado para os que estão vindo, para os que virão dar continuidade a essas lutas.",
+            "score": 0.4312
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter entregue dez pontos de solicitação ao Ministério da Educação (MEC) para alteração de portarias e avanço em ações infralegais.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 19,
+            "start": 50586,
+            "end": 50856,
+            "text": "Nosso mandato entregou ao MEC dez pontos de solicitação, também em diálogo com o movimento, porque achamos que há portarias que precisam ser alteradas, há coisas no interior do MEC que já devem andar, no campo das ações infralegais, independentemente do nosso relatório.",
+            "score": 0.4301
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e referências legais (Meta 12.7 do PNE, Lei 12.711/12, PEC 504/2010, metas de Aichi) para sustentar suas propostas e críticas.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 26,
+            "start": 91812,
+            "end": 91981,
+            "text": "Nós sabemos que o Plano Nacional de Educação, dentro das suas metas, tem como objetivo também, na Meta 12.7, tanto a questão do financiamento como a da curricularização.",
+            "score": 0.2143
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a metáforas e linguagem emotiva para conectar o público aos temas, como comparar o Cerrado a uma biblioteca e a destruição ambiental a um crime.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita experiências pessoais e de sua trajetória acadêmica para humanizar o debate e demonstrar a eficácia das políticas públicas defendidas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com tom de camaradagem e reconhecimento, utilizando expressões como \"grande companheiro\", \"minha querida universidade\" e saudando ancestrais e movimentos sociais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra ações concretas de órgãos governamentais e da Casa Legislativa, como a votação do relatório, a fiscalização do CAR e o aumento de recursos para parques nacionais.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 14,
+            "start": 71632,
+            "end": 71753,
+            "text": "Nós temos que fortalecer, Alexandre, Sílvio, os nossos parques nacionais que estão hoje no Cerrado, os parques estaduais.",
+            "score": 0.2323
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a presença de convidados e a diversidade da audiência como argumento de legitimidade e força coletiva para as lutas em pauta.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 42,
+            "start": 118310,
+            "end": 118415,
+            "text": "Esta audiência pública ampla contou com a presença de professores e professoras, com a presença da Profa.",
+            "score": 0.1515
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 18,
+      "split": "validation",
+      "article_date": "2023-12-11",
+      "title": "Presidente da Capes pede extra de R$ 150 milhões para financiar a formação de professores",
+      "assunto": "Pedido de aporte adicional de R$ 150 milhões para financiar a formação de professores através do Pibid",
+      "turns": 14,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 51,
+      "split": "train",
+      "article_date": "2023-05-25",
+      "title": "Extensão universitária depende de financiamento permanente, defendem debatedores",
+      "assunto": "Financiamento permanente e integração dos programas de extensão universitária com políticas governamentais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 169,
+      "split": "train",
+      "article_date": "2023-09-14",
+      "title": "Com apoio parcial do governo, movimentos sociais querem Cerrado e Caatinga como patrimônios nacionais",
+      "assunto": "Reconhecimento dos biomas Cerrado e Caatinga como patrimônios nacionais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 206,
+      "split": "train",
+      "article_date": "2023-06-30",
+      "title": "Revisão deve servir para melhorar a Lei de Cotas, diz especialista",
+      "assunto": "Revisão e aprimoramento da Lei de Cotas (Lei 12.711/12)",
+      "turns": 21,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-18-3-0",
+      "hearing_id": 18,
+      "n": 6,
+      "article_name": "Dandara",
+      "proposition": "Chamou a atenção para a finalidade de corrigir desigualdades sociais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, não foi só na sala de aula. Esse caráter extensionista do PIBID nos faz expandir, inclusive, para aquele bairro, para aquela comunidade repensar as relações.",
+        "turn": 8,
+        "start": 44920,
+        "end": 45085
+      },
+      "verifier": {
+        "probability": 0.13481321391759934,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-18-3-1",
+      "hearing_id": 18,
+      "n": 7,
+      "article_name": "Dandara",
+      "proposition": "Elogiou a nova regra da Capes que permite o acúmulo de bolsas financiadas com recursos federais: \"Nesse momento em que a vida está tão precarizada, nós sabemos a dificuldade dos nossos estudantes de conseguir retornar para a universidade neste contexto pós pandemia, muitos retornaram a suas cidades e assumiram o papel de chefia das suas famílias.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Neste momento em que a vida está tão precarizada, nós sabemos a dificuldade dos nossos estudantes de conseguir, inclusive, retornar à universidade neste contexto pós-pandemia. Muitos retornaram à sua cidade ou, então, assumiram o papel de chefia das famílias, garantindo ali o dinheiro para pagar as contas básicas: água, luz, energia.",
+        "turn": 20,
+        "start": 85262,
+        "end": 85597
+      },
+      "verifier": {
+        "probability": 0.3173500847611426,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-51-2-0",
+      "hearing_id": 51,
+      "n": 4,
+      "article_name": "Dandara",
+      "proposition": "Realizou projeto de extensão universitária em uma comunidade indígena do Mato Grosso: \"Eu deixei de trabalhar na lan house do meu bairro para fazer Pibid [Programa Institucional de Bolsa de Iniciação à Docência], educação do campo. Eu consegui me dedicar à educação, à ciência, à pesquisa graças à bolsa de R$ 400 que eu recebia. Se hoje consigo debater a demarcação de terras indígenas e lutar contra esse marco temporal, cuja urgência foi aprovada ontem de forma abrupta, é porque eu tive a oportunidade, em 2013, de ir para as aldeias Guarani-Kayowá.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu consegui me dedicar à educação, à ciência, à pesquisa, graças à bolsa de 400 reais que eu recebia. Se hoje, naquele Parlamento, naquele plenário, eu consigo debater a demarcação de terras indígenas e lutar contra esse marco temporal, que teve a sua urgência aprovada ontem de forma abrupta, é porque eu tive a oportunidade, em 2013, de ir para as aldeias guarani kaiowá, no Mato Grosso, como parte do PIBID Educação do Campo.",
+        "turn": 26,
+        "start": 93366,
+        "end": 93794
+      },
+      "verifier": {
+        "probability": 0.8823759213522661,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-169-5-0",
+      "hearing_id": 169,
+      "n": 7,
+      "article_name": "Dandara",
+      "proposition": "Afirmou que a Frente Parlamentar Ambientalista reforçará a articulação por meio de um grupo de trabalho de proteção do Cerrado.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É a primeira vez que nesta Câmara nós temos um grupo de trabalho que está se empenhando em construir e pensar políticas públicas voltadas à proteção ambiental do Cerrado. Contem conosco, com o nosso trabalho!(Palmas.)",
+        "turn": 14,
+        "start": 73331,
+        "end": 73549
+      },
+      "verifier": {
+        "probability": 0.8917794584208489,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-169-5-1",
+      "hearing_id": 169,
+      "n": 8,
+      "article_name": "Dandara",
+      "proposition": "\"São mais de 12 mil espécies de plantas, a grande maioria ainda nem estudada a fundo. Por isso, nos dói tanto ver incêndios criminosos no Cerrado, porque, para nós, é a mesma coisa que botar fogo em uma biblioteca sem ela nunca ter sido lida.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "São mais de 12 mil espécies de plantas, a grande maioria ainda nem estudada a fundo, nem destrinchada. Por isso, dói-nos tanto ver quando ocorrem incêndios criminosos no Cerrado, porque, para nós, é a mesma coisa de botar fogo em uma biblioteca sem ela nunca ter sido lida; por isso, dói-nos tanto o agronegócio predatório, que chega dizimando o que tem de mais profundo e rico nos nossos territórios.",
+        "turn": 14,
+        "start": 68594,
+        "end": 68995
+      },
+      "verifier": {
+        "probability": 0.9939989162313576,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-206-3-0",
+      "hearing_id": 206,
+      "n": 5,
+      "article_name": "Dandara",
+      "proposition": "Destacou a importância da diversidade na produção de conhecimento científico: \"Nós não pioramos as instituições. Pelo contrário: melhoramos e fizemos avançar. Os índices de qualidade e rendimento não caíram. Pelo contrário: nós levamos outras epistemologias, outras áreas do conhecimento, outros saberes.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não, nós não pioramos as instituições; pelo contrário, melhoramos e fizemos avançar as instituições. Não, os índices de qualidade e rendimento não caíram; pelo contrário, nós levamos conosco outras epistemologias, outras áreas do conhecimento, formulamos outros saberes, como diz a minha querida Profa.",
+        "turn": 42,
+        "start": 124597,
+        "end": 124899
+      },
+      "verifier": {
+        "probability": 0.7329397467996168,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

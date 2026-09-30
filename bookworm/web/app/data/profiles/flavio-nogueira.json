@@ -1,0 +1,294 @@
+{
+  "actor": {
+    "slug": "flavio-nogueira",
+    "name": "FLÁVIO NOGUEIRA",
+    "display_name": "Flávio Nogueira",
+    "role": "Deputado (PT-PI)",
+    "article_names": [
+      "Flávio Nogueira"
+    ],
+    "party_uf": [
+      "Bloco/PT - PI"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:41:01+00:00",
+    "n_statements": 3,
+    "n_hearings": 1,
+    "hearing_ids": [
+      39
+    ],
+    "input_tokens": 2795,
+    "output_tokens": 761,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 1,
+    "passage_only": 14,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o intervencionismo das Forças Armadas no Brasil sempre teve como coadjuvante a participação de civis e políticos, argumentando que nenhuma intervenção ocorreu sem essa participação.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 90542,
+            "end": 90680,
+            "text": "Nenhuma vez o Exército ou as Forças Armadas foram chamados para intervir, senão com a participação do civil e com a participação política.",
+            "score": 0.3236
+          },
+          "udv": {
+            "id": "udv-39-2-0",
+            "rule": "similar_text",
+            "score": 0.4118
+          }
+        },
+        {
+          "text": "Critica a ideia de que as Forças Armadas atuam isoladamente na política, afirmando que \"somos nós políticos\" e que a história mostra a presença de civis nos quartéis, como o Senador Lauro Sodré na Escola Militar da Praia Vermelha e Carlos Lacerda nos quartéis do Rio de Janeiro.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 93035,
+            "end": 93177,
+            "text": "Vivia Carlos Lacerda dentro dos quartéis do Rio de Janeiro, então Capital do País, para fazer golpe, intervir.\"Getúlio não pode ser candidato.",
+            "score": 0.284
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o tenentismo, embora golpista, foi positivo para o Brasil por combater as oligarquias estaduais da República Velha e por ter contribuído para a liberdade de voto e o voto feminino.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 91812,
+            "end": 91992,
+            "text": "O movimento do tenentismo foi muito bom para o Brasil, embora tivesse sido golpista, porque eles foram contra as oligarquias estaduais implantadas naquela época da República Velha.",
+            "score": 0.4458
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a política do Estado Novo foi feita pelo Exército, através do General Góis Monteiro, e não apenas por Getúlio Vargas, citando o Plano Cohen como exemplo de ação militar com origem política.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 92640,
+            "end": 92734,
+            "text": "Quem fez o Estado Novo não foi o Getúlio, não, foi o Exército, através daquele do Plano Cohen.",
+            "score": 0.4811
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o assunto da interpretação do artigo 142 da Constituição e o papel das Forças Armadas deve ser discutido abertamente pelos Deputados, criticando o que percebe como medo de falar sobre o tema.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 91700,
+            "end": 91747,
+            "text": "Parece que têm medo de falar das Forças Amadas.",
+            "score": 0.2305
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o melhor Ministro da Guerra do Brasil foi o civil João Pandiá Calógeras, citando sua atuação contra os revoltosos do Forte de Copacabana.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 93533,
+            "end": 93719,
+            "text": "Um civil, o João Pandiá Calógeras, que, inclusive, foi quem combateu os revoltosos do Forte de Copacabana, os 18, que não são 18 \"heróis\", entre aspas, lá da Revolta do Forte Copacabana.",
+            "score": 0.46
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a história institucional e os fatos históricos como fundamento para suas posições, citando especificamente as Constituições brasileiras, a Escola Militar da Praia Vermelha, o tenentismo, a Revolução de 1930, o Estado Novo e o golpe de 1964.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 90682,
+            "end": 90783,
+            "text": "Vejam bem que na Escola Militar da Praia Vermelha havia mais jovens civis do que formandos militares.",
+            "score": 0.1818
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a separação entre política e técnica militar, referenciando a missão francesa e a ideia de que não se deve fazer política dentro das Forças Armadas, mas ao mesmo tempo argumenta que a história mostra que a política sempre esteve presente.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 92388,
+            "end": 92549,
+            "text": "E o senhor disse muito bem que ele teria tirado isso da escola, da missão francesa, que não se deve, de maneira alguma, fazer política dentro das Forças Armadas.",
+            "score": 0.3589
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a discussão aberta e o debate parlamentar sobre temas sensíveis, argumentando que \"devíamos discutir\" e que o assunto \"pouco interessa\" apenas porque há medo de falar.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 91748,
+            "end": 91810,
+            "text": "Parece que têm medo de discutir, quando nós devíamos discutir.",
+            "score": 0.3467
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se leitor de José Murilo de Carvalho e presta homenagem ao historiador, citando sua obra sobre a atribuição política das Forças Armadas nas Constituições brasileiras.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 89827,
+            "end": 89896,
+            "text": "Aqui se falou muito nesse grande historiador José Murilo de Carvalho.",
+            "score": 0.4223
+          },
+          "udv": null
+        },
+        {
+          "text": "Refere-se a si mesmo como político civil, diferenciando-se dos militares ao afirmar \"nós políticos somos civis\".",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 91522,
+            "end": 91605,
+            "text": "Então, tudo isso não são só as Forças Armadas, não, professor; somos nós políticos.",
+            "score": 0.2189
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Constrói argumentos baseados em exemplos históricos específicos, citando nomes de pessoas (Lauro Sodré, Carlos Lacerda, Góis Monteiro, Olímpio Mourão Filho, João Pandiá Calógeras), instituições (Escola Militar da Praia Vermelha, UDN) e eventos (Revolta do Forte Copacabana, Plano Cohen, golpe de 1964).",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 93533,
+            "end": 93719,
+            "text": "Um civil, o João Pandiá Calógeras, que, inclusive, foi quem combateu os revoltosos do Forte de Copacabana, os 18, que não são 18 \"heróis\", entre aspas, lá da Revolta do Forte Copacabana.",
+            "score": 0.2616
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza perguntas retóricas para engajar o público e reforçar seus pontos, como \"Quem não sabe quem são as vivandeiras?\" e \"Qual foi o melhor Ministro da Guerra deste País?\".",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 93484,
+            "end": 93532,
+            "text": "Qual foi o melhor Ministro da Guerra deste País?",
+            "score": 0.5501
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega expressões coloquiais e metáforas, como \"vivandeiras de quartel\" para descrever políticos que atuavam nos quartéis, e \"cassado\" para indicar o fim de seu tempo de fala.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 92921,
+            "end": 92977,
+            "text": "Como dizia Castello Branco, as \"vivandeiras de quartel\".",
+            "score": 0.1945
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com tom de debate, usando expressões como \"Vejam bem\", \"É isso, gente\" e \"professor\" ao se dirigir a participantes específicos.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 20,
+            "start": 90682,
+            "end": 90783,
+            "text": "Vejam bem que na Escola Militar da Praia Vermelha havia mais jovens civis do que formandos militares.",
+            "score": 0.1644
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 39,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores refutam tese do “poder moderador” das Forças Armadas em seminário na CCJ",
+      "assunto": "Debate sobre a interpretação do artigo 142 da Constituição e o papel das Forças Armadas como 'poder moderador'",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-39-2-0",
+      "hearing_id": 39,
+      "n": 6,
+      "article_name": "Flávio Nogueira",
+      "proposition": "Ao longo da história, os episódios de intervenção militar sempre tiveram participação civil: \"O intervencionismo, de fato, mexe muito com a gente, é chocante, é uma invasão da privacidade e da liberdade, mas isso tem sempre como coadjuvante a política. Nunca as Forças Armadas foram instadas a intervir sem a participação de civis.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O intervencionismo, de fato, mexe muito com a gente. É chocante, é intervenção.",
+        "turn": 20,
+        "start": 90356,
+        "end": 90435
+      },
+      "verifier": {
+        "probability": 0.3034048639566127,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

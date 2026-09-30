@@ -1,0 +1,659 @@
+{
+  "actor": {
+    "slug": "danilo-forte",
+    "name": "Danilo Forte",
+    "display_name": "Danilo Forte",
+    "role": "Deputado (União-CE)",
+    "article_names": [
+      "Danilo Forte"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - CE",
+      "UNIÃO - CE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:56:35+00:00",
+    "n_statements": 27,
+    "n_hearings": 3,
+    "hearing_ids": [
+      2,
+      91,
+      165
+    ],
+    "input_tokens": 14963,
+    "output_tokens": 1401,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 27,
+    "with_udv": 4,
+    "passage_only": 21,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a transparência na formação das tarifas de energia elétrica, exigindo a exposição pública das planilhas de cálculo e a identificação dos custos de cada segmento (geração, transmissão, distribuição) para permitir a fiscalização social e a negociação.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 0,
+            "start": 73,
+            "end": 246,
+            "text": "Vamos iniciar a audiência pública para debater o reajuste das tarifas de energia elétrica no Estado do Ceará, em atendimento ao Requerimento nº 1, de 2022, de minha autoria.",
+            "score": 0.1871
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica os reajustes aviltantes no Ceará (24,8% para consumidor médio e 32% para rural) e a falta de uniformidade nos índices de reajuste entre os estados, argumentando que os aumentos superam a capacidade de pagamento do consumidor cativo e geram inadimplência.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 0,
+            "start": 3784,
+            "end": 3839,
+            "text": "Então, não há uma uniformidade dos índices de reajuste.",
+            "score": 0.3802
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a revisão de contratos de concessão e de contratações simplificadas de térmicas, defendendo cláusulas de revisão por fatos supervenientes e punição por ineficiência, em vez de quebra contratual.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 82,
+            "start": 126346,
+            "end": 126479,
+            "text": "Eu acho que os contratos podem, sim, ter cláusula de revisão e cláusula de punição por sua eficiência, como aqui também foi colocado.",
+            "score": 0.2461
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a legalidade e a transparência de distribuidoras que compram energia de usinas próprias (como a Termofortaleza da Enel) sem balizamento de preço, e cobra a rescisão de contratos de térmicas que não entraram em operação ou chegaram atrasadas, como o da KPS.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 33,
+            "start": 46751,
+            "end": 46903,
+            "text": "Márcia, por que os contratos novos das distribuidoras são todos vinculados ao IPCA, e a Enel ainda não refez os contratos e continua utilizando o IGP-M?",
+            "score": 0.1528
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação do PL 414/2021 para fortalecer a geração distribuída e o mercado livre, e do PDL 94/2022 como instrumento de pressão para renegociar reajustes.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 0,
+            "start": 5173,
+            "end": 5556,
+            "text": "Diante disso, quero ressaltar a coragem do Deputado Domingos Neto, que apresentou o Projeto de Decreto Legislativo nº 94, de 2022, que é um importante instrumento de pressão legislativa e pode abrir espaço para que avancemos nessa renegociação e, a partir daí, encontremos alternativas que viabilizem um acordo,para que não precisemos chegar a extremos quanto à decisão a ser tomada.",
+            "score": 0.1714
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta o PLC 18/2022 para enquadrar energia, água e combustível como bens de primeira necessidade no Código Tributário Nacional, limitando o ICMS a 17% e reduzindo a carga tributária sobre itens essenciais.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 82,
+            "start": 126754,
+            "end": 126940,
+            "text": "Inclusive, apresentei o Projeto de Lei Complementar nº 18, de 2022, em que energia, água e combustível seriam enquadrados no Código Tributário Nacional como bens de primeira necessidade.",
+            "score": 0.4963
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autonomia orçamentária do Parlamento, a impositividade das emendas individuais e a criação de cronogramas de desembolso vinculados à arrecadação, criticando a submissão do Legislativo ao Executivo.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 3,
+            "start": 13035,
+            "end": 13326,
+            "text": "Eu tive essa mesma oportunidade há 10 anos, em 2014, exatamente no momento em que tínhamos dependência total das decisões referentes ao encaminhamento do Orçamento e, principalmente, a submissão do Parlamento ao Poder Executivo, ocasião em que instituímos as emendas individuais impositivas.",
+            "score": 0.2309
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a viabilidade da meta fiscal zero para 2024, argumentando que a queda de arrecadação, o alto custo da dívida (quase metade do orçamento) e a redução da atividade econômica tornam a meta irrealista.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 3,
+            "start": 17295,
+            "end": 17382,
+            "text": "O que eu questiono é a dificuldade de se obter essa meta fiscal zero já no ano que vem.",
+            "score": 0.2559
+          },
+          "udv": {
+            "id": "udv-165-0-0",
+            "rule": "same_sentence",
+            "score": 0.351
+          }
+        },
+        {
+          "text": "Defende a reforma tributária para estimular a produção industrial, distribuir renda para as Regiões Norte e Nordeste e simplificar o sistema tributário, e critica a Medida Provisória 1.185 por ameaçar incentivos regionais (SUDAM, SUDENE, SUDECO) que sustentam 1,1 milhão de empregos no Nordeste.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 3,
+            "start": 20386,
+            "end": 20483,
+            "text": "Para que se tenha ideia, há 1,1 milhão de empregos no Nordeste financiados pelo incentivo fiscal.",
+            "score": 0.2288
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de núcleos de atenção a crianças com TEA (autismo) em todo o Brasil, financiados por emendas parlamentares (rubrica 6506 do Ministério da Saúde), com custo estimado de 5,2 milhões de reais por núcleo, visando atender 18,2 milhões de brasileiros com deficiência.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 10,
+            "start": 28355,
+            "end": 28580,
+            "text": "Precisamos informar a todos os Parlamentares que eles vão ter a LOA no espaço de apresentação das emendas, para colocar esses recursos dentro dessa rubrica da 6506, do Ministério da Saúde, que é exatamente o abrigo para elas.",
+            "score": 0.2554
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão de fardamento, transporte e merenda escolar nas verbas do FUNDEB via LDO, para aliviar os orçamentos municipais.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 10,
+            "start": 30053,
+            "end": 30196,
+            "text": "Eu não sabia, mas descobri agora que o fardamento escolar, o transporte escolar e a merenda escolar não estavam incluídos nas verbas do FUNDEB.",
+            "score": 0.5273
+          },
+          "udv": {
+            "id": "udv-165-0-4",
+            "rule": "same_sentence",
+            "score": 0.4295
+          }
+        },
+        {
+          "text": "Propõe a criação de um capítulo na LDO para o orçamento das mulheres e a inclusão do empreendedorismo feminino no escopo do Ministério do Empreendedorismo, Microempresa e Empresa de Pequeno Porte.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 3,
+            "start": 22185,
+            "end": 22462,
+            "text": "O engajamento com relação a essa questão deve ser de todos nós.Já nesse embalo, apresentei emenda à Medida Provisória nº 1.187, colocando as mulheres no escopo do Ministério que está sendo criado, o Ministério do Empreendedorismo, da Microempresa e da Empresa de Pequeno Porte.",
+            "score": 0.4747
+          },
+          "udv": {
+            "id": "udv-165-0-2",
+            "rule": "similar_text",
+            "score": 0.3772
+          }
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a soberania nacional energética, defendendo que o Brasil deve priorizar fontes limpas e renováveis (sol, vento, água) em vez de depender de commodities internacionais de combustíveis fósseis, o que justifica a crítica às térmicas e a defesa da transição energética.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 92,
+            "start": 137685,
+            "end": 137795,
+            "text": "A soberania nacional passa pela energia limpa e renovável, passa por aquilo que mais temos: vento, sol e água.",
+            "score": 0.2686
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio da capacidade de pagamento do consumidor cativo como limite para a formação de preços, argumentando que a tarifa não pode se sobrepor à dignidade do trabalhador e à realidade inflacionária.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 0,
+            "start": 5558,
+            "end": 5849,
+            "text": "Precisamos decidir os rumos do setor elétrico no Brasil e também precisamos de uma equação factível, não só para atender todos os segmentos que compõem o setor, mas também para apresentar um resultado final que, mais uma vez, não se sobreponha à capacidade de pagamento do consumidor cativo.",
+            "score": 0.1796
+          },
+          "udv": {
+            "id": "udv-91-8-1",
+            "rule": "same_sentence",
+            "score": 0.1584
+          }
+        },
+        {
+          "text": "Utiliza a redução das desigualdades regionais como critério para defender investimentos em linhas de transmissão no Nordeste e a correção do sinal locacional, argumentando que a energia mais cara em estados com abundância de recursos (como Amapá, Pará, MS, MT e RJ) é uma falácia que perpetua injustiças.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 71,
+            "start": 125699,
+            "end": 126076,
+            "text": "vai concordar muito mais ainda, Ministro, porque, se o Amapá e o Pará têm a energia mais cara do Brasil, e há as hidrelétricas do Pará; se o Mato Grosso do Sul e o Mato Grosso têm uma das energias mais caras do Brasil, e há as PCHs; se o Rio de Janeiro é a quinta maior energia e mais cara do Brasil e é perto de Furnas, a história do sinal locacional, Ministro, é uma falácia.",
+            "score": 0.2137
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autonomia do Parlamento como garantia de representação popular, argumentando que a impositividade orçamentária e a transparência aumentam o compromisso do legislador com o eleitor e melhoram a eficiência do gasto público.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 10,
+            "start": 29907,
+            "end": 29934,
+            "text": "Esse é o nosso compromisso.",
+            "score": 0.2235
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza a eficiência e a transparência na gestão de contratos públicos, exigindo que a liquidez do setor energético e a baixa inadimplência sejam usadas para renegociar dívidas e eliminar sobrepreços.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 5,
+            "start": 14326,
+            "end": 14487,
+            "text": "E não há dívida com maior liquidez do que dívida do setor energético porque a liquidez do setor energético é esta: praticamente, a inadimplência é muito pequena.",
+            "score": 0.3318
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Frente Parlamentar da Energia Renovável e Relator da LDO.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 71,
+            "start": 127990,
+            "end": 128052,
+            "text": "Eu estou disposto a fazer isso, inclusive como Relator da LDO.",
+            "score": 0.3184
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como autor do Requerimento nº 1/2022, do PLC 18/2022 e da emenda à MP 1.187.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 0,
+            "start": 73,
+            "end": 246,
+            "text": "Vamos iniciar a audiência pública para debater o reajuste das tarifas de energia elétrica no Estado do Ceará, em atendimento ao Requerimento nº 1, de 2022, de minha autoria.",
+            "score": 0.2037
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido relator do projeto de lei que criou a EBSERH em 2011.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 10,
+            "start": 26705,
+            "end": 26866,
+            "text": "A EBSERH foi um projeto de lei que eu relatei, no Congresso Nacional, em 2011, e que fez uma transformação muito positiva na gestão dos hospitais universitários.",
+            "score": 0.3408
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter votado a favor da privatização da ELETROBRAS, mas contra a inclusão de \"jabutis\" no projeto.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 82,
+            "start": 129239,
+            "end": 129395,
+            "text": "Eu inclusive votei a favor da privatização da ELETROBRAS, mas fui radicalmente contra a inclusão dos jabutis, na linguagem popular, que ali foram colocados.",
+            "score": 0.5274
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a amizade e a parceria com os Deputados Benes Leocádio, Domingos Neto, Eduardo da Fonte e Fabio Schiochet, e com a Deputada Lêda Borges.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 9,
+            "start": 24356,
+            "end": 24513,
+            "text": "Quero agradecer a presença ao Deputado Benes Leocádio, ao Deputado Eduardo da Fonte e ao Deputado Fabio Schiochet, Presidente da Comissão de Minas e Energia.",
+            "score": 0.3907
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza questionamentos diretos e específicos sobre dados técnicos (como a divergência entre 28,8% e 21,5% no ICMS) para cobrar esclarecimentos dos representantes de órgãos reguladores e empresas.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 29,
+            "start": 46047,
+            "end": 46246,
+            "text": "Foi muito importante a sua exposição, mas ela gerou mais dúvidas ainda, porque o Domingos Romeu disse que o custo do ICMS no Ceará é de 28,8%, e você na sua exposição disse que esse custo é de 21,5%.",
+            "score": 0.2007
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e expressões populares para ilustrar pontos de vista, como \"contrato de mãe para filho\", \"pau que dá em Chico, dá em Francisco\" e \"jabutis\".",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 49,
+            "start": 68992,
+            "end": 69055,
+            "text": "Nós costumamos dizer que\"pau que dá em Chico, dá em Francisco\".",
+            "score": 0.3704
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina dados macroeconômicos (orçamento de 4 trilhões, 180 bilhões em subsídios a carvão e gás) com exemplos locais (Termofortaleza, Enel Ceará) para sustentar argumentos sobre a necessidade de transparência e justiça tarifária.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 82,
+            "start": 130024,
+            "end": 130287,
+            "text": "Quanto a essa questão do subsídio das térmicas — que inclusive é um atraso, um retrocesso do ponto de vista ambiental, principalmente para o Brasil, que gasta quase 180 bilhões/ano de reais de subsídio para carvão e gás —, nós precisamos fazer esse enfrentamento.",
+            "score": 0.197
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança e urgência, especialmente ao tratar de temas que afetam diretamente o consumidor, como a conta de luz e a saúde de crianças com TEA, e propõe soluções concretas e imediatas, como a criação de núcleos e a revisão de contratos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz apelos emocionais e morais, citando a dignidade do trabalhador, a responsabilidade social do Estado e a necessidade de proteger grupos vulneráveis, como crianças com deficiência e mulheres empreendedoras.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 7,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Deputados defendem regulamentação paralela da reforma tributária",
+      "assunto": "Regulamentação da reforma tributária",
+      "turns": 10,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 91,
+      "split": "train",
+      "article_date": "2022-05-12",
+      "title": "Tarifa represada na pandemia levou a reajustes de até 25% na conta de luz, dizem distribuidores em debate",
+      "assunto": "Reajustes nas tarifas de energia elétrica devido ao represamento durante a pandemia e a escassez hídrica",
+      "turns": 18,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 104,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Deputados reafirmam interesse da Câmara em participar de definição das regras de renovação das concessões das…",
+      "assunto": "Participação da Câmara na definição das regras de renovação das concessões das distribuidoras de energia elétrica",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 165,
+      "split": "train",
+      "article_date": "2023-09-20",
+      "title": "Relator da LDO acredita que queda da arrecadação pode impedir déficit zero em 2024",
+      "assunto": "Discussão sobre a Lei de Diretrizes Orçamentárias (LDO) de 2024 e suas implicações para o déficit fiscal e políticas voltadas para mulheres",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 5
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-7-0-0",
+      "hearing_id": 7,
+      "n": 1,
+      "article_name": "Danilo Forte",
+      "proposition": "\"O trabalho das frentes parlamentares coloca os pagadores de imposto e consumidores dentro do Parlamento, contribuindo para o debate e o avanço das propostas legislativas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Como resultado, o Congresso aprovou uma lei orçamentária justa, exequível e alinhada com as demandas da população. O trabalho dos grupos de trabalho paralelos da reforma tributária poderá ter o mesmo efeito, uma vez que coloca o pagador de impostos dentro do Parlamento, contribuindo para o debate e para o avanço das propostas legislativas, bem como também dos consumidores, cidadãos e cidadãs brasileiras que precisam participar desse debate.",
+        "turn": 0,
+        "start": 2702,
+        "end": 3147
+      },
+      "verifier": {
+        "probability": 0.9882675210665373,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-7-0-1",
+      "hearing_id": 7,
+      "n": 2,
+      "article_name": "Danilo Forte",
+      "proposition": "\"A gente precisa ter a nossa legislação compatível, já que nossa carga tributária é excessiva, principalmente sobre os ombros do setor produtivo, impede o Brasil de crescer, de desenvolver, de gerar emprego, gerar oportunidade e ter crescimento econômico sustentável.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Agora, diante desse novo momento, precisamos ter a nossa legislação compatível, já que a carga tributária é excessiva, principalmente sobre os ombros do setor produtivo, o que impede o Brasil de crescer, de se desenvolver, de gerar emprego e oportunidade e de ter esse segmento econômico sustentável. Diante disso, eu já agradeço aos meus pares, colegas Deputados aqui presentes, que estão participando desse debate.",
+        "turn": 0,
+        "start": 4439,
+        "end": 4856
+      },
+      "verifier": {
+        "probability": 0.9930392160558271,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-91-8-0",
+      "hearing_id": 91,
+      "n": 15,
+      "article_name": "Danilo Forte",
+      "proposition": "O debate sobre as contas de luz precisa ser ampliado: \"O problema é grave, mas vejo disposição de todos em buscar soluções, que passarão pelas energias renováveis.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E acho que precisamos de maior lucidez, já que estamos falando de energia e de luz, em cima dessas questões que estão aí colocadas porque senão nós não vamos resolver o problema. E esta audiência pública não é só para um bate-papo.",
+        "turn": 5,
+        "start": 15972,
+        "end": 16203
+      },
+      "verifier": {
+        "probability": 0.24488078927116094,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-91-8-1",
+      "hearing_id": 91,
+      "n": 16,
+      "article_name": "Danilo Forte",
+      "proposition": "É preciso contemplar as necessidades das concessionárias sem que o consumidor seja penalizado com reajustes acima da inflação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Precisamos decidir os rumos do setor elétrico no Brasil e também precisamos de uma equação factível, não só para atender todos os segmentos que compõem o setor, mas também para apresentar um resultado final que, mais uma vez, não se sobreponha à capacidade de pagamento do consumidor cativo. Se, por um lado, nós temos a tarifa social e, por outro, os grandes consumidores já dentro de um mercado livre que precisa avançar e precisa de celeridade, precisamos também de uma […]",
+        "turn": 0,
+        "start": 5558,
+        "end": 6183
+      },
+      "verifier": {
+        "probability": 0.6745828020503274,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-104-1-0",
+      "hearing_id": 104,
+      "n": 3,
+      "article_name": "Danilo Forte",
+      "proposition": "Já existe consenso entre os parlamentares de que o modelo atual das concessionárias precisa ser mudado.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não tenho dúvida de que o trabalho feito nesta Casa já construiu vários consensos. Um deles é que o modelo atual das concessionárias de energia no Brasil precisa ser modificado.",
+        "turn": 39,
+        "start": 118160,
+        "end": 118337
+      },
+      "verifier": {
+        "probability": 0.9629103574168637,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-104-1-1",
+      "hearing_id": 104,
+      "n": 4,
+      "article_name": "Danilo Forte",
+      "proposition": "Há consenso sobre a migração da Tarifa Social de Energia Elétrica (TSEE) para o orçamento da União. Hoje esse subsídio é custeado pela conta de energia dos consumidores brasileiros.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Hoje estamos vendo que a tarifa social tem que ser tratada pelo conjunto da sociedade no Orçamento Geral da União. Há diferença entre incentivo e subsídio.",
+        "turn": 39,
+        "start": 119029,
+        "end": 119185
+      },
+      "verifier": {
+        "probability": 0.19814939996749265,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-165-0-0",
+      "hearing_id": 165,
+      "n": 1,
+      "article_name": "Danilo Forte",
+      "proposition": "A meta fiscal do governo de zerar o déficit das contas públicas em 2024 é muito ambiciosa devido à queda na arrecadação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não estou aqui questionando a vontade ou o desejo de o Poder Executivo ter meta fiscal zero. O que eu questiono é a dificuldade de se obter essa meta fiscal zero já no ano que vem.",
+        "turn": 3,
+        "start": 17202,
+        "end": 17382
+      },
+      "verifier": {
+        "probability": 0.211435332583639,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-165-0-1",
+      "hearing_id": 165,
+      "n": 2,
+      "article_name": "Danilo Forte",
+      "proposition": "O governo conta com medidas de aumento da arrecadação que precisam ser aprovadas ainda neste ano: \"Nós temos pouco tempo para votar matérias que muitas vezes são impopulares e que a gente percebe claramente que não têm a simpatia do Parlamento brasileiro com relação a aumento de tributos.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "As metas para o ano que vem, principalmente tributárias, trazem consigo o princípio da anualidade. Não havendo o princípio da anualidade, essa matéria não pode ser votada no curso do ano do exercício.Então, nós temos um tempo muito curto para votar matérias que são, muitas vezes, impopulares e, como percebemos claramente, não têm a simpatia do conjunto do Parlamento brasileiro com relação a aumento de tributos.Foi importante termos construído impostos para áreas em que havia […]",
+        "turn": 3,
+        "start": 17916,
+        "end": 18507
+      },
+      "verifier": {
+        "probability": 0.926273456284141,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-165-0-2",
+      "hearing_id": 165,
+      "n": 3,
+      "article_name": "Danilo Forte",
+      "proposition": "Pretende dar prioridade a ações no Orçamento, como o estímulo ao empreendedorismo feminino.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A Presidente da Comissão de Orçamento, a Senadora Daniella Ribeiro, está muito focada nessa questão do empreendedorismo feminino. Foi criado, na LDO, um capítulo em que nós vamos tratar do fortalecimento do dito orçamento das mulheres no Orçamento federal.Há a ampliação da participação e do estímulo ao empreendedorismo feminino.",
+        "turn": 3,
+        "start": 21583,
+        "end": 21913
+      },
+      "verifier": {
+        "probability": 0.9681573741925189,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-165-0-3",
+      "hearing_id": 165,
+      "n": 4,
+      "article_name": "Danilo Forte",
+      "proposition": "Pretende adotar um cronograma de desembolsos para emendas parlamentares no Orçamento.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Os países mais desenvolvidos, além de terem um orçamento 100% impositivo, têm um cronograma muito claro: à medida que a arrecadação vai chegando ao Governo Federal, o desembolso também vai sendo executado, dentro de uma linha de prioridade. Se houver oportunidade, quero avançar nesse sentido.",
+        "turn": 3,
+        "start": 13838,
+        "end": 14132
+      },
+      "verifier": {
+        "probability": 0.29968171746227673,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-165-0-4",
+      "hearing_id": 165,
+      "n": 5,
+      "article_name": "Danilo Forte",
+      "proposition": "Pretende incluir despesas escolares com uniformes, merenda e transporte no Fundo de Manutenção da Educação Básica.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu não sabia, mas descobri agora que o fardamento escolar, o transporte escolar e a merenda escolar não estavam incluídos nas verbas do FUNDEB. Não estavam, mas a partir da nossa LDO, se Deus quiser, pode contar com isso.(Palmas.)",
+        "turn": 10,
+        "start": 30053,
+        "end": 30283
+      },
+      "verifier": {
+        "probability": 0.22971574852563345,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

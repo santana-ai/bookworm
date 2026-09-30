@@ -1,0 +1,336 @@
+{
+  "actor": {
+    "slug": "messias-donato",
+    "name": "MESSIAS DONATO",
+    "display_name": "MESSIAS DONATO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - ES"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:31:56+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      201
+    ],
+    "input_tokens": 2566,
+    "output_tokens": 842,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que os presos pelos atos de 8 de janeiro não estão sozinhos e que seus familiares sofrem junto, posicionando-se a favor de um tratamento que traga \"alento\" e \"conforto\" a essas famílias.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 227889,
+            "end": 227951,
+            "text": "Eles sofrem junto com os familiares de quem se encontra preso.",
+            "score": 0.3216
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o ex-Ministro G. Dias, afirmando que ele foi visto em imagens dentro de prédios públicos na Praça dos Três Poderes oferecendo água e café e mostrando caminhos aos \"terroristas\", e destaca que ele só foi exonerado após o vazamento dessas imagens.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 229280,
+            "end": 229428,
+            "text": "Dias foi visto nas imagens dentro de prédios públicos, aqui na Praça dos Três Poderes, oferecendo água e café aos terroristas de quem estão falando.",
+            "score": 0.6905
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a caracterização dos atos de 8 de janeiro como golpe de Estado, argumentando que nunca viu alguém arrancar um governo do poder com \"Bíblia na mão, com óleo ungido, orando na Explanada dos Ministérios\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 229898,
+            "end": 230131,
+            "text": "Aquelas pessoas, os nossos irmãos brasileiros que estão encarcerados não estão sozinhos.Eu nunca vi ninguém dar um golpe de Estado, arrancar um governo do poder com Bíblia na mão, com óleo ungido, orando na Explanada dos Ministérios.",
+            "score": 0.5632
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue os participantes dos atos, classificando os que oravam do lado de fora como \"patriotas\" e os que entraram por acessos especiais com máquinas fotográficas e quebraram objetos como \"verdadeiros terroristas\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 230142,
+            "end": 230367,
+            "text": "Enquanto os verdadeiros terroristas entraram por acessos especiais nos prédios públicos e estavam com máquinas fotográficas nas mãos, quebrando tudo lá dentro, os patriotas estavam do lado de fora orando por um Brasil melhor.",
+            "score": 0.4605
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a instalação e o funcionamento da CPMI do 8 de Janeiro, afirmando que assinou o requerimento no 15º dia de mandato e que o governo inicialmente não queria a apuração, mas passou a buscar as assinaturas apenas após a exoneração do general.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 228651,
+            "end": 228775,
+            "text": "E faço esse destaque, Deputado Cabo Gilberto Silva, porque nós assinamos a CPMI do 8 de Janeiro no 15º dia do nosso mandato.",
+            "score": 0.2349
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o uso da \"emenda Pix\" pelo governo para tentar fazer com que parlamentares retirassem suas assinaturas da CPMI, afirmando que se manteve firme junto a outros parlamentares.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 228854,
+            "end": 228997,
+            "text": "E aí rodou de um lado para o outro a conhecida \"emenda Pix\", para que os Parlamentares retirassem a assinatura e não fosse instalada essa CPMI.",
+            "score": 0.3536
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a CPI do Abuso de Autoridade, justificando a assinatura por acreditar que as ações do ex-Ministro G. Dias \"não podem acontecer mais no nosso País\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 229507,
+            "end": 229559,
+            "text": "Essas coisas não podem acontecer mais no nosso País.",
+            "score": 0.387
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia o \"terrorismo no campo\" investigado na CPI do MST, descrevendo a entrada de pessoas com armas de grosso calibre em propriedades rurais, levando terror e insegurança jurídica.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 228507,
+            "end": 228609,
+            "text": "As pessoas entram com armas de grosso calibre porteira adentro, levando terror e insegurança jurídica.",
+            "score": 0.5479
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a distinção entre \"terroristas\" e \"patriotas\" como critério para avaliar os atos de 8 de janeiro, baseando-se na localização (dentro ou fora dos prédios) e nas ações (destruição ou oração).",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 230142,
+            "end": 230367,
+            "text": "Enquanto os verdadeiros terroristas entraram por acessos especiais nos prédios públicos e estavam com máquinas fotográficas nas mãos, quebrando tudo lá dentro, os patriotas estavam do lado de fora orando por um Brasil melhor.",
+            "score": 0.2008
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a ideia de que \"o bem sempre irá vencer o mal\" como fundamento para a confiança na vitória dos presos e de seus apoiadores, mesmo que o mal possa prevalecer por alguns meses ou anos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 230524,
+            "end": 230669,
+            "text": "Talvez o mal possa prevalecer por alguns meses, alguns anos, 2, 3, quem sabe, 4 anos, mas o bem sempre irá vencer o mal, e nós contamos com isso.",
+            "score": 0.644
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa a frase \"Não quero viver em outro país, mas quero viver em outro Brasil\" (atribuída ao Deputado Marcel van Hattem) como premissa para seu posicionamento, indicando o desejo de mudança interna no país.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 228049,
+            "end": 228198,
+            "text": "Já inicio, Deputado Marcel, com uma frase sua:\"Não quero viver em outro país, mas quero viver em outro Brasil\".É sua a frase que estou parafraseando.",
+            "score": 0.5683
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da CPI do MST, onde trabalha na investigação do terrorismo no campo, e afirma não fazer parte da Comissão de Segurança.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 227517,
+            "end": 227560,
+            "text": "Não faço parte desta Comissão de Segurança.",
+            "score": 0.3829
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter assinado a CPMI do 8 de Janeiro no 15º dia de seu mandato e a CPI do Abuso de Autoridade.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 228651,
+            "end": 228775,
+            "text": "E faço esse destaque, Deputado Cabo Gilberto Silva, porque nós assinamos a CPMI do 8 de Janeiro no 15º dia do nosso mandato.",
+            "score": 0.3766
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se amigo e irmão do Deputado Marcel van Hattem, a quem expressa grande respeito.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 227953,
+            "end": 228048,
+            "text": "Saúdo meu amigo e irmão, o Deputado Marcel van Hattem, por quem tenho um respeito muito grande.",
+            "score": 0.7488
+          },
+          "udv": null
+        },
+        {
+          "text": "Coloca seu mandato à disposição dos participantes da audiência.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 230400,
+            "end": 230477,
+            "text": "Presidente, colocando-nos à disposição, colocando nosso mandato à disposição.",
+            "score": 0.3719
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza comparações bíblicas e religiosas (Davis contra Golias, Bíblia na mão, óleo ungido, oração) para caracterizar os participantes dos atos e criticar o governo.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 229175,
+            "end": 229256,
+            "text": "Eles são como Davis lutando contra os gigantes Golias, mas não estão se curvando.",
+            "score": 0.2856
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita fatos específicos e imagens (exoneração do general após vazamento de imagens, entrada por acessos especiais) para sustentar suas críticas.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 228610,
+            "end": 228650,
+            "text": "Esse mesmo general foi visto em imagens.",
+            "score": 0.2992
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a solidariedade emocional, saudando as mães, esposas, maridos e advogados presentes, e usando termos como \"guerreiros\" e \"irmãos brasileiros\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 227655,
+            "end": 227888,
+            "text": "Quero saudar o Deputado Delegado Ramagem, que foi o autor do requerimento desta audiência pública que traz um alento, um conforto para as mães, para as esposas, para os maridos que aqui estão, para os advogados que acabamos de ouvir.",
+            "score": 0.2306
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta o comportamento do governo (tentar impedir a CPMI, usar a \"emenda Pix\") com a postura dos \"patriotas\" (orar, não se curvar).",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 185,
+            "start": 228854,
+            "end": 228997,
+            "text": "E aí rodou de um lado para o outro a conhecida \"emenda Pix\", para que os Parlamentares retirassem a assinatura e não fosse instalada essa CPMI.",
+            "score": 0.1843
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 13,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Autoridades cobram a Justiça para destravar renegociação com mineradoras sobre reparação em Mariana",
+      "assunto": "Cobrança à Justiça para destravar a renegociação com mineradoras sobre reparação em Mariana",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

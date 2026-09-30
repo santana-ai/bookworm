@@ -1,0 +1,441 @@
+{
+  "actor": {
+    "slug": "augusto-coutinho",
+    "name": "Augusto Coutinho",
+    "display_name": "Augusto Coutinho",
+    "role": "Deputado (Republicanos-PE)",
+    "article_names": [
+      "Augusto Coutinho"
+    ],
+    "party_uf": [
+      "REPUBLICANOS - PE",
+      "Bloco/REPUBLICANOS - PE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:04:12+00:00",
+    "n_statements": 10,
+    "n_hearings": 1,
+    "hearing_ids": [
+      80
+    ],
+    "input_tokens": 4503,
+    "output_tokens": 766,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 1,
+    "passage_only": 15,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a regulamentação do lobby e a aprovação do Projeto de Lei nº 4.391, de 2021, argumentando que a matéria tramita no Legislativo desde 1980 e que o debate já foi exaustivo, sendo necessário agora efetivar a legislação.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 12027,
+            "end": 12138,
+            "text": "Mas é importante que saibam todos aqui presentes que essa matéria tramita no Legislativo brasileiro desde 1980.",
+            "score": 0.3316
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a apresentação do relatório da comissão ainda no mês de junho de 2022, visando à agilidade na tramitação e à oportunidade de votação na Câmara, caso os partidos assim o desejem.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 12885,
+            "end": 12956,
+            "text": "Então, nossa ideia é, inclusive este mês ainda, apresentar o relatório.",
+            "score": 0.2088
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a elaboração de uma legislação \"muito engessada\" que possa não funcionar na prática, citando exemplos de falhas em outras experiências.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 13221,
+            "end": 13313,
+            "text": "Acho que não adianta fazer uma lei muito engessada, para não funcionar, como já há exemplos.",
+            "score": 0.3461
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a harmonização do projeto de autoria do Governo Federal com o projeto do Deputado Carlos Zarattini, que aguarda votação no plenário desde 2018, afirmando que essa é a solução para o avanço da matéria.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 11812,
+            "end": 12025,
+            "text": "Esse projeto de lei é de autoria do Governo Federal e está apensado a ele um projeto do Deputado Carlos Zarattini, que inclusive já foi aprovado aqui na CTASP e na CCJ e que aguarda, desde 2018, a ida ao plenário.",
+            "score": 0.5881
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a transparência nas interlocuções entre agentes públicos e privados, estabelecendo a transparência, o acesso a todos e a isonomia como pilares fundamentais da proposta.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 28,
+            "start": 57141,
+            "end": 57238,
+            "text": "Sem dúvida, esse projeto tem três pilares fundamentais: transparência, acesso a todos e isonomia.",
+            "score": 0.5166
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a influência das redes sociais na formação de opinião sobre temas legislativos, utilizando como exemplo a PEC 13, que foi \"vendida\" à população com uma versão distorcida de seu conteúdo, gerando um \"pandemônio\" na Casa e a \"defenestração\" de parlamentares que assinaram requerimentos favoráveis.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 36,
+            "start": 76419,
+            "end": 76545,
+            "text": "Mas foi vendida para a população a versão de que essa PEC teria sido apresentada para que políticos não pudessem ser acusados.",
+            "score": 0.2236
+          },
+          "udv": null
+        },
+        {
+          "text": "Parabeniza a Controladoria-Geral da União (CGU) por ter dado um caminho à discussão, considerando fundamental a participação do Governo Federal.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 38,
+            "start": 77830,
+            "end": 77919,
+            "text": "Quero parabenizar a CGU, pois foi fundamental que o Governo desse um caminho à discussão.",
+            "score": 0.4194
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a agilidade legislativa e a efetividade das normas, justificando a rejeição de leis engessadas e a pressa na apresentação do relatório.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Defende a discussão transparente e a coragem de debater temas complexos, utilizando a experiência com a PEC 13 para justificar a necessidade de evitar a manipulação da opinião pública por versões simplificadas ou distorcidas.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 36,
+            "start": 76380,
+            "end": 76418,
+            "text": "Portanto, foi apresentada essa PEC 13.",
+            "score": 0.1706
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a regulamentação do lobby é um \"projeto do País\" e não uma questão de alinhamento entre Governo e Oposição, justificando a busca por consenso e harmonização entre os projetos em debate.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 38,
+            "start": 78033,
+            "end": 78110,
+            "text": "Não se trata de projeto de Governo ou de Oposição; esse é um projeto do País.",
+            "score": 0.4032
+          },
+          "udv": {
+            "id": "udv-80-0-1",
+            "rule": "same_sentence",
+            "score": 0.3672
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Relator da matéria e autor do requerimento que convocou a audiência pública.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 0,
+            "start": 2053,
+            "end": 2162,
+            "text": "Todas as entidades que quiseram participar eu, como autor do requerimento, e a Presidência da Casa aceitamos.",
+            "score": 0.2459
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar na Câmara dos Deputados há três mandatos.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 36,
+            "start": 76136,
+            "end": 76296,
+            "text": "Estou nesta Casa há três mandatos e acompanhei o que aconteceu com a PEC 13, que questionava se o Ministério Público podia ou não fazer investigação e acusação.",
+            "score": 0.2349
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como \"pernambucano\" ao citar o Deputado Marco Maciel.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 12139,
+            "end": 12220,
+            "text": "O meu querido pernambucano Marco Maciel desde 1980 trabalhou em torno desse tema.",
+            "score": 0.3763
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar \"bem embasado do ponto de vista de assessoria\", citando a atuação de dois assessores específicos: Rafael, com quem trabalhou na Lei de Licitações, e Ricardo Rodrigues, descrito como estudioso do tema.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 12670,
+            "end": 12883,
+            "text": "Nós estamos com dois assessores aqui: o Rafael, com quem tive a oportunidade de trabalhar na Lei de Licitações, que foi um grande trabalho que nós fizemos juntos; e o Ricardo Rodrigues, que é um estudioso do tema.",
+            "score": 0.4667
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados de tramitação (início em 1980, espera desde 2018) para fundamentar a urgência da votação.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 12027,
+            "end": 12138,
+            "text": "Mas é importante que saibam todos aqui presentes que essa matéria tramita no Legislativo brasileiro desde 1980.",
+            "score": 0.1573
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos pessoais e históricos da Casa, como a PEC 13, para ilustrar riscos de manipulação política e justificar a necessidade de transparência.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 36,
+            "start": 76380,
+            "end": 76418,
+            "text": "Portanto, foi apresentada essa PEC 13.",
+            "score": 0.2057
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliador e institucional, parabenizando a CGU e convidando os partidos a votarem, enquanto mantém o controle do tempo e da pauta com apelos à agilidade e à liberação do plenário.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita interlocutores e convidados (como Nilson Leitão e Marco Maciel) para reforçar a continuidade do debate e a legitimidade das posições apresentadas.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 4,
+            "start": 11680,
+            "end": 11715,
+            "text": "Agradeço ao Deputado Nilson Leitão.",
+            "score": 0.2463
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 80,
+      "split": "train",
+      "article_date": "2022-06-28",
+      "title": "Relator apresentará nova versão para a regulamentação do lobby",
+      "assunto": "Regulamentação do lobby junto ao poder público",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 87,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Relatório da regulamentação do trabalho de motoristas de aplicativo deve ser apresentado antes do recesso",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-80-0-0",
+      "hearing_id": 80,
+      "n": 1,
+      "article_name": "Augusto Coutinho",
+      "proposition": "Apresentará substitutivo a uma proposta do Poder Executivo que trata do lobby junto ao poder público.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Dando continuidade, ouviremos agora o representante do Observatório Político do Setor de Serviços, Hélzio Mascarenhas. Nós deixamos o representante da CGU por último, a pedido, inclusive porque o projeto original é da CGU, e era importante que ele pudesse falar da participação governamental nesta questão.",
+        "turn": 28,
+        "start": 57240,
+        "end": 57547
+      },
+      "verifier": {
+        "probability": 0.1269260658604731,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-80-0-1",
+      "hearing_id": 80,
+      "n": 2,
+      "article_name": "Augusto Coutinho",
+      "proposition": "A proposta não é um projeto de governo ou de oposição, mas sim do País.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não se trata de projeto de Governo ou de Oposição; esse é um projeto do País. E acho que é importante avançarmos nisso.",
+        "turn": 38,
+        "start": 78033,
+        "end": 78152
+      },
+      "verifier": {
+        "probability": 0.9945193387983025,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-80-0-2",
+      "hearing_id": 80,
+      "n": 3,
+      "article_name": "Augusto Coutinho",
+      "proposition": "Considerará, além do principal e do apensado, o PL 1202/07, também de Carlos Zarattini e pronto para o Plenário: \"A gente tem como harmonizar os projetos, acho que essa será a solução para que possamos avançar.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Temos como harmonizar esses projetos que estão em debate. Acho que essa é a solução para que consigamos avançar.",
+        "turn": 38,
+        "start": 77920,
+        "end": 78032
+      },
+      "verifier": {
+        "probability": 0.4031497525880122,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-87-0-0",
+      "hearing_id": 87,
+      "n": 1,
+      "article_name": "Augusto Coutinho",
+      "proposition": "O relatório sobre o projeto que regulamenta o trabalho dos motoristas de aplicativo deve ser apresentado na Câmara antes do recesso de julho.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós vamos nos debruçar sobre este projeto. Esse acordo é o que o Legislativo tem com o Governo, para que este projeto avance e seja votado por nós, a fim de que seja regulamentada essa profissão.",
+        "turn": 143,
+        "start": 234943,
+        "end": 235138
+      },
+      "verifier": {
+        "probability": 0.17591181943260759,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-87-0-1",
+      "hearing_id": 87,
+      "n": 2,
+      "article_name": "Augusto Coutinho",
+      "proposition": "Falou que vai conversar com os relatores das outras comissões para apresentar um relatório negociado. Ele adiantou que já está em contato com o relator da Comissão do Trabalho.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Conversávamos aqui com o Presidente da Comissão de Trabalho, que é a segunda Comissão a analisar o projeto. Vamos fazer inclusive conversas conjuntas, com o Relator da Comissão de Trabalho, o que certamente fará com que avancemos.",
+        "turn": 123,
+        "start": 221194,
+        "end": 221424
+      },
+      "verifier": {
+        "probability": 0.3615589953875042,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-87-0-2",
+      "hearing_id": 87,
+      "n": 3,
+      "article_name": "Augusto Coutinho",
+      "proposition": "[A gente] vai construir um relatório que tente ser harmonioso, para que a gente avance com essa matéria e que até o meio deste ano, antes do recesso, a gente consiga oferecer ao Brasil uma legislação justa e que atenda uma necessidade que hoje é real na nossa vida.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vamos tentar construir um relatório harmonioso, para que avancemos com essa matéria e consigamos, até o meio deste ano, antes do recesso, oferecer ao Brasil uma legislação que seja justa, que atenda a uma necessidade real na nossa vida.Os aplicativos estão inseridos na nossa vida de forma real. O brasileiro quer o aplicativo, precisa dos aplicativos.",
+        "turn": 123,
+        "start": 221715,
+        "end": 222067
+      },
+      "verifier": {
+        "probability": 0.9939049841968088,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-116-3-0",
+      "hearing_id": 116,
+      "n": 9,
+      "article_name": "Augusto Coutinho",
+      "proposition": "Elogiou a atuação do governo na repatriação de brasileiros que viviam na região em conflito: \"O Brasil foi um dos primeiros a negociar [a repatriação].\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Vimos inclusive países desenvolvidos cobrarem do seu cidadão para transportá-lo de volta, e o Brasil foi um dos primeiros a se posicionar, a negociar com toda a diplomacia brasileira e a diplomacia mundial e a prestar para nós brasileiros um serviço que eu achei muito importante.",
+        "turn": 5,
+        "start": 46128,
+        "end": 46408
+      },
+      "verifier": {
+        "probability": 0.9664262784380053,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

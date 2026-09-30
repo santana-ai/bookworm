@@ -1,0 +1,191 @@
+{
+  "actor": {
+    "slug": "rui-falcao",
+    "name": "Rui Falcão",
+    "display_name": "Rui Falcão",
+    "role": "Deputado, presidente da Comissão de Constituição e Justiça e de Cidadania (CCJ)",
+    "article_names": [
+      "Rui Falcão"
+    ],
+    "party_uf": [
+      "Bloco/PT - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:41:21+00:00",
+    "n_statements": 11,
+    "n_hearings": 1,
+    "hearing_ids": [
+      39
+    ],
+    "input_tokens": 4141,
+    "output_tokens": 280,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 6,
+    "with_udv": 0,
+    "passage_only": 6,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Requerimento nº 34, de 2023, que convocou o seminário, subscrito pelo Deputado Flávio Nogueira.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 0,
+            "start": 362,
+            "end": 560,
+            "text": "Declaro aberto o presente seminárioForças Armadas e a política: limites constitucionais, convocado pelo Requerimento nº 34, de 2023, de nossa autoria, subscrito também pelo Deputado Flávio Nogueira.",
+            "score": 0.4611
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a Comissão de Constituição e Justiça e de Cidadania (CCJ) está tentando elevar o debate político na Casa.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 29,
+            "start": 108167,
+            "end": 108223,
+            "text": "A CCJ está tentando elevar o debate político nesta Casa.",
+            "score": 0.6676
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Conduz a sessão com foco estrito no cumprimento de prazos e regras procedimentais, informando repetidamente os limites de tempo para cada fala (20 minutos para palestrantes, 3 minutos para deputados, 5 minutos para considerações finais) e ajustando a ordem dos inscritos para garantir o encerramento no horário previsto.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 44,
+            "start": 132070,
+            "end": 132174,
+            "text": "Temos que garantir 5 minutos a cada um dos palestrantes para que possam fazer suas considerações finais.",
+            "score": 0.2971
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota postura de mediação neutra ao intervir em conflitos verbais, retirando expressões ofensivas das notas taquigráficas para evitar polêmicas maiores do que o próprio debate de ideias.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 15,
+            "start": 73903,
+            "end": 74049,
+            "text": "Então, eu vou retirar a expressão das notas taquigráficas, com todo respeito, para não criar uma polêmica maior do que o próprio debate de ideias.",
+            "score": 0.2938
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a prerrogativa de presidência para direcionar perguntas do plenário a palestrantes específicos, garantindo que todos os convidados sejam contemplados com a oportunidade de responder.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 37,
+            "start": 124654,
+            "end": 124731,
+            "text": "Manuel Domingos, para que todos sejam contemplados com perguntas do plenário.",
+            "score": 0.3952
+          },
+          "udv": null
+        },
+        {
+          "text": "Mantém tom protocolar e institucional, evitando tomar partido sobre as questões levantadas nas perguntas lidas, limitando-se a ler o conteúdo e perguntar quem deseja responder primeiro.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 44,
+            "start": 131956,
+            "end": 132009,
+            "text": "Quero dizer que não há como responder mais perguntas.",
+            "score": 0.1615
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 17,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Em seminário na Câmara, especialistas discordam sobre ativismo judicial",
+      "assunto": "Debate sobre ativismo judicial na Câmara dos Deputados",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 39,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores refutam tese do “poder moderador” das Forças Armadas em seminário na CCJ",
+      "assunto": "Debate sobre a interpretação do artigo 142 da Constituição e o papel das Forças Armadas como 'poder moderador'",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-39-0-0",
+      "hearing_id": 39,
+      "n": 1,
+      "article_name": "Rui Falcão",
+      "proposition": "Nos dois últimos anos, surgiram interpretações do artigo 142 da Constituição que colocam as Forças Armadas como uma espécie de árbitro final dos três Poderes.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Na situação atual, com o regime presidencialista, como os senhores veem a possibilidade de conferir ao Ministério Público pelo menos a qualidade de atuar como um quarto Poder, com a atribuição de mediar conflitos entre os demais Poderes?\" Estou só lendo. Não estou tomando partido sobre isso aqui.",
+        "turn": 37,
+        "start": 125009,
+        "end": 125307
+      },
+      "verifier": {
+        "probability": 0.13123351800461022,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-39-0-1",
+      "hearing_id": 39,
+      "n": 2,
+      "article_name": "Rui Falcão",
+      "proposition": "A interpretação que sempre prevaleceu é a de que cabe às Forças Armadas 'a defesa da Pátria, a garantia dos poderes constitucionais e, por iniciativa de qualquer destes, da lei e da ordem'.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Uma das soluções seria adotarmos o parlamentarismo mais uma vez. Na situação atual, com o regime presidencialista, como os senhores veem a possibilidade de conferir ao Ministério Público pelo menos a qualidade de atuar como um quarto Poder, com a atribuição de mediar conflitos entre os demais Poderes?\" Estou só lendo.",
+        "turn": 37,
+        "start": 124944,
+        "end": 125264
+      },
+      "verifier": {
+        "probability": 0.08981800243865176,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

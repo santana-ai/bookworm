@@ -1,0 +1,41 @@
+[dataset]
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+
+[encoder]
+name = "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder"
+revision = "a01887015444f7599669c509447c5bdbce958916"
+batch_size = 64
+device = "auto"
+
+[evidence]
+embedding_threshold = 0.45
+calibration_source = "artifacts/calibration/threshold_v1.json"
+calibration_records = 106
+calibration_pairs = 183
+calibration_method = "legacy_random rule on train hearings only: unmasked opinion vs its trusted-quote sentence (positives) and vs a random sentence of another train hearing (negatives), midpoint of q25(positive) and q75(negative); bootstrap 95% interval 0.4366-0.4687 by hearing"
+threshold_decision = "Recorded on 2026-09-23. The pre-declared primary rule (masked_top1_youden) was run and is degenerate on this benchmark: 12 of 142 masked train queries have a correct top-1, incorrect top-1 scores are higher than correct ones (medians 0.655 vs 0.578), the best Youden J is 0 and its threshold keeps every query, so it carries no information about correctness and is not adopted. The fallback is the historical legacy rule recomputed on train only, which removes the calibration leakage of the previous 0.47 (dev20 overlapped validation and test). The threshold is a label boundary, not a validated confidence level; that question is left to the confidence-policy experiments and the human validation sample."
+previous_embedding_threshold = 0.47
+
+[run]
+seed = 42
+output_dir = "artifacts/udv"
+cache_dir = "artifacts/cache/embeddings"
+
+[calibration]
+version = "threshold_v1"
+splits = ["train"]
+manifest_path = "artifacts/splits/temporal_v1.json"
+masked_benchmark_path = "artifacts/benchmarks/masked_quotes_v1.jsonl"
+output_dir = "artifacts/calibration"
+primary_rule = "masked_top1_youden"
+primary_rule_declaration = "Declared on 2026-09-22, before any calibration result on real embeddings was computed. The threshold decides whether the top-1 sentence the encoder picks among the speaker's sentences becomes semantic_match_high, so the primary rule calibrates that decision directly: on train opinions whose quoted spans were removed (masked_quotes benchmark), top-1 is correct when it agrees with the quote target, and the threshold maximizes Youden's J of 'score >= t predicts a correct top-1'. The three pair rules are reported for comparison with the historical 0.47 and are not used to choose the threshold. Writing the chosen value into [evidence].embedding_threshold is a separate, recorded step."
+seed = 42
+bootstrap_samples = 1000
+bootstrap_unit = "hearing"
+bootstrap_unit_reason = "opinions of the same hearing share speakers, topic and transcript, so they are not independent; each bootstrap replicate resamples whole hearings and redraws the random negatives"
+confidence_level = 0.95
+negatives_per_query = 1
+positive_quantile = 0.25
+negative_quantile = 0.75
+threshold_decimals = 2

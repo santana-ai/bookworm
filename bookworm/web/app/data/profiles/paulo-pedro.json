@@ -1,0 +1,351 @@
+{
+  "actor": {
+    "slug": "paulo-pedro",
+    "name": "PAULO PEDRO",
+    "display_name": "Paulo Pedro de Carvalho",
+    "role": "Coordenador da ASA na Caatinga de Pernambuco",
+    "article_names": [
+      "Paulo Pedro de Carvalho"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:58:16+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      169
+    ],
+    "input_tokens": 3439,
+    "output_tokens": 899,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 2,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação da PEC 504 para reconhecer os biomas Cerrado e Caatinga como patrimônios nacionais na Constituição Federal, argumentando que a exclusão desses biomas do reconhecimento constitucional original é uma injustiça que precisa ser corrigida.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 20870,
+            "end": 20988,
+            "text": "Nós povo da Caatinga e do Cerrado também merecemos ter os nossos biomas reconhecidos na forma da Constituição Federal.",
+            "score": 0.2513
+          },
+          "udv": {
+            "id": "udv-169-1-1",
+            "rule": "same_sentence",
+            "score": 0.1822
+          }
+        },
+        {
+          "text": "Propõe a implementação de pelo menos 1 milhão de tetos solares no meio rural do Semiárido brasileiro, integrando a geração de energia ao Bioma Cerrado.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 24339,
+            "end": 24681,
+            "text": "Não é isso o que está acontecendo com muitos grandes parques de energia eólica, de energia solar, que estão prejudicando o meio ambiente, prejudicando a vida das comunidades, tão somente por interesse econômico de grandes grupos econômicos.Então, a ASA está propondo pelo menos 1 milhão de tetos solares no meio rural do Semiárido brasileiro.",
+            "score": 0.4137
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica os grandes parques de energia eólica e solar por prejudicarem o meio ambiente e a vida das comunidades em nome do interesse econômico de grandes grupos, defendendo que a energia no Brasil precisa ser verdadeiramente renovável.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 24339,
+            "end": 24681,
+            "text": "Não é isso o que está acontecendo com muitos grandes parques de energia eólica, de energia solar, que estão prejudicando o meio ambiente, prejudicando a vida das comunidades, tão somente por interesse econômico de grandes grupos econômicos.Então, a ASA está propondo pelo menos 1 milhão de tetos solares no meio rural do Semiárido brasileiro.",
+            "score": 0.5473
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra o controle e a erradicação do uso de agrotóxicos, alegando que essa prática está matando o solo, prejudicando os alimentos e envenenando a população brasileira.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 24749,
+            "end": 24902,
+            "text": "E precisamos controlar e erradicar o uso de agrotóxico, que está matando o nosso solo, prejudicando nossos alimentos, envenenando todo o povo brasileiro.",
+            "score": 0.4316
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende as sementes crioulas e das tradições, citando nomes regionais como \"semente da paixão\" (Paraíba) e \"semente da partilha\", e exige que esse patrimônio genético seja mais estudado e valorizado.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 25057,
+            "end": 25161,
+            "text": "Lá na Paraíba, é semente da paixão; em alguns Estados, é semente da partilha, semente da biodiversidade.",
+            "score": 0.468
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a convivência com o Semiárido deve ser a base das políticas públicas, valorizando os conhecimentos construídos ao longo de séculos para lidar com a seca e a pouca chuva.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 19927,
+            "end": 20180,
+            "text": "Quando nós falamos de convivência com o Semiárido, estamos falando de valorização dos conhecimentos que foram construídos há séculos na convivência com a realidade de seca, de pouca chuva — e, ainda assim, é o Semiárido mais chuvoso e populoso do mundo.",
+            "score": 0.4507
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento da justiça e da igualdade como fundamento para a defesa dos biomas, afirmando que o reconhecimento constitucional é uma forma de \"fazer justiça\" e \"igualar\" os direitos dos povos da Caatinga e do Cerrado aos dos demais biomas.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 20676,
+            "end": 20840,
+            "text": "Nós estamos aqui juntos, Cerrado e Caatinga, tentando dizer que queremos apenas uma atitude simples, Deputada, deste Congresso: fazer justiça com esses dois biomas.",
+            "score": 0.2001
+          },
+          "udv": {
+            "id": "udv-169-1-0",
+            "rule": "same_sentence",
+            "score": 0.229
+          }
+        },
+        {
+          "text": "Baseia suas posições na importância estratégica dos biomas para o país, citando que o Cerrado é a \"caixa d'água do Brasil\" (origem do Rio São Francisco) e que a Caatinga é um bioma único no mundo, com grande capacidade de segurar carbono no solo.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 22186,
+            "end": 22546,
+            "text": "Eu queria também falar que o Bioma Caatinga, agora que nós vivemos preocupados com as mudanças climáticas, muitas vezes era desconsiderado, como até mesmo o Cerrado, quanto à sua importância para contribuir com a superação das mudanças climáticas, mas foi comprovado que a Caatinga tem uma grande capacidade de segurar o carbono no seu solo — a Caatinga em pé.",
+            "score": 0.2816
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a relevância demográfica e territorial dos biomas para justificar a urgência do reconhecimento, afirmando que a Caatinga abriga 47% das famílias agricultoras do país, representa mais de 11% do território nacional e 16% da população, e que, somados ao Cerrado, os dois biomas ocupam 30% do território.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 23151,
+            "end": 23233,
+            "text": "Só a Caatinga é mais de 11% do território brasileiro, é 16% da população nacional.",
+            "score": 0.449
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a perspectiva de \"Caatinga em pé\", associando a conservação do bioma à prática da agrofloresta e da agroecologia como formas de garantir a sobrevivência dos povos e a superação das mudanças climáticas.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 22676,
+            "end": 22752,
+            "text": "Para nós interessa a Caatinga em pé, com a agrofloresta, com a agroecologia.",
+            "score": 0.3527
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da Articulação no Semiárido Brasileiro (ASA), organização que atua há 25 anos na agenda política nacional pela convivência com o Semiárido.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 19543,
+            "end": 19729,
+            "text": "A Articulação no Semiárido Brasileiro, há 25 anos, vem trabalhando para reconhecer e colocar na agenda política nacional a convivência com o Semiárido, com a realidade do Bioma Caatinga.",
+            "score": 0.5779
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a Deputada Célia Xakriabá, o Deputado Fernando Mineiro, o Diretor do Departamento de Combate à Desertificação Alexandre Pires e a agricultora Silvanete, do Araripe (Pernambuco).",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 19050,
+            "end": 19412,
+            "text": "Esse é o sentimento que estamos vivendo, Deputadas e Deputados; Deputado Fernando Mineiro, do Nordeste, potiguar, do Rio Grande do Norte; nosso querido Diretor do Departamento de Combate à Desertificação Alexandre Pires, que tem suas origens na ASA; e companheira Silvanete, do Araripe, de Pernambuco, uma agricultora que trabalha na perspectiva da agrofloresta.",
+            "score": 0.5385
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se em conjunto com os representantes do Cerrado, afirmando que a luta pela PEC 504 é uma união entre os dois biomas.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 25326,
+            "end": 25685,
+            "text": "Eu estou com muita esperança de que nós venhamos aqui nos irmanar com o Cerrado, com todos os representantes de todos os biomas brasileiros, para, finalmente, depois de mais de 2 décadas de luta, reconhecermos que a PEC 504 foi aprovada neste Congresso, fazermos justiça e partirmos para outro momento de reconhecimento desses dois grandes biomas brasileiros.",
+            "score": 0.3335
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos e fatos geográficos para sustentar suas propostas, como a porcentagem de agricultores familiares na Caatinga, a extensão territorial dos biomas e a capacidade de sequestro de carbono.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de esperança e união, utilizando expressões como \"momento de união\", \"irmarar\" e \"fazer justiça\" para mobilizar os interlocutores.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 19414,
+            "end": 19491,
+            "text": "Eu diria, minha gente, que hoje nós estamos aqui vivendo um momento de união.",
+            "score": 0.2238
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos locais e culturais, como os nomes regionais das sementes crioulas e a identidade climática do Semiárido, para humanizar o debate e conectar a política pública à realidade das comunidades.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 24904,
+            "end": 25019,
+            "text": "Nós precisamos também dizer que as sementes que nós defendemos são as sementes crioulas, as sementes das tradições.",
+            "score": 0.2177
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue claramente entre o que considera desenvolvimento sustentável (agrofloresta, agroecologia, energia solar rural) e o que critica como predatório (grandes parques eólicos/solares, agrotóxicos), baseando-se no impacto social e ambiental.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 5,
+            "start": 24339,
+            "end": 24681,
+            "text": "Não é isso o que está acontecendo com muitos grandes parques de energia eólica, de energia solar, que estão prejudicando o meio ambiente, prejudicando a vida das comunidades, tão somente por interesse econômico de grandes grupos econômicos.Então, a ASA está propondo pelo menos 1 milhão de tetos solares no meio rural do Semiárido brasileiro.",
+            "score": 0.2299
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 11,
+      "split": "validation",
+      "article_date": "2023-12-14",
+      "title": "Especialistas reforçam alertas de seca severa e riscos de desertificação no Nordeste",
+      "assunto": "Alertas de seca severa e riscos de desertificação no Nordeste brasileiro",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 169,
+      "split": "train",
+      "article_date": "2023-09-14",
+      "title": "Com apoio parcial do governo, movimentos sociais querem Cerrado e Caatinga como patrimônios nacionais",
+      "assunto": "Reconhecimento dos biomas Cerrado e Caatinga como patrimônios nacionais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-11-2-0",
+      "hearing_id": 11,
+      "n": 6,
+      "article_name": "Paulo Pedro de Carvalho",
+      "proposition": "\"O bioma Caatinga já é um grande estocador de alimentos. É preciso a gente seguir o exemplo do bioma, estocando água e alimentos: recaatingar as regiões que estão em processo de desertificação. Para nós, a base é a convivência com o semiárido, é a agroecologia e recuperar os solos\".",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O Bioma Caatinga já é um grande estocador de alimentos. É preciso seguirmos o exemplo da Caatinga, estocando alimentos e água.É preciso também estocar sementes. E não me refiro a quaisquer sementes, mas sementes crioulas, sementes adaptadas, sementes da cultura da nossa região.",
+        "turn": 15,
+        "start": 76044,
+        "end": 76322
+      },
+      "verifier": {
+        "probability": 0.5137479499609973,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-169-1-0",
+      "hearing_id": 169,
+      "n": 2,
+      "article_name": "Paulo Pedro de Carvalho",
+      "proposition": "Reforçou a tese de conexão e interdependência dos biomas",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós estamos aqui juntos, Cerrado e Caatinga, tentando dizer que queremos apenas uma atitude simples, Deputada, deste Congresso: fazer justiça com esses dois biomas. Isso é igualar, é respeitar.",
+        "turn": 5,
+        "start": 20676,
+        "end": 20869
+      },
+      "verifier": {
+        "probability": 0.38592509913001577,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-169-1-1",
+      "hearing_id": 169,
+      "n": 3,
+      "article_name": "Paulo Pedro de Carvalho",
+      "proposition": "Não vê obstáculos das PECs para os setores produtivos ambientalmente sustentáveis: \"Nós não estamos aqui contra o desenvolvimento. Muito pelo contrário: povos da Caatinga e do Cerrado merecemos ter os nossos biomas reconhecidos na Constituição Federal.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós povo da Caatinga e do Cerrado também merecemos ter os nossos biomas reconhecidos na forma da Constituição Federal. Com isso, poderemos dizer que nós estamos fazendo justiça.",
+        "turn": 5,
+        "start": 20870,
+        "end": 21047
+      },
+      "verifier": {
+        "probability": 0.5629840022806959,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

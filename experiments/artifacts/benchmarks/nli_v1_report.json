@@ -1,0 +1,1534 @@
+{
+  "benchmark_version": "nli_v1",
+  "created_at": "2026-09-23T02:10:31+00:00",
+  "sources": {
+    "lds": {
+      "path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "nli": {
+      "path": "dataset/PublicHearingBR_NLI.jsonl",
+      "sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    }
+  },
+  "label_semantics": {
+    "label_inferable": "True when the annotator judged the opinion inferable from the four retrieved chunks; it says nothing about text outside those chunks",
+    "source_fields": {
+      "manual": "verificacao_manual",
+      "judges": "alucinacao"
+    },
+    "source_true_means": "not_inferable",
+    "polarity_source": "arXiv 2410.07495v2, section 4.2.2 (3 734 valid opinions, 504 possible hallucinations) and Appendix C, Tables 5 to 8",
+    "paper_check": {
+      "scope": "all opinions, every split; a check of the label encoding, not a selection",
+      "cell_order": [
+        "valid_as_valid",
+        "valid_as_hallucination",
+        "hallucination_as_valid",
+        "hallucination_as_hallucination"
+      ],
+      "manual": {
+        "expected": {
+          "inferable": 3734,
+          "not_inferable": 504
+        },
+        "computed": {
+          "inferable": 3734,
+          "not_inferable": 504
+        },
+        "match": true
+      },
+      "judges": {
+        "prompt_1_gpt-4o-mini-2024-07-18": {
+          "expected": [
+            3673,
+            61,
+            181,
+            323
+          ],
+          "computed": [
+            3673,
+            61,
+            181,
+            323
+          ],
+          "match": true
+        },
+        "prompt_2_gpt-4o-mini-2024-07-18": {
+          "expected": [
+            3274,
+            460,
+            89,
+            415
+          ],
+          "computed": [
+            3274,
+            460,
+            89,
+            415
+          ],
+          "match": true
+        },
+        "prompt_3_gpt-4o-mini-2024-07-18": {
+          "expected": [
+            2405,
+            1329,
+            39,
+            465
+          ],
+          "computed": [
+            2405,
+            1329,
+            39,
+            465
+          ],
+          "match": true
+        },
+        "prompt_1_gpt-4o-2024-08-06": {
+          "expected": [
+            3561,
+            173,
+            165,
+            339
+          ],
+          "computed": [
+            3561,
+            173,
+            165,
+            339
+          ],
+          "match": true
+        },
+        "prompt_2_gpt-4o-2024-08-06": {
+          "expected": [
+            3276,
+            458,
+            90,
+            414
+          ],
+          "computed": [
+            3276,
+            458,
+            90,
+            414
+          ],
+          "match": true
+        },
+        "prompt_3_gpt-4o-2024-08-06": {
+          "expected": [
+            2922,
+            812,
+            46,
+            458
+          ],
+          "computed": [
+            2922,
+            812,
+            46,
+            458
+          ],
+          "match": true
+        },
+        "prompt_1_deepseek-chat": {
+          "expected": [
+            3666,
+            68,
+            241,
+            263
+          ],
+          "computed": [
+            3666,
+            68,
+            241,
+            263
+          ],
+          "match": true
+        },
+        "prompt_2_deepseek-chat": {
+          "expected": [
+            3585,
+            149,
+            167,
+            337
+          ],
+          "computed": [
+            3585,
+            149,
+            167,
+            337
+          ],
+          "match": true
+        },
+        "prompt_3_deepseek-chat": {
+          "expected": [
+            3300,
+            434,
+            95,
+            409
+          ],
+          "computed": [
+            3300,
+            434,
+            95,
+            409
+          ],
+          "match": true
+        },
+        "prompt_1_sabia-3.1-2025-05-08": {
+          "expected": [
+            3677,
+            57,
+            255,
+            249
+          ],
+          "computed": [
+            3677,
+            57,
+            255,
+            249
+          ],
+          "match": true
+        },
+        "prompt_2_sabia-3.1-2025-05-08": {
+          "expected": [
+            3647,
+            87,
+            221,
+            283
+          ],
+          "computed": [
+            3647,
+            87,
+            221,
+            283
+          ],
+          "match": true
+        },
+        "prompt_3_sabia-3.1-2025-05-08": {
+          "expected": [
+            3632,
+            102,
+            208,
+            296
+          ],
+          "computed": [
+            3632,
+            102,
+            208,
+            296
+          ],
+          "match": true
+        }
+      },
+      "all_match": true
+    }
+  },
+  "field_definitions": {
+    "chunks[].segments": "a chunk found contiguously has one segment; otherwise it is split at line breaks and consecutive lines are merged while they stay contiguous in the transcript",
+    "segments[].match_mode": "exact_whitespace joins chunk tokens with one or more whitespace characters; whitespace_inserted also allows none, for places where the transcript has no space after punctuation",
+    "segments[].start_char": "first occurrence for the first segment; for later segments, the first occurrence after the previous segment; match_count > 1 marks an ambiguous choice",
+    "chunks[].reachable": "every segment text occurs at least once entirely inside turns resolved for the NLI person, so a search restricted to that person's speech can return it",
+    "chunks[].reachable_at_chosen_occurrence": "same test applied only to the occurrence recorded in start_char/end_char",
+    "chunks[].text": "written only when output.include_chunk_text is true; otherwise the chunk text is chunks_proximos[position] of the same opinion in the gated NLI file, where the row id nli-{hearing}-{person}-{opinion} indexes metadados_extraidos.envolvidos and opinioes"
+  },
+  "splits": {
+    "train": {
+      "hearings": 144,
+      "people": {
+        "total": 980,
+        "with_opinions": 976,
+        "resolved": 963,
+        "resolved_with_opinions": 959,
+        "resolution_rate_with_opinions": 0.9826
+      },
+      "opinions": {
+        "total": 2981,
+        "inferable": 2642,
+        "not_inferable": 339,
+        "not_inferable_share": 0.1137,
+        "with_resolved_person": 2930,
+        "without_chunks": 1,
+        "with_repeated_chunks": 29
+      },
+      "chunks": {
+        "total": 11920,
+        "located": 11920,
+        "location_rate": 1.0,
+        "by_structure": {
+          "contiguous": 11094,
+          "multi_segment": 826
+        },
+        "not_located_by_reason": {
+          "empty_chunk": 0,
+          "hearing_not_in_lds": 0,
+          "not_found": 0,
+          "segment_not_found": 0
+        },
+        "segments": 12958,
+        "segments_by_match_mode": {
+          "exact_whitespace": 11846,
+          "whitespace_inserted": 1112
+        },
+        "segments_per_multi_segment_chunk": {
+          "2": 670,
+          "3": 118,
+          "4": 25,
+          "5": 9,
+          "6": 3,
+          "7": 1
+        },
+        "chunks_with_ambiguous_segment": 105,
+        "chunks_with_out_of_order_segment": 0,
+        "chunks_with_segment_outside_turns": 2,
+        "chunks_with_segment_crossing_turns": 0,
+        "chunks_with_mixed_speakers": 46,
+        "chunks_with_mixed_speakers_and_unique_segments": 0
+      },
+      "reachability": {
+        "located_chunks": 11920,
+        "reachable_chunks": 11719,
+        "reachable_rate": 0.9831,
+        "reachable_at_chosen_occurrence_chunks": 11674,
+        "reachable_at_chosen_occurrence_rate": 0.9794,
+        "located_chunks_of_resolved_people": 11720,
+        "reachable_rate_among_resolved_people": 0.9999,
+        "opinions_with_chunks": {
+          "opinions": 2980,
+          "all_chunks_reachable": 2929,
+          "any_chunk_reachable": 2930,
+          "no_chunk_reachable": 50
+        },
+        "opinions_with_chunks_by_label": {
+          "inferable": {
+            "opinions": 2642,
+            "all_chunks_reachable": 2602,
+            "any_chunk_reachable": 2602,
+            "no_chunk_reachable": 40
+          },
+          "not_inferable": {
+            "opinions": 338,
+            "all_chunks_reachable": 327,
+            "any_chunk_reachable": 328,
+            "no_chunk_reachable": 10
+          }
+        }
+      }
+    },
+    "validation": {
+      "hearings": 32,
+      "people": {
+        "total": 228,
+        "with_opinions": 227,
+        "resolved": 225,
+        "resolved_with_opinions": 224,
+        "resolution_rate_with_opinions": 0.9868
+      },
+      "opinions": {
+        "total": 698,
+        "inferable": 622,
+        "not_inferable": 76,
+        "not_inferable_share": 0.1089,
+        "with_resolved_person": 691,
+        "without_chunks": 0,
+        "with_repeated_chunks": 16
+      },
+      "chunks": {
+        "total": 2792,
+        "located": 2792,
+        "location_rate": 1.0,
+        "by_structure": {
+          "contiguous": 2603,
+          "multi_segment": 189
+        },
+        "not_located_by_reason": {
+          "empty_chunk": 0,
+          "hearing_not_in_lds": 0,
+          "not_found": 0,
+          "segment_not_found": 0
+        },
+        "segments": 3021,
+        "segments_by_match_mode": {
+          "exact_whitespace": 2765,
+          "whitespace_inserted": 256
+        },
+        "segments_per_multi_segment_chunk": {
+          "2": 157,
+          "3": 24,
+          "4": 8
+        },
+        "chunks_with_ambiguous_segment": 8,
+        "chunks_with_out_of_order_segment": 0,
+        "chunks_with_segment_outside_turns": 0,
+        "chunks_with_segment_crossing_turns": 0,
+        "chunks_with_mixed_speakers": 4,
+        "chunks_with_mixed_speakers_and_unique_segments": 0
+      },
+      "reachability": {
+        "located_chunks": 2792,
+        "reachable_chunks": 2764,
+        "reachable_rate": 0.99,
+        "reachable_at_chosen_occurrence_chunks": 2760,
+        "reachable_at_chosen_occurrence_rate": 0.9885,
+        "located_chunks_of_resolved_people": 2764,
+        "reachable_rate_among_resolved_people": 1.0,
+        "opinions_with_chunks": {
+          "opinions": 698,
+          "all_chunks_reachable": 691,
+          "any_chunk_reachable": 691,
+          "no_chunk_reachable": 7
+        },
+        "opinions_with_chunks_by_label": {
+          "inferable": {
+            "opinions": 622,
+            "all_chunks_reachable": 620,
+            "any_chunk_reachable": 620,
+            "no_chunk_reachable": 2
+          },
+          "not_inferable": {
+            "opinions": 76,
+            "all_chunks_reachable": 71,
+            "any_chunk_reachable": 71,
+            "no_chunk_reachable": 5
+          }
+        }
+      }
+    },
+    "test": {
+      "hearings": 30,
+      "people": {
+        "total": 205,
+        "with_opinions": 203,
+        "resolved": 202,
+        "resolved_with_opinions": 200,
+        "resolution_rate_with_opinions": 0.9852
+      },
+      "opinions": {
+        "total": 559,
+        "inferable": 470,
+        "not_inferable": 89,
+        "not_inferable_share": 0.1592,
+        "with_resolved_person": 552,
+        "without_chunks": 0,
+        "with_repeated_chunks": 26
+      },
+      "chunks": {
+        "total": 2236,
+        "located": 2228,
+        "location_rate": 0.9964,
+        "by_structure": {
+          "contiguous": 2012,
+          "multi_segment": 216
+        },
+        "not_located_by_reason": {
+          "empty_chunk": 8,
+          "hearing_not_in_lds": 0,
+          "not_found": 0,
+          "segment_not_found": 0
+        },
+        "segments": 2556,
+        "segments_by_match_mode": {
+          "exact_whitespace": 2373,
+          "whitespace_inserted": 183
+        },
+        "segments_per_multi_segment_chunk": {
+          "2": 180,
+          "3": 20,
+          "4": 4,
+          "9": 12
+        },
+        "chunks_with_ambiguous_segment": 90,
+        "chunks_with_out_of_order_segment": 0,
+        "chunks_with_segment_outside_turns": 0,
+        "chunks_with_segment_crossing_turns": 0,
+        "chunks_with_mixed_speakers": 82,
+        "chunks_with_mixed_speakers_and_unique_segments": 0
+      },
+      "reachability": {
+        "located_chunks": 2228,
+        "reachable_chunks": 2200,
+        "reachable_rate": 0.9874,
+        "reachable_at_chosen_occurrence_chunks": 2118,
+        "reachable_at_chosen_occurrence_rate": 0.9506,
+        "located_chunks_of_resolved_people": 2200,
+        "reachable_rate_among_resolved_people": 1.0,
+        "opinions_with_chunks": {
+          "opinions": 559,
+          "all_chunks_reachable": 550,
+          "any_chunk_reachable": 550,
+          "no_chunk_reachable": 9
+        },
+        "opinions_with_chunks_by_label": {
+          "inferable": {
+            "opinions": 470,
+            "all_chunks_reachable": 463,
+            "any_chunk_reachable": 463,
+            "no_chunk_reachable": 7
+          },
+          "not_inferable": {
+            "opinions": 89,
+            "all_chunks_reachable": 87,
+            "any_chunk_reachable": 87,
+            "no_chunk_reachable": 2
+          }
+        }
+      }
+    },
+    "all": {
+      "hearings": 206,
+      "people": {
+        "total": 1413,
+        "with_opinions": 1406,
+        "resolved": 1390,
+        "resolved_with_opinions": 1383,
+        "resolution_rate_with_opinions": 0.9836
+      },
+      "opinions": {
+        "total": 4238,
+        "inferable": 3734,
+        "not_inferable": 504,
+        "not_inferable_share": 0.1189,
+        "with_resolved_person": 4173,
+        "without_chunks": 1,
+        "with_repeated_chunks": 71
+      },
+      "chunks": {
+        "total": 16948,
+        "located": 16940,
+        "location_rate": 0.9995,
+        "by_structure": {
+          "contiguous": 15709,
+          "multi_segment": 1231
+        },
+        "not_located_by_reason": {
+          "empty_chunk": 8,
+          "hearing_not_in_lds": 0,
+          "not_found": 0,
+          "segment_not_found": 0
+        },
+        "segments": 18535,
+        "segments_by_match_mode": {
+          "exact_whitespace": 16984,
+          "whitespace_inserted": 1551
+        },
+        "segments_per_multi_segment_chunk": {
+          "2": 1007,
+          "3": 162,
+          "4": 37,
+          "5": 9,
+          "6": 3,
+          "7": 1,
+          "9": 12
+        },
+        "chunks_with_ambiguous_segment": 203,
+        "chunks_with_out_of_order_segment": 0,
+        "chunks_with_segment_outside_turns": 2,
+        "chunks_with_segment_crossing_turns": 0,
+        "chunks_with_mixed_speakers": 132,
+        "chunks_with_mixed_speakers_and_unique_segments": 0
+      },
+      "reachability": {
+        "located_chunks": 16940,
+        "reachable_chunks": 16683,
+        "reachable_rate": 0.9848,
+        "reachable_at_chosen_occurrence_chunks": 16552,
+        "reachable_at_chosen_occurrence_rate": 0.9771,
+        "located_chunks_of_resolved_people": 16684,
+        "reachable_rate_among_resolved_people": 0.9999,
+        "opinions_with_chunks": {
+          "opinions": 4237,
+          "all_chunks_reachable": 4170,
+          "any_chunk_reachable": 4171,
+          "no_chunk_reachable": 66
+        },
+        "opinions_with_chunks_by_label": {
+          "inferable": {
+            "opinions": 3734,
+            "all_chunks_reachable": 3685,
+            "any_chunk_reachable": 3685,
+            "no_chunk_reachable": 49
+          },
+          "not_inferable": {
+            "opinions": 503,
+            "all_chunks_reachable": 485,
+            "any_chunk_reachable": 486,
+            "no_chunk_reachable": 17
+          }
+        }
+      }
+    }
+  },
+  "distinct_chunks_per_hearing": {
+    "total": 11423,
+    "located": 11422,
+    "location_rate": 0.9999,
+    "by_structure": {
+      "contiguous": 10579,
+      "multi_segment": 843
+    },
+    "not_located_by_reason": {
+      "empty_chunk": 1,
+      "hearing_not_in_lds": 0,
+      "not_found": 0,
+      "segment_not_found": 0
+    },
+    "segments": 12506,
+    "segments_by_match_mode": {
+      "exact_whitespace": 11467,
+      "whitespace_inserted": 1039
+    },
+    "segments_per_multi_segment_chunk": {
+      "2": 668,
+      "3": 129,
+      "4": 34,
+      "5": 8,
+      "6": 2,
+      "7": 1,
+      "9": 1
+    },
+    "chunks_with_ambiguous_segment": 85,
+    "chunks_with_out_of_order_segment": 0,
+    "chunks_with_segment_outside_turns": 2,
+    "chunks_with_segment_crossing_turns": 0,
+    "chunks_with_mixed_speakers": 30,
+    "chunks_with_mixed_speakers_and_unique_segments": 0
+  },
+  "unreachable_diagnostics": {
+    "method": "segments with no occurrence inside the person's resolved turns, counted per (NLI person, speaker of the chosen occurrence)",
+    "resolved_person_segment_elsewhere": {
+      "segments": 1,
+      "top": [
+        {
+          "person": "Ramiro Julio Soares Madureira",
+          "chunk_speaker": "MAX GAUDERETO OLIVEIRA",
+          "chunks": 1
+        }
+      ]
+    },
+    "unresolved_person_segments": {
+      "segments": 285,
+      "top": [
+        {
+          "person": "Márcio",
+          "chunk_speaker": "MÁRCIO TAVARES",
+          "chunks": 24
+        },
+        {
+          "person": "Dra. Sonia Umbelino Mendes",
+          "chunk_speaker": "SONIA REGINA UMBELINO MENDES",
+          "chunks": 22
+        },
+        {
+          "person": "Lauda Vieira dos Santos",
+          "chunk_speaker": "LAUDECI VIEIRA DOS SANTOS",
+          "chunks": 21
+        },
+        {
+          "person": "Andrea Donatti Gallassi",
+          "chunk_speaker": "ANDREA DONATTI GALASSI",
+          "chunks": 16
+        },
+        {
+          "person": "Carlos Augusto Simões Gonçalves Júnior",
+          "chunk_speaker": "CARLOS AUGUSTO SIMÕES GONÇALVEZ JÚNIOR",
+          "chunks": 15
+        },
+        {
+          "person": "Maria Rita Fernandes Couto",
+          "chunk_speaker": "ANA MARIA VILLA REAL FERREIRA RAMOS",
+          "chunks": 13
+        },
+        {
+          "person": "Elizabete Laurindo de Souza",
+          "chunk_speaker": "ELISABETE LAURINDO DE SOUZA",
+          "chunks": 13
+        },
+        {
+          "person": "Deputado Sanderson",
+          "chunk_speaker": "Sanderson",
+          "chunks": 13
+        },
+        {
+          "person": "Mauro O'de Almeida",
+          "chunk_speaker": "José Priante",
+          "chunks": 12
+        },
+        {
+          "person": "Eric Jonathan",
+          "chunk_speaker": "DIEGO BEZERRA ALVES",
+          "chunks": 12
+        },
+        {
+          "person": "Ariene D'arc Diniz e Amaral",
+          "chunk_speaker": "Felipe Rigoni",
+          "chunks": 12
+        },
+        {
+          "person": "Lourdinha",
+          "chunk_speaker": "MARIA DE LOURDES DE SOUZA NASCIMENTO",
+          "chunks": 12
+        },
+        {
+          "person": "Frei David",
+          "chunk_speaker": "DAVID RAIMUNDO DOS SANTOS",
+          "chunks": 12
+        },
+        {
+          "person": "Sérgio D. Bitencourt da Rocha",
+          "chunk_speaker": "SÉRGIO DILAMAR BITENCOURT DA ROCHA",
+          "chunks": 12
+        },
+        {
+          "person": "Pablo Bismark",
+          "chunk_speaker": "PABLO BISMARCK",
+          "chunks": 12
+        }
+      ]
+    }
+  },
+  "judge_evaluation": {
+    "train_validation": {
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "opinions": 3679,
+      "label_counts": {
+        "inferable": 3264,
+        "not_inferable": 415
+      },
+      "always_inferable_accuracy": 0.8872,
+      "judges": {
+        "prompt_1_gpt-4o-mini-2024-07-18": {
+          "prompt": 1,
+          "model": "gpt-4o-mini-2024-07-18",
+          "accuracy": 0.9421,
+          "cohen_kappa": 0.6733,
+          "macro_f1": 0.8362,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9523,
+              "recall": 0.9841,
+              "f1": 0.9679,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.8301,
+              "recall": 0.612,
+              "f1": 0.7046,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 3212,
+            "inferable_as_not_inferable": 52,
+            "not_inferable_as_inferable": 161,
+            "not_inferable_as_not_inferable": 254
+          },
+          "predicted_not_inferable": 306
+        },
+        "prompt_2_gpt-4o-mini-2024-07-18": {
+          "prompt": 2,
+          "model": "gpt-4o-mini-2024-07-18",
+          "accuracy": 0.8701,
+          "cohen_kappa": 0.5143,
+          "macro_f1": 0.7537,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9732,
+              "recall": 0.8778,
+              "f1": 0.923,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.4571,
+              "recall": 0.8096,
+              "f1": 0.5843,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 2865,
+            "inferable_as_not_inferable": 399,
+            "not_inferable_as_inferable": 79,
+            "not_inferable_as_not_inferable": 336
+          },
+          "predicted_not_inferable": 735
+        },
+        "prompt_3_gpt-4o-mini-2024-07-18": {
+          "prompt": 3,
+          "model": "gpt-4o-mini-2024-07-18",
+          "accuracy": 0.6733,
+          "cohen_kappa": 0.2526,
+          "macro_f1": 0.5815,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9822,
+              "recall": 0.6434,
+              "f1": 0.7775,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.2446,
+              "recall": 0.9084,
+              "f1": 0.3855,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 2100,
+            "inferable_as_not_inferable": 1164,
+            "not_inferable_as_inferable": 38,
+            "not_inferable_as_not_inferable": 377
+          },
+          "predicted_not_inferable": 1541
+        },
+        "prompt_1_gpt-4o-2024-08-06": {
+          "prompt": 1,
+          "model": "gpt-4o-2024-08-06",
+          "accuracy": 0.9182,
+          "cohen_kappa": 0.5951,
+          "macro_f1": 0.7975,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9551,
+              "recall": 0.9525,
+              "f1": 0.9538,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.6344,
+              "recall": 0.6482,
+              "f1": 0.6412,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 3109,
+            "inferable_as_not_inferable": 155,
+            "not_inferable_as_inferable": 146,
+            "not_inferable_as_not_inferable": 269
+          },
+          "predicted_not_inferable": 424
+        },
+        "prompt_2_gpt-4o-2024-08-06": {
+          "prompt": 2,
+          "model": "gpt-4o-2024-08-06",
+          "accuracy": 0.8695,
+          "cohen_kappa": 0.5131,
+          "macro_f1": 0.753,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9731,
+              "recall": 0.8771,
+              "f1": 0.9227,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.4559,
+              "recall": 0.8096,
+              "f1": 0.5833,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 2863,
+            "inferable_as_not_inferable": 401,
+            "not_inferable_as_inferable": 79,
+            "not_inferable_as_not_inferable": 336
+          },
+          "predicted_not_inferable": 737
+        },
+        "prompt_3_gpt-4o-2024-08-06": {
+          "prompt": 3,
+          "model": "gpt-4o-2024-08-06",
+          "accuracy": 0.7959,
+          "cohen_kappa": 0.4006,
+          "macro_f1": 0.6851,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9838,
+              "recall": 0.7828,
+              "f1": 0.8719,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.3447,
+              "recall": 0.8988,
+              "f1": 0.4983,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 2555,
+            "inferable_as_not_inferable": 709,
+            "not_inferable_as_inferable": 42,
+            "not_inferable_as_not_inferable": 373
+          },
+          "predicted_not_inferable": 1082
+        },
+        "prompt_1_deepseek-chat": {
+          "prompt": 1,
+          "model": "deepseek-chat",
+          "accuracy": 0.9258,
+          "cohen_kappa": 0.5582,
+          "macro_f1": 0.7779,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9377,
+              "recall": 0.9816,
+              "f1": 0.9591,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.771,
+              "recall": 0.4867,
+              "f1": 0.5968,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 3204,
+            "inferable_as_not_inferable": 60,
+            "not_inferable_as_inferable": 213,
+            "not_inferable_as_not_inferable": 202
+          },
+          "predicted_not_inferable": 262
+        },
+        "prompt_2_deepseek-chat": {
+          "prompt": 2,
+          "model": "deepseek-chat",
+          "accuracy": 0.9236,
+          "cohen_kappa": 0.6131,
+          "macro_f1": 0.8065,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9551,
+              "recall": 0.9589,
+              "f1": 0.957,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.6667,
+              "recall": 0.6458,
+              "f1": 0.6561,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 3130,
+            "inferable_as_not_inferable": 134,
+            "not_inferable_as_inferable": 147,
+            "not_inferable_as_not_inferable": 268
+          },
+          "predicted_not_inferable": 402
+        },
+        "prompt_3_deepseek-chat": {
+          "prompt": 3,
+          "model": "deepseek-chat",
+          "accuracy": 0.8739,
+          "cohen_kappa": 0.5187,
+          "macro_f1": 0.7564,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9714,
+              "recall": 0.8839,
+              "f1": 0.9256,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.4654,
+              "recall": 0.7952,
+              "f1": 0.5872,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 2885,
+            "inferable_as_not_inferable": 379,
+            "not_inferable_as_inferable": 85,
+            "not_inferable_as_not_inferable": 330
+          },
+          "predicted_not_inferable": 709
+        },
+        "prompt_1_sabia-3.1-2025-05-08": {
+          "prompt": 1,
+          "model": "sabia-3.1-2025-05-08",
+          "accuracy": 0.9266,
+          "cohen_kappa": 0.5547,
+          "macro_f1": 0.7759,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9362,
+              "recall": 0.9844,
+              "f1": 0.9597,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.7935,
+              "recall": 0.4723,
+              "f1": 0.5921,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 3213,
+            "inferable_as_not_inferable": 51,
+            "not_inferable_as_inferable": 219,
+            "not_inferable_as_not_inferable": 196
+          },
+          "predicted_not_inferable": 247
+        },
+        "prompt_2_sabia-3.1-2025-05-08": {
+          "prompt": 2,
+          "model": "sabia-3.1-2025-05-08",
+          "accuracy": 0.9255,
+          "cohen_kappa": 0.5752,
+          "macro_f1": 0.787,
+          "per_class": {
+            "inferable": {
+              "precision": 0.942,
+              "recall": 0.9761,
+              "f1": 0.9588,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.7374,
+              "recall": 0.5277,
+              "f1": 0.6152,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 3186,
+            "inferable_as_not_inferable": 78,
+            "not_inferable_as_inferable": 196,
+            "not_inferable_as_not_inferable": 219
+          },
+          "predicted_not_inferable": 297
+        },
+        "prompt_3_sabia-3.1-2025-05-08": {
+          "prompt": 3,
+          "model": "sabia-3.1-2025-05-08",
+          "accuracy": 0.9263,
+          "cohen_kappa": 0.5911,
+          "macro_f1": 0.7952,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9455,
+              "recall": 0.973,
+              "f1": 0.9591,
+              "support": 3264
+            },
+            "not_inferable": {
+              "precision": 0.725,
+              "recall": 0.559,
+              "f1": 0.6313,
+              "support": 415
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 3176,
+            "inferable_as_not_inferable": 88,
+            "not_inferable_as_inferable": 183,
+            "not_inferable_as_not_inferable": 232
+          },
+          "predicted_not_inferable": 320
+        }
+      }
+    },
+    "test": {
+      "splits": [
+        "test"
+      ],
+      "opinions": 559,
+      "label_counts": {
+        "inferable": 470,
+        "not_inferable": 89
+      },
+      "always_inferable_accuracy": 0.8408,
+      "judges": {
+        "prompt_1_gpt-4o-mini-2024-07-18": {
+          "prompt": 1,
+          "model": "gpt-4o-mini-2024-07-18",
+          "accuracy": 0.9481,
+          "cohen_kappa": 0.796,
+          "macro_f1": 0.8979,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9584,
+              "recall": 0.9809,
+              "f1": 0.9695,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.8846,
+              "recall": 0.7753,
+              "f1": 0.8263,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 461,
+            "inferable_as_not_inferable": 9,
+            "not_inferable_as_inferable": 20,
+            "not_inferable_as_not_inferable": 69
+          },
+          "predicted_not_inferable": 78
+        },
+        "prompt_2_gpt-4o-mini-2024-07-18": {
+          "prompt": 2,
+          "model": "gpt-4o-mini-2024-07-18",
+          "accuracy": 0.873,
+          "cohen_kappa": 0.615,
+          "macro_f1": 0.805,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9761,
+              "recall": 0.8702,
+              "f1": 0.9201,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.5643,
+              "recall": 0.8876,
+              "f1": 0.69,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 409,
+            "inferable_as_not_inferable": 61,
+            "not_inferable_as_inferable": 10,
+            "not_inferable_as_not_inferable": 79
+          },
+          "predicted_not_inferable": 140
+        },
+        "prompt_3_gpt-4o-mini-2024-07-18": {
+          "prompt": 3,
+          "model": "gpt-4o-mini-2024-07-18",
+          "accuracy": 0.703,
+          "cohen_kappa": 0.3651,
+          "macro_f1": 0.6504,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9967,
+              "recall": 0.6489,
+              "f1": 0.7861,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.3478,
+              "recall": 0.9888,
+              "f1": 0.5146,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 305,
+            "inferable_as_not_inferable": 165,
+            "not_inferable_as_inferable": 1,
+            "not_inferable_as_not_inferable": 88
+          },
+          "predicted_not_inferable": 253
+        },
+        "prompt_1_gpt-4o-2024-08-06": {
+          "prompt": 1,
+          "model": "gpt-4o-2024-08-06",
+          "accuracy": 0.9338,
+          "cohen_kappa": 0.7516,
+          "macro_f1": 0.8758,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9597,
+              "recall": 0.9617,
+              "f1": 0.9607,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.7955,
+              "recall": 0.7865,
+              "f1": 0.791,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 452,
+            "inferable_as_not_inferable": 18,
+            "not_inferable_as_inferable": 19,
+            "not_inferable_as_not_inferable": 70
+          },
+          "predicted_not_inferable": 88
+        },
+        "prompt_2_gpt-4o-2024-08-06": {
+          "prompt": 2,
+          "model": "gpt-4o-2024-08-06",
+          "accuracy": 0.8784,
+          "cohen_kappa": 0.6243,
+          "macro_f1": 0.8102,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9741,
+              "recall": 0.8787,
+              "f1": 0.9239,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.5778,
+              "recall": 0.8764,
+              "f1": 0.6964,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 413,
+            "inferable_as_not_inferable": 57,
+            "not_inferable_as_inferable": 11,
+            "not_inferable_as_not_inferable": 78
+          },
+          "predicted_not_inferable": 135
+        },
+        "prompt_3_gpt-4o-2024-08-06": {
+          "prompt": 3,
+          "model": "gpt-4o-2024-08-06",
+          "accuracy": 0.8086,
+          "cohen_kappa": 0.5072,
+          "macro_f1": 0.7432,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9892,
+              "recall": 0.7809,
+              "f1": 0.8728,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.4521,
+              "recall": 0.9551,
+              "f1": 0.6137,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 367,
+            "inferable_as_not_inferable": 103,
+            "not_inferable_as_inferable": 4,
+            "not_inferable_as_not_inferable": 85
+          },
+          "predicted_not_inferable": 188
+        },
+        "prompt_1_deepseek-chat": {
+          "prompt": 1,
+          "model": "deepseek-chat",
+          "accuracy": 0.9356,
+          "cohen_kappa": 0.7353,
+          "macro_f1": 0.8673,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9429,
+              "recall": 0.983,
+              "f1": 0.9625,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.8841,
+              "recall": 0.6854,
+              "f1": 0.7722,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 462,
+            "inferable_as_not_inferable": 8,
+            "not_inferable_as_inferable": 28,
+            "not_inferable_as_not_inferable": 61
+          },
+          "predicted_not_inferable": 69
+        },
+        "prompt_2_deepseek-chat": {
+          "prompt": 2,
+          "model": "deepseek-chat",
+          "accuracy": 0.9374,
+          "cohen_kappa": 0.7607,
+          "macro_f1": 0.8803,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9579,
+              "recall": 0.9681,
+              "f1": 0.963,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.8214,
+              "recall": 0.7753,
+              "f1": 0.7977,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 455,
+            "inferable_as_not_inferable": 15,
+            "not_inferable_as_inferable": 20,
+            "not_inferable_as_not_inferable": 69
+          },
+          "predicted_not_inferable": 84
+        },
+        "prompt_3_deepseek-chat": {
+          "prompt": 3,
+          "model": "deepseek-chat",
+          "accuracy": 0.8837,
+          "cohen_kappa": 0.6396,
+          "macro_f1": 0.8179,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9765,
+              "recall": 0.883,
+              "f1": 0.9274,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.5896,
+              "recall": 0.8876,
+              "f1": 0.7085,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 415,
+            "inferable_as_not_inferable": 55,
+            "not_inferable_as_inferable": 10,
+            "not_inferable_as_not_inferable": 79
+          },
+          "predicted_not_inferable": 134
+        },
+        "prompt_1_sabia-3.1-2025-05-08": {
+          "prompt": 1,
+          "model": "sabia-3.1-2025-05-08",
+          "accuracy": 0.9249,
+          "cohen_kappa": 0.675,
+          "macro_f1": 0.8365,
+          "per_class": {
+            "inferable": {
+              "precision": 0.928,
+              "recall": 0.9872,
+              "f1": 0.9567,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.8983,
+              "recall": 0.5955,
+              "f1": 0.7162,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 464,
+            "inferable_as_not_inferable": 6,
+            "not_inferable_as_inferable": 36,
+            "not_inferable_as_not_inferable": 53
+          },
+          "predicted_not_inferable": 59
+        },
+        "prompt_2_sabia-3.1-2025-05-08": {
+          "prompt": 2,
+          "model": "sabia-3.1-2025-05-08",
+          "accuracy": 0.9392,
+          "cohen_kappa": 0.755,
+          "macro_f1": 0.8773,
+          "per_class": {
+            "inferable": {
+              "precision": 0.9486,
+              "recall": 0.9809,
+              "f1": 0.9644,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.8767,
+              "recall": 0.7191,
+              "f1": 0.7901,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 461,
+            "inferable_as_not_inferable": 9,
+            "not_inferable_as_inferable": 25,
+            "not_inferable_as_not_inferable": 64
+          },
+          "predicted_not_inferable": 73
+        },
+        "prompt_3_sabia-3.1-2025-05-08": {
+          "prompt": 3,
+          "model": "sabia-3.1-2025-05-08",
+          "accuracy": 0.9302,
+          "cohen_kappa": 0.7257,
+          "macro_f1": 0.8627,
+          "per_class": {
+            "inferable": {
+              "precision": 0.948,
+              "recall": 0.9702,
+              "f1": 0.959,
+              "support": 470
+            },
+            "not_inferable": {
+              "precision": 0.8205,
+              "recall": 0.7191,
+              "f1": 0.7665,
+              "support": 89
+            }
+          },
+          "confusion": {
+            "inferable_as_inferable": 456,
+            "inferable_as_not_inferable": 14,
+            "not_inferable_as_inferable": 25,
+            "not_inferable_as_not_inferable": 64
+          },
+          "predicted_not_inferable": 78
+        }
+      }
+    }
+  },
+  "artifact": {
+    "path": "artifacts/benchmarks/nli_v1.jsonl",
+    "rows": 4238,
+    "bytes": 11021431,
+    "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d",
+    "include_chunk_text": false
+  },
+  "code": {
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e"
+  },
+  "timing": {
+    "elapsed_seconds": 13.5
+  },
+  "environment": {
+    "python": "3.12.13",
+    "scikit_learn": "1.9.0",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "lds_sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0",
+      "nli_path": "dataset/PublicHearingBR_NLI.jsonl",
+      "nli_sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json"
+    },
+    "labels": {
+      "manual_field": "verificacao_manual",
+      "judge_field": "alucinacao",
+      "true_means": "not_inferable",
+      "polarity_source": "arXiv 2410.07495v2, section 4.2.2 (3 734 valid opinions, 504 possible hallucinations) and Appendix C, Tables 5 to 8",
+      "paper_manual_counts": {
+        "inferable": 3734,
+        "not_inferable": 504
+      },
+      "paper_confusion": {
+        "cell_order": [
+          "valid_as_valid",
+          "valid_as_hallucination",
+          "hallucination_as_valid",
+          "hallucination_as_hallucination"
+        ],
+        "prompt_1_gpt-4o-mini-2024-07-18": [
+          3673,
+          61,
+          181,
+          323
+        ],
+        "prompt_2_gpt-4o-mini-2024-07-18": [
+          3274,
+          460,
+          89,
+          415
+        ],
+        "prompt_3_gpt-4o-mini-2024-07-18": [
+          2405,
+          1329,
+          39,
+          465
+        ],
+        "prompt_1_gpt-4o-2024-08-06": [
+          3561,
+          173,
+          165,
+          339
+        ],
+        "prompt_2_gpt-4o-2024-08-06": [
+          3276,
+          458,
+          90,
+          414
+        ],
+        "prompt_3_gpt-4o-2024-08-06": [
+          2922,
+          812,
+          46,
+          458
+        ],
+        "prompt_1_deepseek-chat": [
+          3666,
+          68,
+          241,
+          263
+        ],
+        "prompt_2_deepseek-chat": [
+          3585,
+          149,
+          167,
+          337
+        ],
+        "prompt_3_deepseek-chat": [
+          3300,
+          434,
+          95,
+          409
+        ],
+        "prompt_1_sabia-3.1-2025-05-08": [
+          3677,
+          57,
+          255,
+          249
+        ],
+        "prompt_2_sabia-3.1-2025-05-08": [
+          3647,
+          87,
+          221,
+          283
+        ],
+        "prompt_3_sabia-3.1-2025-05-08": [
+          3632,
+          102,
+          208,
+          296
+        ]
+      }
+    },
+    "evaluation": {
+      "scopes": {
+        "train_validation": [
+          "train",
+          "validation"
+        ],
+        "test": [
+          "test"
+        ]
+      }
+    },
+    "output": {
+      "include_chunk_text": false,
+      "top_unreachable_speakers": 15
+    },
+    "run": {
+      "benchmark_version": "nli_v1",
+      "seed": 42,
+      "output_dir": "artifacts/benchmarks"
+    }
+  }
+}

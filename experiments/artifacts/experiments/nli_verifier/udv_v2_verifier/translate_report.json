@@ -1,0 +1,104 @@
+{
+  "created_at": "2026-09-28T13:40:26+00:00",
+  "models": {
+    "nllb": {
+      "model": {
+        "condition": "nllb",
+        "role": "first_condition",
+        "name": "facebook/nllb-200-distilled-600M",
+        "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+        "license": "CC-BY-NC-4.0",
+        "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9"
+      },
+      "run": {
+        "requested": 6051,
+        "already_cached": 4685,
+        "translated": 1366,
+        "batches": 86,
+        "seconds": 357.24,
+        "texts_per_second": 3.8237,
+        "model_input_tokens": 44128,
+        "model_input_tokens_per_second": 123.52
+      },
+      "model_info": {
+        "role": "first_condition",
+        "name": "facebook/nllb-200-distilled-600M",
+        "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+        "resolved_commit": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+        "license": "CC-BY-NC-4.0",
+        "weights_file": {
+          "file": "pytorch_model.bin",
+          "path": "/Users/arthur/.cache/huggingface/hub/models--facebook--nllb-200-distilled-600M/snapshots/f8d333a098d19b4fd9a8b18f94170487ad3f821d/pytorch_model.bin",
+          "snapshot": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+          "snapshot_is_pinned_revision": true,
+          "blob": "c266c2cfd19758b6d09c1fc31ecdf1e485509035f6b51dfe84f1ada83eefcc42",
+          "format": "pytorch_bin"
+        },
+        "tokenizer": {
+          "tokenizer_class": "NllbTokenizer",
+          "source_token_id": 256141,
+          "target_token_id": 256047,
+          "special_tokens_per_input": 2,
+          "input_layout": "[src_token] tokens [</s>], checked on a probe sentence"
+        },
+        "dtype": "torch.float32",
+        "device": "mps",
+        "parameters": 615073792,
+        "torch_threads": 4,
+        "load_seconds": 2.9
+      },
+      "store": {
+        "path": "artifacts/cache/translation/translations_facebook-nllb-200-distilled-600m_f8d333a098d1.jsonl",
+        "signature": {
+          "model": "facebook/nllb-200-distilled-600M",
+          "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+          "src_lang": "por_Latn",
+          "tgt_lang": "eng_Latn",
+          "dtype": "float32",
+          "num_beams": 4,
+          "do_sample": false,
+          "length_penalty": 1.0,
+          "early_stopping": false,
+          "no_repeat_ngram_size": 0,
+          "repetition_penalty": 1.0,
+          "max_input_tokens": 512,
+          "max_new_tokens_ratio": 2.0,
+          "max_new_tokens_margin": 16,
+          "max_new_tokens_cap": 1020
+        },
+        "signature_sha256": "b9d9a899bcef1b762b757e3a1419167fb44032042d8f637ef29f84df427981e9",
+        "segmentation": {
+          "join_abbreviations": [
+            "Art.",
+            "Dr.",
+            "Dra.",
+            "Dras.",
+            "Drs.",
+            "Exma.",
+            "Exmo.",
+            "Prof.",
+            "Profa.",
+            "Profs.",
+            "Sr.",
+            "Sra.",
+            "Sras.",
+            "Srs.",
+            "V.Exa.",
+            "V.Exas.",
+            "art.",
+            "arts."
+          ],
+          "join_short_parts": true
+        },
+        "entries": 57360,
+        "entries_by_device": {
+          "cpu": 40,
+          "mps": 57320
+        },
+        "other_signature_lines": 0,
+        "incomplete_tail_bytes": 0
+      },
+      "still_missing": 0
+    }
+  }
+}

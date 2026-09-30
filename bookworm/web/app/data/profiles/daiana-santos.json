@@ -1,0 +1,375 @@
+{
+  "actor": {
+    "slug": "daiana-santos",
+    "name": "Daiana Santos",
+    "display_name": "Daiana Santos",
+    "role": "Deputada (PCdoB-RS)",
+    "article_names": [
+      "Daiana Santos"
+    ],
+    "party_uf": [
+      "Bloco/PCdoB - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:49:48+00:00",
+    "n_statements": 20,
+    "n_hearings": 2,
+    "hearing_ids": [
+      50,
+      147
+    ],
+    "input_tokens": 11940,
+    "output_tokens": 982,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 1,
+    "passage_only": 17,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a atualização dos protocolos de tratamento para HIV/aids e hepatites virais, criticando a ausência de revisões desde 2018, o que impede a priorização objetiva de investimentos e a reavaliação de estratégias.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 12,
+            "start": 33679,
+            "end": 33930,
+            "text": "Enquanto tu falavas, eu me recordava que, desde 2018, não existe atualização, que é essencial para que possamos ter andamento e, principalmente, para que possamos reavaliar e ter condições de priorizar de forma muito mais objetiva esses investimentos.",
+            "score": 0.2482
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que os determinantes sociais e condicionantes em saúde sejam incorporados aos planos estratégicos de enfrentamento, argumentando que, sem isso, não há efetividade no acesso e na permanência do cuidado, especialmente em territórios distantes.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 14,
+            "start": 51925,
+            "end": 52082,
+            "text": "Os determinantes sociais em saúde e os condicionantes em saúde precisam estar presentes na elaboração dos planos estratégicos para fazermos um enfrentamento.",
+            "score": 0.4706
+          },
+          "udv": {
+            "id": "udv-50-2-0",
+            "rule": "same_sentence",
+            "score": 0.4459
+          }
+        },
+        {
+          "text": "Cobra o investimento em pesquisa, tecnologia e produção nacional no complexo industrial da saúde, apontando que o período de desinvestimento impactou negativamente o cuidado e que a responsabilidade pela garantia do acesso universal é da Casa Legislativa.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 26,
+            "start": 70560,
+            "end": 70705,
+            "text": "Nós tivemos um período totalmente obscuro diante do investimento na tecnologia e na pesquisa e sabemos o quanto isso impacta no cuidado em saúde.",
+            "score": 0.3025
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a reformulação e reprogramação do programa PROINFÂNCIA do Governo Federal, exigindo recursos financeiros e humanos adequados, além de fiscalização e monitoramento, para garantir a oferta de vagas em creches.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 0,
+            "start": 8257,
+            "end": 8326,
+            "text": "É urgente que reformulemos o programa PROINFÂNCIA do Governo Federal.",
+            "score": 0.3538
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência do Estado na oferta de educação infantil, rejeitando a transferência de responsabilidade para convênios com escolas particulares, pois isso opera além da garantia do Estatuto da Criança e do Adolescente.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 0,
+            "start": 8824,
+            "end": 8898,
+            "text": "Além disso, existe a possibilidade dos convênios com escolas particulares.",
+            "score": 0.3763
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão de professores de educação infantil como profissionais do magistério, apoiando o Projeto de Lei nº 2.387, de 2023, e a articulação política para garantir vagas em berçários e Maternal 1 e 2.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 37,
+            "start": 112886,
+            "end": 113052,
+            "text": "Também foi solicitada aqui atenção ao Projeto de Lei nº 2.387, de 2023, que objetiva a inclusão dos professores de educação infantil como profissionais do magistério.",
+            "score": 0.6378
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a divulgação das listas de espera por vagas em creches, citando a lei de sua autoria (como Relatora) que determina essa transparência ao poder público para permitir a mobilização e a elaboração assertiva de políticas.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 37,
+            "start": 113905,
+            "end": 113974,
+            "text": "Essa lei determina ao poder público que divulgue as listas de espera.",
+            "score": 0.4838
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a adoção de medidas sugestivas a Estados e Municípios para a implementação de planos da primeira infância, inspirados no modelo de Minas Gerais, e a articulação de setores públicos e sociedade civil para cumprir metas constitucionais.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 37,
+            "start": 111052,
+            "end": 111644,
+            "text": "Nós temos estes encaminhamentos: avaliar a adoção de medida sugestiva a Estados e Municípios do plano da primeirainfância, como o que já existe no Estado de Minas Gerais — quem trouxe isso para nós foi a Promotora Paola —; articular os diferentes setores do poder público na sociedade civil, a fim de estabelecer metas e complementar suas ações no cumprimento do dever do Estado, para garantir os direitos das crianças nesta idade, de 0 a 6 anos, previstos na Constituição […]",
+            "score": 0.3015
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a Constituição Federal de 1988 e o Estatuto da Criança e do Adolescente como fundamentos para defender a educação infantil e a saúde como direitos fundamentais, não como privilégios.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 0,
+            "start": 8111,
+            "end": 8255,
+            "text": "O crescimento do déficit está ligado ao reconhecimento de que a educação pública é um direito das crianças, que está na Constituição desde 1988.",
+            "score": 0.2188
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a falta de vagas em creches e a desestruturação do sistema de saúde impactam desproporcionalmente mulheres negras, populações indígenas, pessoas em situação de rua e comunidades periféricas, reforçando a desigualdade de raça, gênero e classe.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 14,
+            "start": 52998,
+            "end": 53241,
+            "text": "Temos que pensar nisso de uma forma muito mais ampla, sempre garantindo essa oferta a mulheres, negros e negras, indígenas, nos territórios mais distantes, população em situação de rua, que fica, por vezes, à margem de todo e qualquer cuidado.",
+            "score": 0.1979
+          },
+          "udv": null
+        },
+        {
+          "text": "Sustenta que a educação infantil é um instrumento de proteção, socialização e segurança alimentar, além de ser o primeiro passo para a emancipação social e a redução das desigualdades profundas no País.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 9,
+            "start": 26967,
+            "end": 27138,
+            "text": "Nós temos que olhar para esse instrumento da educação infantil, esse acesso e essa garantia de permanência como forma de proteção e de socialização da segurança alimentar.",
+            "score": 0.5402
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a responsabilidade pelo cuidado e pela garantia de direitos é do ente público em todas as esferas, e que a ausência estatal gera mecanismos que violam direitos e sobrecarregam as famílias vulneráveis.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 0,
+            "start": 7339,
+            "end": 7552,
+            "text": "Só que, se a responsabilidade é do ente público, nós precisamos tornar isso evidente e fazer com que esse movimento seja levado a essas três esferas, para que haja uma política pública que precisa de investimento.",
+            "score": 0.213
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal pelo Rio Grande do Sul, Vice-Presidenta da Comissão dos Direitos Humanos, Minorias e Igualdade Racial.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 0,
+            "start": 63,
+            "end": 376,
+            "text": "Declaro aberta esta reunião de audiência pública da Comissão dos Direitos Humanos, Minorias e Igualdade Racial, destinada a debater a situação da falta de vagas no sistema público de creches ou conveniadas da educação infantil no Brasil e modelos que possam atender às diversas necessidades da família brasileira.",
+            "score": 0.2991
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como mulher negra de pele clara e moradora da periferia de Porto Alegre (morro Santana).",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 0,
+            "start": 7180,
+            "end": 7338,
+            "text": "Eu digo isso porque venho de uma comunidade da periferia de Porto Alegre, no morro Santana, onde as mulheres se organizam e umas cuidam dos filhos das outras.",
+            "score": 0.4044
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma alinhamento com a União Brasileira de Mulheres (UBM), a Deputada Estadual Bruna Rodrigues, a Deputada Erika Kokay e a Deputada Ana Pimentel.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 0,
+            "start": 12492,
+            "end": 12597,
+            "text": "Sem mais delongas, passo a palavra para a Presidenta Nacional da União Brasileira de Mulheres — UBM, Sra.",
+            "score": 0.2829
+          },
+          "udv": null
+        },
+        {
+          "text": "Registra a presença e a parceria com membros do Fórum Nacional do PCdoB sobre a Emancipação das Mulheres, como Lucia Rincon.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 9,
+            "start": 26232,
+            "end": 26442,
+            "text": "Antes de passar a palavra para a próxima participante, registro a presença de alguém que faz parte do Fórum Nacional do PCdoB sobre a Emancipação das Mulheres, a minha querida e gloriosa camarada, Lucia Rincon.",
+            "score": 0.5054
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos específicos (números de crianças sem vaga, percentuais de atendimento, déficits regionais) para sustentar a urgência das pautas e a necessidade de investimento.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de mobilização política, utilizando termos como \"tensionar\", \"encaminhamentos\", \"compromisso\" e \"responsabilidade\", e dirige-se aos interlocutores com tratamento de \"camarada\" e \"parceira\".",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Conecta as pautas de saúde e educação à luta contra o racismo e o sexismo, citando a interseccionalidade de raça, gênero e classe como centralidade das proposições.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 11,
+            "start": 35212,
+            "end": 35665,
+            "text": "Quando tu falas — eu até anotei aqui que é para não me perder exatamente — que o problema não é a maternidade, é o sistema, esse é o centro do nosso debate, porque essas relações que vêm sendo constantemente atacadas e desconstituídas falam do gênero, da raça e da classe, e isso tem que estar na centralidade das nossas proposições, porque fala da redução da desigualdade em um País que nunca investiu nesta camada social que paga uma conta muito cara.",
+            "score": 0.2103
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita experiências pessoais e locais (visitas a municípios do Rio Grande do Sul, vivência em comunidade periférica) para contextualizar os dados e demonstrar o impacto concreto das políticas públicas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Propõe encaminhamentos concretos e articulados, como a criação de frentes parlamentares, a fiscalização pelo Ministério Público e a inclusão de orçamentos específicos, visando a efetividade das ações.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 28,
+            "start": 73679,
+            "end": 73777,
+            "text": "Parlamentares, às assessorias, à imprensa, ao público em geral e aos palestrantes, principalmente.",
+            "score": 0.1543
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 50,
+      "split": "train",
+      "article_date": "2023-05-26",
+      "title": "Especialistas defendem atualização de protocolos de tratamento para aids e hepatites virais",
+      "assunto": "Atualização de protocolos de tratamento para HIV/aids e hepatites virais",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 147,
+      "split": "train",
+      "article_date": "2023-10-23",
+      "title": "Creche pública é fundamental para diminuir desigualdade social, afirmam especialistas",
+      "assunto": "Importância das creches públicas para a redução das desigualdades sociais no Brasil",
+      "turns": 15,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-50-2-0",
+      "hearing_id": 50,
+      "n": 11,
+      "article_name": "Daiana Santos",
+      "proposition": "Não há como pensar políticas públicas de saúde sem considerar 'os recortes específicos' de gênero, raça e localidade onde a população se encontra: \"Os determinantes sociais em saúde precisam estar presentes na elaboração dos planos estratégicos para a gente fazer o enfrentamento, sempre garantindo que mulheres, negras e negros, indígenas, nos territórios mais distantes, população em situação de rua, [tenham] o cuidado amplo e integral como a gente sabe que é necessário.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Os determinantes sociais em saúde e os condicionantes em saúde precisam estar presentes na elaboração dos planos estratégicos para fazermos um enfrentamento. Caso contrário, não vai haver efetividade, porque não se consegue acessar alguns territórios, e, por vezes, quem acessa o cuidado não tem a permanência.",
+        "turn": 14,
+        "start": 51925,
+        "end": 52235
+      },
+      "verifier": {
+        "probability": 0.4836614249983727,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-147-0-0",
+      "hearing_id": 147,
+      "n": 1,
+      "article_name": "Daiana Santos",
+      "proposition": "64% das crianças entre zero e cinco anos não têm acesso a creches no País. Esse índice atinge diretamente as famílias mais vulneráveis e impossibilita o acesso de milhares de mulheres ao mercado de trabalho: \"Essas crianças sem creche representam uma grande dificuldade para as famílias, em especial para as mães que dependem desse serviço para se manter em seus empregos.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Essas crianças sem creche representam uma grande dificuldade para as famílias, em especial para as mães trabalhadoras, que dependem desse serviço para se manter em seus empregos.",
+        "turn": 0,
+        "start": 5226,
+        "end": 5404
+      },
+      "verifier": {
+        "probability": 0.6891913122452811,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

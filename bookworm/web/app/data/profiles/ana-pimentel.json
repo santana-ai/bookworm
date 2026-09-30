@@ -1,0 +1,496 @@
+{
+  "actor": {
+    "slug": "ana-pimentel",
+    "name": "Ana Pimentel",
+    "display_name": "Ana Pimentel",
+    "role": "Deputada (PT-MG)",
+    "article_names": [
+      "Ana Pimentel"
+    ],
+    "party_uf": [
+      "Bloco/PT - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:49:10+00:00",
+    "n_statements": 19,
+    "n_hearings": 4,
+    "hearing_ids": [
+      171,
+      188,
+      199,
+      203
+    ],
+    "input_tokens": 7285,
+    "output_tokens": 1171,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 28,
+    "with_udv": 2,
+    "passage_only": 26,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a violência contra as mulheres é uma construção social fundamentada na desigualdade estrutural e histórica entre os sexos, e não um fenômeno natural, exigindo a superação da divisão sexual do trabalho que aprisiona as mulheres no trabalho de cuidado.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 31,
+            "start": 68440,
+            "end": 68538,
+            "text": "Ela é uma construção social, que se fundamenta na desigualdade estrutural entre homens e mulheres.",
+            "score": 0.3656
+          },
+          "udv": {
+            "id": "udv-203-3-0",
+            "rule": "similar_text",
+            "score": 0.3234
+          }
+        },
+        {
+          "text": "Critica a naturalização da violência e o discurso de que \"algumas vidas merecem ser perdidas\", argumentando que o papel do Estado deve ser de proteção, defesa e inteligência técnica, e não de extermínio.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 1,
+            "start": 8773,
+            "end": 8826,
+            "text": "Ela mencionou que algumas vidas merecem ser perdidas.",
+            "score": 0.3978
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção e a centralidade do Ministério das Mulheres como fundamental para a proteção das mulheres e a consolidação das políticas públicas de enfrentamento à violência.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 31,
+            "start": 69187,
+            "end": 69366,
+            "text": "Aqui foram também abordadas questões muito importantes, como processos de superação, de enfrentamento, de construção de políticas públicas, como a necessidade da rede de proteção.",
+            "score": 0.3096
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiou a aprovação do Projeto de Lei do Protocolo Não é Não, destacando-o como um avanço importante da legislatura e uma iniciativa coletiva.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 20,
+            "start": 55991,
+            "end": 56044,
+            "text": "Foi um avanço importante do início desta legislatura.",
+            "score": 0.371
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o direito de meninas vítimas de estupro que engravidam a não serem obrigadas a levar a gestação até o final, criticando a postura de quem defende a vida, mas ignora a violência sexual contra crianças (61% dos estupros ocorrem com meninas abaixo de 13 anos).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 337,
+            "start": 217147,
+            "end": 217257,
+            "text": "Nós precisamos de nos lembrar que 61% da violência sexual, do estupro, acontece com meninas abaixo de 13 anos.",
+            "score": 0.4477
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o discurso de ódio contra pessoas trans, afirmando que ele adoece e mata parte da população, e cita que o Brasil é o país que mais mata pessoas trans pelo 14º ano seguido.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 337,
+            "start": 217496,
+            "end": 217619,
+            "text": "Eu também não vejo essas pessoas mencionarem aqui que, pelo 14º ano seguido, o Brasil é o país que mais mata pessoas trans.",
+            "score": 0.6549
+          },
+          "udv": null
+        },
+        {
+          "text": "Ataca diretamente o Deputado Nikolas Ferreira, afirmando que ele envergonha Minas Gerais ao agredir pessoas trans e famílias de vítimas de violência sexual, e que seu discurso propaga ódio.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 337,
+            "start": 217846,
+            "end": 218028,
+            "text": "Eu queria dizer que o Deputado Nikolas Ferreira envergonha Minas Gerais quando agride as pessoas trans e as famílias que têm crianças vítimas de violência e não podem ser protegidas.",
+            "score": 0.5584
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o Sistema Único de Saúde (SUS) como inclusivo e de reconstrução do Brasil, parabenizando o Governo Lula e a Ministra da Saúde por essa perspectiva.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 341,
+            "start": 219314,
+            "end": 219679,
+            "text": "Eu quero parabenizar o Ministério da Saúde, o Governo Lula, por estar propondo uma outra perspectiva de reconstrução do Brasil, uma perspectiva inclusiva, que olha para todos, todas e todes, que quer construir um Sistema Único de Saúde do tamanho do Brasil, um Sistema Único de Saúde que olha para todas as necessidades de saúde e que acolhe a população brasileira.",
+            "score": 0.5177
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o Programa Nacional de Redução das Filas do Ministério da Saúde, citando a meta de 500 mil cirurgias para lidar com 45% a 50% da fila atual, e atribui o desastre das filas ao governo anterior.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 98,
+            "start": 86509,
+            "end": 86557,
+            "text": "falou do Programa Nacional de Redução das Filas.",
+            "score": 0.4745
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a oposição por reduzir o debate público a pautas identitárias e por defender a cloroquina durante a pandemia, argumentando que eles deturpam o trabalho das pautas positivas do governo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 98,
+            "start": 88197,
+            "end": 88358,
+            "text": "Acho essas pautas fundamentais, mas eles reduzem todo o debate público a essas pautas, tentando, na verdade, deturpar e desfocar o trabalho das pautas positivas.",
+            "score": 0.3956
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a diversidade da família brasileira, incluindo casais homoafetivos, como motivo do voto popular no Partido dos Trabalhadores.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 100,
+            "start": 90357,
+            "end": 90437,
+            "text": "Eu vou explicar por que a família brasileira votou no Partido dos Trabalhadores.",
+            "score": 0.3647
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autonomia universitária e a eleição de reitores, destacando o avanço de projetos de lei tramitando na Câmara e a relatoria do Deputado Patrus Ananias.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 0,
+            "start": 3543,
+            "end": 3597,
+            "text": "O Deputado Patrus Ananias é quem está com a relatoria.",
+            "score": 0.5306
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a importância das universidades e institutos federais para a diminuição das desigualdades e a construção do projeto de reconstrução do Brasil.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 0,
+            "start": 2775,
+            "end": 2996,
+            "text": "A semana começou ontem com a atividade em que nós debatemos a importância das universidades e dos institutos federais para a diminuição das desigualdades no Brasil e para a construção do projeto de reconstrução do Brasil.",
+            "score": 0.777
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "A desigualdade estrutural e a divisão sexual do trabalho são a base material da violência contra as mulheres, justificando a necessidade de políticas que ataquem essas causas e não apenas os sintomas.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 31,
+            "start": 68539,
+            "end": 68889,
+            "text": "Sabemos que existe uma base material, e essa base material é a divisão sexual do trabalho que, ainda hoje, coloca as mulheres como responsáveis pelo trabalho de cuidado.E, ao colocá-las como responsáveis pelo trabalho de cuidado, inclusive, como destino natural da vida das mulheres, elas são aprisionadas em papéis sociais historicamente produzidos.",
+            "score": 0.3149
+          },
+          "udv": {
+            "id": "udv-203-3-0",
+            "rule": "same_sentence",
+            "score": 0.2939
+          }
+        },
+        {
+          "text": "O discurso de ódio e a polarização identitária são vistos como ferramentas que adoece e mata a população, justificando a necessidade de combatê-los e de defender a diversidade de gênero e sexual.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 341,
+            "start": 219221,
+            "end": 219268,
+            "text": "Esse discurso de ódio extermina, mata e adoece.",
+            "score": 0.3658
+          },
+          "udv": null
+        },
+        {
+          "text": "A reconstrução do Brasil passa pela defesa da vida, pela igualdade de gênero e pela inclusão de todas as famílias, justificando o apoio a políticas públicas que reconheçam a diversidade e combatam a desigualdade.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 11,
+            "start": 58242,
+            "end": 58324,
+            "text": "Contamos muito com o seu apoio e com o apoio de todas as nossas outras convidadas.",
+            "score": 0.1786
+          },
+          "udv": null
+        },
+        {
+          "text": "A técnica e a sensibilidade política são critérios para a avaliação de gestores públicos, justificando o elogio à Ministra da Saúde e à sua equipe.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 98,
+            "start": 88731,
+            "end": 88848,
+            "text": "O Presidente Lula fez uma brilhante escolha e escolheu de fato uma mulher que é técnica e tem sensibilidade política.",
+            "score": 0.2654
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal e Vice-Presidente da Frente Parlamentar Mista da Educação, com responsabilidade específica pela educação superior.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 0,
+            "start": 2598,
+            "end": 2672,
+            "text": "A Vice-Presidência tem a responsabilidade específica da educação superior.",
+            "score": 0.6171
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser doutora pela FIOCRUZ e professora universitária.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 98,
+            "start": 88575,
+            "end": 88730,
+            "text": "Inclusive, eu, doutora pela FIOCRUZ, que tenho o maior orgulho de ser, e professora universitária, acho que nós precisamos mostrar qual é a sua trajetória.",
+            "score": 0.5136
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se mineira e identifica-se com o Estado de Minas Gerais, apesar das críticas ao Governador Zema.",
+          "passage": {
+            "hearing_id": 188,
+            "turn": 0,
+            "start": 580,
+            "end": 810,
+            "text": "Eu tenho, cada vez mais, identificado como Minas Gerais, diferentemente do que o Governador Zema fala, é um Estado generoso, que compartilha suas referências acadêmicas, intelectuais, para pensar o Brasil, para construir o Brasil.",
+            "score": 0.313
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar na Liderança do PT e ser do mesmo Estado que o Deputado Nikolas Ferreira, o que a leva a responder diretamente a ele.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 341,
+            "start": 218961,
+            "end": 219220,
+            "text": "O discurso de ódio propagado por alguns Deputados — infelizmente, o Deputado Nikolas é do mesmo Estado que eu, por isso eu me sinto na responsabilidade de responder a ele diretamente — produz o ambiente que propaga ódio e adoece parte da população brasileira.",
+            "score": 0.3425
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio ao Governo Lula e ao Partido dos Trabalhadores, citando o voto das famílias brasileiras, incluindo evangélicas e católicas.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 100,
+            "start": 90934,
+            "end": 91042,
+            "text": "É por isso que as famílias brasileiras, inclusive as evangélicas e as católicas, votaram no Presidente Lula.",
+            "score": 0.4913
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos (61% dos estupros com meninas abaixo de 13 anos, 14º ano seguido de maior mortalidade de pessoas trans, meta de 500 mil cirurgias) para fundamentar suas posições.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 337,
+            "start": 217496,
+            "end": 217619,
+            "text": "Eu também não vejo essas pessoas mencionarem aqui que, pelo 14º ano seguido, o Brasil é o país que mais mata pessoas trans.",
+            "score": 0.3262
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a casos específicos e falas de terceiros (delegada que disse \"algumas vidas merecem ser perdidas\", Deputado Nikolas Ferreira) para ilustrar e criticar discursos de ódio.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 1,
+            "start": 8773,
+            "end": 8826,
+            "text": "Ela mencionou que algumas vidas merecem ser perdidas.",
+            "score": 0.3808
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a \"pauta positiva\" do governo (reconstrução do SUS, inclusão) com a \"pauta ideológica\" da oposição (discursos de ódio, cloroquina), enquadrando o debate em termos de reconstrução versus desmonte.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 98,
+            "start": 87362,
+            "end": 87484,
+            "text": "Aqui eles insistem em retomar a pauta ideológica deles, dizem à senhora que está falando de pauta identitária, ideológica.",
+            "score": 0.2523
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem emocional e apelativa (\"envergonha Minas Gerais\", \"desastre\", \"obsessão\") para criticar adversários e elogiar aliados.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 337,
+            "start": 217846,
+            "end": 218028,
+            "text": "Eu queria dizer que o Deputado Nikolas Ferreira envergonha Minas Gerais quando agride as pessoas trans e as famílias que têm crianças vítimas de violência e não podem ser protegidas.",
+            "score": 0.1787
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita sua trajetória acadêmica e profissional (doutora pela FIOCRUZ, professora) para legitimar sua opinião sobre temas de saúde e educação.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 98,
+            "start": 88575,
+            "end": 88730,
+            "text": "Inclusive, eu, doutora pela FIOCRUZ, que tenho o maior orgulho de ser, e professora universitária, acho que nós precisamos mostrar qual é a sua trajetória.",
+            "score": 0.334
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a oposição por responder pelo \"desastre\" da saúde pública e por defender a cloroquina, buscando responsabilizá-la por problemas atuais.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 100,
+            "start": 89816,
+            "end": 89938,
+            "text": "Eles precisam responder pelo desastre que aconteceu neste País e pelas consequências da saúde pública que nós vivenciamos.",
+            "score": 0.2822
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 188,
+      "split": "train",
+      "article_date": "2023-08-24",
+      "title": "Mulheres são apenas 1/3 de pós-graduandos em ciências exatas e tecnológicas e têm financiamento menor",
+      "assunto": "Disparidade de gênero na pós-graduação em ciências exatas e tecnológicas e financiamento menor para mulheres",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 203,
+      "split": "train",
+      "article_date": "2023-08-02",
+      "title": "Desmonte das políticas públicas levou a aumento da violência contra mulheres, afirmam debatedoras",
+      "assunto": "Aumento da violência contra mulheres devido ao desmonte de políticas públicas e ascensão do ultraconservadorismo",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-188-5-0",
+      "hearing_id": 188,
+      "n": 27,
+      "article_name": "Ana Pimentel",
+      "proposition": "A redução do número de mulheres à medida que aumenta o grau de formação e as oportunidades na carreira docente ficou conhecida como 'efeito tesoura': \"Esse fenômeno de exclusão, de dificuldade de acesso e continuidade na carreira acadêmica e científica se expressa ainda mais quando acrescentamos recortes raciais e de classe, além da maternidade\".",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Dalila, nós é que lhe agradecemos o brilhante trabalho no CNPq, com esse olhar que coloca as mulheres na centralidade. Isso é muito importante exatamente para o que você colocou sobre a importância da desnaturalização.",
+        "turn": 9,
+        "start": 49538,
+        "end": 49756
+      },
+      "verifier": {
+        "probability": 0.10529721779634059,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-203-3-0",
+      "hearing_id": 203,
+      "n": 8,
+      "article_name": "Ana Pimentel",
+      "proposition": "A violência de gênero tem como origem os estereótipos sociais de gênero: \"A violência não é natural: é uma construção social e se fundamenta na desigualdade estrutural entre homens e mulheres. Sabemos que existe base material, que é a divisão sexual do trabalho, que, ainda hoje, coloca as mulheres como responsáveis pelo trabalho de cuidado, colocando isso, inclusive, como destino natural da vida das mulheres, as aprisionam em papeis sociais historicamente produzidos. E, ao fazer isso, todas as vezes que as mulheres ousam sair desses lugares, elas sofrem diversas violências.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Sabemos que existe uma base material, e essa base material é a divisão sexual do trabalho que, ainda hoje, coloca as mulheres como responsáveis pelo trabalho de cuidado.E, ao colocá-las como responsáveis pelo trabalho de cuidado, inclusive, como destino natural da vida das mulheres, elas são aprisionadas em papéis sociais historicamente produzidos. Assim, todas as vezes que as mulheres ousam sair desses lugares elas sofrem diversas violências, as mais variadas violências.",
+        "turn": 31,
+        "start": 68539,
+        "end": 69015
+      },
+      "verifier": {
+        "probability": 0.8028524568792691,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

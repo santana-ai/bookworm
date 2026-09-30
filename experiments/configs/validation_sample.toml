@@ -1,0 +1,133 @@
+[dataset]
+lds_path = "dataset/PublicHearingBR_LDS.jsonl"
+sha256 = "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+
+[splits]
+manifest_path = "artifacts/splits/temporal_v1.json"
+sample_splits = ["test"]
+sample_splits_reason = "The validation split is used by the experiments to choose the method (encoder, threshold, candidate units, reranker), so a human estimate of precision drawn from it would be biased toward the chosen method. The sample is drawn from test hearings only, which no choice has used. Reading test requires --final-test; a dry run may override the splits with --splits, never writing into output_dir."
+
+[source]
+udv_dir = "artifacts/udv"
+threshold_calibration_rule = "the sample stage reads evidence.calibration_source of the run coverage file; it must be a calibration artifact (JSON) whose leak_check lists the calibration splits and hearings and passed, whose splits include neither test nor a sampled split, none of whose hearings belongs to a sampled split, which was built on the current split manifest, and one of whose rules gives the run embedding_threshold (threshold_rounded). The tier boundary of semantic_match_high and semantic_match_weak is then set without the sampled hearings. A run that fails is refused for the sample (udv_v0 and udv_v1_pre carry the dev20 cut 0.47, calibrated on hearings of every split); a dry run only warns. The result is written to annotation_key.json and sample_report.json as threshold_calibration"
+
+[sample]
+version = "human_validation_v1"
+seed = 42
+seed_streams = { stratum_draw = 0, row_order = 1, repeat_draw = 2, repeat_order = 3 }
+output_dir = "artifacts/validation"
+transcripts_dir = "artifacts/cache/validation"
+transcripts_reason = "The annotator needs the full transcript of each sampled hearing to answer pessoa_falou and existe_trecho_melhor. Transcripts are raw dataset text, so they are written under artifacts/cache (ignored by Git) and can be regenerated from the LDS."
+item_id_prefix = "A"
+context_chars = 350
+csv_delimiter = ";"
+csv_delimiter_reason = "Excel in a pt-BR locale splits CSV columns on semicolons; Numbers detects either. The reader accepts semicolon, comma or tab, whichever yields the expected header, so a sheet re-exported with another delimiter still loads."
+csv_encoding = "utf-8-sig"
+turn_numbering = "0-based turn_index of utils.udv_pipeline.split_into_turns, the same number stored in evidence.speaker_turn; the transcript files mark each turn with it"
+character_offsets = "0-based start and exclusive end in the original transcricao string, the same values as evidence.start_char and evidence.end_char"
+
+[[sample.strata]]
+name = "direct_quote"
+question = "trecho_sustenta"
+tiers = ["quote_found"]
+support_types = ["direct_quote"]
+target = 35
+
+[[sample.strata]]
+name = "semantic_match_high"
+question = "trecho_sustenta"
+tiers = ["semantic_match_high"]
+support_types = ["semantic_similarity"]
+target = 65
+
+[[sample.strata]]
+name = "semantic_with_short_quote"
+question = "trecho_sustenta"
+tiers = ["semantic_match_high", "semantic_match_weak"]
+support_types = ["semantic_with_short_quote"]
+target = 15
+
+[[sample.strata]]
+name = "semantic_match_weak"
+question = "trecho_sustenta"
+tiers = ["semantic_match_weak"]
+support_types = ["semantic_similarity"]
+target = 15
+
+[[sample.strata]]
+name = "speaker_check"
+question = "pessoa_falou"
+tiers = ["no_evidence", "person_not_resolved"]
+support_types = ["none"]
+target = 20
+
+[sample.strata_notes]
+partition = "Every UDV of the sampled splits falls in exactly one stratum (checked at run time), so the strata partition the population and the stratified total covers the whole run. semantic_with_short_quote takes every tier of that support type; semantic_match_weak keeps only semantic_similarity, so the two never overlap."
+none_support_type = "support_types = ['none'] matches records whose evidence is null"
+speaker_unit = "speaker_check samples UDVs, as the other strata do, but its question depends only on the participant, so the sheet has one row per distinct (hearing, participant) among the drawn UDVs and the judgment is copied to each of that participant's drawn UDVs"
+target_shortfall = "when a stratum has fewer UDVs than its target, all of them are taken and the report lists the shortfall"
+
+[repeat]
+items = 20
+item_id_prefix = "B"
+eligible_questions = ["trecho_sustenta"]
+eligible_reason = "Intra-annotator agreement is measured on the evidence judgments (correta / parcial / incorreta), where the boundary between labels is a matter of reading. pessoa_falou items are few (at most one row per participant) and their label sets differ, so mixing them into the 20 repeats would lower the number of evidence pairs and pool two unrelated scales in one kappa."
+min_hours_after_first_pass = 24
+min_hours_reason = "The repeat sheet is created only after the first pass is complete and at least this many hours after annotation.csv was last modified, so it cannot be seen during the first pass and the first judgments are less likely to be remembered."
+
+[annotation]
+better_passage_values = ["sim", "nao", "nao_procurei"]
+label_normalization = "strip, lower case, accents removed, spaces and hyphens turned into underscores (so 'Não falou' reads as nao_falou)"
+
+[annotation.questions.trecho_sustenta]
+judgments = ["correta", "parcial", "incorreta"]
+better_passage_required = true
+prompt = "O trecho, dito por esta pessoa, sustenta a afirmação atribuída a ela?"
+
+[annotation.questions.pessoa_falou]
+judgments = ["falou", "nao_falou", "nao_sei"]
+better_passage_required = false
+prompt = "A transcrição registra palavras ditas por esta pessoa nesta audiência?"
+
+[report]
+confidence_level = 0.95
+proportion_interval = "wilson"
+stratified_interval = "normal approximation of the stratified total, variance sum_h N_h^2 (1 - n_h / N_h) p_h (1 - p_h) / (n_h - 1)"
+strict_success = ["correta"]
+tolerant_success = ["correta", "parcial"]
+speaker_correct = ["nao_falou"]
+speaker_spoke = ["falou"]
+speaker_undecided = ["nao_sei"]
+speaker_correct_reason = "A no_evidence or person_not_resolved UDV states that the transcript holds no usable speech of the participant; it is correct when the annotator finds that the participant did not speak (nao_falou). nao_sei is left out of the denominator and counted separately."
+output_name = "precision_report.json"
+interim_output_prefix = "precision_report_interim"
+interim_rule = "--without-reannotation writes <interim_output_prefix>_<UTC timestamp>.json, never overwritten, so a look at the numbers before the repeat sheet leaves a trace; the repeat stage records every precision report present when it creates the repeat sheet, and the final report lists both in integrity.interim_reports"
+
+[criteria]
+declared_on = "2026-09-23"
+declaration = "Declared before any human judgment of this sample exists. The criteria are copied into annotation_key.json when the sample is drawn, and the precision report flags any later change. PASS requires the Wilson lower bound of the stated metric, at the report confidence level, to reach min_wilson_lower on the stated stratum."
+
+[[criteria.rules]]
+name = "quote_found_strict_precision"
+stratum = "direct_quote"
+metric = "strict_precision"
+min_wilson_lower = 0.90
+
+[[criteria.rules]]
+name = "semantic_match_high_tolerant_precision"
+stratum = "semantic_match_high"
+metric = "tolerant_precision"
+min_wilson_lower = 0.75
+
+[udv_v2_supplement]
+inherit_relations = ["same", "superset"]
+declared_on = "2026-09-28"
+declaration = "Declared before any row of the udv_v2 supplementary sheet was judged. utils.udv_v2_analysis supplement-sheet copies this section into the supplementary annotation_key.json, and score-annotation refuses a key whose copy differs from this section."
+relation_rules = { same = "the udv_v2 evidence has the start_char, end_char and speaker_turn of the udv_v1 evidence", superset = "same speaker_turn, udv_v2 start_char <= udv_v1 start_char and udv_v2 end_char >= udv_v1 end_char, not same: the udv_v2 passage holds the whole udv_v1 passage and adds text of the same turn", moved = "any other case: another turn, a udv_v2 passage that leaves out part of the udv_v1 passage, or evidence in one run only", no_evidence = "no evidence in either run (the pessoa_falou items); the item keeps its udv_v1 label, as in the annotation plan" }
+multi_udv_rule = "an item is moved if any of its UDVs is moved, same if every UDV is same, no_evidence if every UDV is no_evidence, superset otherwise"
+inheritance_rule = "an item whose relation is in inherit_relations, or no_evidence, keeps its udv_v1 human label for udv_v2; only the moved items get a row in the supplementary sheet"
+label_independence = "the relation is computed from the udv_v1 and udv_v2 offsets and speaker turns only; no human label is read to decide which items are inherited"
+justification = "the text added to a superset passage belongs to the same speaker turn, so the text that supported a udv_v1 passage judged correta is still in the udv_v2 passage, and a passage judged parcial or incorreta can only keep or improve its support when text of the same speaker is added"
+consequence = "the udv_v2 precision is conservative with respect to the superset items judged parcial or incorreta in udv_v1, whose udv_v2 label could be better than the inherited one"
+assumption = "adding a sentence of the same speaker turn does not turn a passage that supports the statement into one that does not"
+sensitivity_rule = "the report also gives the precision with the superset items counted only when their udv_v1 label is correta (the others are left out of the denominator), next to the precision with every superset item inherited"

@@ -1,0 +1,312 @@
+{
+  "actor": {
+    "slug": "lula-da-fonte",
+    "name": "LULA DA FONTE",
+    "display_name": "Lula da Fonte",
+    "role": "Deputado (PP-PE)",
+    "article_names": [
+      "Lula da Fonte"
+    ],
+    "party_uf": [
+      "Bloco/PP - PE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:58:55+00:00",
+    "n_statements": 10,
+    "n_hearings": 2,
+    "hearing_ids": [
+      161,
+      171
+    ],
+    "input_tokens": 3007,
+    "output_tokens": 870,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 1,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação de projeto de lei, aprovado recentemente na Comissão de Defesa dos Direitos das Pessoas com Deficiência, que zera a cobrança de PIS/PASEP e COFINS de medicamentos para pacientes com microcefalia, visando reduzir o preço dos remédios no Brasil.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 232,
+            "start": 158259,
+            "end": 158508,
+            "text": "Eu tenho um projeto de lei que está tramitando aqui na Câmara — foi aprovado recentemente na Comissão de Defesa dos Direitos das Pessoas com Deficiência — que zera a cobrança de PIS/PASEP e COFINS de medicamentos para pacientes que têm microcefalia.",
+            "score": 0.7534
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o medicamento Zolgensma, utilizado para pacientes com Atrofia Muscular Espinhal (AME), afirmando que custa cerca de 5,5 milhões de reais e é questão de vida ou morte para os pacientes.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 232,
+            "start": 158641,
+            "end": 158853,
+            "text": "Para pacientes que são acometidos por Atrofia Muscular Espinhal — AME, por exemplo, existe um medicamento chamado Zolgensma, que é questão de vida ou morte para os pacientes e custa cerca de 5,5 milhões de reais.",
+            "score": 0.7739
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o aumento sucessivo dos preços das passagens aéreas no Brasil, classificando a situação como \"absurdo\" e \"inadmissível\", especialmente considerando que o querosene de aviação baixou acumuladamente mais de 35% no ano e que o Congresso Nacional já reduziu a zero as alíquotas de PIS e COFINS sobre as receitas do transporte aéreo de passageiros, por meio da Lei nº 14.592, de 2023, oriunda da Medida Provisória nº 1.147, de 2022.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 47565,
+            "end": 47800,
+            "text": "Nós também tratamos aqui no Congresso Nacional da Lei nº 14.592, de 2023, oriunda da Medida Provisória nº 1.147, de 2022, que reduziu a zero as alíquotas de PIS e COFINS que incidem sobre as receitas do transporte aéreo de passageiros.",
+            "score": 0.6615
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa as companhias aéreas de praticar oligopólio e de \"sangrar diuturnamente\" o povo brasileiro com preços abusivos, exigindo mobilização do Congresso Nacional para impedir que isso continue.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 48175,
+            "end": 48317,
+            "text": "Vemos as empresas aéreas praticando oligopólio com o povo brasileiro, que sangra diuturnamente com esses preços absurdos das passagens aéreas.",
+            "score": 0.3328
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia a Ministra da Saúde, Nísia Trindade, destacando seu currículo ilibado, seu trabalho à frente da Fundação Oswaldo Cruz, sua atuação como socióloga de renome e sua paciência e educação durante a audiência, além de reconhecer seu papel no enfrentamento da pandemia, do negacionismo e na vacinação.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 232,
+            "start": 157698,
+            "end": 157796,
+            "text": "A Ministra tem um currículo ilibado, um trabalho extraordinário à frente da Fundação Oswaldo Cruz.",
+            "score": 0.4697
+          },
+          "udv": {
+            "id": "udv-171-7-0",
+            "rule": "similar_text",
+            "score": 0.3205
+          }
+        },
+        {
+          "text": "Defende o direito do povo brasileiro de viajar de avião, seja a trabalho ou a passeio, e critica a omissão do Congresso Nacional em não impedir o aumento dos preços.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 48004,
+            "end": 48174,
+            "text": "Nós, como Congresso Nacional, como Casa do Povo, temos que defender o direito do povo brasileiro de poder andar de avião, poder viajar a trabalho, poder viajar a passeio.",
+            "score": 0.4778
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza o embasamento técnico e científico como base para o debate sobre saúde pública, argumentando que as respostas devem ser calcadas nesses fundamentos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 232,
+            "start": 157846,
+            "end": 158232,
+            "text": "E eu admiro muito a paciência que a Ministra teve aqui desde o início do debate, sempre com muita educação, respondendo às perguntas com muito respeito, com muita presteza e, sobretudo, calcando as respostas dela em embasamentos técnicos, científicos, que é o que tem que pautar o nosso debate — embasamento técnico, científico e ela responder questões da saúde pública do nosso Brasil.",
+            "score": 0.302
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a noção de \"Casa do Povo\" para justificar a atuação do Congresso Nacional na defesa dos direitos da população, como o acesso a medicamentos acessíveis e a passagens aéreas com preços justos.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 48175,
+            "end": 48317,
+            "text": "Vemos as empresas aéreas praticando oligopólio com o povo brasileiro, que sangra diuturnamente com esses preços absurdos das passagens aéreas.",
+            "score": 0.1733
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a cobrança por redução de preços de medicamentos e passagens aéreas com o argumento de que a população é prejudicada (\"sangrada\") por práticas de mercado que não refletem a redução de custos insumos (como o querosene) ou a isenção de tributos já concedida.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara ter tido a oportunidade de estar ao lado da Ministra da Saúde no relançamento do Programa Farmácia Popular em Pernambuco.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 232,
+            "start": 157405,
+            "end": 157696,
+            "text": "Tive a oportunidade de estar ao lado da Ministra no relançamento do Programa Farmácia Popular, lá no Estado de Pernambuco, e presenciei de perto a seriedade da Ministra, o esforço diário da Ministra em realmente entregar as mudanças e o desenvolvimento que a saúde brasileira exige e merece.",
+            "score": 0.5056
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se com a defesa dos interesses do povo pernambucano, nordestino e brasileiro, citando especificamente o aumento de preços das passagens aéreas no Nordeste.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 48967,
+            "end": 49137,
+            "text": "Temos que estar de olhos abertos para não permitir que essas companhias aéreas continuem sangrando o povo pernambucano, o povo nordestino, o povo brasileiro como um todo.",
+            "score": 0.331
+          },
+          "udv": null
+        },
+        {
+          "text": "Cumprimenta e parabeniza os Deputados Juninho do Pneu e Neto Carletto, autores do requerimento para a audiência sobre passagens aéreas.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 47159,
+            "end": 47339,
+            "text": "Eu gostaria de parabenizar os colegas autores do requerimento, o Deputado Juninho do Pneu e o Deputado Neto Carletto, por meio dos quais cumprimento todos os colegas Parlamentares.",
+            "score": 0.4359
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emotiva e apelativa, empregando expressões como \"absurdo\", \"inadmissível\", \"sangrando o povo\" e \"questão de vida ou morte\" para reforçar suas críticas e propostas.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 47978,
+            "end": 48003,
+            "text": "Então, isso é um absurdo!",
+            "score": 0.2065
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos, como a queda de 35% no preço do querosene e o custo de 5,5 milhões de reais do medicamento Zolgensma, para sustentar seus argumentos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 232,
+            "start": 158641,
+            "end": 158853,
+            "text": "Para pacientes que são acometidos por Atrofia Muscular Espinhal — AME, por exemplo, existe um medicamento chamado Zolgensma, que é questão de vida ou morte para os pacientes e custa cerca de 5,5 milhões de reais.",
+            "score": 0.2118
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a responsabilidade do Congresso Nacional como \"Casa do Povo\" para exigir ação legislativa e fiscalização.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 25,
+            "start": 48004,
+            "end": 48174,
+            "text": "Nós, como Congresso Nacional, como Casa do Povo, temos que defender o direito do povo brasileiro de poder andar de avião, poder viajar a trabalho, poder viajar a passeio.",
+            "score": 0.1736
+          },
+          "udv": null
+        },
+        {
+          "text": "Demonstra respeito e elogio a interlocutores que considera aliados ou que cumprem seu papel com educação, como a Ministra Nísia Trindade, contrastando essa postura com a de outros na Casa.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 232,
+            "start": 159539,
+            "end": 159705,
+            "text": "Parabéns, Ministra Nísia Trindade, pela paciência, pela presteza de ouvir todos com humildade e, sobretudo, com muita educação, que é o que falta a muitos nesta Casa.",
+            "score": 0.2361
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige o cumprimento do rito regimental para garantir sua fala, demonstrando assertividade na condução de seus turnos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 224,
+            "start": 155553,
+            "end": 155580,
+            "text": "Que siga o rito regimental!",
+            "score": 0.3355
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 161,
+      "split": "train",
+      "article_date": "2023-09-29",
+      "title": "Combustíveis e dólar explicam aumento das passagens, diz associação das empresas aéreas",
+      "assunto": "Aumento dos preços das passagens aéreas no Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-171-7-0",
+      "hearing_id": 171,
+      "n": 16,
+      "article_name": "Lula da Fonte",
+      "proposition": "Elogiou a atuação de Nísia Trindade à frente do Ministério da Saúde.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E já vem demonstrado isto: que tem feito um grande trabalho à frente do Ministério da Saúde. Muitos aqui podem até achar ruim, não gostar, mas eu reconheço que a senhora é um ativo na saúde do nosso País, pelo enfrentamento à pandemia, pelo enfrentamento ao negacionismo e, sobretudo, pelo trabalho de V.Exa.",
+        "turn": 232,
+        "start": 159103,
+        "end": 159411
+      },
+      "verifier": {
+        "probability": 0.9136971539856341,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

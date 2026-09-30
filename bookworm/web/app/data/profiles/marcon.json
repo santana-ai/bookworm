@@ -1,0 +1,260 @@
+{
+  "actor": {
+    "slug": "marcon",
+    "name": "MARCON",
+    "display_name": "MARCON",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:09:55+00:00",
+    "n_statements": 7,
+    "n_hearings": 2,
+    "hearing_ids": [
+      45,
+      153
+    ],
+    "input_tokens": 2959,
+    "output_tokens": 651,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 13,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a manutenção do escritório do Governo Federal em Lajeado para articular a Defesa Civil e, em caso de problemas, coordenar ações com os Ministérios das Cidades, Educação e Saúde.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 165037,
+            "end": 165161,
+            "text": "Se houver problema, deve-se articular com o Ministério das Cidades, com o Ministério da Educação, com o Ministério da Saúde.",
+            "score": 0.2743
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiou a aprovação da emenda de 100 milhões de reais, afirmando que, embora não tenha havido consenso na bancada gaúcha, \"venceu quem queria ajudar\".",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 166036,
+            "end": 166161,
+            "text": "Quanto à questão da emenda de 100 milhões de reais, não foi consenso dentro da bancada gaúcha, mas venceu quem queria ajudar.",
+            "score": 0.6449
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera a sugestão do Deputado Pompeo a alternativa mais prática e rápida para ajudar os municípios, argumentando que a linha de crédito não seria suficiente porque o investimento municipal não termina no ano vigente.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 166494,
+            "end": 166581,
+            "text": "Eu acho que essa sugestão do Deputado Pompeo é a mais rápida para ajudar os Municípios.",
+            "score": 0.4517
+          },
+          "udv": null
+        },
+        {
+          "text": "Alerta para um futuro problema econômico no Rio Grande do Sul devido à não plantação de lavouras de arroz, hortaliças, aipim, batata, milho e soja, citando como exemplo seu assentamento em Nova Santa Rita, onde havia 3 metros de água no local destinado ao plantio de arroz.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 99,
+            "start": 167311,
+            "end": 167402,
+            "text": "As lavouras de hortaliças, aipim, batata, milho, soja, essas coisas, não vão ser plantadas.",
+            "score": 0.3655
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma forma de auxiliar os municípios na elaboração de projetos de reestruturação, justificando que a liberação de recursos pela União, Estado ou prefeituras depende da existência de projetos e licitações.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 165619,
+            "end": 165804,
+            "text": "Então, eu não sei como fazer — sei que há engenheiros que estão ajudando — para ajudar os Municípios a fazerem os projetos, porque ninguém vai liberar os recursos sem haver os projetos.",
+            "score": 0.2111
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Afirma que \"não se faz política em cima de desastre\", utilizando esse princípio para justificar a necessidade de ajuda imediata e a defesa de medidas como o financiamento a juro zero.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 164821,
+            "end": 164861,
+            "text": "Não se faz política em cima de desastre.",
+            "score": 0.4877
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a solidariedade do povo gaúcho e brasileiro, elogiando a atuação dos prefeitos que \"conduziram emocionalmente esse processo\" e o papel dos prefeitos como \"para-choque do povo\".",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 164112,
+            "end": 164279,
+            "text": "Meus parabéns a todos os Prefeitos que conduziram emocionalmente esse processo e à nossa comunidade gaúcha e brasileira, porque ali viram que o nosso povo é solidário.",
+            "score": 0.3625
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a prioridade nas audiências deve ser dada aos prefeitos para questionarem os ministros, argumentando que eles são os que precisam de esclarecimentos práticos sobre a execução das políticas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se morador de Nova Santa Rita e afirma ter um assentamento na região.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 99,
+            "start": 167543,
+            "end": 167690,
+            "text": "Um exemplo é a situação do meu assentamento — eu moro ali em Nova Santa Rita —, em que há 3 metros de água onde já deveria ter sido plantado arroz.",
+            "score": 0.304
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter estado quatro vezes na região afetada para acompanhar as ações do Governo Federal.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 164281,
+            "end": 164429,
+            "text": "Eu estive quatro vezes na região e vi aquilo que o Governo Federal está fazendo, porque eu estou acompanhando: várias linhas de crédito para ajudar.",
+            "score": 0.3464
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia publicamente o Governo Lula, os Ministros Paulo Pimenta e Waldez Góes, e o Governo do Estado, elogiando este último três vezes na tribuna da Câmara.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 163944,
+            "end": 164110,
+            "text": "Luciano, quanto ao Governo do Estado, eu falei três vezes na tribuna da Câmara elogiando a atitude do Governo do Estado e o para-choque do povo, que são os Prefeitos.",
+            "score": 0.4609
+          },
+          "udv": null
+        },
+        {
+          "text": "Agradece ao Deputado Marcel van Hattem por coordenar e propor a reunião.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 163723,
+            "end": 163815,
+            "text": "Obrigado, Deputado Marcel van Hattem, que está coordenando esta reunião e é proponente dela.",
+            "score": 0.494
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza relatos de experiências pessoais, como visitas à região afetada e à empresa dos Sabões Fontana em Nova Santa Rita, para fundamentar suas propostas.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 97,
+            "start": 165191,
+            "end": 165342,
+            "text": "E outra: eu estive lá na Defesa Civil, Fontana — Fontana é o nosso empresário lá em Nova Santa Rita, dos Sabões Fontana, de Encantado, que perdeu tudo.",
+            "score": 0.3453
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos e prazos, como a entrega dos projetos de reestruturação em 13 de setembro e o fim do plantio de arroz no final de novembro, para detalhar a urgência das medidas.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 99,
+            "start": 167691,
+            "end": 167743,
+            "text": "E, no final de novembro, termina o plantio de arroz.",
+            "score": 0.4022
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe mudanças procedimentais na condução da audiência, sugerindo a inversão da ordem dos trabalhos para priorizar a fala dos prefeitos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem direta e pragmática, focando na resolução de burocracias e na viabilidade prática das soluções para os municípios.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

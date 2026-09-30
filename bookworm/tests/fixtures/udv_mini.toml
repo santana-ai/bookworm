@@ -1,0 +1,18 @@
+[dataset]
+lds_path = "lds_mini.jsonl"
+sha256 = "311f0fb9eebcfb9091a1722e6973e0cbb3c6870eb8d8c58023124529e36a854f"
+
+[encoder]
+name = "stub-encoder"
+revision = "stub-revision-1"
+batch_size = 8
+device = "cpu"
+
+[evidence]
+embedding_threshold = 0.6
+calibration_note = "hand-picked for the synthetic fixture"
+
+[run]
+seed = 42
+output_dir = "out"
+cache_dir = "cache"

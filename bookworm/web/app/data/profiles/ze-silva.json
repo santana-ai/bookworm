@@ -1,0 +1,504 @@
+{
+  "actor": {
+    "slug": "ze-silva",
+    "name": "Zé Silva",
+    "display_name": "Zé Silva",
+    "role": "Deputado (Solidariedade-MG)",
+    "article_names": [
+      "Zé Silva"
+    ],
+    "party_uf": [
+      "Bloco/SOLIDARIEDADE - MG",
+      "SOLIDARIEDADE - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:24:57+00:00",
+    "n_statements": 15,
+    "n_hearings": 2,
+    "hearing_ids": [
+      46,
+      95
+    ],
+    "input_tokens": 10623,
+    "output_tokens": 1193,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 26,
+    "with_udv": 2,
+    "passage_only": 22,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aplicação dos recursos do FUST para conectar o meio rural à internet, garantindo a participação da ANATER nos projetos de inovação tecnológica, com base no Decreto nº 11.004 e no § 4º do art. 15 da legislação do 5G.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 1546,
+            "end": 1814,
+            "text": "Com o advento do Decreto nº 11.004, de 2021, publicado no dia 21 de março de 2022, nós conseguimos resgatar os recursos do Fundo de Universalização dos Serviços de Telecomunicações e garantir a participação da ANATER especialmente nos projetos de inovação tecnológica.",
+            "score": 0.3217
+          },
+          "udv": {
+            "id": "udv-46-0-0",
+            "rule": "similar_text",
+            "score": 0.3624
+          }
+        },
+        {
+          "text": "Propõe a criação de um grupo de trabalho (GT) do agro, com participação da ANATER, da Frente Parlamentar Mista de Assistência Técnica e Extensão Rural, dos Ministérios da Agricultura e das Comunicações, CNA, CONTAG, OCB, iniciativa privada e sindicatos, para tratar das 1.700 localidades prioritárias.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 10,
+            "start": 65326,
+            "end": 65718,
+            "text": "Quero propor a criação de um grupo de trabalho, que o Regimento me permite fazer, por meio de uma indicação.Proporemos a participação da ANATER, da Frente Parlamentar Mista de Assistência Técnica e Extensão Rural do Congresso Nacional, dos dois Ministérios, da CNA, da CONTAG, da OCB, da iniciativa privada e dos sindicatos que estão presentes aqui, para tratarmos daquelas 1.700 localidades.",
+            "score": 0.6379
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a inoperância do Estado brasileiro na aplicação dos recursos do FUST, que ficaram parados em conta com \"cento e poucos bilhões de reais\", e aponta a ANATEL como incompetente nesse sentido, justificando a mudança na composição do conselho.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 4,
+            "start": 26750,
+            "end": 27153,
+            "text": "O Presidente Fernando Henrique criou o FUST para colocar orelhões — estes dias, vi um orelhão à beira da BR-135 e até tirei uma fotografia dele para mostrar ao meu neto, que possivelmente não verá um pessoalmente —, mas, infelizmente, a inoperância do Estado brasileiro fez com que esse recurso fosse para uma conta na qual há cento e poucos bilhões de reais de diversos fundos, que não foram aplicados.",
+            "score": 0.2886
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a tecnologia 5G deve ser inclusiva, alcançando os 84% dos produtores rurais de pequenas propriedades, e não apenas os 26% de grande porte.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 3562,
+            "end": 3736,
+            "text": "Uma coisa são os 26% de produtores rurais de grande porte acessarem essa tecnologia; outra coisa são os 84% dos produtores rurais de pequenas propriedades terem acesso a ela.",
+            "score": 0.5817
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação de projetos de lei sobre taxonomia verde para evitar o \"greenwashing\" por agentes financeiros e empresas, citando o caso de um agente que investiu menos de 0,1% do volume emprestado em projetos verdes e se autoproclamou sustentável.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 4,
+            "start": 14359,
+            "end": 14645,
+            "text": "Eu, por exemplo, estive em uma reunião em que vimos o caso de um agente financeiro que emprestou alguns bilhões no mundo, pegou menos de 0,1% de todo esse volume, investiu em um projeto verde e faz toda a sua propaganda, no mundo inteiro, dizendo que é um agente financeiro sustentável.",
+            "score": 0.2933
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o aumento dos recursos para a ANATER na Comissão Mista de Orçamento, para garantir assistência técnica \"esverdeada\" à agricultura familiar.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 24,
+            "start": 65819,
+            "end": 66041,
+            "text": "Nós vamos trabalhar aqui, na Comissão Mista de Orçamento, para aumentar os recursos para a ANATER — Agência Nacional da Assistência Técnica e Extensão Rural, para que tenhamos a assistência técnica bem esverdeada, Vanessa.",
+            "score": 0.5287
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o Plano Safra da Agricultura Familiar, destacando o aumento de 34% dos recursos, a redução de 1% na taxa de juros, a linha de crédito fundiário para jovens e o protagonismo da mulher nas políticas públicas.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 24,
+            "start": 64889,
+            "end": 65115,
+            "text": "O plano baixou ainda em 1% a taxa de juros, aportou valores no crédito fundiário, reduziu e criou uma linha específica para os jovens que estão no campo, para que não tenham que sair do campo e tenham oportunidade de trabalho.",
+            "score": 0.3444
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a isenção de IPI, PIS/PASEP e COFINS para extensionistas rurais, alunos e professores do meio rural na aquisição de equipamentos, citando o Projeto de Lei nº 4.084, de 2020.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 34,
+            "start": 121163,
+            "end": 121519,
+            "text": "Quero destacar também que, na semana passada, foi aprovado um projeto de minha autoria aqui na Comissão de Agricultura, o Projeto de Lei nº 4.084, de 2020, isentando do IPI, do PIS/PASEP e da COFINS extensionistas rurais, alunos e professores do meio rural, para que eles possam adquirir equipamentos — telefone celular, computadores e outros equipamentos.",
+            "score": 0.6362
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a preservação das florestas nativas do Brasil (62% intactas) e argumenta que países do norte do planeta, que enriqueceram utilizando mais as riquezas naturais, devem ajudar a financiar essa preservação.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 0,
+            "start": 3481,
+            "end": 3582,
+            "text": "Nós temos 62% das nossas florestas nativas ainda intactas, e eles precisam nos ajudar a preservá-las.",
+            "score": 0.358
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a premissa de que a agricultura do século XXI será baseada na informação, argumentando que a velocidade de acesso à inovação tecnológica (sensores, controladores) é determinante para a competitividade e a produtividade.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 2649,
+            "end": 2778,
+            "text": "Vai sair na frente quem tiver velocidade para acessar a inovação tecnológica, com sistema informatizado, sensores, controladores.",
+            "score": 0.3176
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o desafio global de produzir alimentos e preservar o meio ambiente como fundamento para a adoção de tecnologias como o 5G, associando-o ao cumprimento dos Objetivos de Desenvolvimento Sustentável (ODS 2, 6 e 9).",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 4306,
+            "end": 4481,
+            "text": "No tocante ao desafio de produzir alimentos e preservar o meio ambiente, a tecnologia 5G vai permitir o cumprimento de diversos Objetivos de Desenvolvimento Sustentável — ODS.",
+            "score": 0.5928
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência pessoal de criação no meio rural e na observação de que o campo \"fica com o que sobra\" nas políticas públicas (internet, pavimentação, escolas) para justificar a necessidade de inclusão tecnológica e de recursos específicos para o agro.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 6,
+            "start": 45367,
+            "end": 45446,
+            "text": "Já que o campo fica com o que sobra em relação a todas as políticas públicas...",
+            "score": 0.4225
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados de impacto econômico e ambiental para justificar a inovação, como o aumento de 4 vezes no valor bruto da produção por hectare com assistência técnica e a poupança de 150 milhões de hectares devido ao aumento de produtividade.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 2780,
+            "end": 2957,
+            "text": "Sabemos a diferença entre um agricultor que tem assistência técnica e um que não tem: segundo estudos, ele aumenta em quatro vezes o valor bruto da sua produção por hectare/ano.",
+            "score": 0.3289
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a responsabilidade climática e a justiça ambiental, argumentando que o norte do planeta deve compensar o sul pela extração histórica de recursos, e que a natureza \"reage de forma a dar lições muito duras\" quando não tratada bem.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 0,
+            "start": 1877,
+            "end": 1984,
+            "text": "Tanto é que, quando nós não tratamos bem a natureza, ela reage — e reage de forma a dar lições muito duras.",
+            "score": 0.4336
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se agrônomo, extensionista rural, criado no meio rural, com especialização em solos e meio ambiente.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 0,
+            "start": 1224,
+            "end": 1481,
+            "text": "Especialmente por ser extensionista rural — fui criado no meio rural — e agrônomo, com especialização em solos e meio ambiente, para mim esta oportunidade é valiosa e com certeza ficará marcada em toda a minha história de cidadão, mas também de Parlamentar.",
+            "score": 0.6105
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se representante da Frente Parlamentar da Agropecuária e Presidente da Frente Parlamentar Mista de Assistência Técnica e Extensão Rural.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 819,
+            "end": 1108,
+            "text": "Eu tive a oportunidade, como representante da Frente Parlamentar da Agropecuária, de coordenar um grupo de conectividade junto com o Ministério da Agricultura, Pecuária e Abastecimento, o Ministério das Comunicações, sindicatos das empresas de tecnologia da informação e o setor produtivo.",
+            "score": 0.3201
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se Presidente da Comissão de Legislação Participativa.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 0,
+            "start": 88,
+            "end": 265,
+            "text": "Declaro aberta a reunião de audiência pública da Comissão de Legislação Participativa destinada a debater a sustentabilidade na produção e consumo de alimentos de origem animal.",
+            "score": 0.3024
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se ambientalista sustentável.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Afirma ter coordenado um grupo de conectividade junto com o Ministério da Agricultura, Pecuária e Abastecimento, o Ministério das Comunicações, sindicatos das empresas de tecnologia da informação e o setor produtivo.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 819,
+            "end": 1108,
+            "text": "Eu tive a oportunidade, como representante da Frente Parlamentar da Agropecuária, de coordenar um grupo de conectividade junto com o Ministério da Agricultura, Pecuária e Abastecimento, o Ministério das Comunicações, sindicatos das empresas de tecnologia da informação e o setor produtivo.",
+            "score": 0.7238
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter participado das últimas cinco conferências mundiais do clima, incluindo Glasgow e a preparação para a conferência em Dubai.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 4500,
+            "end": 4559,
+            "text": "Eu estive nas últimas cinco conferências mundiais do clima.",
+            "score": 0.5901
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e comparações internacionais (número de torres no Brasil, EUA e China; estudos da ESALQ sobre perda de competitividade) para fundamentar suas posições.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 4,
+            "start": 27491,
+            "end": 27531,
+            "text": "A China tem mais de 4 milhões de torres.",
+            "score": 0.2614
+          },
+          "udv": {
+            "id": "udv-46-0-2",
+            "rule": "same_sentence",
+            "score": 0.1605
+          }
+        },
+        {
+          "text": "Recorre a exemplos locais e pessoais (Vale do Jequitinhonha, enchentes em Santo Antônio do Jacinto, produtor que queria \"gezinho\" para WhatsApp) para ilustrar a realidade do campo e a necessidade de inclusão.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 0,
+            "start": 2368,
+            "end": 2473,
+            "text": "Eu estive domingo passado na cidade de Santo Antônio do Jacinto, um dos grotões do Vale do Jequitinhonha.",
+            "score": 0.3599
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem acessível e metáforas (\"fundo achado\" em vez de \"fundo perdido\", \"esverdeado\" para o Plano Safra) para tornar os temas técnicos mais compreensíveis.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 24,
+            "start": 111830,
+            "end": 111895,
+            "text": "Alguns falam que é fundo perdido, mas eu falo que é fundo achado.",
+            "score": 0.3701
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita leis, decretos e projetos de lei específicos (Lei nº 14.109, Decreto nº 11.004, PL nº 4.084) para dar base legal às suas propostas.",
+          "passage": {
+            "hearing_id": 46,
+            "turn": 0,
+            "start": 1546,
+            "end": 1814,
+            "text": "Com o advento do Decreto nº 11.004, de 2021, publicado no dia 21 de março de 2022, nós conseguimos resgatar os recursos do Fundo de Universalização dos Serviços de Telecomunicações e garantir a participação da ANATER especialmente nos projetos de inovação tecnológica.",
+            "score": 0.1795
+          },
+          "udv": null
+        },
+        {
+          "text": "Interage com os convidados fazendo perguntas diretas, pedindo comentários específicos e propondo encaminhamentos concretos (criação de GT, aumento de recursos).",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza tom de urgência e responsabilidade, especialmente ao tratar de mudanças climáticas e segurança alimentar, citando o \"pacto mundial pela sobrevivência\".",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 0,
+            "start": 2704,
+            "end": 2821,
+            "text": "Por isso, temos a responsabilidade de fazer com que esse pacto mundial pela sobrevivência venha efetivamente a valer.",
+            "score": 0.3549
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 25,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Debatedores apontam urgência para socorrer produtores do norte de Minas em seca sem precedentes",
+      "assunto": "Urgência para socorrer produtores do norte de Minas Gerais devido à seca sem precedentes",
+      "turns": 30,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 46,
+      "split": "train",
+      "article_date": "2022-07-12",
+      "title": "Deputado quer garantir aplicação de recursos do Fust para conectar meio rural",
+      "assunto": "Aplicação de recursos do Fust para conectar o meio rural à internet",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 95,
+      "split": "train",
+      "article_date": "2023-06-28",
+      "title": "Entidades cobram mais segurança sanitária na produção de alimentos de origem animal",
+      "assunto": "Segurança sanitária e sustentabilidade na produção de alimentos de origem animal",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-25-2-0",
+      "hearing_id": 25,
+      "n": 4,
+      "article_name": "Zé Silva",
+      "proposition": "Vai entregar o documento com 14 medidas emergenciais ao ministro da Agricultura, Carlos Fávaro, e ao Ministro do Desenvolvimento Agrário, Paulo Teixeira: \"A nossa preocupação é que não seja uma audiência que não gere medidas concretas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nilo, com o Deputado Paulo Guedes, que me ligou ontem — é que não seja uma audiência só para nos reunirmos. Nós queremos que sejam tomadas medidas concretas e vamos levar isso para que o Banco do Nordeste tenha ferramentas para poder apoiar os produtores.",
+        "turn": 4,
+        "start": 24285,
+        "end": 24540
+      },
+      "verifier": {
+        "probability": 0.37725116276749515,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-46-0-0",
+      "hearing_id": 46,
+      "n": 1,
+      "article_name": "Zé Silva",
+      "proposition": "Quer garantir a aplicação de recursos do Fust para a conexão do meio rural à internet.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, o § 4º diz o seguinte.\"Os recursos do FUST poderão ser utilizados para a promoção de políticas para a inovação tecnológica de serviços no meio rural, coordenada pela Agência Nacional de Assistência Técnica e Extensão Rural — ANATER\". Essa foi uma grande luta.",
+        "turn": 6,
+        "start": 45031,
+        "end": 45298
+      },
+      "verifier": {
+        "probability": 0.1653510844084265,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-46-0-1",
+      "hearing_id": 46,
+      "n": 2,
+      "article_name": "Zé Silva",
+      "proposition": "Sugere a criação de um grupo específico no conselho gestor do fundo para tratar do setor agrícola.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Congresso não participa do conselho, nem precisa participar. Mas sugiro ao Ministério da Agricultura, que nos representa bem, que crie o GT do agro.",
+        "turn": 10,
+        "start": 65175,
+        "end": 65325
+      },
+      "verifier": {
+        "probability": 0.30477054454898145,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-46-0-2",
+      "hearing_id": 46,
+      "n": 3,
+      "article_name": "Zé Silva",
+      "proposition": "\"Um ano que a gente atrasar no 5G, e nós já atrasamos pelo menos um ano e meio, a gente perdeu 10 anos de competitividade do agro.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A China tem mais de 4 milhões de torres. Há um ponto fundamental mostrado num amplo estudo da ESALQ de que a Sibelle possivelmente vai falar: a cada 1 ano que atrasarmos no 5G — e nós atrasamos pelo menos 1 ano e meio — nós perderemos 10 anos de competitividade no agro.",
+        "turn": 4,
+        "start": 27491,
+        "end": 27762
+      },
+      "verifier": {
+        "probability": 0.9873122808241777,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-95-4-0",
+      "hearing_id": 95,
+      "n": 6,
+      "article_name": "Zé Silva",
+      "proposition": "Iniciou a mobilização pela votação de propostas que supram lacunas na legislação sobre segurança sanitária e sustentabilidade na produção de alimentos de origem animal: \"Eu já estive com o presidente da Câmara, Arthur Lira, para que nós tenhamos, no início do segundo semestre, uma semana de esforço concentrado da Câmara dos Deputados para aprovar projetos como esses.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "É por isso que um dos encaminhamentos importantes desta Virada Sustentável — e eu já estive com o Presidente da Câmara, o Deputado Arthur Lira, para definirmos isto — é que tenhamos, no início do segundo semestre, 1 semana, pelo menos — é claro que todos os projetos são importantes, mas precisamos escolher os prioritários —, de esforço concentrado aqui na Câmara dos Deputados para aprovar projetos como esse que você citou e também o da taxonomia verde, que é para políticas […]",
+        "turn": 4,
+        "start": 14766,
+        "end": 15461
+      },
+      "verifier": {
+        "probability": 0.23978120584326887,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

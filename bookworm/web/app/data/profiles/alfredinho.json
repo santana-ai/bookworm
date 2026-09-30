@@ -1,0 +1,352 @@
+{
+  "actor": {
+    "slug": "alfredinho",
+    "name": "Alfredinho",
+    "display_name": "Alfredinho",
+    "role": "Deputado (PT-SP)",
+    "article_names": [
+      "Alfredinho"
+    ],
+    "party_uf": [
+      "Bloco/PT - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:35:03+00:00",
+    "n_statements": 10,
+    "n_hearings": 2,
+    "hearing_ids": [
+      47,
+      144
+    ],
+    "input_tokens": 4763,
+    "output_tokens": 796,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 3,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a ampliação e o reforço do Programa Minha Casa, Minha Vida Entidades, argumentando que a qualidade do material é superior, o espaço é maior e há participação direta das pessoas na construção e condução da obra.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 29,
+            "start": 53968,
+            "end": 54150,
+            "text": "A qualidade do material utilizado é melhor; o espaço é sempre maior; as pessoas têm participação direta na construção, na condução da obra; e é um programa que precisa ser reforçado.",
+            "score": 0.5831
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a burocracia que atrapalha o andamento do Minha Casa, Minha Vida e de outros programas, apontando que a principal contrapartida para as prefeituras geralmente são os terrenos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 29,
+            "start": 54152,
+            "end": 54342,
+            "text": "Acho que a burocracia atrapalha muito o andamento do programa Minha Casa, Minha Vida e de outros programas, porque, para as prefeituras, a principal contrapartida geralmente são os terrenos.",
+            "score": 0.848
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministro e da assessoria a liberação de recursos para a conclusão do Conjunto Habitacional Alexios Jafet, em São Paulo, que possui 1.100 unidades, está quase 90% concluído e foi paralisado durante o governo Bolsonaro.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 29,
+            "start": 54773,
+            "end": 54851,
+            "text": "Está lá, quase 90% concluído, mas há dificuldade para a liberação de recursos.",
+            "score": 0.4428
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o investimento em infraestrutura nas periferias, alinhando-se à ideia do Periferia Viva, para que as pessoas não precisem sair de seus bairros, onde criaram raízes há 20, 30 ou 40 anos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 30,
+            "start": 55740,
+            "end": 55962,
+            "text": "Às vezes, nós queremos que as pessoas saiam da periferia e vão para o centro, porque lá há mais infraestrutura, só que essas pessoas criaram raízes, moram na localidade há 20 anos, 30 anos, 40 anos, e não querem sair dali.",
+            "score": 0.5144
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a chegada de energia solar para moradias populares, justificando com a crise energética, os preços cobrados por empresas terceirizadas e o caráter limpo da energia.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 30,
+            "start": 56299,
+            "end": 56603,
+            "text": "Quero dizer, para terminar, que essa ideia de levar energia solar para as moradias populares é excelente, por tudo que nós passamos com esta crise energética, com os preços absurdos que estão sendo cobrados pelas empresas terceirizadas de energia, e é bom para o Brasil, é energia limpa, gerada pelo sol.",
+            "score": 0.5593
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a privatização dos Centros Educacionais Unificados (CEUs) em São Paulo, que foram criados na gestão da prefeita Marta Suplicy e depois privatizados por outros governos.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 37,
+            "start": 45151,
+            "end": 45273,
+            "text": "Você falou um negócio importante que me lembrou, na época do Governo do PT, da Prefeita Marta Suplicy, a criação dos CEUs.",
+            "score": 0.3087
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a facilitação do acesso aos recursos da Lei Paulo Gustavo para a \"ponta\", ou seja, para artistas individuais, técnicos de som e grupos culturais de periferia que enfrentam dificuldades para apresentar editais e projetos.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 37,
+            "start": 47070,
+            "end": 47134,
+            "text": "Esta é a segunda audiência da Lei Paulo Gustavo que nós fazemos.",
+            "score": 0.1964
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fomento cultural em São Paulo, citando a aprovação de leis para samba de comunidade, teatro, reggae e grafite, e afirma que a cultura gera renda e tira pessoas da opção pelo crime.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 37,
+            "start": 47288,
+            "end": 47529,
+            "text": "Lá em São Paulo, como Vereador, eu aprovei várias leis de fomento: fomento aos sambas da comunidade, fomento ao teatro, fomento aoreggae, fomento ao grafite, que alguns tratam como pichação, mas que não é pichação, é uma cultura, é uma arte.",
+            "score": 0.3158
+          },
+          "udv": {
+            "id": "udv-47-3-0",
+            "rule": "same_sentence",
+            "score": 0.2855
+          }
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência de vida e a convivência no dia a dia com as comunidades periféricas como fundamento para defender políticas públicas que atendam diretamente à base, como a infraestrutura local e o acesso a recursos culturais.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 37,
+            "start": 47216,
+            "end": 47287,
+            "text": "Eu tenho essa preocupação porque nós convivemos no dia a dia e sabemos.",
+            "score": 0.2213
+          },
+          "udv": {
+            "id": "udv-47-3-0",
+            "rule": "same_sentence",
+            "score": 0.0911
+          }
+        },
+        {
+          "text": "Valoriza a permanência das pessoas em seus territórios de origem, argumentando que a melhoria das condições de moradia e infraestrutura impede a migração forçada para o centro.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca a importância do trabalho e da renda gerados pela cultura como critérios para justificar o investimento público, citando o aumento da agenda de shows após a volta do Ministério da Cultura.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 37,
+            "start": 44489,
+            "end": 44574,
+            "text": "Cultura, na verdade, é feita até sem dinheiro público, mas com todas as dificuldades.",
+            "score": 0.1579
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Vereador de São Paulo e afirma ter aprovado leis de fomento cultural na cidade.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 37,
+            "start": 47288,
+            "end": 47529,
+            "text": "Lá em São Paulo, como Vereador, eu aprovei várias leis de fomento: fomento aos sambas da comunidade, fomento ao teatro, fomento aoreggae, fomento ao grafite, que alguns tratam como pichação, mas que não é pichação, é uma cultura, é uma arte.",
+            "score": 0.3285
+          },
+          "udv": {
+            "id": "udv-47-3-0",
+            "rule": "same_sentence",
+            "score": 0.2714
+          }
+        },
+        {
+          "text": "Afirma estar alinhado com o governo atual, elogiando a atuação do Ministro da Cultura e citando a criação do Ministério como fator para a retomada da atividade cultural.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 29,
+            "start": 53535,
+            "end": 53631,
+            "text": "Quero saudar o Ministro e dizer que a sua atuação na condução do Ministério está sendo elogiada.",
+            "score": 0.2199
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a atuação do Deputado Guilherme Boulos e do Deputado Tarcísio Motta, indicando proximidade com esses parlamentares.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 5,
+            "start": 14743,
+            "end": 14783,
+            "text": "Tem a palavra o Deputado Tarcísio Motta.",
+            "score": 0.4988
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos concretos e locais, como o Conjunto Habitacional Alexios Jafet e os saraus do Grajaú, para ilustrar problemas burocráticos e a necessidade de políticas públicas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 29,
+            "start": 54344,
+            "end": 54418,
+            "text": "Vou dar o exemplo do Conjunto Habitacional Alexios Jafet, lá em São Paulo.",
+            "score": 0.3405
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos, como o número de unidades habitacionais (1.100) e o percentual de conclusão (90%), para dar peso às cobranças feitas aos representantes do governo.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 29,
+            "start": 55089,
+            "end": 55125,
+            "text": "São 1.100 unidades, com 3 entidades.",
+            "score": 0.2456
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem acessível e direta, utilizando expressões como \"ponta\", \"povo da periferia\" e \"jeito deles\" para se referir às comunidades atendidas.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 37,
+            "start": 45089,
+            "end": 45149,
+            "text": "Junta gente, porque o povo da periferia não tem muito lazer.",
+            "score": 0.1892
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina elogios à gestão atual com cobranças pontuais de liberação de recursos, mantendo um tom colaborativo, mas firme, ao tratar de pendências administrativas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 29,
+            "start": 54773,
+            "end": 54851,
+            "text": "Está lá, quase 90% concluído, mas há dificuldade para a liberação de recursos.",
+            "score": 0.1521
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 10,
+      "split": "test",
+      "article_date": "2024-04-26",
+      "title": "Governo quer substituir saque-aniversário do FGTS por consignado com juros mais baixos",
+      "assunto": "Substituição do saque-aniversário do FGTS por empréstimo consignado com juros mais baixos",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 47,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores comemoram melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "assunto": "Melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-47-3-0",
+      "hearing_id": 47,
+      "n": 8,
+      "article_name": "Alfredinho",
+      "proposition": "Defendeu as leis de fomento para impulsionar diversas manifestações artísticas, como rodas de samba e festejos folclóricos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu tenho essa preocupação porque nós convivemos no dia a dia e sabemos. Lá em São Paulo, como Vereador, eu aprovei várias leis de fomento: fomento aos sambas da comunidade, fomento ao teatro, fomento aoreggae, fomento ao grafite, que alguns tratam como pichação, mas que não é pichação, é uma cultura, é uma arte.",
+        "turn": 37,
+        "start": 47216,
+        "end": 47529
+      },
+      "verifier": {
+        "probability": 0.8094199808970305,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,594 @@
+{
+  "actor": {
+    "slug": "jorge-solla",
+    "name": "Jorge Solla",
+    "display_name": "Jorge Solla",
+    "role": "Deputado (PT-BA)",
+    "article_names": [
+      "Jorge Solla"
+    ],
+    "party_uf": [
+      "Bloco/PT - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:20:11+00:00",
+    "n_statements": 21,
+    "n_hearings": 5,
+    "hearing_ids": [
+      15,
+      140,
+      145,
+      171,
+      199
+    ],
+    "input_tokens": 8071,
+    "output_tokens": 1145,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 1,
+    "passage_only": 17,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a reconstrução da autoridade técnica e política do Ministério da Saúde como coordenador do SUS, criticando a desmoralização e a perda de liderança ocorridas no governo anterior, que impediam a coordenação das ações nos Estados e Municípios.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 98,
+            "start": 67193,
+            "end": 67273,
+            "text": "O Ministério não conseguia mais coordenar as ações nos Estados e nos Municípios.",
+            "score": 0.294
+          },
+          "udv": {
+            "id": "udv-199-11-0",
+            "rule": "similar_text",
+            "score": 0.3075
+          }
+        },
+        {
+          "text": "Critica o retrocesso de 30 anos na cobertura vacinal atribuído ao governo anterior, responsabilizando a disseminação de fake news e a abordagem do ex-presidente por esse dano, e destaca a recuperação rápida de serviços sem financiamento (como 8 hospitais e 25 policlínicas na Bahia) como prioridade do atual governo.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 214,
+            "start": 129160,
+            "end": 129362,
+            "text": "Esses senhores são os responsáveis, na suas rede sociais, na forma como criamfake newscontra a vacinação e na abordagem do ex-Presidente, por um retrocesso de 30 anos da cobertura vacinal em nosso País.",
+            "score": 0.3177
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um fundo específico para enfrentamento de emergências em saúde pública, aprovado na Comissão de Saúde, para garantir recursos independentes do orçamento ordinário diante de novas pandemias ou desastres climáticos, como os ocorridos no Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 274,
+            "start": 202299,
+            "end": 202521,
+            "text": "Esse projeto pode permitir que tenhamos um colchão, porque virão novas pandemias, virão novas emergências em saúde pública, e nós não podemos ficar dependendo do orçamento regular, ordinário, para fazer esse enfrentamento.",
+            "score": 0.3293
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a regularização do financiamento de hospitais filantrópicos e a correção das distorções causadas pelo uso de emendas parlamentares como fonte de custeio regular, citando a crise do Hospital Irmã Dulce e a desigualdade de repasses baseada em alinhamento político.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 222,
+            "start": 131675,
+            "end": 131762,
+            "text": "Ministra em resolver o problema do Hospital Irmã Dulce e do Hospital Martagão Gesteira.",
+            "score": 0.1951
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção do cronograma automático de renovação da frota do SAMU, criticando o sucateamento e a vinculação de recursos a emendas de relator no governo anterior, e parabeniza a iniciativa de renovação de 1.800 veículos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 222,
+            "start": 134992,
+            "end": 135104,
+            "text": "Quero parabenizar a iniciativa do Ministério por já ter anunciado a renovação da frota com 1.800 novos veículos.",
+            "score": 0.4201
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a abertura judicial de 15 mil vagas em cursos de medicina em cidades que já possuíam cursos, argumentando que isso excedeu a capacidade de absorção da rede, e pede a opinião da Ministra sobre a regulamentação futura pelo Ministério da Educação.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 222,
+            "start": 133890,
+            "end": 134085,
+            "text": "Essas 15 mil vagas não foram abertas em regiões onde não havia o curso; muito pelo contrário: todas foram abertas em cidades onde já havia cursos e vagas além da capacidade de a rede absorvê-las.",
+            "score": 0.3298
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a ampliação do Complexo Industrial de Saúde para aumentar a produção nacional de medicamentos e insumos, evitando dependência externa, e destaca a entrega de aceleradores lineares de radioterapia na Bahia como exemplo de retomada de investimentos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 222,
+            "start": 136395,
+            "end": 136505,
+            "text": "Deputada Bia, sete aceleradores lineares serão entregues para aumentar as sessões de radioterapia só na Bahia.",
+            "score": 0.2982
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a realização de audiências com viés antivacina no Parlamento, como a iniciativa na Comissão de Fiscalização Financeira e Controle, e propõe o contraponto técnico e a reestruturação do enfrentamento ao negacionismo científico.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 3,
+            "start": 38981,
+            "end": 39276,
+            "text": "E amanhã, no plenário aqui ao lado, na Comissão de Fiscalização Financeira e Controle, haverá uma iniciativa da Presidente da Comissão de fazer uma pregação antivacina, contra o fato de o Ministério da Saúde estar incorporando a vacina contra a COVID-19 no planejamento de vacinação de crianças.",
+            "score": 0.2806
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a implementação imediata do registro individualizado de vacinas em plataforma digital, estendendo a tecnologia já usada para a COVID-19 a todas as vacinas, para permitir o mapeamento territorial de não vacinados e a melhoria das coberturas.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 3,
+            "start": 41830,
+            "end": 41913,
+            "text": "É fazer o registro individualizado de cada dose, de cada vacina, de cada indivíduo.",
+            "score": 0.1836
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a noção de \"liderança técnica e política\" do Ministério da Saúde como critério central para avaliar a saúde pública, argumentando que a perda dessa referência foi o maior prejuízo do governo anterior, justificando suas críticas à descoordenação e à falta de pactuação.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 3,
+            "start": 35046,
+            "end": 35306,
+            "text": "Nós nunca tínhamos visto uma situação de perda de credibilidade dos gestores locais, da sociedade, dos profissionais na referência do Ministério da Saúde, que sempre se pautou como referência técnica do sistema de saúde, como uma liderança política do sistema.",
+            "score": 0.2711
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a equidade e a justiça social como fundamento para criticar o financiamento baseado em alinhamento político (emendas parlamentares) e a concentração de desigualdades, defendendo que o SUS deve operar com critérios técnicos e não de \"bajulação\" ou \"amizade com o rei\".",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em dados quantitativos e históricos (como os 30 anos de retrocesso vacinal, os 7 mil vs 15 mil vagas de medicina, e os números de serviços reativados) para sustentar suas posições, contrastando o período anterior com as ações do governo atual.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 222,
+            "start": 133158,
+            "end": 133323,
+            "text": "Só que, durante o período do Governo da Presidenta Dilma, com o Mais Médicos, em números redondos, foram abertas algo em torno de 7 mil vagas em faculdades privadas.",
+            "score": 0.2222
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a participação social e a pactuação com entidades como CONASS, CONASEMS e Conselho Nacional de Saúde como mecanismo legítimo de decisão, citando a Conferência Nacional de Saúde como exemplo de retomada desse diálogo.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 98,
+            "start": 67532,
+            "end": 67689,
+            "text": "Paralelamente a isso, temos a retomada do diálogo e da negociação permanente entre Estados e Municípios e o CONASS, o CONASEMS, o Conselho Nacional de Saúde.",
+            "score": 0.4245
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se sanitarista e epidemiologista, tendo atuado como Secretário de Atenção à Saúde no primeiro governo Lula e como Secretário de Saúde do Estado da Bahia.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 3,
+            "start": 37177,
+            "end": 37307,
+            "text": "Eu vou citar uma que vivi quando eu tinha acabado de assumir o cargo de Secretário de Saúde do Estado da Bahia, no início de 2007.",
+            "score": 0.2667
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parlamentar da base do governo do Presidente Lula, referindo-se a Jarbas Barbosa como \"companheiro\" e elogiando publicamente a Ministra Nísia Trindade e a equipe do Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 3,
+            "start": 33629,
+            "end": 33724,
+            "text": "É uma oportunidade ímpar termos aqui o nosso companheiro Jarbas Barbosa, Diretor-Geral da OPAS.",
+            "score": 0.2386
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter participado da criação do SAMU e do Mais Médicos, vinculando sua trajetória profissional às políticas públicas que defende.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 3,
+            "start": 35758,
+            "end": 35834,
+            "text": "Socorro, do acolhimento dos novos médicos de uma das turmas do Mais Médicos.",
+            "score": 0.1567
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e casos concretos de sua base eleitoral (Bahia) para ilustrar problemas nacionais, como a entrega de equipamentos em Juazeiro e Vitória da Conquista e a reativação de hospitais locais.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 222,
+            "start": 136006,
+            "end": 136097,
+            "text": "No meu Estado, a senhora entregou os equipamentos em Juazeiro, e eles já estão funcionando.",
+            "score": 0.1737
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador em relação ao governo anterior e a parlamentares opositores, usando expressões como \"barbaridades\", \"fajuta\", \"criminoso\" e \"tenebroso passado\", e dirigindo-se diretamente a colegas (como Deputada Bia Kicis e Deputado Aureo) para cobrar respeito ou contestar argumentos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 94,
+            "start": 65880,
+            "end": 65918,
+            "text": "Como o Deputado Aureo não está aqui...",
+            "score": 0.2682
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a sua experiência pessoal e profissional (trabalho como sanitarista na periferia de Salvador, participação na criação do SAMU) para dar credibilidade técnica a seus argumentos e ilustrar a necessidade de estratégias de confiança comunitária.",
+          "passage": {
+            "hearing_id": 140,
+            "turn": 3,
+            "start": 39964,
+            "end": 40008,
+            "text": "Eu fui sanitarista na periferia de Salvador.",
+            "score": 0.323
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura suas falas com agradecimentos iniciais à Ministra, seguidos de críticas ao passado, exemplos de conquistas atuais e perguntas específicas para os convidados, mantendo um foco em soluções técnicas e orçamentárias.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 22,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 131,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Concessionária e governo anunciam em reunião na Câmara acordo para a duplicação da BR-116 na Bahia",
+      "assunto": "Acordo para a duplicação da BR-116 na Bahia",
+      "turns": 12,
+      "in_profile": false,
+      "udvs": 4
+    },
+    {
+      "id": 140,
+      "split": "train",
+      "article_date": "2023-11-07",
+      "title": "Diretor da Opas aponta lições da pandemia e providências para próximas emergências sanitárias",
+      "assunto": "Lições da pandemia e providências para futuras emergências sanitárias, com foco na vacinação e combate à desinformação",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-15-3-0",
+      "hearing_id": 15,
+      "n": 12,
+      "article_name": "Jorge Solla",
+      "proposition": "Há uma queda nos índices de vacinação devido à falta de credibilidade dos imunizantes perante parte da população: \"Eu fico muito preocupado porque nós não podemos contribuir para piorar ainda mais a cobertura da vacinação não só de Covid-19, mas de todas as vacinas. É responsabilidade dessa Casa, dos profissionais de saúde e do Estado brasileiro\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mas eu fico muito preocupado, Presidente Bia Kicis, porque nós não podemos contribuir para piorar ainda mais a cobertura de vacinação, não só da COVID, mas de todas. Isso é responsabilidade desta Casa, dos profissionais de saúde e do Estado brasileiro.",
+        "turn": 31,
+        "start": 78681,
+        "end": 78933
+      },
+      "verifier": {
+        "probability": 0.41779771971011237,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-16-7-0",
+      "hearing_id": 16,
+      "n": 17,
+      "article_name": "Jorge Solla",
+      "proposition": "Elogiou a gestão de Sílvio Almeida no Ministério dos Direitos Humanos.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "O Governo permeava a sociedade e permeava a participação social. E eu também queria destacar o Viver sem Limite, que foi recentemente lançado e já está tendo uma repercussão muito positiva.",
+        "turn": 296,
+        "start": 197523,
+        "end": 197713
+      },
+      "verifier": {
+        "probability": 0.2841554867311107,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-3-0",
+      "hearing_id": 129,
+      "n": 12,
+      "article_name": "Jorge Solla",
+      "proposition": "Acusou os representantes da oposição de mentir em relação à vacina, prejudicando todo o programa de imunização.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Agora, crime sanitário, derrubar a cobertura vacinal, criar a possibilidade de voltar a aparecer poliomielite, de pessoas voltarem a morrer neste País por tétano neonatal, de voltar a haver crianças recém-nascidas sem cobertura vacinal? Vocês fazem uso, sim, do movimento antivacina para angariar votos e apoio político-partidário, isso é o pior.",
+        "turn": 51,
+        "start": 76425,
+        "end": 76772
+      },
+      "verifier": {
+        "probability": 0.3645411103910601,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-3-1",
+      "hearing_id": 129,
+      "n": 13,
+      "article_name": "Jorge Solla",
+      "proposition": "Ressaltou que municípios onde há dez anos se alcançava uma cobertura vacinal de 90% hoje chegam a apresentar um índice de apenas 40% da população vacinada.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós estivemos ontem vendo cobertura vacinal. Há Municípios, Deputado Chico, que tinham 90%, 95% de cobertura 10 anos atrás, e hoje têm 35%, 40%.",
+        "turn": 51,
+        "start": 75520,
+        "end": 75664
+      },
+      "verifier": {
+        "probability": 0.9640800602216993,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-3-2",
+      "hearing_id": 129,
+      "n": 14,
+      "article_name": "Jorge Solla",
+      "proposition": "Acusou os oposicionistas de colocarem a vida da população em risco para conseguir dividendos políticos: \"Vocês estão mentindo, isso é um prática criminosa, vocês são responsáveis por cada criança que vier a ter sarampo nesse País, vocês serão responsáveis por cada caso de pólio que vier a acontecer. Vocês estão usando o movimento antivacina, pregando mentiras, para ter vantagens eleitorais. Comprometer a proteção de crianças, de gestantes, de idosos para ganhar voto, para lacrar nas redes sociais, para ganhar seguidores, para ganhar apoiadores.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vocês são os responsáveis por qualquer caso de doença que poderia ter sido evitada com vacinação, mas não foi porque vocês estão usando o movimento antivacina, pregando mentiras para ter dividendos político-partidários, para ter vantagens eleitorais. Isso é o pior que eu já vi um partido, uma bancada praticar em nosso País, é tratar a vida das pessoas como se não servisse para nada, é comprometer a proteção de crianças, de gestantes, de idosos neste País para ganhar votos […]",
+        "turn": 51,
+        "start": 78751,
+        "end": 79308
+      },
+      "verifier": {
+        "probability": 0.9881615007700703,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-131-1-0",
+      "hearing_id": 131,
+      "n": 3,
+      "article_name": "Jorge Solla",
+      "proposition": "\"Sem consenso, ficaremos na situação atual, dependendo de arbitragem judicial para avançar alguma coisa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quero só destacar um pouquinho a resposta. Se, ao final disso tudo, o Tribunal de Contas não conseguir alcançar o consenso, se for recusada e arquivada, nós voltamos à situação atual, ou seja, dependemos de arbitragem judicial para tentar avançar em alguma coisa nos impasses existentes por todos esses anos.",
+        "turn": 44,
+        "start": 72385,
+        "end": 72693
+      },
+      "verifier": {
+        "probability": 0.9842962436283331,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-131-1-1",
+      "hearing_id": 131,
+      "n": 4,
+      "article_name": "Jorge Solla",
+      "proposition": "\"O impasse na duplicação da BR-116, com prejuízos à sociedade e à economia, aconteceram porque o Estado não cumpriu suas responsabilidades na fiscalização da concessão e nas cobranças ao concessionário.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Estado brasileiro abriu mão — esse é um ponto que destacamos aqui — e não cumpriu a sua responsabilidade na fiscalização da concessão, na cobrança ao concessionário. Tem a palavra José Bartolomeu, o concessionário.",
+        "turn": 44,
+        "start": 72694,
+        "end": 72911
+      },
+      "verifier": {
+        "probability": 0.5344332983529452,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-131-1-2",
+      "hearing_id": 131,
+      "n": 5,
+      "article_name": "Jorge Solla",
+      "proposition": "\"Esse processo já se arrasta por alguns anos e, sem antecipar medidas, espero que o TCU reconheça a necessidade de uma resposta rápida.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Isso tudo é de uma gravidade muito grande. Por isso, não estamos aqui antecipando uma cobrança ao TCU, mas encerro colocando aqui a nossa perspectiva de que o TCU reconheça a necessidade de uma resposta breve, rápida, para um problema dessa natureza.",
+        "turn": 26,
+        "start": 56119,
+        "end": 56369
+      },
+      "verifier": {
+        "probability": 0.40003507344436495,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-131-1-3",
+      "hearing_id": 131,
+      "n": 6,
+      "article_name": "Jorge Solla",
+      "proposition": "Anunciou novas reuniões para acompanhamento do caso.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Antes do encerramento desta reunião, eu queria apresentar duas propostas, para não perdermos de vista o acompanhamento do processo. Uma é de que venhamos a fazer uma nova audiência, após a admissibilidade ser aprovada e os trabalhos iniciados.",
+        "turn": 76,
+        "start": 85464,
+        "end": 85708
+      },
+      "verifier": {
+        "probability": 0.6153102564043822,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-140-2-0",
+      "hearing_id": 140,
+      "n": 11,
+      "article_name": "Jorge Solla",
+      "proposition": "Além da recuperação dos percentuais de cobertura vacinal, outro desafio é enfrentar a ampliação das desigualdades sociais tanto no Brasil quanto no resto do mundo, que impacta a saúde da população.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu acho que, na área de saúde, nós precisamos nos debruçar mais sobre isso e sobre o impacto que a desigualdade social faz em levar à ampliação dos riscos. Inclusive, como você chamou a atenção, a cobertura vacinal não tem uma disseminação, ou melhor, uma distribuição homogênea.",
+        "turn": 3,
+        "start": 36791,
+        "end": 37070
+      },
+      "verifier": {
+        "probability": 0.3163876499807585,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-11-0",
+      "hearing_id": 199,
+      "n": 23,
+      "article_name": "Jorge Solla",
+      "proposition": "Apoiou a ministra Nísia Trindade: \"O ministério, em poucos meses, conseguiu reconquistar a autoridade técnico-política da direção nacional do SUS. Isso é fundamental, porque, infelizmente, no governo anterior foi uma desmoralização.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "No entanto, eu destacaria, primeiro, que o Ministério, em poucos meses, conseguiu reconquistar a autoridade técnica e política da Direção Nacional do Sistema Único de Saúde. Isso é fundamental, porque, infelizmente, no Governo anterior, houve uma desmoralização.",
+        "turn": 98,
+        "start": 66930,
+        "end": 67192
+      },
+      "verifier": {
+        "probability": 0.4062322022875882,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

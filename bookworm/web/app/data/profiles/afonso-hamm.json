@@ -1,0 +1,381 @@
+{
+  "actor": {
+    "slug": "afonso-hamm",
+    "name": "AFONSO HAMM",
+    "display_name": "Afonso Hamm",
+    "role": "Deputado (PP-RS)",
+    "article_names": [
+      "Afonso Hamm"
+    ],
+    "party_uf": [
+      "Bloco/PP - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:20:46+00:00",
+    "n_statements": 10,
+    "n_hearings": 2,
+    "hearing_ids": [
+      153,
+      171
+    ],
+    "input_tokens": 4718,
+    "output_tokens": 986,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Convida a Ministra da Saúde para visitar a Santa Casa de Bagé, no Rio Grande do Sul, e inaugurar o setor de radioterapia, que atende a região da Campanha Gaúcha e reduziu a necessidade de pacientes com câncer viajarem 400 quilômetros até a capital.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 96,
+            "start": 85256,
+            "end": 85438,
+            "text": "Antes de concluir, quero fazer oficialmente o convite para que vá à Santa Casa de Bagé, que atende toda a grande região da Campanha Gaúcha, para inaugurarmos o setor de radioterapia.",
+            "score": 0.4379
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a demora da equipe da Ministra em fornecer retorno sobre a visita, classificando-a como uma falha de performance que precisa ser melhorada.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 94,
+            "start": 83840,
+            "end": 83915,
+            "text": "Essa é uma pequena crítica que faço para que melhore aperformanceda equipe.",
+            "score": 0.2135
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a destinação de 100 milhões de reais, dos 280 milhões provisionados, para a situação de emergência no Rio Grande do Sul, valor que considera um mínimo e que a bancada pode aumentar.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 96,
+            "start": 84668,
+            "end": 84813,
+            "text": "Ontem, nós os Deputados e Senadores da bancada gaúcha decidimos que, de 280 milhões provisionados, 100 milhões vão para a situação de emergência.",
+            "score": 0.4095
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a indicação dos recursos para a reconstrução seja feita por necessidade técnica, em interface com Prefeitos, gestão estadual e federal, para que o dinheiro chegue \"na veia\", rejeitando a indicação política direta por parte dos Deputados.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 184839,
+            "end": 185014,
+            "text": "Se nós fizermos uma interface com os Prefeitos, com a gestão estadual e com a gestão federal, vamos acertar na veia e viabilizar a chegada do recurso aonde ele precisa chegar.",
+            "score": 0.3141
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que os 100 milhões deste ano são insuficientes para a reestruturação e reconstrução, defendendo o aumento do valor e a garantia de recursos para os próximos anos, estimando que quatro orçamentos anuais de 300 milhões resultariam em 1,2 bilhão.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 185972,
+            "end": 186184,
+            "text": "Eu acho, quanto aos 100 milhões deste ano, que já se pode pensar em aumentar o valor e em garanti-lo para os próximos anos, porque esse dinheiro é absolutamente insuficiente para a reestruturação, a reconstrução.",
+            "score": 0.3913
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta o Projeto de Lei nº 4.769, de 2023, que permite o ressarcimento a Estados e Municípios em 90 dias em situações de calamidade, visando eliminar a burocracia que impede a chegada imediata de recursos para o socorro humanitário.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 186472,
+            "end": 186603,
+            "text": "Trata-se do Projeto de Lei nº 4.769, de 2023, que permite o ressarcimento a Estados e Municípios no caso de determinadas situações.",
+            "score": 0.5125
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a celeridade na liberação dos recursos do BNDES para grandes empresas afetadas pelas enchentes, apontando a urgência da situação.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 184681,
+            "end": 184744,
+            "text": "Há urgência, então eu acho que é preciso dar celeridade a isso.",
+            "score": 0.264
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a bancada gaúcha conseguiu despolitizar a questão das enchentes, mobilizando-se desde o primeiro dia para tratar do assunto.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 182105,
+            "end": 182227,
+            "text": "O primeiro exercício que eu julgo importante fazer é lembrar que nós conseguimos despolitizar a questão na bancada gaúcha.",
+            "score": 0.3521
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Prioriza a construção de uma pauta positiva para a saúde e a vida das pessoas, argumentando que o debate ideológico não resolve problemas e que é fundamental salvar vidas.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 94,
+            "start": 82437,
+            "end": 82484,
+            "text": "A pauta da saúde é a pauta da vida das pessoas.",
+            "score": 0.4191
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência local e a vivência dos gestores municipais (Prefeitos, Vice-Prefeitos e Defesa Civil) como critério para a alocação de recursos, considerando que eles conhecem a profundidade do impacto na vida da população.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 183263,
+            "end": 183383,
+            "text": "Não há quem não conheça com mais profundidade os Prefeitos, Vice-Prefeitos e gestores da Defesa Civil de cada Município.",
+            "score": 0.4738
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a necessidade de agilidade e simplificação burocrática (como no PL 4.769) pelo fato de que a burocracia atual \"derruba\" a capacidade de resposta, sobrecarregando o Prefeito com a prestação do socorro humanitário.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 186638,
+            "end": 186875,
+            "text": "Quando se aprova ou se reconhece a situação de emergência, ou, no caso, a situação de calamidade, fazem-se os planos, mas não há o dinheiro, a burocracia nos derruba, e o Prefeito é que tem que prestar o socorro humanitário no Município.",
+            "score": 0.2455
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a colaboração técnica e a objetividade, propondo que Ministros e representantes do Governo forneçam sugestões técnicas sobre rubricas orçamentárias para garantir a execução correta dos recursos.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 60,
+            "start": 117965,
+            "end": 118040,
+            "text": "É um aparte, mas é de construção, a título de colaboração, de objetividade.",
+            "score": 0.1857
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal de Oposição, com cinco mandatos como titular e um como suplente.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 94,
+            "start": 81899,
+            "end": 81990,
+            "text": "Eu já tenho cinco mandatos como Deputado Federal e um sexto mandato como Deputado suplente.",
+            "score": 0.5635
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante do Rio Grande do Sul, especificamente da região de Bagé.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 94,
+            "start": 82808,
+            "end": 82887,
+            "text": "Queremos convidá-la para ir ao Rio Grande do Sul, a Bagé, à Santa Casa de Bagé.",
+            "score": 0.3943
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a bancada gaúcha na mobilização para o enfrentamento das enchentes e na despolitização da pauta.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 94,
+            "start": 82437,
+            "end": 82484,
+            "text": "A pauta da saúde é a pauta da vida das pessoas.",
+            "score": 0.191
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ter feito a iniciativa formal da proposta dos 100 milhões, que foi trabalhada e melhorada por outros Parlamentares.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 60,
+            "start": 118482,
+            "end": 118532,
+            "text": "Eu tomei essa iniciativa e outros Parlamentares...",
+            "score": 0.3381
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a coordenação da bancada, liderada pelo Deputado Carlos Gomes, e a colaboração com o Governador, Vice-Governador e a Defesa Civil do Estado.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 182964,
+            "end": 183109,
+            "text": "Então, não há como deixar de mencionar o Governador, que ficou à frente, e hoje o Vice-Governador, que também está cuidando do gabinete de crise.",
+            "score": 0.2924
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a experiência pessoal e a vivência política (\"na minha vida pública... nunca tinha enfrentado tamanha adversidade climática\") para dar peso às suas falas e demonstrar a gravidade da situação.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 181952,
+            "end": 182103,
+            "text": "Na minha vida pública, em toda a minha vida, aliás, eu nunca tinha enfrentado tamanha adversidade climática, na dimensão desta que estamos enfrentando.",
+            "score": 0.4942
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom pragmático e colaborativo, propondo soluções técnicas (como a definição de rubricas e a interface com Prefeitos) em vez de discursos ideológicos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega metáforas e linguagem acessível para explicar conceitos orçamentários e de execução (\"acertar na veia\", \"goleiro joga com os pés e faz gol\").",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 181617,
+            "end": 181666,
+            "text": "Hoje está bom: goleiro joga com os pés e faz gol.",
+            "score": 0.4759
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos e números (40 dias, 400 quilômetros, 100 milhões, 280 milhões, 1,2 bilhão, 90 dias) para fundamentar suas propostas e críticas.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 115,
+            "start": 183742,
+            "end": 183813,
+            "text": "E, quando colocamos 100 milhões, falava-se em orçamento de 280 milhões.",
+            "score": 0.2524
+          },
+          "udv": null
+        },
+        {
+          "text": "Direciona pedidos concretos e prazos aos interlocutores (Ministros, representantes do Governo), cobrando respostas técnicas e objetivas para viabilizar a execução dos recursos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 1,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Jornalistas acusam Alexandre de Moraes de censura ao exigir bloqueio de contas da rede social X",
+      "assunto": "Acusações de censura contra Alexandre de Moraes por exigir bloqueio de contas na rede social X",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-122-1-0",
+      "hearing_id": 122,
+      "n": 5,
+      "article_name": "Afonso Hamm",
+      "proposition": "Defendeu o fim do contingenciamento dos recursos reservados no Orçamento para o PSR: \"É muito importantes evoluirmos para que não possa haver cortes. Hoje, o seguro agrícola é um faz-de-conta.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É muito importante nós evoluirmos para que não haja cortes e contingenciamento. Hoje, o seguro agrícola é um faz de conta, porque o dinheiro está lá, mas, se for preciso, vai para outra área.",
+        "turn": 16,
+        "start": 65227,
+        "end": 65418
+      },
+      "verifier": {
+        "probability": 0.8370789705310582,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

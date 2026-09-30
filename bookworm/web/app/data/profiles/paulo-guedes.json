@@ -1,0 +1,240 @@
+{
+  "actor": {
+    "slug": "paulo-guedes",
+    "name": "PAULO GUEDES",
+    "display_name": "PAULO GUEDES",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:57:05+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      2
+    ],
+    "input_tokens": 2311,
+    "output_tokens": 678,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 13,
+    "with_udv": 0,
+    "passage_only": 11,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Questiona a estrutura de governança do ONS, apontando que o órgão, responsável pelo despacho e operação do Sistema Interligado Nacional, possui Conselho de Administração com 14 representantes de empresas do setor e grandes consumidores, apenas um representante da sociedade civil e dois representantes do Governo, que detém 47% das ações.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 142705,
+            "end": 143108,
+            "text": "Ministro, o ONS, órgão responsável pelo despacho e operação de todo o Sistema Interligado Nacional, é uma entidade privada, que tem em seu Conselho de Administração 14 representantes das próprias empresas do setor e grandes consumidores, praticamente todos privados; tem apenas um representante da sociedade civil; e tem apenas dois representantes do Governo, que detém, se não me engano, 47% das ações.",
+            "score": 0.7641
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a influência da ELETROBRAS no ONS, destacando que a empresa possui três membros titulares no Conselho de Administração, exercendo mais poder que o próprio Governo, e que seu Diretor-Geral era Presidente de Furnas, uma de suas subsidiárias, antes de assumir o cargo.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 143109,
+            "end": 143296,
+            "text": "A ELETROBRAS, até por ser a mais importante empresa do setor, possui três membros titulares no Conselho de Administração do ONS, ou seja, tem mais poder no órgão do que o próprio Governo.",
+            "score": 0.5366
+          },
+          "udv": null
+        },
+        {
+          "text": "Pergunta ao Ministro se a privatização da ELETROBRAS reduziu a influência do Estado na gestão do ONS e se é prudente que a operação do Sistema Interligado Nacional fique nas mãos de grandes agentes privados.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 143565,
+            "end": 143685,
+            "text": "O senhor acha prudente que a operação de todo o Sistema Interligado Nacional fique nas mãos de grandes agentes privados?",
+            "score": 0.6941
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a cláusula de recompra de ações da ELETROBRAS, que exige do Governo o pagamento de dez vezes o valor recebido pela venda da empresa, e pergunta qual é a opinião do Ministro sobre essa distorção e o que a Casa pode fazer para corrigi-la.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 144012,
+            "end": 144147,
+            "text": "Eu queria saber qual é a opinião do Ministro sobre isso e o que o senhor acha que esta Casa pode fazer para corrigir tamanha distorção.",
+            "score": 0.3463
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o modelo de privatização por considerá-lo \"cruel com o consumidor brasileiro\", citando como exemplo o caso da PETROBRAS, onde afirma que o povo brasileiro pagou caro para um grupo pequeno de investidores que lucrava bilhões enquanto a população penava para abastecer veículos.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 144149,
+            "end": 144348,
+            "text": "Vimos no Governo passado o Brasil pagar caro, o povo brasileiro, para um grupo pequeno de investidores da PETROBRAS, que lucrava bilhões enquanto o povo penava para conseguir abastecer seus veículos.",
+            "score": 0.5751
+          },
+          "udv": null
+        },
+        {
+          "text": "Expressa preocupação com a intenção do Governador de Minas Gerais de privatizar a CEMIG, esperando que não se repita o caso da ELETROBRAS.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 144600,
+            "end": 144709,
+            "text": "Estamos vendo, em Minas Gerais, por exemplo, o Governador querer, de todas as formas, entregar a nossa CEMIG.",
+            "score": 0.3215
+          },
+          "udv": null
+        },
+        {
+          "text": "Pergunta ao Ministro como foi recebido o parecer da AGU sobre a exploração na margem equatorial e quais são os próximos passos.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 103,
+            "start": 172875,
+            "end": 172940,
+            "text": "recebeu o parecer da AGU sobre a exploração na margem equatorial?",
+            "score": 0.6351
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o impacto no consumidor final como critério para avaliar políticas de privatização, justificando a crítica ao modelo atual pela transferência de custos para a população e pela concentração de lucros em grupos pequenos de investidores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Defende a necessidade de maior participação do Estado e da sociedade civil na governança de órgãos estratégicos do setor elétrico, como fundamento para questionar a estrutura do Conselho de Administração do ONS.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 142705,
+            "end": 143108,
+            "text": "Ministro, o ONS, órgão responsável pelo despacho e operação de todo o Sistema Interligado Nacional, é uma entidade privada, que tem em seu Conselho de Administração 14 representantes das próprias empresas do setor e grandes consumidores, praticamente todos privados; tem apenas um representante da sociedade civil; e tem apenas dois representantes do Governo, que detém, se não me engano, 47% das ações.",
+            "score": 0.1558
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Parlamentar, referindo-se a si e a seus pares como \"nós, enquanto Parlamentares\", e propõe ação conjunta entre Governo e Parlamento para corrigir distorções no sistema de privatização.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 144410,
+            "end": 144599,
+            "text": "Então, o que Governo e o que nós podemos fazer, enquanto Parlamentares, numa ação conjunta, para termos um sistema de privatização não tão cruel com o consumidor brasileiro, com as pessoas?",
+            "score": 0.3468
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Constrói o argumento com base em dados estruturais específicos, como o número de representantes no Conselho de Administração do ONS, a porcentagem de ações detidas pelo Governo e a relação de cargos entre a ELETROBRAS e o ONS.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 88,
+            "start": 142705,
+            "end": 143108,
+            "text": "Ministro, o ONS, órgão responsável pelo despacho e operação de todo o Sistema Interligado Nacional, é uma entidade privada, que tem em seu Conselho de Administração 14 representantes das próprias empresas do setor e grandes consumidores, praticamente todos privados; tem apenas um representante da sociedade civil; e tem apenas dois representantes do Governo, que detém, se não me engano, 47% das ações.",
+            "score": 0.1717
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza comparações com casos anteriores, como a privatização da PETROBRAS, para sustentar a crítica ao modelo atual e alertar para riscos em novas privatizações, como a da CEMIG.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Direciona perguntas específicas ao Ministro, cobrando posicionamento sobre temas como a influência do Estado no ONS, a cláusula de recompra de ações e o parecer da AGU sobre a margem equatorial.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 103,
+            "start": 172875,
+            "end": 172940,
+            "text": "recebeu o parecer da AGU sobre a exploração na margem equatorial?",
+            "score": 0.3592
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 25,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Debatedores apontam urgência para socorrer produtores do norte de Minas em seca sem precedentes",
+      "assunto": "Urgência para socorrer produtores do norte de Minas Gerais devido à seca sem precedentes",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 109,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Ministro da Integração afirma que Plano Nacional de Defesa Civil sai no segundo semestre",
+      "assunto": "Plano Nacional de Proteção e Defesa Civil (PNPDC) e outras políticas regionais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "actor": {
+    "slug": "paulao",
+    "name": "Paulão",
+    "display_name": "Paulão",
+    "role": "Deputado (PT-AL)",
+    "article_names": [
+      "Paulão"
+    ],
+    "party_uf": [
+      "Bloco/PT - AL"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:56:13+00:00",
+    "n_statements": 7,
+    "n_hearings": 2,
+    "hearing_ids": [
+      157,
+      182
+    ],
+    "input_tokens": 4824,
+    "output_tokens": 762,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 1,
+    "passage_only": 11,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a convocação presencial da Agência Nacional de Saúde Suplementar (ANS) para audiências públicas na Câmara dos Deputados, argumentando que a agência tem um papel singular na regulação dos planos de saúde e que a ausência presencial, especialmente após o não atendimento a um requerimento de informações enviado pela SENACON, configura desrespeito à Casa Legislativa.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 70,
+            "start": 139222,
+            "end": 139532,
+            "text": "Considero essa falha de não ter vindo aqui um desrespeito à Câmara Federal.E, como a Agência Nacional de Saúde tem o papel de que todos vocês falaram e, nas respostas, ela quase não interage virtualmente, porque virtual é diferente de presencial, eu faço uma sugestão e espero que o Presidente pense com calma.",
+            "score": 0.2389
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a realização de uma nova audiência ou continuidade do debate com a presença física da ANS, em conjunto com a Secretaria Nacional do Consumidor (SENACON), para discutir a regulação dos reajustes dos planos de saúde coletivos.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 70,
+            "start": 139534,
+            "end": 139848,
+            "text": "Deputado Celso, que é realmente uma referência para nós, e Deputado Marinho, que tem uma caminhada idêntica à minha, precisamos pensar em que momento vamos fazer essa construção e trazer a Agência Nacional de Saúde para discutir os planos de saúde, inclusive ao lado da SENACON, que também é integrante do Governo.",
+            "score": 0.2006
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a necessidade de uma discussão aberta e acessível sobre as terapias gênicas e o tratamento de doenças raras, visando garantir a acessibilidade das famílias pauperizadas ao diagnóstico e ao tratamento, reconhecendo o papel fundamental do setor farmacêutico, mas alertando para a necessidade de evitar a criação de novos lobbies.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 0,
+            "start": 2430,
+            "end": 2578,
+            "text": "Nós sabemos muito bem que esse debate sobre as terapias gênicas no tratamento de doenças raras tem, para o setor farmacêutico, um papel fundamental.",
+            "score": 0.4468
+          },
+          "udv": {
+            "id": "udv-157-3-1",
+            "rule": "same_sentence",
+            "score": 0.2889
+          }
+        },
+        {
+          "text": "Justifica a importância da socialização do debate sobre doenças raras e terapias gênicas pela complexidade do tema e pela falta de acesso da sociedade geral a esse conteúdo, destacando a necessidade de incluir a perspectiva das famílias que enfrentam a pauperização e a dificuldade de acesso à internet para acompanhar os debates em tempo real.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 0,
+            "start": 2313,
+            "end": 2377,
+            "text": "A sociedade, de uma forma geral, não tem acesso a esse conteúdo.",
+            "score": 0.4273
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a acessibilidade e a inclusão social como critérios para justificar a necessidade de debates públicos abertos e a presença de órgãos reguladores, argumentando que a falta de resposta de órgãos públicos a requerimentos de consumidores impacta diretamente a população vulnerável.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca a representatividade e a transparência institucional como fundamentos para cobrar a presença presencial de agências reguladoras, considerando que a interação virtual é insuficiente para o cumprimento do papel regulatório perante o Legislativo.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na realidade socioeconômica das famílias afetadas por doenças raras para justificar a urgência de políticas de acessibilidade e diagnóstico, citando a dificuldade de acesso à tecnologia e à informação como barreiras que impedem a participação plena desses grupos no debate público.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 0,
+            "start": 3087,
+            "end": 3140,
+            "text": "Há o papel do poder público também de acessibilidade.",
+            "score": 0.1793
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se integrante do Governo e do Partido dos Trabalhadores.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 70,
+            "start": 138576,
+            "end": 138830,
+            "text": "Eu e o Deputado Celso Russomanno, um decano, Presidente e Deputado Jorge Braz — e olhem que sou Governo, sou do Partido dos Trabalhadores —, entendemos que a Agência Nacional de Saúde deveria ter uma representação presencial porque tem um papel singular.",
+            "score": 0.2622
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Presidente da Comissão de Defesa do Consumidor (CDC) da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 0,
+            "start": 1255,
+            "end": 1435,
+            "text": "Esclareço que a reunião está sendo gravada e transmitida ao vivo na página da Comissão de Defesa do Consumidor, no aplicativo Infoleg e no canal da Câmara dos Deputados no Youtube.",
+            "score": 0.3582
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma participar de três comissões simultaneamente, citando a CDU e a CREDEN, além da CDC.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 12,
+            "start": 50130,
+            "end": 50190,
+            "text": "Eu participo da CDU, da CREDEN, e está havendo sessão agora.",
+            "score": 0.2517
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece o Deputado Celso Russomanno como uma referência no Código de Defesa do Consumidor e o Deputador Jorge Braz como Presidente e decano.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 12,
+            "start": 50192,
+            "end": 50307,
+            "text": "Está chegando o Deputado Celso Russomanno, referência no Código de Direito do Consumidor, uma figura muito querida.",
+            "score": 0.4794
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a comparação entre a situação de um órgão público (SENACON) e a de um cidadão comum para reforçar a gravidade da falta de resposta da ANS, argumentando que se o órgão não é atendido, o cidadão comum sofre ainda mais.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 70,
+            "start": 138831,
+            "end": 138943,
+            "text": "Se a Secretaria Nacional do Consumidor encaminha um requerimento e não tem resposta, imaginem um pacato cidadão!",
+            "score": 0.1673
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de cobrança institucional, qualificando a ausência da ANS como \"falha\" e \"desrespeito à Câmara Federal\", mas mantém uma postura protocolar ao pedir ao Presidente da sessão que avalie a possibilidade de convocação.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 70,
+            "start": 139222,
+            "end": 139532,
+            "text": "Considero essa falha de não ter vindo aqui um desrespeito à Câmara Federal.E, como a Agência Nacional de Saúde tem o papel de que todos vocês falaram e, nas respostas, ela quase não interage virtualmente, porque virtual é diferente de presencial, eu faço uma sugestão e espero que o Presidente pense com calma.",
+            "score": 0.1783
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota uma linguagem que busca empatia com a população vulnerável, utilizando expressões como \"famílias mais pauperizadas\" e \"pacato cidadão\" para contextualizar as consequências práticas das decisões regulatórias e legislativas.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 0,
+            "start": 3011,
+            "end": 3086,
+            "text": "As famílias mais pauperizadas não conseguem fazer o diagnóstico necessário.",
+            "score": 0.1606
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos combinando a defesa de interesses do governo federal (ao citar a SENACON e a ANS como integrantes do Governo) com a defesa dos direitos dos consumidores, buscando um equilíbrio entre a regulação estatal e a proteção do cidadão.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 29,
+      "split": "validation",
+      "article_date": "2023-11-24",
+      "title": "Debatedores apontam medidas para reduzir mortes violentas de jovens negros",
+      "assunto": "Medidas para reduzir mortes violentas de jovens negros",
+      "turns": 17,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 157,
+      "split": "train",
+      "article_date": "2023-10-04",
+      "title": "Especialistas sugerem desoneração tributária para baratear custo de remédios para doenças raras",
+      "assunto": "Desoneração tributária para baratear custo de remédios para doenças raras",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 182,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Entidades que defendem consumidor pedem regulação para reajustes de planos de saúde coletivos",
+      "assunto": "Regulação dos reajustes dos planos de saúde coletivos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-29-4-0",
+      "hearing_id": 29,
+      "n": 6,
+      "article_name": "Paulão",
+      "proposition": "É preciso melhorar a formação dos policiais: \"Enquanto houver polícias militares dependentes da doutrina das Forças Armadas a gente continuará tendo problema. Essa estrutura de segurança tem que ser repensada. A população tem medo da polícia e a polícia tem medo da população\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Essa estrutura de segurança também tem que ser repensada. A população tem medo da polícia, e a polícia tem medo da população, porque a integração da polícia comunitária do ponto de vista prático não existe.",
+        "turn": 13,
+        "start": 60263,
+        "end": 60469
+      },
+      "verifier": {
+        "probability": 0.30997095555321463,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-157-3-0",
+      "hearing_id": 157,
+      "n": 7,
+      "article_name": "Paulão",
+      "proposition": "O tema é complexo e a indústria de medicamentos é uma das mais poderosas do mundo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Temos que fazer uma discussão aberta, principalmente com o setor farmacêutico, para não criarlobby,que já existe. E eu tenho clareza de que essa é uma das indústrias mais poderosas do mundo, ultrapassando, inclusive, a indústria da guerra, que, no passado, era muito forte.",
+        "turn": 0,
+        "start": 2646,
+        "end": 2919
+      },
+      "verifier": {
+        "probability": 0.8623419623763102,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-157-3-1",
+      "hearing_id": 157,
+      "n": 8,
+      "article_name": "Paulão",
+      "proposition": "\"É importante a gente socializar esse debate, principalmente com o setor farmacêutico, porque a gente sabe dos altos custos desses medicamentos.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, é importante nós socializarmos esse debate. Nós sabemos muito bem que esse debate sobre as terapias gênicas no tratamento de doenças raras tem, para o setor farmacêutico, um papel fundamental.",
+        "turn": 0,
+        "start": 2378,
+        "end": 2578
+      },
+      "verifier": {
+        "probability": 0.33439458593423765,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

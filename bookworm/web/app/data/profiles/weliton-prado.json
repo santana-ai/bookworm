@@ -1,0 +1,441 @@
+{
+  "actor": {
+    "slug": "weliton-prado",
+    "name": "Weliton Prado",
+    "display_name": "Weliton Prado",
+    "role": "Deputado, presidente da Comissão Especial de Combate ao Câncer no Brasil",
+    "article_names": [
+      "Weliton Prado"
+    ],
+    "party_uf": [
+      "Bloco/SOLIDARIEDADE - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:20:26+00:00",
+    "n_statements": 27,
+    "n_hearings": 4,
+    "hearing_ids": [
+      159,
+      171,
+      176,
+      199
+    ],
+    "input_tokens": 10762,
+    "output_tokens": 1428,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 0,
+    "passage_only": 24,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação da Política Nacional de Enfrentamento ao Câncer, aprovada na Câmara e em tramitação no Senado, para tratar o câncer como doença emergencial e garantir a jornada completa do paciente: diagnóstico precoce, tratamento, radioterapia, quimioterapia, nutrição especializada, cuidados paliativos e reabilitação (física, auditiva e visual).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 252,
+            "start": 151898,
+            "end": 152058,
+            "text": "A Política Nacional de Enfrentamento ao Câncer garante toda a jornada do paciente, inclusive a nutrição especializada e a reabilitação, que são tão importantes.",
+            "score": 0.3981
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma rubrica única no orçamento do Ministério da Saúde e de um Fundo Nacional de Enfrentamento ao Câncer, financiado por novos recursos, especificamente: moedas apreendidas do crime organizado (bitcoins), acordos judiciais de todas as instâncias e, futuramente, percentuais de bebidas alcoólicas, não alcoólicas e cigarros. Afirma que não se pretende retirar recursos de outras áreas da saúde.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 252,
+            "start": 152593,
+            "end": 152713,
+            "text": "Futuramente comporão esse fundo recursos vindos de um percentual das bebidas alcoólicas e não alcoólicas e dos cigarros.",
+            "score": 0.4068
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Saúde e do SUS a disponibilização na rede pública das vacinas nonavalente contra HPV, meningite tipo B e a vacina combinada contra hepatites A e B, além de estudos para a vacina contra a dengue. Defende a vacinação em massa nas escolas, citando que a vacina contra HPV pode curar 6% dos tipos de câncer e erradicar o câncer de colo de útero.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 35,
+            "start": 98131,
+            "end": 98193,
+            "text": "Há outras vacinas também, a vacina contra herpes-zóster e HPV.",
+            "score": 0.3865
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige o cumprimento da Lei dos 30 e 60 dias para o início do tratamento oncológico, argumentando que a cada 30 dias de demora aumenta o risco de morte e os custos.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 4,
+            "start": 13633,
+            "end": 13734,
+            "text": "Nós sabemos que a cada 30 dias de demora para o início do tratamento, aumenta muito o risco de morte.",
+            "score": 0.7009
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o atraso na entrega de medicamentos incorporados ao SUS, citando especificamente os três quimioterápicos para câncer de mama metastática incorporados em 2021 (prazo encerrado em julho de 2022) e o trastuzumabe entansina (incorporado em 2023, acesso previsto para março de 2023), apontando que o SUS está atrasado em relação à saúde suplementar.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 27,
+            "start": 83386,
+            "end": 83544,
+            "text": "Em 2023, foi incorporado também o trastuzumabe entansina, a que as pacientes deveriam ter acesso a partir de março de 2023, mas há um atraso, não há previsão.",
+            "score": 0.4033
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o reconhecimento e a implementação da Política Nacional de Atenção à Oncologia Pediátrica em todos os estados, argumentando que o câncer infantil é diferente do adulto (célula se divide em 24 horas, chance de cura de 85 a 95% com diagnóstico precoce) e que o índice de mortalidade infantil por câncer no Brasil está inalterado há 20 anos, ao contrário de outros países.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 252,
+            "start": 153106,
+            "end": 153244,
+            "text": "No Brasil, o índice de mortalidade de crianças com o câncer está inalterado há 20 anos, enquanto, em outros países, a mortalidade diminui.",
+            "score": 0.4056
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a modernização dos equipamentos de radioterapia, apontando a necessidade de 300 novos aceleradores lineares até 2030 e criticando o uso de bombas de cobalto que afetam células saudáveis. Cita que mais de 100 mil pessoas faleceram por falta de acesso à radioterapia nos últimos anos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 252,
+            "start": 153856,
+            "end": 153952,
+            "text": "No País, nos últimos anos, mais de 100 mil pessoas faleceram por falta de acesso à radioterapia.",
+            "score": 0.5254
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a educação inclusiva como direito, exigindo o cumprimento da legislação que garante a matrícula de estudantes com deficiência na escola regular, com financiamento adequado, estrutura física acessível e qualificação de profissionais.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 3,
+            "start": 10434,
+            "end": 10468,
+            "text": "A educação inclusiva é um direito.",
+            "score": 0.3628
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a aprovação de uma resolução na ONU para reconhecer mundialmente o Outubro Rosa e o Novembro Azul.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 9,
+            "start": 24522,
+            "end": 24692,
+            "text": "Queremos aprovar na ONU uma resolução para reconhecer mundialmente o Outubro Rosa e o Novembro Azul, na estratégia de prevenção ao câncer de mama e ao câncer de próstata.",
+            "score": 0.6697
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a instalação de cartazes informativos sobre prevenção ao câncer nas lotéricas do Brasil, em parceria com a Caixa Econômica Federal, aproveitando o fluxo de cerca de 100 milhões de pessoas mensais.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 41,
+            "start": 110722,
+            "end": 110772,
+            "text": "Nós temos discutido com a Caixa Econômica Federal.",
+            "score": 0.3047
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a legislação vigente como fundamento para exigir ações do poder público, afirmando que \"a lei está aí, tem que ser cumprida, tem que ser respeitada\", justificando tanto a cobrança pela educação inclusiva quanto a exigência de cumprimento de prazos de tratamento e protocolos de vacinação.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 3,
+            "start": 10706,
+            "end": 10770,
+            "text": "Mas a lei está aí, tem que ser cumprida, tem que ser respeitada.",
+            "score": 0.3891
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a falta de diagnóstico precoce e de acesso a centros especializados é a principal causa de mortes evitáveis, especialmente em crianças e em mulheres com câncer de mama, justificando a urgência em investir em rastreamento e infraestrutura.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 252,
+            "start": 153245,
+            "end": 153400,
+            "text": "No País, o número de mortes de crianças com câncer é muito grande, por falta de diagnóstico e de acesso a centros especializados, onde se faz o tratamento.",
+            "score": 0.4057
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em dados e casos concretos para sustentar suas posições, como a comparação da mortalidade infantil por câncer entre Brasil e Estados Unidos, o impacto da demora no tratamento (30 dias) e a eficácia de hábitos saudáveis na redução de recidivas (30% a 40%).",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 11,
+            "start": 27550,
+            "end": 27651,
+            "text": "No caso de mulheres que não tiveram câncer, hábitos saudáveis reduzem o risco de câncer em 30% a 40%.",
+            "score": 0.2838
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de \"ação de Estado\" com envolvimento de todas as esferas (municipal, estadual e federal) para garantir direitos, como a inclusão educacional e o acesso à saúde.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 3,
+            "start": 12196,
+            "end": 12353,
+            "text": "E tem que haver uma ação realmente de Estado, com envolvimento de todas as esferas — municipal, estadual e federal —, para que a lei realmente seja cumprida.",
+            "score": 0.5382
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão Especial destinada a acompanhar as ações de combate ao câncer no Brasil (CECANCER) e da Frente Parlamentar em Defesa dos Lotéricos.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 0,
+            "start": 60,
+            "end": 187,
+            "text": "Declaro aberta a 9ª Reunião Extraordinária da Comissão Especial destinada a acompanhar as ações de combate ao câncer no Brasil.",
+            "score": 0.4648
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante de Minas Gerais, citando especificamente Uberlândia, o Triângulo Mineiro e o Alto Paranaíba, e declara atuação conjunta com o Deputado Estadual Elismar Prado.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 3,
+            "start": 11647,
+            "end": 11734,
+            "text": "Essa é uma luta permanente minha e do Deputado Estadual Elismar Prado, em Minas Gerais.",
+            "score": 0.4775
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter assumido um \"compromisso de vida\" com o Dr. Brunetto, militante do combate ao câncer infantil, para garantir o reconhecimento da política de oncologia pediátrica.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 15,
+            "start": 44755,
+            "end": 44957,
+            "text": "Brunetto, para conseguirmos garantir a implementação em todos os Estados dessa política nacional com o reconhecimento de que o câncer infantil tem que ser tratado de forma diferente do câncer de adulto.",
+            "score": 0.3223
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio à Ministra da Saúde, Nísia Trindade, e afirma ter conversado com ela \"toda semana\" sobre o fundo de combate ao câncer e vacinas.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 35,
+            "start": 97585,
+            "end": 97631,
+            "text": "Acho que tenho conversado com ela toda semana.",
+            "score": 0.3241
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ter falado com o Presidente da República em \"umas três, quatro, cinco oportunidades\" sobre o financiamento da oncologia.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 13,
+            "start": 33723,
+            "end": 33829,
+            "text": "E também estive com o Presidente da República, já falei com ele em umas três, quatro, cinco oportunidades.",
+            "score": 0.6496
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e comparações internacionais para dimensionar a gravidade dos problemas, como a necessidade de 300 aceleradores lineares, a mortalidade infantil inalterada há 20 anos e a baixa taxa de mamografias na faixa de 50 a 69 anos.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 27,
+            "start": 82809,
+            "end": 82880,
+            "text": "Na faixa etária de 50 a 69 anos, nem 30% do grupo realizam mamografias.",
+            "score": 0.316
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a relatos pessoais e de terceiros para humanizar o debate, citando o tratamento de câncer do seu pai, o caso do jornalista Márcio Alvarenga, a história da servidora Elaine Nascimento e o depoimento da paciente Cíntia Cerqueira.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 43,
+            "start": 113550,
+            "end": 113700,
+            "text": "Quando eu estive naTV Universitáriafazendo um programa de rádio, um amigo nosso, o Márcio Alvarenga, jornalista, contou-nos que teve câncer nas mamas.",
+            "score": 0.1997
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta e persistente, usando expressões como \"bater nesta tecla\", \"não vamos desistir\" e \"peço encarecidamente\", dirigindo-se a ministros, secretários e representantes de conselhos (CONASS, CONASEMS).",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 13,
+            "start": 35375,
+            "end": 35524,
+            "text": "Queria agradecer muito ao CONASEMS e pedir, encarecidamente, Verônica, para, em todos os momentos, em todos os fóruns do CONASEMS, bater nesta tecla.",
+            "score": 0.3176
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega metáforas para explicar a origem dos recursos propostos, como \"o cobertor é pequeno\" (para justificar a busca por novas fontes) e a comparação com a campanha \"Não esqueça a minha Caloi\" (para pedir apoio do CONASEMS).",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 13,
+            "start": 34589,
+            "end": 34821,
+            "text": "Eu queria agradecer ao CONASEMS e pedir, Verônica, que o CONASEMS bata nessa tecla, igual àquela campanha antiga:Não esqueça a minha Caloi.Nós não vamos desistir enquanto não implantarmos o fundo nacional de enfrentamento ao câncer.",
+            "score": 0.2679
+          },
+          "udv": null
+        },
+        {
+          "text": "Interage com os convidados validando suas falas (\"A Cíntia está dando aula\"), agradecendo contribuições e pedindo apoio específico para pautas como a vacinação e a oncologia pediátrica.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 51,
+            "start": 119963,
+            "end": 119999,
+            "text": "A Cíntia está dando aula, dandoshow!",
+            "score": 0.3339
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 5,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados, especialistas e familiares cobram cumprimento dos direitos das pessoas com autismo",
+      "assunto": "Cumprimento dos direitos das pessoas com autismo",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 111,
+      "split": "test",
+      "article_date": "2024-03-26",
+      "title": "Especialistas afirmam que educação bilíngue para surdos requer metodologia própria",
+      "assunto": "Educação bilíngue para surdos e suas metodologias específicas",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 159,
+      "split": "train",
+      "article_date": "2023-10-03",
+      "title": "Falta de recursos dificulta acesso a diagnóstico de câncer de mama no SUS, reclamam especialistas",
+      "assunto": "Falta de recursos dificulta acesso a diagnóstico de câncer de mama no SUS",
+      "turns": 21,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 176,
+      "split": "train",
+      "article_date": "2023-09-11",
+      "title": "Capacitismo é barreira para educação inclusiva, dizem especialistas",
+      "assunto": "Capacitismo como barreira para a educação inclusiva",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-159-1-0",
+      "hearing_id": 159,
+      "n": 2,
+      "article_name": "Weliton Prado",
+      "proposition": "É necessário ter uma fonte de financiamento. A comissão está trabalhando em uma alternativa para criar um Fundo Nacional de Enfrentamento ao Câncer: \"Nós não vamos tirar recursos de outros lugares, nós estamos propondo recursos que estão parados e podem salvar vidas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Podemos utilizar esses recursos para o enfrentamento ao câncer, assim como recursos provenientes de outras fontes também, criar uma rubrica, criar um fundo. Alimentando esse fundo, teríamos recursos suficientes para transformar o câncer em uma doença emergencial.",
+        "turn": 13,
+        "start": 34324,
+        "end": 34587
+      },
+      "verifier": {
+        "probability": 0.38918676194384544,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

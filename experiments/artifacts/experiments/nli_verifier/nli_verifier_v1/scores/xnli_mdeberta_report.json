@@ -1,0 +1,405 @@
+{
+  "experiment": "nli_verifier",
+  "mode": "benchmark",
+  "run_name": "nli_verifier_v1",
+  "created_at": "2026-09-23T16:56:32+00:00",
+  "scorer": "xnli_mdeberta",
+  "kind": "nli",
+  "splits": {
+    "splits": [
+      "train",
+      "validation"
+    ],
+    "final_test_flag": false,
+    "test_read": false
+  },
+  "counts": {
+    "units": 3679,
+    "by_split": {
+      "train": 2981,
+      "validation": 698
+    },
+    "hearings": 176,
+    "no_premise": 1,
+    "no_premise_ids": [
+      "nli-141-1-0"
+    ],
+    "item_count_histogram": {
+      "0": 1,
+      "4": 3678
+    }
+  },
+  "truncation": {
+    "items_scored": 14712,
+    "items_truncated": 82,
+    "item_tokens": {
+      "count": 14712,
+      "min": 38.0,
+      "q25": 179.0,
+      "median": 223.0,
+      "q75": 276.0,
+      "max": 895.0,
+      "mean": 232.831
+    },
+    "concatenated_premises": 3678,
+    "concatenated_truncated": 3552,
+    "concatenated_tokens": {
+      "count": 3678,
+      "min": 105.0,
+      "q25": 693.0,
+      "median": 809.0,
+      "q75": 952.75,
+      "max": 2242.0,
+      "mean": 834.4391
+    },
+    "kept_premise_fraction_when_truncated": {
+      "count": 3552,
+      "min": 0.2193,
+      "q25": 0.5172,
+      "median": 0.6107,
+      "q75": 0.7124,
+      "max": 0.9979,
+      "mean": 0.6221
+    }
+  },
+  "model": {
+    "name": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+    "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+    "config_loading": {
+      "raw_id2label": {
+        "0": "entailment",
+        "1": "neutral",
+        "2": "contradiction"
+      },
+      "id2label_values_cast_to_str": false,
+      "resolved_commit": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce"
+    },
+    "weights_file": {
+      "file": "model.safetensors",
+      "path": "/Users/arthur/.cache/huggingface/hub/models--MoritzLaurer--mDeBERTa-v3-base-xnli-multilingual-nli-2mil7/snapshots/b5113eb38ab63efdd7f280f8c144ea8b13f978ce/model.safetensors",
+      "snapshot": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+      "snapshot_is_pinned_revision": true,
+      "blob": "7c8e29f1115986d032e92b0fbaa0bdef1062a46f658b08705f237c05014a8541",
+      "format": "safetensors",
+      "loading": "the first of model.safetensors, model.safetensors.index.json, pytorch_model.bin, pytorch_model.bin.index.json present in the pinned snapshot, loaded with local_files_only and use_safetensors set to its format"
+    },
+    "labels": {
+      "model_config_id2label": {
+        "0": "entailment",
+        "1": "neutral",
+        "2": "contradiction"
+      },
+      "configured_labels": [
+        "entailment",
+        "neutral",
+        "contradiction"
+      ],
+      "verified_against_model_config": true
+    },
+    "max_length": 512,
+    "dtype": "torch.float32",
+    "device": "mps",
+    "tokenizer_class": "DebertaV2Tokenizer",
+    "special_tokens_per_pair": 3,
+    "parameters": 278811651,
+    "load_seconds": 1.3,
+    "logit_cache": {
+      "path": "artifacts/cache/nli_verifier/nli_xnli_mdeberta_b5113eb38ab6_mps.jsonl",
+      "entries_at_start": 18325
+    }
+  },
+  "label_probes": {
+    "probes": [
+      {
+        "premise": "Os homens estão cuidadosamente colocando as malas no porta-malas de um carro.",
+        "hypothesis": "Os homens estão colocando bagagens dentro do porta-malas de um carro.",
+        "expected": "entailment",
+        "predicted": "entailment",
+        "probabilities": {
+          "entailment": 0.9840696132823477,
+          "neutral": 0.015383347128656823,
+          "contradiction": 0.0005470395889956385
+        },
+        "agrees": true
+      },
+      {
+        "premise": "A audiência pública foi realizada na Câmara dos Deputados nesta quarta-feira, com a presença de seis convidados.",
+        "hypothesis": "A audiência pública foi cancelada e não aconteceu.",
+        "expected": "contradiction",
+        "predicted": "contradiction",
+        "probabilities": {
+          "entailment": 0.000703527218162209,
+          "neutral": 0.010355709483224439,
+          "contradiction": 0.9889407632986134
+        },
+        "agrees": true
+      },
+      {
+        "premise": "O deputado defendeu o aumento do orçamento federal para a saúde.",
+        "hypothesis": "O deputado é filiado a um partido de oposição.",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "probabilities": {
+          "entailment": 0.015004679381540802,
+          "neutral": 0.983723140695625,
+          "contradiction": 0.0012721799228341377
+        },
+        "agrees": true
+      }
+    ],
+    "agreeing": 3,
+    "total": 3
+  },
+  "timing": {
+    "requests": 18322,
+    "computed": 0,
+    "cache_hits": 18322,
+    "seconds": 0.03,
+    "computed_per_second": null,
+    "model_input_tokens": 5280085
+  },
+  "sources": {
+    "lds": {
+      "path": "dataset/PublicHearingBR_LDS.jsonl",
+      "sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0"
+    },
+    "nli": {
+      "path": "dataset/PublicHearingBR_NLI.jsonl",
+      "sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "benchmark": {
+      "path": "artifacts/benchmarks/nli_v1.jsonl",
+      "sha256": "19a08554178800bbd144252b95fd00bce9c9db4d7c12ae59bf826842fd12a74d"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    }
+  },
+  "premise": {
+    "text_source": "nli_chunks",
+    "concat_separator": " ",
+    "chunk_source_verification": {
+      "method": "each located chunk is rebuilt from its benchmark offsets in the LDS transcript (segments joined by a line break) and compared with chunks_proximos after removing all whitespace; any other difference stops the run",
+      "opinions": 3679,
+      "opinions_without_chunks": 1,
+      "chunks": 14712,
+      "differ_only_in_whitespace": 1368,
+      "identical_after_whitespace_normalization": 13344
+    }
+  },
+  "subset": null,
+  "files": {
+    "train": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v1/scores/xnli_mdeberta_train.jsonl",
+      "rows": 2981,
+      "sha256": "65ca40d8873cecbe594e58784c5e835c063831f92cd0926e00874f7b5e0238e5"
+    },
+    "validation": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v1/scores/xnli_mdeberta_validation.jsonl",
+      "rows": 698,
+      "sha256": "d789174e948b1775c6e445fe253b4a192b5c4e7e503b869dca729285c8ed4b04"
+    }
+  },
+  "code": {
+    "utils/nli_verifier_experiments.py": "4d7e52ded9399875a0a992572db494011121b22992963dc7c35d1096d3bb053e",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": "1",
+      "huggingface_hub_is_offline_mode": true,
+      "transformers_is_offline_mode": true,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  },
+  "config": {
+    "dataset": {
+      "lds_path": "dataset/PublicHearingBR_LDS.jsonl",
+      "lds_sha256": "c4e392ab95ce22f6228eace16f15e9efe1c846724846b873dec420aec3d872c0",
+      "nli_path": "dataset/PublicHearingBR_NLI.jsonl",
+      "nli_sha256": "13408024c4776eff24f05ee6a56f9b1d33614524d19e90c0cce2fa310487a34e"
+    },
+    "benchmark": {
+      "path": "artifacts/benchmarks/nli_v1.jsonl",
+      "report_path": "artifacts/benchmarks/nli_v1_report.json",
+      "label_semantics": "label_inferable is True when the annotator judged the opinion inferable from the four retrieved chunks (retrieved_context_entailment); it says nothing about text outside those chunks and is not a global truth label"
+    },
+    "splits": {
+      "manifest_path": "artifacts/splits/temporal_v1.json",
+      "fit": [
+        "train"
+      ],
+      "evaluate": [
+        "validation"
+      ],
+      "final_test": [
+        "test"
+      ],
+      "rule": "thresholds are fitted on the fit splits only and applied unchanged to the evaluate splits; the final_test splits are scored and evaluated only with --final-test, and nothing is chosen on them"
+    },
+    "premise": {
+      "text_source": "nli_chunks",
+      "text_source_options": [
+        "nli_chunks",
+        "lds_offsets"
+      ],
+      "text_source_reason": "nli_chunks is chunks_proximos[position] of the gated NLI file, the literal text the annotator read; lds_offsets rebuilds each chunk from the benchmark offsets in the LDS transcript (segments joined by a line break). Every run rebuilds both and stops if any located chunk differs from the NLI text in anything but whitespace, so the two sources carry the same tokens; nli_chunks keeps the spacing the annotator saw where the transcript has none (whitespace_inserted segments).",
+      "item_normalization": "udv_pipeline.normalize_whitespace on each chunk",
+      "concat_separator": " ",
+      "concat_rule": "concatenated premise: the non-empty chunks in their original order, duplicates kept as the annotator saw them, joined by concat_separator and truncated from the end of the premise (truncation only_first) to the model max_length",
+      "max_rule": "per-chunk mode scores each distinct non-empty chunk on its own, so concatenation never truncates a chunk; a single chunk plus the opinion can still exceed max_length (82 of the 14,644 chunk pairs of train and validation, counted by the plan command) and is then truncated from the end of the chunk. The aggregate over chunks is named in the score: max.entailment is the maximum over chunks of P(entailment) (the opinion is inferable if some chunk entails it); min.not_contradiction is the minimum over chunks of 1 - P(contradiction), that is 1 - the maximum P(contradiction) (the opinion is as contradicted as its most contradicting chunk)",
+      "score_naming_amendment": "Recorded on 2026-09-23, before any full-run score was evaluated: the second per-chunk XNLI score was first written as max.not_contradiction although it was always computed as 1 - max over chunks of P(contradiction), the minimum over chunks of 1 - P(contradiction); it is renamed min.not_contradiction with the value unchanged. Score files written before the rename are refused by evaluate and are rewritten by rerunning score, which reads every logit from the cache. The smoke validation ROC AUC 0.3947 of smoke_e3_rerun belongs to this minimum aggregate.",
+      "empty_item_rule": "a chunk that is empty after whitespace normalization is not scored and is written as null",
+      "no_premise_rule": "an opinion with no non-empty chunk (nli-141-1-0 has 0 chunks; nli-99-5-0 and nli-99-5-1 have 4 whitespace chunks) gets the minimum value of every score (0.0 for probabilities, -1.0 for cosine), that is, it is predicted not inferable, and is counted in the reports"
+    },
+    "encoder": {
+      "udv_config_path": "configs/udv.toml",
+      "cache_dir": "artifacts/cache/nli_verifier",
+      "rule": "the cosine scorer loads the production encoder through utils.build_udvs (load_encoder, encode_with_cache) with the [encoder] section of udv_config_path; its name and revision must equal scorers.cosine_serafim"
+    },
+    "scorers": {
+      "cosine_serafim": {
+        "kind": "cosine",
+        "name": "PORTULAN/serafim-335m-portuguese-pt-sentence-encoder",
+        "revision": "a01887015444f7599669c509447c5bdbce958916",
+        "prompt": "none: config_sentence_transformers.json has prompts = {} and default_prompt_name = null, and the production UDV builder encodes without a prompt",
+        "normalization": "none: raw embeddings compared with sklearn cosine_similarity, as in utils.build_udvs",
+        "max_seq_length": 128,
+        "max_seq_length_source": "sentence_bert_config.json max_seq_length = 128; chunks longer than that are truncated by the encoder, which is why sentence_max is also reported",
+        "pooling": "1_Pooling/config.json pooling_mode_mean_tokens = true",
+        "scores": [
+          "max.cosine",
+          "sentence_max.cosine"
+        ],
+        "scores_definition": "max.cosine: max over chunks of cosine(opinion, chunk); sentence_max.cosine: max over the sentences of all chunks (udv_pipeline.split_sentences, the production segmentation; a chunk with no sentence counts as one sentence)"
+      },
+      "xnli_mdeberta": {
+        "kind": "nli",
+        "name": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+        "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+        "labels": [
+          "entailment",
+          "neutral",
+          "contradiction"
+        ],
+        "label_source": "config.json id2label {0: entailment, 1: neutral, 2: contradiction} (label2id agrees); README NLI example uses label_names in the same order; checked against the loaded model config at every run",
+        "input_order": "premise first, hypothesis second: README tokenizer(premise, hypothesis, truncation=True)",
+        "max_length": 512,
+        "max_length_source": "config.json max_position_embeddings = 512 and tokenizer_config.json model_max_length = 512",
+        "dtype": "float32",
+        "dtype_reason": "README: mDeBERTa currently does not support FP16; config.json torch_dtype float16 is only the storage dtype, so the weights are loaded as float32",
+        "batch_size": 16,
+        "training_data": "multilingual-NLI-26lang-2mil7 (machine-translated MNLI, Fever-NLI, ANLI, LingNLI, WANLI, pt included) plus the XNLI validation set",
+        "scores": [
+          "max.entailment",
+          "min.not_contradiction",
+          "concatenated.entailment",
+          "concatenated.not_contradiction"
+        ],
+        "scores_definition": "entailment: P(entailment); not_contradiction: 1 - P(contradiction); max.entailment = max over chunks of P(entailment); min.not_contradiction = min over chunks of 1 - P(contradiction) = 1 - max over chunks of P(contradiction); concatenated.* = the same quantity on the single concatenated premise",
+        "probe_expected": [
+          "entailment",
+          "contradiction",
+          "neutral"
+        ]
+      },
+      "assin2_mdeberta": {
+        "kind": "nli",
+        "name": "ruanchaves/mdeberta-v3-base-assin2-entailment",
+        "revision": "68c1e5976bc51b085869cfe98b69e32aaa178d42",
+        "labels": [
+          "not_entailment",
+          "entailment"
+        ],
+        "label_source": "config.json id2label is {0: 0, 1: 1} and names nothing; README section Labels: 0 = there is no entailment between premise and hypothesis, 1 = there is entailment. The loaded config cannot confirm the names, so the label probes are the empirical check",
+        "input_order": "premise first, hypothesis second: README tokenizer(*([s1], [s2])) with s1 the premise; ASSIN 2 pairs are ordered (premise, hypothesis)",
+        "max_length": 512,
+        "max_length_source": "config.json max_position_embeddings = 512; tokenizer_config.json model_max_length is unset (1e30), so the limit comes from the model config",
+        "dtype": "float32",
+        "dtype_reason": "config.json torch_dtype float32",
+        "batch_size": 16,
+        "training_data": "ASSIN 2 recognizing textual entailment, 6,500 short Portuguese sentence pairs (all_results.json train_samples); the premises here are chunks of about 630 characters, far longer than ASSIN 2 sentences",
+        "scores": [
+          "max.entailment",
+          "concatenated.entailment"
+        ],
+        "scores_definition": "entailment: P(label 1)",
+        "probe_expected": [
+          "entailment",
+          "not_entailment",
+          "not_entailment"
+        ]
+      }
+    },
+    "label_probes": {
+      "purpose": "sanity check of the label order on three hand-written pairs, recorded in every score report; not used to choose or fit anything",
+      "premises": [
+        "Os homens estão cuidadosamente colocando as malas no porta-malas de um carro.",
+        "A audiência pública foi realizada na Câmara dos Deputados nesta quarta-feira, com a presença de seis convidados.",
+        "O deputado defendeu o aumento do orçamento federal para a saúde."
+      ],
+      "hypotheses": [
+        "Os homens estão colocando bagagens dentro do porta-malas de um carro.",
+        "A audiência pública foi cancelada e não aconteceu.",
+        "O deputado é filiado a um partido de oposição."
+      ],
+      "source": "the first pair is the README example of ruanchaves/mdeberta-v3-base-assin2-entailment"
+    },
+    "evaluation": {
+      "primary_system": "xnli_mdeberta.max.entailment",
+      "primary_metric": "roc_auc",
+      "primary_declaration": "Declared on 2026-09-22, before any NLI or cosine score on the benchmark was computed. Primary system: the 3-way multilingual NLI model scored per chunk (no truncation by concatenation), P(entailment) as the inferable score. Primary metric: validation ROC AUC against label_inferable with a hearing-bootstrap interval. Primary thresholded comparison: Cohen's kappa at the threshold fitted on train by max_f1_not_inferable, against the reference judge. Every other system, score and rule is reported for comparison. Correction of 2026-09-23, choice unchanged: the parenthesis first read (no chunk truncated), but the plan command later counted 82 chunk pairs over 512 tokens; smoke tests on 25 validation opinions were run after this declaration and did not change it.",
+      "reference_cosine_system": "cosine_serafim.max.cosine",
+      "reference_judge_rule": "the stored LLM judge with the highest Cohen's kappa on the fit splits (first in file order on ties); chosen on train, never on validation",
+      "threshold_rules": [
+        "youden",
+        "max_f1_not_inferable",
+        "fixed_probability"
+      ],
+      "threshold_rules_definition": "predict inferable when score >= t. youden: t maximizes TPR - FPR with inferable as the positive class (calibrate_threshold.youden_optimum, lowest t on ties, midpoint between the lowest kept and the highest excluded score); max_f1_not_inferable: t maximizes F1 of the not_inferable class, lowest t on ties, same midpoint rule; fixed_probability: t = fixed_probability_threshold without fitting, only for probability scores",
+      "fixed_probability_threshold": 0.5,
+      "bootstrap_samples": 1000,
+      "bootstrap_unit": "hearing",
+      "bootstrap_unit_reason": "opinions of the same hearing share speakers, topic and retrieved chunks, so they are not independent; each replicate resamples whole hearings of the evaluate split and, independently, of the fit split",
+      "bootstrap_intervals": "fixed_threshold: the train-fitted threshold applied to each resampled evaluate split; refit_threshold: the threshold refitted on each resampled fit split and applied to the resampled evaluate split, so the interval also carries the threshold uncertainty",
+      "confidence_level": 0.95,
+      "seed": 42
+    },
+    "pairs": {
+      "default_scorers": [
+        "xnli_mdeberta",
+        "assin2_mdeberta"
+      ],
+      "input_format": "JSONL, one object per line: pair_id (string, unique in the file), query_id (string, e.g. a UDV id), hearing_id (integer, used for the split guard), proposition (string, the hypothesis), evidence (string, or a non-empty list of strings, the premise items), meta (optional object, copied unchanged)",
+      "output_format": "JSONL per scorer, same order as the input: pair_id, query_id, hearing_id, split, scorer, model, revision, item_count, nonempty_items, no_premise, items (per evidence item: probabilities by label name, tokens, truncated; cosine, tokens, truncated for the cosine scorer; null for an empty item), concatenated (same fields, only when more than one non-empty item), scores (max.entailment, min.not_contradiction for 3-way models, concatenated.* when concatenated is present; max.cosine and sentence_max.cosine for the cosine scorer), meta",
+      "output_location": "<output_dir>/pairs/<run_name>/<scorer>.jsonl and <scorer>_report.json",
+      "split_rule": "every hearing_id must be in the split manifest; pairs from final_test hearings are refused unless --final-test is passed"
+    },
+    "run": {
+      "seed": 42,
+      "device": "auto",
+      "hf_hub_offline": true,
+      "hf_hub_offline_rule": "every command switches huggingface_hub to offline mode before any model is loaded (utils.hub_offline.enforce_offline) and loads configs, tokenizers and weights with local_files_only from the pinned snapshot; the NLI model loads the first weights file present in that snapshot (model.safetensors before pytorch_model.bin) with use_safetensors set to its format, and the file, snapshot and blob are recorded in model.weights_file",
+      "output_dir": "artifacts/experiments/nli_verifier",
+      "progress_every_batches": 25,
+      "logit_cache": "NLI logits are appended batch by batch to <encoder.cache_dir>/nli_<scorer>_<revision>_<device>.jsonl, keyed by sha256 of model, revision, dtype, max_length, device, premise and hypothesis, so an interrupted run resumes and a later --final-test run only computes the new pairs"
+    }
+  }
+}

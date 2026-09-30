@@ -1,0 +1,432 @@
+{
+  "actor": {
+    "slug": "luizianne-lins",
+    "name": "Luizianne Lins",
+    "display_name": "Luizianne Lins",
+    "role": "Deputada (PT-CE)",
+    "article_names": [
+      "Luizianne Lins"
+    ],
+    "party_uf": [
+      "Bloco/PT - CE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:57:48+00:00",
+    "n_statements": 20,
+    "n_hearings": 3,
+    "hearing_ids": [
+      187,
+      198,
+      203
+    ],
+    "input_tokens": 11029,
+    "output_tokens": 988,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 1,
+    "passage_only": 18,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a atualização da Lei Maria da Penha, 17 anos após sua criação, e cobra políticas de proteção, incentivo, formação e empoderamento para libertar as mulheres e eliminar desigualdades.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 0,
+            "start": 7106,
+            "end": 7377,
+            "text": "Por fim, precisamos encorajar as mulheres a essa primeira denúncia, mas precisamos também ter um país com políticas de proteção, de incentivo, de formação e de empoderamento que sejam capazes de libertar as mulheres, eliminar as desigualdades, salvar e transformar vidas.",
+            "score": 0.4579
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o desmonte das políticas públicas de direitos das mulheres e a desconstrução do Ministério das Mulheres durante o governo anterior, apontando que isso intensificou a violência doméstica e familiar.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 0,
+            "start": 5151,
+            "end": 5512,
+            "text": "Falar em violência não dói só no corpo, mas também na alma de quem é vítima e de quem assiste com indignação ao aumento desses casos de violência doméstica e familiar no Brasil, que se intensificaram muito durante a pandemia e, principalmente, durante um Governo que foi negacionista do ponto de vista dos direitos das mulheres e também do respeito às mulheres.",
+            "score": 0.3511
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o grande desafio no combate à violência contra a mulher é a primeira denúncia, que é subestimada e subnotificada, e defende o encorajamento das vítimas a denunciar.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 0,
+            "start": 6887,
+            "end": 6949,
+            "text": "É muito subestimada e subnotificada essa questão da violência.",
+            "score": 0.3907
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de uma força-tarefa intersetorial e ministerial para o atendimento rápido a refugiados em portos e aeroportos, citando o caso do Aeroporto de Guarulhos.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 0,
+            "start": 2825,
+            "end": 3040,
+            "text": "Na época, o Ministro me relatava que era importante esse debate para que fizéssemos uma espécie de força-tarefa intersetorial, ministerial, a fim que houvesse, o mais rápido possível, o atendimento nessas situações.",
+            "score": 0.3772
+          },
+          "udv": {
+            "id": "udv-198-5-0",
+            "rule": "same_sentence",
+            "score": 0.4408
+          }
+        },
+        {
+          "text": "Propõe a realização de audiências públicas com o Presidente do IBGE, a Ministra da Igualdade Racial, a Ministra da Cultura e o Ministro dos Direitos Humanos e da Cidadania para tratar da inclusão dos povos ciganos no Censo e da aprovação do Estatuto dos Povos Ciganos.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 8,
+            "start": 33799,
+            "end": 33985,
+            "text": "Então, o Ronaldo nos ajudará a providenciar a audiência com a Ministra Anielle, que nós vamos solicitar oficialmente, e também vamos tratar da questão com o IBGE e a Ministra da Cultura.",
+            "score": 0.3047
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação do Projeto de Lei nº 1.387, de 2022 (Estatuto dos Povos Ciganos), para retirar a população cigana da invisibilidade social e garantir igualdade de oportunidades.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 0,
+            "start": 79,
+            "end": 276,
+            "text": "Declaro aberta esta audiência pública da Comissão de Direitos Humanos, Minorias e Igualdade Racial destinada a debater o Projeto de Lei nº 1.387, de 2022, que institui o Estatuto dos Povos Ciganos.",
+            "score": 0.4137
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a punição dos responsáveis pelo assassinato de Marielle Franco, apontando a impunidade como fator que perpetua a violência contra lideranças e populações vulneráveis.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 6,
+            "start": 28668,
+            "end": 28747,
+            "text": "O grau de violência contra populações tradicionais aumentou significativamente.",
+            "score": 0.2162
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a identificação de políticas públicas específicas (como merenda escolar e Minha Casa, Minha Vida) que possam ser viabilizadas pelo Executivo independentemente da aprovação do Estatuto dos Povos Ciganos.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 14,
+            "start": 52216,
+            "end": 52343,
+            "text": "Ele falou sobre a merenda escolar, o Minha Casa, Minha Vida, políticas públicas que dizem respeito a Ministérios diferenciados.",
+            "score": 0.4221
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a noção de \"reconstrução do Brasil\" e \"reparação histórica\" como fundamento para a retomada de políticas de direitos humanos, mulheres e povos tradicionais, argumentando que houve um período de desconstrução e golpe após 2016.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 6,
+            "start": 27960,
+            "end": 28075,
+            "text": "Depois de 2016, quando houve o golpe — agora temos certeza de que foi um golpe —, até agora, não houve mais avanço.",
+            "score": 0.2805
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de dados efetivos e visibilidade estatística como pré-requisito para a formulação de políticas públicas, argumentando que a ausência de dados (como no caso dos ciganos) aumenta a vulnerabilidade e a invisibilidade social.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 0,
+            "start": 6448,
+            "end": 6645,
+            "text": "A ausência de dados efetivos dificulta a sistematização das estatísticas sobre os povos ciganos do Brasil e, muitas vezes, contribui para aumentar essa vulnerabilidade e essa invisibilidade social.",
+            "score": 0.383
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a articulação entre os três poderes (Legislativo, Executivo e Judiciário) como estratégia necessária para superar a resistência política e aprovar direitos, citando a necessidade de \"sensibilizar\" o Legislativo e \"chamar à responsabilidade\" o Judiciário.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 4,
+            "start": 19415,
+            "end": 19550,
+            "text": "Nós vamos sensibilizar uma parte do Legislativo que não se sensibilizou com isso e vamos também chamar à responsabilidade o Judiciário.",
+            "score": 0.4677
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a experiência prática no Executivo (como Prefeita) para fundamentar a necessidade de encaminhamentos concretos e soluções operacionais, não apenas discussões teóricas.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 22,
+            "start": 53259,
+            "end": 53506,
+            "text": "Depois que eu passei por uma experiência no Executivo, em uma cidade com muita complexidade, uma das capitais mais desiguais e, ao mesmo tempo, a quarta em população no Brasil, acho importante não apenas a discussão, mas também os encaminhamentos.",
+            "score": 0.2258
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Direitos Humanos, Minorias e Igualdade Racial da Câmara dos Deputados e Deputada Federal pelo Estado do Ceará.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 0,
+            "start": 329,
+            "end": 446,
+            "text": "Eu sou Presidente da Comissão de Direitos Humanos da Câmara dos Deputados, sou Deputada Federal pelo Estado do Ceará.",
+            "score": 0.6886
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como ex-Prefeita de Fortaleza, onde atuou por 8 anos e teve Maria da Penha como Secretária de Política para as Mulheres.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 0,
+            "start": 4043,
+            "end": 4169,
+            "text": "Tive a honra de ter Maria da Penha como Secretária de Política para as Mulheres, quando fui Prefeita de Fortaleza, por 8 anos.",
+            "score": 0.6091
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter sido Relatora, por 6 anos, na Comissão Permanente Mista de Combate à Violência contra a Mulher.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 0,
+            "start": 6573,
+            "end": 6714,
+            "text": "Fui Relatora, por 6 anos, na Comissão Permanente Mista de Combate à Violência contra a Mulher, Câmara dos Deputados junto com Senado Federal.",
+            "score": 0.6869
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhada ao Governo Federal e aos Ministérios das Mulheres, Igualdade Racial, Direitos Humanos e Portos, descrevendo-os como parceiros na reconstrução das políticas públicas.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 20,
+            "start": 51549,
+            "end": 51732,
+            "text": "Agradecemos, também, ao Ministério dos Direitos Humanos, que tem sido muito atuante na reconstrução das políticas que, sabemos, foram completamente desconstruídas no Governo anterior.",
+            "score": 0.2388
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica o governo anterior como \"negacionista\" e \"fascista\", e o período pós-2016 como um \"golpe\" que causou um vácuo nos avanços de direitos.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 6,
+            "start": 27778,
+            "end": 27853,
+            "text": "É exatamente o período após o golpe, que agora está mais do que comprovado.",
+            "score": 0.227
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos específicos (como os do Fórum Brasileiro de Segurança Pública) para embasar a gravidade dos problemas de violência contra a mulher.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 0,
+            "start": 3287,
+            "end": 3389,
+            "text": "Eu queria colaborar aqui, porque os dados do Fórum Brasileiro de Segurança Pública são muito trágicos.",
+            "score": 0.4099
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e pessoal, citando casos específicos (como o assassinato da irmã Bernadete e de Marielle Franco) e referências culturais (citação de poema) para reforçar a urgência das pautas.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 14,
+            "start": 53777,
+            "end": 53888,
+            "text": "A própria Ministra Anielle Franco é irmã de uma vítima de assassinato brutal, de uma violência política brutal.",
+            "score": 0.1704
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de mobilização e liderança, propondo encaminhamentos imediatos (como a emissão de ofícios para audiências ministeriais no mesmo dia da audiência) e oferecendo-se como \"instrumento\" para a articulação política.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Trata os convidados e colegas com cordialidade e reconhecimento, mas mantém firmeza ao cobrar ações concretas do Executivo e do Legislativo, utilizando expressões como \"peleja\" e \"tumulto\" para descrever o cenário político.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 26,
+      "split": "validation",
+      "article_date": "2023-12-14",
+      "title": "Debatedores defendem inclusão da \"economia do cuidado\" nas contas do PIB",
+      "assunto": "Inclusão da economia do cuidado no cálculo do PIB",
+      "turns": 9,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 29,
+      "split": "validation",
+      "article_date": "2023-11-24",
+      "title": "Debatedores apontam medidas para reduzir mortes violentas de jovens negros",
+      "assunto": "Medidas para reduzir mortes violentas de jovens negros",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 127,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Debatedores cobram política nacional de cuidados para idosos",
+      "assunto": "Política nacional de cuidados para idosos",
+      "turns": 10,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 187,
+      "split": "train",
+      "article_date": "2023-08-24",
+      "title": "Etnias ciganas pedem acesso a políticas públicas e reconhecimento pelo Censo",
+      "assunto": "Discussão sobre o Estatuto do Povo Cigano e a inclusão dos ciganos em políticas públicas e no Censo demográfico brasileiro",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 198,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "ONU reconhece liderança do Brasil na proteção a refugiados",
+      "assunto": "Reconhecimento da liderança do Brasil na proteção a refugiados e desafios na integração socioeconômica dos refugiados no país",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 203,
+      "split": "train",
+      "article_date": "2023-08-02",
+      "title": "Desmonte das políticas públicas levou a aumento da violência contra mulheres, afirmam debatedoras",
+      "assunto": "Aumento da violência contra mulheres devido ao desmonte de políticas públicas e ascensão do ultraconservadorismo",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-26-1-0",
+      "hearing_id": 26,
+      "n": 3,
+      "article_name": "Luizianne Lins",
+      "proposition": "Lamentou que somente agora o País comece a tratar do tema: \"É uma questão invisível que, no Brasil, toma proporções gigantescas, também pela dimensão territorial e por outros problemas sociais, muitos agravados nos últimos anos.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É também por essa razão que estamos realizando esta audiência, uma das últimas da nossa Comissão de Direitos Humanos este ano, para dar visibilidade a uma questão invisível e que no Brasil toma proporções gigantescas, até maiores do que em muitos países que já resolveram o problema ou pelo menos vêm tentando resolvê-lo há um tempo, em razão da nossa dimensão territorial e dos problemas sociais que o nosso País carrega principalmente nos últimos anos, que foram anos de muita […]",
+        "turn": 0,
+        "start": 1888,
+        "end": 2529
+      },
+      "verifier": {
+        "probability": 0.563984318457096,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-187-2-0",
+      "hearing_id": 187,
+      "n": 4,
+      "article_name": "Luizianne Lins",
+      "proposition": "Apesar de habitarem o Brasil há mais de 400 anos, os ciganos ainda são invisíveis para a maior parte da população: \"Esses grupos honram sua ancestralidade, lutam por direitos para manterem suas origens, uma vez que hábitos nômades dificultam seus registros e organização. Hábitos nômades muitas vezes seguidos de expulsões para manter a invisibilidade e silenciar a população, quando não se trata muitas vezes de conflito de terra\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Esses grupos honram sua ancestralidade, lutam por direitos para manter suas origens, uma vez que hábitos nômades dificultam seus registros e organização, hábitos nômades, muitas vezes seguidos de expulsões para manter a invisibilidade e silenciar a população. Quando não se trata, muitas vezes, como estamos vendo, de conflito de terra, como é o caso, infelizmente, do assassinato da irmã Bernadete, que também esta Comissão está acompanhando de perto.",
+        "turn": 0,
+        "start": 4518,
+        "end": 4970
+      },
+      "verifier": {
+        "probability": 0.2707647772495545,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-198-5-0",
+      "hearing_id": 198,
+      "n": 10,
+      "article_name": "Luizianne Lins",
+      "proposition": "Cobrou medidas urgentes: \"Uma espécie de força-tarefa intersetorial para que a gente pudesse ter o atendimento mais rápido possível nessas situações\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Foi uma coisa que nos chamou bastante atenção, tendo em vista que ocorreram, no último período, várias situações em que os refugiados ficaram em aeroportos, como na última situação em que eles ficaram no Aeroporto de Guarulhos. Na época, o Ministro me relatava que era importante esse debate para que fizéssemos uma espécie de força-tarefa intersetorial, ministerial, a fim que houvesse, o mais rápido possível, o atendimento nessas situações.",
+        "turn": 0,
+        "start": 2597,
+        "end": 3040
+      },
+      "verifier": {
+        "probability": 0.9600506416317723,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

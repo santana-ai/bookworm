@@ -1,0 +1,290 @@
+{
+  "actor": {
+    "slug": "jorge-braz",
+    "name": "Jorge Braz",
+    "display_name": "Jorge Braz",
+    "role": "Deputado (Republicanos-RJ), presidente da Comissão de Defesa do Consumidor",
+    "article_names": [
+      "Jorge Braz"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:16:51+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      182
+    ],
+    "input_tokens": 3098,
+    "output_tokens": 759,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 14,
+    "with_udv": 0,
+    "passage_only": 13,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a regulamentação e o controle efetivo pelos planos de saúde coletivos, argumentando que a liberdade de reajuste permitida às operadoras resultou em aumentos abusivos, como o de 59,8% promovido pela Amil Assistência Médica em abril de 2023, e de 30% pela SulAmérica, dados que atribui à CONTEC.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 132973,
+            "end": 133370,
+            "text": "Quando nós vamos, como já foi colocado aqui, para os planos coletivos, diz aqui basicamente — e quero citar o nome para ficar registrado que não são palavras da minha cabeça —, segundo dados da CONTEC — Confederação Nacional dos Trabalhadores nas Empresas de Crédito, em 3 de abril de 2023, que a Amil Assistência Médica, dada essa liberdade já frisada aqui, promoveu um reajuste de mais de 59,8%.",
+            "score": 0.3582
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que as operadoras apresentem, demonstrem e divulguem efetivamente os cálculos atuariais e os parâmetros considerados na definição dos índices de reajuste, considerando abusivo o reajuste quando não acompanhado de esclarecimentos objetivos aos contratantes, nos termos do art. 51, incisos IV e X, do CDC.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 135521,
+            "end": 135548,
+            "text": "51, incisos IV e X, do CDC.",
+            "score": 0.3788
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a ANS crie, via resolução, uma fórmula básica que detalhe o que e como foi gasto e o que mudou a cada ano, como medida paliativa para garantir clareza aos consumidores enquanto não se resolve a questão legislativa.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 136207,
+            "end": 136500,
+            "text": "Então, eu não sei se é possível, Presidente — e esta Comissão, creio eu, tem a obrigação de definir isso —, enquanto não se resolve isso, fazer uma espécie de uma formulazinha.Talvez a ANS possa, via resolução, criar uma fórmula básica do que e como foi gasto e do que mudou ou não a cada ano.",
+            "score": 0.4441
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a Comissão tem a obrigação de definir uma solução, seja paliativa ou definitiva, e que, caso a ANS não resolva a questão, será necessário alterar as leis vigentes, possivelmente até o sistema de saúde, pois a situação atual é insustentável.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 137227,
+            "end": 137568,
+            "text": "Esta Comissão tem a obrigação de tirar daqui um exemplo, uma solução paliativa, de repente, a não ser que a ANS consiga resolver isso através de uma fórmula dessas, senão, Presidente, nós, de fato, teremos que alterar as leis aqui para que haja, quem sabe, até a alteração de todo o sistema de saúde, porque do jeito que está não pode ficar.",
+            "score": 0.3028
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o caso de sua chefe de gabinete, advogada de 40 anos, que sofreu um aumento de 50% no plano coletivo, para ilustrar o impacto dos reajustes e a revolta dos consumidores.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 136956,
+            "end": 137076,
+            "text": "Ela e o marido, só os dois, que são advogados, têm 40 anos, 42 anos e tiveram, sei lá, 50% de aumento do plano coletivo.",
+            "score": 0.3993
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o Código de Defesa do Consumidor (CDC) como fundamento para exigir transparência e informação adequada, argumentando que o consumidor não deve aceitar o reajuste imposto sem a demonstração dos percentuais aplicados.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 134010,
+            "end": 134400,
+            "text": "Eu quero deixar aqui um registro desse apanhado que nos foi feito aqui, que diz basicamente assim:\"O consumidor não deve apenas aceitar o reajuste imposto pela operadora, cabendo-lhe exigir a demonstração dos percentuais aplicados por meio de apresentação de cálculos atuariais\".Até porque o CDC nos diz claramente que precisamos de transparência e que o consumidor precisa ter informações.",
+            "score": 0.4199
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio da desvantagem manifesta do consumidor, previsto no CDC, para justificar a necessidade de prova técnica por parte da operadora, demonstrando que os reajustes são pautados por critérios atuariais e ponderados com os custos dos serviços.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 135765,
+            "end": 136001,
+            "text": "Então, com efeito, a operadora deve verter prova técnica que demonstre que os reajustes das mensalidades estão sendo pautados por critérios atuariais, destinados a assegurar a viabilidade do plano, ponderados com os custos dos serviços.",
+            "score": 0.4446
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a ausência de documentação e esclarecimentos configura engano ao consumidor, pois a decisão de reajuste é unilateral e feita sem o conhecimento efetivo das pessoas.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 135657,
+            "end": 135763,
+            "text": "É uma decisão exclusiva, é uma decisão unilateral, ou seja, sem que haja conhecimento de fato das pessoas.",
+            "score": 0.3799
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da categoria dos trabalhadores nas empresas de crédito, ao citar dados da CONTEC (Confederação Nacional dos Trabalhadores nas Empresas de Crédito) como fonte de suas alegações.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 132973,
+            "end": 133370,
+            "text": "Quando nós vamos, como já foi colocado aqui, para os planos coletivos, diz aqui basicamente — e quero citar o nome para ficar registrado que não são palavras da minha cabeça —, segundo dados da CONTEC — Confederação Nacional dos Trabalhadores nas Empresas de Crédito, em 3 de abril de 2023, que a Amil Assistência Médica, dada essa liberdade já frisada aqui, promoveu um reajuste de mais de 59,8%.",
+            "score": 0.3879
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como membro da Comissão, ao afirmar que \"esta Comissão tem a obrigação de definir isso\" e de tirar uma solução do debate.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 137227,
+            "end": 137568,
+            "text": "Esta Comissão tem a obrigação de tirar daqui um exemplo, uma solução paliativa, de repente, a não ser que a ANS consiga resolver isso através de uma fórmula dessas, senão, Presidente, nós, de fato, teremos que alterar as leis aqui para que haja, quem sabe, até a alteração de todo o sistema de saúde, porque do jeito que está não pode ficar.",
+            "score": 0.2183
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e fontes citadas nominalmente (CONTEC, ANS) para sustentar suas alegações, mencionando percentuais exatos de reajuste e o período de 24 anos de limites definidos pela ANS.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 132868,
+            "end": 132916,
+            "text": "Esses reajustes estão nesses limites há 24 anos.",
+            "score": 0.2726
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e pessoais, como o caso de sua chefe de gabinete, para ilustrar o impacto prático dos reajustes e a indignação dos consumidores.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 136748,
+            "end": 136955,
+            "text": "Então, existe essa formulazinha aqui, e, uma vez preenchida, os consumidores terão clareza.”Uma das primeiras pessoas que eu vi reclamar dos aumentos do plano de saúde coletivo foi a minha chefe de gabinete.",
+            "score": 0.163
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom direto e objetivo, evitando detalhes extensos, e propõe soluções práticas e imediatas, como a criação de uma \"formulazinha\" pela ANS, para garantir clareza aos consumidores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita nomes de participantes e órgãos presentes (Dr. Arthur Rollo, Dr. Marcos Novais, Dr. Vitor Hugo, Dr. Andrey Freitas, Dr. Pablo Bismark, Deputado Celso) para direcionar suas exigências e propostas, cobrando ação concreta desses atores.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 68,
+            "start": 134523,
+            "end": 134578,
+            "text": "Marcos Novais, da ABRAMGE, senhores representantes, Dr.",
+            "score": 0.2623
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 28,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Montadoras e oficinas reivindicam lei sobre equipamentos e softwares para diagnóstico e reparo de carros",
+      "assunto": "Reivindicação de uma lei sobre equipamentos e softwares para diagnóstico e reparo de veículos",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 182,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Entidades que defendem consumidor pedem regulação para reajustes de planos de saúde coletivos",
+      "assunto": "Regulação dos reajustes dos planos de saúde coletivos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-28-3-0",
+      "hearing_id": 28,
+      "n": 6,
+      "article_name": "Jorge Braz",
+      "proposition": "\"É claro que precisamos de segurança, aprimoramento e treinamento, mas a liberação do acesso é necessária. É lógico que não será para qualquer um, mas o consumidor precisa ter o leque de opções.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "De fato, tem que se seguir passos de segurança, de aprimoramento, de treinamento e tal, mas creio que o grande ponto, o ponto principal, de fato, é a liberação de acesso a esses códigos, a essas peças, bem como o treinamento de pessoas. E o risco vamos ter de correr.",
+        "turn": 28,
+        "start": 45144,
+        "end": 45411
+      },
+      "verifier": {
+        "probability": 0.5380889674563561,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-28-3-1",
+      "hearing_id": 28,
+      "n": 7,
+      "article_name": "Jorge Braz",
+      "proposition": "\"O brasileiro, criativo como é, sempre dá um jeito, e na verdade essas coisas já acontecem, ainda que informalmente, até porque, quando a pessoa leva o carro numa concessionária, o preço dos serviços vai lá para cima.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E isso tem dado certo, até porque uma questão que não foi falada aqui, para a qual eu quero chamar a atenção, é o preço. No final, você leva o automóvel a uma concessionária, e o preço vai lá para cima.",
+        "turn": 28,
+        "start": 44220,
+        "end": 44422
+      },
+      "verifier": {
+        "probability": 0.3698056582400516,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

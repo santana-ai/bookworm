@@ -1,0 +1,1647 @@
+{
+  "experiment": "udv_verifier",
+  "name": "udv_v1_verifier",
+  "created_at": "2026-09-27T02:25:07+00:00",
+  "declared": "Declared on 2026-09-26, before any UDV evidence or proposition was translated or scored by any verifier. Before this declaration, only a train refit of the primary below was run, to check that it reproduces the fit recorded in final_test.json (C, inner means, coefficients and threshold); it read no UDV and no validation or test row. The verifier is an extra analysis layer on artifacts/udv/udv_v1.jsonl: it adds, per UDV with evidence, a score of how strongly the evidence text supports the proposition, and it changes no UDV, tier, evidence or threshold of the UDV builder. Nothing in this run is tuned on UDV scores: the scorers, features, model, C and threshold are the ones of the E3x v2 final test, fitted on the train split of the NLI benchmark only",
+  "purpose": "the UDV tiers say how the evidence was found (a literal quote, or a transcript sentence close in embedding space); they do not say whether the evidence sentence states what the proposition says. The verifier score is a second, independent reading of that question, from models trained for entailment-like decisions",
+  "caveats": {
+    "domain_shift": "the verifier was fitted on the NLI benchmark, where the hypothesis is an article opinion and the premise is the four transcript chunks retrieved for it; here the premise is one evidence sentence. This is a domain shift and its effect on the scores, the ranking and the threshold is not measured here",
+    "label_semantics": "the fitted target is label_inferable of the NLI benchmark (retrieved_context_entailment: the annotator judged the opinion inferable from the retrieved chunks). A UDV score estimates that judgment for the evidence sentence alone; it is not a global truth label, and a low score says only that the evidence sentence gives the verifier little support for the proposition",
+    "benchmark_label_semantics": "label_inferable is True when the annotator judged the opinion inferable from the four retrieved chunks (retrieved_context_entailment); it says nothing about text outside those chunks and is not a global truth label"
+  },
+  "counts": {
+    "udv_records": 2203,
+    "scored": 2105,
+    "unscored": 98,
+    "unscored_by_tier": {
+      "no_evidence": 8,
+      "person_not_resolved": 90
+    },
+    "scored_by_tier": {
+      "semantic_match_weak": 43,
+      "semantic_match_high": 1785,
+      "quote_found": 277
+    },
+    "scored_by_support_type": {
+      "semantic_similarity": 1717,
+      "direct_quote": 277,
+      "semantic_with_short_quote": 111
+    },
+    "scored_by_hearing_split": {
+      "test": 346,
+      "train": 1454,
+      "validation": 305
+    }
+  },
+  "benchmark_overlap": {
+    "rule": "UDVs whose normalized proposition equals a normalized NLI benchmark opinion, by the benchmark split of that opinion; train opinions were hypotheses of the verifier fit, paired there with retrieved chunks instead of the evidence sentence",
+    "counts": {
+      "not_in_benchmark": 2105
+    }
+  },
+  "primary": {
+    "candidate": "laya_en_en:learned_cross_model_with_pt",
+    "features": 53,
+    "scorers": [
+      "laya_en_en",
+      "laya_multi_pt",
+      "xnli_mdeberta",
+      "cosine_serafim"
+    ],
+    "fit": {
+      "c": 0.01,
+      "inner_means": {
+        "0.01": 0.8681,
+        "0.1": 0.8674,
+        "1.0": 0.8618,
+        "10.0": 0.8576
+      },
+      "coefficients": {
+        "laya_en_en:p1_nli:max": 0.0528,
+        "laya_en_en:p1_nli:mean": 0.0291,
+        "laya_en_en:p1_nli:concatenated": 0.0665,
+        "laya_en_en:p2_nli_reversed:max": 0.0504,
+        "laya_en_en:p2_nli_reversed:mean": 0.0266,
+        "laya_en_en:p2_nli_reversed:concatenated": 0.06,
+        "laya_en_en:p3_inferable:max": 0.0267,
+        "laya_en_en:p3_inferable:mean": 0.0256,
+        "laya_en_en:p3_inferable:concatenated": 0.1173,
+        "laya_en_en:p4_supports:max": 0.0223,
+        "laya_en_en:p4_supports:mean": 0.03,
+        "laya_en_en:p4_supports:concatenated": 0.1258,
+        "laya_en_en:p5_position:max": 0.0626,
+        "laya_en_en:p5_position:mean": 0.0091,
+        "laya_en_en:p5_position:concatenated": 0.0508,
+        "laya_en_en:p6_position_reversed:max": 0.069,
+        "laya_en_en:p6_position_reversed:mean": 0.0061,
+        "laya_en_en:p6_position_reversed:concatenated": 0.0335,
+        "laya_en_en:p7_coverage:max": 0.0136,
+        "laya_en_en:p7_coverage:mean": -0.0258,
+        "laya_en_en:p7_coverage:concatenated": -0.0892,
+        "laya_en_en:p8_similarity:max": 0.0499,
+        "laya_en_en:p8_similarity:mean": 0.0169,
+        "laya_en_en:p8_similarity:concatenated": 0.023,
+        "laya_multi_pt:p1_nli:max": 0.0315,
+        "laya_multi_pt:p1_nli:mean": -0.0283,
+        "laya_multi_pt:p1_nli:concatenated": 0.0682,
+        "laya_multi_pt:p2_nli_reversed:max": 0.0291,
+        "laya_multi_pt:p2_nli_reversed:mean": -0.0313,
+        "laya_multi_pt:p2_nli_reversed:concatenated": 0.0684,
+        "laya_multi_pt:p3_inferable:max": 0.1003,
+        "laya_multi_pt:p3_inferable:mean": 0.0275,
+        "laya_multi_pt:p3_inferable:concatenated": 0.137,
+        "laya_multi_pt:p4_supports:max": 0.083,
+        "laya_multi_pt:p4_supports:mean": 0.0224,
+        "laya_multi_pt:p4_supports:concatenated": 0.1451,
+        "laya_multi_pt:p5_position:max": 0.005,
+        "laya_multi_pt:p5_position:mean": -0.0814,
+        "laya_multi_pt:p5_position:concatenated": -0.0081,
+        "laya_multi_pt:p6_position_reversed:max": 0.0287,
+        "laya_multi_pt:p6_position_reversed:mean": -0.0537,
+        "laya_multi_pt:p6_position_reversed:concatenated": 0.0232,
+        "laya_multi_pt:p7_coverage:max": 0.0724,
+        "laya_multi_pt:p7_coverage:mean": 0.0178,
+        "laya_multi_pt:p7_coverage:concatenated": -0.0613,
+        "laya_multi_pt:p8_similarity:max": 0.0415,
+        "laya_multi_pt:p8_similarity:mean": -0.1378,
+        "laya_multi_pt:p8_similarity:concatenated": 0.0116,
+        "xnli_mdeberta:entailment:max": 0.1742,
+        "xnli_mdeberta:entailment:mean": 0.0407,
+        "xnli_mdeberta:entailment:concatenated": 0.1523,
+        "cosine_serafim:cosine:max": 0.2045,
+        "cosine_serafim:sentence_max:max": 0.304
+      },
+      "intercept": 2.83358625415683,
+      "threshold": 0.7478214519952443,
+      "train_opinions": 2981,
+      "train_not_inferable": 339
+    },
+    "final_test_result": {
+      "roc_auc": 0.9122,
+      "roc_auc_interval": {
+        "replicates": 1000,
+        "low": 0.8698,
+        "high": 0.9454,
+        "median": 0.9101,
+        "std": 0.0205
+      },
+      "threshold": 0.7478214519952443,
+      "cohen_kappa": 0.5924,
+      "cohen_kappa_interval": {
+        "replicates": 1000,
+        "low": 0.441,
+        "high": 0.7108,
+        "median": 0.5814,
+        "std": 0.0698
+      },
+      "f1_not_inferable": 0.6633,
+      "precision_not_inferable": 0.6075,
+      "recall_not_inferable": 0.7303,
+      "role": "primary",
+      "threshold_fitted_on": "train"
+    },
+    "decision_rule": "supported_at_train_threshold = primary probability >= the train threshold (final_test.json threshold of the primary, 0.7478)"
+  },
+  "secondary": {
+    "signal": "laya_multi_pt:p4_supports:max",
+    "reason": "the laya_multi_pt answer to p4_supports alone: one question, one checkpoint and no translation step, so its reading depends on fewer components than the primary"
+  },
+  "refit_check": {
+    "compared_with": "final_test.json learned and results entries of the primary",
+    "checks": {
+      "c": true,
+      "inner_means": true,
+      "coefficients": true,
+      "threshold": true
+    },
+    "threshold_refit": 0.7478214519952443,
+    "threshold_final_test": 0.7478214519952443,
+    "threshold_abs_gap": 0.0
+  },
+  "fit_files": {
+    "laya_en_en": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v2/scores/laya_en_en_train.jsonl",
+      "sha256": "aebda1b0c1ba70b3deca497b1389112a9bacc1d792e4fa5bbc3d7d1789d5f8cf",
+      "matches_selection": true
+    },
+    "laya_multi_pt": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v2/scores/laya_multi_pt_train.jsonl",
+      "sha256": "506a6c20b92da399e891cfc493cc88b590c160fce30b8674588b6f0c86b7b365",
+      "matches_selection": true
+    },
+    "xnli_mdeberta": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v1/scores/xnli_mdeberta_train.jsonl",
+      "sha256": "65ca40d8873cecbe594e58784c5e835c063831f92cd0926e00874f7b5e0238e5",
+      "matches_selection": true
+    },
+    "cosine_serafim": {
+      "path": "artifacts/experiments/nli_verifier/nli_verifier_v1/scores/cosine_serafim_train.jsonl",
+      "sha256": "750438f2bbdc0b6097cb171e9314f3f945cdfebe7a67d381aa2d2382b94d77f3",
+      "matches_selection": true
+    }
+  },
+  "fit_reading_check": {
+    "laya_en_en": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "laya_multi_pt": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "xnli_mdeberta": {
+      "stored_scores_checked": [
+        "max.entailment",
+        "concatenated.entailment"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "cosine_serafim": {
+      "stored_scores_checked": [
+        "max.cosine",
+        "sentence_max.cosine"
+      ],
+      "max_abs_gap": 0.0
+    }
+  },
+  "udv_reading_check": {
+    "laya_en_en": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "laya_multi_pt": {
+      "stored_scores_checked": [
+        "max.p1_nli",
+        "max.p2_nli_reversed",
+        "max.p3_inferable",
+        "max.p4_supports",
+        "max.p5_position",
+        "max.p6_position_reversed",
+        "max.p7_coverage",
+        "max.p8_similarity",
+        "max.panel",
+        "concatenated.p1_nli",
+        "concatenated.p2_nli_reversed",
+        "concatenated.p3_inferable",
+        "concatenated.p4_supports",
+        "concatenated.p5_position",
+        "concatenated.p6_position_reversed",
+        "concatenated.p7_coverage",
+        "concatenated.p8_similarity"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "xnli_mdeberta": {
+      "stored_scores_checked": [
+        "max.entailment",
+        "concatenated.entailment"
+      ],
+      "max_abs_gap": 0.0
+    },
+    "cosine_serafim": {
+      "stored_scores_checked": [
+        "max.cosine",
+        "sentence_max.cosine"
+      ],
+      "max_abs_gap": 0.0
+    }
+  },
+  "pool_check": {
+    "rule": "with one premise item the max, mean and concatenated pools of a signal coincide",
+    "max_abs_gap_by_scorer": {
+      "laya_en_en": 0.0,
+      "laya_multi_pt": 0.0,
+      "xnli_mdeberta": 0.0
+    }
+  },
+  "distributions": {
+    "primary_probability": {
+      "by_tier": {
+        "semantic_match_weak": {
+          "n": 43,
+          "mean": 0.1222,
+          "quantiles": {
+            "0.0": 0.0402,
+            "0.05": 0.0593,
+            "0.1": 0.0642,
+            "0.25": 0.0828,
+            "0.5": 0.1012,
+            "0.75": 0.1169,
+            "0.9": 0.1756,
+            "0.95": 0.3011,
+            "1.0": 0.5087
+          }
+        },
+        "semantic_match_high": {
+          "n": 1785,
+          "mean": 0.4894,
+          "quantiles": {
+            "0.0": 0.0906,
+            "0.05": 0.1573,
+            "0.1": 0.1883,
+            "0.25": 0.2586,
+            "0.5": 0.3978,
+            "0.75": 0.711,
+            "0.9": 0.9662,
+            "0.95": 0.9882,
+            "1.0": 0.9965
+          }
+        },
+        "quote_found": {
+          "n": 277,
+          "mean": 0.5237,
+          "quantiles": {
+            "0.0": 0.0848,
+            "0.05": 0.1546,
+            "0.1": 0.185,
+            "0.25": 0.2733,
+            "0.5": 0.4412,
+            "0.75": 0.8192,
+            "0.9": 0.9782,
+            "0.95": 0.9936,
+            "1.0": 0.9967
+          }
+        },
+        "all": {
+          "n": 2105,
+          "mean": 0.4864,
+          "quantiles": {
+            "0.0": 0.0402,
+            "0.05": 0.1468,
+            "0.1": 0.1783,
+            "0.25": 0.2541,
+            "0.5": 0.3951,
+            "0.75": 0.7137,
+            "0.9": 0.9663,
+            "0.95": 0.9891,
+            "1.0": 0.9967
+          }
+        }
+      },
+      "by_support_type": {
+        "semantic_similarity": {
+          "n": 1717,
+          "mean": 0.4708,
+          "quantiles": {
+            "0.0": 0.0402,
+            "0.05": 0.1447,
+            "0.1": 0.1731,
+            "0.25": 0.2491,
+            "0.5": 0.38,
+            "0.75": 0.6631,
+            "0.9": 0.9563,
+            "0.95": 0.9875,
+            "1.0": 0.9965
+          }
+        },
+        "direct_quote": {
+          "n": 277,
+          "mean": 0.5237,
+          "quantiles": {
+            "0.0": 0.0848,
+            "0.05": 0.1546,
+            "0.1": 0.185,
+            "0.25": 0.2733,
+            "0.5": 0.4412,
+            "0.75": 0.8192,
+            "0.9": 0.9782,
+            "0.95": 0.9936,
+            "1.0": 0.9967
+          }
+        },
+        "semantic_with_short_quote": {
+          "n": 111,
+          "mean": 0.635,
+          "quantiles": {
+            "0.0": 0.1245,
+            "0.05": 0.2218,
+            "0.1": 0.3068,
+            "0.25": 0.3649,
+            "0.5": 0.6232,
+            "0.75": 0.8987,
+            "0.9": 0.9859,
+            "0.95": 0.9927,
+            "1.0": 0.9961
+          }
+        },
+        "all": {
+          "n": 2105,
+          "mean": 0.4864,
+          "quantiles": {
+            "0.0": 0.0402,
+            "0.05": 0.1468,
+            "0.1": 0.1783,
+            "0.25": 0.2541,
+            "0.5": 0.3951,
+            "0.75": 0.7137,
+            "0.9": 0.9663,
+            "0.95": 0.9891,
+            "1.0": 0.9967
+          }
+        }
+      },
+      "by_hearing_split": {
+        "test": {
+          "n": 346,
+          "mean": 0.4862,
+          "quantiles": {
+            "0.0": 0.0906,
+            "0.05": 0.1448,
+            "0.1": 0.1872,
+            "0.25": 0.2545,
+            "0.5": 0.4124,
+            "0.75": 0.7179,
+            "0.9": 0.9642,
+            "0.95": 0.987,
+            "1.0": 0.9967
+          }
+        },
+        "train": {
+          "n": 1454,
+          "mean": 0.4857,
+          "quantiles": {
+            "0.0": 0.059,
+            "0.05": 0.1511,
+            "0.1": 0.1795,
+            "0.25": 0.2525,
+            "0.5": 0.3919,
+            "0.75": 0.7134,
+            "0.9": 0.9682,
+            "0.95": 0.9892,
+            "1.0": 0.9967
+          }
+        },
+        "validation": {
+          "n": 305,
+          "mean": 0.49,
+          "quantiles": {
+            "0.0": 0.0402,
+            "0.05": 0.1398,
+            "0.1": 0.1608,
+            "0.25": 0.2622,
+            "0.5": 0.407,
+            "0.75": 0.7095,
+            "0.9": 0.9522,
+            "0.95": 0.9884,
+            "1.0": 0.9965
+          }
+        },
+        "all": {
+          "n": 2105,
+          "mean": 0.4864,
+          "quantiles": {
+            "0.0": 0.0402,
+            "0.05": 0.1468,
+            "0.1": 0.1783,
+            "0.25": 0.2541,
+            "0.5": 0.3951,
+            "0.75": 0.7137,
+            "0.9": 0.9663,
+            "0.95": 0.9891,
+            "1.0": 0.9967
+          }
+        }
+      }
+    },
+    "p4_supports": {
+      "by_tier": {
+        "semantic_match_weak": {
+          "n": 43,
+          "mean": 0.0054,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0002,
+            "0.1": 0.0003,
+            "0.25": 0.0007,
+            "0.5": 0.0017,
+            "0.75": 0.0037,
+            "0.9": 0.0127,
+            "0.95": 0.0176,
+            "1.0": 0.0827
+          }
+        },
+        "semantic_match_high": {
+          "n": 1785,
+          "mean": 0.2116,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0006,
+            "0.25": 0.0019,
+            "0.5": 0.0095,
+            "0.75": 0.1891,
+            "0.9": 0.9686,
+            "0.95": 0.9934,
+            "1.0": 0.9984
+          }
+        },
+        "quote_found": {
+          "n": 277,
+          "mean": 0.2553,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0009,
+            "0.25": 0.0023,
+            "0.5": 0.0224,
+            "0.75": 0.4985,
+            "0.9": 0.9866,
+            "0.95": 0.9969,
+            "1.0": 0.9986
+          }
+        },
+        "all": {
+          "n": 2105,
+          "mean": 0.2131,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0006,
+            "0.25": 0.0019,
+            "0.5": 0.0097,
+            "0.75": 0.2052,
+            "0.9": 0.9705,
+            "0.95": 0.9939,
+            "1.0": 0.9986
+          }
+        }
+      },
+      "by_support_type": {
+        "semantic_similarity": {
+          "n": 1717,
+          "mean": 0.1969,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0005,
+            "0.25": 0.0017,
+            "0.5": 0.0082,
+            "0.75": 0.1445,
+            "0.9": 0.9607,
+            "0.95": 0.9922,
+            "1.0": 0.9984
+          }
+        },
+        "direct_quote": {
+          "n": 277,
+          "mean": 0.2553,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0009,
+            "0.25": 0.0023,
+            "0.5": 0.0224,
+            "0.75": 0.4985,
+            "0.9": 0.9866,
+            "0.95": 0.9969,
+            "1.0": 0.9986
+          }
+        },
+        "semantic_with_short_quote": {
+          "n": 111,
+          "mean": 0.3583,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0006,
+            "0.1": 0.0018,
+            "0.25": 0.0046,
+            "0.5": 0.0438,
+            "0.75": 0.8931,
+            "0.9": 0.9947,
+            "0.95": 0.9974,
+            "1.0": 0.998
+          }
+        },
+        "all": {
+          "n": 2105,
+          "mean": 0.2131,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0006,
+            "0.25": 0.0019,
+            "0.5": 0.0097,
+            "0.75": 0.2052,
+            "0.9": 0.9705,
+            "0.95": 0.9939,
+            "1.0": 0.9986
+          }
+        }
+      },
+      "by_hearing_split": {
+        "test": {
+          "n": 346,
+          "mean": 0.1983,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0004,
+            "0.1": 0.0006,
+            "0.25": 0.0019,
+            "0.5": 0.0107,
+            "0.75": 0.1539,
+            "0.9": 0.9524,
+            "0.95": 0.9924,
+            "1.0": 0.9983
+          }
+        },
+        "train": {
+          "n": 1454,
+          "mean": 0.2169,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0006,
+            "0.25": 0.0019,
+            "0.5": 0.0096,
+            "0.75": 0.2237,
+            "0.9": 0.9745,
+            "0.95": 0.9946,
+            "1.0": 0.9986
+          }
+        },
+        "validation": {
+          "n": 305,
+          "mean": 0.2116,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0005,
+            "0.25": 0.0018,
+            "0.5": 0.0098,
+            "0.75": 0.1961,
+            "0.9": 0.9701,
+            "0.95": 0.9921,
+            "1.0": 0.9981
+          }
+        },
+        "all": {
+          "n": 2105,
+          "mean": 0.2131,
+          "quantiles": {
+            "0.0": 0.0,
+            "0.05": 0.0003,
+            "0.1": 0.0006,
+            "0.25": 0.0019,
+            "0.5": 0.0097,
+            "0.75": 0.2052,
+            "0.9": 0.9705,
+            "0.95": 0.9939,
+            "1.0": 0.9986
+          }
+        }
+      }
+    }
+  },
+  "supported_at_train_threshold": {
+    "by_tier": {
+      "semantic_match_weak": {
+        "n": 43,
+        "supported": 0,
+        "share": 0.0
+      },
+      "semantic_match_high": {
+        "n": 1785,
+        "supported": 411,
+        "share": 0.2303
+      },
+      "quote_found": {
+        "n": 277,
+        "supported": 78,
+        "share": 0.2816
+      },
+      "all": {
+        "n": 2105,
+        "supported": 489,
+        "share": 0.2323
+      }
+    },
+    "by_support_type": {
+      "semantic_similarity": {
+        "n": 1717,
+        "supported": 364,
+        "share": 0.212
+      },
+      "direct_quote": {
+        "n": 277,
+        "supported": 78,
+        "share": 0.2816
+      },
+      "semantic_with_short_quote": {
+        "n": 111,
+        "supported": 47,
+        "share": 0.4234
+      },
+      "all": {
+        "n": 2105,
+        "supported": 489,
+        "share": 0.2323
+      }
+    },
+    "by_hearing_split": {
+      "test": {
+        "n": 346,
+        "supported": 79,
+        "share": 0.2283
+      },
+      "train": {
+        "n": 1454,
+        "supported": 340,
+        "share": 0.2338
+      },
+      "validation": {
+        "n": 305,
+        "supported": 70,
+        "share": 0.2295
+      },
+      "all": {
+        "n": 2105,
+        "supported": 489,
+        "share": 0.2323
+      }
+    }
+  },
+  "cosine_relation": {
+    "rule": "Spearman correlation between each verifier score and evidence.score (the serafim cosine the UDV builder recorded) within each semantic tier and over both together",
+    "spearman": {
+      "semantic_match_high": {
+        "primary_probability": {
+          "n": 1785,
+          "rho": 0.6909,
+          "p_value": 1.600328582250359e-253
+        },
+        "p4_supports": {
+          "n": 1785,
+          "rho": 0.3726,
+          "p_value": 6.620234733010785e-60
+        }
+      },
+      "semantic_match_weak": {
+        "primary_probability": {
+          "n": 43,
+          "rho": 0.4855,
+          "p_value": 0.0009664722455708905
+        },
+        "p4_supports": {
+          "n": 43,
+          "rho": 0.2753,
+          "p_value": 0.07398047001379182
+        }
+      },
+      "semantic_all": {
+        "primary_probability": {
+          "n": 1828,
+          "rho": 0.7088,
+          "p_value": 4.536969522148407e-279
+        },
+        "p4_supports": {
+          "n": 1828,
+          "rho": 0.3868,
+          "p_value": 2.5461320156250905e-66
+        }
+      }
+    }
+  },
+  "evidence_score_check": {
+    "rule": "cosine_serafim sentence_max.cosine of each semantic UDV against evidence.score",
+    "n": 1828,
+    "max_abs_gap": 0.0,
+    "within_1e-4": 1828
+  },
+  "lowest": {
+    "rule": "the lowest_count UDVs of each lowest_tiers tier by primary probability (ties by udv id), with proposition and evidence text, for manual inspection",
+    "udvs": {
+      "quote_found": [
+        {
+          "udv_id": "udv-19-3-0",
+          "hearing_id": 19,
+          "support_type": "direct_quote",
+          "primary_probability": 0.0848,
+          "p4_supports": 0.0009,
+          "evidence_score": null,
+          "proposition": "Citou conclusões de conferências internacionais sobre o assunto: \"De todos os fatores de risco que a gente tem, de longe a velocidade continua sendo o principal.\"",
+          "evidence_text": "Mas uma das posições que ficou muito clara quando nós saímos de Estocolmo foi a de que, de todos os fatores de risco que nós temos, de longe — de longe!"
+        },
+        {
+          "udv_id": "udv-16-4-0",
+          "hearing_id": 16,
+          "support_type": "direct_quote",
+          "primary_probability": 0.094,
+          "p4_supports": 0.0018,
+          "evidence_score": null,
+          "proposition": "\"A segunda pergunta que eu lhe faço, senhor ministro, é se a relação do senhor com o Comando Vermelho antecede o seu exercício no ministério ou se ela veio após a sua posse no Ministério dos Direitos Humanos.\"",
+          "evidence_text": "Ministro, o senhor, como advogado e, como disse, advogando há mais de 20 anos, e compreendendo, como advogado que sou, que todo réu tem direito à justa defesa e a um advogado que atue tecnicamente em prol de seus interesses, independentemente do crime, a segunda pergunta que eu lhe faço, Sr."
+        },
+        {
+          "udv_id": "udv-1-4-0",
+          "hearing_id": 1,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1051,
+          "p4_supports": 0.4158,
+          "evidence_score": null,
+          "proposition": "Ressaltou que o Marco Civil da Internet é muito claro ao estabelecer que, se houver afronta à legislação, deve-se censurar uma publicação específica mediante decisão judicial motivada. \"Nós não vimos isso em nenhuma das decisões que vieram a público até agora\". Apontou que as decisões são genéricas, visando retirar do ar o perfil de usuários por tempo indeterminado.",
+          "evidence_text": "Nós não vimos isso em nenhuma das decisões mostradas pelos nossos expositores, nem nas que vieram a público até agora."
+        },
+        {
+          "udv_id": "udv-180-5-0",
+          "hearing_id": 180,
+          "support_type": "direct_quote",
+          "primary_probability": 0.106,
+          "p4_supports": 0.0176,
+          "evidence_score": null,
+          "proposition": "As cotas para negros e mulheres foram uma conquista dos movimentos sociais, e mesmo com o aumento da representação política das mulheres no Brasil, o País ainda é o que tem a pior representatividade na América Latina: \"A nossa representação poderia ser muito superior não fosse o não cumprimento dessas regras, e muitos partidos fazem isso de propósito porque sabem que depois serão anistiadas. E não é porque as mulheres não querem participar da política. As mulheres e a população negra são as maiores vítimas ou as maiores beneficiárias das decisões que são tomadas aqui, porque são a maioria da população e porque são setores mais vulneráveis econômica e socialmente.\"",
+          "evidence_text": "A nossa representação poderia ser muito superior se não houvesse, justamente, o não cumprimento dessas regras."
+        },
+        {
+          "udv_id": "udv-99-1-0",
+          "hearing_id": 99,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1088,
+          "p4_supports": 0.0125,
+          "evidence_score": null,
+          "proposition": "A guerra de Israel não é contra o grupo Hamas, mas contra a existência da Palestina: \"A guerra de extermínio é contra a ideia de resistência, a ideia de resistir ao colonialismo, se não fosse a Fatah, Hamas, Frente Popular ou a OLP, teriam lutado contra as pedras e as oliveiras palestinas, que são também símbolo da nossa terra.\"",
+          "evidence_text": "A guerra de extermínio é contra a ideia de resistir ao colonialismo."
+        },
+        {
+          "udv_id": "udv-99-5-1",
+          "hearing_id": 99,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1137,
+          "p4_supports": 0.003,
+          "evidence_score": null,
+          "proposition": "Fará novo requerimento para realização de audiência pública, com os mesmos convidados, para dar espaço a deputados com posição divergente de dialogarem: \"Eu não celebro a morte de inocentes. São reféns de um governo terrorista que é o Hamas. Mas Palestina também precisa pregar a paz com os territórios vizinhos.\"",
+          "evidence_text": "Eu gostaria de deixar o posicionamento bem claro de que eu não celebro a morte de inocentes."
+        },
+        {
+          "udv_id": "udv-121-1-2",
+          "hearing_id": 121,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1251,
+          "p4_supports": 0.0545,
+          "evidence_score": null,
+          "proposition": "Considera fundamental capacitar as varas de competência geral para o acolhimento das vítimas: \"Nós temos hoje uma certa dificuldade no tratamento da questão relacionada à violência com juízes que não são de varas de violência. E um ponto importante é relacionado às tentativas de medicação e conciliação. A ideia é que em todos os casos a mulher tenha assegurado que qualquer tentativa seja sempre precedida por uma análise da equipe multidisciplinar, que garanta a possibilidade livre e desimpedida de consentir e garanta a inexistência de risco de revitimização.\"",
+          "evidence_text": "Aline falou, que é absolutamente correto e verdadeiro, é que nós temos hoje uma certa dificuldade, é preciso reconhecer, no tratamento dessa questão relacionada à violência com juízes que não são de varas de violência."
+        },
+        {
+          "udv_id": "udv-50-1-3",
+          "hearing_id": 50,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1258,
+          "p4_supports": 0.0026,
+          "evidence_score": null,
+          "proposition": "É fundamental encontrar formas de ampliar o acesso das populações em situação de maior vulnerabilidade aos serviços de saúde: \"Nós temos uma situação de desigualdade, que, olhando para o aspecto de raça/cor, nós temos desigualdade em relação ao acesso à rede de saúde. E isso se repete quando a gente olha escolaridade, quando a gente olha cidades do interior versus capitais.\"",
+          "evidence_text": "Nós temos uma situação de desigualdade, de iniquidade."
+        },
+        {
+          "udv_id": "udv-178-1-1",
+          "hearing_id": 178,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1329,
+          "p4_supports": 0.0067,
+          "evidence_score": null,
+          "proposition": "A busca de soluções urgentes para a crise climática deve inserir o tema também no Projeto de Lei 11247/18 e apensados, que buscam a regulamentação das eólicas offshore e estão em análise na Comissão de Meio Ambiente da Câmara: \"Nós estamos trabalhando na questão do planejamento espacial marinho, que a gente até está chamando de instrumento de descarbonização, mas que não está dentro do PL 11247/18.\"",
+          "evidence_text": "Com tudo isso, nós estamos trabalhando na questão do planejamento espacial marinho, o que chamamos de instrumento de descarbonização."
+        },
+        {
+          "udv_id": "udv-148-0-1",
+          "hearing_id": 148,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1396,
+          "p4_supports": 0.0016,
+          "evidence_score": null,
+          "proposition": "Cobrou dos envolvidos o enfrentamento da situação sem restrições ideológicas: \"Essa é uma questão de Estado e não de governo\". \"Precisamos do Ibama para solucionar esse problema com urgência\".",
+          "evidence_text": "Da mesma forma, agradeço ao Deputado Ismael e o ao Rafael, que se colocaram à disposição do nosso gabinete, porque, como todos os convidados e a senhora também pontuaram, essa é uma questão de Estado, e não uma questão de Governo."
+        },
+        {
+          "udv_id": "udv-12-2-1",
+          "hearing_id": 12,
+          "support_type": "direct_quote",
+          "primary_probability": 0.14,
+          "p4_supports": 0.0449,
+          "evidence_score": null,
+          "proposition": "O governo irá desenvolver ações nas escolas contra o capacitismo e treinamento de profissionais de saúde para identificar e combater violências contra pessoas com deficiência: \"Nós temos o programa Saúde na Escola e agora a gente vai incluir a pauta da pessoa com deficiência e a pauta do enfrentamento ao capacitismo. Sobre os profissionais de saúde, é preciso lembrar que a gente só melhora o cuidado através da qualificação dos profissionais, para que eles não exerçam posturas violentas, mas, sobretudo, que estejam qualificados para identificar a violência.\"",
+          "evidence_text": "Nessa perspectiva, nós temos o Programa Saúde na Escola, que visa a tratar da relação da saúde com o Ministério da Educação, a atenção primária e as escolas."
+        },
+        {
+          "udv_id": "udv-133-2-0",
+          "hearing_id": 133,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1403,
+          "p4_supports": 0.0017,
+          "evidence_score": null,
+          "proposition": "Disse que o caso reforça a necessidade de o Congresso debater uma lei para regular a renovação das concessões de distribuição que vencem a partir de 2025: \"Um fato como esse faz com que o assunto se torne ainda mais importante.\"",
+          "evidence_text": "Sem dúvida, um fato como esse faz com que esse assunto se torne ainda mais importante, ainda mais necessário, porque chama a atenção, ou seja, revela que nós podemos, temerariamente, ver uma situação de dificuldades sem que estejam claramente estabelecidas quais as premissas que podem orientar esse procedimento."
+        },
+        {
+          "udv_id": "udv-78-2-0",
+          "hearing_id": 78,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1501,
+          "p4_supports": 0.0058,
+          "evidence_score": null,
+          "proposition": "Denunciou o que considera outra ilegalidade no processo de venda: \"O processo de venda foi direcionado para essa empresa que participou, de 2007 até 2012, do processo de internacionalização do Petrosix, recebendo informações privilegiadas, chegando até a espionagem industrial\".",
+          "evidence_text": "Porque, no mínimo, o processo de venda foi direcionado para essa empresa que está comprando."
+        },
+        {
+          "udv_id": "udv-21-0-2",
+          "hearing_id": 21,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1539,
+          "p4_supports": 0.0015,
+          "evidence_score": null,
+          "proposition": "Destacou que, em 2023, dos R$ 23,4 bilhões arrecadados com loterias da Caixa, R$ 9,2 bilhões retornaram para a sociedade na forma de investimentos: \"Esses valores chegam a programas como o Fies [Fundo de Financiamento Estudantil], então o estudante o brasileiro que está lá estudando ou tem seu filho no Fies está sendo beneficiado por essa arrecadação.\"",
+          "evidence_text": "Esses valores chegam a programas como o FIES."
+        },
+        {
+          "udv_id": "udv-157-0-0",
+          "hearing_id": 157,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1547,
+          "p4_supports": 0.0079,
+          "evidence_score": null,
+          "proposition": "Cinco produtos estão registrados no País, com preços entre R$ 1,7 milhão e R$ 7,6 milhões, em tratamentos de doenças como o mieloma múltiplo. Os preços são provisórios devido aos dados de segurança e eficácia ainda limitados: \"As empresas fizeram um compromisso com a Anvisa de que vão apresentar dados adicionais de segurança e de eficácia dessas terapias ao longo dos próximos anos.\"",
+          "evidence_text": "Esse foi um critério muito importante discutido pela CMED, considerando que são produtos que foram registrados pela ANVISA mediante termos de compromisso, ou seja, as empresas fizeram um compromisso com a ANVISA de que vão apresentar dados adicionais de segurança e de eficácia dessas terapias ao longo dos próximos anos."
+        },
+        {
+          "udv_id": "udv-74-4-0",
+          "hearing_id": 74,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1579,
+          "p4_supports": 0.0019,
+          "evidence_score": null,
+          "proposition": "Cobra uma maior participação de crianças e adolescentes no planejamento das políticas públicas para essa faixa etária: \"O plano nacional de enfrentamento à violência contra crianças e adolescentes, recentemente publicado pelo governo federal, foi construído com a participação de pessoas físicas e sem organizações da sociedade civil. Crianças e adolescentes não foram escutados.\"",
+          "evidence_text": "Já foi mencionado o Plano Nacional de Enfrentamento à Violência Sexual contra Crianças e Adolescentes, o Plano Nacional de Enfrentamento e Erradicação do Trabalho Infantil, o Plano de Convivência Familiar e Comunitária."
+        },
+        {
+          "udv_id": "udv-75-2-0",
+          "hearing_id": 75,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1632,
+          "p4_supports": 0.0009,
+          "evidence_score": null,
+          "proposition": "Foi contrária ao trecho da MP que desobriga as empresas que adotarem o auxílio via FGTS de instalar creches em suas dependências: \"O que a medida provisória está propondo é que se esqueça o artigo da CLT. Não podemos pensar na possibilidade de esse artigo existir\".",
+          "evidence_text": "389, § 1º, diz: O que a medida provisória está propondo é que se esqueça do art."
+        },
+        {
+          "udv_id": "udv-96-4-0",
+          "hearing_id": 96,
+          "support_type": "direct_quote",
+          "primary_probability": 0.164,
+          "p4_supports": 0.0,
+          "evidence_score": null,
+          "proposition": "Defendeu o projeto de lei e deu testemunho sobre os obstáculos que teve de enfrentar ao longo da vida, muitas vezes por falta de informação e por deficiência do Estado em lidar com a questão: \"Minha vida escolar foi caótica desde a alfabetização, chegando a ser agredido por uma professora que não compreendia o transtorno. Com a sucessão de insucesso, aconteceu comigo algo muito comum entre nós: um fraco autoconceito e baixa autoestima.\"",
+          "evidence_text": "Minha vida escolar foi caótica desde a alfabetização."
+        },
+        {
+          "udv_id": "udv-58-2-0",
+          "hearing_id": 58,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1643,
+          "p4_supports": 0.0066,
+          "evidence_score": null,
+          "proposition": "As gestantes precisam primeiramente de informação: \"O primeiro ponto de violência é justamente a mulher desconhecer todos esses problemas. É ela não ter durante todo o protocolo de atendimento alguém para dizer se é melhor o parto ou a cesárea, quais são os riscos de um e de outro.\"",
+          "evidence_text": "João, na esteira do que você está colocando, o Secretário Luizinho abre dizendo que o primeiro ponto de violência é justamente a mulher desconhecer todos esses problemas."
+        },
+        {
+          "udv_id": "udv-95-2-0",
+          "hearing_id": 95,
+          "support_type": "direct_quote",
+          "primary_probability": 0.1659,
+          "p4_supports": 0.0059,
+          "evidence_score": null,
+          "proposition": "Propôs alternativas para melhorar o bem-estar dos animais na pecuária: \"A questão não é banir a produção. A gente pode melhorar os sistemas banindo gaiolas, dando mais conforto para os animais e banindo a alimentação forçada.\"",
+          "evidence_text": "A questão não é banir a produção."
+        }
+      ],
+      "semantic_match_high": [
+        {
+          "udv_id": "udv-1-3-0",
+          "hearing_id": 1,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.0906,
+          "p4_supports": 0.0028,
+          "evidence_score": 0.5306248068809509,
+          "proposition": "Lamentou a ausência de contraditório na audiência, já que todos os convidados defenderam o mesmo ponto de vista.",
+          "evidence_text": "Nós teríamos, no mínimo, quatro expositores, todos de um lado só."
+        },
+        {
+          "udv_id": "udv-156-1-1",
+          "hearing_id": 156,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.0916,
+          "p4_supports": 0.0019,
+          "evidence_score": 0.45463207364082336,
+          "proposition": "Argumenta que a própria lei atual já sinaliza caminhos ao permitir que as universidades comunitárias recebam recursos públicos e mantenham parceria com órgãos públicos na oferta de serviços.",
+          "evidence_text": "sobre a possibilidade de vermos um novo modelo de financiamento das comunitárias com recurso público, imaginando que esse será um modelo de qualidade para o futuro do Brasil."
+        },
+        {
+          "udv_id": "udv-83-3-3",
+          "hearing_id": 83,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.0958,
+          "p4_supports": 0.0034,
+          "evidence_score": 0.4715101420879364,
+          "proposition": "Defendeu a criação de comissão especial da Câmara para analisar com urgência o projeto de lei (PL 1501/22) que disciplina os despejos após 30 de junho.",
+          "evidence_text": "Ronan, para que o Presidente Arthur Lira constitua uma Comissão Especial e que dê via rápida para a tramitação desse projeto, de modo a demonstrar que nós não aguardamos apenas uma decisão do Poder Judiciário, que o Poder Legislativo pode e deve agir, como já agiu em outro momento."
+        },
+        {
+          "udv_id": "udv-139-2-2",
+          "hearing_id": 139,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.0998,
+          "p4_supports": 0.0126,
+          "evidence_score": 0.46917375922203064,
+          "proposition": "Concordou com a proposta de uma legislação prisional específica para indígenas.",
+          "evidence_text": "Viviane, advogada do CIMI que está nesta Mesa, esteve conosco — um mutirão com a Defensoria do Estado de Mato Grosso do Sul, a Defensoria Pública da União, a Pastoral Carcerária e o CIMI para atendimento no maior presídio indígena do Brasil, que fica em Dourados e que conta hoje com mais de duas centenas de homens indígenas."
+        },
+        {
+          "udv_id": "udv-86-6-0",
+          "hearing_id": 86,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1036,
+          "p4_supports": 0.1031,
+          "evidence_score": 0.45457541942596436,
+          "proposition": "Sugeriu a incorporação das ideias e sugestões das seguradoras em projetos de lei que tratam de seguro obrigatório de danos causados por desastres naturais, analisados atualmente nas comissões de Finanças e Tributação; e de Previdência da Câmara (PLs 1410/22 e 629/23).",
+          "evidence_text": "Caso seja apresentado esse projeto de lei, eu gostaria muito de ver o escopo dele, porque se coaduna com um projeto que apresentamos logo que assumimos aqui, que deve ser apensado a esse projeto e que dispõe sobre o Seguro Calamidade, que tramita nesta Casa desde o ano passado."
+        },
+        {
+          "udv_id": "udv-6-0-6",
+          "hearing_id": 6,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1098,
+          "p4_supports": 0.0043,
+          "evidence_score": 0.4838103652000427,
+          "proposition": "Devem ser feitas mais demissões nas empresas do grupo.",
+          "evidence_text": "Atualmente, essas empresas, hoje, estão funcionando com cerca de 800 funcionários."
+        },
+        {
+          "udv_id": "udv-39-7-1",
+          "hearing_id": 39,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1135,
+          "p4_supports": 0.0014,
+          "evidence_score": 0.5348141193389893,
+          "proposition": "O Congresso deve retomar suas responsabilidades para evitar que Judiciário assuma a última palavra.",
+          "evidence_text": "Precisamos rediscutir o papel das Forças Armadas porque, como está hoje, nós não temos condições plenas de cumprir as missões, porque toda hora o \"bombril\" é utilizado, Sr."
+        },
+        {
+          "udv_id": "udv-43-5-0",
+          "hearing_id": 43,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1157,
+          "p4_supports": 0.0011,
+          "evidence_score": 0.4577341675758362,
+          "proposition": "Criticou a Lei 13.954/19 por aumentar a contribuição mensal para as pensões de 7,5% para 10,5%, e até 13,5% em alguns casos.",
+          "evidence_text": "112 da Lei nº 13.954 e para o Decreto nº 10.750, de 2021, que estão convocando os praças reformados em diversas clínicas, por sentença transitada em julgado, por mais de 5 anos, e estão cassando a reforma desses militares."
+        },
+        {
+          "udv_id": "udv-13-2-0",
+          "hearing_id": 13,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1193,
+          "p4_supports": 0.0039,
+          "evidence_score": 0.4785359501838684,
+          "proposition": "Manifestou indignação com a nova paralisação nas negociações.",
+          "evidence_text": "Fideles e também outros que aqui disseram, que é inadmissível o valor ofertado pelas empresas."
+        },
+        {
+          "udv_id": "udv-31-0-0",
+          "hearing_id": 31,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1194,
+          "p4_supports": 0.0011,
+          "evidence_score": 0.47658196091651917,
+          "proposition": "Afirmou que o assunto (mudanças no Parfor sem a participação de entidades educacionais) deve ser levado ao ministro da Educação, Camilo Santana.",
+          "evidence_text": "Portanto, este é um debate que perpassa inclusive o que nós estamos aqui fazendo hoje, mas que é reforçado pelo que estamos discutindo hoje, que é a necessidade, a urgência, de forma qualificada, de fazermos essa discussão e essa construção de uma política nacional de formação de professores."
+        },
+        {
+          "udv_id": "udv-152-2-0",
+          "hearing_id": 152,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1196,
+          "p4_supports": 0.0018,
+          "evidence_score": 0.4970287084579468,
+          "proposition": "O Ministério da Fazenda criou um grupo de trabalho para elaborar o novo modelo de funcionamento do DPVAT.",
+          "evidence_text": "Eu vou asseverar que foi a Portaria nº 176, de 2023 — estou com ela aqui inclusive —, que convidou algumas entidades a apresentarem propostas para o novo DPVAT 2024."
+        },
+        {
+          "udv_id": "udv-16-3-0",
+          "hearing_id": 16,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1208,
+          "p4_supports": 0.0066,
+          "evidence_score": 0.4886687994003296,
+          "proposition": "Participou de momentos de bate-boca durante a audiência.",
+          "evidence_text": "A pessoa assistindo ao debate na íntegra, ela tem opinião própria."
+        },
+        {
+          "udv_id": "udv-39-0-0",
+          "hearing_id": 39,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1219,
+          "p4_supports": 0.003,
+          "evidence_score": 0.5240169167518616,
+          "proposition": "Nos dois últimos anos, surgiram interpretações do artigo 142 da Constituição que colocam as Forças Armadas como uma espécie de árbitro final dos três Poderes.",
+          "evidence_text": "Neste ano, nós já fizemos um debate sobre a extensão do art."
+        },
+        {
+          "udv_id": "udv-16-2-0",
+          "hearing_id": 16,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1221,
+          "p4_supports": 0.03,
+          "evidence_score": 0.5049383640289307,
+          "proposition": "Participou de momentos de bate-boca durante a audiência.",
+          "evidence_text": "Numa primeira oportunidade, ele recebeu críticas do deficiente físico que subiu a rampa do Palácio do Planalto com ele por uma fala capacitista."
+        },
+        {
+          "udv_id": "udv-199-5-0",
+          "hearing_id": 199,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1227,
+          "p4_supports": 0.0012,
+          "evidence_score": 0.5013307929039001,
+          "proposition": "Criticou orientações da Resolução 715/23 relacionadas à maconha, à população LGBTQIA+ e ao aborto.",
+          "evidence_text": "Como você diz que vai defender algo que está na Constituição, previsto em lei, com relação ao aborto, mas o Conselho Nacional de Saúde, em resolução que você assinou, diz que vai combater as desigualdades estruturais legalizando o aborto?"
+        },
+        {
+          "udv_id": "udv-12-0-7",
+          "hearing_id": 12,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1228,
+          "p4_supports": 0.0001,
+          "evidence_score": 0.4603855609893799,
+          "proposition": "O Executivo irá promover 120 mil novos contratos de trabalho para pessoas com deficiência em empresas obrigadas a cumprirem a Lei de Cotas.",
+          "evidence_text": "Nós nos dedicamos a fomentar políticas públicas que foquem na melhoria da qualidade de vida das pessoas com deficiência."
+        },
+        {
+          "udv_id": "udv-87-1-2",
+          "hearing_id": 87,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1231,
+          "p4_supports": 0.001,
+          "evidence_score": 0.5045908093452454,
+          "proposition": "É contra o enquadramento do motorista de aplicativo no regime do microempreendedor individual (MEI), porque ficaria menos amparado na seguridade social.",
+          "evidence_text": "O MEI, no que depender do Governo, não rola."
+        },
+        {
+          "udv_id": "udv-21-4-1",
+          "hearing_id": 21,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1268,
+          "p4_supports": 0.0028,
+          "evidence_score": 0.49759697914123535,
+          "proposition": "Sugeriu que o banco retire a proposta e abra um diálogo para esclarecer os detalhes da criação da subsidiária.",
+          "evidence_text": "Nós fizemos um convite ao Presidente da Caixa Econômica, que foi aprovado na Comissão de Fiscalização Financeira e Controle, para que venha à Comissão fazer justamente um debate a respeito desse ponto específico."
+        },
+        {
+          "udv_id": "udv-108-2-1",
+          "hearing_id": 108,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.1281,
+          "p4_supports": 0.0217,
+          "evidence_score": 0.5532404184341431,
+          "proposition": "No fim do ano passado, o Governo derrubou o veto imposto pelo Executivo ao projeto de lei que criou o Perse a fim de manter as alíquotas zero de quatro tributos federais por 60 meses: \"Aprovamos no ano passado. Como é que vamos mudar agora?\"",
+          "evidence_text": "A lei foi aprovada no ano passado, houve o veto e, por ampla maioria, a Câmara e o Senado derrubaram o veto."
+        },
+        {
+          "udv_id": "udv-43-2-0",
+          "hearing_id": 43,
+          "support_type": "semantic_similarity",
+          "primary_probability": 0.129,
+          "p4_supports": 0.0154,
+          "evidence_score": 0.46102258563041687,
+          "proposition": "Apoia a criação de um grupo de trabalho para discutir o sistema de proteção social dos militares.",
+          "evidence_text": "E quero convidar o Ministério da Defesa para que me acompanhe."
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "path": "artifacts/udv/udv_v1_verifier.jsonl",
+    "rows": 2203,
+    "sha256": "0f5edd686d4b1c3779ccda06c620cfe03d8fc86a24bd156cfa49624476253367"
+  },
+  "inputs": {
+    "udv": {
+      "path": "artifacts/udv/udv_v1.jsonl",
+      "sha256": "eabdb3f472e8dfa292d276740de583f32cff3bf62ac71ec6932e2b31b74115b1"
+    },
+    "splits": {
+      "path": "artifacts/splits/temporal_v1.json",
+      "sha256": "6cc82854316937a6f1d87c915b464e0d0a1542d408a4313f2bddf9cfc42af7bd",
+      "split_version": "temporal_v1"
+    },
+    "selection": {
+      "path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/selection.json",
+      "sha256": "e533b947b910d361ae35d5efbf5cd4bbb9687968d2f43d4a68c5526645891cfc"
+    },
+    "final_test": {
+      "path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json",
+      "sha256": "61bb9cdd13090cd1f1bee9295c60c3026c4a6f3644c386c3c453a91826518701"
+    },
+    "udv_score_files": {
+      "laya_en_en": {
+        "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/laya_en_en_udv.jsonl",
+        "sha256": "d5b3224a403e37c08b9fe9fdc6cc3344803602b96162dc878b5c5832ba9a4535"
+      },
+      "laya_multi_pt": {
+        "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/laya_multi_pt_udv.jsonl",
+        "sha256": "f117055768afbf908278c230c37ec187c88a231dff42e02da4607834b152d613"
+      },
+      "xnli_mdeberta": {
+        "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/xnli_mdeberta_udv.jsonl",
+        "sha256": "91407e92487e2c7d5df5b88802932bdbdec6c1e8ccb3a8c1bd6c872419b8b09b"
+      },
+      "cosine_serafim": {
+        "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/cosine_serafim_udv.jsonl",
+        "sha256": "180cfec4a1a70f541c2e73c1532c40d8e1c36d1fcda24b62fdf3b0c20d903264"
+      }
+    }
+  },
+  "score_runs": {
+    "laya_en_en": {
+      "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/laya_en_en_report.json",
+      "sha256": "c7aa98ca410b8839e436f75561ee7a0370c80759709c0a0c8f394a05581def22",
+      "created_at": "2026-09-27T02:23:36+00:00",
+      "device": "mps",
+      "timing": {
+        "premise_texts": 2105,
+        "questions": 8,
+        "wall_seconds": 747.38,
+        "requests": 16840,
+        "computed": 16840,
+        "cache_hits": 0,
+        "forward_seconds": 746.49,
+        "computed_input_tokens": 2442578,
+        "batches": 1056,
+        "seconds_per_input_token": 0.00030561562414792894,
+        "computed_per_second": 22.56,
+        "max_rounding_gap": 5.002381375102116e-05
+      },
+      "truncation": {
+        "items_scored": 2105,
+        "items_truncated": 0,
+        "items_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "concatenated_premises": 2105,
+        "concatenated_truncated": 0,
+        "concatenated_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "overflow": 0,
+        "item_state_tokens": {
+          "count": 2105,
+          "min": 25.0,
+          "q25": 61.0,
+          "median": 79.0,
+          "q75": 104.0,
+          "max": 305.0,
+          "mean": 85.7962
+        },
+        "concatenated_state_tokens": {
+          "count": 2105,
+          "min": 25.0,
+          "q25": 61.0,
+          "median": 79.0,
+          "q75": 104.0,
+          "max": 305.0,
+          "mean": 85.7962
+        }
+      },
+      "label_probes_agreeing": "3/3",
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/laya_en_en_udv.jsonl",
+          "rows": 2105,
+          "sha256": "d5b3224a403e37c08b9fe9fdc6cc3344803602b96162dc878b5c5832ba9a4535"
+        }
+      }
+    },
+    "laya_multi_pt": {
+      "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/laya_multi_pt_report.json",
+      "sha256": "631a5078324b613f874fb8a4e86b18eb2701ad9779f5868c02ef2934840f0046",
+      "created_at": "2026-09-27T02:23:36+00:00",
+      "device": "mps",
+      "timing": {
+        "premise_texts": 2105,
+        "questions": 8,
+        "wall_seconds": 558.1,
+        "requests": 16840,
+        "computed": 16840,
+        "cache_hits": 0,
+        "forward_seconds": 556.21,
+        "computed_input_tokens": 2612588,
+        "batches": 1056,
+        "seconds_per_input_token": 0.00021289617804261523,
+        "computed_per_second": 30.28,
+        "max_rounding_gap": 5.004803642449929e-05
+      },
+      "truncation": {
+        "items_scored": 2105,
+        "items_truncated": 0,
+        "items_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "concatenated_premises": 2105,
+        "concatenated_truncated": 0,
+        "concatenated_truncated_by_question": {
+          "p1_nli": 0,
+          "p2_nli_reversed": 0,
+          "p3_inferable": 0,
+          "p4_supports": 0,
+          "p5_position": 0,
+          "p6_position_reversed": 0,
+          "p7_coverage": 0,
+          "p8_similarity": 0
+        },
+        "overflow": 0,
+        "item_state_tokens": {
+          "count": 2105,
+          "min": 24.0,
+          "q25": 66.0,
+          "median": 89.0,
+          "q75": 121.0,
+          "max": 417.0,
+          "mean": 97.6418
+        },
+        "concatenated_state_tokens": {
+          "count": 2105,
+          "min": 24.0,
+          "q25": 66.0,
+          "median": 89.0,
+          "q75": 121.0,
+          "max": 417.0,
+          "mean": 97.6418
+        }
+      },
+      "label_probes_agreeing": "3/3",
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/laya_multi_pt_udv.jsonl",
+          "rows": 2105,
+          "sha256": "f117055768afbf908278c230c37ec187c88a231dff42e02da4607834b152d613"
+        }
+      }
+    },
+    "xnli_mdeberta": {
+      "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/xnli_mdeberta_report.json",
+      "sha256": "159ac831cf223571e2599e519f4356bc613cf0acf759c8164feb1a0bcbc8e367",
+      "created_at": "2026-09-27T02:23:36+00:00",
+      "device": "mps",
+      "timing": {
+        "requests": 2105,
+        "computed": 2105,
+        "cache_hits": 0,
+        "seconds": 53.56,
+        "computed_per_second": 39.3,
+        "model_input_tokens": 251089
+      },
+      "truncation": {
+        "items_scored": 2105,
+        "items_truncated": 1,
+        "item_tokens": {
+          "count": 2105,
+          "min": 23.0,
+          "q25": 78.0,
+          "median": 108.0,
+          "q75": 151.0,
+          "max": 566.0,
+          "mean": 119.3078
+        },
+        "concatenated_premises": 2105,
+        "concatenated_truncated": 1,
+        "concatenated_tokens": {
+          "count": 2105,
+          "min": 23.0,
+          "q25": 78.0,
+          "median": 108.0,
+          "q75": 151.0,
+          "max": 566.0,
+          "mean": 119.3078
+        },
+        "kept_premise_fraction_when_truncated": {
+          "count": 1,
+          "min": 0.8711,
+          "q25": 0.8711,
+          "median": 0.8711,
+          "q75": 0.8711,
+          "max": 0.8711,
+          "mean": 0.8711
+        }
+      },
+      "label_probes_agreeing": "3/3",
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/xnli_mdeberta_udv.jsonl",
+          "rows": 2105,
+          "sha256": "91407e92487e2c7d5df5b88802932bdbdec6c1e8ccb3a8c1bd6c872419b8b09b"
+        }
+      }
+    },
+    "cosine_serafim": {
+      "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/cosine_serafim_report.json",
+      "sha256": "336a170874d1eab847fd770ee5761cd5837b4cb1ff68c08dc526bf05fc784510",
+      "created_at": "2026-09-27T02:23:36+00:00",
+      "device": "mps",
+      "timing": {
+        "distinct_texts": 4140,
+        "seconds": 95.53,
+        "texts_per_second": 43.3
+      },
+      "truncation": {
+        "items_scored": 2105,
+        "items_truncated": 23,
+        "item_tokens": {
+          "count": 2105,
+          "min": 8.0,
+          "q25": 26.0,
+          "median": 37.0,
+          "q75": 53.0,
+          "max": 287.0,
+          "mean": 42.3145
+        },
+        "concatenated_premises": 0,
+        "concatenated_truncated": 0,
+        "sentences": 2109,
+        "sentences_truncated": 23,
+        "items_without_sentence": 0
+      },
+      "label_probes_agreeing": null,
+      "files": {
+        "udv": {
+          "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/scores/cosine_serafim_udv.jsonl",
+          "rows": 2105,
+          "sha256": "180cfec4a1a70f541c2e73c1532c40d8e1c36d1fcda24b62fdf3b0c20d903264"
+        }
+      }
+    }
+  },
+  "translation": {
+    "path": "artifacts/experiments/nli_verifier/udv_v1_verifier/translate_report.json",
+    "sha256": "2f7f1918093c189e8109a7eb150420d418d49f39d7f3fd315caf4d897c4f4f3f",
+    "created_at": "2026-09-27T01:40:56+00:00",
+    "runs": {
+      "nllb": {
+        "requested": 4141,
+        "already_cached": 879,
+        "translated": 3262,
+        "batches": 206,
+        "seconds": 1067.97,
+        "texts_per_second": 3.0544,
+        "model_input_tokens": 162934,
+        "model_input_tokens_per_second": 152.56
+      }
+    },
+    "still_missing": {
+      "nllb": 0
+    }
+  },
+  "timing": {
+    "apply_seconds": 68.9
+  },
+  "config": {
+    "path": "configs/udv_verifier.toml",
+    "sha256": "30f6273359202e1777467eee62a2bddd73d4b4056455cc0066eba026219290b4",
+    "echo": {
+      "name": "udv_v1_verifier",
+      "date": "2026-09-26",
+      "declared": "Declared on 2026-09-26, before any UDV evidence or proposition was translated or scored by any verifier. Before this declaration, only a train refit of the primary below was run, to check that it reproduces the fit recorded in final_test.json (C, inner means, coefficients and threshold); it read no UDV and no validation or test row. The verifier is an extra analysis layer on artifacts/udv/udv_v1.jsonl: it adds, per UDV with evidence, a score of how strongly the evidence text supports the proposition, and it changes no UDV, tier, evidence or threshold of the UDV builder. Nothing in this run is tuned on UDV scores: the scorers, features, model, C and threshold are the ones of the E3x v2 final test, fitted on the train split of the NLI benchmark only",
+      "purpose": "the UDV tiers say how the evidence was found (a literal quote, or a transcript sentence close in embedding space); they do not say whether the evidence sentence states what the proposition says. The verifier score is a second, independent reading of that question, from models trained for entailment-like decisions",
+      "inputs": {
+        "udv_path": "artifacts/udv/udv_v1.jsonl",
+        "verifier_config": "configs/nli_verifier.toml",
+        "exploration_config": "configs/nli_verifier_exploration_v2.toml",
+        "selection_path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/selection.json",
+        "final_test_path": "artifacts/experiments/nli_verifier_exploration/e3x_v2/final_test.json"
+      },
+      "pairs": {
+        "evidence_tiers": [
+          "quote_found",
+          "semantic_match_high",
+          "semantic_match_weak"
+        ],
+        "premise": "evidence.text after udv_pipeline.normalize_whitespace, one premise item per UDV",
+        "hypothesis": "proposition after udv_pipeline.normalize_whitespace",
+        "unscored_rule": "a UDV whose tier is not in evidence_tiers (person_not_resolved, no_evidence) has no evidence and gets no score; it is written to the output with null scores and counted in the report. A UDV of an evidence tier with an empty evidence text stops the run",
+        "split_rule": "every UDV is scored, whatever the split of its hearing: the verifier is fixed before this run, no label is read on UDVs and nothing is chosen from their scores. The split of each hearing (artifacts/splits/temporal_v1.json) is written to the output and the report counts UDVs per split and how many propositions are identical to an NLI benchmark opinion of each split"
+      },
+      "scoring": {
+        "primary": "laya_en_en:learned_cross_model_with_pt",
+        "secondary": "laya_multi_pt:p4_supports:max",
+        "secondary_reason": "the laya_multi_pt answer to p4_supports alone: one question, one checkpoint and no translation step, so its reading depends on fewer components than the primary",
+        "scorers": [
+          "laya_en_en",
+          "laya_multi_pt",
+          "xnli_mdeberta",
+          "cosine_serafim"
+        ],
+        "scorers_rule": "the scorers named by the features of the primary (checked at run time) with their specs in verifier_config: laya_en_en on the NLLB English translation (translation_model nllb, as in E3x), laya_multi_pt, xnli_mdeberta and cosine_serafim on the Portuguese text",
+        "code_path": "utils.nli_verifier_experiments.score_units with concatenate_single = true, the setting of the E3 score command that produced every score file E3x read; decision answers, NLI logits, embeddings and translations are read from and appended to the existing caches, so a rerun computes only what is missing",
+        "translation_rule": "the English hypothesis is TranslationStore.translate_opinion(proposition) and the English premise TranslationStore.translate_chunk(evidence text) (sentence segments joined), from the main NLLB cache of configs/translation.toml; missing texts are translated with utils.translation (same model, revision and decoding) and appended to that cache before any English score",
+        "device": "mps",
+        "device_reason": "every E3 score file E3x read was computed on mps, and the decision, logit and embedding caches are keyed by device",
+        "pool_rule": "with one premise item, the max and mean pools are the value on that item and the concatenated premise is the same text, so the three pools of each feature coincide; the run checks that they are equal (tolerance 1e-9) and reports the largest gap. The stored max scores of every UDV score file are recomputed from the items as in E3x (tolerance 1e-9)",
+        "fit_rule": "the primary is refitted exactly as the final_test stage of E3x: L2 logistic regression on the train split of the NLI benchmark (the train score files E3x read), C chosen from c_grid by the inner grouped 3-fold rule on train, threshold max_f1_not_inferable on the train scores of the fitted model. The run stops unless the train score files have the sha256 recorded in selection.json and the refit has the C, inner means, rounded coefficients and threshold recorded in final_test.json",
+        "decision_rule": "supported_at_train_threshold = primary probability >= the train threshold (final_test.json threshold of the primary, 0.7478)"
+      },
+      "report": {
+        "quantiles": [
+          0.0,
+          0.05,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          0.95,
+          1.0
+        ],
+        "semantic_tiers": [
+          "semantic_match_high",
+          "semantic_match_weak"
+        ],
+        "cosine_rule": "Spearman correlation between each verifier score and evidence.score (the serafim cosine the UDV builder recorded) within each semantic tier and over both together",
+        "lowest_tiers": [
+          "quote_found",
+          "semantic_match_high"
+        ],
+        "lowest_count": 20,
+        "lowest_rule": "the lowest_count UDVs of each lowest_tiers tier by primary probability (ties by udv id), with proposition and evidence text, for manual inspection",
+        "domain_shift": "the verifier was fitted on the NLI benchmark, where the hypothesis is an article opinion and the premise is the four transcript chunks retrieved for it; here the premise is one evidence sentence. This is a domain shift and its effect on the scores, the ranking and the threshold is not measured here",
+        "label_semantics": "the fitted target is label_inferable of the NLI benchmark (retrieved_context_entailment: the annotator judged the opinion inferable from the retrieved chunks). A UDV score estimates that judgment for the evidence sentence alone; it is not a global truth label, and a low score says only that the evidence sentence gives the verifier little support for the proposition"
+      },
+      "outputs": {
+        "output_path": "artifacts/udv/udv_v1_verifier.jsonl",
+        "report_path": "artifacts/udv/udv_v1_verifier_report.json",
+        "score_run": "udv_v1_verifier",
+        "score_rule": "per-scorer score files in the E3 layout, artifacts/experiments/nli_verifier/udv_v1_verifier/scores/<scorer>_udv.jsonl and <scorer>_report.json, and translate_report.json in that folder; they hold scores and counts, no transcript or article text",
+        "overwrite_rule": "apply refuses to run when output_path or report_path exists"
+      }
+    },
+    "verifier_config": {
+      "path": "configs/nli_verifier.toml",
+      "sha256": "5c01a6e6d2c9667f8f246db3b21d1988a89f8425297a96f13b60a272f5227024"
+    },
+    "exploration_config": {
+      "path": "configs/nli_verifier_exploration_v2.toml",
+      "sha256": "aea55d50a019f1e91d0f1851cde29fe66c6f4168bfd4b1c26e8b1163a1c2d71d"
+    }
+  },
+  "code": {
+    "utils/udv_verifier.py": "61436011728deb5f0bb9985536a258557122596282d88a4a7b2cfdbc031ffcdc",
+    "utils/nli_verifier_exploration.py": "163dc2f602040a37dee8b1daf9e316471e6b0a462b8ba24719d6a2fc9fbf17d3",
+    "utils/nli_verifier_experiments.py": "5c9837c2c51707ed38787990688cb405701e8dff1ae77d754961828f225612ae",
+    "utils/udv_pipeline.py": "0eb3619e95b46d77517bfc9f57eb2ce0f5ed1b77964397ba6d195248e0724a7b",
+    "utils/build_udvs.py": "4d75bad8e057edd279c1def1ef63d810a3e50ad85338a639e85d22d8ccb07b8e",
+    "utils/build_nli_benchmark.py": "ef2d8686f46a7db50ed5723ad221845f4386a938e8960e46ced7e12cfe07556e",
+    "utils/cache_lock.py": "7ce920799be0518f2452a8eac30af478c91435916fd9bb51b81759d10e77283e",
+    "utils/calibrate_threshold.py": "9a9456fb4d20bc972ca87b0abb17c3dd1ec82e91a47f4dc9161bc7a539f3544f",
+    "utils/dataset_io.py": "e4cc24b0e74bb9eb29cc5fe2f6f464b8eea0fc8518e4ea17fac6382cd1e73d53",
+    "utils/hub_offline.py": "3fdd4ab90fe86c442369cc7d57551b73b13781e5b72d24416675cef4e35578a9",
+    "utils/decision_models.py": "e36d278be4afcba55aea6d4bbce3e224178a2632806fb4eb2d280ffe06d20362",
+    "utils/decision_scoring.py": "46aeccbd61651f9dbcf776aa50335649e512db58e5fce4534cbbb2aa0c855341",
+    "utils/retrieval_stats.py": "b2332f9cbe52fd7db7616245e81a6ceca6d4386ad089288475a14088362844c5",
+    "utils/translation.py": "d3764afa4b77f83c45b0eb7b56c1729b0e816d7a18d137e5f5b6e1a4147ebb98"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.1",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "huggingface_hub": "1.24.0",
+    "sentence_transformers": "5.6.1",
+    "scikit_learn": "1.9.0",
+    "laya": "0.3.11",
+    "torch_threads": 4,
+    "load_average": [
+      2.49,
+      2.3,
+      2.48
+    ],
+    "mps_available": true,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "hub_offline": {
+      "env_HF_HUB_OFFLINE": null,
+      "huggingface_hub_is_offline_mode": false,
+      "transformers_is_offline_mode": false,
+      "huggingface_hub": "1.24.0",
+      "transformers": "5.14.1"
+    }
+  }
+}

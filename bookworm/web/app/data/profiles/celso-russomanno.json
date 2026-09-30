@@ -1,0 +1,430 @@
+{
+  "actor": {
+    "slug": "celso-russomanno",
+    "name": "Celso Russomanno",
+    "display_name": "Celso Russomanno",
+    "role": "Deputado (Republicanos-SP)",
+    "article_names": [
+      "Celso Russomanno"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:37:23+00:00",
+    "n_statements": 21,
+    "n_hearings": 3,
+    "hearing_ids": [
+      143,
+      157,
+      182
+    ],
+    "input_tokens": 9895,
+    "output_tokens": 1060,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o Congresso Nacional legisle sobre planos de saúde coletivos de pessoa jurídica, argumentando que a Agência Nacional de Saúde Suplementar não possui controle sobre esses reajustes e que a ausência de regulação leva à concentração do mercado em grandes grupos.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 66,
+            "start": 124027,
+            "end": 124222,
+            "text": "Presidente, ou esta Casa legisla em relação aos planos de pessoa jurídica, ou nós não vamos ter solução, porque a Agência Nacional de Saúde Suplementar não tem controle sobre os planos coletivos.",
+            "score": 0.4596
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um plano de saúde exclusivamente ambulatorial (exames e consultas, sem internação) para aliviar a sobrecarga do Sistema Único de Saúde, que apresenta gargalos em consultas especializadas e exames, e para oferecer uma opção acessível ao consumidor.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 66,
+            "start": 128710,
+            "end": 128840,
+            "text": "Mas o grande problema do Sistema Único de Saúde, o funil do Sistema Único de Saúde é justamente exames e consultas especializadas.",
+            "score": 0.4524
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a prática de operadoras de saúde em expurgar grupos de planos coletivos pequenos (até 30 pessoas) quando há membros com doenças terminais ou congênitas, e denuncia fraudes em que clínicas devolvem dinheiro ao consumidor para justificar procedimentos ao plano.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 66,
+            "start": 126918,
+            "end": 127027,
+            "text": "E as fraudes não estão somente aí, mas também em várias outras clínicas e em todos os tipos de procedimentos.",
+            "score": 0.2401
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a fiscalização de preços abusivos de medicamentos, citando lucros de até 1.000% constatados em farmácias, e questiona o papel da CMED e da indústria farmacêutica na definição de valores, defendendo a discussão de convenções coletivas de consumo em vez de tabelamento.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 22,
+            "start": 91183,
+            "end": 91307,
+            "text": "Nós podemos chamar uma convenção coletiva de consumo para discutir preços de medicamentos com toda a indústria farmacêutica.",
+            "score": 0.2767
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de lei que obrigue idosos a realizar empréstimos pessoalmente em agências bancárias para combater estelionatos digitais, e cobra dos bancos a responsabilização por vazamento de dados, utilizando a inversão do ônus da prova.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 17,
+            "start": 62877,
+            "end": 62909,
+            "text": "Use a inversão do ônus da prova.",
+            "score": 0.3297
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o cadastro positivo por ter se tornado restritivo (atingindo 15 anos, contra 5 anos do cadastro de negativados) e por não ter reduzido as taxas de juros, afirmando que o sistema financeiro enganou os consumidores com essa promessa.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 24,
+            "start": 86099,
+            "end": 86288,
+            "text": "Enquanto o cadastro de negativados atinge 5 anos da vida do consumidor, o cadastro positivo atinge 15 anos.Então, se tiver havido restrições 15 anos atrás, vão constar do cadastro positivo.",
+            "score": 0.4108
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autorregulamentação como mecanismo de solução de conflitos de consumo, citando como exemplos bem-sucedidos a portabilidade de consórcios e a mudança de vasilhames de cerveja, e propõe que as milhas aéreas não vençam mais.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 31,
+            "start": 100180,
+            "end": 100372,
+            "text": "Eu disse às companhias aéreas para elas criarem uma autorregulamentação em relação à questão das milhas, que não poderiam vencer, e o consumidor teria direito de fazer o que quisesse com elas.",
+            "score": 0.1547
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a criminalização de quem expõe dados pessoais, apontando falha na Lei Geral de Proteção de Dados (LGPD) por não prever apenação criminal para \"crackers\".",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 24,
+            "start": 84850,
+            "end": 85215,
+            "text": "Fizemos um grupo de trabalho, trabalhamos em cima da Lei Geral de Proteção de Dados pessoais, contamos com toda a sociedade brasileira, todos os segmentos, o Banco Central e a FEBRABAN estiveram presentes — todos —, para que nós tivéssemos uma Lei Geral de Proteção de Dados, que tem uma falha ainda, porque não tem apenação criminal, mas estamos trabalhando nisso.",
+            "score": 0.3882
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o custo para o poder público como argumento para a prevenção: justifica a necessidade de baratear medicamentos e facilitar o acesso a consultas argumentando que o custo de uma internação em UTI (3 a 4 mil reais por dia) é superior ao custo do tratamento preventivo.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 22,
+            "start": 86124,
+            "end": 86171,
+            "text": "E o custo disso para o poder público é absurdo!",
+            "score": 0.3303
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a condição de hipervulnerabilidade do consumidor (idosos, pessoas com deficiência, baixa renda) como critério central para exigir proteção legal, argumentando que o consumidor está sempre em condição de desvantagem frente às instituições financeiras e de saúde.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 24,
+            "start": 86604,
+            "end": 86725,
+            "text": "Nós sempre estamos em condição de desvantagem, de uma maneira geral, não importando se temos conhecimento técnico ou não.",
+            "score": 0.262
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transparência como requisito básico do mercado, afirmando que a judicialização excessiva é consequência direta da falta de transparência nas relações de consumo.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 66,
+            "start": 129780,
+            "end": 129821,
+            "text": "Mas as pessoas têm que ter transparência.",
+            "score": 0.3399
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza o diálogo e a construção coletiva de soluções, propondo a inclusão de todos os atores (bancos, governo, sociedade civil) em grupos de trabalho para formular legislação que atenda às necessidades reais.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 74,
+            "start": 141036,
+            "end": 141259,
+            "text": "Se vamos fazer uma nova audiência, seria bom que dela participassem todos os atores dessa história, que apresentariam propostas de como melhorar a situação, para que possamos fazer uma legislação que atenda às necessidades.",
+            "score": 0.1878
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da Comissão de Defesa do Consumidor da Câmara dos Deputados e relator de projetos de lei sobre superendividamento e milhas aéreas.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 41,
+            "start": 111041,
+            "end": 111105,
+            "text": "Vamos apresentar um projeto da Comissão de Defesa do Consumidor.",
+            "score": 0.2258
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter fundado o INADEC em 1995 e ter presidido o Instituto Nacional de Defesa do Consumidor.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 66,
+            "start": 126294,
+            "end": 126387,
+            "text": "Até tentaram usar o Instituto Nacional de Defesa do Consumidor, que é presidido hoje pelo Dr.",
+            "score": 0.4574
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter sido membro da Comissão que elaborou a Lei Geral de Proteção de Dados (LGPD) e a Lei 9.656 (Planos de Saúde) em 1998.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 41,
+            "start": 111106,
+            "end": 111189,
+            "text": "Vamos ter avanços em relação à Lei Geral de Proteção de Dados, para proteger todos.",
+            "score": 0.2877
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como autor de reportagens e apresentador de programa de televisão, utilizando essas plataformas para denunciar abusos e fiscalizar o mercado.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 28,
+            "start": 98363,
+            "end": 98597,
+            "text": "Daniela, eu estou à disposição com o meu programa televisão, que tem uma grande audiência, para fazermos ações junto com a CMED para que a população entenda que pode denunciar e que, se os preços forem abusivos, a CMED vai fiscalizar.",
+            "score": 0.2486
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma possuir uma empresa de segurança cibernética que atuou na proteção de dados de órgãos como o Supremo Tribunal Federal e a Polícia Federal.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 24,
+            "start": 89084,
+            "end": 89242,
+            "text": "No Brasil, ela fez a proteção de dados do Supremo Tribunal Federal, da Câmara dos Deputados, da Polícia Federal, da Polícia Rodoviária Federal, dentre outros.",
+            "score": 0.5332
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Recorre a dados específicos de fiscalizações e casos concretos (lucros de 1.000%, custo de UTI, número de denúncias diárias) para sustentar suas críticas e propostas.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 22,
+            "start": 84820,
+            "end": 84882,
+            "text": "Nós chegamos a constatar em fiscalizações até 1.000% de lucro.",
+            "score": 0.204
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza exemplos de soluções anteriores (consórcios, vasilhames de cerveja) para validar a viabilidade de propostas de autorregulamentação.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 31,
+            "start": 101859,
+            "end": 101966,
+            "text": "Recolhemos todos os vasilhames de cerveja do País, criamos um vasilhame seguro e acabamos com os acidentes.",
+            "score": 0.1692
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta aos representantes de órgãos e empresas, pedindo explicações sobre preços e práticas, e oferece-se para colaborar em ações conjuntas de fiscalização e divulgação.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem acessível e emocional, conectando-se com a audiência ao mencionar casos de crianças, idosos e famílias, e ao afirmar que \"todos nós seremos idosos um dia\".",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 24,
+            "start": 86870,
+            "end": 86958,
+            "text": "Mas uma coisa é clara: todos nós seremos idosos um dia, todos nós vamos passar por isso.",
+            "score": 0.2624
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos em ciclos de causa e efeito, explicando como a falta de regulação ou a alta de preços gera consequências negativas em cascata (ex.: falta de prevenção leva a internações caras).",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 143,
+      "split": "train",
+      "article_date": "2023-10-26",
+      "title": "Especialistas pedem atuação maior dos bancos no combate aos golpes financeiros",
+      "assunto": "Atuação dos bancos no combate aos golpes financeiros e fraudes envolvendo vazamento de dados bancários",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 157,
+      "split": "train",
+      "article_date": "2023-10-04",
+      "title": "Especialistas sugerem desoneração tributária para baratear custo de remédios para doenças raras",
+      "assunto": "Desoneração tributária para baratear custo de remédios para doenças raras",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 177,
+      "split": "test",
+      "article_date": "2024-05-09",
+      "title": "Deputados temem menor concorrência e aumento de preços com regulamentação de aplicativos de transporte",
+      "assunto": "Regulamentação de aplicativos de transporte e entrega e seus impactos na concorrência e preços",
+      "turns": 16,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 182,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Entidades que defendem consumidor pedem regulação para reajustes de planos de saúde coletivos",
+      "assunto": "Regulação dos reajustes dos planos de saúde coletivos",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-133-8-0",
+      "hearing_id": 133,
+      "n": 12,
+      "article_name": "Celso Russomanno",
+      "proposition": "Criticou o grupo Enel e a ausência do seu presidente.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A ENEL não dá satisfação para a gente\". Reinaldo Lavigieri de Araújo diz:\"Oappda empresa não funciona, é travado\".",
+        "turn": 21,
+        "start": 27173,
+        "end": 27288
+      },
+      "verifier": {
+        "probability": 0.15322029961939135,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-177-0-0",
+      "hearing_id": 177,
+      "n": 1,
+      "article_name": "Celso Russomanno",
+      "proposition": "A regulamentação do setor vai incidir no bolso do consumidor.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Essa é a grande verdade. Se aumentam o preço ou se abaixam o preço, quem está pagando é o consumidor.",
+        "turn": 35,
+        "start": 83890,
+        "end": 83991
+      },
+      "verifier": {
+        "probability": 0.8986581588965236,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-177-0-1",
+      "hearing_id": 177,
+      "n": 2,
+      "article_name": "Celso Russomanno",
+      "proposition": "\"O projeto tem um monte de vícios e está aquém do que precisamos para dar segurança jurídica, tanto para o motorista como para o consumidor que paga a conta.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu entendo que esse projeto tem um monte de vícios. Esse projeto está extremamente aquém da nossa necessidade de realmente dar segurança jurídica, tanto para o motorista, quanto para o consumidor, que é no final quem paga a conta.",
+        "turn": 34,
+        "start": 73332,
+        "end": 73562
+      },
+      "verifier": {
+        "probability": 0.9947520786356143,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}
