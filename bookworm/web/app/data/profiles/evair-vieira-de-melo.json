@@ -1,0 +1,668 @@
+{
+  "actor": {
+    "slug": "evair-vieira-de-melo",
+    "name": "Evair Vieira de Melo",
+    "display_name": "Evair Vieira de Melo",
+    "role": "Deputado (PP-ES)",
+    "article_names": [
+      "Evair Vieira de Melo"
+    ],
+    "party_uf": [
+      "Bloco/PP - ES"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:29:07+00:00",
+    "n_statements": 20,
+    "n_hearings": 4,
+    "hearing_ids": [
+      145,
+      174,
+      183,
+      199
+    ],
+    "input_tokens": 9791,
+    "output_tokens": 1601,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 32,
+    "with_udv": 1,
+    "passage_only": 30,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Questiona a decisão do Ministério da Saúde de não adquirir vacinas para dengue, argumentando que a justificativa técnica apresentada contradiz a base política alegada e os critérios defendidos pela base do Governo durante a pandemia de COVID, e cobra a apresentação de uma nova justificativa diante do alto índice de mortalidade.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 71,
+            "start": 43871,
+            "end": 43988,
+            "text": "Os critérios defendidos pela atual base do Governo na época da COVID são contraditórios à tese que a senhora defende.",
+            "score": 0.2724
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Saúde uma política de modernização dos aparelhos de radioterapia no Brasil, citando a idade avançada desses equipamentos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 59,
+            "start": 36723,
+            "end": 36757,
+            "text": "Sabemos da idade desses aparelhos.",
+            "score": 0.4414
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige transparência e acompanhamento ministerial sobre a aplicação dos recursos de COVID no Consórcio Nordeste, destacando que há denúncias públicas e processos investigativos no TCU, e pergunta se o Ministério possui uma frente para acompanhar essas aplicações.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 71,
+            "start": 43192,
+            "end": 43385,
+            "text": "Ministra, quanto ao Consórcio Nordeste, a minha pergunta não é sobre a importância do Consórcio Nordeste para o enfrentamento da COVID, mas sim quanto à transparência na aplicação dos recursos.",
+            "score": 0.4241
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o socorro aos hospitais filantrópicos, identificando o custeio e o piso da enfermagem como problemas centrais, e questiona como o Ministério está trabalhando para resolver essa questão, diferenciando a situação dos hospitais privados e públicos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 59,
+            "start": 37669,
+            "end": 37775,
+            "text": "Como o Ministério está trabalhando para socorrer os hospitais filantrópicos no caso do piso de enfermagem?",
+            "score": 0.4638
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede a universalização, legalização e transparência do SAMU, com foco na ampliação da competência do serviço para remoções de pacientes do interior para capitais, especialmente para UTI e emergências.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 59,
+            "start": 38108,
+            "end": 38187,
+            "text": "No interior, temos um problema de remoção, às vezes, para UTI, remoções gerais.",
+            "score": 0.2424
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita prioridade ministerial para a finalização da construção do hospital de Guarapari (ES) e para a inclusão da construção do Hospital do Câncer em Cachoeiro de Itapemirim (ES) no rol de obras do Ministério, citando que a segunda obra é financiada por emenda impositiva da bancada federal.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 59,
+            "start": 38559,
+            "end": 38610,
+            "text": "Uma é de construção do nosso hospital de Guarapari.",
+            "score": 0.4487
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a falta de agressividade do Ministério do Meio Ambiente no enfrentamento da falta de saneamento básico, que considera o maior poluidor do Brasil, e defende o novo marco do saneamento, aprovado com a participação do setor privado, estimando em 700 bilhões de dólares o investimento necessário para universalizar o serviço.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 94,
+            "start": 163930,
+            "end": 163988,
+            "text": "O maior poluidor do Brasil é a falta de saneamento básico.",
+            "score": 0.5134
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a lógica do Governo de aceitar dinheiro privado para fundos como o Fundo Amazônia, mas votar contra o marco do saneamento que permite a entrada de capital privado nesse setor.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 94,
+            "start": 164693,
+            "end": 164828,
+            "text": "Esse mesmo dinheiro privado é o dinheiro que vem para o Fundo Amazônia e para outros projetos de investimentos, e eu faço uma pergunta.",
+            "score": 0.3335
+          },
+          "udv": null
+        },
+        {
+          "text": "Pondera se o Ministério do Meio Ambiente foi previamente consultado sobre as obras anunciadas no novo PAC, especialmente aquelas com investimento da Petrobras, classificando o anúncio de obras sem consulta ambiental como irresponsabilidade.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 94,
+            "start": 165295,
+            "end": 165535,
+            "text": "Eu lhe pergunto se o Ministério do Meio Ambiente foi previamente consultado sobre todas as obras que foram anunciadas no PAC, sobre todos os investimentos do PAC, tendo em vista, inclusive, um grande percentual de investimento da PETROBRAS.",
+            "score": 0.532
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a importância do REVALIDA para o nivelamento técnico e jurídico de médicos formados no exterior, citando o alto número de judicializações na medicina, especialmente em pediatria, como fator de desestímulo para profissionais.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 13039,
+            "end": 13113,
+            "text": "E isso tem sido um desestímulo para que os profissionais, cada dia mais...",
+            "score": 0.2348
+          },
+          "udv": {
+            "id": "udv-174-2-0",
+            "rule": "same_sentence",
+            "score": 0.1365
+          }
+        },
+        {
+          "text": "Defende o programa Future-se, do qual afirma ter participado da redação, como mecanismo para dar autonomia financeira às universidades e institutos federais, comparando a captação de recursos de universidades americanas (como a St. Jude, que capta 6 milhões de dólares por dia) com a burocracia brasileira.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 5245,
+            "end": 5507,
+            "text": "O Governo anterior, de Jair Bolsonaro, também fez o programa Future-se, lançado em 17 de julho de 2019, que tinha como objetivo dar maior autonomia financeira às universidades e a institutos por meio do fomento à captação de recursos próprios e empreendedorismo.",
+            "score": 0.3342
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a digitalização e a conectividade, citando a instalação de 700 antenas de wi-fi no Espírito Santo e a necessidade de preparar a população para trabalhar com inteligência artificial, negando que a tecnologia tomará empregos.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 8813,
+            "end": 8962,
+            "text": "E eu vou repetir: a inteligência artificial não vai tomar empregos, mas a educação precisa preparar gente para trabalhar com inteligência artificial.",
+            "score": 0.332
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação do Ministério da Justiça sob o Governo Lula, apontando queda na aprovação do Governo e da Polícia Rodoviária Federal, e acusa o Ministro de não ter comparecido a convites para visitar conflitos agrários na Bahia e fatos de segurança em São Paulo e Rio de Janeiro.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 149,
+            "start": 63007,
+            "end": 63143,
+            "text": "Não estou entrando nesse mérito, mas, por notificação nossa e por convite nosso, o senhor não foi à Bahia visitar os conflitos agrários.",
+            "score": 0.2582
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o PSB, partido do Ministro da Justiça, de ter entrado com ação no STF para suspender diligências policiais em favelas e milícias durante a pandemia, e critica a falta de repúdio do Ministro a essa ação, associando-a ao agravamento da criminalidade.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 149,
+            "start": 64593,
+            "end": 64944,
+            "text": "Mas foi o seu partido, o PSB, ao qual o senhor é filiado — durante a pandemia eu estava nesta Comissão, pela Liderança do Governo Jair Bolsonaro —, que entrou com uma ação no Supremo Tribunal Federal pedindo a suspensão das diligências de policiais, de investigação da polícia nas favelas, nos morros, nas milícias, onde o narcotráfico tinha operação.",
+            "score": 0.3513
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende os números da segurança pública do Governo Jair Bolsonaro e critica o desmanche do combate à corrupção, citando o rebaixamento do Brasil em relação à OCDE e a devolução de quase 21 bilhões de reais por empresas denunciadas no governo anterior.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 149,
+            "start": 67180,
+            "end": 67304,
+            "text": "O Governo Bolsonaro fez a devolução de quase 21 bilhões de reais de empresas que foram denunciadas, auditadas, fiscalizadas.",
+            "score": 0.5274
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o Ministro da Justiça de interferir na CPMI para impedir a investigação, citando a não citação de G. Dias e a não colaboração com a entrega de dados sobre a viagem do Presidente Lula, e afirma que a história das imagens apagadas não se sustenta.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 149,
+            "start": 61824,
+            "end": 61855,
+            "text": "O senhor é Ministro da Justiça.",
+            "score": 0.2514
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a coerência política e a contradição como critério de avaliação, questionando a validade de uma posição quando ela é antagônica a uma posição anterior da mesma base de apoio (como na comparação entre a compra de vacinas na COVID e a não compra de vacinas para dengue).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 59,
+            "start": 36203,
+            "end": 36269,
+            "text": "Eu queria entender melhor essa não compra das vacinas para dengue.",
+            "score": 0.3357
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a responsabilidade do Estado na prestação de serviços essenciais, como saúde (SAMU, radioterapia, hospitais filantrópicos) e saneamento, argumentando que a ausência de políticas ou a lentidão na execução gera drama e insegurança para a população.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 59,
+            "start": 37491,
+            "end": 37593,
+            "text": "Há um drama posto na antessala, que é a questão do piso da enfermagem para os hospitais filantrópicos.",
+            "score": 0.1968
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a abertura para o setor privado em áreas de infraestrutura e educação (saneamento, universidades) como forma de superar a burocracia e a falta de recursos públicos, utilizando exemplos internacionais de captação de recursos como fundamento.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 94,
+            "start": 163930,
+            "end": 163988,
+            "text": "O maior poluidor do Brasil é a falta de saneamento básico.",
+            "score": 0.155
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a transparência e a prestação de contas no uso de recursos públicos, especialmente em contextos de emergência (COVID) e em grandes programas de obras (PAC), cobrando a participação de órgãos de controle e a consulta prévia a ministérios competentes.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 104,
+            "start": 182865,
+            "end": 182887,
+            "text": "não falou sobre o PAC.",
+            "score": 0.1721
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autonomia e a disciplina como valores formativos, citando sua experiência em escola cívico-militar e em instituto federal, e a necessidade de desburocratização para permitir a eficiência e a captação de recursos.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 9391,
+            "end": 9458,
+            "text": "A escola federal tinha essa estrutura de hierarquia, de disciplina.",
+            "score": 0.2476
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado da Oposição e afirma que, por formação moral e ética, jamais seria aliado de quem se propôs a ter a índole de Lula.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 149,
+            "start": 61909,
+            "end": 62204,
+            "text": "Até por formação moral e ética, eu jamais seria aliado de quem se propôs a ter a índole de Lula na sua história de vida, mas eu queria ser Oposição aqui na Casa de pautas mais leves, porque as ações do Ministério da Justiça e do Ministério da Economia interferem na vida de todos os brasileiros.",
+            "score": 0.5613
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como morador do interior do Espírito Santo e egresso de escola cívico-militar e de instituto federal, tendo se formado em 1992 como técnico agrícola.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 9318,
+            "end": 9390,
+            "text": "Eu saí do interior, fui estudar numa escola federal e me formei em 1992.",
+            "score": 0.2975
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se Relator da Comissão que vai acompanhar a execução do novo PAC e membro da CPMI.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 94,
+            "start": 165200,
+            "end": 165294,
+            "text": "Inclusive eu fui nomeado, hoje, Relator da Comissão que vai acompanhar a execução do novo PAC.",
+            "score": 0.6498
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter feito parte da redação e da instituição do programa Future-se.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 5508,
+            "end": 5597,
+            "text": "Eu fiz parte, inclusive, da redação e da instituição do programa e sou encantado com ele.",
+            "score": 0.5203
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita sua ascendência italiana, com bisavô e irmão dele chegando ao Brasil em 1890 de Pádova.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 10096,
+            "end": 10154,
+            "text": "Em 1890, vieram para o Brasil o meu bisavô e o irmão dele.",
+            "score": 0.61
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas diretas e repetidas para cobrar respostas específicas de ministros, focando em lacunas de política pública ou em contradições entre ações e discursos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados estatísticos e números específicos (taxa de aprovação do REVALIDA, valores em dólares, número de antenas, bilhões de reais) para fundamentar suas críticas e propostas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 149,
+            "start": 67305,
+            "end": 67350,
+            "text": "Elas desenvolveram quase 21 bilhões de reais.",
+            "score": 0.1825
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem retórica e apelativa, incluindo citações bíblicas (Efésios 4:29) e expressões como \"grande teatro\", \"projeto mirabolante\" e \"conta chegou\", para enfatizar suas críticas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 94,
+            "start": 165044,
+            "end": 165199,
+            "text": "A última pergunta: O Governo fez um grande teatro, vou dizer assim, no anúncio do novo Programa de Aceleração de Crescimento — PAC, um projeto mirabolante.",
+            "score": 0.2373
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta posições do governo atual com as do governo anterior (Bolsonaro), utilizando a comparação como ferramenta de crítica à ineficiência ou à contradição.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 59,
+            "start": 38611,
+            "end": 38705,
+            "text": "Inclusive, o Ministério tem feito os repasses, que ainda são do orçamento do Governo anterior.",
+            "score": 0.1774
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita sua experiência pessoal e profissional (moro no interior, egresso de escola cívico-militar, técnico agrícola) para dar credibilidade a seus argumentos sobre a realidade local e a formação.",
+          "passage": {
+            "hearing_id": 174,
+            "turn": 0,
+            "start": 9131,
+            "end": 9275,
+            "text": "Eu sou egresso de uma escola cívico-militar, sou testemunha da importância que a escola tem, principalmente na fase da adolescência e juventude.",
+            "score": 0.2517
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa diretamente os interlocutores de omissão, irresponsabilidade e interferência política, utilizando termos como \"desrespeito\", \"conluio\" e \"mal menor\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 149,
+            "start": 69220,
+            "end": 69267,
+            "text": "301, do crime de omissão de responsabilidade...",
+            "score": 0.1519
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 12,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 86,
+      "split": "test",
+      "article_date": "2024-04-18",
+      "title": "Seguradoras propõem novas coberturas diante de catástrofes climáticas",
+      "assunto": "Propostas de novas coberturas de seguros diante de catástrofes climáticas",
+      "turns": 21,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 174,
+      "split": "train",
+      "article_date": "2023-09-12",
+      "title": "Especialistas discordam sobre nível de dificuldade do exame Revalida",
+      "assunto": "Debate sobre a baixa taxa de aprovação no Exame Nacional de Revalidação de Diplomas Médicos (Revalida) em 2022",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-86-5-0",
+      "hearing_id": 86,
+      "n": 9,
+      "article_name": "Evair Vieira de Melo",
+      "proposition": "Citou a recente calamidade de enchentes no sul do Espírito Santo para afirmar que as atuais ferramentas de socorro à população são insuficientes diante das mudanças climáticas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu me refiro às chuvas que aconteceram agora no Espírito Santo, particularmente, atingindo o sul do nosso Estado. As cidades na divisa com o Estado do Rio de Janeiro, como Apiacá e Bom Jesus, foram fortemente atingidas.",
+        "turn": 1,
+        "start": 13444,
+        "end": 13663
+      },
+      "verifier": {
+        "probability": 0.21512856269258243,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-86-5-1",
+      "hearing_id": 86,
+      "n": 10,
+      "article_name": "Evair Vieira de Melo",
+      "proposition": "Avalia que a participação do mercado de seguros é fundamental para a busca de respostas mais imediatas e que as propostas poderão ser aproveitadas em projetos de lei já em análise na Câmara: \"A audiência foi muito enriquecedora, trazendo o setor privado para que possamos acelerar as respostas. Essa proposta está sendo construída. Naturalmente, precisamos encontrar o espaço financeiro para ela.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Neste momento em que a sociedade civil está preparada para ser voluntária e, de certa forma, resolutiva também, é muito importante esse entendimento. Dessa forma, poderemos criar esse mecanismo financeiro e econômico, para que a normalidade seja restabelecida.",
+        "turn": 2,
+        "start": 22235,
+        "end": 22495
+      },
+      "verifier": {
+        "probability": 0.2523409851158281,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-116-1-0",
+      "hearing_id": 116,
+      "n": 7,
+      "article_name": "Evair Vieira de Melo",
+      "proposition": "\"Foi um desprestígio para as relações comerciais entre Brasil e Argentina a ausência do Lula na posse do Milei, tendo em vista o simbolismo que tudo isso representa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Foi, portanto, um desprestígio para as relações comerciais entre o Brasil e a Argentina o fato de o Presidente Lula não ter ido à posse de Milei, em vista do simbolismo que tudo isso representa para o nosso País. Eu faço duas perguntas.",
+        "turn": 29,
+        "start": 82449,
+        "end": 82686
+      },
+      "verifier": {
+        "probability": 0.9943349380671334,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-145-2-0",
+      "hearing_id": 145,
+      "n": 12,
+      "article_name": "Evair Vieira de Melo",
+      "proposition": "\"Ficou claro na CPMI do 8 de Janeiro, estive lá em todas as audiências, o esforço do governo para não participar da investigação\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quanto aos fatos do dia 8 de janeiro, que foi fruto da minha inclusive convocação e minha única pergunta ao Ministro, não sei se ele esqueceu de anotar, ele não se posicionou, mas ficou claro, durante a trajetória da CPMI — eu estava lá em todas as audiências — um esforço do Governo, um esforço, assim, até exagerado, foram ao extremo, para realmente não participarem do processo de investigação. O Governo só aceitou instalar a CPMI depois que as imagens que envolviam pessoas […]",
+        "turn": 153,
+        "start": 73815,
+        "end": 74359
+      },
+      "verifier": {
+        "probability": 0.9810702066732845,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-174-2-0",
+      "hearing_id": 174,
+      "n": 5,
+      "article_name": "Evair Vieira de Melo",
+      "proposition": "Questionou a falta de investimento no ensino brasileiro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E isso tem sido um desestímulo para que os profissionais, cada dia mais... Não há um estímulo!",
+        "turn": 0,
+        "start": 13039,
+        "end": 13133
+      },
+      "verifier": {
+        "probability": 0.1496325234345774,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-174-2-1",
+      "hearing_id": 174,
+      "n": 6,
+      "article_name": "Evair Vieira de Melo",
+      "proposition": "Afirmou que o País precisa criar um ambiente para que o ensino público possa ter \"capacidade e autonomia financeira para gerar os seus recursos e captá-los\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Brasil precisa realmente de criar um ambiente para que as nossas instituições de ensino públicas possam ter a capacidade e a autonomia financeira para gerar e captar recursos. O mundo todo já faz isso, de forma brilhante.",
+        "turn": 0,
+        "start": 5598,
+        "end": 5821
+      },
+      "verifier": {
+        "probability": 0.9893191224820963,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-4-0",
+      "hearing_id": 199,
+      "n": 14,
+      "article_name": "Evair Vieira de Melo",
+      "proposition": "Questionou sobre a incorporação da vacina para prevenção da dengue ao SUS.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "No caso da dengue, o que me estranha é que a apresentação da justificativa que V.Exa. apresentou para não adquirir vacina japonesa é contraditória, aí sim, ao que a atual base do Governo defendeu na época da COVID.",
+        "turn": 71,
+        "start": 43631,
+        "end": 43845
+      },
+      "verifier": {
+        "probability": 0.31999029635786824,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

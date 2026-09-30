@@ -1,0 +1,406 @@
+{
+  "actor": {
+    "slug": "alexandre-kalache",
+    "name": "ALEXANDRE KALACHE",
+    "display_name": "Alexandre Kalache",
+    "role": "Médico e presidente do Centro Internacional de Longevidade Brasil (ILC-BR)",
+    "article_names": [
+      "Alexandre Kalache"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:31:44+00:00",
+    "n_statements": 8,
+    "n_hearings": 2,
+    "hearing_ids": [
+      60,
+      155
+    ],
+    "input_tokens": 6530,
+    "output_tokens": 1103,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 1,
+    "passage_only": 19,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o envelhecimento populacional exige políticas de promoção da saúde e prevenção de doenças cardiovasculares, argumentando que 30% das mortes no Brasil são por essas causas e que a população com mais de 60 anos sofrerá um salto de 15% em menos de 30 anos, atingindo 68 milhões de pessoas em 2050.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 4817,
+            "end": 4909,
+            "text": "Nós vamos dar um salto quântico de 15% na população com mais de 60 anos em menos de 30 anos.",
+            "score": 0.4442
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a formação dos profissionais de saúde (médicos, enfermeiros, nutricionistas), afirmando que são treinados para o século XX e para doenças infecciosas, e não para os desafios do envelhecimento e das doenças crônicas.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 4406,
+            "end": 4567,
+            "text": "Nossos médicos, enfermeiros, nutricionistas, enfim, todos os profissionais da saúde estão sendo treinados para o passado, estão sendo treinados para o século XX.",
+            "score": 0.5331
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a culpabilização da vítima, defendendo que fatores como obesidade, sedentarismo e colesterol alto resultam de desigualdades sociais, falta de infraestrutura urbana (calçadas, iluminação) e insegurança, e não de escolha individual.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 7471,
+            "end": 7615,
+            "text": "Você vai acumulando esses fatores de risco a uma dieta menos saudável, obesidade, sedentarismo e todos os problemas que estamos discutindo aqui.",
+            "score": 0.1827
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do próximo Governo e Legislativo medidas para a formação de profissionais de saúde competentes para lidar com o envelhecimento e as doenças crônicas.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 10510,
+            "end": 10759,
+            "text": "E o convite que faço é para colocarmos pressão no Governo que vem e no próximo Legislativo para que tomem as medidas adequadas para a formação de profissionais de saúde mais competentes para lidar com os problemas com que estamos aqui nos deparando.",
+            "score": 0.5775
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção e o fortalecimento do SUS, da renda mínima e do Estatuto do Idoso como marcos civilizatórios que evitaram mortes e tiraram pessoas da miséria, especialmente durante a pandemia de COVID-19.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 29402,
+            "end": 29440,
+            "text": "É isso que o Estatuto do Idoso nos dá.",
+            "score": 0.2556
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a não ratificação pelo Brasil da Convenção Interamericana sobre os Direitos das Pessoas Idosas, classificando a situação como \"vergonhosa\" e apontando que o país perdeu protagonismo internacional na área há 6 anos.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 25813,
+            "end": 25973,
+            "text": "Eu digo isso porque, e o senhor citou, até hoje, até agora, o Brasil não promulgou, não assinou a Convenção Interamericana sobre os Direitos das Pessoas Idosas.",
+            "score": 0.3011
+          },
+          "udv": null
+        },
+        {
+          "text": "Combate a narrativa neoliberal de que o Brasil gasta demais com idosos em detrimento da população jovem, defendendo que o combate ao idadismo é dever de toda a sociedade.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 29129,
+            "end": 29294,
+            "text": "Acho fundamental que se combata essa ideia neoliberal que está se propagando de que no Brasil se gasta demasiado com os idosos em detrimento da população mais jovem.",
+            "score": 0.4121
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que 28 milhões dos 33 milhões de brasileiros sexagenários vivem com fome ou pobreza, criticando o retorno do Brasil ao Mapa da Fome nos últimos 6 anos.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 23839,
+            "end": 24023,
+            "text": "Nós tivemos a ingrata satisfação de termos visto, há 2 semanas, o anúncio de que, dos 33 milhões de brasileiros sexagenários, 28 milhões, Deputados Aliel, vivem com fome, vivem pobres.",
+            "score": 0.4803
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a pressão da sociedade civil para evitar que a velhice seja classificada como doença pela Organização Mundial da Saúde, citando a campanha bem-sucedida de um ano antes.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 45,
+            "start": 59949,
+            "end": 60105,
+            "text": "Nós estamos exatamente a 1 ano de quando uma campanha vigorosa da sociedade civil combateu que a Organização Mundial da Saúde colocasse velhice como doença.",
+            "score": 0.4831
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a perspectiva de \"curso de vida\" para justificar a necessidade de políticas de prevenção, argumentando que doenças crônicas são acumuladas ao longo da vida e que postergar o início de condições como hipertensão e diabetes beneficia toda a sociedade.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 10328,
+            "end": 10508,
+            "text": "Imaginem vocês que, se conseguíssemos postergar uma hipertensão, uma diabetes, um problema cardiovascular por 10 anos, toda a sociedade, e não só o indivíduo, teria muito a ganhar.",
+            "score": 0.2228
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a Carta de Ottawa (1986) da OMS para fundamentar a ideia de que a saúde é criada no contexto do dia a dia (moradia, trabalho, alimentação), justificando a crítica à falta de letramento em saúde e às desigualdades que impedem a adoção de estilos de vida saudáveis.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 3737,
+            "end": 4134,
+            "text": "A Organização Mundial da Saúde — e eu digo isto tendo sido Diretor do Departamento de Envelhecimento e Saúde durante 13 anos —, há muitos anos, desde 1986, através da Carta de Ottawa para a promoção da saúde, define saúde muito bem: saúde é criada no contexto do dia a dia, onde as pessoas vivem, onde elas trabalham, como elas se locomovem, do que se alimentam, quais são os seus estilos de vida.",
+            "score": 0.3817
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na interseccionalidade para defender a proteção dos idosos, associando o idadismo a outras formas de discriminação como racismo, sexismo e capacitismo, e argumentando que a luta contra essas opressões é responsabilidade coletiva.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 28024,
+            "end": 28396,
+            "text": "Mas nós temos hoje um arcabouço legal, Deputado Aliel, que faz com que possamos voltar a ter a expectativa de que o idadismo, o grande e último tabu, possa ser controlado, sobretudo quando tratamos da interseccionalidade, quando temos idadismo, racismo, sexismo, o racismo, LGBTismo, machismo, capacitismo e, junto a tudo isso, 28 milhões de pessoas idosas que são pobres.",
+            "score": 0.2387
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a dignidade no envelhecimento, utilizando a frase \"a grande conquista social dos últimos 100 anos foi poder envelhecer\" para criticar a falta de políticas adequadas que transformam essa conquista em um problema.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 8938,
+            "end": 9088,
+            "text": "Terminando, eu gostaria de deixar claro outro mantra em que eu acredito piamente: a grande conquista social dos últimos 100 anos foi poder envelhecer.",
+            "score": 0.4218
+          },
+          "udv": {
+            "id": "udv-60-3-0",
+            "rule": "same_sentence",
+            "score": 0.5004
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se médico formado em 1970, com 52 anos de carreira, e ex-Diretor do Departamento de Envelhecimento e Saúde da Organização Mundial da Saúde por 13 anos.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 21562,
+            "end": 21681,
+            "text": "Na época eu trabalhava na Organização Mundial da Saúde como Diretor do Departamento de Saúde, e trocamos muitas ideias.",
+            "score": 0.35
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter contribuído para a elaboração do Estatuto do Idoso em parceria com o Senador Paulo Paim e ter liderado o marco político do envelhecimento ativo em 2002 na OMS.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 26552,
+            "end": 26752,
+            "text": "Em 2002, o marco político do envelhecimento ativo foi lançado mundialmente e liderado, eu tenho orgulho de dizer, por um brasileiro, por mim, à frente do Departamento de Envelhecimento e Saúde da OMS.",
+            "score": 0.4197
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como militante pelos direitos das pessoas idosas e membro da sociedade civil, colocando-se à disposição para facilitar dados sobre ILPIs em parceria com a Vice-Presidente do Centro Internacional de Longevidade, Karla Giacomin.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 45,
+            "start": 61048,
+            "end": 61174,
+            "text": "Eu trabalho com a nossa Vice-Presidente do Centro Internacional de Longevidade, a Karla Giacomin, no fortalecimento das ILPIs.",
+            "score": 0.5688
+          },
+          "udv": null
+        },
+        {
+          "text": "Expressa alinhamento com o retorno do Brasil ao protagonismo internacional em direitos dos idosos, citando o comprometimento do Ministro Silvio Almeida e do Secretário Nacional Alexandre da Silva.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 27665,
+            "end": 27949,
+            "text": "Mas agora, com a presença e o comprometimento de um novo Ministro, o Silvio Almeida, e do Secretário Nacional Alexandre da Silva, eu tenho certeza — não é esperança — de que nós voltaremos a atuar com afinco e comprometimento nessa área tão importante para o futuro desde o século XX.",
+            "score": 0.4139
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e projeções demográficas (ex: 30% das mortes, 68 milhões em 2050, 28 milhões de idosos pobres) para sustentar a urgência das políticas públicas.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 4910,
+            "end": 5032,
+            "text": "Em 2050, nós estaremos com 68 milhões de pessoas exatamente no grupo que tem mais risco de vir a apresentar essas doenças.",
+            "score": 0.2253
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e metáforas para ilustrar argumentos, como comparar a falta de políticas de envelhecimento a uma \"bomba-relógio\" e usar a expressão \"navegar é preciso com bússolas norteadoras\" para defender o Estatuto do Idoso.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 3,
+            "start": 29331,
+            "end": 29401,
+            "text": "Navegar é preciso com bússolas norteadoras, porque oferecem segurança.",
+            "score": 0.3664
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom pessoal e identitário, afirmando orgulhosamente \"eu sou um velho\" para desconstruir estereótipos de obsolescência e aproximar-se do público, enquanto usa a segunda pessoa para interpelar diretamente os interlocutores (ex: \"Seu Joaquim, não é culpa do senhor\").",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 3,
+            "start": 9861,
+            "end": 9970,
+            "text": "O senhor é a vítima, e ainda o transformam, seu Joaquim, no culpado, como fosse culpa sua não ter se cuidado.",
+            "score": 0.1791
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita experiências pessoais e profissionais (trabalho na OMS, formação médica, participação na criação do Estatuto) para dar autoridade aos argumentos e estabelecer conexão histórica com as políticas debatidas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 60,
+      "split": "train",
+      "article_date": "2022-12-06",
+      "title": "Especialistas apontam benefícios e desafios de novo programa do SUS para o atendimento a idosos",
+      "assunto": "Benefícios e desafios do Programa QualiSUS Cardio para o atendimento a idosos no SUS",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 110,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados cobram prioridade para agenda do envelhecimento saudável no G20",
+      "assunto": "Prioridade para a agenda do envelhecimento saudável no G20",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 155,
+      "split": "train",
+      "article_date": "2023-10-05",
+      "title": "Nos 20 anos do Estatuto do Idoso, especialistas pedem consolidação de políticas públicas",
+      "assunto": "Consolidação de políticas públicas para idosos no contexto dos 20 anos do Estatuto do Idoso",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-60-3-0",
+      "hearing_id": 60,
+      "n": 7,
+      "article_name": "Alexandre Kalache",
+      "proposition": "\"A grande conquista social dos últimos cem anos foi envelhecer, mas estamos transformando isso em uma bomba-relógio não tendo políticas adequadas.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Terminando, eu gostaria de deixar claro outro mantra em que eu acredito piamente: a grande conquista social dos últimos 100 anos foi poder envelhecer.",
+        "turn": 3,
+        "start": 8938,
+        "end": 9088
+      },
+      "verifier": {
+        "probability": 0.24710935115458912,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-60-3-1",
+      "hearing_id": 60,
+      "n": 8,
+      "article_name": "Alexandre Kalache",
+      "proposition": "Recomendou pressão popular por mais políticas públicas voltadas à população idosa.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Daí, nós vamos precisar de profissionais de saúde que estejam muito mais — mas muito mais — familiarizados com os desafios do envelhecimento. Infelizmente, isso não acontece.",
+        "turn": 3,
+        "start": 4230,
+        "end": 4405
+      },
+      "verifier": {
+        "probability": 0.2030354355136176,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-155-1-0",
+      "hearing_id": 155,
+      "n": 3,
+      "article_name": "Alexandre Kalache",
+      "proposition": "Acrescentou que poucos países têm um arcabouço político e legal que reúne, além do Estatuto do Idoso, a Constituição – que criou o Sistema Único de Saúde – e a lei que instituiu o programa de renda mínima (Lei 10.291/01): \"Esse arcabouço legal oferece segurança para que as pessoas idosas de hoje e do futuro não se sintam desprotegidas, desamparadas. Nós temos que falar sempre de um curso de vida, porque eu já envelheci, mas o jovem de hoje, como dizia Cícero há mais de 2 mil anos, almeja envelhecer, e eu espero que possa envelhecer com mais dignidade do que seus pais, que dirá seus avós.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Entretanto, é esse arcabouço legal do Estatuto que oferece segurança, proteção indispensável para que as pessoas idosas de hoje e do futuro não se sintam desprotegidas, desamparadas. Nós temos que falar sempre de um curso de vida.",
+        "turn": 3,
+        "start": 24202,
+        "end": 24433
+      },
+      "verifier": {
+        "probability": 0.25321968889460583,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

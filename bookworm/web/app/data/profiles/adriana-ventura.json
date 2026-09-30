@@ -1,0 +1,376 @@
+{
+  "actor": {
+    "slug": "adriana-ventura",
+    "name": "ADRIANA VENTURA",
+    "display_name": "Adriana Ventura",
+    "role": "Deputada (Novo-SP)",
+    "article_names": [
+      "Adriana Ventura"
+    ],
+    "party_uf": [
+      "NOVO - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:19:25+00:00",
+    "n_statements": 12,
+    "n_hearings": 4,
+    "hearing_ids": [
+      80,
+      145,
+      199,
+      201
+    ],
+    "input_tokens": 5975,
+    "output_tokens": 1064,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a regulamentação e a transparência do lobby junto ao poder público, rejeitando o tratamento pejorativo da atividade e a burocratização excessiva que transformaria a regulação em \"balcão de negócios\". Argumenta que a transparência é necessária para garantir acesso a quem não tem recursos ou mobilização, citando as \"70 Medidas contra a Corrupção\" como referência de boas práticas.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 33,
+            "start": 68512,
+            "end": 68706,
+            "text": "E se nós pegarmos boas práticas no mundo todo, se nós pegarmos inclusive as 70 Medidas contra a Corrupção — eu estou vendo que estão representadas aqui —, este é um dos itens, é uma das medidas.",
+            "score": 0.2615
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação do STF nos processos dos presos dos atos de 8 de janeiro, classificando as prisões como ilegais e a manutenção do foro como uma \"aberração\". Defende que o STF deve limitar-se a ser guardião da Constituição, sem acusar ou prender, e cobra do Senado e da Câmara a responsabilização pelo cumprimento da Constituição, acusando o Congresso de estar \"de joelhos\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 112,
+            "start": 133374,
+            "end": 133417,
+            "text": "O STF tem que ser guardião da Constituição.",
+            "score": 0.4013
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a contratação emergencial da empresa Global X para compra de 1,3 milhão de unidades de insulina rápida pelo Ministério da Saúde, no valor de 19 milhões de reais. Cita como motivos de estranheza o preço significativamente inferior ao mercado, a ausência de representante no Brasil, o fato de ser uma intermediadora, a falta de registro na ANVISA e o histórico de investigação do Sr. Freddy Rabbat. Cobra esclarecimentos sobre os critérios de compra e a desclassificação da Novo Nordisk, que era fornecedora regular.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 76,
+            "start": 46639,
+            "end": 46806,
+            "text": "No caso dessa aquisição emergencial, foi feita a contratação da empresa Global X, como sabemos, para compra de 1,3 milhão de unidades, no valor de 19 milhões de reais.",
+            "score": 0.4174
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a mudança de orientação da CONITEC na incorporação de vacinas, citando o caso da vacina contra a pneumonia e a contratação da Manguinhos FIOCRUZ em detrimento de opções mais baratas. Pede esclarecimentos sobre se há direcionamento para dar preferência à produção estatal e como isso se compatibiliza com o interesse público e o preço.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 76,
+            "start": 49444,
+            "end": 49522,
+            "text": "Houve mudança radical de orientação da CONITEC para a incorporação de vacinas?",
+            "score": 0.3541
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Justiça a transparência e o esclarecimento sobre o destino das imagens das câmeras do 8 de janeiro, afirmando que se trata de prova e que o Ministro é responsável perante todos os brasileiros. Rejeita a classificação de \"terrorista\" para os presos de 8 de janeiro, comparando com a invasão do MST em 2014 e 2006, que não foi tratada com o mesmo rótulo, e pede que o Ministro não seja \"ativista\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 345,
+            "start": 170322,
+            "end": 170363,
+            "text": "Por favor, não seja um Ministro ativista.",
+            "score": 0.2403
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a transparência e o acesso público como critérios para a regulação de interesses, argumentando que a negociação de interesses opostos deve ser feita à luz do dia para evitar a exclusão de quem não tem poder de voz ou dinheiro.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 33,
+            "start": 68887,
+            "end": 69129,
+            "text": "Então, é bom que seja feita de uma maneira transparente, de uma maneira clara, de uma maneira pública, de uma maneira também que permita o acesso, porque hoje quem tem acesso é quem grita muito, quem está muito mobilizado e quem tem dinheiro.",
+            "score": 0.1798
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a separação de poderes e a soberania do Congresso como fundamento para criticar a atuação do STF, defendendo que os Poderes devem ser harmônicos e que o Legislativo tem o papel de fiscalizar e responder ao povo, não se omitir.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 112,
+            "start": 133910,
+            "end": 134045,
+            "text": "Ives Gandra é brilhante quando fala que os Poderes têm que ser harmônicos e um tem que respeitar o outro, porque cada um tem seu papel.",
+            "score": 0.2518
+          },
+          "udv": null
+        },
+        {
+          "text": "Aplica o princípio da isonomia e da proporcionalidade na responsabilização criminal, rejeitando a existência de \"dois pesos e duas medidas\" e defendendo que a responsabilização deve ser igualitária, independentemente da orientação política (Direita ou Esquerda).",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 334,
+            "start": 165364,
+            "end": 165449,
+            "text": "O que eu não admito e me deixa realmente indignada é haver dois pesos e duas medidas.",
+            "score": 0.2624
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a eficiência e a economicidade nas compras públicas do SUS, questionando a lógica de mercado (preço sobe quando falta produto) e a escolha de fornecedores sem histórico ou registro, priorizando a segurança do fornecimento e o interesse público.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 76,
+            "start": 47200,
+            "end": 47292,
+            "text": "Quem conhece um pouco de economia sabe que, se falta produto, o preço sobe, o preço não cai.",
+            "score": 0.25
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada de oposição ao governo Lula, afirmando ter visões de mundo diferentes e divergências com o Ministro da Justiça, mas nega ser \"bolsonarista\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 334,
+            "start": 163994,
+            "end": 164031,
+            "text": "Nós temos visões de mundo diferentes.",
+            "score": 0.4085
+          },
+          "udv": null
+        },
+        {
+          "text": "Coloca a Frente Parlamentar Mista Ética Contra a Corrupção à disposição para o debate sobre lobby, solicitando o encaminhamento de notas para o gabinete nº 802.",
+          "passage": {
+            "hearing_id": 80,
+            "turn": 33,
+            "start": 70154,
+            "end": 70244,
+            "text": "Eu queria colocar também a Frente Parlamentar Mista Ética Contra a Corrupção à disposição.",
+            "score": 0.5919
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter visitado o presídio da Colmeia acompanhada do Deputado Marcel van Hattem e com o apoio do Deputado Sanderson, e declara solidariedade às famílias dos presos, afirmando que \"não desistimos de vocês\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 112,
+            "start": 131965,
+            "end": 132005,
+            "text": "O Deputado Marcel van Hattem foi comigo.",
+            "score": 0.4268
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a experiência pessoal e a vivência direta como argumento de autoridade, citando aulas de negociação, visitas a presídios e a atuação como \"rainha dos requerimentos de informação\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 76,
+            "start": 46407,
+            "end": 46487,
+            "text": "Eu disse que sou a rainha dos requerimentos de informação, em todos os aspectos.",
+            "score": 0.2928
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom emocional e apelativo, usando expressões como \"corta o coração\", \"desesperador\", \"vergonha\" e \"indignada\", e faz apelos diretos à coragem e à consciência dos interlocutores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a perguntas retóricas e a questionamentos diretos a Ministros e Presidentes de Casas, cobrando respostas específicas sobre critérios, prazos e responsabilidades, muitas vezes citando requerimentos de informação já enviados.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 76,
+            "start": 46150,
+            "end": 46256,
+            "text": "Muitas vezes vemos fatos, vemos notícias, muitas pessoas vão aos nossos gabinetes e fazem questionamentos.",
+            "score": 0.2031
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue claramente entre a defesa de princípios (justiça, transparência, Constituição) e a crítica a atitudes específicas, afirmando repetidamente que não quer entrar em \"guerra de narrativas\" ou debate ideológico, mas sim buscar a verdade e o cumprimento da lei.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 345,
+            "start": 170234,
+            "end": 170280,
+            "text": "Eu não quero entrar em debate ideológico aqui.",
+            "score": 0.2972
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 1,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Jornalistas acusam Alexandre de Moraes de censura ao exigir bloqueio de contas da rede social X",
+      "assunto": "Acusações de censura contra Alexandre de Moraes por exigir bloqueio de contas na rede social X",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 80,
+      "split": "train",
+      "article_date": "2022-06-28",
+      "title": "Relator apresentará nova versão para a regulamentação do lobby",
+      "assunto": "Regulamentação do lobby junto ao poder público",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-16-1-0",
+      "hearing_id": 16,
+      "n": 11,
+      "article_name": "Adriana Ventura",
+      "proposition": "\"Ela é esposa de líder do Comando Vermelho, condenada em segunda instância por organização criminosa, associação para o tráfico e lavagem de dinheiro. Nos causou muito desconforto, principalmente porque houve audiência com servidores e o ministério pagou diárias e viagens. Nós fizemos requerimento de informação, denúncia na Comissão de Ética Pública e projeto de lei para que a não publicização de agenda e compromisso seja configurada como improbidade administrativa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Luciane Barbosa Faria, sabendo-se que era esposa de líder do Comando Vermelho, condenada em segunda instância por organização criminosa, associação para o tráfico, lavagem de dinheiro, realmente nos causaram muito desconforto, especialmente a mim, principalmente porque foi feita audiência com servidores, tendo o Ministério pagado diárias, viagens. Nós fizemos requerimento de informação, que o senhor já deve ter recebido.",
+        "turn": 3,
+        "start": 20739,
+        "end": 21164
+      },
+      "verifier": {
+        "probability": 0.9867246089987365,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-80-5-0",
+      "hearing_id": 80,
+      "n": 11,
+      "article_name": "Adriana Ventura",
+      "proposition": "Defendeu regras para o lobby.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Nós sabemos que há os combinados, as pessoas vão em busca dos seus interesses. Eu gostei bastante da frase ali dos ambientes fechados, porque a negociação de interesses acontece.",
+        "turn": 33,
+        "start": 68707,
+        "end": 68886
+      },
+      "verifier": {
+        "probability": 0.3253809910403775,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-1-0",
+      "hearing_id": 199,
+      "n": 11,
+      "article_name": "Adriana Ventura",
+      "proposition": "Questionou a qualidade da insulina adquirida de uma empresa chinesa que não tem registro junto à Anvisa: \"Em que pese a escassez do produto, causou estranheza essa empresa ter um preço significativamente inferior ao de mercado.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Em que pese a escassez do produto e a incapacidade de suprimento dessa demanda, causou estranheza o fato de a empresa Global X apresentar um preço significativamente inferior ao praticado no mercado.",
+        "turn": 76,
+        "start": 47000,
+        "end": 47199
+      },
+      "verifier": {
+        "probability": 0.3368872367235226,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

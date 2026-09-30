@@ -1,0 +1,368 @@
+{
+  "actor": {
+    "slug": "marcio-jerry",
+    "name": "Márcio Jerry",
+    "display_name": "Márcio Jerry",
+    "role": "Deputado (PCdoB-MA)",
+    "article_names": [
+      "Márcio Jerry"
+    ],
+    "party_uf": [
+      "Bloco/PCdoB - MA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:06:58+00:00",
+    "n_statements": 8,
+    "n_hearings": 2,
+    "hearing_ids": [
+      53,
+      152
+    ],
+    "input_tokens": 5295,
+    "output_tokens": 868,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 1,
+    "passage_only": 18,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação de um \"federalismo de políticas de defesa para pessoas com deficiência\", propondo um salto na relação federativa entre União, Estados e Municípios para buscar um sistema único complementar convergente de políticas públicas.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 64,
+            "start": 110182,
+            "end": 110287,
+            "text": "Precisamos dar um salto, um passo a mais na relação federativa entre a União, os Estados e os Municípios.",
+            "score": 0.4419
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a existência de Secretarias de Pessoas com Deficiência nas capitais, nos Estados e em Comissões das Assembleias Legislativas, argumentando que a ausência desses espaços resulta em políticas públicas menos eficazes.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 64,
+            "start": 110288,
+            "end": 110463,
+            "text": "Eu pedi à Consultoria da Casa que fizesse um levantamento, por exemplo, sobre Secretarias de Pessoas com Deficiência nas capitais, nos Estados e nas Comissões das Assembleias.",
+            "score": 0.3676
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a realização de um seminário com a participação de todos os Estados, Prefeituras e Assembleias Legislativas para debater o tema e assumir compromissos concretos de governança.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 64,
+            "start": 110999,
+            "end": 111507,
+            "text": "Para encerrar, informo que está prevista na pauta da Comissão a realização, no início do próximo semestre, de um encontro, um seminário, cujo nome ainda não definimos, com a participação de todos os Estados da Federação, das Prefeituras — tantas quantas possam vir —, das Assembleias Legislativas do Brasil inteiro, para que possamos debater esse tema, assumir compromissos e fazer com que haja um espaço concreto dentro da governança dos Municípios, dos Estados e da União, onde […]",
+            "score": 0.4764
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a situação do seguro DPVAT, caracterizando-a como um \"limbo iminente\" e uma \"contagem regressiva\", pois o Brasil corre o risco de ficar sem a modelagem anterior e sem a modelagem provisória do seguro.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 56374,
+            "end": 56573,
+            "text": "Em dado momento, nós saímos de uma modelagem do DPVAT, entramos numa modelagem provisória — digamos assim — e estamos na iminência de não termos nem a modelagem anterior e nem a modelagem provisória.",
+            "score": 0.3471
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a urgência de encontrar um caminho para assegurar o atendimento do Estado brasileiro às vítimas de trânsito, enfatizando a necessidade de resolutividade diante do prazo datado da situação.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 57210,
+            "end": 57370,
+            "text": "Portanto, estamos numa contagem regressiva para encontrar um caminho capaz de assegurar um atendimento do Estado brasileiro para as pessoas vítimas do trânsito.",
+            "score": 0.5117
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma subcomissão específica para tratar do tema do DPVAT, visando estruturar um coletivo com Parlamentares e um espaço permanente de consulta pública para avançar o debate em curto prazo.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 24,
+            "start": 71843,
+            "end": 72157,
+            "text": "Vou propor a criação de uma subcomissão específica para tratar deste tema, porque assim conseguiremos criar um coletivo com a presença dos Parlamentares, com um espaço permanente de consulta pública, para que, num curto prazo, nas próximas semanas, façamos avançar esse debate, que requer, de fato, muita urgência.",
+            "score": 0.5874
+          },
+          "udv": {
+            "id": "udv-152-1-0",
+            "rule": "same_sentence",
+            "score": 0.5379
+          }
+        },
+        {
+          "text": "Cobra a transformação das sugestões e avaliações trazidas nas audiências em encaminhamentos concretos, medidas administrativas e legislativas, rejeitando que as falas se percam sem consequência prática.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 64,
+            "start": 109525,
+            "end": 109562,
+            "text": "É preciso haver consequência prática.",
+            "score": 0.2353
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o reforço do Sistema Único de Saúde (SUS) como elemento inter-relacionado com as políticas de atendimento, apoio e reparação das pessoas com deficiência vítimas de acidentes de trânsito.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 0,
+            "start": 63,
+            "end": 386,
+            "text": "Declaro aberta a presente reunião de audiência pública da Comissão de Defesa dos Direitos das Pessoas com Deficiência, atendendo ao Requerimento nº 42, de 2023, de minha autoria, Deputado Márcio Jerry, para debater as políticas de atendimento, apoio e reparação das pessoas com deficiência vítimas de acidentes de trânsito.",
+            "score": 0.3678
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o ranking do Brasil no âmbito global, afirmando que o país é \"top 3\" em número de acidentes de trânsito, e defende um esforço permanente para diminuir essa incidência.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 57372,
+            "end": 57629,
+            "text": "Dentro de uma política pública, nós precisamos fazer com que haja um esforço permanente e continuado para diminuir essa incidência e para tirar o Brasil desserankingruim, pois somostop 3no âmbito global de países com o maior número de acidentes de trânsito.",
+            "score": 0.4685
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a eficácia das políticas públicas como critério para justificar a necessidade de espaços institucionais específicos (Secretarias e Comissões) em todos os níveis federativos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia a urgência de suas propostas na existência de prazos datados e na iminência de lacunas no atendimento estatal, como no caso do DPVAT.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 56302,
+            "end": 56373,
+            "text": "Nós estamos diante de um caso concreto que tem prazo, que tem urgência.",
+            "score": 0.214
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a transversalidade das políticas públicas, justificando a abordagem do DPVAT pela interseção com vidas humanas, educação no trânsito, prevenção e reparação.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 56797,
+            "end": 56921,
+            "text": "Aqui nós estamos tratando de vidas humanas, de pessoas com deficiência, de educação no trânsito, de prevenção, de reparação.",
+            "score": 0.5172
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza o diálogo institucional e a interlocução direta com órgãos como a Caixa Econômica Federal e o Governo Federal como meio para obter soluções duradouras e permanentes.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 56106,
+            "end": 56300,
+            "text": "Nós oportunizamos esse espaço de debate, que é muito esclarecedor, traz muitas sugestões importantes e propicia que nós busquemos, pelo diálogo, soluções institucionais, duradouras, permanentes.",
+            "score": 0.2396
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Requerimento nº 42, de 2023, que deu origem à audiência sobre o DPVAT.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 0,
+            "start": 2619,
+            "end": 2707,
+            "text": "Após as explanações, será concedida a palavra, por 10 minutos, ao autor do requerimento.",
+            "score": 0.2463
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se subscritor do Requerimento nº 6, de 2023, de autoria da Deputada Erika Kokay, sobre cultura inclusiva.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 0,
+            "start": 63,
+            "end": 403,
+            "text": "Declaro aberta a presente audiência pública da Comissão de Defesa dos Direitos das Pessoas com Deficiência, atendendo ao Requerimento nº 6, de 2023, de autoria da Deputada Erika Kokay, subscrito pelo Deputado Márcio Jerry, para debater o temaA cultura inclusiva e acessível: promoção da inclusão das pessoas com deficiência através da arte.",
+            "score": 0.4125
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma presidir a Frente Parlamentar do SUS na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 57698,
+            "end": 57772,
+            "text": "Eu tenho a imensa honra de presidir, na Casa, a Frente Parlamentar do SUS.",
+            "score": 0.5277
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Presidente da Comissão de Defesa dos Direitos das Pessoas com Deficiência.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 0,
+            "start": 63,
+            "end": 386,
+            "text": "Declaro aberta a presente reunião de audiência pública da Comissão de Defesa dos Direitos das Pessoas com Deficiência, atendendo ao Requerimento nº 42, de 2023, de minha autoria, Deputado Márcio Jerry, para debater as políticas de atendimento, apoio e reparação das pessoas com deficiência vítimas de acidentes de trânsito.",
+            "score": 0.3246
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Emprega a audiodescrição de si mesmo e do ambiente ao iniciar as sessões, demonstrando a prática da acessibilidade como parte da condução.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 0,
+            "start": 527,
+            "end": 593,
+            "text": "Peço que os demais façam o mesmo, quando forem iniciar suas falas.",
+            "score": 0.2158
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza metáforas de urgência e risco, como \"limbo iminente\", \"contagem regressiva\" e \"lançar luz\", para enfatizar a gravidade das situações debatidas.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 18,
+            "start": 56606,
+            "end": 56643,
+            "text": "Nós precisamos lançar luz sobre isso.",
+            "score": 0.3207
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos propondo ações institucionais concretas, como a criação de subcomissões, seminários e a solicitação de levantamentos à Consultoria da Casa.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom de compromisso e responsabilidade, reiterando a obrigação da Comissão de extrair encaminhamentos práticos dos debates e de não deixar as contribuições dos convidados sem desdobramento.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 24,
+            "start": 71682,
+            "end": 71842,
+            "text": "Uma forma de não deixar que debates tão importantes como este se percam é a estruturação de um local adequado para que consigam se desdobrar em encaminhamentos.",
+            "score": 0.2019
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados e rankings globais (como a posição do Brasil em acidentes de trânsito) para fundamentar a necessidade de mudança de postura estatal.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 12,
+      "split": "validation",
+      "article_date": "2023-12-19",
+      "title": "Mulheres com deficiência são as maiores vítimas de violações de direitos, apontam especialistas",
+      "assunto": "Violações de direitos de mulheres com deficiência",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 53,
+      "split": "train",
+      "article_date": "2023-05-17",
+      "title": "Debatedores defendem participação de pessoas com deficiência nos projetos culturais para garantir inclusão",
+      "assunto": "Participação de pessoas com deficiência nos projetos culturais para garantir inclusão",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 152,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Debatedores alertam sobre extinção da lei que regulamenta o seguro obrigatório para vítimas do trânsito",
+      "assunto": "Extinção da lei que regulamenta o seguro obrigatório DPVAT para vítimas de trânsito",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-152-1-0",
+      "hearing_id": 152,
+      "n": 3,
+      "article_name": "Márcio Jerry",
+      "proposition": "Vai criar uma subcomissão para acompanhar o assunto e negociar uma solução junto ao governo federal: \"Vamos propor a criação de uma subcomissão específica para esse tema, porque aí a gente consegue criar um coletivo, com a presença dos parlamentares, com um espaço permanente também de consulta pública para, no curto prazo, nessas próximas semanas, fazer avançar esse debate, já que ele requer, de fato, muita urgência.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vou propor a criação de uma subcomissão específica para tratar deste tema, porque assim conseguiremos criar um coletivo com a presença dos Parlamentares, com um espaço permanente de consulta pública, para que, num curto prazo, nas próximas semanas, façamos avançar esse debate, que requer, de fato, muita urgência. Nós vamos agora para a rodada de considerações finais.",
+        "turn": 24,
+        "start": 71843,
+        "end": 72213
+      },
+      "verifier": {
+        "probability": 0.7328084245577009,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

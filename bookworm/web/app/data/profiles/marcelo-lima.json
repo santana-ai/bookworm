@@ -1,0 +1,262 @@
+{
+  "actor": {
+    "slug": "marcelo-lima",
+    "name": "MARCELO LIMA",
+    "display_name": "MARCELO LIMA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PSB - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:03:28+00:00",
+    "n_statements": 14,
+    "n_hearings": 2,
+    "hearing_ids": [
+      144,
+      199
+    ],
+    "input_tokens": 3555,
+    "output_tokens": 687,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a retomada e a ampliação do Programa Farmácia Popular, especificamente para incluir medicamentos de alto custo, argumentando que essa é uma demanda frequente recebida na base eleitoral e que o programa foi perdido em São Bernardo do Campo há 4 anos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 181477,
+            "end": 181565,
+            "text": "É possível ou não termos no Programa Farmácia Popular também medicamentos de alto custo?",
+            "score": 0.3709
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a finalidade e a forma de implantação da telessaúde, buscando entender a visão do Ministério da Saúde sobre o programa.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 181567,
+            "end": 181685,
+            "text": "Eu também queria entender um pouquinho, Ministra, a visão do Ministério que está sob o seu comando sobre a telessaúde.",
+            "score": 0.4269
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de cursos de medicina nas Universidades Federais do ABC (em São Bernardo do Campo e Santo André), argumentando que a região possui campi importantes, mas falta mão de obra médica nos municípios e há jovens cursando medicina no Paraguai por preços menores.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 181956,
+            "end": 182052,
+            "text": "Nós temos duas Universidades Federais do ABC, uma em São Bernardo do Campo e uma em Santo André.",
+            "score": 0.3901
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a baixa adesão dos municípios ao novo Programa de Aceleração do Crescimento (PAC) e propõe que o Governo Federal utilize sua publicidade e o Ministério das Comunicações para divulgar o programa, além de sugerir que os deputados ajudem na divulgação direta com prefeitos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 86,
+            "start": 135414,
+            "end": 135590,
+            "text": "Eu vejo que o senhor tem um grande projeto, que é o Programa de Aceleração do Crescimento — PAC, que já tivemos no passado, e não está havendo adesão ou procura dos Municípios.",
+            "score": 0.2512
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério do Desenvolvimento, Indústria e Comércio Exterior (ou órgão responsável pelo PAC) a abertura de uma linha de comunicação para que os municípios conheçam o programa e façam a adesão.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 86,
+            "start": 136677,
+            "end": 136851,
+            "text": "Por fim, eu queria fazer um questionamento: há alguma linha de comunicação aberta para que os Municípios, primeiro, tenham conhecimento do programa e, depois, façam a adesão?",
+            "score": 0.2616
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a necessidade de interlocução entre o Poder Legislativo e o Executivo (municipal, estadual e federal) como critério para justificar a participação em audiências e a formulação de perguntas, visando melhorar o atendimento à ponta.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 180590,
+            "end": 180921,
+            "text": "O Ministério da Saúde, o Ministério da Educação, o Poder Executivo acabam elaborando algumas questões, e nós precisamos levá-las à ponta e, inclusive, fazer esta interlocução, que eu acho muito importante, fundamental, até para que o Poder Executivo, seja no âmbito municipal, estadual ou federal, possa melhorar o seu atendimento.",
+            "score": 0.3786
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas propostas na observação de dificuldades práticas enfrentadas por municípios pequenos, como a falta de recursos para contratar projetos executivos básicos, o que impede a adesão a programas federais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Valoriza a atuação técnica e apartidária dos ministros, justificando seu apoio à Ministra Nísia e ao Ministro Jader Filho pela forma como atenderam demandas de prefeitos de diferentes partidos (como o PSDB) e pelo respeito ao Parlamento.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 86,
+            "start": 134259,
+            "end": 134294,
+            "text": "Cumprimento o Ministro Jader Filho.",
+            "score": 0.2388
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal e morador de São Bernardo do Campo, no ABC Paulista.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 181868,
+            "end": 181955,
+            "text": "Nós temos uma bandeira lá no ABC Paulista — a Ministra sabe que eu sou de São Bernardo.",
+            "score": 0.3378
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma não ser do Partido dos Trabalhadores (PT).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 183021,
+            "end": 183038,
+            "text": "Eu não sou do PT.",
+            "score": 0.3501
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se à disposição do Ministro Jader Filho para ajudar na divulgação do PAC e no que puder contribuir na Câmara.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 86,
+            "start": 134816,
+            "end": 134906,
+            "text": "No que eu puder ajudar, pode contar com o Deputado Marcelo aqui na Câmara, Ministro Jader.",
+            "score": 0.4431
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Constrói argumentos baseados em demandas recebidas diretamente de prefeitos, vereadores e cidadãos de sua base eleitoral, citando exemplos concretos como a perda do Farmácia Popular em São Bernardo e a falta de curso de medicina no ABC.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 180923,
+            "end": 180976,
+            "text": "O Programa Farmácia Popular é um programa importante.",
+            "score": 0.1583
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o tom de elogio e reconhecimento público aos ministros presentes (Nísia e Jader Filho), destacando a \"tranquilidade\", o \"respeito\" e a \"ausência de cor partidária\" no atendimento, para reforçar a legitimidade de suas perguntas e propostas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 183524,
+            "end": 183775,
+            "text": "Eu queria novamente lhe agradecer o atendimento e deixar muito claro a todos que a Ministra nos atendeu com muita tranquilidade, com muito respeito e — o mais importante — não viu cor partidária e não viu ideologia partidária, mas sim a saúde e o SUS.",
+            "score": 0.2355
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega perguntas diretas e específicas para cobrar informações técnicas (como a inclusão de remédios de alto custo no Farmácia Popular ou a linha de comunicação do PAC), demonstrando interesse em soluções práticas e operacionais.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 278,
+            "start": 181477,
+            "end": 181565,
+            "text": "É possível ou não termos no Programa Farmácia Popular também medicamentos de alto custo?",
+            "score": 0.2336
+          },
+          "udv": null
+        },
+        {
+          "text": "Oferece-se ativamente para mediar a comunicação entre o governo federal e os municípios, propondo o uso de redes sociais e contatos pessoais (\"tête-à-tête\") para aumentar a adesão a programas federais.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 86,
+            "start": 135667,
+            "end": 135766,
+            "text": "Será que podemos ajudar, não só nas nossas redes sociais, mas também notête-à-têtecom os Prefeitos?",
+            "score": 0.1554
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 13,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

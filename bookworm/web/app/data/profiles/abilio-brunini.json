@@ -1,0 +1,489 @@
+{
+  "actor": {
+    "slug": "abilio-brunini",
+    "name": "Abilio Brunini",
+    "display_name": "Abilio Brunini",
+    "role": "Deputado (PL-MT)",
+    "article_names": [
+      "Abilio Brunini"
+    ],
+    "party_uf": [
+      "PL - MT"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:16:36+00:00",
+    "n_statements": 36,
+    "n_hearings": 4,
+    "hearing_ids": [
+      94,
+      144,
+      171,
+      194
+    ],
+    "input_tokens": 8663,
+    "output_tokens": 1179,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 26,
+    "with_udv": 0,
+    "passage_only": 24,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a simplificação dos diagnósticos iniciais de autismo e o início imediato do tratamento no serviço público, argumentando que a burocracia atual prejudica o desenvolvimento das crianças e que investir na primeira infância reduz custos futuros para o Estado.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 73819,
+            "end": 74234,
+            "text": "Então, o meu pedido, Deputada, é que nós possamos unir forças para simplificar os diagnósticos na fase inicial e iniciar o tratamento no serviço público e que o Ministério da Saúde tenha isso como prioridade, porque uma criança que consegue receber os cuidados já no início da sua infância vai ter um resultado brilhante durante a sua adolescência e vai diminuir os custos para o Estado quando ela tiver mais idade.",
+            "score": 0.2515
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica severamente o tratamento oferecido pelo SUS, classificando-o como \"danoso\" e \"quase um assassinato de capacidade\" devido a exames demorados e sem significado, como a ressonância magnética em crianças pequenas.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 73395,
+            "end": 73576,
+            "text": "Vou falar a verdade: é quase um assassinato de capacidade o que fazem, porque tentam subordinar as crianças a exames e processos que demoram às vezes 2 anos, 3 anos para ser feitos.",
+            "score": 0.2569
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Saúde, em conjunto com o Ministério da Educação, a regulamentação da atuação de profissionais de universidades públicas federais (como fonoaudiólogos e educadores físicos) em estágio nas escolas públicas para auxiliar crianças autistas.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 75103,
+            "end": 75604,
+            "text": "E, às vezes, são discutidas aqui no Congresso tantas pautas fúteis, tantas pautas improdutivas que não levam a nada, enquanto são deixadas de lado pautas essenciais, como a regulamentação pelo Ministério da Saúde, em conjunto com o Ministério da Educação, da atuação de profissionais das universidades públicas federais, profissionais de educação física, fonoaudiólogos ou profissionais de qualquer área da educação que queiram fazer estágio nas escolas públicas para auxiliar as […]",
+            "score": 0.573
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a atuação dos planos de saúde como \"crime\" por negarem atendimento e forçarem a judicialização, pedindo que a Agência Nacional de Saúde (ANS) pare o que chama de \"boicote\" às pessoas autistas.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 76508,
+            "end": 76757,
+            "text": "Então, quero pedir a você que, se pudermos mostrar para o Governo que essa não é uma pauta partidária, uma pauta política, e ir junto lá, nos ajude a cobrar da Agência Nacional de Saúde que pare o boicote às crianças autistas e aos adultos autistas.",
+            "score": 0.2988
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o INSS pelo tempo excessivo para concessão de benefícios e propõe que o Bolsa Família para famílias com pessoas com deficiência seja diferenciado e maior que o valor padrão de R$ 600,00, devido aos custos elevados de tratamento.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 77755,
+            "end": 77960,
+            "text": "Fala-se de Bolsa Família, mas o Bolsa Família para uma família que não tem uma criança autista deveria ser diferente do Bolsa Família da família que tem uma pessoa com deficiência, seja ela autista ou não.",
+            "score": 0.3155
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige fiscalização dos planos de mobilidade urbana elaborados por empresas privadas, que considera \"copia e cola\" e sem cálculo de riscos, resultando em ciclovias desconectadas e inseguras.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 20,
+            "start": 62338,
+            "end": 62503,
+            "text": "Presidente, é que existe um grandelobbynacional de empresas que vendem planos \"copia e cola\", sem que se calculem os riscos, os perigos de se fazer isso nas cidades.",
+            "score": 0.3137
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe alteração no Estatuto da Cidade para vincular o plano de mobilidade ao plano diretor e criar incentivos para a integração do transporte público com a mobilidade ciclística, incluindo a adaptação de ônibus para receber bicicletas.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 20,
+            "start": 64433,
+            "end": 64567,
+            "text": "Outra coisa é pedir que haja alteração no Estatuto da Cidade, para que também preveja incentivos e planejamentos para o plano diretor.",
+            "score": 0.3975
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de recursos para mobilidade urbana no novo PAC e a proposta de cobrança de IPVA sobre bicicletas elétricas na reforma tributária, defendendo a criação de um grupo de trabalho multissetorial para reavaliar essa tributação.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 30,
+            "start": 75171,
+            "end": 75251,
+            "text": "Gostaria que fosse criado grupo de trabalho multissetorial, de várias Comissões.",
+            "score": 0.2162
+          },
+          "udv": null
+        },
+        {
+          "text": "No âmbito da saúde, questiona a Ministra Nísia Trindade sobre a adesão do Ministério da Saúde à ciência, criticando protocolos do Conselho Nacional de Saúde (CNS) que aceitam tratamentos baseados em fé e a falta de respaldo científico para mudanças de gênero em crianças e adolescentes no SUS.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 260,
+            "start": 183858,
+            "end": 183984,
+            "text": "Inclusive, não há respaldo científico na mudança de gênero de crianças e adolescentes, e em procedimentos realizados pelo SUS.",
+            "score": 0.3271
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do DENASUS a apuração de recursos repassados ao Consórcio Nordeste durante a pandemia, citando escândalos de corrupção na compra de respiradores, e questiona se houve negação de vacinas no governo anterior.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 260,
+            "start": 184682,
+            "end": 184873,
+            "text": "se vai cobrar do DENASUS que sejam apurados os recursos repassados ao Consórcio Nordeste durante o período da COVID, quando houve escândalos de corrupção, até mesmo na compra de respiradores.",
+            "score": 0.5654
+          },
+          "udv": null
+        },
+        {
+          "text": "No PAC, pede ao Ministério das Cidades que respeite a decisão do Governo de Mato Grosso sobre a substituição do VLT pelo BRT em Cuiabá, criticando o conflito político entre o Governador e o Prefeito que trava a obra.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 62,
+            "start": 94863,
+            "end": 95080,
+            "text": "Peço que respeite uma decisão já tomada pelo Governo do Estado, em vista de um grande escândalo de corrupção que já houve no Estado de Mato Grosso, um escândalo que envolveu desvio de dinheiro das obras do antigo VLT.",
+            "score": 0.2602
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a incorporação da Lei de Assistência Técnica (Lei nº 11.888/2008) à LOA e à LDO para permitir o direcionamento de emendas para adequação de moradias existentes, e a abertura de uma carteira de emendas para regularização fundiária via REURB, reduzindo a burocracia para execução em 1 ano.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 62,
+            "start": 96642,
+            "end": 96769,
+            "text": "Neste caso, nós temos a Lei nº 11.888, de 2008, a Lei da Assistência Técnica, que é uma lei federal, que oferece esta condição.",
+            "score": 0.3896
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere um modelo de parceria entre Legislativo e Executivo para habitação, onde cada real de emenda parlamentar seria complementado por 1 real do Governo Federal, dobrando o impacto dos recursos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 62,
+            "start": 100126,
+            "end": 100185,
+            "text": "Trata-se de uma parceria entre o Executivo e o Legislativo.",
+            "score": 0.3752
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio da laicidade do Estado como critério para exigir que o Ministério da Saúde siga apenas a ciência, rejeitando protocolos baseados em manifestações religiosas ou fé.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 260,
+            "start": 183438,
+            "end": 183539,
+            "text": "Se for pela fé que vai seguir a questão da saúde, que sejam respeitadas todas as manifestações de fé.",
+            "score": 0.2398
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio da eficiência da administração pública como fundamento para criticar a contratação de empresas de mobilidade urbana que entregam planos genéricos sem análise de origem e destino dos usuários.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 20,
+            "start": 63336,
+            "end": 63407,
+            "text": "Um dos princípios da administração pública é o princípio da eficiência.",
+            "score": 0.4025
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a equidade no tratamento de pessoas com deficiência, argumentando que a igualdade formal não basta e que o Estado deve oferecer condições específicas para que o autista seja reconhecido como cidadão com os mesmos direitos.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 78464,
+            "end": 78525,
+            "text": "O autista tem que ter os mesmos direitos de qualquer cidadão.",
+            "score": 0.37
+          },
+          "udv": null
+        },
+        {
+          "text": "Enfatiza a importância de unir forças independentemente de lados políticos, partidários ou ideológicos para resolver problemas práticos como o atendimento a autistas e a mobilidade urbana.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 72492,
+            "end": 72773,
+            "text": "Também quero que nós unamos forças, independentemente de lados políticos, partidários e ideológicos ou qualquer coisa nesse sentido, para conseguirmos trazer resultados práticos para que as crianças e os adultos possam ter um atendimento digno em todos os Municípios do nosso País.",
+            "score": 0.4283
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se pai de uma criança autista, o que motiva seu envolvimento na pauta.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 72032,
+            "end": 72121,
+            "text": "Sou pai do Sebastian, que tem 2 anos e meio e tem autismo — ele está no espectro autista.",
+            "score": 0.2287
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como arquiteto e urbanista com especializações em Mobilidade Urbana e Mobilidade Ciclística.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 20,
+            "start": 62007,
+            "end": 62065,
+            "text": "Uma das minhas especializações é em Mobilidade Ciclística.",
+            "score": 0.4982
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser Presidente da Subcomissão Especial de Mobilidade Urbana na Comissão de Desenvolvimento Urbano, além de integrar as Comissões de Direitos Humanos, Saúde e Finanças e Tributação.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 62,
+            "start": 93094,
+            "end": 93410,
+            "text": "Ministro, primeiro, eu gostaria de dizer que eu estou como Presidente da Subcomissão Especial de Mobilidade Urbana, no âmbito da Comissão de Desenvolvimento Urbano, que trata sobre a mobilidade urbana das cidades, principalmente em se tratando do desenvolvimento de cidades com mobilidade urbana entre o BRT e o VLT.",
+            "score": 0.412
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se Deputado de oposição, mas destaca a acessibilidade do Ministro das Cidades para diálogo e destinação de emendas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 62,
+            "start": 101117,
+            "end": 101334,
+            "text": "Passa a ser interessante para que nós Deputados, entre os quais eu, um Deputado de oposição, destinemos emendas a esta área, com a garantia de que elas serão executadas, independentemente de sermos de oposição ou não.",
+            "score": 0.2479
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados pessoais e experiências familiares (filho autista, esposa ciclista) para embasar argumentos técnicos e políticos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a linguagem emotiva e acusatória (\"crime\", \"assassinato de capacidade\", \"vergonha\") ao criticar o SUS, planos de saúde e INSS.",
+          "passage": {
+            "hearing_id": 94,
+            "turn": 38,
+            "start": 76354,
+            "end": 76404,
+            "text": "O que os planos de saúde estão fazendo é um crime!",
+            "score": 0.308
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe soluções legislativas concretas, como alteração de leis, criação de grupos de trabalho e mecanismos de emendas, em vez de apenas apontar problemas.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 20,
+            "start": 67624,
+            "end": 67712,
+            "text": "crie, se for possível, um grupo de trabalho para fazermos a necessária revisão das leis.",
+            "score": 0.1525
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos locais (Cuiabá, Cáceres, Várzea Grande) para ilustrar falhas nacionais de planejamento e execução de políticas públicas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 62,
+            "start": 93850,
+            "end": 94054,
+            "text": "O Prefeito ainda insiste que vai conseguir recursos com o Governo Federal para colocar o VLT só na cidade de Cuiabá, enquanto o Governador já iniciou a execução do BRT no Município vizinho, Várzea Grande.",
+            "score": 0.2066
+          },
+          "udv": null
+        },
+        {
+          "text": "Negocia prazos e condições de fala na sessão, demonstrando pragmatismo no controle do tempo e da pauta.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 17,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Em seminário na Câmara, especialistas discordam sobre ativismo judicial",
+      "assunto": "Debate sobre ativismo judicial na Câmara dos Deputados",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 94,
+      "split": "train",
+      "article_date": "2023-06-28",
+      "title": "Representantes de pessoas autistas cobram oportunidades e respeito às singularidades",
+      "assunto": "Garantia de oportunidades e respeito às singularidades das pessoas autistas",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 99,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Crianças e mulheres são as maiores vítimas da guerra na Faixa de Gaza, ressaltam debatedores",
+      "assunto": "Impacto da guerra na Faixa de Gaza sobre crianças e mulheres",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 22,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 194,
+      "split": "train",
+      "article_date": "2023-08-15",
+      "title": "Especialistas defendem diminuição de velocidade das vias para garantir segurança de pedestres e ciclistas",
+      "assunto": "Diminuição da velocidade das vias para garantir segurança de pedestres e ciclistas",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-99-5-0",
+      "hearing_id": 99,
+      "n": 16,
+      "article_name": "Abilio Brunini",
+      "proposition": "Protestou por não ter podido participar do debate.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Mas, ao finalizar a reunião, esperava que houvesse uma possibilidade de diálogo com aquelas outras pessoas que estavam aqui. Então, eu vou fazer um novo requerimento, que sugiro também aos Deputados que o façamos, para convidar as mesmas entidades que estiveram aqui presentes e a elas propor o diálogo.",
+        "turn": 74,
+        "start": 142915,
+        "end": 143219
+      },
+      "verifier": {
+        "probability": 0.12502394910046097,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-99-5-1",
+      "hearing_id": 99,
+      "n": 17,
+      "article_name": "Abilio Brunini",
+      "proposition": "Fará novo requerimento para realização de audiência pública, com os mesmos convidados, para dar espaço a deputados com posição divergente de dialogarem: \"Eu não celebro a morte de inocentes. São reféns de um governo terrorista que é o Hamas. Mas Palestina também precisa pregar a paz com os territórios vizinhos.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Eu gostaria de deixar o posicionamento bem claro de que eu não celebro a morte de inocentes. Em momento nenhum, nem eu nem nenhum dos Deputados que estão presentes comemoramos ou celebramos a morte de inocentes. As crianças, as mulheres, os idosos, as pessoas com deficiência, as pessoas trabalhadoras, os inocentes que estão ali na Faixa de Gaza, esses palestinos são reféns de um governo terrorista que é o Hamas.",
+        "turn": 74,
+        "start": 139656,
+        "end": 140071
+      },
+      "verifier": {
+        "probability": 0.2486173208977036,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-99-5-2",
+      "hearing_id": 99,
+      "n": 18,
+      "article_name": "Abilio Brunini",
+      "proposition": "Falou sobre a dor do povo de Israel e dos reféns mantidos pelo Hamas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Infelizmente, pessoas inocentes acabaram perdendo a vida, como aquele senhor que fez o relato sobre a sua família e com quem eu me solidarizo. Eu digo que não é justo que ele tenha perdido a sua família, mas também não é justo o que houve a todas as pessoas que perderam os seus familiares, às que ainda têm entes queridos sequestrados pelo Hamas e às que estejam na Faixa de Gaza.",
+        "turn": 74,
+        "start": 142102,
+        "end": 142483
+      },
+      "verifier": {
+        "probability": 0.913440166987739,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

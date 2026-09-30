@@ -1,0 +1,502 @@
+{
+  "actor": {
+    "slug": "jorge-goetten",
+    "name": "Jorge Goetten",
+    "display_name": "Jorge Goetten",
+    "role": "Deputado (PL-SC)",
+    "article_names": [
+      "Jorge Goetten"
+    ],
+    "party_uf": [
+      "PL - SC"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:18:25+00:00",
+    "n_statements": 9,
+    "n_hearings": 2,
+    "hearing_ids": [
+      44,
+      193
+    ],
+    "input_tokens": 7342,
+    "output_tokens": 1007,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 2,
+    "passage_only": 21,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a exploração de petróleo na Margem Equatorial interessa a todo o Brasil, não apenas ao Norte e Nordeste, pois melhora a vida das pessoas nessas regiões e torna o País mais justo e igual.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 44,
+            "start": 149239,
+            "end": 149373,
+            "text": "Primeiro, socialmente, se melhora a vida das pessoas no Nordeste e melhora a vida das pessoas no Norte, é bom também para todo o País.",
+            "score": 0.4181
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a politização da pauta ambiental e econômica do petróleo, argumentando que é preciso buscar consenso em vez de perder energia em disputas políticas.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 44,
+            "start": 150291,
+            "end": 150321,
+            "text": "Nós temos que buscar consenso.",
+            "score": 0.3255
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que os benefícios sociais e econômicos da exploração de petróleo cheguem diretamente à população, especialmente às pessoas que mais necessitam, para diminuir a desigualdade, evitando desvios.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 44,
+            "start": 151511,
+            "end": 151731,
+            "text": "Eu acho que é superimportante que esses benefícios sociais, de que nós falamos aqui, que esses Estados e a Região Norte e Nordeste vão ter vão direto na veia, vão direto para a população, senão, acontecem muitos desvios.",
+            "score": 0.1951
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra que a PETROBRAS se antecipe às adversidades ambientais apontadas pelo IBAMA, preparando-se para possíveis acidentes, pois o lucro econômico e social e a reputação do Brasil estão em jogo.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 44,
+            "start": 150898,
+            "end": 151022,
+            "text": "O lucro econômico e social poderá ser perdido se acontecer um acidente, porque está em questão também a reputação do Brasil.",
+            "score": 0.2817
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a taxa de juros real brasileira, citando dados de fevereiro de 2023 (inflação de 5,6%, taxa Selic de 13,75%, juro real de 8,15%) e de agosto de 2023 (inflação de 3,16%, taxa Selic de 13,25%, juro real de 10,9%), afirmando que a conta não fecha e que o juro real aumentou mais de 20% no período.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 2,
+            "start": 5087,
+            "end": 5146,
+            "text": "O juro, em fevereiro, era 8,15%, e a taxa SELIC era 13,75%.",
+            "score": 0.5547
+          },
+          "udv": {
+            "id": "udv-193-1-1",
+            "rule": "similar_text",
+            "score": 0.5341
+          }
+        },
+        {
+          "text": "Defende o papel social dos bancos públicos, criticando o lucro do Banco do Brasil (8 bilhões de reais no segundo trimestre) e a recusa em reduzir o juro do consignado de 2,3% para 1,7%, conforme determinado pelo Ministro Carlos Lupi, argumentando que lucrar em cima do sofrimento não é ético.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 125751,
+            "end": 125817,
+            "text": "Mas acho que não é ético lucrar em cima do sofrimento das pessoas.",
+            "score": 0.3562
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a limitação da taxa de juros no Brasil, citando estudo do Banco Mundial segundo o qual 76 países realizam medidas restritivas, e exemplificando com Portugal e Reino Unido.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 48,
+            "start": 132536,
+            "end": 132806,
+            "text": "Foi falado aqui sobre o rotativo, e ele trouxe uns dados aqui de 2 países, que eu compartilho com vocês, de que é comum a limitação da taxa de juros na economia mundial, conforme estudo do Banco Mundial, que revela que 76 países realizam algum tipo de medida restritiva.",
+            "score": 0.4126
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a independência do Banco Central, mas critica que ele não seja independente do capital financeiro especulativo internacional, o que, na visão dele, impede a autonomia real.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 129976,
+            "end": 130216,
+            "text": "Mas algumas vezes eu fico refletindo enquanto caminho, gosto de caminhar sozinho e penso:\"Nós só esquecemos que o Banco Central não ficou independente do capital financeiro especulativo e principalmente internacional.Ele não tem autonomia\".",
+            "score": 0.3729
+          },
+          "udv": {
+            "id": "udv-193-1-0",
+            "rule": "same_sentence",
+            "score": 0.4902
+          }
+        },
+        {
+          "text": "Apela para o diálogo e a soma de ideias no Parlamento, rejeitando o extremismo e a lacração como caminhos para a solução dos problemas.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 131202,
+            "end": 131353,
+            "text": "Cada vez eu me convenço mais que, para a solução dos problemas, este Parlamento precisa de debates, de diálogo, não é de extremismo, não é de lacração.",
+            "score": 0.5398
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a redução da desigualdade e a justiça social como fundamento para defender a distribuição direta de benefícios econômicos e a função social dos bancos públicos.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 127183,
+            "end": 127240,
+            "text": "Eu acho que banco público tem que ter essa função social.",
+            "score": 0.2566
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a ética e a humanidade como critérios para criticar o lucro excessivo de instituições financeiras em um país desigual, justificando a cobrança por juros mais baixos e condições de crédito acessíveis.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 130301,
+            "end": 130338,
+            "text": "Então, o nosso País é muito desigual.",
+            "score": 0.2957
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência pessoal como microempresário e na observação da realidade dos pequenos empreendedores para justificar a necessidade de crédito acessível e de políticas que considerem a dificuldade de quem não tem opção de vida.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 121534,
+            "end": 121607,
+            "text": "O empresário, principalmente o pequeno empresário, não tem opção na vida.",
+            "score": 0.1682
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza o diálogo e o consenso como métodos para a construção de soluções, justificando a rejeição à politização de pautas técnicas e econômicas.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 131354,
+            "end": 131429,
+            "text": "Precisamos de diálogo e de somar ideias para encontrar caminhos e soluções.",
+            "score": 0.1921
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se do Partido Liberal (PL) e de Santa Catarina.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 44,
+            "start": 150194,
+            "end": 150260,
+            "text": "Eu sou do PL, sou de Santa Catarina e tenho interesse nessa pauta.",
+            "score": 0.3262
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como comerciante, micro e pequeno empresário, e empresário em regime de lucro real, com atuação em Santa Catarina.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 2,
+            "start": 3639,
+            "end": 3824,
+            "text": "Nós somos muito cobrados também, somos autocobrados, considerando que sou comerciante, sou micro e pequeno empresário e sou empresário também em outros regimes, no regime de lucro real.",
+            "score": 0.4705
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser Coordenador do Grupo de Trabalho sobre a Política de Combate à Violência nas Escolas Brasileiras.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 0,
+            "start": 561,
+            "end": 697,
+            "text": "Eu sou Coordenador do Grupo de Trabalho sobre a Política de Combate à Violência nas Escolas Brasileiras, e nós temos uma reunião depois.",
+            "score": 0.8053
+          },
+          "udv": null
+        },
+        {
+          "text": "Relata ter sido garçom dos 13 aos 18 anos e ter comprado sua primeira lanchonete aos 20 anos em Rio do Sul, Santa Catarina, mantendo-a há quarenta e poucos anos.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 10,
+            "start": 26024,
+            "end": 26139,
+            "text": "A minha primeira lanchonete, Deputado Lippi, eu comprei com 20 anos e tenho ainda, tenho há quarenta e poucos anos.",
+            "score": 0.5235
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ter um irmão que foi superintendente do Banco do Brasil e com quem diverge frequentemente sobre questões econômicas.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 124854,
+            "end": 124912,
+            "text": "Um dos meus irmãos foi superintendente do Banco do Brasil.",
+            "score": 0.3205
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados econômicos específicos (inflação, taxa Selic, juro real, lucros bancários) para fundamentar suas críticas e propostas.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 2,
+            "start": 5087,
+            "end": 5146,
+            "text": "O juro, em fevereiro, era 8,15%, e a taxa SELIC era 13,75%.",
+            "score": 0.2146
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a relatos pessoais e anedotas (experiência como garçom, compra da lanchonete, história do empresário Bloch) para ilustrar a realidade do empreendedor e a necessidade de crédito.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 2,
+            "start": 3825,
+            "end": 3897,
+            "text": "E, claro, como empreendedor, nós estamos sempre necessitando de crédito.",
+            "score": 0.1672
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com cordialidade, mas faz cobranças diretas a instituições (Banco Central, bancos públicos) e autoridades, usando expressões como \"isso é um absurdo\" e \"não é ético\".",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 45,
+            "start": 126992,
+            "end": 127092,
+            "text": "O Banco do Brasil e a Caixa, que são bancos públicos, também não aceitaram isso, o que é um absurdo.",
+            "score": 0.2927
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a metáfora da \"conta que não fecha\" para criticar a lógica dos juros e a expressão \"ir até a causa dos problemas\" para defender a análise das raízes das questões econômicas.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 2,
+            "start": 5038,
+            "end": 5064,
+            "text": "É uma conta que não fecha.",
+            "score": 0.3199
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos internacionais (Portugal, Reino Unido, México) e estudos (Banco Mundial) para sustentar propostas de regulação de juros.",
+          "passage": {
+            "hearing_id": 193,
+            "turn": 48,
+            "start": 132808,
+            "end": 133065,
+            "text": "Podem ser lembrados os exemplos de Portugal, em que os juros não podem ficar 25% acima da média por produto financeiro ou o Reino Unido, no qual, para um produto semelhante ao cheque especial, o pagamento de juros é limitado a duas vezes o valor emprestado.",
+            "score": 0.2381
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 44,
+      "split": "train",
+      "article_date": "2023-05-31",
+      "title": "Ibama vai examinar novo pedido da Petrobras para prospectar petróleo perto da foz do Rio Amazonas",
+      "assunto": "Exploração de petróleo na Margem Equatorial, próxima à foz do Rio Amazonas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 102,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Governo reforça importância comercial de reduzir emissões de carbono em terminais marítimos",
+      "assunto": "Redução das emissões de carbono em terminais marítimos e a transição energética no setor de transporte marítimo",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 108,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Representantes do setor de turismo pedem manutenção de incentivos",
+      "assunto": "Manutenção do Programa Emergencial de Retomada do Setor de Eventos (Perse)",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 113,
+      "split": "test",
+      "article_date": "2024-03-20",
+      "title": "Ministérios detalham na Câmara ações de prevenção de desastres naturais e auxílio à população",
+      "assunto": "Ações de prevenção de desastres naturais e auxílio à população detalhadas por ministérios na Câmara dos Deputados",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 193,
+      "split": "train",
+      "article_date": "2023-08-15",
+      "title": "Microempresários querem programa Desenrola para o setor; BC defende política de juros",
+      "assunto": "Microempresários defendem a criação de um programa Desenrola para enfrentar o endividamento agravado por altas taxas de juros",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-108-3-0",
+      "hearing_id": 108,
+      "n": 9,
+      "article_name": "Jorge Goetten",
+      "proposition": "A decisão do governo pode ser chamada de calote: \"É um verdadeiro calote que tira a previsibilidade, interrompe o planejamento e, principalmente, passa uma mensagem para o mercado: olha não vale não vale a pena investir no Brasil porque lá é uma insegurança.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós podemos achar outros termos, se quisermos, mas é um verdadeiro calote. Isso lhes tira a previsibilidade, interrompe o planejamento de vocês e, principalmente, passa para o mercado, para osplayersinternacionais e nacionais, a seguinte mensagem:\"Não vale a pena investir no Brasil, porque lá há insegurança.",
+        "turn": 29,
+        "start": 30483,
+        "end": 30792
+      },
+      "verifier": {
+        "probability": 0.9481546813382028,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-118-4-0",
+      "hearing_id": 118,
+      "n": 7,
+      "article_name": "Jorge Goetten",
+      "proposition": "Mesmo na oposição ao governo Lula, fez questão de elogiar os esforços de socorro às vítimas de enchentes em várias regiões do estado.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Minha solidariedade à defesa civil nacional e estadual por tudo que está fazendo pela nossa gente lá do Alto Vale. Então, meu muito obrigado.",
+        "turn": 9,
+        "start": 40439,
+        "end": 40580
+      },
+      "verifier": {
+        "probability": 0.18569775118603904,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-193-1-0",
+      "hearing_id": 193,
+      "n": 3,
+      "article_name": "Jorge Goetten",
+      "proposition": "Defende a autonomia do Banco Central.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mas algumas vezes eu fico refletindo enquanto caminho, gosto de caminhar sozinho e penso:\"Nós só esquecemos que o Banco Central não ficou independente do capital financeiro especulativo e principalmente internacional.Ele não tem autonomia\". Ele teria que ser independente disso também, independente do capital especulativo.",
+        "turn": 45,
+        "start": 129976,
+        "end": 130299
+      },
+      "verifier": {
+        "probability": 0.23547693987406346,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-193-1-1",
+      "hearing_id": 193,
+      "n": 4,
+      "article_name": "Jorge Goetten",
+      "proposition": "Criticou a dependência do Banco Central em relação ao capital especulativo internacional: \"Em fevereiro de 2023, nós tínhamos uma inflação de 5,6% e taxa de juros de 13,75%. O juro real estava na casa de 8,15%: disparado o maior juro real do mundo. Agora, em agosto de 2023, com inflação de 3,16%, a taxa caiu para 13,25%. O juro real foi para 10,9%. É uma conta que não fecha.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Em fevereiro de 2023, nós tínhamos uma inflação de 5,6%, e a taxa de juros era de 13,75%. O juro real, portanto, estava na casa dos 8,15%, Carlito, disparado o maior juro real do mundo naquela situação, em fevereiro. Agora, então, em agosto de 2023, 2 dias depois do pedido desta audiência — agradecemos a todas as autoridades, a todos os senhores que aceitaram o nosso convite para debater, para clarear a situação para nós, para o Brasil, para nosso micro e pequeno […]",
+        "turn": 2,
+        "start": 4338,
+        "end": 5009
+      },
+      "verifier": {
+        "probability": 0.5189076072978287,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

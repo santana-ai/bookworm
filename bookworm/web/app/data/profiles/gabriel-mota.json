@@ -1,0 +1,206 @@
+{
+  "actor": {
+    "slug": "gabriel-mota",
+    "name": "GABRIEL MOTA",
+    "display_name": "GABRIEL MOTA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - RR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:44:14+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      44
+    ],
+    "input_tokens": 2350,
+    "output_tokens": 521,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 11,
+    "with_udv": 0,
+    "passage_only": 9,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação urgente de uma matriz econômica no Estado de Roraima, argumentando que o estado está \"engessado\" e que a exploração de petróleo na Bacia Sedimentar do Tacutu representa a \"esperança do povo\" local.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 147456,
+            "end": 147567,
+            "text": "Trata-se de uma luta que estamos encorpando agora sobre a exploração de petróleo na Bacia Sedimentar do Tacutu.",
+            "score": 0.2965
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a PETROBRAS sobre o interesse em explorar petróleo na Bacia do Tacutu e a existência de estudos em andamento, estendendo a pergunta à equipe da empresa.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 148347,
+            "end": 148602,
+            "text": "Quero lhe perguntar se há interesse da PETROBRAS em explorar petróleo na Bacia do Tacutu, se há algum estudo em andamento, porque, aqui, eu vejo a esperança do povo do Estado de Roraima, e não há outra empresa que orgulha mais o Brasil do que a PETROBRAS.",
+            "score": 0.4569
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita levantamento segundo o qual o fechamento do garimpo fez deixar de circular em Roraima 250 milhões de reais por mês e que segmentos do comércio local perderam 70% do movimento, utilizando esses dados para afirmar que o estado \"praticamente quebrou\".",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 148044,
+            "end": 148133,
+            "text": "Deixaram de circular em Roraima 250 milhões de reais por mês com o fechamento do garimpo.",
+            "score": 0.4728
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que Roraima é o estado campeão de preservação e conservação no Brasil, com 75% do território demarcado (47% de área indígena), e que o estado \"dá exemplo para o restante do Brasil\".",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 146954,
+            "end": 147164,
+            "text": "Venho, Daniele Zaneti, de Roraima, Estado campeão de preservação e conservação no Brasil: 75% do território é demarcado, entre área indígena, parque de conservação e parque nacional, sendo 47% de área indígena.",
+            "score": 0.6328
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a preservação ambiental como argumento de legitimidade para a exploração econômica, ao destacar que Roraima possui alto percentual de áreas demarcadas e parques, justificando assim a necessidade de desenvolvimento econômico no estado.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Justifica a cobrança por desenvolvimento econômico com base no impacto social do fechamento do garimpo, citando o \"desespero, na fome, na miséria\" da população e a invasão de terra indígena para garimpar, embora declare ter sido contra essa prática na Casa.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 147854,
+            "end": 148013,
+            "text": "O povo de Roraima, no desespero, na fome, na miséria, teve que invadir terra indígena para garimpar na terra ianomâmi, sendo que eu sempre fui contra, na Casa.",
+            "score": 0.3696
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante de Roraima, estado que descreve como campeão de preservação e conservação no Brasil.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 147165,
+            "end": 147256,
+            "text": "Portanto, quanto à preservação e conservação, Roraima dá exemplo para o restante do Brasil.",
+            "score": 0.3221
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter sido contra a invasão de terra indígena para garimpar \"na Casa\", referindo-se à sua atuação parlamentar.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 147854,
+            "end": 148013,
+            "text": "O povo de Roraima, no desespero, na fome, na miséria, teve que invadir terra indígena para garimpar na terra ianomâmi, sendo que eu sempre fui contra, na Casa.",
+            "score": 0.3412
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos específicos (percentuais de território demarcado, valores em reais, percentuais de perda comercial) para sustentar suas posições.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Parabeniza e elogia a PETROBRAS e sua equipe, chamando a empresa de \"orgulho do nosso País\" e \"orgulho do Brasil\", antes de fazer sua pergunta.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 147258,
+            "end": 147455,
+            "text": "Presidente, a única pergunta que eu quero fazer é para Daniele, da PETROBRAS, e estendo a toda a sua equipe, a quem eu quero parabenizar e dizer que são o orgulho do nosso País, do povo brasileiro.",
+            "score": 0.4107
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliatório e protocolar, cumprimentando o Presidente do IBAMA e o Presidente da sessão, e declarando-se \"bem breve\" antes de expor seu ponto.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 42,
+            "start": 146931,
+            "end": 146952,
+            "text": "Eu vou ser bem breve.",
+            "score": 0.255
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 44,
+      "split": "train",
+      "article_date": "2023-05-31",
+      "title": "Ibama vai examinar novo pedido da Petrobras para prospectar petróleo perto da foz do Rio Amazonas",
+      "assunto": "Exploração de petróleo na Margem Equatorial, próxima à foz do Rio Amazonas",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,508 @@
+{
+  "actor": {
+    "slug": "lidice-da-mata",
+    "name": "Lídice da Mata",
+    "display_name": "Lídice da Mata",
+    "role": "Deputada (PSB-BA)",
+    "article_names": [
+      "Lídice da Mata"
+    ],
+    "party_uf": [
+      "Bloco/PSB - BA",
+      "PSB - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:44:23+00:00",
+    "n_statements": 22,
+    "n_hearings": 3,
+    "hearing_ids": [
+      51,
+      69,
+      145
+    ],
+    "input_tokens": 16919,
+    "output_tokens": 1093,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 2,
+    "passage_only": 21,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a integração do jovem ao processo político desde a educação básica, argumentando que a formação de valores democráticos, o respeito às diferenças e a convivência com a diversidade são essenciais para combater a desinformação, as fake news e a manipulação da opinião pública.",
+          "passage": {
+            "hearing_id": 69,
+            "turn": 10,
+            "start": 41184,
+            "end": 41417,
+            "text": "Então, é com esse desafio que nós nos colocamos num momento em que, nas eleições de 2018, a grande marca do processo eleitoral foi a presença forte das redes sociais e, com elas, a manipulação da opinião pública através dasfake news.",
+            "score": 0.2189
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a disseminação de fake news e o uso das redes sociais para a destruição de biografias, o bullying e a disseminação do ódio, defendendo a conscientização da juventude sobre o uso cidadão das plataformas e a natureza criminal da desinformação.",
+          "passage": {
+            "hearing_id": 69,
+            "turn": 10,
+            "start": 45442,
+            "end": 45639,
+            "text": "Portanto, é muito importante desenvolver na juventude a consciência do uso correto das redes sociais, do uso cidadão das redes sociais, do uso com cidadania, com respeito aos valores da democracia.",
+            "score": 0.3768
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o financiamento urgente e permanente da extensão universitária, rejeitando a lógica de editais temporários (como o PROEX) e propondo a inclusão de um percentual definido no orçamento das universidades e do Ministério da Educação.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 57,
+            "start": 123808,
+            "end": 123857,
+            "text": "Primeiro, é o financiamento urgente e permanente.",
+            "score": 0.3518
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um pacto federativo para o financiamento da extensão, incluindo as universidades estaduais e municipais, e a integração das ações extensionistas com as políticas públicas intersetoriais de outros ministérios.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 57,
+            "start": 124237,
+            "end": 124455,
+            "text": "Há necessidade de um pacto federativo que possa incluir, portanto, outras esferas de ensino extensionista, não apenas as universidades e institutos federais, mas também as instituições de ensino estaduais e municipais.",
+            "score": 0.2639
+          },
+          "udv": {
+            "id": "udv-51-4-2",
+            "rule": "same_sentence",
+            "score": 0.1974
+          }
+        },
+        {
+          "text": "Defende a priorização das emendas parlamentares para investimento e não apenas para custeio, visando a reconstituição dos orçamentos das universidades que ainda não alcançaram o patamar de dez anos atrás.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 57,
+            "start": 126179,
+            "end": 126351,
+            "text": "Não sei se já sairemos disto nessa próxima fase, porque, na reconstituição dos orçamentos das universidades, muitos lugares ainda não alcançaram o patamar de 10 anos atrás.",
+            "score": 0.417
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão da extensão universitária como prioridade na pauta do Ministério da Educação e na Comissão de Orçamento da Câmara, propondo a atuação conjunta das bancadas regionais e a negociação direta com o MEC.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 57,
+            "start": 124590,
+            "end": 124714,
+            "text": "E finalmente é a adoção clara de inclusão da extensão na prioridade da pauta do Ministério da Educação e de toda a política.",
+            "score": 0.3417
+          },
+          "udv": {
+            "id": "udv-51-4-0",
+            "rule": "similar_text",
+            "score": 0.3455
+          }
+        },
+        {
+          "text": "Defende a necessidade de tratar os Estados do Norte do Brasil com atenção especial e de forma desigual, devido às grandes distâncias e à situação social e ambiental, para garantir a equidade no acesso à educação.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 57,
+            "start": 129661,
+            "end": 130029,
+            "text": "Então, por isso, também acho que devemos dedicar uma atenção especial à discussão com o MEC e à discussão das nossas propostas para indicar caminhos que possam fortalecer as ações, eu diria, do Norte e Nordeste, mas especialmente do Norte, nesse caso em função das grandes distâncias e de toda a situação social e ambiental, que se destaca nesse momento no nosso País.",
+            "score": 0.3565
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a realização de audiências públicas periódicas sobre o engajamento juvenil em cada ciclo eleitoral, visando à formação política e cidadã contínua.",
+          "passage": {
+            "hearing_id": 69,
+            "turn": 2,
+            "start": 12122,
+            "end": 12334,
+            "text": "Maria Claudia, que trouxe informações muito interessantes para a nossa discussão sobre o engajamento dos jovens nesse processo de debate, de formação de cidadania e de estímulo à participação e formação política.",
+            "score": 0.1823
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a confiança nas urnas eletrônicas e no resultado das eleições, criticando os ataques ao sistema de votação e defendendo o respeito ao debate democrático e à racionalidade.",
+          "passage": {
+            "hearing_id": 69,
+            "turn": 20,
+            "start": 59811,
+            "end": 59949,
+            "text": "Dizer isso, neste momento, é reafirmar o compromisso com as urnas eletrônicas, com as eleições brasileiras e com o resultado das eleições.",
+            "score": 0.3434
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a Constituição de 1988 e o direito ao voto aos 16 anos como fundamentos para a participação juvenil, citando a trajetória histórica da aprovação dessa medida na Constituinte.",
+          "passage": {
+            "hearing_id": 69,
+            "turn": 10,
+            "start": 39879,
+            "end": 40015,
+            "text": "Com a Constituição de 1988, na Constituinte, o Deputado Hermes Zaneti, do Rio Grande do Sul, foi o autor do projeto do voto aos 16 anos.",
+            "score": 0.345
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio da equidade para justificar a necessidade de políticas diferenciadas para o Norte do Brasil, argumentando que tratar desiguais de maneira igual impede o alcance de objetivos educacionais justos.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 57,
+            "start": 129553,
+            "end": 129660,
+            "text": "Temos que tratar os desiguais de forma desigual, senão não conseguiremos alcançar os objetivos, a equidade.",
+            "score": 0.31
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da extensão universitária na ideia de formação humana, cidadã e ética, argumentando que a formação técnica e acadêmica isolada não forma pessoas completas.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 18,
+            "start": 52240,
+            "end": 52318,
+            "text": "A extensão tem o papel de trazer a formação humana, a formação cidadã e ética.",
+            "score": 0.4812
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a luta pelo financiamento da educação com a necessidade de reconstrução do país e do orçamento, reconhecendo a dificuldade política de operar com minoria no Congresso Nacional, mas afirmando a capacidade da pauta educacional de sensibilizar aliados de diferentes espectros.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 58,
+            "start": 132018,
+            "end": 132102,
+            "text": "E a minoria do Presidente, no Congresso Nacional, é demonstrada em pautas como esta.",
+            "score": 0.2476
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a democracia como um processo que exige preparação, formação e respeito à ideia do outro, rejeitando a resolução de conflitos pelo grito ou pela xingamento.",
+          "passage": {
+            "hearing_id": 69,
+            "turn": 18,
+            "start": 56105,
+            "end": 56149,
+            "text": "O respeito é o grande desafio da democracia.",
+            "score": 0.2339
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autora dos requerimentos que originaram as audiências e coordenadora da bancada da Bahia na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 57,
+            "start": 128796,
+            "end": 129002,
+            "text": "Como disse, alguns de nós têm uma participação mais voltada, em seus Estados, para a questão orçamentária, como é o meu caso, porque eu sou coordenadora da bancada e permanentemente discuto sobre orçamento.",
+            "score": 0.1795
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como \"jovem constituinte\" que participou da aprovação do voto aos 16 anos na Constituinte de 1988.",
+          "passage": {
+            "hearing_id": 69,
+            "turn": 10,
+            "start": 39879,
+            "end": 40015,
+            "text": "Com a Constituição de 1988, na Constituinte, o Deputado Hermes Zaneti, do Rio Grande do Sul, foi o autor do projeto do voto aos 16 anos.",
+            "score": 0.4303
+          },
+          "udv": null
+        },
+        {
+          "text": "Afilia-se ao campo político que elegeu o governo atual, referindo-se a si e a seus pares como \"nós\" que \"não ganhamos a eleição com maioria no Congresso Nacional\".",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 58,
+            "start": 131866,
+            "end": 132017,
+            "text": "Nós não ganhamos a eleição — \"nós\", no caso, são os que estiveram nesse campo político —, nós não ganhamos a eleição com maioria no Congresso Nacional.",
+            "score": 0.5753
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com a luta em defesa da educação pública e cita como parceiros os Deputados Helder Salomão, Jorge Solla, Dandara e a Deputada Professora Rosa Neide.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 23,
+            "start": 78921,
+            "end": 79183,
+            "text": "Registro ainda a presença do sempre atuante defensor da educação pública no Brasil, o Deputado Jorge Solla, do PT da Bahia; e da Deputada Dandara, do PT de Minas Gerais — muito obrigada, Deputada Dandara, mais uma mulher de luta em defesa da educação brasileira.",
+            "score": 0.3635
+          },
+          "udv": null
+        },
+        {
+          "text": "Representa a Comissão de Educação da Câmara dos Deputados, da qual é membro e que presidiu as sessões.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 21,
+            "start": 75818,
+            "end": 75855,
+            "text": "Temos uma Câmara Técnica de Extensão.",
+            "score": 0.196
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos específicos para sustentar suas posições, como o aumento de 47% no alistamento de jovens eleitores, o número de matrículas nos institutos federais e o percentual de estudantes com renda familiar de até um salário mínimo.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 18,
+            "start": 50506,
+            "end": 50592,
+            "text": "Nós temos a maioria dos nossos estudantes com renda familiar de até um salário mínimo.",
+            "score": 0.3995
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre à memória histórica e pessoal, citando sua participação na Constituinte e a trajetória de colegas de universidade, para dar legitimidade e contexto aos seus argumentos.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 18,
+            "start": 46003,
+            "end": 46142,
+            "text": "É uma honra para nós compartilhar este espaço com vocês, colegas pró-reitores e reitores, com os colegas que compõem a Mesa comigo, o Prof.",
+            "score": 0.1505
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura suas falas de encerramento como sistematizações dos pontos levantados pelos expositores, definindo próximos passos concretos, como a elaboração de relatórios, a identificação de deputados estaduais para articulação orçamentária e a agendamento de audiências com o MEC.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de mobilização política, utilizando expressões como \"batalha política\", \"luta indispensável\" e \"Brasil voltou\", e apela para a perseverança e a ousadia na negociação orçamentária.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 58,
+            "start": 133276,
+            "end": 133391,
+            "text": "Eu agradeço a todas as pessoas aqui presentes, para que possam dirigir comigo e com Comissão esta batalha política.",
+            "score": 0.1806
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os convidados com deferência e reconhecimento de sua expertise, mas mantém o controle rigoroso do tempo e da ordem dos trabalhos, ajustando a dinâmica da mesa conforme a necessidade.",
+          "passage": {
+            "hearing_id": 51,
+            "turn": 0,
+            "start": 2431,
+            "end": 2497,
+            "text": "A Mesa dos debates será composta pelos seguintes convidados: Prof.",
+            "score": 0.1506
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 51,
+      "split": "train",
+      "article_date": "2023-05-25",
+      "title": "Extensão universitária depende de financiamento permanente, defendem debatedores",
+      "assunto": "Financiamento permanente e integração dos programas de extensão universitária com políticas governamentais",
+      "turns": 13,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 69,
+      "split": "train",
+      "article_date": "2022-08-08",
+      "title": "Debatedores defendem engajamento de jovens na política para combater ataques à democracia",
+      "assunto": "Engajamento de jovens na política para combater ataques à democracia",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 130,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Representantes do audiovisual sugerem a deputados medidas para estimular o setor",
+      "assunto": "Medidas sugeridas por representantes do setor audiovisual brasileiro para enfrentar a concorrência do cinema e do streaming norte-americanos",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 131,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Concessionária e governo anunciam em reunião na Câmara acordo para a duplicação da BR-116 na Bahia",
+      "assunto": "Acordo para a duplicação da BR-116 na Bahia",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-51-4-0",
+      "hearing_id": 51,
+      "n": 11,
+      "article_name": "Lídice da Mata",
+      "proposition": "Comprometeu-se a trabalhar para assegurar destinação orçamentária permanente para os programas de extensão universitária: \"Nós devemos atuar na Comissão de Orçamento para incluir a extensão no orçamento das universidades, do Ministério da Educação, trabalhar nas emendas das bancadas regionais. O nosso entendimento é que nós precisamos ampliar os orçamentos das universidades para ampliar também o orçamento da extensão universitária.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Mas nós devemos atuar na Comissão de Orçamento para incluir a extensão no orçamento das universidades, no orçamento do Ministério da Educação, discutido e negociado com o Ministério da Educação. E vamos pedir uma audiência, portanto, ao Ministro, ao MEC para que possamos levar esses documentos, obviamente convidando as instituições aqui presentes para expressar essa necessidade e trabalhar nas emendas regionais, das bancadas regionais.",
+        "turn": 57,
+        "start": 125498,
+        "end": 125937
+      },
+      "verifier": {
+        "probability": 0.9672935413636686,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-51-4-1",
+      "hearing_id": 51,
+      "n": 12,
+      "article_name": "Lídice da Mata",
+      "proposition": "Considera fundamental a criação de uma política sistêmica da extensão, em integração com as demais ações do governo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Essa é uma fala de todos. O segundo ponto é a necessidade de formação de uma organização sistêmica desse processo de extensão com outras ações de Governo.",
+        "turn": 57,
+        "start": 123858,
+        "end": 124013
+      },
+      "verifier": {
+        "probability": 0.9900170952494345,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-51-4-2",
+      "hearing_id": 51,
+      "n": 13,
+      "article_name": "Lídice da Mata",
+      "proposition": "É importante incluir estados e municípios no debate para o estabelecimento dessa política.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Há necessidade de um pacto federativo que possa incluir, portanto, outras esferas de ensino extensionista, não apenas as universidades e institutos federais, mas também as instituições de ensino estaduais e municipais. Então, é esse esforço que há de ser feito.",
+        "turn": 57,
+        "start": 124237,
+        "end": 124498
+      },
+      "verifier": {
+        "probability": 0.9613354299663244,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-69-2-0",
+      "hearing_id": 69,
+      "n": 3,
+      "article_name": "Lídice da Mata",
+      "proposition": "Salientou a forte presença dos jovens nas redes sociais e, em decorrência disso, a necessidade de democratizar o acesso ao que ela chamou de 'informação real': \"A criança de hoje já nasce conectada e, portanto, rapidamente ela se transforma num 'especialista' das redes sociais, das diversas plataformas e cada vez mais vai se desenvolver nessa dimensão. Por isso mesmo, uma boa formação da juventude no debate e nos valores democráticos fará com que nós possamos preparar a sociedade para o enfrentamento das fake news, para o enfrentamento da desinformação.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "A criança de hoje já nasce conectada e rapidamente se transforma em uma \"especialista\", entre aspas, em relação à geração acima dos 50 anos, das redes sociais, das diversas plataformas e, cada vez mais, vai se desenvolver nessa direção. Por isso, uma boa formação da juventude no debate e nos valores democráticos fará com que nós possamos preparar a sociedade para o enfrentamento dasfake news,para o enfrentamento da desinformação, da calúnia e das mentiras feitas através das […]",
+        "turn": 10,
+        "start": 42102,
+        "end": 42634
+      },
+      "verifier": {
+        "probability": 0.9898807749378196,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-130-1-0",
+      "hearing_id": 130,
+      "n": 3,
+      "article_name": "Lídice da Mata",
+      "proposition": "O setor audiovisual não é unanimidade na Câmara: \"Tem certos segmentos que só são convencidos de algumas ideias se elas têm uma abordagem vinculada à economia pragmaticamente, aí então eles passam a compreender melhor.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Seria muito bom que pudéssemos ter um debate sobre esses projetos também na Comissão de Desenvolvimento Econômico da Câmara dos Deputados e na Comissão de Assuntos Econômicos do Senado, para que, cada vez mais, \"contaminássemos\" — entre aspas — a discussão desses projetos específicos da área do audiovisual, a importância econômica que ela pode ter, porque há certos segmentos que só são convencidos de algumas ideias se elas têm uma abordagem vinculada à economia […]",
+        "turn": 7,
+        "start": 41984,
+        "end": 42507
+      },
+      "verifier": {
+        "probability": 0.8965897162624054,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

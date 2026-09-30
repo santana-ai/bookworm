@@ -1,0 +1,401 @@
+{
+  "actor": {
+    "slug": "alexandre-lindenmeyer",
+    "name": "Alexandre Lindenmeyer",
+    "display_name": "Alexandre Lindenmeyer",
+    "role": "Deputado (PT-RS)",
+    "article_names": [
+      "Alexandre Lindenmeyer"
+    ],
+    "party_uf": [
+      "Bloco/PT - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:32:48+00:00",
+    "n_statements": 10,
+    "n_hearings": 3,
+    "hearing_ids": [
+      51,
+      52,
+      149
+    ],
+    "input_tokens": 4659,
+    "output_tokens": 736,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 1,
+    "passage_only": 13,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o combate ao preconceito contra idosos exige enfrentar a questão cultural enraizada, que gera invisibilidade e trata o idoso como alguém a ser preservado apenas por possuir renda.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 63488,
+            "end": 63622,
+            "text": "Eu não vou generalizar, mas muitas, além da invisibilidade, são colocadas como alguém que tem que ser preservado porque tem uma renda.",
+            "score": 0.2933
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a violência financeira contra o idoso, citando especificamente o consignado implementado, que teria levado muitos a endividar-se em favor de terceiros, adoecer por stress e cair em golpes.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 63825,
+            "end": 63862,
+            "text": "Há toda uma violência contra o idoso.",
+            "score": 0.3504
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de políticas públicas que incentivem a prevenção à saúde em vez do consumo de medicamentos, sugerindo que o Estado articule com academias para oferecer acesso qualificado e credenciado a idosos em horários de ociosidade, reduzindo assim o endividamento com fármacos.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 65850,
+            "end": 66205,
+            "text": "Eu pergunto: por que não conseguimos construir políticas públicas que, em vez de investir na aquisição de medicamentos e de trabalhar nessa lógica, deem, por exemplo, oportunidade às pessoas idosas de terem acesso a uma academia qualificada com gente preparada e credenciada naqueles horários de intervalo, em que não há pico e as academias estão ociosas?",
+            "score": 0.2008
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a lógica de investir na indústria farmacêutica e na aquisição de medicamentos em detrimento de políticas de prevenção e saúde integral, argumentando que isso induz a população a ser hipocondríaca.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 66312,
+            "end": 66411,
+            "text": "Em vez de estarmos investindo na saúde, estamos investindo nos fármacos, na indústria farmacêutica.",
+            "score": 0.214
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Estado o avanço das políticas públicas na mesma proporção do envelhecimento populacional e da diminuição da natalidade, questionando o orçamento destinado a idosos e o percentual de moradia popular (Minha Casa, Minha Vida) destinado a essa faixa etária.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 65048,
+            "end": 65136,
+            "text": "Qual é o percentual que destinamos de construção de moradia popular para pessoas idosas?",
+            "score": 0.2578
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que, embora a legislação tenha avançado, ainda há desafios na aplicação das leis e na necessidade de avançar mais na proteção dos direitos dos idosos.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 65137,
+            "end": 65256,
+            "text": "Em muita legislação avançamos, mas ainda nos desafia não só a aplicação dessa legislação, mas avançarmos um pouco mais.",
+            "score": 0.2195
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência direta de gestão pública (Prefeito por 8 anos do Rio Grande/RS) e a observação de campo (chegada da Estratégia Saúde da Família em um condomínio) para fundamentar a necessidade de políticas que combatam o isolamento social e a invisibilidade dos idosos.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 63991,
+            "end": 64071,
+            "text": "Fui Prefeito por 8 anos da cidade do Rio Grande, no Estado do Rio Grande do Sul.",
+            "score": 0.2711
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas propostas na lógica de prevenção e qualidade de vida, argumentando que investir em atividades físicas e sociais (como academias) é mais eficaz e menos custoso do que tratar doenças com medicamentos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca a realidade demográfica (diminuição da natalidade e aumento do topo da pirâmide etária) como justificativa para a urgência de reestruturação do Estado e planejamento de longo prazo.",
+          "passage": {
+            "hearing_id": 149,
+            "turn": 0,
+            "start": 3144,
+            "end": 3177,
+            "text": "O topo da pirâmide tem aumentado.",
+            "score": 0.2941
+          },
+          "udv": {
+            "id": "udv-149-0-0",
+            "rule": "similar_text",
+            "score": 0.3001
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal e ex-Prefeito da cidade do Rio Grande, no Estado do Rio Grande do Sul, por 8 anos.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 63991,
+            "end": 64071,
+            "text": "Fui Prefeito por 8 anos da cidade do Rio Grande, no Estado do Rio Grande do Sul.",
+            "score": 0.7529
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter 59 anos e que, no ano seguinte à fala, será considerado idoso pela lei, mas mantém sua intensidade e prazer no trabalho.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 66771,
+            "end": 66886,
+            "text": "No ano que vem, já vou ser considerado idoso pela lei, mas, como a senhora falou, continuo pensando da mesma forma.",
+            "score": 0.3248
+          },
+          "udv": null
+        },
+        {
+          "text": "Preside a Comissão de Defesa dos Direitos da Pessoa Idosa, conforme evidenciado na condução da audiência de 19/10/2023, onde convoca a reunião e apresenta os convidados.",
+          "passage": {
+            "hearing_id": 149,
+            "turn": 0,
+            "start": 101,
+            "end": 201,
+            "text": "Declaro aberta esta reunião de audiência pública da Comissão de Defesa dos Direitos da Pessoa Idosa.",
+            "score": 0.4285
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Recorre a dados e casos concretos da sua base eleitoral e de sua experiência administrativa para ilustrar problemas sistêmicos, como o caso dos 80 idosos isolados em um condomínio de 800 apartamentos.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 64230,
+            "end": 64651,
+            "text": "Em um determinado condomínio de 800 apartamentos, chegamos com a Estratégia Saúde da Família e com os agentes comunitários e foi impactante chegarmos à conclusão de que naquele condomínio havia pelo menos 80 idosos morando sós — o que não é problema —, mas muitos relataram para os agentes comunitários que estes eram as únicas visitas com as quais conversavam, ou seja, eram invisíveis que não tinham com quem conversar.",
+            "score": 0.1795
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza exemplos pessoais e familiares (seu pai de 92 anos) para humanizar o debate e ilustrar as falhas do sistema de saúde e a necessidade de prevenção.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 65258,
+            "end": 65285,
+            "text": "O meu pai está com 92 anos.",
+            "score": 0.4095
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom colaborativo e reflexivo, parabenizando a iniciativa da audiência e os colegas, mas fazendo cobranças diretas sobre orçamento e aplicação de políticas públicas.",
+          "passage": {
+            "hearing_id": 52,
+            "turn": 15,
+            "start": 64072,
+            "end": 64116,
+            "text": "São muito importantes as políticas públicas.",
+            "score": 0.1859
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos conectando problemas culturais e financeiros (consignado, golpes) com a necessidade de mudança de paradigma nas políticas de saúde (de curativo para preventivo).",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 51,
+      "split": "train",
+      "article_date": "2023-05-25",
+      "title": "Extensão universitária depende de financiamento permanente, defendem debatedores",
+      "assunto": "Financiamento permanente e integração dos programas de extensão universitária com políticas governamentais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 52,
+      "split": "train",
+      "article_date": "2023-05-18",
+      "title": "Educação, legislação e convivência entre as gerações podem diminuir preconceito contra idosos",
+      "assunto": "Discussão sobre o preconceito contra idosos e medidas para combatê-lo",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 87,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Relatório da regulamentação do trabalho de motoristas de aplicativo deve ser apresentado antes do recesso",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 110,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados cobram prioridade para agenda do envelhecimento saudável no G20",
+      "assunto": "Prioridade para a agenda do envelhecimento saudável no G20",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 120,
+      "split": "validation",
+      "article_date": "2023-12-07",
+      "title": "Médicos e sindicatos mostram a precarização do trabalho em mineração",
+      "assunto": "Precarização do trabalho na mineração brasileira",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 149,
+      "split": "train",
+      "article_date": "2023-10-19",
+      "title": "Mudança demográfica exige reestruturação do Estado, afirmam especialistas",
+      "assunto": "Mudança demográfica e a necessidade de reestruturação do Estado para atender ao envelhecimento da população brasileira",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-110-1-0",
+      "hearing_id": 110,
+      "n": 3,
+      "article_name": "Alexandre Lindenmeyer",
+      "proposition": "A pauta do envelhecimento saudável não é exclusiva do Brasil.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Alexandre falou sobre a questão da cultura, do lazer, do esporte, da efetiva inclusão, mas isso vem de trás. Nós estamos falando de longevidade, mas em que condições as pessoas idosas estão chegando aos 60, aos 70, aos 80 anos?",
+        "turn": 40,
+        "start": 61313,
+        "end": 61542
+      },
+      "verifier": {
+        "probability": 0.25148716946243704,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-110-1-1",
+      "hearing_id": 110,
+      "n": 4,
+      "article_name": "Alexandre Lindenmeyer",
+      "proposition": "Os investimentos em um bom envelhecimento devem começar cedo e abranger o tipo de alimentação e o acesso ao lazer e ao esporte desde a juventude.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Desculpem-me pela expressão:\"Como é que vamos faturar em cima desse povo?\" Temos que começar na fonte, com o tipo de alimentação, acesso ao esporte, ao lazer, à cultura. Isso não acontecerá aos 60 anos, a partir dos 65 anos.",
+        "turn": 40,
+        "start": 61922,
+        "end": 62147
+      },
+      "verifier": {
+        "probability": 0.7555422011951017,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-120-4-0",
+      "hearing_id": 120,
+      "n": 10,
+      "article_name": "Alexandre Lindenmeyer",
+      "proposition": "Lamentou a ausência de representantes das mineradoras que foram convidados para a audiência, mas não compareceram: \"Diante do contexto, nós não temos a participação do outro lado. É um tema que, por vezes, passa à margem do conhecimento da ampla maioria do povo brasileiro, mas é um tema recorrente para quem está vivendo na pele as suas dores e as suas perdas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este é um tema que passa, por vezes, à margem do conhecimento da ampla maioria do povo brasileiro. Fica à margem, mas é um assunto recorrente para quem está vivendo na pele as suas dores, as suas perdas.",
+        "turn": 21,
+        "start": 101457,
+        "end": 101660
+      },
+      "verifier": {
+        "probability": 0.6948019090082864,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-149-0-0",
+      "hearing_id": 149,
+      "n": 1,
+      "article_name": "Alexandre Lindenmeyer",
+      "proposition": "Preocupação com os recentes dados demográficos brasileiros que projetam para o ano de 2060 uma proporção de uma pessoa idosa (acima de 60 anos) para 1,6 pessoa na faixa de idade entre 14 e 59 anos: \"É importante que o Estado brasileiro se prepare, com ações de curto, médio e longo prazos, para uma outra realidade demográfica, com a diminuição da natalidade e o aumento da população idosa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Além disso, há alguns dados que nos preocupam, que nos chamam a atenção e que demandam a necessidade de que o Estado brasileiro, no curto, médio e longo prazo, possa estar preparado para uma outra realidade em relação à questão demográfica. A natalidade tem diminuído cada vez mais.",
+        "turn": 0,
+        "start": 2861,
+        "end": 3143
+      },
+      "verifier": {
+        "probability": 0.8297003648989402,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,371 @@
+{
+  "actor": {
+    "slug": "jeferson-dias-barbosa",
+    "name": "JEFERSON DIAS BARBOSA",
+    "display_name": "Jeferson Barbosa",
+    "role": "Assessor da presidência da Autoridade Nacional de Proteção de Dados (ANPD)",
+    "article_names": [
+      "Jeferson Barbosa"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:10:20+00:00",
+    "n_statements": 9,
+    "n_hearings": 2,
+    "hearing_ids": [
+      138,
+      166
+    ],
+    "input_tokens": 5740,
+    "output_tokens": 861,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 2,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a tecnologia blockchain possui potencial para transformar a prestação de serviços públicos, oferecendo benefícios como transparência, segurança, rastreabilidade e estabilidade, mas afirma que ela carece de pontos de atenção e controles adicionais no tratamento de dados pessoais.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 15,
+            "start": 58329,
+            "end": 58576,
+            "text": "Como destacou o próprio Deputado no seu requerimento, a tecnologia deblockchainpossui potencial para transformar a forma como os serviços públicos são prestados, oferecendo benefícios como transparência, segurança, rastreabilidade ou estabilidade.",
+            "score": 0.5102
+          },
+          "udv": {
+            "id": "udv-166-3-0",
+            "rule": "same_sentence",
+            "score": 0.3505
+          }
+        },
+        {
+          "text": "Critica a negligência das instituições em implementar mecanismos de segurança (técnicos, operacionais e administrativos), argumentando que as invasões e vazamentos de dados ocorrem devido à falha nessas camadas de proteção, e não por fragilidade intrínseca das estruturas de bancos de dados centralizados ou distribuídos.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 76,
+            "start": 149773,
+            "end": 149964,
+            "text": "Quando eu digo que os bancos centralizados e os bancos distribuídos têm segurança, eles têm, mas existem camadas e mecanismos que devem ser implementados para que esta segurança seja efetiva.",
+            "score": 0.3004
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a imutabilidade dos registros em blockchain pode conflitar com os direitos de correção e eliminação de dados previstos no art. 18 da LGPD, exigindo soluções técnicas como o armazenamento off-chain de dados pessoais e apenas metadados on-chain.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 15,
+            "start": 59929,
+            "end": 60310,
+            "text": "Conquanto a imutabilidade dos registros deblockchainpossa contribuir para a preservação de fraudes e corrupção, fortalecendo a integridade dos sistemas e das instituições públicas, essa característica pode trazer conflitos, com requisitos relativos à correção de dados incompletos, inexatos e desatualizados e à eliminação de dados pessoais previstos nos direitos previstos no art.",
+            "score": 0.308
+          },
+          "udv": {
+            "id": "udv-166-3-1",
+            "rule": "same_sentence",
+            "score": 0.3443
+          }
+        },
+        {
+          "text": "Propõe que a ANPD emita recomendações para a implementação de tecnologias emergentes, como a blockchain, visando corrigir limitações relacionadas à proteção de dados, citando experiências positivas junto ao TCU e ao Banco Central.",
+          "passage": {
+            "hearing_id": 138,
+            "turn": 38,
+            "start": 35351,
+            "end": 35469,
+            "text": "Vimos, inclusive, algumas implementações de qualidade, como as que estão sendo feitas junto ao TCU e ao Banco Central.",
+            "score": 0.2568
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a aprovação de medidas para fortalecer a estrutura da ANPD, incluindo um concurso público para 213 vagas, a contratação de pessoal terceirizado e a tramitação de um projeto de lei de reestruturação da autoridade, todos pendentes de aprovação no Executivo ou no Ministério da Justiça.",
+          "passage": {
+            "hearing_id": 138,
+            "turn": 29,
+            "start": 31239,
+            "end": 31296,
+            "text": "Este concurso aguarda aprovação do Ministério da Justiça.",
+            "score": 0.4128
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a ANPD deve atuar na fiscalização de todos os controladores de dados, desde pequenas empresas até grandes big techs, e que o processo sancionador é uma etapa posterior à avaliação administrativa das medidas de segurança adotadas.",
+          "passage": {
+            "hearing_id": 138,
+            "turn": 14,
+            "start": 22652,
+            "end": 22831,
+            "text": "Dessa forma, podemos, junto ao controlador de dados pessoais, saber se as medidas de segurança foram adotadas de forma adequada ou não, e a ANPD pode fazer o processo sancionador.",
+            "score": 0.2715
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a LGPD como fundamento central para avaliar tecnologias, exigindo que a garantia de direitos dos titulares (autodeterminação informativa) seja observada desde a concepção dos sistemas, independentemente da tecnologia utilizada.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 78,
+            "start": 150892,
+            "end": 151054,
+            "text": "Quando forem implementadas estas novas tecnologias, devem-se observar, desde a sua concepção, a garantia destes direitos e o exercício de direitos pelos cidadãos.",
+            "score": 0.2759
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio da minimização de dados, exigindo que a coleta seja limitada ao estritamente necessário e que o período de retenção seja definido conforme a finalidade, o que impõe restrições ao uso de blockchain devido à sua característica de imutabilidade.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 15,
+            "start": 64858,
+            "end": 64976,
+            "text": "O período de retenção deve ser definido de acordo com a finalidade do tratamento, ressalvadas as hipóteses de exceção.",
+            "score": 0.2742
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a segurança dos dados depende da implementação de camadas de proteção eficazes, e que a responsabilidade pela segurança recai sobre o controlador, que deve prover os mecanismos necessários para a tecnologia escolhida.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 76,
+            "start": 150118,
+            "end": 150310,
+            "text": "À medida que se avança, cabe ao controlador e à instituição que coleta estes dados fornecer todos os mecanismos necessários para prover a segurança e o uso das tecnologias que se vai utilizar.",
+            "score": 0.2677
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a transparência e a prestação de contas (accountability), exigindo que os agentes de tratamento demonstrem a adoção de medidas eficazes e que os titulares saibam a quem recorrer para exercer seus direitos, especialmente em modelos descentralizados.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 15,
+            "start": 66607,
+            "end": 66881,
+            "text": "Outra questão a que se deve atentar é a responsabilidade e a prestação de contas, a demonstração pelo agente do tratamento da adoção de medidas eficazes capazes de comprovar a observância e o cumprimento das normas de proteção de dados, inclusive, a eficácia dessas medidas.",
+            "score": 0.27
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da Autoridade Nacional de Proteção de Dados (ANPD), apresentando a visão da autoridade sobre os temas debatidos.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 15,
+            "start": 63263,
+            "end": 63427,
+            "text": "E a própria Autoridade Nacional de Proteção de Dados também deve ter um ponto de contato que possa responsabilizar pelo próprio tratamento que, no caso, é efetuado.",
+            "score": 0.1896
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a ANPD está em fase de estruturação, com apenas 16 funcionários dedicados à fiscalização, e que a equipe tem recebido reconhecimento internacional pelo trabalho de orientação.",
+          "passage": {
+            "hearing_id": 138,
+            "turn": 14,
+            "start": 23383,
+            "end": 23457,
+            "text": "Há apenas 16 funcionários dedicados a avaliar todos as empresas no Brasil.",
+            "score": 0.3893
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com a necessidade de melhoria dos sistemas de segurança, concordando com a premissa de que os sistemas atuais não possuem segurança suficiente para proteger os dados dos cidadãos.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 76,
+            "start": 149285,
+            "end": 149557,
+            "text": "Eu acho que hoje os sistemas não têm a segurança necessária, suficiente para proteger os dados do cidadão.Nós vemos isso por meio dos números que o senhor mesmo apresentou e por meio dos números de incidentes de segurança relacionados a dados pessoais recebidos pela ANPD.",
+            "score": 0.2297
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos para sustentar suas afirmações, como a menção a mais de 700 incidentes de segurança comunicados à ANPD e aos 16 processos sancionadores em andamento.",
+          "passage": {
+            "hearing_id": 138,
+            "turn": 14,
+            "start": 23203,
+            "end": 23310,
+            "text": "A ANPD tem 16 processos em andamento, fruto dessas normas publicadas que orientam o trabalho da autoridade.",
+            "score": 0.2845
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a experiências internacionais, citando a Autoridade Europeia para a Proteção de Dados, a Comissão de Proteção de Dados de Singapura e a Comissão Nacional de Informática e Liberdade da França, para embasar suas recomendações sobre blockchain.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 15,
+            "start": 61205,
+            "end": 61359,
+            "text": "E a Comissão Nacional de Informática e Liberdade da França também publicou soluções para utilização responsável deblockchainno contexto de dados pessoais.",
+            "score": 0.4053
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem técnica precisa, diferenciando conceitos como controladores, operadores, mineradores, redes com e sem permissão, e armazenamento on-chain e off-chain, para detalhar as implicações jurídicas e técnicas da tecnologia.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom colaborativo e institucional, oferecendo a disponibilidade da ANPD para colaborar com o Legislativo e incentivando a participação da sociedade em consultas públicas, como a realizada sobre transferências internacionais de dados.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 15,
+            "start": 64416,
+            "end": 64492,
+            "text": "É bastante interessante a participação e a contribuição de toda a sociedade.",
+            "score": 0.2109
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 138,
+      "split": "train",
+      "article_date": "2023-11-07",
+      "title": "Presidente da ANPD pede concurso para agência; divisão de fiscalização tem apenas 5 funcionários",
+      "assunto": "Pedido de concurso público e fortalecimento da Agência Nacional de Proteção de Dados (ANPD)",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 166,
+      "split": "train",
+      "article_date": "2023-09-20",
+      "title": "Especialistas defendem uso de tecnologia blockchain no serviço público",
+      "assunto": "Uso da tecnologia blockchain no serviço público",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 4
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-166-3-0",
+      "hearing_id": 166,
+      "n": 7,
+      "article_name": "Jeferson Barbosa",
+      "proposition": "Reconhece os ganhos do setor público ao usar sistemas baseados em blockchain.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Blockchainé algo que pode ser usado por instituições públicas e privadas para validar as transações de maneira muito segura e com o máximo de eficiência. Como destacou o próprio Deputado no seu requerimento, a tecnologia deblockchainpossui potencial para transformar a forma como os serviços públicos são prestados, oferecendo benefícios como transparência, segurança, rastreabilidade ou estabilidade.",
+        "turn": 15,
+        "start": 58175,
+        "end": 58576
+      },
+      "verifier": {
+        "probability": 0.9819636008505827,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-166-3-1",
+      "hearing_id": 166,
+      "n": 8,
+      "article_name": "Jeferson Barbosa",
+      "proposition": "Advertiu que pode haver conflitos com a Lei Geral de Proteção de Dados (LGPD).",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Conquanto a imutabilidade dos registros deblockchainpossa contribuir para a preservação de fraudes e corrupção, fortalecendo a integridade dos sistemas e das instituições públicas, essa característica pode trazer conflitos, com requisitos relativos à correção de dados incompletos, inexatos e desatualizados e à eliminação de dados pessoais previstos nos direitos previstos no art. 18 da própria LGPD.",
+        "turn": 15,
+        "start": 59929,
+        "end": 60330
+      },
+      "verifier": {
+        "probability": 0.8334909056951123,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-166-3-2",
+      "hearing_id": 166,
+      "n": 9,
+      "article_name": "Jeferson Barbosa",
+      "proposition": "A lei garante ao cidadão a eliminação dos seus dados pessoais da base de uma organização (empresa ou órgão público), o que se contrapõe à imutabilidade do blockchain.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Embora ablockchainseja frequentemente associada a transparência, descentralização e anonimato, as aplicações deblockchaincoletam e armazenam de fato dados relacionados às pessoas naturais, dados pessoais. Algumas aplicações deblockchain, como aquelas relacionadas, por exemplo, a verificação de identidade e registro de atestado de saúde, podem processar dados pessoais sensíveis na cadeia,on-chain.",
+        "turn": 15,
+        "start": 60331,
+        "end": 60730
+      },
+      "verifier": {
+        "probability": 0.16375551254051224,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-166-3-3",
+      "hearing_id": 166,
+      "n": 10,
+      "article_name": "Jeferson Barbosa",
+      "proposition": "\"As características do blockchain não deixam de ter consequências\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Outro ponto importante é avaliar cuidadosa e previamente a pertinência de se usarblockchain. As características dablockchainnão deixam de ter consequências no cumprimento das obrigações da própria LGPD.",
+        "turn": 15,
+        "start": 63429,
+        "end": 63631
+      },
+      "verifier": {
+        "probability": 0.9561298802395487,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

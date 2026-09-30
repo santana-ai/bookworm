@@ -1,0 +1,410 @@
+{
+  "actor": {
+    "slug": "reginete-bispo",
+    "name": "Reginete Bispo",
+    "display_name": "Reginete Bispo",
+    "role": "Deputada (PT-RS)",
+    "article_names": [
+      "Reginete Bispo"
+    ],
+    "party_uf": [
+      "Bloco/PT - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:20:35+00:00",
+    "n_statements": 20,
+    "n_hearings": 3,
+    "hearing_ids": [
+      153,
+      163,
+      172
+    ],
+    "input_tokens": 9342,
+    "output_tokens": 916,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a titulação e regularização dos territórios quilombolas, argumentando que a terra é fundamental para o desenvolvimento de qualquer outra política pública e que é necessária uma força-tarefa conjunta do Judiciário, Executivo e Legislativo para que isso aconteça.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 28,
+            "start": 74596,
+            "end": 74667,
+            "text": "A terra é fundamental para desenvolver qualquer outra política pública.",
+            "score": 0.3936
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a lentidão e a ineficácia das políticas públicas que chegam às comunidades quilombolas, apontando que, quando chegam, não impactam positivamente as comunidades.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 28,
+            "start": 73747,
+            "end": 73995,
+            "text": "Esta Mesa, que trata das políticas públicas para as mulheres negras, na verdade trata dos desafios que estão colocados, porque as políticas ainda não chegaram e, quando chegam, chegam de forma muito lenta, não impactam positivamente as comunidades.",
+            "score": 0.4896
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a reestruturação do departamento quilombola no INCRA, justificando a necessidade pela ausência de funcionários em todos os Estados e pelo avanço assustador da especulação imobiliária nos quilombos urbanos, citando o caso da comunidade do Quilombo Kédi em Porto Alegre.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 32,
+            "start": 90292,
+            "end": 90461,
+            "text": "Digo isso porque, em todos os Estados, inclusive no meu, simplesmente não há funcionários, e a especulação imobiliária nos quilombos urbanos avança de forma assustadora.",
+            "score": 0.3699
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão de pessoas que vivem de aluguel e não possuem imóvel próprio nos programas de recuperação habitacional pós-enchentes no Rio Grande do Sul, argumentando que não adianta fornecer bens como fogão e geladeira sem uma casa onde colocá-los.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 107,
+            "start": 179703,
+            "end": 179872,
+            "text": "Então, que possamos pensar em destinar esses 100 milhões também para isso, porque não adianta tu teres um fogão, uma geladeira, e não teres uma casa onde pôr esses bens.",
+            "score": 0.2615
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede atenção especial dos prefeitos de Arroio do Meio e de Lajeado para as comunidades quilombolas locais, solicitando que sejam contempladas com os recursos de recuperação, incluindo os 100 milhões de reais destinados à reconstrução.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 107,
+            "start": 179874,
+            "end": 180085,
+            "text": "Também quero pedir aos Prefeitos de Arroio do Meio e de Lajeado uma atenção especial para as comunidades tradicionais que nós temos lá, as comunidades quilombolas, que nos têm pedido socorro com muita veemência.",
+            "score": 0.3835
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de um plano robusto de prevenção e recuperação de moradias e cidades vinculado à recuperação do meio ambiente, em resposta às mudanças climáticas severas no Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 107,
+            "start": 178639,
+            "end": 178834,
+            "text": "Nós precisamos pensar num plano robusto, na recuperação das moradias, na recuperação das cidades, mas tem que estar vinculada a isso a recuperação do meio ambiente, a estratégia que vamos adotar.",
+            "score": 0.5164
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiia a manutenção de um escritório do Governo Federal no Rio Grande do Sul até o fim da crise humanitária, alinhando-se à proposta do Deputado Marcon.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 109,
+            "start": 180733,
+            "end": 180906,
+            "text": "Tenho acordo com o que coloca o Deputado Marcon sobre mantermos um escritório do Governo Federal no Rio Grande do Sul até que saiamos desta crise humanitária que nos assola.",
+            "score": 0.5331
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a reinstalação da Frente Parlamentar em Defesa das Comunidades Quilombolas e a articulação para evitar retrocessos na minirreforma eleitoral e na PEC 09, visando garantir que negros e maiorias invisibilizadas ocupem espaços de poder.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 45,
+            "start": 114612,
+            "end": 115060,
+            "text": "E, para nós Parlamentares negros, hoje é muito mais, porque vai para o plenário o requerimento de urgência da minirreforma eleitoral na sequência da PEC 09, e nós estamos articulados para garantir que não haja retrocessos nas conquistas que obtivemos em relação ao fundo partidário, ao fundo eleitoral e à política pública que realmente viabilize que nós, negros, negras e maiorias invisibilizadas, possamos ocupar os espaços de poder e de decisão.",
+            "score": 0.4405
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a premissa de que a educação é o único caminho possível para a transformação social, justificando a prioridade dada ao debate sobre a educação de meninas e mulheres negras e a necessidade de alterar a realidade de desigualdade educacional.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 36,
+            "start": 78361,
+            "end": 78446,
+            "text": "Ouvi aqui hoje de todos vocês que a educação continua sendo o único caminho possível.",
+            "score": 0.2989
+          },
+          "udv": null
+        },
+        {
+          "text": "Fundamenta suas posições sobre direitos territoriais na ideia de que a terra é a base para o exercício de outros direitos, como saúde e educação, o que justifica a cobrança por celeridade na titulação e na reconstrução habitacional.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca a superação do racismo e do machismo como critérios centrais para a formulação de políticas públicas, especialmente na educação, onde afirma que as crianças negras sentem o racismo efetivamente desde a escola infantil.",
+          "passage": {
+            "hearing_id": 163,
+            "turn": 0,
+            "start": 4693,
+            "end": 4863,
+            "text": "Eu sempre falo que as nossas crianças sentem o racismo efetivamente quando vão para a escola, seja na escola de educação infantil, seja durante todo o ensino fundamental.",
+            "score": 0.3841
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal Reginete Bispo, mulher negra, e representante da bancada gaúcha, que descreve como unida e articulada no enfrentamento das enchentes.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 0,
+            "start": 944,
+            "end": 985,
+            "text": "Eu sou a Deputada Federal Reginete Bispo.",
+            "score": 0.4186
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser autora do Requerimento nº 148, de 2023, que deu origem à audiência sobre o Censo Quilombola.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 0,
+            "start": 3434,
+            "end": 3464,
+            "text": "O que é esse Censo Quilombola?",
+            "score": 0.3576
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se alinhada ao Governo Federal, citando a atuação dos Ministros do Presidente Lula e a liberação de recursos para a reconstrução no Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 20,
+            "start": 46127,
+            "end": 46282,
+            "text": "O Presidente Lula também liberou mais recursos para a reconstrução das empresas e das propriedades, porque esta é uma região de muita agricultura familiar.",
+            "score": 0.2826
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a existência de uma frente parlamentar dos povos tradicionais de matriz africana na Casa e a tramitação do Projeto de Lei Makota Valdina.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 30,
+            "start": 82748,
+            "end": 82831,
+            "text": "Nesta Casa, temos uma frente parlamentar dos povos tradicionais de matriz africana.",
+            "score": 0.5715
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados do Censo 2022 do IBGE para contextualizar a amplitude das comunidades quilombolas, citando números específicos de residentes e municípios.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 0,
+            "start": 3543,
+            "end": 3607,
+            "text": "A Mesa 1 tratará do Censo 2022 do IBGE — Populações Quilombolas.",
+            "score": 0.3384
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a relatos de experiências locais e visitas a áreas afetadas por enchentes (como Maquiné, Caraá, Vale do Taquari e Arroio do Meio) para fundamentar a urgência das medidas de recuperação e prevenção.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 107,
+            "start": 177909,
+            "end": 178015,
+            "text": "Estive também, durante a catástrofe, não lembro se no primeiro ou no segundo ciclone, em Maquiné, Caraá...",
+            "score": 0.1557
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e solidária, utilizando expressões como \"coração na mão\", \"assustador\" e \"dor e sofrimento\" para descrever as situações de vulnerabilidade das comunidades.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 107,
+            "start": 178016,
+            "end": 178049,
+            "text": "Aquilo foi um negócio assustador!",
+            "score": 0.1589
+          },
+          "udv": null
+        },
+        {
+          "text": "Interage com os convidados reconhecendo suas contribuições e estabelecendo conexões pessoais ou institucionais, como ao citar encontros anteriores com representantes do MEC ou ao homenagear a militante Marta Almeida.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 20,
+            "start": 46742,
+            "end": 46805,
+            "text": "Se for possível, nós incluiremos a Marta Almeida em outra Mesa.",
+            "score": 0.1594
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 99,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Crianças e mulheres são as maiores vítimas da guerra na Faixa de Gaza, ressaltam debatedores",
+      "assunto": "Impacto da guerra na Faixa de Gaza sobre crianças e mulheres",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 163,
+      "split": "train",
+      "article_date": "2023-09-22",
+      "title": "Educadora sugere criação de grupo de trabalho na Câmara para discutir a educação de meninas e mulheres negras",
+      "assunto": "Discussão sobre a educação de meninas e mulheres negras na Câmara dos Deputados",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 172,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Censo quilombola representa primeiro passo na garantia de direitos, afirmam debatedores",
+      "assunto": "Censo quilombola e a utilização dos dados para garantir direitos e políticas públicas para a população quilombola",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 3
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-163-4-0",
+      "hearing_id": 163,
+      "n": 11,
+      "article_name": "Reginete Bispo",
+      "proposition": "\"Nós, parlamentares da educação, parlamentares negras, sabemos da importância desse debate e vamos continuar trabalhando para alterar essa realidade.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós Parlamentares, especialmente as Parlamentares da educação, as Parlamentares negras, sabemos da importância disso. Esse é o início desse debate.",
+        "turn": 36,
+        "start": 78736,
+        "end": 78883
+      },
+      "verifier": {
+        "probability": 0.3628091322097557,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-172-0-0",
+      "hearing_id": 172,
+      "n": 1,
+      "article_name": "Reginete Bispo",
+      "proposition": "\"Esses dados são um marco histórico, porque demonstram a diversidade e a amplitude das comunidades quilombolas no nosso País; no entanto, eles também ressaltam desafios críticos, como o acesso à terra, o enfrentamento à violência (como nós bem acompanhamos há décadas) e, no último período, o assassinato da Bernardete no estado da Bahia.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Esses dados são um marco histórico, porque demonstram a diversidade e a amplitude das comunidades quilombolas no nosso País. No entanto, eles também ressaltam desafios críticos, como o acesso à terra e o enfrentamento à violência, como nós bem acompanhamos há décadas. Aliás, no último período, comoveu toda a comunidade quilombola e todos os defensores de direitos humanos neste País o assassinato da Bernadete, no Estado da Bahia.",
+        "turn": 0,
+        "start": 2663,
+        "end": 3095
+      },
+      "verifier": {
+        "probability": 0.9948388987404713,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-172-0-1",
+      "hearing_id": 172,
+      "n": 2,
+      "article_name": "Reginete Bispo",
+      "proposition": "A situação das comunidades quilombolas pode ser ainda mais grave, pois o IBGE recenseou apenas as comunidades certificadas. Mas, conforme explicou, “a grande maioria das comunidades” não chegou sequer a essa fase.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A certificação é o primeiro passo. E nós também sabemos que a grande maioria das comunidades quilombolas do nosso País não chegou nem a esse momento de se autoidentificar e de se autodeclarar.",
+        "turn": 18,
+        "start": 39046,
+        "end": 39238
+      },
+      "verifier": {
+        "probability": 0.26739919293621894,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-172-0-2",
+      "hearing_id": 172,
+      "n": 3,
+      "article_name": "Reginete Bispo",
+      "proposition": "Defende que o governo vá até as comunidades para fazer o reconhecimento territorial e obter um retrato melhor da população quilombola.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Existem comunidades que são visivelmente quilombolas, mas que não foram tratadas assim porque não existe uma política pública que vá até a comunidade e a ajude a fazer todo o processo de autodeclaração. Quem faz isso é o movimento social.",
+        "turn": 18,
+        "start": 39342,
+        "end": 39580
+      },
+      "verifier": {
+        "probability": 0.3338249262619722,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "actor": {
+    "slug": "delegado-paulo-bilynskyj",
+    "name": "DELEGADO PAULO BILYNSKYJ",
+    "display_name": "Delegado Paulo Bilynskyj",
+    "role": "Deputado (PL-SP)",
+    "article_names": [
+      "Delegado Paulo Bilynskyj"
+    ],
+    "party_uf": [
+      "PL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:02:46+00:00",
+    "n_statements": 16,
+    "n_hearings": 1,
+    "hearing_ids": [
+      15
+    ],
+    "input_tokens": 2791,
+    "output_tokens": 752,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Oposta-se à inclusão da vacina contra a COVID-19 no plano anual de vacinação obrigatória para crianças de 6 meses a 5 anos, propondo que a medida seja substituída por um programa de campanha de vacinação voluntária.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 79,
+            "start": 106333,
+            "end": 106500,
+            "text": "Então, faz sentido torná-la obrigatória dentro do plano anual ou faz mais sentido, em vez de torná-la obrigatória em um plano anual, oferecer um programa de vacinação?",
+            "score": 0.3059
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a obrigatoriedade é desnecessária porque a vacina, segundo os dados apresentados pelo convidado, possui eficácia limitada (cita a marca de 50% de capacidade de tornar a pessoa incapaz de ficar doente e transmitir a doença no melhor caso) e não oferece proteção contra cepas futuras, dado que o vírus é sujeito a mutação.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 79,
+            "start": 105957,
+            "end": 106280,
+            "text": "Então, para compormos, o objetivo é obrigar a vacinação que, no melhor estudo que o senhor citou, tem 50% de capacidade de tornar a pessoa incapaz de ficar doente e transmitir a doença — no melhor caso que o senhor citou —, sendo que não há capacidade de proteção para cepas futuras, que é o desenvolvimento comum do vírus.",
+            "score": 0.4615
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a inclusão no plano anual criaria uma obrigação estatal de disponibilizar todas as novas versões da vacina para acatar as próximas cepas, o que seria mais adequado via campanha do que via obrigatoriedade legal.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 79,
+            "start": 106728,
+            "end": 106781,
+            "text": "E aí se faz via campanha e não via inclusão no plano.",
+            "score": 0.4257
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a opinião de sua esposa, médica neonatologista, para sustentar que não há indicação da vacina da COVID para bebês, pois não existe necessidade de vaciná-los tendo em vista a resposta imunológica, e que não existem estudos que indiquem a necessidade de vacinação de crianças de 6 meses a 8 anos.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 81,
+            "start": 107273,
+            "end": 107372,
+            "text": "Então, não existem estudos que indiquem a necessidade de vacinação de crianças de 6 meses a 8 anos.",
+            "score": 0.5706
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a postura do Ministro Flávio Dino, citando a declaração deste de que disponibilizaria a \"força da Polícia Federal\" e a \"espada da democracia\" para obrigar a vacinação, e alerta que a obrigatoriedade colocaria os pais na ilegalidade.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 77,
+            "start": 105408,
+            "end": 105551,
+            "text": "O Ministro Flávio Dino já disse que vai disponibilizar a força da Polícia Federal, por intermédio da \"espada da democracia\" — como ele citou...",
+            "score": 0.4851
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a adoção de uma campanha em vez da obrigatoriedade serve para \"economizar um grande desgaste na população brasileira\".",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 81,
+            "start": 107374,
+            "end": 107528,
+            "text": "Então, o que estou propondo para o senhor é, para economizar um grande desgaste na população brasileira, que não torne essa vacina obrigatória...(Palmas.)",
+            "score": 0.4527
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a eficácia técnica da vacina e a capacidade de proteção contra cepas futuras como critérios para avaliar a necessidade de obrigatoriedade, argumentando que a medida não faz sentido se a proteção é limitada e retroativa.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 71,
+            "start": 104142,
+            "end": 104169,
+            "text": "Mas não para cepas futuras?",
+            "score": 0.2702
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a proteção dos pais contra a ilegalidade como justificativa para rejeitar a obrigatoriedade, indicando que a decisão sobre a vacinação de crianças deve ser preservada como escolha parental.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 81,
+            "start": 107713,
+            "end": 107829,
+            "text": "Traga o Zé gotinha, mas não obrigue os pais a tomar essa decisão porque o senhor vai colocar os pais na ilegalidade.",
+            "score": 0.2419
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em argumentos de autoridade médica (o convidado presente e sua esposa, neonatologista) para fundamentar a inexistência de necessidade de vacinação para a faixa etária em debate.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se delegado de polícia.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 57,
+            "start": 101910,
+            "end": 102002,
+            "text": "Desculpe-me se estou sendo muito leigo, mas o senhor é médico, e eu sou delegado de polícia.",
+            "score": 0.3558
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como leigo em questões médicas, mas afirma a necessidade de esclarecimento técnico por parte dos especialistas presentes.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Menciona sua esposa como médica neonatologista, que cuida de bebês de 250 e 300 gramas, para embasar seus argumentos sobre a faixa etária infantil.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 79,
+            "start": 106791,
+            "end": 106964,
+            "text": "E agora trago um argumento também de um médico profissional, pois minha esposa é médica neonatologista e cuida basicamente de bebezinhos, alguns de 250 gramas, 300 gramas...",
+            "score": 0.4394
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Constrói o argumento por meio de uma sequência de perguntas diretas ao convidado médico, buscando confirmar premissas técnicas (imunidade, eficácia, proteção contra cepas futuras) antes de formular sua conclusão.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 71,
+            "start": 104142,
+            "end": 104169,
+            "text": "Mas não para cepas futuras?",
+            "score": 0.2387
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a técnica de \"abreviar o argumento final\" após obter as confirmações técnicas, estruturando a fala como um diálogo socrático.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 73,
+            "start": 104608,
+            "end": 104643,
+            "text": "Vou abreviar o meu argumento final.",
+            "score": 0.4035
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos pessoais e familiares (a esposa médica) para trazer credibilidade técnica ao seu ponto de vista, mesmo declarando-se leigo.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Trata o convidado com insistência, pedindo que este não se \"furte\" a responder, e utiliza a expressão \"bate-papo\" para descrever a interação necessária.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 77,
+            "start": 105164,
+            "end": 105189,
+            "text": "Não, não se furte a isso.",
+            "score": 0.2642
+          },
+          "udv": null
+        },
+        {
+          "text": "Conclui com uma proposta concreta (campanha em vez de obrigatoriedade) e um apelo ao bem-estar da população (\"economizar desgaste\").",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 81,
+            "start": 107374,
+            "end": 107528,
+            "text": "Então, o que estou propondo para o senhor é, para economizar um grande desgaste na população brasileira, que não torne essa vacina obrigatória...(Palmas.)",
+            "score": 0.2456
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 16,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 9,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 10,
+      "in_profile": false,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-103-2-0",
+      "hearing_id": 103,
+      "n": 16,
+      "article_name": "Delegado Paulo Bilynskyj",
+      "proposition": "Criticou o Decreto 11.615/23, que afeta os CACs quanto ao acesso a armas e munições.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Assim iniciamos a exposição. No dia 1º de janeiro de 2023, início do Governo Lula, um decreto retirou do cidadão de bem, aquele cidadão que tem laudo psicológico, que tem laudo técnico, que tem mais de 25 anos de idade, que não tem antecedentes criminais, a capacidade de possuir essa arma, de adquirir essa arma, de fazer o porte de trânsito dessa arma, calibre 9 milímetros e qualquer outra.",
+        "turn": 25,
+        "start": 24313,
+        "end": 24707
+      },
+      "verifier": {
+        "probability": 0.2960142059691142,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-103-2-1",
+      "hearing_id": 103,
+      "n": 17,
+      "article_name": "Delegado Paulo Bilynskyj",
+      "proposition": "Questiona a proibição de clubes de tiro a um quilômetro de escolas e as restrições de acordo com o calibre das armas: \"Se essa proibição entrar em efeito, todos os clubes de tiro do Brasil têm que fechar. E eles vão se mudar para onde, ministro, se já foi feito investimento massivo na construção desses estabelecimentos?\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Se essa proibição tiver efeito, todos os clubes de tiro, não só de São Paulo, mas de todo o Brasil, têm que fechar. E eles vão se mudar para onde, Ministro, se já foi feito um investimento massivo na construção desses estabelecimentos?",
+        "turn": 27,
+        "start": 25383,
+        "end": 25618
+      },
+      "verifier": {
+        "probability": 0.34929496974588337,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

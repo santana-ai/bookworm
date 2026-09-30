@@ -1,0 +1,331 @@
+{
+  "actor": {
+    "slug": "airton-faleiro",
+    "name": "Airton Faleiro",
+    "display_name": "Airton Faleiro",
+    "role": "Deputado (PT-PA)",
+    "article_names": [
+      "Airton Faleiro"
+    ],
+    "party_uf": [
+      "Bloco/PT - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:22:02+00:00",
+    "n_statements": 7,
+    "n_hearings": 2,
+    "hearing_ids": [
+      158,
+      162
+    ],
+    "input_tokens": 4762,
+    "output_tokens": 905,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 2,
+    "passage_only": 14,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a regulamentação federal do mercado de carbono, argumentando que a ausência de normas torna o setor frágil e favorece os mais fortes em detrimento dos mais fracos.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 2573,
+            "end": 2634,
+            "text": "Na minha opinião, tudo o que não tem regulamentação é frágil.",
+            "score": 0.2059
+          },
+          "udv": {
+            "id": "udv-158-3-0",
+            "rule": "same_sentence",
+            "score": 0.2051
+          }
+        },
+        {
+          "text": "Critica o modelo de \"mercado voluntário\" e a tendência global e nacional de evitar a regulação, defendendo que mercados institucionais devem prevalecer sobre os voluntários.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 3479,
+            "end": 3660,
+            "text": "Existe um movimento global e aqui no Brasil para que não se regulamente, para que o mercado voluntário se sobreponha e que mercados institucionais não se consolidem, não prevaleçam.",
+            "score": 0.3206
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera arriscado que Estados e Governadores regulamentem o tema de forma isolada, sem uma regulação federal que sirva de guia, embora não seja contra iniciativas estaduais na ausência de norma geral.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 3662,
+            "end": 3855,
+            "text": "Também já vi — é minha opinião e é para vocês comentarem — movimentos de Estados e Governadores dizerem:\"Não, é melhor deixar que os Estados regulamentem fora, livres de uma regulação federal\".",
+            "score": 0.2725
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o Brasil deve buscar, em fóruns internacionais como a COP 30, a revisão do critério de pagamento por sequestro de carbono, passando do \"desmatamento evitado\" para o reconhecimento dos \"estoques preservados\" historicamente por povos indígenas e populações tradicionais.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 5359,
+            "end": 5586,
+            "text": "Talvez, aqui na COP, se concordarmos, pudéssemos levantar a bandeira não apenas do desmatamento evitado, mas, sim, dos estoques preservados por nós historicamente, inclusive pelos povos indígenas e pelas populações ribeirinhas.",
+            "score": 0.3833
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica as metas atuais de redução de emissões por considerá-las desincentivadoras, temendo que a ausência de ameaça iminente de desmatamento leve à conclusão de que não é necessário pagar pelo sequestro de carbono.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 5983,
+            "end": 6116,
+            "text": "Daqui a pouco, vamos chegar à conclusão de que, como não existe ameaça do desmatamento, não é preciso pagar por sequestro de carbono.",
+            "score": 0.3514
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a gestão do mercado de carbono, especificamente o papel da sociedade civil no controle, a centralização versus descentralização estadual e a ausência de arrecadação de impostos para Municípios e Estados.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 6835,
+            "end": 6895,
+            "text": "Qual é o papel da sociedade civil no controle desse mercado?",
+            "score": 0.4252
+          },
+          "udv": null
+        },
+        {
+          "text": "Apóia o Projeto de Lei nº 412, de 2022, de relatoria da Senadora Leila Barros, considerando a iniciativa louvável e a que mais ganha corpo no debate, com sinalizações de apoio do Governo.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 3084,
+            "end": 3353,
+            "text": "Acho que a iniciativa do PL 412, que tem como Relatora a Senadora Leila Barros, que foi o que ganhou mais corpo no debate — também há outro projeto tramitando —, inclusive com sinalizações de apoio do Governo ou até mesmo apoio do Governo com contribuições, é louvável.",
+            "score": 0.6173
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a sistematização das contribuições da audiência pública para envio à Relatora do PL 412 e pede uma reunião com a Senadora para discutir as proposições, em nome da Comissão da Amazônia e dos Povos Originários e Tradicionais.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 83,
+            "end": 257,
+            "text": "Declaro aberta a reunião de audiência pública da Comissão da Amazônia e dos Povos Originários e Tradicionais destinada a debater sobre a regulamentação do mercado de carbono.",
+            "score": 0.351
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio de que \"tudo que não tem regulamentação é frágil\" e que \"sempre os mais fracos perdem diante da falta de regulamentação\" como fundamento para defender a regulação federal do mercado de carbono.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 2635,
+            "end": 2698,
+            "text": "Sempre os mais fracos perdem diante da falta de regulamentação.",
+            "score": 0.6058
+          },
+          "udv": {
+            "id": "udv-158-3-0",
+            "rule": "same_sentence",
+            "score": 0.4097
+          }
+        },
+        {
+          "text": "Baseia-se na premissa de que a audiência pública serve para aprimorar proposições legislativas, comparando o parlamentar a um \"clínico geral\" que precisa de especialização externa para ajustes técnicos, justificando a escuta da sociedade e de especialistas.",
+          "passage": {
+            "hearing_id": 162,
+            "turn": 0,
+            "start": 1030,
+            "end": 1176,
+            "text": "E a audiência pública, além de ser um espaço de escuta e de participação da sociedade, também é um espaço de aprimoramento das nossas proposições.",
+            "score": 0.2195
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a autonomia, autodeterminação e governança dos povos indígenas e populações tradicionais, citando a necessidade de capacitação das comunidades para o debate e gestão do mercado de carbono.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 16,
+            "start": 64832,
+            "end": 65062,
+            "text": "Um deles é sobre a política, sobre a regulamentação, independentemente do projeto de lei que está em curso, e outros mecanismos, capacitação das comunidades para o debate, gestão, governança, autonomia, autodeterminação dos povos.",
+            "score": 0.4926
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Requerimento nº 72, de 2023, que deu origem à audiência sobre o mercado de carbono, subscrito pelo Deputado Defensor Stélio Dener.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 259,
+            "end": 427,
+            "text": "Ressalto que a presente audiência decorre da aprovação, nesta Comissão, do Requerimento nº 72, de 2023, de minha autoria, subscrito pelo Deputado Defensor Stélio Dener.",
+            "score": 0.5497
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Presidente da Comissão do Trabalho durante a audiência de 28/09/2023 e como integrante da Comissão da Amazônia e dos Povos Originários e Tradicionais durante a audiência de 04/10/2023.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 16,
+            "start": 65746,
+            "end": 65835,
+            "text": "Somos exatamente a Comissão da Amazônia e dos Povos Originários e Tradicionais do Brasil.",
+            "score": 0.325
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser defensor da regulamentação do mercado de carbono e declara alinhamento com a Presidenta da Comissão da Amazônia, Célia Xakriabá, e com os demais integrantes do colegiado.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 16,
+            "start": 65560,
+            "end": 65745,
+            "text": "O encaminhamento número 2 é que pedíssemos, em nome da nossa Presidenta Célia Xakriabá e de todos os integrantes da Comissão, uma reunião com a Relatora para discutirmos as proposições.",
+            "score": 0.3641
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos para contextualizar o debate, como a afirmação de que o desmatamento representa 15% das emissões globais, mas 50% das emissões no Brasil.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 4298,
+            "end": 4375,
+            "text": "Peguei alguns dados: desmatamento representa apenas 15% das emissões globais.",
+            "score": 0.5506
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e experiências pessoais, como a participação em eventos no Pará sobre o mercado jurisdicional e a conversa com o Deputado Carlos Veras, para ilustrar seus pontos.",
+          "passage": {
+            "hearing_id": 158,
+            "turn": 0,
+            "start": 4706,
+            "end": 4861,
+            "text": "Júlio, eu já estive em dois eventos que o Governo do Estado realizou com vocês das populações tradicionais no Pará sobre o debate do mercado jurisdicional.",
+            "score": 0.1961
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de mediação e condução, convidando os expositores, definindo regras de tempo e encaminhamentos, e buscando consenso entre os diferentes atores (Governo, sociedade civil, setor privado).",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega perguntas retóricas e reflexões em voz alta (\"Fico me perguntando\", \"Espere aí!\") para guiar o raciocínio dos presentes e destacar contradições ou lacunas no debate.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 158,
+      "split": "train",
+      "article_date": "2023-10-04",
+      "title": "Participantes de debate cobram regulamentação de mercado de carbono",
+      "assunto": "Regulamentação do mercado de carbono no Brasil",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 162,
+      "split": "train",
+      "article_date": "2023-09-28",
+      "title": "Empresas devem agir para prevenir transtornos mentais no ambiente de trabalho, dizem especialistas",
+      "assunto": "Prevenção de transtornos mentais no ambiente de trabalho",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-158-3-0",
+      "hearing_id": 158,
+      "n": 9,
+      "article_name": "Airton Faleiro",
+      "proposition": "Sem regulamentação, o \"elo mais fraco da corrente\" é quem sai perdendo: \"A ausência de regulamentação é gritante. Regulamentação nacional, regulamentação nos estados, em que pese algumas iniciativas já de alguns estados. E, na minha opinião, tudo que não tem regulamentação é frágil, sempre os mais fracos perdem.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Se isso é verdade, por outro lado, também é verdade que a ausência de regulamentação é gritante. Falo de regulamentação nacional e de regulamentação nos Estados, em que pesem algumas iniciativas de alguns Estados. Na minha opinião, tudo o que não tem regulamentação é frágil. Sempre os mais fracos perdem diante da falta de regulamentação.",
+        "turn": 0,
+        "start": 2358,
+        "end": 2698
+      },
+      "verifier": {
+        "probability": 0.9231510549927546,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "actor": {
+    "slug": "joao-daniel",
+    "name": "JOÃO DANIEL",
+    "display_name": "JOÃO DANIEL",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - SE",
+      "PT - SE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:12:13+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      74,
+      144
+    ],
+    "input_tokens": 2969,
+    "output_tokens": 700,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a manutenção e o avanço do Estatuto da Criança e do Adolescente (ECA), rejeitando propostas de alteração que visem à redução da maioridade penal ou ao \"rasgar e destruir\" a legislação, argumentando que o ECA é fruto de uma luta histórica da sociedade democrática brasileira.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 26,
+            "start": 82811,
+            "end": 82914,
+            "text": "Quantas vezes nós ouvimos debates na Câmara Federal e no Congresso feitos para rasgar e destruir o ECA?",
+            "score": 0.1913
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a garantia de direitos fundamentais de crianças e adolescentes, listando especificamente o direito à vida, ao lazer, ao estudo e à liberdade, como parte da reconstrução de um momento democrático e popular.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 26,
+            "start": 83121,
+            "end": 83395,
+            "text": "Por isso, é fundamental continuarmos defendendo os direitos da criança e do adolescente, para garantir esses direitos — o direito à vida, o direito ao lazer, o direito ao estudo, o direito de ser livre —, e reconstruirmos um novo momento democrático e popular em nosso País.",
+            "score": 0.3931
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a ampliação de recursos para programas habitacionais, especificamente o Programa Minha Casa, Minha Vida, o Fundo de Arrendamento Residencial (FAR) e o MCMV-Entidades, propondo que parlamentares aportem recursos via emendas para subsidiar a habitação.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 84,
+            "start": 133340,
+            "end": 133542,
+            "text": "Eu ia perguntar, mas não necessariamente preciso, devido ao tempo, sobre o Minha Casa, Minha Vida, sobre o Fundo de Arrendamento Residencial — FAR, sobre o MCMV-Entidades, para saber em que pé já estão.",
+            "score": 0.3726
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiou a destinação de emendas de bancada para a habitação em Sergipe no ano anterior, citando-a como a maior emenda de bancada para esse fim, e declara que fará o mesmo neste ano.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 84,
+            "start": 132931,
+            "end": 133053,
+            "text": "Em Sergipe, a nossa bancada fez aquela emenda no ano passado, talvez a maior emenda de bancada para subsidiar a habitação.",
+            "score": 0.5008
+          },
+          "udv": null
+        },
+        {
+          "text": "Parabeniza o Ministério das Cidades e o Ministro Jader Filho pelo resgate de programas iniciados no primeiro governo do Presidente Lula, destacando a criatividade e a força do governo atual na reconstrução da nação.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 84,
+            "start": 132221,
+            "end": 132277,
+            "text": "Ministro Jader Filho, quero parabenizá-lo pelo trabalho.",
+            "score": 0.3286
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a Constituição e a legislação vigente como fundamento para a defesa dos direitos da criança e do adolescente, invocando a necessidade de respeito a esses marcos legais para impedir retrocessos.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 26,
+            "start": 82450,
+            "end": 82521,
+            "text": "Quero falar sobre o respeito à nossa Constituição e à nossa legislação.",
+            "score": 0.3185
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na defesa de um \"projeto democrático e popular\", associando a proteção de direitos sociais e a manutenção de políticas públicas à reconstrução de uma sociedade livre e democrática.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 26,
+            "start": 82522,
+            "end": 82810,
+            "text": "No momento atual, no momento em que vivemos, é muito importante fazermos audiências públicas como esta, para debatermos na Câmara Federal e no Congresso Nacional e levarmos para a sociedade a importância de avançarmos na atualização e na radicalização de um projeto democrático e popular.",
+            "score": 0.2146
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica o apoio a programas de governo pela necessidade de oferecer ao povo \"grandes programas e melhoria de vida\", vinculando a expansão orçamentária e programática ao mérito da população.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 84,
+            "start": 133639,
+            "end": 133829,
+            "text": "Estou torcendo para termos mais orçamento e mais programas, para verdadeiramente darmos a este País aquilo que o nosso povo merece, que são grandes programas e melhoria de vida da população.",
+            "score": 0.3715
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro do Partido dos Trabalhadores (PT) e afirma estar alinhado com movimentos populares e o movimento sindical no Brasil.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 26,
+            "start": 82953,
+            "end": 83120,
+            "text": "Mas nós, do Partido dos Trabalhadores, de movimentos populares no Brasil inteiro e do movimento sindical, tivemos forças e não permitimos retrocessos nessa legislação.",
+            "score": 0.5169
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante da bancada de Sergipe e declara compromisso pessoal com o aporte de recursos para a habitação.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 84,
+            "start": 132931,
+            "end": 133053,
+            "text": "Em Sergipe, a nossa bancada fez aquela emenda no ano passado, talvez a maior emenda de bancada para subsidiar a habitação.",
+            "score": 0.2537
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar \"junto, firme e forte\" na defesa do ECA e expressa confiança na equipe do Ministério das Cidades e no governo do Presidente Lula.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 84,
+            "start": 133544,
+            "end": 133638,
+            "text": "Tenho muita confiança em toda a equipe que está no Ministério e no Governo do Presidente Lula.",
+            "score": 0.5164
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Inicia suas falas com saudações protocolares e elogios a colegas parlamentares e autoridades presentes, como o Deputado Célio Moura, o Deputado Renato Simões e o Ministro Jader Filho, antes de entrar no mérito.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 22,
+            "start": 70751,
+            "end": 70795,
+            "text": "Deputado Célio Moura, eu quero saudar V.Exa.",
+            "score": 0.2553
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza linguagem emotiva e apelativa, especialmente ao tratar de temas de direitos humanos e democracia, como ao mencionar o assassinato de Marcelo Arruda em Foz do Iguaçu como motivo para \"lutar pela democracia, pela vida e pelo direito da criança\".",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 26,
+            "start": 82194,
+            "end": 82448,
+            "text": "Que Marcelo Arruda, que foi assassinado poucos instantes depois de ter feito sua última homenagem, dê-nos força, coragem e firmeza para lutar pela democracia, lutar pela vida, lutar pelo direito da criança e do adolescente, lutar por um País democrático!",
+            "score": 0.3343
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega termos de mobilização política, como \"luta histórica\", \"bandeiras democráticas\" e \"reconstrução da Nação\", para contextualizar suas posições.",
+          "passage": {
+            "hearing_id": 74,
+            "turn": 26,
+            "start": 81673,
+            "end": 81782,
+            "text": "É um homem que fez história na luta por bandeiras democráticas, como Parlamentar e como dirigente partidário.",
+            "score": 0.2564
+          },
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom conciliador e de apoio ao governo, parabenizando ministros e expressando otimismo quanto à execução de programas, mesmo ao mencionar demandas pendentes.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 11,
+      "split": "validation",
+      "article_date": "2023-12-14",
+      "title": "Especialistas reforçam alertas de seca severa e riscos de desertificação no Nordeste",
+      "assunto": "Alertas de seca severa e riscos de desertificação no Nordeste brasileiro",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 74,
+      "split": "train",
+      "article_date": "2022-07-11",
+      "title": "Debatedores apontam desafios para implementação plena do ECA",
+      "assunto": "Desafios para a implementação plena do Estatuto da Criança e do Adolescente (ECA)",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 99,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Crianças e mulheres são as maiores vítimas da guerra na Faixa de Gaza, ressaltam debatedores",
+      "assunto": "Impacto da guerra na Faixa de Gaza sobre crianças e mulheres",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

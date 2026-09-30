@@ -1,0 +1,330 @@
+{
+  "actor": {
+    "slug": "celso-giannazi",
+    "name": "CELSO GIANNAZI",
+    "display_name": "CELSO GIANNAZI",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:35:34+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      55,
+      176
+    ],
+    "input_tokens": 5297,
+    "output_tokens": 1212,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a Emenda Constitucional nº 103/2019 por autorizar a cobrança de contribuição previdenciária de aposentados e pensionistas de regimes próprios a partir de um salário mínimo, argumentando que isso revoga o entendimento do Supremo Tribunal Federal sobre a Emenda Constitucional nº 41/2003, que limitava a cobrança ao teto do Regime Geral da Previdência Social para garantir a igualdade entre os regimes.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 76110,
+            "end": 76283,
+            "text": "Então, foi estabelecido que os aposentados e pensionistas dos regimes próprios contribuiriam a partir do teto do Regime Geral da Previdência e se igualariam os dois regimes.",
+            "score": 0.4135
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a implementação do \"confisco\" no Município de São Paulo pelo Prefeito Ricardo Nunes, que instituiu a cobrança de 14% sobre vencimentos de servidores aposentados e pensionistas que ganham entre 1.500 e 2.000 reais, alegando que os recursos foram direcionados para recapeamento de asfalto em vez de atender às necessidades básicas dos servidores, como alimentação e medicamentos.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 78807,
+            "end": 79066,
+            "text": "No Município de São Paulo, o Prefeito Ricardo Nunes, de uma forma muito covarde, implementou essa mudança e começou a cobrar a contribuição previdenciária também desses servidores aposentados e pensionistas que têm doenças incapacitantes, o que é muito cruel.",
+            "score": 0.2206
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a revogação imediata da cobrança previdenciária de servidores aposentados e pensionistas com doenças incapacitantes (câncer, tuberculose, Parkinson, Alzheimer), criticando a extinção da isenção que existia até o dobro do teto do Regime Geral antes da EC 103/2019, pois esses servidores necessitam de recursos para medicamentos caros.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 78344,
+            "end": 78694,
+            "text": "Antes da Emenda Constitucional nº 103, a Constituição Federal concedia uma isenção da contribuição previdenciária até o dobro do teto do Regime Geral da Previdência para que esses servidores — todos nós sabemos que os medicamentos para o tratamento dessas doenças incapacitantes são caríssimos — tivessem esse recurso para comprar esses medicamentos.",
+            "score": 0.3782
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiou a aprovação do PDL 92 na Câmara Municipal de São Paulo para derrubar o confisco municipal, alinhando-se à estratégia de mobilização nas redes sociais e à experiência exitosa do Deputado Estadual Carlos Giannazi no âmbito estadual.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 77542,
+            "end": 77763,
+            "text": "Acompanhando essa luta do Deputado Carlos Giannazi em âmbito estadual, nós apresentamos na Câmara Municipal o PDL 92, que tem toda essa luta para derrubar o confisco das aposentadorias e pensões no Município de São Paulo.",
+            "score": 0.5207
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a gestão do Prefeito Ricardo Nunes na educação inclusiva, apontando a falta de priorização política apesar da disponibilidade financeira, exemplificada pelo caso de um Centro Educacional Unificado (CEU) onde um elevador quebrado desde o fim de 2019 não foi consertado, levando à transferência de crianças com deficiência para escolas distantes de suas residências.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 46606,
+            "end": 46701,
+            "text": "Na cidade de São Paulo, nós temos um Centro Educacional Unificado — CEU com mais de mil alunos.",
+            "score": 0.2754
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a falta de estrutura nas escolas municipais de São Paulo, incluindo a ausência de número suficiente de Auxiliares de Vida Escolar (AVEs) e estagiários, o que força pais e mães a acompanharem as crianças em sala de aula, e a falta de acessibilidade para educadores com deficiência.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 48538,
+            "end": 48719,
+            "text": "Nós não temos, nas escolas, nas salas de aula, por exemplo, número suficiente de AVEs — Auxiliares de Vida Escolar, que dão suporte às crianças que têm um grau maior de dependência.",
+            "score": 0.3866
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a implementação prática e efetiva do Estatuto da Pessoa com Deficiência e da Lei de Inclusão, cobrando do Ministério da Educação e do Ministério dos Direitos Humanos e da Cidadania a pressão nacional sobre Prefeitos e Governadores para o cumprimento da legislação.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 49484,
+            "end": 49790,
+            "text": "É preciso que o Ministério da Educação e o Ministério dos Direitos Humanos e da Cidadania façam esse debate e que haja uma pressão nacional para que Prefeitos e Governadores tenham esse olhar, respeitem a legislação e façam valer a inclusão escolar, a Lei de Inclusão, o Estatuto da Pessoa com Deficiência.",
+            "score": 0.6135
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoia a tramitação de projeto de lei na Câmara Municipal de São Paulo, já aprovado em primeira votação, para garantir a inclusão escolar, inspirado na lei aprovada pelo Deputado Carlos Giannazi na Assembleia Legislativa.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 51320,
+            "end": 51559,
+            "text": "À semelhança da lei aprovada pelo Deputado Carlos Giannazi na Assembleia Legislativa, esperamos que o nosso seja aprovado aqui na Câmara Municipal e vire realidade, a fim de que possamos fazer esse embate através do Município de São Paulo.",
+            "score": 0.4457
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca os princípios constitucionais da igualdade e da dignidade da pessoa humana como fundamento para a limitação da contribuição previdenciária ao teto do Regime Geral da Previdência Social, argumentando que a cobrança acima desse limite atinge o mínimo necessário para a sobrevivência do servidor idoso.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 75471,
+            "end": 75829,
+            "text": "A discussão toda que foi colocada no âmbito nacional, inclusive foi levada ao Supremo Tribunal Federal, era de que, para haver igualdade e aproximação dos dois regimes, do Regime Próprio e do Regime Geral da Previdência Social, os servidores públicos aposentados e pensionistas contribuiriam com a Previdência a partir do teto do Regime Geral da Previdência.",
+            "score": 0.2232
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a disponibilidade orçamentária como critério para julgar a legitimidade de políticas públicas: afirma que, com o Município de São Paulo em seu melhor momento econômico-financeiro dos últimos 50 anos e com cerca de 35 bilhões de reais em caixa (um terço do orçamento), não há justificativa para a retirada de proventos de servidores ou para a falta de investimento em educação inclusiva.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 74063,
+            "end": 74160,
+            "text": "Nós estamos no melhor momento econômico-financeiro dos últimos 50 anos no Município de São Paulo.",
+            "score": 0.4799
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera a educação um direito fundamental e constitucional, que exige priorização orçamentária e política, especialmente para a inclusão de crianças com deficiência, rejeitando a lógica de \"transferir\" alunos como solução para problemas de infraestrutura.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 47445,
+            "end": 47510,
+            "text": "A educação é um direito fundamental, é um direito constitucional.",
+            "score": 0.3934
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da Comissão de Educação da Câmara Municipal de São Paulo e participante do Conselho de Inclusão da Câmara Municipal, idealizado pela Deputada Luciene Cavalcante, Sandra Ramalhoso e William.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 45111,
+            "end": 45225,
+            "text": "Deputada Professora Luciene Cavalcante, de fato, temos o nosso Conselho de Inclusão na Câmara Municipal — e V.Exa.",
+            "score": 0.4479
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma atuar em nome da Comissão de Educação da Câmara Municipal de São Paulo para estabelecer o debate nacional sobre inclusão escolar.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 50855,
+            "end": 51034,
+            "text": "Contem conosco — falo em nome da Comissão de Educação da Câmara Municipal de São Paulo — para estabelecermos esse debate em todo o Brasil, junto com vocês, com o mandato de V.Exa.",
+            "score": 0.3796
+          },
+          "udv": null
+        },
+        {
+          "text": "Expressa alinhamento político com o Deputado Guilherme Boulos, declarando esperança em sua eleição para Prefeito de São Paulo e expectativa de que ele revogue o confisco previdenciário caso não seja feito antes.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 79464,
+            "end": 79589,
+            "text": "Nós temos a esperança de que ele seja eleito, vamos trabalhar muito para que ele seja eleito Prefeito da cidade de São Paulo.",
+            "score": 0.2342
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a atuação de aliados como Paulo Dimas, Walneide Romano, Malu Persiani e Manuela na mobilização nas redes sociais e nas entidades sindicais do Estado de São Paulo.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 72799,
+            "end": 73119,
+            "text": "Cumprimento também o Paulo Dimas, a Walneide Romano e a Malu Persiani, que trouxeram essa experiência muito, mas muito exitosa, de mobilização nas redes sociais, através do tuitaço, que deu muito resultado no Estado de São Paulo, juntamente com o PDL do Deputado Giannazi e as entidades sindicais no Estado de São Paulo.",
+            "score": 0.5961
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emotiva e moralizante, qualificando ações governamentais como \"covardia\", \"crueldade\", \"crime\" e \"aberração\" para denunciar o que considera injustiças contra servidores e pessoas com deficiência.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 73845,
+            "end": 73957,
+            "text": "Foi um acordo contra os servidores públicos, uma crueldade, uma covardia, um crime cometido em novembro de 2021.",
+            "score": 0.305
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia seus argumentos em dados financeiros específicos do Município de São Paulo (orçamento de mais de 100 bilhões, 15 bilhões para educação, 35 bilhões em caixa, 6 bilhões em juros projetados) para sustentar a tese de que a falta de políticas públicas se deve a falta de prioridade e não de recursos.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 45591,
+            "end": 45720,
+            "text": "Estamos falando de uma cidade que tem um orçamento de mais de 100 bilhões de reais e que tem para a educação 15 bilhões de reais.",
+            "score": 0.3883
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita casos concretos e locais (o elevador quebrado no CEU, a transferência de alunos, a cobrança de 14% sobre salários baixos) para ilustrar a ineficiência da gestão municipal.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 11,
+            "start": 46606,
+            "end": 46701,
+            "text": "Na cidade de São Paulo, nós temos um Centro Educacional Unificado — CEU com mais de mil alunos.",
+            "score": 0.1605
+          },
+          "udv": null
+        },
+        {
+          "text": "Refere-se a decisões do Supremo Tribunal Federal e a princípios constitucionais (igualdade, dignidade da pessoa humana) para fundamentar suas críticas à Emenda Constitucional nº 103/2019.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 23,
+            "start": 76284,
+            "end": 76480,
+            "text": "O entendimento do próprio Supremo Tribunal Federal foi de que isso garantiria dois princípios basilares da nossa Constituição: o princípio da igualdade e o princípio da dignidade da pessoa humana.",
+            "score": 0.4245
+          },
+          "udv": null
+        },
+        {
+          "text": "Realiza autodescrição física no início de sua fala em audiências sobre inclusão, demonstrando prática de acessibilidade e identificação com a pauta.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 24,
+      "split": "test",
+      "article_date": "2024-04-12",
+      "title": "Deputados, alunos e professores defendem ensino de filosofia e sociologia na rede pública",
+      "assunto": "Defesa do ensino de filosofia e sociologia na rede pública",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 55,
+      "split": "train",
+      "article_date": "2023-04-24",
+      "title": "Sindicatos criticam incidência de contribuição de inativos sobre valores acima do mínimo",
+      "assunto": "Críticas à incidência de contribuição previdenciária sobre valores acima do mínimo para servidores públicos aposentados e pensionistas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 176,
+      "split": "train",
+      "article_date": "2023-09-11",
+      "title": "Capacitismo é barreira para educação inclusiva, dizem especialistas",
+      "assunto": "Capacitismo como barreira para a educação inclusiva",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

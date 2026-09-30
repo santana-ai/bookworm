@@ -1,0 +1,377 @@
+{
+  "actor": {
+    "slug": "any-ortiz",
+    "name": "Any Ortiz",
+    "display_name": "Any Ortiz",
+    "role": "Deputada (Cidadania-RS)",
+    "article_names": [
+      "Any Ortiz"
+    ],
+    "party_uf": [
+      "Bloco/CIDADANIA - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:00:05+00:00",
+    "n_statements": 29,
+    "n_hearings": 5,
+    "hearing_ids": [
+      58,
+      153,
+      179,
+      189,
+      195
+    ],
+    "input_tokens": 11129,
+    "output_tokens": 876,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 11,
+    "without_evidence": 5
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a regulamentação dos mercados digitais no Brasil, via Projeto de Lei nº 2.768, de 2022, deve evitar a criação de burocracia excessiva que comprometa a competitividade do país, argumentando que o mercado é dinâmico e uma legislação baseada em uma \"fotografia estática\" do momento pode se tornar obsoleta rapidamente.",
+          "passage": {
+            "hearing_id": 179,
+            "turn": 12,
+            "start": 52322,
+            "end": 52498,
+            "text": "Quando falamos sobre os mercados e serviços digitais, o projeto de lei, ou qualquer outra forma de fazer essa regulamentação, não pode olhar uma fotografia estática do momento.",
+            "score": 0.3503
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a possibilidade de o PL 2.768 estabelecer uma assimetria regulatória que beneficie concorrentes em vez de consumidores, invocando o princípio de que a lei antitruste deve proteger a concorrência e não os concorrentes.",
+          "passage": {
+            "hearing_id": 195,
+            "turn": 6,
+            "start": 19619,
+            "end": 19745,
+            "text": "Existe o princípio de que a Lei Antitruste deve se preocupar em proteger a concorrência e não os concorrentes da concorrência.",
+            "score": 0.525
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a adequação de simplesmente copiar legislações internacionais, como a Lei de Mercados Digitais da União Europeia, para o contexto brasileiro, destacando diferenças de mercado e cultura, e busca evidências sobre os impactos reais dessas normas antes de adotar medidas semelhantes.",
+          "passage": {
+            "hearing_id": 189,
+            "turn": 4,
+            "start": 16998,
+            "end": 17109,
+            "text": "Por isso, simplesmente copiar uma legislação de outro país e adotar no Brasil talvez não seja o melhor caminho.",
+            "score": 0.2053
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Governo Federal o envio de uma medida provisória para permitir a antecipação de R$ 100 milhões da bancada gaúcha, destinados a auxiliar famílias e pequenos comerciantes afetados pelas enchentes no Rio Grande do Sul, especialmente no Vale do Taquari.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 43,
+            "start": 75388,
+            "end": 75644,
+            "text": "Eu quero primeiro parabenizar, Ministro, a celeridade da atuação do Ministério nessa tragédia que aconteceu no Rio Grande do Sul, não só no Vale do Taquari, mas também em outros tantos Municípios que foram afetados pelos eventos climáticos que nós tivemos.",
+            "score": 0.2318
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que o apoio às empresas e trabalhadores da região atingida pelas enchentes deve ser feito por meio de subsídios e não de empréstimos, pois o endividamento geraria novos custos (\"boleto\") para quem já está em situação de vulnerabilidade.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Defende a necessidade de ouvir todas as partes, incluindo sociedade civil, empresas e órgãos reguladores, em seminários e audiências, para aprimorar a legislação sobre mercados digitais, garantindo que o debate seja amplo e baseado em evidências.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a proteção do consumidor e a promoção da concorrência justa como critérios centrais para avaliar propostas de regulação digital, justificando a cautela com o PL 2.768 e a busca por modelos que não onerem o custo final dos serviços.",
+          "passage": {
+            "hearing_id": 189,
+            "turn": 18,
+            "start": 52286,
+            "end": 52531,
+            "text": "Acho que é importante o papel que vocês têm, em toda a legislação que já possuímos no nosso País, da garantia da concorrência não só pela concorrência, mas pelo preço para o consumidor, o que, no final, obviamente, é o que importa ao consumidor.",
+            "score": 0.1837
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a responsabilidade legislativa de não criar barreiras à entrada de novos negócios, sejam eles pequenos, médios ou grandes, como fundamento para a defesa de uma regulação que fomente a inovação e o crescimento econômico sem burocratizar o setor.",
+          "passage": {
+            "hearing_id": 189,
+            "turn": 0,
+            "start": 3516,
+            "end": 3836,
+            "text": "Esperamos que, ao fim deste debate, tenhamos uma visão um pouco mais clara e possamos avançar nesse caminho e nessa discussão sobre barreiras à entrada, por exemplo, de novos negócios, sejam eles pequenos, médios ou grandes; sobre práticas anticompetitivas; sobre estratégias para promover a concorrência justa do setor.",
+            "score": 0.3532
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da antecipação de recursos para a enchente no Rio Grande do Sul no princípio de que a ajuda estatal deve chegar \"à ponta\", beneficiando diretamente quem perdeu móveis, eletrodomésticos e capacidade de trabalho, e não apenas grandes empresas que necessitam de valores maiores para reabrir.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Relatora do Projeto de Lei nº 2.768, de 2022, na Comissão de Desenvolvimento Econômico da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 195,
+            "turn": 0,
+            "start": 53,
+            "end": 329,
+            "text": "Declaro aberta a reunião de audiência pública da Comissão de Desenvolvimento Econômico da Câmara dos Deputados, que tem como objetivo debater as experiências internacionais no desenvolvimento e regulamentação dos mercados digitais, matéria do Projeto de Lei nº 2.768, de 2022.",
+            "score": 0.5435
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Presidente da Frente Parlamentar Mista pela Mulher Empreendedora.",
+          "passage": {
+            "hearing_id": 179,
+            "turn": 0,
+            "start": 2607,
+            "end": 2679,
+            "text": "Eu sou Presidente da Frente Parlamentar Mista pela Mulher Empreendedora.",
+            "score": 0.8368
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter coordenado a reunião em que foi decidido o apoio de R$ 100 milhões da bancada gaúcha para as vítimas das enchentes, e declara atuar em nome dessa bancada nas tratativas com o Governo Federal.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 43,
+            "start": 74871,
+            "end": 75096,
+            "text": "Eu quero só fazer um complemento à fala do nosso coordenador, o Deputado Carlos Gomes, que inclusive fez referência ao fato de que eu coordenei a reunião em que foi decidido o apoio com 100 milhões de reais da bancada gaúcha.",
+            "score": 0.336
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura suas intervenções com perguntas direcionadas a especialistas e representantes de órgãos, buscando esclarecer impactos práticos de propostas legislativas, como o efeito da regulação no custo para o consumidor e a viabilidade de alinhar inovação e regulamentação.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza exemplos concretos e locais para sustentar seus argumentos, como a citação da reabertura da indústria Beira Rio em Roca Sales e o apoio da Lojas Renner ao comércio local, para ilustrar a necessidade de ação governamental efetiva.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 43,
+            "start": 76355,
+            "end": 76517,
+            "text": "Em Roca Sales, se não fosse, por exemplo, as Lojas Renner, que ajudaram o pequeno comerciante a reabrir seu estabelecimento, o comércio não estaria reaberto hoje.",
+            "score": 0.2475
+          },
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom colaborativo e de escuta ativa, agradecendo explicitamente a participação dos convidados e enfatizando a importância de construir o texto legislativo com base em contribuições diversas, incluindo a de alunos e sociedade civil.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados e fatos citados por terceiros, como os números do SEBRAE sobre empreendedorismo e as experiências da União Europeia, para embasar suas indagações e considerações finais.",
+          "passage": {
+            "hearing_id": 179,
+            "turn": 12,
+            "start": 53372,
+            "end": 53506,
+            "text": "Cada um terá 3 minutos para fazer as suas considerações finais e, se puder, obviamente, responder às perguntas e às minhas indagações.",
+            "score": 0.2353
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 58,
+      "split": "train",
+      "article_date": "2023-04-19",
+      "title": "Debatedores dizem que mulheres negras e pobres são maiores vítimas violência obstétrica",
+      "assunto": "Violência obstétrica e morte materna, com foco nas mulheres negras, indígenas e de baixa renda",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 179,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Especialistas alertam para riscos na regulamentação do mercado digital",
+      "assunto": "Riscos e benefícios da regulamentação do mercado digital",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 189,
+      "split": "train",
+      "article_date": "2023-08-24",
+      "title": "Spotify e Mercado Livre pedem mudanças no projeto que regulamenta os mercados digitais",
+      "assunto": "Mudanças no projeto de regulamentação dos mercados digitais (PL 2768/22)",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 195,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Regulamentação dos mercados digitais no Brasil precisa ser feita com cautela, afirmam especialistas estrangeiros",
+      "assunto": "Regulamentação dos mercados digitais no Brasil",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-179-0-0",
+      "hearing_id": 179,
+      "n": 1,
+      "article_name": "Any Ortiz",
+      "proposition": "\"Esta sequência de audiências públicas foi extremamente importante.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Eu quero agradecer a presença de todas vocês e dizer que esta sequência de audiências públicas foi extremamente importante para podermos discutir toda a complexidade que esse PL traz, com os diferentes pontos de vista.",
+        "turn": 28,
+        "start": 66134,
+        "end": 66352
+      },
+      "verifier": {
+        "probability": 0.9867761532449624,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-179-0-1",
+      "hearing_id": 179,
+      "n": 2,
+      "article_name": "Any Ortiz",
+      "proposition": "\"Acredito que a legislação precisa ser aprimorada, enxergando não só o ponto de vista de quem empreende, mas também daqueles que consomem no mercado digital.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Acredito que a legislação precisa ser aprimorada, mas enxergando os diferentes impactos que cada legislação pode trazer para o nosso mercado no País, do ponto de vista não só de quem empreende, mas também de quem consome dentro desse tão complexo mercado digital.",
+        "turn": 28,
+        "start": 66567,
+        "end": 66830
+      },
+      "verifier": {
+        "probability": 0.9943615985488361,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-189-3-0",
+      "hearing_id": 189,
+      "n": 10,
+      "article_name": "Any Ortiz",
+      "proposition": "\"Nós entendemos a importância dos mercados digitais na economia local e é fundamental que a Câmara dos Deputados promova um debate aprofundado. Posteriormente faremos também um seminário para incluir demais players.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós entendemos a importância, é óbvio, dos mercados digitais na economia local e global. É fundamental que a Câmara dos Deputados promova um debate aprofundado, e é justamente o que nós estamos tentando fazer com essas audiências públicas.",
+        "turn": 28,
+        "start": 60836,
+        "end": 61075
+      },
+      "verifier": {
+        "probability": 0.49660022684240746,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-189-3-1",
+      "hearing_id": 189,
+      "n": 11,
+      "article_name": "Any Ortiz",
+      "proposition": "A intenção é elaborar um texto que garanta competitividade, promoção da concorrência, para fomentar inovação, crescimento econômico e direitos dos consumidores e empreendedores.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Queremos sempre estar atentos para criar políticas que garantam a competitividade e a promoção da concorrência também nesses mercados. Entendemos que é uma discussão essencial para fomentar a inovação, para fomentar o crescimento econômico e, obviamente, para fomentar a proteção do direito dos consumidores e dos empreendedores aqui no nosso País.",
+        "turn": 28,
+        "start": 61436,
+        "end": 61784
+      },
+      "verifier": {
+        "probability": 0.6434424668006639,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-195-3-0",
+      "hearing_id": 195,
+      "n": 11,
+      "article_name": "Any Ortiz",
+      "proposition": "Acredita que a audiência pública com especialistas estrangeiros é um movimento de vanguarda no Parlamento brasileiro: \"Nós estamos aqui tendo uma grande oportunidade de enriquecer o debate, aprendendo com o que já foi construído em outros países, e a experiência que têm, considerando o fato de que os mercados digitais têm se expandido de forma exponencial nas últimas décadas com serviços de tecnologia e informação se tornando cada vez mais presentes na vida cotidiana das pessoas e empresas.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Nós estamos aqui tendo uma grande oportunidade de poder enriquecer cada vez mais o nosso debate, aprendendo com o que já foi construído em outros países e a experiência que eles têm.",
+        "turn": 0,
+        "start": 4733,
+        "end": 4915
+      },
+      "verifier": {
+        "probability": 0.3603200251905644,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

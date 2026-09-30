@@ -1,0 +1,376 @@
+{
+  "actor": {
+    "slug": "osmar-terra",
+    "name": "Osmar Terra",
+    "display_name": "Osmar Terra",
+    "role": "Deputado (MDB-RS)",
+    "article_names": [
+      "Osmar Terra"
+    ],
+    "party_uf": [
+      "Bloco/MDB - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:51:10+00:00",
+    "n_statements": 23,
+    "n_hearings": 4,
+    "hearing_ids": [
+      15,
+      146,
+      171,
+      201
+    ],
+    "input_tokens": 11453,
+    "output_tokens": 1003,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Rejeita a individualização das condutas dos presos nos atos de 8 de janeiro e a manutenção de detidos na Papuda há 7 meses sem processo legal, caracterizando a situação como um \"estado de exceção\" ou \"AI-5\" não votado pelo Congresso, e propõe a criação de um PDL para definir a base legal dessas prisões.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 78,
+            "start": 86482,
+            "end": 86693,
+            "text": "Nós não sabemos em que lei foi baseada a ação que está mantendo pessoas inocentes, pessoas sérias, íntegras, presas na Papuda, há 7 meses, sem o devido processo legal, sem a individualização da responsabilidade.",
+            "score": 0.24
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Supremo Tribunal Federal por extrapolar sua competência ao julgar a quantidade de droga no artigo 28 da Lei das Drogas, argumentando que isso equivale a legislar, função exclusiva do Congresso Nacional.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 78,
+            "start": 87170,
+            "end": 87238,
+            "text": "O Supremo pode julgar se é constitucional ou não o texto de uma lei.",
+            "score": 0.2467
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a liberação da cannabis medicinal é um \"biombo\" para a legalização da maconha, alertando que não há controle possível entre o uso medicinal e o tráfico, o que transformaria o Brasil em um \"narcoestado\".",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 21,
+            "start": 103773,
+            "end": 103825,
+            "text": "Não existe limite entre maconha medicinal e maconha.",
+            "score": 0.2446
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta contra a obrigatoriedade da vacinação contra a COVID-19 em crianças, classificando a vacina de RNA mensageiro como uma \"terapia experimental\" e exigindo dados sobre mortes de pessoas totalmente vacinadas.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 88,
+            "start": 119677,
+            "end": 119870,
+            "text": "Trata-se de uma terapia experimental, porque nunca se fez na história humana vacina de RNA mensageiro, que é uma terapia genética para conter o vírus no meio de uma pandemia, e isso não existe!",
+            "score": 0.3038
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica as medidas de lockdown, afirmando que não salvaram vidas, aumentaram o contágio doméstico e causaram danos educacionais irreparáveis a crianças pobres, citando 420 trabalhos científicos que demonstram a ineficácia da medida.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 88,
+            "start": 111612,
+            "end": 111689,
+            "text": "Há 420 trabalhos científicos catalogados e artigos publicados mostrando isso.",
+            "score": 0.233
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a existência de conflitos de interesses em profissionais da FIOCRUZ e consultores de laboratórios que defendem a vacinação, e critica a ameaça de demissão a médicos que discordam das posições do Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 35,
+            "start": 40571,
+            "end": 40623,
+            "text": "São consultores de laboratórios que produzem vacina.",
+            "score": 0.2705
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a eficácia da imunidade natural como fator principal na redução de casos e mortes, argumentando que a queda de óbitos no Brasil ocorreu quando apenas 1,7% da população estava vacinada, e que a vacina só teria efeito com 50% de cobertura.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 35,
+            "start": 39121,
+            "end": 39217,
+            "text": "Ele mostra que a imunidade natural foi mais importante para a redução dos casos do que a vacina.",
+            "score": 0.3041
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a aquisição de 2 bilhões de reais em Tamiflu pelo governo, citando metanálises publicadas na JAMA que mostram a ineficácia do medicamento para Influenza.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 37,
+            "start": 41704,
+            "end": 41829,
+            "text": "E o Governo Lula pagou 2 bilhões de reais pela aquisição do Tamiflu durante a pandemia do H1N1 — eu era gestor naquela época.",
+            "score": 0.3704
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a soberania popular e a separação de poderes como fundamento para criticar decisões do Judiciário e do Executivo que, segundo ele, usurpam a função legislativa do Congresso, citando a Constituição ao afirmar que \"todo poder emana do povo\".",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 21,
+            "start": 103260,
+            "end": 103456,
+            "text": "A lei é a Câmara dos Deputados que decide, porque está lá na Constituição o artigo mais importante da Constituição:\"Todo poder emana do povo que o exerce por meio de representantes eleitos (...)\".",
+            "score": 0.2514
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a \"ciência\" e o \"debate aberto\" como critérios para validar posições, rejeitando o que chama de \"lacração\", \"opinião lacrada\" ou \"crença cega\", e exige evidências empíricas e dados para sustentar políticas de saúde.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 35,
+            "start": 36336,
+            "end": 36456,
+            "text": "Nós não tivemos um debate, era só opinião lacrada: a opinião da mídia, a opinião da FIOCRUZ, a opinião dos Governadores.",
+            "score": 0.2378
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza a proteção da saúde mental e física dos jovens contra os danos permanentes de drogas, citando pesquisas do PUBMed (70% de 33 mil estudos mostram danos) e casos de esquizofrenia e acidentes fatais causados por maconha.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 21,
+            "start": 98072,
+            "end": 98136,
+            "text": "Mas 70% de 33 mil casos mostram que há danos permanentes graves.",
+            "score": 0.4823
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a experiência prática na gestão de saúde pública como base para suas críticas, invocando seu histórico como gestor do SUS, Secretário de Saúde e Presidente do CONASS para legitimar suas análises sobre vacinas e pandemias.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 88,
+            "start": 110653,
+            "end": 110766,
+            "text": "Além disso, fui por 8 anos Secretário de Saúde e duas vezes Presidente do CONASS.Então, eu tenho uma experiência.",
+            "score": 0.3093
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor da lei sobre drogas e ex-Ministro do Presidente Bolsonaro, com quem mantém amizade e orgulho, tendo feito campanha para ele.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 78,
+            "start": 85126,
+            "end": 85417,
+            "text": "Eu fui Ministro do Presidente Bolsonaro, sou amigo dele e tenho muito orgulho disso, eu fiz campanha para ele, mas posso dizer que, em nenhum momento, nem ele, nem a Deputada Bia Kicis, nem qualquer outro Deputado, nem qualquer outro de nós aqui combinou de fazer um ato no dia 8 de janeiro.",
+            "score": 0.2374
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parte da bancada de Oposição na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 21,
+            "start": 100806,
+            "end": 100877,
+            "text": "Fazemlobbyna casa do Presidente da Câmara dos Deputados.Lobbyeconômico!",
+            "score": 0.2954
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Secretário de Saúde por 8 anos, duas vezes Presidente do CONASS, e o primeiro Prefeito a ter uma equipe do Saúde da Família no Brasil.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 88,
+            "start": 110653,
+            "end": 110766,
+            "text": "Além disso, fui por 8 anos Secretário de Saúde e duas vezes Presidente do CONASS.Então, eu tenho uma experiência.",
+            "score": 0.5108
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita-se como conterrâneo de Santa Rosa (RS) e conhece a família da Deputada Gabriela.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 78,
+            "start": 84469,
+            "end": 84611,
+            "text": "Queria cumprimentar o nosso Deputado Marcel van Hattem pela iniciativa e, em particular, a Gabriela, que é minha conterrânea lá de Santa Rosa.",
+            "score": 0.2769
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos específicos, como percentuais de vacinação, números de mortes em países comparados (Nova Zelândia, Taiwan, Chile) e referências a publicações científicas (JAMA, PUBMed) para sustentar suas teses.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 88,
+            "start": 116804,
+            "end": 117128,
+            "text": "Nova Zelândia e Taiwan são ilhas e, portanto, bastava controlar a entrada no aeroporto e no porto, porque não há vizinhança com país nenhum, não há fronteira, e foram lugares onde houve pouquíssimos casos.E vacinaram!Quando chegou a 80% da vacinação, na Nova Zelândia, havia 68 mortes, repito, com 80% da população vacinada.",
+            "score": 0.2032
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos pessoais e familiares, como a morte de um afilhado atropelado por um usuário de maconha e o caso de seu filho com pneumococo, para humanizar seus argumentos.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 26,
+            "start": 107473,
+            "end": 107596,
+            "text": "Um menino no quarto ano de medicina, que era meu afilhado, atropelado na calçada por um sujeito cheio de maconha na cabeça.",
+            "score": 0.191
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador com autoridades de saúde e colegas de parlamento, usando expressões como \"lacração\", \"biombo\" e \"disfarce\", e questionando diretamente a integridade e os conflitos de interesses de interlocutores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos em forma de desafio, pedindo respostas específicas sobre dados não divulgados (como o número de mortes de vacinados) e propondo comparações diretas entre países e períodos.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 88,
+            "start": 115505,
+            "end": 115631,
+            "text": "E eu faço um desafio, doutor: até hoje o Ministério da Saúde não falou no número de mortes de pessoas completamente vacinadas.",
+            "score": 0.1911
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 146,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Especialistas defendem liberação da produção de Cannabis para fins medicinais",
+      "assunto": "Liberação da produção de Cannabis para fins medicinais",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-171-1-0",
+      "hearing_id": 171,
+      "n": 8,
+      "article_name": "Osmar Terra",
+      "proposition": "Questionou a criação de um grupo de trabalho interministerial para analisar desinformações publicadas em redes sociais por médicos e outros profissionais de saúde, sobretudo em relação a vacinas: \"Eu nunca tinha visto ameaças a profissionais que não concordam com a opinião do ministério. E botar o Ministério da Justiça e Segurança Pública e a AGU em cima é para intimidar os profissionais.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Eu nunca tinha visto ameaças a profissionais que não concordam com a opinião do Ministério. E botar o Ministério da Justiça e Segurança Pública e a AGU em cima? Isso é para intimidar os profissionais!",
+        "turn": 35,
+        "start": 37566,
+        "end": 37766
+      },
+      "verifier": {
+        "probability": 0.7362557894650597,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,610 @@
+{
+  "actor": {
+    "slug": "rogerio-correia",
+    "name": "Rogério Correia",
+    "display_name": "Rogério Correia",
+    "role": "Deputado (PT-MG)",
+    "article_names": [
+      "Rogério Correia"
+    ],
+    "party_uf": [
+      "Bloco/PT - MG",
+      "PT - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:37:19+00:00",
+    "n_statements": 33,
+    "n_hearings": 4,
+    "hearing_ids": [
+      45,
+      71,
+      72,
+      169
+    ],
+    "input_tokens": 17180,
+    "output_tokens": 1195,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 29,
+    "with_udv": 0,
+    "passage_only": 28,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende o combate rigoroso ao trabalho análogo à escravidão, criticando a fragilização da atuação estatal e a precarização das condições de trabalho como fatores que incrementam a prática ilegal.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 0,
+            "start": 4511,
+            "end": 4813,
+            "text": "Entretanto, a crescente fragilização da atuação estatal, bem como a crescente precarização das condições de trabalho, agravadas pelo crescimento do desemprego e desalento, redundando no aumento da condição de miséria e da indigência, é um campo propício para o incremento desta prática ilegal e imoral.",
+            "score": 0.354
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a abertura imediata de concurso público para auditores fiscais do trabalho, argumentando que a escassez de servidores compromete a fiscalização.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 111,
+            "start": 139142,
+            "end": 139214,
+            "text": "Então, é preciso que se faça abertura de concurso público imediatamente.",
+            "score": 0.2907
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a regulamentação da Emenda Constitucional nº 81, que trata da desapropriação fundiária, como medida fundamental para punir empresas e acabar com a impunidade no crime de trabalho escravo.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 111,
+            "start": 139216,
+            "end": 139496,
+            "text": "Outra questão fundamental também ao Governo Federal é a regulamentação da Emenda Constitucional nº 81, que trata da desapropriação fundiária, que é fator fundamental para que possamos terminar com essa impunidade das empresas, porque o crime do trabalho escravo acaba compensando.",
+            "score": 0.6458
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a privatização da Refinaria Gabriel Passos (REGAP) e da Petrobras, argumentando que a venda de ativos e a distribuição de dividendos ao capital financeiro internacional prejudicam a política pública e aumentam os preços dos combustíveis.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 13,
+            "start": 41027,
+            "end": 41196,
+            "text": "Então, 101 bilhões de dividendos no último ano, distribuídos, em geral, para o capital financeiro internacional, que são os grandes acionistas da PETROBRAS, com certeza.",
+            "score": 0.2843
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a realização de plebiscito ou referendo popular para decisões sobre a privatização de empresas estatais estratégicas, como a Petrobras e a Vale do Rio Doce, citando a Constituição do Estado de Minas Gerais que exige referendo para desinvestimentos.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 7,
+            "start": 14181,
+            "end": 14476,
+            "text": "Para o senhor ter uma ideia, em Minas Gerais nós temos, na Constituição do Estado, uma proibição de que possa haver qualquer desinvestimento ou privatização de empresas públicas, a não ser que haja um referendo popular, com emenda constitucional enviada, na época, pelo Governador Itamar Franco.",
+            "score": 0.2835
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a privatização da Vale do Rio Doce, associando-a ao fim da produção de aço, à exportação de matéria-prima, à perda de arrecadação de ICMS (estimada em 12 bilhões de reais ao ano para Minas Gerais) e aos crimes ambientais de Mariana e Brumadinho.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 15,
+            "start": 55670,
+            "end": 55749,
+            "text": "Isso dá um prejuízo, só a Minas Gerais, em torno de 12 bilhões de reais ao ano.",
+            "score": 0.3446
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a reestatização da Vale do Rio Doce e o término da Lei Kandir, para que empresas exportadoras voltem a pagar impostos sobre circulação de mercadorias.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 15,
+            "start": 56615,
+            "end": 56916,
+            "text": "Há também uma proposição sobre o término da Lei Kandir, que foi constitucionalizada, para que eles voltem a pagar impostos sobre circulação de mercadorias, o que é fundamental para a existência dos Estados de Minas Gerais e do Pará, principalmente, que tiveram grande diminuição grande de arrecadação.",
+            "score": 0.4665
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção dos recursos do Fundo Social do Pré-Sal para educação e saúde, criticando o Projeto de Lei nº 1.583, de 2022, que desvincula esses recursos e antecipa a venda do pré-sal.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 21,
+            "start": 73557,
+            "end": 73597,
+            "text": "O Fundo Social do Pré-Sal é fundamental.",
+            "score": 0.4856
+          },
+          "udv": null
+        },
+        {
+          "text": "Apóia a retomada da Política Nacional para os Trabalhadores Rurais Empregados (PNATRE) e o Plano Nacional de Enfrentamento ao Trabalho Escravo (PLANATRE).",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 111,
+            "start": 138542,
+            "end": 138804,
+            "text": "Outro encaminhamento é resgatar a Política Nacional para os Trabalhadores Rurais Empregados — PNATRE, que foi instituída pelo Decreto nº 7.943, e o PLANATRE, que é a Portaria Interministerial nº 2, de 2 de abril de 2014, que foi proposto pelo Gabriel, da CONTAR.",
+            "score": 0.3772
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a aprovação da MP 905 (carteira verde e amarela) e a concepção governamental de que é melhor ter trabalhadores sem direitos do que desempregados, defendendo que trabalhadores empregados devem ter direitos plenos.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 9,
+            "start": 48132,
+            "end": 48528,
+            "text": "Aqui na nossa Comissão do Trabalho, vira e mexe alguns Parlamentares que têm concepção mais liberal ou ultraliberal dizem, fazendo eco ao Governo — fizeram, inclusive, aprovar a MP 905, a medida provisória da carteira verde e amarela, que diminui os direitos dos trabalhadores —, que é melhor ter trabalhadores com emprego, sem direitos, ou com menos direitos, do que trabalhadores desempregados.",
+            "score": 0.4949
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de um grupo de trabalho na Câmara para modernizar a legislação sobre trabalho escravo, utilizando como referência a lei francesa do dever de vigilância.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 111,
+            "start": 137656,
+            "end": 137962,
+            "text": "A partir desses dois projetos, vamos fazer um grupo de estudo — e o Deputado Bohn Gass é o Relator de um dos projetos — e apresentar um substitutivo para modernizar a legislação brasileira com referência em legislações internacionais, como foi citada aqui, inclusive, a lei francesa do dever de vigilância.",
+            "score": 0.4184
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a inclusão de emendas orçamentárias para ampliação de recursos destinados ao combate ao trabalho escravo.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 125,
+            "start": 145214,
+            "end": 145289,
+            "text": "Então, que uma delas seja para recursos para o combate ao trabalho escravo.",
+            "score": 0.338
+          },
+          "udv": null
+        },
+        {
+          "text": "Repudia a mineração predatória na Serra do Curral, em Belo Horizonte, e critica a revogação de liminares que suspendiam atividades da empresa Tamisa.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 21,
+            "start": 75950,
+            "end": 76102,
+            "text": "E agora estão minerando — Deyvid, você que é do Rio de Janeiro, é a mesma coisa de minerar o Pão de Açúcar — a nossa Serra do Curral, em Belo Horizonte.",
+            "score": 0.2711
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza o papel do Estado na prestação de serviços essenciais e na proteção dos direitos trabalhistas, justificando a oposição à privatização e à reforma administrativa (PEC 32/20).",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 5,
+            "start": 23067,
+            "end": 23376,
+            "text": "Nós conseguimos, com um trabalho grande também na nossa Comissão de Trabalho, de Administração e Serviço Público, com uma mobilização dos servidores públicos, evitar a aprovação daquela PEC 32/20, a tal reforma administrativa, que tinha um sentido muito grande de privatização da prestação do serviço público.",
+            "score": 0.3135
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o passado escravagista do Brasil como fundamento moral para a urgência no combate ao trabalho análogo à escravidão.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 0,
+            "start": 4081,
+            "end": 4273,
+            "text": "O combate ao trabalho análogo a escravo no Brasil é imprescindível para que seja extirpada esta prática desumana, cruel e repugnante, notadamente considerando o passado escravagista do Brasil.",
+            "score": 0.3768
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a privatização de empresas estratégicas leva à exportação de matéria-prima, perda de industrialização, redução de empregos e aumento de riscos ambientais, baseando-se na experiência da Vale do Rio Doce.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 15,
+            "start": 55750,
+            "end": 55833,
+            "text": "É o que nós deixamos de arrecadar com essa política de exportação da matéria-prima.",
+            "score": 0.2464
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a opinião pública deve ser consultada em decisões de grande impacto econômico e social, como a privatização de estatais, invocando a democracia e a soberania popular.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 7,
+            "start": 14508,
+            "end": 14626,
+            "text": "Para existir qualquer processo de privatização, é necessário que haja o referendo popular, porque a empresa é pública.",
+            "score": 0.1629
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o capitalismo por priorizar o lucro sobre a dignidade humana, citando o lucro de 467 bilhões de reais com trabalho escravo e a distribuição de dividendos da Petrobras.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 13,
+            "start": 68338,
+            "end": 68439,
+            "text": "O capitalismo é realmente cruel: 467 bilhões de reais de lucro com trabalho assemelhado à escravidão!",
+            "score": 0.4565
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal de Minas Gerais, do Partido dos Trabalhadores.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 0,
+            "start": 73,
+            "end": 156,
+            "text": "Sou Rogério Correia, Deputado Federal de Minas Gerais do Partido dos Trabalhadores.",
+            "score": 0.645
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Relator da emenda constitucional que proíbe desinvestimentos em empresas públicas em Minas Gerais sem referendo popular.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 7,
+            "start": 14181,
+            "end": 14476,
+            "text": "Para o senhor ter uma ideia, em Minas Gerais nós temos, na Constituição do Estado, uma proibição de que possa haver qualquer desinvestimento ou privatização de empresas públicas, a não ser que haja um referendo popular, com emenda constitucional enviada, na época, pelo Governador Itamar Franco.",
+            "score": 0.3621
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter sido Relator da CPI de Brumadinho e da Comissão Especial do crime da Vale em Mariana, quando era Deputado Estadual.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 15,
+            "start": 54803,
+            "end": 54931,
+            "text": "Quando eu era Deputado Estadual, fui também Relator da Comissão Especial do crime da Vale, do rompimento da barragem em Mariana.",
+            "score": 0.6244
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido aluno da Universidade Federal de Minas Gerais (UFMG).",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 13,
+            "start": 67724,
+            "end": 67745,
+            "text": "Eu fui aluno da UFMG.",
+            "score": 0.4618
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio à luta dos petroleiros e à manutenção da REGAP, comprometendo-se a participar de atos em defesa da refinaria.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 13,
+            "start": 41372,
+            "end": 41498,
+            "text": "Foi isso que eu entendi da defesa que o Alexandre nos fez em prol da manutenção da REGAP, em vista da importância que ela tem.",
+            "score": 0.2772
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos e comparações históricas para sustentar suas posições, como a comparação do preço da gasolina entre 2010, 2015 e o momento atual, e a estimativa de perda de arrecadação de ICMS.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 21,
+            "start": 74050,
+            "end": 74547,
+            "text": "As pessoas perguntam no e-Democracia sobre o preço da gasolina e dodiesel, se eles poderão baixar com a privatização.\"Por que os preços são altos?\" Eu fiz um apanhado para comparação: em 2010, no fim do último mandato do Presidente Lula, o litro de gasolina custava 2 reais e 53 centavos; antes do golpe que tirou o poder de Dilma, em 2015, o litro de gasolina custava 3 reais e 29 centavos, o salário mínimo era de 788 reais e se convertia em 240 litros de gasolina que se podia […]",
+            "score": 0.1807
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita casos concretos e locais, como o assassinato de fiscais em Unaí, o trabalho escravo na Fazenda Klem e os crimes da Vale, para ilustrar os problemas debatidos.",
+          "passage": {
+            "hearing_id": 72,
+            "turn": 103,
+            "start": 106786,
+            "end": 106818,
+            "text": "Eu entrei nositeda Fazenda Klem.",
+            "score": 0.2353
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas aos convidados, especialmente a representantes de empresas e órgãos públicos, buscando esclarecer pontos específicos e cobrar respostas.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 15,
+            "start": 58055,
+            "end": 58127,
+            "text": "Eu vou, então, passar a palavra aos nossos convidados para as respostas.",
+            "score": 0.196
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe encaminhamentos concretos e imediatos, como a realização de diligências, a marcação de reuniões com o TCU e a apresentação de requerimentos e projetos de lei.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza linguagem emotiva e apelativa, como \"guerreira\", \"batalhador\" e \"tiro no pé\", para engajar o público e reforçar suas críticas.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 15,
+            "start": 57148,
+            "end": 57234,
+            "text": "Então, como disse, parece-me que a privatização da Vale do Rio Doce foi um tiro no pé.",
+            "score": 0.2423
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a Constituição e leis específicas, como a Emenda Constitucional nº 81 e a Lei Kandir, para fundamentar suas propostas e críticas.",
+          "passage": {
+            "hearing_id": 71,
+            "turn": 9,
+            "start": 27139,
+            "end": 27210,
+            "text": "Foi aprovada uma proposta de emenda constitucional por meio de celular.",
+            "score": 0.1823
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 13,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Autoridades cobram a Justiça para destravar renegociação com mineradoras sobre reparação em Mariana",
+      "assunto": "Cobrança à Justiça para destravar a renegociação com mineradoras sobre reparação em Mariana",
+      "turns": 21,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 22,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 18,
+      "split": "validation",
+      "article_date": "2023-12-11",
+      "title": "Presidente da Capes pede extra de R$ 150 milhões para financiar a formação de professores",
+      "assunto": "Pedido de aporte adicional de R$ 150 milhões para financiar a formação de professores através do Pibid",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 71,
+      "split": "train",
+      "article_date": "2022-07-15",
+      "title": "Debatedores criticam venda de refinaria da Petrobras em Minas Gerais",
+      "assunto": "Críticas à venda da Refinaria Gabriel Passos (Regap) da Petrobras em Minas Gerais",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 72,
+      "split": "train",
+      "article_date": "2022-07-14",
+      "title": "Debatedores defendem responsabilidade de grandes empresas pelo trabalho escravo das subcontratadas",
+      "assunto": "Responsabilidade de grandes empresas pelo trabalho escravo das subcontratadas",
+      "turns": 20,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 169,
+      "split": "train",
+      "article_date": "2023-09-14",
+      "title": "Com apoio parcial do governo, movimentos sociais querem Cerrado e Caatinga como patrimônios nacionais",
+      "assunto": "Reconhecimento dos biomas Cerrado e Caatinga como patrimônios nacionais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-13-8-0",
+      "hearing_id": 13,
+      "n": 13,
+      "article_name": "Rogério Correia",
+      "proposition": "Cobrou mais rigor da Justiça por meio de documento formal: \"Solicitamos ao Poder Judiciário fixar prazo final para o fim da repactuação, priorizar o julgamento das ações judiciais coletivas e individuais que buscam a reparação, bem como agilizar os processos criminais, já que, após oito anos, não houve punição para os crimes cometidos.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É o seguinte: nós solicitamos ao Poder Judiciário que fixe prazo final para o término da reparação, priorize o julgamento das ações judiciais coletivas e individuais que buscam a reparação, bem como agilize os processos criminais, posto que, após 8 anos, não houve punição pelos crimes cometidos. As empresas precisam saber que o Poder Judiciário dará urgência urgentíssima à tramitação desses processos e que elas não vão fugir de um julgamento por causa da morosidade judicial.",
+        "turn": 26,
+        "start": 83062,
+        "end": 83541
+      },
+      "verifier": {
+        "probability": 0.7252863654852544,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-18-1-0",
+      "hearing_id": 18,
+      "n": 4,
+      "article_name": "Rogério Correia",
+      "proposition": "É favorável à institucionalização do Pibid: \"O Pibid é um programa que conseguiu um curso de licenciatura com crescimento muito grande, articulando teoria e prática por meio de aproximações do ensino superior e escola pública de educação básica.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O PIBID é um desses programas, porque com certeza diminui muito a evasão, contribui para isso, especialmente por meio de cursos de licenciatura, com crescimento muito grande. Ele articula teoria e prática por meio da aproximação entre instituição de ensino superior e escola pública de educação básica.",
+        "turn": 1,
+        "start": 7008,
+        "end": 7310
+      },
+      "verifier": {
+        "probability": 0.747800806669892,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-71-0-0",
+      "hearing_id": 71,
+      "n": 1,
+      "article_name": "Rogério Correia",
+      "proposition": "Há uma preocupação em Minas de que a venda da empresa crie um monopólio privado regional, com prática de preços abusivos. Situação semelhante ocorreu na Bahia após a privatização da Refinaria Landulpho Alves (Rlam), em 2021.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, há uma preocupação grande do povo mineiro em relação a esse processo de privatização da REGAP. Há uma preocupação de aumento dos preços da gasolina e dodiesel, que já não estão baixos.",
+        "turn": 0,
+        "start": 4882,
+        "end": 5073
+      },
+      "verifier": {
+        "probability": 0.20786788156939712,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-71-0-1",
+      "hearing_id": 71,
+      "n": 2,
+      "article_name": "Rogério Correia",
+      "proposition": "\"Há uma preocupação grande do povo mineiro em relação a esse processo de privatização da Regap. Há uma preocupação de aumento de preços, que já não estão baixos, da gasolina, do diesel.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Então, há uma preocupação grande do povo mineiro em relação a esse processo de privatização da REGAP. Há uma preocupação de aumento dos preços da gasolina e dodiesel, que já não estão baixos.",
+        "turn": 0,
+        "start": 4882,
+        "end": 5073
+      },
+      "verifier": {
+        "probability": 0.9928650660089844,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-72-2-0",
+      "hearing_id": 72,
+      "n": 5,
+      "article_name": "Rogério Correia",
+      "proposition": "As reformas trabalhistas que vêm sendo feitas nos últimos anos também pioram a situação: \"Segundo eles, é melhor ter trabalhadores com empregos e sem direitos, ou com menos direitos, do que desempregados. E nós queremos trabalhadores empregados com direitos. É o mínimo. Infelizmente, essa concepção do governo, alardeando sempre que o problema são os direitos; isso só faz incentivar os empregadores ou maus empregadores. Eles, em vez de executar os direitos, burlam esses direitos até com trabalho análogo à escravidão.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É o mínimo que se pode ter. Então, infelizmente, essa concepção do Governo, alardeando sempre que o problema são os direitos, só faz incentivar empregadores ou mau empregadores que, ao invés de exercer o direito dos trabalhadores, burlam esse direito, até com o trabalho análogo à escravidão.",
+        "turn": 9,
+        "start": 48584,
+        "end": 48876
+      },
+      "verifier": {
+        "probability": 0.8425948270618485,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-72-2-1",
+      "hearing_id": 72,
+      "n": 6,
+      "article_name": "Rogério Correia",
+      "proposition": "Vai propor a criação de um grupo de trabalho para analisar os projetos de lei em tramitação defendidos pelas entidades e a formação de uma equipe para visitar algumas fazendas de café mineiras.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O requerimento já foi aprovado, Jorge. Nós vamos combinar a data e convidar vocês também que puderem nos acompanhar para fazermos uma diligência no sul de Minas, a fim de visitar as fazendas de café.",
+        "turn": 111,
+        "start": 139758,
+        "end": 139957
+      },
+      "verifier": {
+        "probability": 0.2507004009820545,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

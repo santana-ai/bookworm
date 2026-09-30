@@ -1,0 +1,612 @@
+{
+  "actor": {
+    "slug": "professora-luciene-cavalcante",
+    "name": "Professora Luciene Cavalcante",
+    "display_name": "Professora Luciene Cavalcante",
+    "role": "Deputada (Psol-SP)",
+    "article_names": [
+      "Professora Luciene Cavalcante"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:13:48+00:00",
+    "n_statements": 24,
+    "n_hearings": 5,
+    "hearing_ids": [
+      32,
+      55,
+      135,
+      141,
+      176
+    ],
+    "input_tokens": 15245,
+    "output_tokens": 1161,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 25,
+    "with_udv": 0,
+    "passage_only": 23,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a revogação da Emenda Constitucional nº 103/2019, classificando a incidência de contribuição previdenciária sobre valores acima do mínimo para aposentados e pensionistas como \"confisco\", \"covardia\" e \"maldade\" que fere a dignidade da pessoa humana.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 4,
+            "start": 19509,
+            "end": 19559,
+            "text": "Precisamos revogar a Emenda Constitucional nº 103.",
+            "score": 0.2992
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a devolução dos valores já descontados dos servidores públicos aposentados e pensionistas, além da revogação do Sampaprev 2, por meio do PL 92 do Vereador Celso Giannazi.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 42,
+            "start": 123133,
+            "end": 123429,
+            "text": "E, além de revogar esse confisco, temos que lutar pela devolução de tudo o que foi confiscado, que também é uma outra frente de luta em que estamos atuando, e fortalecer o PL 92, do Vereador Celso Giannazi, que acaba com o Sampaprev 2, que foi o último confisco que enfrentamos, a última batalha.",
+            "score": 0.3954
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a escola regular é o espaço de todas as pessoas, rejeitando a segregação e defendendo a educação inclusiva como direito conquistado, amparado pela Lei Brasileira de Inclusão (Lei nº 13.146/2015) e por pactos internacionais.",
+          "passage": {
+            "hearing_id": 32,
+            "turn": 20,
+            "start": 64721,
+            "end": 64744,
+            "text": "Isso está na nossa lei.",
+            "score": 0.2964
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra priorização orçamentária para a educação inclusiva, argumentando que a falta de financiamento é a causa da falta de qualidade, da arquitetura não universal e do currículo não universal.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 0,
+            "start": 8449,
+            "end": 8603,
+            "text": "A falta de qualidade, a arquitetura que não é universal, o currículo que não é universal, todas essas faltas se devem a essa não priorização orçamentária.",
+            "score": 0.6946
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a perseguição e o assédio a professores no Brasil, atribuídos a uma \"onda conservadora\" com contornos neofascistas, e critica a portaria do Governo de São Paulo que instituiu um sistema de vigilância e controle das aulas, chamado de \"vigiar e punir\".",
+          "passage": {
+            "hearing_id": 141,
+            "turn": 0,
+            "start": 3579,
+            "end": 3864,
+            "text": "A escola sempre foi um território em disputa — sempre foi —, mas, nos últimos períodos, em razão de uma onda extremamente conservadora, que também tem contornos de ideologias neofascistas, o controle, o assédio e a perseguição dentro das escolas aumentou de uma forma muito importante.",
+            "score": 0.317
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação da profissão de policial penal e a valorização da carreira, criticando a ausência de marco regulatório que cause adoecimento em massa e precarização do trabalho.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 0,
+            "start": 3782,
+            "end": 3906,
+            "text": "Essa ausência de regulamentação de uma profissão que é essencial para a segurança pública não é por acaso — não é por acaso.",
+            "score": 0.2419
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a privatização de serviços essenciais, citando especificamente a ENEL no Estado de São Paulo, por piorar o serviço em busca de lucro, e defende a revogação da autorização de privatização dos scanners de Raios X por meio do PDL 690/19.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 14,
+            "start": 65972,
+            "end": 66001,
+            "text": "A privatização só quer lucro.",
+            "score": 0.2926
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela pelo cessar-fogo no genocídio contra o povo palestino, pela abertura de fronteiras e pela criação de corredores humanitários, além de cobrar do Ministério da Educação a garantia do direito à educação de crianças refugiadas e migrantes.",
+          "passage": {
+            "hearing_id": 32,
+            "turn": 20,
+            "start": 64933,
+            "end": 65055,
+            "text": "Eu não poderia deixar de mencionar, com muita tristeza e muito pesar, essa guerra, esse genocídio contra o povo palestino.",
+            "score": 0.2308
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação do PLP 21/23 para revogar o congelamento de quinquênios, sexta-parte, licença-prêmio e biênios, causado pela Lei Complementar nº 173/2020.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 16,
+            "start": 74759,
+            "end": 74971,
+            "text": "Essa proposição acaba com o descongelamento de quinquênios, sexta-parte, licença-prêmio e biênios, que, por um tempo, foram congelados e confiscados pela Lei Complementar nº 173, de 2020, do ex-Governo Bolsonaro.",
+            "score": 0.54
+          },
+          "udv": null
+        },
+        {
+          "text": "Repudia a atitude do Governador Tarcísio de não aderir ao programa Bolsa Formação e de tentar sair do Programa Nacional do Livro Didático.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 8,
+            "start": 30831,
+            "end": 30942,
+            "text": "Vocês acompanharam o caos que eles implementaram com a intenção de sair do Programa Nacional do Livro Didático.",
+            "score": 0.4282
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a dignidade da pessoa humana e os tratados internacionais de direitos humanos como fundamento para rejeitar o confisco previdenciário e defender os direitos de migrantes e pessoas com deficiência.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 42,
+            "start": 121578,
+            "end": 122027,
+            "text": "Vamos seguir em várias frentes de luta, acompanhando as ADINs que estão em julgamento no STF e, como o João Domingos propôs, vamos levar a denúncia para a Organização Internacional do Trabalho.Nós também já fizemos esse caminho com a Comissão Interamericana de Direitos Humanos, que também tem um parecer contrário sobre a ilegalidade desse confisco, porque o Brasil é signatário de tratados internacionais que garantem a dignidade da pessoa humana.",
+            "score": 0.2627
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio da laicidade e da democracia como base para defender uma educação \"freiriana\", emancipadora e antirracista, que enfrente as desigualdades históricas de raça, gênero e classe.",
+          "passage": {
+            "hearing_id": 141,
+            "turn": 0,
+            "start": 3449,
+            "end": 3577,
+            "text": "Então, a escola cumpre uma função central no nosso país, que é marcado por injustiças históricas: de raça, de gênero, de classe.",
+            "score": 0.3141
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a proteção da função pública (como a lotação de policiais penais) não é um privilégio individual, mas uma proteção ao Estado Democrático de Direito e ao acesso aos direitos fundamentais.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 4,
+            "start": 20026,
+            "end": 20394,
+            "text": "Quando pensamos em um projeto de Estado Democrático de Direito, quando pensamos nas funções essenciais do Estado, nos direitos fundamentais e nas pessoas que vão exercer esses direitos, a lotação é uma proteção, mas não simplesmente como algumas pessoas, de uma forma muito cínica, tentam colocar, como uma proteção e um privilégio daquele servidor de modo individual.",
+            "score": 0.4951
+          },
+          "udv": null
+        },
+        {
+          "text": "Sustenta que a priorização de políticas públicas só é real se houver priorização no orçamento, vinculando a defesa de direitos à disputa orçamentária.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 0,
+            "start": 8449,
+            "end": 8603,
+            "text": "A falta de qualidade, a arquitetura que não é universal, o currículo que não é universal, todas essas faltas se devem a essa não priorização orçamentária.",
+            "score": 0.1985
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a escola é o maior veículo de promoção de direitos humanos e a única política social que permanece lado a lado com as famílias por 200 dias, justificando a centralidade da defesa do magistério.",
+          "passage": {
+            "hearing_id": 141,
+            "turn": 24,
+            "start": 113814,
+            "end": 113881,
+            "text": "Nenhum outro equipamento fica 200 dias lado a lado com as famílias.",
+            "score": 0.4556
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se professora há 23 anos na rede municipal de São Paulo, tendo sido diretora de escola por 10 anos e supervisora de ensino por 7 anos.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 0,
+            "start": 3131,
+            "end": 3201,
+            "text": "Eu sou professora há 23 anos na rede municipal da cidade de São Paulo.",
+            "score": 0.5374
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como mulher branca, de cabelos loiros e curtos, com pouco mais de 40 anos.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 0,
+            "start": 2971,
+            "end": 3080,
+            "text": "Eu sou uma mulher branca, de cabelos loiros e curtos, visto uma roupa vermelha e tenho pouco mais de 40 anos.",
+            "score": 0.7229
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhada com a bancada que defende a reconstrução do País, a revogação de ataques à previdência e a defesa da escola pública.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 0,
+            "start": 2006,
+            "end": 2187,
+            "text": "A presente audiência pública é uma retomada da luta que temos travado contra os ataques sistemáticos à Previdência como um direito social de todo trabalhador e de toda trabalhadora.",
+            "score": 0.1851
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a atuação conjunta com a Deputada Talíria Petrone, a Deputada Erika Hilton e a Deputada Erika Kokay em audiências e proposições.",
+          "passage": {
+            "hearing_id": 32,
+            "turn": 20,
+            "start": 65611,
+            "end": 65669,
+            "text": "Parabéns, Deputada Erika Hilton, por mais essa iniciativa.",
+            "score": 0.4398
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionou a atuação do Coletivo Educação em Primeiro Lugar na defesa do Programa Nacional do Livro Didático em São Paulo.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 8,
+            "start": 30831,
+            "end": 30942,
+            "text": "Vocês acompanharam o caos que eles implementaram com a intenção de sair do Programa Nacional do Livro Didático.",
+            "score": 0.3488
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emotiva e militante, empregando termos como \"covardia\", \"maldade\", \"confisco\", \"genocídio\" e \"perversão\" para descrever políticas públicas adversas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos e casos concretos, como o aumento de 6% para policiais penais contra 20% para a Polícia Militar em São Paulo, e o relato do primeiro aluno com deficiência em 2002.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 0,
+            "start": 5111,
+            "end": 5239,
+            "text": "Eles só receberam 6% de aumento, ao passo que a Polícia Militar e a Polícia Civil do Estado de São Paulo tiveram 20% de aumento.",
+            "score": 0.4074
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita normas jurídicas e decisões de cortes internacionais, como a Corte Interamericana de Direitos Humanos e a Lei Brasileira de Inclusão, para fundamentar suas posições.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 0,
+            "start": 2860,
+            "end": 2979,
+            "text": "Tanto é que a Corte Interamericana de Direitos Humanos já tem posicionamento sobre esse assunto e condena essa prática.",
+            "score": 0.2743
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe encaminhamentos concretos e imediatos, como indicações a ministérios, audiências públicas em territórios e a criação de observatórios para monitoramento de dados.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 20,
+            "start": 87990,
+            "end": 88160,
+            "text": "Vamos propor audiências públicas nos territórios para fazermos a discussão nos Governos locais sobre essa rede de apoio, conforme nos alertou a Defensora Renata Tibyriçá.",
+            "score": 0.1836
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com tom de união e mobilização, usando expressões como \"nossa luta\", \"nossa bancada\" e \"companheiros\", e cobra prazos e ações dos órgãos públicos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 14,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Vítimas e autoridades divergem sobre reparações do crime socioambiental da Braskem em Maceió",
+      "assunto": "Reparações do crime socioambiental da Braskem em Maceió",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 24,
+      "split": "test",
+      "article_date": "2024-04-12",
+      "title": "Deputados, alunos e professores defendem ensino de filosofia e sociologia na rede pública",
+      "assunto": "Defesa do ensino de filosofia e sociologia na rede pública",
+      "turns": 11,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 32,
+      "split": "train",
+      "article_date": "2023-10-31",
+      "title": "Debatedores criticam obstáculos para acolhimento de migrantes no Brasil",
+      "assunto": "Obstáculos para acolhimento de migrantes no Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 55,
+      "split": "train",
+      "article_date": "2023-04-24",
+      "title": "Sindicatos criticam incidência de contribuição de inativos sobre valores acima do mínimo",
+      "assunto": "Críticas à incidência de contribuição previdenciária sobre valores acima do mínimo para servidores públicos aposentados e pensionistas",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 135,
+      "split": "train",
+      "article_date": "2023-11-09",
+      "title": "Policiais penais denunciam precarização do trabalho e cobram regulamentação das atividades",
+      "assunto": "Precarização do trabalho e regulamentação das atividades dos policiais penais",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 141,
+      "split": "train",
+      "article_date": "2023-10-31",
+      "title": "Professores denunciam ambiente de perseguições causado pelo clima de radicalização política no País",
+      "assunto": "Perseguição a professores devido à radicalização política no Brasil",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 176,
+      "split": "train",
+      "article_date": "2023-09-11",
+      "title": "Capacitismo é barreira para educação inclusiva, dizem especialistas",
+      "assunto": "Capacitismo como barreira para a educação inclusiva",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-14-7-0",
+      "hearing_id": 14,
+      "n": 12,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "Listou as cobranças de providência que encaminhou a várias autoridades federais e estaduais com focos em reparação, fiscalização e responsabilização.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós acionamos o Tribunal de Contas da União e agora acionamos a Advocacia-Geral da União. Todos esses acionamentos foram para pedir a fiscalização e a reparação tanto ambiental quanto de todo o contingente humano atingido.",
+        "turn": 30,
+        "start": 58424,
+        "end": 58646
+      },
+      "verifier": {
+        "probability": 0.4569258536474629,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-24-3-0",
+      "hearing_id": 24,
+      "n": 4,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "Anunciou a articulação de uma 'Carta ao Senado' para influenciar a votação pelos senadores da nova reforma do ensino médio.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Lembro que no Senado está tramitando uma proposta de reformulação do ensino médio. Eu acho que nós podemos também, durante a nossa audiência, pensar em contribuições para essa proposta e levá-las até a Relatora, que é a Senadora Professora Dorinha Seabra.",
+        "turn": 0,
+        "start": 3520,
+        "end": 3775
+      },
+      "verifier": {
+        "probability": 0.43517286899391155,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-24-3-1",
+      "hearing_id": 24,
+      "n": 5,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "Pretende criar a Frente Parlamentar em Defesa de Filosofia e Sociologia na Educação Básica: \"Essas disciplinas [filosofia e sociologia] são fundamentais para que os nossos estudantes tenham formação crítica e consigam entender o processo histórico do País.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este é um debate extremamente importante, que vai tratar do ensino de filosofia e sociologia na educação básica como um direito dos nossos estudantes e como um instrumento para que possamos alcançar a igualdade social, para que os nossos estudantes tenham uma formação crítica, para que consigam entender o processo histórico do nosso País, entender como construímos a nossa sociedade até este momento, para que tenhamos condições de pensar um outro País, para que possamos nos […]",
+        "turn": 0,
+        "start": 1244,
+        "end": 1764
+      },
+      "verifier": {
+        "probability": 0.6723294895394457,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-24-3-2",
+      "hearing_id": 24,
+      "n": 6,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "A ausência de filosofia e sociologia no currículo reforça as desigualdades entre as escolas públicas e privadas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, esse é o principal objetivo. Também debateremos em que medida a opção pelo não ensino da filosofia e da sociologia reforça as nossas desigualdades econômicas, raciais, geográficas e quanto isso é diferente nas escolas públicas e privadas.",
+        "turn": 0,
+        "start": 1729,
+        "end": 1974
+      },
+      "verifier": {
+        "probability": 0.9889773835880352,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-55-0-0",
+      "hearing_id": 55,
+      "n": 1,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "A audiência retoma a luta contra ataques à aposentadoria de trabalhadores: \"Chegamos aqui com o compromisso de revogar covardias e maldades praticadas contra servidores aposentados e pensionistas. Essa emenda autoriza que servidores públicos que recebem abaixo do teto do INSS possam ser confiscados, retirando de seus salários até 14%.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Chegamos, este ano, com esse compromisso de revogar as covardias e as maldades que foram realizadas contra os servidores públicos aposentados e pensionistas. No ano de 2019 foi aprovada por esta Casa a PEC 103, que autoriza, entre tantas maldades, que servidores públicos que recebem abaixo do teto do INSS possam ter confiscados, retirados, até 14% dos seus vencimentos.",
+        "turn": 0,
+        "start": 2233,
+        "end": 2604
+      },
+      "verifier": {
+        "probability": 0.8940512902347991,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-135-4-0",
+      "hearing_id": 135,
+      "n": 7,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "Vai sugerir ao Ministério da Justiça a adoção de um observatório com dados sobre o adoecimento na atividade policial, a fim de servir de base para futuras políticas públicas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É muito importante pensarmos num observatório, em algum mecanismo para começarmos uma pesquisa sobre o adoecimento no sistema prisional. Por fim, também vamos fazer uma indicação tanto ao Ministério da Justiça como ao Ministério de Gestão e da Inovação e ao CNJ com relação à necessidade de regulamentação da Polícia Penal Federal, que certamente servirá de parâmetro para que os Estados também façam essa regulação.",
+        "turn": 16,
+        "start": 77674,
+        "end": 78091
+      },
+      "verifier": {
+        "probability": 0.9045592805997374,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-135-4-1",
+      "hearing_id": 135,
+      "n": 8,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "Sugeriu que o ministério e o Conselho Nacional de Justiça avancem na regulamentação da Polícia Penal federal, que poderá servir de parâmetro para os estados: \"Não há um projeto de política de segurança pública sem a inclusão, a dignidade, a valorização e a regulamentação dos policiais penais. Existe um quadro de adoecimento em massa dos policiais penais.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "É um dos temas que mais preocupa a nossa sociedade, e não há um projeto de política de segurança pública sem a inclusão, a dignidade, a valorização e a regulamentação da profissão dos policiais penais.",
+        "turn": 0,
+        "start": 3133,
+        "end": 3334
+      },
+      "verifier": {
+        "probability": 0.6028782641121312,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-141-3-0",
+      "hearing_id": 141,
+      "n": 5,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "Elogiou a iniciativa de um observatório para monitorar a questão e embasar propostas para enfrentar a perseguição contra professores: \"O observatório é fundamental porque, quando se pensa em políticas públicas, é preciso ter os dados, saber como está, como vem acontecendo e evoluindo, e quais são a interferências para então pensar na proposta.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, a iniciativa do Observatório nesse sentido é fundamental, porque, quando pensamos em políticas públicas, temos que ter os dados, precisamos saber como isso vem acontecendo e evoluindo, e quais são as interferências para pensarmos em proposituras. Saúdo os Ministérios por essa iniciativa, por estarem com esse pleito junto às universidades, aos movimentos e aos sindicatos organizados.",
+        "turn": 24,
+        "start": 111893,
+        "end": 112286
+      },
+      "verifier": {
+        "probability": 0.6367692545270545,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-176-3-0",
+      "hearing_id": 176,
+      "n": 7,
+      "article_name": "Professora Luciene Cavalcante",
+      "proposition": "É preciso garantir recursos para a implantação do que preconiza a Lei Brasileira de Inclusão: \"A gente vai propor emendas e lutar pela efetivação de emendas orçamentárias para as políticas públicas que garantam a implementação das políticas, que são tão importantes e que já estão disciplinadas no nosso ordenamento jurídico. Vamos levar essa demanda sobre a questão dos dados para o Censo, para o Inep e também para o IBGE.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vamos lutar pela efetivação de emendas orçamentárias para políticas públicas que garantam a inclusão, a implementação das políticas, que são tão importantes e que já estão disciplinadas no nosso ordenamento jurídico. Vamos levar essa demanda que a Sandra trouxe sobre a questão dos dados do Censo para o INEP e também para o IBGE.",
+        "turn": 20,
+        "start": 87657,
+        "end": 87988
+      },
+      "verifier": {
+        "probability": 0.8557597962327601,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "actor": {
+    "slug": "benes-leocadio",
+    "name": "BENES LEOCÁDIO",
+    "display_name": "Benes Leocádio",
+    "role": "Deputado (União-RN)",
+    "article_names": [
+      "Benes Leocádio"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - RN",
+      "UNIÃO - RN"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:11:11+00:00",
+    "n_statements": 6,
+    "n_hearings": 3,
+    "hearing_ids": [
+      2,
+      91,
+      183
+    ],
+    "input_tokens": 4760,
+    "output_tokens": 881,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a revisão dos contratos de concessão de energia elétrica para reduzir a carga tarifária sobre o consumidor, argumentando que a Constituição de 1988 sofreu alterações e, portanto, os contratos também devem ser adaptados à nova realidade pós-pandemia.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 60,
+            "start": 91798,
+            "end": 92223,
+            "text": "Mas, se a nossa Constituição, que foi promulgada em 1988, já sofreu várias alterações, várias mudanças no seu texto, com várias emendas, propostas promulgadas, por que não podemos também discutir mudança no texto desses contratos que dizem respeito, dia a dia, à relação entre consumidor e concessionária de energia do nosso País, ainda mais sabendo que tudo que é atividade depende, naturalmente, do fornecimento de energia?",
+            "score": 0.2087
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a estrutura de custos da energia, afirmando que mais de 70% da tarifa é composta por encargos e tributos transferidos, enquanto apenas 23% a 25% correspondem à administração da concessionária.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 60,
+            "start": 91659,
+            "end": 91797,
+            "text": "Se somados, mais de 70% deles são encargos e custos que são transferidos, ficando cerca de 23%, 25% com a administração da concessionária.",
+            "score": 0.501
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que a região Nordeste, produtora de energia limpa, receba tratamento diferenciado e benefícios tarifários, questionando por que o consumidor local ainda paga preços altos apesar da alta produção eólica.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 60,
+            "start": 92225,
+            "end": 92688,
+            "text": "Outro dia, aqui na Comissão, Deputado Danilo, perguntávamos, principalmente em relação ao nosso Nordeste, que é o produtor de energia limpa, digamos, disparado no nosso País, quando vamos poder tirar proveito ou ter um tratamento diferenciado por estarmos numa região tão forte e promissora na produção de energia limpa, porque, na verdade, ainda pagamos esse custo, esse preço, como se nada mudasse, nada produzisse e nada pudesse melhorar na vida do consumidor.",
+            "score": 0.2125
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério de Minas e Energia a inclusão do Rio Grande do Norte nos leilões de energia previstos para dezembro de 2023 e março de 2024, citando a incerteza que retarda obras de parques e usinas no estado.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 90,
+            "start": 146306,
+            "end": 146462,
+            "text": "A minha pergunta é se o Rio Grande do Norte estará contemplado no segundo leilão, previsto para dezembro de 2023, ou no último, previsto para março de 2024.",
+            "score": 0.3119
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a outorga e o licenciamento ambiental para a renovação da condição de consumidor de energia verde ou irrigante sejam realizados uma única vez, evitando a exigência de novos processos para os 2.764 pequenos irrigantes do Rio Grande do Norte afetados pela Resolução nº 1.000/2021 da ANEEL.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 90,
+            "start": 147814,
+            "end": 148077,
+            "text": "Trago como exemplo uma situação que o meu Estado vive hoje por exigência da Resolução nº 1.000, de 2021, da ANEEL, para renovação da condição de consumidor de energia verde ou de irrigante, que, como o senhor disse, é prioridade, deverá ser prioridade do Governo.",
+            "score": 0.4082
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o IBAMA e o Ministério do Meio Ambiente sobre a legislação e as perspectivas para o licenciamento de projetos de energia eólica offshore no Rio Grande do Norte, citando sete pedidos em andamento, e sobre a implantação de um porto-indústria em Caiçara do Norte.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 76,
+            "start": 142530,
+            "end": 142738,
+            "text": "e também para o Presidente do IBAMA é sobre a legislação no tocante ao IBAMA, o que vem sendo discutido para a implantação da energiaoffshoreno continente brasileiro e, principalmente, lá no Rio Grande Norte.",
+            "score": 0.2756
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a viabilidade econômica, social e ambiental como tripé para a concessão de licenças, alinhando-se à necessidade de não distanciar a agenda ambiental do desenvolvimento econômico, especialmente nas regiões Norte e Nordeste.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 76,
+            "start": 140737,
+            "end": 140974,
+            "text": "Já foi bastante discutida e falada aqui a questão da foz do Amazonas, então eu quero me prender, Ministra Marina, ao que a senhora falou sobre o tripé a ser observado na concessão de licenças: a viabilidade econômica, social e ambiental.",
+            "score": 0.3622
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento de que a Constituição Federal é mutável e sofre emendas para justificar a necessidade de alteração nos contratos de concessão de energia, aplicando esse princípio à relação entre consumidor e concessionária.",
+          "passage": {
+            "hearing_id": 91,
+            "turn": 60,
+            "start": 91798,
+            "end": 92223,
+            "text": "Mas, se a nossa Constituição, que foi promulgada em 1988, já sofreu várias alterações, várias mudanças no seu texto, com várias emendas, propostas promulgadas, por que não podemos também discutir mudança no texto desses contratos que dizem respeito, dia a dia, à relação entre consumidor e concessionária de energia do nosso País, ainda mais sabendo que tudo que é atividade depende, naturalmente, do fornecimento de energia?",
+            "score": 0.1977
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas cobranças na premissa de que a produção de energia limpa no Nordeste deve gerar reflexo direto na redução de custos para o consumidor final, criticando a ausência de contrapartidas para a matriz energética local.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 90,
+            "start": 145871,
+            "end": 146040,
+            "text": "O senhor registrou bem que temos 88% da matriz de energia limpa do mundo, mas ainda não sentimos o reflexo disso em benefícios, ou em contrapartida para os consumidores.",
+            "score": 0.1752
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o exemplo de impacto social positivo da energia eólica (como o caso do mototaxista Sr. Chagas, em Lages/RN) para defender a expansão da infraestrutura de energia renovável, mesmo diante de resistências locais relacionadas a ruídos.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 76,
+            "start": 142007,
+            "end": 142163,
+            "text": "Registro lá da minha cidade, Lages, no Rio Grande do Norte, cidade que tive a oportunidade de governar por algumas vezes, o exemplo de um mototaxista, o Sr.",
+            "score": 0.1872
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal pelo Rio Grande do Norte, representante do povo potiguar e ex-prefeito da cidade de Lages.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 76,
+            "start": 142007,
+            "end": 142163,
+            "text": "Registro lá da minha cidade, Lages, no Rio Grande do Norte, cidade que tive a oportunidade de governar por algumas vezes, o exemplo de um mototaxista, o Sr.",
+            "score": 0.3136
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido indicado pelo partido União Brasil para integrar o grupo de trabalho do PL 414, que discute a redução de custos da energia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 90,
+            "start": 147180,
+            "end": 147262,
+            "text": "Eu fui indicado pelo meu partido, o União Brasil, para ser membro desse colegiado.",
+            "score": 0.355
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante da região Nordeste, destacando a preocupação com a realidade econômica e social do Sertão Central Cabugi e do litoral potiguar.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 76,
+            "start": 141460,
+            "end": 141622,
+            "text": "E falo como Deputado Federal que representa o povo potiguar de uma região que tem recebido valiosa transformação com esses investimentos, o Sertão Central Cabugi.",
+            "score": 0.3524
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Constrói argumentos combinando dados quantitativos (percentuais de encargos, número de irrigantes, capacidade de produção em gigawatts) com exemplos concretos e locais (caso do Sr. Chagas, situação de Lages/RN) para ilustrar o impacto das políticas públicas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Direciona perguntas específicas a ministros e dirigentes de órgãos federais (Ministro Alexandre Silveira, Presidente do IBAMA), cobrando prazos, inclusão em leilões e esclarecimentos sobre legislação.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 90,
+            "start": 145003,
+            "end": 145123,
+            "text": "Ministro Alexandre Silveira, é um prazer ter a oportunidade de debater um assunto tão importante para o povo brasileiro.",
+            "score": 0.1975
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza um tom colaborativo e respeitoso, cumprimentando os presentes e reconhecendo o trabalho das concessionárias, mas mantendo firmeza ao cobrar soluções para o \"conflito tarifário\" e a \"insegurança\" dos investidores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre à analogia com a Constituição Federal para legitimar a mudança de regras contratuais, e à comparação com o setor de combustíveis para destacar a necessidade de renúncia fiscal ou ajuste de encargos no setor elétrico.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 91,
+      "split": "train",
+      "article_date": "2022-05-12",
+      "title": "Tarifa represada na pandemia levou a reajustes de até 25% na conta de luz, dizem distribuidores em debate",
+      "assunto": "Reajustes nas tarifas de energia elétrica devido ao represamento durante a pandemia e a escassez hídrica",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-91-9-0",
+      "hearing_id": 91,
+      "n": 17,
+      "article_name": "Benes Leocádio",
+      "proposition": "Criticou o setor elétrico: \"Ninguém defende quebra de contratos, mas eles foram firmados em outra realidade.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Ninguém aqui vai querer defender a quebra de contrato, até porque os contratos são firmados e pactuados para serem cumpridos. Mas foi colocado aqui também por muitas pessoas que nos antecederam que eles foram firmados em outra situação, em outra realidade.",
+        "turn": 60,
+        "start": 90660,
+        "end": 90917
+      },
+      "verifier": {
+        "probability": 0.2747790536043351,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

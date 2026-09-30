@@ -1,0 +1,296 @@
+{
+  "actor": {
+    "slug": "bebeto",
+    "name": "BEBETO",
+    "display_name": "Bebeto",
+    "role": "Deputado (PP-RJ)",
+    "article_names": [
+      "Bebeto"
+    ],
+    "party_uf": [
+      "Bloco/PP - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:09:38+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      144
+    ],
+    "input_tokens": 2668,
+    "output_tokens": 785,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 14,
+    "with_udv": 2,
+    "passage_only": 12,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação do Projeto de Lei Complementar nº 54/2023, de sua autoria, que altera a Lei Complementar nº 101/2000 (Lei de Responsabilidade Fiscal) para flexibilizar a demonstração de exigência para a realização de transferência voluntária para Estados e Municípios em estado de calamidade pública por desastres naturais, modificando o art. 25, § 4º, e o inciso I.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 77948,
+            "end": 78286,
+            "text": "Eu apresentei o Projeto de Lei Complementar nº 54/2023, que altera a Lei Complementar nº 101/2000, a Lei de Responsabilidade Fiscal, para flexibilizar a demonstração de exigência para a realização de transferência voluntária para os Estados e os Municípios que estejam em estado de calamidade pública em decorrência de desastres naturais.",
+            "score": 0.7783
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que Municípios em situação de CAUC (Comitê de Acompanhamento e Fiscalização dos Convênios) possam receber recursos federais para prevenção de desastres, argumentando que a legislação atual impede essa captação e que a dívida herdada de gestões anteriores torna impossível a saída do CAUC.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 79926,
+            "end": 80067,
+            "text": "Trata-se de uma lei complementar em que os Municípios que estão no CAUC vão poder receber recursos do seu Ministério e com a sua boa vontade.",
+            "score": 0.1712
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o caso de Petrópolis em 2022, onde 233 pessoas morreram e o Governo Federal realizou a encampação liberando recursos apenas após a calamidade, para justificar a necessidade de atuação preventiva antes da ocorrência dos desastres.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 78750,
+            "end": 78965,
+            "text": "Como exemplo, eu quero citar aqui os acidentes que aconteceram em 2022, em Petrópolis, onde morreram 233 pessoas, quando o Estado, o Governo Federal, fez a encampação e liberou recursos, mas já diante da calamidade.",
+            "score": 0.3868
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a cidade de São João de Meriti possui 58 morros, quatro rios e o Rio Sarapuí, que alaga a Baixada Fluminense a cada chuva, e que relatos indicam dez locais com possibilidade de calamidade pública que poderiam ser evitados com recursos preventivos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 79429,
+            "end": 79485,
+            "text": "Em São João de Meriti, por exemplo, nós temos 58 morros.",
+            "score": 0.2779
+          },
+          "udv": {
+            "id": "udv-144-2-0",
+            "rule": "same_sentence",
+            "score": 0.2902
+          }
+        },
+        {
+          "text": "Cobra a aplicação dos R$ 1,36 bilhão mencionados pelo Ministro Jader Filho para o enfrentamento de calamidades públicas, declarando que buscará o Guilherme Simões para discutir a destinação desses recursos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 80088,
+            "end": 80235,
+            "text": "falar que há 1 bilhão e 360 mil para aplicar no enfrentamento de calamidade pública, e eu vou procurar o Guilherme Simões para poder discutir isso.",
+            "score": 0.2891
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a postura reativa do Governo Federal, exemplificada pela encampação em São Paulo com o envio de navio da Marinha e Gabinete de Crise após a tragédia, argumentando que essa abordagem é ineficaz porque as mortes já ocorreram.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 80657,
+            "end": 80876,
+            "text": "Nós vamos ter calamidade pública, e, depois, o Governo Federal faz a encampação, como aconteceu lá em São Paulo, levando o navio da Marinha, o Gabinete de Crise, mas não adianta, porque já morreram pessoas infelizmente.",
+            "score": 0.361
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a prevenção de desastres naturais como critério central para justificar a flexibilização da Lei de Responsabilidade Fiscal, argumentando que a aplicação de recursos na prevenção é essencial para a segurança e o bem-estar da população, especialmente em áreas com alterações climáticas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 78333,
+            "end": 78749,
+            "text": "A justificativa desse projeto de lei de minha autoria é o fornecimento de assistência financeira aos Estados e Municípios que enfrentam dificuldades em agir de forma eficaz durante a crise com desastres naturais.A aplicação desses recursos deverá ser na prevenção do acontecimento por se tratar de uma questão importante para a segurança e o bem-estar da população, especialmente nas áreas com alterações climáticas.",
+            "score": 0.4132
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na ineficácia da resposta estatal posterior ao desastre para defender a mudança legislativa, sustentando que a missão do poder público é atuar preventivamente para evitar mortes e desalojamentos, e não apenas gerenciar a crise após o fato consumado.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 80877,
+            "end": 80913,
+            "text": "Nós temos que atuar preventivamente.",
+            "score": 0.2192
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Projeto de Lei Complementar nº 54/2023.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 77948,
+            "end": 78286,
+            "text": "Eu apresentei o Projeto de Lei Complementar nº 54/2023, que altera a Lei Complementar nº 101/2000, a Lei de Responsabilidade Fiscal, para flexibilizar a demonstração de exigência para a realização de transferência voluntária para os Estados e os Municípios que estejam em estado de calamidade pública em decorrência de desastres naturais.",
+            "score": 0.3727
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Vice-Presidente da Comissão, atuando em conjunto com o Deputado Gutemberg Reis para o Estado do Rio de Janeiro e para todo o Brasil.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 80938,
+            "end": 81180,
+            "text": "Eu quero agradecer a oportunidade, Deputado Cezinha, de estar aqui na confiança de ser Vice-Presidente desta Comissão, juntamente com o Deputado Gutemberg Reis, desenvolvendo esse trabalho para o Estado do Rio de Janeiro e para todo o Brasil.",
+            "score": 0.5666
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencion a presença do Presidente da Câmara e do Secretário de sua cidade (São João de Meriti) na audiência.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 78967,
+            "end": 79154,
+            "text": "Nós queremos apresentar meios, por exemplo, para que essas cidades, como a minha cidade, cujo Presidente da Câmara e o Secretário estão aqui, recebam esses recursos mesmo estando no CAUC.",
+            "score": 0.3094
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos de sua base eleitoral (número de morros, rios e locais de risco em São João de Meriti) e casos concretos de tragédias (Petrópolis, São Paulo) para fundamentar a urgência da proposta legislativa.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 79429,
+            "end": 79485,
+            "text": "Em São João de Meriti, por exemplo, nós temos 58 morros.",
+            "score": 0.205
+          },
+          "udv": {
+            "id": "udv-144-2-0",
+            "rule": "same_sentence",
+            "score": 0.2415
+          }
+        },
+        {
+          "text": "Dirige-se diretamente ao Ministro Jader Filho, parabenizando-o pela transparência e pela explanação, e estabelece uma relação de colaboração ao mencionar conversas prévias em sala de reunião e a intenção de discutir recursos com o Guilherme Simões.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 77413,
+            "end": 77498,
+            "text": "pela realização desta audiência pública com a presença do nosso Ministro Jader Filho.",
+            "score": 0.1886
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de urgência e responsabilidade moral ao destacar as consequências humanas da falta de prevenção (mortes, pessoas sem casas) e ao afirmar que \"nós temos que atuar preventivamente. Esta é a nossa missão\".",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 48,
+            "start": 80877,
+            "end": 80913,
+            "text": "Nós temos que atuar preventivamente.",
+            "score": 0.362
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 19,
+      "split": "validation",
+      "article_date": "2023-12-14",
+      "title": "Câmara pode criar grupo para estudar proposta que reduz velocidade média das vias urbanas",
+      "assunto": "Criação de grupo de trabalho para estudar proposta de redução da velocidade média nas vias urbanas",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 101,
+      "split": "test",
+      "article_date": "2024-04-23",
+      "title": "Torcidas organizadas pedem mudanças na Lei Geral do Esporte",
+      "assunto": "Mudanças na Lei Geral do Esporte para individualizar condutas em casos de violência em jogos de futebol",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-144-2-0",
+      "hearing_id": 144,
+      "n": 9,
+      "article_name": "Bebeto",
+      "proposition": "Lembrou tragédias provocadas pelas chuvas no estado do Rio de Janeiro e deu o exemplo de São João de Meriti, que tem 58 morros e 10 locais mapeados como áreas de risco.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Em São João de Meriti, por exemplo, nós temos 58 morros. Eu peguei um relato aqui de que já existem dez locais onde possivelmente vai acontecer uma calamidade pública, e nós podemos evitá-la.",
+        "turn": 48,
+        "start": 79429,
+        "end": 79620
+      },
+      "verifier": {
+        "probability": 0.4749662580234666,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

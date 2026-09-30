@@ -1,0 +1,110 @@
+{
+  "actor": {
+    "slug": "helder-salomao",
+    "name": "HELDER SALOMÃO",
+    "display_name": "Helder Salomão",
+    "role": "Deputado (PT-ES), relator parcial da comissão externa",
+    "article_names": [
+      "Helder Salomão"
+    ],
+    "party_uf": [
+      "Bloco/PT - ES"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:57:48+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      51
+    ],
+    "input_tokens": 1784,
+    "output_tokens": 68,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 2,
+    "with_udv": 0,
+    "passage_only": 0,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Helder, diferenciando-se de outro participante com o mesmo nome presente na audiência.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza humor e autodepreciação na abertura da fala, fazendo uma piada sobre o próprio nome em resposta à saudação da presidência.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 13,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Autoridades cobram a Justiça para destravar renegociação com mineradoras sobre reparação em Mariana",
+      "assunto": "Cobrança à Justiça para destravar a renegociação com mineradoras sobre reparação em Mariana",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 51,
+      "split": "train",
+      "article_date": "2023-05-25",
+      "title": "Extensão universitária depende de financiamento permanente, defendem debatedores",
+      "assunto": "Financiamento permanente e integração dos programas de extensão universitária com políticas governamentais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-13-2-0",
+      "hearing_id": 13,
+      "n": 5,
+      "article_name": "Helder Salomão",
+      "proposition": "Manifestou indignação com a nova paralisação nas negociações.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, a ausência das empresas é sintomática. Eu diria que isso é um desrespeito a esta Casa, é um desrespeito ao poder público e, em especial, é um desrespeito aos atingidos e às atingidas.",
+        "turn": 31,
+        "start": 104318,
+        "end": 104508
+      },
+      "verifier": {
+        "probability": 0.18874165999740475,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

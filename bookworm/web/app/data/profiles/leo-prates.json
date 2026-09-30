@@ -1,0 +1,518 @@
+{
+  "actor": {
+    "slug": "leo-prates",
+    "name": "Leo Prates",
+    "display_name": "Leo Prates",
+    "role": "Deputado (PDT-BA) e presidente da comissão especial",
+    "article_names": [
+      "Leo Prates"
+    ],
+    "party_uf": [
+      "Bloco/PDT - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:39:12+00:00",
+    "n_statements": 5,
+    "n_hearings": 3,
+    "hearing_ids": [
+      2,
+      152,
+      183
+    ],
+    "input_tokens": 4314,
+    "output_tokens": 1007,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 25,
+    "with_udv": 0,
+    "passage_only": 22,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Sugerir a criação de uma subcomissão para acompanhar os estudos sobre a preparação do sistema elétrico brasileiro, com o objetivo de evitar a repetição de eventos de desligamento em massa.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 140454,
+            "end": 140704,
+            "text": "E eu queria, Presidente, sugerir a criação de uma subcomissão — não de uma CPI, mas de uma subcomissão — para acompanharmos todos os estudos que estão sendo feitos, para que nós possamos colaborar para que episódios como esse não voltem a se repetir.",
+            "score": 0.2897
+          },
+          "udv": null
+        },
+        {
+          "text": "Questionar a capacidade do sistema elétrico, descrito como moderno e automatizado, de prever eventos de grande magnitude, utilizando o termo técnico \"overshoot\" para descrever a saída da curva de controle.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 139072,
+            "end": 139181,
+            "text": "Pergunto: como esse sistema tão moderno e tão automatizado não foi capaz de prever um evento dessa magnitude?",
+            "score": 0.2758
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumentar que a responsabilidade por falhas no sistema não reside nas novas fontes de energia limpa, mas sim na preparação inadequada da infraestrutura para receber a quantidade de harmônicos gerados por essas fontes.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 139985,
+            "end": 140059,
+            "text": "Luiz Carlos, está preparado para receber essa quantidade de energia limpa.",
+            "score": 0.3068
+          },
+          "udv": null
+        },
+        {
+          "text": "Defender que a matriz energética brasileira deve ser diversificada, adotando a lógica do \"e\" em vez do \"ou\", ou seja, combinando energia eólica, elétrica e outras fontes.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 140877,
+            "end": 140975,
+            "text": "Nós temos que ter energia eólica, temos que ter energia elétrica, temos que ter todas as energias.",
+            "score": 0.2019
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobrar a identificação clara de quem compõe o \"mercado regulado\" de energia, apontando que, com a saída de indústrias e de consumidores com acesso a energia limpa, a carga tributária recai sobre o \"povo trabalhador\".",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 141241,
+            "end": 141366,
+            "text": "Se saíram as indústrias, se a classe alta do Brasil tem acesso a energia limpa, Deputado Pedro, quem é esse mercado regulado?",
+            "score": 0.344
+          },
+          "udv": null
+        },
+        {
+          "text": "Destacar a necessidade de discutir o sistema tributário da energia elétrica, citando a alegação de que a energia limpa paga 50% pela utilização do mesmo cabeamento da energia convencional.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 141816,
+            "end": 141932,
+            "text": "Sandoval estava mostrando aqui que a energia limpa paga 50% para utilização do mesmo cabeamento da energia elétrica.",
+            "score": 0.593
+          },
+          "udv": null
+        },
+        {
+          "text": "Corroborar a visão de que não há dicotomia entre meio ambiente e desenvolvimento econômico, argumentando que pactos internacionais de comércio exigem a preservação ambiental como princípio.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 40,
+            "start": 67655,
+            "end": 67918,
+            "text": "Eu não consigo ver essa dicotomia — e gostei muito do início da sua fala, Ministra — entre meio ambiente e desenvolvimento econômico, visto que muitos dos pactos internacionais, inclusive de comércio com o Brasil, exigem a preservação ambiental como um princípio.",
+            "score": 0.6252
+          },
+          "udv": null
+        },
+        {
+          "text": "Questionar a Ministra do Meio Ambiente sobre o número de licenças ambientais emitidas para a Petrobras em sua gestão e solicitar esclarecimentos sobre o licenciamento na Bacia Potiguar e na Foz do Amazonas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 40,
+            "start": 68990,
+            "end": 69140,
+            "text": "A minha pergunta corrobora com a de um colega, que é a seguinte: quantas licenças ambientais na sua gestão, Ministra, foram emitidas para a PETROBRAS?",
+            "score": 0.3931
+          },
+          "udv": null
+        },
+        {
+          "text": "Defender a criação de uma diretoria de proteção animal no Ministério do Meio Ambiente e solicitar detalhes sobre os projetos da pasta nessa área.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 40,
+            "start": 69885,
+            "end": 70121,
+            "text": "pudesse detalhar os projetos do Ministério, enaltecendo também a figura da Vanessa, que tem feito um belíssimo trabalho, inclusive na mobilização de protetores, nessa área de proteção animal, no que tange ao Ministério do Meio Ambiente.",
+            "score": 0.4417
+          },
+          "udv": null
+        },
+        {
+          "text": "Ratificar que o objetivo principal no trânsito é reduzir as mortes violentas, citando a gestão do Prefeito Bruno Reis em Salvador como exemplo de redução de óbitos.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 19,
+            "start": 59290,
+            "end": 59442,
+            "text": "Eu tenho muito orgulho da gestão do Prefeito Bruno Reis, porque Salvador é uma das capitais que mais reduziram o número de mortes violentas no trânsito.",
+            "score": 0.4998
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicitar à Caixa Econômica Federal um tempo de adequação para a gestão do DPVAT, reconhecendo o prazo de 2 anos e 9 meses, mas cobrando a aceleração da discussão para atender às famílias que necessitam do seguro.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 19,
+            "start": 59750,
+            "end": 59821,
+            "text": "A Caixa está há 2 anos e 9 meses — salvo engano, foi o prazo que a Dra.",
+            "score": 0.295
+          },
+          "udv": null
+        },
+        {
+          "text": "Perguntar à Caixa como os indicadores de tempo de pagamento (como a redução de 16 dias) podem ser melhorados e como o Legislativo pode colaborar com esse esforço.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 19,
+            "start": 60375,
+            "end": 60414,
+            "text": "Danielle colocou os 16 dias de redução.",
+            "score": 0.3319
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o raciocínio de engenheiro para concatenar fatos técnicos e chegar a conclusões sobre a responsabilidade do sistema elétrico, invocando conceitos acadêmicos como \"overshoot\" e harmônicos.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 138712,
+            "end": 138810,
+            "text": "Com o raciocínio de engenheiro, eu vou concatenar o que ele disse aqui, até chegar aonde eu quero.",
+            "score": 0.3837
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a defesa da diversificação energética e da tributação justa com o argumento de que a pobreza no Brasil, especialmente na Bahia e em Salvador, tem cor e afeta a juventude negra, tornando a energia elétrica essencial para o sustento das famílias mais pobres.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 40,
+            "start": 71113,
+            "end": 71200,
+            "text": "Então, é essa juventude negra, essa pobreza negra das nossas cidades e do nosso Estado.",
+            "score": 0.2601
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o critério do \"equilíbrio\" para justificar a compatibilidade entre desenvolvimento econômico e preservação ambiental, baseando-se em exigências de pactos internacionais de comércio.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 40,
+            "start": 67655,
+            "end": 67918,
+            "text": "Eu não consigo ver essa dicotomia — e gostei muito do início da sua fala, Ministra — entre meio ambiente e desenvolvimento econômico, visto que muitos dos pactos internacionais, inclusive de comércio com o Brasil, exigem a preservação ambiental como um princípio.",
+            "score": 0.3621
+          },
+          "udv": null
+        },
+        {
+          "text": "Fundamenta a cobrança por agilidade no DPVAT no princípio de defesa da vida e na necessidade de amenizar o sofrimento das famílias vítimas de acidentes de trânsito.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 19,
+            "start": 60523,
+            "end": 60641,
+            "text": "Trata-se de um esforço em defesa da vida, para dar qualidade de vida àquelas pessoas que tiveram sequelas no trânsito.",
+            "score": 0.2445
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da Liderança do União Brasil/PDT na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 20,
+            "start": 64561,
+            "end": 64623,
+            "text": "Presidente, peço a palavra pela Liderança do União Brasil/PDT.",
+            "score": 0.5172
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como ex-aluno da Escola Politécnica e saúda o Prof. José Carlos Aleluia como seu professor de engenharia elétrica.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 85,
+            "start": 138246,
+            "end": 138303,
+            "text": "Quero saudar meu professor de engenharia elétrica o Prof.",
+            "score": 0.4096
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser baiano e expressa orgulho pela gestão do Prefeito Bruno Reis em Salvador.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 19,
+            "start": 59290,
+            "end": 59442,
+            "text": "Eu tenho muito orgulho da gestão do Prefeito Bruno Reis, porque Salvador é uma das capitais que mais reduziram o número de mortes violentas no trânsito.",
+            "score": 0.4958
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se parceiro do meio ambiente e do desenvolvimento econômico.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 40,
+            "start": 70277,
+            "end": 70354,
+            "text": "Esta Casa é parceira do meio ambiente, parceira do desenvolvimento econômico.",
+            "score": 0.4346
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura suas falas em pontos numerados ou tópicos claros, iniciando com saudações e parabenizações ao presidente da sessão e aos convidados.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza perguntas diretas a ministros e representantes de órgãos para obter esclarecimentos técnicos e administrativos, como a capacidade de previsão do sistema elétrico e o número de licenças emitidas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos citados por outros participantes (como os 16 dias de redução no DPVAT ou os 50% de custo de cabeamento) para embasar suas questões e propostas.",
+          "passage": {
+            "hearing_id": 152,
+            "turn": 19,
+            "start": 60375,
+            "end": 60414,
+            "text": "Danielle colocou os 16 dias de redução.",
+            "score": 0.2969
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom cordial e colaborativo, oferecendo tempo de fala a colegas e expressando solidariedade a vítimas de acidentes e a famílias em situação de pobreza.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega analogias e referências pessoais, como a comparação do sistema elétrico com o aprendizado acadêmico e a menção à cor da pobreza em Salvador, para humanizar os temas técnicos e econômicos.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 40,
+            "start": 70990,
+            "end": 71085,
+            "text": "Eu digo no meu Estado, na Bahia, principalmente na minha amada Salvador onde a pobreza tem cor.",
+            "score": 0.1961
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 86,
+      "split": "test",
+      "article_date": "2024-04-18",
+      "title": "Seguradoras propõem novas coberturas diante de catástrofes climáticas",
+      "assunto": "Propostas de novas coberturas de seguros diante de catástrofes climáticas",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 107,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Gestores da defesa civil reivindicam melhorias na infraestrutura de prevenção a desastres",
+      "assunto": "Melhorias na infraestrutura de prevenção a desastres e calamidades naturais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 113,
+      "split": "test",
+      "article_date": "2024-03-20",
+      "title": "Ministérios detalham na Câmara ações de prevenção de desastres naturais e auxílio à população",
+      "assunto": "Ações de prevenção de desastres naturais e auxílio à população detalhadas por ministérios na Câmara dos Deputados",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 152,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Debatedores alertam sobre extinção da lei que regulamenta o seguro obrigatório para vítimas do trânsito",
+      "assunto": "Extinção da lei que regulamenta o seguro obrigatório DPVAT para vítimas de trânsito",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-86-6-0",
+      "hearing_id": 86,
+      "n": 11,
+      "article_name": "Leo Prates",
+      "proposition": "Sugeriu a incorporação das ideias e sugestões das seguradoras em projetos de lei que tratam de seguro obrigatório de danos causados por desastres naturais, analisados atualmente nas comissões de Finanças e Tributação; e de Previdência da Câmara (PLs 1410/22 e 629/23).",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "O valor, inclusive, é acima do que eu planejava. Caso seja apresentado esse projeto de lei, eu gostaria muito de ver o escopo dele, porque se coaduna com um projeto que apresentamos logo que assumimos aqui, que deve ser apensado a esse projeto e que dispõe sobre o Seguro Calamidade, que tramita nesta Casa desde o ano passado.",
+        "turn": 0,
+        "start": 3000,
+        "end": 3327
+      },
+      "verifier": {
+        "probability": 0.10974547768649204,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-113-3-0",
+      "hearing_id": 113,
+      "n": 8,
+      "article_name": "Leo Prates",
+      "proposition": "A proteção à população é prioridade absoluta.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "O nosso grande desafio, o meu e especialmente o do Deputado Gilson, que está liderando nossa equipe na questão do relatório, é criar um arcabouço legal que possa dar proteção, especialmente aos vulneráveis, nessas enchentes, nessas secas. Nós imaginamos como é na Amazônia não se conseguir chegar a um médico porque as hidrovias estão secas, os rios estão secos.",
+        "turn": 0,
+        "start": 2646,
+        "end": 3009
+      },
+      "verifier": {
+        "probability": 0.6399727221240712,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-113-3-1",
+      "hearing_id": 113,
+      "n": 9,
+      "article_name": "Leo Prates",
+      "proposition": "\"O grande desafio é criar um arcabouço legal que possa dar proteção especialmente aos vulneráveis. Imagina o que é, na Amazônia, não ter acesso a um médico porque as hidrovias e os rios estão secos; ou, no Rio Grande do Sul, a perda de pequenas atividades comerciais que sustentavam famílias inteiras.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O nosso grande desafio, o meu e especialmente o do Deputado Gilson, que está liderando nossa equipe na questão do relatório, é criar um arcabouço legal que possa dar proteção, especialmente aos vulneráveis, nessas enchentes, nessas secas. Nós imaginamos como é na Amazônia não se conseguir chegar a um médico porque as hidrovias estão secas, os rios estão secos.",
+        "turn": 0,
+        "start": 2646,
+        "end": 3009
+      },
+      "verifier": {
+        "probability": 0.8988793075964886,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-118-5-0",
+      "hearing_id": 118,
+      "n": 8,
+      "article_name": "Leo Prates",
+      "proposition": "Avalia que a situação exige apoio extra às vítimas: \"Eu acho que a gente tem que criar um sistema nacional de apoio às vítimas de desastres, um arcabouço que faça parte, inclusive, do Sistema Nacional de Defesa Civil, com prevenção, pronta resposta e recuperação das áreas atingidas por desastres.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu acho que temos que criar um sistema nacional de apoio a vítimas de desastres, um arcabouço que faça parte inclusive do Sistema Nacional de Proteção e Defesa Civil. Eu também tenho uma pergunta a V.Exa., Secretário, mas daqui a pouco eu a farei.",
+        "turn": 20,
+        "start": 52895,
+        "end": 53143
+      },
+      "verifier": {
+        "probability": 0.7420004930645835,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

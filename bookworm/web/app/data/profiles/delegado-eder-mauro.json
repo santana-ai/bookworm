@@ -1,0 +1,379 @@
+{
+  "actor": {
+    "slug": "delegado-eder-mauro",
+    "name": "DELEGADO ÉDER MAURO",
+    "display_name": "Delegado Éder Mauro",
+    "role": "Deputado (PL-PA)",
+    "article_names": [
+      "Delegado Éder Mauro"
+    ],
+    "party_uf": [
+      "PL - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:01:47+00:00",
+    "n_statements": 37,
+    "n_hearings": 3,
+    "hearing_ids": [
+      145,
+      171,
+      180
+    ],
+    "input_tokens": 4840,
+    "output_tokens": 1067,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 1,
+    "passage_only": 18,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação da PEC 9/23 para anistiar partidos que não cumpriram as cotas de gênero e raça, argumentando que a Emenda Constitucional nº 117, aprovada em abril de 2022, criou um problema jurídico ao não especificar se o cumprimento das cotas no Fundo Partidário seria estadual ou nacional, o que levou partidos, como o PL, a cumprirem a norma de forma nacional e gerarem problemas nos TREs.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 82470,
+            "end": 82685,
+            "text": "Primeiro que ela não estabeleceu exatamente de que forma os partidos teriam que cumprir, por exemplo, o Fundo Partidário com relação às mulheres, se, numa eleição geral, seria de forma estadual ou de forma nacional.",
+            "score": 0.2534
+          },
+          "udv": {
+            "id": "udv-180-4-0",
+            "rule": "same_sentence",
+            "score": 0.2718
+          }
+        },
+        {
+          "text": "Critica a aplicação de sanções aos partidos por não cumprirem as cotas, invocando o princípio da anualidade previsto no art. 16 da Constituição de 1988, que impede a aplicação de leis que alterem o processo eleitoral em eleições ocorridas até 1 ano da vigência da norma.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 83482,
+            "end": 83678,
+            "text": "16 da Constituição de 1988, para o qual\"A lei que alterar o processo eleitoral entrará em vigor na data da sua publicação, não se aplicando à eleição que ocorra até 1 ano da data da sua vigência\".",
+            "score": 0.2861
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a falta de clareza na EC 117 impede a candidatura de mulheres nas próximas eleições municipais em mais de 5.500 municípios, caso não haja uma solução legislativa imediata.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 84786,
+            "end": 85344,
+            "text": "Ricardo que, se nós não acharmos uma solução agora, nós vamos ter problema para simplesmente colocar, nas próximas eleições municipais por todo este País, que tem mais de 5.500 Municípios, a própria candidatura das mulheres, não só dos homens.E é engraçado que muitos que aqui que participam de algumas siglas partidárias e que questionam ou são contra a PEC 9/23, nas suas distribuições de Fundo Partidário para as mulheres, se formos pesquisar — e eu não vou citar aqui nome — […]",
+            "score": 0.2798
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a existência de desequilíbrios na distribuição do Fundo Partidário entre mulheres de um mesmo partido, citando como exemplo o Rio de Janeiro, onde algumas candidatas receberam 1,5 milhão de reais e outras apenas 20 mil ou 70 mil reais, o que, segundo ele, demonstra falta de igualdade real.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 85345,
+            "end": 85425,
+            "text": "Umas receberam 1,5 milhão de reais; outras receberam 70 mil reais, 20 mil reais.",
+            "score": 0.5417
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Ministério da Justiça e o Ministro da Justiça por incompetência na segurança pública, apontando o caos na Bahia, a queima de mais de 35 ônibus no Rio de Janeiro e a cobrança de \"pedágio\" a comerciantes em Belém (PA) pelo Comando Vermelho e milícias.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 200,
+            "start": 107006,
+            "end": 107096,
+            "text": "Mais de 35 ônibus foram queimados, o Comando Vermelho e a milícia tomaram conta do Estado.",
+            "score": 0.2318
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o Ministro da Justiça de ter \"passe livre\" em áreas dominadas pelo crime organizado, como a Maré (RJ), onde teria entrado sem aparato de segurança, o que, na visão dele, demonstra conivência com o crime.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 230,
+            "start": 112243,
+            "end": 112279,
+            "text": "Isso ficou claro, Ministro, na Maré.",
+            "score": 0.1548
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autonomia da Polícia Federal e critica a atuação do órgão sob a gestão atual, alegando que a PF foi usada para perseguir opositores e que a Operação Lava-Jato foi desfeita para beneficiar um \"sistema podre\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 230,
+            "start": 111226,
+            "end": 111315,
+            "text": "Os senhores acabaram com a Operação Lava-Jato, que colocou um monte de bandido na cadeia.",
+            "score": 0.2149
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o terrorismo no Brasil é representado por facções criminosas como o Comando Vermelho e o PCC, e cobra do Governo Federal a ação contra esses grupos, em vez de focar em opositores políticos.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 200,
+            "start": 107362,
+            "end": 107442,
+            "text": "Eu queria dizer-lhe, Ministro, que terrorismo é isso: é Comando Vermelho, é PCC.",
+            "score": 0.3239
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o direito de portadores de armas (CACs) de possuírem armas registradas para defesa da família, criticando a suposta falta de coragem do Governo em enfrentar o crime organizado.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 230,
+            "start": 111839,
+            "end": 112016,
+            "text": "Tome as armas de quem tem que tomar, e não de cidadão de bem, como os CACs, como aqueles que registram suas armas para defender sua família, para defender quem têm que defender.",
+            "score": 0.2897
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da anualidade eleitoral (art. 16 da Constituição) como fundamento jurídico para defender a anistia dos partidos, argumentando que a Constituição deve ser respeitada em sua totalidade, incluindo as regras de transição eleitoral.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 83291,
+            "end": 83354,
+            "text": "Mas o princípio da anualidade é constitucional, está lá no art.",
+            "score": 0.3035
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a igualdade constitucional e o respeito mútuo entre homens e mulheres para defender a participação ativa das mulheres na política e em todos os setores do país, embora critique a forma como as cotas foram implementadas.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 84274,
+            "end": 84446,
+            "text": "Acho que as mulheres têm que ter participação ativa em todos os setores deste País, por uma questão de igualdade constitucional e de respeito mútuo entre homens e mulheres.",
+            "score": 0.6701
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas críticas à segurança pública na percepção de que o Estado falha ao não enfrentar as facções criminosas (Comando Vermelho, PCC), que ele classifica como a verdadeira fonte de terrorismo, e ao não proteger os policiais e cidadãos.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 200,
+            "start": 107362,
+            "end": 107442,
+            "text": "Eu queria dizer-lhe, Ministro, que terrorismo é isso: é Comando Vermelho, é PCC.",
+            "score": 0.3058
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a autonomia da Polícia Federal, citando seu próprio voto a favor dessa autonomia, e critica a instrumentalização do órgão para fins políticos.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 76,
+            "start": 41341,
+            "end": 41404,
+            "text": "Eu fui um dos que votei aqui pela autonomia da Polícia Federal.",
+            "score": 0.3148
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro do Partido Liberal (PL).",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 81522,
+            "end": 81551,
+            "text": "Ricardo, que é membro da OAB.",
+            "score": 0.191
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como católico e como negro (embora se considere pardo, afirma orgulho em ser classificado como negro pela estatística).",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 31,
+            "start": 83999,
+            "end": 84157,
+            "text": "Então, aqui sou considerado negro pela estatística, embora, se eu for estabelecer, eu acho que eu sou pardo, mas teria o maior orgulho também de ser um negro.",
+            "score": 0.4685
+          },
+          "udv": null
+        },
+        {
+          "text": "Atua na Liderança da Minoria na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 58,
+            "start": 60829,
+            "end": 60912,
+            "text": "Presidente, solicito o tempo de Liderança da Minoria, para ser dividido aqui com...",
+            "score": 0.2947
+          },
+          "udv": null
+        },
+        {
+          "text": "Membro da Comissão de Segurança Pública.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 71,
+            "start": 40133,
+            "end": 40167,
+            "text": "A questão não é segurança pública.",
+            "score": 0.5533
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Combina argumentos jurídicos (citação de artigos constitucionais e emendas) com exemplos concretos de desequilíbrios financeiros em campanhas eleitorais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador e acusatório em relação ao Governo Federal e ao Ministro da Justiça, utilizando expressões fortes (\"sistema podre\", \"bandidos\") e fazendo acusações diretas de conivência com o crime organizado.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 230,
+            "start": 111316,
+            "end": 111415,
+            "text": "Os senhores simplesmente querem apagá-la porque fazem parte de um sistema podre — um sistema podre!",
+            "score": 0.2091
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados e fatos específicos (número de ônibus queimados, valores de repasses do fundo partidário, casos locais no Pará e Rio de Janeiro) para sustentar suas críticas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 200,
+            "start": 107006,
+            "end": 107096,
+            "text": "Mais de 35 ônibus foram queimados, o Comando Vermelho e a milícia tomaram conta do Estado.",
+            "score": 0.1596
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a legitimidade e a imparcialidade das ações do Governo, argumentando que a perseguição a opositores políticos substitui a ação contra o crime organizado.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz apelos emocionais e morais, como a defesa da família e da segurança dos cidadãos, e utiliza a própria experiência e posição (membro de comissão, líder da minoria) para dar credibilidade às suas falas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 99,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Crianças e mulheres são as maiores vítimas da guerra na Faixa de Gaza, ressaltam debatedores",
+      "assunto": "Impacto da guerra na Faixa de Gaza sobre crianças e mulheres",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 22,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 14,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 180,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Anistia a partidos que não cumpriram cotas para mulheres e negros não tem consenso",
+      "assunto": "Anistia a partidos que não cumpriram cotas para mulheres e negros",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-180-4-0",
+      "hearing_id": 180,
+      "n": 9,
+      "article_name": "Delegado Éder Mauro",
+      "proposition": "Defendeu alterações na lei, afirmando que a Emenda Constitucional 117 foi aprovada em abril de 2022, muito próximo das eleições, e não expressou de maneira clara de que forma o financiamento para mulheres e negros deveria ser realizado, deixando os partidos políticos em dificuldades: \"O artigo 16 da Constituição estabelece que a lei que alterar o processo eleitoral entrará em vigor na data da sua publicação, não se aplicando à eleição que ocorra em até um ano da data da sua vigência.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A verdade é que a Emenda Constitucional nº 117, que foi imposta em abril do ano da eleição, em 2022, simplesmente veio trazer um grande problema para as agremiações partidárias que aí estão. Primeiro que ela não estabeleceu exatamente de que forma os partidos teriam que cumprir, por exemplo, o Fundo Partidário com relação às mulheres, se, numa eleição geral, seria de forma estadual ou de forma nacional.",
+        "turn": 31,
+        "start": 82278,
+        "end": 82685
+      },
+      "verifier": {
+        "probability": 0.5853688321414207,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

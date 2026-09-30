@@ -1,0 +1,629 @@
+{
+  "actor": {
+    "slug": "padre-joao",
+    "name": "Padre João",
+    "display_name": "Padre João",
+    "role": "Deputado (PT-MG)",
+    "article_names": [
+      "Padre João"
+    ],
+    "party_uf": [
+      "Bloco/PT - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:53:25+00:00",
+    "n_statements": 33,
+    "n_hearings": 5,
+    "hearing_ids": [
+      2,
+      59,
+      146,
+      183,
+      199
+    ],
+    "input_tokens": 12275,
+    "output_tokens": 1308,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 27,
+    "with_udv": 3,
+    "passage_only": 22,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a produção nacional de Cannabis para fins medicinais, argumentando que a importação dos Estados Unidos exclui os pobres do acesso ao medicamento e que a criminalização da planta é uma \"imbecilidade\" e uma \"hipocrisia religiosa\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 286,
+            "start": 190685,
+            "end": 190786,
+            "text": "Os pobres estão excluídos de um medicamento tão importante por causa da criminalização de uma planta!",
+            "score": 0.275
+          },
+          "udv": {
+            "id": "udv-199-8-0",
+            "rule": "same_sentence",
+            "score": 0.1833
+          }
+        },
+        {
+          "text": "Propõe a criação de uma Frente Parlamentar em Defesa da Cannabis Medicinal e a instalação de um Grupo de Trabalho (GT) com participação de Ministérios estratégicos, como o da Justiça e o do Desenvolvimento e Assistência Social, para avançar no marco regulatório.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 29,
+            "start": 111844,
+            "end": 111927,
+            "text": "Vamos instalar a Frente Parlamentar em Defesa da Cannabis Medicinal o quanto antes.",
+            "score": 0.3514
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a Fundação Renova por não comparecer às audiências e por impor exigências burocráticas que negam benefícios aos pescadores atingidos pelo rompimento da barragem em Mariana, classificando essas táticas como estratégias para perpetuar a punição.",
+          "passage": {
+            "hearing_id": 59,
+            "turn": 0,
+            "start": 417,
+            "end": 624,
+            "text": "Esta audiência pública foi convocada para tratar da situação dos pescadores profissionais artesanais de Minas Gerais e Espírito Santo atingidos pelo rompimento da barragem da Samarco no Município de Mariana.",
+            "score": 0.2293
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra o Ministério Público Federal e o Judiciário pela omissão em fazer valer a competência de aplicar multas à Renova e de suspender exigências abusivas, afirmando que essa omissão favorece os criminosos.",
+          "passage": {
+            "hearing_id": 59,
+            "turn": 20,
+            "start": 50935,
+            "end": 51042,
+            "text": "O Judiciário que me perdoe, mas essa omissão só favorece os criminosos e continua penalizando os atingidos.",
+            "score": 0.3772
+          },
+          "udv": {
+            "id": "udv-59-1-1",
+            "rule": "similar_text",
+            "score": 0.3325
+          }
+        },
+        {
+          "text": "Exige tratamento diferenciado e específico para os pescadores artesanais na repactuação do acordo de Mariana, pois, diferentemente dos agricultores familiares, eles não conseguem retomar suas atividades e sofrem penalidades previdenciárias e de benefícios.",
+          "passage": {
+            "hearing_id": 59,
+            "turn": 12,
+            "start": 42811,
+            "end": 42965,
+            "text": "Na repactuação tem que haver também tratamento diferenciado das atividades sociais, das atividades econômicas, e tratamento específico para os pescadores.",
+            "score": 0.4117
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a reestruturação do Ministério da Pesca e Aquicultura e a revisão de normativas para garantir segurança previdenciária e não cessar benefícios de pescadores e agricultores familiares atingidos por desastres.",
+          "passage": {
+            "hearing_id": 59,
+            "turn": 10,
+            "start": 34298,
+            "end": 34381,
+            "text": "Eu acho que isso é importante para os agricultores familiares e para os pescadores.",
+            "score": 0.2986
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a precarização da carreira e a falta de reestruturação da Agência Nacional de Mineração, além de apontar a existência de uma \"quadrilha\" em agências reguladoras como ANEEL e ANTT, que não protegem o usuário.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 21,
+            "start": 66529,
+            "end": 66679,
+            "text": "Outro ponto: eu concordo também com relação às agências, porque parece que há uma quadrilha no interior de muitas agências, seja a ANEEL, seja a ANTT.",
+            "score": 0.307
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a universalização do acesso à energia elétrica e o avanço para fontes renováveis como eólica e solar, criticando a paralisação do Programa Nacional de Universalização do Acesso e Uso da Energia Elétrica.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 21,
+            "start": 65156,
+            "end": 65344,
+            "text": "O Programa Nacional de Universalização do Acesso e Uso da Energia Elétrica foi paralisado nos últimos anos, quando acho que ainda temos milhões de brasileiros que não têm acesso à energia.",
+            "score": 0.5598
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Brasil não tem a obrigação de exaurir todas as suas riquezas naturais e que a responsabilidade humana é cuidar das gerações futuras, citando a fome e a insegurança alimentar como escândalos maiores que a exploração mineral.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 62,
+            "start": 108992,
+            "end": 109243,
+            "text": "Cuidado, zelo é ter responsabilidade com esta geração, mas devemos ter também a mesma responsabilidade, com a sabedoria que nos é dada, com as gerações futuras, daqui a 200 anos, com as gerações que vão depender das riquezas naturais daqui a 300 anos.",
+            "score": 0.2694
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o uso de biodigestoras para tratar dejetos e produzir gás, evitando a poluição de rios e contribuindo para a recuperação da qualidade da água e dos peixes.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 64,
+            "start": 110624,
+            "end": 110733,
+            "text": "Faço esta provocação, Presidente, dizendo que é um escândalo jogarmos tanto dejetos nos rios, tantos dejetos.",
+            "score": 0.2057
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a indústria farmacêutica e os lobbies das drogarias por manterem preços altos e promoverem o uso excessivo de medicamentos, comparando essa dinâmica à \"máfia\" e ao nexo entre agrotóxicos e problemas de saúde mental.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 22,
+            "start": 104751,
+            "end": 104862,
+            "text": "É só para verem a máfia das drogarias e o quanto um medicamento vai gerando o uso de outro, mais outro e outro.",
+            "score": 0.2143
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Baseia-se na premissa teológica de que \"tudo o que Deus criou é bom\" e que a única criatura capaz de ser má é o ser humano, devido ao livre-arbítrio, para justificar a não criminalização de plantas como a Cannabis.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 0,
+            "start": 3333,
+            "end": 3453,
+            "text": "Que fique bem claro que a única criatura que pode ser má é o ser humano, porque ao ser humano foi dado o livre arbítrio.",
+            "score": 0.4236
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o argumento da justiça social e da dignidade dos pobres, afirmando que negar o acesso a medicamentos comprovadamente eficazes por causa de tabus ou interesses econômicos é uma injustiça inaceitável.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 286,
+            "start": 190685,
+            "end": 190786,
+            "text": "Os pobres estão excluídos de um medicamento tão importante por causa da criminalização de uma planta!",
+            "score": 0.1511
+          },
+          "udv": {
+            "id": "udv-199-8-0",
+            "rule": "same_sentence",
+            "score": 0.1008
+          }
+        },
+        {
+          "text": "Invoca a responsabilidade intergeracional e o cuidado com a \"mãe Terra\" como fundamento para a proteção ambiental e a limitação da exploração predatória de recursos naturais.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 62,
+            "start": 108365,
+            "end": 108393,
+            "text": "Esse cuidado — este cuidado.",
+            "score": 0.2481
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza os saberes tradicionais de povos indígenas, quilombolas e pescadores, defendendo que o Estado tem uma \"dívida astronômica\" com esses grupos e que o Parlamento deve pagar essa dívida de forma concreta, incluindo a valorização de seus acúmulos de conhecimento sobre plantas.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 0,
+            "start": 3825,
+            "end": 4054,
+            "text": "E se nós formos para o lado dos saberes do nosso povo, começando dos indígenas, com quem temos uma dívida astronômica,não basta reconhecer a dívida, nós temos que, de forma concreta, pagar — e o Parlamento é responsável por isso.",
+            "score": 0.4347
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a soberania nacional na produção de insumos estratégicos, como medicamentos e energia, para evitar a dependência de importações e a exclusão social.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 62,
+            "start": 109845,
+            "end": 109918,
+            "text": "Contem sempre conosco para a produção de uma energia cada vez mais limpa.",
+            "score": 0.1555
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Requerimento nº 26, de 2023, que deu origem à audiência sobre Cannabis medicinal.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 0,
+            "start": 72,
+            "end": 369,
+            "text": "Declaro aberta a presente reunião de audiência pública para debater a cadeia de produção daCannabis sativapara fins de uso medicinal e a estratégia para promover o desenvolvimento regional das comunidades de agricultores familiares, em atendimento ao Requerimento nº 26, de 2023, de minha autoria.",
+            "score": 0.2753
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser testemunha dos impactos da mineração e dos desastres ambientais, citando sua atuação em Ouro Preto e na região de Mariana.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Menciona ter realizado viagem à Califórnia para visitar agricultores e processos de beneficiamento de Cannabis, com despesas por conta própria.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 6,
+            "start": 43367,
+            "end": 43484,
+            "text": "Quero registrar aqui que todas as despesas da minha viagem foram por minha conta, apenas comuniquei a Casa da viagem.",
+            "score": 0.3672
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a parceria com o Deputado Estadual Leleco Pimentel no projeto \"Juntos para Servir\", que inclui cursos de fitoterapia e homeopatia em parceria com a FIOCRUZ e a UFV.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 39,
+            "start": 126602,
+            "end": 126860,
+            "text": "No mandato, nós temos um projeto denominado Juntos para Servir, com o Deputado Estadual Leleco, em que nós já temos a experiência — a Chris é testemunha — com os cursos de fitoterapia e homeopatia junto com a FIOCRUZ e a Universidade Federal de Viçosa — UFV.",
+            "score": 0.5593
+          },
+          "udv": null
+        },
+        {
+          "text": "Expressa alinhamento com o Governo do Presidente Lula e a Ministra Nísia, elogiando o retorno de políticas de saúde e meio ambiente.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 62,
+            "start": 108862,
+            "end": 108894,
+            "text": "Devemos cuidar do meio ambiente.",
+            "score": 0.2624
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem emotiva e religiosa, citando passagens bíblicas (como \"não tenhas medo\" e o Gênesis) e conceitos como \"hipocrisia religiosa\" e \"livre-arbítrio\" para embasar suas posições.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 0,
+            "start": 7056,
+            "end": 7094,
+            "text": "Para eles, eu digo: \"Não tenhas medo\".",
+            "score": 0.233
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a casos concretos e depoimentos pessoais, como o de crianças com epilepsia que têm dezenas de convulsões por noite e mães que ficam em vigília, para ilustrar a urgência do acesso ao canabidiol.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 0,
+            "start": 5899,
+            "end": 5948,
+            "text": "Algumas crianças têm dez convulsões em uma noite.",
+            "score": 0.2816
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega metáforas fortes e críticas diretas, chamando de \"máfia\" a indústria farmacêutica, de \"quadrilha\" as agências reguladoras e de \"covardia\" a omissão de parlamentares e ministros.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 0,
+            "start": 7387,
+            "end": 7412,
+            "text": "Acho que isso é covardia.",
+            "score": 0.2142
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina dados estatísticos (como os 33 milhões de brasileiros em situação de fome e os 12 mil em extrema pobreza em Ouro Preto) com argumentos éticos e morais.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 23,
+            "start": 67317,
+            "end": 67490,
+            "text": "Só para dar um exemplo concreto aqui, em Ouro Preto, que tem 76 mil pessoas, há 12 mil pessoas na extrema pobreza, segundo dados da própria Secretaria de Assistência Social.",
+            "score": 0.4224
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador com setores que considera hipócritas ou omissos, mas conciliador com aliados e convidados que compartilham suas pautas, como a CONTAG e o MST.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Propõe ações concretas e imediatas, como a criação de frentes parlamentares, grupos de trabalho, diligências conjuntas com Assembleias Legislativas e requerimentos a órgãos públicos.",
+          "passage": {
+            "hearing_id": 59,
+            "turn": 14,
+            "start": 46945,
+            "end": 47153,
+            "text": "De acordo com o Deputado Leleco, que apresentou as diligências que serão feitas pela Comissão Externa da Assembleia Legislativa, nós aprovaremos também requerimento para que essas diligências sejam conjuntas.",
+            "score": 0.1605
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 13,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Autoridades cobram a Justiça para destravar renegociação com mineradoras sobre reparação em Mariana",
+      "assunto": "Cobrança à Justiça para destravar a renegociação com mineradoras sobre reparação em Mariana",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 59,
+      "split": "train",
+      "article_date": "2023-04-18",
+      "title": "Pescadores cobram reparação por rompimento de barragem em Mariana, ocorrida em 2015",
+      "assunto": "Reparação aos pescadores afetados pelo rompimento da barragem do Fundão em Mariana (MG) em 2015",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 99,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Crianças e mulheres são as maiores vítimas da guerra na Faixa de Gaza, ressaltam debatedores",
+      "assunto": "Impacto da guerra na Faixa de Gaza sobre crianças e mulheres",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 146,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Especialistas defendem liberação da produção de Cannabis para fins medicinais",
+      "assunto": "Liberação da produção de Cannabis para fins medicinais",
+      "turns": 13,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-13-4-0",
+      "hearing_id": 13,
+      "n": 7,
+      "article_name": "Padre João",
+      "proposition": "Reforçou as críticas à paralisação nas negociações.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Paramos, fechamos a ferrovia quando eles estavam ignorando o direito do cidadão. Isso já foi feito no trecho entre Belo Horizonte e Vitória por mais de uma vez.",
+        "turn": 35,
+        "start": 117530,
+        "end": 117690
+      },
+      "verifier": {
+        "probability": 0.16038269030074054,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-59-1-0",
+      "hearing_id": 59,
+      "n": 3,
+      "article_name": "Padre João",
+      "proposition": "Reclamou da falta de responsabilidade, principalmente por parte de autoridades públicas, como os promotores, que deveriam ter comparecido.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós é que agradecemos ao Lelis a participação, de Conselheiro Pena e região. A ausência do Ministério Público Federal deixa a desejar com relação a encaminhamentos, a algumas medidas mais duras a serem tomadas.",
+        "turn": 12,
+        "start": 39783,
+        "end": 39994
+      },
+      "verifier": {
+        "probability": 0.32581994326633906,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-59-1-1",
+      "hearing_id": 59,
+      "n": 4,
+      "article_name": "Padre João",
+      "proposition": "\"É o grande desafio, porque a Renova faz as exigências que ela bem entende, ou deixa de atender e fica por isso mesmo. Então, por isso que era importante o Ministério Público Federal para fazer valer. O Ministério Público tem competência de aplicar uma multa, ou de anular, inclusive, certas exigências, fazer um TAC (termo de ajuste de conduta) que fosse, mas junto também com as pessoas mais interessadas, que são os pescadores.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A Renova faz as exigências que bem entende ou deixa de atender às que lhe são feitas, e fica por isso mesmo. Por isso, seria importante o Ministério Público Federal fazer valer sua competência de aplicar uma multa, de anular certas exigências, de fazer um TAC junto com as pessoas mais interessadas, que são os pescadores.",
+        "turn": 4,
+        "start": 14291,
+        "end": 14613
+      },
+      "verifier": {
+        "probability": 0.9018453060322102,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-99-3-0",
+      "hearing_id": 99,
+      "n": 12,
+      "article_name": "Padre João",
+      "proposition": "Condenou a morte, principalmente de mulheres e crianças, e a fome que acomete a região",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A fome atingiu níveis catastróficos, afetando principalmente crianças, mulheres grávidas e lactantes. Além disso, 97% da água é considerada imprópria para o consumo humano, e a produção agrícola está em colapso devido à destruição das propriedades agrícolas pelas forças israelenses.",
+        "turn": 1,
+        "start": 4744,
+        "end": 5027
+      },
+      "verifier": {
+        "probability": 0.7716855766109322,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-99-3-1",
+      "hearing_id": 99,
+      "n": 13,
+      "article_name": "Padre João",
+      "proposition": "97% da água da Faixa de Gaza estão impróprias para o consumo humano.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A fome atingiu níveis catastróficos, afetando principalmente crianças, mulheres grávidas e lactantes. Além disso, 97% da água é considerada imprópria para o consumo humano, e a produção agrícola está em colapso devido à destruição das propriedades agrícolas pelas forças israelenses.",
+        "turn": 1,
+        "start": 4744,
+        "end": 5027
+      },
+      "verifier": {
+        "probability": 0.9905697656196755,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-99-3-2",
+      "hearing_id": 99,
+      "n": 14,
+      "article_name": "Padre João",
+      "proposition": "\"É inconcebível não se indignar diante deste genocídio, o número de crianças que já foram assassinadas, mulheres assassinadas, destruição de áreas públicas, como hospitais.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "É inconcebível não se indignar diante desse genocídio, diante do número de crianças e de mulheres que foram assassinadas, diante da destruição de instituições públicas, como hospitais.",
+        "turn": 1,
+        "start": 5693,
+        "end": 5877
+      },
+      "verifier": {
+        "probability": 0.995944033737134,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-146-0-0",
+      "hearing_id": 146,
+      "n": 1,
+      "article_name": "Padre João",
+      "proposition": "Cobrou a modernização da legislação, uma vez que os medicamentos disponíveis, que são importados, têm um preço muito elevado, não sendo acessíveis às famílias mais vulneráveis: \"Muitos países já avançaram no processo do uso da maconha, não só medicinal, mas também cosmético, na indústria têxtil e na agricultura. E estamos aqui, acuados por uma hipocrisia religiosa, negando aos pobres um medicamento tão importante\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quantos países avançaram no processo do uso da maconha, não só medicinal, mas também na área de cosméticos, na indústria têxtil e na própria agricultura? Quantos avanços estão acontecendo, enquanto estamos aqui acuados por uma hipocrisia religiosa, negando aos pobres um medicamento tão importante?",
+        "turn": 0,
+        "start": 4542,
+        "end": 4840
+      },
+      "verifier": {
+        "probability": 0.3376409809367864,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-8-0",
+      "hearing_id": 199,
+      "n": 18,
+      "article_name": "Padre João",
+      "proposition": "Questionou sobre a incorporação do canabidiol ao SUS.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Os pobres estão excluídos de um medicamento tão importante por causa da criminalização de uma planta! Tudo o que Deus criou é bom.",
+        "turn": 286,
+        "start": 190685,
+        "end": 190815
+      },
+      "verifier": {
+        "probability": 0.10132829447998207,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

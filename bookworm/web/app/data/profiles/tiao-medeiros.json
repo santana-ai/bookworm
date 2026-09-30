@@ -1,0 +1,85 @@
+{
+  "actor": {
+    "slug": "tiao-medeiros",
+    "name": "Tião Medeiros",
+    "display_name": "Tião Medeiros",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PP - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:02:53+00:00",
+    "n_statements": 4,
+    "n_hearings": 1,
+    "hearing_ids": [
+      153
+    ],
+    "input_tokens": 3154,
+    "output_tokens": 46,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 1,
+    "with_udv": 0,
+    "passage_only": 1,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Estado do Paraná, mencionando que os efeitos das enchentes alcançam uma pequena parte de seu estado, além do Rio Grande do Sul e de Santa Catarina.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 0,
+            "start": 1091,
+            "end": 1384,
+            "text": "Bom, antes de mais nada, queria saudar pela presença cada um dos senhores que puderam vir de longe para debater este tema tão sensível, especialmente para o Rio Grande do Sul, mas que nós sabemos que também alcança o Estado de Santa Catarina e uma pequena parte também do meu Estado do Paraná.",
+            "score": 0.4059
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

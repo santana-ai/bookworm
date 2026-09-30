@@ -1,0 +1,369 @@
+{
+  "actor": {
+    "slug": "arnaldo-furman-bordon",
+    "name": "ARNALDO FURMAN BORDON",
+    "display_name": "Arnaldo Furman Bordon",
+    "role": "Presidente da Sociedade Brasileira de Retina e Vítreo",
+    "article_names": [
+      "Arnaldo Bordon",
+      "Arnaldo Furman Bordon"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:02:07+00:00",
+    "n_statements": 5,
+    "n_hearings": 1,
+    "hearing_ids": [
+      68
+    ],
+    "input_tokens": 4191,
+    "output_tokens": 870,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 2,
+    "passage_only": 11,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o custeio proposto via PAC para a medicação do PCDT de Retinopatia Diabética é insuficiente para cobrir o custo real do tratamento, o que compromete a sustentabilidade financeira dos serviços de saúde (hospitais, clínicas e universidades) e ameaça a qualidade do atendimento no médio e longo prazo.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 28122,
+            "end": 28262,
+            "text": "O custeio proposto para esse tipo de medicação via PAC é insuficiente para cobrir o custo do tratamento, ou seja, o sistema não se sustenta.",
+            "score": 0.4759
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a defasagem entre a realidade dos custos operacionais e o valor repassado pelo sistema, argumentando que, embora a saúde não tenha preço, ela possui custo, e a falta de recursos adequados leva à deterioração dos serviços.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 27636,
+            "end": 27694,
+            "text": "Embora a saúde não tenha preço, existe um custo para isso.",
+            "score": 0.3985
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o diabetes é a principal causa de cegueira irreversível na fase produtiva do ser humano e que a cegueira resultante da retinopatia diabética poderia ser evitada na maioria dos casos, o que gera um impacto econômico negativo (perda de renda, impostos e aumento da dependência de auxílio-doença) e social.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 31318,
+            "end": 31527,
+            "text": "Mas todos acabam perdendo quando esse paciente cai na linha da cegueira, principalmente da cegueira irreversível, e o diabetes é a principal causa de cegueira irreversível na fase mais produtiva do ser humano.",
+            "score": 0.3864
+          },
+          "udv": {
+            "id": "udv-68-0-1",
+            "rule": "same_sentence",
+            "score": 0.4371
+          }
+        },
+        {
+          "text": "Cita levantamento da Federação Internacional de Diabetes segundo o qual o número de diabéticos no mundo atingirá 627 milhões em 2030, caracterizando o cenário como um \"tsunami\" de complicações, e afirma que a pandemia agravou a situação ao atrasar o acesso dos pacientes aos serviços de saúde.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 24693,
+            "end": 24842,
+            "text": "A Federação Internacional de Diabetes calcula que nós vamos ter em pouco tempo, daqui a 8 anos, ou seja, em 2030, 627 milhões de diabéticos no mundo.",
+            "score": 0.375
+          },
+          "udv": {
+            "id": "udv-68-0-0",
+            "rule": "same_sentence",
+            "score": 0.4099
+          }
+        },
+        {
+          "text": "Propõe que a solução para o problema exija uma abordagem racional, coordenada e lógica, atacando os pontos críticos de forma integrada, e coloca-se à disposição para contribuir com o Governo e parceiros na busca de soluções.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 35,
+            "start": 65599,
+            "end": 65738,
+            "text": "E todos estamos de acordo sobre os pontos que precisam ser atacados de forma racional, coordenada e lógica, para que isso seja solucionado.",
+            "score": 0.2907
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece a importância do PCDT de Retinopatia Diabética editado no fim do ano anterior, aplaudindo a iniciativa, mas aponta que o desafio atual é operacional e financeiro, além da organização das filas e do acesso.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 27025,
+            "end": 27125,
+            "text": "Nós temos um PCDT sobre retinopatia diabética, editado no fim do ano passado, depois de muito tempo.",
+            "score": 0.3745
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a sustentabilidade financeira dos serviços de saúde como critério central para avaliar políticas públicas, argumentando que sem recursos suficientes para cobrir custos, o sistema não se mantém e o atendimento piora.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca o impacto econômico e social da cegueira irreversível como justificativa para a urgência do tratamento, destacando que o paciente cego deixa de produzir, de pagar impostos e passa a depender do Estado, prejudicando a sociedade e o governo.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 29517,
+            "end": 29720,
+            "text": "Mas ele deixa de ter renda, deixa de pagar impostos, cai a qualidade de vida dele e fica mais dependente do Estado, porque vai precisar de um auxílio-doença para sobreviver, ao invés de estar produzindo.",
+            "score": 0.2128
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega dados de estudos (como o da OMS sobre a disposição de trocar anos de vida por reversão da cegueira) e casos clínicos concretos (como o da paciente de 23 anos) para fundamentar a gravidade do problema e a necessidade de ação imediata.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 30553,
+            "end": 30575,
+            "text": "Dez anos da vida dela.",
+            "score": 0.189
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a prevenção e a detecção precoce, ao afirmar que a cegueira poderia ter sido evitada, o que justifica a cobrança por melhorias no fluxo de encaminhamento e tratamento.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 26549,
+            "end": 26641,
+            "text": "E isso dói mais porque essa cegueira poderia ter sido evitada, ela poderia ter sido evitada.",
+            "score": 0.397
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Sociedade Brasileira de Retina e Vitreo e representante de mais de 1.200 médicos oftalmologistas especialistas em retina.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 35,
+            "start": 65927,
+            "end": 66186,
+            "text": "Em nome dos mais de 1.200 médicos oftalmologistas, especialistas em retina, e como Presidente da Sociedade Brasileira de Retina e Vitreo, coloco-me à disposição para contribuir com o Governo e com todos os parceiros, para dar uma solução aos nossos pacientes.",
+            "score": 0.6438
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a Sociedade Brasileira de Diabetes está à disposição para participar de projetos de educação nos serviços do setor primário e que as duas sociedades são \"irmãs\" e unidas na mesma causa.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 43,
+            "start": 69352,
+            "end": 69437,
+            "text": "Nós estamos fazendo um grande projeto de educação para os serviços no setor primário.",
+            "score": 0.3225
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionou que chefia o setor de um hospital que atende pelo SUS, utilizando essa experiência para ilustrar os desafios diários do atendimento.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 25219,
+            "end": 25342,
+            "text": "Eu chefio o setor de um hospital que atende pelo SUS, com muito orgulho, e toda semana eu tenho que tratar de casos graves.",
+            "score": 0.2957
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza narrativas emocionais e casos clínicos detalhados (como a história da paciente jovem) para humanizar o problema e demonstrar o impacto humano das falhas no sistema.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a metáforas fortes (como \"tsunami\" e \"bola de neve\") para descrever a magnitude do crescimento do diabetes e suas complicações.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 10,
+            "start": 28761,
+            "end": 28824,
+            "text": "Portanto, nós temos umtsunami,uma bola de neve gigante rolando.",
+            "score": 0.223
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina dados estatísticos globais e nacionais com a realidade prática do atendimento hospitalar para construir um argumento que une a escala do problema à urgência local.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom colaborativo e propositivo, agradecendo a oportunidade, reconhecendo o trabalho de colegas e órgãos, e oferecendo a contribuição de sua sociedade para a busca de soluções conjuntas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 68,
+      "split": "train",
+      "article_date": "2022-08-17",
+      "title": "Debatedores apontam falhas no protocolo do SUS para o tratamento da retinopatia diabética",
+      "assunto": "Falhas no protocolo do SUS para o tratamento da retinopatia diabética",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 4
+    },
+    {
+      "id": 105,
+      "split": "test",
+      "article_date": "2024-04-11",
+      "title": "SUS precisa atualizar protocolo de tratamento de edema macular diabético, cobram especialistas",
+      "assunto": "Atualização do protocolo de tratamento de edema macular diabético no SUS",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-68-0-0",
+      "hearing_id": 68,
+      "n": 1,
+      "article_name": "Arnaldo Bordon",
+      "proposition": "Citou dados da Federação Internacional de Diabetes que projetam, para 2030, 627 milhões de pessoas com diabetes no mundo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A Federação Internacional de Diabetes calcula que nós vamos ter em pouco tempo, daqui a 8 anos, ou seja, em 2030, 627 milhões de diabéticos no mundo. Isso é umtsunamide diabéticos!",
+        "turn": 10,
+        "start": 24693,
+        "end": 24873
+      },
+      "verifier": {
+        "probability": 0.9942886348764911,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-68-0-1",
+      "hearing_id": 68,
+      "n": 2,
+      "article_name": "Arnaldo Bordon",
+      "proposition": "\"O diabetes é a principal causa de cegueira irreversível na fase mais produtiva do ser humano.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Mas todos acabam perdendo quando esse paciente cai na linha da cegueira, principalmente da cegueira irreversível, e o diabetes é a principal causa de cegueira irreversível na fase mais produtiva do ser humano.",
+        "turn": 10,
+        "start": 31318,
+        "end": 31527
+      },
+      "verifier": {
+        "probability": 0.993523507469291,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-68-0-2",
+      "hearing_id": 68,
+      "n": 3,
+      "article_name": "Arnaldo Bordon",
+      "proposition": "\"Temos médicos qualificados e equipamentos de ponta nos hospitais, por outro lado temos uma fila enorme de pacientes que necessita de uma melhor organização para que os que realmente necessitam sejam tratados.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "De um lado, nós temos médicos qualificados, nós temos equipamentos de ponta, nós temos hospitais com capacidade para tratar esses pacientes. Do outro lado, nós temos uma fila enorme de pacientes que necessitam de organização, para que aqueles casos que realmente necessitem sejam encaminhados a um lugar que consiga tratá-los.",
+        "turn": 10,
+        "start": 31561,
+        "end": 31887
+      },
+      "verifier": {
+        "probability": 0.9940737481784957,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-68-0-3",
+      "hearing_id": 68,
+      "n": 4,
+      "article_name": "Arnaldo Bordon",
+      "proposition": "Citou o caso de uma paciente de 23 anos que descobriu tarde demais a retinopatia diabética e acabou perdendo completamente a visão: \"Ela está condenada a cegueira irreversível dos dois olhos por diabetes. E dói muito saber que tudo isso poderia ter sido evitado.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Deputado, não havia uma pontinha de esperança. Essa menina está condenada à cegueira dos dois olhos, de forma irreversível, por diabetes.",
+        "turn": 10,
+        "start": 26047,
+        "end": 26184
+      },
+      "verifier": {
+        "probability": 0.39336204377630146,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-105-3-0",
+      "hearing_id": 105,
+      "n": 7,
+      "article_name": "Arnaldo Furman Bordon",
+      "proposition": "Endossa a fala sobre a prevenção: \"Nós temos uma doença que é prevenível, ela pode ser evitada quando detectada em sua fase precoce, porém estamos com problemas crônicos de acesso dessa população ao Sistema Único de Saúde, que é um excelente sistema.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, a mensagem que eu gostaria de deixar é esta: a doença é prevenível e pode ser evitada quando detectada em sua fase precoce.Porém, nós temos problemas crônicos de acesso da população ao Sistema Único de Saúde, que é um excelente sistema. Então, nós precisamos mudar isso.",
+        "turn": 14,
+        "start": 42586,
+        "end": 42863
+      },
+      "verifier": {
+        "probability": 0.807475130145587,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

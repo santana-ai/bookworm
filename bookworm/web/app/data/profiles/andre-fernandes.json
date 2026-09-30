@@ -1,0 +1,334 @@
+{
+  "actor": {
+    "slug": "andre-fernandes",
+    "name": "André Fernandes",
+    "display_name": "André Fernandes",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PL - CE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:51:57+00:00",
+    "n_statements": 8,
+    "n_hearings": 2,
+    "hearing_ids": [
+      199,
+      201
+    ],
+    "input_tokens": 4946,
+    "output_tokens": 1179,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a individualização das condutas dos presos nos atos de 8 de janeiro e a criação de uma CPMI para investigar o caso, argumentando que o julgamento público permite ouvir depoimentos de ex-agentes da ABIN que teriam recebido ordens para fraudar relatórios e de pessoas presas injustamente, como aquelas que estavam de férias.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 191,
+            "start": 247828,
+            "end": 248049,
+            "text": "Lá nós estamos tendo a oportunidade de ouvir ex-agentes da ABIN do Lula dizendo que receberam ordem para fraudar relatórios, de ouvir pessoas que não estavam presentes no ato, pessoas que estavam de férias e foram presas.",
+            "score": 0.4184
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o STF e o Governo Federal por perseguirem parlamentares e cidadãos, citando a sensação de impotência e a necessidade de \"medir as palavras\" para evitar prisões, e afirma que a bancada não abandonará os presos, especialmente os detidos de forma \"injusta\" e \"covarde\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 191,
+            "start": 249367,
+            "end": 249407,
+            "text": "Presidente, essa sensação de impotência.",
+            "score": 0.2485
+          },
+          "udv": null
+        },
+        {
+          "text": "Repudia a defesa do plantio de maconha em assentamentos do MST feita por parlamentares da base governista, classificando o MST como grupo criminoso conforme a Constituição e apontando contradição com a carta de compromisso de Lula com os evangélicos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 193911,
+            "end": 194201,
+            "text": "O Parlamentar que me antecedeu, há pouco, abertamente a favor das drogas, da maconha, pediu, inclusive, por grupos criminosos, como, por exemplo, o MST — não está sendo criminalizados; já são criminosos, e isso consta na nossa Constituição —, defendendo o plantio nesses tais assentamentos.",
+            "score": 0.2252
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a decisão do STF de tentar descriminalizar o porte de drogas em até 60 gramas, argumentando que isso exigiria que policiais levassem balanças de precisão para distinguir usuários de traficantes, o que considera um absurdo.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 195020,
+            "end": 195176,
+            "text": "Esses mesmos Parlamentares, dias atrás, estavam no plenário comemorando o 4 a 0 no STF, onde eles tentam descriminalizar o porte de drogas em até 60 gramas.",
+            "score": 0.3091
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Saúde a não homologação ou o veto parcial da Resolução nº 617 do Conselho Nacional de Saúde (CNS), que trata de aborto e redução da idade para mudança de sexo de 18 para 14 anos, apontando que o governo anterior vetou tópicos semelhantes em 2019.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 197229,
+            "end": 197395,
+            "text": "Mas agora, na 17ª Conferência, o Conselho Nacional de Saúde trata, no item 44 da resolução, da redução da idade, de 18 para 14 anos, para aquelas crianças — crianças!",
+            "score": 0.4176
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Ministério da Saúde não pode se eximir de responsabilidade alegando que apenas homologa resoluções do CNS, citando que o SUS foi criado por resolução que depois ganhou força legal, e questiona por que o governo não age para \"cortar o mal pela raiz\" antes que as resoluções tenham força legal.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 199403,
+            "end": 199639,
+            "text": "Aliás, o SUS foi criado, conforme a palavra de V.Exa., primeiro, por uma resolução, que, depois, se tornou lei.\"É uma resolução; não tem força legal.\"Posteriormente, vem o Ministério da Saúde e a adota e coloca força legal em cima dela.",
+            "score": 0.3464
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a \"hipocrisia\" de parlamentares do PT e do governo Lula, que defendem drogas e aborto, contradizendo a carta de compromisso de Lula com os evangélicos, na qual ele se declarava contra o aborto e a favor da \"Vida plena\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 196500,
+            "end": 196733,
+            "text": "Eu falo como cristão, e muitos queriam estar no meu lugar para dizer que, nessa mesma carta aos evangélicos que Lula lançou no ano passado, ele dizia: Nosso Projeto de Governo tem compromisso com a Vida plena em todas as suas fases.",
+            "score": 0.2765
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a postura da Ministra da Saúde por não declarar publicamente ser contra drogas e aborto, e por não vetar a resolução do CNS, argumentando que isso desrespeita os cristãos e ignora o compromisso assumido pelo presidente.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 305,
+            "start": 203320,
+            "end": 203769,
+            "text": "Nós não vamos entrar no debate de quais são as promessas do Lula, mas uma Ministra indicada por ele, que no ano passado dizia que era contra aborto e contra as drogas, não ter a capacidade de vir e discursar e dizer abertamente:\"Eu, Ministra da Saúde, sou contra as drogas e contra o aborto no Brasil\", não ter a capacidade de fazer nem sequer isso ou de vetar parcialmente essa resolução, desculpe-me, mas isso não representa os cristãos no Brasil.",
+            "score": 0.2984
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Baseia-se na fé cristã e evangélica como fundamento para suas posições, citando a \"justiça divina\" como conforto diante da perseguição e declarando-se pentecostal, filho de pastor da Assembleia de Deus e congregante no Ministério Canaã.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 194364,
+            "end": 194449,
+            "text": "Eu sou evangélico — inclusive, meu pai é pastor da Assembleia de Deus Templo Central.",
+            "score": 0.1946
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a \"vida sagrada\" e a proteção da vida em todas as suas fases, citando a carta de Lula aos evangélicos, para justificar sua oposição ao aborto, que classifica como \"genocídio silencioso\" e assassinato de crianças no ventre da mãe.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 305,
+            "start": 203108,
+            "end": 203157,
+            "text": "— o verdadeiro genocídio; o genocídio silencioso.",
+            "score": 0.2806
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a Constituição Federal como critério para classificar o MST como grupo criminoso e para sustentar a ilegalidade do plantio de maconha em assentamentos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 193911,
+            "end": 194201,
+            "text": "O Parlamentar que me antecedeu, há pouco, abertamente a favor das drogas, da maconha, pediu, inclusive, por grupos criminosos, como, por exemplo, o MST — não está sendo criminalizados; já são criminosos, e isso consta na nossa Constituição —, defendendo o plantio nesses tais assentamentos.",
+            "score": 0.2455
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a \"compaixão\" invocada pelo governo não se aplica às mães de dependentes químicos nem às crianças abortadas, e que o respeito às religiões está sendo desrespeitado pela postura do Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 305,
+            "start": 203251,
+            "end": 203319,
+            "text": "Desculpe-me, mas o cristianismo está sendo totalmente desrespeitado.",
+            "score": 0.186
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o argumento da contradição entre promessas de campanha (carta aos evangélicos) e ações de governo (homologação de resoluções pró-aborto e pró-drogas) para denunciar a \"face da Esquerda\" e do \"comunismo\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 198723,
+            "end": 198750,
+            "text": "Essa é a face do comunismo!",
+            "score": 0.3535
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se evangélico pentecostal, filho de pastor da Assembleia de Deus Templo Central e congregante no Ministério Canaã, do Pastor Jecer Goes.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 194364,
+            "end": 194449,
+            "text": "Eu sou evangélico — inclusive, meu pai é pastor da Assembleia de Deus Templo Central.",
+            "score": 0.557
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma representar a bancada que não abandonará os presos dos atos de 8 de janeiro e que luta por eles, e pede que os presos tragam propostas e estratégias ao seu gabinete.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 191,
+            "start": 250514,
+            "end": 250539,
+            "text": "Traga até o meu gabinete.",
+            "score": 0.1838
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se em oposição ao governo Lula e ao PT, citando a \"hipocrisia\" de parlamentares da base governista e a \"face da Esquerda\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 198686,
+            "end": 198722,
+            "text": "Essa é a face da Esquerda, senhores!",
+            "score": 0.3551
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza documentos físicos (carta de Lula aos evangélicos, resolução do CNS) como prova material, exibindo-os durante a fala para sustentar suas acusações de contradição e hipocrisia.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 198499,
+            "end": 198684,
+            "text": "Eu estou aqui com as duas: a resolução do Conselho Nacional de Saúde, homologada pelo Ministério da Saúde do Lula, e a carta aos evangélicos, escrita pelo mesmo Lula.(Exibe documentos.)",
+            "score": 0.2293
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emocional e apelativa, usando expressões como \"dói\", \"abre o coração\", \"na cara de todo brasileiro\", e apela para a \"justiça divina\" e para a fé cristã.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 198373,
+            "end": 198400,
+            "text": "Na cara de todo brasileiro!",
+            "score": 0.3211
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra diretamente os interlocutores (Ministra da Saúde, parlamentares da base), questionando a falta de resposta, a desvio de assunto e a ausência de veto parcial às resoluções.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos concretos e específicos (Resolução nº 617 de 2019, veto do Ministro Marcelo Queiroga, item 44 e 49 da resolução do CNS) para fundamentar suas críticas e demonstrar a incoerência do governo.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 196203,
+            "end": 196309,
+            "text": "Em 2019, por exemplo, época do então Presidente Jair Bolsonaro, partiu do CNS a Resolução nº 617, de 2019.",
+            "score": 0.2605
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador com a base governista, acusando-os de \"fugir\" do debate, de \"não aguentar ouvir a verdade\" e de agir para \"não complicar\" e esconder o objetivo do governo.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 301,
+            "start": 195666,
+            "end": 195716,
+            "text": "Agora ele sai, porque não aguenta ouvir a verdade.",
+            "score": 0.1941
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

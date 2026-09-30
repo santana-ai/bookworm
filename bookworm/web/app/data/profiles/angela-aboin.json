@@ -1,0 +1,356 @@
+{
+  "actor": {
+    "slug": "angela-aboin",
+    "name": "ANGELA ABOIN",
+    "display_name": "Ângela Gomes",
+    "role": "Representante da Federação da Associação de Cannabis Terapêutica",
+    "article_names": [
+      "Ângela Gomes"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:54:22+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      146
+    ],
+    "input_tokens": 4401,
+    "output_tokens": 1115,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 2,
+    "passage_only": 18,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a liberação da produção de Cannabis para fins medicinais, argumentando que a planta substitui tratamentos agressivos como anticonvulsivantes, eletrochoque, lobotomia e camisa de força, oferecendo uma alternativa eficaz e menos tóxica para crianças autistas.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 66852,
+            "end": 67040,
+            "text": "Eles incluem medicamentos fortes, como anticonvulsivantes, medicamentos calmantes, eletrochoque, eletroconvulsoterapia e até mesmo lobotomia, além do uso de camisa de força e de capacetes.",
+            "score": 0.2727
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a indústria farmacêutica por produzir medicamentos com plantas contaminadas por metais pesados, defendendo a agricultura familiar e orgânica como base para a produção de Cannabis, que deve ser acessível às famílias e não restrita a associações.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 70921,
+            "end": 71193,
+            "text": "Não podemos achar normal uma indústria farmacêutica produzir medicamento, com plantas muitas vezes contaminadas por metais pesados, quando podemos ter a agricultura familiar e orgânica, que oferece outros princípios de agroecologia para nossas famílias, para nossas casas.",
+            "score": 0.447
+          },
+          "udv": {
+            "id": "udv-146-2-0",
+            "rule": "same_sentence",
+            "score": 0.436
+          }
+        },
+        {
+          "text": "Cobra da ANVISA o reconhecimento do trabalho das associações de Cannabis no Brasil e o fim da criminalização de líderes e famílias que cultivam a planta para uso medicinal, citando o rastreamento pela Polícia Federal de associações que entregam remédios formulados em laboratório.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 75137,
+            "end": 75267,
+            "text": "Pessoas estão batendo à porta da ANVISA diariamente para pedir o reconhecimento do trabalho que está sendo feito em todo o Brasil.",
+            "score": 0.231
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige justiça social e leis que amparem as famílias e associações, pedindo às comissões da Câmara e à Frente Parlamentar em criação que deem andamento rápido à regulamentação, pois muitas pessoas morrem por encarceramento ou falta de acesso a tratamento eficaz.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 75777,
+            "end": 75879,
+            "text": "Justiça social e leis que nos amparem só podem ser feitas com nossa presença e com nossa manifestação.",
+            "score": 0.2613
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica os discursos capacitistas que marginalizam pessoas autistas e com transtornos mentais, rejeitando a reabertura de manicômios e a ilusão de \"comunidades terapêuticas\" como espaços de tratamento, defendindo liberdade e respeito ao indivíduo.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 73349,
+            "end": 73684,
+            "text": "Eu tenho ouvido muitos discursos capacitistas que colocam à margem pessoas autistas e pessoas com transtornos mentais ou pessoas que possuem qualquer outra deficiência, colocando-as ainda mais à margem, estimulando a reabertura de manicômios e nos colocando numa situação de invalidação não somente das nossas ideias, mas como pessoas.",
+            "score": 0.3294
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a guerra às drogas é uma cultura de ódio contra pessoas vulneráveis, pretas, periféricas e de saúde mental, citando chacinas em comunidades quilombolas, ribeirinhas e indígenas justificadas pela posse da planta.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 73062,
+            "end": 73347,
+            "text": "A justificativa de que era por causa de uma planta, na verdade, é um bode expiatório, porque, pelo que nós sabemos, acontece uma cultura de ódio, cultura de ódio a pessoas vulneráveis, a pessoas pretas, a pessoas periféricas e até a pessoas que fazem parte de um grupo de saúde mental.",
+            "score": 0.4333
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o cultivo caipira e orgânico de Cannabis no quintal como direito das famílias, argumentando que o custo é infinitamente menor (20 a 50 reais mensais) e que o contato com a natureza beneficia o desenvolvimento infantil.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 72033,
+            "end": 72149,
+            "text": "Em relação ao custo, com o cultivo orgânico, quando se produz o adubo na própria composteira, é infinitamente menor.",
+            "score": 0.3022
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a agroecologia e a agricultura familiar como princípios fundamentais para a produção de Cannabis, justificando a crítica à indústria farmacêutica e a defesa do cultivo doméstico.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 70921,
+            "end": 71193,
+            "text": "Não podemos achar normal uma indústria farmacêutica produzir medicamento, com plantas muitas vezes contaminadas por metais pesados, quando podemos ter a agricultura familiar e orgânica, que oferece outros princípios de agroecologia para nossas famílias, para nossas casas.",
+            "score": 0.2679
+          },
+          "udv": {
+            "id": "udv-146-2-0",
+            "rule": "same_sentence",
+            "score": 0.2677
+          }
+        },
+        {
+          "text": "Invoca o respeito à vida real das pessoas e à experiência vivida como critério para contestar discursos de quem não vive a realidade de mães de crianças autistas ou de cultivadores, argumentando que empatia não substitui a vivência.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 76003,
+            "end": 76074,
+            "text": "Por mais que tenhamos empatia por uma causa, vivê-la é muito diferente.",
+            "score": 0.2176
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa a justiça social como fundamento para todas as suas posições, incluindo a regulamentação da Cannabis, o fim da criminalização e o acesso a tratamento eficaz, vendo-a como condição básica para o desenvolvimento humano, social e financeiro.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 75672,
+            "end": 75715,
+            "text": "Nós precisamos de justiça social no Brasil.",
+            "score": 0.251
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a segurança com a planta e a cultura de roça como base para argumentar que a presença de Cannabis não altera a segurança no ambiente agrícola, comparando-a ao cultivo de milho e criticando a ideia de que a planta traria armas para o campo.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 74072,
+            "end": 74133,
+            "text": "Nós temos um pensamento de segurança, segurança com a planta.",
+            "score": 0.3349
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se fisioterapeuta e fisiologista formada pela UNICAMP, Diretora da Mãesconhas Associação Cannábica do Brasil desde 2018, membro da Coordenação-Geral da Federação das Associações de Canabis Terapêutica (FACT) e da Articulação Nacional de Marchas da Maconha.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 67575,
+            "end": 67710,
+            "text": "Componho a Coordenação-Geral da Federação das Associações de Canabis Terapêutica — FACT e a Articulação Nacional de Marchas da Maconha.",
+            "score": 0.6086
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser mãe de uma criança autista de 10 anos e pessoa autista, e membro do Quilombo Íris de Jesus, comunidade quilombola de Campinas, com a qual constrói uma realidade diferente da existente nas periferias.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 67712,
+            "end": 67999,
+            "text": "Desde o início da pandemia, eu fui abraçada por uma comunidade quilombola da minha cidade, o Quilombo Íris de Jesus, do qual tenho muito orgulho de fazer parte, assim como o orgulho de construir, com eles, uma realidade diferente da que existe na comunidade e nas periferias de Campinas.",
+            "score": 0.3995
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionam a existência de mais de 40 associações na federação, muitas com princípio de agroecologia, e cita associações como Flor da Vida, Volta Cannabis e Sou Cannabis, no Estado de Goiás.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 70517,
+            "end": 70669,
+            "text": "Eu vi o pessoal fazer comentários sobre algumas associações, como a Flor da Vida, Volta Cannabis, Sou Cannabis, no Estado de Goiás, entre tantas outras.",
+            "score": 0.5371
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter cinco habeas corpus, com julgamento marcado para o ano seguinte, específico para o fornecimento de remédio para sua filha, e menciona um manifesto sobre a criminalização de líderes de associações.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 44,
+            "start": 131002,
+            "end": 131075,
+            "text": "Mas o meu é específico para o fornecimento de remédio para a minha filha.",
+            "score": 0.4505
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Usa a experiência pessoal como mãe de criança autista e pessoa autista como base central dos argumentos, descrevendo o sofrimento, o desespero e a busca por tratamento eficaz, e exibe plantas de Cannabis durante a fala para ilustrar o cultivo orgânico.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 66432,
+            "end": 66546,
+            "text": "Como mãe de criança autista e pessoa autista também, eu me senti extremamente contemplada e emocionada, realmente.",
+            "score": 0.3131
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados e fatos como afirmação própria, como a média de três convulsões diárias da filha, o custo mensal de 20 a 50 reais para produção do remédio, e a existência de mais de 40 associações na federação, sem atribuir a fontes externas.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 72150,
+            "end": 72400,
+            "text": "Eu gasto, em média, 20 reais a 50 reais por mês para produzir o remédio da minha filha, quando eu preciso comprar um Neen, um Bokachi, quando preciso me preocupar com alguma praga que esteja mais difícil de tratar num pensamento orgânico tradicional.",
+            "score": 0.2255
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com tom emocional e pessoal, expressando emoção e gratidão, e pede um olhar mais inclusivo na formação de mesas, cobrando respeito e contemplação de todos os participantes.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 76414,
+            "end": 76555,
+            "text": "Parabenizo todos os presentes e peço um olhar mais inclusivo quando se trata da formação de mesas, para que todos sejam contemplados — todos!",
+            "score": 0.3434
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem de denúncia e crítica social, referindo-se à guerra às drogas como cultura de ódio, e emprega termos como \"bode expiatório\" e \"invalidação\" para descrever a marginalização de pessoas vulneráveis.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 11,
+            "start": 73062,
+            "end": 73347,
+            "text": "A justificativa de que era por causa de uma planta, na verdade, é um bode expiatório, porque, pelo que nós sabemos, acontece uma cultura de ódio, cultura de ódio a pessoas vulneráveis, a pessoas pretas, a pessoas periféricas e até a pessoas que fazem parte de um grupo de saúde mental.",
+            "score": 0.3213
+          },
+          "udv": null
+        },
+        {
+          "text": "Conclui com apelo direto às comissões e à Frente Parlamentar, pedindo resposta rápida e andamento à regulamentação, e agradece a oportunidade de fala e a escuta, mantendo tom de construção de conhecimento e respeito.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 44,
+            "start": 131456,
+            "end": 131665,
+            "text": "E peço ainda encarecidamente não só que todos voltem os seus olhos para a Frente Parlamentar que está sendo criada, mas também que essas comissões deem andamento a essa iniciativa e tragam uma resposta rápida.",
+            "score": 0.3053
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 126,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Democratização do uso medicinal da cannabis depende de regulamentação de associações de produtores, dizem especialistas",
+      "assunto": "Democratização do uso medicinal da cannabis e regulamentação de associações de produtores",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 146,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Especialistas defendem liberação da produção de Cannabis para fins medicinais",
+      "assunto": "Liberação da produção de Cannabis para fins medicinais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-146-2-0",
+      "hearing_id": 146,
+      "n": 3,
+      "article_name": "Ângela Gomes",
+      "proposition": "Os medicamentos tradicionais são muitas vezes tóxicos e caros e a produção da cannabis, além de mais natural, torna o tratamento mais barato e acessível para todas as famílias: \"A gente não pode achar normal que a indústria farmacêutica produza com plantas, muitas vezes contaminadas com metais pesados, quando a gente pode ter uma agricultura familiar e orgânica com outros princípios, inclusive de agroecologia. O princípio da agroecologia não pode ficar restrito ao movimento associativista. As famílias têm que ter essa liberdade e esse direito\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não podemos achar normal uma indústria farmacêutica produzir medicamento, com plantas muitas vezes contaminadas por metais pesados, quando podemos ter a agricultura familiar e orgânica, que oferece outros princípios de agroecologia para nossas famílias, para nossas casas. Este princípio da agroecologia não pode ficar restrito somente ao movimento associativista: ele tem que dar esta liberdade às famílias, que têm que ter este direito.",
+        "turn": 11,
+        "start": 70921,
+        "end": 71359
+      },
+      "verifier": {
+        "probability": 0.802102683032814,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

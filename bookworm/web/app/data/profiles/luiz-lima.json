@@ -1,0 +1,410 @@
+{
+  "actor": {
+    "slug": "luiz-lima",
+    "name": "LUIZ LIMA",
+    "display_name": "Luiz Lima",
+    "role": "Deputado (PL-RJ) e Presidente da Comissão do Esporte",
+    "article_names": [
+      "Luiz Lima"
+    ],
+    "party_uf": [
+      "PL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:55:59+00:00",
+    "n_statements": 15,
+    "n_hearings": 2,
+    "hearing_ids": [
+      37,
+      40
+    ],
+    "input_tokens": 4605,
+    "output_tokens": 1030,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a regulamentação da profissão de Educação Física, vigente desde 1998, exige diploma para o exercício da atividade, aplicando-se essa exigência tanto a professores de colégio quanto a professores de academia ou de artes marciais.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 63111,
+            "end": 63225,
+            "text": "Não dá para falar que professor de colégio tem que ter diploma, e o professor de academia não tem que ter diploma.",
+            "score": 0.2385
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ideia de que a ausência de diploma formal impede o reconhecimento de excelência técnica em artes marciais, argumentando que, embora existam profissionais autodidatas ou campeões de alto nível, a lei brasileira é clara na exigência do diploma para o exercício profissional.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 63024,
+            "end": 63109,
+            "text": "Ocorre que a lei é muito clara: você tem que ter o diploma, ou, então, muda-se a lei.",
+            "score": 0.235
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que, caso se deseje alterar a exigência de diploma para professores de artes marciais, a mudança deve ocorrer por meio da alteração, revogação ou criação de novas leis, e não por exceções ou justificativas informais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Alerta que a dispensa de diploma para professores de artes marciais geraria um precedente que se estenderia a outras modalidades, como natação, futebol, balé e dança, eliminando a necessidade de formação formal em todas.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 63792,
+            "end": 64059,
+            "text": "Fora disso, vai-se gerar um conflito, porque, se o professor de arte marcial não precisa ter diploma, o professor de natação também não precisa ter diploma, o professor de futebol também não precisa ter diploma, o de balé e o de dança também não precisam ter diploma.",
+            "score": 0.243
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o exemplo de técnicos norte-americanos de natação que não possuem formação em Educação Física, mas são matemáticos, estatísticos ou engenheiros, para ilustrar que a legislação americana não exige o mesmo tipo de diploma, reforçando a necessidade de adequação legal no Brasil.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 62503,
+            "end": 62637,
+            "text": "Existem técnicos norte-americanos de natação que não são profissionais de educação física, são matemáticos, estatísticos, engenheiros.",
+            "score": 0.506
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Ministério do Esporte sobre a existência de planos ou incentivos, inclusive via emendas parlamentares, para incluir artes marciais no ensino básico, destacando que a instalação de um dojô é mais viável do que a construção de piscinas ou pistas de atletismo.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 29,
+            "start": 69683,
+            "end": 69974,
+            "text": "Então, quero saber se o Ministério do Esporte está incentivando, através de seus próprios programas de emendas parlamentares, apresentando aos Deputados a possibilidade de incluir isso principalmente no ensino básico, para darmos uma introdução e fazer com que se apliquem as artes marciais.",
+            "score": 0.3058
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o orçamento de 1,8 milhão de reais destinado à Secretaria Nacional de Paradesporto é insuficiente para levar conhecimento e ações de valorização aos 27 Estados e aos 24% dos Municípios que possuem políticas públicas de paradesporto.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 7,
+            "start": 39352,
+            "end": 39551,
+            "text": "Eu acho que 1,8 milhão de reais é muito pouco para levar conhecimento aos 27 Estados, para fazer ações que valorizem os 24% de Municípios que têm essa ligação de política pública para o paradesporto.",
+            "score": 0.5249
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere que a valorização dos Municípios que já implementam políticas de paradesporto pode servir como estímulo para que os demais também adotem essas práticas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Espera que, caso o orçamento não seja ampliado em 2024, a Secretaria Nacional de Paradesporto utilize os recursos disponíveis para desenvolver ações significativas.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 7,
+            "start": 40657,
+            "end": 40780,
+            "text": "Já que existe a Secretaria, já que existe o Ministério, eu queria que a Secretaria Nacional de Paradesporto fosse abraçada.",
+            "score": 0.2228
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a Constituição Federal e a legislação vigente como fundamento para defender a exigência de diploma, argumentando que cidadãos e parlamentares devem respeitar a lei e a Constituição.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 61608,
+            "end": 61887,
+            "text": "Temos aqui um conflito muito grande — eu estava vendo o Cleiber falar sobre isso e até conversei aqui com a Paula e com a Helô, que são professoras de educação física: nós cidadãos temos que respeitar a lei, ainda mais nós Parlamentares que aqui juramos respeitar a Constituição.",
+            "score": 0.3029
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza o papel do esporte e do paradesporto na inclusão social, argumentando que a prática esportiva fortalece a autoconfiança da pessoa com deficiência, o que é o primeiro passo para a sua inclusão na sociedade.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 7,
+            "start": 39944,
+            "end": 40067,
+            "text": "A pessoa que nasceu com deficiência e a pessoa que adquiriu uma deficiência precisam, primeiro, se fortalecer pessoalmente.",
+            "score": 0.2892
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a inclusão social é uma questão de humanidade, devendo todos os segmentos da sociedade abraçar o cidadão com deficiência.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 7,
+            "start": 40445,
+            "end": 40491,
+            "text": "Todos esses segmentos devem abraçar o cidadão.",
+            "score": 0.4603
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o art. 217 da Constituição Federal de 1988, que trata o esporte como direito social de todos, para fundamentar a necessidade de apoio e orçamento adequado para o paradesporto.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 7,
+            "start": 40570,
+            "end": 40656,
+            "text": "217 da Constituição Federal de 1988, que trata o esporte como direito social de todos.",
+            "score": 0.6864
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a educação formal é um facilitador e um mecanismo para \"afunilar a peneira\" de profissionais, reduzindo riscos, mesmo reconhecendo que a excelência técnica pode existir sem ela.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 63279,
+            "end": 63379,
+            "text": "A educação formal é um facilitador, é mais um obstáculo para você afunilar a peneira dessas pessoas.",
+            "score": 0.3968
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal, representante do Rio de Janeiro, com 46 anos, pai paulistano e mãe de Limoeiro, interior de Pernambuco.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 7,
+            "start": 38651,
+            "end": 38699,
+            "text": "Minha mãe é de Limoeiro, interior de Pernambuco.",
+            "score": 0.5427
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido campeão nos Jogos Pan-Americanos de Winnipeg em 8 de agosto de 1999, na natação.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 61276,
+            "end": 61383,
+            "text": "Hoje fez 24 anos que fui campeão nos Jogos Pan-Americanos de Winnipeg — fui campeão em 8 de agosto de 1999.",
+            "score": 0.6067
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se membro da Comissão do Esporte da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 21,
+            "start": 59225,
+            "end": 59299,
+            "text": "está no quinto mandato, também foi Presidente aqui da Comissão do Esporte.",
+            "score": 0.2704
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ter sido candidato em 2018.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 69,
+            "start": 127547,
+            "end": 127582,
+            "text": "Já tentou alguma vez ser candidato?",
+            "score": 0.2335
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos concretos e comparativos internacionais, como o caso dos técnicos de natação nos Estados Unidos, para ilustrar diferenças legislativas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados estatísticos, como os 40% de crianças no Rio de Janeiro sem a presença dos pais e os 24% de Municípios com políticas de paradesporto, para sustentar seus argumentos.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 27,
+            "start": 60459,
+            "end": 60601,
+            "text": "Temos, no Rio de Janeiro, por exemplo, Deputado Márcio Marinho, 40% das crianças matriculadas no ensino básico sem a presença do pai e da mãe.",
+            "score": 0.3104
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega analogias e metáforas, como a comparação entre a instalação de um dojô e a construção de uma piscina, ou a ideia de que \"ideia boa sobre a mesa sem recurso financeiro é igual a quase nada\".",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 7,
+            "start": 41118,
+            "end": 41251,
+            "text": "Ela ficava chateada comigo e falava assim:\"Luiz, ideia boa sobre a mesa sem recurso financeiro é igual a quase nada\"— mas não é nada.",
+            "score": 0.5268
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom cordial e elogioso ao se dirigir a colegas e convidados, parabenizando-os por suas trajetórias e incentivando a participação política e social.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita anotações pessoais e frases de outros participantes, como a de Danys Queiroz (\"Esporte não é caro\"), para reforçar seus pontos e criar conexão com os interlocutores.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 46,
+            "start": 105896,
+            "end": 106075,
+            "text": "Danys disse:\"Esporte não é caro\".Aí, eu escrevi:\"Educação não é caro; caro é o presidiário\".Aí eu também anotei aqui: \"Esporte tem começo, meio e não pode ter fim\".Eu adorei isso.",
+            "score": 0.2208
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza perguntas diretas para cobrar informações específicas, como a existência de planos do Ministério do Esporte para a inclusão de artes marciais nas escolas.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 29,
+            "start": 69414,
+            "end": 69555,
+            "text": "Quanto à inclusão das artes marciais nas escolas, nós temos um trabalho muito bacana na cidade de Cascavel, no Paraná, onde há essa inclusão.",
+            "score": 0.2727
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 37,
+      "split": "train",
+      "article_date": "2023-08-23",
+      "title": "Secretaria Nacional de Paradesporto pede mais orçamento e estrutura para os atletas com deficiência",
+      "assunto": "Solicitação de mais orçamento e estrutura para atletas com deficiência",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 40,
+      "split": "train",
+      "article_date": "2023-08-08",
+      "title": "Debatedores pedem políticas públicas para levar artes marciais às escolas",
+      "assunto": "Políticas públicas para levar artes marciais às escolas brasileiras",
+      "turns": 14,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-37-3-0",
+      "hearing_id": 37,
+      "n": 8,
+      "article_name": "Luiz Lima",
+      "proposition": "Destacou a qualidade das instalações do Centro de Treinamento Paraolímpico Brasileiro, que fica na zona sul de São Paulo.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Sua fala me tocou quando você mencionou a inclusão social. O paradesporto tem essa força.",
+        "turn": 7,
+        "start": 39854,
+        "end": 39943
+      },
+      "verifier": {
+        "probability": 0.09052665203912641,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-40-3-0",
+      "hearing_id": 40,
+      "n": 6,
+      "article_name": "Luiz Lima",
+      "proposition": "Afirmou que as artes marciais abrem novos caminhos para as crianças: \"A luta passa uma sensação para a criança, rapidamente, do que é respeito, do que é conhecer seus limites\".",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "E é claro que a luta passa uma sensação para a criança, rapidamente, de respeito, de conhecimento dos seus limites, de entendimento de que, se ela se dedicar, a luta abrirá mais oportunidades para ela vencer.",
+        "turn": 27,
+        "start": 60835,
+        "end": 61043
+      },
+      "verifier": {
+        "probability": 0.7040270940002897,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

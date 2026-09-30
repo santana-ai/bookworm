@@ -159,7 +159,7 @@ passada: `hearings/<id>.json`, que é exatamente o arquivo de `export-hearing` d
 audiência para a tela que lista as matérias. O LDS é lido uma vez, e os embeddings vêm só do cache,
 como em `export-hearing`. Sem `--output`, o destino é `web/app/data` do projeto `bookworm` de onde o
 pacote foi instalado em modo editável; fora dessa árvore de código, `--output` é obrigatório.
-`bookworm/web/app/data/` está no `.gitignore` porque os arquivos contêm as transcrições inteiras. O
+`bookworm/web/app/data/` é versionado com a exportação de `udv_v2`, que contém as transcrições inteiras, para que a demo rode sem o dataset. O
 comando recusa um destino que já tenha `index.json` ou `hearings/`, a não ser com `--overwrite`, que
 apaga o `index.json` antigo antes de gravar a primeira audiência e regrava os arquivos das audiências
 da execução; arquivos de outras audiências não são apagados e ficam fora do índice. `index.json` é

@@ -1,0 +1,139 @@
+{
+  "actor": {
+    "slug": "jose-guimaraes",
+    "name": "JOSÉ GUIMARÃES",
+    "display_name": "JOSÉ GUIMARÃES",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - CE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:20:34+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      145,
+      199
+    ],
+    "input_tokens": 2081,
+    "output_tokens": 222,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 5,
+    "with_udv": 0,
+    "passage_only": 5,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se porta-voz do Governo, afirmando que sua palavra é \"em nome do Governo\" durante a audiência sobre segurança pública.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 1,
+            "start": 4752,
+            "end": 4926,
+            "text": "Hoje teremos votações muito relevantes, mas a minha palavra, em nome do Governo, é desejar uma boa discussão, uma boa conversa e um bom debate sobre as questões de segurança.",
+            "score": 0.2941
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como participante de um diálogo prévio com a Deputada Bia Kicis e o Líder Evair, referindo-se a eles como \"companheiros e companheiras\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 1,
+            "start": 3828,
+            "end": 4058,
+            "text": "Presidenta, Ministro Flávio Dino, demais Parlamentares, companheiros e companheiras, quero registrar toda a boa vontade e o diálogo que tivemos ontem com a Presidente desta Comissão, a Deputada Bia Kicis e com o nosso Líder Evair.",
+            "score": 0.4554
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza o registro de boas-vindas e elogios mútuos como estratégia de abertura, destacando o \"respeito\" e a \"boa vontade\" demonstrados por interlocutores, como a Presidenta da Comissão e o Ministro Flávio Dino.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 1,
+            "start": 3828,
+            "end": 4058,
+            "text": "Presidenta, Ministro Flávio Dino, demais Parlamentares, companheiros e companheiras, quero registrar toda a boa vontade e o diálogo que tivemos ontem com a Presidente desta Comissão, a Deputada Bia Kicis e com o nosso Líder Evair.",
+            "score": 0.2212
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a presença do Ministro Flávio Dino na Comissão atribuindo-a ao respeito que o parlamentar sempre teve por ele, além de exaltar a participação do ministro no debate.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 1,
+            "start": 4296,
+            "end": 4377,
+            "text": "Em segundo lugar, Ministro, quero exaltar a sua participação aqui nesta Comissão.",
+            "score": 0.3009
+          },
+          "udv": null
+        },
+        {
+          "text": "Limita sua intervenção a desejos de \"boa discussão\", \"boa conversa\" e \"bom debate\", justificando a brevidade de sua fala pela necessidade de participar de votações relevantes no plenário.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 1,
+            "start": 4752,
+            "end": 4926,
+            "text": "Hoje teremos votações muito relevantes, mas a minha palavra, em nome do Governo, é desejar uma boa discussão, uma boa conversa e um bom debate sobre as questões de segurança.",
+            "score": 0.4142
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

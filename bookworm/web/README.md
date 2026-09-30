@@ -11,6 +11,14 @@ audiência. Os protótipos visuais usados para escolher essa direção ficaram s
 
 ## Início rápido
 
+Os dados já gerados estão versionados em `app/data/`, então para só ver a demo basta:
+
+```bash
+cd bookworm/web/app && python3 -m http.server 8000
+```
+
+e abrir `http://localhost:8000/`. Os comandos abaixo regeram esses dados a partir da rodada.
+
 Com a rodada `udv_v2` e o cache de embeddings no lugar (ver [guia de reprodução](../../docs/reproduce.md)):
 
 ```bash
@@ -101,7 +109,8 @@ faltar um arquivo do cache, o comando para com código 2 e diz qual é.
 
 Sem `--output`, os arquivos vão para `bookworm/web/app/data/` da árvore de código de onde a biblioteca
 foi instalada; `--output` escolhe outro diretório, e `--overwrite` regrava uma exportação existente. A
-pasta `app/data/` está no `.gitignore` porque os arquivos contêm as transcrições inteiras: 58.810.449
+pasta `app/data/` é versionada, com a exportação de `udv_v2`, para que a demo rode sem o dataset e sem
+modelo; os arquivos contêm as transcrições inteiras do PublicHearingBR: 58.810.449
 bytes para `udv_v2` com `--verifier-report`, os perfis e a conferência humana, segundo o resumo gravado em
 [`experiments/artifacts/web/export_site_udv_v2.json`](../../experiments/artifacts/web/export_site_udv_v2.json). O formato dos arquivos está em
 [`docs/data_model.md`](../docs/data_model.md#diretório-de-demonstração-export-site).

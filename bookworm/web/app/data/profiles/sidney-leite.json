@@ -1,0 +1,410 @@
+{
+  "actor": {
+    "slug": "sidney-leite",
+    "name": "Sidney Leite",
+    "display_name": "Sidney Leite",
+    "role": "Deputado (PSD-AM)",
+    "article_names": [
+      "Sidney Leite"
+    ],
+    "party_uf": [
+      "PSD - AM",
+      "Bloco/PSD - AM"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:52:13+00:00",
+    "n_statements": 12,
+    "n_hearings": 2,
+    "hearing_ids": [
+      61,
+      183
+    ],
+    "input_tokens": 5088,
+    "output_tokens": 860,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 25,
+    "with_udv": 0,
+    "passage_only": 22,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a retomada de uma política industrial no Brasil que resgate o protagonismo da indústria, exigindo esforço conjunto de empresas, governo e parlamento.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 0,
+            "start": 836,
+            "end": 1024,
+            "text": "É chegada a hora de o Brasil retomar uma política industrial que dê a devida importância não só ao momento atual da economia, mas também ao resgate do protagonismo da indústria brasileira.",
+            "score": 0.3509
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a identificação de problemas sem propostas de solução por parte das entidades patronais, cobrando sugestões concretas sobre qualificação de mão de obra, crédito e participação do orçamento do governo em investimentos.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 8,
+            "start": 10960,
+            "end": 11097,
+            "text": "A questão da qualificação da mão de obra ouvimos muito, também a questão do crédito, mas seria bom se pudéssemos sugerir também soluções.",
+            "score": 0.2546
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o papel do BNDES não é o lucro, mas fomentar o desenvolvimento, e propõe visitar a direção e o setor técnico do banco para discutir essa questão.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 12,
+            "start": 16735,
+            "end": 16866,
+            "text": "Eu e o Deputado Lippi um dia desses conversávamos, e entendemos que o papel do BNDES não é o lucro, mas fomentar o desenvolvimento.",
+            "score": 0.3902
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o Instituto de Pesos e Medidas pode contribuir com a indústria nacional, além de sua função de defesa do consumidor.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 12,
+            "start": 16920,
+            "end": 17095,
+            "text": "Também queremos visitar o Instituto de Pesos e Medidas, que pode muito contribuir com a indústria nacional e que muitas vezes já é visto como um órgão de defesa do consumidor.",
+            "score": 0.6347
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o parlamento por aprovar benesses que encarecem a energia, citando a abertura de capital da ELETROBRAS e a inclusão de \"jabutis\" sobre produção de gás e pequenas hidrelétricas.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 24,
+            "start": 49667,
+            "end": 49822,
+            "text": "Colocaram ali dois jabutis, Deputado Otto, sobre produção de gás em Estado em que não há e aquele das pequenas hidrelétricas, e aí está o custo energético.",
+            "score": 0.3602
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a reforma tributária é inevitável e critica a PEC do Calote por criar insegurança jurídica para investidores.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 24,
+            "start": 50223,
+            "end": 50338,
+            "text": "Nós votamos aqui até a PEC do Calote, que cria insegurança jurídica para quem busca investir num país como o nosso.",
+            "score": 0.3978
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a reforma administrativa por não mexer com o parlamento e o Judiciário, citando a discussão dos quinquênios, e argumenta que isso prejudica quem trabalha, investe e produz.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 24,
+            "start": 51995,
+            "end": 52096,
+            "text": "Isso é um tapa na cara de quem trabalha, de quem investe, de quem produz e de quem passa necessidade.",
+            "score": 0.3212
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a recuperação da BR-319, classificando-a como estrada existente e antiga, e questiona os entraves no licenciamento junto ao Ministério da Infraestrutura e ao IBAMA.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 34,
+            "start": 63723,
+            "end": 63940,
+            "text": "Presidente, quais são os entraves ou as solicitações requeridas ao Ministério da Infraestrutura, para que o licenciamento — para recuperação, diga-se de passagem, não é para obra nova — da BR-319 possa ser autorizado?",
+            "score": 0.3968
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a BR-319 é a única alternativa de acesso para Manaus e Roraima, citando o episódio da falta de oxigênio em Manaus.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 36,
+            "start": 64707,
+            "end": 64765,
+            "text": "Nós e o Estado de Roraima só temos essa única alternativa.",
+            "score": 0.4164
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a prospecção de petróleo pela Petrobras na foz do Amazonas, argumentando que países vizinhos já exploram a região e que o Brasil precisa dessa fonte de riqueza, embora reconheça a responsabilidade dos órgãos ambientais no licenciamento.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 38,
+            "start": 66357,
+            "end": 66473,
+            "text": "É óbvio que eu defendo que os órgãos ambientais têm que ter a responsabilidade no que diz respeito ao licenciamento.",
+            "score": 0.2548
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a Amazônia deve ser vista como um ativo e não como um problema.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 37,
+            "start": 81160,
+            "end": 81379,
+            "text": "Ontem, o meu partido, tanto na Câmara como no Senado, foi convidado para uma reunião com Presidente eleito, e eu coloquei para ele que, por exemplo, a Amazônia não pode ser vista como um problema, mas sim como um ativo.",
+            "score": 0.4117
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita estudo do Banco Mundial segundo o qual uma redução de 12% no custo de logística no Amazonas geraria um ganho de 38% no PIB do estado, onde 58% da população está abaixo da linha da pobreza.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 38,
+            "start": 65628,
+            "end": 65731,
+            "text": "Nós teríamos um ganho de 38% no PIB num Estado em que 58% da população está abaixo da linha da pobreza.",
+            "score": 0.6266
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a conservação da Amazônia com exploração correta, agregação de inovação e valor para as populações tradicionais.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 36,
+            "start": 64915,
+            "end": 65141,
+            "text": "Nós precisamos garantir a conservação da Amazônia, fazer a exploração de maneira correta e agregar a inovação, Deputado Júnior Ferrari, a partir da nota fiscal, e que isso agregue valor e renda para as populações tradicionais.",
+            "score": 0.5237
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento de que \"não há almoço grátis\" para justificar a crítica às benesses legislativas que encarecem a energia.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca a responsabilidade do parlamento como ator principal na solução de problemas econômicos e sociais, criticando o hábito de \"apontar o dedo\" para outros setores.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 24,
+            "start": 49081,
+            "end": 49155,
+            "text": "Eu já tenho dito isto: no Brasil, temos o hábito sempre de apontar o dedo.",
+            "score": 0.3271
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da infraestrutura e da exploração de recursos naturais no argumento de redução da pobreza e geração de riqueza para o país.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Justifica a defesa da prospecção de petróleo pela finitude da fonte de energia e pela necessidade de ganho de riqueza para um país com desigualdade.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 38,
+            "start": 66212,
+            "end": 66356,
+            "text": "O que não entendemos é que um País tão pobre, com tanta desigualdade, e tem uma fonte de energia que vai ser finita até pelo avanço tecnológico.",
+            "score": 0.2945
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se parlamentar e membro do Grupo de Trabalho Política Industrial Brasileira da Comissão de Desenvolvimento Econômico, Indústria, Comércio e Serviços.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 0,
+            "start": 145,
+            "end": 372,
+            "text": "Esta reunião do Grupo de TrabalhoPolítica Industrial Brasileira, da Comissão de Desenvolvimento Econômico, Indústria, Comércio e Serviçostem por objetivo propor este debate para oferecer uma política industrial ao nosso Brasil.",
+            "score": 0.5274
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que seu partido foi convidado para reunião com o Presidente eleito, onde defendeu a visão da Amazônia como ativo.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 37,
+            "start": 81160,
+            "end": 81379,
+            "text": "Ontem, o meu partido, tanto na Câmara como no Senado, foi convidado para uma reunião com Presidente eleito, e eu coloquei para ele que, por exemplo, a Amazônia não pode ser vista como um problema, mas sim como um ativo.",
+            "score": 0.5252
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante do Estado do Pará ao cumprimentar o Deputado Joaquim Passarinho.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 34,
+            "start": 62397,
+            "end": 62467,
+            "text": "Presidente, Deputado Joaquim Passarinho, do nosso querido Estado Pará.",
+            "score": 0.5177
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e estudos específicos, como o levantamento do Banco Mundial sobre logística e PIB, para sustentar suas posições.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 36,
+            "start": 65143,
+            "end": 65337,
+            "text": "O estudo do Banco Mundial indicou que somente no Estado do Amazonas, Deputado Joaquim Passarinho, se nós tivéssemos uma redução de 12% no custo de logística, nós teríamos um ganho no PIB de 38%.",
+            "score": 0.2394
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita episódios concretos, como a falta de oxigênio em Manaus, para ilustrar a urgência da infraestrutura.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 36,
+            "start": 64485,
+            "end": 64706,
+            "text": "O Brasil e o mundo ficaram chocados, Secretário Capobianco, com o fato de que não pôde chegar oxigênio a Manaus, e as pessoas morreram por falta de oxigênio, por falta de uma estrada, porque nós só temos essa alternativa.",
+            "score": 0.271
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas aos convidados e à mesa, cobrando respostas sobre entraves e propostas de solução.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 34,
+            "start": 62628,
+            "end": 62654,
+            "text": "Presidente, é para a Mesa.",
+            "score": 0.1712
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos locais, como a cidade de Manaus e a BR-163, para contextualizar seus argumentos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança ao parlamento, assumindo a responsabilidade legislativa nas falhas de políticas públicas.",
+          "passage": {
+            "hearing_id": 61,
+            "turn": 24,
+            "start": 50749,
+            "end": 50800,
+            "text": "O Parlamento tem a responsabilidade de cobrar isso.",
+            "score": 0.2272
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 61,
+      "split": "train",
+      "article_date": "2022-11-30",
+      "title": "Entidades patronais defendem política de retomada do setor industrial",
+      "assunto": "Defesa de uma política de retomada do setor industrial por entidades patronais",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-61-0-0",
+      "hearing_id": 61,
+      "n": 1,
+      "article_name": "Sidney Leite",
+      "proposition": "A maioria das críticas e propostas apresentadas no debate dependem do Congresso Nacional, que deve fazer o seu papel: \"O grosso dessas demandas passam pelo Parlamento. Se não tomarmos essa responsabilidade, vamos sempre cobrar do governo.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O grosso dessas demandas passa por este Parlamento. Se nós Parlamentares, Deputados e Deputadas, Senadores e Senadoras, não tomarmos para nós essa responsabilidade, vamos sempre cobrar dos Governos muito do que foi discutido aqui.",
+        "turn": 24,
+        "start": 49156,
+        "end": 49386
+      },
+      "verifier": {
+        "probability": 0.9268606215631865,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-5-0",
+      "hearing_id": 183,
+      "n": 13,
+      "article_name": "Sidney Leite",
+      "proposition": "A decisão de não incluir a obra de reestruturação da BR-319 no Novo PAC prejudicou a região: \"O que me causa espécie é que não se trata de uma obra nova. Estamos falando de uma estrada existente, e ela é bem antiga, por sinal.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Só para contextualizar, o que me causa espécie é que nós não estamos falando de uma estrada nova. Nós estamos falando de uma estrada existente — e ela é bem antiga, por sinal.",
+        "turn": 34,
+        "start": 62957,
+        "end": 63132
+      },
+      "verifier": {
+        "probability": 0.7906339208353397,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

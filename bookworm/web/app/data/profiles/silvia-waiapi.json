@@ -1,0 +1,295 @@
+{
+  "actor": {
+    "slug": "silvia-waiapi",
+    "name": "SILVIA WAIÃPI",
+    "display_name": "SILVIA WAIÃPI",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PL - AP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:54:27+00:00",
+    "n_statements": 3,
+    "n_hearings": 3,
+    "hearing_ids": [
+      39,
+      135,
+      191
+    ],
+    "input_tokens": 3180,
+    "output_tokens": 698,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o alistamento militar e a existência das Forças Armadas não são imperialistas, argumentando que a soberania do país foi fundamentada em 1648 pela união de brancos, negros e indígenas para expulsar invasores, e que os indígenas ajudaram a construir essa soberania.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 34,
+            "start": 117975,
+            "end": 118113,
+            "text": "Em 1648, foi fundamentada a soberania deste País, quando brancos, negros e indígenas se juntaram para expulsar invasores deste território.",
+            "score": 0.5153
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a soberania nacional não se negocia nem se abdica, criticando a possibilidade de intervenção da ONU ou de outros países que determinem o que a Nação pode ou não fazer.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 34,
+            "start": 119488,
+            "end": 119543,
+            "text": "E o principal: soberania não se negocia, não se abdica.",
+            "score": 0.341
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobre do Governo Federal, especificamente do Ministério dos Povos Indígenas e da FUNAI, a solução para a contaminação do solo em aldeias indígenas no Amapá, onde a presença de três fungos e uma bactéria impede a produção de alimentos como a mandioca.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 24,
+            "start": 80182,
+            "end": 80263,
+            "text": "Há a presença de três fungos e uma bactéria, para os quais ainda não existe cura.",
+            "score": 0.3382
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede a atuação veemente do Ministério do Meio Ambiente nas áreas afetadas pela contaminação no Amapá.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 24,
+            "start": 80549,
+            "end": 80674,
+            "text": "Gostaríamos queo Ministério do Meio Ambiente se fizesse presente naquele local, para que pudesse atuar de uma forma veemente.",
+            "score": 0.2942
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que as áreas de fronteira do Brasil, como a do Amapá com a Guiana Francesa, sejam percebidas como áreas estratégicas de defesa, impedindo que interesses internacionais delimitem ou coordenem o desenvolvimento econômico e ambiental do país.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 24,
+            "start": 81006,
+            "end": 81242,
+            "text": "É necessário que comecemos a perceber o Brasil e suas áreas de fronteira como áreas estratégicas de defesa, e não permitir que interesses internacionais continuem delimitando e coordenando o que deve ou não deve ser feito no nosso País.",
+            "score": 0.3745
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a valorização das forças de segurança e da Polícia Penal, argumentando que o trabalho desses agentes é insalubre e que o Estado deve priorizar a qualidade de vida, o ambiente de trabalho e o descanso desses profissionais, que cumprem a pena ao lado dos presos.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 25,
+            "start": 87122,
+            "end": 87238,
+            "text": "Então, a qualidade de vida, do ambiente de trabalho, do local inclusive de descanso, com certeza, deve ser a melhor.",
+            "score": 0.3229
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a preservação da identidade e da memória dos mortos como fundamento para a existência e a participação política dos povos indígenas, justificando sua fala inicial em língua indígena.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 34,
+            "start": 117650,
+            "end": 117796,
+            "text": "saibam que eu existo, porque um povo que não preserva sua identidade nem guarda a memória dos seus mortos não sabe de onde veio nem para onde vai.",
+            "score": 0.1894
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência pessoal como militar e profissional da saúde para justificar a necessidade de melhoria das condições de trabalho de agentes de segurança e profissionais de saúde, citando a vivência em unidades expostas à COVID-19.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 25,
+            "start": 87240,
+            "end": 87513,
+            "text": "Algumas experiências minhas dentro de unidades expostas, por exemplo, à COVID-19 fizeram com que eu lutasse para melhorar a qualidade do descanso e da estada de profissionais de saúde dentro de hospitais e CTIs, mas esses ambientes não são tão insalubres quanto o de vocês.",
+            "score": 0.2747
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a noção de soberania nacional e a defesa do território como critérios para rejeitar interferências internacionais em assuntos internos, especialmente em áreas de fronteira.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 24,
+            "start": 81006,
+            "end": 81242,
+            "text": "É necessário que comecemos a perceber o Brasil e suas áreas de fronteira como áreas estratégicas de defesa, e não permitir que interesses internacionais continuem delimitando e coordenando o que deve ou não deve ser feito no nosso País.",
+            "score": 0.2073
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se a primeira mulher indígena a ser oficial das Forças Armadas no Brasil.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 34,
+            "start": 118285,
+            "end": 118605,
+            "text": "Osório disse o seguinte:\"O peso da farda não abafa o cidadão no peito do soldado\".Por falar em soldado, esta Parlamentar que vos fala, esta mulher indígena foi a primeira mulher indígena a ser oficial das Forças Armadas no Brasil, um sonho realizado por uma indígena que não pôde, um dia, hastear a Bandeira do seu País.",
+            "score": 0.4581
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter formação em liderança estratégica pela Escola de Comando e Estado-Maior, em política e estratégia pela Escola Superior de Guerra, e em salvaguarda e segurança pela ONU, além de formação em defesa química, biológica, radiológica e nuclear.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 34,
+            "start": 118789,
+            "end": 118868,
+            "text": "Eu sou formada também em política e estratégia, pela Escola Superior de Guerra.",
+            "score": 0.4317
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Deputada e como representante dos interesses do Estado do Amapá e dos povos indígenas.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 24,
+            "start": 80335,
+            "end": 80421,
+            "text": "No Estado do Amapá, os povos indígenas estão precisando de socorro do Governo Federal.",
+            "score": 0.3292
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Inicia suas falas com uma manifestação em língua indígena para afirmar sua existência e identidade cultural perante a Mesa.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 34,
+            "start": 118235,
+            "end": 118277,
+            "text": "Há outra coisa que eu gostaria de afirmar.",
+            "score": 0.1657
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência pessoal e a formação militar como autoridade para discutir temas de defesa, soberania e condições de trabalho.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, como \"saco e paciência para lidar com criminoso\" e a comparação do trabalho da Polícia Penal com um \"Prêmio Nobel\", para destacar a dificuldade e a importância da função.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 25,
+            "start": 87679,
+            "end": 87861,
+            "text": "E os ambientes de trabalho nos quais exigem muita doação e concentração — desculpem-me até a expressão da palavra, saco e paciência para lidar com criminoso — merecem o Prêmio Nobel.",
+            "score": 0.3578
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra respostas e ações concretas de órgãos federais, citando a falta de resposta do Ministério dos Povos Indígenas e da FUNAI.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 24,
+            "start": 80422,
+            "end": 80547,
+            "text": "Então, nós temos cobrado isso, por exemplo, do Ministério dos Povos Indígenas e da FUNAI, e até agora não obtivemos resposta.",
+            "score": 0.3258
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 39,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores refutam tese do “poder moderador” das Forças Armadas em seminário na CCJ",
+      "assunto": "Debate sobre a interpretação do artigo 142 da Constituição e o papel das Forças Armadas como 'poder moderador'",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 135,
+      "split": "train",
+      "article_date": "2023-11-09",
+      "title": "Policiais penais denunciam precarização do trabalho e cobram regulamentação das atividades",
+      "assunto": "Precarização do trabalho e regulamentação das atividades dos policiais penais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 191,
+      "split": "train",
+      "article_date": "2023-08-17",
+      "title": "Ações de bem-estar animal podem trazer múltiplos benefícios para o Brasil, dizem especialistas",
+      "assunto": "Ações de bem-estar animal e seus benefícios para o Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

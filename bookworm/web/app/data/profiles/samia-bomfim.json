@@ -1,0 +1,359 @@
+{
+  "actor": {
+    "slug": "samia-bomfim",
+    "name": "SÂMIA BOMFIM",
+    "display_name": "Sâmia Bomfim",
+    "role": "Deputada (Psol-SP)",
+    "article_names": [
+      "Sâmia Bomfim"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:42:47+00:00",
+    "n_statements": 9,
+    "n_hearings": 3,
+    "hearing_ids": [
+      48,
+      171,
+      180
+    ],
+    "input_tokens": 6075,
+    "output_tokens": 966,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 1,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Rejeita a PEC 9, que propõe anistia a partidos que não cumpriram cotas de gênero e raça, argumentando que a medida beneficia partidos que fazem mau uso proposital de recursos públicos, como usar dinheiro para festas ou construir casas, e que a legislação eleitoral deve ser dura para tratar de montantes altos.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 33,
+            "start": 87261,
+            "end": 87375,
+            "text": "Mas acho, primeiro, que ela precisa ser dura porque está tratando de recursos públicos e de montantes muito altos.",
+            "score": 0.2914
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a proposta de emenda constitucional em coleta de assinaturas pela Deputada Soraya Santos, do PL, que reserva 15% das vagas para mulheres e atrela isso a 15% do financiamento, pois considera que o piso de financiamento será tratado como teto pelos partidos e que a possibilidade de substituição não obrigatória institucionaliza \"candidatas laranjas\".",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 33,
+            "start": 90853,
+            "end": 90941,
+            "text": "O piso de 15% de financiamento de candidaturas muitos partidos vão considerar como teto.",
+            "score": 0.3285
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a representação política de mulheres e pessoas negras é vergonhosa no Brasil, citando que a bancada feminina tem 91 mulheres e que o país é lanterninha na América Latina, atrás de países como a Arábia Saudita, e que a participação poderia ser superior se as regras fossem cumpridas.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 33,
+            "start": 88986,
+            "end": 89126,
+            "text": "Nós somos lanterninha na América Latina, nós estamos atrás de países como a Arábia Saudita, por exemplo, na representação política feminina.",
+            "score": 0.5426
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a legalidade da homologação das Resoluções nºs 44, 45 e 49 do Conselho Nacional de Saúde pelo Ministério da Saúde, baseando-se na Lei nº 8.880/1990, Lei nº 8.142/1990, Lei Complementar nº 191/2002, Decreto nº 5.839/2006 e Constituição Federal, e critica parlamentares que questionam a competência do ministério.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 166,
+            "start": 131529,
+            "end": 131683,
+            "text": "A Lei nº 8.880, de 1990; a Lei nº 8.142, de 1990; a Lei Complementar nº 191, de 2002; e o Decreto nº 5.839, de 2006; além da Constituição Federal de 1988.",
+            "score": 0.6566
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o reconhecimento dos direitos da população LGBTQIA+ como tema de saúde pública, argumentando que o Brasil é o país que mais mata essa população e que jovens LGBTQIA+ sofrem exclusão familiar, escolar e do mercado de trabalho.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 166,
+            "start": 131858,
+            "end": 131997,
+            "text": "Falo do tema do reconhecimento dos direitos da população LGBTQIA+ no País, da temática do aborto no Brasil e também da temática das drogas.",
+            "score": 0.3759
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação da união homoafetiva e a retirada imediata do Projeto de Lei 580/07 da comissão, exigindo que o tema seja debatido na Comissão da Mulher, pois considera que o projeto visa aglutinar a base do bolsonarismo e que a argumentação do relator reflete a lógica do patriarcado.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 49,
+            "start": 117254,
+            "end": 117369,
+            "text": "Nós queremos, sim, que esse tema seja debatido na Comissão da Mulher, porque isso diz respeito aos nossos direitos.",
+            "score": 0.24
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a postura de parlamentares que defendem a família tradicional enquanto ignoram violências domésticas e sexuais, citando que 70% dos casos de violência sexual acontecem com menores de idade, muitas vezes dentro de residências.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 49,
+            "start": 113558,
+            "end": 114143,
+            "text": "Supostamente se chocam com casais homoafetivos, mas não vejo se chocarem, por exemplo, quando supostas famílias tradicionais têm aquela figura tradicional do homem, heterossexual, pai de família, que, muitas das vezes, abandona sua esposa ou sua filha sem dar nenhum tipo de satisfação, ou se chocarem com essa figura tão aclamada da família tradicional brasileira que, muitas vezes, esconde uma série de violências domésticas ou violências sexuais, considerando que 70% dos […]",
+            "score": 0.482
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a autonomia das mulheres como fundamento para a defesa da legalização do aborto até a 12ª semana, argumentando que mulheres abortam independentemente de religião ou opinião de terceiros, e que a ilegalidade resulta em mortes e prisões desiguais, atingindo principalmente mulheres negras e pobres.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 166,
+            "start": 133191,
+            "end": 133221,
+            "text": "E essas mulheres têm religião.",
+            "score": 0.2848
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a laicidade do Estado como critério para justificar a defesa de políticas públicas voltadas à população LGBTQIA+ e ao direito ao amor, afirmando que a responsabilidade do Estado é cuidar da saúde e dos direitos da população, não de impor visões religiosas.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 166,
+            "start": 136118,
+            "end": 136237,
+            "text": "A responsabilidade do Estado é cuidar da saúde e dos direitos da população brasileira, e nós avançaremos, apesar deles.",
+            "score": 0.373
+          },
+          "udv": {
+            "id": "udv-171-6-0",
+            "rule": "same_sentence",
+            "score": 0.3003
+          }
+        },
+        {
+          "text": "Emprega a desigualdade de classe e raça como critério para criticar a seletividade na defesa de direitos, argumentando que a proteção às crianças e à família é invocada apenas quando conveniente, ignorando a violência contra crianças indígenas, a fome e a morte por aborto ilegal de mulheres periféricas.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 77,
+            "start": 77608,
+            "end": 77631,
+            "text": "Se o critério é esse...",
+            "score": 0.1864
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se mãe e defensora da pauta da maternidade e dos direitos das mulheres.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 75,
+            "start": 77472,
+            "end": 77501,
+            "text": "Sou mãe e defendo essa pauta.",
+            "score": 0.3394
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como integrante da Comissão da Mulher e alinhada com os parlamentares progressistas e de esquerda, em oposição à base do bolsonarismo e a deputados fundamentalistas.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 49,
+            "start": 114571,
+            "end": 115221,
+            "text": "Muitos já disseram, e eu gostaria de reafirmar aqui que, para mim, se trata de uma tentativa de palanque eleitoral, de aglutinar o que há de pior do chorume do bolsonarismo, dos mesmos que perderam as eleições, para tentar seguir aglutinando a sua base, entrar talvez numa queda de braço com o Supremo ou com os Parlamentares progressistas, os Parlamentares de esquerda, mas, ainda que saibamos quais são as suas reais intenções, é preciso ocupar esses espaços e denunciar o que […]",
+            "score": 0.2014
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e pesquisas, como a pesquisa da Universidade de Brasília sobre o perfil das mulheres que abortam e o índice de mortalidade materna por aborto ilegal, para sustentar suas posições.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 166,
+            "start": 134825,
+            "end": 134880,
+            "text": "E essa é a quinta causa de mortalidade materna no País.",
+            "score": 0.226
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita leis específicas e decisões judiciais, como a ADPF 442 e as leis do SUS, para fundamentar argumentos técnicos e rebater questionamentos de competência.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 166,
+            "start": 131474,
+            "end": 131528,
+            "text": "Quais são as leis que amparam as posições da Ministra?",
+            "score": 0.193
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega retórica confrontadora, usando ironia e perguntas retóricas para desqualificar argumentos de opositores, como quando questiona a sinceridade de deputados que defendem crianças apenas em contextos específicos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 166,
+            "start": 134990,
+            "end": 135033,
+            "text": "Aqui muitos dizem que defendem as crianças.",
+            "score": 0.1948
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de violência e exclusão, como a expulsão de jovens LGBTQIA+ de casa e a morte de mulheres negras por aborto clandestino, para ilustrar as consequências práticas das posições contrárias às suas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 48,
+      "split": "train",
+      "article_date": "2023-09-26",
+      "title": "Proposta que proíbe a união de pessoas do mesmo sexo é criticada em audiência pública",
+      "assunto": "Discussão sobre o Projeto de Lei 580/07 e a regulamentação da união homoafetiva",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 112,
+      "split": "test",
+      "article_date": "2024-03-21",
+      "title": "Regulamentação do trabalho de motoristas de aplicativo não tem consenso entre profissionais do setor",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 180,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Anistia a partidos que não cumpriram cotas para mulheres e negros não tem consenso",
+      "assunto": "Anistia a partidos que não cumpriram cotas para mulheres e negros",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-171-6-0",
+      "hearing_id": 171,
+      "n": 15,
+      "article_name": "Sâmia Bomfim",
+      "proposition": "Elogiou a atuação de Nísia Trindade à frente do Ministério da Saúde.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "O Estado é laico. A responsabilidade do Estado é cuidar da saúde e dos direitos da população brasileira, e nós avançaremos, apesar deles.",
+        "turn": 166,
+        "start": 136100,
+        "end": 136237
+      },
+      "verifier": {
+        "probability": 0.09869755459801495,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-180-5-0",
+      "hearing_id": 180,
+      "n": 10,
+      "article_name": "Sâmia Bomfim",
+      "proposition": "As cotas para negros e mulheres foram uma conquista dos movimentos sociais, e mesmo com o aumento da representação política das mulheres no Brasil, o País ainda é o que tem a pior representatividade na América Latina: \"A nossa representação poderia ser muito superior não fosse o não cumprimento dessas regras, e muitos partidos fazem isso de propósito porque sabem que depois serão anistiadas. E não é porque as mulheres não querem participar da política. As mulheres e a população negra são as maiores vítimas ou as maiores beneficiárias das decisões que são tomadas aqui, porque são a maioria da população e porque são setores mais vulneráveis econômica e socialmente.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "A nossa representação poderia ser muito superior se não houvesse, justamente, o não cumprimento dessas regras. E muitos partidos fazem isso de propósito, Presidente, porque sabem que depois vão ser anistiados. Não é porque as mulheres não querem participar da política.",
+        "turn": 33,
+        "start": 89127,
+        "end": 89397
+      },
+      "verifier": {
+        "probability": 0.46537655452957033,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-180-5-1",
+      "hearing_id": 180,
+      "n": 11,
+      "article_name": "Sâmia Bomfim",
+      "proposition": "Os altos recursos destinados aos partidos justificam uma política eleitoral mais dura, e as dificuldades em prestar conta por parte dos partidos não pode ser usada para promover uma anistia.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acho que foi um grande ganho da sociedade que não haja mais o financiamento empresarial, mas fato é que é um montante muito grande diante das outras necessidades que existem no Brasil, e existem muitas desigualdades entre os partidos políticos também na divisão, na utilização desses recursos. Então, é justo que seja criteriosa a cobrança da justiça eleitoral.",
+        "turn": 33,
+        "start": 87589,
+        "end": 87950
+      },
+      "verifier": {
+        "probability": 0.6592663037341904,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

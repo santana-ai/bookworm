@@ -1,0 +1,421 @@
+{
+  "actor": {
+    "slug": "tarcisio-motta",
+    "name": "Tarcísio Motta",
+    "display_name": "Tarcísio Motta",
+    "role": "Deputado (Psol-RJ)",
+    "article_names": [
+      "Tarcísio Motta"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:02:38+00:00",
+    "n_statements": 3,
+    "n_hearings": 3,
+    "hearing_ids": [
+      20,
+      47,
+      57
+    ],
+    "input_tokens": 3495,
+    "output_tokens": 807,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a manutenção dos vetos ao projeto de lei do marco temporal, afirmando que o objetivo é minimizar os danos causados pela tramitação do PL.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 22594,
+            "end": 22839,
+            "text": "Bom dia a todos e todas que estão aqui nesta audiência hoje, neste dia em que, como disse a Deputada Juliana, nossas atenções e nossos esforços estão voltados para tentar minimizar os danos do que foi e do que é o PL que trata do marco temporal.",
+            "score": 0.2765
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o \"novo ensino médio\" aprovado durante o Governo Temer, argumentando que tornou a educação mais precária e pior para os mais pobres, ao reduzir a carga horária da formação geral básica de 2.400 para 1.800 horas.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 23564,
+            "end": 23847,
+            "text": "Nós lutamos muito contra isso, porque diminuía, por exemplo, o tempo de formação dos nossos jovens de 2.400 horas para 1.800 horas da formação geral básica, nos 3 anos de ensino médio.Lutamos muito e conseguimos que o Governo enviasse um projeto para cá, recuperando pelo menos isso.",
+            "score": 0.3437
+          },
+          "udv": null
+        },
+        {
+          "text": "Oposição à relatoria do projeto de recuperação da carga horária do ensino médio, atribuída pelo Presidente Arthur Lira a um ex-ministro do Governo Temer, que busca impedir as mudanças conquistadas.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 23848,
+            "end": 24062,
+            "text": "Aquele que preside esta Casa, que é o Presidente Arthur Lira, deu a relatoria para o antigo Ministro do Governo Temer, que agora quer impedir que sejam feitas as pequenas mudanças que nós tínhamos conseguido fazer.",
+            "score": 0.4143
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a educação deve reconhecer as especificidades do país multiétnico, incluindo as nacionalidades indígenas, para ser plural, conforme já previsto na lei.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 24538,
+            "end": 24667,
+            "text": "Temos que reconhecer a existência das nacionalidades indígenas aqui para que possamos entender que a educação precisa ser plural.",
+            "score": 0.3611
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que as metas do novo Plano Nacional de Educação (PNE) sejam construídas pelos movimentos indígenas, que devem ser protagonistas, e que o Governo cumpra a obrigação de atender às metas educacionais para os próximos 10 anos.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 25439,
+            "end": 25520,
+            "text": "É uma obrigação do Governo cumprir as metas da educação para os próximos 10 anos.",
+            "score": 0.4992
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a efetivação da Lei Paulo Gustavo, celebrando que 90% dos municípios conseguiram acessar os planos de ação e que os recursos começam a chegar à ponta, especialmente no setor audiovisual.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 16962,
+            "end": 17083,
+            "text": "Sim, a Lei Paulo Gustavo, com o decreto, foi efetivada, e 90% dos Municípios conseguiram fazer acesso aos planos de ação.",
+            "score": 0.4694
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o \"Governo passado\" por vetar e adiar a Lei Paulo Gustavo e por atacar a cultura, contrastando com o atual Governo, que restabeleceu o Ministério e os recursos.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 16484,
+            "end": 16794,
+            "text": "Embora no caso da Lei Aldir Blanc, a duras penas, o dinheiro tenha chegado à ponta — eu me lembro, como Vereador no Rio de Janeiro, de ter acompanhado todo o trabalho para que isso fosse possível —, a Lei Paulo Gustavo foi vetada, adiada, e o Governo passado continuava seu ataque à cultura também nesse ponto.",
+            "score": 0.1769
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o investimento no audiovisual brasileiro por gerar emprego, renda e economia circular, além de contribuir para a saúde mental e a reflexão humana, destacando a importância da diversidade (cinema negro, LGBTQIA+).",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 17463,
+            "end": 17585,
+            "text": "Percebemos o quanto é importante investir no audiovisual brasileiro, na diversidade que o audiovisual brasileiro tem hoje.",
+            "score": 0.2449
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoia os debates futuros sobre cotas de tela e regulamentação de streaming, mas considera a Lei Paulo Gustavo uma conquista a ser comemorada.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 17587,
+            "end": 17823,
+            "text": "Há muitos desafios, certamente, inclusive todo debate que poderá passar pelo plenário da Câmara da questão das cotas de tela, da regulamentação dostreaming.Há muito o que fazer sobre isso, mas a Lei Paulo Gustavo tem que ser comemorada.",
+            "score": 0.3667
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a pluralidade e a especificidade das nacionalidades indígenas como fundamento para políticas educacionais, justificando a defesa de metas específicas no PNE e a crítica à uniformização do ensino médio.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Considera a cultura essencial para a saúde mental e a sobrevivência social, justificando a defesa de recursos federais e a crítica aos cortes do passado, com base na experiência da pandemia.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 15945,
+            "end": 16241,
+            "text": "Nós vimos, durante a pandemia, quantos fazedores de cultura, trabalhadores e artistas da cultura, apesar de ser esse espaço fundamental para termos algum nível de saúde mental durante a pandemia, perderem seu sustento, perderem a condição de levar para as suas casas o sustento das suas famílias.",
+            "score": 0.17
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza o acesso à educação e à cultura para os mais pobres e grupos historicamente excluídos, usando a redução de carga horária e a perda de sustento de artistas como exemplos de danos a essas populações.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 24146,
+            "end": 24369,
+            "text": "É um absurdo o fato de que, na hora em que reduzimos inclusive a carga horária da formação geral básica, nós pioramos a qualidade da educação de todos os nossos jovens e, sobretudo, daqueles que têm menos acesso à educação.",
+            "score": 0.1693
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se mandato aliado dos movimentos indígenas, comprometendo-se a ouvir e lutar por suas metas no PNE.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 25547,
+            "end": 25605,
+            "text": "E podem contar com o nosso mandato como um mandato aliado.",
+            "score": 0.2939
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como aliado do Governo Luiz Inácio Lula da Silva, elogiando a volta da cultura e dos recursos.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 18802,
+            "end": 18843,
+            "text": "Viva o Governo Luiz Inácio Lula da Silva!",
+            "score": 0.6273
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ter sido Vereador no Rio de Janeiro por 4 anos, onde lutou por recursos federais para políticas culturais.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 15200,
+            "end": 15373,
+            "text": "Durante 4 anos, eu estive lá na Câmara de Vereadores do Rio de Janeiro, lutando muito para que algum recurso federal chegasse para sustentar as políticas culturais na ponta.",
+            "score": 0.3032
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos (redução de 2.400 para 1.800 horas; 90% dos municípios) e referências a leis (Lei Aldir Blanc, Lei Paulo Gustavo) para sustentar seus argumentos.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 16962,
+            "end": 17083,
+            "text": "Sim, a Lei Paulo Gustavo, com o decreto, foi efetivada, e 90% dos Municípios conseguiram fazer acesso aos planos de ação.",
+            "score": 0.2528
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre à experiência pessoal (Vereador no Rio de Janeiro) e a eventos recentes (perda de Aldir Blanc, Paulo Gustavo e Léa Garcia) para contextualizar e emocionar o debate.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 16484,
+            "end": 16794,
+            "text": "Embora no caso da Lei Aldir Blanc, a duras penas, o dinheiro tenha chegado à ponta — eu me lembro, como Vereador no Rio de Janeiro, de ter acompanhado todo o trabalho para que isso fosse possível —, a Lei Paulo Gustavo foi vetada, adiada, e o Governo passado continuava seu ataque à cultura também nesse ponto.",
+            "score": 0.218
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de celebração e aliança, usando expressões como \"mandato aliado\", \"protagonismo de vocês\" e \"viva\" para reforçar a parceria com os grupos representados.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 9,
+            "start": 25547,
+            "end": 25605,
+            "text": "E podem contar com o nosso mandato como um mandato aliado.",
+            "score": 0.2277
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta o \"Governo passado\" (ataque à cultura, vetos) com o atual (volta dos recursos, efetivação da lei) para legitimar suas posições.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 6,
+            "start": 16484,
+            "end": 16794,
+            "text": "Embora no caso da Lei Aldir Blanc, a duras penas, o dinheiro tenha chegado à ponta — eu me lembro, como Vereador no Rio de Janeiro, de ter acompanhado todo o trabalho para que isso fosse possível —, a Lei Paulo Gustavo foi vetada, adiada, e o Governo passado continuava seu ataque à cultura também nesse ponto.",
+            "score": 0.1695
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 20,
+      "split": "train",
+      "article_date": "2023-04-27",
+      "title": "Debatedores defendem união de povos originários e tradicionais para evitar perda de direitos",
+      "assunto": "União de povos originários e tradicionais para evitar perda de direitos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 47,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores comemoram melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "assunto": "Melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 57,
+      "split": "train",
+      "article_date": "2023-04-20",
+      "title": "Guardas armados não resolvem problema de violência nas escolas, dizem especialistas",
+      "assunto": "Discussão sobre a eficácia de guardas armados e medidas de segurança nas escolas para combater a violência",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 86,
+      "split": "test",
+      "article_date": "2024-04-18",
+      "title": "Seguradoras propõem novas coberturas diante de catástrofes climáticas",
+      "assunto": "Propostas de novas coberturas de seguros diante de catástrofes climáticas",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 113,
+      "split": "test",
+      "article_date": "2024-03-20",
+      "title": "Ministérios detalham na Câmara ações de prevenção de desastres naturais e auxílio à população",
+      "assunto": "Ações de prevenção de desastres naturais e auxílio à população detalhadas por ministérios na Câmara dos Deputados",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 11,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-47-1-0",
+      "hearing_id": 47,
+      "n": 6,
+      "article_name": "Tarcísio Motta",
+      "proposition": "O aporte é motivo de comemoração para a cadeia produtiva do audiovisual: \"Estou acompanhando lá na ponta para que o repasse chegue àqueles que fazem audiovisual a partir de pequenas iniciativa, para aqueles que estão fazendo a resistência a partir da perspectiva do cinema negro, do cinema LGBTQIA+, para os trabalhadores que vão ter melhores condições de vida, de trabalho e de renda.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Fiz questão de passar aqui hoje para parabenizar o Ministério e para dizer que estou muito feliz e acompanhando lá na ponta, para que o repasse chegue àqueles que fazem audiovisual muitas vezes a partir de pequenas iniciativas, àqueles que estão fazendo a resistência do audiovisual a partir da perspectiva inclusive do cinema negro, do cinema LGBTQIA+, a todos aqueles que estão produzindo e trabalhando, os técnicos, os trabalhadores, que vão ter mais condições de vida, de […]",
+        "turn": 6,
+        "start": 17824,
+        "end": 18763
+      },
+      "verifier": {
+        "probability": 0.9901814685476242,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-115-3-0",
+      "hearing_id": 115,
+      "n": 9,
+      "article_name": "Tarcísio Motta",
+      "proposition": "Defendeu a aprovação da proposta de emenda à Constituição (PEC 44/23) que reserva 5% das emendas para emergências climáticas: \"Os desastres não são naturais. São socioambientais e quem morrem são os mais pobres, são os negros e negras. Portanto, é preparar as cidades e adaptá-las para o que vai acontecer cada vez mais.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Os desastres não são naturais, eles são socioambientais. Quem morre são os mais pobres, são os negros e negras, e nós temos responsabilidade diante disso.",
+        "turn": 28,
+        "start": 100048,
+        "end": 100202
+      },
+      "verifier": {
+        "probability": 0.18771070620192262,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-118-2-0",
+      "hearing_id": 118,
+      "n": 5,
+      "article_name": "Tarcísio Motta",
+      "proposition": "Comprometeu-se com a derrubada do veto presidencial a artigo da Lei 14.691/23.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Não é apenas a derrubada do veto que vai resolver essa situação. Por exemplo, eu quero discutir com o setor de orçamento público que passou da hora de nós debatermos uma questão relacionada à reserva de contingência.",
+        "turn": 13,
+        "start": 45140,
+        "end": 45357
+      },
+      "verifier": {
+        "probability": 0.2508439316844675,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -311,7 +311,7 @@ uv run bookworm export-site --config configs/udv_v2.toml --run-name udv_v2 ...
 | etapa | config | saída versionada |
 |---|---|---|
 | 24 downstream | caminhos no próprio script | `artifacts/udv/udv_v2_downstream_report.json` |
-| 25 demo | `configs/udv_v2.toml`, `configs/hearing_actors.toml` | `artifacts/web/export_site_udv_v2.json` (resumo); os dados vão para `../bookworm/web/app/data/`, fora do Git |
+| 25 demo | `configs/udv_v2.toml`, `configs/hearing_actors.toml` | `artifacts/web/export_site_udv_v2.json` (resumo); os dados vão para `../bookworm/web/app/data/`, versionados |
 
 Os argumentos da etapa 25 estão no [README da demo](../bookworm/web/README.md).
 

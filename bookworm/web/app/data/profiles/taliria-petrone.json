@@ -1,0 +1,499 @@
+{
+  "actor": {
+    "slug": "taliria-petrone",
+    "name": "Talíria Petrone",
+    "display_name": "Talíria Petrone",
+    "role": "Deputada (Psol-RJ)",
+    "article_names": [
+      "Talíria Petrone"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - RJ",
+      "PSOL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:01:33+00:00",
+    "n_statements": 40,
+    "n_hearings": 6,
+    "hearing_ids": [
+      45,
+      70,
+      141,
+      146,
+      178,
+      186
+    ],
+    "input_tokens": 13560,
+    "output_tokens": 978,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 2,
+    "passage_only": 16,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a anulação de licenças ambientais concedidas sem consulta prévia às comunidades tradicionais e sem Estudo de Impacto Ambiental (EIA/RIMA), criticando especificamente a instalação de termelétricas flutuantes na Baía de Sepetiba, RJ, e a atuação do INEA e da empresa Karpowership.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 0,
+            "start": 3248,
+            "end": 3432,
+            "text": "Também pediu a simplificação do procedimento de licenciamento e a não exigência do EIA/RIMA, o estudo de impacto ambiental, que permitiria ou não a realização desse megaempreendimento.",
+            "score": 0.227
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a formalização de denúncia internacional por violação à Convenção nº 169 da OIT e a realização de diligências e visitas in loco para escutar os atingidos por empreendimentos de energia.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 2,
+            "start": 18153,
+            "end": 18438,
+            "text": "Eu queria já sugerir, também como encaminhamento final, que nós formalizássemos, via Comissão de Direitos Humanos, uma denúncia internacional por violação à consulta prévia, por violação à Convenção nº 169, agregando todos os crimes ambientais que estão evidentes nesse empreendimento.",
+            "score": 0.2675
+          },
+          "udv": {
+            "id": "udv-70-3-1",
+            "rule": "same_sentence",
+            "score": 0.1985
+          }
+        },
+        {
+          "text": "Critica o modelo de desenvolvimento predatório, produtivista e desenvolvimentista, argumentando que ele é insustentável e gera desastres climáticos que atingem desproporcionalmente favelas, periferias e o campo.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 2,
+            "start": 10512,
+            "end": 10932,
+            "text": "Infelizmente, os eventos climáticos hidrológicos extremos, como secas e enchentes, deixaram há muito tempo de ser surpresa e, cada vez mais, cotidianamente, o poder público e, especialmente, as pessoas no território, na ponta, têm que lidar com as consequências desses eventos.Mudarmos um modelo de desenvolvimento predatório, baseado numa lógica produtivista, desenvolvimentista, é ponto de partida, sem a menor dúvida.",
+            "score": 0.2383
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação do PL 83/2022 (auxílio emergencial para desastres climáticos) com aperfeiçoamentos que incluam a centralidade antirracista, o controle social da execução e a distinção entre indenização e auxílio, além de vincular o tema à Política Nacional de Adaptação à Mudança do Clima.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 16,
+            "start": 80721,
+            "end": 81508,
+            "text": "Nós do GT Clima, ao lado das Comissões que propuseram esta audiência — eu até brinquei aqui que é o GT dentro do GT, para discutir o PL —, nos comprometemos, enquanto GT Clima vinculado à Frente Ambientalista, a nos debruçar sobre as contribuições, que são muitas, desde a necessidade de explicitar a centralidade antirracista; de haver um fórum ou um comitê para controle social da execução do auxílio, pensando na centralidade das vítimas, das pessoas atingidas e afetadas; de […]",
+            "score": 0.2804
+          },
+          "udv": null
+        },
+        {
+          "text": "Apóia a transição energética para fontes renováveis, mas exige que ela seja justa, respeite os modos de vida dos povos tradicionais e evite a criação de \"zonas de sacrifício\", criticando a lógica de exportação de hidrogênio verde que não descarboniza a matriz nacional.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 0,
+            "start": 5094,
+            "end": 5415,
+            "text": "Nós somos a favor de uma transição energética justa e acreditamos que ela tem que se iniciar com uma profunda transformação em nossa matriz energética, mas ela requer produção de empregos qualificados, promoção de justiça social ambiental, com conservação dos modos de vida dos territórios, dos ecossistemas e dos biomas.",
+            "score": 0.2244
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação do cultivo e uso da cannabis para fins medicinais (PL 399), argumentando que a ciência comprova seus benefícios para epilepsia, câncer e fibromialgia, e cobra do SUS o acesso garantido, rejeitando argumentos anticientíficos.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 28,
+            "start": 110301,
+            "end": 110331,
+            "text": "O SUS precisa garantir acesso.",
+            "score": 0.1893
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a liberdade de ensino e a pluralidade na escola pública, criticando a perseguição a professores por temas como gênero, clima e relações étnico-raciais, e propõe a criação de legislação específica de proteção aos profissionais de educação e a responsabilização de figuras públicas que incitam o ódio.",
+          "passage": {
+            "hearing_id": 141,
+            "turn": 23,
+            "start": 110734,
+            "end": 110804,
+            "text": "Era isso: o protocolo, a legislação de proteção e a responsabilização.",
+            "score": 0.262
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a Convenção nº 169 da OIT como fundamento para exigir consulta prévia e livre aos povos indígenas e comunidades tradicionais antes de licenciamentos ambientais, justificando a oposição a empreendimentos que ignoram esse direito.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 2,
+            "start": 18153,
+            "end": 18438,
+            "text": "Eu queria já sugerir, também como encaminhamento final, que nós formalizássemos, via Comissão de Direitos Humanos, uma denúncia internacional por violação à consulta prévia, por violação à Convenção nº 169, agregando todos os crimes ambientais que estão evidentes nesse empreendimento.",
+            "score": 0.2001
+          },
+          "udv": {
+            "id": "udv-70-3-1",
+            "rule": "same_sentence",
+            "score": 0.1912
+          }
+        },
+        {
+          "text": "Utiliza o conceito de \"racismo ambiental\" para justificar a necessidade de políticas públicas que considerem a raça na distribuição dos impactos climáticos e na ocupação de áreas de risco, argumentando que a ausência histórica de políticas públicas em favelas e periferias é estruturada pelo racismo.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 18,
+            "start": 57109,
+            "end": 57172,
+            "text": "Há extremos climáticos que também reforçam o racismo ambiental.",
+            "score": 0.2538
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na ciência como critério para o debate público, especialmente em temas de saúde (cannabis) e clima, rejeitando a desinformação e o conservadorismo anticientífico.",
+          "passage": {
+            "hearing_id": 146,
+            "turn": 28,
+            "start": 108475,
+            "end": 108613,
+            "text": "E partir da ciência é enfrentar a desinformação, Deputado Padre João, a desinformação que diz que acannabis, que é a maconha, é uma droga.",
+            "score": 0.1862
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a justiça social e a justiça ambiental são indissociáveis, argumentando que a preservação dos biomas depende dos povos tradicionais e que a transição energética não pode perpetuar a lógica colonialista de exploração de recursos naturais.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 0,
+            "start": 5094,
+            "end": 5415,
+            "text": "Nós somos a favor de uma transição energética justa e acreditamos que ela tem que se iniciar com uma profunda transformação em nossa matriz energética, mas ela requer produção de empregos qualificados, promoção de justiça social ambiental, com conservação dos modos de vida dos territórios, dos ecossistemas e dos biomas.",
+            "score": 0.2314
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal pelo Rio de Janeiro e professora da rede pública do estado.",
+          "passage": {
+            "hearing_id": 141,
+            "turn": 9,
+            "start": 43492,
+            "end": 43655,
+            "text": "Sou professora da rede pública do Rio de Janeiro, estou Deputada Federal e não tenho dúvida da importância de discutirmos esse tema, que é mais atual do que nunca.",
+            "score": 0.5122
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como negra, de pele clara e cabelos cacheados.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 0,
+            "start": 380,
+            "end": 430,
+            "text": "Eu sou negra, de pele clara, de cabelos cacheados.",
+            "score": 0.8254
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma coordenar o GT Clima no âmbito da Frente Ambientalista da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 0,
+            "start": 3143,
+            "end": 3535,
+            "text": "Agradeço, em especial, ao João e à Ana, que estão segurando firme nosso GT Clima, que eu coordeno, no âmbito da frente ambientalista, que foi resistência nos últimos anos aqui na Câmara dos Deputados e das Deputadas e que vai seguir entregando um rumo do que é a reconstrução do Brasil, tão necessária e que não pode prescindir de outro modelo de desenvolvimento, porque o atual não dá conta.",
+            "score": 0.3777
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara solidariedade às famílias atingidas por empreendimentos ambientais e aos professores perseguidos, alinhando-se a movimentos sociais, associações de pescadores e entidades de direitos humanos.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 2,
+            "start": 18619,
+            "end": 18698,
+            "text": "Então, eu quero registrar a minha solidariedade às famílias daquele território.",
+            "score": 0.2098
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e fatos específicos (como o aumento de 121% de emissões de CO2 e o número de parques eólicos no Nordeste) para sustentar suas críticas a modelos de desenvolvimento e propostas legislativas.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 0,
+            "start": 2816,
+            "end": 2984,
+            "text": "É fundamental que nós discutamos o impacto, não só dasoffshoresdas eólicas no mar, mas também dos parques eólicos já existentes, na Caatinga, especialmente no Nordeste.",
+            "score": 0.1742
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a casos concretos e pessoais, como a tragédia do Bumba em Niterói e a perseguição à professora Daniela Abreu, para ilustrar a urgência das políticas públicas e a realidade dos atingidos.",
+          "passage": {
+            "hearing_id": 141,
+            "turn": 23,
+            "start": 109307,
+            "end": 109340,
+            "text": "Daniela Abreu, do Rio de Janeiro.",
+            "score": 0.2747
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de escuta ativa e compromisso com encaminhamentos concretos, propondo grupos de trabalho, audiências e alterações legislativas para garantir que as contribuições da sociedade civil sejam efetivadas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem que conecta a justiça climática à justiça racial e de gênero, utilizando termos como \"corpos vulnerabilizados\", \"mulheres negras\" e \"povos tradicionais\" para destacar as interseccionalidades das desigualdades.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 6,
+            "start": 31159,
+            "end": 31263,
+            "text": "Não existe justiça sem considerar os povos e as comunidades tradicionais que vivem nos seus territórios.",
+            "score": 0.2017
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 70,
+      "split": "train",
+      "article_date": "2022-08-03",
+      "title": "Deputados e ambientalistas criticam instalação de termelétricas no RJ sem estudos ambientais",
+      "assunto": "Críticas à instalação de termelétricas flutuantes na Baía de Sepetiba, RJ, sem estudos ambientais",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 141,
+      "split": "train",
+      "article_date": "2023-10-31",
+      "title": "Professores denunciam ambiente de perseguições causado pelo clima de radicalização política no País",
+      "assunto": "Perseguição a professores devido à radicalização política no Brasil",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 146,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Especialistas defendem liberação da produção de Cannabis para fins medicinais",
+      "assunto": "Liberação da produção de Cannabis para fins medicinais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 178,
+      "split": "train",
+      "article_date": "2023-09-05",
+      "title": "Ibama defende planejamento marinho para reduzir impacto dos parques de energia eólica em alto-mar",
+      "assunto": "Planejamento marinho para reduzir impacto dos parques de energia eólica em alto-mar",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 186,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Deputada quer auxílio emergencial e medidas duradouras para enfrentar desastres climáticos",
+      "assunto": "Debate sobre auxílio emergencial e medidas duradouras para enfrentar desastres climáticos",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 3
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-70-3-0",
+      "hearing_id": 70,
+      "n": 6,
+      "article_name": "Talíria Petrone",
+      "proposition": "Criticou o 'tempo recorde' com que o Inea concedeu as licenças para o empreendimento.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O infame pedido do empreendedor foi atendido, e, em tempo recorde, lamentavelmente, o INEA concedeu à empresa a licença ambiental integrada e, depois, a licença para operação. Aliás, o relatório omite informações primordiais para a instalação do projeto como, por exemplo, o volume de emissão de poluentes atmosféricos e nem sequer faz referência à Mata Atlântica, aos mangues, aos pescadores.",
+        "turn": 0,
+        "start": 3487,
+        "end": 3881
+      },
+      "verifier": {
+        "probability": 0.9034331368987515,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-70-3-1",
+      "hearing_id": 70,
+      "n": 7,
+      "article_name": "Talíria Petrone",
+      "proposition": "Pretende formalizar denúncia a organismos internacionais: \"É licença [ambiental] sem consulta às comunidades atingidas, sem estudos ambientais e sem atender ao MPF.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu queria já sugerir, também como encaminhamento final, que nós formalizássemos, via Comissão de Direitos Humanos, uma denúncia internacional por violação à consulta prévia, por violação à Convenção nº 169, agregando todos os crimes ambientais que estão evidentes nesse empreendimento. É uma licença sem consulta, sem estudo de impacto ambiental, sem atendimento ao MPF, sem atendimento à Justiça do Rio de Janeiro.",
+        "turn": 2,
+        "start": 18153,
+        "end": 18568
+      },
+      "verifier": {
+        "probability": 0.9360524288172035,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-141-4-0",
+      "hearing_id": 141,
+      "n": 6,
+      "article_name": "Talíria Petrone",
+      "proposition": "Afirmou que são necessárias providências para garantir que o papel de fiscalização dos legisladores fique dentro da lei: \"Algumas coisas surgiram aqui, como a necessidade um protocolo pra garantir e reger o papel fiscalizador de parlamentares e responsabilizar aqueles que promovem o ódio, que, ali na ponta, chega aos profissionais de educação.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Devemos tratar desse tema aqui, com a responsabilização daqueles que promovem o ódio que vai chegar à ponta, aos profissionais de educação, e pensar em uma legislação de proteção aos profissionais de educação, de proibição de censura, apesar de que a própria LDB e a legislação já tratam disso. Mas devemos avançar numa legislação relativa a isso.",
+        "turn": 23,
+        "start": 110386,
+        "end": 110733
+      },
+      "verifier": {
+        "probability": 0.7211503585037927,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-178-2-0",
+      "hearing_id": 178,
+      "n": 5,
+      "article_name": "Talíria Petrone",
+      "proposition": "Cobrou transição energética com justiça climática: \"Um empreendimento que ganha o nome de energia limpa precisa, de fato, mitigar ou reduzir totalmente os impactos ambientais e sociais. Não estamos aqui contra a energia limpa, mas ela precisar ser efetivamente guardiã dos nossos biomas, povos e comunidades tradicionais.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "É muito importante que qualquer concepção de projeto que trate de usina eólica privilegie essa preservação desde o começo, ainda mais de um empreendimento que ganha o nome de energia limpa, que precisa de fato mitigar ou reduzir totalmente os impactos ambientais e sociais. Então, não estamos aqui contra a energia limpa, mas ela precisa ser efetivamente guardiã dos nossos biomas e também daqueles protetores dos nossos biomas, que são os povos e comunidades tradicionais.",
+        "turn": 0,
+        "start": 4619,
+        "end": 5093
+      },
+      "verifier": {
+        "probability": 0.8435483360512862,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-186-0-0",
+      "hearing_id": 186,
+      "n": 1,
+      "article_name": "Talíria Petrone",
+      "proposition": "Admitiu alterar Projeto de Lei 83/22 sobre auxílio emergencial de um salário mínimo em situações de enchente e seca.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Bem, gente, sabemos que o PL que estamos apreciando aqui, o PL que trata de auxílio emergencial transitório para vítimas de enchentes no Brasil, surgiu a partir de um momento extremo que aconteceu na Bahia, no início de 2022, e foi construído pela Liderança do meu partido como uma resposta a esse evento àquela altura. Sabemos que há uma série de sugestões de aperfeiçoamentos do PL que, sem dúvida, serão acolhidas nesta audiência pública, para que possamos aperfeiçoar o […]",
+        "turn": 0,
+        "start": 2516,
+        "end": 3092
+      },
+      "verifier": {
+        "probability": 0.24919334693740275,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-186-0-1",
+      "hearing_id": 186,
+      "n": 2,
+      "article_name": "Talíria Petrone",
+      "proposition": "Cogita elaborar nova proposta mais abrangente para corrigir lacunas da atual legislação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A princípio, parece-me que é possível fazer alterações no texto da lei, mas isso é muito insuficiente diante das demandas aqui trazidas. Também teremos que pensar na execução e aplicação de legislações já existentes, ver quais são as lacunas e até pensar em outras iniciativas legislativas que possam dar conta do tamanho da nossa tarefa.",
+        "turn": 16,
+        "start": 83493,
+        "end": 83831
+      },
+      "verifier": {
+        "probability": 0.278832225006736,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-186-0-2",
+      "hearing_id": 186,
+      "n": 3,
+      "article_name": "Talíria Petrone",
+      "proposition": "Quer acatar sugestões como a criação de fórum ou comitê para controle social da execução do auxílio, fim da burocracia na liberação de recursos, combinação de assistência emergencial com mitigação de mudanças climáticas e adoção de novos conceitos como 'racismo ambiental': \"Esse Brasil tem proporções continentais, necessidades diversas e desigualdades muito profundas. Com tantas décadas em que as populações vivem em favelas e periferias, onde o direito não chega, mas chegam o desastre, o deslizamento.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Enfim, fazer um debate sobre as comunidades atingidas como um todo. Então, é preciso deixar mais explícito quem teria direito ao auxílio; pensar um pouco a relação com os Municípios, com as políticas públicas existentes, com os tratados internacionais dos quais o Brasil já é signatário; pensar o auxílio vinculado ao debate das políticas intersetoriais.",
+        "turn": 16,
+        "start": 81509,
+        "end": 81864
+      },
+      "verifier": {
+        "probability": 0.2252319197850009,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

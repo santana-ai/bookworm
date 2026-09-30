@@ -1,0 +1,359 @@
+{
+  "actor": {
+    "slug": "neto-carletto",
+    "name": "Neto Carletto",
+    "display_name": "Neto Carletto",
+    "role": "Deputado (PP-BA)",
+    "article_names": [
+      "Neto Carletto"
+    ],
+    "party_uf": [
+      "Bloco/PP - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:44:28+00:00",
+    "n_statements": 9,
+    "n_hearings": 2,
+    "hearing_ids": [
+      144,
+      161
+    ],
+    "input_tokens": 6466,
+    "output_tokens": 1090,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Propõe a criação de um escalonamento de multas para cancelamento ou troca de passagens aéreas, sugerindo taxas diferenciadas conforme a antecedência (1 ano, 6 meses, 3 meses), argumentando que a multa atual é abusiva quando o voo está distante.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 11,
+            "start": 34031,
+            "end": 34144,
+            "text": "Então, gostaria de deixar esta sugestão: que se crie uma taxa para 1 ano, outra para 6 meses, outra para 3 meses.",
+            "score": 0.273
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a apresentação de uma proposição legislativa para proteger as empresas aéreas de custos de cancelamento ou atraso de voos causados por força maior (mau tempo ou situações externas), estabelecendo que a empresa só deve ressarcir e sofrer penalidades se a falha for exclusiva dela.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 11,
+            "start": 34194,
+            "end": 34624,
+            "text": "Gostaria de deixar outra sugestão aqui, aí, sim, em favor da ABEAR, em conjunto com os colegas desta Casa e com a ABEAR também.Poderíamos apresentar uma proposição visando a proteger as empresas aéreas quando houver cancelamentos de voos, atrasos de voos por motivos que fogem ao controle das empresas, por força maior, como, por exemplo, mau tempo ou situações externas à vontade da empresa e à capacidade operacional da empresa.",
+            "score": 0.3338
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a impossibilidade de transferência de bilhete aéreo para terceiros, cobrando esclarecimentos da ANAC e da ABEAR sobre a restrição.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção da regularidade de voos no Estado da Bahia, especificamente no trecho Porto Seguro-Salvador, apelando às empresas para que mantenham ao menos um horário viável economicamente mesmo fora da alta temporada, citando a importância do turismo para a região.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 34,
+            "start": 90670,
+            "end": 90987,
+            "text": "Nós tivemos a suspensão de alguns voos, inclusive no trecho de Porto Seguro a Salvador, uma linha extremamente importante, já que Porto Seguro é o segundo destino mais visitado do Brasil, é uma cidade extremamente importante, que sobrevive do turismo e, por isso, precisa muito dessa regularidade do transporte aéreo.",
+            "score": 0.2807
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede apoio à aprovação de projetos de sua autoria que oferecem gratuidade no transporte aéreo para deficientes e idosos, alinhando o setor aéreo ao que já existe no transporte terrestre.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 38,
+            "start": 99974,
+            "end": 100126,
+            "text": "Um deles oferece gratuidade para deficientes e idosos no transporte aéreo, visto que, no transporte terrestre de passageiros, essa gratuidade já existe.",
+            "score": 0.5554
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a ANAC, a ABEAR e as empresas aéreas para que exponham a relação de custos operacionais e listem todos os benefícios fiscais e governamentais já concedidos ao setor (como PERSE e redução de ICMS), para que a sociedade saiba se há necessidade de novos incentivos.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 17,
+            "start": 37488,
+            "end": 37752,
+            "text": "E nós queríamos saber também quais são todos os benefícios que já foram concedidos pelo Governo às empresas aéreas, até para que nós e a sociedade tenhamos conhecimento disso e saibamos se são necessários mais incentivos ou se as empresas já têm incentivos demais.",
+            "score": 0.2596
+          },
+          "udv": null
+        },
+        {
+          "text": "Desafia as empresas aéreas a comprovarem a viabilidade de passagens de Brasília para a Bahia por menos de 500 reais em um prazo de 120 dias, contestando os dados apresentados que não refletiriam a realidade de preços acima de 3 mil reais observados por ele.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 34,
+            "start": 89616,
+            "end": 89735,
+            "text": "Ao pesquisar preços de passagens aéreas, não é em 5% das vezes que observamos preços acima de 2 mil reais, 3 mil reais.",
+            "score": 0.4312
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita ao representante da Secretaria Nacional de Aviação Civil que encaminhe ao Ministro dos Portos e Aeroportos a pauta para homologação de um equipamento no Aeroporto de Ilhéus, visando evitar arremetidas de aeronaves, e pede detalhes sobre o funcionamento, cronograma e compensação financeira do Programa Voa, Brasil.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 42,
+            "start": 115361,
+            "end": 115417,
+            "text": "Rafael Pereira, da Secretaria Nacional de Aviação Civil.",
+            "score": 0.2911
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede ao Ministério das Cidades e ao Governo Federal um olhar especial para o Município de Itanagra (BA), solicitando investimentos em infraestrutura, calçamento e inclusão no programa Minha Casa, Minha Vida, representando o Prefeito local.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 94,
+            "start": 147233,
+            "end": 147383,
+            "text": "Itanagra é um Município que precisa muito de investimentos em infraestrutura, em calçamento e também precisa muito do programa Minha Casa, Minha Vida.",
+            "score": 0.4973
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a comparação com o transporte terrestre como fundamento para defender a gratuidade aérea para idosos e deficientes, argumentando que o benefício já existe na modalidade rodoviária.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 38,
+            "start": 99974,
+            "end": 100126,
+            "text": "Um deles oferece gratuidade para deficientes e idosos no transporte aéreo, visto que, no transporte terrestre de passageiros, essa gratuidade já existe.",
+            "score": 0.4416
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa de proteção às empresas em casos de força maior no princípio de que não é justo que arcem com custos de situações que fogem ao seu controle operacional.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 11,
+            "start": 34194,
+            "end": 34624,
+            "text": "Gostaria de deixar outra sugestão aqui, aí, sim, em favor da ABEAR, em conjunto com os colegas desta Casa e com a ABEAR também.Poderíamos apresentar uma proposição visando a proteger as empresas aéreas quando houver cancelamentos de voos, atrasos de voos por motivos que fogem ao controle das empresas, por força maior, como, por exemplo, mau tempo ou situações externas à vontade da empresa e à capacidade operacional da empresa.",
+            "score": 0.2703
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a concessão de incentivos fiscais e compensações (PERSE, ICMS, bagagem) pelo Estado exige um compromisso recíproco das empresas com a redução de preços para o consumidor, criticando o crescimento do lucro líquido (cita dados de 9,8 bilhões em 2023) sem o correspondente benefício à população.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 40,
+            "start": 107797,
+            "end": 107909,
+            "text": "Eu registro que está previsto para o ano de 2023 o lucro líquido de 9,8 bilhões pelas empresas aéreas do Brasil.",
+            "score": 0.2726
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a transparência na relação Estado-setor privado, exigindo a exposição pública de custos e benefícios para que a sociedade possa avaliar a necessidade de novos incentivos.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 17,
+            "start": 37488,
+            "end": 37752,
+            "text": "E nós queríamos saber também quais são todos os benefícios que já foram concedidos pelo Governo às empresas aéreas, até para que nós e a sociedade tenhamos conhecimento disso e saibamos se são necessários mais incentivos ou se as empresas já têm incentivos demais.",
+            "score": 0.167
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor dos Requerimentos nºs 94 e 104 de 2023 que motivaram a audiência sobre passagens aéreas.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 0,
+            "start": 313,
+            "end": 769,
+            "text": "Esta Comissão reúne-se, hoje, com o objetivo de debater os preços e a prestação de serviços de transporte aéreo regular no Brasil, em virtude da aprovação dos Requerimentos nº 36, de 2023, e 102, de 2023, de autoria do Deputado Juninho do Pneu, subscritos pelo Deputado Bebeto, e dos Requerimentos nºs 94, de 2023, e 104, de 2023, de minha autoria, subscritos pelo Deputado Gabriel Nunes, pela Deputada Helena Lima e pelo meu querido amigo Deputado Bebeto.",
+            "score": 0.2785
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante dos interesses do Estado da Bahia, citando a presença de seu pai e a necessidade de defesa dos cidadãos baianos.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 0,
+            "start": 2992,
+            "end": 3262,
+            "text": "Queria também registrar a presença dos alunos do Colégio São Domingos, de São Paulo, e do meu pai, Orlando, que veio do Estado da Bahia para acompanhar esta audiência, este momento importante, representando as pessoas da Bahia, os cidadãos baianos do meu querido Estado.",
+            "score": 0.372
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser membro titular ativo da Comissão de Viação e Transportes.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 94,
+            "start": 146618,
+            "end": 146717,
+            "text": "Como membro titular ativo e atuante desta Comissão, eu fico satisfeito em participar deste momento.",
+            "score": 0.4417
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com o Governo Lula, elogiando o Ministro Jader Filho e os programas de governo como o PAC e o Minha Casa, Minha Vida.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 94,
+            "start": 145726,
+            "end": 145799,
+            "text": "Ministro Jader Filho, um exemplo para todos os Ministros do Governo Lula.",
+            "score": 0.5312
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a atuação conjunta com a concessionária do aeroporto e o Ministério de Portos e Aeroportos para manter a estrutura de voos na Bahia.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 34,
+            "start": 90989,
+            "end": 91209,
+            "text": "Nós temos atuado de forma muito forte, juntamente com a concessionária que toma conta do aeroporto e com o Ministério de Portos e Aeroportos, a fim de que consigamos manter a estrutura necessária para receber esses voos.",
+            "score": 0.4816
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados pessoais de pesquisa de preços (\"das 10 vezes em que pesquisei, em ao menos 8 vezes a passagem estava acima dos 3 mil reais\") para contestar as estatísticas oficiais apresentadas pelos convidados.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 34,
+            "start": 89736,
+            "end": 89861,
+            "text": "Eu diria, por conta própria, que, das 10 vezes em que pesquisei, em ao menos 8 vezes a passagem estava acima dos 3 mil reais.",
+            "score": 0.593
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o método de \"desafio\" prático, propondo que as empresas comprovem a viabilidade de preços baixos em um prazo determinado (120 dias) para validar suas alegações.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 34,
+            "start": 89863,
+            "end": 90135,
+            "text": "Eu queria inclusive propor um desafio ao senhor e a todas as empresas aéreas e até à associação: que pesquisassem para saber se, no prazo de 120 dias, é possível encontrar alguma passagem de Brasília para a Bahia em um valor menor do que 500 reais, como foi descrito aqui.",
+            "score": 0.2139
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina críticas aos consumidores com propostas de proteção às empresas, buscando um equilíbrio que justifique a regulação (ex: multas escalonadas e isenção em casos de força maior).",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz uso de apelos emocionais e de representação territorial, citando a presença de familiares, alunos e prefeitos locais para reforçar a legitimidade de suas cobranças.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Direciona pedidos específicos a interlocutores técnicos (como a homologação de equipamento em Ilhéus) com base em relatos de profissionais do setor (comandantes de avião).",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 161,
+      "split": "train",
+      "article_date": "2023-09-29",
+      "title": "Combustíveis e dólar explicam aumento das passagens, diz associação das empresas aéreas",
+      "assunto": "Aumento dos preços das passagens aéreas no Brasil",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-161-2-0",
+      "hearing_id": 161,
+      "n": 7,
+      "article_name": "Neto Carletto",
+      "proposition": "Cobra mais benefícios para o consumidor em resposta aos incentivos que as empresas têm recebido: \"É importante que haja um compromisso das empresas para com os consumidores porque esta Casa vem fazendo sinalizações com o setor aéreo, isenções, como do ICMS, e autorização para cobrança da bagagem, e não tem sido feito nenhum gesto de lá pra cá das empresas para com os consumidores.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Também é importante que haja um compromisso das empresas com os consumidores.",
+        "turn": 40,
+        "start": 106997,
+        "end": 107074
+      },
+      "verifier": {
+        "probability": 0.21603476541439864,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

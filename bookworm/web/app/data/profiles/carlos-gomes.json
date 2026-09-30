@@ -1,0 +1,436 @@
+{
+  "actor": {
+    "slug": "carlos-gomes",
+    "name": "Carlos Gomes",
+    "display_name": "Carlos Gomes",
+    "role": "Deputado (Republicanos-RS)",
+    "article_names": [
+      "Carlos Gomes"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:26:48+00:00",
+    "n_statements": 12,
+    "n_hearings": 2,
+    "hearing_ids": [
+      38,
+      153
+    ],
+    "input_tokens": 6185,
+    "output_tokens": 1001,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 4,
+    "passage_only": 13,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação do PL 1.378/19, que institui tributação especial para a cadeia do vinho, com o objetivo de incentivar o enoturismo e fomentar vinícolas pequenas, focando na venda no local e não no atacado.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 49486,
+            "end": 49542,
+            "text": "O foco é o enoturismo, que se realiza na venda no local.",
+            "score": 0.2641
+          },
+          "udv": {
+            "id": "udv-38-2-1",
+            "rule": "same_sentence",
+            "score": 0.1904
+          }
+        },
+        {
+          "text": "Argumenta que o projeto deve garantir a isenção de PIS, COFINS e IPI para a comercialização de garrafas de vinho por turistas dentro de zonas delimitadas, citando que a proposta original previa 9 garrafas por CPF, mas que a relatoria anterior aumentou para 18, mantendo margem para negociação na Comissão de Finanças e Tributação.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 48609,
+            "end": 48804,
+            "text": "Inicialmente o projeto previa a compra de nove garrafas por CPF, com isenção dos impostos PIS, COFINS e IPI, que daria uma redução interessante para motivar os turistas a levarem essa quantidade.",
+            "score": 0.3295
+          },
+          "udv": {
+            "id": "udv-38-2-2",
+            "rule": "same_sentence",
+            "score": 0.3506
+          }
+        },
+        {
+          "text": "Critica a possibilidade de enquadrar vinhos e sucos de uva como bebidas destiladas na reforma tributária, argumentando que possuem características diferentes e não são prejudiciais à saúde, ao contrário do que ocorre com destilados.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 51799,
+            "end": 51958,
+            "text": "Somando tudo isso, temos de ter atenção, sim, para que o vinho não tenha a mesma taxação das bebidas destiladas, que têm sido vistas como prejudiciais à saúde.",
+            "score": 0.2431
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Governo Federal a flexibilização de ações para que recursos da emenda de bancada gaúcha (cerca de R$ 100 milhões) cheguem diretamente aos municípios afetados por enchentes no Rio Grande do Sul, especialmente para ações não contempladas pelo pacote da Defesa Civil.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 39,
+            "start": 73443,
+            "end": 73769,
+            "text": "Se houver, Ministro Paulo Pimenta, por parte do Governo, uma flexibilização com amparo legal, a bancada está disposta e quer, sim, fazer a sua contribuição dentro da decisão que iremos tomar ainda hoje à tarde, para auxiliar os Municípios nas ações que não são contempladas pelo pacote já configurado hoje para a Defesa Civil.",
+            "score": 0.298
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um tratamento excepcional para repasse de pequenos valores (R$ 5 mil a R$ 10 mil) a microempresários e cidadãos afetados pelas enchentes, similar ao modelo adotado durante a pandemia da COVID-19, visando o restabelecimento mínimo da economia local.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 39,
+            "start": 73239,
+            "end": 73406,
+            "text": "Pequenos valores — 5 mil reais, 10 mil reais — poderiam ajudar no restabelecimento mínimo desses microempresários para o restabelecimento da economia regional e local.",
+            "score": 0.4602
+          },
+          "udv": null
+        },
+        {
+          "text": "Alerta para o risco competitivo do setor vitivinícola brasileiro em caso de acordo comercial entre o MERCOSUL e a União Europeia, argumentando que vinhos europeus podem chegar com custos de produção subsidiados, desmontando a cadeia produtiva nacional.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 52584,
+            "end": 52804,
+            "text": "Este projeto é importante porque todos estamos acompanhando o movimento que o Brasil e os países do bloco do MERCOSUL estão fazendo para que seja feito o acordo com a União Europeia.E, nesse acordo, também entram vinhos.",
+            "score": 0.2179
+          },
+          "udv": {
+            "id": "udv-38-2-4",
+            "rule": "same_sentence",
+            "score": 0.2385
+          }
+        },
+        {
+          "text": "Defende a inclusão de vinhos e sucos de uva na cesta básica para obter tributação diferenciada, ação que acompanha paralelamente à tramitação do PL 1.378/19.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 18,
+            "start": 36586,
+            "end": 36967,
+            "text": "É muito importante a CNC estar presente nesta Mesa, pela força e articulação que tem junto a esta Casa, podendo nos acompanhar e apoiar no fortalecimento deste projeto e também em outras frentes, como na alteração da reforma tributária e em outros temas, com a iniciativa de se inserirem também os vinhos e os sucos de uva na cesta básica, que passam a ter tributação diferenciada.",
+            "score": 0.2709
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a geração de emprego e a sustentabilidade da agricultura familiar como fundamento para a defesa da cadeia do vinho, citando que há entre 15 mil e 20 mil produtores de uva, na maioria da agricultura familiar, e que a colheita é artesanal.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 18,
+            "start": 37040,
+            "end": 37270,
+            "text": "Com certeza, esse é um setor que precisa da nossa atenção por tudo aquilo que representa na geração de emprego, desde a área primária, onde há entre 15 mil e 20 mil produtores de uva, na sua grande maioria da agricultura familiar.",
+            "score": 0.5516
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a argumentação sobre a quantidade de garrafas isentas na logística do transporte aéreo, afirmando que turistas limitam a compra a 6 garrafas para evitar o despacho de bagagem e o risco de quebra, o que inibe a compra em países sem flexibilização.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 49836,
+            "end": 50118,
+            "text": "Eu já percebi que, em alguns países onde não existe essa flexibilização de levar algumas garrafas dentro da cabine da aeronave, a maioria dos turistas não compra o vinho, porque têm medo de despachá-lo e as garrafas quebrarem, não chegarem com a integridade física ao destino final.",
+            "score": 0.2208
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de restabelecimento rápido da economia local como critério para a destinação de recursos em situações de desastre, argumentando que sem a retomada econômica os municípios não se sustentam.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 39,
+            "start": 73852,
+            "end": 74068,
+            "text": "Queremos ver esses Municípios com a rotina restabelecida o quanto antes, tanto na vida pessoal dos cidadãos como também na economia local, porque, se não restabelecerem a economia, esses Municípios não ficarão de pé.",
+            "score": 0.1724
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a urgência da aprovação do PL 1.378/19 pela ameaça externa do acordo com a União Europeia, usando a perda de competitividade como argumento para a proteção do setor.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 52584,
+            "end": 52804,
+            "text": "Este projeto é importante porque todos estamos acompanhando o movimento que o Brasil e os países do bloco do MERCOSUL estão fazendo para que seja feito o acordo com a União Europeia.E, nesse acordo, também entram vinhos.",
+            "score": 0.1696
+          },
+          "udv": {
+            "id": "udv-38-2-4",
+            "rule": "same_sentence",
+            "score": 0.1894
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do PL 1.378/19, tendo assumido a autoria a pedido do ex-Deputado João Derly, idealizador do projeto, e de outros envolvidos.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 7,
+            "start": 11323,
+            "end": 11497,
+            "text": "Na época, infelizmente, o Deputado João Derly não se elegeu, mas ele e os demais me solicitaram que eu assumisse a autoria desse projeto para dar seguimento à sua tramitação.",
+            "score": 0.2445
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Presidente da Comissão do Turismo do PARLASUL, utilizando essa experiência para citar observações sobre o comportamento de turistas em outros países.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 49779,
+            "end": 49835,
+            "text": "Falo como Presidente da Comissão do Turismo do PARLASUL.",
+            "score": 0.4422
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a bancada gaúcha na destinação de emendas para os municípios afetados por enchentes, coordenadas pela Deputada Any Ortiz.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 39,
+            "start": 72230,
+            "end": 72430,
+            "text": "Quero também dizer que existe na bancada gaúcha uma emenda de bancada em torno de 100 milhões de reais, já pré-aprovada em uma reunião coordenada aqui pela Deputada Any Ortiz com outros Parlamentares.",
+            "score": 0.3253
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a atuação conjunta com a Confederação Nacional do Comércio de Bens, Serviços e Turismo (CNC) e o Ministério do Turismo como essenciais para o êxito da aprovação do projeto.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 7,
+            "start": 9152,
+            "end": 9317,
+            "text": "Alexandre Sampaio, representante da Confederação Nacional do Comércio de Bens, Serviços e Turismo — CNC; à Cinthia, aqui representando o nosso Ministério de Turismo.",
+            "score": 0.5763
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e exemplos práticos para sustentar suas posições, como a quantidade de produtores de uva, o número de garrafas transportáveis em cabines de aeronaves e o valor das emendas de bancada.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a comparações com situações passadas, como o tratamento excepcional dado durante a pandemia da COVID-19, para propor soluções para os desastres recentes no Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 7,
+            "start": 9050,
+            "end": 9111,
+            "text": "E grande parte deles se encontra também no Rio Grande do Sul.",
+            "score": 0.2209
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de articulação política, destacando a importância da união de esforços entre diferentes setores (CNC, Ministério do Turismo, bancada gaúcha) e órgãos governamentais para a aprovação de projetos e a destinação de recursos.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 24,
+            "start": 53156,
+            "end": 53311,
+            "text": "E aqui eu fico muito contente de ver a CNC e o nosso Ministério do Turismo, porque é na junção de esforços que nós poderemos lograr êxito na sua aprovação.",
+            "score": 0.2516
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de urgência e risco ao tratar de temas como a reforma tributária e acordos comerciais internacionais, alertando para consequências negativas caso as medidas não sejam tomadas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 38,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores defendem tributação especial para a cadeia do vinho",
+      "assunto": "Defesa de tributação especial para a cadeia do vinho no Brasil",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 6
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-38-2-0",
+      "hearing_id": 38,
+      "n": 3,
+      "article_name": "Carlos Gomes",
+      "proposition": "O objetivo principal do projeto de lei é incentivar o enoturismo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O objetivo maior desta lei é incentivar, de fato, o enoturismo. O Daniel disse que há, no Brasil, cerca de 1.100 vinícolas.",
+        "turn": 24,
+        "start": 48037,
+        "end": 48160
+      },
+      "verifier": {
+        "probability": 0.993125663772307,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-38-2-1",
+      "hearing_id": 38,
+      "n": 4,
+      "article_name": "Carlos Gomes",
+      "proposition": "\"Temos cerca de mil vinícolas no Brasil e a grande maioria tem foco no enoturismo, com vendas no varejo, na porta da vinícola\". A medida pode aumentar esse tipo de vendas: \"Fazer com que todo turista, ao chegar na zona franca, possa comprar com a isenção, o que daria uma redução interessante no preço final para comprarem em maior quantidade.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mas não podemos desviar o foco de que, na comercialização de algumas unidades, haja esse incentivo, a fim de que venhamos a fomentar a maioria das vinícolas pequenas. O foco é o enoturismo, que se realiza na venda no local.",
+        "turn": 24,
+        "start": 49319,
+        "end": 49542
+      },
+      "verifier": {
+        "probability": 0.27845992934897124,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-38-2-2",
+      "hearing_id": 38,
+      "n": 5,
+      "article_name": "Carlos Gomes",
+      "proposition": "A proposta previa isenção para nove garrafas, mas sofreu mudanças nas comissões em que já foi analisada e hoje prevê o benefício tributário para até 18 garrafas de vinho compradas na zona franca.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Inicialmente o projeto previa a compra de nove garrafas por CPF, com isenção dos impostos PIS, COFINS e IPI, que daria uma redução interessante para motivar os turistas a levarem essa quantidade. Na primeira relatoria, o então Deputado Alan Rick, atual Senador, disse que nove garrafas era pouco e pediu para aumentar o número para 18.",
+        "turn": 24,
+        "start": 48609,
+        "end": 48945
+      },
+      "verifier": {
+        "probability": 0.8151239379875688,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-38-2-3",
+      "hearing_id": 38,
+      "n": 6,
+      "article_name": "Carlos Gomes",
+      "proposition": "Produtores de vinho em todo o País poderão comercializar seus produtos nos 23 municípios gaúchos também com regime especial de tributação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Na vinícola acontece o grande varejo. O objetivo maior desta lei é fazer com que todo turista que chegue ao Município delimitado pela zona compre o vinho.",
+        "turn": 24,
+        "start": 48453,
+        "end": 48608
+      },
+      "verifier": {
+        "probability": 0.237904244431223,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-38-2-4",
+      "hearing_id": 38,
+      "n": 7,
+      "article_name": "Carlos Gomes",
+      "proposition": "Na União Europeia, os vinhos já recebem a classificação de alimento.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este projeto é importante porque todos estamos acompanhando o movimento que o Brasil e os países do bloco do MERCOSUL estão fazendo para que seja feito o acordo com a União Europeia.E, nesse acordo, também entram vinhos. Se ele for chancelado e os vinhos estiverem para chegar aqui com o custo de produção — o que muitos países praticam e têm apoio dos seus governos, pois eles são tratados como alimentos —, então, nós perderemos ainda mais competitividade e poderemos desmontar […]",
+        "turn": 24,
+        "start": 52584,
+        "end": 53155
+      },
+      "verifier": {
+        "probability": 0.27751317896613076,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-38-2-5",
+      "hearing_id": 38,
+      "n": 8,
+      "article_name": "Carlos Gomes",
+      "proposition": "Caso o acordo entre Mercosul e União Europeia entre em vigor, os vinhos da Europa, que contam com condições especiais de taxação, serão comercializados livremente na região. Com essa concorrência, a cadeia produtiva brasileira pode se tornar inviável.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este projeto é importante porque todos estamos acompanhando o movimento que o Brasil e os países do bloco do MERCOSUL estão fazendo para que seja feito o acordo com a União Europeia.E, nesse acordo, também entram vinhos. Se ele for chancelado e os vinhos estiverem para chegar aqui com o custo de produção — o que muitos países praticam e têm apoio dos seus governos, pois eles são tratados como alimentos —, então, nós perderemos ainda mais competitividade e poderemos desmontar […]",
+        "turn": 24,
+        "start": 52584,
+        "end": 53155
+      },
+      "verifier": {
+        "probability": 0.7356713354334861,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

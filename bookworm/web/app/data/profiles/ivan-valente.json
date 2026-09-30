@@ -1,0 +1,411 @@
+{
+  "actor": {
+    "slug": "ivan-valente",
+    "name": "Ivan Valente",
+    "display_name": "Ivan Valente",
+    "role": "Deputado (Psol-SP)",
+    "article_names": [
+      "Ivan Valente"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:07:08+00:00",
+    "n_statements": 5,
+    "n_hearings": 1,
+    "hearing_ids": [
+      44
+    ],
+    "input_tokens": 4910,
+    "output_tokens": 992,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 2,
+    "passage_only": 16,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a exploração de petróleo na Margem Equatorial deve seguir o licenciamento ambiental rigoroso, rejeitando a caracterização da negativa do IBAMA como \"inadmissível\" por considerá-la uma posição técnica que pode ser contestada via reconsideração, mas não ignorada.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 137566,
+            "end": 137612,
+            "text": "Ele falou:\"É inadmissível a posição do IBAMA\".",
+            "score": 0.337
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o \"açodamento\" e a polarização política no debate, argumentando que a complexidade técnica e estratégica da questão exige planejamento energético de longo prazo, sem pressa por soluções imediatas.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 133769,
+            "end": 133858,
+            "text": "Todos concordam que nós precisamos fazer um planejamento energético estratégico da Nação.",
+            "score": 0.1587
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a PETROBRAS possui capacidade estratégica e tecnológica, defendendo a empresa como agente estatal de segurança energética, mas condiciona a exploração ao cumprimento das etapas científicas e ambientais.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 133184,
+            "end": 133323,
+            "text": "Eu sou do tempo da PETROBRAS nacional, estratégica, estatal, tecnológica, e vou sempre defender a PETROBRAS e a sua capacidade estratégica.",
+            "score": 0.3303
+          },
+          "udv": {
+            "id": "udv-44-5-0",
+            "rule": "same_sentence",
+            "score": 0.348
+          }
+        },
+        {
+          "text": "Propõe que a avaliação ambiental de área sedimentar seja realizada de forma estratégica e permanente, facilitando o licenciamento futuro na bacia, incluindo a margem setentrional, em vez de tratar cada bloco isoladamente.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 136022,
+            "end": 136144,
+            "text": "A avaliação ambiental de área sedimentar já devia ter sido feita, porque ela determina uma questão estratégica permanente.",
+            "score": 0.3692
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a biodiversidade e o petróleo são riquezas que não podem se prejudicar, defendendo que o Brasil utilize sua visibilidade ambiental e território como ativos econômicos alternativos, como a indústria farmacêutica e de química fina na Amazônia.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 138613,
+            "end": 138736,
+            "text": "A Amazônia é um maná, aí sim, mas é um maná para a indústria farmacêutica, para a indústria de química fina, de cosméticos.",
+            "score": 0.3571
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobre que a discussão sobre royalties e desenvolvimento local considere a experiência do Rio de Janeiro, onde a riqueza petrolífera não se traduziu em benefício para os mais pobres, exigindo planejamento para garantir que a indústria beneficie as comunidades locais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Defende que a questão ambiental é transversal a todos os ministérios, citando a portaria conjunta do MME e MMA como exemplo de que a política ambiental não deve ser tratada como responsabilidade exclusiva de um setor.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 141201,
+            "end": 141265,
+            "text": "Está aí a portaria da AAAS, que é uma portaria do MME com o MMA.",
+            "score": 0.3188
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiou a fala da jovem Hannah Balieiro, concedendo-lhe tempo de fala para representar a voz local e a sociobiodiversidade da Amazônia, alinhando-se à crítica de que projetos de desenvolvimento frequentemente ignoram as comunidades afetadas.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 40,
+            "start": 142825,
+            "end": 142854,
+            "text": "A JOVEM HANNAH BALIEIRO- Olá!",
+            "score": 0.276
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a ciência como critério fundamental para decisões energéticas, afirmando que \"a ciência tem que estar no comando\" e rejeitando o negacionismo, baseando-se em estudos de correntes, ondas e biodiversidade específica da região.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 140694,
+            "end": 140729,
+            "text": "A ciência tem que estar no comando.",
+            "score": 0.4206
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o conceito de segurança energética como necessidade nacional, mas o equilibra com a urgência da transição energética e descarbonização, citando o prazo de validade das reservas de petróleo (acabamento em 2035) e a necessidade de soluções até 2043.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 133687,
+            "end": 133768,
+            "text": "Temos que discutir matriz energética, transição energética, segurança energética.",
+            "score": 0.2894
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a noção de \"razão\" contra a polarização, citando Caetano Veloso (\"O bem e o mal têm medo da razão\") para justificar a busca por um debate honesto que não crie expectativas falsas, sejam elas econômicas ou políticas.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 140243,
+            "end": 140336,
+            "text": "O bem e o mal têm medo da razão.É do Caetano Veloso,\"A sombra do arvoredo / o dia de amanhã\".",
+            "score": 0.4131
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa do licenciamento ambiental na prevenção de desastres, citando acidentes históricos como os da BP no Golfo do México e os nucleares na Rússia e no Japão como exemplos da necessidade de planejamento e segurança.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 134933,
+            "end": 135039,
+            "text": "A BP explodiu lá no México, no Golfo do México e no Alasca, onde também houve problema de vazamento sério.",
+            "score": 0.262
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se defensor da PETROBRAS nacional, estratégica, estatal e tecnológica, afirmando que \"vou sempre defender a PETROBRAS e a sua capacidade estratégica\".",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 133184,
+            "end": 133323,
+            "text": "Eu sou do tempo da PETROBRAS nacional, estratégica, estatal, tecnológica, e vou sempre defender a PETROBRAS e a sua capacidade estratégica.",
+            "score": 0.7942
+          },
+          "udv": {
+            "id": "udv-44-5-0",
+            "rule": "same_sentence",
+            "score": 0.7584
+          }
+        },
+        {
+          "text": "Identifica-se como Líder, utilizando esse cargo para solicitar tempo de fala para a representante da sociedade civil, Hannah Balieiro.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 40,
+            "start": 142872,
+            "end": 142900,
+            "text": "Eu me chamo Hannah Balieiro.",
+            "score": 0.2729
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se em oposição à declaração do Ministro do MME (Carlos Agenor) de que a posição do IBAMA é \"inadmissível\", afirmando discordância interna ao governo nessa questão específica.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 137350,
+            "end": 137497,
+            "text": "Eu me dirijo ao Carlos Agenor, do MME, porque, em uma declaração do Ministro, ele colocou uma coisa com a qual, dentro do Governo, eu não concordo.",
+            "score": 0.4317
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos históricos e internacionais (acidentes da BP, Guiana Inglesa, Guiana Francesa) para contextualizar os riscos e as opções de política energética, contrastando escolhas de diferentes países.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 136560,
+            "end": 136591,
+            "text": "A Guiana Francesa está do lado.",
+            "score": 0.3111
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados técnicos e científicos (estudos de correntes, recifes de corais a 70 km da costa, prazos de reserva) para fundamentar a necessidade de cautela e planejamento.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 139389,
+            "end": 139740,
+            "text": "Ela trouxe questões importantes para quem pôde verificar, por exemplo, essa ideia de milhares de quilômetros de recifes de corais, perto da zona do petróleo, mais perto do que a costa, 70 quilômetros.O tipo de biodiversidade específica, o não estudo ainda dessa biodiversidade, sobre tudo isso podemos falar:\"Mas isso tudo aí é coisa do futuro e tal\".",
+            "score": 0.1603
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliador e pedagógico, agradecendo aos participantes, reconhecendo a complexidade do tema e convidando os parlamentares a aprofundar o debate sem criar \"expectativas falsas\".",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 139072,
+            "end": 139286,
+            "text": "Porque é um debate sério, tem que ser um debate muito honesto e que não crie expectativas falsas também, inclusive econômicas, mas que também garanta que tenhamos condições de fazer a exploração segura do petróleo.",
+            "score": 0.1668
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona diretamente interlocutores e autoridades (como o representante do MME) sobre a coerência de suas declarações, pedindo que a discussão saia do \"senso comum\" e se baseie em critérios técnicos e razoáveis.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita expressões culturais e literárias (Caetano Veloso) para reforçar argumentos sobre a importância da razão e do debate amplo, buscando um tom menos confrontacional e mais reflexivo.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 38,
+            "start": 140243,
+            "end": 140336,
+            "text": "O bem e o mal têm medo da razão.É do Caetano Veloso,\"A sombra do arvoredo / o dia de amanhã\".",
+            "score": 0.2015
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 14,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Vítimas e autoridades divergem sobre reparações do crime socioambiental da Braskem em Maceió",
+      "assunto": "Reparações do crime socioambiental da Braskem em Maceió",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 44,
+      "split": "train",
+      "article_date": "2023-05-31",
+      "title": "Ibama vai examinar novo pedido da Petrobras para prospectar petróleo perto da foz do Rio Amazonas",
+      "assunto": "Exploração de petróleo na Margem Equatorial, próxima à foz do Rio Amazonas",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 9,
+      "in_profile": false,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-14-6-0",
+      "hearing_id": 14,
+      "n": 11,
+      "article_name": "Ivan Valente",
+      "proposition": "Criticou a atuação dos órgãos públicos e defendeu a criação de CPI na Câmara para investigar o caso, como já ocorreu no Senado: \"Eu considerei absolutamente frouxa a posição da Defensoria Pública da União e do Ministério Público Federal. O Ministério Público é o dono da ação penal. Presidente de empresa que tem responsabilidade sobre vidas humanas e sobre possíveis desastres deve ir às barras dos tribunais\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu considerei — quero deixar minha opinião aqui — absolutamente frouxa a posição da DPU e do Ministério Público Federal, porque o Ministério Público é o dono da ação penal, então, ele precisa agir como dono da ação penal. É lógico que as empresas que estão envolvidas são extremamente poderosas.",
+        "turn": 33,
+        "start": 69688,
+        "end": 69984
+      },
+      "verifier": {
+        "probability": 0.4345923716717081,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-44-5-0",
+      "hearing_id": 44,
+      "n": 13,
+      "article_name": "Ivan Valente",
+      "proposition": "Defende a capacidade estratégica da Petrobras.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não acho que a PETROBRAS não tem capacidade. Eu sou do tempo da PETROBRAS nacional, estratégica, estatal, tecnológica, e vou sempre defender a PETROBRAS e a sua capacidade estratégica.",
+        "turn": 38,
+        "start": 133139,
+        "end": 133323
+      },
+      "verifier": {
+        "probability": 0.9806939497489903,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-44-5-1",
+      "hearing_id": 44,
+      "n": 14,
+      "article_name": "Ivan Valente",
+      "proposition": "A discussão é complexa e é preciso equilibrar a necessidade de produção de petróleo com a sustentabilidade ambiental: \"O Brasil, ao mesmo tempo que se tornou autossuficiente em petróleo, e ainda tem espaço, é uma potência ambiental. A sua visibilidade pública mundial e a biodiversidade brasileira também é riqueza. O petróleo é riqueza, e a biodiversidade é riqueza. Uma coisa não pode prejudicar a outra.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Brasil, ao mesmo tempo em que se tornou autossuficiente em petróleo — ainda tem espaço —, também é uma potência ambiental. A sua visibilidade pública mundial, o seu território e a sua biodiversidade também são riquezas.",
+        "turn": 38,
+        "start": 133934,
+        "end": 134155
+      },
+      "verifier": {
+        "probability": 0.7723077350938579,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-133-1-0",
+      "hearing_id": 133,
+      "n": 4,
+      "article_name": "Ivan Valente",
+      "proposition": "Disse que a atitude de Cotugno era desrespeitosa com a Câmara.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Eles é que vão ter que responder. Se o Presidente não quiser vir, Deputado Aureo, ele arque com as consequências de desrespeitar a Câmara dos Deputados.",
+        "turn": 43,
+        "start": 41763,
+        "end": 41915
+      },
+      "verifier": {
+        "probability": 0.21017243762399954,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

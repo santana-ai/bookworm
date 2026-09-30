@@ -1,0 +1,661 @@
+{
+  "actor": {
+    "slug": "paulo-teixeira",
+    "name": "Paulo Teixeira",
+    "display_name": "Paulo Teixeira",
+    "role": "Deputado (PT-SP)",
+    "article_names": [
+      "Paulo Teixeira"
+    ],
+    "party_uf": [
+      "PT - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:40:33+00:00",
+    "n_statements": 249,
+    "n_hearings": 4,
+    "hearing_ids": [
+      45,
+      65,
+      74,
+      83
+    ],
+    "input_tokens": 38543,
+    "output_tokens": 1387,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 31,
+    "with_udv": 1,
+    "passage_only": 30,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a retomada e o fortalecimento do Programa Nacional de Reforma Agrária (PNRA), argumentando que a paralisia de 8 anos, causada por um parecer do Tribunal de Contas da União (TCU), gerou 57 mil famílias em acampamentos e conflitos violentos no campo.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 64,
+            "start": 56464,
+            "end": 56516,
+            "text": "Nós temos 57 mil famílias em acampamentos no Brasil.",
+            "score": 0.3405
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica severamente o acórdão do TCU que bloqueou 578 mil assentados, classificando-o como tecnicamente inaceitável, preconceituoso e uma \"perversidade\" que confundiu o progresso econômico dos assentados com irregularidades, sem respeitar o contraditório.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 434,
+            "start": 210318,
+            "end": 210427,
+            "text": "Então, 578 mil assentados que tiveram os seus programas bloqueados por 6 anos, eu chamo isso de perversidade.",
+            "score": 0.31
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a destinação de terras de grandes devedores da União, já penhoradas ou em fase de dação em pagamento, para a reforma agrária, visando reduzir custos e resolver passivos fundiários.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 181,
+            "start": 103565,
+            "end": 103710,
+            "text": "se refere é muito recente, no âmbito da AGU, que orienta a adjudicação de terras de grandes devedores da União para destinação à reforma agrária.",
+            "score": 0.3493
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a complementaridade entre o agronegócio e a agricultura familiar, citando o aumento da produção de grãos pelo primeiro e a necessidade de diversificação de alimentos (arroz, feijão, hortaliças) pela segunda para combater a fome e a obesidade.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 1,
+            "start": 3716,
+            "end": 3947,
+            "text": "Existe aquela agricultura de escala, que em grande parte é voltada para a exportação, mas há também uma agricultura que requer diversificação da produção de alimentos, e a agricultura familiar está chamada a aumentar essa produção.",
+            "score": 0.243
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiar a implementação de políticas de compras públicas, como o Programa Nacional de Alimentação Escolar (PNAE) e o Programa de Aquisição de Alimentos (PAA), que exigem a compra de 30% dos alimentos da agricultura familiar, incluindo comunidades indígenas e quilombolas.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 43,
+            "start": 43478,
+            "end": 43566,
+            "text": "Outras políticas estão sendo feitas, como a do Programa de Aquisição de Alimentos — PAA.",
+            "score": 0.3905
+          },
+          "udv": {
+            "id": "udv-45-0-3",
+            "rule": "same_sentence",
+            "score": 0.1652
+          }
+        },
+        {
+          "text": "Defende a demarcação de terras indígenas e remanescentes de quilombos, argumentando que o Brasil foi generoso com imigrantes europeus e asiáticos, mas não ofereceu as mesmas oportunidades de desenvolvimento à população de origem africana.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 2,
+            "start": 12522,
+            "end": 12649,
+            "text": "Precisamos demarcar a terra dos remanescentes de quilombos, as terras indígenas, trazer os quilombolas para dentro do processo.",
+            "score": 0.274
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um programa de florestas produtivas e agricultura restaurativa na Amazônia, substituindo o desmatamento por plantios de açaí, castanha e cacau, alinhado ao discurso do Presidente Lula.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 175,
+            "start": 101764,
+            "end": 101925,
+            "text": "O Presidente Lula, no seu discurso nesta cúpula do Amazonas, disse:\"Eu vou promover um grande programa de florestas produtivas, de uma agricultura restaurativa\".",
+            "score": 0.4214
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção da Justiça do Trabalho em todo o território nacional, criticando a Resolução 296/21 do CSJT que ameaçava extinguir varas, e propõe a recomposição de recursos e a contratação de servidores e juízes.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 10,
+            "start": 53163,
+            "end": 53241,
+            "text": "É uma defesa da presença da Justiça do Trabalho em todo o território nacional.",
+            "score": 0.2683
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a reforma trabalhista de 2017, argumentando que a exigência de pagamento de honorários sucumbenciais ao trabalhador perdedor desestimulou o acesso à Justiça do Trabalho, tornando a métrica de extinção de varas inadequada.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 6,
+            "start": 23901,
+            "end": 24040,
+            "text": "É importante dizer que a métrica usada para esta proposta é usada no momento em que a reforma trabalhista desestimulou as ações na Justiça.",
+            "score": 0.262
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a mecanização da agricultura familiar para diminuir a penosidade e atrair a juventude, citando o lançamento do Programa Mais Alimentos e a visita à China para buscar equipamentos específicos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 1,
+            "start": 10160,
+            "end": 10244,
+            "text": "Assim, mecanizar para diminuir a penosidade, para atrair a juventude, é fundamental.",
+            "score": 0.4177
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regularização fundiária de lotes irregulares em assentamentos, prometendo um grande volume de regularizações para garantir acesso a crédito e dignidade às famílias.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 49,
+            "start": 46761,
+            "end": 46829,
+            "text": "Mas nós vamos agora regularizar esses lotes num volume muito grande.",
+            "score": 0.3232
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a participação dos movimentos sociais na organização da sociedade, negando que eles decidam a seleção de assentados (papel do INCRA) e classificando-os como virtudes democráticas que ajudam a combater a pobreza.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 8,
+            "start": 21712,
+            "end": 21810,
+            "text": "Essa norma permitia que os movimentos sociais participassem do processo de seleção dos assentados.",
+            "score": 0.254
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a Constituição Federal como fundamento máximo para a reforma agrária, a proteção à infância e o acesso à Justiça, afirmando que não pode negar políticas definidas pelos Constituintes.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 77,
+            "start": 61125,
+            "end": 61167,
+            "text": "Eu não posso negar a Constituição Federal.",
+            "score": 0.3542
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o princípio da presunção da inocência e da transitada em julgado para justificar que apenas condenados penalmente podem ser excluídos do PNRA, citando jurisprudência do TRF-5.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 51,
+            "start": 49152,
+            "end": 49255,
+            "text": "É o princípio da presunção da inocência, que foi consagrado pelo Supremo Tribunal Federal recentemente.",
+            "score": 0.2893
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a desigualdade social é o principal problema do Brasil, e que a reforma agrária e a agricultura familiar são ferramentas para reduzir essa desigualdade e pacificar o campo.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 6,
+            "start": 24422,
+            "end": 24499,
+            "text": "A Justiça do Trabalho é fundamental num País com tamanha desigualdade social.",
+            "score": 0.3003
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o Estado deve garantir o contraditório e a ampla defesa em processos administrativos, criticando o TCU por bloquear benefícios sem ouvir os assentados.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 250,
+            "start": 143561,
+            "end": 143592,
+            "text": "Tem que haver o contraditório\".",
+            "score": 0.1877
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a sociedade organizada, argumentando que movimentos sociais, sindicatos e cooperativas são essenciais para o progresso e a organização da população empobrecida.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 242,
+            "start": 139650,
+            "end": 139703,
+            "text": "Nossa sociedade tem que ser uma sociedade organizada.",
+            "score": 0.3275
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que políticas públicas devem ser guiadas pela \"demanda social\", ou seja, devem ser implementadas onde há necessidade comprovada, como nos acampamentos e áreas de conflito.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 69,
+            "start": 57366,
+            "end": 57404,
+            "text": "O Deputado disse que devem ser do MST.",
+            "score": 0.3358
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Ministro do Desenvolvimento Agrário e Agricultura Familiar (MDA), cargo criado pelo Presidente Lula via Medida Provisória nº 1.154/2023.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 1,
+            "start": 2757,
+            "end": 3133,
+            "text": "Inicialmente, venho a este Congresso dizer que o Ministério do Desenvolvimento Agrário foi recriado pelo Presidente Lula.A sua recriação foi aprovada aqui neste Parlamento, na Medida Provisória nº 1.154, de 2023, e ao Ministério do Desenvolvimento Agrário e Agricultura Familiar ficaram vinculados o INCRA, a CONAB, a ANATER, a CEASA de Minas Gerais e a CEAGESP, de São Paulo.",
+            "score": 0.4224
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Deputado Federal licenciado e ex-Parlamentar, tendo sido Líder do PT em 2011.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 214,
+            "start": 124724,
+            "end": 124828,
+            "text": "Eu não fui Parlamentar, eu sou um Parlamentar licenciado e tenho maior respeito à atividade parlamentar.",
+            "score": 0.3077
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser de Águas da Prata, no interior de São Paulo, e torcedor do Deputado Orlando Silva.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 4,
+            "start": 13885,
+            "end": 13987,
+            "text": "Eu também sou uma pessoa vinda do interior paulista, sou de Águas da Prata, ali na região de Campinas.",
+            "score": 0.3285
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter sido Secretário de Habitação de São Paulo e Subprefeito no Governo Luiza Erundina.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 434,
+            "start": 208360,
+            "end": 208568,
+            "text": "Eu trabalho assim, Deputado Kim Kataguiri: eu já fui Subprefeito em São Paulo, no Governo Luiza Erundina, quando eu tinha 30 anos Depois, eu fui Secretário de Habitação em São Paulo, no Governo Marta Suplicy.",
+            "score": 0.5741
+          },
+          "udv": null
+        },
+        {
+          "text": "Alinha-se ao Governo do Presidente Lula, defendendo a implementação de seus programas e a mudança de conjuntura política em relação aos retrocessos do governo anterior.",
+          "passage": {
+            "hearing_id": 65,
+            "turn": 8,
+            "start": 39441,
+            "end": 39550,
+            "text": "Certamente, eu espero uma mudança na conjuntura política de forma que, ao invés de retrocessos, haja avanços.",
+            "score": 0.3608
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a Presidenta do seu partido, Deputada Gleisi Hoffmann, e a relação de parceria com o Deputado Orlando Silva.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 10,
+            "start": 26398,
+            "end": 26554,
+            "text": "Deputado Ricardo Salles, Deputada Gleisi Hoffmann, esse parecer do Tribunal de Contas da União dizia que não se podiam selecionar portadores de deficiência.",
+            "score": 0.2909
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos específicos para sustentar suas posições, como números de famílias acampadas, valores orçamentários, taxas de juros e percentuais de irregularidades.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 8,
+            "start": 20629,
+            "end": 20689,
+            "text": "Há outra coisa sobre irregularidades na seleção de famílias.",
+            "score": 0.209
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e metáforas para ilustrar pontos complexos, comparando o parecer do TCU a um médico que mata o paciente ou a um engenheiro que faz a ponte cair.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 384,
+            "start": 197698,
+            "end": 197939,
+            "text": "Esse parecer do Tribunal de Contas, se fosse um médico, teria matado o paciente; se fosse um advogado, teria abandonado a causa; se fosse um engenheiro, a ponte teria caído; tantos foram os erros nesse parecer do Tribunal de Contas da União.",
+            "score": 0.2538
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos pessoais e históricos, como sua experiência como Secretário de Habitação e a história de imigrantes italianos e japoneses no Brasil, para humanizar o debate.",
+          "passage": {
+            "hearing_id": 83,
+            "turn": 11,
+            "start": 16520,
+            "end": 16585,
+            "text": "Eu tive oportunidade de ser Secretário de Habitação de São Paulo.",
+            "score": 0.2295
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com cordialidade, mesmo em momentos de confronto, usando expressões como \"Deputado Ricardo Salles\" e agradecendo pelas perguntas, mas mantendo firmeza nas respostas.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 250,
+            "start": 143253,
+            "end": 143322,
+            "text": "Deputado Ricardo Salles, deixe-me fazer duas perguntas para o senhor.",
+            "score": 0.2655
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa o humor e a leveza para desarmar tensões, como ao brincar sobre o futebol dos desembargadores ou sobre os bonés de movimentos sociais.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 410,
+            "start": 201997,
+            "end": 202031,
+            "text": "E esses movimentos, eles também...",
+            "score": 0.201
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita normas legais, instruções normativas do INCRA e decisões judiciais para embasar suas respostas, demonstrando conhecimento técnico do arcabouço jurídico.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 330,
+            "start": 176661,
+            "end": 176692,
+            "text": "Não; eu não tenho conhecimento.",
+            "score": 0.198
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transparência e a prestação de contas, citando a resposta rápida a requerimentos de informação e a existência de uma Ouvidoria Agrária.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 315,
+            "start": 166667,
+            "end": 166694,
+            "text": "A Ouvidoria Agrária, a Dra.",
+            "score": 0.2527
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 236,
+      "in_profile": true,
+      "udvs": 6
+    },
+    {
+      "id": 65,
+      "split": "train",
+      "article_date": "2022-09-01",
+      "title": "Juiz nega intenção de conselho de extinguir varas da Justiça do Trabalho",
+      "assunto": "Discussão sobre a Resolução 296/21 do Conselho Superior da Justiça do Trabalho (CSJT) e a possível extinção de varas da Justiça do Trabalho",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 74,
+      "split": "train",
+      "article_date": "2022-07-11",
+      "title": "Debatedores apontam desafios para implementação plena do ECA",
+      "assunto": "Desafios para a implementação plena do Estatuto da Criança e do Adolescente (ECA)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 83,
+      "split": "train",
+      "article_date": "2022-06-23",
+      "title": "Especialistas apontam acesso à moradia como “porta de entrada” dos demais direitos da população de rua",
+      "assunto": "Acesso à moradia como condição central para a superação das violações de direitos da população de rua",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-45-0-0",
+      "hearing_id": 45,
+      "n": 1,
+      "article_name": "Paulo Teixeira",
+      "proposition": "O governo Lula vai retomar a demarcação de terras para assentamentos da reforma agrária e em áreas indígenas e quilombolas: \"Queremos a paz no campo, já temos terras no estoque do Instituto Nacional de Colonização e Reforma Agrária (Incra)\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós já temos terra. E essa terra que nós já temos no estoque do INCRA será regularizada para a reforma agrária, com crédito e assistência técnica de primeiro nível.",
+        "turn": 2,
+        "start": 13191,
+        "end": 13355
+      },
+      "verifier": {
+        "probability": 0.3038853058188807,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-0-1",
+      "hearing_id": 45,
+      "n": 2,
+      "article_name": "Paulo Teixeira",
+      "proposition": "A demarcação ou a regularização dessas áreas será acompanhada da oferta de assistência técnica e crédito para a produção e a comercialização das safras.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E essa terra que nós já temos no estoque do INCRA será regularizada para a reforma agrária, com crédito e assistência técnica de primeiro nível. No Brasil, quando se fez reforma agrária, nunca se conseguiu fazer chegar terra, assistência técnica e crédito ao mesmo tempo, bem comercialização para os agricultores.",
+        "turn": 2,
+        "start": 13211,
+        "end": 13524
+      },
+      "verifier": {
+        "probability": 0.9859112152706282,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-0-2",
+      "hearing_id": 45,
+      "n": 3,
+      "article_name": "Paulo Teixeira",
+      "proposition": "O acórdão do TCU de 2016 resultou \"de mau trabalho técnico e preconceito\", e análises posteriores demonstraram que eventuais irregularidades não chegariam a 1% de todos casos: \"Foi um crime paralisar a reforma agrária por seis anos\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, há um preconceito e um mau trabalho técnico dentro daquele trabalho do TCU, que teve um único resultado, que foi bloquear o programa de reforma agrária por 6 anos. Isso ocorreu por um erro técnico daquele trabalho — volto a dizer — que foi mal feito pelos técnicos do Tribunal de Contas.",
+        "turn": 5,
+        "start": 19293,
+        "end": 19587
+      },
+      "verifier": {
+        "probability": 0.4406465708526096,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-0-3",
+      "hearing_id": 45,
+      "n": 4,
+      "article_name": "Paulo Teixeira",
+      "proposition": "A Lei 13.465/17 estabeleceu critérios de preferência para elencar os assentados e eliminou dispositivos aplicados pelo Incra desde 2001.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Os critérios estão sendo construídos, mas o CADÚNICO é um parâmetro nosso para a reforma agrária. Outras políticas estão sendo feitas, como a do Programa de Aquisição de Alimentos — PAA.",
+        "turn": 43,
+        "start": 43380,
+        "end": 43566
+      },
+      "verifier": {
+        "probability": 0.224979493923925,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-0-4",
+      "hearing_id": 45,
+      "n": 5,
+      "article_name": "Paulo Teixeira",
+      "proposition": "Todas as ocupações registradas em 2023 foram alvo de negociações e desfeitas espontaneamente, pois o governo Lula demonstrou que a demarcação de terras só ocorrerá dentro dos programas oficiais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nas ocupações havidas, em todas elas, nós fomos conversando, e eles saíram espontaneamente, porque nós dissemos que olocusda decisão é o programa — olocusé o programa. E assim fomos. Se o senhor quiser, depois eu as descrevo.",
+        "turn": 77,
+        "start": 62358,
+        "end": 62583
+      },
+      "verifier": {
+        "probability": 0.2595184356845178,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-0-5",
+      "hearing_id": 45,
+      "n": 6,
+      "article_name": "Paulo Teixeira",
+      "proposition": "\"Até o agro quer a reforma agrária, para distensionar os conflitos no campo\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O programa de reforma agrária tem que cuidar dos conflitos. Ele tem que cuidar dessas áreas conflitivas, pacificar o campo, o que essa normativa impedia.",
+        "turn": 125,
+        "start": 85854,
+        "end": 86007
+      },
+      "verifier": {
+        "probability": 0.2602171115665353,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-65-1-0",
+      "hearing_id": 65,
+      "n": 5,
+      "article_name": "Paulo Teixeira",
+      "proposition": "Assumiu o compromisso de defender a recomposição dos recursos da Justiça do Trabalho na análise do Orçamento: \"A Justiça do Trabalho é fundamental em um país tão desigual. Precisamos fortalecê-la e não enfraquecê-la.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "A Justiça do Trabalho é fundamental neste País, um país tão desigual onde está havendo uma perda muito grande do ganho do capital em relação ao trabalho. E num país desigual, existe alguma coisa errada.",
+        "turn": 18,
+        "start": 100038,
+        "end": 100240
+      },
+      "verifier": {
+        "probability": 0.17261839341849272,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-65-1-1",
+      "hearing_id": 65,
+      "n": 6,
+      "article_name": "Paulo Teixeira",
+      "proposition": "Considerou que a audiência teve um resultado e cumpriu um papel fundamental para a revisão do debate.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Sim, acho que esta audiência cumpriu um papel fundamental para a revisão desse debate. Que bom! Acho que esta audiência teve um papel muito importante, Deputada Professora Bebel, para adiar esse debate para 2023, em outro clima, até porque, Dra.",
+        "turn": 12,
+        "start": 64341,
+        "end": 64587
+      },
+      "verifier": {
+        "probability": 0.9882923894365438,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-65-1-2",
+      "hearing_id": 65,
+      "n": 7,
+      "article_name": "Paulo Teixeira",
+      "proposition": "\"Tivemos pandemia, estamos vivendo em um mercado de trabalho comprimido, com um alto desemprego.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Além disso, nós tivemos uma pandemia e estamos vivendo em um mercado de trabalho muito comprimido, com alto índice de desemprego. Então, eu acho que este debate está sendo importante.",
+        "turn": 12,
+        "start": 64845,
+        "end": 65029
+      },
+      "verifier": {
+        "probability": 0.9945846196615588,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

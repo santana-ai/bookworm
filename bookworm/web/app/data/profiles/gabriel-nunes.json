@@ -1,0 +1,131 @@
+{
+  "actor": {
+    "slug": "gabriel-nunes",
+    "name": "Gabriel Nunes",
+    "display_name": "Gabriel Nunes",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PSD - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:44:34+00:00",
+    "n_statements": 5,
+    "n_hearings": 1,
+    "hearing_ids": [
+      183
+    ],
+    "input_tokens": 2267,
+    "output_tokens": 180,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 5,
+    "with_udv": 0,
+    "passage_only": 4,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se presidente da sessão da audiência pública.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Afirma que a Ministra Marina Silva \"tem todo o respeito desta Casa\".",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 55,
+            "start": 97828,
+            "end": 97973,
+            "text": "Assumo aqui a Presidência desta Comissão saudando todos os membros, na pessoa da nossa Ministra Marina Silva, que tem todo o respeito desta Casa.",
+            "score": 0.5813
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia a Ministra Marina Silva, afirmando que ela representa \"não só para o meio ambiente, de todo o mundo, mas também para a política brasileira, pela sua história de luta, de coragem, de não se curvar a muitas pressões, a forças externas\".",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 119,
+            "start": 188489,
+            "end": 188771,
+            "text": "Foi uma honra ter presidido esta audiência, pelo que a senhora representa não só para o meio ambiente, de todo o mundo, mas também pelo que a senhora representa para a política brasileira, pela sua história de luta, de coragem, de não se curvar a muitas pressões, a forças externas.",
+            "score": 0.7252
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Assume o papel de condução da sessão, convidando os inscritos a falar e controlando o tempo regimental para garantir que todos os deputados inscritos possam se manifestar.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 75,
+            "start": 140186,
+            "end": 140261,
+            "text": "Então vamos tentar utilizar o tempo regimental para que todos possam falar.",
+            "score": 0.3196
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza expressões de cortesia e reconhecimento ao abrir e encerrar a sessão, agradecendo a presença da Ministra Marina Silva, do Presidente Rodrigo Agostinho e dos demais participantes.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 119,
+            "start": 188395,
+            "end": 188487,
+            "text": "Quero agradecer a presença da nossa Ministra Marina Silva e do Presidente Rodrigo Agostinho.",
+            "score": 0.4582
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 109,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Ministro da Integração afirma que Plano Nacional de Defesa Civil sai no segundo semestre",
+      "assunto": "Plano Nacional de Proteção e Defesa Civil (PNPDC) e outras políticas regionais",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

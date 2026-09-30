@@ -1,0 +1,559 @@
+{
+  "actor": {
+    "slug": "ismael-alexandrino",
+    "name": "Ismael Alexandrino",
+    "display_name": "Ismael Alexandrino",
+    "role": "Deputado (PSD-GO)",
+    "article_names": [
+      "Ismael Alexandrino"
+    ],
+    "party_uf": [
+      "Bloco/PSD - GO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:05:45+00:00",
+    "n_statements": 10,
+    "n_hearings": 2,
+    "hearing_ids": [
+      148,
+      171
+    ],
+    "input_tokens": 6996,
+    "output_tokens": 1210,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 1,
+    "passage_only": 22,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a ampliação do conceito de Sistema Único de Saúde (SUS) para incluir o setor privado, argumentando que a Atenção Primária só será resolutiva e menos onerosa para a Atenção Terciária se houver uma Atenção Secundária forte, descentralizada e não restrita ao setor privado.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 252,
+            "start": 173624,
+            "end": 173856,
+            "text": "A Atenção Primária, que precisa, sim, ser a ordenadora do cuidado, sem uma Atenção Secundária adequada fica pouco resolutiva e fica muito cara, porque acaba onerando, sobrecarregando a Atenção Terciária, que são os nossos hospitais.",
+            "score": 0.3067
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a legislação atual sobre urgência e emergência em saúde pública por ser morosa e colocar o gestor em situação difícil, pois as contas são julgadas muito tempo depois, em condições distantes da realidade vivida; propõe a criação de uma legislação estruturante para esses períodos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 254,
+            "start": 175422,
+            "end": 175775,
+            "text": "Mas, quando eu sofri na pele a necessidade da tomada de decisão, sob uma legislação morosa, que coloca o gestor contra a parede e muitas vezes o deixa numa situação muito difícil, porque as contas serão julgadas muito tempo depois, numa condição totalmente diferente e distante da realidade que ele viveu, achei que precisávamos nos debruçar sobre isso.",
+            "score": 0.3511
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a vacinação como uma das três grandes conquistas da humanidade para a saúde, ao lado dos antibióticos e da água potável, baseando-se na observação de que o avanço da vacinação reduziu casos graves e óbitos, embora reconheça que sua experiência pessoal não é nível de evidência A.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 256,
+            "start": 178092,
+            "end": 178259,
+            "text": "Entendo que a experiência pessoal não é nível de evidência A, mas, para quem viveu de forma muito intensa a gestão, ela também não chega a ser um nível de evidência E.",
+            "score": 0.2812
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um aplicativo com georreferenciamento para o manejo de espécies exóticas invasoras, como o javali, permitindo que o caçador faça check-in nas coordenadas autorizadas, gerando um mapa em tempo real para o IBAMA gerenciar a situação com dados fidedignos.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 81054,
+            "end": 81145,
+            "text": "O caçador teria autorização, com as coordenadas X e Y, chegaria ao local e faria ocheck-in.",
+            "score": 0.1865
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção da caça com cães no manejo de javalis, argumentando que ela contribui com 80% dos manejos e é muito eficaz, e que a retirada dessa prática seria uma solução simplista para um tema complexo.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 86997,
+            "end": 87091,
+            "text": "Nós sabemos que ela contribui — e muito, como foi dito — com 80% dos manejos e é muito eficaz.",
+            "score": 0.4557
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a revisão da restrição de calibres para o manejo de javalis, defendendo o uso de calibres como .270 ou .30-06 Springfield, que garantem a ausência de sofrimento ao animal, em vez de calibres com potência inferior a 407 joules.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 49,
+            "start": 127905,
+            "end": 127994,
+            "text": "Minha sugestão é o calibre .270 ou .30-06, que são bons calibres para o manejo de javali.",
+            "score": 0.3733
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o IBAMA enxergue os manejadores e caçadores como aliados, pois possuem capilaridade nacional, conhecimento técnico e disposição para colaborar, e que a caça legalizada preserva e não destrói.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 82953,
+            "end": 83072,
+            "text": "Nós temos capilaridade, porque estamos no Brasil inteiro, temos conhecimento técnico e temos disposição para colaborar.",
+            "score": 0.3618
+          },
+          "udv": null
+        },
+        {
+          "text": "Alerta para o risco de espécies exóticas invasoras, como o javali, carrear e transmitir doenças, comparando a situação à pandemia da COVID-19 e à febre aftosa, e defende o controle dessas espécies para proteger a produção alimentar e a saúde pública.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 84913,
+            "end": 84985,
+            "text": "E o foco final, neste tema, é o controle de espécies exóticas invasoras.",
+            "score": 0.2751
+          },
+          "udv": {
+            "id": "udv-148-1-1",
+            "rule": "similar_text",
+            "score": 0.3058
+          }
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio da não maleficência (\"a atitude não pode ser pior do que a não atitude\") para justificar a necessidade de dispositivos de gestão em situações de incerteza, como a pandemia e o manejo de espécies exóticas.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 81775,
+            "end": 81824,
+            "text": "A atitude não pode ser pior do que a não atitude.",
+            "score": 0.5221
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a máxima \"quem não mede não gerencia\" (atribuída a Peter Drucker) para justificar a necessidade de relatórios fidedignos e dados precisos para a gestão de políticas públicas, seja na saúde ou no manejo ambiental.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 80777,
+            "end": 80875,
+            "text": "Peter Drucker, um dos grandes ícones da administração moderna, diz que quem não mede não gerencia.",
+            "score": 0.2967
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que soluções para temas complexos exigem diálogo, contraditório e honestidade intelectual, rejeitando soluções simplistas que muitas vezes são erradas.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 87875,
+            "end": 87941,
+            "text": "Soluções complexas precisam de diálogo, precisam do contraditório.",
+            "score": 0.3046
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a ausência de sofrimento animal como critério para a prática da caça e do manejo, argumentando que a caça precisa ser feita sem sofrimento, o que exige munição efetiva.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 49,
+            "start": 127527,
+            "end": 127656,
+            "text": "A caça, seja para consumo em locais permitidos, em países que são permitidos, seja para manejo, precisa ser feita sem sofrimento.",
+            "score": 0.2921
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na experiência prática como gestor do SUS nas três esferas (pública, terceiro setor e privado) e como médico de unidade de terapia intensiva, utilizando a vivência direta para fundamentar suas análises sobre a eficácia de políticas de saúde e a complexidade da gestão.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 256,
+            "start": 177644,
+            "end": 177811,
+            "text": "Em relação à vacina, eu jamais, como médico e como gestor do Sistema Único de Saúde nas três esferas, pública, terceiro setor e privado, jamais deixarei de defendê-la.",
+            "score": 0.3711
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Vice-Presidente da Frente Parlamentar Mista em Defesa dos Serviços de Saúde e Presidente da Subcomissão Especial do Tiro Esportivo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 254,
+            "start": 175967,
+            "end": 176085,
+            "text": "Sou Vice-Presidente da Frente Parlamentar Mista em Defesa dos Serviços de Saúde, que olha para o setor privado também.",
+            "score": 0.6434
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Relator de um projeto de lei sobre períodos de emergência e de urgência em saúde pública.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 252,
+            "start": 174657,
+            "end": 174786,
+            "text": "Vamos tratar de um projeto de lei do qual eu sou Relator, sobre os períodos de emergência e de urgência em saúde pública no País.",
+            "score": 0.741
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter atuado como Secretário de Estado da Saúde de Goiás, onde implementou policlínicas em todas as regiões de saúde, e como médico em unidade de terapia intensiva.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 252,
+            "start": 173857,
+            "end": 174039,
+            "text": "Então, que as policlínicas, uma medida que a senhora conhece bem e que adotamos no Estado de Goiás quando eu fui Secretário, em todas as regiões de saúde, descentralizando a saúde...",
+            "score": 0.42
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se manejador e caçador, especificando que não caça animal silvestre no Brasil por ser ilegal, mas caça fora do País, e que é respeitador da lei.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 82595,
+            "end": 82707,
+            "text": "Não caço animal silvestre no Brasil, porque não é permitido, e eu sou respeitador da lei, mas caço fora do País.",
+            "score": 0.5106
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter experiência no manejo de javali e no tiro esportivo.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 77977,
+            "end": 78094,
+            "text": "Eu tenho experiência não só no tiro esportivo, que não é o objeto da reunião de hoje, mas no manejo de javali também.",
+            "score": 0.592
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza analogias entre a gestão da saúde pública (especialmente a pandemia) e a gestão ambiental (manejo de espécies exóticas) para propor soluções tecnológicas, como aplicativos de georreferenciamento.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 78406,
+            "end": 78476,
+            "text": "Nós temos no Brasil algumas espécies exóticas, e o javali é uma delas.",
+            "score": 0.1569
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom dialógico e conciliador, buscando a \"pacificação\" e o \"diálogo pacífico\" com autoridades e instituições, mesmo em temas controversos, e propõe-se como \"ponto de equilíbrio\" e \"catalisador\".",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 79076,
+            "end": 79208,
+            "text": "Eu gostaria que buscássemos, com todas as autoridades, no País inteiro, um diálogo pacífico, porque estamos falando de uma coisa só.",
+            "score": 0.2151
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos pessoais e experiências de gestão para sustentar seus argumentos, como a implementação de policlínicas em Goiás e o uso de aplicativos durante a pandemia.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza referências a autores e conceitos de gestão (Peter Drucker) e ética médica (não maleficência) para fundamentar suas propostas.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 81706,
+            "end": 81774,
+            "text": "E estava claro ali um princípio da ética médica, a não maleficência.",
+            "score": 0.3283
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega humor e ironia leve em momentos específicos, como ao comentar sobre calibres de armas (\"calibre 12 é para quem não sabe atirar\") e ao se referir a 407 joules como \"cócegas\", mas mantém a seriedade do argumento subjacente.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 49,
+            "start": 127208,
+            "end": 127321,
+            "text": "Deixo só uma brincadeira para quem gosta de caçar de calibre 12, Salerno: calibre 12 é para quem não sabe atirar.",
+            "score": 0.3094
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue claramente entre suas preferências pessoais (como não usar cães na caça por limitação física) e suas posições políticas, afirmando que seu gosto pessoal não deve interferir na regulamentação.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 16,
+            "start": 87342,
+            "end": 87367,
+            "text": "Mas isso é gosto pessoal.",
+            "score": 0.3124
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 101,
+      "split": "test",
+      "article_date": "2024-04-23",
+      "title": "Torcidas organizadas pedem mudanças na Lei Geral do Esporte",
+      "assunto": "Mudanças na Lei Geral do Esporte para individualizar condutas em casos de violência em jogos de futebol",
+      "turns": 10,
+      "in_profile": false,
+      "udvs": 5
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 114,
+      "split": "test",
+      "article_date": "2024-03-19",
+      "title": "Comissão planeja erradicação da tuberculose por meio de vacina, financiamento e programa-piloto",
+      "assunto": "Estratégias para a erradicação da tuberculose no Brasil até 2030",
+      "turns": 12,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 148,
+      "split": "train",
+      "article_date": "2023-10-19",
+      "title": "Deputados cobram do Ibama a volta das autorizações para caça a javalis",
+      "assunto": "Cobrança pela retomada das autorizações para caça a javalis pelo Ibama",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-101-2-0",
+      "hearing_id": 101,
+      "n": 3,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "Deverá considerar a individualização de condutas no parecer.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "178, §§ 5º e 6º — e a ANATORG tem reiteradamente comentado conosco em relação à não punição dos dirigentes, e sim daqueles que cometeram os atos —, corrobora a questão da individualização da conduta, que vai ao encontro e não dê encontro, não é contrário à jurisprudência brasileira em relação à individualização de condutas. Esse projeto, depois que sair da Comissão de Mérito, vai para a Comissão de Constituição e Justiça, que vai olhar a constitucionalidade do que foi […]",
+        "turn": 30,
+        "start": 84584,
+        "end": 85090
+      },
+      "verifier": {
+        "probability": 0.219958470303167,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-101-2-1",
+      "hearing_id": 101,
+      "n": 4,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "Pretende estabelecer uma gradação nas sanções em casos de violência, inclusive o banimento definitivo de torcedores reincidentes.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Aí eu sugiro a gradação da punição, obviamente de acordo com a gravidade, tal qual é no Código Penal, mas, administrativamente, por assim dizer, relacionada às torcidas. Se houver uma determinada conduta maléfica, que ela seja avaliada, pré-programada, para o torcedor saber a consequência daquele ato.E, se for o caso de reincidência, obviamente, que haja um banimento vitalício, tal qual acontece com o jogador quando é pego em algum tipo dedopping, ele é banido do esporte.",
+        "turn": 30,
+        "start": 87176,
+        "end": 87652
+      },
+      "verifier": {
+        "probability": 0.8971667161026807,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-101-2-2",
+      "hearing_id": 101,
+      "n": 5,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "Avalia a padronização de procedimentos das forças de segurança durante os jogos de futebol e um cadastro nacional das torcidas organizadas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós também recebemos a proposta de implementação de um cadastro nacional compulsório de torcedores e torcidas organizadas, que ficaria sob a tutela da Secretaria Nacional de Futebol e Defesa dos Direitos do Torcedor, do Ministério do Esporte, visando melhorar a segurança nos estádios. Ontem eu fui indagado sobre os casos de violência que acontecem não só nos locais onde são realizadas as partidas de futebol e dos demais esportes, mas também nos locais em que estão as […]",
+        "turn": 0,
+        "start": 2784,
+        "end": 3313
+      },
+      "verifier": {
+        "probability": 0.7021460058211719,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-101-2-3",
+      "hearing_id": 101,
+      "n": 6,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "\"Talvez tenhamos que usar todas essas medidas e mais algumas para conseguir nosso objetivo, que é evitar a violência nos esportes e, dada a dimensão que tem no País, sobretudo no futebol\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Isso me dá a impressão de que essas ações, isoladamente, talvez tenham um efeito específico. No entanto, olhando para o futebol brasileiro, talvez tenhamos que convergir todas elas e algumas outras para que consigamos atingir o que queremos, que é afastar a violência do esporte e, aqui, sobretudo no Brasil, dada a dimensão do futebol, a violência no futebol.",
+        "turn": 30,
+        "start": 84102,
+        "end": 84462
+      },
+      "verifier": {
+        "probability": 0.9942499319296858,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-101-2-4",
+      "hearing_id": 101,
+      "n": 7,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "\"Se o indivíduo e a instituição que ele representa se preocupam em disseminar a cultura de paz, demora um pouco, mas tem chance de dar certo. O Brasil precisa resgatar o brilho, a alegria dos esportes, do futebol\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "No entanto, se o indivíduo e a instituição que ele representa se preocupam em disseminar a cultura de paz, isso tem chance, demora um pouco, de dar certo. O Brasil precisa resgatar esse brilho da alegria dos esportes, sobretudo do futebol.",
+        "turn": 30,
+        "start": 88133,
+        "end": 88373
+      },
+      "verifier": {
+        "probability": 0.9960193368733158,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-114-3-0",
+      "hearing_id": 114,
+      "n": 7,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "Concordou com a ajuda orçamentária por meio de emendas parlamentares, mas enfatizou a necessidade de financiamento permanente: \"Claro que as emendas são importantes, mas elas são pontuais. A gente não pode desenvolver programas que sejam perenes com soluços de orçamento. A gente precisa de algo que tenha fluxo contínuo e previsibilidade.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "É claro que as emendas são importantes, mas elas são pontuais. Não podemos desenvolver programas perenes com soluços de orçamento. Precisamos de algo que tenha um fluxo contínuo, com previsibilidade.",
+        "turn": 19,
+        "start": 75145,
+        "end": 75344
+      },
+      "verifier": {
+        "probability": 0.7243155486522207,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-148-1-0",
+      "hearing_id": 148,
+      "n": 3,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "Pediu ao Ibama a retomada urgente do Sistema Integrado de Manejo de Fauna (Simaf)",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Para a elaboração de relatórios, é importante que a instituição IBAMA veja os manejadores, nos veja... Eu falo assim porque sou manejador.",
+        "turn": 16,
+        "start": 82335,
+        "end": 82473
+      },
+      "verifier": {
+        "probability": 0.18155842106579118,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-148-1-1",
+      "hearing_id": 148,
+      "n": 4,
+      "article_name": "Ismael Alexandrino",
+      "proposition": "Alertou sobre os riscos de doenças transmitidas por espécies exóticas invasoras: \"Olhando para a Covid-19 e os impactos dela – sanitários, econômicos e sociais –, não podemos menosprezar os riscos de que uma espécie exótica invasora transmita doenças que poderão ficar fora de controle\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E nós estamos ameaçados de isso retroceder e voltarmos a ter algumas doenças cujo transmissor é o javali, é o vetor disso tudo. Quando olhamos, de novo, para a pandemia da COVID-19, em que um determinado vírus entrou na nossa sociedade de forma descontrolada, desprogramada e causou o que causou, do ponto de vista sanitário, econômico, social, psicossocial e tudo mais, não podemos menosprezar o risco de uma espécie exótica invasora carrear e transmitir algumas doenças que […]",
+        "turn": 16,
+        "start": 85770,
+        "end": 86276
+      },
+      "verifier": {
+        "probability": 0.9902311518476993,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

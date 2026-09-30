@@ -1,0 +1,306 @@
+{
+  "actor": {
+    "slug": "alessandra-almeida",
+    "name": "ALESSANDRA ALMEIDA",
+    "display_name": "ALESSANDRA ALMEIDA",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:26:12+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      147,
+      170
+    ],
+    "input_tokens": 2856,
+    "output_tokens": 841,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a implementação da Lei nº 11.645, de 2008, e a presença de psicólogas e assistentes sociais nas escolas, argumentando que esses profissionais podem contribuir para a luta antirracista em um espaço descrito como extremamente violento.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 25,
+            "start": 81147,
+            "end": 81354,
+            "text": "Para finalizar, quero falar sobre a necessidade da implementação da nossa Lei nº 11.645, de 2008, e lembrar que nós temos uma lei que fala sobre a presença de psicólogas e de assistentes sociais nas escolas.",
+            "score": 0.553
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o aumento de 675% no número de mulheres encarceradas no Brasil desde 2000, apontando que esse fenômeno deixa crianças em condição de vulnerabilidade e está ligado à guerra às drogas, à necropolítica e à tentativa de desarticular politicamente as comunidades.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 25,
+            "start": 80927,
+            "end": 81048,
+            "text": "Isso também tem a ver com a necropolítica, tem a ver também com a tentativa de desarticular politicamente as comunidades.",
+            "score": 0.3756
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a política de creches não pode secundarizar a questão das vagas, pois está intrinsecamente ligada à justiça reprodutiva, à saúde mental e à redução da carga mental das mulheres.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 99636,
+            "end": 99716,
+            "text": "Obviamente, nós estamos falando aí de saúde mental, de carga mental de mulheres.",
+            "score": 0.3647
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a creche é fundamental para mulheres que sofrem violência doméstica, pois a impossibilidade de cuidar das crianças e a preocupação com elas as mantêm submetidas à violência, sendo dever do Estado garantir a creche.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 100511,
+            "end": 100614,
+            "text": "Quando falamos de violência contra as mulheres, a creche é fundamental, e é dever do Estado garanti-la.",
+            "score": 0.4312
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe, com base em citação à pesquisadora Raquel Guzzo, três pontos para a defesa das creches: acompanhar o desenvolvimento infantil para prevenir problemas (quanto mais cedo, mais efetiva a prevenção); assegurar o direito à convivência e à segurança, especialmente diante do aumento das violências sexuais entre crianças de 0 a 4 anos; e promover o desenvolvimento integral em todas as suas facetas.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 99995,
+            "end": 100170,
+            "text": "Um ponto é acompanhar o processo de desenvolvimento de crianças e prevenir os possíveis problemas nesse processo, considerando que a prevenção, quanto mais cedo, mais efetiva.",
+            "score": 0.3731
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que não é possível falar de política de creches sem envolver a saúde, a política para mulheres e o debate sobre educação.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 100759,
+            "end": 100934,
+            "text": "Então, eu finalizo falando desta conexão: não é possível falar de política de creches sem envolver a saúde e a política para mulheres e, efetivamente, o debate sobre educação.",
+            "score": 0.7013
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o conceito de justiça reprodutiva como fundamento para defender políticas de creche e direitos das mulheres, entendendo que isso implica a possibilidade de criar filhos e formar famílias com saúde.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 99384,
+            "end": 99550,
+            "text": "Quando falamos de justiça reprodutiva, estamos obrigatoriamente falando sobre a possibilidade de as mulheres criarem filhos e formarem famílias, com saúde, inclusive.",
+            "score": 0.3505
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a interseccionalidade ao afirmar que o Brasil é um país misógino e racista, usando essa premissa para justificar a necessidade de políticas que considerem a complexidade das vulnerabilidades enfrentadas por mulheres negras e suas crianças.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 99075,
+            "end": 99382,
+            "text": "Nós temos uma complexidade que está diante de nós, que a própria Deputada já a colocou aqui para nós aqui.Mas não é possível secundarizarmos a questão das vagas, porque nós estamos falando, inclusive, de um debate fundamental para nossa sociedade, neste País misógino e racista, que é a justiça reprodutiva.",
+            "score": 0.199
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se no princípio de que a prevenção no desenvolvimento infantil é mais efetiva quando realizada precocemente, justificando a importância das creches para o acompanhamento do desenvolvimento.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 99995,
+            "end": 100170,
+            "text": "Um ponto é acompanhar o processo de desenvolvimento de crianças e prevenir os possíveis problemas nesse processo, considerando que a prevenção, quanto mais cedo, mais efetiva.",
+            "score": 0.1979
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a responsabilidade do Estado na garantia de direitos, especificamente no dever de garantir creches como proteção contra a violência doméstica e como espaço de segurança.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 100511,
+            "end": 100614,
+            "text": "Quando falamos de violência contra as mulheres, a creche é fundamental, e é dever do Estado garanti-la.",
+            "score": 0.3192
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se mulher negra, nordestina, tatuada, psicóloga, com cabelos crespos e aloirados.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 25,
+            "start": 79562,
+            "end": 79607,
+            "text": "Eu sou uma mulher negra, nordestina, tatuada.",
+            "score": 0.5753
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como \"pessoa de santo\" e \"pessoa de terreiro\".",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 25,
+            "start": 79964,
+            "end": 80188,
+            "text": "Permitam-me saudar, especialmente, minha companheira de sistema, a Miriam, que grandemente me emocionou com sua fala, justamente porque ela fala de um lugar que também é meu, como uma pessoa de santo, uma pessoa de terreiro.",
+            "score": 0.4325
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se parceira histórica da Deputada Erika Kokay.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 25,
+            "start": 79678,
+            "end": 79804,
+            "text": "Quero, na pessoa da Deputada Erika Kokay, nossa parceira histórica, parabenizar esta Mesa belíssima — eu já me emocionei aqui.",
+            "score": 0.6017
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita como companheiras de sistema e de luta as Deputadas Miriam, Vanja e Hellen.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 98547,
+            "end": 98660,
+            "text": "Quero cumprimentá-la e também a essa Mesa, na qual eu tenho duas parceiras de luta e de conselho, Vanja e Hellen.",
+            "score": 0.2865
+          },
+          "udv": null
+        },
+        {
+          "text": "Reitera o dever e a ação constante da psicologia brasileira pela luta antirracista e feminista.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 25,
+            "start": 80190,
+            "end": 80327,
+            "text": "Quero reiterar, publicamente, o dever e, acho, a ação constante da psicologia brasileira pela luta antirracista e feminista, que destaco.",
+            "score": 0.6894
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza provérbios africanos (como \"É preciso toda uma aldeia para educar uma criança\") e referências a pesquisadoras da área (Raquel Guzzo) para sustentar seus argumentos.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 98662,
+            "end": 98770,
+            "text": "Quero começar reiterando o que um provérbio africano diz: É preciso toda uma aldeia para educar uma criança.",
+            "score": 0.3083
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emocional e pessoal, mencionando emoções (\"me emocionei\", \"me emociona\") e usando termos inclusivos (\"todes\", \"crias\", \"filhes\").",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Conecta temas aparentemente distintos (encarceramento, creches, saúde mental, violência doméstica) sob a ótica da interseccionalidade e da justiça reprodutiva.",
+          "passage": {
+            "hearing_id": 147,
+            "turn": 26,
+            "start": 99636,
+            "end": 99716,
+            "text": "Obviamente, nós estamos falando aí de saúde mental, de carga mental de mulheres.",
+            "score": 0.1914
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa dados específicos (aumento de 675% no encarceramento feminino, faixa etária de 0 a 4 anos) para embasar suas críticas e propostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança e urgência, especialmente ao falar sobre a vulnerabilidade das crianças e a necessidade de ação estatal.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 147,
+      "split": "train",
+      "article_date": "2023-10-23",
+      "title": "Creche pública é fundamental para diminuir desigualdade social, afirmam especialistas",
+      "assunto": "Importância das creches públicas para a redução das desigualdades sociais no Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 170,
+      "split": "train",
+      "article_date": "2023-06-29",
+      "title": "Movimentos sociais denunciam o racismo na primeira infância",
+      "assunto": "Denúncia do racismo na primeira infância debatida na Comissão de Direitos Humanos da Câmara dos Deputados",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

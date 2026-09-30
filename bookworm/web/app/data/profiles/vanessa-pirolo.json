@@ -1,0 +1,389 @@
+{
+  "actor": {
+    "slug": "vanessa-pirolo",
+    "name": "VANESSA PIROLO",
+    "display_name": "Vanessa Pirolo",
+    "role": "Coordenadora da Coalizão Vozes do Advocacy",
+    "article_names": [
+      "Vanessa Pirolo"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:09:39+00:00",
+    "n_statements": 7,
+    "n_hearings": 1,
+    "hearing_ids": [
+      68
+    ],
+    "input_tokens": 5130,
+    "output_tokens": 992,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 2,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a inclusão do exame de glicemia no Protocolo de Urgências e Emergências do SUS, por meio de uma petição pública lançada pela Coalizão Vozes do Advocacy em Diabetes e em Obesidade, visando o diagnóstico precoce do diabetes.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 12460,
+            "end": 12634,
+            "text": "Lá consta a nossa campanha de diagnóstico precoce, a nossa VT e também a nossa petição para incluir no Protocolo de Atendimento a Urgências e Emergências o teste de glicemia.",
+            "score": 0.3837
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a inserção do medicamento Avastin no Protocolo Clínico da Degeneração Macular sem consulta pública e sem seguir os trâmites do Regimento Interno da CONITEC, argumentando que a ANVISA não é favorável ao seu uso para retinopatia diabética e que a fabricante não recomenda essa indicação.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 8103,
+            "end": 8554,
+            "text": "Hoje existe uma lei — vou colocá-la aqui para vocês —, que já foi sancionada pelo Presidente, a Lei nº 14.313, de 2022, que regulamenta a questão do uso de medicamentosoff label.Mas o que achamos, que é contra tudo o que foi feito pela CONITEC, é que esse medicamento foi colocado no Protocolo Clínico da Degeneração Macular sem passar por uma consulta pública, sem passar pelos trâmites legais do que a CONITEC sempre coloca em seu Regimento Interno.",
+            "score": 0.3467
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Saúde a responsabilização pelos efeitos colaterais do Avastin, rejeitando a prática de fazer o paciente assinar termo de responsabilidade individual, pois considera inaceitável que o paciente arque com riscos de saúde (como AVC, infarto e descolamento de retina) enquanto o Estado não assume a responsabilidade.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 9703,
+            "end": 9986,
+            "text": "O paciente precisa assinar um termo de responsabilidade que diz que\"apesar de todos os efeitos colaterais, ele fica ciente desses efeitos e que, mesmo assim, vai utilizar a medicação\", sendo que, em bula, o medicamento traz vários problemas que a pessoa pode vir a ter se o utilizar.",
+            "score": 0.2259
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a redução das filas de espera para oftalmologia no SUS, citando o caso de um paciente em São Paulo que aguarda mais de 5 meses por cirurgia no AME Barradas e relatando o agravamento dos casos no Hospital de Sorocaba devido à suspensão de ambulatórios durante a pandemia.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 6356,
+            "end": 6407,
+            "text": "Ele está na fila do AME Barradas aqui em São Paulo.",
+            "score": 0.3056
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que o Ministério da Saúde crie mecanismos para sensibilizar médicos a encaminharem pacientes diabéticos para oftalmologistas pelo menos uma vez ao ano, visando a prevenção da retinopatia.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 6964,
+            "end": 7101,
+            "text": "Então, nós precisamos sensibilizar todos os médicos que tratam as pessoas com diabetes a encaminharem os pacientes para o oftalmologista.",
+            "score": 0.3119
+          },
+          "udv": {
+            "id": "udv-68-1-2",
+            "rule": "same_sentence",
+            "score": 0.2623
+          }
+        },
+        {
+          "text": "Defende o financiamento adequado para os médicos oftalmologistas, argumentando que a falta de recursos é um entrave para a execução dos tratamentos e que a ineficiência inicial gera custos maiores no futuro, como auxílio-doença e perda de produtividade.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 24,
+            "start": 60733,
+            "end": 60897,
+            "text": "É necessário o financiamento adequado para os médicos, que relataram que esse é um entrave grande para executarem o tratamento das pessoas, que estão ficando cegas.",
+            "score": 0.2062
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita a realização de uma reunião com a representante do Ministério da Saúde, a CONITEC, a SCTIE, o CONASS e o CONASEMS para rever o protocolo e discutir a implementação prática, afirmando ter contatos para articular esse encontro.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 24,
+            "start": 59678,
+            "end": 59774,
+            "text": "Nós precisamos de uma reunião que envolva a CONITEC, porque nós quereremos rever esse protocolo.",
+            "score": 0.2687
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento da economicidade e da prevenção para justificar o investimento em tratamentos e diagnósticos precoces, afirmando que a desassistência multiplica os custos do SUS (auxílio-doença, cuidadores, perda de impostos) e que a prevenção é mais eficaz do que o tratamento da cegueira instalada.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na segurança regulatória e na aprovação da ANVISA como critério fundamental para a inclusão de medicamentos no SUS, argumentando que a ausência de aprovação para a indicação específica (retinopatia diabética) e a existência de alternativas aprovadas (Aflibercepte e Ranibizumabe) tornam o uso do Avastin inseguro e juridicamente problemático.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 7758,
+            "end": 8101,
+            "text": "Esta é uma questão que nos chama muito atenção, porque temos medo de que esse remédio, que não tem a aprovação da ANVISA para tratar inclusive a retinopatia diabética e a degeneração macular seja indicado para a retinopatia diabética, uma vez que ele tem uma série de efeitos colaterais pelos quais o Ministério da Saúde não se responsabiliza.",
+            "score": 0.1536
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a dignidade e a segurança do paciente como valores centrais, rejeitando a transferência de riscos de efeitos colaterais graves para o indivíduo e defendendo um tratamento \"seguro e digno\" garantido pelo Estado.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 12277,
+            "end": 12337,
+            "text": "Porque nós queremos um tratamento seguro e digno para todos.",
+            "score": 0.3209
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se jornalista e integrante da Coalizão Vozes do Advocacy em Diabetes e em Obesidade, coalizão formada no final de 2021 que reúne 24 associações de diabetes.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 1,
+            "start": 2176,
+            "end": 2353,
+            "text": "Vou começar dizendo que faço parte da Coalizão Vozes do Advocacy em Diabetes e em Obesidade, coalizão formada no final do ano passado, que hoje reúne 24 associações de diabetes.",
+            "score": 0.6606
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma representar diretamente mais de 30 mil brasileiros com diabetes e obesidade, com a intenção de representar os mais de 16 milhões de pessoas com diabetes e 45 milhões com obesidade no Brasil.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 1,
+            "start": 2854,
+            "end": 3039,
+            "text": "Afinal de contas, hoje nós temos no Brasil mais de 16 milhões de pessoas com diabetes e mais de 45 milhões de pessoas com obesidade, e temos também a intenção de representar todos eles.",
+            "score": 0.6716
+          },
+          "udv": {
+            "id": "udv-68-1-0",
+            "rule": "same_sentence",
+            "score": 0.5584
+          }
+        },
+        {
+          "text": "Afirma ter tido envolvimento direto na sensibilização da CONITEC para a publicação do protocolo de retinopatia diabética atualizado em dezembro de 2021.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 5490,
+            "end": 5561,
+            "text": "O protocolo foi atualizado há alguns meses, em dezembro do ano passado.",
+            "score": 0.3035
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos (150 mil diagnósticos anuais, 80% de cegueira evitável segundo a OMS) e casos pessoais (filho de uma amiga jornalista, paciente de 30 anos) para humanizar o debate e demonstrar a urgência do problema.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 5946,
+            "end": 6042,
+            "text": "Uma amiga minha tem um filho que está com diabetes, além de um problema de visão há alguns anos.",
+            "score": 0.2549
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom direto e propositivo com a representante do Ministério da Saúde, chamando-a pelo primeiro nome (Patrícia), cobrando respostas específicas e propondo a articulação imediata de reuniões com múltiplos órgãos (CONITEC, CONASS, CONASEMS).",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 32,
+            "start": 64587,
+            "end": 64640,
+            "text": "Eu tenho o contato do CONASS, do CONASEMS, de todos.",
+            "score": 0.1929
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura a fala em torno de três questões específicas para o Ministério da Saúde: sensibilização de médicos, redução de filas e posicionamento sobre o Avastin.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 2,
+            "start": 11774,
+            "end": 11845,
+            "text": "Então, quero deixar três questões para o Ministério da Saúde responder.",
+            "score": 0.3237
+          },
+          "udv": null
+        },
+        {
+          "text": "Demonstra empatia e emoção ao relatar o sofrimento dos pacientes, utilizando expressões como \"quebrar o nosso coração\" e \"emocionada\" para reforçar o apelo humanitário.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 45,
+            "start": 70772,
+            "end": 70843,
+            "text": "Arnaldo comentou é de quebrar o nosso coração e nos deixar emocionados.",
+            "score": 0.2053
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 68,
+      "split": "train",
+      "article_date": "2022-08-17",
+      "title": "Debatedores apontam falhas no protocolo do SUS para o tratamento da retinopatia diabética",
+      "assunto": "Falhas no protocolo do SUS para o tratamento da retinopatia diabética",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 105,
+      "split": "test",
+      "article_date": "2024-04-11",
+      "title": "SUS precisa atualizar protocolo de tratamento de edema macular diabético, cobram especialistas",
+      "assunto": "Atualização do protocolo de tratamento de edema macular diabético no SUS",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-68-1-0",
+      "hearing_id": 68,
+      "n": 5,
+      "article_name": "Vanessa Pirolo",
+      "proposition": "Existem 16 milhões de pessoas com diabetes no País atualmente.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Afinal de contas, hoje nós temos no Brasil mais de 16 milhões de pessoas com diabetes e mais de 45 milhões de pessoas com obesidade, e temos também a intenção de representar todos eles. Atuamos em várias frentes, inclusive a que trata do diagnóstico precoce.",
+        "turn": 1,
+        "start": 2854,
+        "end": 3113
+      },
+      "verifier": {
+        "probability": 0.9578228655441551,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-68-1-1",
+      "hearing_id": 68,
+      "n": 6,
+      "article_name": "Vanessa Pirolo",
+      "proposition": "\"São 150 mil brasileiros diagnosticados, por ano, com retinopatia diabética. É um dado significativo e impactante, porque, segundo a Organização Mundial da Saúde, 80% de todos os casos de cegueira no País poderiam ser evitados.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "São 150 mil brasileiros por ano diagnosticados com retinopatia diabética. É um dado supersignificativo e impactante.",
+        "turn": 2,
+        "start": 4537,
+        "end": 4653
+      },
+      "verifier": {
+        "probability": 0.5143411692200711,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-68-1-2",
+      "hearing_id": 68,
+      "n": 7,
+      "article_name": "Vanessa Pirolo",
+      "proposition": "\"A pessoa com diabetes, no mínimo, tem que passar uma vez ao ano para fazer o exame adequado nos olhos e para ver como está o controle da doença.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, nós precisamos sensibilizar todos os médicos que tratam as pessoas com diabetes a encaminharem os pacientes para o oftalmologista. Eu queria sensibilizar o Ministério da Saúde no sentido de conseguirmos fazer esse tipo de coisa, como podemos encaminhá-las, porque a pessoa com diabetes tem que, no mínimo, uma vez ao ano, fazer um exame adequado nos olhos e constatar como ela está com relação ao diabetes.",
+        "turn": 2,
+        "start": 6964,
+        "end": 7377
+      },
+      "verifier": {
+        "probability": 0.9837954746676811,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-105-1-0",
+      "hearing_id": 105,
+      "n": 2,
+      "article_name": "Vanessa Pirolo",
+      "proposition": "Se o Estado investir mais na prevenção, o número de pessoas improdutivas pode cair: \"[Se a pessoa tiver a doença], vai requerer do Estado uma aposentadoria antecipada, vai precisar de cuidador, de investimento, e esse custo vai aumentar assustadoramente no futuro. Precisamos trabalhar com a prevenção.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E assim ela vai precisar de um cuidador, ela vai precisar de investimento, e esse custo vai aumentar assustadoramente no futuro. Então, hoje nós precisamos trabalhar com a prevenção.",
+        "turn": 2,
+        "start": 8818,
+        "end": 9001
+      },
+      "verifier": {
+        "probability": 0.6103800160607128,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-105-1-1",
+      "hearing_id": 105,
+      "n": 3,
+      "article_name": "Vanessa Pirolo",
+      "proposition": "Os gastos hoje com diabetes superam 43 bilhões de dólares ao ano, e 60% desse valor cobre complicações da doença.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Os gastos hoje com diabetes superam 43 milhões de dólares ao ano, e 60% desses gastos são com complicações do diabetes. Gente, vamos investir na prevenção, vamos reverter esse dinheiro em prevenção!",
+        "turn": 2,
+        "start": 9937,
+        "end": 10135
+      },
+      "verifier": {
+        "probability": 0.5272497109595631,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "actor": {
+    "slug": "carol-dartora",
+    "name": "CAROL DARTORA",
+    "display_name": "CAROL DARTORA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:30:36+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      170,
+      206
+    ],
+    "input_tokens": 3123,
+    "output_tokens": 886,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que as crianças são sujeitos de direitos e afirma que a primeira infância é o período de construção da identidade, o que torna complexo o enfrentamento do racismo quando a criança negra chega à escola.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 21,
+            "start": 73099,
+            "end": 73278,
+            "text": "Quando nós pensamos em infância e em racismo, a conversa fica mais complexa, porque nós temos dificuldade na construção da identidade da criança negra, quando esta chega à escola.",
+            "score": 0.4271
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de representatividade racial nos Centros Municipais de Educação Infantil (CMEIs), citando o caso de uma fachada com foto de criança branca, e aponta a falta de identificação como obstáculo à construção da identidade da criança negra.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 21,
+            "start": 73279,
+            "end": 73377,
+            "text": "Eu tenho uma amiga que pesquisa a realidade dos Centros Municipais de Educação Infantil, os CMEIs.",
+            "score": 0.3224
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a falta de direito das crianças à cidade, especialmente das meninas negras, ao relatar o assassinato de uma menina de 9 anos em uma ocupação urbana em Curitiba, local que, segundo ela, não possuía regularização, saneamento básico, creche, escola integral ou atividades de segundo turno.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 21,
+            "start": 74417,
+            "end": 74506,
+            "text": "Não existe uma atividade de segundo turno, não existe creche, não existe escola integral!",
+            "score": 0.3209
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção e a celebração da Lei de Cotas (Lei 12.711/12) após 10 anos de vigência, classificando-a como política efetiva que quebra ciclos históricos de pobreza de famílias negras e promove inclusão mais rápida.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 26284,
+            "end": 26601,
+            "text": "E aqui chegamos aos 10 anos colhendo muitos frutos, porque foi essa política que, além de quebrar ciclos históricos de pobreza de famílias negras, promoveu de forma muito mais rápida a inclusão, oxigenou o universo da pesquisa, o que também permitiu que avançássemos nas políticas afirmativas e nas políticas raciais.",
+            "score": 0.312
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que as cotas oxigenaram o universo da pesquisa e permitiram avanços nas políticas afirmativas e raciais, comparando o tempo necessário para promover a inclusão: 100 anos sem cotas contra 20 anos com cotas.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 26185,
+            "end": 26283,
+            "text": "Costumamos dizer que, para promover a inclusão sem cotas, são 100 anos, e, com cotas, são 20 anos.",
+            "score": 0.4779
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica os ataques à política de cotas, argumentando que a forte reação contra ela demonstra a força e a resistência do movimento negro e das pessoas na luta antirracista.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 26814,
+            "end": 27026,
+            "text": "Acho que isso também fala da força e da resistência de todos os agentes do movimento negro e das pessoas que estão na luta antirracista, porque nenhuma outra política teve tanta reação quanto a política de cotas.",
+            "score": 0.5202
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita os discursos de meritocracia e as tentativas de deslegitimação das cotas raciais, citando como exemplo uma edição da revista Veja que utilizava carga genética para afirmar que seria impossível definir quem é negro no Brasil.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 27403,
+            "end": 27536,
+            "text": "Dessa forma, seria impossível dizer quem é negro no Brasil e, portanto, não haveria como as cotas raciais serem aplicadas neste País.",
+            "score": 0.2615
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aplicação de cotas nos serviços públicos municipais, tendo aprovado essa política em Curitiba em 2021, e critica a cobertura jornalística que descreveu a medida como contratação \"meramente pela cor da pele\" e a irrelevância do mérito.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 27951,
+            "end": 28018,
+            "text": "Curitiba vai ter que contratar pessoas meramente pela cor da pele\".",
+            "score": 0.2915
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a condição de sujeito de direito da criança como fundamento para criticar a falta de infraestrutura urbana e educacional em ocupações, argumentando que a violência contra a infância se aprofunda quando se cruzam as categorias de raça e gênero.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 21,
+            "start": 72889,
+            "end": 72992,
+            "text": "Eu acho que o primeiro esforço é entender que toda criança também é sujeito de direito nesta sociedade.",
+            "score": 0.1743
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a efetividade histórica e comparativa das políticas de cotas (no Brasil e em outros países) como critério para justificar a manutenção da Lei 12.711/12, contrapondo os resultados práticos da política às narrativas de meritocracia.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Invoca a experiência histórica de exclusão e pobreza das famílias negras para justificar a necessidade de políticas afirmativas, posicionando o racismo como o maior problema social no Brasil.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 25411,
+            "end": 25687,
+            "text": "Começo parabenizando a Deputada Dandara por esta proposição, por ser Relatora dessa política que é tão importante para nós, do Movimento Negro, pessoas negras, que há tanto tempo estamos fazendo a luta no combate ao racismo, que é o nosso maior problema social hoje no Brasil.",
+            "score": 0.2394
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se integrante do Movimento Negro e da luta antirracista, identificando-se com as pessoas negras e com a resistência contra o racismo.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 26814,
+            "end": 27026,
+            "text": "Acho que isso também fala da força e da resistência de todos os agentes do movimento negro e das pessoas que estão na luta antirracista, porque nenhuma outra política teve tanta reação quanto a política de cotas.",
+            "score": 0.3526
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Vereadora na cidade de Curitiba, onde aprovou cotas nos serviços públicos municipais em 2021.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 27705,
+            "end": 27850,
+            "text": "Só para ter uma noção dessa resistência, quando fui Vereadora na cidade de Curitiba, aprovamos cotas nos serviços públicos municipais lá em 2021.",
+            "score": 0.5808
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita-se como moradora de Curitiba, onde acompanhou de perto o contexto de violência em uma ocupação urbana.",
+          "passage": {
+            "hearing_id": 170,
+            "turn": 21,
+            "start": 74264,
+            "end": 74323,
+            "text": "Ao visitar a ocupação, eu pude ver o contexto da violência.",
+            "score": 0.3509
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Recorre a casos concretos e relatos pessoais para ilustrar as posições, como a visita a uma ocupação urbana em Curitiba e a observação de uma amiga em CMEIs, para sustentar argumentos sobre racismo na infância.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados e comparações numéricas para defender as cotas, como a estimativa de 100 anos versus 20 anos para a inclusão e a menção à composição da Câmara (513 Deputados, 9 mulheres negras).",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 26185,
+            "end": 26283,
+            "text": "Costumamos dizer que, para promover a inclusão sem cotas, são 100 anos, e, com cotas, são 20 anos.",
+            "score": 0.3442
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos midiáticos e jornalísticos específicos, como a capa da revista Veja e a manchete de jornal sobre as cotas em Curitiba, para evidenciar os ataques e discursos de meritocracia que a política enfrenta.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 12,
+            "start": 27538,
+            "end": 27659,
+            "text": "Então, houve um esforço muito grande para desmistificarmos os discursos de meritocracia que até hoje incidem sobre cotas.",
+            "score": 0.1575
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom celebrativo e mobilizador ao final das falas, parabenizando a audiência e incentivando a continuidade da luta (\"Vamos juntas e juntos. E viva as cotas!\").",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 170,
+      "split": "train",
+      "article_date": "2023-06-29",
+      "title": "Movimentos sociais denunciam o racismo na primeira infância",
+      "assunto": "Denúncia do racismo na primeira infância debatida na Comissão de Direitos Humanos da Câmara dos Deputados",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 206,
+      "split": "train",
+      "article_date": "2023-06-30",
+      "title": "Revisão deve servir para melhorar a Lei de Cotas, diz especialista",
+      "assunto": "Revisão e aprimoramento da Lei de Cotas (Lei 12.711/12)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

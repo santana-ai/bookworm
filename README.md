@@ -26,7 +26,7 @@ flowchart LR
 ```
 
 Uma audiência da Câmara dos Deputados tem, em média, 18.102 palavras de transcrição; a matéria que a
-cobre tem 627 e não diz em que ponto da fala cada opinião foi dita. Cada ligação que o bookworm grava é
+cobre tem 627, e o dataset não liga cada opinião atribuída ao trecho da transcrição de onde ela veio. Cada ligação que o bookworm grava é
 uma **UDV (Unidade Deliberativa Verificável)**, construída sobre o dataset
 [PublicHearingBR](https://huggingface.co/datasets/unicamp-dl/PublicHearingBR) para o desafio Ideias em
 Rede, 1ª edição (Instituto Kunumi).
@@ -68,6 +68,27 @@ validação humana.
 > 52. Os números de `udv_v2` supõem que 78 itens cuja evidência nova contém o trecho antigo herdam o
 > rótulo de `udv_v1`, premissa não medida. Há um anotador, e nem a revocação da busca nem a
 > concordância intra-anotador são estimáveis ([relatório, seção 10](docs/report.md#10-limitações)).
+
+## Ver a visualização
+
+Os dados da demo já estão no repositório (`bookworm/web/app/data/`, gerados da rodada `udv_v2` com a
+validação humana final). Não é preciso instalar o projeto, baixar o dataset nem rodar modelo: basta
+Python 3 (qualquer versão) e um navegador com internet (as fontes e as bibliotecas D3 e GSAP vêm de CDN).
+
+```bash
+git clone https://github.com/santana-ai/bookworm.git
+cd bookworm/bookworm/web/app
+python3 -m http.server 8000
+```
+
+Abra <http://localhost:8000/> no navegador. No Windows, use `py -m http.server 8000`. Para parar, `Ctrl+C`
+no terminal. Abrir o `index.html` direto pelo explorador de arquivos não funciona, porque o navegador
+bloqueia a leitura dos arquivos JSON fora de um servidor.
+
+O que a demo mostra: a lista das 206 matérias; para cada audiência, a opinião atribuída, o trecho
+escolhido na fala da pessoa, as candidatas, o cosseno e a probabilidade do verificador; e uma página por
+ator com o perfil. Para gerar os dados de novo a partir da rodada, veja o
+[README da demo](bookworm/web/README.md#gerar-os-dados).
 
 ## Rode em 3 comandos
 

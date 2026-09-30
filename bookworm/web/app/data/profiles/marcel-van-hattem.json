@@ -1,0 +1,479 @@
+{
+  "actor": {
+    "slug": "marcel-van-hattem",
+    "name": "Marcel van Hattem",
+    "display_name": "Marcel van Hattem",
+    "role": "Deputado (Novo-RS)",
+    "article_names": [
+      "Marcel van Hattem"
+    ],
+    "party_uf": [
+      "NOVO - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:01:03+00:00",
+    "n_statements": 51,
+    "n_hearings": 2,
+    "hearing_ids": [
+      153,
+      201
+    ],
+    "input_tokens": 16237,
+    "output_tokens": 932,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 2,
+    "passage_only": 16,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a individualização das condutas dos presos relacionados aos atos de 8 de janeiro, criticando o Judiciário por tratar todos os presentes como se tivessem atuado da mesma forma, o que considera um \"completo absurdo\" em matéria de Direito Constitucional e Penal.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 37,
+            "start": 50117,
+            "end": 50190,
+            "text": "Isso é um completo absurdo, em matéria de Direito Constitucional e Penal.",
+            "score": 0.5344
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Ministro Alexandre de Moraes do Supremo Tribunal Federal, a quem chama de \"algoz\" e \"cruel\", e o Senador Randolfe Rodrigues, a quem acusa de ter feito um pedido de prisão \"completamente incompetente\" por falta de competência legal.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 168,
+            "start": 196116,
+            "end": 196245,
+            "text": "Ministro do Supremo Tribunal Federal Ministro Alexandre de Moraes, esse é o título no documento, à Ordem dos Advogados do Brasil.",
+            "score": 0.3475
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o envio de um pedido de desagravo público em face do Ministro Alexandre de Moraes à Ordem dos Advogados do Brasil (OAB), documentando as violações de prerrogativas e abusos cometidos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 168,
+            "start": 196116,
+            "end": 196245,
+            "text": "Ministro do Supremo Tribunal Federal Ministro Alexandre de Moraes, esse é o título no documento, à Ordem dos Advogados do Brasil.",
+            "score": 0.3455
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a ampliação da linha de crédito do BNDES para grandes empresas afetadas pelas enchentes no Rio Grande do Sul, argumentando que é necessário garantir o emprego e a permanência das pessoas, além da reconstrução da moradia e da infraestrutura.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 1,
+            "start": 8977,
+            "end": 9217,
+            "text": "Medidas de curto prazo precisam ser tomadas para resolvermos o problema da reconstrução dos Municípios, mas é claro que é preciso também tomar decisões que garantam o emprego e a permanência das pessoas, além da reconstrução da sua moradia.",
+            "score": 0.2955
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a liberação de recursos da bancada gaúcha (estimados em 100 milhões de reais) para a região do Vale do Taquari, destacando a dificuldade técnica de alocação em uma única rubrica de emenda.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 162,
+            "start": 260575,
+            "end": 260862,
+            "text": "A dificuldade é encontrar uma forma de colocar os 100 milhões de reais que a bancada está disposta, mais de 300 do que tem disponível, para uma única dessas 14 rubricas, porque, obviamente, há outras rubricas que precisarão ser abertas, na saúde, na segurança, nos projetos de estrutura.",
+            "score": 0.2518
+          },
+          "udv": {
+            "id": "udv-153-2-0",
+            "rule": "same_sentence",
+            "score": 0.2747
+          }
+        },
+        {
+          "text": "Propõe a flexibilização de compromissos trabalhistas nos moldes da pandemia da COVID para preservar empregos nas empresas atingidas pelas enchentes.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 184,
+            "start": 268865,
+            "end": 268976,
+            "text": "Foi muito importante para preservar empregos e agora pode ser aproveitado também para as vítimas das enchentes.",
+            "score": 0.3239
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a realização de uma nova audiência pública em até 60 dias para acompanhamento periódico das soluções, evitando que o tema caia no esquecimento.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 184,
+            "start": 269303,
+            "end": 269407,
+            "text": "Acho que é importante nós fazermos um acompanhamento disso periódico, para que não caia no esquecimento.",
+            "score": 0.4265
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a proporcionalidade dos atos como critério fundamental para o tratamento jurídico, argumentando que cada indivíduo deve ser tratado de acordo com a gravidade de sua conduta, e não pela \"conveniência da cabeça de um juiz\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 39,
+            "start": 50731,
+            "end": 50975,
+            "text": "Mas cada um, mesmo aqueles que quebraram e depredaram, tem que ser tratado de acordo com a proporcionalidade dos seus atos, e não de acordo com a conveniência da cabeça de um juiz, que, ao mesmo tempo, tem agido como vítima e também como algoz.",
+            "score": 0.4041
+          },
+          "udv": {
+            "id": "udv-201-0-0",
+            "rule": "same_sentence",
+            "score": 0.3307
+          }
+        },
+        {
+          "text": "Utiliza a experiência direta e a observação in loco como fundamento para suas posições, citando visitas aos presídios de Papuda e Colmeia e às cidades de Muçum e Roca Sales para justificar a urgência das medidas.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 342,
+            "start": 434705,
+            "end": 434754,
+            "text": "já estava envolvido com as visitas aos presídios.",
+            "score": 0.2207
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a solidariedade e a união política acima das divergências ideológicas, destacando a atuação conjunta de parlamentares de diferentes partidos e do governo em situações de calamidade.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 118,
+            "start": 195990,
+            "end": 196140,
+            "text": "Eu não havia visto ainda uma audiência pública com Deputados de tão diferentes partidos concordando e trabalhando em conjunto por uma causa como esta.",
+            "score": 0.1716
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a empatia e a rejeição à polarização e à radicalização de discursos, argumentando que a sociedade brasileira foi vítima de um processo de ideologização que não faz bem a ninguém.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 342,
+            "start": 438767,
+            "end": 439023,
+            "text": "Se olharmos historicamente, nós fomos vítimas — nós todos, a sociedade brasileira — de um processo de ideologização e de polarização que não está fazendo bem para ninguém, um processo de radicalização de discursos, que, inclusive, não faz bem para ninguém.",
+            "score": 0.6565
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal e membro da Comissão de Segurança Pública e Combate ao Crime Organizado, onde atua como autor de requerimentos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 1,
+            "start": 5598,
+            "end": 5762,
+            "text": "É proposta minha e dele esta audiência pública, apoiada pela Comissão de Segurança Pública e Combate ao Crime Organizado, para que pudesse acontecer no dia de hoje.",
+            "score": 0.4305
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parte da Oposição na Câmara dos Deputados, mas afirma que, em temas de calamidade pública, a atuação é conjunta com o Governo Federal.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 1,
+            "start": 7023,
+            "end": 7309,
+            "text": "Todos aqui sabem da minha atuação como Oposição e sabem do comprometimento de ambos, obviamente, com o Governo, mas aqui fica muito claro que o tema não é de governo ou de oposição, muito menos de omissão, é o de encontrarmos em conjunto as soluções de que nós precisamos para a região.",
+            "score": 0.2435
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se representante da bancada gaúcha, tendo coordenado a destinação de emendas parlamentares individuais (cerca de 1,9 milhão de reais) para os municípios mais atingidos pelas enchentes.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 1,
+            "start": 11018,
+            "end": 11073,
+            "text": "Era estimado algo em torno de 1 milhão e meio de reais.",
+            "score": 0.1921
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido ao lado do Deputado Sanderson e do Deputado Ramagem na autoria de requerimentos para audiências públicas sobre o 8 de janeiro.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 342,
+            "start": 432882,
+            "end": 432956,
+            "text": "Então, fico muito contente, Deputado Sanderson, de estar ao lado de V.Exa.",
+            "score": 0.2688
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza relatos pessoais e visitas técnicas como base para sustentar suas críticas e propostas, descrevendo cenas específicas (como a exposição de ônibus ou a destruição de bairros) para gerar impacto emocional.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de indignação controlada ao tratar de abusos judiciais, usando termos fortes como \"crueldade indescritível\" e \"algoz\", mas mantém a cordialidade e o agradecimento constante aos colegas e autoridades presentes.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 342,
+            "start": 435338,
+            "end": 435370,
+            "text": "Mas a crueldade é indescritível.",
+            "score": 0.3035
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura suas falas com agradecimentos detalhados a cada grupo de participantes (prefeitos, ministros, advogados) antes de entrar no mérito, demonstrando um estilo protocolar e inclusivo.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Quando preside a sessão, organiza os trabalhos de forma pragmática, negociando tempos de fala e priorizando a presença de autoridades locais para garantir a eficiência da audiência.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 84,
+            "start": 149954,
+            "end": 150048,
+            "text": "Pelo contrário, é só para garantir que todo mundo consiga falar e para organizar os trabalhos.",
+            "score": 0.1586
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita documentos e ações concretas (como o protocolo na ONU em Genebra e Nova Iorque) para demonstrar a extensão das medidas tomadas, refutando críticas da imprensa com fatos e registros públicos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 342,
+            "start": 436682,
+            "end": 436774,
+            "text": "Sobre a ONU, realmente, estivemos lá em Nova Iorque por iniciativa do Senador Eduardo Girão.",
+            "score": 0.2142
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 1,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Jornalistas acusam Alexandre de Moraes de censura ao exigir bloqueio de contas da rede social X",
+      "assunto": "Acusações de censura contra Alexandre de Moraes por exigir bloqueio de contas na rede social X",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 4
+    },
+    {
+      "id": 100,
+      "split": "test",
+      "article_date": "2024-04-24",
+      "title": "Autoridades defendem acesso direto a dados de conexão de abusadores de crianças",
+      "assunto": "Acesso direto a dados de conexão de abusadores de crianças em investigações de crimes sexuais contra crianças e adolescentes",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 30,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 21,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-1-2-0",
+      "hearing_id": 1,
+      "n": 7,
+      "article_name": "Marcel van Hattem",
+      "proposition": "Destacou que foi um dos parlamentares alvo de pedidos de remoção de conteúdo em processo sigiloso e que vai solicitar o fim do sigilo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quarto ponto: não há razão para que este processo esteja sob sigilo. Por isso, Sr. Presidente, também quero informar que estamos entrando com um pedido para levantar o sigilo do meu processo, e também já faço a solicitação à CREDN que solicite que todos os processos tenham os seus sigilos quebrados.",
+        "turn": 21,
+        "start": 46686,
+        "end": 46986
+      },
+      "verifier": {
+        "probability": 0.607577336004416,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-1-2-1",
+      "hearing_id": 1,
+      "n": 8,
+      "article_name": "Marcel van Hattem",
+      "proposition": "Afirmou que está em curso \"um processo industrial de censura\" e de \"perseguição covarde contra desafetos\" do ministro Alexandre de Moraes.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Presidente, sabemos como o Estado é ineficiente, e até para censurar está sendo ineficiente, está fazendo confusão. É um complexo industrial fajuto, mas que está perseguindo ilegalmente.",
+        "turn": 21,
+        "start": 51121,
+        "end": 51307
+      },
+      "verifier": {
+        "probability": 0.2253325142574131,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-1-2-2",
+      "hearing_id": 1,
+      "n": 9,
+      "article_name": "Marcel van Hattem",
+      "proposition": "\"A censura não pode prevalecer, e a liberdade de expressão tem que ser regra, porque sem liberdade de expressão não há democracia, sem devido processo legal não há democracia.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Sem liberdade de expressão, não há democracia; sem o devido processo legal, não há democracia. Essa censura política e jurídica, covarde, porque os processos são todos sob sigilo, precisa acabar no País.",
+        "turn": 63,
+        "start": 120149,
+        "end": 120352
+      },
+      "verifier": {
+        "probability": 0.9892182965645964,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-1-2-3",
+      "hearing_id": 1,
+      "n": 10,
+      "article_name": "Marcel van Hattem",
+      "proposition": "Afirmou que uma convidada indicada por Chinaglia foi convidada, mas não compareceu, assim como o representante da plataforma X.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "— para não dizer comigo também, como proponente, e com o Deputado Eduardo Bolsonaro — dizer que nós descumprimos qualquer acordo ou que nós fizemos desta audiência pública uma audiência pública desequilibrada, ainda mais mencionando também que outro convidado não compareceu, que seria um representante do X. Seria muito importante que tivéssemos também aqui esse representante.",
+        "turn": 63,
+        "start": 113024,
+        "end": 113402
+      },
+      "verifier": {
+        "probability": 0.36047157899674603,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-153-2-0",
+      "hearing_id": 153,
+      "n": 6,
+      "article_name": "Marcel van Hattem",
+      "proposition": "Informou que os parlamentares vão se reunir para solucionar questões técnicas para viabilizar o envio do recurso: \"A dificuldade é encontrar uma forma de colocar os R$ 100 milhões que a bancada está disposta dos mais de R$ 300 milhões que tem disponível para uma única rubrica, porque obviamente há outras que precisam ser abertas na saúde, na segurança e para projetos de estrutura\".",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "A dificuldade é encontrar uma forma de colocar os 100 milhões de reais que a bancada está disposta, mais de 300 do que tem disponível, para uma única dessas 14 rubricas, porque, obviamente, há outras rubricas que precisarão ser abertas, na saúde, na segurança, nos projetos de estrutura.",
+        "turn": 162,
+        "start": 260575,
+        "end": 260862
+      },
+      "verifier": {
+        "probability": 0.58812972252192,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-201-0-0",
+      "hearing_id": 201,
+      "n": 1,
+      "article_name": "Marcel van Hattem",
+      "proposition": "O Judiciário não está tendo o cuidado de individualizar as condutas dos presos: \"Cada um, mesmo aqueles que depredaram, que quebraram, tem que ser tratado de acordo com a proporcionalidade dos seus atos, e não de acordo com a conveniência da cabeça de um juiz, que ao mesmo tempo tem agido como vítima e como algoz.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu entendo a sua manifestação, mas respeitosamente discordo de V.Exa., e entendo que eles deveriam ter sido tratados lá atrás, em 2017, com o rigor da lei, com o que tenho certeza V.Exa. concorda. Mas cada um, mesmo aqueles que quebraram e depredaram, tem que ser tratado de acordo com a proporcionalidade dos seus atos, e não de acordo com a conveniência da cabeça de um juiz, que, ao mesmo tempo, tem agido como vítima e também como algoz.",
+        "turn": 39,
+        "start": 50534,
+        "end": 50975
+      },
+      "verifier": {
+        "probability": 0.7919312136608848,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-201-0-1",
+      "hearing_id": 201,
+      "n": 2,
+      "article_name": "Marcel van Hattem",
+      "proposition": "Lamentou o não comparecimento de seis convidados ao debate, como o ministro Alexandre de Moraes e o diretor-geral da Polícia Federal, Andrei Rodrigues.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "São seis os convidados que lamentavelmente não estão conosco hoje: Senador Paulo Paim, Presidente da Comissão de Direitos Humanos e Legislação Participativa do Senado Federal, que foi convidado, mas não está conosco; Gustavo de Almeida Ribeiro, Defensor Público Federal. É importantíssimo que a Defensoria Pública se faça presente.",
+        "turn": 1,
+        "start": 8286,
+        "end": 8617
+      },
+      "verifier": {
+        "probability": 0.3045014675392012,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

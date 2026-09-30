@@ -1,0 +1,408 @@
+{
+  "actor": {
+    "slug": "max-maciel",
+    "name": "MAX MACIEL",
+    "display_name": "Max Maciel",
+    "role": "Deputado distrital",
+    "article_names": [
+      "Max Maciel"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:25:58+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      42,
+      47
+    ],
+    "input_tokens": 4630,
+    "output_tokens": 1095,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 26,
+    "with_udv": 2,
+    "passage_only": 21,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação da PEC 25/23 para estabelecer a tarifa zero no transporte público, argumentando que o debate já não é sobre \"como\" ou \"quem\" paga, mas sobre \"quando\" o Brasil será 100% tarifa zero.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 55595,
+            "end": 55691,
+            "text": "O debate não é mais sobre como ou sobre quem paga, mas quando o Brasil vai ser 100% tarifa zero.",
+            "score": 0.5507
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a tarifa zero seja implementada com \"construção popular\", definição de rotas e domínio público sobre o sistema, rejeitando a mercantilização do transporte.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 56295,
+            "end": 56440,
+            "text": "Nós queremos tarifa zero, mas queremos tarifa zero com construção popular, com definição de rotas e com domínio público sobre o sistema.(Palmas.)",
+            "score": 0.5833
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a iniciativa privada e a \"Direita\" por buscarem salvar seus negócios falidos através da concessão pública, apontando que o modelo atual já faliu.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 56171,
+            "end": 56293,
+            "text": "A questão é que este negócio já faliu, e esta é a forma que eles estão buscando para salvar seus negócios e suas empresas.",
+            "score": 0.2846
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que, no Distrito Federal, o custo do transporte é de 3 bilhões e 700 milhões de reais, dos quais 70% já são pagos pela população em forma de subsídio, e questiona por que o Estado não paga os 100% com controle popular.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 57232,
+            "end": 57317,
+            "text": "Destes 3 bilhões e 700 milhões, 70% já são pagos pela população em forma de subsídio.",
+            "score": 0.5461
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia que há lucro para alguém no sistema atual, já que o serviço é prestado com o custo coberto, enquanto a população não tem transparência sobre horários e rotas.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 57493,
+            "end": 57736,
+            "text": "Nós vamos chegar ao cálculo de que, com estes 3 bilhões e 700 milhões de reais, sem dúvida nenhuma, com a quantidade de linha que nós temos e com o serviço que é prestado, este sistema já está sendo pago há muito tempo, e alguém está lucrando!",
+            "score": 0.2234
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a Lei Paulo Gustavo como instrumento para o desenvolvimento da economia criativa e solidária, criticando a bancada que a considera desperdício financeiro.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 14,
+            "start": 34033,
+            "end": 34368,
+            "text": "Eu quero só reforçar que precisamos reconhecer a Lei Paulo Gustavo como um apoio ao desenvolvimento da economia criativa e da economia solidária neste País, e que, assim que os Estados implementaram, nós temos o compromisso de fiscalizar, de acompanhar, mas, sobretudo, de consumir também o que vai ser produzido e gerado nesse espaço.",
+            "score": 0.3077
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a produção audiovisual movimenta a cadeia produtiva local (aluguel de espaços, contratação de atores, figurinistas, cenógrafos), gerando retorno à sociedade, diferentemente de isenções para grandes empresas.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 14,
+            "start": 33130,
+            "end": 33307,
+            "text": "Temos que alugar espaços, temos que contratar pessoas, sejam atores, sejam figurinistas, sejam cenógrafos, temos que comprar os equipamentos necessários para produzir isso tudo.",
+            "score": 0.2099
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Cultura a orientação normativa para facilitar a aplicação da lei por Estados e Municípios, evitando que Prefeitos deixem de usar os recursos por falta de capacidade técnica.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 12,
+            "start": 26975,
+            "end": 27415,
+            "text": "Eu queria falar especificamente sobre a Lei Paulo Gustavo e saudar aqui a importância de o Ministério da Cultura não só lançar a lei, não só racionalizar também o processo do orçamento gerado pela própria indústria cinematográfica, mas também balizar todo o arcabouço normativo do edital, com orientação para facilitar, inclusive, que Estados e Municípios consigam aplicar a lei, mas também consigam fazer com que o recurso chegue na ponta.",
+            "score": 0.2245
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a reserva de rubrica (cita 15%) para aquisição de equipamentos e reformas de equipamentos culturais, visando criar cineclubes e salas de cinema em territórios periféricos.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 12,
+            "start": 28846,
+            "end": 29029,
+            "text": "Há um normativo legal na Lei Paulo Gustavo que permite a aquisição de equipamentos e reformas de equipamentos culturais que sejam impulsionadores do cinema brasileiro nos territórios.",
+            "score": 0.3917
+          },
+          "udv": {
+            "id": "udv-47-2-0",
+            "rule": "same_sentence",
+            "score": 0.2305
+          }
+        },
+        {
+          "text": "Critica a concentração de 90 salas de cinema na região central de Brasília, enquanto Ceilândia, com 400 mil habitantes, não possui nenhuma, apontando uma lógica de privatização do lazer e da cultura.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 12,
+            "start": 29237,
+            "end": 29361,
+            "text": "Ela tem 400 mil habitantes e nenhuma sala de cinema, enquanto a região central de Brasília reúne mais de 90 salas de cinema.",
+            "score": 0.6505
+          },
+          "udv": {
+            "id": "udv-47-2-0",
+            "rule": "similar_text",
+            "score": 0.3821
+          }
+        },
+        {
+          "text": "Propõe a ocupação de novas mídias (TikTok, Instagram) com narrativas periféricas para disputar o espaço na internet contra a propagação de fake news.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 14,
+            "start": 30962,
+            "end": 31328,
+            "text": "Ao ocuparmos as novas mídias, como o TikTok, o Instagram e outras tantas plataformas que têm surgido com a produção audiovisual, dependendo da qualidade do que nós apresentamos nesses espaços, nós também disputamos nesse ambiente, que é a Internet, que quase sempre é propulsora defake news, a ocupação desse espaço com linguagens e narrativas fundamentais para nós.",
+            "score": 0.3977
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Sustenta que política pública e direito público devem servir ao povo e não ao lucro, utilizando esse princípio para defender a tarifa zero e criticar a mercantilização do transporte.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 55764,
+            "end": 55901,
+            "text": "É importante dizer que o debate sobre política pública, sobre direito público, é que estes são para servir ao povo, e não para dar lucro.",
+            "score": 0.472
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o argumento da \"privatização do acesso à cultura\" para justificar a necessidade de equipamentos públicos e difusão local, opondo-se à lógica de mercado que exige pagamento caro pelo acesso.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 12,
+            "start": 29362,
+            "end": 29530,
+            "text": "Essas 90 salas de cinemas estão concentradas numa lógica de privatização do lazer e de privatização do acesso à cultura em que é preciso pagar para acessá-las — e caro.",
+            "score": 0.2847
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na perspectiva de \"territórios periféricos\" e \"lideranças políticas pretas e periféricas\", defendendo que a população deve \"falar sobre si mesma\" e \"se enxergar na tela\", em oposição a narrativas restritas a grandes produtoras.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 58946,
+            "end": 59048,
+            "text": "Este País viveu um momento nessa história de perseguição às lideranças políticas pretas e periféricas.",
+            "score": 0.2377
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o conceito de \"direito à cidade\" e \"cidadania\" para justificar a tarifa zero, citando o impacto de 30% da renda dos mais empobrecidos.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 58102,
+            "end": 58357,
+            "text": "Por isso, estamos aqui lutando para que esta PEC seja aprovada e para que todos os Estados, a União e os Municípios consigam encarar esta situação como um direito social e um direito à cidade, à cidadania, o que impacta 30% da renda dos mais empobrecidos.",
+            "score": 0.383
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a transparência e o retorno social da cultura com a opacidade das isenções fiscais para montadoras (cita 20 bilhões em isenções), argumentando que a população não deve bancar o financiamento de carros de passeio.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 58359,
+            "end": 58493,
+            "text": "Quando as pessoas falam sobre quem paga a conta, ninguém debate, por exemplo, que as montadoras já têm 20 bilhões em isenções fiscais.",
+            "score": 0.3593
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Transporte e Mobilidade Urbana na Câmara Legislativa do Distrito Federal.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 56559,
+            "end": 56700,
+            "text": "Estou hoje Presidente da Comissão de Transporte e Mobilidade Urbana na Câmara Legislativa e criamos a Subcomissão para debater a tarifa zero.",
+            "score": 0.5946
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser correligionário do Deputado Tarcísio Motta, ambos do PSOL.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 12,
+            "start": 26544,
+            "end": 26634,
+            "text": "Saúdo também o Deputado Tarcísio Motta, somos correligionários de partido, também do PSOL.",
+            "score": 0.4641
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante de movimentos sociais e da base popular, solidarizando-se com a luta contra a violência política e a perseguição a lideranças pretas e periféricas.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 58946,
+            "end": 59048,
+            "text": "Este País viveu um momento nessa história de perseguição às lideranças políticas pretas e periféricas.",
+            "score": 0.2861
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a criação de uma Subcomissão para debater a tarifa zero na Câmara Legislativa do DF.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 56559,
+            "end": 56700,
+            "text": "Estou hoje Presidente da Comissão de Transporte e Mobilidade Urbana na Câmara Legislativa e criamos a Subcomissão para debater a tarifa zero.",
+            "score": 0.4931
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos do Distrito Federal (custo de 3,7 bilhões, 280 ônibus, 70% de subsídio, 48 milhões da Lei Paulo Gustavo) para fundamentar suas críticas e propostas.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 12,
+            "start": 28567,
+            "end": 28638,
+            "text": "Só no Distrito Federal, Deputado Alfredinho, serão 48 milhões de reais.",
+            "score": 0.2862
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a comparações diretas entre a realidade periférica (Ceilândia) e a central (Brasília) para evidenciar desigualdades no acesso à cultura e ao transporte.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de mobilização, usando termos como \"construção popular\", \"domínio público\", \"controle popular\" e \"luta\".",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 19,
+            "start": 56295,
+            "end": 56440,
+            "text": "Nós queremos tarifa zero, mas queremos tarifa zero com construção popular, com definição de rotas e com domínio público sobre o sistema.(Palmas.)",
+            "score": 0.272
+          },
+          "udv": null
+        },
+        {
+          "text": "Interage com os presentes (Deputados, convidados) de forma cordial, saudando-os e reconhecendo o trabalho de parceiros, mas mantém um tom firme ao criticar a iniciativa privada e a oposição.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos concretos da base (produção de clipes, minidocs, uso de software livre) para demonstrar a capacidade produtiva das periferias.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Questiona diretamente os interlocutores sobre a mensuração de empregos gerados pela Lei Paulo Gustavo e sobre a aplicação dos recursos.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 14,
+            "start": 32485,
+            "end": 32678,
+            "text": "Eu não sei, Thiago, se o Ministério da Cultura já conseguiu mensurar não só quanto vai ser colocado na economia, mas também quantos novos empregos vão ser gerados a partir da Lei Paulo Gustavo.",
+            "score": 0.2464
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 42,
+      "split": "train",
+      "article_date": "2023-06-15",
+      "title": "Debatedores reivindicam aprovação de PEC que cria tarifa zero no transporte público",
+      "assunto": "Aprovação da PEC 25/23 que estabelece tarifa zero no transporte público",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 47,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores comemoram melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "assunto": "Melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-47-2-0",
+      "hearing_id": 47,
+      "n": 7,
+      "article_name": "Max Maciel",
+      "proposition": "A nova lei prevê a compra e reforma de equipamentos para expandir o número de salas de cinema, beneficiando as zonas periféricas: \"Podemos pegar a realidade da Ceilândia (DF), que é uma das primeiras remoções de favelas do Brasil, com 400 mil habitantes, e não tem uma sala de cinema, enquanto a região central de Brasília reúne mais de 90 salas concentradas em uma lógica de privatização do lazer e do acesso à cultura.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Há um normativo legal na Lei Paulo Gustavo que permite a aquisição de equipamentos e reformas de equipamentos culturais que sejam impulsionadores do cinema brasileiro nos territórios. Nós podemos pegar a realidade, por exemplo, de onde eu venho, a Ceilândia, que é uma das primeiras experiências de remoções de favelas no Brasil, seu nome vem de Campanha de Erradicação das Invasões — CEI.",
+        "turn": 12,
+        "start": 28846,
+        "end": 29236
+      },
+      "verifier": {
+        "probability": 0.33363612939692566,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

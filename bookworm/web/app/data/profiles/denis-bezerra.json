@@ -1,0 +1,415 @@
+{
+  "actor": {
+    "slug": "denis-bezerra",
+    "name": "Denis Bezerra",
+    "display_name": "Denis Bezerra",
+    "role": "Deputado (PSB-CE)",
+    "article_names": [
+      "Denis Bezerra"
+    ],
+    "party_uf": [
+      "PSB - CE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:04:16+00:00",
+    "n_statements": 10,
+    "n_hearings": 2,
+    "hearing_ids": [
+      63,
+      73
+    ],
+    "input_tokens": 4863,
+    "output_tokens": 1101,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 4,
+    "passage_only": 16,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a recomposição do Conselho Nacional dos Direitos da Pessoa Idosa (CNDPI), argumentando que a eliminação da participação da sociedade civil no início do governo Bolsonaro desvirtuou o órgão, impedindo a discussão de políticas públicas com os principais interessados.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 4,
+            "start": 25245,
+            "end": 25381,
+            "text": "Foi eliminada a participação da sociedade civil, justamente no local que é feito para discussão e desenvolvimento de políticas públicas.",
+            "score": 0.3041
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a aprovação de projeto de lei para corrigir distorções no CNDPI e tornar a participação popular mais direta e fácil, citando que a matéria estava na pauta da Comissão para a semana seguinte à audiência de 16/11/2022.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 4,
+            "start": 25478,
+            "end": 25748,
+            "text": "É por essa razão que lá em 2019 — à época, eu era Vice-Presidente da Comissão, a Presidente era a Deputada Lídice da Mata — nós encampamos uma batalha para fazer uma readequação ao conselho, mudar aquela realidade, tornar a participação popular mais direta e mais fácil.",
+            "score": 0.2535
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra o Executivo e o Parlamento para que a população idosa seja tratada com dignidade, saúde e qualidade de vida, alertando que o envelhecimento populacional rápido no Brasil exige conscientização política.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 2,
+            "start": 10766,
+            "end": 10877,
+            "text": "É preciso conscientizar a classe política do envelhecimento populacional rápido que está acontecendo no Brasil.",
+            "score": 0.3636
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a ratificação da Convenção Interamericana sobre a Proteção dos Direitos Humanos dos Idosos, criticando o governo atual por não permitir a votação da matéria por questões ideológicas, apesar do protagonismo do Brasil em 2015.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 74027,
+            "end": 74154,
+            "text": "Outra bandeira de luta nossa aqui é a ratificação da Convenção Interamericana sobre a Proteção dos Direitos Humanos dos Idosos.",
+            "score": 0.4285
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede ao Presidente da Câmara, Deputado Arthur Lira, que paute a ratificação da Convenção antes do final do ano.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 74360,
+            "end": 74595,
+            "text": "Não desistimos, estamos na luta, conversamos com o Presidente desta Casa, o Deputado Arthur Lira, para que ele paute a matéria antes do final do ano e façamos a ratificação dessa convenção tão importante para o direito da pessoa idosa.",
+            "score": 0.5598
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento das instituições de longa permanência (ILPI) para idosos, citando a aprovação de emenda de Comissão ao Orçamento da União no valor de 200 milhões de reais para esse fim.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 73146,
+            "end": 73336,
+            "text": "E na última quarta-feira aprovamos aqui, como emenda de Comissão ao Orçamento da União, 200 milhões de reais justamente para o fortalecimento das instituições de longa permanência no Brasil.",
+            "score": 0.5342
+          },
+          "udv": {
+            "id": "udv-63-2-1",
+            "rule": "similar_text",
+            "score": 0.3109
+          }
+        },
+        {
+          "text": "Afirma que os 200 milhões de reais aprovados não são suficientes e que o recurso não é impositivo, dependendo da ação do Relator do Orçamento para que seja efetivamente alocado.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 73572,
+            "end": 73735,
+            "text": "O Executivo não vai ter a obrigação de alocar exatamente esses 200 milhões de reais, se o Relator do Orçamento assim deixar que permaneça lá no Orçamento da União.",
+            "score": 0.2737
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe cinco tópicos para o desenvolvimento de políticas públicas para idosos, entregues pessoalmente ao Vice-Presidente da República, Geraldo Alckmin: 1. Aprofundamento de políticas de cuidados, adotando o modelo uruguaio de cadastro e formação de cuidadores. 2. Nacionalização dos Centros de Convivência da Pessoa Idosa. 3. Expansão das instituições de longa permanência. 4. Criação da Casa da Pessoa Idosa Brasileira, centro de referência para promoção de direitos, a exemplo da Casa da Mulher Brasileira. 5. Formação de agenda legislativa para ratificação da Convenção Interamericana e regulamentação da profissão de cuidador, cujo veto foi mantido pelo Congresso.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 74900,
+            "end": 75820,
+            "text": "Eu vou pedir aqui a compreensão de vocês para fazer uma pequena leitura desses cinco pontos: aprofundamento de políticas de cuidados buscando umcasede sucesso, a exemplo do modelo uruguaio que adota um cadastro de cuidadores, com foco na formação desses profissionais, para que assim possamos assistir de maneira correta às pessoas idosas;nacionalização dos Centros de Convivência da Pessoa Idosa, expansão das instituições de longa permanência, criação da Casa da Pessoa Idosa […]",
+            "score": 0.6612
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a falta de recursos orçamentários para a execução de políticas públicas, citando que a Secretaria Nacional de Promoção e Defesa da Pessoa Idosa possui o menor orçamento, estimando em 4 milhões de reais anuais o necessário para trabalhar o desenvolvimento dessas políticas.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 72284,
+            "end": 72411,
+            "text": "O Renato trouxe aqui também a realidade da Secretaria Nacional de Promoção e Defesa da Pessoa idosa, que tem o menor orçamento.",
+            "score": 0.3913
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento da representatividade social como fundamento para a defesa da recomposição do CNDPI, afirmando que é impossível discutir políticas públicas sem a presença dos principais interessados (idosos e sociedade civil) no debate.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 4,
+            "start": 25382,
+            "end": 25476,
+            "text": "Como eu discuto algo sem ter os principais interessados dentro da discussão, dentro do debate?",
+            "score": 0.2051
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a dignidade, a saúde e a qualidade de vida como critérios para o envelhecimento populacional, justificando a necessidade de políticas públicas que impactem positivamente a vida dos idosos.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 2,
+            "start": 10983,
+            "end": 11089,
+            "text": "Nesta Comissão nós buscamos mecanismos e políticas públicas para impactar positivamente a vida dos idosos.",
+            "score": 0.3317
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a urgência das ações na projeção demográfica, afirmando que a população idosa será um quarto (25%) da população brasileira em alguns anos, o que exige visão de realidade imediata.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 72819,
+            "end": 72900,
+            "text": "Daqui a alguns anos, a população idosa vai ser um quarto da nossa população, 25%.",
+            "score": 0.4839
+          },
+          "udv": {
+            "id": "udv-63-2-0",
+            "rule": "same_sentence",
+            "score": 0.393
+          }
+        },
+        {
+          "text": "Justifica a cobrança ao Executivo e ao Legislativo pela necessidade de a população cobrar efetivamente os governantes, argumentando que a mudança de visão só ocorrerá com essa pressão social.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 72646,
+            "end": 72818,
+            "text": "Só vamos conseguir mudar realmente de fato essa visão a partir do momento em que nós, não só os Parlamentares, mas o Executivo, formos efetivamente cobrados pela população.",
+            "score": 0.1876
+          },
+          "udv": {
+            "id": "udv-63-2-2",
+            "rule": "same_sentence",
+            "score": 0.1882
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Defesa dos Direitos da Pessoa Idosa (CIDOSO).",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 0,
+            "start": 121,
+            "end": 218,
+            "text": "Declaro aberta a reunião de audiência pública da Comissão de Defesa dos Direitos da Pessoa Idosa.",
+            "score": 0.4187
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que, em 2019, atuava como Vice-Presidente da Comissão, quando a Presidente era a Deputada Lídice da Mata.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 4,
+            "start": 25478,
+            "end": 25748,
+            "text": "É por essa razão que lá em 2019 — à época, eu era Vice-Presidente da Comissão, a Presidente era a Deputada Lídice da Mata — nós encampamos uma batalha para fazer uma readequação ao conselho, mudar aquela realidade, tornar a participação popular mais direta e mais fácil.",
+            "score": 0.5053
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara estar na oposição ao Governo Bolsonaro, citando que, por essa condição, não logrou êxito na readequação do CNDPI naquela época.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 4,
+            "start": 25749,
+            "end": 25817,
+            "text": "Mas, infelizmente, como oposição ao Governo, nós não logramos êxito.",
+            "score": 0.3535
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a CIDOSO está atenta aos temas e promove debates, citando a aprovação de emendas orçamentárias e a condução de audiências públicas.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 73058,
+            "end": 73145,
+            "text": "A CIDOSO está muito atenta a tudo isso, tanto é que vem promovendo importantes debates.",
+            "score": 0.2812
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados demográficos e orçamentários para fundamentar suas propostas, como a projeção de 25% da população idosa e o valor de 200 milhões de reais para ILPIs.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 72819,
+            "end": 72900,
+            "text": "Daqui a alguns anos, a população idosa vai ser um quarto da nossa população, 25%.",
+            "score": 0.2103
+          },
+          "udv": {
+            "id": "udv-63-2-0",
+            "rule": "same_sentence",
+            "score": 0.1453
+          }
+        },
+        {
+          "text": "Cita experiências internacionais como modelo a ser seguido, especificamente o modelo uruguaio de cadastro de cuidadores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz apelos diretos a autoridades específicas para a tomada de ação, como o pedido ao Deputado Arthur Lira para pautar a Convenção e a entrega de propostas ao Vice-Presidente Geraldo Alckmin.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 74597,
+            "end": 74763,
+            "text": "E, por último, eu, pessoalmente, entreguei ao Vice-Presidente da República, Geraldo Alckmin, algumas propostas de desenvolvimento de políticas para as pessoas idosas.",
+            "score": 0.2634
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina a defesa de projetos de lei específicos com a cobrança de execução orçamentária, destacando a diferença entre a aprovação de emendas e a efetiva alocação de recursos pelo Executivo.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza a linguagem de \"batalha\" e \"luta\" para descrever o processo legislativo e a defesa de direitos, como na \"batalha\" pela recomposição do conselho e na \"luta\" pela ratificação da Convenção.",
+          "passage": {
+            "hearing_id": 63,
+            "turn": 10,
+            "start": 74027,
+            "end": 74154,
+            "text": "Outra bandeira de luta nossa aqui é a ratificação da Convenção Interamericana sobre a Proteção dos Direitos Humanos dos Idosos.",
+            "score": 0.333
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 63,
+      "split": "train",
+      "article_date": "2022-11-16",
+      "title": "Entidades de defesa dos idosos cobram mais atenção do Estado com instituições de longa permanência",
+      "assunto": "Cobrança de mais atenção do Estado com instituições de longa permanência para idosos",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 73,
+      "split": "train",
+      "article_date": "2022-07-13",
+      "title": "Debatedores defendem seguro de vida mais flexível para idosos",
+      "assunto": "Debate sobre critérios mais acessíveis nos contratos de seguro de vida para idosos",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-63-2-0",
+      "hearing_id": 63,
+      "n": 7,
+      "article_name": "Denis Bezerra",
+      "proposition": "Chamou atenção para o fato de os idosos representarem em breve ¼ da população brasileira.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Daqui a alguns anos, a população idosa vai ser um quarto da nossa população, 25%. Então, a partir de agora, precisamos ter essa visão da realidade para que efetivamente possamos dar uma qualidade de vida maior para nossa população idosa.",
+        "turn": 10,
+        "start": 72819,
+        "end": 73056
+      },
+      "verifier": {
+        "probability": 0.6631092357910108,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-63-2-1",
+      "hearing_id": 63,
+      "n": 8,
+      "article_name": "Denis Bezerra",
+      "proposition": "Defendeu mudanças no orçamento que comportem esse novo cenário.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, vamos trabalhar para que realmente isso aconteça, que entrem esses 200 milhões de reais de previsão no Orçamento da União. Vamos trabalhar para que esse recurso seja realmente utilizado para fins de fortalecimento das instituições de longa permanência no Brasil, que tanto precisam.",
+        "turn": 10,
+        "start": 73736,
+        "end": 74025
+      },
+      "verifier": {
+        "probability": 0.7823414637674947,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-63-2-2",
+      "hearing_id": 63,
+      "n": 9,
+      "article_name": "Denis Bezerra",
+      "proposition": "Disse que 'essa visão a gente só vai conseguir mudar, de fato, a partir do momento em que os parlamentares e o Executivo forem efetivamente cobrados pela população'.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Só vamos conseguir mudar realmente de fato essa visão a partir do momento em que nós, não só os Parlamentares, mas o Executivo, formos efetivamente cobrados pela população. Daqui a alguns anos, a população idosa vai ser um quarto da nossa população, 25%.",
+        "turn": 10,
+        "start": 72646,
+        "end": 72900
+      },
+      "verifier": {
+        "probability": 0.9868275874742952,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

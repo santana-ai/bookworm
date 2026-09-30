@@ -264,7 +264,7 @@ repete, na biblioteca, a divisão em segmentos usada na tradução, com as opç�
 
 A demonstração web lista todas as matérias de uma execução e abre qualquer uma delas lendo arquivos
 estáticos, sem servidor de aplicação. `bookworm export-site` grava esse conjunto num diretório (por
-padrão `bookworm/web/app/data/`, fora do Git):
+padrão `bookworm/web/app/data/`, versionado com a exportação de `udv_v2`):
 
 ```text
 <saída>/

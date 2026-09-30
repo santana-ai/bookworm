@@ -1,0 +1,315 @@
+{
+  "actor": {
+    "slug": "alex-andre-vargem",
+    "name": "ALEX ANDRÉ VARGEM",
+    "display_name": "ALEX ANDRÉ VARGEM",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:27:33+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      187,
+      198
+    ],
+    "input_tokens": 5082,
+    "output_tokens": 952,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a participação ativa do Ministério dos Direitos Humanos e da Cidadania (MDHC) no Comitê Nacional para os Refugiados (CONARE), argumentando que a presença do órgão com a visão de direitos humanos é um ganho para as políticas públicas de migração.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 11,
+            "start": 35227,
+            "end": 35568,
+            "text": "Um grande ganho para os direitos humanos, em se tratando da migração no Brasil, a exemplo dos colegas dos Portos, foi a participação no CONARE — Comitê Nacional para os Refugiados, do Ministério da Justiça e Segurança Pública, de que nós participamos, nós temos uma cadeira, com a visão das políticas públicas no âmbito dos direitos humanos.",
+            "score": 0.4877
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de políticas específicas e respostas interfederativas (União, Estados e Municípios) para a integração de migrantes em contextos urbanos, especialmente nas grandes metrópoles, onde há um fenômeno crescente de ocupações e junção aos movimentos dos sem-teto.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 19,
+            "start": 50265,
+            "end": 50409,
+            "text": "Este é um fenômeno crescente nas grandes cidades brasileiras, o que requer uma atenção e uma resposta entre a União, os Estados e os Municípios.",
+            "score": 0.354
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a erradicação do sub-registro civil de nascimento e a ampliação da documentação básica como pré-requisito fundamental para o acesso à cidadania e às políticas públicas, citando a existência de uma taxa de subnotificação no país.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 49572,
+            "end": 49856,
+            "text": "Um desses comitês que estão sob responsabilidade da Diretoria de Promoção dos Direitos Humanos e também da Coordenação-Geral de Promoção do Registro Civil de Nascimento é o Comitê Gestor Nacional pela Erradicação do Sub-registro Civil de Nascimento e Ampliação da Documentação Básica.",
+            "score": 0.3849
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a gestão anterior por ter desmantelado os colegiados de participação social e defende a recuperação desses espaços, como o Comitê Gestor Nacional pela Erradicação do Sub-registro Civil de Nascimento, para garantir a interlocução entre o Governo e a sociedade civil.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 49572,
+            "end": 49856,
+            "text": "Um desses comitês que estão sob responsabilidade da Diretoria de Promoção dos Direitos Humanos e também da Coordenação-Geral de Promoção do Registro Civil de Nascimento é o Comitê Gestor Nacional pela Erradicação do Sub-registro Civil de Nascimento e Ampliação da Documentação Básica.",
+            "score": 0.4286
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o reconhecimento estatal da diversidade religiosa, incluindo as práticas dos povos ciganos, com base no artigo 5º da Constituição, e a inclusão dessa pluralidade nos materiais didáticos e no acesso ao ensino.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 48421,
+            "end": 48607,
+            "text": "E temos de considerar a educação como prática da liberdade também nos materiais didáticos, não só com relação ao acesso ao ensino, mas também com relação ao conteúdo que vai ser passado.",
+            "score": 0.2222
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a capacitação de gestores públicos e da sociedade civil por meio de cursos, como o desenvolvido em parceria com a ENAP sobre direitos dos migrantes, para fortalecer a atuação na ponta do sistema.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 19,
+            "start": 51176,
+            "end": 51300,
+            "text": "Este curso é oferecido não só aos migrantes e refugiados, mas também à sociedade civil como um todo e aos gestores públicos.",
+            "score": 0.3389
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a \"participação social\" como critério central para a formulação de políticas públicas, argumentando que a escuta de imigrantes, refugiados e grupos vulneráveis (como os ciganos) é indispensável para a gestão pública.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 11,
+            "start": 38637,
+            "end": 38769,
+            "text": "A participação da sociedade civil é de suma importância na formulação das políticas públicas, entre elas a de imigrantes refugiados.",
+            "score": 0.3886
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a \"cidadania\" como palavra-chave e objetivo final das ações do MDHC, justificando a prioridade para a documentação básica e a educação como meios de garantir o acesso a direitos.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 46709,
+            "end": 46800,
+            "text": "A documentação básica é uma questão de suma importância para garantir o acesso à cidadania.",
+            "score": 0.3846
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na \"transversalidade\" das políticas públicas e na \"pluralidade\" como princípios orientadores, defendendo que o Estado deve reconhecer a diversidade étnica, religiosa e nacional do Brasil para potencializar direitos.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 45660,
+            "end": 45726,
+            "text": "O Estado deve respeitar e reconhecer isso — é de suma importância.",
+            "score": 0.3381
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre à história do Brasil, mencionando o passado escravagista e as políticas eugenistas de branqueamento, para justificar a necessidade de combater a xenofobia, o discurso de ódio e a racialização da migração.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 11,
+            "start": 35882,
+            "end": 35944,
+            "text": "Não podemos esquecer que o Brasil tem um passado escravagista.",
+            "score": 0.2632
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a educação como \"prática da liberdade\", citando Paulo Freire, para justificar a importância do acesso ao conhecimento de direitos como ferramenta para enfrentar adversidades cotidianas.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 47701,
+            "end": 47791,
+            "text": "Do acesso ao conhecimento de direitos, para podermos enfrentar as adversidades cotidianas.",
+            "score": 0.5304
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Ministério dos Direitos Humanos e da Cidadania, atuando em nome do Ministro Silvio de Almeida e da Secretária Nacional de Promoção e Defesa dos Direitos Humanos, Dra. Isadora Brandão.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 11,
+            "start": 34061,
+            "end": 34186,
+            "text": "Saúdo, em nome do Ministro Silvio de Almeida e da nossa Secretária Nacional de Promoção e Defesa dos Direitos Humanos, a Dra.",
+            "score": 0.6773
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar vinculado à Diretoria de Promoção dos Direitos Humanos, da Secretaria Nacional de Promoção e Defesa dos Direitos Humanos.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 43964,
+            "end": 44050,
+            "text": "Em nome da nossa Secretária Nacional de Promoção e Defesa dos Direitos Humanos, a Dra.",
+            "score": 0.6176
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica o MDHC como um ministério novo, incorporado o termo \"cidadania\" em sua nomenclatura, e destaca a criação da Coordenação-Geral de Promoção dos Direitos das Pessoas Migrantes, Refugiadas e Apátridas e da Coordenação-Geral de Promoção da Liberdade Religiosa.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 11,
+            "start": 34524,
+            "end": 34833,
+            "text": "O Decreto nº 11.341, de 2023, que instituiu o Ministério, criou a Diretoria de Promoção dos Direitos Humanos e, no âmbito da Diretoria de Promoção dos Direitos Humanos, a Coordenação-Geral de Promoção dos Direitos das Pessoas Migrantes, Refugiadas e Apátridas, que está sob a coordenação da Clarissa do Carmo.",
+            "score": 0.4225
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza repetidamente a expressão \"é de suma importância\" para enfatizar a relevância das políticas, ações e espaços de debate que apresenta.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 44405,
+            "end": 44432,
+            "text": "Isso é de suma importância.",
+            "score": 0.2665
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados e fatos como afirmações próprias ou relatórios de seus órgãos, como a existência de milhares de bolivianos em São Paulo, a taxa de subnotificação de nascimentos e o relatório do grupo de trabalho sobre discurso de ódio.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 19,
+            "start": 49552,
+            "end": 49613,
+            "text": "Há estimativas de que há milhares de bolivianos em São Paulo.",
+            "score": 0.299
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a história e para referências teóricas, como a citação de Paulo Freire e a menção ao passado escravagista e eugenista, para fundamentar suas posições sobre diversidade e direitos.",
+          "passage": {
+            "hearing_id": 198,
+            "turn": 11,
+            "start": 35882,
+            "end": 35944,
+            "text": "Não podemos esquecer que o Brasil tem um passado escravagista.",
+            "score": 0.2127
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz convites diretos à sociedade civil para participar de comitês e reuniões, posicionando-se como interlocutor que busca \"provocar a gestão\" e mostrar caminhos para a erradicação de problemas como o sub-registro.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 49993,
+            "end": 50130,
+            "text": "É de suma importância a presença da sociedade civil nesses espaços para apontar políticas públicas, provocar a gestão e mostrar caminhos.",
+            "score": 0.3286
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores (deputados, colegas de mesa, representantes da sociedade civil) com cordialidade, agradecendo o convite e saúdos, mas mantém um tom institucional ao apresentar as ações do ministério.",
+          "passage": {
+            "hearing_id": 187,
+            "turn": 13,
+            "start": 50598,
+            "end": 50640,
+            "text": "Obrigado, Deputada e colegas aqui da Mesa.",
+            "score": 0.226
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 187,
+      "split": "train",
+      "article_date": "2023-08-24",
+      "title": "Etnias ciganas pedem acesso a políticas públicas e reconhecimento pelo Censo",
+      "assunto": "Discussão sobre o Estatuto do Povo Cigano e a inclusão dos ciganos em políticas públicas e no Censo demográfico brasileiro",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 198,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "ONU reconhece liderança do Brasil na proteção a refugiados",
+      "assunto": "Reconhecimento da liderança do Brasil na proteção a refugiados e desafios na integração socioeconômica dos refugiados no país",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

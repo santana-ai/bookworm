@@ -1,0 +1,373 @@
+{
+  "actor": {
+    "slug": "nikolas-ferreira",
+    "name": "NIKOLAS FERREIRA",
+    "display_name": "Nikolas Ferreira",
+    "role": "Deputado (PL-MG)",
+    "article_names": [
+      "Nikolas Ferreira"
+    ],
+    "party_uf": [
+      "PL - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:46:00+00:00",
+    "n_statements": 15,
+    "n_hearings": 3,
+    "hearing_ids": [
+      145,
+      199,
+      201
+    ],
+    "input_tokens": 6779,
+    "output_tokens": 1009,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a CPMI dos atos de 8 de janeiro é necessária para investigar a \"seletividade\" da justiça, criticando a prisão de manifestantes que considera injusta e a soltura de figuras ligadas ao crime organizado, como o ex-líder do PCC André do Rap.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 187,
+            "start": 232335,
+            "end": 232524,
+            "text": "Enquanto isso, bandidos, traficantes, pessoas que são comandantes do crime organizado, como um ex-líder do PCC que foi solto agora pela Justiça, o André do Rap, são colocados como cidadãos.",
+            "score": 0.3399
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a CPMI e o Governo Federal têm envolvimento direto com os atos de 8 de janeiro, baseando-se na recusa da bancada de esquerda em votar a convocação do fotógrafo da Reuters e na convocação de testemunhas que, segundo ele, impediram atos de vandalismo.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 187,
+            "start": 233521,
+            "end": 233646,
+            "text": "Isso é uma prova cabal de que a Esquerda e de que o Governo Federal têm envolvimento, sim, com os atos do dia 8, diretamente.",
+            "score": 0.2937
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministro Flávio Dino a entrega das imagens internas do Palácio do Planalto e do Senado referentes aos atos, alegando que a falta de transparência impede a apuração da verdade.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 187,
+            "start": 234250,
+            "end": 234409,
+            "text": "Eu diria:\"Isso é um absurdo!\" Mas por que há tanta falta de vontade do Ministro Flávio Dino de entregar as imagens dentro do Palácio do Ministério da Justiça?",
+            "score": 0.2929
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a Resolução nº 715/2023 do Conselho Nacional de Saúde, assinada pela Ministra Nísia, classificando-a como um \"papelete ridículo\" que prioriza a redução da idade de início de hormonização para 14 anos e a legalização do aborto em detrimento da estrutura hospitalar e do abastecimento de insumos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 105,
+            "start": 73798,
+            "end": 73964,
+            "text": "Ministra Nísia, um dos motivos de a senhora estar aqui hoje é para comentar a Resolução nº 715, de 2023, do Conselho Nacional de Saúde, que foi assinada pela senhora.",
+            "score": 0.4022
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a capacidade da Ministra Nísia de responder sobre a biologia humana, especificamente se homens podem gestar ou menstruar, apontando contradições entre as declarações da Ministra e o texto da resolução.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 167,
+            "start": 89309,
+            "end": 89389,
+            "text": "Se a Ministra da Saúde não consegue responder objetivamente, quem vai responder?",
+            "score": 0.2208
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o Ministro Flávio Dino de ineficiência e parcialidade na segurança pública, citando a queda de 28,6% na apreensão de maconha e 31,4% na de cocaína em comparação ao ano anterior.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 78,
+            "start": 46463,
+            "end": 46591,
+            "text": "Redução de 28,6% de apreensão de maconha comparada ao mesmo período do ano anterior, e 31,4% de redução de apreensão de cocaína.",
+            "score": 0.4917
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação do Ministro Dino contra o crime organizado, apontando a ausência de menções ao PCC e ao Comando Vermelho em suas redes sociais, enquanto ele processa influenciadores que o ofendem.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 78,
+            "start": 43425,
+            "end": 43531,
+            "text": "Quando se pesquisa lá Comando Vermelho, não há nenhum tipo de menção, no seu Twitter, ao Comando Vermelho.",
+            "score": 0.2655
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a justificativa do Ministro Dino para não comparecer à Comissão de Segurança Pública alegando risco físico, classificando-a como mentira e ferimento ao Parlamento.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 78,
+            "start": 44861,
+            "end": 44979,
+            "text": "Isso não somente fere o Parlamento, como também é uma mentira, porque os Deputados não vêm aqui trabalhar armados, Sr.",
+            "score": 0.1705
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da \"justiça com pressa\" para justificar a urgência na investigação dos atos de 8 de janeiro, argumentando que a seletividade penal prejudica a democracia e a história do país.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 187,
+            "start": 236731,
+            "end": 237035,
+            "text": "E ficará na história do nosso País se o que nós fizemos com pessoas que estavam orando, ou pessoas que chegaram após o horárioà Praça dos Três Poderes, pessoas que foram presas não no dia 8, mas no dia posterior, se de fato essa Justiça, que não tem justiça, vai deixar manchada a história do nosso País.",
+            "score": 0.186
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a lógica de coerência entre discurso e ação como critério para avaliar autoridades, acusando o Ministro Dino de defender o que condena e de usar a Polícia Federal de forma política, assim como acusava o ex-presidente Bolsonaro.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 78,
+            "start": 46210,
+            "end": 46365,
+            "text": "Eu digo o contrário: as suas ações demonstram que o senhor tem feito com a Polícia Federal o que vocês acusavam Jair Bolsonaro de fazer na Polícia Federal.",
+            "score": 0.181
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na biologia e na \"realidade\" para contestar pautas de gênero e direitos reprodutivos, argumentando que a redução da idade para hormonização e a linguagem inclusiva na saúde são agendas ideológicas sem tecnicidade jurídica ou médica.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 159,
+            "start": 86933,
+            "end": 87084,
+            "text": "Vocês utilizam jargões políticos, sem qualquer tecnicidade jurídica, médica ou sanitária, simplesmente para colocar uma agenda dentro de uma resolução.",
+            "score": 0.1903
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a origem social humilde (nascido em favela) para legitimar sua crítica ao crime organizado e refutar acusações de elitismo, afirmando que conhece a realidade das comunidades e que o tráfico é uma minoria que avacalha.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se alinhado à defesa dos presos nos atos de 8 de janeiro, cumprimentando a Dra. Gabriela e os familiares, e afirma estar do lado da verdade contra a narrativa de golpe.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se em oposição direta ao Governo Federal, à bancada de esquerda e ao Ministro Flávio Dino, a quem acusa de envolvimento com os atos e de ineficiência.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 187,
+            "start": 233521,
+            "end": 233646,
+            "text": "Isso é uma prova cabal de que a Esquerda e de que o Governo Federal têm envolvimento, sim, com os atos do dia 8, diretamente.",
+            "score": 0.3648
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter nascido em uma favela em Belo Horizonte, utilizando essa trajetória para se distanciar de críticas sobre classe social.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 134,
+            "start": 57672,
+            "end": 57708,
+            "text": "Nasci numa favela em Belo Horizonte.",
+            "score": 0.4426
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza comparações retóricas e analogias, como comparar a CPMI a discursos de Winston Churchill e o Ministro Dino ao personagem Nick Fury de Os Vingadores, para ilustrar pontos de vista.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 78,
+            "start": 47695,
+            "end": 47757,
+            "text": "O senhor disse que o senhor era um personagem deOs Vingadores.",
+            "score": 0.2317
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos, como percentuais de queda na apreensão de drogas e números de ônibus queimados, para sustentar críticas à gestão de segurança pública.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega tom confrontador e sarcástico, fazendo perguntas retóricas diretas às autoridades (como \"homem pode menstruar?\") e utilizando ironia ao se referir a \"66 acompanhantes\" da Ministra Nísia.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 159,
+            "start": 86355,
+            "end": 86462,
+            "text": "A Ministra simplesmente não me respondeu se acredita que um homem pode gestar, que um homem pode menstruar.",
+            "score": 0.2632
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita declarações públicas e postagens em redes sociais de autoridades, como o Twitter do Ministro Dino, para evidenciar supostas contradições e omissões.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem coloquial e expressões fortes (\"vagabundo\", \"baderneiros\", \"papelete ridículo\") para reforçar a indignação e a proximidade com o \"cidadão comum\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 78,
+            "start": 43195,
+            "end": 43265,
+            "text": "O cidadão comum brasileiro verifica isso, por exemplo, no seu Twitter.",
+            "score": 0.1917
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-145-3-0",
+      "hearing_id": 145,
+      "n": 13,
+      "article_name": "Nikolas Ferreira",
+      "proposition": "Disse que Flávio Dino fugiu da pergunta sobre as acusações de interferência na Polícia Federal.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É só colocar o Flávio Dino em toda incursão da Polícia Militar, porque, afinal de contas:\"Entrei 15 metros\". Os 15 metros que o senhor adentrou ali, Sr.",
+        "turn": 134,
+        "start": 57741,
+        "end": 57893
+      },
+      "verifier": {
+        "probability": 0.23347143654014166,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-5-0",
+      "hearing_id": 199,
+      "n": 15,
+      "article_name": "Nikolas Ferreira",
+      "proposition": "Criticou orientações da Resolução 715/23 relacionadas à maconha, à população LGBTQIA+ e ao aborto.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Como você diz que vai defender algo que está na Constituição, previsto em lei, com relação ao aborto, mas o Conselho Nacional de Saúde, em resolução que você assinou, diz que vai combater as desigualdades estruturais legalizando o aborto? Isso é contraditório com a sua própria convicção pessoal.",
+        "turn": 159,
+        "start": 86635,
+        "end": 86931
+      },
+      "verifier": {
+        "probability": 0.13898138672039215,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

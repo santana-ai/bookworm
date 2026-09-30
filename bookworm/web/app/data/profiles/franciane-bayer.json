@@ -1,0 +1,355 @@
+{
+  "actor": {
+    "slug": "franciane-bayer",
+    "name": "FRANCIANE BAYER",
+    "display_name": "Franciane Bayer",
+    "role": "Deputada (Republicanos-RS)",
+    "article_names": [
+      "Franciane Bayer"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:42:14+00:00",
+    "n_statements": 6,
+    "n_hearings": 2,
+    "hearing_ids": [
+      15,
+      171
+    ],
+    "input_tokens": 3382,
+    "output_tokens": 922,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 1,
+    "passage_only": 19,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica o Governo e os Ministérios por utilizarem portarias e resoluções para tratar de temas de competência do Legislativo, como aborto, descriminalização de drogas e tratamento hormonal para mudança de sexo de crianças a partir de 14 anos, citando especificamente a Resolução nº 715.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 58688,
+            "end": 58861,
+            "text": "A Resolução nº 715, no item 44, trata do tratamento hormonal para mudança de sexo de crianças a partir de 14 anos, ou seja, já redução da idade para esse tipo de tratamento.",
+            "score": 0.4466
+          },
+          "udv": {
+            "id": "udv-171-2-0",
+            "rule": "same_sentence",
+            "score": 0.3597
+          }
+        },
+        {
+          "text": "Questiona a inclusão de uma religião específica como \"equipamento promotor de saúde\" no item 46 da Resolução nº 715, argumentando que não há estudo técnico que diferencie uma religião de outra e que todas devem ser tratadas igualmente ou nenhuma.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 58862,
+            "end": 58938,
+            "text": "O item 46 da resolução traz uma religião como equipamento promotor de saúde.",
+            "score": 0.5459
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que as prioridades da saúde pública devem ser a resolução de filas de espera por cirurgias eletivas, exames e tratamentos, o abastecimento de medicamentos em falta e o atendimento a emergências, como a situação no Rio Grande do Sul, em detrimento de pautas ideológicas não legisladas pelo Parlamento.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 59737,
+            "end": 59885,
+            "text": "Isso porque nós temos aí a pós-pandemia, com grandes filas de espera por cirurgias eletivas, por exames e por tratamentos que não estão disponíveis.",
+            "score": 0.3371
+          },
+          "udv": null
+        },
+        {
+          "text": "Opõe-se à obrigatoriedade da vacinação contra a Covid-19 em crianças de 6 meses a 5 anos, argumentando que a decisão cabe aos pais e que o Estado não deve impor a aplicação.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 129497,
+            "end": 129521,
+            "text": "A decisão cabe aos pais.",
+            "score": 0.4058
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que nenhuma vacina é obrigatória, nem mesmo as do Programa Nacional de Imunizações (PNI), e que a recusa não deve resultar na perda de acesso à educação ou a auxílios sociais.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 128028,
+            "end": 128084,
+            "text": "Nenhuma vacina é obrigatória, nem as que constam do PNI.",
+            "score": 0.407
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue a vacinação de rotina, que pratica em sua família, do que classifica como \"experimento científico em andamento\" referente à vacina contra a Covid-19, pedindo que o termo \"vacina\" seja corrigido no debate.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 92,
+            "start": 127008,
+            "end": 127228,
+            "text": "Como destacou o Deputado Sargento Gonçalves, minha família, meus filhos seguem um calendário de vacinas, mas vacinas que foram testadas, que têm eficácia comprovada, e não um experimento científico que está em andamento.",
+            "score": 0.2024
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede ao Governo que disponibilize a vacina, mas que respeite a liberdade de escolha, permitindo que apenas quem quiser se vacine.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 100,
+            "start": 131783,
+            "end": 131834,
+            "text": "Disponibilizem a vacina, mas vacine-se quem quiser.",
+            "score": 0.3595
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a competência exclusiva do Legislativo para debater, votar e representar a população em temas sensíveis, justificando a crítica ao uso de portarias e resoluções pelo Executivo para tratar de aborto, drogas e transição de gênero.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 58361,
+            "end": 58604,
+            "text": "Por que este Governo e os Ministérios têm se utilizado das ferramentas de portarias e resoluções para tratar de temas como aborto e drogas, que são de competência nossa, do Legislativo, que é a de debater, votar e representar aqui a população?",
+            "score": 0.59
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se no princípio da laicidade do Estado ao questionar a distinção entre religiões em políticas de saúde, afirmando que \"todas são ferramentas ou nenhuma é\".",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 59032,
+            "end": 59083,
+            "text": "Eu acredito que todas são ferramentas ou nenhuma é.",
+            "score": 0.2755
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o Estatuto da Criança e do Adolescente (ECA) e o Código Civil como fundamentos para defender o poder de decisão dos pais sobre os filhos, argumentando que o Estado não deve interferir na família.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 128667,
+            "end": 128757,
+            "text": "O ECA e o Código Civil me garantem que pai e mãe têm o poder de decisão sobre seus filhos.",
+            "score": 0.399
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o artigo 15 do Código Civil para sustentar que ninguém é obrigado a se submeter a tratamento médico que coloque em risco a vida, aplicando esse princípio à sua recusa à vacina contra a Covid-19.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 130106,
+            "end": 130233,
+            "text": "15 do nosso Código Civil nos garante que ninguém é obrigado a se submeter a um tratamento médico que coloque em risco sua vida.",
+            "score": 0.6727
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a liberdade individual e o Estado Democrático de Direito como valores centrais, justificando a oposição à obrigatoriedade de qualquer vacina, independentemente do governo de turno.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 96,
+            "start": 131052,
+            "end": 131168,
+            "text": "Eu defendo a liberdade das pessoas, e nós precisamos defender nosso Estado Democrático de Direito e nossa liberdade.",
+            "score": 0.3407
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se mãe e afirma que sua família segue um calendário de vacinas de rotina, mas não tomou a vacina contra a Covid-19.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 92,
+            "start": 127008,
+            "end": 127228,
+            "text": "Como destacou o Deputado Sargento Gonçalves, minha família, meus filhos seguem um calendário de vacinas, mas vacinas que foram testadas, que têm eficácia comprovada, e não um experimento científico que está em andamento.",
+            "score": 0.2187
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante da população na Câmara dos Deputados, enfatizando o papel do Legislativo na representação da maioria.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 59233,
+            "end": 59635,
+            "text": "O que eu vejo aqui, Ministra, é que muitas pautas que são importantes para a população brasileira, mas que este Congresso e esta Câmara, que representam a sua maioria, têm o entendimento de que não vão passar, como aborto, drogas e tratamento hormonal em crianças, têm sido usadas em ferramentas de portarias e resoluções por este Governo para tratar desses temas que são de competência do Legislativo.",
+            "score": 0.2004
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencion a presença de sua cunhada, a Deputada Estadual Eliana Bayer, do Rio Grande do Sul, que relata sequelas após a vacinação.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 129107,
+            "end": 129263,
+            "text": "Eu tenho ao lado minha Deputada Estadual, minha cunhada, a Deputada Eliana Bayer, do Rio Grande do Sul, que tomou a vacina e depois ficou 10 dias internada.",
+            "score": 0.5236
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas retóricas e diretas à Ministra da Saúde para questionar a legitimidade e a prioridade das ações do Governo, como \"Qual é a prioridade deste Governo?\" e \"Que estudo técnico traz essa diferença?\".",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 59637,
+            "end": 59736,
+            "text": "E mais uma vez eu questiono: Qual é a prioridade deste Governo quando nós falamos de saúde pública?",
+            "score": 0.3359
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e pessoais, como a situação de sua cunhada internada por 10 dias após a vacinação, para ilustrar os riscos que alega.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 129107,
+            "end": 129263,
+            "text": "Eu tenho ao lado minha Deputada Estadual, minha cunhada, a Deputada Eliana Bayer, do Rio Grande do Sul, que tomou a vacina e depois ficou 10 dias internada.",
+            "score": 0.2473
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem assertiva e confrontadora, usando expressões como \"Ninguém vacina meus filhos\" e \"O Governo não vai decidir sobre minha casa\", reforçando a posição de defesa da autonomia familiar.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 128758,
+            "end": 128870,
+            "text": "Eu estou aqui para dizer que o Estado, o Governo não vai decidir sobre minha casa, sobre minha família.(Palmas.)",
+            "score": 0.2511
+          },
+          "udv": null
+        },
+        {
+          "text": "Diferencia claramente entre temas de saúde pública (filas, medicamentos) e pautas ideológicas, usando essa distinção para criticar a alocação de recursos e esforços do Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 57,
+            "start": 60480,
+            "end": 60721,
+            "text": "Gostaria de saber qual é a nossa prioridade, se é realmente alcançar os medicamentos que estão em falta, se é alcançar a população que precisa receber saúde pública ou se é uma pauta ideológica, que nós vamos carregar no Ministério da Saúde.",
+            "score": 0.2204
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dispositivos legais específicos (ECA, Código Civil, Resolução nº 715) para embasar seus argumentos, demonstrando uso de fundamentação jurídica.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 94,
+            "start": 128667,
+            "end": 128757,
+            "text": "O ECA e o Código Civil me garantem que pai e mãe têm o poder de decisão sobre seus filhos.",
+            "score": 0.2149
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-171-2-0",
+      "hearing_id": 171,
+      "n": 9,
+      "article_name": "Franciane Bayer",
+      "proposition": "Questionou resoluções oriundas da 17ª Conferência Nacional de Saúde, realizada em junho, como a 'revisão da cartilha de pessoas trans' e 'redução da idade de início de hormonização para 14 anos'.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Vou citar como exemplo a Resolução nº 715, que propõe o debate de um desses temas. A Resolução nº 715, no item 44, trata do tratamento hormonal para mudança de sexo de crianças a partir de 14 anos, ou seja, já redução da idade para esse tipo de tratamento.",
+        "turn": 57,
+        "start": 58605,
+        "end": 58861
+      },
+      "verifier": {
+        "probability": 0.23005429616397066,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

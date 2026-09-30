@@ -1,0 +1,154 @@
+{
+  "actor": {
+    "slug": "benedita-da-silva",
+    "name": "Benedita da Silva",
+    "display_name": "Benedita da Silva",
+    "role": "Deputada (PT-RJ)",
+    "article_names": [
+      "Benedita da Silva"
+    ],
+    "party_uf": [
+      "Bloco/PT - RJ",
+      "PT - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:09:56+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      82
+    ],
+    "input_tokens": 1898,
+    "output_tokens": 170,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 4,
+    "with_udv": 0,
+    "passage_only": 4,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende o debate, a elaboração e a aprovação do Projeto de Lei nº 1.786, de 2011, que institui a Política Nacional Griô para proteção e fomento à transmissão dos saberes e fazeres de tradição oral.",
+          "passage": {
+            "hearing_id": 82,
+            "turn": 23,
+            "start": 42874,
+            "end": 43205,
+            "text": "Por acompanhar a tramitação do Projeto de Lei nº 1.786, de 2011, que institui a Política Nacional Griô, para proteção e fomento à transmissão dos saberes e fazeres de tradição oral, eu defendo o debate, a elaboração e a aprovação desse projeto, pois preservar esse patrimônio imaterial é valorizar e preservar a cultura brasileira.",
+            "score": 0.704
+          },
+          "udv": null
+        },
+        {
+          "text": "Apóia o Fórum para as Culturas Populares e Tradicionais e a discussão sobre a Lei dos Mestres.",
+          "passage": {
+            "hearing_id": 82,
+            "turn": 23,
+            "start": 42708,
+            "end": 42872,
+            "text": "Eu quero mandar um abraço para todas e todos os que participam do Fórum para as Culturas Populares e Tradicionais, que tem como objetivo discutir a Lei dos Mestres.",
+            "score": 0.5016
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Justifica a defesa do Projeto de Lei nº 1.786, de 2011, argumentando que preservar o patrimônio imaterial é valorizar e preservar a cultura brasileira.",
+          "passage": {
+            "hearing_id": 82,
+            "turn": 23,
+            "start": 42874,
+            "end": 43205,
+            "text": "Por acompanhar a tramitação do Projeto de Lei nº 1.786, de 2011, que institui a Política Nacional Griô, para proteção e fomento à transmissão dos saberes e fazeres de tradição oral, eu defendo o debate, a elaboração e a aprovação desse projeto, pois preservar esse patrimônio imaterial é valorizar e preservar a cultura brasileira.",
+            "score": 0.4903
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara acompanhar a tramitação do Projeto de Lei nº 1.786, de 2011.",
+          "passage": {
+            "hearing_id": 82,
+            "turn": 23,
+            "start": 42874,
+            "end": 43205,
+            "text": "Por acompanhar a tramitação do Projeto de Lei nº 1.786, de 2011, que institui a Política Nacional Griô, para proteção e fomento à transmissão dos saberes e fazeres de tradição oral, eu defendo o debate, a elaboração e a aprovação desse projeto, pois preservar esse patrimônio imaterial é valorizar e preservar a cultura brasileira.",
+            "score": 0.3409
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 29,
+      "split": "validation",
+      "article_date": "2023-11-24",
+      "title": "Debatedores apontam medidas para reduzir mortes violentas de jovens negros",
+      "assunto": "Medidas para reduzir mortes violentas de jovens negros",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 82,
+      "split": "train",
+      "article_date": "2022-06-27",
+      "title": "Artistas da tradição oral cobram aprovação de projeto que valoriza cultura popular",
+      "assunto": "Aprovação de projetos de lei que valorizam os mestres dos saberes e fazeres populares na cultura brasileira",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-29-0-0",
+      "hearing_id": 29,
+      "n": 1,
+      "article_name": "Benedita da Silva",
+      "proposition": "\"Eu fiquei muito emocionada porque no momento da Constituinte foram defesas feitas com muita qualidade e muito conteúdo dos movimentos sociais, carregando assim sua luta e trazendo esperança e expectativa de que as leis poderiam protegê-los\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este período me fez sentir a diferença, meu Deus, com o período da Constituinte, em que todos vieram, houve uma congregação de interesses. As defesas que aconteceram foram feitas com muita qualidade, com muito conteúdo pelos movimentos sociais, realizando sua luta, trazendo esperança, com a expectativa de que as leis poderiam protegê-los e protegê-las e de que seríamos os guardiães dessas leis.",
+        "turn": 2,
+        "start": 5345,
+        "end": 5742
+      },
+      "verifier": {
+        "probability": 0.991219140866141,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}
