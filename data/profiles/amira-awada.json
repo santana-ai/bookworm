@@ -1,0 +1,293 @@
+{
+  "actor": {
+    "slug": "amira-awada",
+    "name": "AMIRA AWADA",
+    "display_name": "Amira Awada",
+    "role": "Presidente do Instituto Vidas Raras",
+    "article_names": [
+      "Amira Awada"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:46:04+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      185,
+      204
+    ],
+    "input_tokens": 4494,
+    "output_tokens": 904,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 1,
+    "passage_only": 14,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a incorporação de diagnósticos e tratamentos para doenças raras, incluindo a distonia, no Sistema Único de Saúde (SUS), argumentando que a falta de acesso a políticas públicas específicas agrava as condições dos pacientes e gera ônus diferenciado para o poder público devido às comorbidades de doenças não tratadas.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 13,
+            "start": 74921,
+            "end": 75282,
+            "text": "A dificuldade de acesso a políticas públicas específicas para essas patologias faz com que tenhamos cada vez mais o agravamento dessas condições, o que traz um ônus diferenciado para o poder público, porque aquele paciente que não tem um tratamento adequado vai acabar voltando para o serviço por causa das comorbidades que essa doença de base não tratada traz.",
+            "score": 0.3042
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a ampliação da triagem neonatal (teste do pezinho) no Brasil, citando que o instituto solicitou essa expansão desde 2012 e realizou campanha com mais de 600 mil assinaturas em 2019, e critica o atraso na implementação, afirmando que a triagem é o primeiro passo para garantir qualidade de vida, inclusão e economia futura no orçamento público.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 47538,
+            "end": 47652,
+            "text": "E a triagem neonatal é o primeiro passo para garantir o mínimo de qualidade de vida e de inclusão a essas pessoas.",
+            "score": 0.3957
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a ampliação da triagem neonatal seja feita de maneira organizada e sustentável, em conjunto com a CONITEC, a comissão de triagem neonatal do Ministério da Saúde e os Estados, e defende que os repasses financeiros aos Estados não sejam \"com carimbo\", para permitir a execução correta do programa.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 33,
+            "start": 104877,
+            "end": 105201,
+            "text": "Sabemos que a triagem neonatal é um programa extremamente essencial, bem como nós precisamos começar a discutir formas de financiamento, como esses repasses vão ser feitos para os Estados, para que não sejam repasses sem carimbo, o que dá um pouco mais de liberdade para fazermos a execução dessa triagem da maneira correta.",
+            "score": 0.403
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a Política Nacional de Atenção Integral às Pessoas com Doenças Raras seja efetiva e que os Estados e Municípios se engajem em sua implementação, com apoio das sociedades médicas e associações de pacientes.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 33,
+            "start": 105916,
+            "end": 106140,
+            "text": "A Política Nacional de Atenção Integral às Pessoas com Doenças Raras precisa ser efetiva e sabemos de todo o engajamento das sociedades médicas e das associações para que os Estados e os Municípios se engajem nessa política.",
+            "score": 0.7202
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a saúde pública precisa priorizar a prevenção e o tratamento no momento adequado, pois crianças diagnosticadas fora do tempo não terão acesso a tratamento efetivo, e usa o caso do Theo, uma pessoa com doença rara que poderia ter tido desenvolvimento normal se diagnosticada precocemente, para ilustrar a importância da prevenção.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 48374,
+            "end": 48557,
+            "text": "A saúde pública precisa pensar em prevenção e em tratamento no momento adequado, porque as crianças diagnosticadas fora do momento adequado não vão ter acesso a um tratamento efetivo.",
+            "score": 0.5613
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento da economia de longo prazo para justificar investimentos em prevenção e diagnóstico precoce, afirmando que o primeiro investimento na triagem neonatal levará à diminuição de custos futuros e que a negligência com doenças crônicas gera custos maiores com comorbidades.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 50160,
+            "end": 50263,
+            "text": "Nós precisamos fazer esse primeiro investimento para vermos, no longo prazo, uma diminuição nos custos.",
+            "score": 0.4507
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio da equidade e da inclusão social, defendendo que pessoas com doenças crônicas e incapacitantes têm direito à educação, ao trabalho e à contribuição efetiva à sociedade, e que a equidade exige tratar as pessoas de acordo com suas necessidades especiais para garantir o mesmo tratamento.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 33,
+            "start": 105575,
+            "end": 105790,
+            "text": "Quando pensamos em equidade e homogeneidade, também precisamos pensar em tratar as pessoas dentro das suas necessidades especiais, para que elas tenham a oportunidade de ter o mesmo tratamento e equidade necessária.",
+            "score": 0.4081
+          },
+          "udv": {
+            "id": "udv-204-4-0",
+            "rule": "similar_text",
+            "score": 0.3026
+          }
+        },
+        {
+          "text": "Baseia suas posições na necessidade de engajamento conjunto de todos os stakeholders (tomadores de decisão, sociedade civil, pacientes, indústria farmacêutica, médicos e gestores) para a criação de políticas públicas efetivas e integrais.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 44911,
+            "end": 45196,
+            "text": "Então, nós entendemos a necessidade e quanto o trabalhoconjunto de todos osstakeholders— os tomadores de decisão, a sociedade civil e o paciente — é necessário para que tenhamos políticas públicas efetivas e integrais, quando falamos de doenças raras e quando falamos de saúde pública.",
+            "score": 0.4109
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a política pública só será efetiva com a força e a cobrança da sociedade civil, que deve apoiar o Ministério da Saúde e cobrar Estados e Municípios para que os gargalos sejam diminuídos.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 33,
+            "start": 105203,
+            "end": 105297,
+            "text": "Sabemos que a política pública só vai ser efetiva com a força e a cobrança da sociedade civil.",
+            "score": 0.5156
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Instituto Vidas Raras, instituição que trabalha com doenças raras há 22 anos e com a qual trabalha há 14 anos, e afirma falar em nome da Aliança Rara, grupo de mais de 90 associações de doenças raras com o qual trabalha desde 2019.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 45198,
+            "end": 45281,
+            "text": "Fazemos parte da Aliança Rara, um grupo de mais de 90 associações de doenças raras.",
+            "score": 0.417
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o instituto trabalha com políticas públicas desde 2003 e que faz parte de um grupo que contribuiu para a criação de uma política de doenças raras na ONU, com apoio da missão do Brasil em Nova York.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 44726,
+            "end": 44781,
+            "text": "O instituto trabalha com políticas públicas desde 2003.",
+            "score": 0.4917
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e estimativas para contextualizar a magnitude do problema, como a afirmação de que existem 300 milhões de pessoas no mundo e 15 milhões no Brasil afetadas por doenças raras, e a média de 4 a 7 anos para o diagnóstico no Brasil.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 43778,
+            "end": 43899,
+            "text": "No Brasil, estima-se que existem 15 milhões de brasileiros afetados ou que possam vir a ser afetados por uma doença rara.",
+            "score": 0.268
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a casos concretos e histórias pessoais, como a do Dudu (filho de uma fundadora do instituto) e a do Theo, para ilustrar a importância do diagnóstico precoce e da prevenção.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 43048,
+            "end": 43172,
+            "text": "E vocês estão vendo aqui atrás de mim o quadro do Dudu, que é o filho de uma das fundadoras do instituto, a Regina Próspero.",
+            "score": 0.1949
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos internacionais, como o Canadá, para demonstrar que a triagem neonatal expandida é viável em sistemas de saúde semelhantes ao brasileiro.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 49826,
+            "end": 50158,
+            "text": "Precisamos começar a entender que a triagem neonatal no mundo está muito mais avançada para o diagnóstico e para trazer essas pessoas para dentro do Sistema Único de Saúde.Nós podemos usar como um exemplo o Canadá, que tem uma triagem neonatal mais expandida que a do Brasil e que tem um sistema de saúde muito parecido com o nosso.",
+            "score": 0.2402
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de urgência e cobrança, usando expressões como \"não podemos deixar sempre para depois\" e \"precisamos começar a fazer\", e coloca o instituto à disposição para a continuidade das discussões e para o envio de materiais educativos aos membros da Comissão.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 13,
+            "start": 49432,
+            "end": 49477,
+            "text": "Só que não podemos deixar sempre para depois.",
+            "score": 0.4008
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 185,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Cobertura do teste do pezinho é muito desigual no estados brasileiros, aponta levantamento",
+      "assunto": "Desigualdade na cobertura do teste do pezinho nos estados brasileiros e desafios para a ampliação do exame conforme a Lei 14.154/21",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 204,
+      "split": "train",
+      "article_date": "2023-07-13",
+      "title": "Especialistas defendem melhorias no acesso ao diagnóstico e tratamento da distonia no SUS",
+      "assunto": "Melhorias no acesso ao diagnóstico e tratamento da distonia no SUS",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-204-4-0",
+      "hearing_id": 204,
+      "n": 12,
+      "article_name": "Amira Awada",
+      "proposition": "As pessoas com doenças e condições crônicas, como é a distonia, precisam ser incluídas na sociedade. Além de um tratamento integral, é necessário o direito à educação e ao trabalho.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Elas devem ser acompanhadas e tratadas para que esses pacientes tenham a qualidade de vida preservada e possam ser incluídos na sociedade de maneira integral. Quando falamos de inclusão, falamos de um tratamento integral, do direito à educação, do direito ao trabalho, porque as pessoas que têm uma doença crônica, e uma doença crônica degenerativa e incapacitante, também têm o direito e a vontade de contribuir de maneira efetiva com a sociedade.",
+        "turn": 13,
+        "start": 75638,
+        "end": 76086
+      },
+      "verifier": {
+        "probability": 0.9612456600310811,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

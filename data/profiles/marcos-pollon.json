@@ -1,0 +1,504 @@
+{
+  "actor": {
+    "slug": "marcos-pollon",
+    "name": "Marcos Pollon",
+    "display_name": "Marcos Pollon",
+    "role": "Deputado (PL-MS)",
+    "article_names": [
+      "Marcos Pollon"
+    ],
+    "party_uf": [
+      "PL - MS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:12:14+00:00",
+    "n_statements": 19,
+    "n_hearings": 3,
+    "hearing_ids": [
+      148,
+      201,
+      205
+    ],
+    "input_tokens": 12463,
+    "output_tokens": 1358,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 26,
+    "with_udv": 2,
+    "passage_only": 19,
+    "without_evidence": 5
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a destinação de 30% do Fundo Nacional de Segurança Pública para os Estados de fronteira, argumentando que o Brasil não é produtor de entorpecentes, mas sim rota de passagem, o que sobrecarrega as forças policiais locais sem contrapartida da União.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 38,
+            "start": 59610,
+            "end": 59776,
+            "text": "Por essa razão, hoje mesmo estou entrando com um projeto de lei que determina a destinação de 30% do Fundo Nacional de Segurança Pública para os Estados de fronteira.",
+            "score": 0.3767
+          },
+          "udv": {
+            "id": "udv-205-8-0",
+            "rule": "same_sentence",
+            "score": 0.3681
+          }
+        },
+        {
+          "text": "Critica o Governo Federal por priorizar o desarmamento da população legal em detrimento do combate ao crime organizado e ao tráfico, citando a ausência de programas para desarmar traficantes ou fortalecer o policiamento de fronteira no semestre.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 38,
+            "start": 60482,
+            "end": 60621,
+            "text": "No entanto, eu não vi esse semestre absolutamente nenhum programa para desarmar traficantes ou para fortalecer o policiamento de fronteira.",
+            "score": 0.3882
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma política de Estado para a segurança nas fronteiras, rejeitando a visão de que se trata apenas de uma política de Governo, e aponta o \"desmanche\" da estrutura da Polícia Rodoviária Federal e de outros órgãos de segurança.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 38,
+            "start": 61759,
+            "end": 61885,
+            "text": "Não só a Polícia Rodoviária Federal, mas todos os outros órgãos e organismos da segurança pública têm ficado em segundo plano.",
+            "score": 0.2963
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a individualização das condutas dos presos nos atos de 8 de janeiro, classificando a prisão em massa sem atribuição de fatos como \"prisão multitudinária\" e uma violação das liberdades individuais.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 170,
+            "start": 198988,
+            "end": 199323,
+            "text": "Nós entramos com uma representação na Corte Interamericana de Direitos Humanos contra esse ato objeto que culminou no absurdo do 8 de Janeiro, culminou em prisão de multidões — vamos criar a figura da prisão multitudinária —, sem qualquer individualização de conduta, sem qualquer atribuição de fato, simplesmente prenderam as pessoas.",
+            "score": 0.2822
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o \"ativismo judicial\" e a expansão do poder do Judiciário, citando o inquérito das fake news (Inquérito nº 4.781) como exemplo de processo que não se encerra e fere o devido processo legal.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 170,
+            "start": 198637,
+            "end": 198912,
+            "text": "Um dos meus associados, e ninguém me contou, falou sobre um processo que faz parte de outros processos da minha banca, o Inquérito nº 4.781, chamado de inquérito dasfake newsou até inquérito do fim do mundo, tramita quase há 3 anos, e nós nem sequer tivemos acesso aos autos.",
+            "score": 0.2424
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a retomada imediata das autorizações para caça e manejo de fauna exótica invasora (como javalis) pelo IBAMA, argumentando que a suspensão desde janeiro de 2023 está causando o aumento das infestações e ameaçando a suinocultura e a pecuária nacional.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra do IBAMA, MAPA, Polícia Federal e Exército a retirada da \"carga ideológica\" do debate sobre manejo e armas, pedindo que os órgãos tratem a questão com responsabilidade técnica e não como bandeira política.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 41,
+            "start": 110769,
+            "end": 111029,
+            "text": "Nós precisamos da atuação do IBAMA nesse sentido, para solucionar essas questões com urgência, assim como precisamos da Polícia Federal e do Exército, para fazer o controle de armas, e do MAPA, para tratar da questão das doenças e das questões fitossanitárias.",
+            "score": 0.251
+          },
+          "udv": {
+            "id": "udv-148-0-0",
+            "rule": "same_sentence",
+            "score": 0.1999
+          }
+        },
+        {
+          "text": "Questiona a competência do IBAMA para tratar de regulamentação de armas e mortes em manejo, argumentando que esses temas pertencem a outros órgãos, e critica a \"contaminação ideológica\" que leva órgãos públicos a se tornarem \"baluartes do desarmamento\".",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 8,
+            "start": 35698,
+            "end": 35758,
+            "text": "A regulamentação do uso de armas não é competência do IBAMA.",
+            "score": 0.3467
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a adequação do Código de Caça e a criação de um grupo de trabalho para dar segurança jurídica ao manejo de espécies invasoras e, futuramente, nativas, visando a construção de um consenso legislativo.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 41,
+            "start": 111806,
+            "end": 112290,
+            "text": "Talvez pudéssemos construir um grupo de trabalho para justamente trabalhar a adequação do Código de Caça, que, para o nosso caso, é bem ultrapassado, e dar uma resposta legislativa efetiva na construção de um consenso, trazendo esse trabalho técnico dos órgãos que tocam esse tema, como é o caso do órgão aqui representado pela senhora, que muito bem frisou a sua competência e formação técnica, para que possamos trazer os debates do Legislativo e buscar a construção desse […]",
+            "score": 0.3622
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a política de desarmamento do Governo por causar desemprego e bancarrota no setor, citando que mais de 350 mil pessoas ficaram desempregadas e que mais de 150 mil empresas ligadas ao setor estão sendo afetadas.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 8,
+            "start": 39046,
+            "end": 39267,
+            "text": "Em janeiro eu fiz um alerta de que essa política desarmamentista desarrazoada destruiria mais de 10 mil empresas no Brasil ligadas só à comercialização de armas, num total de mais de 150 mil empresas que exploram o setor.",
+            "score": 0.4102
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o uso de calibres restritos e a manutenção de equipamentos adequados para o manejo, argumentando que calibres como o 7.62 são ineficazes contra animais de grande porte como búfalos, necessitando de calibres maiores (como 375 ou 416 Rigby) para garantir a morte rápida e humanitária.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 50,
+            "start": 129805,
+            "end": 129858,
+            "text": "A previsão de calibres restritos para caça será zero.",
+            "score": 0.225
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza o Estado Democrático de Direito e o devido processo legal, invocando a necessidade de limites ao poder do Judiciário para proteger as liberdades individuais, citando Rui Barbosa (\"a pior ditadura é a do Judiciário\").",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 170,
+            "start": 199647,
+            "end": 199806,
+            "text": "Esta Casa precisa urgentemente deitar limites sobre esse Poder, porque, como diria Rui Barbosa, a pior ditadura é a do Judiciário, pois dessa não cabe recurso.",
+            "score": 0.3988
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza a segurança pública e a proteção da população legal, argumentando que o Estado deve proteger quem respeita a lei e busca romper a burocracia para acesso a armas de fogo para defesa ou esporte.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 38,
+            "start": 60266,
+            "end": 60481,
+            "text": "Vemos um empenho muito grande em desarmar a população que tem respeitado a lei e tem buscado romper toda a burocracia para ter acesso a uma arma de fogo, seja para praticar um esporte ou para defender a sua família.",
+            "score": 0.3522
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a separação entre questões técnicas e ideológicas, argumentando que problemas como o manejo de fauna invasora e a segurança nas fronteiras exigem soluções baseadas em dados e experiência prática, não em polarização política.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Valoriza a autonomia e a expertise de profissionais e voluntários (caçadores, manejadores) em suas áreas de atuação, argumentando que o Estado deve \"não atrapalhar\" e que a resposta para problemas complexos não está necessariamente em ações governamentais diretas.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 50,
+            "start": 131839,
+            "end": 131886,
+            "text": "É só o Estado não atrapalhar, que a coisa anda.",
+            "score": 0.1754
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a soberania nacional e a integridade territorial, argumentando que a falta de cuidado com as fronteiras levará ao aumento da criminalidade em todo o País e à perda da \"guerra contra o tráfico\".",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 38,
+            "start": 61887,
+            "end": 62046,
+            "text": "Ou nós cuidamos das fronteiras do País com uma política de Estado ou nós perderemos, de maneira terrível, a guerra contra o tráfico de drogas e contra o crime.",
+            "score": 0.3283
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se nascido em Dourados, Mato Grosso do Sul, região de fronteira, e advogado atuante no agronegócio.",
+          "passage": {
+            "hearing_id": 205,
+            "turn": 38,
+            "start": 58746,
+            "end": 58881,
+            "text": "O DOF, na época, se chamava GOF — Grupo de Operações de Fronteira, revolucionou a segurança pública na fronteira do Mato Grosso do Sul.",
+            "score": 0.3078
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido conselheiro estadual da OAB na gestão de Lamachia, tendo participado do Tribunal de Ética e de comissões, e declara-se insatisfeito com a atuação atual da OAB na defesa das prerrogativas dos advogados.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 170,
+            "start": 198115,
+            "end": 198436,
+            "text": "Durante a gestão de Lamachia, eu fui conselheiro estadual na minha seccional, participei do Tribunal de Ética da OAB, participei de comissões, participei do julgamento de desagravos evi a força com que a OAB sempre combateu o desrespeito e defendeu principalmente as prerrogativas dos advogados e o devido processo legal.",
+            "score": 0.4566
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se membro de uma Frente Parlamentar e responsável pela proposição da audiência pública sobre fauna invasora, buscando construir respostas legislativas em conjunto com outros parlamentares e órgãos.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 19,
+            "start": 90250,
+            "end": 90488,
+            "text": "Dentro em breve, nós teremos que nos reunir para, junto com a Frente Parlamentar de que faço parte, construir uma resposta mais efetiva nesse assunto, principalmente por conta da necessidade de segurança jurídica e pelo tamanho da ameaça.",
+            "score": 0.1576
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter atuado como amicus curiae na Suprema Corte em questões relacionadas à comercialização de calibres restritos.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 6,
+            "start": 28031,
+            "end": 28142,
+            "text": "Eu tive a oportunidade, comoamicus curiae, de levar essa questão à Suprema Corte, mas fui solenemente ignorado.",
+            "score": 0.2843
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e casos concretos para sustentar suas posições, como o número de mortes em manejo (11 desde 2019) comparado às mortes por ineficácia da segurança pública (mais de 60 mil), e os números de desemprego e empresas afetadas pela política de desarmamento.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 8,
+            "start": 37717,
+            "end": 37800,
+            "text": "Nosso País ultrapassou 60 mil mortes causadas pela ineficácia da segurança pública.",
+            "score": 0.3691
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega metáforas e linguagem emotiva para enfatizar a gravidade dos problemas, como \"cachoeira de criminalidade\", \"secando gelo\", \"aterrador\" e \"destruição total da suinocultura\".",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 6,
+            "start": 26337,
+            "end": 26421,
+            "text": "Corremos um risco sério de destruição total da suinocultura e da pecuária no Brasil.",
+            "score": 0.2519
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador com representantes do Governo e de órgãos públicos que considera ideológicos, mas mantém a cortesia formal, pedindo desculpas públicas por eventuais excessos de energia e reiterando o desejo de cooperação.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita autoridades e figuras públicas (Lênio Streck, Rui Barbosa, Deputado Ismael Alexandrino) para reforçar seus argumentos e legitimar suas críticas.",
+          "passage": {
+            "hearing_id": 148,
+            "turn": 15,
+            "start": 76619,
+            "end": 76666,
+            "text": "Passo a palavra ao Deputado Ismael Alexandrino.",
+            "score": 0.2596
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência pessoal e profissional (advocacia, manejo, vivência em região de fronteira) para dar credibilidade às suas afirmações e demonstrar a realidade prática dos problemas que levanta.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra respostas por escrito e a criação de grupos de trabalho para garantir a continuidade e a formalização das discussões, buscando transformar o debate em ações legislativas concretas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 23,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 17,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Em seminário na Câmara, especialistas discordam sobre ativismo judicial",
+      "assunto": "Debate sobre ativismo judicial na Câmara dos Deputados",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 148,
+      "split": "train",
+      "article_date": "2023-10-19",
+      "title": "Deputados cobram do Ibama a volta das autorizações para caça a javalis",
+      "assunto": "Cobrança pela retomada das autorizações para caça a javalis pelo Ibama",
+      "turns": 17,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 205,
+      "split": "train",
+      "article_date": "2023-07-11",
+      "title": "Deputados pedem mais recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do País",
+      "assunto": "Recursos e melhorias na política de enfrentamento aos crimes nas fronteiras do Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-16-4-0",
+      "hearing_id": 16,
+      "n": 14,
+      "article_name": "Marcos Pollon",
+      "proposition": "\"A segunda pergunta que eu lhe faço, senhor ministro, é se a relação do senhor com o Comando Vermelho antecede o seu exercício no ministério ou se ela veio após a sua posse no Ministério dos Direitos Humanos.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Ministro, o senhor, como advogado e, como disse, advogando há mais de 20 anos, e compreendendo, como advogado que sou, que todo réu tem direito à justa defesa e a um advogado que atue tecnicamente em prol de seus interesses, independentemente do crime, a segunda pergunta que eu lhe faço, Sr. Ministro, é se a relação do senhor com o Comando Vermelho antecede o seu exercício no Ministério ou se ela veio após a sua posse no Ministério dos Direitos Humanos.",
+        "turn": 100,
+        "start": 86261,
+        "end": 86718
+      },
+      "verifier": {
+        "probability": 0.9936262932566047,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-148-0-0",
+      "hearing_id": 148,
+      "n": 1,
+      "article_name": "Marcos Pollon",
+      "proposition": "Pediu ao Ibama a retomada urgente do Sistema Integrado de Manejo de Fauna (Simaf)",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós precisamos da atuação do IBAMA nesse sentido, para solucionar essas questões com urgência, assim como precisamos da Polícia Federal e do Exército, para fazer o controle de armas, e do MAPA, para tratar da questão das doenças e das questões fitossanitárias. Então, acredito que podemos criar uma frente e, talvez, pensar em um grupo de trabalho para tirar deste contexto uma resposta legislativa.",
+        "turn": 41,
+        "start": 110769,
+        "end": 111168
+      },
+      "verifier": {
+        "probability": 0.27881356643465977,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-148-0-1",
+      "hearing_id": 148,
+      "n": 2,
+      "article_name": "Marcos Pollon",
+      "proposition": "Cobrou dos envolvidos o enfrentamento da situação sem restrições ideológicas: \"Essa é uma questão de Estado e não de governo\". \"Precisamos do Ibama para solucionar esse problema com urgência\".",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Da mesma forma, agradeço ao Deputado Ismael e o ao Rafael, que se colocaram à disposição do nosso gabinete, porque, como todos os convidados e a senhora também pontuaram, essa é uma questão de Estado, e não uma questão de Governo.",
+        "turn": 41,
+        "start": 110537,
+        "end": 110767
+      },
+      "verifier": {
+        "probability": 0.13956771247124458,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-205-8-0",
+      "hearing_id": 205,
+      "n": 30,
+      "article_name": "Marcos Pollon",
+      "proposition": "Defende que 30% dos recursos do Fundo Nacional de Segurança Pública sejam destinados a estados da fronteira. Disse que vai apresentar projeto de lei sobre isso.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "As drogas que permanecem ou passam por nosso País com destino ao exterior entram pelas fronteiras. Por essa razão, hoje mesmo estou entrando com um projeto de lei que determina a destinação de 30% do Fundo Nacional de Segurança Pública para os Estados de fronteira.",
+        "turn": 38,
+        "start": 59511,
+        "end": 59776
+      },
+      "verifier": {
+        "probability": 0.9880987627456586,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

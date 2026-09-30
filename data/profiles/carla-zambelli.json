@@ -1,0 +1,338 @@
+{
+  "actor": {
+    "slug": "carla-zambelli",
+    "name": "CARLA ZAMBELLI",
+    "display_name": "CARLA ZAMBELLI",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:23:35+00:00",
+    "n_statements": 17,
+    "n_hearings": 1,
+    "hearing_ids": [
+      145
+    ],
+    "input_tokens": 4445,
+    "output_tokens": 1132,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica o Ministro da Justiça por não ter acionado a Força Nacional e as câmeras de segurança durante os eventos de 8 de janeiro, argumentando que a Portaria nº 272/2023, assinada por ele, previa o aumento da segurança entre a Rodoviária e a Praça dos Três Poderes nos dias 6, 7 e 8, o que demonstra omissão e prevaricação.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 275,
+            "start": 137440,
+            "end": 137610,
+            "text": "O senhor fez uma portaria dizendo que a Força Nacional e o Ministério da Justiça aumentariam a segurança nos dias 6, 7 e 8, entre a Rodoviária e a Praça dos Três Poderes.",
+            "score": 0.4834
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que houve seletividade na cadeia de custódia das provas, destacando que apenas 4 das 185 câmeras localizadas no topo do Palácio da Justiça foram mantidas e questionando a responsabilidade do Ministro pela preservação das imagens, dado que o contrato com a Orion Telecomunicações é gerido pelo Ministério da Justiça.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 269,
+            "start": 134696,
+            "end": 134854,
+            "text": "Somente 4 das 185 câmeras localizadas no topo do Palácio da Justiça foram mantidas — somente 4 de 185.O senhor disse aqui hoje que as câmeras não se ativaram.",
+            "score": 0.409
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a atuação do STF e do Ministério da Justiça contra falas de parlamentares configura censura prévia, criticando a declaração do Ministro de que tomaria medidas administrativas ou judiciais caso o \"PL da censura\" não fosse aprovado pelo Congresso.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 264,
+            "start": 129014,
+            "end": 129362,
+            "text": "O Flávio Dino disse que as plataformas são usadas para divulgar ideias econômicas e da ultradireita e, em consonância disso, ele disse que faria todo o possível para poder aprovar o PL da censura aqui no Congresso, mas, caso o Congresso não o aprove, disse que tomaria medidas administrativamente ou, ainda — e falou em nome do STF —, o STF agiria.",
+            "score": 0.2922
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue entre a repressão a crimes graves na deep web e no Discord, como ameaças de pedofilia e mutilação de crianças, e o direito de expressão em redes sociais como Facebook, Instagram e TikTok, onde cidadãos e parlamentares exercem o direito de reclamar e criticar.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 297,
+            "start": 142279,
+            "end": 142657,
+            "text": "Então, em todo tipo de coisa que o senhor fizer contra adeep webe o Discord, o senhor vai ter o meu apoio, mas eu tenho que ser sincera: o senhor não pode confundir o que é falado no Discord e nadeep websobre mutilação de crianças, como as ameaças que fazem ao meu filho, com Facebook, Instagram, TikTok, nos quais os Parlamentares e o povo brasileiro têm o direito de reclamar.",
+            "score": 0.3757
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados de apreensão de drogas do Governo Bolsonaro (745 toneladas em 2021 e 357 toneladas em 2022) para questionar a comparabilidade com os dados de 2023 apresentados pelo Ministro em valores financeiros (3 bilhões de reais), exigindo a apresentação dos números em toneladas para comparação justa.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 264,
+            "start": 130295,
+            "end": 130488,
+            "text": "Então, eu não consigo comparar os anos de 2021 e 2022 com o ano de 2023, porque, as apreensões em 2021 e 2022 estão registradas em toneladas, e as de 2023 o senhor falou em valores financeiros.",
+            "score": 0.3536
+          },
+          "udv": null
+        },
+        {
+          "text": "Refuta a afirmação de que \"direitista não gosta de pobre\" citando políticas do Governo Bolsonaro, como o piso salarial das enfermeiras, o aumento de 33% para professores, o programa de transferência de renda e a titularização de terras para 400 mil famílias.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 297,
+            "start": 141094,
+            "end": 141669,
+            "text": "Eu queria lembrar o seguinte ao senhor, como resposta a essa fala: o Governo Bolsonaro sancionou o piso salarial das enfermeiras; concedeu o maior aumento aos professores, um aumento de 33%, o maior da história; fez o maior programa de transferência de renda do mundo e da história durante a pandemia, é claro, para a população de baixa renda; fez o maior programa de titularização de terras para as pessoas que eram escravizadas pelo MST e que não podiam ter o título de sua […]",
+            "score": 0.3963
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio a medidas contra a deep web e o Discord para combater pedofilia, mas condiciona esse apoio à não confusão com a liberdade de expressão em redes sociais abertas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 301,
+            "start": 144312,
+            "end": 144355,
+            "text": "O senhor não falou do Discord e dadeep web.",
+            "score": 0.2216
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o Ministro de perseguição à Direita e de usar o cargo para vingar o Presidente Lula, citando entrevista de Lula ao Brasil 247 em que o Presidente afirma que \"só vai estar bem quando eu [expressão retirada] esse Moro\" e que está \"aqui para me vingar dessa gente\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 297,
+            "start": 143329,
+            "end": 143643,
+            "text": "O senhor exaltou o Lula, que não me representa, que não é meu Presidente, mas, em entrevista aoBrasil 247, ele disse:“De vez em quando ia um procurador (...) e perguntavam ‘tá tudo bem?’ e [eu respondia] ‘não tá tudo bem, só vai estar bem quando eu (expressão retirada por determinação da Presidência) esse Moro'”.",
+            "score": 0.3712
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a cadeia de custódia das provas, com base nos arts. 158-A a 158-F do Código de Processo Penal (incluídos pelo pacote anticrime), como critério para avaliar a conduta do Ministro na preservação de evidências.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 269,
+            "start": 135550,
+            "end": 135652,
+            "text": "Inclusive, o pacote anticrime do Ministro Sergio Moro acrescentou ao Código de Processo Penal os arts.",
+            "score": 0.4281
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o art. 13, § 2º, do Código Penal para classificar a conduta do Ministro como omissão, argumentando que ele assumiu a responsabilidade de impedir o resultado ao editar a portaria de segurança.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 275,
+            "start": 137296,
+            "end": 137362,
+            "text": "De outra forma, assumiu a responsabilidade de impedir o resultado.",
+            "score": 0.4951
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a liberdade de expressão e a imunidade parlamentar como limites à ação estatal, rejeitando a ideia de censura prévia e argumentando que a lei já prevê mecanismos para lidar com injúria e calúnia.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 297,
+            "start": 142755,
+            "end": 142843,
+            "text": "Se eu me sentir lesada, vou usar o que está previsto na lei sobre injúria, calúnia, etc.",
+            "score": 0.2145
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa a distinção entre crimes graves (pedofilia, ameaças de mutilação) e discurso político ou social em redes abertas como critério para avaliar propostas de regulação de plataformas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada e representante da Liderança, usando o tempo de fala na réplica.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 264,
+            "start": 128892,
+            "end": 128936,
+            "text": "Eu vou usar o tempo da Liderança na réplica.",
+            "score": 0.4712
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Presidente Lula \"não a representa\" e \"não é seu Presidente\", posicionando-se em oposição ao governo.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 287,
+            "start": 139732,
+            "end": 139782,
+            "text": "Presidente, ele falou que gosta de mulher séria...",
+            "score": 0.2161
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como defensora da Direita e critica a atuação do governo e do STF contra a \"ultradireita\" e \"patriotas\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 301,
+            "start": 144118,
+            "end": 144265,
+            "text": "De repente, nós vemos uma perseguição à Direita, vemos o senhor falando sobre censura de patriotas, falando da Direita:\"Temos que calar a Direita\".",
+            "score": 0.1982
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ser casada e ter lutado contra a pedofilia \"há muitos anos, muito antes de ser Deputada\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 297,
+            "start": 142089,
+            "end": 142277,
+            "text": "Eles não só me ameaçam, mas também querem sequestrar, estuprar, esquartejar e me mandar pedaços do meu filho, porque eu luto contra a pedofilia há muitos anos, muito antes de ser Deputada.",
+            "score": 0.4419
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Cita artigos de lei específicos (Portaria nº 272/2023, Decreto nº 5.289/2004, arts. 158-A a 158-F do CPP, art. 13 do CP) para fundamentar acusações de omissão e prevaricação.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 269,
+            "start": 133605,
+            "end": 133655,
+            "text": "Ministro, o Decreto nº 5.289, de 2004, no seu art.",
+            "score": 0.4076
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa dados numéricos específicos (745 toneladas, 357 toneladas, 3 bilhões de reais, 400 mil famílias, 4 de 185 câmeras) para questionar a comparabilidade de indicadores e sustentar críticas ao governo anterior.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 297,
+            "start": 141670,
+            "end": 141810,
+            "text": "Com isso, 400 mil famílias, no Governo Bolsonaro, passaram a ter o título da terra para defender a sua família e ter o seu próprio sustento.",
+            "score": 0.2034
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas ao Ministro, exigindo esclarecimentos sobre sanções administrativas, dados em toneladas e a motivação para não acionar câmeras.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 264,
+            "start": 131067,
+            "end": 131116,
+            "text": "Essas são as perguntas que eu faço para o senhor.",
+            "score": 0.1919
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega tom confrontador, usando expressões como \"seu omitente\", \"prevaricou\", \"pregou o medo na população\" e \"perseguição à Direita\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 297,
+            "start": 143058,
+            "end": 143094,
+            "text": "O senhor pregou o medo na população.",
+            "score": 0.4586
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita declarações de terceiros (Lula, Flávio Dino) para reforçar argumentos sobre censura e vingança política.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa experiência pessoal (ameaças de pedofilia na deep web) para legitimar sua posição sobre regulação de plataformas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 273,
+            "start": 136724,
+            "end": 136763,
+            "text": "O pessoal da Esquerda faz questão de...",
+            "score": 0.1552
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 17,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "actor": {
+    "slug": "merlong-solano",
+    "name": "MERLONG SOLANO",
+    "display_name": "MERLONG SOLANO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PT - PI"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:29:45+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      2
+    ],
+    "input_tokens": 2250,
+    "output_tokens": 586,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 13,
+    "with_udv": 0,
+    "passage_only": 11,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Afirma que a energia elétrica brasileira subiu 47% entre 2017 e 2022, tornando-se uma das mais caras do mundo, o que prejudica as famílias pelo nível de renda e as empresas, repercutindo negativamente no processo de retomada da industrialização.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 74948,
+            "end": 75196,
+            "text": "Ela é cara, considerando os parâmetros internacionais e, principalmente, o nível de renda da maior parte das nossas famílias.Ela é cara também para as empresas, inclusive repercutindo negativamente no nosso processo de retomada da industrialização.",
+            "score": 0.4345
+          },
+          "udv": null
+        },
+        {
+          "text": "Caracteriza o sistema elétrico como inseguro no médio e longo prazo, citando as crises de abastecimento de 2001 e 2021 e a dependência excessiva de hidrelétricas, que considera insustentável devido à maior frequência de eventos climáticos extremos.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 75469,
+            "end": 75722,
+            "text": "O nosso sistema, em parte, ainda continua fortemente dependente das hidrelétricas, e não é seguro, no mundo em que vivemos hoje, continuarmos dependendo excessivamente da energia hidrelétrica em razão da maior frequência dos eventos climáticos extremos.",
+            "score": 0.2622
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece avanços nos governos Lula e Dilma, como leilões com referência ao menor preço da tarifa, investimentos em linhas de transmissão e expansão das energias eólica e solar, mas afirma que essas medidas não foram suficientes para evitar a crise de 2021.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 75724,
+            "end": 76007,
+            "text": "Tivemos avanços importantes durante o Governo Lula e o Governo Dilma, como os leilões, tomando como referência o menor preço da tarifa para tentar baixar o preço dessa energia; os investimentos em linhas de transmissão; e grande expansão das energias renováveis na eólica e na solar.",
+            "score": 0.5711
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica um problema estrutural no modelo energético, agravado pelo que descreve como um governo passado deletério e extremamente incompetente.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 76162,
+            "end": 76356,
+            "text": "É óbvio que, no meio do caminho, havia um governo deletério, um governo extremamente incompetente, o governo passado, o que ajudou a agravar um problema que, no meu ponto de vista, é estrutural.",
+            "score": 0.4646
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe avançar no aproveitamento das energias renováveis, especificamente solar, eólica e hidrogênio verde, e defender um modelo governado de maneira coordenada para resolver o problema identificado pelo Deputado Odair Cunha.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 76369,
+            "end": 76677,
+            "text": "Ministro, o que fazer para avançarmos no sentido de aproveitar cada vez mais as energias renováveis, a solar, a eólica, o hidrogênio verde — precisamos avançar por essa linha —, e para termos um modelo governado de maneira coordenada para resolver o problema muito bem identificado pelo Deputado Odair Cunha?",
+            "score": 0.6396
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a comparação com parâmetros internacionais e o nível de renda das famílias como critério para definir a energia como cara.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 74948,
+            "end": 75196,
+            "text": "Ela é cara, considerando os parâmetros internacionais e, principalmente, o nível de renda da maior parte das nossas famílias.Ela é cara também para as empresas, inclusive repercutindo negativamente no nosso processo de retomada da industrialização.",
+            "score": 0.3953
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a crítica à dependência de hidrelétricas na variabilidade climática, argumentando que a maior frequência de eventos extremos torna esse modelo inseguro.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 75469,
+            "end": 75722,
+            "text": "O nosso sistema, em parte, ainda continua fortemente dependente das hidrelétricas, e não é seguro, no mundo em que vivemos hoje, continuarmos dependendo excessivamente da energia hidrelétrica em razão da maior frequência dos eventos climáticos extremos.",
+            "score": 0.2214
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a necessidade de mudança de modelo pela insuficiência das medidas anteriores (leilões, transmissão, renováveis) em garantir a segurança do abastecimento, evidenciada pela crise de 2021.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 75384,
+            "end": 75468,
+            "text": "Depois, em 2021, novamente tivemos uma gravíssima crise de abastecimento de energia.",
+            "score": 0.1948
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se alinhado com as políticas de energia implementadas durante os governos Lula e Dilma, reconhecendo avanços como leilões e expansão de renováveis.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 75724,
+            "end": 76007,
+            "text": "Tivemos avanços importantes durante o Governo Lula e o Governo Dilma, como os leilões, tomando como referência o menor preço da tarifa para tentar baixar o preço dessa energia; os investimentos em linhas de transmissão; e grande expansão das energias renováveis na eólica e na solar.",
+            "score": 0.3146
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se em oposição ao governo anterior, que classifica como deletério e incompetente.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 76162,
+            "end": 76356,
+            "text": "É óbvio que, no meio do caminho, havia um governo deletério, um governo extremamente incompetente, o governo passado, o que ajudou a agravar um problema que, no meu ponto de vista, é estrutural.",
+            "score": 0.2677
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura o argumento apresentando primeiro o problema (custo elevado e insegurança), depois o histórico de medidas adotadas e, por fim, a proposta de solução.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos (aumento de 47% entre 2017 e 2022) e eventos históricos (crises de 2001 e 2021) para fundamentar suas afirmações.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Direciona perguntas ao Ministro Alexandre Silveira, solicitando posicionamento sobre a transição para energias renováveis e a coordenação do modelo energético.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 31,
+            "start": 74699,
+            "end": 74902,
+            "text": "Presidente Rodrigo de Castro, Ministro Alexandre Silveira, Operador Luiz Carlos, Presidente Bia Kicis, a energia elétrica brasileira, entre 2017 e 2022, subiu 47% e tornou-se uma das mais caras do mundo.",
+            "score": 0.1527
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,590 @@
+{
+  "actor": {
+    "slug": "celia-xakriaba",
+    "name": "Célia Xakriabá",
+    "display_name": "Célia Xakriabá",
+    "role": "Deputada (Psol-MG)",
+    "article_names": [
+      "Célia Xakriabá"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:33:56+00:00",
+    "n_statements": 39,
+    "n_hearings": 7,
+    "hearing_ids": [
+      20,
+      48,
+      136,
+      139,
+      169,
+      183,
+      186
+    ],
+    "input_tokens": 24716,
+    "output_tokens": 1418,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 27,
+    "with_udv": 3,
+    "passage_only": 23,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Rejeita a tese do marco temporal e o Projeto de Lei nº 2.903/2023, argumentando que a demarcação é condição para a existência de educação, saúde e identidade indígena, e que a manutenção dos territórios é a \"última solução para barrar a crise climática\".",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 0,
+            "start": 1165,
+            "end": 1348,
+            "text": "Não vai existir possibilidade de solução para barrar a crise climática — acabamos de chegar da COP —, enquanto não se reconhecer a importância da demarcação dos territórios indígenas.",
+            "score": 0.2945
+          },
+          "udv": {
+            "id": "udv-20-1-0",
+            "rule": "same_sentence",
+            "score": 0.118
+          }
+        },
+        {
+          "text": "Defende a aprovação imediata da PEC 504 para reconhecer o Cerrado e a Caatinga como patrimônios nacionais, criticando a expansão agrícola, o projeto MATOPIBA e a legislação europeia antidesmatamento por não reconhecerem esses biomas, e exigindo políticas públicas eficazes e não apenas \"mercado de carbono\".",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 6,
+            "start": 33290,
+            "end": 33555,
+            "text": "Agora, eu falo, gente, que não é só reconhecer no papel, tem que reconhecer de fato e haver políticas públicas eficazes que garantam também a conservação desses biomas, a sustentabilidade, de acordo com a nossa perspectiva enquanto povos e comunidades tradicionais.",
+            "score": 0.1996
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a aprovação do Projeto de Lei 4347/21 para tornar permanente a PNGATI, cobrando a alocação de recursos específicos no PPA, a regulamentação do papel dos agentes ambientais indígenas e a articulação da política com a educação e a saúde indígena.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 16,
+            "start": 41822,
+            "end": 41909,
+            "text": "Também é importante reconhecer e regulamentar o papel dos agentes ambientais indígenas.",
+            "score": 0.2745
+          },
+          "udv": {
+            "id": "udv-136-2-1",
+            "rule": "same_sentence",
+            "score": 0.3498
+          }
+        },
+        {
+          "text": "Repudia a PEC 59/23, protocolada no Senado, que transfere a competência de demarcação de terras indígenas para o Congresso Nacional, classificando-a como \"ressuscitação da antiga PEC 215/00\" e uma agressão aos direitos dos povos indígenas.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 22,
+            "start": 61113,
+            "end": 61152,
+            "text": "É a ressuscitação da antiga PEC 215/00.",
+            "score": 0.5384
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma legislação prisional específica para indígenas, a partir de consulta pública, e critica a criminalização de lideranças e a subnotificação de dados sobre encarceramento, que usa estatísticas para estigmatizar os povos indígenas como \"criminosos\".",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 2,
+            "start": 11074,
+            "end": 11140,
+            "text": "É importante falar sobre a criminalização de lideranças indígenas.",
+            "score": 0.2876
+          },
+          "udv": {
+            "id": "udv-139-1-1",
+            "rule": "similar_text",
+            "score": 0.3264
+          }
+        },
+        {
+          "text": "Defende a união homoafetiva e a diversidade de família, criticando a comparação feita na Comissão de Família entre uniões homoafetivas e crimes como pedofilia, e defendendo a liberdade de amar como questão de direitos humanos.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 61,
+            "start": 145192,
+            "end": 145274,
+            "text": "Esta Comissão de Família precisa, sim, tratar da diversidade da família no Brasil.",
+            "score": 0.3409
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a liberação de licenças para exploração de petróleo na Foz do Amazonas, citando pesquisa segundo a qual isso impactaria 47 territórios indígenas e 22 unidades de conservação, e defendendo a transição energética justa.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 98,
+            "start": 169479,
+            "end": 169652,
+            "text": "Segundo essa pesquisa, as invasões nos territórios, com a situação do petróleo, essa autorização impactaria diretamente 47 territórios indígenas, 22 unidades de conservação.",
+            "score": 0.5395
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra políticas públicas duradouras para desastres climáticos, rejeitando a narrativa de que atingidos constroem em áreas proibidas, e defendendo o acesso a moradia de qualidade e a discussão sobre racismo ambiental.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 11,
+            "start": 60144,
+            "end": 60289,
+            "text": "E precisamos pensar políticas públicas de acesso a moradia com qualidade, sobretudo neste momento em que nós estamos debatendo a crise climática.",
+            "score": 0.3191
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a educação climática nas escolas, com recorte específico para escolas indígenas, e a atualização da legislação de merenda escolar para aceitar produtos locais, como galinha caipira e queijo, promovendo a \"saborania\" alimentar.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 4,
+            "start": 13195,
+            "end": 13352,
+            "text": "E eu acho que, para além das escolas em geral, temos que pensar num recorte para as escolas indígenas, ou nas escolas indígenas ensinando as escolas de fora.",
+            "score": 0.3363
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Afirma que \"não vai existir o papel, não vai existir lugar onde firmar a mão na caneta, se não existir o território\", utilizando a existência física do território como fundamento para todos os demais direitos, como educação e saúde.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 0,
+            "start": 764,
+            "end": 970,
+            "text": "Nós sabemos que, quando estamos lutando pelo território, estamos lutando pela educação também, porque não vai existir o papel, não vai existir lugar onde firmar a mão na caneta, se não existir o território.",
+            "score": 0.6248
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a metáfora de que os povos indígenas são \"bons zagueiros\" na defesa da biodiversidade, justificando a proteção dos biomas como uma função estratégica para a humanidade, não apenas um direito local.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 0,
+            "start": 1376,
+            "end": 1470,
+            "text": "A III Marcha tem como temaMulheres Biomas em Defesa da Biodiversidade pelas Raízes Ancestrais.",
+            "score": 0.1935
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que \"a economia mais inteligente é a economia que não mata e a economia que não vai comprometer o futuro\", usando a sustentabilidade ecológica como critério para avaliar propostas econômicas e energéticas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 98,
+            "start": 170732,
+            "end": 171012,
+            "text": "Quando a Ministra Marina Silva, junto com sua equipe, de maneira muito coerente, nos traz dados sobre os efeitos das mudanças climáticas, ela não trata somente de economia, porque a economia mais inteligente é a economia que não mata e a economia que não vai comprometer o futuro.",
+            "score": 0.437
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que \"não se é regularizando o desmatamento nos nossos territórios que nós vamos avançar nessa consciência\", rejeitando a legalização de práticas ilegais como solução para conflitos fundiários ou ambientais.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 23,
+            "start": 92087,
+            "end": 92188,
+            "text": "Não se é regularizando o desmatamento nos nossos territórios que nós vamos avançar nessa consciência.",
+            "score": 0.6115
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que \"quem está sendo destruído tem muita pressa\", usando a urgência da destruição ambiental e social como critério para a priorização de pautas legislativas.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 2,
+            "start": 13331,
+            "end": 13405,
+            "text": "Quem está sendo destruído tem muita pressa, tem muito mais urgência ainda.",
+            "score": 0.5701
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a noção de \"destemperança\" para descrever o aquecimento global e a indiferença humana, justificando a luta climática como uma necessidade de \"aquecer os corações\" além de desaquecer o planeta.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 11,
+            "start": 61344,
+            "end": 61425,
+            "text": "Nós temos um desafio importante de desaquecer o planeta para aquecer os corações.",
+            "score": 0.4015
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal, Professora e membro da Comissão da Amazônia e dos Povos Originários e Tradicionais (CPOVOS), onde preside a Comissão.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 0,
+            "start": 3869,
+            "end": 4004,
+            "text": "Esta Comissão, que é da Amazônia, Povos Originários e Tradicionais, preza os princípios e sobretudo a proteção e garantia dos direitos.",
+            "score": 0.2928
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser do povo xakriabá e representar os povos indígenas e comunidades tradicionais, incluindo quilombolas, geraizeiros e ribeirinhos.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 13,
+            "start": 67439,
+            "end": 67572,
+            "text": "Então, queremos que, cada vez mais, se torne mais acessível para comunidades quilombolas, povos indígenas e comunidades tradicionais.",
+            "score": 0.3381
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com a Frente Parlamentar Mista da Educação, a Bancada pelo Planeta e a Frente Parlamentar em Defesa do Cerrado.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 8,
+            "start": 22362,
+            "end": 22499,
+            "text": "E foi, também pela Frente Parlamentar Mista da Educação, que conseguimos aprovar o nosso primeiro projeto que trata da educação.(Palmas.)",
+            "score": 0.4576
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita como aliados parlamentares os Deputados Tarcísio Motta, Chico Alencar, Juliana Cardoso, Duda Salabert, Erika Hilton, Dandara, Fernando Mineiro, Erika Kokay, Túlio Gadêlha, Guilherme Boulos e Defensor Stélio Dener.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 14,
+            "start": 74778,
+            "end": 74825,
+            "text": "Tem a palavra o Deputado Defensor Stélio Dener.",
+            "score": 0.2738
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma atuação conjunta com a Ministra Sonia Guajajara, a Ministra Marina Silva, a Ministra Anielle Franco e a Ministra Cida.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 0,
+            "start": 2877,
+            "end": 2936,
+            "text": "Estamos aguardando a parentíssima Ministra Sonia Guajajara.",
+            "score": 0.4241
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara representação de organizações como APIB, ANMIGA, COIAB, FUNAI, MPI, CIMI e ABA.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 16,
+            "start": 45490,
+            "end": 45816,
+            "text": "Então, como encaminhamento desta audiência também, tendo em vista que nós estamos no período de indicação de emenda, que elencássemos seis pontos prioritários, e que essa carta fosse assinada também pelo MPI, pela FUNAI, pela Articulação dos Povos Indígenas do Brasil, pela COIAB, pela ANMIGA, pelas organizações interessadas.",
+            "score": 0.2927
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza metáforas poéticas e culturais, como \"Cerrado de pé\", \"farmácia viva\", \"princípio ativo\" e \"raízes profundas\", para conectar a proteção ambiental à identidade e à espiritualidade indígena.",
+          "passage": {
+            "hearing_id": 169,
+            "turn": 0,
+            "start": 4532,
+            "end": 4568,
+            "text": "O nosso Cerrado é uma farmácia viva.",
+            "score": 0.3907
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega dados estatísticos específicos, como os percentuais de encarceramento indígena em Mato Grosso do Sul, a quantidade de agrotóxicos registrados e o impacto da exploração petrolífera em territórios, para fundamentar suas críticas.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 4,
+            "start": 18462,
+            "end": 18526,
+            "text": "Em Mato Grosso do Sul, há uma situação emblemática de violência.",
+            "score": 0.2328
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de violência, como a morte de lideranças (Mãe Bernadete, Galdino), o rompimento de barragens em Brumadinho e Mariana, e o caso do Rio Doce, para ilustrar os impactos do racismo ambiental.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 11,
+            "start": 58540,
+            "end": 58617,
+            "text": "Sou Sub-Relatora da matéria que trata da repactuação em Brumadinho e Mariana.",
+            "score": 0.1721
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem de resistência e mobilização, como \"luta\", \"enfrentamento\", \"resistência\" e \"ato político\", e convoca para ações coletivas, como caravanas de gabinete em gabinete e assinaturas de petições.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 2,
+            "start": 13312,
+            "end": 13525,
+            "text": "Quero agradecer à Articulação dos Povos Indígenas do Brasil e à Articulação Nacional das Mulheres Indígenas, que durante esta semana fizeram conosco, aguerridamente, mobilização constante, de gabinete em gabinete.",
+            "score": 0.2284
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com termos de parentesco (\"parente\", \"companheiro\", \"companheira\"), reforçando a ideia de comunidade e aliança, mas também cobra diretamente os Ministérios e o Poder Executivo por ações concretas e orçamentárias.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Contrasta a visão colonizada de desenvolvimento (monocultura, agroindústria) com a visão indígena de bioeconomia, \"saborania\" e bem viver, argumentando que a diversidade biológica e cultural é a base da riqueza do Brasil.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 14,
+            "start": 36664,
+            "end": 36712,
+            "text": "E como também trazer isso, a partir dessa visão?",
+            "score": 0.2277
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 20,
+      "split": "train",
+      "article_date": "2023-04-27",
+      "title": "Debatedores defendem união de povos originários e tradicionais para evitar perda de direitos",
+      "assunto": "União de povos originários e tradicionais para evitar perda de direitos",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 48,
+      "split": "train",
+      "article_date": "2023-09-26",
+      "title": "Proposta que proíbe a união de pessoas do mesmo sexo é criticada em audiência pública",
+      "assunto": "Discussão sobre o Projeto de Lei 580/07 e a regulamentação da união homoafetiva",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 136,
+      "split": "train",
+      "article_date": "2023-11-09",
+      "title": "Lideranças indígenas pedem aprovação de lei para política de gestão territorial",
+      "assunto": "Aprovação do Projeto de Lei 4347/21 para tornar permanente a Política Nacional de Gestão Territorial e Ambiental das Terras Indígenas",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 139,
+      "split": "train",
+      "article_date": "2023-11-07",
+      "title": "Debatedores denunciam racismo contra indígenas em presídios; deputada sugere lei prisional específica",
+      "assunto": "Racismo e preconceito contra indígenas no sistema prisional brasileiro e a proposta de uma lei prisional específica para indígenas",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 169,
+      "split": "train",
+      "article_date": "2023-09-14",
+      "title": "Com apoio parcial do governo, movimentos sociais querem Cerrado e Caatinga como patrimônios nacionais",
+      "assunto": "Reconhecimento dos biomas Cerrado e Caatinga como patrimônios nacionais",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 186,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Deputada quer auxílio emergencial e medidas duradouras para enfrentar desastres climáticos",
+      "assunto": "Debate sobre auxílio emergencial e medidas duradouras para enfrentar desastres climáticos",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-20-1-0",
+      "hearing_id": 20,
+      "n": 5,
+      "article_name": "Célia Xakriabá",
+      "proposition": "É urgente 'superar o racismo da ausência' de indígenas em espaços de poder para acabar com essa política de morte: 'É um genocídio legislado, é quando se usa o poder da caneta para matar direitos. É muito triste, vocês não imaginam a nossa presença aqui, na responsabilidade enquanto parlamentar, quando nós vimos passar a emenda à medida provisória da flexibilização do desmatamento da Mata Atlântica, quando nós vimos passar aqui nessa Casa a emenda à medida provisória do direito de poluir do mercado de carbono. É como se convidassem a gente a assistir uma matança de direito.'",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não vai existir o papel, enquanto lideranças indígenas são assassinadas, dentro e fora do território. Não vai existir possibilidade de solução para barrar a crise climática — acabamos de chegar da COP —, enquanto não se reconhecer a importância da demarcação dos territórios indígenas.",
+        "turn": 0,
+        "start": 1063,
+        "end": 1348
+      },
+      "verifier": {
+        "probability": 0.2355503424516357,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-136-2-0",
+      "hearing_id": 136,
+      "n": 3,
+      "article_name": "Célia Xakriabá",
+      "proposition": "Defendeu a necessidade de orçamento específico para o programa, com previsão no Plano Plurianual: \"Alocar recursos específicos do PPA, com linhas orçamentárias definidas, em volume suficiente para atender a necessidade de sua implementação\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu gostaria de dizer que quando nós estamos aqui, neste momento, falando da importância da política, toda política só é possível ser gestada se houver orçamento. Nós estamos no período, iniciou-se anteontem, de apresentação de emendas, e é importante dizer que um dos encaminhamentos que vamos tirar daqui, inclusive já foi proposto no seminário da PNGATI, é alocar recursos específicos do PPA para a implementação da PNGATI, com linhas orçamentárias definidas, em montante […]",
+        "turn": 16,
+        "start": 41277,
+        "end": 41821
+      },
+      "verifier": {
+        "probability": 0.8917141013030716,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-136-2-1",
+      "hearing_id": 136,
+      "n": 4,
+      "article_name": "Célia Xakriabá",
+      "proposition": "Sugeriu o reconhecimento e a regulamentação dos agentes ambientais indígenas e a articulação do programa de gestão territorial com a Política de Educação Escolar Indígena e de Atendimento à Saúde Indígena: \"Fortalecendo os princípios da sustentabilidade com recursos orçamentários compatíveis com a necessidade das comunidades\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Também é importante reconhecer e regulamentar o papel dos agentes ambientais indígenas. A PNGATI deve estar articulada com a política de educação escolar indígena e de atendimento à saúde indígena, fortalecendo os princípios da sustentabilidade, com recurso orçamentário compatível à necessidade das comunidades.",
+        "turn": 16,
+        "start": 41822,
+        "end": 42135
+      },
+      "verifier": {
+        "probability": 0.9746033327491908,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-139-1-0",
+      "hearing_id": 139,
+      "n": 3,
+      "article_name": "Célia Xakriabá",
+      "proposition": "Citou violações de direitos de indígenas no sistema carcerário brasileiro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quando nós falamos dos casos subnotificados, existem dois problemas: um é a subnotificação, mas o que se pretendeu também, nos últimos 4 anos, era fazer um levantamento de indígena encarcerado no Brasil, mas para criminalizar, para dizer:\"Está vendo essa população aqui? Elas cometem crimes\".É algo muito perigoso para as questões indígenas.",
+        "turn": 6,
+        "start": 29587,
+        "end": 29928
+      },
+      "verifier": {
+        "probability": 0.8842797121181319,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-139-1-1",
+      "hearing_id": 139,
+      "n": 4,
+      "article_name": "Célia Xakriabá",
+      "proposition": "Sugeriu uma consulta pública sobre uma lei prisional específica para os indígenas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu já gostaria de colocar aqui, como encaminhamento desta audiência do dia de hoje, o nosso mandato à disposição, juntamente com a senhora e os demais que compõem a Mesa, para pensar numa legislação específica do sistema prisional carcerário para as questões indígenas a partir de uma consulta pública inclusive. Eu já gostaria de tomar isso como encaminhamento.",
+        "turn": 2,
+        "start": 11635,
+        "end": 11997
+      },
+      "verifier": {
+        "probability": 0.9772820449846927,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-169-4-0",
+      "hearing_id": 169,
+      "n": 6,
+      "article_name": "Célia Xakriabá",
+      "proposition": "Anunciou nova articulação para a aprovação da PEC do Cerrado e da Caatinga, com argumentos reforçados pela futura Conferência da ONU sobre Mudanças do Clima, a COP-30: \"Sabemos o quanto os nossos territórios têm sido vítimas de ataque. Iremos nos debruçar aqui com todos os líderes de bancada e articular com o presidente da Casa para pautar e aprovar (a PEC) no Plenário. Não dá para o Brasil sediar a COP sem o compromisso com os outros biomas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E a reparação histórica é incluir como patrimônio nacional o Cerrado e a Caatinga. Nós estamos aqui, mais uma vez, para que o Poder Executivo, juntamente com o Ministério do Meio Ambiente e outros Ministérios parceiros que estiveram aqui também, na presença da CONAB — o Ministério dos Direitos Humanos, o Ministério dos Povos Indígenas, o Ministério da Igualdade Racial —, amplie e ecoe essa campanha pela aprovação da PEC 504, porque nós precisamos compreender que não dá para […]",
+        "turn": 23,
+        "start": 93332,
+        "end": 93911
+      },
+      "verifier": {
+        "probability": 0.7899581538857938,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

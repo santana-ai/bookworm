@@ -1,0 +1,242 @@
+{
+  "actor": {
+    "slug": "domingos-savio",
+    "name": "DOMINGOS SÁVIO",
+    "display_name": "Domingos Sávio",
+    "role": "Deputado (PL-MG)",
+    "article_names": [
+      "Domingos Sávio"
+    ],
+    "party_uf": [
+      "PL - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:07:01+00:00",
+    "n_statements": 12,
+    "n_hearings": 1,
+    "hearing_ids": [
+      171
+    ],
+    "input_tokens": 2107,
+    "output_tokens": 361,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 8,
+    "with_udv": 0,
+    "passage_only": 7,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que as audiências públicas na Câmara dos Deputados sejam isonômicas, garantindo tempo de fala equilibrado para todos os parlamentares, e faz apelo aos colegas para que trabalhem dentro do bom senso, permitindo que cada um expresse rapidamente sua opinião.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 181,
+            "start": 150267,
+            "end": 150422,
+            "text": "Então, eu faço um apelo aos demais colegas: vamos trabalhar dentro do bom senso para que cada um possa falar, pelo menos expressar rapidamente o que pensa.",
+            "score": 0.277
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que tentou obter uma audiência com a Ministra da Saúde desde o início do mandato, mas não conseguiu nenhuma, enquanto cita que sabe de Deputados da base do Governo que já conseguiram cinco audiências.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 227,
+            "start": 155795,
+            "end": 155870,
+            "text": "Eu sei de Deputados da base do Governo que já conseguiram cinco audiências.",
+            "score": 0.4536
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara que não vai lutar pela convocação da Ministra, mas concorda com o convite feito, e afirma que seu objetivo é conversar sobre saúde pública, sem polarizar em matérias de costume e respeitando a opinião de cada um.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 216,
+            "start": 154727,
+            "end": 154766,
+            "text": "Eu quero conversar sobre saúde pública.",
+            "score": 0.2824
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Identifica-se como Deputado que busca diálogo sobre saúde pública e afirma que sua ansiedade em se manifestar é pelo bem da saúde pública.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 216,
+            "start": 154767,
+            "end": 154852,
+            "text": "E eu disse à Ministra que a minha ansiedade de fazê-lo era pelo bem da saúde pública.",
+            "score": 0.4464
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a existência de Deputados da base do Governo que obtiveram múltiplas audiências com a Ministra, contrastando com a sua própria situação de não ter conseguido nenhuma.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 227,
+            "start": 155795,
+            "end": 155870,
+            "text": "Eu sei de Deputados da base do Governo que já conseguiram cinco audiências.",
+            "score": 0.3146
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza apelos ao bom senso e à razoabilidade para mediar conflitos de tempo de fala na sessão, pedindo que os colegas se manifestem rapidamente.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 181,
+            "start": 150267,
+            "end": 150422,
+            "text": "Então, eu faço um apelo aos demais colegas: vamos trabalhar dentro do bom senso para que cada um possa falar, pelo menos expressar rapidamente o que pensa.",
+            "score": 0.2153
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta fatos concretos sobre o acesso a audiências (número de audiências obtidas por outros parlamentares versus a sua própria tentativa frustrada) para sustentar a reivindicação de isonomia.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliatório, declarando respeito à opinião dos demais e recusa a polarização, focando no tema da saúde pública como ponto central de sua fala.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 216,
+            "start": 154727,
+            "end": 154766,
+            "text": "Eu quero conversar sobre saúde pública.",
+            "score": 0.1595
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 7,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Deputados defendem regulamentação paralela da reforma tributária",
+      "assunto": "Regulamentação da reforma tributária",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-7-5-0",
+      "hearing_id": 7,
+      "n": 14,
+      "article_name": "Domingos Sávio",
+      "proposition": "Apontou para a necessidade de a regulamentação da reforma tributária promover o diálogo entre deputados da base governista e da oposição, acima de disputas ideológicas e partidárias: \"A responsabilidade é muito grande e o espírito cívico tem de estar presente nos debates. Se gastarmos uma legislação inteira para fazer a reforma tributária não tem nenhum exagero. Não podemos ser açodados, principalmente agora que há muitas dúvidas na transição.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Por isso, nossa responsabilidade é muito grande, e o espírito cívico tem que estar presente nos debates, assim como o cuidado com a condução tem que ser muito grande. A Constituição levou uma legislatura inteira.",
+        "turn": 9,
+        "start": 33092,
+        "end": 33305
+      },
+      "verifier": {
+        "probability": 0.28588688935097445,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-122-2-0",
+      "hearing_id": 122,
+      "n": 6,
+      "article_name": "Domingos Sávio",
+      "proposition": "Lamentou que o decreto editado para ajudar o segmento de leite só vai produzir efeitos a partir de janeiro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E eu acredito que há tempo de uma atitude. V.Exa. mesmo fez considerações em relação à decisão de implementar a regulamentação no decreto que permite o incentivo fiscal do aproveitamento de crédito de PIS/COFINS pelas empresas que operam no setor do leite.",
+        "turn": 3,
+        "start": 30455,
+        "end": 30712
+      },
+      "verifier": {
+        "probability": 0.1610075177522175,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-122-2-1",
+      "hearing_id": 122,
+      "n": 7,
+      "article_name": "Domingos Sávio",
+      "proposition": "Afirmou que a existência do prazo de noventena incentivou os importadores a fazerem estoques de leite, prejudicando ainda mais o segmento nacional: \"Isso agravou o problema, porque aí aumenta a importação.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "mesmo disse que está verificando que empresas estão importando com o propósito de fazer estoque. Há dois problemas: um deles é que isso agrava, do ponto de vista econômico, a situação do produtor de leite da indústria nacional, que não importa, porque fica em uma condição de concorrência predatória; o outro é até de saúde pública, porque estoques com produto importado merecem um olhar especial, pois, como sabemos, muitas vezes já se importa esse produto próximo do período de […]",
+        "turn": 3,
+        "start": 31876,
+        "end": 32579
+      },
+      "verifier": {
+        "probability": 0.5023748211991763,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

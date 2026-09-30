@@ -1,0 +1,458 @@
+{
+  "actor": {
+    "slug": "glauber-braga",
+    "name": "Glauber Braga",
+    "display_name": "Glauber Braga",
+    "role": "Deputado (Psol-RJ)",
+    "article_names": [
+      "Glauber Braga"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:55:04+00:00",
+    "n_statements": 28,
+    "n_hearings": 3,
+    "hearing_ids": [
+      42,
+      43,
+      160
+    ],
+    "input_tokens": 10487,
+    "output_tokens": 1319,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 2,
+    "passage_only": 16,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a Lei 13.954/19 por criar disparidades salariais injustificadas entre oficiais e praças das Forças Armadas, apontando que a \"disponibilidade\" resulta em aumento de 41% para um general e apenas 5% para um soldado, e que a alegação de meritocracia via cursos é falsa, uma vez que a Portaria nº 86/2020 não permitiu a incorporação de rendimentos para praças, diferentemente do ocorrido com oficiais.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 34,
+            "start": 92807,
+            "end": 92946,
+            "text": "O que justifica um percentual de ampliação dos rendimentos de fato para um general de 41%, pela disponibilidade, e, para um soldado, de 5%?",
+            "score": 0.2596
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Defesa a constituição imediata de um grupo de trabalho com participação de pensionistas e praças para resolver pendências do quadro especial, estabelecendo um prazo de 10 dias para resposta; caso contrário, ameaça convocar o Ministro da Defesa para nova audiência, argumentando que a manutenção da tensão e das discrepâncias prejudica a soberania e o fortalecimento das Forças Armadas.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 34,
+            "start": 94828,
+            "end": 94974,
+            "text": "Mais um motivo para que tenhamos uma resposta concreta sobre o grupo de trabalho, com participação de pensionistas e de praças das Forças Armadas.",
+            "score": 0.3471
+          },
+          "udv": {
+            "id": "udv-43-0-0",
+            "rule": "same_sentence",
+            "score": 0.3434
+          }
+        },
+        {
+          "text": "Defende a aprovação da PEC 25/23 para a criação do Sistema Único de Mobilidade e a tarifa zero no transporte público, articulando a pauta junto à Deputada Luiza Erundina e movimentos sociais, e considera fundamental a pressão externa para garantir a aprovação da emenda.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 0,
+            "start": 51,
+            "end": 352,
+            "text": "Declaro aberta a presente audiência pública da Comissão de Direitos Humanos, Minorias e Igualdade Racial, em parceria com a Comissão de Legislação Participativa, destinada a debater proposta de emenda à Constituição para a criação do sistema único de mobilidade e da tarifa zero no transporte público.",
+            "score": 0.2946
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a educação inclusiva e a garantia de direitos das pessoas com deficiência, criticando a ausência de intérpretes de LIBRAS na Câmara dos Deputados como um \"gravíssimo equívoco\" e uma violação de direitos, e posiciona-se contra iniciativas no Senado Federal que buscam revogar a perspectiva inclusiva da educação, apoiando a revogação da revogação realizada no início do Governo Lula.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 32,
+            "start": 88463,
+            "end": 88821,
+            "text": "A outra coisa é a batalha estrutural — todos estes outros pontos também são — contra a tentativa de retrocesso que tem sido fortalecida, principalmente a partir do Senado Federal, na lógica de ferimento à perspectiva da educação inclusiva, com iniciativas e tentativa de revogação da revogação, o que foi realizado no primeiro dia do Governo Lula, inclusive.",
+            "score": 0.3647
+          },
+          "udv": null
+        },
+        {
+          "text": "Combate a desconstitucionalização dos mínimos da saúde e da educação, associando essa ameaça ao arcabouço fiscal, e propõe a articulação com a Comissão Mista de Orçamento para garantir financiamento público adequado para a educação inclusiva.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 30,
+            "start": 86985,
+            "end": 87166,
+            "text": "Para além disso, há toda uma luta, que vocês já conhecem, que estamos tocando como mandato, contra qualquer iniciativa de desconstitucionalização dos mínimos da saúde e da educação.",
+            "score": 0.2613
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o uso de emendas participativas, declarando que 100% dos recursos das emendas individuais do seu mandato são destinados por meio de plenárias públicas abertas, onde a comunidade define a aplicação das verbas, rejeitando o uso histórico de emendas como moeda de troca entre Executivo e Legislativo.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 42,
+            "start": 94940,
+            "end": 95133,
+            "text": "Nos últimos anos, assumimos o compromisso de que 100% dos recursos das chamadas emendas individuais serão destinados por meio de emendas participativas, definidas em plenárias públicas abertas.",
+            "score": 0.4969
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a ação no Conselho de Ética contra seis deputadas (Sâmia Bomfim, Fernanda Melchionna, Juliana Cardoso, Talíria Petrone, Célia Xakriabá e Erika Kokay) como \"arbitrária e machista\", por se insurgirem contra o Projeto de Lei nº 490, que ataca os povos indígenas.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 11,
+            "start": 30007,
+            "end": 30275,
+            "text": "Além da Deputada Sâmia Bomfim, da Deputada Fernanda Melchionna, da Deputada Juliana Cardoso, da Deputada Talíria Petrone e da Deputada Célia Xakriabá, uma das Parlamentares que está sofrendo esse processo no Conselho de Ética está aqui conosco, a Deputada Erika Kokay.",
+            "score": 0.5444
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio da igualdade e da justiça social para criticar disparidades salariais e estruturais, argumentando que o tempo é igual para todos (24 horas) e que diferenças substantivas no soldo não justificam percentuais de aumento desiguais.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 34,
+            "start": 92689,
+            "end": 92726,
+            "text": "O dia tem 24 horas para quem é praça.",
+            "score": 0.17
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o juramento militar previsto no art. 33 do Estatuto dos Militares das Forças Armadas como critério ético para cobrar dos oficiais o tratamento com \"afeição\" e \"bondade\" dos subordinados, argumentando que a manutenção de disparidades arbitrárias viola esse compromisso e prejudica a coesão das Forças.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 34,
+            "start": 96539,
+            "end": 96655,
+            "text": "O juramento que os militares prestam está no Estatuto dos Militares das Forças Armadas, mais especificamente no art.",
+            "score": 0.3852
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na garantia de direitos fundamentais e no acesso à informação e à participação como critérios para a inclusão, exemplificado pela exigência de intérpretes de LIBRAS e pela defesa de que a mensagem pública deve chegar a todas as pessoas, independentemente de deficiência.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 7,
+            "start": 6583,
+            "end": 6808,
+            "text": "Repito: assumo por completo a responsabilidade, e isso é inclusive mais um instrumento que tem que fortalecer a nossa luta, não por nenhum favor, mas pela garantia de direitos de todas as pessoas, das pessoas com deficiência.",
+            "score": 0.1691
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a participação popular e a transparência como fundamentos da gestão pública, evidenciado pela defesa das emendas participativas e pela articulação com movimentos sociais e entidades representativas para a construção de políticas públicas.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 24,
+            "start": 63238,
+            "end": 63498,
+            "text": "Evidentemente, qualquer frente aqui só tem funcionamento robusto, profundo, quando não é uma frente só de Deputados, ou seja, quando é uma frente que consegue articular suas ações com os movimentos sociais, populares, com as entidades representativas de lutas.",
+            "score": 0.1985
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Requerimento nº 146/2023 para a audiência sobre educação inclusiva e co-autor do Requerimento nº 37/2023 para a audiência sobre tarifa zero, em parceria com a Deputada Luiza Erundina.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 0,
+            "start": 354,
+            "end": 652,
+            "text": "Este evento decorre da aprovação do Requerimento nº 92, de 2023, da Comissão de Direitos Humanos, de autoria da Deputada Luiza Erundina e da Deputada Luizianne Lins, e do Requerimento nº 37, de 2023, da Comissão de Legislação Participativa, de autoria da Deputada Luiza Erundina e de minha autoria.",
+            "score": 0.4112
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como aliado da luta das pessoas com deficiência, reconhecendo publicamente a influência de ativistas, como Marinalva Silva Oliveira, em sua sensibilização e atuação política, e descreve-se como \"homem branco\" que busca atuar como aliado da causa.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 18,
+            "start": 44008,
+            "end": 44092,
+            "text": "Eu vou agora passar a palavra para a Marinalva Silva Oliveira fazer a sua exposição.",
+            "score": 0.1984
+          },
+          "udv": {
+            "id": "udv-160-3-0",
+            "rule": "same_sentence",
+            "score": 0.075
+          }
+        },
+        {
+          "text": "Afirma estar alinhado com a Deputada Luiza Erundina na defesa da tarifa zero e do Sistema Único de Mobilidade, e com diversos parlamentares de forças políticas diferentes na cobrança ao Ministério da Defesa.",
+          "passage": {
+            "hearing_id": 42,
+            "turn": 58,
+            "start": 104458,
+            "end": 104714,
+            "text": "E que seja aprovada a necessidade de que tenhamos não só o fortalecimento da frente parlamentar, mas o Sistema Único de Mobilidade, com a proposta de emenda à Constituição articulada pela Deputada Luiza Erundina e por todos os movimentos de luta do Brasil!",
+            "score": 0.2862
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a existência de um filho e agradece publicamente à sua sogra, misturando aspectos privados com a rotina de trabalho parlamentar.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e legislação (Lei 13.954/19, Portaria nº 86/2020, art. 33 do Estatuto dos Militares) para fundamentar críticas e cobrar respostas concretas de representantes do governo.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 34,
+            "start": 96539,
+            "end": 96655,
+            "text": "O juramento que os militares prestam está no Estatuto dos Militares das Forças Armadas, mais especificamente no art.",
+            "score": 0.2426
+          },
+          "udv": null
+        },
+        {
+          "text": "Estabelece prazos e consequências claras para cobranças, como o prazo de 10 dias para a resposta do Ministério da Defesa, sob pena de nova convocação do Ministro.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 49,
+            "start": 126184,
+            "end": 126211,
+            "text": "O prazo de 10 dias é nosso.",
+            "score": 0.4127
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem direta e emocional, usando termos como \"arbitrariedade\", \"enrolação\", \"gravíssimo equívoco\" e \"inconcebível\" para expressar indignação e reforçar a urgência das pautas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Assume responsabilidade pública por falhas institucionais, como a ausência de intérpretes de LIBRAS, e propõe soluções imediatas e estruturais, como a contratação de intérpretes e a alteração de práticas na Câmara.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Combina argumentos jurídicos e éticos com relatos pessoais e experiências de base, como a história da companheira em cadeira de rodas em Nilópolis, para humanizar o debate e demonstrar empatia.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 18,
+            "start": 45580,
+            "end": 45758,
+            "text": "Uma companheira chegou para participar do encontro na cadeira de rodas, só que o portão da casa impedia que ela pudesse entrar, bem como ouvir as exposições e a defesa das teses.",
+            "score": 0.1658
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe encaminhamentos concretos e pactuados ao final das audiências, como reuniões com a Comissão Mista de Orçamento, audiências com outros deputados e divulgação de conferências nacionais, buscando transformar o debate em ação legislativa e institucional.",
+          "passage": {
+            "hearing_id": 160,
+            "turn": 34,
+            "start": 90299,
+            "end": 90354,
+            "text": "Temos esses encaminhamentos que ficarão aqui pactuados.",
+            "score": 0.2026
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 42,
+      "split": "train",
+      "article_date": "2023-06-15",
+      "title": "Debatedores reivindicam aprovação de PEC que cria tarifa zero no transporte público",
+      "assunto": "Aprovação da PEC 25/23 que estabelece tarifa zero no transporte público",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 43,
+      "split": "train",
+      "article_date": "2023-06-07",
+      "title": "Deputados defendem debate com a Defesa sobre mudanças no sistema de proteção social dos militares",
+      "assunto": "Debate sobre mudanças no sistema de proteção social dos militares e os efeitos da Lei 13.954/19",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 99,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Crianças e mulheres são as maiores vítimas da guerra na Faixa de Gaza, ressaltam debatedores",
+      "assunto": "Impacto da guerra na Faixa de Gaza sobre crianças e mulheres",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 112,
+      "split": "test",
+      "article_date": "2024-03-21",
+      "title": "Regulamentação do trabalho de motoristas de aplicativo não tem consenso entre profissionais do setor",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 20,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 126,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Democratização do uso medicinal da cannabis depende de regulamentação de associações de produtores, dizem especialistas",
+      "assunto": "Democratização do uso medicinal da cannabis e regulamentação de associações de produtores",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 160,
+      "split": "train",
+      "article_date": "2023-10-02",
+      "title": "Especialistas apontam falta de recursos para a educação inclusiva",
+      "assunto": "Falta de recursos para a educação inclusiva",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-43-0-0",
+      "hearing_id": 43,
+      "n": 1,
+      "article_name": "Glauber Braga",
+      "proposition": "Cobra do Ministério da Defesa a criação de um grupo de trabalho para discutir o sistema de proteção social dos militares.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mais um motivo para que tenhamos uma resposta concreta sobre o grupo de trabalho, com participação de pensionistas e de praças das Forças Armadas. Isso fica uma enrolação.",
+        "turn": 34,
+        "start": 94828,
+        "end": 94999
+      },
+      "verifier": {
+        "probability": 0.21443014747202557,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-112-4-0",
+      "hearing_id": 112,
+      "n": 10,
+      "article_name": "Glauber Braga",
+      "proposition": "Quer pedir a retirada da urgência constitucional, que exige a análise da proposta em até 45 dias no Plenário da Câmara: \"Temos que trabalhar por um projeto que represente ganhos reais para os trabalhadores.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Nessa ótica de que nós temos que trabalhar por um projeto em que vocês tenham ganhos reais e nós não tenhamos dificuldades com diferenças entre as plataformas, inclusive para tensioná-los a uma posição diferente que garanta, principalmente, os direitos de vocês, na nossa avaliação — que bom que vocês esperaram até o fim para que nós pudéssemos estabelecer este diálogo franco!",
+        "turn": 55,
+        "start": 73984,
+        "end": 74362
+      },
+      "verifier": {
+        "probability": 0.47895624216841803,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-160-3-0",
+      "hearing_id": 160,
+      "n": 8,
+      "article_name": "Glauber Braga",
+      "proposition": "Vai pedir à representação de seu partido na Comissão Mista de Orçamento (CMO) uma reunião para tratar da previsão de recursos sobre o tema na Lei de Diretrizes Orçamentárias (LDO) de 2024.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vamos falar sobre o orçamento público, vamos falar também como podemos combinar encaminhamentos, ao final da reunião, para que assumamos um compromisso, de fato, com as votações que vêm por aí, e ver como podemos nos articular conjuntamente. Eu vou agora passar a palavra para a Marinalva Silva Oliveira fazer a sua exposição.",
+        "turn": 18,
+        "start": 43765,
+        "end": 44092
+      },
+      "verifier": {
+        "probability": 0.22148114744164757,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-160-3-1",
+      "hearing_id": 160,
+      "n": 9,
+      "article_name": "Glauber Braga",
+      "proposition": "Reforçou a importância do ativismo pelos direitos da pessoa com deficiência: \"Uma sensibilização pessoal só vem quando a luta é reforçada coletivamente. E foi exatamente esse reforço coletivo da luta de vocês que propiciou que eu fosse despertado para essa realidade.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Por isso eu tomo a liberdade de trazer e compartilhar esta experiência pessoal aqui com vocês, porque uma sensibilização pessoal só vem quando a luta é reforçada coletivamente, e foi exatamente esse reforço coletivo da luta de vocês que propiciou que eu fosse despertado para essa realidade.",
+        "turn": 18,
+        "start": 46434,
+        "end": 46725
+      },
+      "verifier": {
+        "probability": 0.4629699252279016,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

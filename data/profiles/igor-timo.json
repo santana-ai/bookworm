@@ -1,0 +1,356 @@
+{
+  "actor": {
+    "slug": "igor-timo",
+    "name": "IGOR TIMO",
+    "display_name": "IGOR TIMO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PODE - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:04:00+00:00",
+    "n_statements": 147,
+    "n_hearings": 2,
+    "hearing_ids": [
+      2,
+      6
+    ],
+    "input_tokens": 9627,
+    "output_tokens": 1212,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 21,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a segurança do Sistema Interligado Nacional e cobra da ANEEL e do ONS a verificação dos dados fornecidos pelos agentes de operação, argumentando que essa fiscalização é crucial para garantir a segurança e viabilizar novos investimentos no setor elétrico.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 29,
+            "start": 71774,
+            "end": 71953,
+            "text": "A ANEEL e o ONS não estavam conferindo os dados fornecidos pelos agentes de operação ao Sistema Interligado Nacional, a fim de garantir a segurança do sistema elétrico brasileiro?",
+            "score": 0.623
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a visão extrativista predominante no Brasil, especialmente nas regiões carentes, onde a mineração se torna a principal atividade econômica, mas os resultados financeiros não permanecem na localidade.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 29,
+            "start": 72140,
+            "end": 72401,
+            "text": "Ministro, eu comungo da sua ideia de acabar de uma vez por todas com essa visão extrativista que nós temos no nosso País, em especial nas regiões mais carentes, onde, muitas vezes, a mineração se torna a principal veia econômica, mas os resultados lá não ficam.",
+            "score": 0.4742
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transição energética e questiona o Governo sobre o papel da bioenergia, biomassa, SAF (combustível sustentável de aviação), diesel verde, biometano, etanol de segunda geração, hidrogênio verde, hidrogênio a partir do etanol e energia eólica offshore.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 29,
+            "start": 72651,
+            "end": 72899,
+            "text": "Também pergunto quais são os papéis da bioenergia e da biomassa com os vetores de novos produtos de transição energética, como, por exemplo, o SAF, que é o combustível sustentável de aviação, odieselverde, o biometano, do etanol da segunda geração.",
+            "score": 0.5317
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a realização de uma reunião regional no Vale do Jequitinhonha, nas cidades de Araçuaí ou Itinga, para discutir a extração de lítio, afirmando que a região concentra 85% da reserva nacional e que é necessário ofertar condições de armazenamento de energia, não apenas geração.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 29,
+            "start": 74080,
+            "end": 74412,
+            "text": "Em relação a essa pauta, Ministro, eu gostaria de convidá-lo para uma reunião regional, se possível, no Vale do Jequitinhonha, nas cidades de Araçuaí ou Itinga, onde se concentram praticamente 85% da reserva nacional, para que possamos discutir, junto com os populares daquela região, os melhores mecanismos para buscar uma solução.",
+            "score": 0.4156
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige transparência da 123Milhas e de seus sócios, solicitando o registro do patrimônio da empresa e dos sócios na Casa, e questiona a viabilidade da recuperação judicial, argumentando que empresas com saúde financeira não atendem aos pré-requisitos legais para esse pedido, o que pode configurar um artifício jurídico para ganhar tempo e lesar credores.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 193,
+            "start": 55577,
+            "end": 55668,
+            "text": "ela se sentiu contemplada por todos os pré-requisitos de um pedido de recuperação judicial?",
+            "score": 0.2807
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra da 123Milhas a apresentação de um planejamento e garantias concretas para que as aproximadamente 700 mil pessoas credoras não fiquem no prejuízo, questionando como e com quais garantias isso será cumprido.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 881,
+            "start": 214742,
+            "end": 214940,
+            "text": "Você, em especial, como sócio, fundador, enfim, como um dos principais gestores, você pode assumir o compromisso de que essas pessoas, essas aproximadamente 700 mil pessoas, não ficarão no prejuízo?",
+            "score": 0.2485
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a gestão do grupo familiar da 123Milhas por investir cerca de 4 bilhões de reais em publicidade em uma empresa de um membro familiar em aproximadamente 2 anos, enquanto deixava 700 mil pessoas sem o cumprimento de compromissos, classificando a situação como \"nebulosa\" e exigindo justificativa plausível.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 897,
+            "start": 217480,
+            "end": 217967,
+            "text": "E aí me permita, até na condição de alguém que está disposto a contribuir para a gente chegar num denominador comum, vocês, como empresários de grande porte do nosso País, e partindo da premissa que vocês estão interessados em resolver o problema, não é de bom tom uma empresa investir em aproximadamente 2 anos quase 4 bi em publicidade, uma empresa de um membro familiar, só para ilustrar a imagem, e deixar aproximadamente 700 mil pessoas sem os seus compromissos assumidos […]",
+            "score": 0.3024
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a prática de comercialização de milhas aéreas, argumentando que a finalidade original dos programas de fidelidade é criar vínculo entre usuário e companhia aérea, e não a revenda entre pessoas distintas, classificando a prática como uma \"jabuticaba\" brasileira que gerou desequilíbrio econômico-financeiro e dano à sociedade.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 2170,
+            "start": 442583,
+            "end": 442662,
+            "text": "A finalidade não era ter esse nível de comercialização entre pessoas distintas.",
+            "score": 0.2829
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a CPI deve coibir a possibilidade de dano à sociedade e identificar os responsáveis para reparar as perdas, sem defender companhias aéreas, mas apontando que a deturpação da prática de custo-benefício e a orientação a clientes para mentir (via e-mails) foram fatores que desencadearam o problema.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 2194,
+            "start": 444822,
+            "end": 445042,
+            "text": "Acho que você encontrou um nicho de mercado, mas eu acho que a finalidade não era essa, e nós precisamos, esta Casa, esta CPI precisa, inclusive, coibir, talvez, não a prática, mas a possibilidade de um dano à sociedade.",
+            "score": 0.2518
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a transparência e a clareza nas relações empresariais e institucionais, invocando a necessidade de defender o interesse público e garantir que pessoas lesadas tenham suas garantias cumpridas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 189,
+            "start": 54249,
+            "end": 54452,
+            "text": "Então, é só para deixar claro que essa informação é uma informação muito pertinente para essa Comissão, para que a gente trate com muita clareza, porque a gente precisa defender aqui o interesse público.",
+            "score": 0.2584
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a premissa da boa-fé e da intenção positiva do empreendedor como ponto de partida para o diálogo, especialmente ao tratar de empresários mineiros, mas condiciona essa confiança à apresentação de esclarecimentos e garantias concretas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 843,
+            "start": 207688,
+            "end": 207865,
+            "text": "E, partindo dessa premissa de que você é um empresário de boa-fé e que tem a intenção, através de uma recuperação judicial, de cumprir com todos os compromissos, a gente está...",
+            "score": 0.2261
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a saúde financeira prévia de uma empresa é incompatível com a concessão de recuperação judicial, usando esse critério legal para questionar a legitimidade do pedido e proteger os credores.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 191,
+            "start": 54773,
+            "end": 54822,
+            "text": "Então, a empresa não estava com saúde financeira?",
+            "score": 0.2785
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que práticas de mercado, mesmo que legalmente permitidas, devem respeitar a finalidade original dos instrumentos (como programas de fidelidade) e não podem gerar desequilíbrios que prejudiquem a sociedade, exigindo regulamentação ou correção de desalinhos.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 2153,
+            "start": 437642,
+            "end": 437677,
+            "text": "É porque a finalidade não era essa.",
+            "score": 0.1627
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se nascido no Vale do Jequitinhonha, em Minas Gerais, e residente em Belo Horizonte, tendo se mudado para a capital aos 12 anos para buscar formação acadêmica.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 797,
+            "start": 197519,
+            "end": 197574,
+            "text": "Fui para lá aos 12 anos para buscar formação acadêmica.",
+            "score": 0.4719
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter se destacado na iniciativa privada, chegando a ter cerca de 10 mil colaboradores em seu grupo familiar, o que lhe confere experiência em empreendedorismo e gestão.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 797,
+            "start": 197932,
+            "end": 198028,
+            "text": "Cheguei a ter nos nossos quadros, no nosso grupo familiar também, cerca de 10 mil colaboradores.",
+            "score": 0.4323
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como conterrâneo do Ministro Alexandre Silveira e do Sr. Ramiro Madureira, usando essa afinidade regional para estabelecer um tom de diálogo e confiança.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 29,
+            "start": 71446,
+            "end": 71522,
+            "text": "Cumprimento também o nosso Ministro Alexandre Silveira, conterrâneo mineiro.",
+            "score": 0.4311
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionou ter presenciado o I Congresso Nacional de Energias Renováveis, posicionando-se como um parlamentar atento a essa pauta há algum tempo.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 29,
+            "start": 73911,
+            "end": 74078,
+            "text": "Essa é uma pauta cara para mim, é uma preocupação que eu tenho já há algum tempo, como um dos Parlamentares a presenciar o I Congresso Nacional de Energias Renováveis.",
+            "score": 0.5111
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas diretas e sequenciais para conduzir o depoimento, muitas vezes antecipando a resposta ou confirmando dados já apresentados (\"Perfeito\", \"Entendi\", \"Isso\").",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega analogias e metáforas para explicar conceitos complexos, como a comparação da comercialização de milhas com a venda de frango assado na vitrine de cachorro, ou a referência ao \"jeitinho\" brasileiro.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 2109,
+            "start": 423286,
+            "end": 423461,
+            "text": "Hipoteticamente falando, vamos tornar isso claro aqui numa ilustração: um camarada que vende frango assado na vitrine de cachorro, a cada dez frangos comprados, você ganha um.",
+            "score": 0.2323
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina elogios à iniciativa e visão de mercado dos entrevistados (chamando-os de \"gênios\" ou \"brilhantes\") com a cobrança por responsabilização e transparência, mantendo um tom conciliatório, mas firme na exigência de esclarecimentos.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 821,
+            "start": 203452,
+            "end": 203490,
+            "text": "Parabéns pela iniciativa e pela visão!",
+            "score": 0.214
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados específicos (como os 700 mil credores, os 4 bilhões em publicidade, os 85% da reserva de lítio) para fundamentar suas perguntas e reforçar a gravidade das situações.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 881,
+            "start": 214605,
+            "end": 214741,
+            "text": "Então, nós estamos falando de aproximadamente 700 mil pessoas que se encontram hoje como credores da 123Milhas em função desse desfecho.",
+            "score": 0.1802
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa a experiência pessoal e profissional (como ex-empresário com 10 mil colaboradores) para se posicionar como alguém que entende as dificuldades do setor, mas que também conhece as obrigações legais e éticas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 897,
+            "start": 217353,
+            "end": 217441,
+            "text": "Como empresário, eu sei bem as obrigações legais que a gente tem que cumprir neste País.",
+            "score": 0.2466
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 6,
+      "split": "train",
+      "article_date": "2023-09-06",
+      "title": "Sócio da 123milhas diz que passagens precisaram ser suspensas porque preços não seguiram previsões",
+      "assunto": "Suspensão de passagens promocionais pela 123milhas devido a previsões de preços não cumpridas e recuperação judicial da empresa",
+      "turns": 146,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

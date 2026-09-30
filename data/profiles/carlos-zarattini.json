@@ -1,0 +1,330 @@
+{
+  "actor": {
+    "slug": "carlos-zarattini",
+    "name": "CARLOS ZARATTINI",
+    "display_name": "Carlos Zarattini",
+    "role": "Deputado (PT-SP)",
+    "article_names": [
+      "Carlos Zarattini"
+    ],
+    "party_uf": [
+      "Bloco/PT - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:29:27+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      2,
+      39
+    ],
+    "input_tokens": 3234,
+    "output_tokens": 823,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o poder civil, democraticamente eleito, exerce a direção sobre as Forças Armadas, com o Presidente da República como Comandante Supremo, e que as Forças Armadas devem atuar na defesa da soberania nacional e do povo, mas permanecerem fora da política.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 26,
+            "start": 101860,
+            "end": 101953,
+            "text": "O Comandante Supremo das Forças Armadas é o Presidente da República, eleito democraticamente.",
+            "score": 0.5783
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a inclusão na Constituição do afastamento da carreira militar para militares que desejem ingressar na atividade civil ou disputar eleições, independentemente de ganharem ou perderem.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 26,
+            "start": 103022,
+            "end": 103342,
+            "text": "É por isso que nós estamos batalhando aqui para que dois instrumentos importantes sejam incluídos na Constituição: o afastamento da carreira militar daqueles que queiram ir para a atividade civil — como acontece com os promotores, como acontece com os juízes — e da mesma forma daqueles que queiram disputar uma eleição.",
+            "score": 0.2692
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que a participação das Forças Armadas em ações de segurança pública, como a Garantia da Lei e da Ordem (GLO), tenha aprovação prévia do Congresso Nacional, para evitar o uso político da GLO por um Presidente contra Governadores opositores.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 26,
+            "start": 104165,
+            "end": 104367,
+            "text": "Nós queremos que esta discussão passe pelo Congresso Nacional, ou seja, que toda participação das Forças Armadas em ações que envolvam a segurança pública tenha o respaldo dos Deputados e dos Senadores.",
+            "score": 0.3612
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ampliação do mercado livre de energia (PL 414/21 e decreto vigente) porque transfere custos para os consumidores do mercado cativo, aumentando as tarifas para a maioria do povo brasileiro.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 107143,
+            "end": 107338,
+            "text": "Recentemente, foi recriada uma Comissão Especial aqui na Casa para discutir esse PL, que amplia o mercado livre, assim como temos um decreto que já amplia o mercado livre a partir do ano que vem.",
+            "score": 0.2133
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um programa de transferência de unidades de consumo de baixa renda para fornecimento de energia solar (pequenas usinas solares para comunidades), a fim de retirá-las da Conta de Desenvolvimento Energético (CDE) e desonerar os demais consumidores.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 108427,
+            "end": 108600,
+            "text": "Por exemplo, com relação à CDE para baixa renda, poderíamos ter um programa de transferência de muitas unidades de consumo de baixa renda para fornecimento de energia solar.",
+            "score": 0.4925
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a postura da ELETROBRAS por se negar a prestar contas e se relacionar com o Governo Federal, e defende que o Supremo Tribunal Federal tenha conhecimento desse comportamento antes do julgamento da ação do Governo Federal, que possui parecer positivo da Procuradoria-Geral da República (PGR).",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 109318,
+            "end": 109443,
+            "text": "Nós temos uma ação do Governo Federal — para a qual já há parecer positivo da PGR —, que, consequentemente, vai a julgamento.",
+            "score": 0.436
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a viabilidade técnica de tornar acumuladores de energia (baterias) despacháveis e cobra do Ministério da Fazenda e do Ministério de Minas e Energia propostas sobre o mercado de carbono.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 107988,
+            "end": 108111,
+            "text": "O Ministério tem alguma proposta ou está discutindo, junto com o Ministério da Fazenda, essa questão do mercado de carbono?",
+            "score": 0.368
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a Constituição Federal como fundamento para limitar a atuação das Forças Armadas, argumentando que a confusão entre poder civil e militar desvirtua o princípio constitucional.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 26,
+            "start": 101623,
+            "end": 101770,
+            "text": "Bom, eu parto do princípio de que a nossa Constituição define que o poder civil, democraticamente eleito, exerce a direção sobre as Forças Armadas.",
+            "score": 0.3099
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a proteção da maioria do povo brasileiro contra o aumento de tarifas como critério para criticar a expansão do mercado livre de energia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 107340,
+            "end": 107716,
+            "text": "Então, nós gostaríamos de saber, primeiro — no seu modo de ver e no meu modo de ver, isso faz com que tenhamos, consequentemente, uma carga de custo sobre aqueles que ficarem no mercado cativo muito maior, o que vai aumentar as tarifas para a maioria do povo brasileiro —, que proposta o Ministério tem em relação a isso e também como isso impacta na renovação das concessões?",
+            "score": 0.1813
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da aprovação legislativa para a GLO no risco de uso político da força militar por parte do Executivo Federal contra a oposição política.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a situação fiscal do Brasil torna impossível transferir encargos de energia para o Orçamento da União, justificando a busca por políticas objetivas de redução de encargos, como a energia solar para baixa renda.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 108199,
+            "end": 108335,
+            "text": "Eu julgo que, na situação fiscal em que nós estamos hoje no Brasil, é quase impossível transferir os encargos para o Orçamento da União.",
+            "score": 0.4998
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal, atuando na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 107717,
+            "end": 107788,
+            "text": "Porque, evidentemente, uma coisa está ligada à outra, Deputado Arnaldo.",
+            "score": 0.1596
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com o Governo Federal na questão da ELETROBRAS, referindo-se à ação do Governo Federal e ao parecer positivo da PGR.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 109318,
+            "end": 109443,
+            "text": "Nós temos uma ação do Governo Federal — para a qual já há parecer positivo da PGR —, que, consequentemente, vai a julgamento.",
+            "score": 0.5417
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza comparações internacionais, citando os Estados Unidos e a recusa das Forças Armadas americanas em reprimir movimentos civis ou impedir a posse de Joe Biden, para sustentar a necessidade de separação entre militares e política no Brasil.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 26,
+            "start": 102040,
+            "end": 102151,
+            "text": "Nós vimos que, nos Estados Unidos, o Trump queria utilizar as Forças Armadas para reprimir os movimentos civis.",
+            "score": 0.3894
+          },
+          "udv": null
+        },
+        {
+          "text": "Formula perguntas diretas e específicas a convidados (Ministro, representantes do ONS, ANM e ANEEL) sobre questões técnicas e legislativas, como a despachabilidade de baterias e o impacto do PL 414/21 nas concessões.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 106497,
+            "end": 106593,
+            "text": "Eu queria cumprimentá-lo e cumprimentar o Ministro, os representantes do ONS, da ANM e da ANEEL.",
+            "score": 0.3662
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega cenários hipotéticos para ilustrar riscos, como a decretação de uma GLO em um estado governado por opositores políticos do Presidente.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 26,
+            "start": 103858,
+            "end": 103975,
+            "text": "Imaginem se um Presidente da República decretar uma GLO em um Estado onde o Governador seja opositor da sua política!",
+            "score": 0.1929
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita projetos de lei específicos (PL 414/21) e normas existentes (decreto de ampliação do mercado livre, lei de energia fotovoltaica) para contextualizar suas propostas e críticas.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 108802,
+            "end": 108923,
+            "text": "Aliás, no projeto de energia que foi aprovado nesta Casa, na lei, já se prevê um programa social de energia fotovoltaica.",
+            "score": 0.2187
+          },
+          "udv": null
+        },
+        {
+          "text": "Expressa indignação pública contra a postura da ELETROBRAS, apelando para a intervenção do Supremo Tribunal Federal para dar visibilidade ao conflito entre a empresa e o Governo.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 60,
+            "start": 108925,
+            "end": 109152,
+            "text": "Por fim, eu queria me somar à sua indignação em relação à postura da ELETROBRAS, que se nega a prestar contas ao Governo, se nega a se relacionar com o Governo, uma empresa do tamanho que é dentro do mercado elétrico no Brasil.",
+            "score": 0.2678
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 39,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores refutam tese do “poder moderador” das Forças Armadas em seminário na CCJ",
+      "assunto": "Debate sobre a interpretação do artigo 142 da Constituição e o papel das Forças Armadas como 'poder moderador'",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-116-4-0",
+      "hearing_id": 116,
+      "n": 10,
+      "article_name": "Carlos Zarattini",
+      "proposition": "Avaliou que são poucas as chances de um acerto com os dois blocos (Mercosul e União Europeia): \"Eu mesmo julgo que talvez essa discussão já esteja a ponto de ser deixada de lado, haja vista tantas exigências feitas pela Europa.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Eu mesmo julgo que talvez essa discussão toda já esteja a ponto de ser deixada de lado, haja vista tantas exigências feitas pela Europa, e nós, diante dessa situação, com pouco espaço de desenvolvimento industrial, que deve ser o nosso maior objetivoem termos de desenvolvimento econômico.",
+        "turn": 19,
+        "start": 68684,
+        "end": 68973
+      },
+      "verifier": {
+        "probability": 0.5006457487076084,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

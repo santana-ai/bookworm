@@ -1,0 +1,340 @@
+{
+  "actor": {
+    "slug": "sargento-portugal",
+    "name": "SARGENTO PORTUGAL",
+    "display_name": "Sargento Portugal",
+    "role": "Deputado (Pode-RJ)",
+    "article_names": [
+      "Sargento Portugal"
+    ],
+    "party_uf": [
+      "Bloco/PODE - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:49:28+00:00",
+    "n_statements": 4,
+    "n_hearings": 1,
+    "hearing_ids": [
+      43
+    ],
+    "input_tokens": 3734,
+    "output_tokens": 1050,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 1,
+    "passage_only": 17,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a Lei nº 13.954/19 gerou uma discrepância terrível entre oficiais e praças, beneficiando desproporcionalmente os oficiais, e critica a ausência de participação das praças na formulação das mudanças, afirmando que nunca houve comissão de praças para auxiliar generais ou coronéis.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 18,
+            "start": 71233,
+            "end": 71327,
+            "text": "Hoje o que nós temos é esse cenário de discrepância terrível entre oficiais e praças.(Palmas.)",
+            "score": 0.2765
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a violação dos direitos de veteranos e pensionistas no Estado do Rio de Janeiro, onde a paridade e a integralidade foram \"rasgadas\", resultando em ativos ganhando mais do que veteranos ou pensionistas.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 38,
+            "start": 103276,
+            "end": 103335,
+            "text": "A paridade e a integralidade foi rasgada no Rio de Janeiro.",
+            "score": 0.3312
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que as praças do Rio de Janeiro não podem atingir o máximo em uma indenização de habilitação profissional, parando em 110 no CAS, independentemente de possuírem faculdade, pós-graduação, mestrado ou doutorado, e rejeita a ideia de que o praça é limitado.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 38,
+            "start": 103536,
+            "end": 103652,
+            "text": "Nós paramos em 110, quando fazemos o CAS, independentemente se eu fiz faculdade, pós-graduação, mestrado, doutorado.",
+            "score": 0.4908
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a liberdade pela meritocracia e o incentivo à meritocracia como caminho para que todos tenham um salário legal, com a diferença sendo apenas de soldo.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 38,
+            "start": 103957,
+            "end": 104017,
+            "text": "Deem liberdade pela meritocracia, incentivem a meritocracia.",
+            "score": 0.3814
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Defesa explicações sobre a formulação dos novos valores percentuais de habilitação, questionando se cursos exclusivos de oficiais foram considerados e se os praças, que entraram por concurso público, foram levados em conta.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 104467,
+            "end": 104629,
+            "text": "Ao brigadeiro: quando da formulação dos novos valores percentuais de habilitação, o Ministério Defesa levou em consideração cursos que somente os oficiais tinham?",
+            "score": 0.4593
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a criação tardia dos cursos de Altos Estudos para praças graduados da Marinha e da FAB (2019) e do Exército (2013), ocorrida após o início da tramitação do PL 1.645, e pergunta por que a Marinha e a Aeronáutica não seguiram o exemplo do Exército.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 105429,
+            "end": 105608,
+            "text": "Por que só foram criados para os praças graduados do Exército, em 2013, e da Marinha e da FAB, em 2019, justamente após o início da tramitação do PL 1.645, a futura Lei nº 13.954?",
+            "score": 0.5908
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a mudança na forma de atendimento médico para dependentes e pensionistas, que perderam o tratamento do dia para a noite, inclusive com enfermidades graves, e questiona por que não foi dada a oportunidade de terminar tratamentos em andamento nem por que os efeitos não foram aplicados apenas a partir de 2019.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 105731,
+            "end": 105972,
+            "text": "Quinta pergunta: a Lei nº 13.954 mudou a forma de atendimento médico para dependentes e pensionistas; muitos deles, do dia para a noite, inclusive com enfermidades graves, perderam o tratamento — na emergência, procuraram os planos de saúde.",
+            "score": 0.4487
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona por que os efeitos da gratificação de habilitação não retroagiram àqueles que já haviam feito os cursos no passado e já estavam na reserva não remunerada ou reformados.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 106201,
+            "end": 106423,
+            "text": "Sexta pergunta: por que os efeitos de gratificação de habilitação, criados pela Lei nº 13.954, de 2019, não retroagiram àqueles que já haviam feito os cursos no passado e já estavam na reserva não remunerada ou reformados?",
+            "score": 0.8099
+          },
+          "udv": null
+        },
+        {
+          "text": "Pergunta se as pensionistas prejudicadas pela vedação da paridade e integralidade (EC 41/03) passaram a ter esses direitos a partir de 2019, com a revogação trazida pela EC 103/19, e, em caso negativo, por quê.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 106565,
+            "end": 106737,
+            "text": "35 da Emenda Constitucional nº 103, de 2019, as pensionistas que foram prejudicadas por vedação passaram a ter, a partir de 2019, paridade e integralidade iguais às outras?",
+            "score": 0.4908
+          },
+          "udv": null
+        },
+        {
+          "text": "Transmite perguntas do Major Luigi sobre a possibilidade de usar a VPNI para corrigir a quebra de paridade entre ativos e veteranos que não podem fazer cursos de altos estudos, e sobre a correção dos percentuais dos cursos (formação, especialização, aperfeiçoamento) para diminuir o abismo nas remunerações.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 106872,
+            "end": 107071,
+            "text": "Primeira pergunta:\"A majoração dos percentuais em cursos de habilitação, exceto os de formação, acarretou a quebra da paridade entre ativos e veteranos que não podem fazer os cursos de altos estudos.",
+            "score": 0.4839
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a responsabilidade dos parlamentares com o Rio de Janeiro inclui ajudar veteranos e pensionistas que estão passando necessidades, tendo levado o problema à Comissão de Segurança Pública e Combate ao Crime Organizado.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 108350,
+            "end": 108442,
+            "text": "Já levei esse problema também à Comissão de Segurança Pública e Combate ao Crime Organizado.",
+            "score": 0.5648
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Defende o princípio da dignidade e do respeito como direitos fundamentais de quem dedicou a vida a servir o país, argumentando que não se trata de pedir muito, mas de garantir o mínimo de dignidade.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 63,
+            "start": 135858,
+            "end": 136003,
+            "text": "Estamos discutindo o direito de pessoas que escolheram servir a um país, que dedicaram a vida a isso e agora estão pedindo o mínimo de dignidade.",
+            "score": 0.3208
+          },
+          "udv": {
+            "id": "udv-43-3-0",
+            "rule": "same_sentence",
+            "score": 0.2203
+          }
+        },
+        {
+          "text": "Utiliza a meritocracia como critério para justificar a valorização das praças, afirmando que a qualificação deve ser reconhecida independentemente da patente.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 38,
+            "start": 103957,
+            "end": 104017,
+            "text": "Deem liberdade pela meritocracia, incentivem a meritocracia.",
+            "score": 0.1752
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas críticas na experiência direta e na comunicação constante com praças, que enviam mensagens de apoio, enquanto não recebe reclamações de oficiais, o que indica o desequilíbrio da lei.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se sargento da Polícia Militar no Estado do Rio de Janeiro e identifica-se como praça, afirmando entender a linguagem dos debates.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 18,
+            "start": 71049,
+            "end": 71112,
+            "text": "Eu sou sargento da Polícia Militar no Estado do Rio de Janeiro.",
+            "score": 0.5388
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma representar os interesses das praças, veteranos e pensionistas do Rio de Janeiro, destacando a violação de direitos nesse estado.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 40,
+            "start": 108148,
+            "end": 108271,
+            "text": "Permita-me aqui lembrar novamente que eu, como militar do Estado do Rio de Janeiro, relato violações de direitos no Estado.",
+            "score": 0.2662
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e exemplos concretos, como os percentuais de habilitação (12% para soldados, 73% para generais) e o limite de 110 no CAS, para sustentar suas críticas.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 38,
+            "start": 102776,
+            "end": 102915,
+            "text": "A habilitação do militar para os soldados e percentual de 12% permaneceu o mesmo, sem mudança, e para os generais o percentual foi de 73%\".",
+            "score": 0.2982
+          },
+          "udv": null
+        },
+        {
+          "text": "Formula perguntas diretas e detalhadas a autoridades (como o Brigadeiro Heraldo), cobrando explicações sobre a formulação da lei e seus efeitos, e oferece enviar as perguntas por escrito para maior clareza.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 38,
+            "start": 104211,
+            "end": 104259,
+            "text": "O Brigadeiro Heraldo vai responder às perguntas?",
+            "score": 0.3145
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de respeito e diálogo, evitando a \"caça às bruxas\" e focando na discussão de direitos e dignidade, enquanto mantém a firmeza ao apontar violações e injustiças.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 63,
+            "start": 135822,
+            "end": 135857,
+            "text": "Isso aqui não é uma caça às bruxas.",
+            "score": 0.3253
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre à experiência pessoal e à base de apoio (mensagens de praças) para validar suas posições e demonstrar a realidade vivida pelos militares de carreira.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 43,
+      "split": "train",
+      "article_date": "2023-06-07",
+      "title": "Deputados defendem debate com a Defesa sobre mudanças no sistema de proteção social dos militares",
+      "assunto": "Debate sobre mudanças no sistema de proteção social dos militares e os efeitos da Lei 13.954/19",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-43-3-0",
+      "hearing_id": 43,
+      "n": 5,
+      "article_name": "Sargento Portugal",
+      "proposition": "Apoia a criação de um grupo de trabalho para discutir o sistema de proteção social dos militares.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Estamos discutindo o direito de pessoas que escolheram servir a um país, que dedicaram a vida a isso e agora estão pedindo o mínimo de dignidade. Nós não estamos pedindo muito.",
+        "turn": 63,
+        "start": 135858,
+        "end": 136034
+      },
+      "verifier": {
+        "probability": 0.16000425414349728,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,507 @@
+{
+  "actor": {
+    "slug": "dr-zacharias-calil",
+    "name": "Dr. Zacharias Calil",
+    "display_name": "Dr. Zacharias Calil",
+    "role": "Deputado (União-GO)",
+    "article_names": [
+      "Dr. Zacharias Calil"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - GO",
+      "UNIÃO - GO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:12:59+00:00",
+    "n_statements": 30,
+    "n_hearings": 4,
+    "hearing_ids": [
+      37,
+      60,
+      68,
+      181
+    ],
+    "input_tokens": 10260,
+    "output_tokens": 1021,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 4,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a inclusão da glicemia de jejum como exame de rotina nas Unidades de Pronto Atendimento (UPAs) e na atenção básica, argumentando que o diagnóstico precoce do diabetes melhora os resultados do tratamento e evita complicações como a retinopatia diabética.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 3,
+            "start": 13183,
+            "end": 13328,
+            "text": "Acho que as Unidades de Pronto Atendimento — UPAs, que trabalham com a atenção básica de saúde, deveriam indicar a glicemia como exame de rotina.",
+            "score": 0.4993
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Ministério da Saúde por transferir a responsabilidade do financiamento de tratamentos especializados para os gestores municipais e estaduais, afirmando que o financiamento atual não contempla esses custos e que o órgão deve retomar a discussão sobre a cobertura.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 17,
+            "start": 53256,
+            "end": 53313,
+            "text": "Jogou o problema para os gestores municipais e estaduais.",
+            "score": 0.2887
+          },
+          "udv": {
+            "id": "udv-68-2-1",
+            "rule": "same_sentence",
+            "score": 0.2781
+          }
+        },
+        {
+          "text": "Defende a atualização da tabela do SUS, apontando que a defasagem de 20 anos inviabiliza a sobrevivência de unidades de saúde, como as Santas Casas, e impede o acompanhamento das inovações tecnológicas médicas, o que leva à judicialização para obtenção de tratamentos.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 14,
+            "start": 21671,
+            "end": 21712,
+            "text": "Há 20 anos, essa tabela não é atualizada.",
+            "score": 0.2449
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiia a implementação de cirurgias cardíacas minimamente invasivas e endovasculares no SUS, justificando que essa abordagem reduz custos de internação, evita complicações pós-operatórias (como osteomielite de esterno) e melhora a qualidade de vida e sobrevida, especialmente de pacientes idosos.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 16,
+            "start": 33111,
+            "end": 33379,
+            "text": "Isso evita complicações no pós-operatório, infecção extracorpórea, osteomielite de esterno, enfim, uma série de coisas.Os cirurgiões cardíacos não vão gostar muito, porque vai diminuir um pouco a quantidade de cirurgias cardíacas, mas nós temos que pensar no paciente.",
+            "score": 0.27
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação do Projeto de Lei nº 3.811, de 2019, que institui a Semana Nacional de Conscientização sobre a Cardiopatia Isquêmica, e propõe que o atendimento às doenças valvares cardíacas no SUS se baseie em três pilares: prevenção, diagnóstico e tratamento.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 52,
+            "start": 69991,
+            "end": 70072,
+            "text": "O PL institui a Semana Nacional de Conscientização sobre a Cardiopatia Isquêmica.",
+            "score": 0.4733
+          },
+          "udv": {
+            "id": "udv-60-0-0",
+            "rule": "similar_text",
+            "score": 0.3041
+          }
+        },
+        {
+          "text": "Propõe a criação de ações de conscientização sobre os malefícios dos cigarros eletrônicos nas escolas, em parceria com o Ministério da Educação, para combater o aumento do consumo entre jovens atraídos por sabores e cores, e cobra a fiscalização da lei que proíbe o fumo em ambientes abertos e fechados.",
+          "passage": {
+            "hearing_id": 181,
+            "turn": 8,
+            "start": 33061,
+            "end": 33268,
+            "text": "Nós mesmos poderíamos fazer esse esclarecimento junto à sociedade, em âmbito do Ministério da Educação, de chamar a atenção dos jovens, nas escolas, dos malefícios que isso causa, porque é uma coisa química.",
+            "score": 0.1972
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento do paradesporto e a inclusão do esporte paralímpico nos currículos educacionais, citando dados do Comitê Paralímpico Brasileiro e elogiando a estrutura do Centro Paralímpico em São Paulo como exemplo de uso eficiente de recursos públicos.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 0,
+            "start": 4015,
+            "end": 4214,
+            "text": "Estimular e difundir a prática do esporte paralímpico em ambientes educacionais, como escolas, universidades e faculdades, por exemplo, é uma iniciativa que promove inclusão e respeito à diversidade.",
+            "score": 0.2476
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a lógica de que a atenção primária à saúde é a base para resolver problemas de saúde complexos, argumentando que é nela que devem ser feitos o diagnóstico precoce e a orientação, evitando que os casos cheguem a filas de espera longas em especialidades.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 18,
+            "start": 42141,
+            "end": 42247,
+            "text": "Eu também vejo com grande importância a atenção primária à saúde, na qual nós temos que investir bastante.",
+            "score": 0.164
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio de que o Estado não deve abandonar a população em situações de saúde, criticando a judicialização como consequência da falha do SUS em acompanhar a evolução médica e tecnológica.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 15,
+            "start": 46280,
+            "end": 46405,
+            "text": "A medicina está em franca evolução com as inovações tecnológicas, e, infelizmente, o SUS não consegue acompanhar esse avanço.",
+            "score": 0.1815
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na necessidade de proteger a população idosa, argumentando que a longevidade exige políticas de prevenção, promoção da saúde e acesso a tecnologias que reduzam o impacto de doenças crônicas e degenerativas.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 52,
+            "start": 70074,
+            "end": 70280,
+            "text": "Ao propor ajustes ao SUS, pensando na longevidade da população, entendemos que as doenças valvares cardíacas precisam do atendimento adequado via SUS sobre três pilares: prevenção, diagnóstico e tratamento.",
+            "score": 0.1585
+          },
+          "udv": {
+            "id": "udv-60-0-0",
+            "rule": "same_sentence",
+            "score": 0.1441
+          }
+        },
+        {
+          "text": "Defende que o acesso a tratamentos deve ser regulado por critérios de prioridade e não por indicações políticas, afirmando que o papel do parlamentar é legislar e coordenar, não atuar como assistente social para furar filas de espera.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 20,
+            "start": 51256,
+            "end": 51378,
+            "text": "Nós estamos aqui para legislar, e não para conseguirmos vaga em UTI para o paciente ter acesso a determinados tratamentos.",
+            "score": 0.2036
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal e Presidente da Subcomissão destinada a contribuir para a garantia de transparência e atualização da tabela do SUS.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 15,
+            "start": 46638,
+            "end": 46758,
+            "text": "Eu sou Presidente da Subcomissão destinada a contribuir para a garantia de transparência e atualização da tabela do SUS.",
+            "score": 0.8258
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como cirurgião pediátrico com 42 anos de atividade, tendo realizado procedimentos como a separação de gêmeos siameses.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 6,
+            "start": 37578,
+            "end": 37696,
+            "text": "Eu sou cirurgião pediátrico e também estou acostumado a trabalhar com muitas malformações nesses 42 anos de atividade.",
+            "score": 0.3707
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser Relator do Projeto de Lei nº 3.811, de 2019, na Comissão de Seguridade Social e Família.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 52,
+            "start": 69790,
+            "end": 69990,
+            "text": "Então, quero aproveitar para ressaltar a importância da aprovação do Projeto de Lei nº 3.811, de 2019, do qual fui Relator na Comissão de Seguridade Social e Família, que está aguardando pauta na CCJ.",
+            "score": 0.6145
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se membro da Comissão de Defesa dos Direitos da Pessoa Idosa e da Comissão de Seguridade Social e Família.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 0,
+            "start": 52,
+            "end": 212,
+            "text": "Declaro aberta a reunião de audiência pública da Comissão de Defesa dos Direitos da Pessoa Idosa, com a participação da Comissão de Seguridade Social e Família.",
+            "score": 0.708
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos pessoais e anedotas para ilustrar pontos técnicos, como a história do Senador Jorge Kajuru com retinopatia, a visita ao Centro Paralímpico e a observação de cigarros eletrônicos em carros.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 3,
+            "start": 13007,
+            "end": 13082,
+            "text": "Citei até o exemplo do Senador Jorge Kajuru, de Goiás, que tem retinopatia.",
+            "score": 0.3362
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados estatísticos e estudos específicos para fundamentar suas falas, como os números de mortes por tabagismo, o impacto da DPOC no SUS e o registro de atletas pelo Comitê Paralímpico Brasileiro.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 0,
+            "start": 4742,
+            "end": 4959,
+            "text": "De acordo com estudo realizado pelo DataSenado, em dezembro de 2017, o registro do Comitê Paralímpico Brasileiro contabilizava 7.641 indivíduos, englobando paratletas e ex-paratletas, além de atletas-guias e goleiros.",
+            "score": 0.2117
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta ao Ministério da Saúde e a outros órgãos governamentais, utilizando expressões como \"lavou as mãos\" e \"tem que voltar a discutir\" para criticar a inação ou a transferência de responsabilidades.",
+          "passage": {
+            "hearing_id": 68,
+            "turn": 17,
+            "start": 53207,
+            "end": 53255,
+            "text": "Eu acho que o Ministério da Saúde lavou as mãos!",
+            "score": 0.3455
+          },
+          "udv": {
+            "id": "udv-68-2-1",
+            "rule": "same_sentence",
+            "score": 0.2236
+          }
+        },
+        {
+          "text": "Emprega linguagem acessível e didática, fazendo comparações simples (como a analogia entre a fila de espera e a progressividade do diabetes) e utilizando perguntas retóricas para engajar o público.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Demonstra empatia e reconhecimento ao elogiar os convidados e a estrutura de instituições públicas, como o Centro Paralímpico, antes de apresentar críticas ou propostas.",
+          "passage": {
+            "hearing_id": 60,
+            "turn": 0,
+            "start": 729,
+            "end": 803,
+            "text": "Inicialmente tenho a satisfação de apresentar os convidados ao debate: Dr.",
+            "score": 0.1714
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 37,
+      "split": "train",
+      "article_date": "2023-08-23",
+      "title": "Secretaria Nacional de Paradesporto pede mais orçamento e estrutura para os atletas com deficiência",
+      "assunto": "Solicitação de mais orçamento e estrutura para atletas com deficiência",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 60,
+      "split": "train",
+      "article_date": "2022-12-06",
+      "title": "Especialistas apontam benefícios e desafios de novo programa do SUS para o atendimento a idosos",
+      "assunto": "Benefícios e desafios do Programa QualiSUS Cardio para o atendimento a idosos no SUS",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 68,
+      "split": "train",
+      "article_date": "2022-08-17",
+      "title": "Debatedores apontam falhas no protocolo do SUS para o tratamento da retinopatia diabética",
+      "assunto": "Falhas no protocolo do SUS para o tratamento da retinopatia diabética",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 105,
+      "split": "test",
+      "article_date": "2024-04-11",
+      "title": "SUS precisa atualizar protocolo de tratamento de edema macular diabético, cobram especialistas",
+      "assunto": "Atualização do protocolo de tratamento de edema macular diabético no SUS",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 181,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Brasil precisa combater cigarro eletrônico para manter queda no índice de fumantes, dizem especialistas",
+      "assunto": "Combate ao uso de cigarros eletrônicos no Brasil para manter a queda no índice de fumantes",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-37-2-0",
+      "hearing_id": 37,
+      "n": 7,
+      "article_name": "Dr. Zacharias Calil",
+      "proposition": "Ressaltou a importância de estimular a prática esportiva para pessoas com deficiência em ambientes educacionais, o que pode promover a inclusão e o respeito à diversidade, derrubar estigmas e construir uma sociedade igualitária: \"O esporte é uma ferramenta poderosa para a transformação social e é nosso dever assegurar que as pessoas, independentemente de suas limitações, tenham acesso igualitário às práticas esportivas e possam desenvolver seu potencial máximo\".",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O esporte é uma ferramenta poderosa para a transformação social, e é nosso dever assegurar que as pessoas, independentemente de suas limitações, tenham acesso igualitário às práticas esportivas e possam desenvolver seu potencial máximo.",
+        "turn": 0,
+        "start": 3777,
+        "end": 4013
+      },
+      "verifier": {
+        "probability": 0.7981149827624293,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-60-0-0",
+      "hearing_id": 60,
+      "n": 1,
+      "article_name": "Dr. Zacharias Calil",
+      "proposition": "\"Com o envelhecimento da população brasileira e no contexto da pandemia de Covid-19, que postergou o tratamento de diversas doenças, é preciso estimular os cuidados com a saúde e com as doenças cardíacas complexas relacionadas à idade.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Ao propor ajustes ao SUS, pensando na longevidade da população, entendemos que as doenças valvares cardíacas precisam do atendimento adequado via SUS sobre três pilares: prevenção, diagnóstico e tratamento. Nesse sentido, deixo aqui o meu apoio total e irrestrito às temáticas do coração.",
+        "turn": 52,
+        "start": 70074,
+        "end": 70362
+      },
+      "verifier": {
+        "probability": 0.4238771820836144,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-60-0-1",
+      "hearing_id": 60,
+      "n": 2,
+      "article_name": "Dr. Zacharias Calil",
+      "proposition": "\"Houve aumento de cerca de 40% de 2012 a 2021, e as pessoas com 60 ou mais saíram de 22,3 milhões para 31,2 milhões. Até 2030, poderão ultrapassar os 41 milhões.\"",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Realmente, para nós, é um verdadeiro desafio.E vejo, com muita propriedade, o que o senhor falou em relação à alimentação, à atividade física e a uma série de fatores. Se grande parte da população — 68 milhões de pessoas — chegar ao ano de 2050 portando determinadas patologias, será muito grave.",
+        "turn": 4,
+        "start": 11353,
+        "end": 11649
+      },
+      "verifier": {
+        "probability": 0.09961272338635607,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-68-2-0",
+      "hearing_id": 68,
+      "n": 8,
+      "article_name": "Dr. Zacharias Calil",
+      "proposition": "A fila de espera por uma consulta é o principal problema: \"Porque o paciente fica sem acompanhamento. A gente sabe que o diabetes é uma doença progressiva, crônica e silenciosa, que vai causando uma série de problemas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu estou vendo aqui — estou estudando esse tema — que o problema maior é a fila de espera, o que faz com que esses pacientes não tenham acompanhamento. E nós sabemos que o diabetes é uma doença progressiva, crônica e silenciosa.",
+        "turn": 7,
+        "start": 23425,
+        "end": 23653
+      },
+      "verifier": {
+        "probability": 0.8240254160389638,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-68-2-1",
+      "hearing_id": 68,
+      "n": 9,
+      "article_name": "Dr. Zacharias Calil",
+      "proposition": "O Ministério da Saúde está 'lavando as mãos' e jogando a responsabilidade para estados e municípios.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu acho que o Ministério da Saúde lavou as mãos! Jogou o problema para os gestores municipais e estaduais.",
+        "turn": 17,
+        "start": 53207,
+        "end": 53313
+      },
+      "verifier": {
+        "probability": 0.979330893257793,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-105-0-0",
+      "hearing_id": 105,
+      "n": 1,
+      "article_name": "Dr. Zacharias Calil",
+      "proposition": "O SUS precisa se atualizar para preservar a visão e a qualidade de vida dos pacientes: \"É fundamental que o SUS revise e atualize seus protocolos clínicos para incluir diretrizes claras e abrangentes para o diagnóstico, tratamento e acompanhamento do edema macular. Além disso, é necessário garantir um sistema de financiamento adequado que cubra os custos.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "É fundamental que o SUS revise e atualize seus protocolos clínicos para incluir diretrizes claras e abrangentes para o diagnóstico, o tratamento e o acompanhamento do edema macular. Além disso, é necessário garantir um sistema de financiamento adequado que cubra os custos de medicamentos, procedimentos e acompanhamento oftalmológico dos pacientes com EMD, assegurando assim um atendimento de qualidade e acessível a todos.",
+        "turn": 0,
+        "start": 3674,
+        "end": 4098
+      },
+      "verifier": {
+        "probability": 0.977738092230149,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-181-2-0",
+      "hearing_id": 181,
+      "n": 6,
+      "article_name": "Dr. Zacharias Calil",
+      "proposition": "A DPOC é responsável por metade das mortes decorrentes de tabaco: \"Terceira causa de óbitos no mundo, no Brasil essa doença atinge cerca de 17% da população. Para o Sistema Único de Saúde (SUS), os impactos da DPOC são alarmantes, sendo a quinta maior causa de internação entre pacientes com mais de 40 anos, cerca de 200 mil hospitalizações, com gasto anual de R$ 103 milhões.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "No Brasil, essa doença atinge cerca de 17% da população. Para o SUS, os impactos da DPOC são alarmantes, sendo a quinta maior causa de internação entre pacientes com mais de 40 anos e sendo responsável por cerca de 200 mil hospitalizações, com gasto anual de 103 milhões de reais.",
+        "turn": 0,
+        "start": 2571,
+        "end": 2851
+      },
+      "verifier": {
+        "probability": 0.717132611852513,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

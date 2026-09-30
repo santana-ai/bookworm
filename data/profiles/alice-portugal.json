@@ -1,0 +1,497 @@
+{
+  "actor": {
+    "slug": "alice-portugal",
+    "name": "Alice Portugal",
+    "display_name": "Alice Portugal",
+    "role": "Deputada (PCdoB-BA)",
+    "article_names": [
+      "Alice Portugal"
+    ],
+    "party_uf": [
+      "Bloco/PCdoB - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:40:39+00:00",
+    "n_statements": 14,
+    "n_hearings": 2,
+    "hearing_ids": [
+      168,
+      202
+    ],
+    "input_tokens": 11050,
+    "output_tokens": 1148,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 3,
+    "passage_only": 17,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a regulamentação da profissão de quiropraxista deve respeitar o ordenamento jurídico brasileiro de profissões regulamentadas, rejeitando a transposição automática de técnicas estrangeiras sem a devida estruturação curricular e fiscalização por conselhos profissionais.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 0,
+            "start": 2167,
+            "end": 2334,
+            "text": "Há, no sistema de organização das profissões do Brasil, um ordenamento de regulamentação que garante que técnicas podem ser absorvidas pelas profissões regulamentadas.",
+            "score": 0.2809
+          },
+          "udv": {
+            "id": "udv-202-0-0",
+            "rule": "same_sentence",
+            "score": 0.2659
+          }
+        },
+        {
+          "text": "Questiona a viabilidade técnica-científica da quiropraxia como profissão autônoma, exigindo esclarecimentos sobre o diagnóstico de porta de entrada, a relação com a equipe multidisciplinar de saúde e os limites de atuação em casos que exigem intervenção cirúrgica ou medicamentosa.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 13,
+            "start": 37443,
+            "end": 37498,
+            "text": "Qual é o diagnóstico de porta de entrada do quiroprata?",
+            "score": 0.2905
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que os cursos de quiropraxia sejam transformados em especializações para fisioterapeutas ou que os egressos realizem disciplinas de suplência para ingressar em graduações já regulamentadas, como medicina ou fisioterapia.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 13,
+            "start": 42528,
+            "end": 42729,
+            "text": "E os que já estão formados em quiropraxia não poderiam fazer uma suplência com as disciplinas de porta de entrada diagnóstica se quisessem ser médicos ou fisioterapeutas, ingressando nessas graduações?",
+            "score": 0.3067
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de uma carreira do SUS para dignificar os profissionais de saúde, argumentando que a fragmentação atual, com pisos salariais isolados, não resolve a exaustão dos trabalhadores que necessitam de múltiplos empregos.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 18,
+            "start": 77949,
+            "end": 78297,
+            "text": "Nós estamos trabalhando uma estratégia de organização de pisos, não para onerar o Estado brasileiro, as Prefeituras ou outros entes, mas para chegar à construção de uma carreira do SUS e dignificar equipes com profissionais que têm um trabalho indispensável e estão exauridos, porque têm que ter dois, três empregos para a manutenção de suas vidas.",
+            "score": 0.2592
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a ampliação do conceito de licença-maternidade para licença parental, garantindo a manutenção de bolsas e direitos para pós-graduandos, independentemente de possuírem bolsa de estudo.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 18,
+            "start": 75138,
+            "end": 75383,
+            "text": "Fico com essa tarefa efetiva em relação a uma ampliação do conceito de licença-maternidade, ora tratado apenas para as bolsistas e bolsistas adotantes, mas efetivamente sob uma conceituação de licença parental mais ampla, com bolsa ou sem bolsa.",
+            "score": 0.3857
+          },
+          "udv": {
+            "id": "udv-168-3-1",
+            "rule": "same_sentence",
+            "score": 0.3266
+          }
+        },
+        {
+          "text": "Defende a contagem do tempo de pós-graduação para efeitos de aposentadoria previdenciária, propondo que o Estado pague a parte patronal da previdência do pós-graduando, de forma análoga ao tratamento dado aos médicos residentes.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 0,
+            "start": 6577,
+            "end": 6713,
+            "text": "Estamos também trabalhando a discussão sobre a contagem do tempo para efeito de aposentadoria, como foi feito com os médicos residentes.",
+            "score": 0.3271
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a concessão de isenções fiscais a setores como a mineração, que pouco devolvem ao Estado, e propõe incentivos fiscais para empresas que incorporem mestres e doutores em seus quadros, visando reter talentos e combater a fuga de cérebros.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Defende a regulação rigorosa do ensino a distância (EAD) na área da saúde, afirmando que não é possível formar à distância profissionais como médicos veterinários, educadores físicos e fisioterapeutas, devido à necessidade de presencialidade em laboratórios e práticas clínicas.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 18,
+            "start": 79585,
+            "end": 79696,
+            "text": "Não é possível formar à distância um médico veterinário, um profissional de educação física, um fisioterapeuta.",
+            "score": 0.2265
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a criação de novos exames de ordem (como a OAB) para graduação e pós-graduação, defendendo que a solução para a qualidade dos cursos deve ser a qualificação institucional e o ranqueamento, e não a banalização seguida de mensuração cartorial.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 18,
+            "start": 79073,
+            "end": 79128,
+            "text": "Como controlar a qualidade dos cursos de pós-graduação?",
+            "score": 0.3052
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de uma Política Nacional de Assistência Estudantil e de um fundo específico, incluindo a possibilidade de contratos de cooperação entre o Governo Federal e universidades para viabilizar recursos, já que a transferência direta de verbas entre entes é restrita.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 10,
+            "start": 64316,
+            "end": 64632,
+            "text": "Inclusive, no projeto da assistência estudantil, eu coloco como um dos itens a possibilidade de criação de contratos de cooperação entre o Governo Federal e as universidades federais, estaduais e municipais, a fim de desenvolver políticas de assistência estudantil, porque não tem como passar recurso entre os entes.",
+            "score": 0.4325
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da segurança técnica-científica e da integralidade da equipe multidisciplinar de saúde como fundamento para limitar a autonomia de novas profissões, argumentando que a saúde da população exige saber consolidado e regulamentação profissional centenária.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 13,
+            "start": 42731,
+            "end": 43002,
+            "text": "Eu acho que isso tudo pode até ser discutido, mas, evidentemente, é necessário compreender que a saúde da população é algo da maior responsabilidade e que nós temos que levar em consideração o saber consolidado e a regulamentação profissional do Brasil, que é centenária.",
+            "score": 0.3047
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de um projeto nacional de desenvolvimento como critério para justificar investimentos em ciência, tecnologia e inovação, vinculando a formação de pós-graduandos ao desenvolvimento econômico e social do país.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 18,
+            "start": 78557,
+            "end": 78651,
+            "text": "Isso tudo, é evidente, acontece porque ainda nos falta um projeto nacional de desenvolvimento.",
+            "score": 0.2377
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na defesa da dignidade do trabalho e da proteção social, utilizando a analogia com categorias proletarizadas, como a enfermagem, para justificar a valorização de profissionais de saúde e pesquisadores.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega o critério da responsabilidade do Estado na garantia de direitos previdenciários e trabalhistas, argumentando que a natureza híbrida do pós-graduando exige uma resposta estatal que honre o tempo de formação como tempo de trabalho.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 13,
+            "start": 43571,
+            "end": 43590,
+            "text": "Não é do seu tempo.",
+            "score": 0.2928
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal em seu sexto mandato e autora dos requerimentos das audiências públicas.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 15,
+            "start": 43705,
+            "end": 43740,
+            "text": "Estou no meu sexto mandato.(Risos.)",
+            "score": 0.3361
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como farmacêutica e bioquímica, com trajetória profissional iniciada em laboratórios e hospitais universitários.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 0,
+            "start": 4330,
+            "end": 4382,
+            "text": "Nós vivenciávamos isso nos hospitais universitários.",
+            "score": 0.3628
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido relatora da matéria que cria a Política Nacional de Assistência Estudantil e autora de projetos de lei sobre licença parental e contagem de tempo de pós-graduação.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 0,
+            "start": 6832,
+            "end": 6921,
+            "text": "Eu também sou Relatora da matéria que cria a Política Nacional de Assistência Estudantil.",
+            "score": 0.5824
+          },
+          "udv": {
+            "id": "udv-168-3-0",
+            "rule": "same_sentence",
+            "score": 0.3273
+          }
+        },
+        {
+          "text": "Declara alinhamento com a defesa dos interesses dos pós-graduandos, citando a ANPG como inspiração para a audiência e destacando a atuação da entidade.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 0,
+            "start": 1529,
+            "end": 1639,
+            "text": "Parabéns à ANPG, que tem sido uma entidade incansável na defesa dos interesses dos pós-graduandos brasileiros.",
+            "score": 0.4474
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ter sofrido ameaças e acusações de corrupção no passado, tendo ingressado com processo no Conselho de Ética, e afirma que essas questões foram superadas.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 13,
+            "start": 43388,
+            "end": 43452,
+            "text": "Eu entrei com um processo no Conselho de Ética para averiguação.",
+            "score": 0.2872
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e rankings internacionais (como a posição da USP) para contextualizar a capacidade de pesquisa do Brasil, contrastando com a realidade dos pós-graduandos.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 0,
+            "start": 5327,
+            "end": 5392,
+            "text": "No entanto, nós sabemos da situação dos pós-graduandos no Brasil.",
+            "score": 0.1642
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos pessoais e históricos, como sua experiência em bancadas de laboratório e o encontro com a cientista Amélia Hamburger, para humanizar o debate e conectar a ciência à trajetória de vida.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 18,
+            "start": 82036,
+            "end": 82112,
+            "text": "Amélia Hamburger foi uma grande cientista, uma mulher à frente do seu tempo.",
+            "score": 0.2553
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliador mas firme, pedindo respostas por escrito aos convidados para compilar informações e subsidiar o voto dos parlamentares, evitando decisões precipitadas.",
+          "passage": {
+            "hearing_id": 202,
+            "turn": 15,
+            "start": 44540,
+            "end": 44738,
+            "text": "Nós vamos encerrar com 3 minutos de considerações finais para cada um, evidentemente pedindo por escrito estes pronunciamentos valorosos, para que nós possamos municiar os Parlamentares de opiniões.",
+            "score": 0.1945
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega analogias com outros setores (mineração, enfermagem) para ilustrar a necessidade de justiça fiscal e salarial, tornando os argumentos técnicos acessíveis ao debate político.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra prazos e ações concretas dos órgãos gestores (CAPES, CNPq, MEC), propondo audiências futuras e a entrega de documentos para garantir a continuidade do processo legislativo.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 168,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Debatedores defendem melhoria das condições da pós-graduação no Brasil",
+      "assunto": "Melhoria das condições da pós-graduação no Brasil",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 5
+    },
+    {
+      "id": 202,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Regulamentação da profissão de quiropraxista divide opiniões na Câmara",
+      "assunto": "Regulamentação da profissão de quiropraxista",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-168-3-0",
+      "hearing_id": 168,
+      "n": 14,
+      "article_name": "Alice Portugal",
+      "proposition": "Se comprometeu a atuar para a solução de alguns dos problemas apontados.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Essa foi uma atitude que a ANPG nos colocou como necessária, e eu dei entrada no projeto, que já está em tramitação. Eu também sou Relatora da matéria que cria a Política Nacional de Assistência Estudantil.",
+        "turn": 0,
+        "start": 6714,
+        "end": 6921
+      },
+      "verifier": {
+        "probability": 0.2123517538097907,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-3-1",
+      "hearing_id": 168,
+      "n": 15,
+      "article_name": "Alice Portugal",
+      "proposition": "A Câmara já analisa um projeto para estender a licença-maternidade a estudantes que não são bolsistas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Fico com essa tarefa efetiva em relação a uma ampliação do conceito de licença-maternidade, ora tratado apenas para as bolsistas e bolsistas adotantes, mas efetivamente sob uma conceituação de licença parental mais ampla, com bolsa ou sem bolsa. Um projeto como esse já será apensado a outros em andamento na Casa, mas a amplitude acho que será determinante para que nós possamos caminhar com o projeto.",
+        "turn": 18,
+        "start": 75138,
+        "end": 75541
+      },
+      "verifier": {
+        "probability": 0.617001331537786,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-3-2",
+      "hearing_id": 168,
+      "n": 16,
+      "article_name": "Alice Portugal",
+      "proposition": "Vai ampliar o conceito para licença parental, de forma a abranger estudantes do sexo masculino.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Já temos a licença para as bolsistas e os bolsistas e vamos avançar para a conceituação da licença parental. Em relação à questão previdenciária, podemos avançar muito também para outro patamar relacionado com esse período importante da formação do pós-graduando nos diversos níveis.",
+        "turn": 18,
+        "start": 76200,
+        "end": 76483
+      },
+      "verifier": {
+        "probability": 0.18994135355433844,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-3-3",
+      "hearing_id": 168,
+      "n": 17,
+      "article_name": "Alice Portugal",
+      "proposition": "Outra proposta em análise na Casa trata de direitos previdenciários para pós-graduandos. Agora o desafio é encontrar formas de financiar a medida: \"Seria uma isenção fiscal a quem eleva a qualidade técnica e tecnológica de seus quadros? E por que não? Nós estamos dando isenção a quem não deixa nada.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Esse estímulo é algo em que nós precisamos realmente pensar, e aí eu peço ajuda aos universitários. Então, Dr. Galvão, seria uma opção a isenção fiscal a quem eleva a qualidade técnica e tecnológica de seus quadros?",
+        "turn": 18,
+        "start": 77265,
+        "end": 77481
+      },
+      "verifier": {
+        "probability": 0.16210124743433674,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-3-4",
+      "hearing_id": 168,
+      "n": 18,
+      "article_name": "Alice Portugal",
+      "proposition": "Há dois anos atrás, na pandemia, quando o Congresso aprovou a Lei Aldir Blanc 1 também não havia de onde tirar o dinheiro. \"E aí, eu fui parar na mineração. Não deixam quase nada de impostos, têm isenção há mais de 20 anos. Então, vamos dar a quem devolve.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós estamos dando isenção a quem não deixa nada. Fizemos uma análise há 2 anos, na pandemia, quando criamos a Lei Aldir Blanc 1 — tenho a honra de ter participado direta e conceitualmente dessa construção —, e não tínhamos de onde tirar o dinheiro.",
+        "turn": 18,
+        "start": 77497,
+        "end": 77746
+      },
+      "verifier": {
+        "probability": 0.6389934373607011,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-202-0-0",
+      "hearing_id": 202,
+      "n": 1,
+      "article_name": "Alice Portugal",
+      "proposition": "A regulamentação da profissão de quiropraxista vem sendo discutido na Câmara há alguns anos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós temos este debate acontecendo aqui na Câmara já há alguns anos, num processo de maturação da análise sobre técnicas importantes, como a da quiropraxia e da osteopatia. Há, no sistema de organização das profissões do Brasil, um ordenamento de regulamentação que garante que técnicas podem ser absorvidas pelas profissões regulamentadas.",
+        "turn": 0,
+        "start": 1994,
+        "end": 2334
+      },
+      "verifier": {
+        "probability": 0.9852112757424324,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-202-0-1",
+      "hearing_id": 202,
+      "n": 2,
+      "article_name": "Alice Portugal",
+      "proposition": "Considera a técnica importante, mas acredita que algumas técnicas na área de saúde devem ser absorvidas por profissões já regulamentadas, com abordagem curricular mais vasta: \"Ao se ter no Brasil tanto o fisiatra, na medicina, como o fisioterapeuta, na fisioterapia, com uma construção técnico-científica em cursos de graduação de 4 anos e meio a 5 anos, o correto seria aproveitar as profissões já regulamentadas — a medicina, há quase 1 século, e a fisioterapia, há mais de meio século\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Efetivamente, ao se ter no Brasil tanto o fisiatra, na medicina, como o fisioterapeuta, na fisioterapia, com uma construção técnico-científica em cursos de graduação de 4 anos e meio a 5 anos, o correto seria aproveitar as profissões já regulamentadas — a medicina, há quase 1 século, e a fisioterapia, há mais de meio século.",
+        "turn": 0,
+        "start": 2666,
+        "end": 2992
+      },
+      "verifier": {
+        "probability": 0.8783818479151559,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

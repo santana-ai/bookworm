@@ -1,0 +1,356 @@
+{
+  "actor": {
+    "slug": "carlos-giannazi",
+    "name": "CARLOS GIANNAZI",
+    "display_name": "Carlos Giannazi",
+    "role": "Deputado estadual de São Paulo (Psol)",
+    "article_names": [
+      "Carlos Giannazi"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:25:19+00:00",
+    "n_statements": 3,
+    "n_hearings": 3,
+    "hearing_ids": [
+      55,
+      135,
+      176
+    ],
+    "input_tokens": 7007,
+    "output_tokens": 1174,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a revogação do art. 109 da Emenda Constitucional nº 103 e da Emenda Constitucional nº 41, por considerar que a cobrança de contribuição previdenciária de quem já se aposentou configura quebra de contrato e estelionato, pois o servidor já cumpriu suas obrigações no regime previdenciário.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 3,
+            "start": 17280,
+            "end": 17330,
+            "text": "Quando há uma quebra do contrato, isso é um golpe.",
+            "score": 0.2284
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a aprovação, em caráter de extrema urgência, da PEC apresentada pela Deputada Luciene Cavalcante para impedir novos confiscos de aposentadorias e pensões, alertando que a manutenção da legislação atual permite que governadores, como Tarcísio de Freitas, editem novos decretos de confisco.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 3,
+            "start": 15504,
+            "end": 15900,
+            "text": "É por isso que nós estamos aqui hoje, para exigir que a Câmara dos Deputados, que o Senado Federal, que o Congresso Nacional aprove — repito, em caráter de extrema urgência — essa PEC da Deputada Federal Professora Luciene Cavalcante, porque, a qualquer momento, o Governador Tarcísio de Freitas pode editar um novo decreto e recomeçar o confisco, prejudicando 600 mil aposentados e pensionistas.",
+            "score": 0.2448
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a Emenda Constitucional nº 103 por autorizar a cobrança de contribuição previdenciária até de quem ganha abaixo de um salário mínimo em caso de aprofundamento do déficit atuarial, classificando a norma como perversa e sem precedentes no mundo.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 3,
+            "start": 17931,
+            "end": 18090,
+            "text": "E essa emenda é tão perversa que ela autoriza, em caso de aprofundamento do déficit atuarial, que se cobre inclusive de quem ganha abaixo de um salário mínimo.",
+            "score": 0.5692
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia o boicote da Secretaria de Educação de São Paulo à Lei nº 15.830, de 2015, que reduz o número de alunos em salas com estudantes com deficiência, apontando que o governo estadual usa argumentos como a necessidade de regulamentação para inviabilizar o cumprimento da lei nas 5 mil escolas da rede estadual.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 7,
+            "start": 25013,
+            "end": 25129,
+            "text": "Essa lei autoriza o Governo Estadual a reduzir o número de alunos em salas com matrículas de alunos com deficiência.",
+            "score": 0.3763
+          },
+          "udv": null
+        },
+        {
+          "text": "Repudia o decreto e a resolução do Governo de São Paulo que substituem professores com formação em educação especial por ONGs terceirizadas, classificando a medida como privatização do atendimento e um retrocesso, e apresenta projeto de decreto legislativo para revogar a norma.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 7,
+            "start": 28560,
+            "end": 28606,
+            "text": "Essa medida será um retrocesso para São Paulo.",
+            "score": 0.3367
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Governo de São Paulo o envio de projeto de lei complementar para regulamentar a Polícia Penal, criticando a demora que prejudica os servidores do sistema prisional, que ficaram de fora de reajustes salariais concedidos a outras forças de segurança (20% para Polícia Civil e Militar contra 6% para policiais penais).",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 15,
+            "start": 67910,
+            "end": 68057,
+            "text": "Porém, até agora o Governo Tarcísio de Freitas não encaminhou projeto de lei complementar para regulamentar a Polícia Penal no Estado de São Paulo.",
+            "score": 0.3304
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão de motoristas do sistema prisional na regulamentação da Polícia Penal, argumentando que eles exercem a função na prática e devem ser incorporados à Lei Orgânica.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 15,
+            "start": 70018,
+            "end": 70073,
+            "text": "Os motoristas devem estar enquadrados na Polícia Penal.",
+            "score": 0.3931
+          },
+          "udv": null
+        },
+        {
+          "text": "Opõe-se radicalmente à privatização dos presídios e da Fundação CASA no Estado de São Paulo, assim como ao financiamento do BNDES para a privatização do sistema prisional no Rio Grande do Sul, argumentando que o preso não é mercadoria e que a lógica de lucro é incompatível com o sistema de justiça.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 15,
+            "start": 73473,
+            "end": 73596,
+            "text": "Ele anunciou a privatização da Fundação CASA, o que nós não vamos aceitar porque está na mesma lógica do sistema prisional.",
+            "score": 0.3637
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio de que \"quem se aposentou já pagou a sua previdência\" como fundamento para rejeitar qualquer cobrança de contribuição previdenciária de aposentados e pensionistas, independentemente do valor do benefício.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 3,
+            "start": 17641,
+            "end": 17715,
+            "text": "Nós temos o princípio de que quem se aposentou já pagou a sua previdência.",
+            "score": 0.4578
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na existência de legislação farta (Constituição Federal, LDB, Estatuto da Pessoa com Deficiência e tratados internacionais) para argumentar que o problema da educação inclusiva não é a falta de leis, mas o descumprimento e o boicote por parte do poder público.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 7,
+            "start": 24545,
+            "end": 24755,
+            "text": "Trata-se, agora, de pressionar o poder público a cumprir a lei existente, sobretudo o próprio Estatuto da Pessoa com Deficiência, a LDB, a Constituição Federal e os tratados internacionais que o Brasil assinou.",
+            "score": 0.4208
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a dignidade e a saúde dos trabalhadores como critérios para criticar as condições de trabalho no sistema prisional, citando superlotação, assédio moral, perseguições e adoecimento como consequências da falta de regulamentação e de reajustes salariais justos.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 15,
+            "start": 68990,
+            "end": 69230,
+            "text": "Esses servidores estão sendo golpeados, porque não têm a regulamentação da Polícia Penal, não tiveram reajuste digno e vivem o drama da superlotação dos presídios, das ameaças, do assédio moral, das perseguições, do adoecimento no trabalho.",
+            "score": 0.3299
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a terceirização e a privatização de serviços públicos essenciais, como a educação especial e o sistema prisional, resultam em retrocessos e na mercantilização de direitos, prejudicando a qualidade do atendimento e a dignidade dos usuários e trabalhadores.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 15,
+            "start": 66618,
+            "end": 66871,
+            "text": "Faço uma saudação muito especial ao nosso colega de São Paulo, o Carlos Piotto, do SINDCOP-Bauru, que tem feito um trabalho muito importante, em todo o Estado, em defesa dos direitos e da dignidade dos servidores e servidoras do nosso sistema prisional.",
+            "score": 0.1858
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Estadual membro da Comissão de Educação da Assembleia Legislativa de São Paulo, professor da rede pública, diretor de escola e professor universitário.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 7,
+            "start": 23662,
+            "end": 23876,
+            "text": "Quero falar aqui não só como Deputado Estadual membro da Comissão de Educação da Assembleia Legislativa de São Paulo, mas também como diretor de escola, como professor da rede pública, como professor universitário.",
+            "score": 0.9071
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a Deputada Federal Professora Luciene Cavalcante, a quem elogia por suas iniciativas legislativas e atuação em pautas de educação, previdência e sistema prisional.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 7,
+            "start": 22673,
+            "end": 22731,
+            "text": "Boa tarde, Deputada Federal Professora Luciene Cavalcante.",
+            "score": 0.3176
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita apoio a movimentos e entidades como a Frente Paulista, APAMPESP, SINDCOP e o movimento do tuitaço, destacando seu papel na mobilização contra o confisco previdenciário e pela regulamentação da Polícia Penal.",
+          "passage": {
+            "hearing_id": 55,
+            "turn": 3,
+            "start": 13883,
+            "end": 14070,
+            "text": "Quero destacar aqui o papel da Frente Paulista, que congrega mais de 80 entidades, aqui na pessoa do Gozze, que vai daqui a pouco falar sobre isso, as entidades foram também fundamentais.",
+            "score": 0.2564
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionou participação em bloco de parlamentares que derrotou a tentativa de privatização dos presídios em São Paulo durante a gestão de João Doria.",
+          "passage": {
+            "hearing_id": 135,
+            "turn": 15,
+            "start": 71962,
+            "end": 72278,
+            "text": "O ex-Governador João Doria, tucano, tentou a todo custo privatizar os presídios, fez um esforço enorme, mas houve uma ampla mobilização dos servidores do sistema prisional, das entidades, da Defensoria Pública de São Paulo, que foi contra, e de um bloco de Parlamentares daqui, do qual o meu mandato fez e faz parte.",
+            "score": 0.2598
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos específicos para sustentar suas críticas, como o número de 600 mil aposentados confiscados no estado, 100 mil na capital, 5 mil escolas na rede estadual e as porcentagens de reajuste salarial (20% vs 6%).",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 7,
+            "start": 25970,
+            "end": 26067,
+            "text": "A lei atinge as 5 mil escolas da rede estadual e também a rede particular do Estado de São Paulo.",
+            "score": 0.3115
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de sua experiência profissional e legislativa, como a aprovação da Lei nº 15.830 e a fiscalização da ENEL, para dar credibilidade às suas denúncias sobre o descumprimento de leis e a precarização de serviços.",
+          "passage": {
+            "hearing_id": 176,
+            "turn": 7,
+            "start": 24889,
+            "end": 25012,
+            "text": "Eu quero destacar uma lei que nós aprovamos aqui na Assembleia Legislativa de São Paulo, a Lei nº 15.830, aprovada em 2015.",
+            "score": 0.2207
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e forte para descrever as consequências das políticas públicas, utilizando termos como \"confisco\", \"golpe\", \"estelionato\", \"absurdo\" e \"nefasto\" para caracterizar medidas governamentais que considera injustas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra prazos e ações concretas de órgãos públicos, como o envio de projetos de lei e a atuação do Ministério Público, e propõe soluções legislativas específicas, como a revogação de emendas constitucionais e a apresentação de projetos de decreto legislativo.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 24,
+      "split": "test",
+      "article_date": "2024-04-12",
+      "title": "Deputados, alunos e professores defendem ensino de filosofia e sociologia na rede pública",
+      "assunto": "Defesa do ensino de filosofia e sociologia na rede pública",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 55,
+      "split": "train",
+      "article_date": "2023-04-24",
+      "title": "Sindicatos criticam incidência de contribuição de inativos sobre valores acima do mínimo",
+      "assunto": "Críticas à incidência de contribuição previdenciária sobre valores acima do mínimo para servidores públicos aposentados e pensionistas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 135,
+      "split": "train",
+      "article_date": "2023-11-09",
+      "title": "Policiais penais denunciam precarização do trabalho e cobram regulamentação das atividades",
+      "assunto": "Precarização do trabalho e regulamentação das atividades dos policiais penais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 176,
+      "split": "train",
+      "article_date": "2023-09-11",
+      "title": "Capacitismo é barreira para educação inclusiva, dizem especialistas",
+      "assunto": "Capacitismo como barreira para a educação inclusiva",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-55-3-0",
+      "hearing_id": 55,
+      "n": 5,
+      "article_name": "Carlos Giannazi",
+      "proposition": "Após uma grande mobilização no estado, a reforma que adotou o artigo 149 acabou revogada: \"Estávamos com 600 mil aposentados e pensionistas sendo confiscados por essa reforma previdenciária que foi aprovada pela reforma estadual.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Do ponto de vista estadual, nós estávamos sofrendo, porque estávamos com 600 mil aposentados e pensionistas sendo confiscados por essa reforma previdenciária, que foi aprovada em 2019, na Assembleia Legislativa.",
+        "turn": 3,
+        "start": 13219,
+        "end": 13430
+      },
+      "verifier": {
+        "probability": 0.30400911892991944,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

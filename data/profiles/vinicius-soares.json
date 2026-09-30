@@ -1,0 +1,476 @@
+{
+  "actor": {
+    "slug": "vinicius-soares",
+    "name": "VINÍCIUS SOARES",
+    "display_name": "Vinícius Soares",
+    "role": "Presidente da Associação Nacional de Pós-Graduandos",
+    "article_names": [
+      "Vinícius Soares"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:14:03+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      168,
+      206
+    ],
+    "input_tokens": 5650,
+    "output_tokens": 1305,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 5,
+    "passage_only": 16,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a inclusão da pós-graduação na revisão da Lei de Cotas (Lei 12.711/12) para garantir a diversidade na produção científica brasileira e reparar a marginalização histórica de setores da sociedade, argumentando que a popularização da universidade ainda não se efetivou na pós-graduação, apesar de uma portaria de 2016 do Ministério da Educação orientar a implementação de ações afirmativas.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 31,
+            "start": 83104,
+            "end": 83305,
+            "text": "Em que pese uma portaria de 2016 do Ministério da Educação orientar os programas de pós-graduação quanto a implementação de ações afirmativas, isso ainda não é uma realidade na universidade brasileira.",
+            "score": 0.4342
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a garantia de uma cesta de direitos básicos aos pós-graduandos, contemplando direitos estudantis (como assistência estudantil), trabalhistas (como adicional de insalubridade para quem trabalha em laboratórios) e previdenciários, fundamentando-se no art. 218, § 3º, da Constituição Federal.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 15214,
+            "end": 15494,
+            "text": "218, § 3º: É justamente isso que precisamos fazer: garantir uma cesta de direitos básicos para os pós-graduandos que possa contemplar direitos estudantis, como o acesso à assistência estudantil e aos direitos trabalhistas, como, por exemplo, o próprio adicional de insalubridade.",
+            "score": 0.5581
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Congresso Nacional e do Governo Federal a decisão política para garantir o reconhecimento do tempo de mestrado e doutorado como tempo de previdência, citando como modelo o direito já garantido a residentes em saúde, que pagam alíquota de 11% e recebem bolsa de aproximadamente 4.100 reais.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 16583,
+            "end": 16909,
+            "text": "Vejam, hoje já temos um direito positivo para os pós-graduandos, porque os residentes em saúde, que são pós-graduandos brasileiros na especialidade, na formaçãolato sensu, já têm o direito garantido de contar esse tempo que passam na residência como tempo de previdência.Hoje a bolsa do residente gira em torno de 4.100 reais.",
+            "score": 0.3527
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o impacto financeiro de ampliar o modelo de previdência das residências para os 320 mil mestrandos e doutorandos seria de 500 milhões de reais por ano (com alíquota de 11% do salário mínimo) ou 1 bilhão de reais por ano (com alíquota de 20%), considerando esse valor ínfimo comparado aos gastos do Estado.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 17108,
+            "end": 17335,
+            "text": "Vejam, se apenas ampliássemos esse modelo das residências pegando 11% do salário mínimo, o Brasil precisaria despender apenas 500 milhões de reais por ano para garantir isso a mais de 320 mil mestrandos e doutorandos no Brasil.",
+            "score": 0.5158
+          },
+          "udv": null
+        },
+        {
+          "text": "Indica três fontes de financiamento para os direitos previdenciários: o Orçamento da União, o Fundo Nacional de Desenvolvimento Científico e Tecnológico e a aprovação do Projeto de Lei nº 5.876, de 2016, de autoria do Deputado Celso Pansera, que destina 25% dos royalties do pré-sal para ciência e tecnologia.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 18376,
+            "end": 18660,
+            "text": "E uma terceira fonte é aprovar, nesta Casa, na Câmara de Deputados, o Projeto de Lei nº 5.876, de 2016, de autoria do Deputado Celso Pansera, que está hoje na Comissão de Constituição e Justiça e de Cidadania e que garante que 25% dosroyaltiesdo pré-sal vão para ciência e tecnologia.",
+            "score": 0.4275
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a defasagem histórica das bolsas de estudo, apontando que o reajuste recente não contemplou toda a perda de valor e que bolsas de doutorado-sanduíche não foram reajustadas, o que leva estudantes no exterior a situações de vulnerabilidade social, como a necessidade de vender plasma sanguíneo para complementar renda, especialmente devido ao aumento do custo de vida na Europa causado pela guerra da Ucrânia.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 11054,
+            "end": 11353,
+            "text": "É preciso denunciar a situação em que se encontram os nossos doutorandos-sanduíches no exterior, porque sabemos que existe uma crise econômica e social muito grande, por exemplo, na Europa com a guerra da Ucrânia, que provocou aumento especialmente do gás, o que faz com que o custo de vida aumente.",
+            "score": 0.2754
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a \"fuga de cérebros\" e a migração de mestres e doutores para profissões de menor adensamento científico-tecnológico (como trabalho na Uber ou produção de doces), citando como exemplo a contratação de mais de 200 brasileiros pela Boeing, o que prejudica o desenvolvimento nacional e a reindustrialização.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 13121,
+            "end": 13352,
+            "text": "Por quê?Porque os nossos mestres e doutores formados no último período estão migrando para profissões de menor adensamento científico-tecnológico, estão tendo que trabalhar com a Uber, estão tendo que fazer docinho para sobreviver.",
+            "score": 0.3364
+          },
+          "udv": {
+            "id": "udv-168-0-3",
+            "rule": "same_sentence",
+            "score": 0.2688
+          }
+        },
+        {
+          "text": "Alerta para a crise na formação de quadros técnicos qualificados, afirmando que o Brasil deixou de titular 4 mil doutores entre 2019 e 2020 e que a evasão na graduação, que chega a 60% segundo o INEP, reduz o número de candidatos à pós-graduação.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 31,
+            "start": 84369,
+            "end": 84431,
+            "text": "O Brasil deixou de titular, de 2019 para 2020, 4 mil doutores.",
+            "score": 0.4811
+          },
+          "udv": {
+            "id": "udv-206-2-0",
+            "rule": "same_sentence",
+            "score": 0.2775
+          }
+        },
+        {
+          "text": "Pede a aprovação do mérito do projeto de lei que trata da assistência estudantil, cuja urgência já foi votada, destacando que a Lei de Cotas incluiu os pós-graduandos no relatório do projeto.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 19,
+            "start": 85249,
+            "end": 85371,
+            "text": "Porque a lei, sim, conseguiu incluir os pós-graduandos no relatório do projeto de lei que trata da assistência estudantil.",
+            "score": 0.5495
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento do desenvolvimento nacional e da reindustrialização para justificar a valorização dos pós-graduandos, afirmando que eles são responsáveis por 90% da ciência produzida no País e que a pauta não é corporativista, mas sim de interesse nacional para mitigar desigualdades sociais.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 9225,
+            "end": 9550,
+            "text": "Quero me ater a esse desenvolvimento de pesquisas, porque hoje o pós-graduando, mestrando e doutorando, está diretamente responsável por 90% da ciência produzida no País.Isso é algo que também precisamos comemorar, porque o parque nacional de ciência e tecnologia no País, o parque nacional de pós-graduação, é muito recente.",
+            "score": 0.2775
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a Constituição Federal como fundamento para a exigência de direitos trabalhistas e previdenciários, argumentando que o Estado brasileiro investiu recursos e tempo na formação desses profissionais e precisa prover oportunidades para que contribuam para o desenvolvimento.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 13353,
+            "end": 13878,
+            "text": "Não é que essas profissões não sejam importantes para o País, mas precisamos fazer um debate muito justo sobre responsabilidade, inclusive social, porque o Estado brasileiro investiu recursos e tempo nessas pessoas e precisa agora aproveitar e prover essas pessoas com oportunidades para que elas possam contribuir para o desenvolvimento nacional.Existe um dado que, para nós, é muito alarmante: de 2019 para 2020, época anterior à pandemia, o Brasil deixou de titular 4 mil […]",
+            "score": 0.2469
+          },
+          "udv": {
+            "id": "udv-168-0-4",
+            "rule": "same_sentence",
+            "score": 0.2651
+          }
+        },
+        {
+          "text": "Baseia-se na comparação internacional para defender o investimento em recursos humanos, citando que países como China, Estados Unidos, Rússia, México e Alemanha valorizam seus cientistas, e mencionando o projeto chinês de 2012 para formar 10 mil técnicos de alto nível.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 19237,
+            "end": 19469,
+            "text": "Hoje, China, Estados Unidos, Rússia, México, Alemanha, todos os países que vêm desenvolvendo seu parque de ciência e tecnologia têm algo em comum, não é apenas o aporte financeiro, mas também a valorização dos seus recursos humanos.",
+            "score": 0.3894
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a \"força das ideias\" e a soberania nacional, utilizando citações de Florestan Fernandes para unir a luta por direitos à construção de um Brasil que distribua suas riquezas.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 19,
+            "start": 83816,
+            "end": 84226,
+            "text": "Fernanda sobre as frases que o Florestan Fernandes nos colocou enquanto sociedade, há uma frase dele que fala assim:\"Contra as ideias da força, a força das ideias!\"É justamente, eu acho, a força da ideia de um Brasil soberano, independente que possa, de fato, distribuir as suas riquezas para o seu povo, e é essa a ideia que nos une aqui, isto é, a valorização dos jovens cientistas para que possamos avançar.",
+            "score": 0.2725
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se doutorando em saúde coletiva na Universidade Federal do Rio de Janeiro e representante da Associação Nacional de Pós-Graduandos (ANPG).",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 8092,
+            "end": 8181,
+            "text": "Atualmente eu faço doutorado em saúde coletiva na Universidade Federal do Rio de Janeiro.",
+            "score": 0.5332
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a Deputada Dandara e a Deputada Alice, a quem chama de parceiras da ANPG, da ciência e tecnologia e dos pós-graduandos brasileiros.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 8183,
+            "end": 8295,
+            "text": "Queria agradecer à Deputada Alice, que sempre tem sido uma parceira das lutas da ANPG e da ciência e tecnologia.",
+            "score": 0.3614
+          },
+          "udv": null
+        },
+        {
+          "text": "Agradece ao Deputado Moses Rodrigues, Presidente da Comissão de Educação, pela ajuda na construção da audiência.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 8296,
+            "end": 8400,
+            "text": "Também quero agradecer ao Deputado Moses Rodrigues, que é o atual Presidente desta Comissão de Educação.",
+            "score": 0.5767
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara que a ANPG mantém diálogo com a CAPES, o CNPq e o MEC para construir alternativas e fazer contraponto aos últimos 6 anos.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 21,
+            "start": 85606,
+            "end": 85794,
+            "text": "Então, quero agradecer também à CAPES, ao CNPq e ao MEC, que têm sido parceiros no diálogo para que possamos construir alternativas e fazer o contraponto ao que tivemos nos últimos 6 anos.",
+            "score": 0.6997
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e exemplos concretos para sustentar seus argumentos, como a porcentagem de evasão, o número de doutores não titulados, o valor das bolsas e o custo financeiro das propostas previdenciárias.",
+          "passage": {
+            "hearing_id": 206,
+            "turn": 31,
+            "start": 84432,
+            "end": 84492,
+            "text": "Ainda não temos os dados para saber quem são esses doutores.",
+            "score": 0.1871
+          },
+          "udv": {
+            "id": "udv-206-2-0",
+            "rule": "same_sentence",
+            "score": 0.094
+          }
+        },
+        {
+          "text": "Recorre a referências históricas e institucionais, como o Parecer Sucupira de 1965, a Constituição Federal, o projeto de lei de Florestan Fernandes de 1989 e o Dossiê Florestan Fernandes lançado pela ANPG.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 12328,
+            "end": 12461,
+            "text": "Florestan Fernandes foi um Deputado que, em 1989, protocolou um projeto de lei que pautava justamente os direitos dos pós-graduandos.",
+            "score": 0.3599
+          },
+          "udv": {
+            "id": "udv-168-0-1",
+            "rule": "same_sentence",
+            "score": 0.2524
+          }
+        },
+        {
+          "text": "Emprega linguagem de denúncia e urgência, utilizando termos como \"eclipse de direitos\", \"limbo\", \"triturando diplomas\" e \"crise grave\" para descrever a situação dos pós-graduandos.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 1,
+            "start": 10185,
+            "end": 10270,
+            "text": "Na prática, vemos que existe um eclipse de direitos quando falamos de pós-graduandos.",
+            "score": 0.2162
+          },
+          "udv": null
+        },
+        {
+          "text": "Convida os presentes a assinar um abaixo-assinado, que já contava com 20 mil assinaturas na data da fala, com a meta de atingir 100 mil, para demonstrar à Câmara dos Deputados a necessidade de enxergar os pós-graduandos.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 19,
+            "start": 84543,
+            "end": 84997,
+            "text": "Quero agradecer muito aos pós-graduandos que estiveram aqui presentes, sobretudo aos que estão nos seus territórios, nas universidades, assistindo a esta audiência pública, e convidar todo mundo a assinar o nosso abaixo-assinado, que já está com 20 mil assinaturas — queremos atingir 100 mil assinaturas — para, após a entrega à Deputada Alice e aos demais Deputados, mostrar à Câmara dos Deputados que ela precisa enxergar os pós-graduandos brasileiros.",
+            "score": 0.5225
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 168,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Debatedores defendem melhoria das condições da pós-graduação no Brasil",
+      "assunto": "Melhoria das condições da pós-graduação no Brasil",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 5
+    },
+    {
+      "id": 206,
+      "split": "train",
+      "article_date": "2023-06-30",
+      "title": "Revisão deve servir para melhorar a Lei de Cotas, diz especialista",
+      "assunto": "Revisão e aprimoramento da Lei de Cotas (Lei 12.711/12)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-168-0-0",
+      "hearing_id": 168,
+      "n": 1,
+      "article_name": "Vinícius Soares",
+      "proposition": "Alunos de mestrado e doutorado se encontram no 'limbo' porque, ao mesmo tempo em que são estudantes, também atuam como professores, mas sem nenhum direito trabalhista ou previdenciário.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quando falamos do pós-graduando, nós nos referimos ao limbo entre ser estudante e ser professor ao mesmo tempo. Nós somos cidadãos que exercem uma condição laboral.",
+        "turn": 1,
+        "start": 9909,
+        "end": 10073
+      },
+      "verifier": {
+        "probability": 0.49928982537727584,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-0-1",
+      "hearing_id": 168,
+      "n": 2,
+      "article_name": "Vinícius Soares",
+      "proposition": "A luta para assegurar proteção social a pós-graduandos é antiga, de quase 40 anos. Em 1989, o então deputado Florestan Fernandes apresentou projeto na Câmara para regulamentar esses direitos, mas a proposta nunca foi votada.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Florestan Fernandes foi um Deputado que, em 1989, protocolou um projeto de lei que pautava justamente os direitos dos pós-graduandos. Ou seja, essa é uma luta de quase 40 anos que o Brasil ainda não conseguiu enfrentar.",
+        "turn": 1,
+        "start": 12328,
+        "end": 12547
+      },
+      "verifier": {
+        "probability": 0.7335839780571212,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-0-2",
+      "hearing_id": 168,
+      "n": 3,
+      "article_name": "Vinícius Soares",
+      "proposition": "Em 2007, o Congresso aprovou uma lei que assegura a licença-maternidade para as estudantes, mas apenas para bolsistas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vejam, a licença-maternidade é garantida no Brasil desde 1943, mas foi em apenas 2007 que conseguimos promulgar uma lei para garantir a licença-maternidade para as bolsistas. E olhem que só conseguimos para bolsistas até hoje; para as não bolsistas, ainda é preciso muita luta.",
+        "turn": 1,
+        "start": 10271,
+        "end": 10548
+      },
+      "verifier": {
+        "probability": 0.6584121314382368,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-0-3",
+      "hearing_id": 168,
+      "n": 4,
+      "article_name": "Vinícius Soares",
+      "proposition": "A principal consequência da pouca atratividade dos programas de pós-graduação é a perda de talentos: \"Hoje o País vem enfrentando fenômenos sociais da perda de talentos, porque os nossos mestres e doutores que se formaram no último período estão migrando para profissões de menor adensamento científico e tecnológico, estão tendo que virar Uber, fazer docinho para sobreviver.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Hoje o País vem enfrentando fenômenos sociais com a perda de talento. Hoje, na prática, o Brasil está triturando os diplomas que titulamos no último período. Por quê?Porque os nossos mestres e doutores formados no último período estão migrando para profissões de menor adensamento científico-tecnológico, estão tendo que trabalhar com a Uber, estão tendo que fazer docinho para sobreviver.",
+        "turn": 1,
+        "start": 12963,
+        "end": 13352
+      },
+      "verifier": {
+        "probability": 0.9803080027450837,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-168-0-4",
+      "hearing_id": 168,
+      "n": 5,
+      "article_name": "Vinícius Soares",
+      "proposition": "\"Precisamos fazer um debate de responsabilidade, inclusive, social, porque o Brasil investiu recursos nessas pessoas, e o Estado brasileiro precisa agora aproveitar e prover oportunidade para que essas pessoas possam contribuir com o desenvolvimento nacional.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não é que essas profissões não sejam importantes para o País, mas precisamos fazer um debate muito justo sobre responsabilidade, inclusive social, porque o Estado brasileiro investiu recursos e tempo nessas pessoas e precisa agora aproveitar e prover essas pessoas com oportunidades para que elas possam contribuir para o desenvolvimento nacional.Existe um dado que, para nós, é muito alarmante: de 2019 para 2020, época anterior à pandemia, o Brasil deixou de titular 4 mil […]",
+        "turn": 1,
+        "start": 13353,
+        "end": 14065
+      },
+      "verifier": {
+        "probability": 0.9747792753736765,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-206-2-0",
+      "hearing_id": 206,
+      "n": 4,
+      "article_name": "Vinícius Soares",
+      "proposition": "Desde 2016, existe uma portaria do Ministério da Educação para adoção de políticas afirmativas para a pós-graduação, mas, até agora, pouco foi feito, levando à evasão dos alunos mais pobres: \"O Brasil deixou de titular, de 2019 para 2020, 4 mil doutores. Ainda não temos os dados para saber quem são esses doutores, mas sabemos que as políticas de ações afirmativas juntamente com a assistência estudantil têm o poder de atrair novos talentos para a pós-graduação.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O Brasil deixou de titular, de 2019 para 2020, 4 mil doutores. Ainda não temos os dados para saber quem são esses doutores. Sabemos que a política de ações afirmativas, juntamente com a assistência estudantil, tem o poder de atrair novos talentos para a pós-graduação, mas é preciso garantir que esses estudantes entrem na universidade e consigam sair.",
+        "turn": 31,
+        "start": 84369,
+        "end": 84721
+      },
+      "verifier": {
+        "probability": 0.25560659528845275,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

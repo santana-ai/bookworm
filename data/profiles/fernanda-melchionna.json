@@ -1,0 +1,437 @@
+{
+  "actor": {
+    "slug": "fernanda-melchionna",
+    "name": "Fernanda Melchionna",
+    "display_name": "Fernanda Melchionna",
+    "role": "Deputada (Psol-RS)",
+    "article_names": [
+      "Fernanda Melchionna"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:33:32+00:00",
+    "n_statements": 13,
+    "n_hearings": 3,
+    "hearing_ids": [
+      43,
+      153,
+      180
+    ],
+    "input_tokens": 9367,
+    "output_tokens": 1334,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 25,
+    "with_udv": 0,
+    "passage_only": 23,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a revisão da Lei nº 13.954/2019, classificando-a como injusta e distorcida, pois aumentou o tempo e o valor da contribuição, alterou o adicional por tempo de serviço para disponibilidade e restringiu o acesso a cursos, gerando perdas salariais para a base das Forças Armadas e pensionistas.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 33,
+            "start": 86089,
+            "end": 86479,
+            "text": "Vocês comprovaram aqui que o superávit gerado para financiar as altas gratificações da cúpula das Forças Armadas saiu das pensionistas, do aumento do tempo de contribuição, do aumento valor da contribuição, da mudança do adicional por tempo de serviço para o adicional por disponibilidade, o que significou arrocho para a ampla maioria dos graduados e dos integrantes dos quadros especiais.",
+            "score": 0.3141
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a criação de um superávit previdenciário às custas da ampla maioria dos militares, argumentando que esse recurso foi utilizado para financiar gratificações da alta cúpula das Forças Armadas, aprofundando a desigualdade salarial entre a base e o alto escalão.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 10,
+            "start": 25279,
+            "end": 25356,
+            "text": "E está sendo gerado superávit nas costas da ampla maioria das Forças Armadas.",
+            "score": 0.2998
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Defesa a apresentação das atas, relatórios e cronogramas do grupo de trabalho criado pelo despacho nº 3.764/2022 para corrigir as distorções da lei, questionando a ausência de representação de veteranos, pensionistas e do Quadro Especial nesse processo.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 43,
+            "start": 121094,
+            "end": 121260,
+            "text": "O senhor me respondeu que nesse grupo de estudos não houve representação dos de baixo, de todos que eu perguntei — veteranos, pensionistas graduados, quadro especial.",
+            "score": 0.2941
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a formação de um novo grupo de trabalho com participação efetiva de todos os segmentos afetados (pensionistas, veteranos, graduados, Quadro Especial e representações técnicas das Forças) para avançar na revisão legislativa da norma.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 43,
+            "start": 121950,
+            "end": 122273,
+            "text": "Eu queria lhe perguntar, então, se nós podemos encaminhar ou se o senhor vai trabalhar dentro do Ministério da Defesa para que tenhamos um grupo de trabalho, aí sim, com representação de todos — pensionistas, veteranos, graduados, quadro especial e, é óbvio, cargos e representações técnicas de cada uma das Forças Armadas.",
+            "score": 0.3408
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a PEC 9, denominando-a de \"PEC da Vergonha\" e \"PEC da Autoanistia\", por anistiar partidos pelo descumprimento de cotas de mulheres e negros, pela malversação de recursos públicos e pelo retrocesso no combate ao financiamento privado de campanha.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 37,
+            "start": 101798,
+            "end": 102351,
+            "text": "Queremos, evidentemente, muitos espaços, para que tenhamos audiências públicas e consigamos, com a pressão de fora para dentro, derrotar esse retrocesso, essa PEC da Autoanistia, essa PEC da Vergonha, essa PEC dos retrocessos nos direitos das mulheres, dos negros e negras do nosso País, e também do retrocesso da transparência pública e do combate à corrupção, quando falamos do financiamento privado, das dívidas partidárias e da malversação de recursos públicos que foram […]",
+            "score": 0.45
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção e o cumprimento das cotas de gênero e raça no financiamento eleitoral, citando a reserva de 30% para candidaturas de negros e negras e os 5% do fundo partidário para políticas de mulheres, como conquistas recentes contra a desigualdade histórica.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 37,
+            "start": 99570,
+            "end": 99875,
+            "text": "Todo ano vem um projeto querendo anistiar os míseros 5% que os partidos têm que destinar, do fundo partidário, para a promoção de políticas públicas para as mulheres na política ou os recentes — há 6 anos — 30% de financiamento eleitoral de negros e negras, sem contar a malversação dos recursos públicos.",
+            "score": 0.3758
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a destinação de R$ 100 milhões em emendas de bancada para a criação de um auxílio emergencial direto às famílias atingidas pelas enchentes no Rio Grande do Sul, rejeitando a ideia de que esse recurso seria tecnicamente inviável.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 191788,
+            "end": 191869,
+            "text": "É recurso da bancada gaúcha que tem que ir para onde o Rio Grande do Sul precisa.",
+            "score": 0.3146
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a isenção temporária (por 6 meses) do pagamento de contas de água e luz para as vítimas das enchentes, citando o caso de um cidadão em Esteio que recebeu uma conta de R$ 600 após perder tudo.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 193624,
+            "end": 193689,
+            "text": "Um deles é sobre a questão da isenção do pagamento de água e luz.",
+            "score": 0.3769
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um auxílio emergencial permanente para o Brasil, visando atender famílias atingidas por intempéries em diversas regiões, como o litoral de São Paulo e a Bahia.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 194084,
+            "end": 194214,
+            "text": "O segundo é sobre um auxílio emergencial permanente para o Brasil, porque essas intempéries não acontecem só no Rio Grande do Sul.",
+            "score": 0.3726
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a burocracia na liberação de recursos para reconstrução, argumentando que a demora gera revitimização das famílias, que perdem móveis e precisam de apoio imediato para a dignidade e o aquecimento econômico local.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 192948,
+            "end": 193010,
+            "text": "Há, ainda, os que perderam móveis — e perdem-se muitos móveis.",
+            "score": 0.2699
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o conceito de \"confisco\" para justificar a crítica à cobrança de contribuição previdenciária de aposentados e pensionistas, argumentando que a retirada de parte do salário de quem já contribuiu por anos é uma injustiça, aplicável tanto aos militares quanto a outros servidores públicos.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 33,
+            "start": 87040,
+            "end": 87173,
+            "text": "Desde 2003, defendo, em relação a todos os servidores públicos, que essa cobrança de contribuição de quem está aposentado é confisco.",
+            "score": 0.284
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a Constituição de 1988 e o princípio do concurso público para criticar a existência de carreiras diferenciadas (como o Quadro Especial) dentro do funcionalismo federal, argumentando que a diferenciação salarial e de acesso a cursos não deveria existir, pois os trabalhadores foram incorporados pelo Estado por necessidade e qualificação técnica.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 33,
+            "start": 87794,
+            "end": 87856,
+            "text": "Com a Constituição de 1988 veio o concurso público para todos.",
+            "score": 0.3235
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na desigualdade histórica de gênero e raça para defender as cotas eleitorais, argumentando que o Brasil é a \"lanterninha\" na participação de mulheres na política na América Latina e que a estrutura patriarcal e o caciquismo partidário impedem a representatividade.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 37,
+            "start": 101410,
+            "end": 101714,
+            "text": "Nosso País é a lanterninha na participação de mulheres na política no mundo e também na América Latina, justamente por conta da ausência de políticas públicas e por conta também, claro, da estrutura machista e patriarcal que se expressa em boa parte dos partidos, do caciquismo desses partidos do regime.",
+            "score": 0.3503
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que recursos destinados a situações de emergência devem ser distribuídos de forma estruturante e impessoal, sem \"carimbo\" de parlamentares individuais, priorizando o atendimento às famílias independentemente de localização ou vínculo político.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 191574,
+            "end": 191765,
+            "text": "Recurso destinado a situação de emergência tem que ir para emergência, tem que ir para as famílias, independentemente de onde estejam, independentemente de quem sejam, sem carimbo de ninguém.",
+            "score": 0.281
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que as vítimas de desastres climáticos são também vítimas de um sistema inadequado para preservar vidas e da lógica de destruição da natureza, justificando a necessidade de medidas estruturantes de preservação ambiental e defesa civil além do socorro imediato.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 190556,
+            "end": 190860,
+            "text": "Concluo falando das vítimas, que são vítimas do ciclone e da intempérie, são vítimas de um sistema que não é ajustado para preservar vidas, são vítimas de várias maneiras, e muitas vezes o que nós vemos é a liberação do Fundo de Garantia, que é muito importante, mas que é um recurso que já é da família.",
+            "score": 0.2497
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do PSOL e afirma que o partido foi a voz que alertou para as injustiças da reforma da previdência militar desde o início, na Comissão Especial.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 33,
+            "start": 85866,
+            "end": 85957,
+            "text": "Como eu disse no início, o Deputado Glauber era o nosso representante na Comissão Especial.",
+            "score": 0.3873
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o PSOL teve orgulho de provocar o Tribunal Superior Eleitoral para garantir a reserva de recursos para candidaturas de negros e negras, tese aceita pelo tribunal.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 37,
+            "start": 99017,
+            "end": 99438,
+            "text": "O PSOL tem orgulho de ter sido o partido que fez esta provocação ao Tribunal Superior Eleitoral, que concordou com a nossa tese, e, felizmente, a partir de 2020, teremos esse avanço, esse reconhecimento da desigualdade histórica da composição social do nosso País e da representatividade, que não se vê na Câmara dos Deputados, em relação a negros e negras, a mulheres, a indígenas, enfim, ao conjunto do povo brasileiro.",
+            "score": 0.3216
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como defensora dos trabalhadores das Forças Armadas, pensionistas e do Quadro Especial, oferecendo seu apoio e o do PSOL nessa luta.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 43,
+            "start": 120873,
+            "end": 120919,
+            "text": "Há o quadro especial, sargentos, pensionistas.",
+            "score": 0.3091
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se solidária aos municípios e prefeitos atingidos pelas enchentes no Rio Grande do Sul, tendo visitado Lajeado e Cruzeiro do Sul.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 188791,
+            "end": 188830,
+            "text": "Estive em Lajeado e em Cruzeiro do Sul.",
+            "score": 0.4386
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e exemplos concretos, como a apresentação de contracheques pelos convidados, para evidenciar as perdas salariais e a injustiça da Lei 13.954/2019.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 12,
+            "start": 41380,
+            "end": 41555,
+            "text": "Essa questão dos contracheques vários diziam aqui:\"Eu vou apresentar meu contracheque\".Isso é importante porque se visualiza essa injustiça que foi gerada com a Lei nº 13.954.",
+            "score": 0.2745
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, como \"São vidas, gente!\" e \"PEC da Vergonha\", para reforçar a gravidade das questões e mobilizar a opinião pública.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas e específicas a representantes do governo (como o Tenente-Brigadeiro Heraldo), cobrando prazos, relatórios e compromissos concretos, e pede que as respostas sejam registradas.",
+          "passage": {
+            "hearing_id": 43,
+            "turn": 0,
+            "start": 5813,
+            "end": 5870,
+            "text": "Tenente-Brigadeiro Heraldo, muito obrigada pela presença.",
+            "score": 0.2209
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita pesquisas e dados demográficos, como os 94% de oposição à PEC 9 em pesquisas online e a posição do Brasil na América Latina em participação feminina, para sustentar seus argumentos.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 37,
+            "start": 101154,
+            "end": 101288,
+            "text": "O Brasil foi um dos primeiros países da América Latina, não o primeiro, mas um dos primeiros, a garantir o voto das mulheres, em 1932.",
+            "score": 0.1666
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza casos individuais e locais, como o cidadão de Esteio com a conta de água de R$ 600, para ilustrar a necessidade de políticas públicas específicas e humanizadas.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 117,
+            "start": 193768,
+            "end": 193881,
+            "text": "—, e, para limpar a casa cheia de lama e de coisas que entraram com a chuva, teve uma conta de água de 600 reais.",
+            "score": 0.1931
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina a crítica a retrocessos legislativos com a proposta de medidas concretas, como a criação de auxílios emergenciais e a formação de grupos de trabalho inclusivos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 43,
+      "split": "train",
+      "article_date": "2023-06-07",
+      "title": "Deputados defendem debate com a Defesa sobre mudanças no sistema de proteção social dos militares",
+      "assunto": "Debate sobre mudanças no sistema de proteção social dos militares e os efeitos da Lei 13.954/19",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 99,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Crianças e mulheres são as maiores vítimas da guerra na Faixa de Gaza, ressaltam debatedores",
+      "assunto": "Impacto da guerra na Faixa de Gaza sobre crianças e mulheres",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 180,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Anistia a partidos que não cumpriram cotas para mulheres e negros não tem consenso",
+      "assunto": "Anistia a partidos que não cumpriram cotas para mulheres e negros",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-43-1-0",
+      "hearing_id": 43,
+      "n": 2,
+      "article_name": "Fernanda Melchionna",
+      "proposition": "Cobra do Ministério da Defesa a criação de um grupo de trabalho para discutir o sistema de proteção social dos militares.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, há essa desigualdade e essa diferença nos salários, porque há uma defasagem salarial grande na carreira do pessoal do Quadro Especial; mas essa diferença que é verbalizada aqui pelo Ministério da Defesa reproduz preconceito e, na prática, não reconhece esses trabalhadores tão importantes que foram incorporados pelo Estado brasileiro pela necessidade que o Estado tinha em determinado momento. Então, eu quero deixar aqui a minha solidariedade aos trabalhadores do Quadro […]",
+        "turn": 10,
+        "start": 23668,
+        "end": 24167
+      },
+      "verifier": {
+        "probability": 0.17521689851401093,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-43-1-1",
+      "hearing_id": 43,
+      "n": 3,
+      "article_name": "Fernanda Melchionna",
+      "proposition": "Contestou as mudanças decorrentes da Lei 13.954/19: \"Não só se aumentou a desigualdade nas remunerações, como tem gente que perdeu e, pelo que eu vi, muita gente perdeu muito, porque 10% no salário eu chamo de confisco\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O brigadeiro trouxe a comparação com os delegados da Polícia Federal, etc., mas, além de ter aumentado a desigualdade, houve gente que perdeu. E, pelo que ouvi aqui, muita gente perdeu muito, porque pegar 10% do salário e bitributar eu chamo de confisco.",
+        "turn": 33,
+        "start": 86784,
+        "end": 87038
+      },
+      "verifier": {
+        "probability": 0.8666000512832144,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

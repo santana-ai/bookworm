@@ -1,0 +1,453 @@
+{
+  "actor": {
+    "slug": "leda-borges",
+    "name": "Lêda Borges",
+    "display_name": "Lêda Borges",
+    "role": "Deputada (PSDB-GO)",
+    "article_names": [
+      "Lêda Borges"
+    ],
+    "party_uf": [
+      "Bloco/PSDB - GO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:37:50+00:00",
+    "n_statements": 35,
+    "n_hearings": 3,
+    "hearing_ids": [
+      154,
+      165,
+      203
+    ],
+    "input_tokens": 14617,
+    "output_tokens": 1183,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 3,
+    "passage_only": 18,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação de Delegacias Especializadas de Atendimento à Mulher (DEAMs) e Núcleos Especializados de Atendimento (NEANS ou CEAMs) com equipe multidisciplinar em todos os municípios brasileiros, rejeitando a limitação dessas estruturas apenas a cidades de porte médio ou grande.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 49555,
+            "end": 49698,
+            "text": "Nós temos que ter Núcleos Especializados de Atendimento, que são NEANS ou CEAMs, com a equipe multidisciplinar em todas as cidades brasileiras.",
+            "score": 0.5759
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de recursos orçamentários específicos para a execução de políticas de proteção à mulher, argumentando que a Lei de Diretrizes Orçamentárias (LDO) não atende às necessidades femininas porque não há rubricas claras para prevenção e atenção à violência, além de apontar que a transversalidade orçamentária gera descompromisso e falsa impressão de execução.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 41,
+            "start": 110327,
+            "end": 110406,
+            "text": "Esse orçamento, essa Lei de Diretrizes Orçamentárias não me atende como mulher.",
+            "score": 0.337
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que o orçamento para a execução de políticas como a Casa da Mulher Brasileira e as Patrulhas Maria da Penha seja destinado diretamente à gerência do Ministério das Mulheres, em vez de ficar sob a responsabilidade de outros ministérios, para garantir a efetividade da ação.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 62,
+            "start": 140672,
+            "end": 140869,
+            "text": "Em vez de eu cobrar a execução do Ministério da Justiça acerca das patrulhas, acerca da Casa da Mulher Brasileira, por que não passar esse recurso direto para a gerência do Ministério das Mulheres?",
+            "score": 0.3827
+          },
+          "udv": {
+            "id": "udv-165-4-0",
+            "rule": "same_sentence",
+            "score": 0.3023
+          }
+        },
+        {
+          "text": "Defende o Aluguel Social para vítimas de violência doméstica, independentemente de a mulher possuir imóvel, visando sua saída imediata do agressor e inserção no mercado de trabalho, além de apoiar o MEI para o empreendedorismo feminino.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 51071,
+            "end": 51137,
+            "text": "Então, o Aluguel Social é necessário para as vítimas de violência.",
+            "score": 0.3269
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a progressão de pena para crimes de violência contra a mulher, argumentando que a gravidade dos atos exige a manutenção da privação de liberdade integral, mesmo diante da superlotação carcerária.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 19,
+            "start": 54422,
+            "end": 54490,
+            "text": "Para esses crimes, Denise, eu não concordo com a progressão de pena.",
+            "score": 0.3047
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de brinquedotecas nas delegacias e nas Casas da Mulher Brasileira para acolher os filhos das vítimas, facilitando a saída da mulher do ciclo de violência.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 51503,
+            "end": 51655,
+            "text": "Então, deve ter outro projeto em delegacias, na minha visão, com brinquedoteca, bem como nas casas de passagem, que agora é a Casa da Mulher Brasileira.",
+            "score": 0.2617
+          },
+          "udv": {
+            "id": "udv-203-4-1",
+            "rule": "same_sentence",
+            "score": 0.2027
+          }
+        },
+        {
+          "text": "Apoiada na experiência de gestão, defende a implementação de Grupos Reflexivos para agressores, obrigatórios na sentença, como medida para reduzir a reincidência, citando a experiência de Goiás.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Como Relatora do Projeto de Lei nº 5.602, de 2019, defende a criação do Programa de Atenção a Mulheres na Menopausa e Climatério e a instituição do dia 18 de outubro como Dia Nacional de Conscientização sobre o Climatério e a Menopausa, visando tratar a fase como determinante para a longevidade saudável e não como tabu.",
+          "passage": {
+            "hearing_id": 154,
+            "turn": 33,
+            "start": 114027,
+            "end": 114206,
+            "text": "Primeiro, quero dizer que já apresentei o projeto de lei sobre a instituição do dia 18 de outubro como o Dia Nacional de Conscientização sobre o Climatério e a Menopausa.(Palmas.)",
+            "score": 0.5412
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a utilização de caminhadas e camisetas como ações de enfrentamento à violência, classificando-as como insuficientes diante da mortalidade feminina, e cobra a destinação de recursos para campanhas educativas e infraestrutura real.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 63,
+            "start": 141745,
+            "end": 141845,
+            "text": "Tem que haver, na LDO, espaço que para campanhas educativas de enfrentamento da violência doméstica.",
+            "score": 0.3123
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a independência econômica da mulher como o principal fator para a interrupção objetiva do ciclo de violência, argumentando que crimes contra a mulher são subjetivos e a lei penal sozinha não resolve a dependência emocional e psicológica.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 50603,
+            "end": 50756,
+            "text": "Mas, na minha visão, se começamos a quebrar o ciclo da violência com a independência econômica dessa mulher, nós já estaremos contribuindo objetivamente.",
+            "score": 0.2412
+          },
+          "udv": {
+            "id": "udv-203-4-0",
+            "rule": "same_sentence",
+            "score": 0.2223
+          }
+        },
+        {
+          "text": "Defende que o Município é o único ente federativo real, onde as políticas públicas se efetivam, enquanto União e Estados são entes abstratos, justificando a cobrança por autonomia orçamentária municipal e a presença de secretarias locais.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 40,
+            "start": 108530,
+            "end": 108645,
+            "text": "O povo está no Município, o único ente real é o Município, os outros entes — Estados e União — são entes abstratos.",
+            "score": 0.5321
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência de gestão no Executivo (Prefeita, Secretária de Estado) e no Judiciário (coordenadora de audiências de conciliação) como fundamento para criticar a ineficácia da legislação sem execução e a necessidade de redes de proteção amplas.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 49201,
+            "end": 49357,
+            "text": "Como ex-Prefeita do Executivo Municipal, ex-Secretária de Estado de Goiás, ex-Deputada Estadual e agora Deputada Federal, eu não creio apenas na legislação.",
+            "score": 0.2122
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a transversalidade orçamentária causa descompromisso com as pautas femininas, pois dilui a responsabilidade entre múltiplos ministérios, e que é necessário haver obrigatoriedade de destinação de recursos específicos para a mulher.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 63,
+            "start": 142057,
+            "end": 142114,
+            "text": "Quando não há consciência, tem que haver obrigatoriedade.",
+            "score": 0.2504
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se ex-Prefeita, ex-Secretária de Estado da Mulher de Goiás, ex-Deputada Estadual e atual Deputada Federal.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 49201,
+            "end": 49357,
+            "text": "Como ex-Prefeita do Executivo Municipal, ex-Secretária de Estado de Goiás, ex-Deputada Estadual e agora Deputada Federal, eu não creio apenas na legislação.",
+            "score": 0.7402
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido coordenadora de audiências de conciliação no Judiciário e ter trabalhado na implementação da Lei Maria da Penha.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 51827,
+            "end": 52039,
+            "text": "Então, essa experiência que trazemos de todos os Poderes, dos Três Poderes, me faz ver que, por certo tempo, a Lei Maria da Penha coibiu, porque foi justamente quando eu trabalhei sua implementação no Judiciário.",
+            "score": 0.2716
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como mineira do Triângulo Mineiro, moradora do Distrito Federal e com atuação política em Goiás.",
+          "passage": {
+            "hearing_id": 154,
+            "turn": 6,
+            "start": 47903,
+            "end": 47992,
+            "text": "Estou só emprestada para Goiás, há 32 anos ou mais, mas sou mineira do Triângulo Mineiro.",
+            "score": 0.4292
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com o Governo Federal na área social, citando a experiência de ter sido Prefeita durante o mandato de 2009 a 2012, e elogia a Ministra Cida e a Ministra Nísia Trindade.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 62,
+            "start": 140292,
+            "end": 140481,
+            "text": "Tenho muita esperança neste Governo com relação à área social, porque eu fui Prefeita durante outro mandato deste Governo que aí está, de 2009 a 2012, e sei exatamente que ele cuida do ser.",
+            "score": 0.4017
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser Relatora do Projeto de Lei nº 5.602, de 2019, na Comissão de Defesa dos Direitos da Mulher.",
+          "passage": {
+            "hearing_id": 154,
+            "turn": 0,
+            "start": 997,
+            "end": 1067,
+            "text": "Sou a Relatora do Projeto de Lei nº 5.602, de 2019, que trata do tema.",
+            "score": 0.5693
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e exemplos da sua base eleitoral e de gestão anterior (Goiás e Entorno de Brasília) para ilustrar a falta de infraestrutura, como a ausência de patrulhas e casas de acolhimento em municípios populosos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem direta e, por vezes, confrontadora ao tratar de orçamento, descrevendo-se como \"meio agressiva na minha fala\" e criticando abertamente a ineficácia de ações simbólicas como caminhadas.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 54242,
+            "end": 54261,
+            "text": "Como é que se fala?",
+            "score": 0.2072
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre à analogia de \"política de Governo\" versus \"política pública\" para criticar a falta de continuidade e a dependência de emendas parlamentares para a execução de políticas sociais.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 41,
+            "start": 112668,
+            "end": 112703,
+            "text": "Então, isso não é política pública.",
+            "score": 0.3704
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com cordialidade protocolar, mas faz cobranças explícitas por respostas escritas e prazos, especialmente aos representantes do Executivo Federal e técnicos de orçamento.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 18,
+            "start": 48265,
+            "end": 48509,
+            "text": "Então, é muito importante nós estarmos nesta audiência com representantes do Poder Executivo Federal, porque nós sabemos que a execução dessas políticas públicas passa verdadeiramente pelo Executivo, seja municipal, seja estadual, seja federal.",
+            "score": 0.1562
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a experiência pessoal e de familiares (filha, netas) para humanizar temas como o parto humanizado e a menopausa, conectando a vivência pessoal à necessidade de legislação específica.",
+          "passage": {
+            "hearing_id": 154,
+            "turn": 27,
+            "start": 103796,
+            "end": 103911,
+            "text": "Isso me tocou, Marilda, porque eu tenho uma filha que ficou grávida de gêmeas e teve um parto humanizado com doula.",
+            "score": 0.2038
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 154,
+      "split": "train",
+      "article_date": "2023-10-06",
+      "title": "Deputadas e especialistas cobram políticas públicas voltadas para mulheres no climatério",
+      "assunto": "Políticas públicas voltadas para mulheres no climatério e menopausa",
+      "turns": 18,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 165,
+      "split": "train",
+      "article_date": "2023-09-20",
+      "title": "Relator da LDO acredita que queda da arrecadação pode impedir déficit zero em 2024",
+      "assunto": "Discussão sobre a Lei de Diretrizes Orçamentárias (LDO) de 2024 e suas implicações para o déficit fiscal e políticas voltadas para mulheres",
+      "turns": 14,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 203,
+      "split": "train",
+      "article_date": "2023-08-02",
+      "title": "Desmonte das políticas públicas levou a aumento da violência contra mulheres, afirmam debatedoras",
+      "assunto": "Aumento da violência contra mulheres devido ao desmonte de políticas públicas e ascensão do ultraconservadorismo",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-154-0-0",
+      "hearing_id": 154,
+      "n": 1,
+      "article_name": "Lêda Borges",
+      "proposition": "Disse: 'É necessário debater a promoção da saúde da mulher para esse ciclo da vida, buscando criar políticas públicas efetivas que melhorem a qualidade de vida dessas mulheres.'",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "É necessário debater a promoção da saúde da mulher para esse ciclo da vida, buscando criar políticas públicas efetivas que melhorem a qualidade de vida dessas mulheres.",
+        "turn": 0,
+        "start": 1446,
+        "end": 1614
+      },
+      "verifier": {
+        "probability": 0.9051224429728892,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-165-4-0",
+      "hearing_id": 165,
+      "n": 9,
+      "article_name": "Lêda Borges",
+      "proposition": "Manifestou preocupação com a pulverização dos recursos. O Ministério das Mulheres deveria concentrar mais ações.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vou fazer outra colocação. Em vez de eu cobrar a execução do Ministério da Justiça acerca das patrulhas, acerca da Casa da Mulher Brasileira, por que não passar esse recurso direto para a gerência do Ministério das Mulheres?",
+        "turn": 62,
+        "start": 140645,
+        "end": 140869
+      },
+      "verifier": {
+        "probability": 0.5116756984612246,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-203-4-0",
+      "hearing_id": 203,
+      "n": 9,
+      "article_name": "Lêda Borges",
+      "proposition": "A melhor maneira de quebrar o ciclo da violência é a independência econômica das mulheres. Medidas como casas de acolhimento e inserção no mercado de trabalho são fundamentais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mas, na minha visão, se começamos a quebrar o ciclo da violência com a independência econômica dessa mulher, nós já estaremos contribuindo objetivamente. Então, eu sou favorável, por exemplo, ao projeto.",
+        "turn": 18,
+        "start": 50603,
+        "end": 50807
+      },
+      "verifier": {
+        "probability": 0.6192471607263896,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-203-4-1",
+      "hearing_id": 203,
+      "n": 10,
+      "article_name": "Lêda Borges",
+      "proposition": "Atualmente, existem apenas sete Casas da Mulher Brasileira em funcionamento no País. O governo federal tem projeto de construir mais 40 dessas instituições.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, deve ter outro projeto em delegacias, na minha visão, com brinquedoteca, bem como nas casas de passagem, que agora é a Casa da Mulher Brasileira. E eu estou muito feliz que o Governo Federal vai construir mais 46.",
+        "turn": 18,
+        "start": 51503,
+        "end": 51723
+      },
+      "verifier": {
+        "probability": 0.1693361681847829,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

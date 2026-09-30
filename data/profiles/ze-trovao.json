@@ -1,0 +1,330 @@
+{
+  "actor": {
+    "slug": "ze-trovao",
+    "name": "ZÉ TROVÃO",
+    "display_name": "ZÉ TROVÃO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PL - SC"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:26:03+00:00",
+    "n_statements": 12,
+    "n_hearings": 2,
+    "hearing_ids": [
+      144,
+      201
+    ],
+    "input_tokens": 4214,
+    "output_tokens": 784,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a individualização das condutas dos presos relacionados aos atos de 8 de janeiro, criticando a negação de tentativa de golpe e a aplicação de medidas restritivas sem devido processo legal.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 91531,
+            "end": 91601,
+            "text": "E talvez presos como os nossos patriotas, sem o devido processo legal.",
+            "score": 0.2764
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação da Polícia Federal e do Ministro Flávio Dino, alegando arrogância e tratamento desrespeitoso a parlamentares, citando uma agressão verbal sofrida em Lages.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 92732,
+            "end": 92812,
+            "text": "Essa arrogância está vindo do Ministro Flávio Dino, que deu à Polícia Federal...",
+            "score": 0.4496
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra o Senador Rodrigo Pacheco para que tome atitudes contra o que considera ultrapassagem de limites pela Suprema Corte, ameaçando que todos os parlamentares estarão presos até o fim do ano se nada for feito.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 91164,
+            "end": 91530,
+            "text": "E vou dizer agora para a Deputada Bia Kicis, para o nosso Ministro e para o nosso Deputado Sargento Fahur o seguinte: ou o Senador Rodrigo Pacheco toma atitudes como a que ele tomou ontem lá no Plenário do Senado e diz que a Suprema Corte brasileira está ultrapassando todos os limites legais da Constituição e da lei, ou todos nós estaremos presos até o fim do ano.",
+            "score": 0.3363
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a prisão de Daniel Silveira, alegando que ele havia recebido indulto presidencial, e a manutenção de restrições de redes sociais ao Deputado Otoni de Paula.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 91602,
+            "end": 91692,
+            "text": "Indago: por que Daniel Silveira está preso, se ele tinha recebido um indulto presidencial?",
+            "score": 0.435
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a libertação dos \"patriotas\" presos, classificando-os como vítimas de um processo ilegítimo, e critica a mudança na Lei de Segurança Nacional que, segundo ele, não foi respeitada.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 91531,
+            "end": 91601,
+            "text": "E talvez presos como os nossos patriotas, sem o devido processo legal.",
+            "score": 0.2034
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe destinar 8 milhões de reais para construções de moradias em Joinville, Santa Catarina, em parceria com o Ministro presente na audiência sobre o PAC.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 5,
+            "start": 2867,
+            "end": 2925,
+            "text": "Separei 8 milhões de reais para destinar a essas moradias.",
+            "score": 0.4719
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fim das discussões e a busca de soluções para o transporte no Brasil, citando a presença do Deputado Cezinha de Madureira, Presidente da CVT.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 7,
+            "start": 3861,
+            "end": 3962,
+            "text": "Foram 300 convidados, dentre eles o mais ilustre, o Deputado Cezinha de Madureira, Presidente da CVT.",
+            "score": 0.3869
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o artigo 53 da Constituição brasileira como fundamento para o respeito à Casa Legislativa, argumentando que esse respeito já não é observado.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 89754,
+            "end": 89855,
+            "text": "53 da Constituição brasileira, que trata do respeito a esta Casa, já não é respeitado há muito tempo.",
+            "score": 0.5099
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a comparação com a invasão do Congresso Nacional por 500 pessoas do movimento dos sem-terra em 2006, que resultou em ferimentos e impunidade, para criticar a seletividade na aplicação da lei.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 90351,
+            "end": 90479,
+            "text": "Eu vou lembrar que, em 2006, 500 pessoas do movimento dos sem-terra invadiram o Congresso Nacional e feriram mais de 60 pessoas.",
+            "score": 0.4462
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a lei é soberana e que todos estão abaixo dela, criticando a imposição da \"vontade própria de determinadas pessoas\" no lugar da lei.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 93326,
+            "end": 93498,
+            "text": "Sem a lei, o mundo viraria uma bagunça, mas o Brasil está se tornando uma bagunça porque a lei que está imperando é a da vontade própria de determinadas pessoas neste País.",
+            "score": 0.3565
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a defesa dos presos alegando que eles não cometeram crimes e que a prisão deles viola o devido processo legal.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 91531,
+            "end": 91601,
+            "text": "E talvez presos como os nossos patriotas, sem o devido processo legal.",
+            "score": 0.3477
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o governo de Luiz Inácio Lula da Silva, associando-o a um sistema corrupto que tirou o Brasil do seu devido caminho e a políticas como a legalização do aborto.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 95060,
+            "end": 95392,
+            "text": "Se o povo brasileiro não entender que nós precisamos deles do nosso lado, nós seremos engolidos pelo sistema, sistema corrupto que ajudou Luiz Inácio Lula da Silva sentar naquela cadeira presidencial, que tirou o Brasil do seu devido caminho, que colocou uma Ministra no Ministério da Saúde que já fala em aborto.Daqui a pouco, Dra.",
+            "score": 0.4643
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Líder do PL na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 88970,
+            "end": 89055,
+            "text": "Presidente, queria só ressaltar que usarei o meu tempo de Líder do PL, por gentileza.",
+            "score": 0.3014
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser Deputado Federal eleito pelo povo catarinense, tendo assumido o mandato com tornozeleira e sem redes sociais após 51 dias de prisão e 18 meses de monitoramento.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 89371,
+            "end": 89524,
+            "text": "Passei por tudo isso, fiquei 51 dias no presídio e 18 meses de tornozeleira, inclusive assumi meu mandato Parlamentar de tornozeleira, sem redes sociais.",
+            "score": 0.4529
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionar ser relator de projetos na CMADS e na CPI do MST.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 62,
+            "start": 72489,
+            "end": 72561,
+            "text": "(Inaudível)porque eu estou na CPI do MST e vou ter que retornar para lá.",
+            "score": 0.3034
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se alinhado com o Senador Rodrigo Pacheco e o Deputado Sargento Fahur na crítica ao Judiciário e à atuação do governo.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 94052,
+            "end": 94088,
+            "text": "Falou bem o Deputado Sargento Fahur.",
+            "score": 0.3821
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e casos pessoais, como sua própria prisão e a de outros \"patriotas\", para fundamentar suas críticas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, usando expressões como \"patriotas\", \"canalhas\" e \"imundícias\", e fazendo apelos diretos aos familiares dos presos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cobra prazos e ações concretas de autoridades, como o Senador Rodrigo Pacheco e o Ministro Flávio Dino.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 92732,
+            "end": 92812,
+            "text": "Essa arrogância está vindo do Ministro Flávio Dino, que deu à Polícia Federal...",
+            "score": 0.2827
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa comparações e analogias, como a comparação com o PCC e a invasão do Congresso em 2006, para ilustrar seus argumentos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Demonstra tom confrontador e exaltado, especialmente na primeira audiência, pedindo perdão pela exaltação ao final.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 80,
+            "start": 95684,
+            "end": 95831,
+            "text": "Eu quero pedir perdão a cada um dos senhores e senhoras que estão aqui pela minha exaltação, mas eu fui vítima de um processo que não foi legítimo.",
+            "score": 0.1851
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

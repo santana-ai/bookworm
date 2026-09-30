@@ -1,0 +1,306 @@
+{
+  "actor": {
+    "slug": "alberto-mourao",
+    "name": "ALBERTO MOURÃO",
+    "display_name": "Alberto Mourão",
+    "role": "Deputado (MDB-SP)",
+    "article_names": [
+      "Alberto Mourão"
+    ],
+    "party_uf": [
+      "Bloco/MDB - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:23:10+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      199
+    ],
+    "input_tokens": 3946,
+    "output_tokens": 836,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 1,
+    "passage_only": 15,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a produção de vacinas e insumos para a saúde é questão de segurança nacional, criticando a dependência do Brasil de vacinas importadas da China e da Índia durante a pandemia e a falta de produção local de máscaras.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 105971,
+            "end": 106064,
+            "text": "Ele não cuida da sua cadeia de produção, e, na saúde, vacina é questão de segurança nacional.",
+            "score": 0.3756
+          },
+          "udv": {
+            "id": "udv-199-3-0",
+            "rule": "same_sentence",
+            "score": 0.3406
+          }
+        },
+        {
+          "text": "Propõe a reorganização do SAMU em todo o País, argumentando que pequenas cidades não têm capacidade financeira ou tecnológica para gerir o sistema, o que resulta em tempos de resposta de 15 a 20 minutos, considerados inaceitáveis para emergências.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 109091,
+            "end": 109173,
+            "text": "A um tempo de resposta para a chegada da ambulância entre 15 minutos a 20 minutos.",
+            "score": 0.2892
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de um sistema legal que obrigue todos os executores do SUS a informar sua capacidade instalada e os atendimentos realizados, permitindo ao Presidente, à Ministra, aos Governadores e às Regiões Administrativas de Saúde alocar recursos com base em dados reais das filas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 110029,
+            "end": 110225,
+            "text": "Essa proposta, que coloquei dentro do Mais Médicos, criava um sistema por lei e obrigava todos os executores do Sistema Único de Saúde a informar sua capacidade instalada e os atendimentos feitos.",
+            "score": 0.3034
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a fragmentação dos sistemas de regulação (SISREG, CROSS, entre outros), que não são integrados, e o desperdício de recursos causado pela perda de exames e consultas quando cirurgias eletivas são canceladas por falta de vaga.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 107832,
+            "end": 107889,
+            "text": "E é pior ainda nas cirurgias eletivas, que nós não temos.",
+            "score": 0.2405
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o uso de uma tabela diferenciada do SUS para contratação de serviços onde a tabela atual não atrai profissionais, visando garantir resolutividade.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 110974,
+            "end": 111186,
+            "text": "Por isso, no meu texto, eu coloquei que poderíamos usar uma tabela diferenciada do SUS para contratar o serviço, porque para alguns serviços a tabela SUS até cobre, mas, para outros ela não tem quem queira fazer.",
+            "score": 0.3711
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a abertura de novas faculdades de medicina deve ser condicionada à formação de mais médicos e à existência de residência médica em saúde da família, exigindo que a cidade sede tenha pelo menos 80% de cobertura do Programa Saúde da Família.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 112049,
+            "end": 112356,
+            "text": "E onde houvesse residência médica em saúde da família, que a cidade que fosse sede tivesse pelo menos 80% de cobertura do Programa Saúde da Família, até porque essa comunidade já teria um compromisso com o sistema: a cidade se comprometeria a pagar 15% das bolsas de estudo e a mantenedora, mais outros 15%.",
+            "score": 0.4621
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a cidade sede da faculdade pague 15% das bolsas de estudo e a mantenedora outros 15%, para incentivar a formação de médicos das classes menos privilegiadas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 112049,
+            "end": 112356,
+            "text": "E onde houvesse residência médica em saúde da família, que a cidade que fosse sede tivesse pelo menos 80% de cobertura do Programa Saúde da Família, até porque essa comunidade já teria um compromisso com o sistema: a cidade se comprometeria a pagar 15% das bolsas de estudo e a mantenedora, mais outros 15%.",
+            "score": 0.3811
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a falta de integração e a \"bagunça\" no sistema de referência e contrarreferência, onde pacientes tentam se inscrever em qualquer município da região metropolitana para obter atendimento.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 107192,
+            "end": 107420,
+            "text": "Ele vai a Osasco, ele vai à Capital, ele vai a Guarulhos, ele vai a qualquer lugar, porque ele foi referenciado para fazer qualquer exame ou qualquer consulta de média ou alta complexidade e tenta se inscrever em qualquer lugar.",
+            "score": 0.1669
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência direta na gestão municipal (cinco mandatos como prefeito, incluindo a gestão durante a pandemia) como fundamento para suas críticas à estrutura do SUS e às políticas de saúde, argumentando que a realidade operacional difere das declarações oficiais sobre repasses financeiros.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 104308,
+            "end": 104383,
+            "text": "Eu digo isto, Ministra, com a experiência de quem foi Prefeito cinco vezes.",
+            "score": 0.237
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a resolutividade como princípio fundamental da saúde, justificando propostas de reorganização de filas e contratação de serviços com base na necessidade de concluir o atendimento do paciente.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 111187,
+            "end": 111309,
+            "text": "E precisamos reorganizar o sistema para podermos dar resolutividade, porque é fundamental, na saúde, haver resolutividade.",
+            "score": 0.2437
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de transparência e dados concretos (capacidade instalada, tamanho das filas) como critério para a alocação eficiente de recursos públicos, criticando a gestão baseada em estimativas imprecisas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 110656,
+            "end": 110706,
+            "text": "É preciso saber também se há capacidade instalada.",
+            "score": 0.1768
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se ex-prefeito por cinco mandatos, tendo terminado seu último mandato dois anos antes da audiência, e afirma ter liderado uma prefeitura de 400 mil habitantes em uma região de 2 milhões durante a pandemia.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 104419,
+            "end": 104634,
+            "text": "Tive a infelicidade e a oportunidade de estar à frente de uma Prefeitura, de uma população de 400 mil habitantes, de uma região de 2 milhões de habitantes, no momento mais crítico da civilização, durante a pandemia.",
+            "score": 0.3764
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter apresentado uma proposta dentro do programa Mais Médicos que não foi aceita pela Relatora, e menciona ter prestado atenção às ações da Ministra Nísia Trindade.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 109923,
+            "end": 110028,
+            "text": "Ao falamos de fila, Ministra, eu apresentei uma proposta que, infelizmente, não foi aceita pela Relatora.",
+            "score": 0.3222
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Recorre a dados quantitativos específicos (190 mortes por hora, 15 a 20 minutos de resposta do SAMU, 80% de cobertura do PSF, 15% de custeio de bolsas) e a exemplos pessoais (espera de ambulância na semana anterior, reuniões mensais com secretários) para sustentar suas críticas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 109091,
+            "end": 109173,
+            "text": "A um tempo de resposta para a chegada da ambulância entre 15 minutos a 20 minutos.",
+            "score": 0.3208
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza perguntas retóricas e tom de indignação (\"Estamos vivendo em que País?!\", \"Um absurdo!\") para enfatizar a gravidade dos problemas identificados.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 105641,
+            "end": 105670,
+            "text": "Estamos vivendo em que País?!",
+            "score": 0.4079
+          },
+          "udv": null
+        },
+        {
+          "text": "Direciona-se diretamente à Ministra Nísia Trindade, combinando saudações protocolares com cobranças e propostas concretas, e reconhece parcialmente as dificuldades apontadas pela Ministra (como a falta de estimativa de filas) antes de apresentar suas soluções.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 191,
+            "start": 103952,
+            "end": 104013,
+            "text": "Saúdo a Deputada Bia e saúdo a nossa Ministra Nísia Trindade.",
+            "score": 0.1939
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-199-3-0",
+      "hearing_id": 199,
+      "n": 13,
+      "article_name": "Alberto Mourão",
+      "proposition": "Defendeu a autossuficiência em insumos para a saúde: \"O Brasil vive um problema seríssimo: não cuida da sua cadeia de produção.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Brasil vive um problema seriíssimo. Ele não cuida da sua cadeia de produção, e, na saúde, vacina é questão de segurança nacional.",
+        "turn": 191,
+        "start": 105933,
+        "end": 106064
+      },
+      "verifier": {
+        "probability": 0.851591974426445,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

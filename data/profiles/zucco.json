@@ -1,0 +1,257 @@
+{
+  "actor": {
+    "slug": "zucco",
+    "name": "Zucco",
+    "display_name": "Zucco",
+    "role": "Deputado (Republicanos-RS)",
+    "article_names": [
+      "Zucco"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - RS",
+      "PL - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:26:59+00:00",
+    "n_statements": 9,
+    "n_hearings": 2,
+    "hearing_ids": [
+      45,
+      153
+    ],
+    "input_tokens": 3960,
+    "output_tokens": 640,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 11,
+    "with_udv": 1,
+    "passage_only": 7,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação e o avanço de projeto de lei, do qual declara ter sido Relator, que estabelece prevenção, responsabilização, resposta, monitoramento de risco, planos de contingência e planos nacional e estadual de proteção e defesa civil, incluindo a imputação de responsabilidades à iniciativa privada, argumentando que a medida evitará a repetição de desastres como o ocorrido no Rio Grande do Sul.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 232082,
+            "end": 232372,
+            "text": "Nós aprovamos um projeto, do qual eu fui Relator, que trabalha prevenção, trabalha responsabilização, trabalha resposta, elenca monitoramento de risco, planos de contingência, planos nacional e estadual de proteção e defesa civil, inclusive imputando responsabilidades à iniciativa privada.",
+            "score": 0.5241
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Governo Federal a liberação imediata de recursos para os municípios gaúchos afetados por enchentes, criticando a burocracia que impede a execução dos valores já anunciados e solicitando a antecipação de 100 milhões de reais por meio de emendas parlamentares para Prefeitos e iniciativa privada.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 233124,
+            "end": 233256,
+            "text": "Nós estamos aqui no Parlamento, inclusive a bancada gaúcha, dando uma solução de antecipar 100 milhões de reais por meio de emendas.",
+            "score": 0.2429
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a existência de ferramentas jurídicas ou legislativas que permitam a liberação de recursos em caráter de urgência para que os municípios possam manter a saúde, a educação, a segurança e a reconstrução de moradias, apontando que as Prefeituras não possuem tempo para atender aos trâmites burocráticos do Governo Federal.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 234585,
+            "end": 234937,
+            "text": "Esta é a pergunta que faço ao senhor: não existe ferramenta jurídica ou legislativa alguma que permita a liberação de recursos, em caráter de urgência, para que esses Municípios tenham dignidade e voltem a ter o mínimo de recursos para a saúde, para a educação, para a segurança e, principalmente, para as moradias, que foi uma das áreas mais afetadas?",
+            "score": 0.3046
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita ao Ministro que apresente, em suas considerações finais, ações concretas a serem realizadas pelo Governo Federal após a audiência, visando dar uma resposta efetiva à sociedade gaúcha.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 233383,
+            "end": 233615,
+            "text": "Eu gostaria, Ministro, que o senhor terminasse a sua fala agora, nas considerações finais, trazendo algo de concreto que será feito pelo Governo Federal após a sua saída daqui, depois que o senhor escutar os Prefeitos e empresários.",
+            "score": 0.1928
+          },
+          "udv": {
+            "id": "udv-153-4-0",
+            "rule": "same_sentence",
+            "score": 0.123
+          }
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a urgência humanitária e a dignidade dos cidadãos como fundamento para cobrar a antecipação de recursos, justificando a pressão sobre o Executivo com o argumento de que as pessoas estão sofrendo e as Prefeituras estão em situação de desespero, sem saber como pagar funcionários ou custear serviços essenciais.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 232885,
+            "end": 232949,
+            "text": "O negócio é o tempo, porque as pessoas realmente estão sofrendo.",
+            "score": 0.1792
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de planejamento e de soluções práticas e efetivas para a gestão de riscos e desastres, baseando-se na experiência de ter estado presencialmente no local do desastre no mesmo dia em que ele começou.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 231921,
+            "end": 231970,
+            "text": "Estive lá no mesmo dia em que iniciou o desastre.",
+            "score": 0.2517
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Relator de projeto de lei voltado para a prevenção e resposta a desastres, que se encontra em tramitação no Senado.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 232565,
+            "end": 232597,
+            "text": "Ele já está novamente no Senado.",
+            "score": 0.2027
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar à disposição da bancada gaúcha para a utilização dos recursos das emendas disponíveis para a antecipação de valores aos municípios.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 151,
+            "start": 233989,
+            "end": 234216,
+            "text": "Nós precisaríamos — e deixamos a bancada gaúcha à sua disposição — usar os recursos das emendas que temos disponíveis para que possa ser antecipado o valor de 100 milhões de reais, que nós já acordamos entre todos os Deputados.",
+            "score": 0.3593
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Baseia seus argumentos em dados observados in loco, citando a presença no local do desastre no dia inicial da catástrofe, e em relatos diretos de Prefeitos sobre a falta de recursos para pagamento de funcionários e manutenção de serviços.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta e pragmática, utilizando expressões como \"o negócio é o tempo\" e \"as Prefeituras estão desesperadas\" para enfatizar a urgência, e questiona o Executivo sobre a inexistência de mecanismos legais para agilizar a liberação de verbas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Combina a defesa de legislação de longo prazo (prevenção e responsabilização) com a exigência de medidas imediatas de curto prazo (antecipação de emendas), estruturando o argumento em duas frentes complementares.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-153-4-0",
+      "hearing_id": 153,
+      "n": 9,
+      "article_name": "Zucco",
+      "proposition": "Cobrou agilidade do auxílio federal: \"O que será feito porque estamos sabendo dos problemas. As prefeituras estão desesperadas, temos promessas feitas, mas as pessoas precisam de planejamento\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu gostaria, Ministro, que o senhor terminasse a sua fala agora, nas considerações finais, trazendo algo de concreto que será feito pelo Governo Federal após a sua saída daqui, depois que o senhor escutar os Prefeitos e empresários. Nós já estamos sabendo dos problemas; as Prefeituras estão desesperadas; temos alguns compromissos verbalizados e promessas feitas; mas as pessoas precisam de planejamento.",
+        "turn": 151,
+        "start": 233383,
+        "end": 233789
+      },
+      "verifier": {
+        "probability": 0.7773827013120607,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

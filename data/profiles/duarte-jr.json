@@ -1,0 +1,389 @@
+{
+  "actor": {
+    "slug": "duarte-jr",
+    "name": "DUARTE JR.",
+    "display_name": "DUARTE JR.",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PSB - MA",
+      "Bloco/PODE - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:15:08+00:00",
+    "n_statements": 101,
+    "n_hearings": 4,
+    "hearing_ids": [
+      6,
+      53,
+      145,
+      182
+    ],
+    "input_tokens": 11205,
+    "output_tokens": 1293,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 0,
+    "passage_only": 21,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação do Projeto de Lei nº 664, de 2023, que dispõe sobre a presença de intérpretes de LIBRAS nas exibições de eventos públicos e privados artísticos, culturais ou sociais, argumentando que a medida não gera custo irrazoável, mas constitui investimento para a real inclusão.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 50,
+            "start": 96646,
+            "end": 96827,
+            "text": "Eu sou o autor do Projeto de Lei nº 664, de 2023, que dispõe sobre a presença de intérpretes de LIBRAS nas exibições de eventos públicos e privados artísticos, culturais ou sociais.",
+            "score": 0.7023
+          },
+          "udv": null
+        },
+        {
+          "text": "Assume a relatoria do Projeto de Lei nº 7.419, de 2006, que reúne 277 apensos, e defende a aprovação imediata de uma nova lei de planos de saúde, criticando a tramitação de 17 anos sem resposta como demonstração de ineficiência do Parlamento.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 76,
+            "start": 145259,
+            "end": 145347,
+            "text": "Tramitar por 17 anos sem uma resposta é a demonstração da ineficiência desse Parlamento.",
+            "score": 0.4369
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige transparência e clareza nos reajustes de planos de saúde, citando o art. 6º, inciso III, do Código de Defesa do Consumidor, para garantir o direito do consumidor a informação precisa sobre aumentos de 40% a 70%.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 76,
+            "start": 146244,
+            "end": 146395,
+            "text": "51 do Código de Defesa do Consumidor traz, em um dos seus incisos, o inciso IV ou o inciso IX, se eu não me engano, uma cláusula nula de pleno direito.",
+            "score": 0.2304
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um prontuário único de saúde, integrando o sistema público e privado, para evitar a repetição de exames, reduzir custos e combater a corrupção de profissionais que solicitam procedimentos desnecessários.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 100,
+            "start": 165082,
+            "end": 165119,
+            "text": "O sistema é único, público e privado.",
+            "score": 0.3853
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a rescisão unilateral de contratos de planos de saúde coletivos, classificando a exclusão de consumidores vulneráveis (pessoas com deficiência, idosos, pacientes oncológicos) como ilegal, imoral e um \"pecado\".",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 76,
+            "start": 146727,
+            "end": 146792,
+            "text": "Isso é mais do que ilegal e mais do que imoral, isso é um pecado!",
+            "score": 0.4185
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a empresa 123Milhas por oferta falsa e publicidade enganosa, apontando que a venda de passagens com datas abertas configura captação de poupança popular sem autorização do Ministério da Fazenda, em violação à Lei nº 5.768, de 1971.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 747,
+            "start": 180962,
+            "end": 181357,
+            "text": "7º, § 2º, da legislação citada: Eu pergunto: havia autorização do Ministério da Fazenda, da Receita Federal, para o exercício da atividade da 123Milhas, que, de acordo com o que eu citei aqui, eu repito, praticava venda de passagens em datas abertas, pois não tinha a pronta-entrega, caracterizando captação de poupança popular, e busca de investimento como se fosse uma instituição financeira?",
+            "score": 0.3339
+          },
+          "udv": null
+        },
+        {
+          "text": "Requer a quebra de sigilo bancário e fiscal da empresa Caeli Publicidade e Propaganda Ltda., vinculada ao pai do representante da 123Milhas, para acessar recursos financeiros destinados à reparação dos consumidores lesados, com base no art. 28 do Código de Defesa do Consumidor.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 765,
+            "start": 186775,
+            "end": 186984,
+            "text": "Então, eu apresento aqui o requerimento da quebra do sigilo bancário, fiscal, da empresa Caeli, para que a gente possa buscar a efetiva reparação dos consumidores, e não só da empresa, dos quatro sócios: o Sr.",
+            "score": 0.3479
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a atuação do Ministério da Justiça na segurança pública, citando dados do SINESP e o envio de recursos e forças federais (Polícia Federal, PRF, Força Nacional) para a Bahia e o Rio de Janeiro, e critica a tentativa de atribuir ao Ministro Flávio Dino problemas históricos de segurança estaduais.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 323,
+            "start": 160516,
+            "end": 160643,
+            "text": "Tentam, a todo custo, colocar nas costas do Ministro Flávio Dino problemas históricos de segurança no Estado do Rio de Janeiro.",
+            "score": 0.3931
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra o respeito ao pacto federativo e ao art. 144 da Constituição Federal, citando decisão do Ministro Edson Fachin para afirmar que a Força Nacional de Segurança não é um \"coringa jurídico\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 323,
+            "start": 161585,
+            "end": 161775,
+            "text": "Por fim, nestes 30 segundos que me restam, eu peço aos Deputados que leiam a decisão do Ministro Edson Fachin na qual ele destaca que a Força Nacional de Segurança não é um coringa jurídico.",
+            "score": 0.4543
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio de que \"pessoas com deficiência não são dignas de pena, são dignas de direito\", fundamentado no art. 6º da Constituição Federal de 1988, para justificar a defesa da inclusão em espaços culturais e de lazer.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 50,
+            "start": 96148,
+            "end": 96232,
+            "text": "Como eu digo, pessoas com deficiência não são dignas de pena, são dignas de direito.",
+            "score": 0.5189
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o direito básico do consumidor a informação clara, precisa e inequívoca como critério para exigir transparência em reajustes de planos de saúde e na oferta de produtos turísticos.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 76,
+            "start": 144374,
+            "end": 144515,
+            "text": "Não é adequado que o consumidor não tenha o seu direito básico de acesso a informação clara, precisa, inequívoca, conforme o preceitua o art.",
+            "score": 0.4154
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na proteção do consumidor vulnerável como justificativa para criticar a rescisão unilateral de contratos e a falta de entrega de produtos prometidos, argumentando que a boa-fé deve ser prática e não apenas um plano de intenções.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 227,
+            "start": 62739,
+            "end": 62819,
+            "text": "Mas a boa-fé não pode ser só um plano de intenções, tem que ser algo na prática.",
+            "score": 0.38
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a noção de que o sistema de saúde é único, reunindo poder público e iniciativa privada, para justificar a necessidade de integração de dados (prontuário único) e a busca por sustentabilidade setorial.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 76,
+            "start": 145007,
+            "end": 145087,
+            "text": "O sistema de saúde é único e reúne, sim, o poder público e a iniciativa privada.",
+            "score": 0.5471
+          },
+          "udv": null
+        },
+        {
+          "text": "Aplica a lógica de que a responsabilidade solidária e objetiva do Código de Defesa do Consumidor exige a identificação de quem deu causa ao dano, para fundamentar questionamentos sobre a origem dos prejuízos na 123Milhas.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 227,
+            "start": 62820,
+            "end": 63070,
+            "text": "Quando, com base no Código de Defesa do Consumidor, afirma que há uma responsabilidade solidária, nós sabemos disso, solidária e objetiva, só que o que o Relator está perguntando é quem, de fato, deu causa a esse dano, quem de fato causou o prejuízo.",
+            "score": 0.4502
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Projeto de Lei nº 664, de 2023, e relator do Projeto de Lei nº 7.419, de 2006.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 76,
+            "start": 142582,
+            "end": 142689,
+            "text": "Eu quero aqui destacar que, no semestre passado, eu assumi a relatoria do Projeto de Lei nº 7.419, de 2006.",
+            "score": 0.3945
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante do Estado do Maranhão, citando a existência de lei estadual que obriga a contratação de intérpretes de LIBRAS e convidando para o São João do Maranhão.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 50,
+            "start": 97207,
+            "end": 97394,
+            "text": "Eu venho do Estado do Maranhão, onde já existe uma lei estadual que obriga as empresas da área do entretenimento a contratarem intérpretes de LIBRAS para todas as apresentações culturais.",
+            "score": 0.4362
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter se reunido com o Presidente da Câmara, Deputado Arthur Lira, e com presidentes de PROCONs do Nordeste para anunciar a divulgação do relatório sobre planos de saúde.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 76,
+            "start": 143853,
+            "end": 144026,
+            "text": "Após dialogar com o Presidente Arthur Lira, nós aqui anunciamos que, no dia 11 de setembro, vamos divulgar o nosso relatório, o relatório para a nova lei de planos de saúde.",
+            "score": 0.3562
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara estar em diálogo com órgãos de defesa do consumidor, incluindo PROCON, Defensoria Pública, Ministério Público e a Secretaria Nacional de Defesa do Consumidor, para construir acordos de reparação.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 628,
+            "start": 152223,
+            "end": 152414,
+            "text": "Fernando, da BRASILCON, com vários membros que compõem o sistema de defesa do consumidor: PROCON, Defensoria Pública, Ministério Público, a própria Secretaria Nacional e Defesa do Consumidor.",
+            "score": 0.5232
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos específicos (valores em bilhões, números de policiais, percentuais de reajuste, datas de leis) para sustentar suas posições e cobrar respostas objetivas dos depoentes.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador e acusatório em audiências sobre consumo, chegando a advertir testemunhas sobre crime de falso testemunho (art. 342 do Código Penal) e a classificar práticas empresariais como \"pirâmide\" e \"golpe\".",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 254,
+            "start": 73461,
+            "end": 73492,
+            "text": "342 do Código Penal brasileiro.",
+            "score": 0.2986
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emocional e apelativa, utilizando termos como \"sofrimento\", \"desespero\", \"pecado\" e \"amor\" para conectar-se com a audiência e enfatizar a gravidade das violações de direitos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita diretamente dispositivos legais (Constituição Federal, Código de Defesa do Consumidor, Lei nº 5.768/1971) e decisões judiciais para fundamentar seus argumentos e exigir conformidade legal.",
+          "passage": {
+            "hearing_id": 6,
+            "turn": 745,
+            "start": 179774,
+            "end": 179830,
+            "text": "O senhor conhece essa legislação: Lei nº 5.768, de 1971?",
+            "score": 0.2256
+          },
+          "udv": null
+        },
+        {
+          "text": "Em audiências sobre segurança pública, adota postura defensiva em relação ao governo federal, utilizando dados de ações do Ministério da Justiça para rebater críticas e criticar a mediação da presidência da sessão como \"parcial\".",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 323,
+            "start": 159962,
+            "end": 160186,
+            "text": "O Governo Federal, através do Ministério da Justiça, encaminhou para o Governo da Bahia 168 milhões de reais em ações para o combate à insegurança, para garantir aos baianos segurança, um direito constitucional que eles têm.",
+            "score": 0.2621
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas e repetitivas aos depoentes para obter informações específicas (quantidade de produtos vendidos, valores investidos, existência de autorizações), pressionando por respostas claras e objetivas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 6,
+      "split": "train",
+      "article_date": "2023-09-06",
+      "title": "Sócio da 123milhas diz que passagens precisaram ser suspensas porque preços não seguiram previsões",
+      "assunto": "Suspensão de passagens promocionais pela 123milhas devido a previsões de preços não cumpridas e recuperação judicial da empresa",
+      "turns": 74,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 53,
+      "split": "train",
+      "article_date": "2023-05-17",
+      "title": "Debatedores defendem participação de pessoas com deficiência nos projetos culturais para garantir inclusão",
+      "assunto": "Participação de pessoas com deficiência nos projetos culturais para garantir inclusão",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 23,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 182,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Entidades que defendem consumidor pedem regulação para reajustes de planos de saúde coletivos",
+      "assunto": "Regulação dos reajustes dos planos de saúde coletivos",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

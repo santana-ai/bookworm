@@ -1,0 +1,435 @@
+{
+  "actor": {
+    "slug": "chico-alencar",
+    "name": "Chico Alencar",
+    "display_name": "Chico Alencar",
+    "role": "Deputado (Psol-RJ)",
+    "article_names": [
+      "Chico Alencar"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:40:58+00:00",
+    "n_statements": 5,
+    "n_hearings": 3,
+    "hearing_ids": [
+      20,
+      48,
+      180
+    ],
+    "input_tokens": 4852,
+    "output_tokens": 890,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a manutenção dos vetos presidenciais ao marco temporal e critica a possibilidade de sua derrubada pelo Congresso, argumentando que a luta deve continuar no Judiciário e em outras instâncias.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 15,
+            "start": 43760,
+            "end": 43880,
+            "text": "É possível que vetos ao marco temporal sejam derrubados, mas a luta vai continuar, seja no Judiciário, seja onde couber.",
+            "score": 0.352
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a PEC que propõe anistia a partidos políticos que não cumpriram cotas de recursos para mulheres e negros, classificando a medida como \"anistia ampla, geral e irrestrita\", \"injusta\", \"menos isonômica\" e uma \"legislação em causa própria\" que privilegia a \"casta\" partidária.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 35,
+            "start": 96209,
+            "end": 96328,
+            "text": "Agora, a solução da anistia é a mais simples, a mais injusta, a menos isonômica, a que privilegia, na verdade, a casta.",
+            "score": 0.3891
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita o Projeto de Lei 580/07, especificamente o trecho que veda a equiparação de relações homoafetivas a casamento ou entidade familiar, qualificando a proposta como \"retrógrada\", \"obscurantista\" e \"negadora da realidade\".",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 45,
+            "start": 108915,
+            "end": 109020,
+            "text": "De oito, ele escolheu a única que veda a união civil, que veda o casamento, que veda a entidade familiar.",
+            "score": 0.3036
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de projeto de lei para obrigar a distribuição igualitária dos recursos do fundo partidário entre todos os candidatos, como alternativa às distorções apontadas na gestão dos fundos.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 35,
+            "start": 94666,
+            "end": 94755,
+            "text": "Faça um projeto de lei para obrigar a distribuição igualitária entre todos os candidatos!",
+            "score": 0.5455
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a derrubada do \"modo de viver\" baseado no agrobusiness e no produtivismo, defendendo a adoção do conceito de \"bem viver\" como alternativa ao colapso ambiental.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 15,
+            "start": 43346,
+            "end": 43398,
+            "text": "Então, é preciso mudar radicalmente o modo de viver.",
+            "score": 0.2628
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o acesso restrito à Casa do Povo, apontando que a manifestação popular é impedida de entrar no Parlamento para não \"perturbar a tranquilidade dos poderosos\".",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 15,
+            "start": 42891,
+            "end": 42977,
+            "text": "Tem que ser tudo muito controladinho para não perturbar a tranquilidade dos poderosos.",
+            "score": 0.3539
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a distinção entre \"estadania\" e \"cidadania\", citando o historiador José Murilo de Carvalho, para justificar a crítica à degradação do financiamento público e ao domínio de interesses privados no Estado.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 35,
+            "start": 92911,
+            "end": 92992,
+            "text": "Recentemente, nós perdemos um grande historiador chamado José Murilo de Carvalho.",
+            "score": 0.3327
+          },
+          "udv": null
+        },
+        {
+          "text": "Fundamenta a defesa da união homoafetiva no conceito de \"amor\" como elemento constitutivo do ser humano e da família, rejeitando determinações jurídicas que limitem o afeto humano.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 45,
+            "start": 107781,
+            "end": 107914,
+            "text": "Então, a questão é sintonizar com o tempo o que viabiliza mais o elemento constitutivo do ser humano, que é a comunhão, que é o amor.",
+            "score": 0.3371
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a \"comunhão\" e a \"ancestralidade\" como valores centrais, argumentando que a sociedade deve avançar para o \"progresso\" e a \"liberdade\", rejeitando o medo e o individualismo.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 45,
+            "start": 108567,
+            "end": 108676,
+            "text": "Família é congregação amorosa, de união, amplitude, divisão de futuro, respeito à ancestralidade e liberdade.",
+            "score": 0.1688
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a crítica aos partidos políticos pela degeneração do \"espírito público e republicano\", associando a profissionalização da liderança partidária à perda de valores democráticos.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 35,
+            "start": 95237,
+            "end": 95303,
+            "text": "Isso acaba degenerando e matando o espírito público e republicano.",
+            "score": 0.2908
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se em dados quantitativos para sustentar posições, como o aumento de mais de 200% do fundo eleitoral e 30% do fundo partidário em cinco anos, e os 75 mil casais homoafetivos registrados no Brasil.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 47,
+            "start": 110748,
+            "end": 110869,
+            "text": "Efetivamente, nos registros, já que gostamos também dos documentos, são 75 mil casais homoafetivos registrados no Brasil.",
+            "score": 0.37
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se professor e ex-dirigente partidário, tendo atuado na renegociação de dívidas de partido junto à Justiça Eleitoral.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 35,
+            "start": 96024,
+            "end": 96146,
+            "text": "Eu fui à Justiça Eleitoral, como dirigente partidário, conversar com um Ministro, a fim de renegociar a dívida do partido.",
+            "score": 0.3475
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parte das \"minorias\" no Parlamento, que precisam ser \"empurradas\" para exercer bem seus mandatos.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 15,
+            "start": 43897,
+            "end": 43977,
+            "text": "Continuem nos empurrando, para, nós minorias, exercermos bem os nossos mandatos.",
+            "score": 0.3313
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter ascendência paterna do Piauí e raízes nativas brasileiras.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 15,
+            "start": 40907,
+            "end": 41038,
+            "text": "Parentíssimos somos porque a minha ascendência paterna é do Piauí, dos Alencar de lá, e é claro que tenho raízes nativas do Brasil.",
+            "score": 0.5485
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se contra a anistia a partidos e a favor da regulamentação da união homoafetiva, alinhando-se com a diversidade e a afirmação dos povos originários.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 35,
+            "start": 95761,
+            "end": 95937,
+            "text": "Nós que somos contra essa anistia ampla, geral e irrestrita, indagamos: qual é a alternativa para ela, já que os partidos dizem que não podem arcar com essas multas ou sanções?",
+            "score": 0.1699
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza metáforas e referências culturais (poesia de Maiakovsky, citações de Santo Agostinho e Jesus Cristo) para humanizar o debate e conectar temas jurídicos a valores universais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados históricos e comparativos internacionais, listando países que reconhecem ou vedam a união homoafetiva, para situar o Brasil no contexto global.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 47,
+            "start": 110903,
+            "end": 110994,
+            "text": "O Brasil se vincula a mais 34 países no mundo que reconhecem a integralidade dessa relação.",
+            "score": 0.2094
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom crítico e provocativo em relação aos \"representantes políticos\" e à \"classe política\", acusando-os de enclausuramento e desconexão com a realidade.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem coloquial e expressiva (\"sifilizados\", \"embarreiradores\", \"mal chamada classe política\") para enfatizar suas críticas.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 15,
+            "start": 43017,
+            "end": 43345,
+            "text": "Que bom que vocês estão aqui, nessa diversidade, nessa afirmação.E vamos continuar insistindo para educar a mal chamada classe política, para que ela perceba que o Brasil é muito mais do que o interesse dos grandes grupos econômicos, que o agrobusiness, que o produtivismo, que está levando inclusive ao colapso o planeta Terra.",
+            "score": 0.2039
+          },
+          "udv": null
+        },
+        {
+          "text": "Conclui seus argumentos com apelos à ação e à esperança, incentivando a continuidade da luta e a superação do medo.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 47,
+            "start": 111780,
+            "end": 111854,
+            "text": "Não podemos ter medo de amar, porque o medo de amar é o medo de ser livre.",
+            "score": 0.1811
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 20,
+      "split": "train",
+      "article_date": "2023-04-27",
+      "title": "Debatedores defendem união de povos originários e tradicionais para evitar perda de direitos",
+      "assunto": "União de povos originários e tradicionais para evitar perda de direitos",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 48,
+      "split": "train",
+      "article_date": "2023-09-26",
+      "title": "Proposta que proíbe a união de pessoas do mesmo sexo é criticada em audiência pública",
+      "assunto": "Discussão sobre o Projeto de Lei 580/07 e a regulamentação da união homoafetiva",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 126,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Democratização do uso medicinal da cannabis depende de regulamentação de associações de produtores, dizem especialistas",
+      "assunto": "Democratização do uso medicinal da cannabis e regulamentação de associações de produtores",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 180,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Anistia a partidos que não cumpriram cotas para mulheres e negros não tem consenso",
+      "assunto": "Anistia a partidos que não cumpriram cotas para mulheres e negros",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-16-5-0",
+      "hearing_id": 16,
+      "n": 15,
+      "article_name": "Chico Alencar",
+      "proposition": "Elogiou a gestão de Sílvio Almeida no Ministério dos Direitos Humanos.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Ministro Silvio Almeida e equipe — ninguém trabalha sozinho —, obrigado pela presença. É da boa prática democrática esse diálogo, essa interlocução com o Parlamento, com as suas singularidades.",
+        "turn": 289,
+        "start": 189602,
+        "end": 189795
+      },
+      "verifier": {
+        "probability": 0.26009840874263307,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-126-0-0",
+      "hearing_id": 126,
+      "n": 1,
+      "article_name": "Chico Alencar",
+      "proposition": "Um frasco com 3 gramas de canabidiol custa, em média, R$ 2,3 mil nas farmácias.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "O Brizola — eu o conheci — dizia assim:\"Duas ou três palavrinhas\". Aí falava por 2 ou 3 horas.",
+        "turn": 8,
+        "start": 13866,
+        "end": 13960
+      },
+      "verifier": {
+        "probability": 0.05871953530138124,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-126-0-1",
+      "hearing_id": 126,
+      "n": 2,
+      "article_name": "Chico Alencar",
+      "proposition": "O Ministério Saúde sofre muitas pressões, e a regulamentação do uso medicinal da maconha depende da atuação dos movimentos sociais: \"O Ministério da Saúde tem muitos recursos, por isso, ele é muito cobiçado. Não imaginem que é só querer e fazer não, porque enfrenta muita pressão, muita rasteira, tem muito jogo sujo nesse processo todo. Para vencer tem que ter mobilização social, tem que ter movimento vivo.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O Ministério da Saúde tem muitos recursos, por isso ele é muito cobiçado. E a Nísia vem da FIOCRUZ, não vem das tratativas e dos acertos políticos menores. A pressão sobre o Presidente da República para defenestrá-la, para entregar o posto a quem vai supostamente entregar votos, é enorme.",
+        "turn": 57,
+        "start": 97179,
+        "end": 97468
+      },
+      "verifier": {
+        "probability": 0.819551736701765,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-126-0-2",
+      "hearing_id": 126,
+      "n": 3,
+      "article_name": "Chico Alencar",
+      "proposition": "O cânhamo é uma variedade da maconha, mais fibrosa e que não produz substâncias psicoativas.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Eu saio daqui com a convicção mais forte ainda de que a nossa causa, a causa da maconha medicinal, daCannabis, contra o proibicionismo estúpido e estreito, do cânhamo industrial, de tantos produtos que podem ser úteis para a humanidade, é uma causa difícil, mas não é invencível. Temos que ter persistência.",
+        "turn": 57,
+        "start": 98846,
+        "end": 99153
+      },
+      "verifier": {
+        "probability": 0.1328642190080976,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

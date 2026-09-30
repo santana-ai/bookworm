@@ -1,0 +1,423 @@
+{
+  "actor": {
+    "slug": "flavia-morais",
+    "name": "Flávia Morais",
+    "display_name": "Flávia Morais",
+    "role": "Deputada (PDT-GO)",
+    "article_names": [
+      "Flávia Morais"
+    ],
+    "party_uf": [
+      "Bloco/PDT - GO",
+      "PDT - GO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:40:02+00:00",
+    "n_statements": 10,
+    "n_hearings": 3,
+    "hearing_ids": [
+      93,
+      155,
+      159
+    ],
+    "input_tokens": 5995,
+    "output_tokens": 1012,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 1,
+    "passage_only": 20,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende o fortalecimento da educação profissional e técnica no ensino médio, argumentando que a juventude precisa de oportunidades e competitividade no mercado de trabalho com dignidade, em vez de respostas punitivas como a redução da maioridade penal.",
+          "passage": {
+            "hearing_id": 93,
+            "turn": 12,
+            "start": 47365,
+            "end": 47554,
+            "text": "Vamos com esta Comissão Especial também fortalecer, oportunizar e melhorar as condições para o fortalecimento da educação profissional no ensino médio e da preparação para os nossos jovens.",
+            "score": 0.2529
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiada na Comissão Especial do PL 6494/19, busca aperfeiçoar a legislação, garantir recursos e organizar o sistema de educação técnica profissional para ampliar o acesso dos jovens.",
+          "passage": {
+            "hearing_id": 93,
+            "turn": 22,
+            "start": 59043,
+            "end": 59237,
+            "text": "Quanto mais nós conseguirmos aperfeiçoar nossa legislação, garantir recursos e organizar o nosso sistema da educação técnica profissional, com certeza vamos mudar a realidade da nossa juventude.",
+            "score": 0.4794
+          },
+          "udv": {
+            "id": "udv-93-3-0",
+            "rule": "same_sentence",
+            "score": 0.3673
+          }
+        },
+        {
+          "text": "Defende o PL 6461/19 (Estatuto do Aprendiz), destacando que ele prevê a extensão da aprendizagem para serviços públicos e autarquias, o que considera um avanço para o serviço de aprendizagem.",
+          "passage": {
+            "hearing_id": 93,
+            "turn": 22,
+            "start": 58297,
+            "end": 58500,
+            "text": "Inclusive, para além deste projeto meu, o próprio Estatuto do Aprendiz, no Projeto de Lei nº 6.461, que eu citei aqui, prevê a extensão da aprendizagem para os serviços públicos, incluindo as autarquias.",
+            "score": 0.4515
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o modelo atual de atendimento à juventude por ser feito \"por amostragem\", o que impede a oferta de oportunidades para todos os jovens que necessitam.",
+          "passage": {
+            "hearing_id": 93,
+            "turn": 22,
+            "start": 58723,
+            "end": 58901,
+            "text": "Os desafios que existem hoje são porque o atendimento sempre é feito por amostragem, e nós não conseguimos oferecer oportunidades para todos os jovens que precisam no nosso País.",
+            "score": 0.3585
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a prevenção ao câncer de mama no SUS, destacando a importância do exame de ultrassonografia como complemento ao diagnóstico e a necessidade de fortalecer campanhas como o Outubro Rosa para reduzir o diagnóstico em estágios avançados.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 5,
+            "start": 15719,
+            "end": 15954,
+            "text": "Eu quero aqui me somar a todos e a todas e dizer que nós estamos, no meu Estado de Goiás, trabalhando todos os dias, para oferecer, Deputado Weliton, o exame de ultrassonografia de mama, que é um complemento para iniciar o diagnóstico.",
+            "score": 0.3264
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a ampliação da política de Centros-dia para idosos em todos os municípios brasileiros, argumentando que esses equipamentos combatem o abandono (forma de violência) e apoiam famílias que não têm condições de cuidar do idoso 24 horas.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 55587,
+            "end": 55756,
+            "text": "Para além de melhorar as ILPIs, nós precisamos fortalecer a política de Centros-dia, as unidades de Centros-dia, que precisam existir em todos os Municípios brasileiros.",
+            "score": 0.2966
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere que o Ministério da Saúde inclua no portfólio de emendas parlamentares a construção de Centros-dia, com um projeto-padrão de estrutura mínima, para permitir que deputados destinem verbas para essa finalidade.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 56279,
+            "end": 56496,
+            "text": "Eu queria dar a sugestão de a Secretaria, através do Ministério, colocar no portfólio a possibilidade de os Deputados destinarem verbas, colocarem emendas, para nós podermos fazer uma campanha junto aos Parlamentares.",
+            "score": 0.3042
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a articulação intersetorial entre Assistência Social e Saúde para o financiamento das ILPIs (Instituições de Longa Permanência para Idosos), criticando o \"jogo de empurra\" em que a Saúde impõe exigências de vigilância sanitária sem fornecer recursos para manutenção de serviços de enfermagem.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 54670,
+            "end": 54936,
+            "text": "Nós percebemos que há hoje um jogo de empurra: a Assistência Social assume a tarefa sem condições, e, muitas vezes, a Saúde entra só com a notificação da vigilância sanitária, sem mandar recurso para manter um serviço de enfermagem ou outro serviço na área da saúde.",
+            "score": 0.361
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação da Política Nacional de Cuidados e a PEC que torna o cuidado um direito constitucional, visando atender às necessidades de idosos, pessoas com deficiência e crianças.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 57869,
+            "end": 58206,
+            "text": "Nós temos uma PEC na CCJ tornando o cuidado um direito constitucional, o que é muito importante, mas queremos trabalhar um texto, aprovar a Política Nacional de Cuidados, porque, além da pessoa com deficiência e da criança, nós sabemos que o público idoso está muito envolvido e necessitando de uma política bem organizada e direcionada.",
+            "score": 0.363
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a proliferação de cursos universitários voltados para o envelhecimento ativo e saudável, citando o curso da UnB como exemplo, para preparar idosos para viver plenamente e não apenas para o mercado de trabalho.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 58653,
+            "end": 59041,
+            "text": "Pelo que disseram, lá há o único curso que nós temos no Brasil hoje voltado para a pessoa idosa, não com o foco no mercado de trabalho, não para preparar o idoso para ir trabalhar, mas para preparar esse idoso para viver plenamente, para um envelhecimento saudável, ativo, com conhecimento de uma boa alimentação, das atividades físicas, de como ele pode ter uma qualidade de vida melhor.",
+            "score": 0.359
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a \"oportunidade\" como critério central para políticas de juventude, justificando a defesa da educação profissional e do Estatuto do Aprendiz como alternativas à criminalização precoce.",
+          "passage": {
+            "hearing_id": 93,
+            "turn": 12,
+            "start": 47759,
+            "end": 47848,
+            "text": "Nós sempre temos dito que, mais do que cadeia, a nossa juventude precisa de oportunidade.",
+            "score": 0.171
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da prevenção oncológica no argumento de que o diagnóstico precoce reduz o sofrimento da paciente e o custo para o sistema de saúde.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 5,
+            "start": 15497,
+            "end": 15568,
+            "text": "Ela é um sofrimento para a paciente e um custo para o sistema de saúde.",
+            "score": 0.5958
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a priorização dos Centros-dia sobre as ILPIs pelo princípio de que o ideal é manter o idoso no convívio familiar, evitando a institucionalização que muitas vezes ocorre por comodidade.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 56002,
+            "end": 56203,
+            "text": "Com um local onde o idoso fica durante o dia, para retornar ao convívio familiar à noite, combate-se o abandono, que muitas vezes acontece pela comodidade da possibilidade de institucionalizar o idoso.",
+            "score": 0.3481
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a urgência demográfica (aumento rápido da população idosa) como fundamento para a necessidade de ampliar serviços existentes e não apenas implementar novos.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 53909,
+            "end": 54073,
+            "text": "Para além de implementar os serviços que ainda não temos, nós precisamos ampliar o que nós temos, para conseguir atender a população que nós teremos em pouco tempo.",
+            "score": 0.2604
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal pelo Estado de Goiás, em seu terceiro mandato, tendo iniciado sua trajetória em 2011.",
+          "passage": {
+            "hearing_id": 93,
+            "turn": 6,
+            "start": 20025,
+            "end": 20077,
+            "text": "Eu sou a Deputada Flávia Morais, do Estado de Goiás.",
+            "score": 0.2718
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como coordenadora de bancada em seu estado, responsável pelo trabalho de emendas de bancada.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 54361,
+            "end": 54413,
+            "text": "Nós trabalhamos as emendas de bancada no meu Estado.",
+            "score": 0.5687
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhada com a Deputada Silvia Cristina e o Deputado Weliton Prado na defesa de pacientes com câncer.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 5,
+            "start": 14119,
+            "end": 14589,
+            "text": "Quero louvar a iniciativa da Deputada Silvia Cristina e do nosso Presidente, Deputado Weliton Prado, que têm feito uma atuação brilhante em defesa dos pacientes com câncer do nosso País.Eu fico feliz de poder me somar a esse grupo de Parlamentares e quero, mais uma vez, ressaltar a importância da sociedade civil organizada, através da FEMAMA, da Oncoguia, da ABRALE e de tantas outras entidades que se organizaram justamente para dar uma resposta aos nossos pacientes.",
+            "score": 0.4058
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a atuação conjunta com a representante do CONASEMS em Goiás, Verônica, descrevendo a relação como \"você atuando na ponta e eu no mandato\".",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 5,
+            "start": 14903,
+            "end": 14941,
+            "text": "Você atuando na ponta e eu no mandato.",
+            "score": 0.4846
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio à atuação da Deputada Dorinha na Comissão Especial de educação.",
+          "passage": {
+            "hearing_id": 93,
+            "turn": 12,
+            "start": 47365,
+            "end": 47554,
+            "text": "Vamos com esta Comissão Especial também fortalecer, oportunizar e melhorar as condições para o fortalecimento da educação profissional no ensino médio e da preparação para os nossos jovens.",
+            "score": 0.2068
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados de sua base eleitoral e experiências locais para fundamentar propostas, como a menção a prefeitos de Goiás que procuram sua orientação sobre abrigos para idosos.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 56753,
+            "end": 56860,
+            "text": "Hoje, muitos Prefeitos ainda me procuram pedindo abrigo:\"Deputada, eu queria fazer um abrigo para o idoso\".",
+            "score": 0.1619
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e narrativas de pacientes (mulheres apavoradas com diagnóstico tardio) para ilustrar a urgência das políticas de saúde.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom colaborativo e propositivo, frequentando expressões como \"contem conosco\", \"estamos à disposição\" e \"juntas\", buscando alianças com a sociedade civil e outros parlamentares.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos propondo ações legislativas e orçamentárias específicas, como a criação de projetos-padrão para emendas e a inclusão de temas em audiências públicas futuras.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita marcos legais (Estatuto do Idoso, PL 6494/19, PL 6461/19) como base para suas propostas, demonstrando conhecimento técnico da legislação em debate.",
+          "passage": {
+            "hearing_id": 155,
+            "turn": 7,
+            "start": 52934,
+            "end": 53126,
+            "text": "Eu quero aqui louvar a iniciativa de realizar esta sessão em homenagem ao aniversário do Estatuto do Idoso, um dos marcos legais mais avançados do mundo em defesa dos direitos da pessoa idosa.",
+            "score": 0.1891
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 93,
+      "split": "train",
+      "article_date": "2022-03-10",
+      "title": "Especialistas sugerem mudanças em projeto sobre ensino superior e formação técnica profissional",
+      "assunto": "Sugestões de mudanças no projeto de lei sobre ensino superior e formação técnica profissional (PL 6494/19)",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 155,
+      "split": "train",
+      "article_date": "2023-10-05",
+      "title": "Nos 20 anos do Estatuto do Idoso, especialistas pedem consolidação de políticas públicas",
+      "assunto": "Consolidação de políticas públicas para idosos no contexto dos 20 anos do Estatuto do Idoso",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 159,
+      "split": "train",
+      "article_date": "2023-10-03",
+      "title": "Falta de recursos dificulta acesso a diagnóstico de câncer de mama no SUS, reclamam especialistas",
+      "assunto": "Falta de recursos dificulta acesso a diagnóstico de câncer de mama no SUS",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-93-3-0",
+      "hearing_id": 93,
+      "n": 5,
+      "article_name": "Flávia Morais",
+      "proposition": "Ressaltou que as escolas técnicas são a porta de entrada do jovem brasileiro no mercado de trabalho.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu acho que é isto que nós vamos trabalhando aqui: abrir para que possamos ter uma abrangência maior, um acesso maior para os nossos jovens. Quanto mais nós conseguirmos aperfeiçoar nossa legislação, garantir recursos e organizar o nosso sistema da educação técnica profissional, com certeza vamos mudar a realidade da nossa juventude.",
+        "turn": 22,
+        "start": 58902,
+        "end": 59237
+      },
+      "verifier": {
+        "probability": 0.4915210920161714,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-93-3-1",
+      "hearing_id": 93,
+      "n": 6,
+      "article_name": "Flávia Morais",
+      "proposition": "Salientou a importância do projeto que autoriza as instituições de ensino superior a aproveitar os créditos obtidos pelo aluno na educação profissional técnica.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mas estamos aqui trabalhando, muito otimistas em relação não só a esse projeto, mas também ao estatuto da aprendizagem. São dois projetos importantes, que tratam justamente da oportunização do ensino profissional para a nossa juventude.",
+        "turn": 6,
+        "start": 20370,
+        "end": 20606
+      },
+      "verifier": {
+        "probability": 0.18667673801154727,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

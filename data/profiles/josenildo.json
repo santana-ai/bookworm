@@ -1,0 +1,334 @@
+{
+  "actor": {
+    "slug": "josenildo",
+    "name": "Josenildo",
+    "display_name": "Josenildo",
+    "role": "Deputado (PDT-AP) e presidente da Comissão de Indústria, Comércio e Serviços",
+    "article_names": [
+      "Josenildo"
+    ],
+    "party_uf": [
+      "Bloco/PDT - AP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:22:37+00:00",
+    "n_statements": 18,
+    "n_hearings": 3,
+    "hearing_ids": [
+      2,
+      145,
+      199
+    ],
+    "input_tokens": 2655,
+    "output_tokens": 662,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a priorização da atenção primária na saúde, afirmando que ela é fundamental para garantir o acesso, e questiona o Ministério da Saúde sobre a forma efetiva de implementação dessas ações.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 236,
+            "start": 141977,
+            "end": 142084,
+            "text": "Eu gostaria de saber o seguinte, Ministra: a atenção primária é fundamental para garantir o acesso à saúde.",
+            "score": 0.4757
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a Ministra da Saúde sobre o status da implementação do pagamento do piso da enfermagem.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 240,
+            "start": 144637,
+            "end": 144709,
+            "text": "pode dizer como está a implementação do pagamento do piso da enfermagem?",
+            "score": 0.5683
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a empresa Equatorial por prestar serviço de \"péssima qualidade\" e \"muito ruim\" no Estado do Amapá.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 40,
+            "start": 81686,
+            "end": 81827,
+            "text": "O Estado é penalizado duas vezes, porque tem a tarifa mais cara e tem um serviço prestado pela empresa Equatorial que é de péssima qualidade.",
+            "score": 0.5432
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que o povo do Amapá é \"penalizado duas vezes\" por pagar a tarifa de energia mais cara do País e receber um serviço de má qualidade.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 40,
+            "start": 81868,
+            "end": 82016,
+            "text": "Então o povo está sendo penalizado duas vezes, porque paga uma tarifa muito cara e não tem um serviço prestado de qualidade, como deveria ser feito.",
+            "score": 0.4495
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Ministério de Minas e Energia (representado pelo Ministro presente) sobre a existência ou planejamento de estudos para baixar a tarifa de energia e torná-la mais justa para o Amapá.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 40,
+            "start": 82044,
+            "end": 82378,
+            "text": "é justamente nesse sentido.Gostaria de saber se no Ministério já existe ou se planeja fazer algum estudo para baixar essa tarifa de energia e torná-la mais justa para o povo do Estado do Amapá, que vem sendo penalizado, como eu falei, duas vezes, pela tarifa muito alta e pelo serviço de má qualidade prestado pela empresa Equatorial.",
+            "score": 0.2758
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o direito do Ministro da Justiça a falar na audiência, criticando parlamentares que tentam impedir sua fala, e cobra a manutenção da ordem e do respeito na Comissão.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 39,
+            "start": 29682,
+            "end": 29754,
+            "text": "Presidente, vamos tentar garantir o respeito e a ordem aqui na Comissão.",
+            "score": 0.2446
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede desculpas à Ministra da Saúde em nome do Parlamento brasileiro pela agressão sofrida do Deputado Nikolas Ferreira, classificando o ocorrido como possível assédio moral.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 236,
+            "start": 141766,
+            "end": 141849,
+            "text": "Eu quero pedir desculpa, em nome do Parlamento brasileiro, pela agressão que V.Exa.",
+            "score": 0.3272
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio da justiça tarifária e da qualidade do serviço público como fundamento para criticar a situação energética no Amapá, argumentando que a combinação de tarifa alta e serviço ruim é uma dupla penalização injusta ao cidadão.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 40,
+            "start": 81828,
+            "end": 81867,
+            "text": "A empresa presta um serviço muito ruim.",
+            "score": 0.1981
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a democracia e a imparcialidade política como critérios de avaliação da gestão ministerial, elogiando a Ministra da Saúde por receber parlamentares \"independente de cor partidária, de ideologia\", o que considera uma novidade positiva no Ministério.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 236,
+            "start": 141255,
+            "end": 141542,
+            "text": "Quero agradecê-la também, em nome de todos os Deputados e Deputadas desta Casa, por estar agindo de forma muito democrática no Ministério, recebendo todos os Parlamentares, independente de cor partidária, de ideologia.Essa é uma coisa nova no Ministério, que não acontecia anteriormente.",
+            "score": 0.2543
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se no respeito institucional e na ordem como valores necessários para o funcionamento das comissões, opondo-se a atitudes que impeçam convidados de prestar esclarecimentos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do povo do Estado do Amapá.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 40,
+            "start": 81546,
+            "end": 81685,
+            "text": "Eu represento, aqui nesta Casa, o povo do Estado do Amapá, que, de fato, tem a tarifa de energia mais cara do País, o que não se justifica.",
+            "score": 0.268
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar falando pela Liderança do Governo (inicialmente menciona Vice-Liderança, mas corrige para Liderança).",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 36,
+            "start": 80893,
+            "end": 80953,
+            "text": "Eu estou falando pela Vice-Liderança do Governo, Presidente.",
+            "score": 0.602
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se em defesa da Ministra Nísia, reconhecendo sua trajetória e competência, e elogia sua atuação democrática no Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 236,
+            "start": 141858,
+            "end": 141975,
+            "text": "Eu, que conheço a trajetória e a competência de V.Exa., parabenizo-a por sua atuação à frente do Ministério da Saúde.",
+            "score": 0.412
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas diretas aos ministros para obter informações específicas sobre políticas públicas (atenção primária, piso da enfermagem, tarifas de energia).",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 240,
+            "start": 144637,
+            "end": 144709,
+            "text": "pode dizer como está a implementação do pagamento do piso da enfermagem?",
+            "score": 0.1804
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a repetição de argumentos para reforçar a crítica (repete que o povo é \"penalizado duas vezes\" e que o serviço é \"de péssima qualidade\").",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 40,
+            "start": 81686,
+            "end": 81827,
+            "text": "O Estado é penalizado duas vezes, porque tem a tarifa mais cara e tem um serviço prestado pela empresa Equatorial que é de péssima qualidade.",
+            "score": 0.4029
+          },
+          "udv": null
+        },
+        {
+          "text": "Atua na mediação de conflitos na sala, pedindo ao Presidente que mantenha a ordem e o respeito, e defendendo o direito de fala dos convidados.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 39,
+            "start": 29682,
+            "end": 29754,
+            "text": "Presidente, vamos tentar garantir o respeito e a ordem aqui na Comissão.",
+            "score": 0.2066
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem de deferência e cortesia protocolar (\"V.Exa.\", \"Presidente\", \"por gentileza\") mesmo ao fazer cobranças ou críticas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita fatos específicos da base eleitoral (tarifa mais cara do país no Amapá) para sustentar suas demandas.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 40,
+            "start": 81546,
+            "end": 81685,
+            "text": "Eu represento, aqui nesta Casa, o povo do Estado do Amapá, que, de fato, tem a tarifa de energia mais cara do País, o que não se justifica.",
+            "score": 0.2333
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 87,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Relatório da regulamentação do trabalho de motoristas de aplicativo deve ser apresentado antes do recesso",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 15,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-87-7-0",
+      "hearing_id": 87,
+      "n": 15,
+      "article_name": "Josenildo",
+      "proposition": "Acredita que a troca de ideias durante a audiência permitirá aprimorar pontos do projeto do governo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, todo mundo vai ter a oportunidade de falar, de colocar os pontos que não são convergentes, os pontos que são divergentes, para que possamos chegar ao plenário com esse projeto de lei amadurecido. Com certeza, esse vai ser um projeto que será votado, levando em consideração a opinião dos motoristas, das plataformas, do Governo, de todos os atores que estão envolvidos.",
+        "turn": 52,
+        "start": 106994,
+        "end": 107370
+      },
+      "verifier": {
+        "probability": 0.8036651823811093,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

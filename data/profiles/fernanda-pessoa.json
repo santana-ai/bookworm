@@ -1,0 +1,226 @@
+{
+  "actor": {
+    "slug": "fernanda-pessoa",
+    "name": "FERNANDA PESSOA",
+    "display_name": "FERNANDA PESSOA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/UNIÃO - CE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:34:15+00:00",
+    "n_statements": 6,
+    "n_hearings": 2,
+    "hearing_ids": [
+      185,
+      199
+    ],
+    "input_tokens": 2266,
+    "output_tokens": 541,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 12,
+    "with_udv": 0,
+    "passage_only": 11,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a incorporação da Atrofia Muscular Espinhal (AME) ao Programa Nacional de Triagem Neonatal (PNTN), argumentando que a detecção precoce impacta positivamente a qualidade de vida do paciente e da família.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 20475,
+            "end": 20661,
+            "text": "Então, nós temos que lutar por isso, porque, quanto mais cedo for detectado qualquer tipo de doença, nós sabemos o quanto isso impacta na qualidade de vida daquele paciente e da família.",
+            "score": 0.216
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a implementação da Lei nº 14.154, de 2021, que atualmente situa a triagem para AME na quarta etapa, defendendo a aceleração desse processo.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 20360,
+            "end": 20473,
+            "text": "Nós estamos na luta pela implementação da Lei nº 14.154, de 2021, que coloca a AME, até momento, na quarta etapa.",
+            "score": 0.4862
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiar a realização do teste do pezinho nos hospitais do SUS, especialmente para que a criança saia da unidade já com o exame realizado, evitando que mães não retornem e percam o prazo de detecção das doenças.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 19534,
+            "end": 19698,
+            "text": "Carlos Gouvêa falou da importância de nós levarmos isso para os hospitais, principalmente para os hospitais do SUS, para que a criança já saia dali com o seu teste.",
+            "score": 0.3193
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugerir que o ideal seria que o teste fosse realizado em até 48 horas, citando que o prazo atual permite até 3 dias.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 19699,
+            "end": 19986,
+            "text": "Nós sabemos que, em alguns Municípios, ele não é feito, e isso faz com que cada vez mais as mães não voltem ao hospital, passando o prazo para se poder detectar realmente as doenças com a eficácia daquele teste, porque são até 3 dias, e seria até bom até que fosse realizado em 48 horas.",
+            "score": 0.3602
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento de que a detecção precoce de doenças, especialmente raras, é fundamental para a qualidade de vida, justificando a urgência na implementação da Lei nº 14.154/21 e na incorporação da AME ao PNTN.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 20360,
+            "end": 20473,
+            "text": "Nós estamos na luta pela implementação da Lei nº 14.154, de 2021, que coloca a AME, até momento, na quarta etapa.",
+            "score": 0.2359
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a realidade socioeconômica do Nordeste como fator de vulnerabilidade, afirmando que a situação é \"mais difícil ainda\" para famílias com pacientes de doenças raras na região, o que sustenta sua defesa pela ampliação da cobertura do exame.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal representando o Estado do Ceará.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 148,
+            "start": 83449,
+            "end": 83481,
+            "text": "Eu represento o Estado do Ceará.",
+            "score": 0.4532
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido a deputada mais votada do seu partido, o União Brasil.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 148,
+            "start": 83482,
+            "end": 83551,
+            "text": "Fui a Deputada mais votada do nosso partido, o União Brasil.(Palmas.)",
+            "score": 0.6497
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara estar alinhada com a Deputada Iza na luta pela implementação da Lei nº 14.154/21, utilizando a expressão \"nós estamos juntos nesta luta\".",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 20862,
+            "end": 20901,
+            "text": "Nós estamos juntos nesta luta.(Palmas.)",
+            "score": 0.5145
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Inicia a fala parabenizando a Deputada Iza pela iniciativa da audiência e o Dr. Carlos Gouvêa pela apresentação do material em cordel, sugerindo que esse formato pode ser usado no Nordeste para incentivar mães e hospitais.",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 20071,
+            "end": 20159,
+            "text": "Isso pode ser levado para o Nordeste, a fim de incentivar as nossas mães e os hospitais.",
+            "score": 0.3064
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia seus argumentos em dados operacionais do sistema de saúde, como o prazo de 3 dias para o teste e a sugestão de redução para 48 horas, além da referência à legislação específica (Lei nº 14.154/21).",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 19699,
+            "end": 19986,
+            "text": "Nós sabemos que, em alguns Municípios, ele não é feito, e isso faz com que cada vez mais as mães não voltem ao hospital, passando o prazo para se poder detectar realmente as doenças com a eficácia daquele teste, porque são até 3 dias, e seria até bom até que fosse realizado em 48 horas.",
+            "score": 0.1597
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza linguagem de proximidade com a base eleitoral ao mencionar a dificuldade específica do Nordeste e a importância de incentivar as \"nossas mães\".",
+          "passage": {
+            "hearing_id": 185,
+            "turn": 6,
+            "start": 20071,
+            "end": 20159,
+            "text": "Isso pode ser levado para o Nordeste, a fim de incentivar as nossas mães e os hospitais.",
+            "score": 0.3076
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 185,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Cobertura do teste do pezinho é muito desigual no estados brasileiros, aponta levantamento",
+      "assunto": "Desigualdade na cobertura do teste do pezinho nos estados brasileiros e desafios para a ampliação do exame conforme a Lei 14.154/21",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

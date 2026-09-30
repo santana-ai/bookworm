@@ -1,0 +1,318 @@
+{
+  "actor": {
+    "slug": "bibo-nunes",
+    "name": "Bibo Nunes",
+    "display_name": "Bibo Nunes",
+    "role": "Deputado (PL-RS)",
+    "article_names": [
+      "Bibo Nunes"
+    ],
+    "party_uf": [
+      "PL - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:14:44+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      38,
+      153
+    ],
+    "input_tokens": 2623,
+    "output_tokens": 775,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a tributação especial para a cadeia do vinho no Brasil, argumentando que a vitivinicultura, com berço principal no Rio Grande do Sul, e o enoturismo estão em crescimento e conquistando espaço no mundo.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 3,
+            "start": 7628,
+            "end": 7794,
+            "text": "Também cumprimento o Deputado Carlos Gomes, que possibilitou debatermos aqui a importância da vitivinicultura, setor que tem seu berço principal no Rio Grande do Sul.",
+            "score": 0.3549
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a burocracia existente para a liberação de auxílios às cidades gaúchas atingidas por enchentes, afirmando que \"quem quer acha um jeito, quem não quer acha uma desculpa\" e que os governos federal e estadual podem resolver o problema se houver vontade.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 157347,
+            "end": 157404,
+            "text": "Quem quer acha um jeito, quem não quer acha uma desculpa.",
+            "score": 0.4502
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a destinação de 100 milhões de reais pela bancada gaúcha para o auxílio às vítimas das enchentes, apontando que há entraves burocráticos mesmo após reunião com o Governador.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 155906,
+            "end": 155969,
+            "text": "Tivemos reunião com o Governador, mas há entraves burocráticos.",
+            "score": 0.4399
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta a Proposta de Emenda à Constituição nº 44, de 2023, que garante a todo parlamentar o direito a 5% das suas emendas (cerca de 2 milhões de reais) com destinação imediata em caso de tragédia, visando disponibilizar os recursos a partir de 1º de janeiro.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 156521,
+            "end": 156668,
+            "text": "Ela diz o seguinte:\"Todo Parlamentar terá direito a 5% das suas emendas— cerca de 2 milhões de reais— com destinação imediata em caso de tragédia\".",
+            "score": 0.5362
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a união e a resiliência dos envolvidos na crise, afirmando que \"tragédia não tem partido\" e que é necessário esquecer as diferenças entre os governos de Lula e Bolsonaro para vencer a situação.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 156826,
+            "end": 156895,
+            "text": "É disto que nós precisamos: esquecer se é do Lula, se é do Bolsonaro.",
+            "score": 0.3225
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a premissa de que a eficiência na gestão de crises depende da vontade política e não de obstáculos técnicos, justificando a crítica à burocracia e a defesa da PEC nº 44/23 como solução imediata.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 157405,
+            "end": 157462,
+            "text": "Essa PEC nº 44/23 teve apoio de todos os partidos, todos!",
+            "score": 0.2163
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de adaptação à realidade como fundamento para a ação política e social, citando a frase atribuída a Charles Darwin (\"Quem vence é o que se adapta\") para justificar a postura de luta e garra diante das tragédias.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 157213,
+            "end": 157242,
+            "text": "Essa frase de Charles Darwin.",
+            "score": 0.3547
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa do setor vitivinícola no potencial econômico e turístico do enoturismo, utilizando o crescimento do vinho espumante gaúcho no mercado mundial como argumento de valorização do setor.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 3,
+            "start": 7795,
+            "end": 8002,
+            "text": "Não menosprezando os demais Estados, mas o vinho espumante gaúcho, a cada dia, está conquistando mais espaço no mundo, o que é muito bom para todos nós, porque o turismo do vinho, do espumante é muito forte.",
+            "score": 0.2218
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da bancada gaúcha, que busca destinar recursos para o estado.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 155853,
+            "end": 155905,
+            "text": "A bancada gaúcha quer destinar 100 milhões de reais.",
+            "score": 0.3923
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como autor da Proposta de Emenda à Constituição nº 44, de 2023.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 156350,
+            "end": 156520,
+            "text": "Prefeitos que foram atingidos por essa tragédia, eu apresentei a Proposta de Emenda à Constituição nº 44, de 2023, que, em apenas um dia e meio, conseguiu as assinaturas.",
+            "score": 0.4174
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece o apoio de todos os partidos à PEC nº 44/23.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 157405,
+            "end": 157462,
+            "text": "Essa PEC nº 44/23 teve apoio de todos os partidos, todos!",
+            "score": 0.7754
+          },
+          "udv": null
+        },
+        {
+          "text": "Cumprimenta e elogia o Ministro Waldez Góes, o Ministro Paulo Pimenta, o Coronel Boeira (representante do Governo do Estado) e o Deputado Pompeo de Mattos, citando-os como aliados na luta pela população gaúcha.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 155396,
+            "end": 155694,
+            "text": "Minha saudação especial aos Ministros Waldez Góes e Paulo Pimenta, que estão demonstrando uma luta incansável ao ajudar a população gaúcha — isso temos que reconhecer —; nosso representante do Governo do Estado, Coronel Boeira; meu colega Deputado Pompeo de Mattos, que também é um dos proponentes.",
+            "score": 0.5949
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Recorre a frases de efeito e repetições para reforçar a urgência e a simplicidade das soluções propostas, como \"Isso é ação, isso é solução\" e a repetição do ditado \"quem quer acha um jeito, quem não quer acha uma desculpa\".",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 157347,
+            "end": 157404,
+            "text": "Quem quer acha um jeito, quem não quer acha uma desculpa.",
+            "score": 0.4987
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza citações de figuras públicas (Charles Darwin) e referências locais (time de futebol, \"cidadão que todos conhecem\") para conectar o argumento técnico ou político a valores de resiliência e identidade regional.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 89,
+            "start": 157213,
+            "end": 157242,
+            "text": "Essa frase de Charles Darwin.",
+            "score": 0.2195
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta aos governos e parlamentares, misturado com elogios a aliados que demonstram \"luta incansável\", buscando mobilizar a audiência para a ação imediata.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Estrutura o discurso em torno da oposição entre a inércia burocrática e a ação política direta, apresentando a PEC como a ferramenta concreta para superar a lentidão dos processos legislativos tradicionais.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 38,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores defendem tributação especial para a cadeia do vinho",
+      "assunto": "Defesa de tributação especial para a cadeia do vinho no Brasil",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 108,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Representantes do setor de turismo pedem manutenção de incentivos",
+      "assunto": "Manutenção do Programa Emergencial de Retomada do Setor de Eventos (Perse)",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-108-2-0",
+      "hearing_id": 108,
+      "n": 7,
+      "article_name": "Bibo Nunes",
+      "proposition": "O fim do Perse sinaliza falta de previsibilidade e compromete investimentos no País: \"O fim desse programa representará uma retirada de algo entre R$ 120 bilhões e R$ 244 bilhões da economia.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "No entanto, o fim desse programa representará uma retirada entre 120 bilhões e 244 bilhões de reais na economia.",
+        "turn": 1,
+        "start": 6324,
+        "end": 6436
+      },
+      "verifier": {
+        "probability": 0.863437311870073,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-108-2-1",
+      "hearing_id": 108,
+      "n": 8,
+      "article_name": "Bibo Nunes",
+      "proposition": "No fim do ano passado, o Governo derrubou o veto imposto pelo Executivo ao projeto de lei que criou o Perse a fim de manter as alíquotas zero de quatro tributos federais por 60 meses: \"Aprovamos no ano passado. Como é que vamos mudar agora?\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Aprovamos essa lei no ano passado. Como vamos mudar isso agora?",
+        "turn": 1,
+        "start": 6546,
+        "end": 6609
+      },
+      "verifier": {
+        "probability": 0.16699117306265296,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,624 @@
+{
+  "actor": {
+    "slug": "rodrigo-agostinho",
+    "name": "Rodrigo Agostinho",
+    "display_name": "Rodrigo Agostinho",
+    "role": "Presidente do Ibama",
+    "article_names": [
+      "Rodrigo Agostinho"
+    ],
+    "party_uf": [
+      "PSB - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:31:29+00:00",
+    "n_statements": 13,
+    "n_hearings": 3,
+    "hearing_ids": [
+      44,
+      70,
+      183
+    ],
+    "input_tokens": 13530,
+    "output_tokens": 1080,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 3,
+    "passage_only": 20,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o licenciamento ambiental brasileiro deve incluir a análise de emissões de gases de efeito estufa, criticando a ausência desse item nos Termos de Referência atuais, que focam apenas em SOx, NOx e ozônio.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 20,
+            "start": 62899,
+            "end": 63106,
+            "text": "Nenhum licenciamento no Brasil solicita no seu Termo de Referência informação sobre emissões de gases de efeito estufa, apenas sobre outros gases, como SOx, NOx, ozônio, mas não sobre gases de efeito estufa.",
+            "score": 0.5413
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o crescimento descontrolado da instalação de termelétricas no Brasil, apontando o aumento da participação térmica na matriz de 13% para 21% e a dificuldade de desativação rápida dessas usinas.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 20,
+            "start": 59936,
+            "end": 60193,
+            "text": "Temos um desafio maior do que debater exclusivamente o caso específico, acintoso dessas térmicas na Baía de Sepetiba, que é o crescimento descontrolado da instalação de térmicas no Brasil, outra questão de planejamento energético na qual precisamos avançar.",
+            "score": 0.2174
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o descumprimento de ordem judicial é crime e exige a abertura de inquérito policial para apurar a instalação de termelétricas flutuantes na Baía de Sepetiba, RJ, sem estudos ambientais.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 20,
+            "start": 60652,
+            "end": 60767,
+            "text": "É preciso abrir, se já não o foi, o devido inquérito policial para se apurar esse descumprimento de ordem judicial.",
+            "score": 0.4548
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a competência do Governo Federal para atuar em licenciamentos que, segundo a Lei Complementar nº 140, de 2011, são de responsabilidade federal, contrariando a posição do Governo Federal de atribuir a competência exclusivamente ao Estado do Rio de Janeiro.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 20,
+            "start": 61963,
+            "end": 62099,
+            "text": "Existem questões em relação a essa matéria que, de acordo com a Lei Complementar nº 140, de 2011, são da competência do Governo Federal.",
+            "score": 0.4852
+          },
+          "udv": {
+            "id": "udv-70-4-0",
+            "rule": "same_sentence",
+            "score": 0.3079
+          }
+        },
+        {
+          "text": "Propõe a realização de diligências locais e oitivas de autoridades para apurar o caso das termelétricas na Baía de Sepetiba, além de possíveis denúncias internacionais por descumprimento da Convenção nº 169 da OIT.",
+          "passage": {
+            "hearing_id": 70,
+            "turn": 20,
+            "start": 61688,
+            "end": 61883,
+            "text": "Vamos dialogar com os Presidentes das duas Comissões para que possamos trabalhar na perspectiva de realização de diligências nos locais e de oitiva de autoridades que não foram ouvidas até agora.",
+            "score": 0.2403
+          },
+          "udv": {
+            "id": "udv-70-4-1",
+            "rule": "same_sentence",
+            "score": 0.1709
+          }
+        },
+        {
+          "text": "Defende que o IBAMA deve basear suas decisões em viabilidade ambiental demonstrada tecnicamente, rejeitando a ideia de que o órgão faz política energética ou \"caneta\" licenças sem amparo técnico.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 29043,
+            "end": 29148,
+            "text": "Por ser uma instituição de Estado, o IBAMA deve ter suas decisões amparadas sob o ponto de vista técnico.",
+            "score": 0.2427
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a premissa da PETROBRAS de que não há risco de óleo na costa na região da Foz do Amazonas, argumentando que é necessário trabalhar com o pior cenário devido a tempestades tropicais e correntes marinhas.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 32598,
+            "end": 32648,
+            "text": "Nós temos sempre que trabalhar com o pior cenário.",
+            "score": 0.3543
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a necessidade de instrumentos de planejamento, como a Avaliação Ambiental de Área Sedimentar, para reduzir custos e melhorar a segurança na exploração de petróleo em novas fronteiras.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 27129,
+            "end": 27335,
+            "text": "Esta portaria estabelece o seguinte:\"Via de regra, em áreas novas, faça-se o estudo chamado avaliação ambiental estratégica, que, no mundo do petróleo, tem o nome de Avaliação Ambiental de Área Sedimentar\".",
+            "score": 0.2995
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o IBAMA não persegue a PETROBRAS, citando a emissão de 173 licenças para a empresa na última década e a análise de 110 processos em andamento fora da Margem Equatorial.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 47,
+            "start": 84314,
+            "end": 84413,
+            "text": "Mas, só para se ter uma ideia, nós emitimos ao todo 173 licenças para a PETROBRAS na última década.",
+            "score": 0.4274
+          },
+          "udv": {
+            "id": "udv-183-1-2",
+            "rule": "similar_text",
+            "score": 0.3681
+          }
+        },
+        {
+          "text": "Defende a aprovação de regras para eólicas offshore, citando o Projeto de Lei nº 576, de 2021, e a necessidade de regulação para evitar sobreposição de empreendimentos.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 115,
+            "start": 185086,
+            "end": 185184,
+            "text": "O Projeto de Lei nº 576, de 2021, do Senador Jean-Paul Prates, resolve boa parte desses problemas.",
+            "score": 0.2577
+          },
+          "udv": null
+        },
+        {
+          "text": "Destaca a importância do bioma Caatinga, citando dados de desmatamento e a atuação do IBAMA no combate à extração ilegal de madeira para carvoarias.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 74,
+            "start": 138991,
+            "end": 139044,
+            "text": "A extração ilegal de madeira financia o desmatamento.",
+            "score": 0.4436
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a viabilidade ambiental demonstrada como critério central para decisões de licenciamento, justificando a negação de licenças quando há inconsistências técnicas ou lacunas de conhecimento.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 30178,
+            "end": 30272,
+            "text": "Foram colocadas, muitas vezes, lacunas de conhecimento, apesar do estudo de impacto ambiental.",
+            "score": 0.2258
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a soberania nacional e a legislação específica de cada país para justificar diferenças em padrões de licenciamento entre o Brasil e outros países, como a Guiana.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 63,
+            "start": 178404,
+            "end": 178522,
+            "text": "Porque cada país tem a sua legislação, cada país tem suas regras, cada país exerce a sua soberania de forma diferente.",
+            "score": 0.3572
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza o planejamento prévio e o zoneamento como ferramentas essenciais para a segurança ambiental e a redução de custos para empreendedores, justificando a defesa de instrumentos como a Avaliação Ambiental de Área Sedimentar.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 35401,
+            "end": 35487,
+            "text": "Apenas para encerrar, por que a importância da avaliação ambiental em área sedimentar?",
+            "score": 0.2739
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a proteção de ecossistemas sensíveis, como manguezais e áreas com alta biodiversidade, exige rigor técnico e análise de impactos cumulativos, justificando a cautela em novas fronteiras de exploração.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 27745,
+            "end": 27848,
+            "text": "Passados 11 anos, já era para nós termos estes estudos de todas as áreas novas passíveis de exploração.",
+            "score": 0.1643
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente do IBAMA, órgão executor do Sistema Nacional do Meio Ambiente, e afirma ter especialização em climatologia.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 63,
+            "start": 180171,
+            "end": 180316,
+            "text": "Nós temos a missão de resguardar o cumprimento da legislação ambiental brasileira, de ser um órgão executor do Sistema Nacional do Meio Ambiente.",
+            "score": 0.4913
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Vereador e Prefeito por dois mandatos, o que lhe confere compreensão sobre a relevância econômica e social de projetos de infraestrutura.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 63,
+            "start": 179791,
+            "end": 179960,
+            "text": "Eu já fui Vereador por dois mandatos e já fui Prefeito por dois mandatos, portanto, eu entendo, do ponto de vista econômico e social, a relevância de projetos como esse.",
+            "score": 0.528
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara admiração e respeito pela PETROBRAS, classificando-a como empresa de orgulho nacional e detentora de tecnologia própria.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 34765,
+            "end": 35064,
+            "text": "Espero que continuemos tendo um bom diálogo e um bom relacionamento com a PETROBRAS, porque, como eu disse, é uma empresa pela qual, particularmente, tenho profunda admiração e respeito, por ser uma empresa nossa, por ser uma empresa que desenvolveu tecnologia própria, inclusive em águas profundas.",
+            "score": 0.3626
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter carinho especial pelo Senador Jean Paul Prates e pelo Deputado Pedro Campos, citando relações pessoais e profissionais.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 49,
+            "start": 85993,
+            "end": 86068,
+            "text": "Pelo contrário, eu tenho um carinho especial pelo Senador Jean Paul Prates.",
+            "score": 0.5471
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos e estatísticos para fundamentar suas posições, como números de licenças emitidas, processos em andamento, áreas de desmatamento e distâncias geográficas.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 28278,
+            "end": 28347,
+            "text": "Neste ano, entre licenças e autorizações, foram emitidas 23 licenças.",
+            "score": 0.1824
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita leis, portarias e resoluções específicas (Lei nº 6.938, Lei Complementar nº 140, Portaria Interministerial MME-MMA nº 198, Resolução CONAMA nº 237) para embasar argumentos técnicos e legais.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 26939,
+            "end": 27128,
+            "text": "Isso é consubstanciado numa portaria interministerial do Ministério de Minas e Energia e do Ministério do Meio Ambiente, a Portaria Interministerial MME — MMA nº 198, de 5 de abril de 2012.",
+            "score": 0.3321
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom conciliatório e técnico, evitando confrontos diretos com a PETROBRAS e enfatizando a relação de diálogo e a capacidade técnica da empresa.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 31137,
+            "end": 31195,
+            "text": "Não temos dúvidas sobre a capacidade técnica da PETROBRAS.",
+            "score": 0.2579
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura suas falas com premissas claras e respostas objetivas a questionamentos, demonstrando domínio dos processos internos do IBAMA e dos detalhes técnicos dos casos em debate.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos concretos e casos passados (como o acidente no Golfo do México e o caso do FZA-4) para ilustrar riscos e a necessidade de rigor no licenciamento.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 8,
+            "start": 23471,
+            "end": 23589,
+            "text": "Nós tivemos uma fase de exploração de petróleo depois de grandes acidentes, notadamente o acidente no Golfo do México.",
+            "score": 0.2449
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 44,
+      "split": "train",
+      "article_date": "2023-05-31",
+      "title": "Ibama vai examinar novo pedido da Petrobras para prospectar petróleo perto da foz do Rio Amazonas",
+      "assunto": "Exploração de petróleo na Margem Equatorial, próxima à foz do Rio Amazonas",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 70,
+      "split": "train",
+      "article_date": "2022-08-03",
+      "title": "Deputados e ambientalistas criticam instalação de termelétricas no RJ sem estudos ambientais",
+      "assunto": "Críticas à instalação de termelétricas flutuantes na Baía de Sepetiba, RJ, sem estudos ambientais",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 6
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-44-0-0",
+      "hearing_id": 44,
+      "n": 1,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "A Petrobras é o empreendedor brasileiro com maior número de licenças ambientais e já foi autorizada a exploração de petróleo em outras áreas da Margem Equatorial.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vamos ao caso específico. Neste caso específico, na região da Margem Equatorial — a Margem Equatorial vai do Amapá ao Rio Grande do Norte, é uma região grande, na Linha do Equador —, nós tivemos quase cem poços de petróleo perfurados, quase todos pela PETROBRAS, dois com licenciamento ambiental.",
+        "turn": 8,
+        "start": 23706,
+        "end": 24002
+      },
+      "verifier": {
+        "probability": 0.2295127049477657,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-44-0-1",
+      "hearing_id": 44,
+      "n": 2,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "Enumerou motivos pelos quais a equipe técnica negou o pedido da Petrobras: o centro logístico para lidar com emergências ficaria em Belém, a 800 km dos testes; a região é pouco estudada; e o local fica próximo à fronteira com a Guiana.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Dificilmente o IBAMA autoriza, por exemplo, um simulado de acidente, como foi o caso da avaliação pré-operacional, que o IBAMA não autorizou. Isso ocorreu porque existe uma premissa que tem sido adotada pela PETROBRAS, qual seja, a de dizer que não existe risco de toque do óleo na costa.",
+        "turn": 8,
+        "start": 32028,
+        "end": 32316
+      },
+      "verifier": {
+        "probability": 0.11974944331924818,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-44-0-2",
+      "hearing_id": 44,
+      "n": 3,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "\"Nós temos uma área sensível, uma área que tem pesca, com grande biodiversidade, com três unidades de conservação, com terras indígenas. Então, teremos que ser rigorosos.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Nós temos uma área sensível, uma área que tem pesca, uma área com grande biodiversidade, uma área com três unidades de conservação, uma área com terras indígenas. Diante disso, nós teremos que ser mais rigorosos.",
+        "turn": 8,
+        "start": 25268,
+        "end": 25480
+      },
+      "verifier": {
+        "probability": 0.9951151067276827,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-70-4-0",
+      "hearing_id": 70,
+      "n": 8,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "Criticou o 'tempo recorde' com que o Inea concedeu as licenças para o empreendimento.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "O INEA tem se mostrado bastante omisso em todo esse processo, desde o início. Existem questões em relação a essa matéria que, de acordo com a Lei Complementar nº 140, de 2011, são da competência do Governo Federal.",
+        "turn": 20,
+        "start": 61885,
+        "end": 62099
+      },
+      "verifier": {
+        "probability": 0.09473730791151916,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-70-4-1",
+      "hearing_id": 70,
+      "n": 9,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "Pretende comunicar os fatos aos respectivos presidentes das comissões, sugerindo visitas ao local e audiências com autoridades ainda não ouvidas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vamos dialogar com os Presidentes das duas Comissões para que possamos trabalhar na perspectiva de realização de diligências nos locais e de oitiva de autoridades que não foram ouvidas até agora. O INEA tem se mostrado bastante omisso em todo esse processo, desde o início.",
+        "turn": 20,
+        "start": 61688,
+        "end": 61962
+      },
+      "verifier": {
+        "probability": 0.9886277371078316,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-70-4-2",
+      "hearing_id": 70,
+      "n": 10,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "O Inea está bastante ausente até agora.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O INEA tem se mostrado bastante omisso em todo esse processo, desde o início. Existem questões em relação a essa matéria que, de acordo com a Lei Complementar nº 140, de 2011, são da competência do Governo Federal.",
+        "turn": 20,
+        "start": 61885,
+        "end": 62099
+      },
+      "verifier": {
+        "probability": 0.8692019810703633,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-1-0",
+      "hearing_id": 183,
+      "n": 4,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "A Petrobras entregou um pedido de reavaliação do veto, que está sob análise técnica.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, havia outras inconsistências. A PETROBRAS encaminhou um pedido de reavaliação, e a equipe está agora debruçada sobre esse pedido.",
+        "turn": 12,
+        "start": 45163,
+        "end": 45300
+      },
+      "verifier": {
+        "probability": 0.5807853470522196,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-1-1",
+      "hearing_id": 183,
+      "n": 5,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "Não existe \"nenhuma perseguição\" à Petrobras: \"Nenhuma empresa brasileira, nenhum empreendedor brasileiro tem mais licenças do que a Petrobras.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Em relação aos questionamentos dos Deputados Welter, do Paraná, e Leo Prates, sobre as licenças da PETROBRAS, nós brincamos no IBAMA, do ponto de vista positivo, que ela é a maior cliente do IBAMA, pois nenhuma empresa brasileira, nenhum empreendedor brasileiro tem mais licenças do IBAMA do que a PETROBRAS.",
+        "turn": 47,
+        "start": 83951,
+        "end": 84259
+      },
+      "verifier": {
+        "probability": 0.37341956736991794,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-1-2",
+      "hearing_id": 183,
+      "n": 6,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "O Ibama analisa hoje 15 processos de licenciamento na Margem Equatorial, onde está a foz do Amazonas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós estamos analisando hoje 110 processos de pedidos de licença da PETROBRAS fora da área da Margem Equatorial. E temos hoje 15 processos de licenciamento na Margem Equatorial.",
+        "turn": 47,
+        "start": 84414,
+        "end": 84590
+      },
+      "verifier": {
+        "probability": 0.3086138062201949,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-1-3",
+      "hearing_id": 183,
+      "n": 7,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "A Petrobras pediu prioridade ao licenciamento de poços na Bacia Potiguar.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E temos hoje 15 processos de licenciamento na Margem Equatorial. A PETROBRAS pediu-nos uma prioridade muito grande para a Bacia Potiguar.",
+        "turn": 47,
+        "start": 84526,
+        "end": 84664
+      },
+      "verifier": {
+        "probability": 0.8224880856944622,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-1-4",
+      "hearing_id": 183,
+      "n": 8,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "A licença prévia para a reestruturação da BR-319 já foi liberada, e o órgão aguarda o DNIT apresentar os estudos para a concessão da licença de instalação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A BR-319 teve a licença prévia, e agora o prazo está correndo para o DNIT para que apresente os estudos, para que possamos analisar a emissão da licença de instalação. Então, hoje, o processo no IBAMA não está correndo porque ele está aguardando o prazo para que o DNIT apresente os estudos.",
+        "turn": 47,
+        "start": 83453,
+        "end": 83744
+      },
+      "verifier": {
+        "probability": 0.5627015049805865,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-1-5",
+      "hearing_id": 183,
+      "n": 9,
+      "article_name": "Rodrigo Agostinho",
+      "proposition": "A obra da Linha de Transmissão Manaus-Boa Vista já tem a licença de instalação desde setembro de 2021 e deve ser retomada em breve.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Esse linhão já tem a licença de instalação desde 2021. Obviamente, essa é uma obra muito importante para o Estado de Roraima, pela necessidade de se suprir a cidade de Boa Vista com energia firme.",
+        "turn": 12,
+        "start": 39155,
+        "end": 39351
+      },
+      "verifier": {
+        "probability": 0.2627670685719816,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

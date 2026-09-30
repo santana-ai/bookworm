@@ -1,0 +1,219 @@
+{
+  "actor": {
+    "slug": "daniel-barbosa",
+    "name": "DANIEL BARBOSA",
+    "display_name": "DANIEL BARBOSA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PP - AL"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:52:51+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      31,
+      168
+    ],
+    "input_tokens": 2424,
+    "output_tokens": 527,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 12,
+    "with_udv": 0,
+    "passage_only": 10,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a retirada do Ministério da Ciência, Tecnologia e Inovação do teto de gastos, argumentando que ciência, tecnologia e inovação constituem investimento com retorno, e não gasto, exemplificando que investimentos feitos há dois anos teriam permitido lidar melhor com a pandemia.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 17,
+            "start": 74055,
+            "end": 74146,
+            "text": "É um exemplo claro de que ciência, tecnologia e inovação é um investimento, não é um gasto.",
+            "score": 0.391
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o aumento do orçamento da CAPES, defendendo a concessão de \"orçamento melhor e um orçamento digno\" para que o órgão consiga realizar efetivamente seu trabalho de formação de professores.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 4,
+            "start": 24929,
+            "end": 25118,
+            "text": "E nós vamos trabalhar para sanar esses problemas.Precisamos dar mais condições à CAPES, trabalhar um orçamento melhor e um orçamento digno para que ela consiga fazer o seu trabalho de fato.",
+            "score": 0.4112
+          },
+          "udv": null
+        },
+        {
+          "text": "Compromete-se a atuar na Comissão de Educação para levar as demandas dos estudantes e representantes da pós-graduação, representando a classe e lutando pelo fortalecimento da ciência, tecnologia e inovação no país.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 17,
+            "start": 74509,
+            "end": 74680,
+            "text": "Nós estamos aqui à disposição para levar essas bandeiras, representar a classe e lutar pela ciência, tecnologia e inovação no nosso País, pelo fortalecimento dessas áreas.",
+            "score": 0.3925
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiar a transformação do Parfor em política de Estado, alinhando-se às pautas da Deputada Socorro Neri e declarando a disposição da Comissão de Educação para trabalhar na sanção das defasagens na formação docente.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 4,
+            "start": 24246,
+            "end": 24306,
+            "text": "Também faço das palavras da Deputada Socorro Neri as minhas.",
+            "score": 0.1788
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o critério de retorno econômico para justificar a exclusão de investimentos em ciência e tecnologia do teto de gastos, classificando tais ações como investimentos e não como despesas.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 17,
+            "start": 74147,
+            "end": 74218,
+            "text": "Então, eu não costumo tratar como teto, colocar no teto de gastos, não.",
+            "score": 0.1886
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de objetividade e pragmatismo nas discussões sobre educação, criticando a inserção do tema em uma \"seara ideológica\" que, segundo afirma, trava o trabalho legislativo e não leva a lugar nenhum.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 4,
+            "start": 24350,
+            "end": 24594,
+            "text": "Nós estamos precisando é disto, Deputada Socorro: ter essa objetividade quando se trata de educação e tirar esse tema um pouco — e vou falar aqui a verdade — dessa seara ideológica em que o estão colocando e que não está levando a lugar nenhum.",
+            "score": 0.3079
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da Comissão de Educação da Câmara dos Deputados.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Afirma fazer parte de um grupo de trabalho com a Deputada Alice e a Deputada Socorro Neri, com quem compartilha muitas pautas em comum na Comissão de Educação.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 4,
+            "start": 23853,
+            "end": 23958,
+            "text": "Nós temos muitas pautas em comum, fazemos parte da Comissão de Educação e sempre temos muitas discussões.",
+            "score": 0.3853
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se solícito às demandas dos estudantes e representantes da pós-graduação e da formação de professores, colocando-se à disposição para representar essas categorias.",
+          "passage": {
+            "hearing_id": 168,
+            "turn": 17,
+            "start": 74269,
+            "end": 74383,
+            "text": "Observando a fala aqui dos estudantes e dos representantes, eu fico muito feliz e também sou solícito às demandas.",
+            "score": 0.3234
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos concretos e hipotéticos (como o impacto de investimentos passados na resposta à pandemia) para fundamentar suas posições sobre política econômica e orçamentária.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de apoio e solidariedade institucional, utilizando expressões como \"contem conosco\" e \"fazemos parte\" para reforçar o compromisso com as demandas apresentadas.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 4,
+            "start": 24307,
+            "end": 24348,
+            "text": "Contem conosco, contem com esta Comissão.",
+            "score": 0.3159
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica indiretamente o clima de debate na Comissão de Educação, descrevendo as discussões recentes como \"acaloradas e muito pouco práticas\", para justificar a necessidade de foco em resultados e objetividade.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 4,
+            "start": 23959,
+            "end": 24061,
+            "text": "Muitas delas, a grande maioria, nesses últimos dias, tem sido muito acaloradas e muito pouco práticas.",
+            "score": 0.2017
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 31,
+      "split": "train",
+      "article_date": "2023-11-09",
+      "title": "Especialistas defendem transformação de programa de formação de professores em política de Estado",
+      "assunto": "Transformação do Plano Nacional de Formação de Professores da Educação Básica (Parfor) em política de Estado",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 168,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Debatedores defendem melhoria das condições da pós-graduação no Brasil",
+      "assunto": "Melhoria das condições da pós-graduação no Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

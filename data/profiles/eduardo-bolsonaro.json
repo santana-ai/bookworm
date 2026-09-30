@@ -1,0 +1,415 @@
+{
+  "actor": {
+    "slug": "eduardo-bolsonaro",
+    "name": "EDUARDO BOLSONARO",
+    "display_name": "Eduardo Bolsonaro",
+    "role": "Deputado (PL-SP)",
+    "article_names": [
+      "Eduardo Bolsonaro"
+    ],
+    "party_uf": [
+      "PL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:19:02+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      199
+    ],
+    "input_tokens": 3850,
+    "output_tokens": 1030,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o Governo Bolsonaro adquiriu mais de 600 milhões de doses de vacinas durante a pandemia, permitindo à população brasileira escolher entre Coronavac, Moderna, Pfizer e outras, e critica a narrativa de que o governo anterior era negacionista.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 156814,
+            "end": 156981,
+            "text": "A população brasileira foi tão abençoada no período da pandemia, que pôde se dar ao luxo de escolher que vacina tomar: Coronavac, Moderna, Pfizer, entre tantas outras.",
+            "score": 0.3601
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a obrigatoriedade vacinal, argumentando que, pela lei brasileira, nenhum brasileiro pode ser submetido a ser cobaia de uma experiência e que a decisão de vacinar é uma esfera privada, na qual o governo não deve se meter.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 156983,
+            "end": 157202,
+            "text": "A única questão de que o Presidente falava e deixava bem clara era a liberdade para tomar a vacina quem bem se quisesse, porque, pela lei brasileira, nenhum brasileiro pode ser submetido a ser cobaia de uma experiência.",
+            "score": 0.382
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a Resolução nº 715, de 2023, do Conselho Nacional de Saúde, classificando a inclusão de pautas como aborto e legalização da maconha em uma portaria do Ministério da Saúde como \"ideologização da pauta da saúde\", especialmente em um contexto de falta de leitos hospitalares.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 158368,
+            "end": 158428,
+            "text": "Esta, sim, é uma verdadeira ideologização da pauta da saúde.",
+            "score": 0.331
+          },
+          "udv": null
+        },
+        {
+          "text": "Oposição à Orientação 44 da Resolução nº 715, que trata de pré-natal com foco não binário, afirmando que a biologia e a genética reconhecem apenas homem e mulher, e classificando a visão contrária como retrógrada.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 158451,
+            "end": 158566,
+            "text": "A Orientação 44, dentro da Resolução nº 715, do Conselho Nacional de Saúde, fala de pré-natal com foco não binário.",
+            "score": 0.4813
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a antecipação para 14 anos do tratamento hormonal (hormonização) para menores de idade, argumentando que, assim como menores de 18 anos são inimputáveis por falta de discernimento para crimes, não possuem capacidade para decidir sobre mudança de sexo ou cirurgias de ablação.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 159073,
+            "end": 159255,
+            "text": "Outra questão que esta portaria do Conselho Nacional de Saúde traz e que me causou muita estranheza é a antecipação, para 14 anos, do tratamento hormonal conhecido como hormonização.",
+            "score": 0.3139
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autoria do Projeto de Decreto Legislativo nº 197, de 2023, e apoia o Projeto de Decreto Legislativo nº 198, capitaneado pela Deputada Chris Tonietto, visando questionar as normas do Conselho Nacional de Saúde sobre a questão de gênero.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 160497,
+            "end": 160721,
+            "text": "Eu sou autor do Projeto de Decreto Legislativo nº 197, de 2023, mas o Projeto de Decreto Legislativo nº 198, capitaneado pela Deputada Chris Tonietto, traz algumas dezenas de Parlamentares que assinaram esse tipo de decreto.",
+            "score": 0.6104
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a Ministra da Saúde sobre a demora de mais de cem dias na análise do pedido de declaração de emergência em saúde por contaminação do Rio Tapajós por mercúrio, citando matéria do G1.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 161520,
+            "end": 161693,
+            "text": "Matéria doG1traz, entre aspas:\"Pedido de declaração de emergência em saúde por contaminação do Rio Tapajós por mercúrio passa de cem dias em análise do Ministério da Saúde\".",
+            "score": 0.7249
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a priorização do desenvolvimento de vacina nacional contra a dengue em detrimento da aquisição de imunizante internacional já ratificado pela ANVISA, citando matéria da Revista Oeste.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 162189,
+            "end": 162251,
+            "text": "Já existe um imunizante internacional, ratificado pela ANVISA.",
+            "score": 0.4737
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a vacina da AstraZeneca causou efeitos colaterais graves, citando matéria da Veja sobre processos na Grã-Bretanha (19 por morte e 364 por sequelas graves), e relata ter contraído COVID após tomar a vacina da Pfizer, concluindo que o imunizante não foi efetivo na prevenção da doença.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 258,
+            "start": 168318,
+            "end": 168433,
+            "text": "O número de processos abertos na Justiça na Grã-Bretanha dá um retrato: são 19 por morte e 364 por sequelas graves.",
+            "score": 0.4595
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a liberdade individual e a autonomia privada como fundamento para rejeitar a interferência estatal em decisões corporais, como a vacinação e a identidade de gênero.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza a biologia e a genética como critérios objetivos para definir sexo, rejeitando a existência de uma \"terceira via\" ou de identidades não binárias.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 158948,
+            "end": 159071,
+            "text": "De acordo com a genética e com a biologia, existe homem, existe mulher, e não existe uma terceira via.Enfim, vamos adiante.",
+            "score": 0.2845
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o princípio da imputabilidade penal (falta de discernimento de menores de 18 anos) como analogia para justificar a incapacidade de menores de 14 anos para decisões sobre transição de gênero.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 159256,
+            "end": 159326,
+            "text": "Reparem, um menor de 18 anos que comete um crime não pode ser apenado.",
+            "score": 0.157
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a polarização social decorre da ausência de debate qualificado, onde posições contrárias a cotas raciais, ao PLC 122 ou a alertas sobre vacinas são rotuladas como racismo, homofobia ou negacionismo, impedindo a discussão racional.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 163044,
+            "end": 163237,
+            "text": "Se você é contra as cotas raciais, você é racista; se você é contra o PLC 122, você é homofóbico; se você fala alguma coisa sobre alerta de vacina contra a COVID, você é tido como negacionista.",
+            "score": 0.205
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Projeto de Decreto Legislativo nº 197, de 2023.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 160497,
+            "end": 160721,
+            "text": "Eu sou autor do Projeto de Decreto Legislativo nº 197, de 2023, mas o Projeto de Decreto Legislativo nº 198, capitaneado pela Deputada Chris Tonietto, traz algumas dezenas de Parlamentares que assinaram esse tipo de decreto.",
+            "score": 0.6038
+          },
+          "udv": null
+        },
+        {
+          "text": "Refere-se ao \"Governo Bolsonaro\" como o governo que atuou na aquisição de vacinas, alinhando-se a essa administração.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 156691,
+            "end": 156813,
+            "text": "A título de esclarecimento, primeiro, quero dizer que o Governo Bolsonaro comprou mais de 600 milhões de doses de vacinas.",
+            "score": 0.2481
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como parte da oposição à \"Esquerda\" e ao governo atual, referindo-se a \"Presidente Bia Kicis\" como a presidente da sessão.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 162826,
+            "end": 162972,
+            "text": "É lamentável que a Esquerda tenha tomado este caminho.Às vezes, as pessoas não entendem por que a sociedade está polarizada, Presidente Bia Kicis.",
+            "score": 0.3096
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Cita matérias de veículos de comunicação específicos (G1, Folha, Veja, Revista Oeste) para sustentar seus argumentos e antecipar acusações de disseminação de \"fake news\".",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza perguntas retóricas e expressões de estranheza (\"Meu Deus do céu!\", \"É absurdo\") para enfatizar a incoerência percebida nas políticas públicas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 161068,
+            "end": 161105,
+            "text": "Para que fazer isso, meu Deus do céu?",
+            "score": 0.32
+          },
+          "udv": null
+        },
+        {
+          "text": "Contrasta a posição do governo atual com a do governo anterior, atribuindo a problemas atuais a falhas de gestão ou ideologia da oposição.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 156559,
+            "end": 156690,
+            "text": "Como eu acompanhei um pequeno trecho no início dos debates, Ministra, eu sei que se falou muito sobre a vacina no Governo anterior.",
+            "score": 0.1511
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos pessoais (ter tomado a vacina da Pfizer e contraído COVID) para ilustrar a ineficácia dos imunizantes.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 258,
+            "start": 168915,
+            "end": 168971,
+            "text": "Eu mesmo tomei a vacina da Pfizer e depois peguei COVID!",
+            "score": 0.2247
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata a Ministra da Saúde com formalidade (\"V.Exa.\"), mas mantém um tom confrontador ao questionar a veracidade de informações e a priorização de pautas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 255,
+            "start": 161974,
+            "end": 162006,
+            "text": "É bom, Ministra, darmos a V.Exa.",
+            "score": 0.1972
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-16-2-0",
+      "hearing_id": 16,
+      "n": 12,
+      "article_name": "Eduardo Bolsonaro",
+      "proposition": "Participou de momentos de bate-boca durante a audiência.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Quando Lula foi eleito e tomou posse, ele subiu a rampa do Palácio do Planalto com pessoas que teoricamente representavam as minorias: deficientes físicos, mulheres, negros, pessoas LGBTQI, e assim por diante. Numa primeira oportunidade, ele recebeu críticas do deficiente físico que subiu a rampa do Palácio do Planalto com ele por uma fala capacitista.",
+        "turn": 76,
+        "start": 52262,
+        "end": 52616
+      },
+      "verifier": {
+        "probability": 0.12203673953906136,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-2-0",
+      "hearing_id": 129,
+      "n": 9,
+      "article_name": "Eduardo Bolsonaro",
+      "proposition": "Argumentou que vários países europeus já restringiram a aplicação da vacina contra a Covid-19 a idosos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Presidente, é do fato de que a Dinamarca, desde setembro de 2022, não indicava mais vacinas para a COVID-19 para qualquer pessoa com menos de 50 anos de idade. Os riscos, desde aquela época, superavam os possíveis benefícios.",
+        "turn": 8,
+        "start": 27920,
+        "end": 28145
+      },
+      "verifier": {
+        "probability": 0.46615509329700394,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-2-1",
+      "hearing_id": 129,
+      "n": 10,
+      "article_name": "Eduardo Bolsonaro",
+      "proposition": "Afirmou que na Suíça, cientistas teriam concluído que as vacinas traziam mais riscos que benefícios à população em geral.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Falei que a Suíça foi mais adiante, que os cientistas suíços concluíram que as vacinas traziam mais riscos do que benefícios à população em geral, inclusive para pessoas designadas como de alto risco. Ainda é possível um médico lá recomendar a vacina?",
+        "turn": 89,
+        "start": 93602,
+        "end": 93853
+      },
+      "verifier": {
+        "probability": 0.9933566639538168,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-129-2-2",
+      "hearing_id": 129,
+      "n": 11,
+      "article_name": "Eduardo Bolsonaro",
+      "proposition": "Afirmou que \"há uma epidemia mundial\" de morte súbita depois da vacinação contra a Covid.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Ela também não respondeu se existe um estudo acerca do crescimento do número de mortes súbitas. Parece que o mundo inteiro está vivendo uma epidemia de mortes súbitas, prezado Osmar Terra, e parece que isso está coincidindo com a vacina.",
+        "turn": 14,
+        "start": 36491,
+        "end": 36728
+      },
+      "verifier": {
+        "probability": 0.6491445529505994,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

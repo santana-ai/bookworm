@@ -1,0 +1,239 @@
+{
+  "actor": {
+    "slug": "rodrigo-valadares",
+    "name": "RODRIGO VALADARES",
+    "display_name": "Rodrigo Valadares",
+    "role": "Deputado (União-SE)",
+    "article_names": [
+      "Rodrigo Valadares"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - SE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:34:49+00:00",
+    "n_statements": 4,
+    "n_hearings": 1,
+    "hearing_ids": [
+      201
+    ],
+    "input_tokens": 2166,
+    "output_tokens": 474,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 11,
+    "with_udv": 1,
+    "passage_only": 9,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a Câmara dos Deputados possui poucas prerrogativas para enfrentar o que considera os abusos do Supremo Tribunal Federal (STF), argumentando que a Casa não dispõe de mecanismos jurídicos adequados para tal finalidade.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 26518,
+            "end": 26596,
+            "text": "Nós precisamos enfrentar esse problema no sistema com os mecanismos jurídicos.",
+            "score": 0.169
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra publicamente o Senado Federal, questionando a ausência de senadores na audiência e em ações contra o STF, apesar de terem sido eleitos em 2022 com a bandeira de \"Deus, Pátria, família e liberdade\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 25679,
+            "end": 25927,
+            "text": "Quantos Senadores, já que o Senado é o local correto para enfrentar os abusos que estão vindo do STF — em 2022, foram eleitos com a bandeira Deus, Pátria, família e liberdade que vemos estampada nas camisetas —, nós ouvimos enfrentar esse problema?",
+            "score": 0.3692
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que \"calar não é mais uma opção\" e que é necessário enfrentar o que ocorre no País, identificando o Senado como o local correto para lidar com a questão.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 25364,
+            "end": 25407,
+            "text": "Nós sabemos que calar não é mais uma opção.",
+            "score": 0.2881
+          },
+          "udv": {
+            "id": "udv-201-3-0",
+            "rule": "same_sentence",
+            "score": 0.232
+          }
+        },
+        {
+          "text": "Cita que a população o cobra nas ruas para que \"faça alguma coisa\", reconhecendo a limitação do mandato de deputado a \"falar e espernear\" sem os instrumentos jurídicos disponíveis no Senado.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 26392,
+            "end": 26517,
+            "text": "A população me para nas ruas e me cobra:\"Rodrigo, faça alguma coisa\".O que o Deputado pode fazer a não ser falar e espernear?",
+            "score": 0.5775
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a promessa de campanha de 2022 (\"Deus, Pátria, família e liberdade\") como critério para avaliar a atuação dos senadores, considerando que a inércia perante o STF contradiz essa bandeira.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 25679,
+            "end": 25927,
+            "text": "Quantos Senadores, já que o Senado é o local correto para enfrentar os abusos que estão vindo do STF — em 2022, foram eleitos com a bandeira Deus, Pátria, família e liberdade que vemos estampada nas camisetas —, nós ouvimos enfrentar esse problema?",
+            "score": 0.3052
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na existência de \"mecanismos jurídicos\" específicos no Senado Federal como fundamento para a necessidade de atuação parlamentar, diferenciando a capacidade de ação das duas Casas do Congresso.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se deputado federal, referindo-se à limitação de seu mandato em comparação ao do Senado.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 26305,
+            "end": 26325,
+            "text": "Quem tem é o Senado.",
+            "score": 0.2341
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona o Senador Eduardo Girão como a única voz senatorial presente ou atuante na questão, em contraste com a ausência de outros pares.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 25928,
+            "end": 25990,
+            "text": "Ouvimos apenas a voz do Senador Eduardo Girão que aqui esteve.",
+            "score": 0.3568
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Emprega perguntas retóricas repetidas (\"Cadê os Senadores?\", \"Cadê o Senado Federal?\") para enfatizar a cobrança e a percepção de omissão.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 26084,
+            "end": 26143,
+            "text": "Cadê os Senadores que se elegeram com a bandeira da Pátria?",
+            "score": 0.2415
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a pressão popular, citando diretamente o que a população lhe diz nas ruas (\"Rodrigo, faça alguma coisa\") para legitimar sua indignação e a urgência da causa.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 26392,
+            "end": 26517,
+            "text": "A população me para nas ruas e me cobra:\"Rodrigo, faça alguma coisa\".O que o Deputado pode fazer a não ser falar e espernear?",
+            "score": 0.3818
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue claramente as atribuições e limitações institucionais da Câmara em relação ao Senado, usando essa diferença estrutural para direcionar a crítica aos senadores.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 15,
+            "start": 26305,
+            "end": 26325,
+            "text": "Quem tem é o Senado.",
+            "score": 0.1631
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-201-3-0",
+      "hearing_id": 201,
+      "n": 9,
+      "article_name": "Rodrigo Valadares",
+      "proposition": "Criticou a manutenção das prisões e a postura do STF.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Nós sabemos que calar não é mais uma opção. Nós devemos enfrentar o que vem acontecendo em nosso País.",
+        "turn": 15,
+        "start": 25364,
+        "end": 25466
+      },
+      "verifier": {
+        "probability": 0.11110874750631308,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

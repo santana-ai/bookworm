@@ -1,0 +1,434 @@
+{
+  "actor": {
+    "slug": "max-lemos",
+    "name": "Max Lemos",
+    "display_name": "Max Lemos",
+    "role": "Deputado (PDT-RJ)",
+    "article_names": [
+      "Max Lemos"
+    ],
+    "party_uf": [
+      "Bloco/PDT - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:24:30+00:00",
+    "n_statements": 30,
+    "n_hearings": 3,
+    "hearing_ids": [
+      144,
+      164,
+      183
+    ],
+    "input_tokens": 9930,
+    "output_tokens": 1106,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 22,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a conclusão da obra da usina nuclear Angra 3, argumentando que o descomissionamento ou a paralisação custaria basicamente o mesmo que a finalização, com diferença de aproximadamente 2 bilhões de reais, e que a obra está implantada na Costa Verde, patrimônio do povo brasileiro.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 68,
+            "start": 114930,
+            "end": 114982,
+            "text": "A diferença é de 2 bilhões de reais aproximadamente.",
+            "score": 0.3972
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela ao Ministério do Meio Ambiente (IBAMA) para que trate os licenciamentos e renovações de Angra 3 com urgência, dado o longo período de paralisação da obra.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 68,
+            "start": 115749,
+            "end": 115991,
+            "text": "Segundo, quero saber como a senhora vê essa questão de Angra 3, se o IBAMA tem já um posicionamento, de que forma está vendo essa questão de Angra 3, haja vista que os licenciamentos serão solicitados e as renovações também serão solicitadas.",
+            "score": 0.2331
+          },
+          "udv": null
+        },
+        {
+          "text": "Informa que a Comissão de Minas e Energia mediou a negociação para o pagamento de dívidas de compensação ambiental da Eletronuclear às prefeituras de Angra dos Reis (264 milhões de reais), Rio Claro (17 milhões de reais) e Paraty (48 milhões de reais), pendentes desde 2009.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 68,
+            "start": 116306,
+            "end": 116528,
+            "text": "Só para efeito de informação, na próxima semana, conclui-se toda a composição para que a Eletronuclear possa pagar: a Angra dos Reis, 264 milhões de reais; a Rio Claro, 17 milhões de reais; e a Paraty, 48 milhões de reais.",
+            "score": 0.5806
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a urgência na universalização do saneamento básico no Brasil, classificando-a como questão de saúde e condição para o crescimento do país.",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 0,
+            "start": 1326,
+            "end": 1390,
+            "text": "O Brasil tem urgência no saneamento, que é uma questão de saúde.",
+            "score": 0.5496
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a burocracia como obstáculo à execução de obras, mas afirma que ela não pode ser eliminada, apenas vencida, e rejeita o discurso de que a Caixa Econômica Federal é a causa dos atrasos, elogiando os profissionais do banco.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 92,
+            "start": 142527,
+            "end": 142571,
+            "text": "A burocracia é grande e tem que ser vencida.",
+            "score": 0.2569
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita ao Ministério das Cidades e à Caixa Econômica Federal informações detalhadas sobre recursos públicos represados em contas bancárias, frutos de PACs anteriores, que estão paralisados por questões técnicas ou exigências, para evitar duplicidade de investimentos com concessões privadas.",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 28,
+            "start": 23518,
+            "end": 23687,
+            "text": "Esses recursos que estão depositados na Caixa fazem parte do Orçamento da União como recursos disponíveis para investimento, mas estão paralisados por questões técnicas.",
+            "score": 0.2523
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que os recursos públicos represados em estados e municípios devem permanecer nesses entes para complementar e aprimorar a infraestrutura de saneamento, sem haver confronto com os investimentos das concessionárias.",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 30,
+            "start": 25984,
+            "end": 26335,
+            "text": "A pergunta se dá porque, hoje, nos Estados e Municípios, há recursos vultosos e há a concessão, e a nossa luta — pelo menos a minha — é para que esses recursos não sejam retirados, para que eles permaneçam nessas cidades e nesses Estados, de modo que o serviço de saneamento possa ser complementado, aprimorado, e a infraestrutura possa ser melhorada.",
+            "score": 0.244
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede a criação de mecanismos para que o saneamento alcance comunidades quilombolas, indígenas e favelas, criticando a lógica de lucro das concessionárias que ignora áreas de baixa rentabilidade.",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 32,
+            "start": 27234,
+            "end": 27402,
+            "text": "Hoje, existe a necessidade de acabar de vez com o problema de infraestrutura nas comunidades quilombolas, nas indígenas, nas favelas, onde o problema de tarifa é sério.",
+            "score": 0.2697
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que os Deputados possam apresentar emendas parlamentares para a reforma de conjuntos habitacionais com mais de 10 anos de construção, conforme permitido pela norma legal, e solicita tratamento excepcional da Caixa Econômica Federal para reformas de valores de até 3 milhões de reais, visando corrigir riscos como instalações elétricas precárias e sistemas de esgoto.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 92,
+            "start": 144919,
+            "end": 145276,
+            "text": "A minha solicitação é que haja a sistemática de os Deputados poderem apresentar emendas para a reforma dos conjuntos habitacionais — de acordo com a norma legal, é permitido colocar recurso público em empreendimentos construídos há mais de 10 anos — e que haja também um dispositivo que garanta tratamento excepcional para valores de até 3 milhões de reais.",
+            "score": 0.4653
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Ministro de Minas e Energia, Alexandre Silveira, classificando-o como \"desastre\" e \"um dos piores Ministros do Governo Lula\", por não receber parlamentares e tratar mal as pessoas, em contraste com a sensibilidade atribuída ao Ministro das Cidades, Jader Filho.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 67,
+            "start": 105976,
+            "end": 106217,
+            "text": "Eu não estava aqui para recebê-lo cedo porque estava, até agora há pouco, tentando aprovar a convocação de um dos piores Ministros do Governo Lula, que não representa o Governo Lula, que é o Ministro de Minas e Energia, o Alexandre Silveira.",
+            "score": 0.3976
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a viabilidade econômica e o aproveitamento de recursos públicos já investidos como fundamento para defender a conclusão de obras de infraestrutura, como Angra 3, argumentando que paralisar seria \"jogar fora\" o investimento sem gerar energia.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 68,
+            "start": 114983,
+            "end": 115162,
+            "text": "Então, descomissionar ou desmontar, como queira, ou paralisar a construção de Angra 3 é, na verdade, jogar fora todo o recurso público que foi investido sem gerar nada de energia.",
+            "score": 0.3186
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a urgência e a velocidade na execução de políticas públicas como critérios centrais para o desenvolvimento, aplicando esse princípio tanto ao licenciamento ambiental quanto à universalização do saneamento e à entrega de moradias.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 68,
+            "start": 116529,
+            "end": 116623,
+            "text": "São dívidas de compensação ambiental que completam 14 anos, ainda do licenciamento de Angra 3.",
+            "score": 0.1534
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na experiência prática de gestão pública, citando seu histórico como Prefeito e Secretário de Estado para justificar a necessidade de vencer a burocracia e a importância de manter recursos locais para infraestrutura.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 92,
+            "start": 143511,
+            "end": 143604,
+            "text": "sabe que eu fui Secretário de Estado de Infraestrutura há até pouco tempo, no Rio de Janeiro.",
+            "score": 0.1899
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transparência e a ampliação do debate público como forma de aprimorar a regulação e o controle do setor de saneamento, afirmando que \"quanto mais transparência, melhor\".",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 0,
+            "start": 3156,
+            "end": 3282,
+            "text": "Há discussão, inclusive, a respeito de como é que se melhora a regulação, como é que se melhora o controle após as concessões.",
+            "score": 0.1663
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal pelo Rio de Janeiro, em seu quinto mandato, tendo exercido anteriormente os cargos de Vereador, Prefeito e Secretário de Estado.",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 94,
+            "start": 131594,
+            "end": 131737,
+            "text": "Ao longo da vida pública, já estou no meu quinto mandato, comecei lá na base, fui Vereador, Prefeito, Deputado Estadual e Secretário de Estado.",
+            "score": 0.4612
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como membro da Comissão de Desenvolvimento Urbano e presidente da Subcomissão de Saneamento.",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 0,
+            "start": 960,
+            "end": 1067,
+            "text": "A Comissão de Desenvolvimento Urbano não poderia ser omissa, muito menos a nossa Subcomissão do Saneamento.",
+            "score": 0.5182
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Prefeito de Queimados, na Baixada Fluminense, por dois mandatos, e Secretário de Estado de Infraestrutura no Rio de Janeiro.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 92,
+            "start": 143511,
+            "end": 143604,
+            "text": "sabe que eu fui Secretário de Estado de Infraestrutura há até pouco tempo, no Rio de Janeiro.",
+            "score": 0.3887
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara admiração pessoal e política pelo Ministro das Cidades, Jader Filho, e pelo Presidente Lula, citando a revisão da decisão de incluir Angra 3 no PAC como \"decisão acertada\".",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 68,
+            "start": 114648,
+            "end": 114752,
+            "text": "Sabiamente, o Presidente Lula e o Ministro de Minas e Energia revisaram a decisão de não incluir no PAC.",
+            "score": 0.4486
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados numéricos específicos e casos concretos de sua base eleitoral (Queimados, Baixada Fluminense) para ilustrar argumentos, como o número de unidades habitacionais entregues (4.165) e o valor das dívidas de compensação ambiental.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 92,
+            "start": 141373,
+            "end": 141560,
+            "text": "Eu tive a oportunidade de construir, como Prefeito, 4.165 unidades habitacionais, em cinco empreendimentos diferentes, na cidade que eu governei, na Baixada Fluminense, por dois mandatos.",
+            "score": 0.2272
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem direta e, por vezes, confrontadora ao criticar autoridades que considera ineficientes, como no caso do Ministro de Minas e Energia, enquanto usa tom elogioso e de gratidão ao se dirigir a aliados, como o Ministro das Cidades.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 67,
+            "start": 106953,
+            "end": 107002,
+            "text": "O Ministro de Minas e Energia é o que há de pior.",
+            "score": 0.2696
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz solicitações formais de informações por escrito aos órgãos públicos (Ministério das Cidades, Caixa, BNDES) para embasar futuras propostas legislativas ou emendas parlamentares.",
+          "passage": {
+            "hearing_id": 164,
+            "turn": 98,
+            "start": 136517,
+            "end": 136552,
+            "text": "Agradeço ao Ministério das Cidades.",
+            "score": 0.2013
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a referências religiosas (\"fé em Deus\", \"Nosso Senhor Jesus Cristo\") para contextualizar suas críticas e expressar crenças pessoais durante os debates.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 67,
+            "start": 107048,
+            "end": 107086,
+            "text": "acredita em Nosso Senhor Jesus Cristo.",
+            "score": 0.3433
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 164,
+      "split": "train",
+      "article_date": "2023-09-21",
+      "title": "Ritmo de investimentos em saneamento básico ainda é insuficiente para universalização até 2033, alerta economista",
+      "assunto": "Ritmo de investimentos em saneamento básico e a meta de universalização até 2033",
+      "turns": 23,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-133-3-0",
+      "hearing_id": 133,
+      "n": 6,
+      "article_name": "Max Lemos",
+      "proposition": "Disse que já está colhendo assinaturas de apoio para a criação de uma CPI para apurar a atuação da Enel.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu já propus, e a coleta de assinaturas para a criação da CPI está avançando desde março, mas já existe um requerimento de minha autoria que convoca o Presidente a estar aqui. Sr. Presidente, este é o momento de dar uma solução ou um novo caminho a este problema causado pela ENEL no Brasil.",
+        "turn": 17,
+        "start": 19585,
+        "end": 19877
+      },
+      "verifier": {
+        "probability": 0.796849443311306,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-133-3-1",
+      "hearing_id": 133,
+      "n": 7,
+      "article_name": "Max Lemos",
+      "proposition": "Afirmou que a empresa coleciona reclamações no Rio de Janeiro, onde possui uma distribuidora: \"Nos últimos 15 dias, 34 cidades ficaram sem energia, cidades grandes como Niterói.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Nos últimos 15 dias, 34 cidades ficaram sem energia! Cidades grandes como Niterói ficaram sem energia; São Gonçalo ficou sem energia.",
+        "turn": 17,
+        "start": 17226,
+        "end": 17359
+      },
+      "verifier": {
+        "probability": 0.6270201055469219,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-164-3-0",
+      "hearing_id": 164,
+      "n": 11,
+      "article_name": "Max Lemos",
+      "proposition": "Pediu mais detalhes sobre os problemas que os municípios vêm enfrentando para se adequarem à legislação: \"Aonde nós temos problema hoje, aonde nós temos contrato que não esteja de acordo com o previsto na legislação. Para que a gente possa entender de que forma a gente ajuda.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Qual é o gargalo do Município para não ter atendido? A prorrogação de prazo foi necessária para que o Município pudesse criar condições de se adaptar.",
+        "turn": 20,
+        "start": 18310,
+        "end": 18461
+      },
+      "verifier": {
+        "probability": 0.3093877613373284,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

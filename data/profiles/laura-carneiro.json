@@ -1,0 +1,221 @@
+{
+  "actor": {
+    "slug": "laura-carneiro",
+    "name": "LAURA CARNEIRO",
+    "display_name": "LAURA CARNEIRO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PSD - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:35:33+00:00",
+    "n_statements": 17,
+    "n_hearings": 2,
+    "hearing_ids": [
+      165,
+      171
+    ],
+    "input_tokens": 2770,
+    "output_tokens": 576,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 11,
+    "with_udv": 0,
+    "passage_only": 11,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a Lei de Diretrizes Orçamentárias (LDO) de 2024 deve conter programas específicos para a mulher, criticando a ausência de verbas destinadas a violência contra a mulher e saúde da mulher fora do SUS, sob o argumento de que a transversalidade intersetorial não se concretiza na prática.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 51,
+            "start": 126519,
+            "end": 126600,
+            "text": "Cadê os programas específicos de saúde da mulher que não vão estar dentro do SUS?",
+            "score": 0.2818
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a Comissão apresente emendas à LDO, com apoio da Consultoria, para garantir políticas públicas específicas às mulheres, rejeitando a ideia de que a ausência de programas na LDO invalida as ações governamentais.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 51,
+            "start": 127081,
+            "end": 127362,
+            "text": "Que o Deputado Danilo não as coloque, tudo bem, mas nós temos aqui uma Comissão que está pedindo ajuda à Consultoria para escrevermos as emendas necessárias para que a Comissão apresente, como Comissão, na LDO, emendas, a fim de garantir políticas públicas específicas às mulheres.",
+            "score": 0.4491
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o procedimento de inscrição de oradores na audiência de 13/09/2023, argumentando que membros da Comissão de Previdência foram prejudicados por não conseguirem se inscrever no sistema Infoleg, e defende que a ordem de fala deve alternar entre as duas comissões (Saúde e Previdência) para garantir justiça.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 18,
+            "start": 8894,
+            "end": 8987,
+            "text": "Sim, pela ordem de inscrição, se nós da Comissão de Previdência conseguíssemos nos inscrever.",
+            "score": 0.3076
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que, no Rio de Janeiro, as políticas de enfrentamento à violência contra a mulher estão vinculadas à Secretaria da Mulher, com orçamento próprio, e não mais à Secretaria de Assistência Social, citando a existência de casas-abrigo espalhadas pela cidade.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 56,
+            "start": 131458,
+            "end": 131687,
+            "text": "As políticas de enfrentamento da violência não estão mais na Secretaria de Assistência; estão na Secretaria da Mulher: as casas abrigo — no Rio, agora, nós temos casas em tudo que é canto da cidade — de atendimento à mulher, etc.",
+            "score": 0.5269
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a eficácia prática das políticas públicas como critério para questionar a transversalidade, argumentando que, se a política é intersetorial, deve haver clareza sobre quais órgãos cumprem a legislação, como a criação de DEAMs e a qualificação de pessoal nas delegacias.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 51,
+            "start": 126981,
+            "end": 127047,
+            "text": "Quem é que vai qualificar o pessoal para trabalhar nas delegacias?",
+            "score": 0.1856
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a especificidade orçamentária para a proteção de grupos vulneráveis, justificando a cobrança por programas específicos na LDO pela necessidade de garantir que a legislação seja cumprida e que haja responsáveis definidos.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 51,
+            "start": 126839,
+            "end": 126901,
+            "text": "Quem é que vai cuidar dos programas específicos para a mulher?",
+            "score": 0.1573
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da Comissão de Previdência e Vice-Líder, embora prefira se inscrever pela primeira condição.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 22,
+            "start": 9438,
+            "end": 9484,
+            "text": "Mas eu não quero me inscrever como Vice-Líder.",
+            "score": 0.4013
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante da cidade do Rio de Janeiro ao descrever a estrutura local de políticas para a mulher.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 56,
+            "start": 131325,
+            "end": 131389,
+            "text": "Na cidade do Rio de Janeiro, nós temos uma Secretaria da Mulher.",
+            "score": 0.4421
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas retóricas e sequências de indagações para evidenciar lacunas na LDO e na estrutura de atendimento à mulher (ex: \"Cadê o programa...?\", \"Quem é que cuida...?\").",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 51,
+            "start": 126473,
+            "end": 126518,
+            "text": "Cadê o programa de violência contra a mulher?",
+            "score": 0.2953
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos concretos de sua base eleitoral (Secretaria da Mulher do Rio, casas-abrigo) para ilustrar como as políticas funcionam na prática, contrastando com a ausência de previsão orçamentária federal.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 56,
+            "start": 131458,
+            "end": 131687,
+            "text": "As políticas de enfrentamento da violência não estão mais na Secretaria de Assistência; estão na Secretaria da Mulher: as casas abrigo — no Rio, agora, nós temos casas em tudo que é canto da cidade — de atendimento à mulher, etc.",
+            "score": 0.2936
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança institucional, pedindo apoio da Consultoria para a elaboração de emendas e questionando a presidência sobre regras de inscrição e tempo de fala.",
+          "passage": {
+            "hearing_id": 165,
+            "turn": 51,
+            "start": 127081,
+            "end": 127362,
+            "text": "Que o Deputado Danilo não as coloque, tudo bem, mas nós temos aqui uma Comissão que está pedindo ajuda à Consultoria para escrevermos as emendas necessárias para que a Comissão apresente, como Comissão, na LDO, emendas, a fim de garantir políticas públicas específicas às mulheres.",
+            "score": 0.177
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 165,
+      "split": "train",
+      "article_date": "2023-09-20",
+      "title": "Relator da LDO acredita que queda da arrecadação pode impedir déficit zero em 2024",
+      "assunto": "Discussão sobre a Lei de Diretrizes Orçamentárias (LDO) de 2024 e suas implicações para o déficit fiscal e políticas voltadas para mulheres",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 13,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

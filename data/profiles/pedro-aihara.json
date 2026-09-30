@@ -1,0 +1,352 @@
+{
+  "actor": {
+    "slug": "pedro-aihara",
+    "name": "PEDRO AIHARA",
+    "display_name": "Pedro Aihara",
+    "role": "Deputado (Patriota-MG)",
+    "article_names": [
+      "Pedro Aihara"
+    ],
+    "party_uf": [
+      "Bloco/PATRIOTA - MG",
+      "Bloco/PRD - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:59:22+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      144
+    ],
+    "input_tokens": 3230,
+    "output_tokens": 834,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a destinação de parte dos recursos da repactuação de Mariana para a criação de um centro integrado de pesquisas sobre prevenção de desastres e mudança climática em Minas Gerais, argumentando que o Estado não possui, nem na estrutura federal nem estadual, um centro dedicado à produção de conhecimento, extensão e pesquisa específica nessa área, apesar de já existir o CEMADEN focado em desastres.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 89640,
+            "end": 89860,
+            "text": "Nós temos na estrutura do Governo Federal o CEMADEN, que é mais relacionado à parte de desastre, mas ainda não temos isso em nível de produção de conhecimento, extensão e pesquisa especificamente nessa área de desastres.",
+            "score": 0.3883
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona o Ministério das Cidades sobre o critério de desempate a ser adotado para priorizar obras de resiliência urbana quando múltiplas propostas atendem aos mesmos critérios técnicos do PAC Seleções, destacando que os recursos de 4,8 bilhões de reais são limitados frente a demandas infinitas, especialmente para obras estruturais caras como macrodrenagem urbana e contenção de encosta em municípios pequenos.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 88120,
+            "end": 88215,
+            "text": "Em termos práticos, qual vai ser o critério adotado pelo Ministério para priorizar essas obras?",
+            "score": 0.2588
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério das Cidades o fornecimento de subsídio e apoio técnico para que municípios pequenos, que muitas vezes não possuem equipe ou efetivo técnico suficiente, consigam estruturar propostas de obras conforme exigido pelo Ministério.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 88438,
+            "end": 88632,
+            "text": "Nós sabemos que muitas vezes o Município, sobretudo o Município pequeno, sequer tem condição técnica, equipe e efetivo para conseguir estruturar essas propostas da forma como o Ministério exige.",
+            "score": 0.312
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede ao Ministro a avaliação sobre a viabilidade de destravamento das obras de expansão do metrô de Belo Horizonte após a concessão da CBTU Minas ao Grupo Comporte, questionando se o aporte de verba do Governo Federal garantirá a execução das obras para beneficiar a mobilidade na Região Metropolitana de Belo Horizonte.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 90319,
+            "end": 90364,
+            "text": "A CBTU Minas foi concedida ao Grupo Comporte.",
+            "score": 0.3132
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos como fundamento para justificar a urgência de investimentos em prevenção de desastres, citando estudo da Confederação Nacional de Municípios segundo o qual, de 2013 a 2022, mais de 4,2 milhões de pessoas saíram de suas casas, mais de 2,2 milhões de moradias foram danificadas e o impacto habitacional superou 26 bilhões de reais, com 2022 sendo o pior ano registrado.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 86288,
+            "end": 86537,
+            "text": "Um estudo da Confederação Nacional de Municípios mostra, Deputado Marangoni, que, de 2013 a 2022, nos últimos dez anos, mais de 4,2 milhões de pessoas tiveram que sair das suas casas e mais de 2,2 milhões de moradias foram danificadas por desastres.",
+            "score": 0.4704
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a mudança climática tende a agravar o cenário de desastres, o que justifica a necessidade de retomar obras de resiliência das comunidades e prevenção, alinhando-se ao foco do PAC nessa área.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 86952,
+            "end": 87134,
+            "text": "bem apresentou aqui antes da nossa fala, um dos focos do PAC é justamente conseguirmos retomar essas obras relacionadas à resiliência das comunidades, para a prevenção dos desastres.",
+            "score": 0.3181
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a necessidade de apoio técnico aos municípios pequenos pela assimetria de capacidade administrativa, afirmando que esses entes frequentemente não têm condição técnica para estruturar propostas complexas exigidas pelo Governo Federal.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 88438,
+            "end": 88632,
+            "text": "Nós sabemos que muitas vezes o Município, sobretudo o Município pequeno, sequer tem condição técnica, equipe e efetivo para conseguir estruturar essas propostas da forma como o Ministério exige.",
+            "score": 0.1899
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a crítica à falta de mobilidade em Belo Horizonte no impacto direto na vida do cidadão, citando que moradores perdem de 2 a 3 horas diárias em deslocamento para o trabalho, o que representa mais de 10% do dia.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 90687,
+            "end": 90813,
+            "text": "Hoje, cidadãos de Belo Horizonte perdem de 2 horas a 3 horas em deslocamento para o trabalho, ou seja, mais de 10% do seu dia.",
+            "score": 0.4898
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se oficial do Corpo de Bombeiros, com dez anos de especialização na área de desastres.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 85964,
+            "end": 86286,
+            "text": "Eu, como oficial do Corpo de Bombeiros — ao longo dos últimos dez anos da minha vida estive me especializando nessa área —, vivenciei de perto os impactos desses desastres nas nossas cidades, especialmente em Minas Gerais, que, infelizmente, é o Estado com o maior número de desastres entre todas as Unidades da Federação.",
+            "score": 0.391
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante de Minas Gerais, Estado que afirma ser o que possui o maior número de desastres entre as Unidades da Federação.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 89226,
+            "end": 89325,
+            "text": "Nós falamos de Minas Gerais, que é o Estado, como eu já disse, que tem o maior número de desastres.",
+            "score": 0.5378
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter encabeçado, junto a outros Parlamentares, a proposta de criação do centro de pesquisas sobre prevenção de desastres dentro da repactuação de Mariana.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 88774,
+            "end": 89224,
+            "text": "Além disso, no Estado de Minas Gerais — e já apresentamos isso para o Ministério do Meio Ambiente e para o Ministério da Educação — existe uma proposta muito importante nessa parte do desastre, que é uma proposta encabeçada por mim e por outros Parlamentares, para conseguirmos, dentro da repactuação de Mariana, que parte desse recurso seja aplicado na efetivação de um centro integrado de pesquisas sobre prevenção de desastres e mudança climática.",
+            "score": 0.3679
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Combina experiência profissional direta (como oficial do Corpo de Bombeiros) com dados estatísticos de órgãos como a Confederação Nacional de Municípios para sustentar suas posições.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Dirige perguntas específicas e técnicas ao Ministro, buscando respostas concretas sobre critérios de priorização, apoio técnico e expectativas de execução de obras, em vez de apenas expor opiniões.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 88633,
+            "end": 88772,
+            "text": "Existe algum esforço do Ministério para fornecer algum tipo de subsídio e apoio técnico para que consigamos ter essa priorização das obras?",
+            "score": 0.1847
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza exemplos locais e históricos (Mariana, Brumadinho, Círio de Nazaré) para contextualizar suas demandas e demonstrar familiaridade com a realidade dos municípios e do Estado.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 85641,
+            "end": 85698,
+            "text": "lá no Círio de Nazaré e fico muito feliz de revê-lo aqui.",
+            "score": 0.2078
+          },
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom respeitoso e elogioso em relação ao Ministro e ao Ministério das Cidades, mesmo ao apresentar críticas ou cobranças, reforçando a admiração pela condução dos trabalhos e a disponibilidade para escuta ativa.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 54,
+            "start": 85699,
+            "end": 85856,
+            "text": "Mais uma vez ressalto aquilo que outros Parlamentares já falaram em relação à sua disponibilidade de ter uma escuta ativa e de levar essas demandas à frente.",
+            "score": 0.2713
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 13,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Autoridades cobram a Justiça para destravar renegociação com mineradoras sobre reparação em Mariana",
+      "assunto": "Cobrança à Justiça para destravar a renegociação com mineradoras sobre reparação em Mariana",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-13-3-0",
+      "hearing_id": 13,
+      "n": 6,
+      "article_name": "Pedro Aihara",
+      "proposition": "Reforçou as críticas à paralisação nas negociações.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Infelizmente, as respostas não são proporcionais à gravidade dos atos que foram cometidos. Este é o momento de cobrarmos isso, para que as outras estruturas do poder público possam pensar.",
+        "turn": 39,
+        "start": 124916,
+        "end": 125104
+      },
+      "verifier": {
+        "probability": 0.09552634717725415,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-16-6-0",
+      "hearing_id": 16,
+      "n": 16,
+      "article_name": "Pedro Aihara",
+      "proposition": "Elogiou a gestão de Sílvio Almeida no Ministério dos Direitos Humanos.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Como bacharel e mestre em direitos humanos, eu tive a oportunidade, durante o meu mestrado, de estudar as obras do senhor. Sei da sua relevância acadêmica e da sua trajetória.",
+        "turn": 266,
+        "start": 167129,
+        "end": 167304
+      },
+      "verifier": {
+        "probability": 0.09687837865340028,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-118-3-0",
+      "hearing_id": 118,
+      "n": 6,
+      "article_name": "Pedro Aihara",
+      "proposition": "Comprometeu-se com a derrubada do veto presidencial a artigo da Lei 14.691/23.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "É fundamental que todos os representantes aqui, todos os Parlamentares tenham a consciência da importância de derrubar esse veto, para que possamos estruturar de forma permanente e contínua as políticas de proteção e defesa civil. Um grande problema que existe é justamente essas descontinuidades no nosso orçamento.",
+        "turn": 21,
+        "start": 57465,
+        "end": 57781
+      },
+      "verifier": {
+        "probability": 0.20286174982519312,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

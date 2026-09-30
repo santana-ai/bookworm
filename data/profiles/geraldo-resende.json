@@ -1,0 +1,311 @@
+{
+  "actor": {
+    "slug": "geraldo-resende",
+    "name": "Geraldo Resende",
+    "display_name": "Geraldo Resende",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PSDB - MS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:49:35+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      58,
+      159
+    ],
+    "input_tokens": 2700,
+    "output_tokens": 787,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a inclusão explícita da população indígena nas discussões sobre violência obstétrica e mortalidade materna, argumentando que esse grupo sofre mais do que as mulheres negras e brancas, e solicita que o tema seja incorporado aos requerimentos e relatórios da comissão.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 8,
+            "start": 17846,
+            "end": 17953,
+            "text": "Coloque a população indígena — eu tenho essa experiência —, que sofre muito mais do que as mulheres negras.",
+            "score": 0.3226
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a recusa histórica de profissionais de saúde em realizar laqueaduras em mulheres indígenas, mesmo com solicitação da paciente, devido ao medo de acusações de genocídio ou redução populacional por entidades nacionais e internacionais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Afirma que, atualmente, muitas mulheres indígenas solicitam cesariana no pré-natal, abandonando o parto normal que era praticado culturalmente, devido a más informações e ao aparato disponível.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 8,
+            "start": 18264,
+            "end": 19031,
+            "text": "Porque estavam com medo de várias entidades, inclusive subsidiadas por capitais externos e mesmo daqui, dizerem que eles estavam fazendo laqueadura para diminuir o nascimento de crianças indígenas e, mais grave ainda, que ao longo desse tempo, 98% delas — não só em caso de grande desproporção céfalo-pélvica, entrando na seara do colega que vai falar daqui a pouco — não eram submetidas a parto normal.Hoje, as mulheres indígenas, com todo esse aparato e essas más informações […]",
+            "score": 0.2379
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra dos gestores municipais e estaduais atenção e resultados concretos no enfrentamento do câncer de mama e na mortalidade materna, destacando que a repetição de reuniões sem ação prática não resolve os desafios na ponta do atendimento.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 18001,
+            "end": 18062,
+            "text": "É preciso cobrar dos gestores municipais atenção a esse tema.",
+            "score": 0.2099
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de leis e a cobrança de resultados dos gestores para melhorar a saúde das mulheres, com foco no diagnóstico precoce do câncer de mama e na redução da mortalidade materna e infantil.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 18565,
+            "end": 18649,
+            "text": "Os números da mortalidade materna e da mortalidade infantil têm que nos envergonhar.",
+            "score": 0.3027
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a utilização da expertise de órgãos como OPAS/OMS, Ministério da Saúde, CONASS e CONASEMS para avançar na área da saúde da mulher, em vez de apenas realizar reuniões anuais.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 17578,
+            "end": 17857,
+            "text": "Para avançar nessa área, precisamos aproveitar aexpertiseda OPAS, dos profissionais do Ministério da Saúde, do Conselho Nacional de Secretários de Saúde — CONASS e do Conselho Nacional de Secretarias Municipais de Saúde – CONASEMS, que representa os 5.570 Municípios brasileiros.",
+            "score": 0.309
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência pessoal de 40 anos como médico ginecologista e obstetra em sua cidade para fundamentar a crítica às práticas de saúde e a situação das mulheres indígenas, citando casos de recusa de laqueadura e a mudança de comportamento das pacientes.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 8,
+            "start": 18026,
+            "end": 18254,
+            "text": "Eu cheguei há 40 anos, como médico ginecologista e obstetra, à minha cidade, e lá os profissionais de saúde sequer se atreviam a fazer uma laqueadura, mesmo que a pleiteasse a mulher indígena, com 8 filhos, 10 filhos, 12 filhos.",
+            "score": 0.2867
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que o parto normal é \"milhares de vezes melhor\" que o parto operatório, usando essa premissa para criticar a tendência atual de cesarianas solicitadas por mulheres indígenas.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 8,
+            "start": 18264,
+            "end": 19031,
+            "text": "Porque estavam com medo de várias entidades, inclusive subsidiadas por capitais externos e mesmo daqui, dizerem que eles estavam fazendo laqueadura para diminuir o nascimento de crianças indígenas e, mais grave ainda, que ao longo desse tempo, 98% delas — não só em caso de grande desproporção céfalo-pélvica, entrando na seara do colega que vai falar daqui a pouco — não eram submetidas a parto normal.Hoje, as mulheres indígenas, com todo esse aparato e essas más informações […]",
+            "score": 0.2452
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a cobrança por resultados e leis com a constatação de que pacientes chegam ao sistema de saúde em estágio avançado (3 ou 4) do câncer de mama, quando o tratamento inicial oferece quase 100% de possibilidade de cura.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 18151,
+            "end": 18238,
+            "text": "Quando a paciente é tratada no estágio inicial, há quase 100% de possibilidade de cura.",
+            "score": 0.4734
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a urgência na redução da mortalidade materna e infantil na afirmação de que os números atuais \"têm que nos envergonhar\" e que a realidade no Brasil é \"cruel\".",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 18565,
+            "end": 18649,
+            "text": "Os números da mortalidade materna e da mortalidade infantil têm que nos envergonhar.",
+            "score": 0.5665
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se médico ginecologista e obstetra com 40 anos de atuação em sua cidade.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 8,
+            "start": 18026,
+            "end": 18254,
+            "text": "Eu cheguei há 40 anos, como médico ginecologista e obstetra, à minha cidade, e lá os profissionais de saúde sequer se atreviam a fazer uma laqueadura, mesmo que a pleiteasse a mulher indígena, com 8 filhos, 10 filhos, 12 filhos.",
+            "score": 0.3967
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Secretário de Saúde no Mato Grosso do Sul, onde enfrentou o tema do câncer de mama.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 18240,
+            "end": 18309,
+            "text": "No Mato Grosso do Sul, quando eu era Secretário, enfrentei esse tema.",
+            "score": 0.5969
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara estar \"irmado\" com o Deputado Weliton Prado e a Deputada Flávia Morais para melhorar o atendimento à saúde da mulher.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 17118,
+            "end": 17576,
+            "text": "Larissa Veríssimo, Consultora Nacional de Doenças Crônicas não Transmissíveis da Coordenação de Determinantes da Saúde, Doenças Crônicas não Transmissíveis e Saúde Mental do Escritório da Organização Pan-Americana da Saúde — OPAS/OMS no Brasil,eu gostaria de elogiar o trabalho feito pelo Deputado Weliton Prado e pela Deputada Flávia Morais, com quem estamos irmanados para melhorar o atendimento à saúde da mulher, notadamente em relação ao câncer de mama.",
+            "score": 0.3962
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante dos 5.570 municípios brasileiros ao citar o CONASEMS, embora não declare explicitamente cargo atual no conselho, apenas a necessidade de cobrar os gestores municipais.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 17578,
+            "end": 17857,
+            "text": "Para avançar nessa área, precisamos aproveitar aexpertiseda OPAS, dos profissionais do Ministério da Saúde, do Conselho Nacional de Secretários de Saúde — CONASS e do Conselho Nacional de Secretarias Municipais de Saúde – CONASEMS, que representa os 5.570 Municípios brasileiros.",
+            "score": 0.2831
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza relatos de experiência pessoal e dados específicos (como a porcentagem de 98% de mulheres indígenas não submetidas a parto normal em casos de desproporção céfalo-pélvica) para sustentar suas críticas.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 8,
+            "start": 18264,
+            "end": 19031,
+            "text": "Porque estavam com medo de várias entidades, inclusive subsidiadas por capitais externos e mesmo daqui, dizerem que eles estavam fazendo laqueadura para diminuir o nascimento de crianças indígenas e, mais grave ainda, que ao longo desse tempo, 98% delas — não só em caso de grande desproporção céfalo-pélvica, entrando na seara do colega que vai falar daqui a pouco — não eram submetidas a parto normal.Hoje, as mulheres indígenas, com todo esse aparato e essas más informações […]",
+            "score": 0.2339
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta aos gestores e parlamentares, pedindo a criação de leis e a atenção prática aos problemas na ponta do sistema de saúde.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 18001,
+            "end": 18062,
+            "text": "É preciso cobrar dos gestores municipais atenção a esse tema.",
+            "score": 0.1627
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz elogios a colegas parlamentares e a órgãos técnicos (OPAS, CONASS, CONASEMS) para construir consenso e destacar a necessidade de cooperação institucional.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Usa expressões de urgência e gravidade (\"realidade cruel\", \"têm que nos envergonhar\") para enfatizar a importância das medidas propostas.",
+          "passage": {
+            "hearing_id": 159,
+            "turn": 7,
+            "start": 18650,
+            "end": 18680,
+            "text": "A realidade no Brasil é cruel.",
+            "score": 0.3003
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 5,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados, especialistas e familiares cobram cumprimento dos direitos das pessoas com autismo",
+      "assunto": "Cumprimento dos direitos das pessoas com autismo",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 58,
+      "split": "train",
+      "article_date": "2023-04-19",
+      "title": "Debatedores dizem que mulheres negras e pobres são maiores vítimas violência obstétrica",
+      "assunto": "Violência obstétrica e morte materna, com foco nas mulheres negras, indígenas e de baixa renda",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 123,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Deputado defende aumento de orçamento para combater a tuberculose no Brasil",
+      "assunto": "Aumento de orçamento para combater a tuberculose no Brasil",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 159,
+      "split": "train",
+      "article_date": "2023-10-03",
+      "title": "Falta de recursos dificulta acesso a diagnóstico de câncer de mama no SUS, reclamam especialistas",
+      "assunto": "Falta de recursos dificulta acesso a diagnóstico de câncer de mama no SUS",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

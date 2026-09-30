@@ -1,0 +1,519 @@
+{
+  "actor": {
+    "slug": "ana-paula-lima",
+    "name": "Ana Paula Lima",
+    "display_name": "Ana Paula Lima",
+    "role": "Deputada (PT-SC)",
+    "article_names": [
+      "Ana Paula Lima"
+    ],
+    "party_uf": [
+      "Bloco/PT - SC"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:47:25+00:00",
+    "n_statements": 8,
+    "n_hearings": 3,
+    "hearing_ids": [
+      34,
+      57,
+      171
+    ],
+    "input_tokens": 6618,
+    "output_tokens": 854,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 2,
+    "passage_only": 20,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a mudança do Código Penal para aumentar as penas em casos de violência em escolas, citando o massacre em uma creche em Blumenau (SC) e a tragédia em Saudades (SC).",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 28,
+            "start": 99190,
+            "end": 99315,
+            "text": "No Estado de Santa Catarina, num Município pequeno do oeste, Saudades, também aconteceu, numa creche, uma tragédia como essa.",
+            "score": 0.2207
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação de parlamentares que incitam o ódio e a violência, incluindo o uso de armas de fogo em fotos e discursos na tribuna, argumentando que isso serve de referência negativa para a sociedade.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 28,
+            "start": 100145,
+            "end": 100251,
+            "text": "Até hoje Parlamentares desta Casa tiram fotos com metralhadoras empunhadas, emanando o ódio e a violência.",
+            "score": 0.2078
+          },
+          "udv": {
+            "id": "udv-57-4-0",
+            "rule": "same_sentence",
+            "score": 0.1415
+          }
+        },
+        {
+          "text": "Exige o controle das redes sociais e a regulamentação de fake news, apoiando a atuação do Ministro Alexandre de Moraes e do Ministro Flávio Dino no combate à incitação ao ódio e à disseminação de mentiras.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 28,
+            "start": 100492,
+            "end": 100620,
+            "text": "O Ministro Alexandre de Moraes e o nosso Ministro da Justiça Flávio Dino estão atuando firmemente no controle das redes sociais.",
+            "score": 0.5556
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a pauta positiva na saúde, cobrando a resolução de problemas estruturais como filas, oncologia e a crise no Rio Grande do Sul, em vez de convocações para responder a entrevistas de jornalistas.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 96006,
+            "end": 96249,
+            "text": "Nós temos que resolver o problema das filas, nós temos que resolver o problema da oncologia, nós temos que resolver o problema do Rio Grande do Sul, que está passando por um momento muito difícil, nós precisamos cuidar da população brasileira.",
+            "score": 0.2464
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a gestão anterior do Ministério da Saúde, citando a distribuição de 6 milhões de caixas de cloroquina sem eficácia e a falta de vacinas, o que teria evitado 755 mil mortes por COVID-19.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 94623,
+            "end": 94727,
+            "text": "Parlamentares, 6 milhões de caixas de cloroquina foram distribuídas no nosso País, sem eficácia nenhuma.",
+            "score": 0.3498
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a punição de profissionais de saúde que espalham fake news sobre vacinas, citando o caso de uma médica nos Estados Unidos que teve a licença cassada por alegar que vacinas magnetizam.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 96750,
+            "end": 96784,
+            "text": "Isso aconteceu nos Estados Unidos.",
+            "score": 0.2589
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiou a aprovação da educação em tempo integral, com o direito de brincar, para combater o isolamento de crianças e a exposição excessiva às redes sociais.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 13,
+            "start": 54661,
+            "end": 54783,
+            "text": "Por isso, aprovamos nesta Casa, e é um projeto do Governo Federal, a educação em tempo integral, com o direito de brincar.",
+            "score": 0.3732
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o tratamento conjunto da saúde mental de adultos e crianças, argumentando que a saúde mental do adulto reflete na criança e que os pais também precisam de cuidado.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 13,
+            "start": 53457,
+            "end": 53508,
+            "text": "A saúde mental do adulto também reflete na criança.",
+            "score": 0.6119
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a cultura da paz e do amor como base para a reconstrução do país, justificando a necessidade de combater a violência e o ódio nas escolas e nas redes sociais.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 28,
+            "start": 101497,
+            "end": 101585,
+            "text": "Esse é um trabalho da reconstrução do nosso País, é a cultura da paz, a cultura do amor.",
+            "score": 0.5609
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o SUS como modelo de política de acesso universal à saúde, justificando a defesa da pauta positiva na saúde e a crítica à gestão anterior do Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 92360,
+            "end": 92498,
+            "text": "Quero destacar que o Brasil é reconhecido por ter um modelo de política de acesso universal à saúde, que é o nosso Sistema Único de Saúde.",
+            "score": 0.4118
+          },
+          "udv": {
+            "id": "udv-171-5-1",
+            "rule": "same_sentence",
+            "score": 0.2955
+          }
+        },
+        {
+          "text": "Considera a família como aquela que cuida, independentemente da opção de gênero ou orientação sexual, justificando a defesa do respeito a diferentes configurações familiares.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 97653,
+            "end": 97803,
+            "text": "A família para mim é aquela que cuida, independentemente da opção da pessoa — se é mulher casada com homem, se é homem com homem ou mulher com mulher.",
+            "score": 0.2508
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a saúde do povo é uma coisa muito cara, justificando a necessidade de combater as fake news e a desinformação que levam pacientes a abandonarem tratamentos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 97353,
+            "end": 97445,
+            "text": "Infelizmente, precisamos combater isso, porque a saúde do nosso povo é uma coisa muito cara.",
+            "score": 0.4458
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal, autora do Requerimento nº 11, de 2023, para a audiência sobre violência em escolas.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 0,
+            "start": 783,
+            "end": 1122,
+            "text": "Esta reunião de audiência pública foi convocada, nos termos do Requerimento nº 10, de 2023, de autoria do Deputado Pastor Henrique Vieira, que se encontra aqui na Mesa comigo, e do Requerimento nº 11, de 2023, de minha autoria, Deputada Ana Paula Lima, para debater o aumento dos atos de violência ocorridos em escolas e creches no Brasil.",
+            "score": 0.4161
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se enfermeira e da área da saúde, justificando sua preocupação com a saúde mental e a vacinação.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 93313,
+            "end": 93353,
+            "text": "Eu sou da área da saúde, sou enfermeira.",
+            "score": 0.3989
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se da cidade de Blumenau (SC), justificando sua vivência pessoal com o massacre em uma creche.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 28,
+            "start": 98073,
+            "end": 98195,
+            "text": "No dia 5 de abril, na cidade de Blumenau, eu vivi um dos atos mais violentos que já aconteceu na história da nossa cidade.",
+            "score": 0.2315
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se parte da frente parlamentar que promove os direitos da criança e do adolescente.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 13,
+            "start": 55464,
+            "end": 55556,
+            "text": "Faço parte também da frente parlamentar que promove os direitos da criança e do adolescente.",
+            "score": 0.8589
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se assumida a Secretaria da Primeira Infância, Infância, Adolescência e Juventude, justificando seu compromisso com o tema.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 13,
+            "start": 55371,
+            "end": 55463,
+            "text": "A Secretaria da Primeira Infância, Infância, Adolescência e Juventude vai debater este tema.",
+            "score": 0.7353
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Usa dados e estatísticas para fundamentar seus argumentos, como o número de farmácias no Brasil, o aumento de suicídios entre jovens e o número de mortes por COVID-19.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 13,
+            "start": 54136,
+            "end": 54200,
+            "text": "É real mesmo que o número de suicídios entre os jovens aumentou.",
+            "score": 0.3644
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita casos concretos e experiências pessoais, como o massacre em Blumenau e a distribuição de cloroquina em seu município, para ilustrar seus pontos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 94728,
+            "end": 94830,
+            "text": "No meu Município, por exemplo, foram jogadas fora porque os médicos não queriam receitar a cloroquina.",
+            "score": 0.1649
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a emoção e para a empatia, descrevendo o pânico e o medo das vítimas e das famílias, e citando amigos e parentes que morreram por COVID-19.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 94954,
+            "end": 95098,
+            "text": "Eu tenho amigos e parentes que morreram por causa da COVID-19, pela falta de uma atuação mais firme do Governo Federal e do Ministério da Saúde.",
+            "score": 0.3446
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos internacionais, como o caso da médica nos Estados Unidos, para reforçar a necessidade de punir a desinformação.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 96750,
+            "end": 96784,
+            "text": "Isso aconteceu nos Estados Unidos.",
+            "score": 0.3292
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra seriedade dos parlamentares, pedindo que deixem de convocar a Ministra da Saúde para responder a entrevistas e foquem em resolver problemas reais.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 102,
+            "start": 95615,
+            "end": 95660,
+            "text": "Eu acho que nós temos que ter mais seriedade.",
+            "score": 0.188
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 30,
+      "split": "validation",
+      "article_date": "2023-11-21",
+      "title": "Debatedores pedem inclusão de emendas na LDO para combater violência contra crianças e adolescentes",
+      "assunto": "Inclusão de emendas na LDO para combater violência contra crianças e adolescentes",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 34,
+      "split": "train",
+      "article_date": "2023-09-21",
+      "title": "Debatedores alertam para impactos nocivos das telas na saúde mental de jovens",
+      "assunto": "Impactos nocivos da alta exposição às redes sociais na saúde mental de jovens",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 57,
+      "split": "train",
+      "article_date": "2023-04-20",
+      "title": "Guardas armados não resolvem problema de violência nas escolas, dizem especialistas",
+      "assunto": "Discussão sobre a eficácia de guardas armados e medidas de segurança nas escolas para combater a violência",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 118,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Defesa Civil aponta 14,5 milhões de afetados e gastos de R$ 1,4 bilhão com desastres climáticos em 2023",
+      "assunto": "Impacto dos desastres climáticos no Brasil em 2023 e medidas de prevenção e resposta",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 123,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Deputado defende aumento de orçamento para combater a tuberculose no Brasil",
+      "assunto": "Aumento de orçamento para combater a tuberculose no Brasil",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 3
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-30-0-0",
+      "hearing_id": 30,
+      "n": 1,
+      "article_name": "Ana Paula Lima",
+      "proposition": "As cinco emendas no projeto de Lei de Diretrizes Orçamentárias (LDO) de 2024 para combater a violência contra crianças e adolescentes foram aceitas pelo relator da LDO.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Neste momento, diante dos dados que colocamos aqui, das cinco emendas apresentadas, uma delas foi de promoção da prevenção às violências contra crianças e adolescentes, a Emenda n° 43010004 ao PLN 4/23; a emenda que visa constar a consolidação dos valores destinados ao desenvolvimento de ações e programas com foco na prevenção de violência contra crianças e adolescentes; a emenda que propõe, até o dia 30 de abril de cada exercício, um relatório anual referente ao exercício […]",
+        "turn": 10,
+        "start": 31924,
+        "end": 33003
+      },
+      "verifier": {
+        "probability": 0.9490876330919495,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-30-0-1",
+      "hearing_id": 30,
+      "n": 2,
+      "article_name": "Ana Paula Lima",
+      "proposition": "Destacou a proposta de incluir a marcação no plano orçamentário de todas as despesas relacionadas com crianças e adolescentes: \"A emenda é fundamental para ampliar a transparência do orçamento e possibilitar a análise total de investimentos em prevenção e resposta à violência contra crianças e adolescentes.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Elas foram elaboradas conjuntamente — por isso esse trabalho em equipe é de extrema importância — pelas organizações sociais, pelas nossas universidades, pelos coletivos de redes da nossa sociedade civil. Na emenda que destacamos há a proposta de incluir a marcação do nível do plano orçamentário de todas as despesas relacionadas com crianças e adolescentes, que é fundamental para ampliar a transparência do Orçamento e possibilitar a análise total de investimentos em […]",
+        "turn": 10,
+        "start": 34526,
+        "end": 35064
+      },
+      "verifier": {
+        "probability": 0.993718265760466,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-57-4-0",
+      "hearing_id": 57,
+      "n": 13,
+      "article_name": "Ana Paula Lima",
+      "proposition": "O aumento da violência nas escolas é reflexo do ambiente político vigente no Brasil nos últimos anos: \"O que a gente podia esperar se tivemos personalidades políticas que incitavam o ódio e a violência, faziam 'arminha'? Até hoje parlamentares desta Casa tiram foto com metralhadora empunhada, disseminando o ódio e a violência.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mas o que vamos esperar dos últimos anos, quando tivemos personalidades políticas que incitavam o ódio e a violência, que faziam gesto de “arminha”. Até hoje Parlamentares desta Casa tiram fotos com metralhadoras empunhadas, emanando o ódio e a violência.",
+        "turn": 28,
+        "start": 99996,
+        "end": 100251
+      },
+      "verifier": {
+        "probability": 0.5109335649917376,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-5-0",
+      "hearing_id": 171,
+      "n": 12,
+      "article_name": "Ana Paula Lima",
+      "proposition": "Elogiou a atuação de Nísia Trindade à frente do Ministério da Saúde.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Muito obrigada, Ministra, pela sua participação aqui. O Ministério da Saúde está muito feliz com a sua gestão.",
+        "turn": 102,
+        "start": 97848,
+        "end": 97958
+      },
+      "verifier": {
+        "probability": 0.7892993618531575,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-5-1",
+      "hearing_id": 171,
+      "n": 13,
+      "article_name": "Ana Paula Lima",
+      "proposition": "Destacou o atual protagonismo internacional do Brasil em temas de saúde.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quero destacar que o Brasil é reconhecido por ter um modelo de política de acesso universal à saúde, que é o nosso Sistema Único de Saúde. Tanto é que o País deverá ser protagonista, Srs.",
+        "turn": 102,
+        "start": 92360,
+        "end": 92547
+      },
+      "verifier": {
+        "probability": 0.8247767503743809,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-171-5-2",
+      "hearing_id": 171,
+      "n": 14,
+      "article_name": "Ana Paula Lima",
+      "proposition": "Lembrou que, de 18 a 25 de setembro, a ministra será um dos destaques em reuniões da ONU, em Nova Iorque, sobre preparação e respostas a emergências e pandemias, aceleração de vacinas para tuberculose e cobertura universal de saúde.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Tanto é que o País deverá ser protagonista, Srs. Parlamentares, nas reuniões da cúpula da próxima Assembleia Geral da Organização das Nações Unidas, de 18 a 25 de setembro, em Nova York, momento em que a nossa Ministra vai participar com três temas importantes: preparação e resposta às emergências e pandemias; a questão da aceleração de vacinas para a tuberculose, que infelizmente no Brasil tem crescido muito; e a cúpula sobre a cobertura universal de saúde — nesse quesito o […]",
+        "turn": 102,
+        "start": 92499,
+        "end": 93037
+      },
+      "verifier": {
+        "probability": 0.9406306299730512,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

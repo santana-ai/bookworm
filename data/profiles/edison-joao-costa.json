@@ -1,0 +1,300 @@
+{
+  "actor": {
+    "slug": "edison-joao-costa",
+    "name": "EDISON JOÃO COSTA",
+    "display_name": "EDISON JOÃO COSTA",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:17:41+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      142
+    ],
+    "input_tokens": 4235,
+    "output_tokens": 888,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Rejeita o Projeto de Lei nº 2.591, de 2023, argumentando que ele propõe reinstituir um veto derrubado, contrapondo-se ao que já foi decidido pelo Congresso, e que promoveria um endividamento de longo prazo em detrimento de um de curto prazo.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 56594,
+            "end": 56703,
+            "text": "Eu entendo que ele propõe reinstituir um veto derrubado se contrapondo ao que já foi decidido pelo Congresso.",
+            "score": 0.5215
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o cartão de crédito consignado como um meio de pagamento e não como crédito pessoal, destacando que, quando usado corretamente, favorece a educação financeira e o planejamento de despesas.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 58010,
+            "end": 58058,
+            "text": "É um meio de pagamento e não um crédito pessoal.",
+            "score": 0.4997
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que o cartão consignado é superior ao cartão convencional por ser isento de anuidade (contra R$ 200 a R$ 700 do convencional) e por ter taxa de juros no rotativo de 3,90% (contra 12% a 17% do convencional), além de não possuir multa por atraso.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 59419,
+            "end": 59474,
+            "text": "A taxa de juros num cartão convencional é de 12% a 17%.",
+            "score": 0.5079
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a aceleração da liquidação do rotativo do cartão consignado mediante uma pequena redução do limite, sem redução da margem, para evitar dívidas impagáveis.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 60213,
+            "end": 60326,
+            "text": "Com uma pequena redução do limite, sem redução da margem, e se acelera a dívida para não prejudicar o consumidor.",
+            "score": 0.4519
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a livre opção do consumidor para definir a destinação da margem consignável, incluindo a possibilidade de destinar 100% ao cartão de crédito, rejeitando a fixação de limites como os 5% ou 45%.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 60453,
+            "end": 60526,
+            "text": "Já que é livre a opção de escolha, não há por que segurar a margem de 5%.",
+            "score": 0.2276
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação de advogados que movem grandes volumes de ações contra bancos (cita o caso de um advogado com 30 ou 40 mil ações), classificando-os como \"ofensores\" e prejudiciais aos servidores e consumidores.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 62819,
+            "end": 62955,
+            "text": "Inclusive, recentemente enviei uma gravação para o INSS, porque não é possível um advogado ter 30 ou 40 mil ações contra um único banco.",
+            "score": 0.3389
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece a existência de problemas na oferta do produto, atribuídos a agentes inescrupulosos e à falta de orientação correta, e afirma que a ANEPS é responsável por administrar e punir correspondentes que causam margens negativas.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 53,
+            "start": 81846,
+            "end": 82037,
+            "text": "Boa parte dos problemas hoje encontrados no cartão tem origem na oferta maliciosa do produto, na oferta equivocada, pois não foi esclarecido para o cliente qual é o benefício daquele produto.",
+            "score": 0.2057
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a portabilidade do empréstimo consignado como mecanismo de negociação de dívida, permitindo a troca de taxas de juros.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 61791,
+            "end": 61955,
+            "text": "É por isso que a portabilidade, nos últimos meses, em decorrência de queda de taxa de juros e tudo mais, foi a modalidade que mais cresceu no empréstimo consignado.",
+            "score": 0.2548
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Distingue entre \"tutela\" e \"proteção\", defendendo que o consumidor deve ser protegido, mas que tutelar (tomar a decisão por ele) é totalmente errado; esse critério justifica a defesa da livre opção do cliente na destinação da margem.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 53,
+            "start": 81273,
+            "end": 81422,
+            "text": "O consumidor tem que ser protegido sempre de todas as formas, mas tutelar significa tomarmos a decisão por ele, o que consideramos totalmente errado.",
+            "score": 0.3719
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a comparação de custos e benefícios entre o cartão consignado e o convencional como fundamento para defender a expansão do uso do cartão consignado, argumentando que é a melhor opção para o consumidor.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 62065,
+            "end": 62176,
+            "text": "Se você o compara com o cartão do meio convencional, essa é a melhor opção que você pode dar para o consumidor.",
+            "score": 0.2909
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de educação financeira e alfabetização financeira como pré-requisito para o uso correto do cartão, justificando a implementação de projetos de educação nacional pelos correspondentes.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 58302,
+            "end": 58458,
+            "text": "Aliás, em se falando em educação financeira, o Brasil deve ser o país que mais tem curso de inglês e educação financeira, e ninguém tem educação financeira.",
+            "score": 0.283
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da ANEPS (Associação Nacional das Empresas de Serviços de Correspondentes Bancários), organização que existe há 21 anos e representa correspondentes bancários (médias, pequenas e microempresas) em todo o país.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 55763,
+            "end": 55846,
+            "text": "Os correspondentes são médias, pequenas e microempresas espalhadas por todo o País.",
+            "score": 0.419
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a ANEPS representa mais de 300 mil CNPJs e 1,7 milhão de postos de trabalho.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 55847,
+            "end": 55950,
+            "text": "Existem mais de 300 mil CNPJs, segundo a Unicad, do Banco Central, e 1,7 milhão de postos de trabalhos.",
+            "score": 0.4706
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como aposentado do INSS.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 62177,
+            "end": 62385,
+            "text": "Eu gostaria de ter o meu cartão do INSS — eu sou aposentado — com 100% da margem dedicados a cartão, porque eu deixaria de pagar a anuidade de 100 ou 200 reais em outros cartões de crédito que temos no banco.",
+            "score": 0.2592
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos específicos (taxas de juros, valores de anuidade, percentuais de uso, números de CNPJs e empregos) para fundamentar suas posições.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega a comparação direta entre produtos (cartão consignado vs. convencional; cartão vs. crédito pessoal) para destacar vantagens e desvantagens.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 53,
+            "start": 80912,
+            "end": 81109,
+            "text": "Muito rapidamente, queria explicar que meu propósito nesta audiência foi mostrar a diferença entre dois produtos, cartão de crédito e cartão convencional, para não confundirmos com crédito pessoal.",
+            "score": 0.2372
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom defensivo em relação ao setor de correspondentes, reconhecendo falhas (\"gente boa e gente ruim\") mas atribuindo-as a agentes específicos ou à falta de educação, enquanto defende a autonomia do consumidor.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 53,
+            "start": 81633,
+            "end": 81845,
+            "text": "Quanto ao produto cartão de crédito, eu reconheço, como representante da categoria e em um universo de mais 1 milhão e 700 postos de trabalhos, que há gente boa e há gente ruim, porque é uma amostra da sociedade.",
+            "score": 0.233
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos concretos de problemas (margens negativas, ações judiciais em massa) para ilustrar riscos e justificar a necessidade de regulação e educação.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Refere-se a interlocutores específicos (Dra. Gerlane, Vitor Hugo, colega da SENACON, colega Elias da Caixa) para contextualizar suas respostas e demonstrar alinhamento ou divergência pontual.",
+          "passage": {
+            "hearing_id": 142,
+            "turn": 33,
+            "start": 61437,
+            "end": 61577,
+            "text": "Uma outra coisa importante, mencionada pelo Vitor Hugo, é que não tem como se negociar uma dívida com o banco quando ela está no consignado.",
+            "score": 0.1596
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 10,
+      "split": "test",
+      "article_date": "2024-04-26",
+      "title": "Governo quer substituir saque-aniversário do FGTS por consignado com juros mais baixos",
+      "assunto": "Substituição do saque-aniversário do FGTS por empréstimo consignado com juros mais baixos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 142,
+      "split": "train",
+      "article_date": "2023-10-30",
+      "title": "Governo afirma que regulamentação do consignado para servidores públicos será publicada até semana que vem",
+      "assunto": "Regulamentação do empréstimo consignado para servidores públicos",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

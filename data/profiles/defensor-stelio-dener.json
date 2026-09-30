@@ -1,0 +1,309 @@
+{
+  "actor": {
+    "slug": "defensor-stelio-dener",
+    "name": "Defensor Stélio Dener",
+    "display_name": "Defensor Stélio Dener",
+    "role": "Deputado (Republicanos-RR)",
+    "article_names": [
+      "Defensor Stélio Dener"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - RR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:59:13+00:00",
+    "n_statements": 8,
+    "n_hearings": 3,
+    "hearing_ids": [
+      47,
+      139,
+      186
+    ],
+    "input_tokens": 5234,
+    "output_tokens": 781,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 15,
+    "with_udv": 1,
+    "passage_only": 13,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a manutenção e o aprofundamento da Lei Paulo Gustavo, elogiando o Ministério da Cultura por levar discussões aos Estados e Municípios e por garantir que os recursos cheguem a mais de 90% dos Municípios brasileiros, visando o fomento de todos os segmentos culturais.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 8,
+            "start": 19311,
+            "end": 19542,
+            "text": "Quero parabenizar o Ministério não só pela ação em si, mas também por levar a todos os Estados as discussões sobre o aprofundamento da lei e o que ela pode fazer tanto no Município como no Estado em relação aos segmentos culturais.",
+            "score": 0.3472
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a inclusão de \"comunidades afetadas por danos e prejuízos\" no âmbito do auxílio emergencial para desastres climáticos, argumentando que a legislação atual trata apenas de pessoas físicas e ignora comunidades que se autossustentam, como as indígenas, quilombolas, ribeirinhas, costeiras e afro.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 15,
+            "start": 79321,
+            "end": 79465,
+            "text": "Ficaria assim:\"III - Comunidades indígenas, quilombolas, ribeirinhas, costeira —sugerida pelo Gabriel—, afro, que tenham sido impactados (...)\".",
+            "score": 0.2231
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a fixação de valores de auxílio emergencial com base no tamanho da comunidade (ex.: faixas de até 50 ou 100 pessoas) para permitir a reposição de plantios e a manutenção da subsistência coletiva.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 15,
+            "start": 79580,
+            "end": 79809,
+            "text": "Lá embaixo, nos requisitos quanto ao valor a ser fixado, nós decidiríamos:\"(...) de acordo com o tamanho da comunidade\".Por exemplo: até 50 pessoas,um auxílio fixado pelo próprio PL, ou até 100 pessoas, um auxílio fixado pelo PL.",
+            "score": 0.2539
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Presidente da República e do Ministro Flávio Dino o não veto ao projeto de lei de sua autoria sobre a substituição de defensores públicos da União que acumulam outros cargos, visando ampliar a presença da Defensoria Pública da União em mais comarcas do Poder Judiciário Federal, especialmente para atender povos indígenas.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 19,
+            "start": 54054,
+            "end": 54549,
+            "text": "O encaminhamento que eu faço é para enviarmos um ofício ao Presidente da República e ao Ministro Flávio Dino, com pedido desta Comissão, desta audiência pública, para que não seja vetado o projeto de lei de autoria do Deputado Defensor Stélio Dener sobre a substituição dos defensores públicos que podem estar em outros ofícios, cumulando, porque a Defensoria Pública da União precisa avançar em muito mais comarcas do Poder Judiciário, sobretudo para atender os povos indígenas […]",
+            "score": 0.5151
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a realização de júris compostos por pares indígenas em comunidades onde há predominância indígena, citando o exemplo de Uiramutã (RR), e critica a aplicação de juízes que não têm contato com a realidade das comunidades distantes.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 21,
+            "start": 60439,
+            "end": 60576,
+            "text": "Eu falo isso por ser Defensor Público do júri, com mais de 400 júris em muitos Municípios do meu Estado, onde a predominância é indígena.",
+            "score": 0.1876
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Justifica suas posições pela necessidade de políticas públicas efetivas para pessoas hipossuficientes, marginalizadas e comunidades vulneráveis, invocando a proteção dos direitos humanos e da autonomia das comunidades.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 15,
+            "start": 75462,
+            "end": 75804,
+            "text": "Com essa introdução, vocês já podem deduzir o meu posicionamento com relação às questões dos direitos humanos, em relação aos direitos das pessoas mais simples, das pessoas hipossuficientes, das pessoas marginalizadas, das pessoas que precisam realmente de uma política pública mais efetiva dos Governos que passam pelos Estados e pela União.",
+            "score": 0.28
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência direta na Defensoria Pública, incluindo a atuação em mais de 400 júris, como fundamento para questionar a aplicabilidade de normas processuais genéricas a realidades específicas, como a indígena.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 21,
+            "start": 60439,
+            "end": 60576,
+            "text": "Eu falo isso por ser Defensor Público do júri, com mais de 400 júris em muitos Municípios do meu Estado, onde a predominância é indígena.",
+            "score": 0.1916
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a identificação de práticas exitosas no Brasil para subsidiar proposições legislativas, argumentando que a lei deve refletir a realidade local e a capacidade da sociedade de julgar seus pares.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 21,
+            "start": 60692,
+            "end": 60803,
+            "text": "A lei traz essa possibilidade quando diz que quem deve julgar é a sociedade, mas a sociedade são os seus pares.",
+            "score": 0.3938
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se defensor público de carreira no Estado de Roraima e o único parlamentar federal defensor público desta legislatura, sendo o primeiro a usar a insígnia \"Defensor\" no nome parlamentar no Congresso Nacional.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 15,
+            "start": 75110,
+            "end": 75232,
+            "text": "Eu sou defensor público de carreira, no Estado de Roraima, o único Parlamentar federal defensor público desta legislatura.",
+            "score": 0.7468
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma representar a Defensoria Pública em múltiplas frentes de atuação no Congresso Nacional, destacando a responsabilidade da categoria em todas as políticas públicas que envolvem a população.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 7,
+            "start": 31800,
+            "end": 32016,
+            "text": "Em virtude de nós sermos Defensores Públicos, nós precisamos ter muitas e muitas bandeiras, porque o Defensor Público e a Defensora Pública estão em todas as políticas públicas que envolvem as pessoas no Brasil todo.",
+            "score": 0.2154
+          },
+          "udv": null
+        },
+        {
+          "text": "Mencionou ser diretor de um grupo folclórico do movimento junino em Roraima desde 1998, atuando há 25 anos com leis de incentivos culturais.",
+          "passage": {
+            "hearing_id": 47,
+            "turn": 8,
+            "start": 19711,
+            "end": 19824,
+            "text": "Nós temos um grupo folclórico em Roraima do qual somos diretores desde a fundação, em 1998; portanto, há 25 anos.",
+            "score": 0.4937
+          },
+          "udv": {
+            "id": "udv-47-4-0",
+            "rule": "similar_text",
+            "score": 0.3527
+          }
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e exemplos locais específicos, como a proporção de 11% da população indígena em Roraima e o caso de perda de plantio em Ingarikó, para sustentar suas propostas legislativas.",
+          "passage": {
+            "hearing_id": 186,
+            "turn": 15,
+            "start": 77155,
+            "end": 77272,
+            "text": "Em Roraima tem a maior população indígena, percentualmente falando, do Brasil: 11% da população do Estado é indígena.",
+            "score": 0.2978
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta sugestões técnicas de redação legal, propondo alterações textuais específicas em ementas e artigos de projetos de lei para incluir novas categorias de beneficiários.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Assume a presidência de sessões com foco na inclusão de participantes online e na valorização de convidados técnicos, como a Vice-Presidente do CONDEGE, para enriquecer o debate com expertise da Defensoria Pública.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 17,
+            "start": 46295,
+            "end": 46369,
+            "text": "Eu gostaria de provocar de novo a nossa Vice-Presidente do CONDEGE, a Dra.",
+            "score": 0.1884
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de defesa ativa, utilizando termos como \"pincelar\", \"frentes de batalha\" e \"coração verde\" para descrever seu engajamento político e institucional.",
+          "passage": {
+            "hearing_id": 139,
+            "turn": 7,
+            "start": 32070,
+            "end": 32285,
+            "text": "Nós estamos em muitas frentes de batalha aqui no Congresso Nacional e nos esforçamos muito para podermos pincelar com o coração verde os pontos necessários para a Defensoria Pública e para as pessoas do Brasil todo.",
+            "score": 0.3115
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 47,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores comemoram melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "assunto": "Melhoria no cenário cultural com a implantação da Lei Paulo Gustavo",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 86,
+      "split": "test",
+      "article_date": "2024-04-18",
+      "title": "Seguradoras propõem novas coberturas diante de catástrofes climáticas",
+      "assunto": "Propostas de novas coberturas de seguros diante de catástrofes climáticas",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 139,
+      "split": "train",
+      "article_date": "2023-11-07",
+      "title": "Debatedores denunciam racismo contra indígenas em presídios; deputada sugere lei prisional específica",
+      "assunto": "Racismo e preconceito contra indígenas no sistema prisional brasileiro e a proposta de uma lei prisional específica para indígenas",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 186,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Deputada quer auxílio emergencial e medidas duradouras para enfrentar desastres climáticos",
+      "assunto": "Debate sobre auxílio emergencial e medidas duradouras para enfrentar desastres climáticos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-47-4-0",
+      "hearing_id": 47,
+      "n": 9,
+      "article_name": "Defensor Stélio Dener",
+      "proposition": "Defendeu as leis de fomento para impulsionar diversas manifestações artísticas, como rodas de samba e festejos folclóricos: \"Eu venho do segmento cultural do movimento junino, e temos trabalhado há 25 anos com todas as leis de incentivos culturais, é muito importante essa iniciativa.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Eu venho do segmento cultural do movimento junino.",
+        "turn": 8,
+        "start": 19660,
+        "end": 19710
+      },
+      "verifier": {
+        "probability": 0.25401492611570853,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,463 @@
+{
+  "actor": {
+    "slug": "ricardo-salles",
+    "name": "RICARDO SALLES",
+    "display_name": "Ricardo Salles",
+    "role": "Deputado (PL-SP)",
+    "article_names": [
+      "Ricardo Salles"
+    ],
+    "party_uf": [
+      "PL - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:27:44+00:00",
+    "n_statements": 147,
+    "n_hearings": 2,
+    "hearing_ids": [
+      45,
+      183
+    ],
+    "input_tokens": 18011,
+    "output_tokens": 1282,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 1,
+    "passage_only": 22,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a Instrução Normativa nº 18 de 2001 do INCRA é inconstitucional por ferir o princípio da impessoalidade, pois permite que lideranças de movimentos sociais gerenciem listas de assentados, o que resulta em manipulação política e financeira.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 22,
+            "start": 32019,
+            "end": 32224,
+            "text": "Então, este é o primeiro ponto: instrução normativa do INCRA não é hierarquicamente superior às leis e não pode ferir de morte princípio inafastável da Constituição, o qual, no caso, é o da impessoalidade.",
+            "score": 0.2953
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a Instrução Normativa nº 132 do INCRA por utilizar a expressão \"existência de demanda social\" como eufemismo para manter o sistema de indicação de listas, exigindo a correção da terminologia para eliminar a imprecisão.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 33,
+            "start": 37937,
+            "end": 37971,
+            "text": "...a existência de demanda social.",
+            "score": 0.3596
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a Ação Orçamentária 211B da LOA 2023 possui dotação de apenas 2 milhões de reais, apontando que a PEC da Transição não acresceu recursos para a reforma agrária, o que torna inviável a execução do programa em 2023.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 96,
+            "start": 74158,
+            "end": 74266,
+            "text": "A Ação Orçamentária 211B foi sancionada pelo Presidente Lula na Lei Orçamentária Anual para 2023 em janeiro.",
+            "score": 0.2933
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera ilegal o Despacho Decisório nº 7.285 de 2023, que autoriza a aquisição de imóveis sem previsão orçamentária, argumentando que a despesa deve estar em consonância com a LOA, o PPA e a LDO.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 124,
+            "start": 84176,
+            "end": 84407,
+            "text": "Houve um despacho decisório, de nº 7.285, de 2023, que revogou as orientações do Memorando Circular nº 1, de 2019, passando a permitir a retomada de obtenção de imóveis ainda que sem previsão orçamentária, sem dotação orçamentária.",
+            "score": 0.3622
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a precificação de terras da Suzano para o Governo Federal deve seguir o valor de terra improdutiva, rejeitando a avaliação baseada em projeção de faturamento futuro, para evitar que o Erário pague preço de mercado privado.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 86,
+            "start": 68970,
+            "end": 69074,
+            "text": "Tratando-se de uma terra invadida, objeto de demanda, é preciso precificar a preço de terra improdutiva.",
+            "score": 0.2149
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a nomeação de ex-integrantes de movimentos sociais para cargos de fiscalização no INCRA, citando o caso de Nelson Grasselli, que listou invasão de terras como experiência profissional, configurando conflito de interesse.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 449,
+            "start": 218259,
+            "end": 218380,
+            "text": "Um sujeito, Nelson Grasselli, colocou no currículo dele, como experiência profissional, invasão de terras através do MST.",
+            "score": 0.3703
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o licenciamento ambiental deve buscar soluções para viabilizar projetos (\"dizer sim\" com condicionantes), argumentando que a restrição excessiva gera efeitos contrários, como o uso de termoelétricas a diesel em Roraima devido à demora no linhão Boa Vista-Manaus.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 3,
+            "start": 24909,
+            "end": 25073,
+            "text": "Mas o fato é que o não avanço do linhão Boa Vista-Manaus tem causado uma consequência ambiental muito mais perniciosa do que a que o avanço do licenciamento traria.",
+            "score": 0.2487
+          },
+          "udv": {
+            "id": "udv-183-6-0",
+            "rule": "same_sentence",
+            "score": 0.2468
+          }
+        },
+        {
+          "text": "Afirma que a remoção da torre eólica em Fernando de Noronha e a recusa em prolongar o cano do dessalinizador em 1,5 metro foram decisões ilógicas que aumentaram as emissões e custos, em detrimento da fauna.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 3,
+            "start": 27243,
+            "end": 27416,
+            "text": "Trazer mais sistemas, mais gasto de energia, inclusive com emissões, para a Ilha de Fernando de Noronha, em vez de se prolongar um cano em 1 metro e meio para dentro do mar.",
+            "score": 0.3313
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a Lei de Mananciais de São Paulo, ao restringir excessivamente o direito de propriedade, leva ao abandono das áreas e consequente invasão por movimentos de moradia, que suprimem a vegetação e aterram os mananciais.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 3,
+            "start": 28213,
+            "end": 28465,
+            "text": "É a invasão dessas áreas por esses movimentos de moradia, que suprimem por completo a vegetação — por completo —, aterram os mananciais e constroem ali moradias que nunca mais vão ser retiradas, sem saneamento, sem condições de salubridade e tudo mais.",
+            "score": 0.3953
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a demora no licenciamento do Rio Bauru, que impede a conclusão da estação de tratamento de esgoto, resultando no lançamento de esgoto não tratado na bacia.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 3,
+            "start": 28974,
+            "end": 29094,
+            "text": "Por que o Rio Bauru, até hoje, não tem tratamento, em que pese exista lá uma estação de tratamento de esgoto incompleta?",
+            "score": 0.4605
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o concurso público de 2022 para o IBAMA e ICMBio atendeu apenas 50% da demanda (568 e 160 postos, respectivamente) e defende que o perfil técnico dos aprovados deve ser compatível com a complexidade das análises, diferenciando analistas e técnicos ambientais.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 3,
+            "start": 29667,
+            "end": 29953,
+            "text": "No ano de 2022, mais precisamente em janeiro, o Ministério do Meio Ambiente, em razão da nossa atuação, conseguiu uma verba com o Ministério da Economia — no fim, foram liberados só 50% dos recursos — e fez o concurso em janeiro de 2022, para 568 postos no IBAMA e 160 postos no ICMBio.",
+            "score": 0.337
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio constitucional da impessoalidade da administração pública como fundamento para rejeitar a gestão de listas por terceiros, justificando a crítica às normas do INCRA e às práticas de assentamento.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 11,
+            "start": 28410,
+            "end": 28522,
+            "text": "E um princípio constitucional é claro ao dizer que é obrigação da administração pública agir com impessoalidade.",
+            "score": 0.3947
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a hierarquia normativa como critério para afirmar que normas administrativas infralegais não podem se sobrepor a leis ou princípios constitucionais, aplicando esse raciocínio à análise da IN 18/2001.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 11,
+            "start": 28242,
+            "end": 28409,
+            "text": "O senhor é meu colega, sabe, evidentemente, que uma norma administrativa infralegal não pode se sobrepor ao que diz a lei e muito menos aos princípios constitucionais.",
+            "score": 0.2153
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o princípio da legalidade orçamentária para justificar a oposição à aquisição de terras sem dotação prévia, argumentando que a criação de passivos sem previsão na LOA é ilegal e irresponsável.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 134,
+            "start": 89544,
+            "end": 89584,
+            "text": "Não foi feita essa dotação orçamentária.",
+            "score": 0.2236
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se no princípio da eficiência e na análise de consequências práticas para criticar normas ambientais restritivas, argumentando que a falta de equilíbrio econômico gera danos ambientais maiores do que os projetos licenciados.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 3,
+            "start": 29351,
+            "end": 29464,
+            "text": "Portanto, há consequência imediata do desequilíbrio econômico e, por vezes, de normas excessivamente restritivas.",
+            "score": 0.2163
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a necessidade de coerência entre a trajetória prévia dos servidores e as funções de fiscalização, utilizando o conflito de interesse como critério para questionar nomeações políticas no INCRA.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 451,
+            "start": 219411,
+            "end": 219449,
+            "text": "Isso é evidente conflito de interesse.",
+            "score": 0.2587
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara ter ocupado o cargo de Ministro do Meio Ambiente e Secretário em São Paulo, utilizando essa experiência para fundamentar suas análises sobre gestão pública e licenciamento.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 134,
+            "start": 89706,
+            "end": 89797,
+            "text": "Eu não era, como o senhor sabe, Ministro da Agricultura, mas era Ministro do Meio Ambiente.",
+            "score": 0.2604
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como ex-Deputado Federal, mencionando sua participação na votação da PEC da Transição e sua atuação na CPI do MST.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 106,
+            "start": 76390,
+            "end": 76541,
+            "text": "E, mais do que isso, essa proposta da PEC da Transição, tornada lei depois, no final de 2023, foi votada pelo Congresso enquanto o senhor era Deputado.",
+            "score": 0.2057
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a oposição ao Governo Lula na CPI do MST, criticando a atuação do Ministro Rui Costa e a bancada do PT na revogação de convocações.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 347,
+            "start": 183845,
+            "end": 183874,
+            "text": "O que fez o colega Rui Costa?",
+            "score": 0.234
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e cruzamentos de bases de dados (como o CADÚNICO e relatórios do TCU) para corrigir números apresentados pelo Governo, como a distinção entre 54 mil e 32 mil famílias acampadas.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 42,
+            "start": 41709,
+            "end": 41820,
+            "text": "Só que, no CADÚNICO, aquelas que estão classificadas como acampadas e em espera são 32 mil das 54 mil famílias.",
+            "score": 0.392
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita artigos de leis e normas (IN 18/2001, IN 132, Lei 11.952, Decreto 10.952) para sustentar argumentos jurídicos, recomendando a leitura direta dos textos normativos em vez de confiar apenas em explicações técnicas.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 170,
+            "start": 98774,
+            "end": 99065,
+            "text": "Sabe que ele realiza o cruzamento automático de todas as bases cadastrais dos órgãos federais e que é impossível, pelo cruzamento dessas áreas dentro da plataforma, titular uma área que não cumpra com os requisitos propostos pela Lei nº 11.952, o Terra Legal, e o Decreto nº 10.952, de 2020.",
+            "score": 0.2155
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega analogias e exemplos concretos de outras áreas (como a criação de unidades de conservação sem regularização fundiária) para ilustrar os riscos de procedimentos administrativos inadequados.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 440,
+            "start": 213993,
+            "end": 214023,
+            "text": "Estão aqui os exemplos, o PAA.",
+            "score": 0.1816
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador com o Governo, utilizando expressões como \"absolutamente ilegal\", \"inadmissível\" e \"desfaçatez\", enquanto mantém um tom respeitoso e elogioso ao se dirigir diretamente ao Ministro Paulo Teixeira, reconhecendo sua postura gentil.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 80,
+            "start": 64903,
+            "end": 64996,
+            "text": "Como eu disse, é sempre louvável a sua postura gentil e muito inteligente a sua argumentação.",
+            "score": 0.157
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a boa-fé e a transparência de ações governamentais, pedindo documentos formais (como consultas e respostas de Governadores) para verificar a veracidade das informações apresentadas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 146,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-45-1-0",
+      "hearing_id": 45,
+      "n": 7,
+      "article_name": "Ricardo Salles",
+      "proposition": "Os planos do governo para a reforma agrária poderão ser frustrados: \"A verdade é a seguinte: por força da omissão dos parlamentares que defendem a reforma agrária, não há orçamento em 2023, pode ser que tenha em 2024\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, a verdade é a seguinte: neste ano, em 2023, por força da omissão dos Parlamentares que defendiam a reforma agrária em 2022, não há orçamento para se executar. Ponto. Pode ser que haja em 2024, mas em 2023 não há.",
+        "turn": 112,
+        "start": 78751,
+        "end": 78970
+      },
+      "verifier": {
+        "probability": 0.48957331353408273,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-1-1",
+      "hearing_id": 45,
+      "n": 8,
+      "article_name": "Ricardo Salles",
+      "proposition": "Questionou Paulo Teixeira sobre um acórdão do TCU de 2016 – suspenso posteriormente pelo Supremo Tribunal Federal - que apontava indícios de irregularidades em relação a 35% do 1,6 milhão de assentados da reforma agrária no País até 2015.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Em 2016 — o senhor citou aqui o acórdão do Tribunal de Contas, por isso eu faço essa pergunta, deve ser o mesmo de 2015, porque foi publicado em 2016, mas se refere ao de 2015, é o mesmo —, o TCU fez um levantamento em que analisou mais de 1 milhão e 600 mil beneficiários da reforma agrária. O senhor se referiu a isso aqui, dizendo que o filtro estaria mostrando que só 1% dessas possíveis irregularidades se confirmaram.",
+        "turn": 4,
+        "start": 17297,
+        "end": 17720
+      },
+      "verifier": {
+        "probability": 0.29498504463688774,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-1-2",
+      "hearing_id": 45,
+      "n": 9,
+      "article_name": "Ricardo Salles",
+      "proposition": "Não pedirá mais prazo para a comissão, que acabará em setembro: \"Não podemos querer prorrogar algo cujas pernas foram amputadas\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu vou pedir tempo adicional, conforme previsão regimental, mas pode consumir o que está aí.",
+        "turn": 57,
+        "start": 52444,
+        "end": 52536
+      },
+      "verifier": {
+        "probability": 0.1472247342157688,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-183-6-0",
+      "hearing_id": 183,
+      "n": 14,
+      "article_name": "Ricardo Salles",
+      "proposition": "O atraso na obra da Linha de Transmissão Manaus-Boa Vista tem prejudicado o meio ambiente, já que sem o ‘linhão’, o estado vem sendo abastecido por termelétricas poluentes: \"A mim me parece que o licenciamento é uma maneira analítica, técnica, de se dizer o ‘sim’, porque se for para dizer o ‘não’, a gente nem precisa do licenciamento [para o empreendimento].\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Mas o fato é que o não avanço do linhão Boa Vista-Manaus tem causado uma consequência ambiental muito mais perniciosa do que a que o avanço do licenciamento traria. Devido à ausência de fornecimento de energia elétrica para Roraima — porque a Venezuela não tem feito manutenção no seu sistema, cai toda hora o fornecimento que vem da Venezuela; e Roraima, como a senhora sabe, está fora do sistema nacional de energia —, o que temos que fazer?",
+        "turn": 3,
+        "start": 24909,
+        "end": 25352
+      },
+      "verifier": {
+        "probability": 0.2923858567804956,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "actor": {
+    "slug": "jonas-donizette",
+    "name": "Jonas Donizette",
+    "display_name": "Jonas Donizette",
+    "role": "Deputado (PSB-SP)",
+    "article_names": [
+      "Jonas Donizette"
+    ],
+    "party_uf": [
+      "Bloco/PSB - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:15:51+00:00",
+    "n_statements": 12,
+    "n_hearings": 1,
+    "hearing_ids": [
+      194
+    ],
+    "input_tokens": 4719,
+    "output_tokens": 808,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 2,
+    "passage_only": 13,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a redução da velocidade nas vias urbanas como medida fundamental para garantir a segurança de pedestres e ciclistas, argumentando que a pressa e a aceleração excessiva levam a acidentes graves.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita a experiência de sua gestão em Campinas, onde diminuiu a velocidade em várias avenidas e estabeleceu o limite de 40 km/h no Viaduto Cury, resultando na eliminação de acidentes graves, mortes e mutilações, apesar das críticas recebidas.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 72477,
+            "end": 72554,
+            "text": "No Centro de Campinas há o Viaduto Cury, onde constantemente havia acidentes.",
+            "score": 0.2517
+          },
+          "udv": {
+            "id": "udv-194-3-1",
+            "rule": "same_sentence",
+            "score": 0.3637
+          }
+        },
+        {
+          "text": "Afirma que o pedestre é o agente mais importante no trânsito, pois se trata da preservação da vida das pessoas, e que a bicicleta deve ser vista como um modal de transporte para o deslocamento diário (trabalho), não apenas para passeio.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 73398,
+            "end": 73640,
+            "text": "Nós precisamos preservar a vida das pessoas e estabelecer um novo direcionamento tanto para o pedestre, que é o primeiro, o mais importante no papel de agente, porque se trata da vida das pessoas, quanto para abike, como estamos dizendo aqui.",
+            "score": 0.281
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que os Governos Municipais precisam ser chamados para o debate sobre mobilidade e segurança no trânsito, pois é nos Municípios que as políticas públicas são efetivadas.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 72865,
+            "end": 73004,
+            "text": "Acredito, porém, que os Governos Municipais também precisam ser chamados para esse debate, porque é nos Municípios que as coisas acontecem.",
+            "score": 0.5127
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a instabilidade política nas decisões sobre trânsito, citando o caso das marginais onde a velocidade foi diminuída e, após debate político, foi aumentada novamente.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 73255,
+            "end": 73396,
+            "text": "Aqui foi dito que, nas duas marginais, a velocidade chegou a ser diminuída, e, depois de um acalorado debate político, foi aumentada de novo.",
+            "score": 0.4527
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o incentivo à cultura do ciclismo e à educação no trânsito, citando a criação de uma \"minicidade\" em Campinas para crianças, que ensina normas de direção e gera consciência desde a infância.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 72030,
+            "end": 72081,
+            "text": "Fizemos uma minicidade voltada a todas as crianças.",
+            "score": 0.2169
+          },
+          "udv": null
+        },
+        {
+          "text": "Acredita que o advento das bicicletas elétricas favorece a adesão ao modal, atenuando a dificuldade de subidas e melhorando a mobilidade urbana.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 73891,
+            "end": 73959,
+            "text": "E agora, com o advento das bicicletas elétricas, atenua-se a subida.",
+            "score": 0.3099
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a preservação da vida humana como critério máximo para justificar a priorização do pedestre e a redução de velocidade, considerando que a dor da perda de um filho em acidentes evitáveis é a maior dor possível.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 17,
+            "start": 54056,
+            "end": 54336,
+            "text": "Eu acho que estão ficando completas as nossas palestras e os nossos debates, principalmente após o depoimento de uma mãe, porque não há dor maior, no meu entendimento, do que a da perda de um filho, ainda mais em circunstâncias como essas que ela citou, que poderiam ser evitadas.",
+            "score": 0.226
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições em resultados práticos e comprovados de sua gestão municipal, utilizando dados de acidentes antes e depois da implementação de limites de velocidade para validar suas propostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Valoriza a educação e a formação de cultura de trânsito desde a infância como ferramenta para a mudança de comportamento dos motoristas e a redução de acidentes.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 71941,
+            "end": 71968,
+            "text": "A educação foi citada aqui.",
+            "score": 0.1641
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a visão de uma cidade \"humanizada\", voltada para as pessoas, onde a mobilidade não é definida apenas pela velocidade do carro, mas pela segurança e acessibilidade de todos os modais.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 21,
+            "start": 68581,
+            "end": 68665,
+            "text": "Acho que é importante essa visão da cidade mais humanizada, voltada para as pessoas.",
+            "score": 0.4924
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor do Requerimento nº 40, de 2023, que motivou a audiência, e presidente da Comissão de Viação e Transportes da Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 0,
+            "start": 52,
+            "end": 256,
+            "text": "Declaro abertos os trabalhos da Comissão de Viação e Transportes, na qualidade de autor do requerimento que motivou esta reunião, Informo que nossas reuniões são transmitidas em tempo real pela Internet.",
+            "score": 0.3655
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido Deputado há 10 anos, antes de ser Prefeito de Campinas, utilizando essa trajetória para fundamentar sua experiência em gestão de trânsito municipal.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 0,
+            "start": 1298,
+            "end": 1376,
+            "text": "Meus amigos, eu já fui Deputado há 10 anos, antes de ser Prefeito de Campinas.",
+            "score": 0.4342
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se alinhado com a defesa da causa ciclista e pedestre, elogiando o entusiasmo de representantes de ONGs como Bike é Legal, União de Ciclistas do Brasil e Rodas da Paz.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 19,
+            "start": 61110,
+            "end": 61500,
+            "text": "Nós ouvimos Maria Alice, Diretora do Departamento de Segurança no Trânsito do Ministério dos Transportes; Antonio Maria, Coordenador-Geral de Regulação da Mobilidade Urbana do Ministério das Cidades; Marcelo Sgarbossa, Vereador de Porto Alegre; Renata Falzoni, da Bike é Legal; Ana Carboni, da ONG União de Ciclistas do Brasil — UCB; e Renata Aragão, que nos falou sobre a ONG Rodas da Paz.",
+            "score": 0.2667
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza exemplos concretos de sua gestão em Campinas (Viaduto Cury, minicidade para crianças) para ilustrar a eficácia das políticas de redução de velocidade e educação no trânsito.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 72477,
+            "end": 72554,
+            "text": "No Centro de Campinas há o Viaduto Cury, onde constantemente havia acidentes.",
+            "score": 0.2472
+          },
+          "udv": {
+            "id": "udv-194-3-1",
+            "rule": "same_sentence",
+            "score": 0.1849
+          }
+        },
+        {
+          "text": "Recorre a comparações internacionais, citando países nórdicos onde o ciclismo é praticado mesmo em climas frios, para argumentar que o clima tropical brasileiro favorece ainda mais a adoção do modal.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 71813,
+            "end": 71857,
+            "text": "Eu disse:\"Puxa, nós temos um clima tropical.",
+            "score": 0.2332
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliador e de agradecimento aos convidados, mas firme na defesa de suas posições, reconhecendo as críticas recebidas em sua gestão, mas mantendo-se convicto dos resultados obtidos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos combinando a experiência prática (gestão municipal) com a observação de tendências (bicicletas elétricas, cultura de trânsito), buscando um direcionamento novo para a mobilidade urbana.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 29,
+            "start": 73891,
+            "end": 73959,
+            "text": "E agora, com o advento das bicicletas elétricas, atenua-se a subida.",
+            "score": 0.1703
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 194,
+      "split": "train",
+      "article_date": "2023-08-15",
+      "title": "Especialistas defendem diminuição de velocidade das vias para garantir segurança de pedestres e ciclistas",
+      "assunto": "Diminuição da velocidade das vias para garantir segurança de pedestres e ciclistas",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 2
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-194-3-0",
+      "hearing_id": 194,
+      "n": 7,
+      "article_name": "Jonas Donizette",
+      "proposition": "A redução da velocidade nas vias brasileiras ainda é um desafio para os gestores que enfrentam o descontentamento de parte da população: \"Mas o resultado é comprovado.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quanto ao que foi dito sobre velocidade, informo que diminuí a de várias avenidas. Recebemos muitas críticas. Não é fácil! Mas o resultado está comprovado.",
+        "turn": 29,
+        "start": 72321,
+        "end": 72476
+      },
+      "verifier": {
+        "probability": 0.2579131160888061,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-194-3-1",
+      "hearing_id": 194,
+      "n": 8,
+      "article_name": "Jonas Donizette",
+      "proposition": "No centro de Campinas nós temos um viaduto que se chama viaduto Cury. Constantemente tinha acidentes, eu coloquei 40 km/h e nós não tivemos mais nem mortes, nem pessoas mutiladas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "No Centro de Campinas há o Viaduto Cury, onde constantemente havia acidentes. Estabeleci o limite de 40 quilômetros por hora e não houve mais acidentes graves.",
+        "turn": 29,
+        "start": 72477,
+        "end": 72636
+      },
+      "verifier": {
+        "probability": 0.9476345052344889,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

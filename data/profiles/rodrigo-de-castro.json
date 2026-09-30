@@ -1,0 +1,428 @@
+{
+  "actor": {
+    "slug": "rodrigo-de-castro",
+    "name": "Rodrigo de Castro",
+    "display_name": "Rodrigo de Castro",
+    "role": "Deputado (União-MG) e presidente da Comissão de Minas e Energia",
+    "article_names": [
+      "Rodrigo de Castro"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:32:48+00:00",
+    "n_statements": 5,
+    "n_hearings": 2,
+    "hearing_ids": [
+      2,
+      173
+    ],
+    "input_tokens": 4752,
+    "output_tokens": 947,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a situação da Agência Nacional de Mineração (ANM), classificando-a como \"completamente sucateada\" e incapaz de cumprir sua missão, o que afeta centenas de municípios mineradores e empreendedores.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 3962,
+            "end": 4029,
+            "text": "Hoje, a Agência Nacional de Mineração está completamente sucateada.",
+            "score": 0.4566
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério de Minas e Energia uma atuação mais rápida e uma liderança maior na reestruturação da ANM, argumentando que a demora na edição do decreto (60 dias) e a proposta de recomposição em 3 anos são insuficientes para resolver a crise.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 5234,
+            "end": 5286,
+            "text": "A proposta de recomposição — 3 anos — é muito longa.",
+            "score": 0.3059
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia que municípios afetados estão há 4 meses sem receber a Compensação Financeira pela Exploração de Minerais (CFEM) e correm o risco de ficar mais 2 meses sem receber, totalizando 6 meses de atraso, impactando a vida de milhares de pessoas.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 4974,
+            "end": 5094,
+            "text": "Existe a possibilidade de os Municípios afetados, que já estão há 4 meses sem receber, ficarem mais 2 meses sem receber.",
+            "score": 0.4479
+          },
+          "udv": null
+        },
+        {
+          "text": "Alerta para o risco grave de acidentes com barragens de rejeitos nucleares e ácidos, transferidas das Indústrias Nucleares do Brasil para a ANM, que não possui quadro funcional, citando especificamente o risco em Poços de Caldas.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 11,
+            "start": 46815,
+            "end": 47005,
+            "text": "No início do ano, as barragens de rejeitos nucleares e ácidos foram transferidas das Indústrias Nucleares do Brasil para a Agência Nacional de Mineração, que não tem quadro funcional nenhum.",
+            "score": 0.5648
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a retomada da construção de usinas hidrelétricas com grandes reservatórios e a inclusão de novos reservatórios na matriz energética, visando a transição energética, descarbonização, redução de tarifas e segurança do sistema elétrico.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 0,
+            "start": 84,
+            "end": 464,
+            "text": "Declaro aberta a reunião de audiência pública da Comissão de Minas e Energia para debater a expansão das hidrelétricas e a inclusão de novos reservatórios na matriz no contexto da transição energética, descarbonizacão e redução de tarifa ao consumidor e segurança do sistema elétrico nacional, em atendimento ao Requerimento nº 117, de 2023, de autoria do Deputado Geraldo Mendes.",
+            "score": 0.4551
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o quadro de \"obstáculo intransponível\" para a instalação de novas hidrelétricas no Brasil, apontando a falta de licenciamento como principal entrave, mesmo para Pequenas Centrais Hidrelétricas (PCHs).",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 6,
+            "start": 24981,
+            "end": 25394,
+            "text": "Antes de passar a palavra ao próximo expositor e a condução dos trabalhados ao Deputado Geraldo Mendes, que é um grande conhecedor do assunto, eu gostaria de dizer que todos nós somos sabedores da excelência da energia hidrelétrica no Brasil, mas, ao mesmo tempo, o que nós temos hoje, na verdade, é um quadro de enorme desafio, quase que um obstáculo intransponível para que novas hidrelétricas sejam instaladas.",
+            "score": 0.2565
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que, em Minas Gerais, a viabilização de PCHs leva praticamente 20 anos devido às dificuldades de licenciamento.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 6,
+            "start": 25395,
+            "end": 25625,
+            "text": "No meu Estado mesmo, Minas Gerais, Deputado Geraldo, nem mesmo as PCHs nós conseguimos viabilizar hoje, ou, se conseguimos, isso leva praticamente 20 anos, por conta das dificuldades de licença e de todas essas questões atinentes.",
+            "score": 0.432
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica um \"contrassenso\" na política energética brasileira: a importância das hidrelétricas para a matriz renovável contrasta com a ausência de licenciamento e o desequilíbrio gerado pelo estímulo preferencial a outras fontes, como a fotovoltaica e a eólica, que desestimula o investimento em hidrelétricas.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 6,
+            "start": 25897,
+            "end": 26107,
+            "text": "Há a questão também do estímulo às outras energias, como no caso da fotovoltaica e da eólica, o que acaba gerando um desequilíbrio do ponto de vista do investidor, de se investir também na energia hidrelétrica.",
+            "score": 0.2064
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige esclarecimentos do Ministério de Minas e Energia e do Operador Nacional do Sistema Elétrico (ONS) sobre as causas do apagão elétrico e as medidas para evitar sua recorrência.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 297,
+            "end": 393,
+            "text": "Alexandre Silveira de Oliveira, e do Diretor-Geral do Operador Nacional do Sistema Elétrico, Sr.",
+            "score": 0.3282
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita interlocução e esclarecimentos do Ministério sobre a renovação das distribuidoras de energia, destacando a competência da Câmara para participar do debate.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 3421,
+            "end": 3642,
+            "text": "Ministro, é claro que sabemos que a questão da renovação das distribuidoras é uma atribuição do Ministério, mas é um direito desta Câmara também participar desse debate, até porque muitos desses temas vão passar por aqui.",
+            "score": 0.3771
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o impacto direto sobre municípios, prefeitos e a população como fundamento para cobrar soluções rápidas na mineração, citando delegações recebidas de prefeitos de Maranhão, Pará e Minas Gerais.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 11,
+            "start": 47743,
+            "end": 47891,
+            "text": "Inclusive, como Presidente da Comissão, eu tenho recebido delegações de Prefeitos de diferentes Estados, como Maranhão, Pará e Minas principalmente.",
+            "score": 0.2794
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa das hidrelétricas na necessidade de manter a energia renovável na matriz e na segurança do sistema elétrico nacional, argumentando que a falta de licenciamento gera desequilíbrio para o investidor.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 0,
+            "start": 84,
+            "end": 464,
+            "text": "Declaro aberta a reunião de audiência pública da Comissão de Minas e Energia para debater a expansão das hidrelétricas e a inclusão de novos reservatórios na matriz no contexto da transição energética, descarbonizacão e redução de tarifa ao consumidor e segurança do sistema elétrico nacional, em atendimento ao Requerimento nº 117, de 2023, de autoria do Deputado Geraldo Mendes.",
+            "score": 0.206
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a responsabilidade do Estado em garantir a funcionalidade de agências reguladoras (como a ANM) para proteger os interesses de municípios mineradores e empreendedores.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 3813,
+            "end": 3961,
+            "text": "Nós estamos vivendo hoje um momento dramático também na mineração brasileira, o que tem afetado muito os Municípios mineradores e os empreendedores.",
+            "score": 0.1845
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Presidente da Comissão de Minas e Energia.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 11,
+            "start": 47743,
+            "end": 47891,
+            "text": "Inclusive, como Presidente da Comissão, eu tenho recebido delegações de Prefeitos de diferentes Estados, como Maranhão, Pará e Minas principalmente.",
+            "score": 0.2879
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante do Estado de Minas Gerais, citando a situação das PCHs em seu estado e as delegações de prefeitos mineiros.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 6,
+            "start": 25395,
+            "end": 25625,
+            "text": "No meu Estado mesmo, Minas Gerais, Deputado Geraldo, nem mesmo as PCHs nós conseguimos viabilizar hoje, ou, se conseguimos, isso leva praticamente 20 anos, por conta das dificuldades de licença e de todas essas questões atinentes.",
+            "score": 0.2139
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter participado de diálogos com o Ministro Rui Costa, a Ministra da Gestão e da Inovação em Serviços Públicos (MGI) e a Ministra do Planejamento.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 5470,
+            "end": 5577,
+            "text": "Nós estivemos com o Ministro Rui Costa e com a Ministra da Gestão e da Inovação em Serviços Públicos — MGI.",
+            "score": 0.7706
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e prazos para fundamentar cobranças, como os 60 dias de demora no decreto, os 4 meses de atraso na CFEM e os 20 anos para licenciamento de PCHs.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 4863,
+            "end": 4914,
+            "text": "Poderia ter sido 1 ou 2 semanas, mas foram 60 dias.",
+            "score": 0.1995
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de urgência e gravidade (\"momento dramático\", \"situação insustentável\", \"risco grave\", \"obstáculo intransponível\") para destacar a criticidade dos temas.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 4332,
+            "end": 4405,
+            "text": "Mas, realmente, a situação chegou a um ponto insustentável neste momento.",
+            "score": 0.2561
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina a cobrança institucional (do Ministério e da ANM) com a apresentação de casos concretos (Poços de Caldas, municípios sem CFEM) para ilustrar os impactos práticos.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 11,
+            "start": 47068,
+            "end": 47156,
+            "text": "Inclusive há um risco em Poços de Caldas, e o Deputado Odair está ciente dessa situação.",
+            "score": 0.1644
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece a boa vontade e acessibilidade de interlocutores (como o Diretor-Geral do ONS) antes de cobrar respostas mais esclarecedoras, mantendo um tom de diálogo, mas firme na exigência de soluções.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 0,
+            "start": 6736,
+            "end": 6796,
+            "text": "Então, há uma expectativa por respostas mais esclarecedoras.",
+            "score": 0.2716
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 109,
+      "split": "test",
+      "article_date": "2024-04-10",
+      "title": "Ministro da Integração afirma que Plano Nacional de Defesa Civil sai no segundo semestre",
+      "assunto": "Plano Nacional de Proteção e Defesa Civil (PNPDC) e outras políticas regionais",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 3
+    },
+    {
+      "id": 173,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "País deve retomar projetos de hidrelétricas com reservatórios, apontam especialistas",
+      "assunto": "Retomada da construção de usinas hidrelétricas com grandes reservatórios no Brasil",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-2-1-0",
+      "hearing_id": 2,
+      "n": 12,
+      "article_name": "Rodrigo de Castro",
+      "proposition": "Questionou sobre o 'apagão' ocorrido no dia 15 de agosto e as medidas para que isso não se repita no futuro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós temos um tema que não estava na pauta inicialmente, mas que ficou premente, naturalmente: a questão do apagão. Nós vimos inclusive a manifestação do ONS, mas nós queremos saber a posição do Ministério, como está essa questão toda, o que efetivamente gerou aquele apagão e, de maneira muito especial, o que foi feito ou que será feito para que isso não ocorra no futuro.",
+        "turn": 0,
+        "start": 2827,
+        "end": 3200
+      },
+      "verifier": {
+        "probability": 0.36668246068809174,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-133-0-0",
+      "hearing_id": 133,
+      "n": 1,
+      "article_name": "Rodrigo de Castro",
+      "proposition": "Fez duras críticas à ausência do presidente da Enel: \"É algo intolerável e que demonstra a prepotência da Enel, demonstra a sua falta de capacidade de diálogo.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Isso é absolutamente absurdo, é um desrespeito com toda a Câmara dos Deputados e é intolerável. Isso demonstra a prepotência da Enel e a sua falta de capacidade de diálogo.",
+        "turn": 0,
+        "start": 1421,
+        "end": 1593
+      },
+      "verifier": {
+        "probability": 0.569789388876035,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-133-0-1",
+      "hearing_id": 133,
+      "n": 2,
+      "article_name": "Rodrigo de Castro",
+      "proposition": "Decidiu cancelar a audiência e fazer um novo convite a Nicola Cotugno.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, eu sugiro o adiamento desta audiência pública. Vamos fazer contato com a empresa para verificar a possibilidade de o Presidente vir semana que vem.",
+        "turn": 47,
+        "start": 45923,
+        "end": 46077
+      },
+      "verifier": {
+        "probability": 0.21031968464049486,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-133-0-2",
+      "hearing_id": 133,
+      "n": 3,
+      "article_name": "Rodrigo de Castro",
+      "proposition": "Informou que as comissões devem sugerir uma Proposta de Fiscalização e Controle (PFC) sobre a Enel.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Se ele não acatar nosso convite de novo, temos instrumentos para fazer com que a Enel seja fiscalizada. Esta Casa pode editar uma PFC, uma proposta de fiscalização e controle, ou até criar uma CPI.Aí, sim, teríamos muito mais possibilidade de a empresa, realmente, travar um diálogo e dar as suas explicações.",
+        "turn": 0,
+        "start": 2832,
+        "end": 3141
+      },
+      "verifier": {
+        "probability": 0.9297073067934281,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

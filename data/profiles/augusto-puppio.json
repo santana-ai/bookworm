@@ -1,0 +1,281 @@
+{
+  "actor": {
+    "slug": "augusto-puppio",
+    "name": "AUGUSTO PUPPIO",
+    "display_name": "AUGUSTO PUPPIO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/MDB - AP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:05:02+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      37,
+      183
+    ],
+    "input_tokens": 2985,
+    "output_tokens": 603,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação e o funcionamento da Subcomissão Permanente do Paradesporto, afirmando que o paradesporto proporciona retorno maior do que outros temas, mesmo sem o devido reconhecimento e investimento.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 5,
+            "start": 37033,
+            "end": 37376,
+            "text": "Podem ter certeza de que vamos trabalhar, pelo menos enquanto estivermos aqui, Presidente, para colocar o paradesporto no local que merece, porque, mesmo sem o devido reconhecimento e investimento, o paradesporto proporciona um retorno muito maior do que outros temas aos quais, às vezes, damos um pouco mais de foco, por uma série de fatores.",
+            "score": 0.4567
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede ao governo e aos órgãos competentes que não abandonem o Amapá, solicitando atenção especial para o estado em questões de desenvolvimento.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 153184,
+            "end": 153386,
+            "text": "Nós somos menores, nós somos mais pobres; então, em princípio, assim como na medicina tratamos as pessoas mais carentes com atenção especial, gostaríamos de ser tratados também com uma atenção especial.",
+            "score": 0.1905
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a possibilidade de exploração das margens do Amapá, desde que respeitada a questão ambiental, argumentando que o estado precisa de desenvolvimento econômico.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 152839,
+            "end": 152994,
+            "text": "Então, se houver a menor possibilidade de conseguirmos explorar nossas margens, obviamente respeitando toda a nossa questão, vamos ficar muito agradecidos.",
+            "score": 0.1874
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a postura de países que se desenvolveram com regras ambientais mais flácidas e agora cobram dos estados que mais preservaram uma maneira complicada de se desenvolver, alegando que isso deixa o Amapá para trás.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 151728,
+            "end": 151900,
+            "text": "E esses países que se aproveitaram dessas regras um pouco mais flácidas hoje cobram dos Estados que mais preservaram, agora, uma maneira muito complicada de se desenvolver.",
+            "score": 0.6051
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Amapá é o estado mais preservado do Brasil e que não deseja perder esse título, mas destaca que a população está desempregada e com fome.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 152553,
+            "end": 152628,
+            "text": "Nós do Amapá temos muito orgulho de ser o Estado mais preservado do Brasil.",
+            "score": 0.3842
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o conceito de desenvolvimento sustentável como critério para equilibrar meio ambiente, questão social e questão econômica, justificando a defesa da exploração econômica com respeito ambiental.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 152042,
+            "end": 152221,
+            "text": "O desenvolvimento sustentável, fazendo o equilíbrio entre o meio ambiente, Ministra, a questão social e a questão econômica, é fantástico, porque quebra muitos mitos e paradigmas.",
+            "score": 0.4517
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a distinção entre igualdade e equidade, baseada em sua experiência médica, para justificar a necessidade de tratamento especial para o Amapá, argumentando que, por ser menor e mais pobre, merece atenção diferenciada.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 153184,
+            "end": 153386,
+            "text": "Nós somos menores, nós somos mais pobres; então, em princípio, assim como na medicina tratamos as pessoas mais carentes com atenção especial, gostaríamos de ser tratados também com uma atenção especial.",
+            "score": 0.1536
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a ciência e a técnica para derrubar mitos e paradigmas, justificando a possibilidade de que tecnologias corretas possam evitar danos ao meio ambiente, em oposição ao \"achismo\".",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 152222,
+            "end": 152551,
+            "text": "Eu, como médico, professor universitário, do meio acadêmico, adoro quando o \"achismo\" cai por terra e a técnica e a ciência provam que estamos errados e, se Deus quiser, muitos dos nossos mitos e algumas coisas que poderiam fazer mal para o meio ambiente, de maneira correta, com muita tecnologia, poderão não mais nos fazer mal.",
+            "score": 0.2262
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal do Amapá.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 151079,
+            "end": 151115,
+            "text": "Eu sou um Deputado Federal do Amapá.",
+            "score": 0.7067
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se cirurgião plástico, médico e professor universitário do meio acadêmico.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 152222,
+            "end": 152551,
+            "text": "Eu, como médico, professor universitário, do meio acadêmico, adoro quando o \"achismo\" cai por terra e a técnica e a ciência provam que estamos errados e, se Deus quiser, muitos dos nossos mitos e algumas coisas que poderiam fazer mal para o meio ambiente, de maneira correta, com muita tecnologia, poderão não mais nos fazer mal.",
+            "score": 0.3017
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter trabalhado no interior de São Paulo, em Curitiba, em Belém e no Amapá, onde ficou à frente de um centro que trata de mulheres escalpeladas e com queimaduras.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 5,
+            "start": 36312,
+            "end": 36436,
+            "text": "Atualmente, estou no Amapá, onde fiquei muito tempo à frente do centro que trata de mulheres escalpeladas e com queimaduras.",
+            "score": 0.5235
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter origem indígena do norte.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 5,
+            "start": 35170,
+            "end": 35245,
+            "text": "Tenho origem indígena, do norte, mas todo o mundo acha que eu sou mexicano.",
+            "score": 0.5292
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza metáforas médicas e conceitos da medicina (igualdade vs. equidade, muletas psicológicas e sociais do esporte) para fundamentar seus argumentos em temas sociais e econômicos.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 5,
+            "start": 36542,
+            "end": 36770,
+            "text": "Eu sei que todo o mundo aqui sabe, tão bem quanto eu, da importância do esporte, não pelo esporte em si, mas por tudo que ele representa, por todas as muletas psicológicas e sociais que o esporte representa em todos os sentidos.",
+            "score": 0.2758
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a citações de músicas locais (Joãozinho Gomes e Val Milhomem) e a frases populares (\"locais abençoados pela natureza foram amaldiçoados pela história\") para contextualizar a realidade do Amapá.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 153388,
+            "end": 153492,
+            "text": "Ouvi uma frase maravilhosa que diz que locais abençoados pela natureza foram amaldiçoados pela história.",
+            "score": 0.4017
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega tom de agradecimento e elogio aos presentes (Presidente, Deputado Dr. Zacharias, Secretários) antes de apresentar suas posições.",
+          "passage": {
+            "hearing_id": 37,
+            "turn": 5,
+            "start": 36772,
+            "end": 36883,
+            "text": "Temos aqui dois braços fortes do nosso Presidente, que já remaram muito; temos as mãos precisas do Deputado Dr.",
+            "score": 0.1691
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa dados comparativos (explosão do PIB do Suriname) para sustentar a necessidade de desenvolvimento econômico no Amapá.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 86,
+            "start": 152629,
+            "end": 152838,
+            "text": "Não queremos perder esse título em hipótese alguma, mas no momento nós estamos desempregados, nós estamos com fome.Acompanhando o nosso vizinho ali, o Suriname, nós sabemos da explosão do PIB que eles tiveram.",
+            "score": 0.2025
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 37,
+      "split": "train",
+      "article_date": "2023-08-23",
+      "title": "Secretaria Nacional de Paradesporto pede mais orçamento e estrutura para os atletas com deficiência",
+      "assunto": "Solicitação de mais orçamento e estrutura para atletas com deficiência",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rede de barbantes</title>
+<meta name="description" content="Para cada afirmação que uma matéria atribui a alguém, onde procuramos essa fala na transcrição da audiência pública e o que encontramos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='14' r='11' fill='%23B3202A'/%3E%3Ccircle cx='12.5' cy='10.5' r='3.5' fill='%23F79A8E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Noticia+Text:ital,wght@0,400;0,700;1,400&family=Red+Hat+Mono:wght@400;500;700&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Special+Elite&display=swap">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/wall.css">
+<link rel="stylesheet" href="css/case.css">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/disclose.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main" data-skip>Pular para o conteúdo</a>
+<header class="bar">
+  <a class="brand" href="#">bookworm <span>rede de barbantes</span></a>
+  <nav class="crumbs" aria-label="Onde você está" data-crumbs></nav>
+  <a class="map-tab" href="#arquivo" aria-keyshortcuts="m" title="Mapa do caso (tecla M)" data-map-tab><span class="map-tab-t">Mapa do caso</span><kbd aria-hidden="true">M</kbd></a>
+</header>
+<main id="main" tabindex="-1">
+  <section id="home" class="home" aria-labelledby="home-h" hidden>
+    <div class="home-top">
+      <h1 id="home-h" tabindex="-1">Rede de barbantes</h1>
+      <p class="lede">A fala que a matéria atribui a alguém está na transcrição da audiência? Para cada afirmação de matérias sobre audiências públicas da Câmara dos Deputados, a página mostra quem disse e o trecho da transcrição que a busca achou; barbantes ligam as três coisas.</p>
+      <p class="note" data-note></p>
+    </div>
+    <div class="tools" role="search" aria-label="Procurar matérias">
+      <div class="field field-q">
+        <label for="home-q">Procurar</label>
+        <input id="home-q" type="search" autocomplete="off" spellcheck="false" placeholder="Título, assunto ou participante">
+      </div>
+      <div class="field field-sort">
+        <label for="home-sort">Ordem</label>
+        <select id="home-sort">
+          <option value="desc">Mais recentes primeiro</option>
+          <option value="asc">Mais antigas primeiro</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-go" id="home-lucky">Sortear uma matéria</button>
+    </div>
+    <ul class="keyline" aria-label="Como ler os quadradinhos">
+      <li>Cada quadradinho é uma afirmação:</li>
+      <li><i class="dot" data-k="q" aria-hidden="true"></i>aspas achadas na fala</li>
+      <li><i class="dot" data-k="h" aria-hidden="true"></i>trecho parecido</li>
+      <li><i class="dot" data-k="w" aria-hidden="true"></i>pouco parecido</li>
+      <li><i class="dot" data-k="u" aria-hidden="true"></i>sem trecho</li>
+    </ul>
+    <p class="count" id="home-count" aria-live="polite"></p>
+    <ol class="clips" id="home-list"></ol>
+    <div class="dz-bar" data-home-bar></div>
+    <div class="home-more" id="home-more">
+      <ol class="clips" id="home-rest"></ol>
+    </div>
+    <div class="dz-endbar" data-home-end></div>
+    <p class="empty" id="home-empty" hidden>Nenhuma matéria tem essas palavras no título, no assunto ou nos nomes de quem participou.</p>
+  </section>
+
+  <section id="hearing" class="hv" aria-labelledby="hv-title" hidden>
+    <div class="hv-head">
+      <div class="hv-top">
+        <a class="back" href="#"><span aria-hidden="true">&larr;</span> Todas as matérias</a>
+        <div class="hv-nav" data-hv-nav></div>
+      </div>
+      <p class="hv-k" data-hv-k></p>
+      <h1 class="hv-title" id="hv-title" tabindex="-1"></h1>
+      <div class="hv-sum" data-hv-sum></div>
+      <p class="hv-prof" data-hv-prof hidden></p>
+      <p class="note is-compact" data-note></p>
+    </div>
+    <div id="wall-host"></div>
+  </section>
+
+  <section id="case" class="cs-view" aria-labelledby="cs-title" hidden></section>
+
+  <section id="profile" class="pf-view" aria-labelledby="pf-title" hidden></section>
+
+  <section id="atlas" class="at-view" aria-labelledby="at-title" hidden></section>
+
+  <div id="state" class="state" role="status" aria-live="polite"></div>
+</main>
+<footer>
+  <p>Os dados vêm do conjunto PublicHearingBR: transcrições de audiências públicas da Câmara dos Deputados, matérias sobre elas e as opiniões atribuídas a cada participante. A busca e as ligações desta página são feitas por um procedimento automático; leia a transcrição antes de tirar conclusões.</p>
+</footer>
+<noscript><p class="state">Esta página precisa de JavaScript para mostrar as matérias.</p></noscript>
+</body>
+</html>

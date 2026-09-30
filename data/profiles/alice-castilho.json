@@ -1,0 +1,283 @@
+{
+  "actor": {
+    "slug": "alice-castilho",
+    "name": "ALICE CASTILHO",
+    "display_name": "ALICE CASTILHO",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:38:40+00:00",
+    "n_statements": 6,
+    "n_hearings": 1,
+    "hearing_ids": [
+      153
+    ],
+    "input_tokens": 4801,
+    "output_tokens": 944,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a necessidade de adensar a rede de monitoramento hidrometeorológico para incluir afluentes específicos, citando os rios Carreiro e Forqueta na Bacia do Taquari, visando melhorar a capacidade de monitoramento local.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 79,
+            "start": 143874,
+            "end": 144072,
+            "text": "Primeiro, o evento realmente foi extraordinário.É necessário adensar essa rede para monitorarmos esses afluentes, o Carreiro, o Forqueta, que existem na Bacia do Taquari, pensando nessa bacia em si.",
+            "score": 0.3362
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a calibração de modelos de chuva-vazão para aumentar o tempo de antecedência das previsões, reconhecendo, contudo, que isso não aumenta significativamente a certeza da previsão e que esses modelos são complementares aos de propagação no canal.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 79,
+            "start": 144074,
+            "end": 144237,
+            "text": "Quanto a esses modelos de chuva-vazão que eu expliquei para os senhores, é interessante que tenhamos esses modelos calibrados para ganharmos tempo de antecedência.",
+            "score": 0.3016
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a melhoria da comunicação e o treinamento e capacitação da Defesa Civil na ponta, argumentando que a falta de valores mais certeiros nas previsões leva a situações de \"alarme falso\", onde a população não acredita na previsão, como relatado por um prefeito.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 79,
+            "start": 144361,
+            "end": 144589,
+            "text": "E, como o próprio Prefeito disse aqui, a Defesa Civil precisa de valores mais certeiros, para que ele não passe pela situação que passou, de as pessoas não acreditarem na previsão, o que chamamos de alarme falso, que é possível.",
+            "score": 0.3316
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a realização de levantamentos das áreas atingidas para auxiliar na reconstituição pós-desastre.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 81,
+            "start": 144687,
+            "end": 144923,
+            "text": "É preciso fazer o levantamento das áreas atingidas, para ajudar na reconstituição; a melhoria da comunicação, a respeito do que o Ministro falou aqui muito também; o treinamento, a capacitação da Defesa Civil na ponta, isso é essencial.",
+            "score": 0.2095
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o evento de cheia no Rio Grande do Sul em setembro de 2023 foi extraordinário, comparando os níveis atingidos em Muçum, Encantado e Estrela com o evento de 2020 (com aumentos de 4 metros, 1,5 metro e 2 metros, respectivamente) e com o \"dilúvio\" de 1941.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 79,
+            "start": 142322,
+            "end": 142370,
+            "text": "Em Estrela: 2 metros a mais, comparada com 2020.",
+            "score": 0.3438
+          },
+          "udv": null
+        },
+        {
+          "text": "Destaca a agilidade do Serviço Geológico do Brasil em corrigir estações danificadas, atribuída à operação da Rede Hidrometeorológica Nacional, e aponta a vantagem sobre instituições que não operam essa rede.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 79,
+            "start": 143062,
+            "end": 143170,
+            "text": "A importância de operarmos a Rede Hidrometeorológica Nacional é que temos agilidade em corrigir as estações.",
+            "score": 0.4281
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a expansão dos sistemas de alerta para outras regiões depende de recursos de pessoal e investimento, alinhando-se à declaração do Ministro Waldez sobre a situação atual.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 81,
+            "start": 144924,
+            "end": 145060,
+            "text": "E também temos condição de ampliar o sistema para outros sistemas, mas, como disse o próprio Ministro Waldez, estamos na mesma situação.",
+            "score": 0.2793
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a incerteza dos modelos hidrológicos como critério técnico para justificar a complementaridade entre modelos de chuva-vazão (maior antecedência, maior incerteza) e modelos de propagação no canal (menor antecedência, menor incerteza), aplicável à discussão sobre sistemas de alerta.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 74,
+            "start": 135124,
+            "end": 135349,
+            "text": "E é importante ressaltar que quanto maior o tempo de antecedência da previsão, maior a incerteza do modelo.Vejam bem: quando utilizamos um modelo de chuva, vazão, estamos tentando explicar como se dá todo o ciclo hidrológico.",
+            "score": 0.2915
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da melhoria da comunicação e capacitação na experiência de falha de confiança pública (\"alarme falso\"), usando o relato do prefeito como fundamento para a necessidade de previsões mais precisas e comunicação eficaz.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 81,
+            "start": 144687,
+            "end": 144923,
+            "text": "É preciso fazer o levantamento das áreas atingidas, para ajudar na reconstituição; a melhoria da comunicação, a respeito do que o Ministro falou aqui muito também; o treinamento, a capacitação da Defesa Civil na ponta, isso é essencial.",
+            "score": 0.2115
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a missão institucional do Serviço Geológico do Brasil, especificamente a atribuição de realizar pesquisas e mapeamentos de enchentes e dar apoio técnico à administração pública, como justificativa para a atuação e as propostas apresentadas.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 74,
+            "start": 131902,
+            "end": 132218,
+            "text": "Eu não vou detalhá-las, mas gostaria de chamar atenção para o inciso VII —\"realizar pesquisas, estudos e mapeamentos relacionados com (...) deslizamentos, enchentes e secas\"— e para o último —\"dar apoio técnico e científico aos órgãos da administração pública federal, estadual e municipal no âmbito da sua atuação\".",
+            "score": 0.3787
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Diretora de Hidrologia e Gestão Territorial do Serviço Geológico do Brasil, empresa pública ligada ao Ministério de Minas e Energia.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 74,
+            "start": 130938,
+            "end": 131098,
+            "text": "Nós somos do Serviço Geológico do Brasil, que é uma empresa pública ligada ao Ministério de Minas e Energia e tem como missão gerar e disseminar o conhecimento.",
+            "score": 0.5769
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Serviço Geológico opera a Rede Hidrometeorológica Nacional há mais de 50 anos e sistemas de alerta de eventos críticos há cerca de 30 anos, beneficiando 85 municípios em 17 sistemas no Brasil, incluindo as bacias dos rios Caí, Taquari e Uruguai no Rio Grande do Sul e Santa Catarina.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 74,
+            "start": 133328,
+            "end": 133514,
+            "text": "E no Rio Grande do Sul e em Santa Catarina operamos nas bacias de três rios: Caí, Taquari e Uruguai, sendo que esses são os Municípios beneficiados por cada um desses sistemas de alerta.",
+            "score": 0.4809
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a presença de colegas da área de sistemas de alerta e de pessoal do Rio Grande do Sul acompanhando remotamente, devido à redução da equipe e à cheia em andamento.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 74,
+            "start": 131417,
+            "end": 131473,
+            "text": "Remotamente, está também o pessoal do Rio Grande do Sul.",
+            "score": 0.473
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura a apresentação cronologicamente, detalhando as etapas de operação do sistema de alerta (previsão meteorológica, monitoramento hidrológico, previsão hidrológica, emissão de boletins, interação com a Defesa Civil) e aplicando esse modelo à análise da cheia do Taquari em setembro de 2023.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 74,
+            "start": 134056,
+            "end": 134139,
+            "text": "As etapas de operação de um sistema de alerta de eventos críticos são as seguintes.",
+            "score": 0.2587
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados quantitativos específicos (níveis de rios, volumes de chuva em milímetros, diferenças em metros comparadas a eventos passados) e referências a eventos históricos (2020, 1941) para sustentar a caracterização do evento como extraordinário.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 79,
+            "start": 142221,
+            "end": 142257,
+            "text": "Comparada com 2020: 4 metros a mais.",
+            "score": 0.2058
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem técnica acessível, explicando conceitos como \"cota de alerta\", \"cota de inundação\" e a diferença entre modelos de previsão, e utiliza exemplos visuais (eslaides, mapas, gráficos) para ilustrar os pontos.",
+          "passage": {
+            "hearing_id": 153,
+            "turn": 74,
+            "start": 139077,
+            "end": 139137,
+            "text": "Então, já estava com a cota acima do que é a cota de alerta.",
+            "score": 0.2271
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece limitações técnicas (incerteza dos modelos, perda de sensores) e conecta-as a recomendações práticas (calibração, adensamento da rede), mantendo um tom informativo e colaborativo ao final, ao agradecer o convite.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 117,
+      "split": "validation",
+      "article_date": "2023-12-12",
+      "title": "Deputados acusam Braskem de conduta criminosa na atuação em Maceió",
+      "assunto": "Acusações contra a Braskem por conduta criminosa em Maceió e a resposta de órgãos de fiscalização",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 153,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Ministro diz que crédito do BNDES a atingidos por enchente no RS será ampliado para grandes empresas",
+      "assunto": "Ampliação da linha de crédito do BNDES para grandes empresas afetadas por enchentes no Rio Grande do Sul",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

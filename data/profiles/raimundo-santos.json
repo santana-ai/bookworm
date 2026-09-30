@@ -1,0 +1,295 @@
+{
+  "actor": {
+    "slug": "raimundo-santos",
+    "name": "Raimundo Santos",
+    "display_name": "Raimundo Santos",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PSD - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:16:06+00:00",
+    "n_statements": 5,
+    "n_hearings": 3,
+    "hearing_ids": [
+      166,
+      184,
+      197
+    ],
+    "input_tokens": 3810,
+    "output_tokens": 781,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a revisão do Marco Legal da Inovação para aprimorar a legislação e garantir seu cumprimento, argumentando que, após 7 anos de vigência, persistem gargalos tanto na redação da lei quanto em sua aplicação prática.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 26,
+            "start": 104607,
+            "end": 104881,
+            "text": "Quero cumprimentar também os palestrantes pelo nível técnico-científico e pela experiência que trouxeram, com as suas palestras, a esta Comissão, no momento em que se debatem exatamente os problemas, os gargalos, depois de 7 anos de vigência do novo Marco Legal da Inovação.",
+            "score": 0.2379
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Brasil patina ou regride no desenvolvimento sem ciência, tecnologia e inovação, e que o Poder Legislativo deve zelar pelo cumprimento da legislação nas instâncias devidas.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 26,
+            "start": 105516,
+            "end": 105748,
+            "text": "Não devemos somente avançar no aprimoramento da legislação, mas também no cumprimento dessa legislação, porque sem ciência, sem tecnologia, sem inovação, nós vamos continuar patinando ou até regredindo no desenvolvimento deste País.",
+            "score": 0.268
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento da colaboração entre governo, empresas e universidades (o \"tripé\") para difundir e aplicar o conhecimento produzido, com foco no desenvolvimento social, econômico e ambiental.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 19,
+            "start": 94370,
+            "end": 94604,
+            "text": "traz ao debate esse tripé que envolve Governo, empresas e universidades, para que possamos não só produzir conhecimento, mas também difundi-lo e aplicá-lo, com foco principalmente no desenvolvimento do País, no desenvolvimento social.",
+            "score": 0.4046
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados segundo os quais o Brasil investe apenas 1% do PIB em inovação, ocupa a 13ª posição no ranking mundial de produção científica, mas a 64ª posição em inovação, para justificar a necessidade de mudar a Lei do Bem e promover a cultura da inovação.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 19,
+            "start": 94117,
+            "end": 94351,
+            "text": "Os nossos cientistas e os nossos pesquisadores são realmente renomados, muito material é produzido, nós estamos na 13ª posição norankingmundial de produção científica, mas, infelizmente, estamos 64ª posição quando falamos em inovação.",
+            "score": 0.3012
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a análise pelo Poder Legislativo do projeto de lei do Deputado Caio Vianna sobre blockchain no serviço público, para que a proteção constitucional à privacidade e à intimidade do cidadão se torne realidade diante dos vazamentos de dados.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 84,
+            "start": 158966,
+            "end": 159140,
+            "text": "É preciso que esta Casa mergulhe na análise do projeto de V.Exa., para o Poder Legislativo cumprir o seu papel e para que a proteção constitucional seja realidade ao cidadão.",
+            "score": 0.4342
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia o avanço do Ministério da Ciência e Tecnologia e da Ministra Luciana Santos na área, mas afirma que é preciso avançar mais para proteger os dados dos cidadãos.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 84,
+            "start": 158600,
+            "end": 158827,
+            "text": "Eu até tenho, por onde ando, elogiado muito o nosso Ministério da Ciência e Tecnologia, a nossa Ministra Luciana Santos, que tem se empenhado firmemente nesse avanço, como, transversalmente, os outros órgãos do Governo Federal.",
+            "score": 0.3846
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca os princípios constitucionais da administração pública (transparência, impessoalidade, moralidade, publicidade e eficiência, art. 37 da CF) como fundamento para a adoção de tecnologias como blockchain, argumentando que esses princípios não podem avançar sem o auxílio da tecnologia e da inovação.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 84,
+            "start": 157972,
+            "end": 158267,
+            "text": "37 da Constituição Federal estabelece que a administração pública deve se pautar em princípios, entre eles a transparência, além da impessoalidade, moralidade, publicidade e eficiência, todo aquele conjunto de princípios que hoje não podem mais avançar sem o auxílio da tecnologia e da inovação.",
+            "score": 0.5874
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o direito constitucional à privacidade e à intimidade do cidadão como critério para cobrar medidas de proteção de dados, questionando a eficácia da proteção quando ocorrem vazamentos.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 84,
+            "start": 159141,
+            "end": 159207,
+            "text": "O cidadão tem direito constitucional à privacidade e à intimidade.",
+            "score": 0.5206
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a importância da inovação e da ciência com base na geração de empregos, renda, desenvolvimento e bem-estar à população, citando a fala do Deputado Vitor Lippi de que ciência e tecnologia geram esses benefícios.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 26,
+            "start": 105912,
+            "end": 106133,
+            "text": "E o Deputado Vitor Lippi, como sempre, com a sua inteligência, com seu preparo, disse que ciência e tecnologia não dão votos, mas geram empregos, geram renda, geram desenvolvimento, geram bem-estar à população brasileira.",
+            "score": 0.537
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza o desenvolvimento social, definindo sustentabilidade como aquela que leva qualidade de vida, alimento, saúde e paz para os que mais precisam.",
+          "passage": {
+            "hearing_id": 184,
+            "turn": 19,
+            "start": 94683,
+            "end": 94764,
+            "text": "Que leve qualidade de vida, alimento, saúde e paz para aqueles que mais precisam!",
+            "score": 0.5954
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal e membro da Comissão de Ciência, Tecnologia e Inovação.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 0,
+            "start": 52,
+            "end": 261,
+            "text": "Declaro aberta a presente reunião de audiência pública da Comissão de Ciência, Tecnologia e Inovação, convocada com o objetivo de discutir os impactos e perspectivas de revisão do novo marco legal da inovação.",
+            "score": 0.1895
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter subscrevido o requerimento para a audiência sobre a Lei do Bem, formulado pelo Deputado Vitor Lippi.",
+          "passage": {
+            "hearing_id": 197,
+            "turn": 26,
+            "start": 104534,
+            "end": 104606,
+            "text": "pela oportunidade do requerimento formulado e, nesta Comissão, aprovado.",
+            "score": 0.2489
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se colega do Deputado Caio Vianna e do Deputado Vitor Lippi, ambos do PSD, e elogia a atuação deles na Comissão e na Casa.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 84,
+            "start": 159411,
+            "end": 159495,
+            "text": "Eu finalizo, parabenizando, mais uma vez, o meu querido colega Deputado Caio Vianna.",
+            "score": 0.3203
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e rankings internacionais (investimento em P&D, posições em produção científica e inovação) para fundamentar a urgência de mudanças legislativas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita dispositivos constitucionais específicos (art. 37 da CF) para ancorar argumentos sobre transparência e proteção de dados.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem elogiosa e protocolar ao se dirigir a colegas e convidados, destacando a \"juventude\", \"competência\" e \"preparo\" de parlamentares como o Deputado Caio Vianna e o Deputado Vitor Lippi.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 84,
+            "start": 159411,
+            "end": 159495,
+            "text": "Eu finalizo, parabenizando, mais uma vez, o meu querido colega Deputado Caio Vianna.",
+            "score": 0.1958
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a expressões de urgência e impacto (\"assustado com as informações de vazamento\", \"não há outro caminho\") para enfatizar a gravidade dos problemas tratados.",
+          "passage": {
+            "hearing_id": 166,
+            "turn": 84,
+            "start": 158269,
+            "end": 158529,
+            "text": "Confesso a V.Exa., meu querido colega Deputado Caio Vianna, do PSD, e a todos os integrantes — a quem parabenizo pela mais alta qualidade das valiosíssimas informações que aqui trouxeram — que eu fiquei assustado com as informações de vazamento de informações.",
+            "score": 0.2387
+          },
+          "udv": null
+        },
+        {
+          "text": "Conclui seus pronunciamentos com parabenizações e agradecimentos, mantendo um tom cordial e colaborativo com os interlocutores.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 166,
+      "split": "train",
+      "article_date": "2023-09-20",
+      "title": "Especialistas defendem uso de tecnologia blockchain no serviço público",
+      "assunto": "Uso da tecnologia blockchain no serviço público",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 184,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Participantes de audiência pública pedem votação de mudanças na Lei do Bem",
+      "assunto": "Discussão sobre mudanças na Lei do Bem para facilitar a colaboração entre universidades, empresas e governo e promover inovações",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 197,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Marco Legal da Inovação precisa ser revisto, afirmam especialistas",
+      "assunto": "Revisão do Marco Legal da Inovação para facilitar sua operacionalização",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

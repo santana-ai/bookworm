@@ -1,0 +1,105 @@
+{
+  "actor": {
+    "slug": "daniel-agrobom",
+    "name": "Daniel Agrobom",
+    "display_name": "Daniel Agrobom",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PL - GO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:52:08+00:00",
+    "n_statements": 4,
+    "n_hearings": 1,
+    "hearing_ids": [
+      137
+    ],
+    "input_tokens": 2939,
+    "output_tokens": 64,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 1,
+    "with_udv": 0,
+    "passage_only": 1,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor da Proposta de Emenda à Constituição nº 169, de 2019, que altera o art. 37 da Constituição Federal para permitir a acumulação remunerada de um cargo de professor com outro de qualquer natureza.",
+          "passage": {
+            "hearing_id": 137,
+            "turn": 0,
+            "start": 228,
+            "end": 349,
+            "text": "37 da Constituição Federal para permitir a acumulação remunerada de um cargo de professor com outro de qualquer natureza.",
+            "score": 0.7535
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 87,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Relatório da regulamentação do trabalho de motoristas de aplicativo deve ser apresentado antes do recesso",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 112,
+      "split": "test",
+      "article_date": "2024-03-21",
+      "title": "Regulamentação do trabalho de motoristas de aplicativo não tem consenso entre profissionais do setor",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 12,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 124,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Presidente do Incra afirma que política de regularização de terras não será paralisada",
+      "assunto": "Política de regularização fundiária de terras públicas na Amazônia Legal",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 137,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Debatedores discordam sobre possibilidade de professor ter dois cargos públicos em áreas diferentes",
+      "assunto": "Debate sobre a possibilidade de professores da rede pública terem dois cargos públicos em áreas diferentes",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

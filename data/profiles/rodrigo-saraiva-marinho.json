@@ -1,0 +1,407 @@
+{
+  "actor": {
+    "slug": "rodrigo-saraiva-marinho",
+    "name": "RODRIGO SARAIVA MARINHO",
+    "display_name": "Rodrigo Saraiva",
+    "role": "Professor da Fundação Escola Superior de Advocacia do Ceará e da Pós-Graduação da Universidade de Fortaleza",
+    "article_names": [
+      "Rodrigo Saraiva"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:34:11+00:00",
+    "n_statements": 4,
+    "n_hearings": 1,
+    "hearing_ids": [
+      201
+    ],
+    "input_tokens": 5499,
+    "output_tokens": 953,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que os atos de 8 de janeiro não configuram golpe de Estado, argumentando que \"não existe golpe sem armas\" e que o Estado detinha o monopólio das armas, enquanto a população estava desarmada.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 129,
+            "start": 150543,
+            "end": 150768,
+            "text": "E eu repito o que eu falei já mais de uma vez, em falas tanto na ASFAV, no congresso que foi feito, como no Senado: não existe golpe sem armas, não existe na história da humanidade a possibilidade de povo desarmado dar golpe.",
+            "score": 0.2809
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação do Ministro Alexandre de Moraes e do STF, alegando inconstitucionalidade nos inquéritos desde 2019 e apontando a falta de individualização das condutas de mais de 1.400 pessoas, o que viola o devido processo legal.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 127,
+            "start": 149901,
+            "end": 149947,
+            "text": "Não foi o Ministro Alexandre de Moraes, não é?",
+            "score": 0.327
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o Ministro Flávio Dino de prevaricação e arbítrio por negar o acesso às câmeras de segurança do Palácio do Planalto e do Congresso, impedindo a defesa dos acusados e a individualização das penas.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 129,
+            "start": 151208,
+            "end": 151237,
+            "text": "Flávio Dino negou as câmeras.",
+            "score": 0.2984
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a OAB por não se manifestar publicamente sobre a violação das prerrogativas dos advogados e o acesso restrito aos autos, questionando quais medidas institucionais foram tomadas contra o STF.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 135,
+            "start": 173801,
+            "end": 173934,
+            "text": "O que a OAB está fazendo publicamente para todos os brasileiros entenderem a violação das prerrogativas dos advogados que estão aqui?",
+            "score": 0.3727
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a aplicação da Lei de Abuso de Autoridade contra autoridades, citando artigos específicos (9º, 12, 13, 20) para caracterizar como crimes a decretação de prisões em massa, a condução coercitiva descabível, a privação de acesso a advogados e a submissão a procedimentos invasivos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 159886,
+            "end": 160025,
+            "text": "Tudo isso foi acontecendo e foi dito, e aqui eu citei vários crimes previstos na Lei de Abuso de Autoridade, como citei na outra audiência.",
+            "score": 0.1771
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a falta de \"peso e medida\" na aplicação da lei, comparando o tratamento dado a presos comuns (como o caso de Roma) com a impunidade de autoridades que questionam urnas eletrônicas ou negam câmeras.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 154842,
+            "end": 154868,
+            "text": "Onde está o peso e medida?",
+            "score": 0.2979
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a obrigatoriedade de vacinação para presos em 2023 é absurda, dado o fim da emergência da COVID-19, e ironiza a transmissão do vírus pela internet.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 159017,
+            "end": 159086,
+            "text": "A COVID–19 deve estar sendo transmitida agora por linhas de Internet.",
+            "score": 0.2412
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o direito fundamental de resistência à prisão ilegal, citando que \"fugir da prisão não é crime\" e que a resistência é um direito previsto na Constituição.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 158143,
+            "end": 158171,
+            "text": "Fugir da prisão não é crime.",
+            "score": 0.491
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio do devido processo legal e a previsibilidade jurídica como base central para criticar as prisões em massa e a falta de acesso a provas, argumentando que o ônus da prova é de quem acusa.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 127,
+            "start": 148677,
+            "end": 148735,
+            "text": "E essa é a base central da ideia de devido processo legal.",
+            "score": 0.4327
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a \"Janela de Overton\" para explicar a mudança de percepção social sobre abusos de poder, comparando a aceitação da Lava-Jato em 2018/2019 com a rejeição atual de práticas semelhantes.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 160111,
+            "end": 160284,
+            "text": "Lá atrás — eu gosto de citar muito a ideia de Janela de Overton —, em 2019, 2018, a operação mais importante do Brasil, mais necessária, mais clara era a Operação Lava-Jato.",
+            "score": 0.3049
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na subordinação de todos os poderes à Constituição, rejeitando a ideia de que ministros do STF estejam acima da lei, e critica a \"justiça de um lado\" como arbítrio.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 154945,
+            "end": 155023,
+            "text": "Quando eu tenho a justiça de um lado, eu não tenho justiça, eu tenho arbítrio.",
+            "score": 0.287
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a preservação da humanidade da vítima, citando Hannah Arendt, para argumentar que a desumanização dos acusados (como perguntar se são \"bolsonaristas\") visa destruir a vítima e justificar abusos.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 127,
+            "start": 147430,
+            "end": 147573,
+            "text": "Mas, quando eu faço essa diminuição, eu tento destruir a vítima, eu tento destruir essa pessoa e tento destruir o que está acontecendo com ele.",
+            "score": 0.2069
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se amigo do Deputado Marcel van Hattem e expressa honra em estar ao seu lado.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 127,
+            "start": 146223,
+            "end": 146310,
+            "text": "Boa tarde ao meu querido amigo Marcel van Hattem, é sempre uma honra estar ao seu lado.",
+            "score": 0.5984
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como morador de Brasília, o que lhe permite afirmar conhecer a logística de segurança e o fechamento do Eixo Monumental.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 129,
+            "start": 151652,
+            "end": 151770,
+            "text": "E para quem mora em Brasília, como eu, que convivo muito em Brasília, sabe que é muito fácil fechar o Eixo Monumental.",
+            "score": 0.2921
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a Deputada Luizianne Lins como representante de seu Estado.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 157319,
+            "end": 157410,
+            "text": "A Luizianne Lins, Deputada do meu Estado, deveria estar aqui para se manifestar e não está.",
+            "score": 0.6462
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma não ser advogado de nenhum dos presos, o que lhe permite falar com \"absoluta independência\".",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 135,
+            "start": 173935,
+            "end": 174039,
+            "text": "Vários deles estão, e eu não sou advogado de nenhum deles, então posso falar com absoluta independência.",
+            "score": 0.4883
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza citações filosóficas (Hannah Arendt) e teorias políticas (Janela de Overton) para contextualizar e dar peso moral e intelectual às críticas.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 154842,
+            "end": 154868,
+            "text": "Onde está o peso e medida?",
+            "score": 0.1582
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos hipotéticos e comparativos, como a figura do ex-Ministro Sergio Moro, para ilustrar a gravidade dos abusos alegados e provocar reação no interlocutor.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 155571,
+            "end": 155740,
+            "text": "Eu sempre ouvi que o Ministro Sergio Moro, ex-Ministro, atualmente, Senador Sergio Moro, era um dos maiores violadores das prerrogativas dos direitos humanos neste País.",
+            "score": 0.2357
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega perguntas retóricas e diretas, especialmente ao questionar a OAB e os Ministros, para expor contradições e cobrar respostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita artigos específicos da Lei de Abuso de Autoridade e da Constituição Federal para fundamentar tecnicamente as acusações de ilegalidade.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 131,
+            "start": 159886,
+            "end": 160025,
+            "text": "Tudo isso foi acontecendo e foi dito, e aqui eu citei vários crimes previstos na Lei de Abuso de Autoridade, como citei na outra audiência.",
+            "score": 0.1941
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa ironia e sarcasmo ao tratar de temas como a vacinação obrigatória e a \"transmissão do vírus pela internet\".",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom confrontador com as autoridades citadas (Moraes, Dino, Moro) e solidário com os acusados e seus advogados.",
+          "passage": {
+            "hearing_id": 201,
+            "turn": 135,
+            "start": 173571,
+            "end": 173655,
+            "text": "Ministro Alexandre de Moraes pela violação das prerrogativas dos advogados até hoje?",
+            "score": 0.1829
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 10,
+      "split": "test",
+      "article_date": "2024-04-26",
+      "title": "Governo quer substituir saque-aniversário do FGTS por consignado com juros mais baixos",
+      "assunto": "Substituição do saque-aniversário do FGTS por empréstimo consignado com juros mais baixos",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 17,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Em seminário na Câmara, especialistas discordam sobre ativismo judicial",
+      "assunto": "Debate sobre ativismo judicial na Câmara dos Deputados",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 87,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Relatório da regulamentação do trabalho de motoristas de aplicativo deve ser apresentado antes do recesso",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 177,
+      "split": "test",
+      "article_date": "2024-05-09",
+      "title": "Deputados temem menor concorrência e aumento de preços com regulamentação de aplicativos de transporte",
+      "assunto": "Regulamentação de aplicativos de transporte e entrega e seus impactos na concorrência e preços",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 201,
+      "split": "train",
+      "article_date": "2023-08-03",
+      "title": "Familiares de presos em 8 de janeiro cobram individualização de condutas e negam tentativa de golpe",
+      "assunto": "Cobrança pela individualização das condutas dos presos nos atos de 8 de janeiro e negação de tentativa de golpe",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-17-0-0",
+      "hearing_id": 17,
+      "n": 1,
+      "article_name": "Rodrigo Saraiva",
+      "proposition": "Levou exemplos do que considera indevido ativismo judicial: o julgamento sobre a possibilidade de interromper a gestação até o terceiro mês; a ação que proibiu operações em favelas no Rio de Janeiro durante a pandemia; e a suspensão da nomeação de Alexandre Ramagem (pelo ex-presidente Jair Bolsonaro) para a diretoria-geral da Polícia Federal.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Cito agora a ADPF 635.\"Ministro do STF proíbe operações em favelas do Rio durante a pandemia.\"Vejam a decisão que foi dada pelo Supremo Tribunal Federal. Não é papel de Suprema Corte fazer política pública.",
+        "turn": 1,
+        "start": 5274,
+        "end": 5480
+      },
+      "verifier": {
+        "probability": 0.254219326346353,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-17-0-1",
+      "hearing_id": 17,
+      "n": 2,
+      "article_name": "Rodrigo Saraiva",
+      "proposition": "Acredita que a situação ultrapassou todos os ditames legais: \"A pergunta é se o nome ainda é esse. Dá pra chamar hoje tudo aquilo que o Supremo faz de ativismo? Ele não passou completamente de todos os ditames constitucionais, legais? Não deveriam estar restritos àquilo que deveria ser determinado a eles, como guardiões da Constituição?\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "A pergunta é se o nome ainda é esse, se o que o Supremo tem feito seria, meu caro Sebastião, colocado como ativismo judicial ou se ele está indo muito além da outra parte do tema deste seminário, a da legitimidade democrática. Ou seja, dá para chamar hoje de ativismo tudo aquilo que o Supremo tem feito? Ele não passou completamente em todos os ditames constitucionais, legais, restritos ao que deveria ser determinado, que eles, como guardiões da Constituição, e não o […]",
+        "turn": 1,
+        "start": 3555,
+        "end": 4075
+      },
+      "verifier": {
+        "probability": 0.9067205805044155,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

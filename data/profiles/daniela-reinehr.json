@@ -1,0 +1,283 @@
+{
+  "actor": {
+    "slug": "daniela-reinehr",
+    "name": "Daniela Reinehr",
+    "display_name": "Daniela Reinehr",
+    "role": "Deputada (PL-SC)",
+    "article_names": [
+      "Daniela Reinehr"
+    ],
+    "party_uf": [
+      "PL - SC"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-27T21:13:24+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      53
+    ],
+    "input_tokens": 2193,
+    "output_tokens": 301,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 10,
+    "with_udv": 0,
+    "passage_only": 10,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a implementação da acessibilidade universal em todos os lugares, criticando modelos parciais que deixam circunstâncias a desejar.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 106224,
+            "end": 106381,
+            "text": "É preciso que todos os lugares tenham acessibilidade universal, e não uma acessibilidade só aqui ou ali, que acaba deixando algumas circunstâncias a desejar.",
+            "score": 0.3794
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a acessibilidade comece pela adoção da linguagem de sinais e de uma linguagem universal que todos consigam compreender.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 106027,
+            "end": 106223,
+            "text": "Também precisamos batalhar para que a acessibilidade aconteça da forma mais ampla e plena possível, começando pela linguagem de sinais, por uma linguagem universal, que todos consigam compreender.",
+            "score": 0.5291
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a busca pela independência, felicidade e qualidade de vida das pessoas com deficiência, citando o caso de seu filho, que tem síndrome de Down e autismo.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 105631,
+            "end": 105743,
+            "text": "Eu sou mãe de um rapazinho de 22 anos, que chamamos carinhosamente de Dídio, que tem síndrome de Down e autismo.",
+            "score": 0.1885
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que, embora tenha havido evolução nos últimos 23 anos desde que procurou escola para seu filho, ainda há um universo inteiro a ser conquistado.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 106785,
+            "end": 106849,
+            "text": "Mas ainda há um universo inteiro pela frente para conquistarmos.",
+            "score": 0.241
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência pessoal como mãe de uma pessoa com deficiência (síndrome de Down e autismo) como fundamento para defender a independência e a qualidade de vida desse grupo.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 105631,
+            "end": 105743,
+            "text": "Eu sou mãe de um rapazinho de 22 anos, que chamamos carinhosamente de Dídio, que tem síndrome de Down e autismo.",
+            "score": 0.2182
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de uma linguagem universal como critério para garantir que a acessibilidade seja plena e compreensível por todos.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 106027,
+            "end": 106223,
+            "text": "Também precisamos batalhar para que a acessibilidade aconteça da forma mais ampla e plena possível, começando pela linguagem de sinais, por uma linguagem universal, que todos consigam compreender.",
+            "score": 0.291
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal de Santa Catarina.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 105434,
+            "end": 105497,
+            "text": "Eu sou Daniela Reinehr, sou Deputada Federal de Santa Catarina.",
+            "score": 0.5992
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se mãe de um rapaz de 22 anos, chamado carinhosamente de Dídio, que tem síndrome de Down e autismo.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 105631,
+            "end": 105743,
+            "text": "Eu sou mãe de um rapazinho de 22 anos, que chamamos carinhosamente de Dídio, que tem síndrome de Down e autismo.",
+            "score": 0.6449
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido mãe aos 21 anos e que se reinventou com o nascimento do filho.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 105744,
+            "end": 105820,
+            "text": "Eu fui mãe bastante cedo, com 21 anos, e eu me reinventei quando ele nasceu.",
+            "score": 0.271
+          },
+          "udv": null
+        },
+        {
+          "text": "Coloca-se à disposição das crianças, adultos e pessoas com deficiência presentes na audiência.",
+          "passage": {
+            "hearing_id": 53,
+            "turn": 62,
+            "start": 105182,
+            "end": 105308,
+            "text": "Quero cumprimentar todos aqui presentes em nome da Mesa, todas as crianças, todos os adolescentes, todos os adultos presentes.",
+            "score": 0.3816
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 5,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados, especialistas e familiares cobram cumprimento dos direitos das pessoas com autismo",
+      "assunto": "Cumprimento dos direitos das pessoas com autismo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 49,
+      "split": "test",
+      "article_date": "2024-05-07",
+      "title": "ANTT estuda estender em 15 anos concessão da BR 101 em SC para incluir obra e conter deslizamentos",
+      "assunto": "Estudo da ANTT para estender a concessão da BR-101 em Santa Catarina para incluir a construção de túneis e conter deslizamentos",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 53,
+      "split": "train",
+      "article_date": "2023-05-17",
+      "title": "Debatedores defendem participação de pessoas com deficiência nos projetos culturais para garantir inclusão",
+      "assunto": "Participação de pessoas com deficiência nos projetos culturais para garantir inclusão",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 128,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Preocupação com insegurança jurídica domina debate sobre comércio aos domingos e feriados",
+      "assunto": "Debate sobre a revogação da portaria que autorizava o trabalho aos domingos e feriados e suas implicações",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-49-1-0",
+      "hearing_id": 49,
+      "n": 5,
+      "article_name": "Daniela Reinehr",
+      "proposition": "\"Quando eu fiz o requerimento, nós estávamos vivendo um deslizamento bastante grave no Morro dos Cavalos, algumas pessoas ficaram dias trancadas na rodovia.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Bem, senhores, quando eu fiz o requerimento de realização desta audiência, nós estávamos vivendo os efeitos de um deslizamento bastante grave ocorrido no Morro dos Cavalos, em Santa Catarina. Muitas pessoas ficaram dias trancadas na rodovia.",
+        "turn": 1,
+        "start": 4369,
+        "end": 4610
+      },
+      "verifier": {
+        "probability": 0.9226182483016336,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-49-1-1",
+      "hearing_id": 49,
+      "n": 6,
+      "article_name": "Daniela Reinehr",
+      "proposition": "\"Este é um tema que, para nós, é muito caro há bastante tempo, que já esteve em planejamento, estes dois túneis no Morro dos Cavalos, e infelizmente ele foi deixado de fora do contrato de concessão.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E esse é um tema para nós muito caro há bastante tempo. Inclusive, já houve planejamento da obra desses dois túneis do Morro dos Cavalos, mas, por alguma razão, infelizmente, esses túneis foram deixados de fora do contrato de concessão.",
+        "turn": 1,
+        "start": 4611,
+        "end": 4847
+      },
+      "verifier": {
+        "probability": 0.9946643596273462,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-128-0-0",
+      "hearing_id": 128,
+      "n": 1,
+      "article_name": "Daniela Reinehr",
+      "proposition": "Criticou o governo por não ter debatido previamente a questão com trabalhadores e empregados: 'Não houve um amplo debate, não ouve considerações, especialmente num período em que naturalmente o consumo aumenta'.",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Então, o entendimento que nós temos trabalhado aqui na Comissão e também em plenário, com várias ações de Deputados nesse sentido, até pela surpresa que essa portaria trouxe a todos, não houve um amplo debate, não houve considerações, especialmente num período em que naturalmente o consumo aumenta, com a necessidade de as pessoas fazerem suas compras natalinas e de fim de ano, enfim, desde as questões de turismo, tudo fica afetado, então, em razão também dessa surpresa […]",
+        "turn": 33,
+        "start": 68071,
+        "end": 68752
+      },
+      "verifier": {
+        "probability": 0.23777223716724857,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

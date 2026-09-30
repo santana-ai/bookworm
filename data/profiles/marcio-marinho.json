@@ -1,0 +1,461 @@
+{
+  "actor": {
+    "slug": "marcio-marinho",
+    "name": "Márcio Marinho",
+    "display_name": "Márcio Marinho",
+    "role": "Deputado (Republicanos-BA)",
+    "article_names": [
+      "Márcio Marinho"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - BA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:09:02+00:00",
+    "n_statements": 37,
+    "n_hearings": 3,
+    "hearing_ids": [
+      40,
+      182,
+      192
+    ],
+    "input_tokens": 14932,
+    "output_tokens": 959,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 4,
+    "passage_only": 13,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a inclusão das artes marciais nas escolas públicas e comunidades carentes como ferramenta de inclusão social, argumentando que a prática promove disciplina, respeito e superação pessoal, oferecendo alternativa positiva para jovens em situação de vulnerabilidade.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 0,
+            "start": 1011,
+            "end": 1167,
+            "text": "Elas podem ser uma alternativa positiva para jovens em situação de vulnerabilidade, oferecendo-lhes oportunidades de desenvolvimento pessoal e profissional.",
+            "score": 0.4489
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do poder público (municipal, estadual e federal) o financiamento de projetos sociais de artes marciais por meio de convênios, criticando a dependência de recursos próprios dos instrutores e a descontinuidade de apoio após os 17 anos de idade dos beneficiários.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 14,
+            "start": 38712,
+            "end": 39004,
+            "text": "É importante que haja o braço do poder público, seja municipal, estadual ou federal, já que, às vezes, como foi dito por ele, ele tira do próprio bolso para manter um projeto, quando, na verdade, determinados esportes que são praticados pela comunidade poderiam ser financiados por convênios.",
+            "score": 0.2362
+          },
+          "udv": {
+            "id": "udv-40-0-0",
+            "rule": "same_sentence",
+            "score": 0.2284
+          }
+        },
+        {
+          "text": "Critica a obsolescência programada na telefonia móvel, definindo-a como a redução deliberada da vida útil de produtos para incentivar o consumo, o que gera resíduos eletrônicos, danos ambientais e acentua desigualdades sociais ao obrigar o consumidor a trocar aparelhos ainda funcionais.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 0,
+            "start": 2509,
+            "end": 2633,
+            "text": "Trata-se da redução deliberada da vida útil de um produto, com o intuito de incentivar o consumo e a substituição constante.",
+            "score": 0.3286
+          },
+          "udv": {
+            "id": "udv-192-4-0",
+            "rule": "same_sentence",
+            "score": 0.2314
+          }
+        },
+        {
+          "text": "Propõe a produção de aparelhos mais duráveis e reparáveis, com baterias substituíveis, e a conscientização do consumidor para escolhas sustentáveis, visando combater o ciclo vicioso de consumo e a geração de lixo tecnológico.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 0,
+            "start": 4072,
+            "end": 4210,
+            "text": "Além disso, é necessário promover a conscientização dos consumidores para que eles possam fazer escolhas mais sustentáveis e responsáveis.",
+            "score": 0.2293
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o reajuste de 9,63% nos planos de saúde coletivos aprovado pela ANS, classificando-o como abusivo e desproporcional à inflação (3,94% no IPCA), e cobra transparência das operadoras sobre os parâmetros utilizados para o cálculo.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 0,
+            "start": 3966,
+            "end": 4061,
+            "text": "E, às vezes, como agora, são surpreendidos com um aumento abusivo de 9,63% nos planos de saúde.",
+            "score": 0.2584
+          },
+          "udv": {
+            "id": "udv-182-0-0",
+            "rule": "same_sentence",
+            "score": 0.2445
+          }
+        },
+        {
+          "text": "Defende a aprovação de projetos de lei para proteger consumidores hipossuficientes, incluindo a regulação dos reajustes de planos de saúde e a garantia de durabilidade de produtos, alinhando a legislação brasileira a padrões de outros países.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 12,
+            "start": 44341,
+            "end": 44685,
+            "text": "Nós estamos aqui com os técnicos da Comissão e com os assessores, que são técnicos, justamente para pensarmos numa proposta de lei que, a exemplo do que existe em outros países, que hoje já têm leis claras, dê mais segurança aos consumidores, para realmente lutarem por aquele que é seu direito: ter garantia da durabilidade dos seus aparelhos.",
+            "score": 0.1999
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de representantes diretos de empresas (como Apple, Samsung e Motorola) em audiências públicas, exigindo que as marcas respondam diretamente às demandas da sociedade, e cobra a ANS e operadoras de saúde por práticas como a rescisão unilateral de contratos de pessoas com doenças crônicas ou deficiências.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 53,
+            "start": 102655,
+            "end": 102881,
+            "text": "O que explica essa diferença tão significativa?” Outra pergunta.“São cada vez mais recentes as notícias na mídia de operadoras cancelando unilateralmente contratos de pessoas com deficiências ou com doenças crônicas ou raras.",
+            "score": 0.2563
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a hipossuficiência do consumidor como fundamento central para suas posições, argumentando que o Estado e o Legislativo devem atuar como \"braço apoiador\" e \"caixa de ressonância\" da população, que muitas vezes não possui recursos para contratar advogados ou arcar com custos de saúde e tecnologia.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 0,
+            "start": 4902,
+            "end": 5024,
+            "text": "E essa demanda da sociedade acaba vindo aqui para a Casa do Povo, que é a caixa de ressonância do sentimento da população.",
+            "score": 0.1618
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o princípio da transparência como requisito obrigatório para a relação de consumo, tanto na indústria de eletrônicos quanto no setor de saúde suplementar, citando o art. 6º do Código de Defesa do Consumidor para justificar a necessidade de informação clara ao usuário.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 95,
+            "start": 162967,
+            "end": 163076,
+            "text": "Como disse aqui o Deputado Duarte, com relação ao que está escrito no Código de Defesa do Consumidor, no art.",
+            "score": 0.2875
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza o papel social do esporte e das artes marciais na formação de cidadãos, argumentando que a prática esportiva é uma \"arma mais poderosa\" que a violência para a inclusão social e a prevenção da cooptação pela criminalidade.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 0,
+            "start": 920,
+            "end": 1010,
+            "text": "Gostaria de ressaltar a importância das artes marciais como ferramenta de inclusão social.",
+            "score": 0.2553
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a mediação entre consumidores e empresas como objetivo do Legislativo, rejeitando a postura de \"destruir a imagem\" das empresas, mas exigindo que estas cumpram seu papel social e respeitem os direitos dos usuários.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 0,
+            "start": 2991,
+            "end": 3056,
+            "text": "O nosso objetivo não é destruir a imagem de empresa e de pessoas.",
+            "score": 0.2945
+          },
+          "udv": {
+            "id": "udv-182-0-2",
+            "rule": "same_sentence",
+            "score": 0.3268
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se autor dos requerimentos que deram origem às audiências públicas sobre artes marciais, obsolescência programada e reajustes de planos de saúde.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 53,
+            "start": 101274,
+            "end": 101369,
+            "text": "A terceira pergunta:como é feita a fiscalização e o controle dos reajustes dos planos de saúde?",
+            "score": 0.1891
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante da população baiana, mencionando seu programa \"Patrulha do Consumidor\" no estado e projetos locais como o \"Tangará\" em Salvador.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 4,
+            "start": 12699,
+            "end": 12822,
+            "text": "Eu mesmo, em Salvador, tenho o projeto chamado Tangará, por meio do qual nós oferecemos otaekwondoa crianças da comunidade.",
+            "score": 0.1828
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado à defesa dos direitos do consumidor e à proteção dos mais vulneráveis, posicionando-se ao lado de entidades como IDEC, PROCON e Defensorias Públicas.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 8,
+            "start": 33403,
+            "end": 33519,
+            "text": "Igor Rodrigues Britto, do Instituto Brasileiro de Defesa do Consumidor — IDEC, para a sua exposição, por 10 minutos.",
+            "score": 0.1621
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza narrativas pessoais e anedotas (como a história de infância com Bruce Lee ou a experiência com o plano de saúde da mãe) para humanizar o debate e conectar-se emocionalmente com o público.",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 8,
+            "start": 28849,
+            "end": 28920,
+            "text": "Eu, com a revistinha do Bruce Lee, comecei a praticar sozinho, em casa.",
+            "score": 0.1837
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem acessível e coloquial, misturando termos técnicos (como \"hipossuficiente\" e \"obsolescência programada\") com expressões populares (\"caixa de ressonância\", \"botar lenha na fogueira\").",
+          "passage": {
+            "hearing_id": 40,
+            "turn": 28,
+            "start": 67439,
+            "end": 67646,
+            "text": "Só para poder contribuir com o debate, com uma fala do Cleiber e do Deputado Luiz, eu quis botar mais lenha na fogueira e falei justamente da questão do capoeirista, do mestre de capoeira, que está morrendo.",
+            "score": 0.1887
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra respostas diretas e prazos dos representantes de órgãos públicos e empresas, utilizando perguntas específicas e dados estatísticos (como o índice de reclamações da ANS) para sustentar seus questionamentos.",
+          "passage": {
+            "hearing_id": 192,
+            "turn": 6,
+            "start": 18470,
+            "end": 18713,
+            "text": "Então, faço o registro de que nós respeitamos a presença aqui do representante da ABINEE, mas gostaríamos que, de forma efetiva, os representantes dessas empresas estivessem aqui para responder às nossas perguntas e aos nossos questionamentos.",
+            "score": 0.1513
+          },
+          "udv": null
+        },
+        {
+          "text": "Demonstra empatia ativa, validando as falas dos convidados e dos consumidores, e utiliza a presença de autoridades e especialistas para reforçar a legitimidade das demandas apresentadas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 40,
+      "split": "train",
+      "article_date": "2023-08-08",
+      "title": "Debatedores pedem políticas públicas para levar artes marciais às escolas",
+      "assunto": "Políticas públicas para levar artes marciais às escolas brasileiras",
+      "turns": 11,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 182,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Entidades que defendem consumidor pedem regulação para reajustes de planos de saúde coletivos",
+      "assunto": "Regulação dos reajustes dos planos de saúde coletivos",
+      "turns": 12,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 192,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Entidades de defesa do consumidor e representante da indústria divergem sobre redução da vida útil de celulares",
+      "assunto": "Redução da vida útil de celulares e obsolescência programada",
+      "turns": 14,
+      "in_profile": true,
+      "udvs": 3
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-40-0-0",
+      "hearing_id": 40,
+      "n": 1,
+      "article_name": "Márcio Marinho",
+      "proposition": "Defendeu apoio público para o estímulo da prática das artes marciais nas escolas e comunidades. Afirmou que é preciso investir em convênios nessa área: \"Se gasta tanto com armas, armando a população, armando o cidadão, ou até própria a polícia, e se gasta tão pouco numa arma muito mais poderosa que é a inclusão em projetos sociais\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É importante que haja o braço do poder público, seja municipal, estadual ou federal, já que, às vezes, como foi dito por ele, ele tira do próprio bolso para manter um projeto, quando, na verdade, determinados esportes que são praticados pela comunidade poderiam ser financiados por convênios. Gasta-se tanto com armas — armando a população, armando o cidadão ou até a própria Polícia — e tão pouco com uma arma muito mais poderosa, que é a inclusão em projetos sociais, a que […]",
+        "turn": 14,
+        "start": 38712,
+        "end": 39434
+      },
+      "verifier": {
+        "probability": 0.9421930348742233,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-182-0-0",
+      "hearing_id": 182,
+      "n": 1,
+      "article_name": "Márcio Marinho",
+      "proposition": "Classificou o aumento de 9,63% dos planos individuais como abusivo.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E, às vezes, como agora, são surpreendidos com um aumento abusivo de 9,63% nos planos de saúde. É um abuso muito grande.",
+        "turn": 0,
+        "start": 3966,
+        "end": 4086
+      },
+      "verifier": {
+        "probability": 0.9349006625797415,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-182-0-1",
+      "hearing_id": 182,
+      "n": 2,
+      "article_name": "Márcio Marinho",
+      "proposition": "Salientou que, muitas vezes, o consumidor deixa de comprar comida e roupa para pagar as mensalidades e, depois, não tem o retorno que deseja.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E elas, muitas das vezes, deixam de comprar uma comida melhor, um alimento melhor, deixam de comprar, às vezes, uma vestimenta melhor, deixam de comprar, às vezes, um produto ou um equipamento para sua casa para poder cuidar da sua saúde e, às vezes, não têm o retorno que tanto desejam. E, às vezes, como agora, são surpreendidos com um aumento abusivo de 9,63% nos planos de saúde.",
+        "turn": 0,
+        "start": 3678,
+        "end": 4061
+      },
+      "verifier": {
+        "probability": 0.9821105516735367,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-182-0-2",
+      "hearing_id": 182,
+      "n": 3,
+      "article_name": "Márcio Marinho",
+      "proposition": "\"O nosso objetivo sempre é fazer a mediação entre os consumidores e os empresários. O nosso objetivo é ser um braço apoiador daquele que, nessa relação de consumo, se torna hipossuficiente, às vezes não tem uma voz para defendê-lo em relação aos seus direitos junto às empresas, aos fabricantes.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Deputados, convidados e quem nos assiste pelos canais da Câmara dos Deputados, que o nosso objetivo sempre é fazer a mediação entre consumidores e empresários. O nosso objetivo não é destruir a imagem de empresa e de pessoas.",
+        "turn": 0,
+        "start": 2831,
+        "end": 3056
+      },
+      "verifier": {
+        "probability": 0.8468194620807536,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-192-4-0",
+      "hearing_id": 192,
+      "n": 9,
+      "article_name": "Márcio Marinho",
+      "proposition": "Criticou a estratégia das empresas de implantar a tecnologia de forma paulatina, de maneira que o consumidor terá sempre que adquirir um novo modelo, pois o seu atual se tornou obsoleto ou não funcional.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A obsolescência programada é uma prática que tem despertado preocupação em todo o mundo. Trata-se da redução deliberada da vida útil de um produto, com o intuito de incentivar o consumo e a substituição constante.",
+        "turn": 0,
+        "start": 2420,
+        "end": 2633
+      },
+      "verifier": {
+        "probability": 0.4169940867192168,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-192-4-1",
+      "hearing_id": 192,
+      "n": 10,
+      "article_name": "Márcio Marinho",
+      "proposition": "Ele deve se reunir com entidades de defesa do consumidor para a elaboração de um projeto de lei que combata a obsolescência programada.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quero contar com a presença do senhor sempre que a Comissão precisar discutir este assunto. Em tempo, peço que depois troque contato com minha assessoria, para pensarmos de forma conjunta em uma proposição que dê mais proteção aos nossos consumidores.",
+        "turn": 30,
+        "start": 79874,
+        "end": 80125
+      },
+      "verifier": {
+        "probability": 0.18503658226009845,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-192-4-2",
+      "hearing_id": 192,
+      "n": 11,
+      "article_name": "Márcio Marinho",
+      "proposition": "\"[Diante das] várias informações e sugestões de projetos de lei que já nos passaram aqui, nós vamos procurar analisar a legislação de outros países a respeito dessas mesmas empresas que estão aqui representadas pelo senhor Humberto, para que a gente possa ter o mesmo comportamento também no Brasil.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós vamos procurar analisar a legislação de outros países para empresas como as que estão aqui representadas pelo Sr. Humberto, para que tenhamos o mesmo comportamento no Brasil.",
+        "turn": 24,
+        "start": 73164,
+        "end": 73342
+      },
+      "verifier": {
+        "probability": 0.44550453872143797,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

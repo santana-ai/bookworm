@@ -1,0 +1,407 @@
+{
+  "actor": {
+    "slug": "mario-avelino",
+    "name": "MARIO AVELINO",
+    "display_name": "Mario Avelino",
+    "role": "Presidente do Instituto Fundo de Garantia do Trabalhador",
+    "article_names": [
+      "Mario Avelino"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:18:46+00:00",
+    "n_statements": 5,
+    "n_hearings": 1,
+    "hearing_ids": [
+      66
+    ],
+    "input_tokens": 7601,
+    "output_tokens": 1323,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 1,
+    "passage_only": 20,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o FGTS é um fundo de investimento social e não um \"saco sem fundo\", devendo o Congresso Nacional impor limites legais às liberações de saques emergenciais pelo Governo Federal, que utiliza o recurso para contornar o teto de gastos.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 15424,
+            "end": 15514,
+            "text": "E o Congresso tem que ter a obrigação, por lei, de impor esses limites ao Governo Federal.",
+            "score": 0.3632
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o projeto do Governo Federal para reduzir o depósito do FGTS de 8% para 2% e a multa de 40% para 20%, argumentando que isso reduziria a arrecadação em 75% e comprometeria investimentos em habitação popular, saneamento básico e infraestrutura.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 11644,
+            "end": 11842,
+            "text": "Quanto a essa questão que o Governo estipula, há uma matéria daFolha de S.Paulode março deste ano sobre um projeto do Governo para reduzir o depósito de 8% para 2% e reduzir a multa de 40% para 20%.",
+            "score": 0.3448
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita o saque-aniversário com empréstimo consignado, classificando-o como uma \"torneira perigosa\" que esvazia o fundo e prejudica o trabalhador ao antecipar recursos que seriam necessários em momentos de demissão, doença ou compra de imóvel.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 12988,
+            "end": 13070,
+            "text": "O grande perigo do saque-aniversário, na minha opinião, é o empréstimo consignado.",
+            "score": 0.2741
+          },
+          "udv": null
+        },
+        {
+          "text": "Oposição a projetos de lei que ampliam os códigos de saque, especificamente o PL 462/2020 e o PL 2.967/2019 (compra de segundo imóvel), sob o argumento de que beneficiam apenas quem já possui renda alta e agrava o déficit habitacional; e o PL 1.747/2022 (saque em caso de pedido de demissão), que considera um estímulo à desinformação e ao abandono do emprego.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 17200,
+            "end": 17344,
+            "text": "O Projeto de Lei nº 462, de 2020, da Câmara, e o Projeto de Lei nº 2.967, de 2019, do Senado, que propõem o uso para a compra do segundo imóvel.",
+            "score": 0.3024
+          },
+          "udv": {
+            "id": "udv-66-1-0",
+            "rule": "same_sentence",
+            "score": 0.2844
+          }
+        },
+        {
+          "text": "Propõe a substituição da Taxa Referencial (TR) pelo INPC para a correção monetária do FGTS, citando que a TR causou um \"confisco\" de 69% no rendimento de um trabalhador desde 1999 e que há 700 bilhões de reais não creditados, conforme cálculos do instituto.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 19626,
+            "end": 19753,
+            "text": "Pelos nossos cálculos, trocando a TR pelo INPC, são 700 bilhões de reais que deixaram de ser creditados nesses últimos 23 anos.",
+            "score": 0.3578
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o Conselho Curador do FGTS seja paritário (50% governo, 25% trabalhadores, 25% empresários), e que 75% da multa por atraso de depósito seja paga diretamente ao trabalhador prejudicado, em vez de ir para o patrimônio líquido.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 21642,
+            "end": 21815,
+            "text": "Também trabalhamos para que haja um conselho curador paritário, porque ele é tripartite, mas não é paritário — 50% são do governo, 25% do trabalhador, e 25% dos empresários.",
+            "score": 0.5223
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o aumento da multa por atraso de depósito para os valores anteriores a 1999 (10% no primeiro mês e 20% a partir do segundo), visando inibir empresas que atrasam ou não depositam.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 22712,
+            "end": 22814,
+            "text": "Defendemos que volte o aumento da multa, para inibir as empresas que atrasam ou não depositam o valor.",
+            "score": 0.431
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra o aumento dos investimentos do FGTS em saneamento básico, especialmente nas regiões Norte e Nordeste, para combater doenças e reduzir gastos com saúde.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 23388,
+            "end": 23504,
+            "text": "Em relação ao saneamento básico, principalmente se olharmos as regiões Norte e Nordeste, há um déficit muito grande.",
+            "score": 0.3944
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere ao Poder Executivo, à Caixa e ao Ministério do Trabalho a realização de campanhas de conscientização para combater a visão de que o FGTS é uma poupança livre de saque imediato, esclarecendo que o fundo financia a economia e a habitação popular.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 43,
+            "start": 75533,
+            "end": 75724,
+            "text": "Eu sugiro ao Poder Executivo, à Caixa e, de repente, ao Ministério do Trabalho fazermos uma campanha mais efetiva de conscientização do trabalhador em relação ao que seja o Fundo de Garantia.",
+            "score": 0.3265
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a premissa de que o FGTS é um direito trabalhista e uma poupança garantida pela Constituição, que deve ser protegida contra fraudes e confiscos, justificando a oposição a qualquer medida que reduza seu saldo ou amplie saques.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 6315,
+            "end": 6564,
+            "text": "O Instituto Fundo de Garantia do Trabalhador é uma ONG criada em 2021, cujo objetivo é que o trabalhador receba corretamente o dinheiro, que é uma poupança garantida pela Constituição, é um direito trabalhista, sem perdas, sem fraudes, sem confisco.",
+            "score": 0.2915
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que o grande beneficiário do FGTS é a população de baixa renda, que depende do fundo para habitação popular, saneamento e infraestrutura, o que fundamenta a rejeição a propostas que direcionem recursos para quem já possui renda alta (como a compra de segundo imóvel).",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 7780,
+            "end": 8018,
+            "text": "Nós temos que ter a visão de que ele é um fundo social e, graças a ele, o grande beneficiário é principalmente a população de baixa renda, com a sua habitação popular, com a sua casa própria, com o saneamento básico, com a infraestrutura.",
+            "score": 0.452
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca o impacto econômico do fundo como pilar da economia brasileira, citando que ele injeta em média 200 bilhões de reais anuais na economia e garante 4 milhões de empregos diretos, para justificar a necessidade de sua sustentabilidade e a oposição a projetos que o esvaziem.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 9544,
+            "end": 9707,
+            "text": "Em média, todo ano, o Fundo de Garantia injeta 200 bilhões de reais na economia, o que garante, pelo menos, 4 milhões de empregos diretos, sem contar os indiretos.",
+            "score": 0.5249
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência de que a troca da estabilidade pelo FGTS em 1966 foi justa, pois o valor do fundo equivale à indenização que era paga antes da criação do fundo, para refutar argumentos de que o fundo é um custo excessivo para as empresas.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 10891,
+            "end": 10954,
+            "text": "Fundo de Garantia foi a troca da estabilidade por uma poupança.",
+            "score": 0.3028
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se presidente do Instituto Fundo de Garantia do Trabalhador, uma ONG criada em 2011, cujo objetivo é proteger a sustentabilidade do FGTS e garantir que o trabalhador receba corretamente seu dinheiro.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 6315,
+            "end": 6564,
+            "text": "O Instituto Fundo de Garantia do Trabalhador é uma ONG criada em 2021, cujo objetivo é que o trabalhador receba corretamente o dinheiro, que é uma poupança garantida pela Constituição, é um direito trabalhista, sem perdas, sem fraudes, sem confisco.",
+            "score": 0.5266
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma presidir também o Instituto Doméstica Legal, o que o leva a citar o emprego doméstico e a Lei Complementar nº 150/2015, que tornou o FGTS obrigatório para empregadas domésticas.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 17,
+            "start": 64064,
+            "end": 64150,
+            "text": "As domésticas, em 2015, graças à Lei Complementar nº 150, têm o seu fundo de garantia.",
+            "score": 0.4621
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara apoio ao Deputado Paulo Ramos, a quem agradece por ter atendido o instituto em mais de três audiências e por ter contribuído para a criação de uma subcomissão para tratar dos projetos do FGTS.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 43,
+            "start": 74773,
+            "end": 74829,
+            "text": "Esta não é a primeira, já houve mais de três audiências.",
+            "score": 0.2594
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter atuado na Câmara dos Deputados, na Comissão de Trabalho, entre 2009 e 2014, negociando a distribuição de lucros do FGTS.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 21277,
+            "end": 21364,
+            "text": "De 2009 a 2014, eu estava no Congresso, na Câmara, na Comissão de Trabalho, negociando.",
+            "score": 0.5918
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados financeiros específicos, como o balanço de 2021 (613 bilhões de reais em ativos, 500 bilhões de saldo do trabalhador) e cálculos de perda por inflação (14.752 reais de perda para um trabalhador desde 1999), para sustentar suas posições.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 8678,
+            "end": 8875,
+            "text": "De acordo com o balanço de 2021, há um ativo de 613 bilhões de reais; arredondando, há 500 bilhões de reais de saldo do trabalhador; e 118 bilhões de reais é o patrimônio líquido e a conta reserva.",
+            "score": 0.4221
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita exemplos concretos de propaganda comercial (como a da SIMCAUTO no jornal O Globo) para ilustrar o perigo do saque-aniversário com consignado e a cultura de consumo que ele fomenta.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 12988,
+            "end": 13070,
+            "text": "O grande perigo do saque-aniversário, na minha opinião, é o empréstimo consignado.",
+            "score": 0.3018
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de alerta e urgência, usando expressões como \"ameaças\", \"torneira perigosa\", \"confisco\" e \"arrepiar o cabelo\" para descrever os riscos à sustentabilidade do fundo.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 10631,
+            "end": 10704,
+            "text": "Vamos ao item principal: ameaças à sustentabilidade do Fundo de Garantia.",
+            "score": 0.2006
+          },
+          "udv": null
+        },
+        {
+          "text": "Distingue entre a boa intenção de parlamentares e a falta de conhecimento sobre o funcionamento do FGTS, ao criticar projetos como o PL 1.747/2022, mantendo um tom respeitoso, mas firme, em relação aos autores das propostas.",
+          "passage": {
+            "hearing_id": 66,
+            "turn": 3,
+            "start": 18070,
+            "end": 18197,
+            "text": "Honestamente, uma coisa é a boa intenção do Parlamentar, outra coisa é a total falta de conhecimento sobre o Fundo de Garantia.",
+            "score": 0.2545
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a realidade do trabalhador, citando casos de empresas que não depositam o FGTS por anos e de trabalhadores que perdem direitos ao aceitar a \"pejotização\", para reforçar a necessidade de fiscalização e conscientização.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 10,
+      "split": "test",
+      "article_date": "2024-04-26",
+      "title": "Governo quer substituir saque-aniversário do FGTS por consignado com juros mais baixos",
+      "assunto": "Substituição do saque-aniversário do FGTS por empréstimo consignado com juros mais baixos",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 66,
+      "split": "train",
+      "article_date": "2022-08-26",
+      "title": "Para debatedores, financiamento de segundo imóvel impõe risco ao FGTS",
+      "assunto": "Financiamento de segundo imóvel com recursos do FGTS e seus impactos",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 3
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-66-1-0",
+      "hearing_id": 66,
+      "n": 2,
+      "article_name": "Mario Avelino",
+      "proposition": "Alertou para os projetos de lei que permitem o saque de recursos do FGTS pelo trabalhador para financiamento de um segundo imóvel.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Cito aqui alguns exemplos, os mais perigosos. O Projeto de Lei nº 462, de 2020, da Câmara, e o Projeto de Lei nº 2.967, de 2019, do Senado, que propõem o uso para a compra do segundo imóvel.",
+        "turn": 3,
+        "start": 17154,
+        "end": 17344
+      },
+      "verifier": {
+        "probability": 0.24526645295208907,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-66-1-1",
+      "hearing_id": 66,
+      "n": 3,
+      "article_name": "Mario Avelino",
+      "proposition": "A ampliação das possibilidades de saque prejudica o próprio trabalhador.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Hoje há banco antecipando 10 anos de saque-aniversário. E o trabalhador perde, porque ele está sacando dinheiro, às vezes, sem a real necessidade.",
+        "turn": 3,
+        "start": 13071,
+        "end": 13217
+      },
+      "verifier": {
+        "probability": 0.8998776560852574,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-66-1-2",
+      "hearing_id": 66,
+      "n": 4,
+      "article_name": "Mario Avelino",
+      "proposition": "O fundo financia saneamento, infraestrutura e saúde para toda a sociedade: \"O FGTS não é uma caderneta de poupança\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Reforçando a nossa visão, o Fundo de Garantia só tem que ter investimento nas áreas sociais, como habitação popular, saneamento básico. Ademais, foi aprovado o marco de saneamento básico.",
+        "turn": 3,
+        "start": 20694,
+        "end": 20881
+      },
+      "verifier": {
+        "probability": 0.33785348341558913,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

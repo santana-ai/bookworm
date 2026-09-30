@@ -1,0 +1,422 @@
+{
+  "actor": {
+    "slug": "rosangela-moro",
+    "name": "ROSÂNGELA MORO",
+    "display_name": "Rosângela Moro",
+    "role": "Deputada (União-SP)",
+    "article_names": [
+      "Rosângela Moro"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:38:24+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      34,
+      204
+    ],
+    "input_tokens": 3910,
+    "output_tokens": 778,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 4,
+    "passage_only": 15,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a inclusão de uma cadeira obrigatória nos cursos superiores de medicina para tratar das doenças de origem genética, argumentando que, embora existam de 6 mil a 8 mil doenças raras, é necessário um denominador comum no ensino.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 50807,
+            "end": 51046,
+            "text": "Estas 6 mil a 8 mil doenças raras não vão ser estudadas no curso de medicina, mas eu acho que há de haver — aí nós precisamos ouvir todos os médicos e os estudiosos — algum denominador comum que possa ser aproveitado nos cursos superiores.",
+            "score": 0.3778
+          },
+          "udv": {
+            "id": "udv-204-3-1",
+            "rule": "similar_text",
+            "score": 0.3947
+          }
+        },
+        {
+          "text": "Propõe a criação de um dia específico para a sensibilização da distonia, visando facilitar o diagnóstico e melhorar a vida do paciente.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 51877,
+            "end": 52228,
+            "text": "Acho que forças-tarefas como esta para divulgar a doença, divulgar o diagnóstico, ampliar a informação; audiências públicas; ter, sim, um dia — não sei se já existe — para a sensibilização da distonia são todos fatores que convergem para que a doença seja conhecida, o diagnóstico seja facilitado e, com isso, efetivamente, a vida do paciente melhore.",
+            "score": 0.2752
+          },
+          "udv": {
+            "id": "udv-204-3-0",
+            "rule": "same_sentence",
+            "score": 0.2605
+          }
+        },
+        {
+          "text": "Cobra a capacitação da porta de entrada do SUS para garantir a celeridade necessária ao diagnóstico de doenças raras.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 51800,
+            "end": 51876,
+            "text": "Para isso, reputo muito importante a capacitação da porta de entrada do SUS.",
+            "score": 0.4729
+          },
+          "udv": {
+            "id": "udv-204-3-0",
+            "rule": "same_sentence",
+            "score": 0.2249
+          }
+        },
+        {
+          "text": "Defende que associações de pacientes e institutos tenham assento na CONITEC, especificamente uma associação representativa de cada protocolo que for tratado, além da presença da AMB.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 51252,
+            "end": 51354,
+            "text": "Como verdadeira defensora dos institutos e das associações, eles têm que ter, sim, assento na CONITEC.",
+            "score": 0.3511
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta indicação ao Poder Executivo para a inclusão de uma matéria sobre saúde mental na grade curricular da educação básica, com o objetivo de ensinar alunos a identificar sinais de alerta e desenvolver empatia.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 7060,
+            "end": 7338,
+            "text": "Por isso, eu apresentei uma indicação ao Poder Executivo para que acrescentasse à nossa grade curricular da educação básica uma matéria voltada para educar sobre a saúde mental, até para que os alunos saibam identificar sinais de alerta e desenvolver a empatia entre os colegas.",
+            "score": 0.7158
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de assistência médica adequada para a maioria da população brasileira que sofre com transtornos mentais, citando dados da Organização Mundial da Saúde segundo os quais o Brasil é o país mais ansioso do mundo (63% da população) e o quinto mais depressivo (59%).",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 5329,
+            "end": 5531,
+            "text": "A Organização Mundial da Saúde diz que o Brasil é considerado o país mais ansioso do mundo e o quinto mais depressivo: 63% da população sofre de algum tipo de ansiedade e 59% de algum quadro depressivo.",
+            "score": 0.5404
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a saúde deve ser entendida como qualidade de vida, não apenas cura, exigindo o fornecimento de tratamentos que melhorem a condição de pacientes e seus cuidadores familiares.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 49769,
+            "end": 49843,
+            "text": "Concordo, doutora, que saúde não é apenas cura: saúde é qualidade de vida.",
+            "score": 0.3697
+          },
+          "udv": {
+            "id": "udv-204-3-2",
+            "rule": "same_sentence",
+            "score": 0.3157
+          }
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o argumento de que 80% das doenças têm origem genética para justificar a necessidade de aumentar o número de geneticistas no País e incluir o tema no ensino médico.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 50384,
+            "end": 50465,
+            "text": "Primeiro, o número de geneticistas que nós temos no País — um número muito baixo.",
+            "score": 0.3231
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na premissa de que o acolhimento e a troca de experiências nas associações de pacientes são fundamentais para o primeiro apoio às famílias, complementando a atuação da medicina e da ciência.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 49416,
+            "end": 49612,
+            "text": "Nas associações, o acolhimento, a troca de experiências, o intercâmbio de informações importantes, sem atribuir todos os créditos à medicina e à ciência, eu acho que há uma combinação muito feliz.",
+            "score": 0.3679
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a necessidade de mudanças culturais e educacionais na saúde mental ao afirmar que a busca por padrões de beleza inalcançáveis gera comportamentos prejudiciais, como dietas extremas e procedimentos desnecessários, além de um círculo vicioso de busca por validação nas mídias sociais.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 4891,
+            "end": 4997,
+            "text": "Além disso, gera até um círculo vicioso de busca pela validação da nossa personalidade nas mídias sociais.",
+            "score": 0.5115
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a educação é o instrumento fundamental para promover a autoaceitação, a valorização da diversidade de corpos, idades e raças, e para proteger a saúde mental dos jovens.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 5945,
+            "end": 6029,
+            "text": "Nós temos que celebrar a diversidade de corpos, de idades, de raças e de aparências.",
+            "score": 0.4143
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal pelo Estado de São Paulo.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 3335,
+            "end": 3400,
+            "text": "Eu sou Rosângela Moro, Deputada Federal pelo Estado de São Paulo.",
+            "score": 0.637
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como estudiosa do tema de doenças raras.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 50294,
+            "end": 50383,
+            "text": "Quero dizer também que, como estudiosa do tema danças raras, algumas coisas me preocupam.",
+            "score": 0.3856
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma-se defensora dos institutos e das associações de pacientes.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 51252,
+            "end": 51354,
+            "text": "Como verdadeira defensora dos institutos e das associações, eles têm que ter, sim, assento na CONITEC.",
+            "score": 0.5107
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ser colega de partido do Deputado Eduardo Velloso.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 2428,
+            "end": 2559,
+            "text": "Registro o meu especial agradecimento ao amigo Deputado Eduardo Velloso, meu colega de partido, que preside esta audiência pública.",
+            "score": 0.5818
+          },
+          "udv": null
+        },
+        {
+          "text": "Agradece e elogia a atuação da Deputada Meire Serafim na defesa de políticas públicas para pessoas com doenças raras.",
+          "passage": {
+            "hearing_id": 204,
+            "turn": 7,
+            "start": 48881,
+            "end": 49201,
+            "text": "Quero dizer que vocês estão diante de uma das pérolas da nossa Casa, a Deputada Meire Serafim.Ela é muito comprometida com a questão da saúde, muito atuante neste Parlamento, para melhorar as políticas públicas em prol das pessoas com doenças raras ou não raras — agora eu fiquei na dúvida —, a depender da faixa etária.",
+            "score": 0.3607
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e citações de organismos internacionais, como a Organização Mundial da Saúde, para fundamentar suas posições sobre saúde mental e doenças raras.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 4301,
+            "end": 4335,
+            "text": "Isso prejudica a sua saúde mental.",
+            "score": 0.1702
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e situações vividas pela população, como o uso do Google para busca de diagnóstico e o impacto no núcleo familiar do paciente, para ilustrar a necessidade de políticas públicas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Direciona perguntas específicas aos representantes do Poder Executivo presentes nas audiências, buscando posicionamento imediato sobre propostas legislativas ou curriculares.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 7340,
+            "end": 7560,
+            "text": "Hoje, aqui, nós temos representantes do Poder Executivo, e a eles já vou deixar uma pergunta: os senhores concordam que nós precisamos ter nas escolas essa matéria em que se discuta e aborde essa questão da saúde mental?",
+            "score": 0.1509
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de acolhimento e valorização dos interlocutores, cumprimentando individualmente convidados e colegas, e reforçando a importância da participação de todos no debate.",
+          "passage": {
+            "hearing_id": 34,
+            "turn": 1,
+            "start": 2961,
+            "end": 3035,
+            "text": "A participação de todos é essencial para o enriquecimento do nosso debate.",
+            "score": 0.2658
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta propostas legislativas e indicações como instrumentos práticos para a resolução dos problemas identificados, vinculando a discussão teórica à ação parlamentar.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 34,
+      "split": "train",
+      "article_date": "2023-09-21",
+      "title": "Debatedores alertam para impactos nocivos das telas na saúde mental de jovens",
+      "assunto": "Impactos nocivos da alta exposição às redes sociais na saúde mental de jovens",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 204,
+      "split": "train",
+      "article_date": "2023-07-13",
+      "title": "Especialistas defendem melhorias no acesso ao diagnóstico e tratamento da distonia no SUS",
+      "assunto": "Melhorias no acesso ao diagnóstico e tratamento da distonia no SUS",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 3
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-34-2-0",
+      "hearing_id": 34,
+      "n": 6,
+      "article_name": "Rosângela Moro",
+      "proposition": "Acredita que a necessidade de exibir uma imagem perfeita pode impactar na saúde psíquica: \"Esse padrão de beleza estabelecido pela cultura das redes sociais muitas vezes promove uma imagem que é idealizada e inatingível, e isso pode ter sérios efeitos na saúde mental.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Esse padrão de beleza estabelecido pela cultura das redes sociais, muitas vezes, promove uma imagem que é idealizada e inatingível de rosto, de corpo e de estilo de vida. Isso tudo pode ter sérios efeitos na saúde mental das pessoas.",
+        "turn": 1,
+        "start": 3763,
+        "end": 3996
+      },
+      "verifier": {
+        "probability": 0.9907388706080477,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-204-3-0",
+      "hearing_id": 204,
+      "n": 9,
+      "article_name": "Rosângela Moro",
+      "proposition": "É essencial a ampliação da informação sobre a distonia.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Para isso, reputo muito importante a capacitação da porta de entrada do SUS. Acho que forças-tarefas como esta para divulgar a doença, divulgar o diagnóstico, ampliar a informação; audiências públicas; ter, sim, um dia — não sei se já existe — para a sensibilização da distonia são todos fatores que convergem para que a doença seja conhecida, o diagnóstico seja facilitado e, com isso, efetivamente, a vida do paciente melhore.",
+        "turn": 7,
+        "start": 51800,
+        "end": 52228
+      },
+      "verifier": {
+        "probability": 0.9737197422133246,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-204-3-1",
+      "hearing_id": 204,
+      "n": 10,
+      "article_name": "Rosângela Moro",
+      "proposition": "Sugeriu a criação de uma cadeira obrigatória sobre doenças de origem genética nos cursos superiores de medicina e a capacitação de profissionais da porta de entrada do SUS.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Nós pedimos ao Ministério da Educação, via requerimento, que estude a possibilidade de colocar uma cadeira obrigatória para tratar das doenças de origem genética. Preocupa-me também a atuação da CONITEC.",
+        "turn": 7,
+        "start": 51047,
+        "end": 51251
+      },
+      "verifier": {
+        "probability": 0.3327308867671822,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-204-3-2",
+      "hearing_id": 204,
+      "n": 11,
+      "article_name": "Rosângela Moro",
+      "proposition": "\"Saúde não é só cura, saúde é qualidade de vida e, se nós temos tratamentos disponíveis para melhorar a qualidade de vida, precisamos sim fornecê-los.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Concordo, doutora, que saúde não é apenas cura: saúde é qualidade de vida. Se temos tratamentos disponíveis para melhorar a qualidade de vida, nós precisamos, sim, fornecê-los, especialmente porque pessoas com esta doença acabam envolvendo o núcleo familiar.",
+        "turn": 7,
+        "start": 49769,
+        "end": 50027
+      },
+      "verifier": {
+        "probability": 0.9902859986896956,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

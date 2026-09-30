@@ -1,0 +1,358 @@
+{
+  "actor": {
+    "slug": "carlos-jordy",
+    "name": "CARLOS JORDY",
+    "display_name": "Carlos Jordy",
+    "role": "Deputado (PL-RJ)",
+    "article_names": [
+      "Carlos Jordy"
+    ],
+    "party_uf": [
+      "PL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:28:22+00:00",
+    "n_statements": 7,
+    "n_hearings": 2,
+    "hearing_ids": [
+      145,
+      199
+    ],
+    "input_tokens": 3385,
+    "output_tokens": 894,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica o Governo Lula e o Ministério da Saúde por permitir indicações políticas para cargos de direção e administração em hospitais federais no Rio de Janeiro, argumentando que isso contribuiu para o sucateamento e o fechamento de leitos e salas de cirurgia de alta complexidade.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 9,
+            "start": 24041,
+            "end": 24103,
+            "text": "São salas de cirurgias e leitos de alta complexidade fechados.",
+            "score": 0.3464
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que cinco pacientes de um hospital federal do Rio de Janeiro morreram por causa de equipamentos com defeito e falta de insumos após nomeações políticas, citando reportagem do G1 que aponta problemas graves em três hospitais.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 9,
+            "start": 24351,
+            "end": 24558,
+            "text": "Eu tenho aqui comigo uma reportagem do G1 que mostra documentos que revelam que cinco pacientes de hospital federal do Rio de Janeiro morreram por conta de equipamentos com defeito, após nomeações políticas.",
+            "score": 0.5627
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica e lista nomes de indicados políticos (Abel Martinez Dominguez, Gildo Sousa, Carlos Vinícius Ramos Rolla, Laumar Sidako, Gabriel Farias e Carlos Ney Pinho Ribeiro), detalhando vínculos com o setor de compras, o Hospital de Bonsucesso e a Secretaria de Saúde de São Gonçalo, e questiona a responsabilidade da Ministra pela morte dos pacientes.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 9,
+            "start": 25117,
+            "end": 25241,
+            "text": "Abel Martinez Dominguez, Gildo Sousa, Carlos Vinícius Ramos Rolla, Laumar Sidako, Gabriel Farias e Carlos Ney Pinho Ribeiro?",
+            "score": 0.6883
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a justificativa do Governo de que a falta de insumos, como endoscópios, é responsabilidade do governo anterior, classificando a prática de distribuição de cargos como fisiologismo e projeto de poder.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 44,
+            "start": 32234,
+            "end": 32289,
+            "text": "É um projeto de poder, porque isso aqui é fisiologismo.",
+            "score": 0.4028
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Ministério da Justiça e o STF pela anulação das provas da Lava-Jato, especificamente as que incriminavam o Presidente Lula e afetavam mais de 100 pessoas, apontando uma anomalia jurídica e um limbo probatório.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 181,
+            "start": 99621,
+            "end": 99708,
+            "text": "Anulou as provas que incriminavam Lula e que afetaram mais de 100 pessoas na Lava-Jato.",
+            "score": 0.46
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a conduta do Ministério da Justiça no caso da Odebrecht, relatando que a Diretora do DRCI, Carolina Yumi, primeiro informou ao STF a inexistência de documentos de cooperação jurídica internacional com a Suíça e, dias depois, afirmou tê-los encontrado, o que teria levado à anulação das provas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 181,
+            "start": 98925,
+            "end": 99132,
+            "text": "O seu Ministério, através da Carolina Yumi, que é a Diretora do DRCI — Departamento de Recuperação de Ativos e Cooperação Internacional, informou ao STF que não havia documentos que comprovassem esse acordo.",
+            "score": 0.3654
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona se a conduta de Carolina Yumi foi incompetência ou crime doloso para inocentar Lula, e cobra do Ministro da Justiça a punição da funcionária e a identificação do delegado responsável pela investigação contra ela.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 181,
+            "start": 100263,
+            "end": 100490,
+            "text": "Mas eu gostaria de saber se o seu Ministério sabe quem é o delegado que está à frente da investigação contra a Carolina Yumi, porque, ou ela cometeu um ato culposo, por pura incompetência, ou um ato doloso, para inocentar Lula.",
+            "score": 0.4282
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministro da Justiça a petição ao Ministro Dias Toffoli para invalidar a anulação das provas da Lava-Jato, argumentando que a impunidade e a anulação de provas envergonham o país e são criticadas pela OCDE.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 181,
+            "start": 100492,
+            "end": 100947,
+            "text": "E queria saber também se o senhor já peticionou ao Ministro Dias Toffoli para que invalide a anulação das provas, que acabou, inclusive, envergonhando o País, porque até a OCDE está falando a respeito dessa impunidade, diante de anulação de provas, e da impunidade no combate à corrupção em geral por conta de casos como o da Lava-Jato, em que provas cabais e que não só incriminavam o Presidente Lula, mas afetavam toda a classe política, foram anuladas.",
+            "score": 0.3986
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Ministério da Justiça por não entregar as imagens das câmeras do ato de 8 de janeiro, alegando que o Ministério se esquivou responsabilizando a empresa de armazenamento.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 184,
+            "start": 103824,
+            "end": 104015,
+            "text": "Inclusive, no âmbito do ato de 8 de janeiro, ele não entregou as imagens das câmeras, alegando que isso seria uma questão da empresa, que esvaziaria o armazenamento para gravar novas imagens.",
+            "score": 0.487
+          },
+          "udv": null
+        },
+        {
+          "text": "Classifica o Ministério da Justiça como o \"Ministério da anulação e sumiço de provas\", acusando o Ministro de lavar as mãos e somer provas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 184,
+            "start": 103611,
+            "end": 103823,
+            "text": "O Ministro é conhecido por ser o Ministro da Justiça e Segurança Pública, mas o seu Ministério está sendo conhecido como o Ministério da anulação e sumiço de provas, porque não é a primeira vez que isso acontece.",
+            "score": 0.3609
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Defende que a gestão de hospitais federais deve ser baseada em indicações técnicas, não políticas, para evitar o sucateamento e a falta de insumos que colocam vidas em risco.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 9,
+            "start": 25497,
+            "end": 25611,
+            "text": "E é realmente muito preocupante permitir indicações políticas, e não indicações técnicas, para hospitais federais.",
+            "score": 0.3526
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a existência de corrupção comprovada na Lava-Jato e a devolução de bilhões por operadores como fundamento para rejeitar a anulação das provas, argumentando que a formalidade jurídica não pode sobrepor-se à realidade dos fatos e ao combate à corrupção.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 184,
+            "start": 103216,
+            "end": 103609,
+            "text": "É curioso que o Ministro alegue uma mera questão formal para anular um processo, quando todos sabemos que houve realmente corrupção no âmbito das ações investigadas pela Lava-Jato, inclusive com devolução de bilhões por diversos operadores — houve, inclusive, devolução para a PETROBRAS, alegando uma questão meramente temporal, de um acordo de cooperação jurídica internacional que aconteceu.",
+            "score": 0.2423
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a imagem do país e a avaliação de organismos internacionais, como a OCDE, como critério para criticar a impunidade e a anulação de provas no combate à corrupção.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 181,
+            "start": 100492,
+            "end": 100947,
+            "text": "E queria saber também se o senhor já peticionou ao Ministro Dias Toffoli para que invalide a anulação das provas, que acabou, inclusive, envergonhando o País, porque até a OCDE está falando a respeito dessa impunidade, diante de anulação de provas, e da impunidade no combate à corrupção em geral por conta de casos como o da Lava-Jato, em que provas cabais e que não só incriminavam o Presidente Lula, mas afetavam toda a classe política, foram anuladas.",
+            "score": 0.2972
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da Liderança da Maioria na Câmara dos Deputados.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 5,
+            "start": 22881,
+            "end": 22953,
+            "text": "Eu queria me inscrever para falar pela Liderança da Maioria, Presidente.",
+            "score": 0.3167
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos, como datas de ofícios ao STF (6 e 13 de setembro), nomes de funcionários e diretores, e referências a reportagens (G1) para sustentar suas acusações.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 181,
+            "start": 99133,
+            "end": 99254,
+            "text": "Pois bem, no dia 13 de setembro, o seu Ministério enviou outro ofício ao STF, dizendo:\"Nós encontramos aqui o documento\".",
+            "score": 0.1687
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom confrontador e acusatório, utilizando termos como \"fisiologismo\", \"projeto de poder\", \"anomalia jurídica\" e \"sumiço de provas\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 44,
+            "start": 32234,
+            "end": 32289,
+            "text": "É um projeto de poder, porque isso aqui é fisiologismo.",
+            "score": 0.4466
+          },
+          "udv": null
+        },
+        {
+          "text": "Formula perguntas diretas e retóricas aos ministros presentes, cobrando respostas sobre responsabilidades, punições e ações administrativas específicas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e expressões de forte carga emocional, como \"limbo\", \"envergonhando o País\" e \"lavou as mãos\", para reforçar suas críticas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 186,
+            "start": 104126,
+            "end": 104179,
+            "text": "Lavou as mãos, como se ele não tivesse culpa de nada.",
+            "score": 0.2126
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 3
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-199-9-0",
+      "hearing_id": 199,
+      "n": 19,
+      "article_name": "Carlos Jordy",
+      "proposition": "Reconheceu a situação precária dos hospitais federais do Rio de Janeiro.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Ministra, como a senhora mesma relatou, a situação da saúde no Estado do Rio de Janeiro é de abandono, de total sucateamento. V.Exa. mostrou aqui um relatório do Ministério da Saúde, de uma comissão, dizendo que há diversos hospitais com leitos fechados e com falta de insumos.",
+        "turn": 9,
+        "start": 23725,
+        "end": 24002
+      },
+      "verifier": {
+        "probability": 0.7177506057185329,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-9-1",
+      "hearing_id": 199,
+      "n": 20,
+      "article_name": "Carlos Jordy",
+      "proposition": "Afirmou que o governo não quer assumir a sua responsabilidade pela situação dos hospitais: \"O governo quer responsabilizar o governo anterior por esse cenário.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "E eu creio que o Governo quer responsabilizar o Governo anterior por esse cenário.",
+        "turn": 9,
+        "start": 24104,
+        "end": 24186
+      },
+      "verifier": {
+        "probability": 0.7030499721490211,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-9-2",
+      "hearing_id": 199,
+      "n": 21,
+      "article_name": "Carlos Jordy",
+      "proposition": "Afirmou que o Hospital de Bonsucesso foi prejudicado por nomeações políticas ligadas ao PT.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Esses nomes foram indicações políticas feitas por um Deputado do PT. Alguns deles estão relacionados ao setor de compras, outros estão envolvidos no Hospital de Bonsucesso, onde houve a morte de cinco pacientes, por falta de insumos, por falta de leitos.",
+        "turn": 9,
+        "start": 25242,
+        "end": 25496
+      },
+      "verifier": {
+        "probability": 0.9644453829418163,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "actor": {
+    "slug": "cleber-verde",
+    "name": "Cleber Verde",
+    "display_name": "Cleber Verde",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/MDB - MA",
+      "Bloco/REPUBLICANOS - MA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:41:55+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      44,
+      50
+    ],
+    "input_tokens": 3513,
+    "output_tokens": 683,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 14,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a exploração imediata de petróleo na Margem Equatorial, próxima à foz do Rio Amazonas, argumentando que o Brasil tem pressa e que a região é uma das mais pobres do País.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171157,
+            "end": 171286,
+            "text": "O Governo tem que se comunicar e encontrar aquilo de que nós precisamos: resultado na exploração de petróleo na bacia equatorial.",
+            "score": 0.1986
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela ao ex-Deputado Federal Rodrigo Agostinho para que dê deferimento imediato à perfuração do poço, visando melhorar os índices sociais do Brasil.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 172239,
+            "end": 172405,
+            "text": "Eu apelo ao Rodrigo Agostinho para que ele possa, de forma imediata, dar o deferimento para a perfuração deste poço e ajudar o Brasil a melhorar seus índices sociais.",
+            "score": 0.5539
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a PETROBRAS está preparada para a perfuração, citando o aparato técnico e as condições de infraestrutura apresentadas pela empresa como garantias para iniciar o trabalho de imediato.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171732,
+            "end": 172153,
+            "text": "Daniele, a senhora colocou de forma muito apropriada: há todo um aparato técnico, e as condições de infraestrutura já apresentadas pela PETROBRAS nos garantem, sim, que podemos fazer a perfuração deste poço, podemos percorrer a Bacia Equatorial e iniciar este trabalho de imediato porque, como disse Deyvid Bacelar, a quem cumprimento pela fala, esta é uma política de Estado, isso interessa ao País e ao povo brasileiro.",
+            "score": 0.4181
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de uma força-tarefa governamental para que o Governo se comunique e encontre resultados na exploração de petróleo na bacia equatorial.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171123,
+            "end": 171156,
+            "text": "Uma força-tarefa é um governo só.",
+            "score": 0.4759
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a expectativa do Maranhão em relação à perfuração na bacia onde ficam os Lençóis Maranhenses, associando a oportunidade ao desenvolvimento econômico regional.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171434,
+            "end": 171487,
+            "text": "O Maranhão já está na expectativa desta oportunidade.",
+            "score": 0.3602
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a distinção entre \"razão\" e \"emoção\" para justificar a postura pró-exploração, classificando a urgência econômica como racional e as objeções de outros parlamentares (como a do Deputado Acácio Favacho) como emocionais, embora reconheça a \"pressa\" do Amapá e do Nordeste.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 170528,
+            "end": 170690,
+            "text": "O Deputado Acácio Favacho, nosso amigo do Amapá, com sua emoção, lembrou que o Amapá tem pressa, que o Norte do nosso País tem pressa e que o Nordeste tem pressa.",
+            "score": 0.3818
+          },
+          "udv": null
+        },
+        {
+          "text": "Fundamenta a defesa da exploração na necessidade de fortalecer a economia de regiões pobres, utilizando o argumento do desenvolvimento social como justificativa para a aceleração dos processos de perfuração.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171489,
+            "end": 171639,
+            "text": "Eu acho que nós precisamos encontrar um mecanismo para fortalecer nossa economia, principalmente essa que é uma das regiões mais pobres do nosso País.",
+            "score": 0.3005
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Maranhão, afirmando que o estado \"tem pressa\" e está na expectativa da oportunidade de exploração na bacia dos Lençóis Maranhenses.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171434,
+            "end": 171487,
+            "text": "O Maranhão já está na expectativa desta oportunidade.",
+            "score": 0.4123
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como aliado do Deputado Acácio Favacho, chamando-o de \"nosso amigo do Amapá\", e elogia a fala do Deputado Ivan Valente, embora diverja da abordagem de \"dualidade do bem e do mal\" proposta por este.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171074,
+            "end": 171122,
+            "text": "A fala do Deputado Acácio Favacho foi cirúrgica.",
+            "score": 0.3601
+          },
+          "udv": null
+        },
+        {
+          "text": "Manifesta alinhamento com a fala de Deyvid Bacelar ao qualificar a exploração como \"política de Estado\" que interessa ao País e ao povo brasileiro.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171732,
+            "end": 172153,
+            "text": "Daniele, a senhora colocou de forma muito apropriada: há todo um aparato técnico, e as condições de infraestrutura já apresentadas pela PETROBRAS nos garantem, sim, que podemos fazer a perfuração deste poço, podemos percorrer a Bacia Equatorial e iniciar este trabalho de imediato porque, como disse Deyvid Bacelar, a quem cumprimento pela fala, esta é uma política de Estado, isso interessa ao País e ao povo brasileiro.",
+            "score": 0.4041
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Emprega linguagem apelativa e urgente, repetindo a expressão \"tem pressa\" para diversos estados (Amapá, Norte, Nordeste, Maranhão) e usando imperativos como \"não podemos mais perder tempo\" e \"correr com esta demanda\".",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 172155,
+            "end": 172199,
+            "text": "Portanto, nós não podemos mais perder tempo.",
+            "score": 0.3035
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia explicitamente os interlocutores cujas falas se alinham à sua posição (Roberto Ardenghy, Ticiana, Deyvid, Prof. Carlos Eduardo, Daniele), descrevendo-as como \"música para meus ouvidos\" e \"cirúrgicas\".",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 170849,
+            "end": 170970,
+            "text": "Carlos Eduardo, quem eu pude ouvir quando cheguei, e, especialmente, da Daniele, de fato, foram música para meus ouvidos.",
+            "score": 0.3751
+          },
+          "udv": null
+        },
+        {
+          "text": "Reenquadra o debate ao substituir a dicotomia \"bem e mal\" proposta pelo Deputado Ivan Valente pela dicotomia \"razão e emoção\", posicionando a exploração econômica no lado da razão.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 170430,
+            "end": 170526,
+            "text": "Eu diria até que, em vez de bem e de mal, nós temos aqui uma dualidade entre a razão e a emoção.",
+            "score": 0.3074
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados técnicos e afirmações de terceiros (como o aparato da PETROBRAS e a fala de Deyvid Bacelar) para sustentar a viabilidade e a legitimidade da exploração.",
+          "passage": {
+            "hearing_id": 44,
+            "turn": 61,
+            "start": 171732,
+            "end": 172153,
+            "text": "Daniele, a senhora colocou de forma muito apropriada: há todo um aparato técnico, e as condições de infraestrutura já apresentadas pela PETROBRAS nos garantem, sim, que podemos fazer a perfuração deste poço, podemos percorrer a Bacia Equatorial e iniciar este trabalho de imediato porque, como disse Deyvid Bacelar, a quem cumprimento pela fala, esta é uma política de Estado, isso interessa ao País e ao povo brasileiro.",
+            "score": 0.1885
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 44,
+      "split": "train",
+      "article_date": "2023-05-31",
+      "title": "Ibama vai examinar novo pedido da Petrobras para prospectar petróleo perto da foz do Rio Amazonas",
+      "assunto": "Exploração de petróleo na Margem Equatorial, próxima à foz do Rio Amazonas",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 50,
+      "split": "train",
+      "article_date": "2023-05-26",
+      "title": "Especialistas defendem atualização de protocolos de tratamento para aids e hepatites virais",
+      "assunto": "Atualização de protocolos de tratamento para HIV/aids e hepatites virais",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

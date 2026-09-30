@@ -1,0 +1,397 @@
+{
+  "actor": {
+    "slug": "duda-salabert",
+    "name": "DUDA SALABERT",
+    "display_name": "Duda Salabert",
+    "role": "Deputada (PDT-MG)",
+    "article_names": [
+      "Duda Salabert"
+    ],
+    "party_uf": [
+      "Bloco/PDT - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:16:28+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      48,
+      183
+    ],
+    "input_tokens": 4163,
+    "output_tokens": 993,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 0,
+    "passage_only": 23,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a política ambiental do Ministério do Meio Ambiente e do IBAMA, destacando a redução de 42% no desmatamento na Amazônia comparada aos sete primeiros meses do ano anterior, e elogia a atuação de Rodrigo Agostinho no órgão.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 154492,
+            "end": 154786,
+            "text": "Parabenizo também o Rodrigo Agostinho pelo belíssimo trabalho que tem feito no IBAMA, e há que se destacar — já foi dito aqui, mas temos que reforçar — o trabalho belíssimo no combate ao desmatamento na Amazônia: 42% de redução no desmatamento comparado aos sete primeiros meses do ano passado.",
+            "score": 0.4598
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a dicotomia entre política e técnica, argumentando que a inclusão da técnica nas decisões governamentais equivale à inclusão da ciência, o que considera uma atitude de coragem em contraste com o negacionismo de governos anteriores.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 155495,
+            "end": 155654,
+            "text": "Então é, sobretudo, uma atitude de coragem do Ministério do Meio Ambiente trazer a técnica, ou seja, a ciência como elemento fundamental para o avanço do País.",
+            "score": 0.2544
+          },
+          "udv": null
+        },
+        {
+          "text": "Rejeita a ideia de que a proteção da natureza representa atraso econômico, afirmando que o plano de transição ecológica aponta para o crescimento e desenvolvimento do País.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 155761,
+            "end": 155879,
+            "text": "Na verdade, o plano de transição ecológica que o Governo anunciou aponta para o crescimento e desenvolvimento do País.",
+            "score": 0.4925
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério do Meio Ambiente a explicação de como o plano de transição ecológica trará desenvolvimento econômico e crescimento.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 155761,
+            "end": 155879,
+            "text": "Na verdade, o plano de transição ecológica que o Governo anunciou aponta para o crescimento e desenvolvimento do País.",
+            "score": 0.4231
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação da união homoafetiva e critica o Projeto de Lei 580/07, argumentando que a tentativa de proibição do casamento homoafetivo busca negar a categoria de humanidade a pessoas LGBT.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 132284,
+            "end": 132503,
+            "text": "Se vamos discutir o casamento homoafetivo, o que há por trás da tentativa de proibição do casamento homoafetivo é algo muito maior, é o que se considera humano no País, é o que se considera mais ou menos humano no País.",
+            "score": 0.2565
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o projeto de lei nega a existência de sua própria família, composta por ela, sua companheira cisgênero e sua filha, e que a negação de direitos como casamento, nome e identidade reduz pessoas a objetos.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 139518,
+            "end": 139615,
+            "text": "E humano significa ter direito a casamento, a amor, a família, a banheiro, a nome e a identidade.",
+            "score": 0.2525
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia ameaças de morte contra si, sua companheira e sua filha de 4 anos, incluindo a criação de um site com fotos da criança e promessas de estupro, atribuídas ao discurso de ódio fomentado pelo debate sobre o projeto.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 136958,
+            "end": 137034,
+            "text": "Fizeram umsitesobre isso, com fotos da minha filha, que tem 4 anos de idade.",
+            "score": 0.1982
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que o debate público se concentre em questões que melhorem a sociedade, como a criação de banheiros públicos para pessoas em situação de rua, em vez de discutir a identidade de gênero.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 138889,
+            "end": 139033,
+            "text": "Queria eu que estivéssemos aqui discutindo, por exemplo, se é para debater banheiro, banheiros para pessoas em situação de rua, que não existem.",
+            "score": 0.2656
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a Direita é usada como massa de manobra para dar trampolim político a grupos que não buscam a melhoria das famílias.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 139183,
+            "end": 139403,
+            "text": "Agora, para terminar, vocês da Direita estão sendo usados como massa de manobra — termino minha fala aqui agora — para dar trampolim político para essa galera que em nada quer ver a melhoria da família de vocês, em nada.",
+            "score": 0.4387
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Sustenta que a mudança de mundo depende de uma nova forma de pensar, não apenas de novas leis, justificando a valorização da educação ambiental como ferramenta para o avanço de consciência.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 154223,
+            "end": 154373,
+            "text": "E esse avanço só é possível por meio da educação, até porque o que vai mudar o mundo de fato não é uma nova lei, mas uma nova forma de pensar o mundo.",
+            "score": 0.369
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a premissa de que \"humanos são aqueles que têm direitos\" para justificar a defesa dos direitos LGBT, argumentando que a retirada de direitos conquistados retira a categoria de humanidade e reduz pessoas a coisas.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 134781,
+            "end": 134850,
+            "text": "Humanos são aqueles que têm direitos, daí o termo \"direitos humanos\".",
+            "score": 0.3953
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a história do Brasil, citando que negros e negras não eram reconhecidos como humanos pelo Estado até 200 anos atrás, e que pessoas LGBT sofreram castração química e eletrochoque até 50 anos atrás, para contextualizar a luta atual pela dignidade.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 132789,
+            "end": 132883,
+            "text": "Até 200 anos atrás, negros e negras não eram reconhecidos como humanos pelo Estado brasileiro.",
+            "score": 0.5683
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que os seres humanos são biopsicossociais, não apenas biológicos, para rebater argumentos baseados exclusivamente na biologia contra o casamento homoafetivo.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 132284,
+            "end": 132503,
+            "text": "Se vamos discutir o casamento homoafetivo, o que há por trás da tentativa de proibição do casamento homoafetivo é algo muito maior, é o que se considera humano no País, é o que se considera mais ou menos humano no País.",
+            "score": 0.1621
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o debate sobre direitos não é ideológico ou partidário, mas sim sobre o que é considerado humano no País, onde humano significa ter direito a casamento, amor, família, banheiro, nome e identidade.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 139518,
+            "end": 139615,
+            "text": "E humano significa ter direito a casamento, a amor, a família, a banheiro, a nome e a identidade.",
+            "score": 0.7322
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se travesti, com registro feminino, casada com uma mulher cisgênero e mãe de uma filha de 4 anos.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 135790,
+            "end": 135853,
+            "text": "Sou casada com uma mulher cisgênero e tenho uma filha.(Palmas.)",
+            "score": 0.4537
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido a candidata mais ameaçada de morte no Brasil em sua disputa pelo cargo de Deputada Federal, necessitando de colete à prova de bala e escolta.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 136431,
+            "end": 136569,
+            "text": "Quando eu ousei disputar o cargo de Deputada Federal, segundo levantamentos e pesquisas, fui a candidata mais ameaçada de morte no Brasil.",
+            "score": 0.459
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara solidariedade ao movimento LGBT, que considera ter tido conquistas históricas no Brasil, na América Latina e no mundo.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 131916,
+            "end": 132145,
+            "text": "Primeiro, quero me solidarizar com o movimento, que teve conquistas históricas, não só aqui no País, mas na América Latina e no mundo, e que é chamado de forma covarde de o movimento mais cruel da história da humanidade.(Palmas.)",
+            "score": 0.4296
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a etimologia de palavras, como \"técnica\" (que carrega o significado de ciência), para fundamentar argumentos sobre a importância da ciência na política ambiental.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 155183,
+            "end": 155278,
+            "text": "Se nós pegarmos a etimologia da palavra \"técnica\", ela carrega o significado também de ciência.",
+            "score": 0.5344
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados específicos, como a redução de 42% no desmatamento, para elogiando a gestão ambiental.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 154492,
+            "end": 154786,
+            "text": "Parabenizo também o Rodrigo Agostinho pelo belíssimo trabalho que tem feito no IBAMA, e há que se destacar — já foi dito aqui, mas temos que reforçar — o trabalho belíssimo no combate ao desmatamento na Amazônia: 42% de redução no desmatamento comparado aos sete primeiros meses do ano passado.",
+            "score": 0.2113
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega narrativas pessoais e familiares, incluindo detalhes sobre ameaças de morte e a idade de sua filha, para humanizar o debate e demonstrar o impacto concreto das propostas legislativas.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 136958,
+            "end": 137034,
+            "text": "Fizeram umsitesobre isso, com fotos da minha filha, que tem 4 anos de idade.",
+            "score": 0.1544
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa retórica de contraste, opondo o negacionismo de governos anteriores à atual gestão ambiental, e a visão biológica restrita à visão biopsicossocial.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 88,
+            "start": 155411,
+            "end": 155494,
+            "text": "Isso soa estranho pensando que em Governos anteriores havia um grande negacionismo.",
+            "score": 0.2257
+          },
+          "udv": null
+        },
+        {
+          "text": "Direciona críticas a grupos específicos, como \"Parlamentares fundamentalistas\" e a \"Direita\", acusando-os de usarem o debate para fins políticos e de fomentarem discurso de ódio.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 132249,
+            "end": 132283,
+            "text": "Nós ganhamos o discurso no debate.",
+            "score": 0.2189
+          },
+          "udv": null
+        },
+        {
+          "text": "Conclui falas com apelos à responsabilidade e à busca por soluções que melhorem a sociedade, como a discussão sobre infraestrutura básica (banheiros públicos).",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 57,
+            "start": 138505,
+            "end": 138612,
+            "text": "Mas, se há uma coisa básica na sociedade em que nós vivemos, é dilatar ao máximo a categoria de humanidade.",
+            "score": 0.1668
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 14,
+      "split": "validation",
+      "article_date": "2023-12-20",
+      "title": "Vítimas e autoridades divergem sobre reparações do crime socioambiental da Braskem em Maceió",
+      "assunto": "Reparações do crime socioambiental da Braskem em Maceió",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 48,
+      "split": "train",
+      "article_date": "2023-09-26",
+      "title": "Proposta que proíbe a união de pessoas do mesmo sexo é criticada em audiência pública",
+      "assunto": "Discussão sobre o Projeto de Lei 580/07 e a regulamentação da união homoafetiva",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-14-8-0",
+      "hearing_id": 14,
+      "n": 13,
+      "article_name": "Duda Salabert",
+      "proposition": "Lamentou que, até agora, ninguém foi preso pelos crimes socioambientais de Mariana, Brumadinho e Maceió, que, segundo ela, revelam o \"modo criminoso e irresponsável das mineradoras\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O que a audiência pública de hoje escancarou é que o caso da Braskem em Maceió se configura como o maior crime socioambiental em curso no Brasil, crime esse praticado por uma mineradora. Eu sou Deputada por Minas Gerais, um Estado traumatizado pelas ações das mineradoras.",
+        "turn": 32,
+        "start": 63193,
+        "end": 63466
+      },
+      "verifier": {
+        "probability": 0.3810433171035483,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

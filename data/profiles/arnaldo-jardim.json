@@ -1,0 +1,370 @@
+{
+  "actor": {
+    "slug": "arnaldo-jardim",
+    "name": "Arnaldo Jardim",
+    "display_name": "Arnaldo Jardim",
+    "role": "Deputado (Cidadania-SP)",
+    "article_names": [
+      "Arnaldo Jardim"
+    ],
+    "party_uf": [
+      "Bloco/CIDADANIA - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-27T21:12:57+00:00",
+    "n_statements": 2,
+    "n_hearings": 1,
+    "hearing_ids": [
+      2
+    ],
+    "input_tokens": 2644,
+    "output_tokens": 791,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 0,
+    "passage_only": 14,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o sistema elétrico deve operar com maior segurança, argumentando que a redução da presença de fontes firmes nos critérios de despacho do ONS aumenta o risco acentuado, especialmente em contextos de carga hídrica crítica no Nordeste.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 78295,
+            "end": 78431,
+            "text": "E, quando deixamos de ter uma presença de fontes firmes nos critérios de despacho, eu acho que nós passamos a correr um risco acentuado.",
+            "score": 0.367
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a modificação das regras de despacho pelo ONS realizada dois dias após uma avaliação anterior, indagando se houve diálogo com o Ministério e se há nova regra estabelecida, pedindo que os critérios para eventos futuros sejam definidos com clareza.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 78120,
+            "end": 78208,
+            "text": "Eu queria saber se, para isso, houve um diálogo com o Ministério e se há uma nova regra.",
+            "score": 0.347
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera temerário juridicamente optar pela prorrogação das concessões de distribuição de energia sem procedimentos claros e seguros, defendendo que as regras atuais propõem licitações e que a prorrogação não pode ser feita por ato administrativo, exigindo norma legislativa específica.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 79267,
+            "end": 79429,
+            "text": "Nós consideramos que é temerário juridicamente se optar por uma linha de prorrogação sem ter muito claros todos os procedimentos para que isso possa estar seguro.",
+            "score": 0.3853
+          },
+          "udv": null
+        },
+        {
+          "text": "Pregunta ao Ministério sobre o mandato previsto pelo SAF (Sustainable Aviation Fuel) no PL do combustível do futuro, o papel do etanol no combustível aeronáutico e se a mistura de etanol para 30% será incluída na proposta.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 80032,
+            "end": 80258,
+            "text": "No PL do combustível do futuro, gostaria de saber que mandato está previsto pelo SAF, qual é o papel que o etanol pode ter no combustível aeronáutico e se a mistura do etanol para 30% virá na proposta do combustível do futuro.",
+            "score": 0.7352
+          },
+          "udv": null
+        },
+        {
+          "text": "Indaga sobre a possibilidade de escalar a mistura de biodiesel até 20%, considerando o cenário já definido pelo CNPE de retomada para 12%, 13% no ano seguinte e 15%.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 80259,
+            "end": 80443,
+            "text": "Além disso, naquilo que o CNPE já definiu do biodiesel — que é a retomada de 12%, como o Ministro se referiu, 13% no ano que vem e 15% —, se já há um cenário também de escalar até 20%.",
+            "score": 0.5734
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita que a Casa já debateu a periodicidade e renovação de títulos minerários com critérios objetivos, mencionando a possibilidade de leilão de áreas, mas opta por não aprofundar o tema para manter a objetividade.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 77209,
+            "end": 77303,
+            "text": "Esta Casa já debateu isto: ter periodicidade para ter renovação, ter critérios mais objetivos.",
+            "score": 0.5361
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a segurança do sistema elétrico como fundamento para criticar mudanças nas regras de despacho que reduzam a participação de fontes firmes, justificando a preocupação com a estabilidade operacional em momentos de estresse hídrico.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 78295,
+            "end": 78431,
+            "text": "E, quando deixamos de ter uma presença de fontes firmes nos critérios de despacho, eu acho que nós passamos a correr um risco acentuado.",
+            "score": 0.1547
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a segurança jurídica como critério para rejeitar a prorrogação de concessões por ato administrativo, baseando-se na clareza das regras de licitação e na necessidade de norma legislativa para alterar o regime de concessões.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 79593,
+            "end": 79721,
+            "text": "Achamos que não se pode fazer isso por ato administrativo, tem que haver alguma norma legislativa que vá impactar nessa questão.",
+            "score": 0.2168
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica suas perguntas sobre biocombustíveis pela representatividade de sua base eleitoral e por sua trajetória na coordenação da Frente Parlamentar do Etanol, alinhando a defesa do setor à responsabilidade com os interesses de seus eleitores.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 79747,
+            "end": 80031,
+            "text": "O terceiro ponto é uma questão, como bem sabe o Ministro, muito de pleito pessoal devido à minha base eleitoral e ao fato de eu ter coordenado, durante longo tempo, 12 anos, a Frente Parlamentar do Etanol, agora coordenada pelo Deputado Zé Vitor, que me sucede desde a semana passada.",
+            "score": 0.1829
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se amigo particular do Ministro Alexandre Silveira, com quem afirma ter o privilégio de conviver.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 77618,
+            "end": 77812,
+            "text": "Caro Ministro Alexandre Silveira, com quem tenho o privilégio de conviver, amigo particular, eu lhe agradeço por estar aqui com toda a sua equipe, por esse gesto de atenção, que nós registramos.",
+            "score": 0.5844
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como coordenador de uma subcomissão na Comissão de Minas e Energia, onde vários Deputados participam ativamente do debate sobre concessões.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 79088,
+            "end": 79265,
+            "text": "Eu tenho a responsabilidade de coordenar uma subcomissão aqui da Comissão, em que vários Deputados estão participando, e a Comissão de Minas e Energia vai participar ativamente.",
+            "score": 0.5428
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter coordenado a Frente Parlamentar do Etanol por 12 anos, tendo sido sucedido pelo Deputado Zé Vitor na semana anterior à audiência.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 79747,
+            "end": 80031,
+            "text": "O terceiro ponto é uma questão, como bem sabe o Ministro, muito de pleito pessoal devido à minha base eleitoral e ao fato de eu ter coordenado, durante longo tempo, 12 anos, a Frente Parlamentar do Etanol, agora coordenada pelo Deputado Zé Vitor, que me sucede desde a semana passada.",
+            "score": 0.4079
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a pluralidade da equipe do Ministério, citando especificamente Luiz Ciocchi como \"nossa paulista\" (provavelmente referindo-se à origem paulista ou à representação do estado).",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 77852,
+            "end": 78119,
+            "text": "Primeiro, naquela avaliação, eu perguntei ao Luiz Ciocchi, que é nosso paulista também nessa equipe tão plural que tem o Ministério, por que 2 dias depois houve uma reflexão, um ajuste, aquilo que ele disse de uma mudança temporária para as regras de despacho do ONS.",
+            "score": 0.2532
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Estrutura suas intervenções de forma objetiva e pontual, declarando explicitamente a intenção de concentrar as perguntas em três tópicos principais para evitar dispersão.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza perguntas diretas e específicas ao Ministro e a técnicos do Ministério, buscando respostas concretas sobre regras, prazos e mandatos legais.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega dados e fatos setoriais (nível de carga hídrica no Nordeste, percentuais de biodiesel definidos pelo CNPE, mudanças no despacho do ONS) para fundamentar suas indagações.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 33,
+            "start": 78452,
+            "end": 78530,
+            "text": "Todos nós sabemos em que nível estava toda a carga hídrica da Região Nordeste.",
+            "score": 0.32
+          },
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom cordial e respeitoso com os convidados, agradecendo a presença do Ministro e sua equipe, mas mantém firmeza ao apontar riscos e exigir clareza normativa.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 7,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Deputados defendem regulamentação paralela da reforma tributária",
+      "assunto": "Regulamentação da reforma tributária",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 102,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Governo reforça importância comercial de reduzir emissões de carbono em terminais marítimos",
+      "assunto": "Redução das emissões de carbono em terminais marítimos e a transição energética no setor de transporte marítimo",
+      "turns": 10,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 133,
+      "split": "validation",
+      "article_date": "2023-11-22",
+      "title": "Deputados criticam ausência de presidente da Enel Brasil em audiência na Câmara",
+      "assunto": "Críticas à ausência do presidente da Enel Brasil em audiência na Câmara dos Deputados e discussão sobre a atuação da empresa",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-7-3-0",
+      "hearing_id": 7,
+      "n": 8,
+      "article_name": "Arnaldo Jardim",
+      "proposition": "Considera um dos principais benefícios da reforma tributária a não cumulatividade de impostos: \"Quando você entra neste período da regulamentação, com diferentes dispositivos, você tem o risco de isso reincidir. Temos de ter o cuidado com a não cumulatividade e a preocupação de não aumentar a carga tributária.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E, quando se entra nesse período da regulamentação — há diferentes dispositivos —, corre-se o risco de isso reincidir. Então, cuidado com a não cumulatividade!",
+        "turn": 7,
+        "start": 26452,
+        "end": 26611
+      },
+      "verifier": {
+        "probability": 0.3328948177467374,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-102-1-0",
+      "hearing_id": 102,
+      "n": 5,
+      "article_name": "Arnaldo Jardim",
+      "proposition": "O Brasil oferece um conjunto competitivo de opções de combustíveis limpos para a navegação.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, nós estamos aqui estudando e debatendo, ao lado da questão do etanol, do biodiesel, do biometano, outros combustíveis que podem diminuir isso, como o combustível sustentável de aviação. Nós estamos discutindo como diminuir também esse impacto ambiental do combustível marítimo.",
+        "turn": 12,
+        "start": 31841,
+        "end": 32125
+      },
+      "verifier": {
+        "probability": 0.13289828857702177,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-102-1-1",
+      "hearing_id": 102,
+      "n": 6,
+      "article_name": "Arnaldo Jardim",
+      "proposition": "O País terá que enfrentar os subsídios oferecidos por outros competidores, especialmente os Estados Unidos e a União Europeia: \"O problema é quando entra o jogo pesado, como o Inflation Reduction Act, que é um esforço americano altamente subsidiado, a disputa é pesadíssima. Existe também o Green Deal, da comunidade europeia, que tem um volume grande de subsídios, o que torna nossa dificuldade ainda maior. Mas temos buscado caminhos.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "O problema é quando entra o jogo pesado, que é o Inflation Reduction Act, que é um esforço americano altamente subsidiado. Entramos num campo de disputa pesadíssimo com os subsídios e com aquilo que fazem lá. Há também o Green Deal, da Comunidade Europeia, com um grande volume de subsídios, o que torna a nossa dificuldade maior. Mas nós temos buscado caminhos.",
+        "turn": 14,
+        "start": 48434,
+        "end": 48796
+      },
+      "verifier": {
+        "probability": 0.8028440860522108,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-133-2-0",
+      "hearing_id": 133,
+      "n": 5,
+      "article_name": "Arnaldo Jardim",
+      "proposition": "Disse que o caso reforça a necessidade de o Congresso debater uma lei para regular a renovação das concessões de distribuição que vencem a partir de 2025: \"Um fato como esse faz com que o assunto se torne ainda mais importante.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Sem dúvida, um fato como esse faz com que esse assunto se torne ainda mais importante, ainda mais necessário, porque chama a atenção, ou seja, revela que nós podemos, temerariamente, ver uma situação de dificuldades sem que estejam claramente estabelecidas quais as premissas que podem orientar esse procedimento.",
+        "turn": 26,
+        "start": 32440,
+        "end": 32753
+      },
+      "verifier": {
+        "probability": 0.14025185178266059,
+        "supported": false
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

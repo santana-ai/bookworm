@@ -1,0 +1,380 @@
+{
+  "actor": {
+    "slug": "dr-luiz-ovando",
+    "name": "Dr. Luiz Ovando",
+    "display_name": "Dr. Luiz Ovando",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "PP - MS",
+      "Bloco/PP - MS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:11:11+00:00",
+    "n_statements": 16,
+    "n_hearings": 3,
+    "hearing_ids": [
+      56,
+      58,
+      171
+    ],
+    "input_tokens": 6479,
+    "output_tokens": 979,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 23,
+    "with_udv": 0,
+    "passage_only": 22,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a valorização da relação médico-paciente e do clínico geral, argumentando que a ausência de vínculo no atendimento primário do SUS gera insegurança e é uma forma de violência, especialmente em momentos críticos como o parto.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 60,
+            "start": 84718,
+            "end": 84759,
+            "text": "Eu chamo isso de relação médico/paciente.",
+            "score": 0.2606
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a imposição de condutas obstétricas, questionando a definição de violência obstétrica quando a paciente deseja parto normal e o médico indica cesárea por razões médicas, citando diferenças gritantes em tempo de internação e complicações cardiovasculares e fetais.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 39,
+            "start": 69041,
+            "end": 69153,
+            "text": "Ela é gritante: tempo de internação, complicações cardiovasculares, complicações, inclusive para o nenê, o feto.",
+            "score": 0.2669
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação e o fortalecimento da Frente Parlamentar de Valorização do Clínico para resgatar o papel do médico no acompanhamento contínuo da gestante.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 60,
+            "start": 85022,
+            "end": 85138,
+            "text": "Recentemente nós conseguimos o número de assinaturas para criar aqui a Frente Parlamentar de Valorização do Clínico.",
+            "score": 0.3262
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a prática de atividade física como política de saúde, argumentando que apenas 10% dos pacientes mantêm a atividade após mudanças de estilo de vida recomendadas, e que a motivação definitiva vem da racionalidade e compreensão, não do instinto.",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 16,
+            "start": 95546,
+            "end": 95683,
+            "text": "E a motivação, aquela definitiva, vem pela racionalidade, pela compreensão, porque o instinto não permite isso, o instinto é transitório.",
+            "score": 0.4593
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica as medidas de lockdown e o uso de máscaras durante a pandemia de Covid-19, afirmando que não resolveram o problema e relegaram as academias a um plano terciário.",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 16,
+            "start": 95794,
+            "end": 95939,
+            "text": "Falo isso para dizer dos impactos da pandemia, que é o nosso tema, inclusive, dos prejuízos que as atividades físicas tiveram durante a pandemia.",
+            "score": 0.1769
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a vacinação contra a varíola e a existência do Programa Nacional de Imunizações (PNI), citando Edward Jenner e o ex-Presidente Emílio Garrastazu Médici como fundadores da prática e do programa, respectivamente.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 47,
+            "start": 45569,
+            "end": 45674,
+            "text": "Isso aí foi colocado pelo ex-Presidente Emílio Garrastazu Médici, que organizou o PNI, que era anárquico.",
+            "score": 0.3708
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a narrativa de que a baixa procura vacinal contra a Covid-19 é fruto do negacionismo do governo anterior, argumentando que a causa é a insegurança gerada pela falta de informação sobre mudanças de vacinas (de Coronavac para Pfizer) e a introdução de doses adicionais.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 47,
+            "start": 46587,
+            "end": 46640,
+            "text": "Não é o negacionismo de A, B ou C, é uma insegurança.",
+            "score": 0.2798
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a obrigatoriedade vacinal sem segurança científica fere o Código de Nuremberg e o art. 5º da Constituição, e pede que o Ministério da Saúde esclareça cientificamente as mudanças na estratégia vacinal.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 47,
+            "start": 46641,
+            "end": 46694,
+            "text": "Nós estamos passando por cima do Código de Nuremberg.",
+            "score": 0.2085
+          },
+          "udv": null
+        },
+        {
+          "text": "Alerta para a crise na hemodiálise no Brasil, afirmando que o pagamento de R$ 230,00 não cobre o custo de R$ 300,00, levando ao endividamento das clínicas e ao risco de morte por intoxicação urêmica dos pacientes.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 49,
+            "start": 48767,
+            "end": 48886,
+            "text": "Infelizmente, dentro de muito pouco tempo, nós teremos morte por intoxicação urêmica desses pacientes, lamentavelmente.",
+            "score": 0.2466
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o uso do Tamiflu para o tratamento de viroses, incluindo o coronavírus, apesar de admitir que o medicamento não funciona plenamente.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 49,
+            "start": 49268,
+            "end": 49448,
+            "text": "Nós temos experiência de linha de frente, de leitos, de atender pacientes e sabemos que há muitas formas de tratar o coronavírus e as viroses, e a questão do Tamiflu é fundamental.",
+            "score": 0.2133
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a ciência verdadeira, livre de ideologia e narrativas repetidas, como fundamento para decisões em saúde pública, justificando a crítica à narrativa de \"escuridão\" do governo anterior e a defesa da segurança científica na vacinação.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 49,
+            "start": 48975,
+            "end": 49236,
+            "text": "E digo que nós precisamos verdadeiramente nos fundamentar em ciência, mas ciência verdadeira, não manchada, não rotulada por ideologia e que se escrevem narrativas e as repetem à exaustão para que aquilo vire verdade, o que, infelizmente, nós sabemos que não é.",
+            "score": 0.2348
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a importância do vínculo humano e da confiança no atendimento médico como critério para a qualidade do cuidado, justificando a defesa do clínico e a crítica ao modelo fragmentado do SUS.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 60,
+            "start": 85948,
+            "end": 86248,
+            "text": "Na situação em que nós estamos, nós precisamos discutir, Deputada Soraya, a questão da relação médico-paciente e resgatar o valor do clínico.Aqui é mais amplo, não é só uma questão obstétrica, porque, quando você não tem esse vínculo, não deixa de ser uma violência, porque o ser humano se relaciona.",
+            "score": 0.1705
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a racionalidade e a compreensão como critérios para a manutenção de hábitos de saúde, justificando a necessidade de estratégias de motivação além do instinto transitório.",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 16,
+            "start": 95546,
+            "end": 95683,
+            "text": "E a motivação, aquela definitiva, vem pela racionalidade, pela compreensão, porque o instinto não permite isso, o instinto é transitório.",
+            "score": 0.4545
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a Bíblia (Provérbios 22:6) como referencial para a importância de ensinar costumes e valores, incluindo a atividade física, desde a infância.",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 29,
+            "start": 108526,
+            "end": 108676,
+            "text": "Temos que ensinar costumes, posturas, valores, princípios, atividade física, metodologia de trabalho, metodologia de comportamento e assim por diante.",
+            "score": 0.2919
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se médico cardiologista e clínico, com 48 anos de graduação, tendo trabalhado em cidade de interior e em universidade americana.",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 16,
+            "start": 94703,
+            "end": 94898,
+            "text": "Sou cardiologista, clínico, completo neste fim de ano 48 anos de graduação, trabalhei desde cidade de interior, onde não havia nenhum médico — eu era o único médico —, até universidade americana.",
+            "score": 0.5769
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como autor do requerimento para a audiência sobre o PAC na Saúde e como defensor do pagamento de emendas aos municípios.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 47,
+            "start": 43724,
+            "end": 43824,
+            "text": "Felizmente, depois do requerimento, já se passam 2 meses, nós tivemos o pagamento de muitas emendas.",
+            "score": 0.2951
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter proximidade com a atividade física, citando a participação na 100ª Maratona de Boston e a identificação com a Comissão do Esporte.",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 15,
+            "start": 92568,
+            "end": 92625,
+            "text": "Eu tenho no currículo a 100ª Maratona de Boston.(Palmas.)",
+            "score": 0.3459
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara-se \"Deputado novo, de segundo mandato\".",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 15,
+            "start": 91970,
+            "end": 92036,
+            "text": "Eu sou um Deputado novo, vocês podem observar, de segundo mandato.",
+            "score": 0.6458
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e estatísticas para sustentar argumentos, como a taxa de 10% de manutenção de atividade física, o custo da hemodiálise e o número de anos de experiência médica.",
+          "passage": {
+            "hearing_id": 56,
+            "turn": 16,
+            "start": 95325,
+            "end": 95424,
+            "text": "Então, de todo esse pessoal, apenas 10% nós conseguimos verdadeiramente manter na atividade física.",
+            "score": 0.1662
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita figuras históricas e religiosas (Edward Jenner, Emílio Garrastazu Médici, Salomão, Darwin) para embasar suas posições.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 47,
+            "start": 45569,
+            "end": 45674,
+            "text": "Isso aí foi colocado pelo ex-Presidente Emílio Garrastazu Médici, que organizou o PNI, que era anárquico.",
+            "score": 0.2427
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem direta e, por vezes, confrontadora, especialmente ao criticar o governo anterior e a narrativa oficial sobre a pandemia.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas a outros participantes, como o Dr. João, para provocar reflexão sobre dilemas médicos.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 39,
+            "start": 68933,
+            "end": 68962,
+            "text": "E a minha pergunta para o Dr.",
+            "score": 0.1911
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos pessoais, como a história de seu filho Rômulo e a experiência em cidade de interior, para ilustrar seus pontos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 47,
+            "start": 45478,
+            "end": 45568,
+            "text": "E quero aqui resgatar a história, porque, de uma maneira geral, nós esquecemos a história.",
+            "score": 0.1917
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 56,
+      "split": "train",
+      "article_date": "2023-04-20",
+      "title": "Especialistas apontam aumento do sedentarismo como reflexo da pandemia de Covid-19",
+      "assunto": "Aumento do sedentarismo como reflexo da pandemia de Covid-19 e a defesa da educação física como política de Saúde",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 58,
+      "split": "train",
+      "article_date": "2023-04-19",
+      "title": "Debatedores dizem que mulheres negras e pobres são maiores vítimas violência obstétrica",
+      "assunto": "Violência obstétrica e morte materna, com foco nas mulheres negras, indígenas e de baixa renda",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 4,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "actor": {
+    "slug": "helio-leite",
+    "name": "HÉLIO LEITE",
+    "display_name": "HÉLIO LEITE",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/UNIÃO - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:59:56+00:00",
+    "n_statements": 5,
+    "n_hearings": 2,
+    "hearing_ids": [
+      144,
+      183
+    ],
+    "input_tokens": 3084,
+    "output_tokens": 693,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a emissão de licença pelo IBAMA para que a Petrobras realize perfurações na Foz do Amazonas, argumentando que a medida representa progresso para o Norte do País e é condição para garantir superávit no petróleo e crescimento econômico e populacional.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 156616,
+            "end": 156949,
+            "text": "Mas é preciso, Ministra, que nós façamos primeiro uma força-tarefa com o IBAMA, para que nós possamos buscar essa solução, que representa o progresso para este País, para o Norte do País, mas, mais ainda, a condição de podermos ter superávit no petróleo e garantir que a nossa economia e que a população possam crescer cada vez mais.",
+            "score": 0.3549
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de uma força-tarefa com o IBAMA para buscar a solução da licença, citando a importância da tecnologia e do compromisso da Petrobras com o Brasil.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 156466,
+            "end": 156615,
+            "text": "É evidente que nós sabemos da importância que tem a PETROBRAS, da tecnologia que ela tem, do compromisso e responsabilidade com o Brasil que ela tem.",
+            "score": 0.4145
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a criação de um programa nacional, financiado com parte dos 3 bilhões de reais mencionados, para debelar aterros sanitários e lixões a céu aberto em todo o País, com foco em cidades pequenas e de médio porte.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 158066,
+            "end": 158540,
+            "text": "Eu queria sugerir à senhora que, dentro desses 3 bilhões de reais, nós criássemos um programa para debelar os aterros sanitários de todo o País, para ajudar as cidades pequenas, criando o consórcio das cidades pequenas — não pode haver um tratamento diferenciado —, incentivando as cidades grandes, buscando mecanismos para mostrar para o exterior que aqui nós combatemos os infratores, mas também promovemos projetos ambientais, fundamentais para a preservação da natureza.",
+            "score": 0.2932
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um consórcio de cidades pequenas para viabilizar o tratamento de resíduos, rejeitando tratamento diferenciado entre municípios, e o incentivo às cidades grandes.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 158066,
+            "end": 158540,
+            "text": "Eu queria sugerir à senhora que, dentro desses 3 bilhões de reais, nós criássemos um programa para debelar os aterros sanitários de todo o País, para ajudar as cidades pequenas, criando o consórcio das cidades pequenas — não pode haver um tratamento diferenciado —, incentivando as cidades grandes, buscando mecanismos para mostrar para o exterior que aqui nós combatemos os infratores, mas também promovemos projetos ambientais, fundamentais para a preservação da natureza.",
+            "score": 0.2972
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere a aquisição de ônibus elétricos por meio de uma grande ata do Ministério, com financiamento pelo BNDES, para modernizar o transporte público nos municípios e atender a população das zonas urbana e rural.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 34,
+            "start": 58179,
+            "end": 58402,
+            "text": "Hoje, a modernidade nos impulsiona para ter dentro do Ministério uma grande ata com a finalidade de adquirir ônibus elétricos, ajudando este País a crescer, haja vista o que a população da zona urbana e da zona rural sofre.",
+            "score": 0.3392
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a existência de lixões a céu aberto em cidades pequenas, que considera um débito histórico dos governos com a população, contribuindo para a contaminação de lençóis freáticos e a instalação da miséria e pobreza.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 157695,
+            "end": 157934,
+            "text": "Em cada cidade a que chegamos, vemos logo um cartão de visita, que é um lixão a céu aberto, que contribui para o agravo do meio ambiente, para a contaminação dos lençóis freáticos de cada cidade e para a instalação da miséria e da pobreza.",
+            "score": 0.3905
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Justifica a defesa da licença da Petrobras e das ações ambientais com a necessidade de promover o progresso econômico e o crescimento da população, especialmente no Norte do País.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 156335,
+            "end": 156465,
+            "text": "A minha fala aqui vai ao encontro da necessidade que nós temos da licença para que a PETROBRAS possa trabalhar na foz do Amazonas.",
+            "score": 0.1787
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o argumento de que o Estado do Pará cumpre seu dever de casa na conscientização ambiental e no combate a atividades ilegais que afrontam a natureza, para sustentar a necessidade de um viés diferenciado na concessão de licenças.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 157041,
+            "end": 157288,
+            "text": "O Governador Helder Barbalho, com sua equipe de Governo, tem sido pontual, primeiro, na conscientização ambiental; segundo, buscando mecanismos para combater aqueles que trabalham ilegalmente, que afrontam a natureza, que afrontam o meio ambiente.",
+            "score": 0.2066
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a proposta de modernização do transporte público na premissa de que a modernidade impulsiona o crescimento do País e o atendimento à população carente.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 34,
+            "start": 58783,
+            "end": 58838,
+            "text": "vai ajudar a economia, vai ajudar o transporte público.",
+            "score": 0.1708
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a preservação do meio ambiente deve ser acompanhada de ações preventivas e educativas, além das ações de fiscalização de órgãos como o IBAMA.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 159273,
+            "end": 159446,
+            "text": "Preservar o meio ambiente é importante, sim, com ações do IBAMA e de outros órgãos, mas é fundamental que sejam realizadas ações preventivas e educativas, em prol do Brasil.",
+            "score": 0.5036
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Parlamentar do Norte.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 34,
+            "start": 58059,
+            "end": 58111,
+            "text": "uma contribuição, como Parlamentar do Norte que sou.",
+            "score": 0.4906
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Governador Helder Barbalho, com sua equipe de Governo, tem sido pontual na conscientização ambiental e no combate a quem trabalha ilegalmente e afronta o meio ambiente no Pará.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 157041,
+            "end": 157288,
+            "text": "O Governador Helder Barbalho, com sua equipe de Governo, tem sido pontual, primeiro, na conscientização ambiental; segundo, buscando mecanismos para combater aqueles que trabalham ilegalmente, que afrontam a natureza, que afrontam o meio ambiente.",
+            "score": 0.5812
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza elogios extensos e protocolares a autoridades presentes (Ministra Marina, Ministro Jader Filho, Deputado Cezinha, Presidente Gabriel Nunes) antes de apresentar suas contribuições.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 156201,
+            "end": 156333,
+            "text": "Presidente Gabriel Nunes, Ministra Marina, Secretário Executivo João Paulo, nosso ex-Deputado e amigo desta Casa Rodrigo, boa tarde.",
+            "score": 0.2741
+          },
+          "udv": null
+        },
+        {
+          "text": "Apresenta propostas concretas e específicas, como a criação de consórcios, programas de aterros sanitários e aquisição de ônibus elétricos, vinculando-as a fontes de financiamento ou órgãos específicos (BNDES, Ministério).",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 34,
+            "start": 58403,
+            "end": 58480,
+            "text": "Esses ônibus elétricos são importantes, porque é um passo para a modernidade.",
+            "score": 0.1652
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita problemas locais vivenciados, como os do aterro sanitário na Região Metropolitana de Belém e a situação dos moradores da Ilha de Marajó, para fundamentar suas propostas de âmbito nacional.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 90,
+            "start": 158953,
+            "end": 159054,
+            "text": "A Região Metropolitana de Belém hoje está tendo problemas no aterro sanitário, no lixão a céu aberto.",
+            "score": 0.4289
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega vocabulário que associa desenvolvimento econômico, modernidade e cidadania, utilizando termos como \"pujança\", \"visão estratégica\" e \"dever de casa\".",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 34,
+            "start": 56990,
+            "end": 57343,
+            "text": "Ministro Jader Filho, muito feliz em perceber a grandeza do seu mandato como Ministro, a pujança e visão estratégica de poder impulsionar todas as cidades do Brasil naquilo que é importante, que é construir a cidadania, retomando programas tão necessários para o Brasil, buscando ideias novas para poder implantar a viabilidade funcional de cada cidade.",
+            "score": 0.1752
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

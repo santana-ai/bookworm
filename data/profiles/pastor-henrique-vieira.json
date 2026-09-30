@@ -1,0 +1,500 @@
+{
+  "actor": {
+    "slug": "pastor-henrique-vieira",
+    "name": "Pastor Henrique Vieira",
+    "display_name": "Pastor Henrique Vieira",
+    "role": "Deputado (Psol-RJ)",
+    "article_names": [
+      "Pastor Henrique Vieira"
+    ],
+    "party_uf": [
+      "Bloco/PSOL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:55:05+00:00",
+    "n_statements": 21,
+    "n_hearings": 3,
+    "hearing_ids": [
+      48,
+      57,
+      171
+    ],
+    "input_tokens": 9877,
+    "output_tokens": 941,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 2,
+    "passage_only": 18,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Rejeita a presença de policiais armados nas escolas, argumentando que pesquisas indicam aumento de mortes e que a medida não inibe ataques motivados por ódio, podendo reforçar pânico e estigmas. Defende, em contrapartida, monitoramento de grupos extremistas pela Polícia Federal, rondas no entorno, canais de denúncia e atenção psicossocial.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 29,
+            "start": 103324,
+            "end": 103564,
+            "text": "Por exemplo, uma ação da Polícia Federal no que diz respeito ao monitoramento de grupos extremistas na Internet parece-me muito mais inteligente e eficiente, porque se sabe, por pesquisa, que esses ataques se organizam a partir da Internet.",
+            "score": 0.2082
+          },
+          "udv": {
+            "id": "udv-57-2-1",
+            "rule": "same_sentence",
+            "score": 0.1784
+          }
+        },
+        {
+          "text": "Critica a cultura de ódio, racismo, misoginia e aversão à educação como causas estruturais da violência escolar, propondo ações interdisciplinares que fortaleçam a escola como espaço de convivência e reflexão crítica.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 29,
+            "start": 104689,
+            "end": 104882,
+            "text": "Nós precisamos de ações interdisciplinares para dar conta desse problema e fortalecer a escola como um espaço de convivência, de ampliação de horizontes e de reflexão crítica sobre a realidade.",
+            "score": 0.3893
+          },
+          "udv": {
+            "id": "udv-57-2-2",
+            "rule": "same_sentence",
+            "score": 0.4425
+          }
+        },
+        {
+          "text": "Defende o fortalecimento do SUS com financiamento adequado e políticas de saúde específicas para mulheres, negros, LGBTQIA+, indígenas e quilombolas, rejeitando a classificação dessas pautas como \"ideológicas\".",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 130,
+            "start": 120424,
+            "end": 120638,
+            "text": "Porque eu não considero pauta ideológica, no sentido depreciativo do termo \"ideológico\", pensar política de saúde específica para mulheres, para negros, para a comunidade LGBTQIA+, para indígenas, para quilombolas.",
+            "score": 0.3266
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a legalização do aborto com base em dados da OMS sobre a mortalidade por abortos inseguros, propondo uma política de assistência, escuta e acolhimento em vez da criminalização das mulheres.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 164,
+            "start": 126598,
+            "end": 126669,
+            "text": "O que o nosso partido quer é uma política de assistência e acolhimento.",
+            "score": 0.2778
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige o arquivamento do Projeto de Lei 580/07, classificando-o como inconstitucional e produto de fundamentalistas e extremistas religiosos, e não de conservadores. Defende a manutenção do casamento civil entre pessoas do mesmo sexo, garantido pelo STF desde 2011.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 63,
+            "start": 151443,
+            "end": 151553,
+            "text": "Concordo com a unanimidade do STF, que diz que é constitucional o casamento civil entre pessoas do mesmo sexo.",
+            "score": 0.3129
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a valorização dos profissionais da educação, criticando a precariedade e os baixos salários como obstáculos para o enfrentamento da violência.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 29,
+            "start": 105893,
+            "end": 106024,
+            "text": "Isso passa, por fim, também pela valorização dos profissionais da educação: professores, professoras, coordenadores, coordenadoras.",
+            "score": 0.2531
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a redução de danos e o reforço da rede de atenção psicossocial (CAPS AD, consultórios de rua) para o tratamento do uso de drogas, argumentando que a política de combate às drogas mata mais pessoas do que o uso abusivo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 164,
+            "start": 129276,
+            "end": 129397,
+            "text": "Tem que haver tratamento na área da saúde pública, da rede de atenção psicossocial, dos CAPS AD, dos consultórios de rua.",
+            "score": 0.481
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a dignidade humana, o pluralismo, a autonomia da vontade e a vedação ao preconceito como princípios constitucionais fundamentais para justificar a defesa dos direitos LGBT e a crítica ao PL 580/07.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 43,
+            "start": 97765,
+            "end": 97980,
+            "text": "Assim interpretou o STF: princípios constitucionais fundamentais, como pluralidade, autonomia da vontade, direito à intimidade e privacidade, liberdade para dispor sobre a sua própria sexualidade e dignidade humana.",
+            "score": 0.3407
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza o conceito de \"corpo historicamente situado\" para fundamentar a necessidade de políticas de saúde intersetoriais e específicas, rejeitando a visão de que saúde é apenas ausência de doença.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 130,
+            "start": 120255,
+            "end": 120392,
+            "text": "Saúde é um conceito que acontece no corpo, e o corpo em relação com o ambiente e com a vida, o corpo histórica e contextualmente situado.",
+            "score": 0.3347
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para o Estado laico e a diversidade como critérios para exigir respeito a todas as religiões, mas com atenção especial às religiões de matriz africana, historicamente massacradas pelo racismo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 164,
+            "start": 127477,
+            "end": 127589,
+            "text": "Eu sou cristão e reconheço que religiões de matriz africana são historicamente massacradas por conta do racismo.",
+            "score": 0.5192
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas posições na premissa de que \"problemas complexos exigem respostas complexas\", rejeitando soluções imediatistas e simplórias que não enfrentam as causas estruturais.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 29,
+            "start": 102303,
+            "end": 102446,
+            "text": "Problemas complexos exigem respostas complexas, e, às vezes, determinadas respostas são imediatistas, simplórias e não vão resolver o problema.",
+            "score": 0.5363
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a analogia histórica entre a retórica usada contra pessoas LGBT e a justificativa da escravidão para demonstrar a natureza sub-humana e fascista dos argumentos contrários à diversidade.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 43,
+            "start": 100307,
+            "end": 100471,
+            "text": "Não reconhecer isso é criar uma categoria sub-humana e subcidadã em um país que já é profundamente violento contra esses irmãos e essas irmãs, contra essas pessoas.",
+            "score": 0.1908
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se pastor, teólogo, professor de história e cientista social, com 10 anos de experiência como docente.",
+          "passage": {
+            "hearing_id": 57,
+            "turn": 29,
+            "start": 104883,
+            "end": 105082,
+            "text": "Além de teólogo e pastor — eu sei inclusive que o fundamentalismo religioso é um dispositivo indutor de violência —, eu também sou professor de história e cientista social e dei aula durante 10 anos.",
+            "score": 0.5349
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma não pertencer ao campo conservador, mas convoca conservadores para um \"pacto de civilidade\" em defesa do Estado laico e da diversidade.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 63,
+            "start": 149571,
+            "end": 149680,
+            "text": "Por isso eu chamei os conservadores na minha primeira fala para um pacto de civilidade, um pacto de respeito.",
+            "score": 0.365
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona o apoio de moderados, conservadores e religiosos que passaram a respeitá-lo devido à postura do extremismo religioso.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 63,
+            "start": 149066,
+            "end": 149322,
+            "text": "Estou recebendo apoio de moderados, conservadores e religiosos que até mês passado nem gostavam muito de mim, mas começaram a me escutar melhor porque o extremismo esticou tanto a corda, que pessoas que em tese nem concordam comigo passaram a me respeitar.",
+            "score": 0.3104
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a Deputada Erika Kokay e a Deputada Duda como interlocutoras e apoiadas em suas falas.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 43,
+            "start": 95164,
+            "end": 95216,
+            "text": "E aqui, Deputada Erika Kokay, quero fazer um debate.",
+            "score": 0.4635
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados de organismos internacionais (OMS, ONU, Instituto Nacional de Justiça dos EUA) e decisões do STF para sustentar seus argumentos, citando fontes verificáveis.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 164,
+            "start": 126753,
+            "end": 126789,
+            "text": "Esses, na verdade, são dados da OMS.",
+            "score": 0.2633
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem teológica e bíblica (citação de João 19, referência a Jesus) para dialogar com o público cristão, reinterpreitando textos para defender a diversidade.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 43,
+            "start": 105212,
+            "end": 105354,
+            "text": "Nesse momento terrível de abandono, violência do Estado e hostilidade fundamentalista, lá em João 19, Deputada Erika, Jesus olha para sua mãe.",
+            "score": 0.1769
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliador, mas firme, convidando interlocutores a um \"exercício de empatia\" e a \"baixar a bola\", evitando a espetacularização.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 63,
+            "start": 150658,
+            "end": 150803,
+            "text": "Façam um exercício de empatia com a existência do outro ser humano, valor fundamental na Constituição e valor fundamental até mesmo no Evangelho.",
+            "score": 0.1567
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa exemplos concretos de violência (ameaças na UFF, assassinatos de LGBTs) para ilustrar os riscos da aprovação do PL 580/07.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos em camadas: jurídico-constitucional, sociológico, teológico e emocional, adaptando a abordagem ao público presente.",
+          "passage": {
+            "hearing_id": 48,
+            "turn": 43,
+            "start": 97121,
+            "end": 97229,
+            "text": "Dito isso, vou fazer um debate jurídico-constitucional e terminar fazendo um contraponto ao fundamentalismo.",
+            "score": 0.1546
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 16,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Ministro dos Direitos Humanos rebate denúncias da oposição",
+      "assunto": "Debate sobre denúncias envolvendo o custeio de viagem de Luciane Barbosa Farias e questões relacionadas aos direitos humanos",
+      "turns": 3,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 29,
+      "split": "validation",
+      "article_date": "2023-11-24",
+      "title": "Debatedores apontam medidas para reduzir mortes violentas de jovens negros",
+      "assunto": "Medidas para reduzir mortes violentas de jovens negros",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 48,
+      "split": "train",
+      "article_date": "2023-09-26",
+      "title": "Proposta que proíbe a união de pessoas do mesmo sexo é criticada em audiência pública",
+      "assunto": "Discussão sobre o Projeto de Lei 580/07 e a regulamentação da união homoafetiva",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 57,
+      "split": "train",
+      "article_date": "2023-04-20",
+      "title": "Guardas armados não resolvem problema de violência nas escolas, dizem especialistas",
+      "assunto": "Discussão sobre a eficácia de guardas armados e medidas de segurança nas escolas para combater a violência",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 4
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 13,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-48-3-0",
+      "hearing_id": 48,
+      "n": 6,
+      "article_name": "Pastor Henrique Vieira",
+      "proposition": "Disse que proibir a formação de famílias de pessoas do mesmo sexo é impor uma moral do fundamentalismo religioso para toda a sociedade: \"Eu não sou do campo conservador, não é minha formação inclusive religiosa, mas eu quero fazer um convite a todos os conservadores para que estejam aqui defendendo o Estado laico, a cidadania, a diversidade e a derrota desse parecer. Taticamente eu considero importante que esse projeto não vem de conservadores, vem de fundamentalistas e extremistas religiosos, é outra coisa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Eu não sou do campo conservador — essa não é minha formação, inclusive religiosa —, mas eu quero fazer um convite a todos os conservadores para que estejam aqui defendendo o estado laico, a cidadania, a diversidade e a derrota desse parecer. Eu quero colocar uma coisa para vocês que taticamente eu considero importante: esse projeto não vem de conservadores; esse projeto vem de fundamentalistas e extremistas religiosos.",
+        "turn": 43,
+        "start": 95254,
+        "end": 95677
+      },
+      "verifier": {
+        "probability": 0.7616940306458375,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-57-2-0",
+      "hearing_id": 57,
+      "n": 8,
+      "article_name": "Pastor Henrique Vieira",
+      "proposition": "Duas escolas que sofreram ataques com o maior número de mortos nos Estados Unidos contavam com policiais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "As pesquisas a que nós temos acesso, inclusive lá dos Estados Unidos, do Instituto Nacional de Justiça, apontam até o inverso, que isso pode aumentar o número de mortos. Em dois dos ataques com o maior número de mortos nos Estados Unidos, havia a presença de policiais nas escolas: em Parkland e em Santa Fé.",
+        "turn": 29,
+        "start": 102447,
+        "end": 102756
+      },
+      "verifier": {
+        "probability": 0.9873482720545576,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-57-2-1",
+      "hearing_id": 57,
+      "n": 9,
+      "article_name": "Pastor Henrique Vieira",
+      "proposition": "As forças de segurança devem focar principalmente em inteligência, uma vez que os ataques são organizados pela internet.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Isso foi dito aqui. Por exemplo, uma ação da Polícia Federal no que diz respeito ao monitoramento de grupos extremistas na Internet parece-me muito mais inteligente e eficiente, porque se sabe, por pesquisa, que esses ataques se organizam a partir da Internet.",
+        "turn": 29,
+        "start": 103304,
+        "end": 103564
+      },
+      "verifier": {
+        "probability": 0.28140054791044966,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-57-2-2",
+      "hearing_id": 57,
+      "n": 10,
+      "article_name": "Pastor Henrique Vieira",
+      "proposition": "\"Há uma cultura instaurada que estimula esse tipo de comportamento entre jovens, que é uma cultura de ódio, de preconceito, de discriminação\". \"Precisamos de ações interdisciplinares que possam enfrentar a cultura do extremismo e valorizar a escola como espaço de diversidade\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, a aversão à escola e à educação, a aversão ao pensamento crítico e à diversidade, na minha opinião, são linhas que influenciam esse tipo de comportamento. Nós precisamos de ações interdisciplinares para dar conta desse problema e fortalecer a escola como um espaço de convivência, de ampliação de horizontes e de reflexão crítica sobre a realidade.",
+        "turn": 29,
+        "start": 104526,
+        "end": 104882
+      },
+      "verifier": {
+        "probability": 0.6926781166100595,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-57-2-3",
+      "hearing_id": 57,
+      "n": 11,
+      "article_name": "Pastor Henrique Vieira",
+      "proposition": "Iniciativas como rondas nos arredores das escolas também podem ser efetivas, mas a solução da violência depende de mudanças culturais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A própria lógica da ronda escolar pode ter algum sentido no entorno da escola, mas nós precisamos ir além, com um canal de denúncia, com uma atenção psicossocial para as nossas escolas. Por fim, nós precisamos enfrentar, na minha opinião, o cerne do problema, porque existem violências que estão no campo do imponderável: a ação de um indivíduo.",
+        "turn": 29,
+        "start": 103566,
+        "end": 103912
+      },
+      "verifier": {
+        "probability": 0.6451432445203971,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-103-3-0",
+      "hearing_id": 103,
+      "n": 18,
+      "article_name": "Pastor Henrique Vieira",
+      "proposition": "Elogiou a atuação de Lewandowski, segundo ele, baseada na defesa dos direitos humanos, sem se render ao 'populismo penal'.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acho que foi uma ação difícil, que teve êxito e não houve a morte de ninguém, o que eu considero algo para se comemorar. Eu também quero parabenizar o Ministério por pensar a segurança pública com base nos direitos humanos, sem apelar ao populismo penal, valorizando a integração das forças policiais e a inteligência.",
+        "turn": 77,
+        "start": 84200,
+        "end": 84519
+      },
+      "verifier": {
+        "probability": 0.43644300263398067,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

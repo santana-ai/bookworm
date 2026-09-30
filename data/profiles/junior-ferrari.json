@@ -1,0 +1,342 @@
+{
+  "actor": {
+    "slug": "junior-ferrari",
+    "name": "Júnior Ferrari",
+    "display_name": "Júnior Ferrari",
+    "role": "Deputado (PSD-PA)",
+    "article_names": [
+      "Júnior Ferrari"
+    ],
+    "party_uf": [
+      "Bloco/PSD - PA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:27:24+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      183
+    ],
+    "input_tokens": 2421,
+    "output_tokens": 613,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 4,
+    "passage_only": 14,
+    "without_evidence": 0
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende com veemência a exploração do petróleo na foz do Amazonas como forma de desenvolvimento econômico para a região Norte e para o País.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 97535,
+            "end": 97693,
+            "text": "Nós defendemos com muita veemência, com muita firmeza a exploração do petróleo na foz do Amazonas como uma forma de desenvolvimento econômico na nossa região.",
+            "score": 0.5748
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do IBAMA e do governo federal a agilização das licenças ambientais para a Petrobras, argumentando que o projeto tem repercussão econômica maior que outros.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 97046,
+            "end": 97393,
+            "text": "Então, o que pedimos, como representante legítimo do povo brasileiro, especialmente do Pará, é que possamos avançar, agilizar essas licenças ambientais, respeitando os trâmites, mas precisamos acelerar, porque há projetos que são projetos e há outros que não têm tanta repercussão porque não vão atingir tanto a economia do País como esse projeto.",
+            "score": 0.1972
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que os estudos e pesquisas realizados pela Petrobras garantem que o risco de contaminação na exploração é \"quase zero\".",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 96786,
+            "end": 97044,
+            "text": "Acho que todos têm conhecimento dos estudos feitos e pesquisas realizadas pela PETROBRAS, que é uma empresa que tem conhecimento e experiência nesse segmento, que garantem que o risco é quase zero de contaminação na exploração do petróleo na foz do Amazonas.",
+            "score": 0.5396
+          },
+          "udv": {
+            "id": "udv-183-4-0",
+            "rule": "same_sentence",
+            "score": 0.5006
+          }
+        },
+        {
+          "text": "Critica a falta de ações concretas para levar desenvolvimento à Amazônia, citando a dificuldade de infraestrutura na região.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 95377,
+            "end": 95533,
+            "text": "Nós percebemos realmente que é muito bonito falar sobre a Amazônia, mas são poucas as ações que realmente podem levar o desenvolvimento para a nossa região.",
+            "score": 0.3228
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a sustentabilidade ambiental depende da \"sustentabilidade social\", priorizando as necessidades da população local.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 95980,
+            "end": 96168,
+            "text": "Então, eu queria começar a minha fala, Ministra Marina, dizendo que para haver sustentabilidade ambiental, algo que todos falam, é preciso haver uma coisa simples: sustentabilidade social.",
+            "score": 0.2415
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a \"sustentabilidade social\" como critério para justificar a aprovação de projetos de exploração, argumentando que a preservação ambiental deve considerar o ser humano que mora na região.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 96692,
+            "end": 96784,
+            "text": "Sou a favor da preservação ambiental, mas com responsabilidade pelo ser humano que mora ali.",
+            "score": 0.3051
+          },
+          "udv": {
+            "id": "udv-183-4-0",
+            "rule": "same_sentence",
+            "score": 0.157
+          }
+        },
+        {
+          "text": "Justifica a defesa da exploração petrolífera com a necessidade de gerar emprego, oportunidade e renda para as Regiões Norte e Nordeste, citando a carência de incentivos nessas áreas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 96457,
+            "end": 96632,
+            "text": "As Regiões Norte e Nordeste precisam tanto de incentivos para gerar emprego, oportunidade e renda; daí esse assunto ter realmente uma repercussão muito grande na nossa região.",
+            "score": 0.4662
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência técnica da Petrobras para minimizar os riscos ambientais, afirmando que a empresa possui conhecimento no segmento.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 96786,
+            "end": 97044,
+            "text": "Acho que todos têm conhecimento dos estudos feitos e pesquisas realizadas pela PETROBRAS, que é uma empresa que tem conhecimento e experiência nesse segmento, que garantem que o risco é quase zero de contaminação na exploração do petróleo na foz do Amazonas.",
+            "score": 0.3131
+          },
+          "udv": {
+            "id": "udv-183-4-0",
+            "rule": "same_sentence",
+            "score": 0.2631
+          }
+        },
+        {
+          "text": "Invoca a realidade da infraestrutura precária na Amazônia Legal (como a falta de internet em pleno século XXI) para fundamentar a urgência de projetos de desenvolvimento econômico.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 95735,
+            "end": 95788,
+            "text": "Em pleno século XXI, há lugar em que não há Internet.",
+            "score": 0.4292
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal pelo Estado do Pará, em seu sexto mandato consecutivo (quatro estaduais e dois federais).",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 95189,
+            "end": 95376,
+            "text": "Eu estou no meu sexto mandato consecutivo entre quatro de Estadual e dois de Federal, Deputado Julio, e o que mais se discute é a questão da Amazônia, a exploração, os projetos que há lá.",
+            "score": 0.5187
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante legítimo do povo brasileiro, especialmente dos quase 9 milhões de habitantes do Pará.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 96209,
+            "end": 96422,
+            "text": "Eu sou o autor de um dos requerimentos e trouxe esse assunto para a discussão porque aqui nós somos representantes legítimos do povo brasileiro, e no Pará somos quase 9 milhões de habitantes, Deputado Hélio Leite.",
+            "score": 0.3328
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser morador do interior do Pará, no Município de Oriximiná, e representante da população da Amazônia Legal.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 95572,
+            "end": 95734,
+            "text": "Quem mora na Amazônia Legal — e eu sou do interior do Pará, no Município de Oriximiná, um dos maiores Municípios em área territorial do Brasil — vê a dificuldade.",
+            "score": 0.4177
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se a favor da preservação ambiental, mas ressalva que isso deve ocorrer com \"responsabilidade pelo ser humano\", negando ser a favor da \"destruição\".",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 96692,
+            "end": 96784,
+            "text": "Sou a favor da preservação ambiental, mas com responsabilidade pelo ser humano que mora ali.",
+            "score": 0.491
+          },
+          "udv": {
+            "id": "udv-183-4-0",
+            "rule": "same_sentence",
+            "score": 0.1939
+          }
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e fatos locais para embasar seus argumentos, como a taxa de acesso à internet na Região Norte (55%) e a população do Pará.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 95789,
+            "end": 95845,
+            "text": "A Região Norte alcançaon-linea Internet em torno de 55%.",
+            "score": 0.2877
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a legitimidade representativa, repetindo a expressão \"representante legítimo do povo brasileiro\" para reforçar sua autoridade no debate.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 97046,
+            "end": 97393,
+            "text": "Então, o que pedimos, como representante legítimo do povo brasileiro, especialmente do Pará, é que possamos avançar, agilizar essas licenças ambientais, respeitando os trâmites, mas precisamos acelerar, porque há projetos que são projetos e há outros que não têm tanta repercussão porque não vão atingir tanto a economia do País como esse projeto.",
+            "score": 0.1707
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de urgência e cobrança, usando verbos como \"agilizar\", \"acelerar\" e \"avançar\" para pressionar por decisões administrativas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 97046,
+            "end": 97393,
+            "text": "Então, o que pedimos, como representante legítimo do povo brasileiro, especialmente do Pará, é que possamos avançar, agilizar essas licenças ambientais, respeitando os trâmites, mas precisamos acelerar, porque há projetos que são projetos e há outros que não têm tanta repercussão porque não vão atingir tanto a economia do País como esse projeto.",
+            "score": 0.1532
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura o argumento conectando a questão ambiental à social, partindo da premissa de que não há sustentabilidade ambiental sem sustentabilidade social.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 95980,
+            "end": 96168,
+            "text": "Então, eu queria começar a minha fala, Ministra Marina, dizendo que para haver sustentabilidade ambiental, algo que todos falam, é preciso haver uma coisa simples: sustentabilidade social.",
+            "score": 0.2699
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita diretamente os presentes (Ministra Marina Silva, Presidente do IBAMA Rodrigo Agostinho) para direcionar suas cobranças e propostas.",
+          "passage": {
+            "hearing_id": 183,
+            "turn": 54,
+            "start": 94684,
+            "end": 94959,
+            "text": "Saúdo o nosso Presidente, que está comandando a Comissão, Deputado Joaquim Passarinho, do nosso Estado do Pará, em seu nome quero saudar todos os colegas aqui presentes, nossa Ministra Marina Silva, o Presidente do IBAMA, Rodrigo Agostinho, o Secretário Executivo Capobianco.",
+            "score": 0.431
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 23,
+      "split": "test",
+      "article_date": "2024-04-23",
+      "title": "Debatedores defendem medidas para impulsionar uso do biometano no Brasil",
+      "assunto": "Medidas para incentivar o uso do biometano na matriz energética brasileira",
+      "turns": 7,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 183,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Marina Silva: veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas é técnico",
+      "assunto": "Veto do Ibama à licença para Petrobras perfurar na Foz do Amazonas e outras questões ambientais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-183-4-0",
+      "hearing_id": 183,
+      "n": 12,
+      "article_name": "Júnior Ferrari",
+      "proposition": "A Petrobras tem experiência na exploração de bacias sedimentares e já garantiu que o risco de acidente com o poço \"é quase zero\".",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Sou a favor da preservação ambiental, mas com responsabilidade pelo ser humano que mora ali. Acho que todos têm conhecimento dos estudos feitos e pesquisas realizadas pela PETROBRAS, que é uma empresa que tem conhecimento e experiência nesse segmento, que garantem que o risco é quase zero de contaminação na exploração do petróleo na foz do Amazonas.",
+        "turn": 54,
+        "start": 96692,
+        "end": 97044
+      },
+      "verifier": {
+        "probability": 0.7076686342507787,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

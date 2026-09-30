@@ -1,0 +1,274 @@
+{
+  "actor": {
+    "slug": "marcio-correa",
+    "name": "MÁRCIO CORREA",
+    "display_name": "MÁRCIO CORREA",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/MDB - GO"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T05:05:41+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      144,
+      171
+    ],
+    "input_tokens": 3286,
+    "output_tokens": 832,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Critica a defasagem dos valores pagos pelo SUS para procedimentos de fisioterapia, citando como exemplo o pagamento de 186 reais para uma cirurgia complexa de mandíbula e 82 reais para cirurgias de mão e de pé, o que torna inviável a realização dos procedimentos pelos profissionais.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 163621,
+            "end": 163767,
+            "text": "Imaginem que, para uma cirurgia complexa de mandíbula, são pagos 186 reais; para uma cirurgia de mão, 82 reais; para uma cirurgia de pé, 82 reais.",
+            "score": 0.5752
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Governo Federal a transparência e a previsibilidade das filas do SUS, argumentando que o paciente precisa saber o tempo de espera para decidir se buscará a rede privada, especialmente em situações de risco de morte.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 164061,
+            "end": 164200,
+            "text": "O paciente precisa ter essa previsibilidade, para saber se ele vai buscar outro caminho, na rede privada, para realizar o seu procedimento.",
+            "score": 0.364
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o Ministério da Saúde não deve homologar a Resolução nº 715 do Conselho Nacional de Saúde, alegando que o momento é de polarização e que o Presidente Lula, em carta assinada durante a campanha, declarou-se pessoalmente contra o aborto e defendeu princípios cristãos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 164451,
+            "end": 164787,
+            "text": "Nós vivemos hoje um momento muito polarizado, mas este não é o momento de o Conselho Nacional de Saúde trazer isso para a discussão, para ser homologado pelo Ministério da Saúde, até porque o Presidente Lula, em sua campanha, assinou uma carta aos evangélicos onde afirmou ser pessoalmente contra o aborto, defendeu princípios cristãos.",
+            "score": 0.5892
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que as discussões sobre aborto e legalização de drogas sejam encaminhadas para votação na Câmara dos Deputados, rejeitando o que chama de \"tapetão\" no Supremo Tribunal Federal e defendendo que a Casa Legislativa tem a competência para debater esses temas.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 165562,
+            "end": 165638,
+            "text": "Estamos discutindo aqui há tanto tempo o aborto, a legalização das drogas...",
+            "score": 0.2227
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que o Governo Federal condicione o repasse de recursos para pavimentação e programas habitacionais, como o Minha Casa, Minha Vida, à prévia execução de infraestrutura de saneamento e drenagem, apontando falhas em Anápolis (GO) onde o esgoto aflora e a falta de drenagem exige o corte do asfalto já pavimentado.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 90,
+            "start": 139259,
+            "end": 139433,
+            "text": "É importante o programa, é importante a pavimentação, mas, como é utilizada uma verba federal, nós precisamos exigir que seja feita a infraestrutura de saneamento e drenagem.",
+            "score": 0.1862
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a inclusão de condicionantes no PAC para impedir que os Municípios leiloem ou vendam as áreas públicas destinadas a equipamentos públicos (escolas, creches, lazer) previstas na Lei nº 6.766, de 1979, devido ao adensamento populacional rápido nas áreas beneficiadas.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 90,
+            "start": 139993,
+            "end": 140110,
+            "text": "Segundo a Lei 6.766, deve-se deixar uma área mínima para equipamentos públicos, para área de lazer, escolas, creches.",
+            "score": 0.3036
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a previsão de assinatura dos contratos para as 4.500 unidades habitacionais da Faixa 1 em Goiás.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 90,
+            "start": 140668,
+            "end": 140809,
+            "text": "Para terminar, eu faço uma pergunta sobre as 4.500 unidades em Goiás: há uma previsão de assinatura dos contratos dessas unidades da Faixa 1?",
+            "score": 0.7013
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o princípio de que \"dinheiro público é dinheiro da população e precisa ser respeitado\" para justificar a exigência de infraestrutura completa (saneamento e drenagem) antes da pavimentação, evitando retrabalho e desperdício.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 90,
+            "start": 139192,
+            "end": 139258,
+            "text": "Dinheiro público é dinheiro da população e precisa ser respeitado.",
+            "score": 0.5755
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a competência legislativa da Câmara dos Deputados como critério para rejeitar decisões judiciais sobre temas sociais sensíveis, argumentando que a polarização partidária deve ser evitada em favor do debate parlamentar.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na Lei nº 6.766, de 1979, para fundamentar a exigência de áreas para equipamentos públicos e a responsabilidade municipal no parcelamento do solo, usando a norma como parâmetro para cobrar contrapartidas do Governo Federal.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 90,
+            "start": 139434,
+            "end": 139597,
+            "text": "É preciso exigir isso dos Municípios contemplados.Quem faz essas exigências, segundo a Lei nº 6.766, de 1979, que dispõe sobre parcelamento de solo, é o Município.",
+            "score": 0.2614
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante de interesses ligados à fisioterapia, tendo enviado ofício ao Ministério da Saúde sobre o cadastramento de fisioterapeutas e o piso da categoria.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 163108,
+            "end": 163193,
+            "text": "A pergunta é simples, o cadastramento recente em relação ao piso dos fisioterapeutas.",
+            "score": 0.2724
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a opinião pessoal do Presidente Lula sobre o aborto, citando a carta assinada pelo Presidente durante a campanha eleitoral.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 165139,
+            "end": 165184,
+            "text": "O Presidente Lula aprovaria essas diretrizes?",
+            "score": 0.2689
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos de valores pagos pelo SUS (186 reais, 82 reais) e casos locais (Anápolis, GO) para ilustrar problemas sistêmicos e exigir correções.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 163621,
+            "end": 163767,
+            "text": "Imaginem que, para uma cirurgia complexa de mandíbula, são pagos 186 reais; para uma cirurgia de mão, 82 reais; para uma cirurgia de pé, 82 reais.",
+            "score": 0.3414
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a documentos legais (Lei nº 6.766, de 1979) e atos administrativos (Resolução nº 715) para sustentar suas posições.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 164406,
+            "end": 164450,
+            "text": "Foi muito comentada aqui a Resolução nº 715.",
+            "score": 0.289
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta ao Executivo, questionando a demora em responder ofícios e a contradição entre as diretrizes do Ministério da Saúde e as declarações públicas do Presidente.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 236,
+            "start": 165139,
+            "end": 165184,
+            "text": "O Presidente Lula aprovaria essas diretrizes?",
+            "score": 0.1991
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega expressões como \"tapetão\" para criticar decisões judiciais e \"protagonismo\" para descrever o papel esperado do Governo Federal na gestão do SUS.",
+          "passage": {
+            "hearing_id": 144,
+            "turn": 90,
+            "start": 139598,
+            "end": 139634,
+            "text": "Isso não compete ao Governo Federal.",
+            "score": 0.1968
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 144,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Ministro alerta sobre o fim do prazo para que prefeituras enviem propostas para o novo PAC",
+      "assunto": "Fim do prazo para prefeituras enviarem propostas para o novo Programa de Aceleração do Crescimento (PAC)",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

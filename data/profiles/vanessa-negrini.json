@@ -1,0 +1,480 @@
+{
+  "actor": {
+    "slug": "vanessa-negrini",
+    "name": "VANESSA NEGRINI",
+    "display_name": "Vanessa Negrini",
+    "role": "Diretora do Departamento de Proteção, Defesa e Direitos Animais do Ministério do Meio Ambiente",
+    "article_names": [
+      "Vanessa Negrini"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:08:15+00:00",
+    "n_statements": 8,
+    "n_hearings": 3,
+    "hearing_ids": [
+      95,
+      167,
+      191
+    ],
+    "input_tokens": 6827,
+    "output_tokens": 1172,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 5,
+    "passage_only": 13,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a promoção do bem-estar animal como requisito essencial do consumo sustentável e princípio fundamental em toda a cadeia produtiva, da criação ao abate, argumentando que práticas que violam esses direitos geram impactos negativos no meio ambiente, na poluição, na degradação de ecossistemas e nos riscos de novas pandemias.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 21,
+            "start": 59087,
+            "end": 59367,
+            "text": "Essas práticas de produção que violam os direitos animais têm impactos negativos, sim, na vida animal, mas também no meio ambiente, na poluição, na degradação dos ecossistemas, nos esgotamentos dos recursos naturais e nos riscos de novas pandemias, como foi tão bem colocado aqui.",
+            "score": 0.5377
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o incentivo à diversificação de fontes de proteína vegetal, citando leguminosas (tremoço, lentilha, feijão, soja, grão de bico, amendoim) e a semente de gergelim (que afirma ter seis vezes mais cálcio que o leite de vaca), para combater a \"invisibilidade\" e a ilusão de que proteína é sinônimo de carne animal e cálcio é sinônimo de leite de vaca.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 23,
+            "start": 61599,
+            "end": 61750,
+            "text": "Precisamos sair dessa invisibilidade, dessa ilusão de que, por exemplo, proteína é sinônimo de carne animal; de que cálcio é sinônimo de leite de vaca.",
+            "score": 0.5171
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Governo Federal a expansão orçamentária para garantir recursos já em 2024 para a implementação de um projeto-piloto nacional de manejo populacional ético de cães e gatos, com a meta de alcançar 1 milhão de castrações no Brasil.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 5,
+            "start": 19031,
+            "end": 19273,
+            "text": "Nós temos condições de, em 2024, entrar com um projeto-piloto — e temos esse piloto desenhado — para alcançar 1 milhão de castrações em todo o Brasil, um projeto-piloto para testar o que dá certo e o que dá errado e fazer esse ajuste começar.",
+            "score": 0.3839
+          },
+          "udv": {
+            "id": "udv-167-0-2",
+            "rule": "same_sentence",
+            "score": 0.4895
+          }
+        },
+        {
+          "text": "Defende que a pauta do bem-estar animal é uma questão de Estado e de interesse econômico, alertando que a falta de avanço interno pode gerar barreiras comerciais, como no caso do tratado entre União Europeia e MERCOSUL, onde cláusulas ambientais e de bem-estar animal estão impedindo a formalização do acordo.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 1,
+            "start": 3983,
+            "end": 4107,
+            "text": "Há hoje discussões sobre cláusulas ambientais e bem-estar animal que estão impedindo o avanço da formalização desse tratado.",
+            "score": 0.4547
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a pauta animal foi a proposta de política pública mais votada no PPA Participativo, corrigindo a narrativa de que foi apenas a nona mais votada, e destaca que essa votação obriga o Governo a dar resposta à demanda da sociedade.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 1,
+            "start": 8649,
+            "end": 8747,
+            "text": "Essa votação no PPA Participativo obriga o Governo a dar uma resposta a essa demanda da sociedade.",
+            "score": 0.6264
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão do bem-estar animal no debate público sobre consumo sustentável, atrelando seus componentes ambientais, climáticos, nutricionais e de saúde única, e propõe a conscientização da sociedade sobre práticas que respeitam produtores e animais, gerando economia e maior rentabilidade no campo.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 23,
+            "start": 62684,
+            "end": 62771,
+            "text": "As práticas que respeitam o bem-estar animal também geram maior rentabilidade no campo.",
+            "score": 0.4327
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o conceito de \"saúde única\" (one health) e a interdependência entre perda de biodiversidade, poluição, mudanças climáticas, degradação do solo e bem-estar humano como fundamento para justificar a centralidade do bem-estar animal nas políticas públicas.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 15,
+            "start": 56003,
+            "end": 56317,
+            "text": "Essa, inclusive, foi a fala da primeira palestrante — acho que foi a Patrycia —, mostrando e reconhecendo a interdependência entre a perda da biodiversidade, a poluição, as mudanças climáticas, a desertificação, a degradação do solo.Todos esses fatores estão interligados com o bem-estar humano, incluindo a saúde.",
+            "score": 0.4453
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a Resolução Nexus da ONU (PNUMA) de 2022 como base normativa e científica para afirmar que o bem-estar animal contribui para o enfrentamento de desafios ambientais e para o alcance dos Objetivos de Desenvolvimento Sustentável.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 21,
+            "start": 58502,
+            "end": 58835,
+            "text": "Na Resolução Nexus, a ONU reconheceu que o bem-estar animal pode, sim, contribuir para o enfrentamento dos desafios ambientais e promover essa abordagemone health— saúde única —, bem como alcançar os Objetivos de Desenvolvimento Sustentável, por tudo isso que já foi posto e debatido aqui brilhantemente por todos que me antecederam.",
+            "score": 0.3634
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que os direitos humanos são integrais, citando ensinamentos de professores e a CPI do MST, para justificar que o direito econômico (como aumento de renda) deve caminhar com o direito à informação, permitindo escolhas alimentares melhores.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 23,
+            "start": 61437,
+            "end": 61597,
+            "text": "É preciso aumentar a renda, mas o direito econômico precisa caminhar com o direito à informação, para as pessoas terem possibilidade de fazer escolhas melhores.",
+            "score": 0.4359
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega a lógica da \"arrogância humana\" e do \"equilíbrio na diversidade\" como valores centrais, argumentando que o ser humano é uma espécie animal e que a exploração predatória gera zoonoses (afirma que 70% das doenças humanas desde a década de 40 têm origem nessa exploração, segundo a ONU).",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 21,
+            "start": 57959,
+            "end": 58214,
+            "text": "Alguém bem pontuou a zoonose: 70% das doenças que acometem os seres humanos desde a década de 40 — isso está documentado pela ONU — têm origem nessa exploração desenfreada, predatória, que fazemos contra o meio ambiente, contra as outras espécies de vida.",
+            "score": 0.3743
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a urgência do controle populacional de cães e gatos pela emergência climática, utilizando dados de emissões de CO2 (49 milhões de toneladas/ano para 73 milhões de animais, projetando 66 milhões de toneladas/ano para 112 milhões de animais até 2030) como critério para a alocação de recursos orçamentários.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 5,
+            "start": 20465,
+            "end": 20871,
+            "text": "Se não iniciarmos agora um plano nacional, a estimativa é que, até 2030, a população de cães e gatos chegará a 112 milhões de animais, e as emissões de CO2respectivas pularão de 49 milhões de toneladas de CO2por ano para 66 milhões de toneladas de CO2por ano, num mundo em que temos o desafio de, nos próximos anos, impedir que a temperatura suba além de 1,5 graus, ou toda a vida na Terra estará ameaçada.",
+            "score": 0.4042
+          },
+          "udv": {
+            "id": "udv-167-0-4",
+            "rule": "same_sentence",
+            "score": 0.4041
+          }
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do Executivo, especificamente do Departamento de Proteção, Defesa e Direitos Animais, criado pelo Presidente Lula e pela Ministra Marina.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 5,
+            "start": 16803,
+            "end": 17016,
+            "text": "Muito acertadamente, o Presidente Lula e a Ministra Marina criaram o Departamento de Proteção, Defesa e Direitos Animais, entendendo e reconhecendo que esta pauta dialoga com o conjunto de interesses da sociedade.",
+            "score": 0.5092
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido nomeada diretora efetivamente em março de 2023.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 5,
+            "start": 18457,
+            "end": 18624,
+            "text": "Desde março, quando eu fui nomeada diretora efetivamente, das 175 audiências que fizemos, 90% eram direcionadas à reivindicação do manejo populacional de cães e gatos.",
+            "score": 0.363
+          },
+          "udv": {
+            "id": "udv-167-0-0",
+            "rule": "same_sentence",
+            "score": 0.224
+          }
+        },
+        {
+          "text": "Declara alinhamento com a sociedade civil, ativistas, protetores e gestores públicos, citando a produção de um relatório de mais de mil páginas com 604 pessoas para o programa de manejo populacional.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 5,
+            "start": 17830,
+            "end": 18044,
+            "text": "Foi entregue às mãos da Ministra Marina um relatório com mais de mil páginas, consolidando as sugestões de todo esse arcabouço para a elaboração de um programa nacional de Manejo Populacional Ético de Cães e Gatos.",
+            "score": 0.2922
+          },
+          "udv": {
+            "id": "udv-167-0-1",
+            "rule": "same_sentence",
+            "score": 0.2757
+          }
+        },
+        {
+          "text": "Reconhece a atuação de colegas de outros órgãos (MAPA, Ministério da Saúde, EMBRAPA) e destaca a presença de representantes do governo federal na audiência.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 1,
+            "start": 2704,
+            "end": 3238,
+            "text": "Muito me anima e me deixa cheia de esperanças ver aqui na plateia, acompanhando-nos, não só nós do departamento, mas também os nossos colegas representantes do MAPA: o Fernando, a Valéria, o Lucas, a Natercia, que estão à frente desse olhar do bem-estar animal lá; a Natiela, do Grupo Técnico de Saúde Única, do Ministério da Saúde; a Sabrina, da EMBRAPA, mostrando que esse tema do bem-estar animal não faz parte só de uma Pasta, ele precisa ser debatido, no conjunto dos […]",
+            "score": 0.2719
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos e estatísticas (ex: 70% dos alimentos, 90% da massa animal, 88% dos brasileiros preocupados, 54 milhões de cães e 19 milhões de gatos) para sustentar suas posições e demonstrar a magnitude dos problemas.",
+          "passage": {
+            "hearing_id": 167,
+            "turn": 5,
+            "start": 20145,
+            "end": 20268,
+            "text": "Olhem que interessante: de acordo com o último levantamento do IBGE, há no Brasil 54 milhões de cães e 19 milhões de gatos.",
+            "score": 0.2968
+          },
+          "udv": {
+            "id": "udv-167-0-3",
+            "rule": "same_sentence",
+            "score": 0.2648
+          }
+        },
+        {
+          "text": "Recorre a referências internacionais (ONU, PNUMA, FAO, OMS, União Europeia) e a resoluções específicas (Resolução Nexus) para legitimar suas propostas e cobrar ações do Estado.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom provocativo e interativo, fazendo perguntas retóricas ou diretas aos deputados (ex: \"Qual é o animal que quase nunca lembramos?\") e usando analogias (ex: a balança com o peso dos animais) para engajar o público.",
+          "passage": {
+            "hearing_id": 95,
+            "turn": 15,
+            "start": 57079,
+            "end": 57134,
+            "text": "Qual é o animal que quase nunca lembramos nesse debate?",
+            "score": 0.3029
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina argumentos éticos (direitos dos animais, bem-estar) com argumentos econômicos (rentabilidade, barreiras comerciais, custo-benefício) e ambientais (emissões de CO2, biodiversidade) para ampliar o alcance de sua defesa.",
+          "passage": {
+            "hearing_id": 191,
+            "turn": 1,
+            "start": 9140,
+            "end": 9168,
+            "text": "É pelo bem dos animais, sim.",
+            "score": 0.1774
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa linguagem acessível e exemplos concretos (ex: semente de gergelim, leguminosas) para desmistificar conceitos e tornar as propostas de mudança alimentar e de política pública mais tangíveis.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 95,
+      "split": "train",
+      "article_date": "2023-06-28",
+      "title": "Entidades cobram mais segurança sanitária na produção de alimentos de origem animal",
+      "assunto": "Segurança sanitária e sustentabilidade na produção de alimentos de origem animal",
+      "turns": 6,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 167,
+      "split": "train",
+      "article_date": "2023-09-15",
+      "title": "Especialistas cobram recursos e política pública para controle populacional de cães e gatos",
+      "assunto": "Recursos e política pública para controle populacional de cães e gatos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 5
+    },
+    {
+      "id": 191,
+      "split": "train",
+      "article_date": "2023-08-17",
+      "title": "Ações de bem-estar animal podem trazer múltiplos benefícios para o Brasil, dizem especialistas",
+      "assunto": "Ações de bem-estar animal e seus benefícios para o Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-95-3-0",
+      "hearing_id": 95,
+      "n": 5,
+      "article_name": "Vanessa Negrini",
+      "proposition": "O governo está empenhado em implementar políticas públicas que atrelem o bem-estar animal aos Objetivos do Desenvolvimento Sustentável (ODS) e às estratégias de superação dos desafios ambientais.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Em termos de políticas públicas, em termos de prioridade para o Governo, o que podemos debater? Eu penso que podemos colocar nos nossos debates, nos nossos projetos, nas nossas discussões, a promoção do bem-estar animal como requisito essencial do consumo sustentável.",
+        "turn": 23,
+        "start": 60465,
+        "end": 60733
+      },
+      "verifier": {
+        "probability": 0.26245667104095033,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-167-0-0",
+      "hearing_id": 167,
+      "n": 1,
+      "article_name": "Vanessa Negrini",
+      "proposition": "O manejo de cães e gatos foi a política pública mais votada no PPA participativo em 27 plenárias estaduais com participação de 34 mil pessoas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Depois do guichê do FNDE, o de Manejo Populacional Ético de Cães e Gatos foi o mais visitado e o mais requisitado também. Desde março, quando eu fui nomeada diretora efetivamente, das 175 audiências que fizemos, 90% eram direcionadas à reivindicação do manejo populacional de cães e gatos.",
+        "turn": 5,
+        "start": 18335,
+        "end": 18624
+      },
+      "verifier": {
+        "probability": 0.22708351695981185,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-167-0-1",
+      "hearing_id": 167,
+      "n": 2,
+      "article_name": "Vanessa Negrini",
+      "proposition": "Um relatório com mais de mil páginas sobre o assunto já foi entregue à ministra do Meio Ambiente, Marina Silva.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Faça a conta quem é bom de matemática. Foi entregue às mãos da Ministra Marina um relatório com mais de mil páginas, consolidando as sugestões de todo esse arcabouço para a elaboração de um programa nacional de Manejo Populacional Ético de Cães e Gatos.",
+        "turn": 5,
+        "start": 17791,
+        "end": 18044
+      },
+      "verifier": {
+        "probability": 0.3560073797589307,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-167-0-2",
+      "hearing_id": 167,
+      "n": 3,
+      "article_name": "Vanessa Negrini",
+      "proposition": "Disse que o programa está pronto: \"Agora a gente precisa trabalhar para a expansão orçamentária e garantir os recursos para já em 2024 a gente já ter esse orçamento para tirar do papel e começar a fazer o projeto piloto\". Esse piloto pode alcançar 1 milhão de castrações em todo o Brasil.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E agora precisamos trabalhar para a expansão orçamentária e garantir os recursos para, já em 2024, termos esse orçamento, para tirar do papel e começar a fazer o piloto. Nós temos condições de, em 2024, entrar com um projeto-piloto — e temos esse piloto desenhado — para alcançar 1 milhão de castrações em todo o Brasil, um projeto-piloto para testar o que dá certo e o que dá errado e fazer esse ajuste começar.",
+        "turn": 5,
+        "start": 18861,
+        "end": 19273
+      },
+      "verifier": {
+        "probability": 0.9214146182101721,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-167-0-3",
+      "hearing_id": 167,
+      "n": 4,
+      "article_name": "Vanessa Negrini",
+      "proposition": "Existem, no Brasil, aproximadamente 54 milhões de cães e 19 milhões de gatos, que liberam aproximadamente 49 milhões de toneladas CO2 por ano.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Olhem que interessante: de acordo com o último levantamento do IBGE, há no Brasil 54 milhões de cães e 19 milhões de gatos. A soma das emissões de CO2de cada um deles hoje dá 49 milhões de toneladas de CO2por ano.",
+        "turn": 5,
+        "start": 20145,
+        "end": 20358
+      },
+      "verifier": {
+        "probability": 0.9914675806112083,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-167-0-4",
+      "hearing_id": 167,
+      "n": 5,
+      "article_name": "Vanessa Negrini",
+      "proposition": "Se não houver um plano nacional para esterilizar cães e gatos, até 2030, a população de cães e gatos chegará a 112 milhões de animais e a emissão será de 66 milhões de toneladas de CO2.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Se não iniciarmos agora um plano nacional, a estimativa é que, até 2030, a população de cães e gatos chegará a 112 milhões de animais, e as emissões de CO2respectivas pularão de 49 milhões de toneladas de CO2por ano para 66 milhões de toneladas de CO2por ano, num mundo em que temos o desafio de, nos próximos anos, impedir que a temperatura suba além de 1,5 graus, ou toda a vida na Terra estará ameaçada. Então, o desafio nosso agora é iniciar esse diálogo junto ao Relator do […]",
+        "turn": 5,
+        "start": 20465,
+        "end": 20995
+      },
+      "verifier": {
+        "probability": 0.758916203419589,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-191-3-0",
+      "hearing_id": 191,
+      "n": 5,
+      "article_name": "Vanessa Negrini",
+      "proposition": "A causa do bem-estar animal deve ser um tema de Estado: \"Esse tema do bem-estar animal precisa ser debatido no conjunto dos interesses da sociedade, nos vários órgãos que discutem isso. É pelo bem dos animais? Sim, é pelo bem dos animais. Mas, não se iludam, é sobretudo pela vida humana na Terra.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, essa é uma pauta que perpassa não só uma questão de quem gosta ou não gosta dos animais, é uma pauta de Estado e precisa ser discutida. Inclusive, seria muito interessante conhecermos como está o andamento da revisão de normas de bem-estar animal na União Europeia.",
+        "turn": 1,
+        "start": 4219,
+        "end": 4492
+      },
+      "verifier": {
+        "probability": 0.9560573802924089,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

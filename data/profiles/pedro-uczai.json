@@ -1,0 +1,344 @@
+{
+  "actor": {
+    "slug": "pedro-uczai",
+    "name": "Pedro Uczai",
+    "display_name": "Pedro Uczai",
+    "role": "Deputado (PT-SC) e coordenador da frente parlamentar em defesa do setor",
+    "article_names": [
+      "Pedro Uczai"
+    ],
+    "party_uf": [
+      "Bloco/PT - SC"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:01:47+00:00",
+    "n_statements": 9,
+    "n_hearings": 2,
+    "hearing_ids": [
+      156,
+      199
+    ],
+    "input_tokens": 7040,
+    "output_tokens": 875,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 0,
+    "passage_only": 15,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a responsabilização nacional e internacional por mortes indiretas da COVID-19, questionando se o negacionismo pode ser caracterizado como crime contra a humanidade e cobrando dados populacionais do Ministério da Saúde sobre esses óbitos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 377,
+            "start": 235564,
+            "end": 235764,
+            "text": "Ou seja, é possível caracterizar crime contra a humanidade o que aconteceu na história do País e buscar responsabilização não só em âmbito nacional, mas também mundial, como crime contra a humanidade?",
+            "score": 0.3497
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que hospitais universitários da EBSERH e o Programa de Aquisição de Alimentos (PAA) comprem alimentos saudáveis de agricultores agroecológicos e orgânicos, visando uma política de prevenção e promoção da saúde em vez de apenas tratamento.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 377,
+            "start": 236320,
+            "end": 236529,
+            "text": "Por que, na promoção da saúde, os hospitais universitários da EBSERH não compram alimento saudável dos agricultores que produzem agroecológica e organicamente, assim como tantas outras áreas públicas da saúde?",
+            "score": 0.2937
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a criação de um marco legal que regulamente a Lei nº 12.881 para garantir o reconhecimento jurídico das universidades comunitárias pelo Ministério da Educação, permitindo a destinação de emendas parlamentares e o fim da necessidade de comprovar repetidamente a ausência de distribuição de lucro e patrimônio.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 0,
+            "start": 9459,
+            "end": 9732,
+            "text": "Não consigo, porque não há reconhecimento jurídico, no caso da Lei nº 12.881, que diz que elas são universidades públicas, comunitárias, não distribuem lucro, não distribuem patrimônio, mas não são reconhecidas regularmente no marco legal do próprio Ministério da Educação.",
+            "score": 0.4136
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Governo Federal a criação de um grupo de trabalho envolvendo CAPES, INEP, SERES e o Ministério de Ciência e Tecnologia para dialogar com as universidades comunitárias sobre políticas públicas, pesquisa e formação profissional.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 28,
+            "start": 78694,
+            "end": 79123,
+            "text": "Naquele momento, foi a Deputada Maria do Rosário que fez a audiência pública — eu só fui lá de intruso — com o Ministro, e ele colocou a importância de criar um grupo de trabalho com a CAPES, o INEP, a SERES, a Secretaria de Educação Superior, com o Ministério de Ciência e Tecnologia, quem sabe, fazendo um conjunto de articulação num grupo em que todas as instituições comunitárias pudessem sentar-se com vocês, levar demandas.",
+            "score": 0.2744
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a expansão de instituições de Educação a Distância (EAD) de baixa qualidade, classificando a atuação de algumas como desleal e criminosa por iludir a juventude, e exige que o INEP e o Governo enfrentem o debate sobre a qualidade e a presença física dessas instituições.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 28,
+            "start": 80776,
+            "end": 80921,
+            "text": "Estamos discutindo a qualidade dessas instituições, a deslealdade, a criminosidade do que elas estão fazendo com os jovens, iludindo a juventude.",
+            "score": 0.2547
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que as universidades comunitárias precisam reconfigurar currículos e cursos para formar profissionais alinhados às novas demandas do mercado, citando a transição da agronomia para a biologia do solo e a previsão de que 50% dos fertilizantes serão biofertilizantes até 2030.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 0,
+            "start": 5574,
+            "end": 5634,
+            "text": "Serão da biologia do solo e não da física e química do solo.",
+            "score": 0.2821
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a memória das vítimas da COVID-19 e a justiça social como fundamento para a defesa do SUS e a crítica ao negacionismo, invocando a necessidade de \"gritar por justiça\" e de não repetir erros históricos.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 381,
+            "start": 238437,
+            "end": 238726,
+            "text": "Eu acho que nós temos que espalhar, Ministra, memórias das vítimas da COVID pelo Brasil inteiro — visitei uns Municípios belíssimos, com experiências belíssimas — para que essa memória fique gritando por justiça:“Negacionismo nunca mais!” Parabéns por essa construção e por fazer memória!",
+            "score": 0.2581
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa das universidades comunitárias no princípio de que elas não distribuem lucro nem patrimônio e transformam as regiões, considerando \"humilhante\" a falta de reconhecimento legal que obriga a instituição a provar sua natureza comunitária.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 0,
+            "start": 9459,
+            "end": 9732,
+            "text": "Não consigo, porque não há reconhecimento jurídico, no caso da Lei nº 12.881, que diz que elas são universidades públicas, comunitárias, não distribuem lucro, não distribuem patrimônio, mas não são reconhecidas regularmente no marco legal do próprio Ministério da Educação.",
+            "score": 0.2715
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a qualidade do ensino superior e a formação de cidadãos que entendam o mundo, rejeitando a precarização, a demissão de doutores e o fechamento de programas, e defendendo a potencialização das instituições em vez de sua redução.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 28,
+            "start": 79552,
+            "end": 79629,
+            "text": "É a dor de ter que precarizar, de ter que demitir doutores, fechar programas.",
+            "score": 0.1594
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se membro da bancada do Partido dos Trabalhadores e das Trabalhadoras na Câmara dos Deputados, afirmando estar alinhado com a Ministra Nísia Trindade e com a construção de políticas públicas de saúde.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 377,
+            "start": 234785,
+            "end": 234857,
+            "text": "Ministra Nísia Trindade, que dignidade a sua história, a sua trajetória!",
+            "score": 0.2817
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como catarinense, membro de uma universidade comunitária, ex-pró-reitor e Relator da Lei das Comunitárias, além de ter sido proponente de projetos de lei relacionados aos artigos 170 e 171 em Santa Catarina.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 0,
+            "start": 10322,
+            "end": 10418,
+            "text": "Sou membro de uma universidade comunitária, fui pró-reitor, fui Relator da Lei das Comunitárias.",
+            "score": 0.4082
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter ajudado a criar a Associação Vida e Justiça e declara apoio à Ministra da Saúde, oferecendo o apoio da bancada do PT.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 381,
+            "start": 238727,
+            "end": 238838,
+            "text": "Eu ajudei a criar a Associação Vida e Justiça — a Lúcia e todos nós construímos juntos muitas lutas neste País.",
+            "score": 0.2606
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza narrativas pessoais e familiares, como a morte de irmãos e a situação de uma sobrinha enfermeira durante a pandemia, para embasar argumentos sobre a gravidade da crise sanitária e a necessidade de justiça.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 377,
+            "start": 235488,
+            "end": 235563,
+            "text": "Isso é computado como morte pela COVID-19, ou não é relacionada à pandemia?",
+            "score": 0.1893
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega perguntas retóricas e provocações diretas aos representantes do governo e das instituições, como questionar a duração necessária para aprender a plantar soja ou exigir visitas presenciais a instituições de EAD para verificar sua realidade.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 0,
+            "start": 5935,
+            "end": 6010,
+            "text": "Eu precisaria de uma universidade comunitária para aprender a plantar soja?",
+            "score": 0.2562
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados setoriais e previsões de mercado, como a mudança para biofertilizantes e a contratação de biólogos em vez de engenheiros agrônomos, para sustentar a necessidade de atualização curricular nas universidades.",
+          "passage": {
+            "hearing_id": 156,
+            "turn": 0,
+            "start": 5635,
+            "end": 5750,
+            "text": "É por isso que os fazendeiros estão diminuindo a contratação de engenheiros agrônomos e estão contratando biólogos.",
+            "score": 0.3538
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de defesa ativa e de parceria, oferecendo o apoio do Parlamento e da bancada, enquanto cobra prazos e resultados concretos, como a criação de grupos de trabalho e a aprovação de marcos legais.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 126,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Democratização do uso medicinal da cannabis depende de regulamentação de associações de produtores, dizem especialistas",
+      "assunto": "Democratização do uso medicinal da cannabis e regulamentação de associações de produtores",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 156,
+      "split": "train",
+      "article_date": "2023-10-05",
+      "title": "Universidades comunitárias cobram ajustes na legislação para manter qualidade do ensino",
+      "assunto": "Ajustes na legislação para manter a qualidade do ensino em universidades comunitárias",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 3
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-156-2-0",
+      "hearing_id": 156,
+      "n": 4,
+      "article_name": "Pedro Uczai",
+      "proposition": "Defendeu a criação de um grupo de trabalho nos Ministérios da Educação; e da Ciência, Tecnologia e Inovação em busca de ações concretas.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Como o Ministério da Educação pode colocar na sua agenda de prioridades as instituições federais, os institutos e as universidades, e as universidades comunitárias nos ajudando a fazer um novo marco legal? Hoje, o Ministério da Educação, em parte, não nos reconhece.",
+        "turn": 0,
+        "start": 9099,
+        "end": 9366
+      },
+      "verifier": {
+        "probability": 0.20144887250285626,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-156-2-1",
+      "hearing_id": 156,
+      "n": 5,
+      "article_name": "Pedro Uczai",
+      "proposition": "Concorda com ajustes na lei que regulamentou as universidades comunitárias.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Pelo contrário, nós queremos potencializar as universidades comunitárias. E eu acho que, com relação à mediação daqui do Congresso nesse novo marco legal, Giovanna, realmente sentimos um pouco...",
+        "turn": 28,
+        "start": 79890,
+        "end": 80086
+      },
+      "verifier": {
+        "probability": 0.376934669420764,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-156-2-2",
+      "hearing_id": 156,
+      "n": 6,
+      "article_name": "Pedro Uczai",
+      "proposition": "\"Elas querem a oportunidade de serem ainda melhores. Elas não querem precarizar. Olha a dor de todo mundo [reitores] aqui ao ter que demitir doutores ou fechar programas. Nós queremos potencializar as universidades comunitárias com mediação do Congresso e novo marco legal.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Elas querem ter oportunidade de ser melhores ainda, elas não querem precarizar. Olhem a dor de todo mundo aqui.",
+        "turn": 28,
+        "start": 79440,
+        "end": 79551
+      },
+      "verifier": {
+        "probability": 0.35719950545708834,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "actor": {
+    "slug": "coronel-meira",
+    "name": "Coronel Meira",
+    "display_name": "Coronel Meira",
+    "role": "Deputado (PL-PE)",
+    "article_names": [
+      "Coronel Meira"
+    ],
+    "party_uf": [
+      "PL - PE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:47:56+00:00",
+    "n_statements": 21,
+    "n_hearings": 2,
+    "hearing_ids": [
+      36,
+      45
+    ],
+    "input_tokens": 8582,
+    "output_tokens": 1011,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Denuncia crime de responsabilidade contra o Ministro Paulo Teixeira, do MDA, por descumprir o prazo de 30 dias para responder ao Requerimento de Informação nº 1.097/2023 sobre a política de regularização fundiária quilombola, solicitando ao Presidente da Câmara a abertura de processo para condenação à perda do cargo e inabilitação por 8 anos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 210,
+            "start": 121969,
+            "end": 122104,
+            "text": "Ministro Luiz Paulo Teixeira Ferreira, seja condenado à perda do cargo, com inabilitação por 8 anos para o exercício da função pública.",
+            "score": 0.307
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a apuração de crimes atribuídos ao MST na CPI, requerendo a juntada de processos do Ministério Público, Tribunal de Justiça e Secretaria de Segurança Pública de Pernambuco e a convocação de Mônica Valente, Secretária Executiva do Foro de São Paulo, para esclarecer a participação do MST nesse organismo.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 210,
+            "start": 117550,
+            "end": 117779,
+            "text": "Requeri cópia de todos os processos — Ministério Público, Tribunal de Justiça, Secretaria de Segurança Pública — em Pernambuco, para juntar aos autos desta CPI e poder, com responsabilidade, convocar quem faz o MST em Pernambuco.",
+            "score": 0.4448
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a interferência do Executivo no Legislativo, citando a retirada de deputados da CPI do MST como ataque à democracia e alegando ter sido vítima dessa interferência.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 210,
+            "start": 117101,
+            "end": 117162,
+            "text": "Lamento muito a interferência do Executivo em outros Poderes.",
+            "score": 0.307
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulação econômica dos serviços de praticagem no Brasil, argumentando que, embora a regulação técnica seja \"espetacular\" e a Marinha e os profissionais sejam de excelente nível internacional, falta um consenso sobre a regulação econômica para garantir custos menores ao consumidor final.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 49,
+            "start": 100951,
+            "end": 101049,
+            "text": "A Marinha e os profissionais da praticagem também são de excelente nível, em âmbito internacional.",
+            "score": 0.4065
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a construção de um denominador comum entre as entidades envolvidas (práticos, armadores, portos, indústria) para regulamentar a praticagem, oferecendo abrir mão da relatoria se houver consenso total.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 65,
+            "start": 139124,
+            "end": 139223,
+            "text": "Se for para haver consenso, eu até abro mão da relatoria, desde que seja para o entendimento total.",
+            "score": 0.2628
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o papel da Câmara dos Deputados como fórum para resolver contendas e debater problemas sérios, rejeitando a ideia de que o trabalho legislativo seria inócuo diante de decisões judiciais.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 42,
+            "start": 85432,
+            "end": 85507,
+            "text": "Algumas falas hoje deram a entender que seria inócuo o nosso trabalho aqui.",
+            "score": 0.2192
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca o princípio dos freios e contrapesos e a competência exclusiva do Legislativo de fiscalizar o Executivo (art. 49, X, da CF/88) como fundamento para a cobrança de respostas a requerimentos de informação e para a denúncia de crime de responsabilidade.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 210,
+            "start": 120948,
+            "end": 121183,
+            "text": "O requerimento constitui uma das peças legislativas fundamentais para a concretização do sistema de freios e contrapesos, dentro da competência exclusiva do Poder Legislativo de fiscalizar os atos do Poder Executivo, nos termos do art.",
+            "score": 0.3613
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a soberania nacional e a proteção do agro como critérios para criticar organizações internacionais e redes que considera mafiosas ou terroristas, associando a atuação do MST a ameaças à democracia e à soberania.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 210,
+            "start": 118340,
+            "end": 118377,
+            "text": "—, contra a nossa soberania nacional.",
+            "score": 0.3274
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da regulação econômica da praticagem no impacto no custo da comida que chega ao prato do povo brasileiro, priorizando o alívio financeiro das famílias.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 0,
+            "start": 1081,
+            "end": 1174,
+            "text": "Mas elas precisam ter um alento quanto ao custo da comida que chega ao seu prato, à sua casa.",
+            "score": 0.3764
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a Constituição Federal como parâmetro de legitimidade, criticando o STF por \"rasgar completamente a Constituição\" e caracterizar a situação atual como \"ditadura da toga\", o que justifica a insistência no debate legislativo.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 42,
+            "start": 84995,
+            "end": 85037,
+            "text": "O STF rasgou completamente a Constituição.",
+            "score": 0.3636
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Líder e Relator na Comissão de Administração e Serviço Público, autor dos Requerimentos nºs 41, 53, 59 e 60 de 2023 que deram origem à audiência sobre praticagem.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 0,
+            "start": 2035,
+            "end": 2236,
+            "text": "Esta audiência pública está sendo realizada em face da aprovação dos Requerimentos nºs 41, 53, 59 e 60, de 2023, todos de minha autoria; o Requerimento nº 53 é subscrito pelo nobre amigo Deputado Prof.",
+            "score": 0.4006
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante do povo pernambucano, citando ter recebido 78.941 votos e se considerando o \"Deputado Federal mais barato do Brasil\" devido ao valor do mandato.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 65,
+            "start": 138193,
+            "end": 138364,
+            "text": "Então, eu posso dizer que eu sou o Deputado Federal mais barato do Brasil, se vocês dividirem o número de votos — quem gosta de fazer conta — pelo valor que nós recebemos.",
+            "score": 0.3109
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma não ter partido político na condução dos trabalhos, declarando que \"o partido aqui é o Brasil\" e que seu objetivo é honrar o voto recebido.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 42,
+            "start": 85764,
+            "end": 85823,
+            "text": "Não há partido político, há o Brasil, há o povo brasileiro.",
+            "score": 0.4321
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com o Presidente da Câmara, Arthur Lira, a quem votou para o cargo, e com o Deputado Pedro Lupion, Presidente da Frente Parlamentar da Agropecuária.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 210,
+            "start": 118715,
+            "end": 118768,
+            "text": "Presidente da Câmara Federal, o Deputado Arthur Lira.",
+            "score": 0.4942
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita amizade pessoal com o Ministro José Múcio Monteiro e com o Deputado Augusto Coutinho, Líder da bancada de Pernambuco.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 10,
+            "start": 20605,
+            "end": 20683,
+            "text": "Eu queria aqui mandar um abraço ao nobre Deputado Augusto Coutinho, que V.Exa.",
+            "score": 0.2711
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza linguagem jurídica detalhada, citando artigos específicos da Lei nº 1.079/1950, do Regimento Interno da Câmara e da Constituição Federal para sustentar denúncias e procedimentos.",
+          "passage": {
+            "hearing_id": 45,
+            "turn": 210,
+            "start": 120824,
+            "end": 120880,
+            "text": "218,caput, do Regimento Interno da Câmara dos Deputados.",
+            "score": 0.2512
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega tom emotivo e apelativo, fazendo homenagens a colegas, usando expressões como \"pura verdade\", \"jamais\" e \"pasmem V.Exas.\" para enfatizar pontos de discordância ou urgência.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota postura de facilitador e mediador nas audiências, pedindo \"espírito desarmado\" e \"união\" aos convidados, e oferecendo flexibilidade nos prazos de fala para garantir a absorção de contribuições.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 0,
+            "start": 720,
+            "end": 784,
+            "text": "Venham com espírito de união e, principalmente, de contribuição.",
+            "score": 0.2015
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos locais de Pernambuco (Porto de Galinhas, Olinda, bolo de rolo) para ilustrar o impacto econômico de políticas públicas e fortalecer a conexão com o eleitorado.",
+          "passage": {
+            "hearing_id": 36,
+            "turn": 57,
+            "start": 116525,
+            "end": 116669,
+            "text": "Quando conseguimos colocar o turista em Porto de Galinhas, em Olinda, todos ganham: Uber, a mulher que está fazendo a tapioca, toda a hotelaria.",
+            "score": 0.2014
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina a condução protocolar da sessão com posicionamentos políticos diretos, como a crítica ao STF e a defesa do agro, inserindo essas opiniões nos intervalos entre os procedimentos formais.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 36,
+      "split": "train",
+      "article_date": "2023-09-01",
+      "title": "Regulação econômica da praticagem no Brasil põe de lados opostos contratantes e profissionais",
+      "assunto": "Regulação econômica dos serviços de praticagem no Brasil",
+      "turns": 16,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 45,
+      "split": "train",
+      "article_date": "2023-08-10",
+      "title": "Governo Lula vai retomar reforma agrária, diz ministro na CPI do MST",
+      "assunto": "Retomada da reforma agrária pelo governo Lula e discussões na CPI do MST",
+      "turns": 5,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-36-2-0",
+      "hearing_id": 36,
+      "n": 5,
+      "article_name": "Coronel Meira",
+      "proposition": "Por ser uma atividade estratégica, a prática da cabotagem e sua regulamentação devem ser discutidas no Congresso Nacional: \"Esta Casa aqui é o local para discutir. O que o povo brasileiro quer é exatamente que essa Casa debata e faça com que se chegue a uma solução de problemas sérios.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acho que o povo brasileiro quer que esta Casa debata e realmente chegue à solução de problemas sérios. Não estamos contra ninguém aqui.",
+        "turn": 42,
+        "start": 85522,
+        "end": 85657
+      },
+      "verifier": {
+        "probability": 0.43077970746139993,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-45-3-0",
+      "hearing_id": 45,
+      "n": 11,
+      "article_name": "Coronel Meira",
+      "proposition": "Criticou as substituições na CPI que levaram à saída de opositores.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O Parlamento também vem sendo alvo deste desgoverno. Os Deputados que citei foram alvo desse ataque à democracia.",
+        "turn": 210,
+        "start": 117163,
+        "end": 117276
+      },
+      "verifier": {
+        "probability": 0.15080893313540178,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

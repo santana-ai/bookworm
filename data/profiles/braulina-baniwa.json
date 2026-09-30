@@ -1,0 +1,294 @@
+{
+  "actor": {
+    "slug": "braulina-baniwa",
+    "name": "BRAULINA BANIWA",
+    "display_name": "BRAULINA BANIWA",
+    "role": null,
+    "article_names": [],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:16:41+00:00",
+    "n_statements": 2,
+    "n_hearings": 2,
+    "hearing_ids": [
+      20,
+      136
+    ],
+    "input_tokens": 3022,
+    "output_tokens": 830,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 19,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a educação escolar indígena como instrumento essencial para a defesa dos direitos coletivos e dos territórios, argumentando que a capacidade técnica adquirida por meio da educação permite enfrentar atores que se opõem à presença indígena.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 19,
+            "start": 46827,
+            "end": 46903,
+            "text": "Somente pela educação continuaremos também em defesa dos nossos territórios.",
+            "score": 0.1957
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige que a educação indígena seja fortalecida por construções coletivas, valorizando a ancestralidade e o diálogo com anciãs e anciões, e que as escolas possuam estrutura, infraestrutura e material didático que dialogue com a diversidade dos povos.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 19,
+            "start": 47062,
+            "end": 47471,
+            "text": "Fazer essa construção coletiva é trazer a nossa ancestralidade, que precisa desse fortalecimento em todos os níveis, seja com nossas anciãs, seja com nossos anciões; é enfrentar esse racismo religioso que nós temos enfrentado no nosso território também; é dizer que a educação indígena precisa ser valorizada por nós; é dizer que a educação indígena precisa ser fortalecida a partir das construções coletivas.",
+            "score": 0.3486
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra a formação de qualidade para professoras e professores indígenas e o aumento do número de indígenas nas universidades.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 19,
+            "start": 47544,
+            "end": 47774,
+            "text": "Nós seguiremos na luta para que tenhamos mais indígenas nas universidades, para que as escolas tenham estrutura, infraestrutura, para que as professoras e professores tenham uma formação de qualidade, junto com as nossas crianças.",
+            "score": 0.4203
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o Projeto de Lei 4347/21 (PNGATI) por não contemplar a diversidade das realidades territoriais, incluindo territórios não demarcados e em processo de retomada, e por não garantir o protagonismo das mulheres na manutenção dos conhecimentos tradicionais.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 32162,
+            "end": 32436,
+            "text": "Temos de dialogar sobre esse PNGATI em respeito à diversidade dos povos indígenas, porque ainda há, no Brasil, os territórios não demarcados, os territórios em processo de retomada, e não há como pensar em um plano de gestão territorial da mesma forma para essas realidades.",
+            "score": 0.3177
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que o plano de gestão territorial seja implementado respeitando a diversidade dos biomas (Amazônia, Cerrado, Mata Atlântica) e dos povos, e que contemple a recuperação de solos violados e a reparação dos territórios.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 34527,
+            "end": 34721,
+            "text": "Temos que rever, mas, ao mesmo tempo, pensar na diversidade dos biomas, porque não temos só a Amazônia; nós temos o Cerrado, nós temos a Mata Atlântica, que também estão na pauta desse processo.",
+            "score": 0.3128
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o PNGATI se torne política pública permanente para garantir a proteção dos \"corpos-territórios\", a soberania alimentar e a saúde, especialmente para mulheres e meninas que sofrem violência decorrente do impacto do garimpo, como nos casos dos povos ianomâmis e mundurucus.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 34123,
+            "end": 34250,
+            "text": "Eu não preciso tocar na questão das nossas crianças ianomâmis e mundurucus, que têm sofrido violência com o impacto do garimpo.",
+            "score": 0.2832
+          },
+          "udv": null
+        },
+        {
+          "text": "Atribui responsabilidade à FUNAI e ao Ministério dos Povos Indígenas (MPI) por incluir as mulheres no processo de protagonismo, reconhecendo-as como detentoras da maior parte dos conhecimentos territoriais, desde o trabalho na roça até o cuidado doméstico.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 33679,
+            "end": 33968,
+            "text": "Eu acredito que isso traz responsabilidade tanto à FUNAI quanto ao MPI, no sentido de também colocar as mulheres nesse processo de protagonismo, porque somos detentoras da maior parte dos conhecimentos nos territórios, a partir do trabalho feito desde a roça até o cuidado em nossas casas.",
+            "score": 0.5272
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a ancestralidade e a diversidade como fundamentos para a educação e a gestão territorial, argumentando que a valorização desses elementos é necessária para a continuidade das futuras gerações e a defesa dos direitos.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 19,
+            "start": 46640,
+            "end": 46826,
+            "text": "Eu acredito nessa importância e na continuação das futuras gerações, porque somente através da educação poderemos continuar defendendo nossos direitos coletivos enquanto povos indígenas.",
+            "score": 0.1941
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a noção de \"bem viver\" e \"plano de vida\" como critérios para a gestão ambiental e territorial, conectando a proteção do território à saúde, à soberania alimentar e ao cuidado com os corpos.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 32936,
+            "end": 33305,
+            "text": "Acredito que, em nosso processo contemporâneo, como povos indígenas, precisamos também pensar nesse plano de vida, nesse plano de bem viver, que traz para a nossa realidade a proteção dos corpos-territórios, porque a soberania alimentar está dialogada no plano de gestão.O cuidado do corpo-território que dialoga com saúde também está nesse processo do plano de gestão.",
+            "score": 0.488
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da participação feminina na gestão territorial no argumento de que as mulheres são as principais guardiãs dos conhecimentos tradicionais e do trabalho produtivo e reprodutivo nos territórios.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Justifica a necessidade de um plano de gestão diferenciado pela existência de violações históricas e atuais, como o garimpo, que afetam desproporcionalmente mulheres e crianças indígenas.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante da Articulação Nacional das Mulheres Indígenas.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 34722,
+            "end": 34834,
+            "text": "Pela Articulação, sempre temos afirmado que as mulheres indígenas e os povos indígenas estão em todos os biomas.",
+            "score": 0.3079
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar em luta pela potencialização e visibilidade da educação escolar indígena há mais de três décadas.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 19,
+            "start": 46167,
+            "end": 46426,
+            "text": "Estamos nessa luta já, eu acho, há mais de 3 décadas, nessa potencialidade e visibilidade da educação escolar indígena.Quero saudar todas as mulheres professoras presentes, que têm dedicado sua vida a lutar por essa educação que reconhece a nossa diversidade.",
+            "score": 0.3767
+          },
+          "udv": null
+        },
+        {
+          "text": "Manifesta apoio ao processo de construção coletiva que conecta o território, o mundo e a universidade.",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 19,
+            "start": 46428,
+            "end": 46639,
+            "text": "Pela nossa Articulação Nacional das Mulheres, quero aqui manifestar nosso apoio a todo esse processo de construção coletiva, que vem desde o chão do território para o chão do mundo e para o chão da universidade.",
+            "score": 0.4795
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o diálogo com a COIAB e a APIB, e menciona a atuação do MPI na escuta de povos em processo de demarcação.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 32694,
+            "end": 32841,
+            "text": "O MPI também está nesse processo de realizar a escuta, não só de quem tem o território demarcado, mas de quem ainda está em processo de demarcação.",
+            "score": 0.3795
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a linguagem de parentesco (\"parente\", \"parentíssima\", \"relações\") para estabelecer conexão e solidariedade com os interlocutores e outros povos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega perguntas retóricas para questionar a adequação das políticas públicas à realidade indígena, como \"Que plano é esse?\" e \"Esse plano atende a essas meninas e mulheres?\".",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 34251,
+            "end": 34327,
+            "text": "Esse plano atende a essas meninas e mulheres que têm sofrido essa violência?",
+            "score": 0.3557
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos de violência (garimpo, impacto em crianças ianomâmis e mundurucus) para ilustrar a urgência da proteção territorial e da saúde.",
+          "passage": {
+            "hearing_id": 136,
+            "turn": 13,
+            "start": 34123,
+            "end": 34250,
+            "text": "Eu não preciso tocar na questão das nossas crianças ianomâmis e mundurucus, que têm sofrido violência com o impacto do garimpo.",
+            "score": 0.4333
+          },
+          "udv": null
+        },
+        {
+          "text": "Repete a ideia de que a educação e a gestão territorial são indissociáveis da defesa dos direitos e da continuidade dos povos, conectando passado (luta de décadas) e futuro (gerações futuras).",
+          "passage": {
+            "hearing_id": 20,
+            "turn": 19,
+            "start": 46640,
+            "end": 46826,
+            "text": "Eu acredito nessa importância e na continuação das futuras gerações, porque somente através da educação poderemos continuar defendendo nossos direitos coletivos enquanto povos indígenas.",
+            "score": 0.2166
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 20,
+      "split": "train",
+      "article_date": "2023-04-27",
+      "title": "Debatedores defendem união de povos originários e tradicionais para evitar perda de direitos",
+      "assunto": "União de povos originários e tradicionais para evitar perda de direitos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 136,
+      "split": "train",
+      "article_date": "2023-11-09",
+      "title": "Lideranças indígenas pedem aprovação de lei para política de gestão territorial",
+      "assunto": "Aprovação do Projeto de Lei 4347/21 para tornar permanente a Política Nacional de Gestão Territorial e Ambiental das Terras Indígenas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "actor": {
+    "slug": "bohn-gass",
+    "name": "BOHN GASS",
+    "display_name": "Bohn Gass",
+    "role": "Deputado (PT-RS)",
+    "article_names": [
+      "Bohn Gass"
+    ],
+    "party_uf": [
+      "Bloco/PT - RS"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T02:15:36+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      171,
+      199
+    ],
+    "input_tokens": 2438,
+    "output_tokens": 668,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 17,
+    "with_udv": 0,
+    "passage_only": 13,
+    "without_evidence": 4
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a vacinação e a ciência, citando levantamento segundo o qual houve 700 mil mortes no Brasil, e afirma que essas pessoas estariam vivas se tivessem tomado a vacina.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 185892,
+            "end": 185970,
+            "text": "Se eles tivessem tomado a vacina, estariam vivos, estariam no meio da família.",
+            "score": 0.3611
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o governo anterior por negar a ciência, minimizar a gravidade da doença (chamando-a de \"gripezinha\") e prever um número baixo de mortes (20, 30 ou 40), alegando que isso foi feito \"em nome da ciência\".",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 186152,
+            "end": 186186,
+            "text": "E falavam isso em nome da ciência.",
+            "score": 0.2443
+          },
+          "udv": null
+        },
+        {
+          "text": "Acusa o ex-presidente Bolsonaro de superfaturar e cometer corrupção na compra de vacinas, afirmando que a compra era feita para obter propina e que foi necessária uma CPI para apurar os fatos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 186356,
+            "end": 186472,
+            "text": "A única coisa que Bolsonaro ainda conseguiu fazer foi superfaturar, fazer corrupção na compra de vacinas no Governo.",
+            "score": 0.3645
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica pais que, por ideologia, preferiram \"fazer arminha\" em vez de vacinar os filhos nas escolas, classificando a atitude como absurdo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 186594,
+            "end": 186781,
+            "text": "Ministra Nísia, quando o Zé Gotinha voltou, queríamos trabalhar a educação, mas havia pais que ideologicamente preferiam fazer arminha em vez de dar uma vacina para os filhos nas escolas.",
+            "score": 0.3303
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia a fraude na documentação de viagem do ex-presidente e de seu ajudante, descrevendo o episódio como vergonhoso para o País.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 186975,
+            "end": 187014,
+            "text": "Seu ajudante fazia manipulação, fraude.",
+            "score": 0.2684
+          },
+          "udv": null
+        },
+        {
+          "text": "Parabeniza a Ministra Nísia Trindade pela PEC da Transição, pela instalação de um hospital de campanha no Rio Grande do Sul e pelo apoio do SUS ao estado durante a enchente.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 187355,
+            "end": 187497,
+            "text": "fez referência a isso —, e, fundamentalmente, pelo apoio que agora tem dado ao Rio Grande do Sul, com a instalação de um hospital de campanha.",
+            "score": 0.4462
+          },
+          "udv": null
+        },
+        {
+          "text": "Elogia a postura da equipe da Ministra Nísia por dar explicações com tranquilidade e respeito à ciência.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 185456,
+            "end": 185606,
+            "text": "Nobre Presidente, eu quero parabenizar a equipe da Ministra Nísia, que comparece aqui e dá explicações com toda tranquilidade e em respeito à ciência.",
+            "score": 0.5619
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a ciência como fundamento para justificar a defesa da vacinação e a crítica ao negacionismo, opondo-a às declarações do governo anterior que minimizaram a doença.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Valoriza a vida em oposição às mortes, justificando a crítica ao passado e o apoio ao governo atual com a premissa de que o foco deve ser a preservação da vida e não a negação da gravidade da situação.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 187733,
+            "end": 187873,
+            "text": "Parabéns, Ministra, que está pensando no povo, e não nas mortes, pensando em vida, e não em mortes, como era no passado, com o negacionismo.",
+            "score": 0.2375
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a proteção do SUS como critério para defender o apoio federal a estados em situação de emergência, afirmando que quem negava o SUS não daria essa ajuda.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 187572,
+            "end": 187686,
+            "text": "esteve lá, dizendo ao Rio Grande do Sul que ele tem a ajuda do SUS, porque quem negava o SUS não daria essa ajuda.",
+            "score": 0.4259
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara apoio à Ministra Nísia Trindade e ao governo atual, parabenizando a equipe e a atuação do Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 185456,
+            "end": 185606,
+            "text": "Nobre Presidente, eu quero parabenizar a equipe da Ministra Nísia, que comparece aqui e dá explicações com toda tranquilidade e em respeito à ciência.",
+            "score": 0.2021
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se em oposição ao governo anterior, criticando diretamente o ex-presidente Bolsonaro e seus auxiliares.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 142,
+            "start": 82515,
+            "end": 82540,
+            "text": "Presidente, o que é isso?",
+            "score": 0.2423
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter votado a favor da PEC da Transição.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 187250,
+            "end": 187354,
+            "text": "Como meu tempo está acabando, concluo, parabenizando-a pela PEC da Transição, que nós votamos — e V.Exa.",
+            "score": 0.2524
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados quantitativos (700 mil mortes, 20 a 40 mortes previstas) para sustentar a crítica ao negacionismo e a defesa da vacinação.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 262,
+            "start": 186299,
+            "end": 186327,
+            "text": "Gente, houve 700 mil mortes!",
+            "score": 0.3211
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a exemplos concretos e emocionais (mães, esposas, filhos que perderam entes queridos) para ilustrar o impacto das mortes.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emocional e acusatória ao descrever o governo anterior, utilizando termos como \"vergonha\", \"nojenta\", \"fraude\" e \"corrupção\".",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Contrasta a atuação do governo atual (respeito à ciência, apoio ao SUS) com a do governo anterior (negacionismo, corrupção) para justificar suas posições.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 106,
+      "split": "test",
+      "article_date": "2024-04-11",
+      "title": "Governo sinaliza mudanças no seguro rural para atender produtores de várias culturas",
+      "assunto": "Mudanças no seguro rural do Proagro para atender produtores de várias culturas",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 115,
+      "split": "test",
+      "article_date": "2024-03-05",
+      "title": "Colapso climático já começou e exige medidas urgentes, dizem cientistas na Câmara",
+      "assunto": "Colapso climático e medidas urgentes para enfrentá-lo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 122,
+      "split": "validation",
+      "article_date": "2023-12-06",
+      "title": "Ministro da Agricultura diz que negocia com equipe econômica mais R$ 500 mi para seguro rural",
+      "assunto": "Negociação de recursos adicionais para o seguro rural e apoio à cadeia de leite",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 124,
+      "split": "validation",
+      "article_date": "2023-12-05",
+      "title": "Presidente do Incra afirma que política de regularização de terras não será paralisada",
+      "assunto": "Política de regularização fundiária de terras públicas na Amazônia Legal",
+      "turns": 15,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-124-2-0",
+      "hearing_id": 124,
+      "n": 7,
+      "article_name": "Bohn Gass",
+      "proposition": "O decreto corrigiu distorções no processo de regularização fundiária, que não será afetado.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quero apenas para reafirmar que o decreto foi feito para adequar a lei, que, no meu entendimento, tinha uma grande lacuna. Queríamos fazer a regularização, a titulação, mas não observávamos se havia embargos estaduais ambientais.",
+        "turn": 112,
+        "start": 54490,
+        "end": 54719
+      },
+      "verifier": {
+        "probability": 0.17916259152253594,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-124-2-1",
+      "hearing_id": 124,
+      "n": 8,
+      "article_name": "Bohn Gass",
+      "proposition": "Criticou quem defende a regularização de áreas em florestas públicas: \"Estamos com a COP [Conferência das Nações Unidas para Mudanças Climáticas] no mundo, estamos com uma crise climática, e parece que tem pessoas que não acordaram ainda. A regulação fundiária ela tem que ser dada para quem está dentro da lei, e não fora da lei.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Está acontecendo a COP neste momento, nós vivemos uma crise climática, e parece que algumas pessoas não acordaram ainda. Querem destruir floresta, meter veneno, fazer grilagem e um monte de coisas que não têm a ver com a sustentabilidade que nós queremos.",
+        "turn": 106,
+        "start": 47313,
+        "end": 47568
+      },
+      "verifier": {
+        "probability": 0.917745389639654,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

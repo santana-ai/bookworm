@@ -1,0 +1,360 @@
+{
+  "actor": {
+    "slug": "angela-amin",
+    "name": "Angela Amin",
+    "display_name": "Angela Amin",
+    "role": "Deputada (PP-SC)",
+    "article_names": [
+      "Angela Amin"
+    ],
+    "party_uf": [
+      "PP - SC"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:55:35+00:00",
+    "n_statements": 6,
+    "n_hearings": 2,
+    "hearing_ids": [
+      88,
+      92
+    ],
+    "input_tokens": 4418,
+    "output_tokens": 867,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 1,
+    "passage_only": 17,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação da Política Nacional de Educação Digital, citando-a como a marca do seu mandato atual e argumentando que o avanço na área de ciência depende de crianças e estudantes preparados para o novo mundo do trabalho.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 67894,
+            "end": 67978,
+            "text": "Neste mandato, a nossa marca é a aprovação da Política Nacional de Educação Digital.",
+            "score": 0.468
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a conciliação dos trabalhos do projeto de lei da educação profissional com o seu projeto de lei sobre a Política Nacional de Educação Digital, visando um trabalho convergente para preparar o cidadão brasileiro para o novo mundo do trabalho.",
+          "passage": {
+            "hearing_id": 92,
+            "turn": 19,
+            "start": 59904,
+            "end": 60233,
+            "text": "Eu tenho inclusive umpaperpreparado, Deputado Rigoni, no sentido de que nós possamos conciliar os trabalhos deste projeto de lei da educação profissional e do meu projeto de lei, que trata da Política Nacional de Educação Digital, para que façamos um trabalho convergente, de forma que realmente o resultado venha a ser positivo.",
+            "score": 0.4653
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a destinação de percentual dos recursos da produção de óleo e gás para projetos de pesquisa e desenvolvimento, criticando o redirecionamento desses recursos para o desmonte e sucateamento de caminhões, conforme a Medida Provisória nº 1.112, de 2022.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 0,
+            "start": 135,
+            "end": 527,
+            "text": "Declaro aberta a presente reunião de audiência pública da Comissão de Ciência e Tecnologia, Comunicação e Informática, convocada com o objetivo de discutir a destinação de percentual dos recursos da produção de óleo e gás para projetos de pesquisa e desenvolvimento que estão sendo redirecionados ao desmonte e sucateamento de caminhões, conforme texto da Medida Provisória nº 1.112, de 2022.",
+            "score": 0.6315
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera o descongestionamento dos recursos do FUST e da FNDC um passo importante dado pela Câmara para o fomento à ciência e tecnologia.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 12,
+            "start": 50684,
+            "end": 50792,
+            "text": "Eu acho que a Câmara já deu um importante passo, que é o descongestionamento dos recursos do FUST e da FNDC.",
+            "score": 0.6644
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a valorização da ciência, da pesquisa e do aumento do valor das bolsas de estudo, comprometendo-se a acompanhar a discussão do Orçamento da União e a interagir com o Ministério da Ciência e Tecnologia.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 12,
+            "start": 50124,
+            "end": 50249,
+            "text": "Agora no início, começa a discussão do Orçamento da União, para que possamos valorizar a importância da ciência, da pesquisa.",
+            "score": 0.3282
+          },
+          "udv": {
+            "id": "udv-88-3-1",
+            "rule": "same_sentence",
+            "score": 0.3911
+          }
+        },
+        {
+          "text": "Propõe a transformação do papel do professor na rede pública de ensino, que deve deixar de ser apenas um transmissor de conteúdo para se tornar um indutor na busca do conhecimento, eliminando a estrutura hierárquica tradicional das salas de aula.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 68381,
+            "end": 68481,
+            "text": "Então, o professor tem que sair do patamar de professor para ser o indutor na busca do conhecimento.",
+            "score": 0.3105
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a aprovação de um projeto de lei sobre cidades inteligentes, em conjunto com a Comissão que trabalhou o tema em 2019, e a realização de um painel sobre gestão inteligente em cidades digitais.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 70457,
+            "end": 70612,
+            "text": "Só para lembrá-los: nós temos um projeto de lei em conjunto com uma Comissão que trabalhou esse tema da Política Nacional de Cidades Inteligentes, em 2019.",
+            "score": 0.5536
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a preparação da base educacional como fundamento para o desenvolvimento científico e tecnológico do País, argumentando que painéis sobre gestão inteligente e avanços em ciência não terão eficácia se o cidadão não estiver preparado desde a infância.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 69569,
+            "end": 69696,
+            "text": "O painelGestão inteligente em cidades digitaise nada disso vai adiantar se não tivermos desde a base o nosso cidadão preparado.",
+            "score": 0.2607
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de adaptação ao \"novo mundo do trabalho\" como critério para a definição de políticas públicas de educação e tecnologia, justificando a urgência da legislação digital e da educação profissional.",
+          "passage": {
+            "hearing_id": 92,
+            "turn": 29,
+            "start": 67858,
+            "end": 67989,
+            "text": "É importante que evoluamos na definição de políticas e de ações voltadas a dar oportunidade ao jovem para o novo mundo do trabalho.",
+            "score": 0.2852
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia-se na experiência pessoal e acadêmica, incluindo a formação na Universidade Federal de Santa Catarina e a atuação como relatora da Lei de Diretrizes e Bases da Educação Nacional, para fundamentar suas posições sobre educação e ciência.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 67375,
+            "end": 67522,
+            "text": "No meu primeiro mandato de Deputada Federal, eu tive a oportunidade de ser o Relatora nesta Casa da Lei de Diretrizes e Bases da Educação Nacional.",
+            "score": 0.3629
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Vice-Presidente da Comissão de Ciência e Tecnologia, Comunicação e Informática.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 12,
+            "start": 50481,
+            "end": 50683,
+            "text": "Como eu sou Vice-Presidente, esses assuntos têm sido discutidos semanalmente pela Mesa desta Comissão e está no nosso radar em termos de trabalho e de interação com o Ministério da Ciência e Tecnologia.",
+            "score": 0.3085
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como representante de Florianópolis, Santa Catarina, e menciona a experiência local na elaboração da Política Nacional de Mobilidade Urbana.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 67749,
+            "end": 67892,
+            "text": "No segundo mandato, eu trabalhei aqui a Política Nacional de Mobilidade Urbana, trazendo a experiência de Florianópolis e a surra que levei lá.",
+            "score": 0.3983
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter sido relatora da Lei de Diretrizes e Bases da Educação Nacional em seu primeiro mandato como Deputada Federal.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 67375,
+            "end": 67522,
+            "text": "No meu primeiro mandato de Deputada Federal, eu tive a oportunidade de ser o Relatora nesta Casa da Lei de Diretrizes e Bases da Educação Nacional.",
+            "score": 0.7199
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com o trabalho da Frente Parlamentar Mista de Inteligência Artificial e com a Comissão que trabalhou a Política Nacional de Cidades Inteligentes.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 70457,
+            "end": 70612,
+            "text": "Só para lembrá-los: nós temos um projeto de lei em conjunto com uma Comissão que trabalhou esse tema da Política Nacional de Cidades Inteligentes, em 2019.",
+            "score": 0.3387
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona a participação no movimento nacional que trabalhou para incluir um capítulo específico na Constituição para a criança, e o prosseguimento dessa discussão com o Estatuto da Criança e do Adolescente.",
+          "passage": {
+            "hearing_id": 92,
+            "turn": 29,
+            "start": 67313,
+            "end": 67441,
+            "text": "Eu fiz parte do movimento nacional que trabalhou para incluir um capítulo específico na Constituição, na época da sua discussão.",
+            "score": 0.5524
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza analogias e exemplos concretos da realidade escolar, como a comparação entre a sala de aula tradicional com \"patamar\" e quadro negro e a necessidade de transformação para o professor ser indutor do conhecimento.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 30,
+            "start": 68381,
+            "end": 68481,
+            "text": "Então, o professor tem que sair do patamar de professor para ser o indutor na busca do conhecimento.",
+            "score": 0.3299
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a dados de interações institucionais recentes, como audiências públicas com ministros e reuniões da Mesa da Comissão, para demonstrar o andamento dos trabalhos e o comprometimento com os temas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de colaboração e parceria, utilizando expressões como \"contem conosco\", \"trabalho conjunto\" e \"parceiros\", e elogia os convidados e colegas parlamentares.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 0,
+            "start": 42,
+            "end": 133,
+            "text": "Eu gostaria de cumprimentar todos os Parlamentares e os nossos convidados que estãoon-line.",
+            "score": 0.1716
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a própria atuação legislativa passada (LDB, Mobilidade Urbana) e presente (Educação Digital) como credencial para defender suas propostas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza referências pessoais e familiares, como a ligação com a Universidade Federal de Santa Catarina e o neto do convidado, para criar proximidade com os interlocutores.",
+          "passage": {
+            "hearing_id": 88,
+            "turn": 28,
+            "start": 64022,
+            "end": 64186,
+            "text": "Eu gostaria de registrar que, quando eu fiz a minha graduação, na Universidade Federal de Santa Catarina, o reitor era uma grande figura que deixou a sua marca, Dr.",
+            "score": 0.2145
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 88,
+      "split": "train",
+      "article_date": "2022-05-26",
+      "title": "Pesquisadores temem que aprovação de medida provisória reduza investimentos em pesquisa e inovação",
+      "assunto": "Impacto da Medida Provisória 1112/22 no financiamento de pesquisa e inovação no Brasil",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 92,
+      "split": "train",
+      "article_date": "2022-04-12",
+      "title": "Especialistas defendem que Estatuto do Aprendiz seja focado em adolescentes",
+      "assunto": "Defesa do foco do Estatuto do Aprendiz em adolescentes de 14 a 18 anos",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-88-3-0",
+      "hearing_id": 88,
+      "n": 11,
+      "article_name": "Angela Amin",
+      "proposition": "A comissão vai buscar fontes de recursos necessários para o aumento do valor das bolsas e o fomento em PD&I.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "E a Comissão ficou responsável por ajudar principalmente nos recursos necessários para o aumento do valor das bolsas e automaticamente o fomento. Com essa interação do Ministério com a Comissão, vamos acompanhar de perto todo esse desenrolar.",
+        "turn": 12,
+        "start": 49880,
+        "end": 50123
+      },
+      "verifier": {
+        "probability": 0.6916526897647314,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-88-3-1",
+      "hearing_id": 88,
+      "n": 12,
+      "article_name": "Angela Amin",
+      "proposition": "\"Nós vamos acompanhar de perto todo esse desenrolar da discussão do orçamento da União para que nós possamos valorizar a importância da ciência e da pesquisa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Com essa interação do Ministério com a Comissão, vamos acompanhar de perto todo esse desenrolar. Agora no início, começa a discussão do Orçamento da União, para que possamos valorizar a importância da ciência, da pesquisa.",
+        "turn": 12,
+        "start": 50027,
+        "end": 50249
+      },
+      "verifier": {
+        "probability": 0.9925200947903443,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

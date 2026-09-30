@@ -1,0 +1,349 @@
+{
+  "actor": {
+    "slug": "soraya-santos",
+    "name": "Soraya Santos",
+    "display_name": "Soraya Santos",
+    "role": "Deputada e presidente da Comissão",
+    "article_names": [
+      "Soraya Santos"
+    ],
+    "party_uf": [
+      "PL - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:56:54+00:00",
+    "n_statements": 18,
+    "n_hearings": 3,
+    "hearing_ids": [
+      50,
+      58,
+      166
+    ],
+    "input_tokens": 8178,
+    "output_tokens": 788,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 16,
+    "without_evidence": 5
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a maior forma de violência obstétrica é a falta de informação que impede a mulher de tomar decisões sobre o próprio corpo, argumentando que a mulher deve conhecer as opções disponíveis antes de qualquer intercorrência médica.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 11,
+            "start": 25947,
+            "end": 26096,
+            "text": "Na minha opinião, que todo mundo já conhece, a maior violência que se comete nesse aspecto é deixar a mulher sem informação para tomar a sua decisão.",
+            "score": 0.2541
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ausência de vínculo entre a gestante e o profissional de saúde, apontando que a troca de plantonistas gera insegurança e falta de preparo no momento do parto.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de protocolos de pré-natal que incluam a reserva de leitos (estimando 80% de previsibilidade para pacientes vinculadas) e a obrigatoriedade de educação em saúde durante a gestação.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 50,
+            "start": 79909,
+            "end": 80143,
+            "text": "No caso da gestação, todo mundo sabe que são 40 semanas em média, então existe, por exemplo, a possibilidade de haver um protocolo com a previsibilidade de 80% dos leitos para aquela mulher que está fazendo o pré-natal, como estímulo.",
+            "score": 0.3021
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a regulamentação e implementação da lei do planejamento familiar, classificando-a como uma correção de injustiça social que beneficia mulheres de baixa renda.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 11,
+            "start": 26576,
+            "end": 26859,
+            "text": "A Deputada Carmen já sabe e eu já compartilhei aqui com os nossos pares que essa lei do planejamento familiar, que faz uma correção social, uma lei que dependia de regulamentação do Ministério, nós não esperávamos, e foi o nosso presente para as mulheres do Estado do Rio de Janeiro.",
+            "score": 0.3928
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige a retirada do FUNDEB do arcabouço fiscal, classificando a inclusão do fundo como uma \"punhalada\" e um retrocesso, apesar de defender a responsabilidade fiscal.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 3,
+            "start": 14031,
+            "end": 14172,
+            "text": "Colocar o FUNDEB dentro do arcabouço fiscal foi uma punhalada, e nenhum partido pôde fazer requerimento de destaque para defender a retirada.",
+            "score": 0.4246
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o investimento em ciência e tecnologia para a saúde, citando que apenas 14% das pesquisas feitas no Brasil se transformam em inovações tecnológicas.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 3,
+            "start": 15095,
+            "end": 15209,
+            "text": "Pasme: dos 64% de pesquisas feitas no Brasil, só 14% viraram tecnologias e inovações em benefício do próprio País.",
+            "score": 0.3575
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o uso da telemedicina e tecnologias de reabilitação à distância para levar serviços de saúde a regiões remotas, como o Maranhão.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 3,
+            "start": 16571,
+            "end": 16729,
+            "text": "Vamos pensar nos rincões deste Brasil, no Maranhão, por exemplo: imaginem uma pessoa que não tem acesso à reabilitação poder fazer a reabilitação à distância.",
+            "score": 0.2931
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a falta de privacidade e dignidade nas salas de parto, questionando a humanidade de ter múltiplas gestantes e acompanhantes em espaços compartilhados.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a autonomia da mulher na tomada de decisões sobre a saúde reprodutiva, baseando-se na premissa de que a informação é pré-requisito para a escolha.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza a desigualdade social como critério para avaliar políticas de saúde, argumentando que a mortalidade materna e a violência obstétrica atingem desproporcionalmente mulheres negras, indígenas e de baixa renda.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 77,
+            "start": 96528,
+            "end": 96633,
+            "text": "A próxima reunião vai tratar da importância do conceito de violência obstétrica na proteção das mulheres.",
+            "score": 0.1554
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o desenvolvimento do país depende do investimento em educação e ciência, utilizando o FUNDEB como exemplo de conquista que minimizou a desigualdade educacional.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 3,
+            "start": 13908,
+            "end": 14030,
+            "text": "O FUNDEB foi uma conquista do Parlamento brasileiro, que minimizou a desigualdade educacional em todo o Brasil desde 1994.",
+            "score": 0.4151
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza a regionalização das políticas de saúde, argumentando que as especificidades locais e os protocolos estaduais são necessários para o aprimoramento do atendimento.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 19,
+            "start": 45409,
+            "end": 45508,
+            "text": "Pode estar certo de que vamos levar em conta essa regionalização, as especificidades de cada lugar.",
+            "score": 0.2126
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se relatora de matéria sobre planejamento familiar e representante do Estado do Rio de Janeiro em discussões sobre saúde.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 11,
+            "start": 26576,
+            "end": 26859,
+            "text": "A Deputada Carmen já sabe e eu já compartilhei aqui com os nossos pares que essa lei do planejamento familiar, que faz uma correção social, uma lei que dependia de regulamentação do Ministério, nós não esperávamos, e foi o nosso presente para as mulheres do Estado do Rio de Janeiro.",
+            "score": 0.2329
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma pertencer à Comissão de Ciência, Tecnologia e Inovação, à CCJ e à Comissão de Trabalho.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 3,
+            "start": 14719,
+            "end": 14988,
+            "text": "Vou aproveitar para dizer que esta Comissão, a Comissão de Ciência, Tecnologia e Inovação desta Casa, Deputado Cleber Verde, vem significativamente premiando as pessoas, as pesquisas que muitas vezes ficam esquecidas — todos os anos premiam-se pesquisadoras deste País.",
+            "score": 0.2553
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com a defesa da responsabilidade fiscal, mas em oposição a cortes que afetem o FUNDEB.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 3,
+            "start": 14494,
+            "end": 14568,
+            "text": "Responsabilidade fiscal, mas sem retrocesso em relação ao que já ganhamos.",
+            "score": 0.2191
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a Deputada Carmen Zanotto e o Deputado Luizinho como aliados na implementação de protocolos de saúde no Rio de Janeiro e Santa Catarina.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 32,
+            "start": 63937,
+            "end": 64081,
+            "text": "A Deputada Carmen Zanotto, Secretária do Estado de Santa Catarina, vai ter uma audiência agora com o Governador, no Palácio, sobre a enfermagem.",
+            "score": 0.3696
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos e exemplos concretos de estados (Rio de Janeiro, Santa Catarina, Bahia, Roraima, Distrito Federal) para fundamentar propostas de protocolo.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 77,
+            "start": 94786,
+            "end": 95210,
+            "text": "Eu encerro esta primeira fase de audiência pública agradecendo a todas as pessoas que contribuíram, como a Carmen Zanotto, representando a Secretaria do Estado de Santa Catarina; o Luiz Antonio, representando o Estado do Rio de Janeiro; o Edson, que é Secretário-Adjunto do Estado de Roraima; o João Rocha Vilela, representando a Secretaria do Distrito Federal; e a Secretária da Bahia, que mandou sua assessora, a Clarissa.",
+            "score": 0.2659
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emocional e metafórica (\"punhalada\", \"desabafar meu coração\", \"Brasil tem jeito\") para reforçar posições sobre educação e saúde.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 3,
+            "start": 14614,
+            "end": 14694,
+            "text": "Se falamos que queremos um Brasil desenvolvido, temos que começar pela educação.",
+            "score": 0.1583
+          },
+          "udv": null
+        },
+        {
+          "text": "Interage diretamente com os convidados, fazendo perguntas específicas sobre protocolos, vinculação e reserva de leitos, e solicitando gravações quando há problemas técnicos.",
+          "passage": {
+            "hearing_id": 58,
+            "turn": 13,
+            "start": 38589,
+            "end": 38680,
+            "text": "Quais são os protocolos que podemos fazer para minimizar os problemas e ajudar lá na ponta?",
+            "score": 0.1696
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita comentários de internautas no YouTube como fonte de demandas e reflexões para o debate da comissão.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Combina a condução protocolar da sessão com a inserção de pautas políticas externas, como a votação do arcabouço fiscal, utilizando o espaço da comissão para registrar posicionamentos partidários e de bancada.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 50,
+      "split": "train",
+      "article_date": "2023-05-26",
+      "title": "Especialistas defendem atualização de protocolos de tratamento para aids e hepatites virais",
+      "assunto": "Atualização de protocolos de tratamento para HIV/aids e hepatites virais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 58,
+      "split": "train",
+      "article_date": "2023-04-19",
+      "title": "Debatedores dizem que mulheres negras e pobres são maiores vítimas violência obstétrica",
+      "assunto": "Violência obstétrica e morte materna, com foco nas mulheres negras, indígenas e de baixa renda",
+      "turns": 16,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 130,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Representantes do audiovisual sugerem a deputados medidas para estimular o setor",
+      "assunto": "Medidas sugeridas por representantes do setor audiovisual brasileiro para enfrentar a concorrência do cinema e do streaming norte-americanos",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 166,
+      "split": "train",
+      "article_date": "2023-09-20",
+      "title": "Especialistas defendem uso de tecnologia blockchain no serviço público",
+      "assunto": "Uso da tecnologia blockchain no serviço público",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-58-2-0",
+      "hearing_id": 58,
+      "n": 5,
+      "article_name": "Soraya Santos",
+      "proposition": "As gestantes precisam primeiramente de informação: \"O primeiro ponto de violência é justamente a mulher desconhecer todos esses problemas. É ela não ter durante todo o protocolo de atendimento alguém para dizer se é melhor o parto ou a cesárea, quais são os riscos de um e de outro.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "João, na esteira do que você está colocando, o Secretário Luizinho abre dizendo que o primeiro ponto de violência é justamente a mulher desconhecer todos esses problemas.",
+        "turn": 48,
+        "start": 78990,
+        "end": 79160
+      },
+      "verifier": {
+        "probability": 0.16429273345674958,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

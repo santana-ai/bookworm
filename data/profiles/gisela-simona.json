@@ -1,0 +1,424 @@
+{
+  "actor": {
+    "slug": "gisela-simona",
+    "name": "Gisela Simona",
+    "display_name": "Gisela Simona",
+    "role": "Deputada (União-MT)",
+    "article_names": [
+      "Gisela Simona"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - MT"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:52:57+00:00",
+    "n_statements": 15,
+    "n_hearings": 3,
+    "hearing_ids": [
+      143,
+      157,
+      182
+    ],
+    "input_tokens": 7710,
+    "output_tokens": 1089,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 2,
+    "passage_only": 18,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a regulação dos planos de saúde coletivos pela ANS, argumentando que o modelo vigente é falho e que 80% dos consumidores não possuem regulação adequada por estarem nesse segmento.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 56,
+            "start": 109514,
+            "end": 109660,
+            "text": "Algo que ficou claro aqui também é que hoje 80% dos consumidores de plano de saúde não estão tendo uma regulação do plano porque é plano coletivo.",
+            "score": 0.2508
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a concentração de mercado de operadoras de saúde, citando especificamente o caso de Mato Grosso, onde afirma que praticamente só existe a UNIMED, e cobra da ANS iniciativas para lidar com essa concentração.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 56,
+            "start": 109967,
+            "end": 110202,
+            "text": "Precisamos saber o que a ANS está fazendo com essa questão da grande concentração de mercado em mãos de uma única operadora, como é o caso de Mato Grosso, Estado onde praticamente nós só temos a UNIMED como operadora de plano de saúde.",
+            "score": 0.4213
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera o reajuste de planos de saúde \"extraordinário\" e injusto, pois o consumidor pode sofrer três reajustes por ano (anual, por faixa etária e por sinistralidade), diferentemente do salário, e critica a aplicação de critérios como variação de custos assistenciais além do IPCA.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 56,
+            "start": 108254,
+            "end": 108732,
+            "text": "Está muito claro aqui, Presidente, que o reajuste de plano de saúde, além de complexo, é algo que acontece de extraordinário em nosso País, porque nós temos aqui um cidadão que pode ter três reajustes por ano: o reajuste anual do plano de saúde; o reajuste que pode acontecer por faixa etária, se ele tiver a mudança de faixa etária; e o reajuste por sinistralidade, que pode acontecer para o equilíbrio econômico do contrato, que muitas vezes também pega o cidadão de surpresa.",
+            "score": 0.4216
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a extinção do cartão de crédito consignado, afirmando que o produto contraria frontalmente o art. 52 da Lei nº 8.078, de 1990, por não ter prazo para terminar de pagar, e que gera lucro apenas aos bancos.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 78979,
+            "end": 79091,
+            "text": "52 da Lei nº 8.078, de 1990, porque não há prazo para se terminar de pagar, só há prazo para se iniciar a pagar.",
+            "score": 0.526
+          },
+          "udv": {
+            "id": "udv-143-3-1",
+            "rule": "similar_text",
+            "score": 0.3233
+          }
+        },
+        {
+          "text": "Exige que os bancos tomem medidas proativas de informação em tempo real sobre golpes financeiros (via SMS, e-mail), argumentando que a divulgação atual é tímida e ocorre apenas quando o golpe ganha relevância nacional, e propõe medidas rígidas de responsabilidade para instituições que não compartilharem riscos com o consumidor.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 74653,
+            "end": 74972,
+            "text": "Acredito, Deputado Celso, que nós devamos nesta Casa, sim, impor medidas mais rígidas de responsabilidade para os bancos que não tomarem esta iniciativa de informar o seu consumidor dos golpes que estão acontecendo, se ele tiver acesso à informação e não estiver compartilhando os riscos que o consumidor está sofrendo.",
+            "score": 0.2798
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a liberação de produtos e serviços financeiros online (como limites pré-liberados e compras por aproximação) deve ocorrer de forma presencial e física, para evitar a vulnerabilidade de consumidores que não conhecem os serviços automatizados.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 75982,
+            "end": 76143,
+            "text": "Eu creio que, como disse aqui o nosso Defensor Público Antônio Carlos, deva haver a necessidade de essa liberação acontecer de forma presencial, de forma física.",
+            "score": 0.1957
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra transparência sobre os perfis de risco utilizados pelos bancos para bloquear transações atípicas, argumentando que é comum o consumidor ser bloqueado em compras legítimas enquanto golpistas realizam transações de alto valor (ex: R$ 10 mil) sem impedimento.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 76426,
+            "end": 76467,
+            "text": "Nós falamos aqui das transações atípicas.",
+            "score": 0.2712
+          },
+          "udv": null
+        },
+        {
+          "text": "Exige do Banco Central e da FEBRABAN informações sobre a fiscalização e penalidades aplicadas a bancos que não seguem as normativas administrativas e de autorregulação, para evitar que o Legislativo precise criar leis punitivas por omissão do setor.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 77311,
+            "end": 77430,
+            "text": "Eu gostaria muito que, tanto o Banco Central quanto a FEBRABAN, falassem sobre a questão da fiscalização desses bancos.",
+            "score": 0.2163
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiada na fala da FEBRABAN, defende a punição de contas laranjas e a necessidade de efetividade nas penalidades para instituições financeiras que não cumprirem as regras de segurança.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 79833,
+            "end": 80019,
+            "text": "Queremos também ouvir da FEBRABAN que, por parte das instituições financeiras, se não cumprirem isso, o que acontece de penalidade, para que nós, realmente, tenhamos o cumprimento disso.",
+            "score": 0.2587
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a criação de um grupo de trabalho na Comissão de Defesa do Consumidor para debater golpes financeiros, tema que afirma ser líder de reclamações nos PROCONs, e solicita o envio de regulamentos administrativos do Banco Central e da FEBRABAN para acompanhamento legislativo.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 80283,
+            "end": 80455,
+            "text": "Acredito, Deputado Celso Russomanno, que a nós também caberia muito um grupo de trabalho dentro da Comissão, porque é um tema que tem sido líder de reclamações nos PROCONs.",
+            "score": 0.3744
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a Lei nº 8.078, de 1990 (Código de Defesa do Consumidor) como fundamento para o equilíbrio entre interesses de consumidores e fornecedores, a transparência nas relações de consumo e a proteção contra práticas abusivas, como a do cartão consignado.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 51,
+            "start": 119160,
+            "end": 119206,
+            "text": "É isso o que está lá na Lei nº 8.078, de 1990.",
+            "score": 0.3407
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência prática no atendimento ao cidadão (balcão do PROCON) como critério para identificar falhas sistêmicas, como a complexidade excessiva na verificação de direitos em planos de saúde e a vulnerabilidade de consumidores em serviços financeiros.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 56,
+            "start": 107532,
+            "end": 108139,
+            "text": "Como eu fui atendente de balcão de PROCON por muitos anos, eu ouso dizer aqui que o serviço mais complicado para que o cidadão conheça os seus direitos é o plano de saúde, porque, quando um cidadão chega ao PROCON para saber sobre plano de saúde,nós temos primeiro que saber dele se o plano dele é individual ou coletivo; nós temos que saber se ele é antes ou depois da Lei nº 9.656, de 1998; nós temos que saber se ele está aí dentro do Estatuto do Idoso ou não; então, nós […]",
+            "score": 0.1506
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a proteção dos consumidores vulneráveis e a necessidade de compatibilizar avanços tecnológicos com a segurança, argumentando que facilidades digitais trazem problemas para quem não está disposto a vivê-las.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 76144,
+            "end": 76256,
+            "text": "E, sim, essas facilidades do mundo moderno têm que ser para quem goste, para quem está mais disposto a vivê-las.",
+            "score": 0.3584
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputada Federal e representante do povo, atuando na Comissão de Defesa do Consumidor.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 78024,
+            "end": 78315,
+            "text": "Então, nós como sociedade — eu aqui na condição de Deputada, representante do povo — precisamos dessas informações, até para entendermos que o Banco Central e a FEBRABAN não são coniventes com esses atos; pelo contrário, vocês lutam diariamente também para inibir que esses golpes aconteçam.",
+            "score": 0.2292
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como advogada e ex-servidora pública de um PROCON estadual, tendo atuado por muitos anos como atendente de balcão.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 78778,
+            "end": 78944,
+            "text": "Na condição de advogada, de servidora pública de um PROCON estadual, eu acredito, na verdade, que a única saída para o cartão de crédito consignado seja sua extinção.",
+            "score": 0.336
+          },
+          "udv": {
+            "id": "udv-143-3-1",
+            "rule": "same_sentence",
+            "score": 0.207
+          }
+        },
+        {
+          "text": "Afirma representar o Estado de Mato Grosso, citando a presença de colegas e representantes do PROCON de sua base eleitoral.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 0,
+            "start": 3022,
+            "end": 3122,
+            "text": "Quero agradecer a presença da nossa Coordenadora do PROCON de Juara, no Mato Grosso, Rita de Cássia.",
+            "score": 0.2623
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara alinhamento com a defesa do consumidor, posicionando-se ao lado de PROCONs, Defensoria Pública, IDEC e Ministério Público, e afirma que seu mandato defende os consumidores do País.",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 81347,
+            "end": 81464,
+            "text": "Contem comigo, contem com meu mandato, com Gisela Simona como alguém que defende os consumidores deste País!(Palmas.)",
+            "score": 0.2309
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Baseia seus argumentos em relatos diretos de casos atendidos no balcão do PROCON, utilizando exemplos concretos de falhas no sistema (ex: consumidor confundindo cheque especial com talonário, bloqueio de compra legítima vs. fraude de alto valor).",
+          "passage": {
+            "hearing_id": 143,
+            "turn": 23,
+            "start": 75828,
+            "end": 75889,
+            "text": "Ele está achando que cheque especial é o talonário de cheque.",
+            "score": 0.2829
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados e estatísticas citadas em audiência (ex: 80% dos consumidores sem regulação, três reajustes por ano) para sustentar a necessidade de mudança regulatória.",
+          "passage": {
+            "hearing_id": 182,
+            "turn": 56,
+            "start": 109514,
+            "end": 109660,
+            "text": "Algo que ficou claro aqui também é que hoje 80% dos consumidores de plano de saúde não estão tendo uma regulação do plano porque é plano coletivo.",
+            "score": 0.1787
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta aos representantes de órgãos reguladores (ANS, Banco Central, FEBRABAN), pedindo explicações escritas e informações sobre fiscalização, e propõe ações legislativas específicas (extinção de produto, criação de grupo de trabalho, imposição de responsabilidade).",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre à legislação específica (Lei nº 9.656, Lei nº 8.078) para fundamentar críticas a práticas do mercado, destacando a contrariedade de produtos financeiros à lei vigente.",
+          "passage": {
+            "hearing_id": 157,
+            "turn": 51,
+            "start": 119160,
+            "end": 119206,
+            "text": "É isso o que está lá na Lei nº 8.078, de 1990.",
+            "score": 0.3252
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 28,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Montadoras e oficinas reivindicam lei sobre equipamentos e softwares para diagnóstico e reparo de carros",
+      "assunto": "Reivindicação de uma lei sobre equipamentos e softwares para diagnóstico e reparo de veículos",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 100,
+      "split": "test",
+      "article_date": "2024-04-24",
+      "title": "Autoridades defendem acesso direto a dados de conexão de abusadores de crianças",
+      "assunto": "Acesso direto a dados de conexão de abusadores de crianças em investigações de crimes sexuais contra crianças e adolescentes",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 143,
+      "split": "train",
+      "article_date": "2023-10-26",
+      "title": "Especialistas pedem atuação maior dos bancos no combate aos golpes financeiros",
+      "assunto": "Atuação dos bancos no combate aos golpes financeiros e fraudes envolvendo vazamento de dados bancários",
+      "turns": 10,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 157,
+      "split": "train",
+      "article_date": "2023-10-04",
+      "title": "Especialistas sugerem desoneração tributária para baratear custo de remédios para doenças raras",
+      "assunto": "Desoneração tributária para baratear custo de remédios para doenças raras",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 177,
+      "split": "test",
+      "article_date": "2024-05-09",
+      "title": "Deputados temem menor concorrência e aumento de preços com regulamentação de aplicativos de transporte",
+      "assunto": "Regulamentação de aplicativos de transporte e entrega e seus impactos na concorrência e preços",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 182,
+      "split": "train",
+      "article_date": "2023-08-30",
+      "title": "Entidades que defendem consumidor pedem regulação para reajustes de planos de saúde coletivos",
+      "assunto": "Regulação dos reajustes dos planos de saúde coletivos",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-143-3-0",
+      "hearing_id": 143,
+      "n": 8,
+      "article_name": "Gisela Simona",
+      "proposition": "Uma grande dificuldade é que o consumidor tem vários produtos bancários pré-aprovados que ele nem sabe que tem e que são uma porta aberta para os criminosos.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Quem acessar o Google e digitar\"golpes financeiros\", como se disse aqui, vai poder obter informações relacionadas a clonagem de cartão de crédito, golpe da maquininha, golpe domotoboy, golpe da central falsa, a inúmeros golpes que estão sendo praticados. Isso revela que algo não está certo no atual momento, mostra desequilíbrio nessa relação entre consumidor e fornecedor.",
+        "turn": 23,
+        "start": 72921,
+        "end": 73295
+      },
+      "verifier": {
+        "probability": 0.17231972146293525,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-143-3-1",
+      "hearing_id": 143,
+      "n": 9,
+      "article_name": "Gisela Simona",
+      "proposition": "Defendeu a extinção do cartão de crédito consignado e a necessidade de o consumidor autorizar alguns serviços de forma presencial: \"As facilidades do mundo moderno são excelentes para uns, mas para outros só trazem problemas.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Na condição de advogada, de servidora pública de um PROCON estadual, eu acredito, na verdade, que a única saída para o cartão de crédito consignado seja sua extinção. Ele contraria frontalmente o art.",
+        "turn": 23,
+        "start": 78778,
+        "end": 78978
+      },
+      "verifier": {
+        "probability": 0.20213747109541452,
+        "supported": false
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

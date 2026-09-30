@@ -1,0 +1,342 @@
+{
+  "actor": {
+    "slug": "raquel-branquinho",
+    "name": "RAQUEL BRANQUINHO",
+    "display_name": "Raquel Branquinho",
+    "role": "Procuradora regional de República",
+    "article_names": [
+      "Raquel Branquinho"
+    ],
+    "party_uf": []
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:18:58+00:00",
+    "n_statements": 5,
+    "n_hearings": 2,
+    "hearing_ids": [
+      35,
+      180
+    ],
+    "input_tokens": 8009,
+    "output_tokens": 1148,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Rejeita a revogação do art. 359-P do Código Penal, argumentando que a norma tutela os direitos políticos de todos os cidadãos, não apenas os femininos, e que sua supressão deixaria situações sem proteção penal; defende a coexistência desse tipo penal com o art. 326-B do Código Eleitoral, pois o direito penal lida naturalmente com a desclassificação de crimes mais graves para menos graves.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 11,
+            "start": 52467,
+            "end": 52730,
+            "text": "359-P para o caso feminino, para dentro do 326-B, mas para que fazer esta diferenciação, se um tipo está bastante objetivo, se tem uma tutela, uma objetividade penal muito específica, que é garantir os direitos políticos de todos os cidadãos brasileiros, e o art.",
+            "score": 0.2941
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a alteração pontual do art. 326-B do Código Eleitoral para ampliar a tutela penal a todas as mulheres envolvidas no processo político-eleitoral, incluindo militantes, e não apenas candidatas e detentoras de mandato; sugere que o *caput* proteja as mulheres nas condições dos incisos I e II do § 1º, mantendo a pena majorada para candidatas e detentoras de mandato.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 14,
+            "start": 56067,
+            "end": 56518,
+            "text": "A lei teve a finalidade, sem dúvida, de tutelar os direitos femininos, políticos e eleitorais de candidatas e de detentoras de mandatos eletivos, mas ficaram de fora, como já disse a colega que me antecedeu, militantes e outras mulheres que atuam nesta sistemática político-eleitoral e sofrem violências, principalmente as militantes, quando estão na rua em campanha, com violência física, com violência verbal, militantes que não têm a tutela do art.",
+            "score": 0.2442
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a PEC 9/23, que propõe anistia a partidos por descumprimento de cotas e irregularidades em prestação de contas, classificando-a como retrocesso grave que discrimina mulheres e pessoas negras ao excluir a punição por malversação de recursos públicos destinados a esses grupos.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 22396,
+            "end": 22426,
+            "text": "E é um retrocesso muito grave.",
+            "score": 0.2803
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a anistia impede a fiscalização e a transparência exigidas pela Constituição para o financiamento público de campanhas, ao proibir órgãos de controle de analisar a falta de investimento em campanhas femininas e negras e ao anistiar irregularidades formais e de desvio de recursos desde a década de 1990.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 16595,
+            "end": 16777,
+            "text": "3º, a PEC extirpa da nossa legislação, proíbe os órgãos de controle de fazerem qualquer análise da falta de investimentos em financiamento de campanhas femininas e de pessoas negras.",
+            "score": 0.2992
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que as dificuldades enfrentadas pelos partidos devem ser resolvidas por alterações legislativas pontuais (como a revisão do art. 25 da Lei 9.504/1997) e por resoluções do Tribunal Superior Eleitoral, não por anistia ampla.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 18142,
+            "end": 18177,
+            "text": "25 da Lei 9.504, de 1997, que o Dr.",
+            "score": 0.3891
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a concentração do financiamento de campanhas em diretórios nacionais e candidaturas majoritárias, o que impede a redistribuição de recursos para candidaturas proporcionais e vice-prefeituras, prejudicando a participação de mulheres.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 43,
+            "start": 161553,
+            "end": 161601,
+            "text": "É muito difícil essa redistribuição de recursos.",
+            "score": 0.2524
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a responsabilidade pela inclusão de candidaturas fictícias (fraude de cota) deve recair sobre os dirigentes partidários, que dominam a sistemática de registro, e não sobre as mulheres candidatas, que muitas vezes são arregimentadas sem estrutura jurídica, administrativa ou financeira.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 43,
+            "start": 163456,
+            "end": 163838,
+            "text": "Seja com dolo, seja sem dolo, muitas vezes as mulheres são arregimentadas com a perspectiva de que poderão ser eleitas, mas elas não têm a mínima estrutura jurídica, administrativa e de financiamento para participar dessas campanhas e depois ainda têm que responder perante a Justiça Eleitoral, sem terem o domínio da sua própria campanha, domínio do que gastou e de como foi gasto.",
+            "score": 0.2149
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a necessidade de representatividade feminina e negra nos parlamentos como reflexo da composição da população (mais de 52% feminina), argumentando que a falta de mulheres e pessoas negras nas Câmaras, Assembleias e Prefeituras impede a igualdade real, especialmente nos municípios, onde a vida cotidiana (saúde, educação) ocorre.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 15062,
+            "end": 15248,
+            "text": "Mais de 52% da população é feminina, mais de 52% do eleitorado é formado por mulheres, e também há a interseccionalidade de raça, só que a sociedade não se vê representada no Parlamento.",
+            "score": 0.2202
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a interseccionalidade de gênero e raça como critério para analisar as políticas afirmativas, destacando que a legislação precisa contemplar a realidade de mulheres negras e de outros segmentos sociais.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 11,
+            "start": 48361,
+            "end": 48388,
+            "text": "Esta é uma realidade nossa.",
+            "score": 0.2151
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que a legislação eleitoral brasileira é avançada e suficiente (citando a Lei 14.192/2021 e a Emenda Constitucional 117), mas que o problema reside na operacionalização e na falta de implementação efetiva pelos partidos políticos.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 21114,
+            "end": 21211,
+            "text": "A Emenda nº 117 conversou com a sociedade brasileira:\"Nós temos uma justificativa para anistiar\".",
+            "score": 0.2231
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a criminalização de mulheres candidatas por fraude de cota, sem punir os partidos, representa uma violência de gênero, pois transfere a responsabilidade para a ponta mais frágil da estrutura partidária.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 43,
+            "start": 163347,
+            "end": 163455,
+            "text": "Então, nós não podemos passar a responsabilidade para a ponta mais frágil dessa situação, que é a candidata.",
+            "score": 0.2739
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a transparência, a integridade e a prestação de contas como requisitos constitucionais para o uso de recursos públicos no financiamento de campanhas, opondo-se a medidas que eliminem a fiscalização.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 19615,
+            "end": 19728,
+            "text": "E, quanto a isso, a nossa própria Constituição demanda regras de transparência, integridade, prestação de contas.",
+            "score": 0.2812
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se coordenadora do Grupo de Trabalho (GT) de Prevenção e Combate à Violência Política de Gênero, na perspectiva da Lei nº 14.192.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 11,
+            "start": 47924,
+            "end": 48096,
+            "text": "Hoje eu coordeno o Grupo de Trabalho de Prevenção e Combate à Violência Política de Gênero, na perspectiva da Lei nº 14.192, aprovada por este Parlamento em agosto de 2021.",
+            "score": 0.6418
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o GT trabalha com partidos políticos, a Comissão de Direito Eleitoral da OAB e líderes partidários para implementar as normas de prevenção e repressão à violência política contra a mulher.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 11,
+            "start": 48975,
+            "end": 49421,
+            "text": "Ana também estava presente — e até com os Líderes partidários, para que eles implementem as determinações da Lei nº 14.192, de 2021, que trata da alteração dos seus estatutos, para que estes contemplem as normas de prevenção e de repressão à violência política praticada contra a mulher, mais como um mecanismo de ação afirmativa neste microssistema, que já existe, com a questão da internacionalidade, porque há a interseccionalidade com a raça.",
+            "score": 0.3312
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como favorável ao regime de financiamento público de campanhas, considerando-o mais transparente e um custo importante da democracia.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 39,
+            "start": 104222,
+            "end": 104360,
+            "text": "Desde 2016, nós vivemos um regime de financiamento público, ao qual eu também sou favorável porque acho que é um regime mais transparente.",
+            "score": 0.5084
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos (como os 18% de mulheres na Câmara e 16% dos municípios com representatividade feminina) e referências a legislação específica (Lei 14.192, Emenda 117, art. 326-B, art. 359-P) para fundamentar suas posições.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 11,
+            "start": 50223,
+            "end": 50334,
+            "text": "Nós temos apenas 16% dos Municípios com representatividade feminina, nos 5 mil e tantos Municípios brasileiros.",
+            "score": 0.2595
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias jurídicas (como a desclassificação de homicídio para lesão corporal) para explicar a convivência de tipos penais distintos.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 11,
+            "start": 51997,
+            "end": 52032,
+            "text": "Um homicídio começa como homicídio.",
+            "score": 0.2358
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom técnico e institucional, mas com forte apelo à realidade social, utilizando expressões como \"a vida acontece\" nos municípios para contextualizar a importância da representatividade local.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 23056,
+            "end": 23099,
+            "text": "Porque é no Município onde a vida acontece.",
+            "score": 0.2171
+          },
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com cordialidade, agradecendo a oportunidade de debate e reconhecendo a legitimidade dos problemas apontados por outros participantes, mas mantém firmeza na rejeição de propostas que considere retrocessivas.",
+          "passage": {
+            "hearing_id": 180,
+            "turn": 5,
+            "start": 23787,
+            "end": 23861,
+            "text": "Não discutimos a legitimidade dos problemas enfrentados pelas agremiações.",
+            "score": 0.1645
+          },
+          "udv": null
+        },
+        {
+          "text": "Estrutura seus argumentos propondo soluções pontuais e objetivas (alterações de redação, mudanças em artigos específicos) em vez de críticas genéricas, demonstrando uma abordagem propositiva.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 35,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Especialistas sugerem prazo maior para registro de candidaturas em minirreforma eleitoral",
+      "assunto": "Sugestões para a minirreforma eleitoral, incluindo prazo maior para registro de candidaturas e regras para campanhas na internet",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 180,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Anistia a partidos que não cumpriram cotas para mulheres e negros não tem consenso",
+      "assunto": "Anistia a partidos que não cumpriram cotas para mulheres e negros",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-180-1-0",
+      "hearing_id": 180,
+      "n": 3,
+      "article_name": "Raquel Branquinho",
+      "proposition": "Se trata de anistia e que a PEC não é o melhor caminho para resolver os problemas de prestação de contas por parte dos partidos. A proposta representa um retrocesso nos poucos ganhos de mulheres e negros dentro da política: \"Essa anistia vai representar um grave problema para campanhas vindouras. O desestímulo e a falta de estrutura dos partidos para financiar essas campanhas como se deve, dá o recado de que não é importante para a vida institucional da nossa democracia a representatividade feminina e a representatividade de raça no nosso parlamento.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Essa anistia vai representar um grave problema para essas campanhas vindouras, com o desestímulo e a falta de estrutura dos partidos para financiar, como devem ser financiadas, essas campanhas. E o recado que se está dando é que não é realmente importante para a vida institucional da nossa democracia a representatividade feminina e a representatividade de raça no Parlamento.",
+        "turn": 5,
+        "start": 23286,
+        "end": 23663
+      },
+      "verifier": {
+        "probability": 0.6564986696819438,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

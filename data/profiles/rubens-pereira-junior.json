@@ -1,0 +1,443 @@
+{
+  "actor": {
+    "slug": "rubens-pereira-junior",
+    "name": "Rubens Pereira Júnior",
+    "display_name": "Rubens Pereira Júnior",
+    "role": "Deputado (PT-MA)",
+    "article_names": [
+      "Rubens Pereira Júnior"
+    ],
+    "party_uf": [
+      "Bloco/PT - MA"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:40:47+00:00",
+    "n_statements": 26,
+    "n_hearings": 3,
+    "hearing_ids": [
+      35,
+      145,
+      199
+    ],
+    "input_tokens": 9857,
+    "output_tokens": 1074,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 0,
+    "passage_only": 20,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a presença de Ministros de Estado no Parlamento como instrumento de transparência e fiscalização, citando a orientação do Presidente Lula de que os ministros devem prestar informações no Legislativo e atuar nas comunidades, criticando o modelo anterior de isolamento ministerial.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 81977,
+            "end": 82121,
+            "text": "Há uma determinação do Presidente Lula:\"Eu quero os Ministros de Estado no Poder Legislativo, prestando informações, fazendo o debate político\".",
+            "score": 0.3197
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiia a volta e o fortalecimento de programas de saúde pública, especificamente o Mais Médicos e o Farmácia Popular, argumentando que a aprovação da PEC da Transição permitiu a folga orçamentária necessária para não achatá-los pelo teto de gastos, beneficiando a população hipossuficiente e ampliando a base do Bolsa Família.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 211,
+            "start": 122967,
+            "end": 123681,
+            "text": "A partir do momento em que houve a aprovação da PEC da Transição, a partir do momento em que houve uma folga orçamentária, a partir do momento em que o Governo Federal disse que alguns programas não poderiam ser achatados pelo orçamento normal, que alguns programas seriam prioritários para garantir a melhoria de vida do povo brasileiro, que alguns assuntos não mereceriam estar dentro do teto dos gastos e que deveria haver um orçamento, para fazer aquilo que o Presidente […]",
+            "score": 0.3127
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a vacinação e a ciência, classificando a oposição a esses temas como uma \"guerra ideológica\" que pertence ao século passado, e elogia o desempenho do Ministério da Saúde na retomada dessas políticas.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 211,
+            "start": 121985,
+            "end": 122031,
+            "text": "Chega de guerra ideológica contra a vacinação.",
+            "score": 0.3388
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a simplificação e modernização do processo eleitoral, propondo a antecipação do prazo de registro de candidaturas para evitar a inelegibilidade de pequenos candidatos por exigências desproporcionais e a atualização da legislação para incluir o Pix na prestação de contas.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 0,
+            "start": 6990,
+            "end": 7078,
+            "text": "Urge modernizarmos o processo de prestação de contas e o simplificarmos em alguns casos.",
+            "score": 0.1982
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento das federações partidárias, visando solidificar o instituto para democratizar a democracia partidária e evitar a fragmentação, sem aproximar a federação da coligação.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 0,
+            "start": 6789,
+            "end": 6988,
+            "text": "Nosso objetivo aqui é em nada aproximar federação de coligação, pelo contrário, é solidificar esse importante instituto que veio para democratizar ainda mais a nossa democracia partidária brasileira.",
+            "score": 0.5549
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o aumento da liberdade de propaganda eleitoral, especialmente em bens particulares e internet, argumentando que a Justiça Eleitoral não deve medir dimensões físicas de materiais, mas focar em temas que afetam o processo democrático.",
+          "passage": {
+            "hearing_id": 35,
+            "turn": 0,
+            "start": 7986,
+            "end": 8078,
+            "text": "Vamos deixar a Justiça Eleitoral cuidar dos temas que de fato afetam o processo democrático.",
+            "score": 0.3504
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o combate ao crime através da apreensão de bens e do \"follow the money\", citando o aumento das apreensões de armas ilegais e a redução de homicídios como indicadores positivos da gestão do Ministério da Justiça.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 79915,
+            "end": 79942,
+            "text": "O combate às armas ilegais.",
+            "score": 0.3659
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a autonomia da Polícia Federal e a ampla investigação dos atos de 8 de janeiro, questionando diretamente o Ministro Flávio Dino se houve interferência do Presidente Lula para impedir ou acobertar investigações, rejeitando a tese de que os atos foram apenas uma manifestação política.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 85496,
+            "end": 85645,
+            "text": "Ministro, eu pergunto a V.Exa.: houve alguma determinação do Presidente Lula para que a Polícia Federal não investigasse os atos do dia 8 de janeiro?",
+            "score": 0.3477
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o uso da Comissão de Fiscalização Financeira e Controle (CFC) como sucedâneo da Comissão de Segurança, defendendo o cumprimento do Regimento Interno (art. 219) que exige assunto previamente determinado para convocações, a fim de evitar o \"ringue político\" e a inquisição.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 77386,
+            "end": 77533,
+            "text": "Abrir a reunião para transformar a Comissão de Fiscalização Financeira e Controle num sucedâneo da Comissão de Segurança é apequenar esta Comissão.",
+            "score": 0.3593
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a soberania da lei e o respeito ao Regimento Interno como pilares do debate parlamentar, utilizando a norma para limitar a amplitude das discussões em comissões específicas e evitar abusos de direito parlamentar.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 77059,
+            "end": 77104,
+            "text": "Presidente, é o abuso do direito parlamentar.",
+            "score": 0.258
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza a civilidade e o debate político sério, rejeitando a transformação de comissões em arenas de confronto pessoal ou \"ringue político\", onde se busca vasculhar a vida pessoal de ministros em vez de discutir políticas públicas.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 12,
+            "start": 8566,
+            "end": 8647,
+            "text": "muito respeito —, a praxe na CFC é de muita civilidade, de muito debate político.",
+            "score": 0.2204
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a participação popular e o controle social como mecanismos de fortalecimento da democracia, citando a leitura de resoluções do Conselho Nacional de Saúde por parlamentares de oposição como exemplo de avanço democrático.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 211,
+            "start": 124291,
+            "end": 124364,
+            "text": "Começo a compreender o papel do controle social, da participação popular.",
+            "score": 0.3162
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza dados e fatos concretos como fundamento incontestável (\"contra fatos não há argumentos\"), citando números de apreensão de armas, redução de homicídios e valores de apreensão de bens para validar as políticas do governo.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 80054,
+            "end": 80153,
+            "text": "E, lá no curso de direito, aprendemos, ainda que retoricamente, que contra fatos não há argumentos.",
+            "score": 0.2694
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se alinhado ao Governo do Presidente Lula, referindo-se à \"Liderança do Governo\" e à orientação presidencial de transparência e presença ministerial.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 80476,
+            "end": 80530,
+            "text": "Presidente, para usar o tempo da Liderança do Governo.",
+            "score": 0.3285
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como membro da base governamental, mencionando a conversão de convocações em convites para garantir a presença dos ministros e a defesa do desempenho do Ministério da Saúde e do Ministério da Justiça.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 211,
+            "start": 120583,
+            "end": 120778,
+            "text": "O que eu quero aqui, no início desta minha fala, é justamente te parabenizar pelo seu desempenho, não apenas nesta reunião de hoje, mas também pelo seu desempenho à frente do Ministério da Saúde.",
+            "score": 0.2104
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita sua atuação na Comissão de Fiscalização Financeira e Controle e na CPMI do 8 de Janeiro, além de sua origem no Maranhão, ao defender o PRONASCI.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 157,
+            "start": 77386,
+            "end": 77533,
+            "text": "Abrir a reunião para transformar a Comissão de Fiscalização Financeira e Controle num sucedâneo da Comissão de Segurança é apequenar esta Comissão.",
+            "score": 0.2952
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza a retórica de \"nós\" para se posicionar junto ao governo e contra a oposição, descrevendo a oposição como barulhenta e carente, enquanto o governo é descrito como transparente e presente.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega ironia e humor para desqualificar críticos, como ao comentar que a oposição passou a ler resoluções do Conselho Nacional de Saúde ou ao se referir aos opositores como \"coitados\" e \"carentes\".",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 211,
+            "start": 124118,
+            "end": 124269,
+            "text": "já está à frente, já conseguimos fazer com que até alguns Deputados bolsonaristas passassem a ler a resolução do Conselho Nacional de Saúde.Que beleza!",
+            "score": 0.2186
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita normas regimentais e constitucionais (art. 219, Regimento Interno, Constituição Federal) para fundamentar pedidos de ordem e limitar o escopo das discussões.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 16,
+            "start": 9630,
+            "end": 9692,
+            "text": "é que cumpramos o Regimento Interno dentro do espírito do art.",
+            "score": 0.2541
+          },
+          "udv": null
+        },
+        {
+          "text": "Divide o tempo de fala com colegas da bancada (Deputado Lindbergh Farias) e abre mão de réplicas para conceder tempo a ministros, demonstrando estratégia de gestão do tempo em audiências.",
+          "passage": {
+            "hearing_id": 199,
+            "turn": 211,
+            "start": 124556,
+            "end": 124606,
+            "text": "Eu divido o tempo com o Deputado Lindbergh Farias.",
+            "score": 0.3815
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz perguntas diretas e específicas a ministros, como ao questionar Flávio Dino sobre interferência na Polícia Federal, e propõe requerimentos de convite para futuras discussões, mantendo o foco em dados e ações governamentais.",
+          "passage": {
+            "hearing_id": 145,
+            "turn": 12,
+            "start": 8748,
+            "end": 8796,
+            "text": "Por isso é que o Ministro Flávio Dino está aqui.",
+            "score": 0.213
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 35,
+      "split": "train",
+      "article_date": "2023-08-31",
+      "title": "Especialistas sugerem prazo maior para registro de candidaturas em minirreforma eleitoral",
+      "assunto": "Sugestões para a minirreforma eleitoral, incluindo prazo maior para registro de candidaturas e regras para campanhas na internet",
+      "turns": 4,
+      "in_profile": true,
+      "udvs": 4
+    },
+    {
+      "id": 145,
+      "split": "train",
+      "article_date": "2023-10-25",
+      "title": "Desempenho atual na segurança pública supera 2022, diz ministro da Justiça",
+      "assunto": "Desempenho do governo Lula na segurança pública e debate sobre a atuação do Ministério da Justiça",
+      "turns": 15,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 199,
+      "split": "train",
+      "article_date": "2023-08-09",
+      "title": "Ministra defende autossuficiência na produção de insumos para saúde em audiência na Câmara",
+      "assunto": "Autossuficiência na produção de insumos para a saúde e questões relacionadas à compra emergencial de medicamentos pelo SUS",
+      "turns": 7,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-35-4-0",
+      "hearing_id": 35,
+      "n": 14,
+      "article_name": "Rubens Pereira Júnior",
+      "proposition": "Explicou que o grupo não trata de fake news, uma vez que o assunto é objeto de um projeto de lei específico em análise na Câmara.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "A princípio — e nem vou falar dos ataqueson-line —,o tema dasfake newsnão está dentro da minirreforma. Afinal de contas, o próprio Congresso, a própria Câmara dos Deputados se propôs a debater isso em lei específica, mas ainda não foi possível.",
+        "turn": 8,
+        "start": 33634,
+        "end": 33878
+      },
+      "verifier": {
+        "probability": 0.9423653969037933,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-35-4-1",
+      "hearing_id": 35,
+      "n": 15,
+      "article_name": "Rubens Pereira Júnior",
+      "proposition": "Ressaltou que ataques virtuais podem, sim, ser abordados.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Não seria razoável um assunto tão debatido não ser trazido para cá. Mas, em relação aos ataqueson-line, não se trata defake news.Sabemos que oprejuízo do ataque é sempre maior que o benefício da defesa posterior.",
+        "turn": 8,
+        "start": 33879,
+        "end": 34092
+      },
+      "verifier": {
+        "probability": 0.5527011604297031,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-35-4-2",
+      "hearing_id": 35,
+      "n": 16,
+      "article_name": "Rubens Pereira Júnior",
+      "proposition": "Reafirmou que a intenção é concluir os trabalhos do GT já na próxima semana: A previsão e o desafio do grupo é que na próxima quarta-feira, dia 6 de setembro, nós já conseguiremos poder votar e aprovar nosso relatório.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Então, o desafio do grupo é, na próxima quarta-feira, dia 6 de setembro — portanto, antes do feriado —, nós já conseguirmos votar e aprovar a matéria no grupo de trabalho. Há dois dos nossos palestrantes que estão fora do País.",
+        "turn": 0,
+        "start": 11279,
+        "end": 11507
+      },
+      "verifier": {
+        "probability": 0.8778631815045841,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-35-4-3",
+      "hearing_id": 35,
+      "n": 17,
+      "article_name": "Rubens Pereira Júnior",
+      "proposition": "Explicou que o grupo de trabalho foi instituído com o objetivo de promover ajustes no modelo eleitoral vigente, de modo a incorporar à legislação avanços trazidos por resoluções da Justiça Eleitoral, principalmente nas eleições do ano passado.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Ainda assim, nós temos alguns parâmetros, como a própria decisão do Código Eleitoral — vários itens já foram aprovados pela Câmara dos Deputados —, as resoluções do TSE, que, sem dúvida alguma, são uma fonte para o nosso trabalho, as decisões recentes, em que podemos perceber que houve mais dificuldade de aplicação prática nas últimas eleições. Um objetivo nosso também é este: dar muito a visão prática de quem disputa a eleição, que sabe exatamente quais são os pontos que […]",
+        "turn": 0,
+        "start": 5694,
+        "end": 6262
+      },
+      "verifier": {
+        "probability": 0.4239010307942494,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-199-10-0",
+      "hearing_id": 199,
+      "n": 22,
+      "article_name": "Rubens Pereira Júnior",
+      "proposition": "Apoiou a ministra Nísia Trindade.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Eu acompanho a Comissão de Fiscalização Financeira e Controle, e a orientação do Governo é:\"Nós queremos os Ministros aqui no Parlamento\", para que possam vir fazer justamente, Ministra Nísia, o que V.Exa. faz neste momento. Nós nunca votamos contra um requerimento, e a Presidente, Deputada Bia, é testemunha disso.",
+        "turn": 211,
+        "start": 119626,
+        "end": 119943
+      },
+      "verifier": {
+        "probability": 0.37809600952664457,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "actor": {
+    "slug": "professora-goreth",
+    "name": "Professora Goreth",
+    "display_name": "Professora Goreth",
+    "role": "Deputada (PDT-AP)",
+    "article_names": [
+      "Professora Goreth"
+    ],
+    "party_uf": [
+      "Bloco/PDT - AP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T06:11:29+00:00",
+    "n_statements": 3,
+    "n_hearings": 2,
+    "hearing_ids": [
+      31,
+      200
+    ],
+    "input_tokens": 3376,
+    "output_tokens": 622,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 1,
+    "passage_only": 13,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende o Projeto de Lei 1673/21, que institui a Política Nacional de Saúde Funcional, posicionando-se como parceira da Deputada Erika Kokay na defesa da junção da CID e da CIF.",
+          "passage": {
+            "hearing_id": 200,
+            "turn": 19,
+            "start": 62284,
+            "end": 62432,
+            "text": "Quero dizer para a Deputada Erika Kokay que ela tem em mim uma parceira para a defesa deste importante projeto de colocar a CID e a CIF em conjunto.",
+            "score": 0.4217
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra o fim da invisibilidade das pessoas com doenças crônicas, afirmando que o atendimento multidisciplinar não está sendo garantido e que essas pessoas sofrem preconceito.",
+          "passage": {
+            "hearing_id": 200,
+            "turn": 19,
+            "start": 62893,
+            "end": 62985,
+            "text": "As pessoas doentes sofrem preconceito, e não têm o atendimento multidisciplinar que merecem.",
+            "score": 0.4828
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transformação do PARFOR em política de Estado, classificando a formação de professores como a questão central da qualidade da educação básica no Brasil.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 2,
+            "start": 20989,
+            "end": 21171,
+            "text": "Eu me comprometo a fortalecer essa causa da CAPES, do PARFOR, por entender ser ela, se não a questão mais importante, a questão central da qualidade da educação básica no nosso País.",
+            "score": 0.4288
+          },
+          "udv": null
+        },
+        {
+          "text": "Apoiada na realidade da Região Amazônica, defende que o \"custo amazônico\" seja uma realidade para garantir financiamento diferenciado a programas como o PARFOR, especialmente em áreas de difícil acesso.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 2,
+            "start": 21173,
+            "end": 21463,
+            "text": "Deixa-me feliz saber que nós estamos discutindo aqui, Marcia, o fator amazônico para que o custo amazônico seja uma realidade e para que programas como o PARFOR possam realmente ter atenção e financiamento diferenciado, especialmente para áreas de difícil acesso, como é a Região Amazônica.",
+            "score": 0.6575
+          },
+          "udv": null
+        },
+        {
+          "text": "Compromete-se publicamente com a causa do PARFOR e da CAPES, declarando-se aliada da Deputada Socorro Neri e do Deputado Daniel Barbosa nesta defesa.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 2,
+            "start": 21513,
+            "end": 21629,
+            "text": "O Deputado Daniel, eu e a Deputada Socorro nos comprometemos com a causa tratada nesta importante audiência pública.",
+            "score": 0.4153
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência pessoal como professora para justificar a necessidade de políticas de saúde funcional, relatando que alunos com doenças crônicas eram discriminados pela escola devido ao desconhecimento dos profissionais da educação sobre essas condições.",
+          "passage": {
+            "hearing_id": 200,
+            "turn": 19,
+            "start": 62727,
+            "end": 62892,
+            "text": "Sou professora e tive alunos com doenças crônicas e que muitas vezes eram discriminados pela escola, porque os profissionais da educação não conheciam essas doenças.",
+            "score": 0.4888
+          },
+          "udv": null
+        },
+        {
+          "text": "Fundamenta a defesa da saúde funcional no direito de viver bem e de produzir, argumentando que a sociedade não está garantindo esse direito às pessoas, muitas vezes vistas com preconceito.",
+          "passage": {
+            "hearing_id": 200,
+            "turn": 19,
+            "start": 62554,
+            "end": 62709,
+            "text": "As pessoas querem produzir, para este País ser melhor, e não estamos garantindo esse direito às pessoas, que muitas vezes são vistas com muito preconceito.",
+            "score": 0.5676
+          },
+          "udv": {
+            "id": "udv-200-3-0",
+            "rule": "same_sentence",
+            "score": 0.5546
+          }
+        },
+        {
+          "text": "Justifica a necessidade de financiamento diferenciado para a formação de professores na Região Amazônica com base na dificuldade de acesso e na especificidade da realidade educacional do Norte do País.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 2,
+            "start": 21173,
+            "end": 21463,
+            "text": "Deixa-me feliz saber que nós estamos discutindo aqui, Marcia, o fator amazônico para que o custo amazônico seja uma realidade e para que programas como o PARFOR possam realmente ter atenção e financiamento diferenciado, especialmente para áreas de difícil acesso, como é a Região Amazônica.",
+            "score": 0.2628
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se professora e ex-Secretária de Estado da Educação.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 0,
+            "start": 2629,
+            "end": 2716,
+            "text": "Como fomos Secretárias de Estado da Educação, nós já temos um longo caminho percorrido.",
+            "score": 0.1897
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter um mandato pautado pelo diálogo com a Deputada Socorro Neri, com quem compartilha a origem no Norte do Brasil e a experiência em instituições de ensino superior.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 0,
+            "start": 2811,
+            "end": 2897,
+            "text": "Nosso mandato tem se pautado por bastante diálogo entre mim e a Deputada Socorro Neri.",
+            "score": 0.461
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara pertencer à Frente em Defesa da Formação de Professores, na Comissão de Educação.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 0,
+            "start": 3190,
+            "end": 3376,
+            "text": "Quero dizer aos senhores que estou à vontade para fazer este papel porque, com a Deputada Socorro Neri, nós somos da Frente em Defesa da Formação de Professores, na Comissão de Educação.",
+            "score": 0.4087
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se como substituta da Deputada Socorro Neri na presidência da audiência sobre o PARFOR, devido à participação desta na instalação da Comissão Mista Permanente sobre Mudanças Climáticas.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 0,
+            "start": 1703,
+            "end": 1952,
+            "text": "Socorro Neri, nossa Deputada, pediu que eu colaborasse neste momento porque exatamente agora está sendo realizada a eleição para Presidente, Vice-Presidente e Relator e instalada a importantíssima Comissão Mista Permanente sobre Mudanças Climáticas.",
+            "score": 0.314
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Recorre à vivência profissional direta (experiência como professora e secretária de educação) para embasar argumentos sobre a realidade da educação e da saúde no Brasil.",
+          "passage": {
+            "hearing_id": 31,
+            "turn": 0,
+            "start": 2717,
+            "end": 2810,
+            "text": "Conhecemos nossa realidade, especialmente a realidade da educação no Norte e no País inteiro.",
+            "score": 0.187
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza linguagem de compromisso e parceria política, declarando-se \"parceira\" e pedindo para \"contarem comigo\" ao final de suas falas.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega tom de urgência e empatia ao tratar de temas sociais, utilizando expressões como \"já passou\" a hora de agir e destacando a invisibilidade dos grupos vulneráveis.",
+          "passage": {
+            "hearing_id": 200,
+            "turn": 19,
+            "start": 63237,
+            "end": 63281,
+            "text": "Está mais do que na hora — aliás, já passou.",
+            "score": 0.2593
+          },
+          "udv": null
+        },
+        {
+          "text": "Em situações de condução de sessão, mantém postura protocolar, mas insere posicionamentos políticos e de alinhamento com colegas durante os intervalos de fala dos convidados.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 31,
+      "split": "train",
+      "article_date": "2023-11-09",
+      "title": "Especialistas defendem transformação de programa de formação de professores em política de Estado",
+      "assunto": "Transformação do Plano Nacional de Formação de Professores da Educação Básica (Parfor) em política de Estado",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 200,
+      "split": "train",
+      "article_date": "2023-08-08",
+      "title": "Especialistas apoiam proposta que institui política de saúde funcional",
+      "assunto": "Apoio ao Projeto de Lei 1673/21 que institui a Política Nacional de Saúde Funcional",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-200-3-0",
+      "hearing_id": 200,
+      "n": 6,
+      "article_name": "Professora Goreth",
+      "proposition": "\"O debate foi esclarecedor. As pessoas querem produzir para fazermos um País melhor, mas não conseguem.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "As pessoas querem produzir, as pessoas querem viver bem e têm o direito de viver bem. As pessoas querem produzir, para este País ser melhor, e não estamos garantindo esse direito às pessoas, que muitas vezes são vistas com muito preconceito.",
+        "turn": 19,
+        "start": 62468,
+        "end": 62709
+      },
+      "verifier": {
+        "probability": 0.2500393318716902,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

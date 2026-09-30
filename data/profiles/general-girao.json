@@ -1,0 +1,516 @@
+{
+  "actor": {
+    "slug": "general-girao",
+    "name": "GENERAL GIRÃO",
+    "display_name": "General Girão",
+    "role": "Deputado (PL-RN)",
+    "article_names": [
+      "General Girão"
+    ],
+    "party_uf": [
+      "PL - RN"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:46:10+00:00",
+    "n_statements": 5,
+    "n_hearings": 2,
+    "hearing_ids": [
+      15,
+      39
+    ],
+    "input_tokens": 4256,
+    "output_tokens": 1239,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 27,
+    "with_udv": 2,
+    "passage_only": 23,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a democracia e a Constituição não podem ser relativizadas, invocando o artigo 53 para garantir a inviolabilidade parlamentar por \"quaisquer opiniões, palavras e votos\", e critica a interpretação de que o artigo foi mal interpretado.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 109786,
+            "end": 109896,
+            "text": "53, foi sábio: colocou a palavra \"quaisquer\" na frase\"(...) por quaisquer de suas opiniões, palavras e votos\".",
+            "score": 0.3525
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a ideia de que a administração militar é uma \"excrescência\", argumentando que é um modo de administração acadêmico válido e que a militarização de situações não é necessariamente errada, citando o sucesso de escolas e colégios militares devido à disciplina, hierarquia e respeito ao professor.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 110584,
+            "end": 110740,
+            "text": "As escolas e os colégios militares são um sucesso porque têm disciplina, têm hierarquia, têm respeito ao professor, coisas que não estão acontecendo por aí.",
+            "score": 0.4385
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que o Ministério da Defesa consulte e convide Deputados para participar dos estudos da política nacional de defesa, visando melhorar os estudos que passam pela Casa.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 110794,
+            "end": 110854,
+            "text": "A política nacional de defesa é feita e aprovada nesta Casa.",
+            "score": 0.3642
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a necessidade de um \"poder moderador\" no Brasil, mas alerta que ele pode estar sendo exercido de forma errada, citando o professor Ives Gandra para afirmar que o Legislativo é o primeiro poder na Constituição e que a Casa falha ao não permitir que os parlamentares assumam responsabilidades, como no caso do marco temporal das terras indígenas e ameaças ao agronegócio.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 114136,
+            "end": 114225,
+            "text": "Ives Gandra, segundo o qual o primeiro poder que aparece na Constituição é o Legislativo.",
+            "score": 0.3475
+          },
+          "udv": {
+            "id": "udv-39-7-1",
+            "rule": "same_sentence",
+            "score": 0.2965
+          }
+        },
+        {
+          "text": "Defende a liberdade de expressão, opinião e imprensa, afirmando que não há democracia sem imprensa livre e criticando casos de punição à imprensa por entrevistas ou artigos.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 112951,
+            "end": 112988,
+            "text": "Não há democracia sem imprensa livre.",
+            "score": 0.5284
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o militar que cumpre uma ordem absurda torna-se corresponsável, defendendo que ordens absurdas devem ser questionadas, mas que o princípio da autoridade deve ser respeitado independentemente das características físicas ou étnicas do militar.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 112506,
+            "end": 112572,
+            "text": "Quando se cumpre uma ordem absurda, passa-se a ser corresponsável.",
+            "score": 0.3537
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento das escolas militares das três Forças para o exercício da liderança, negando a necessidade de revisão de currículos por considerar que os direitos humanos são bem respeitados nelas.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 113536,
+            "end": 113643,
+            "text": "Elas não precisam da revisão de seus currículos porque os direitos humanos nelas são muito bem respeitados.",
+            "score": 0.6026
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a obrigatoriedade da vacinação contra a Covid-19 em crianças de 6 meses a 5 anos, argumentando que falta comprovação científica (mínimo de 5 anos de estudo) e que a medida pode colocar vidas em risco.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 33,
+            "start": 82270,
+            "end": 82350,
+            "text": "Falta comprovação científica, no mínimo 5 anos de estudo, e ainda é muito pouco.",
+            "score": 0.5289
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra que o Ministério da Saúde considere as informações apresentadas na audiência como pontos de interrogação e que a obrigatoriedade da vacina seja revista e repensada.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 33,
+            "start": 82060,
+            "end": 82131,
+            "text": "A obrigatoriedade da vacina tem que ser revista, tem que ser repensada.",
+            "score": 0.4951
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o uso da polícia para obrigar pais a vacinarem crianças, citando posicionamento do Ministro da Justiça, e compara com a Suprema Corte dos Estados Unidos e outros países que se posicionaram contra a obrigatoriedade.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 33,
+            "start": 81610,
+            "end": 81755,
+            "text": "Mas parece que não está havendo conversa, porque o Ministro da Justiça disse que vai usar a polícia para obrigar os pais a vacinarem as crianças.",
+            "score": 0.4246
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a vacinação não é negacionismo, citando o Dr. Zeballos para dizer que quase 74% das autópsias implicavam alguma coisa da vacina, e questiona se as crianças tinham comorbidades antes.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 35,
+            "start": 82540,
+            "end": 82637,
+            "text": "Zeballos disse aqui, agora, que quase 74% das autópsias feitas implicavam alguma coisa da vacina.",
+            "score": 0.5589
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Invoca a literalidade da Constituição como fundamento para rejeitar relativizações, aplicando esse critério tanto à inviolabilidade parlamentar (art. 53) quanto à defesa do poder moderador e da ordem dos poderes.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 109460,
+            "end": 109500,
+            "text": "53, estão relativizando a Constituição\".",
+            "score": 0.198
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa a experiência pessoal e profissional (36 anos no Exército, 8 anos na Secretaria de Segurança) como base para validar suas posições sobre disciplina, hierarquia, administração militar e responsabilidade militar.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 108377,
+            "end": 108537,
+            "text": "Eu sou Deputado Federal pelo Rio Grande do Norte, fiquei 36 anos no Exército e 8 anos na Secretaria de Segurança em dois Estados da Federação e em um Município.",
+            "score": 0.3328
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a precaução e para a falta de comprovação científica como justificativa para criticar a obrigatoriedade da vacinação, citando a recente história da pandemia e a ausência de estudos longitudinais.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 33,
+            "start": 82270,
+            "end": 82350,
+            "text": "Falta comprovação científica, no mínimo 5 anos de estudo, e ainda é muito pouco.",
+            "score": 0.2623
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a liberdade de imprensa e de expressão como pilares da democracia, usando esse princípio para criticar punições à mídia e para sustentar a inviolabilidade parlamentar.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 112951,
+            "end": 112988,
+            "text": "Não há democracia sem imprensa livre.",
+            "score": 0.2636
+          },
+          "udv": null
+        },
+        {
+          "text": "Valoriza a disciplina, a hierarquia e o respeito à autoridade como elementos essenciais para o funcionamento das Forças Armadas e das escolas militares, usando esses valores para defender o fortalecimento dessas instituições.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 110584,
+            "end": 110740,
+            "text": "As escolas e os colégios militares são um sucesso porque têm disciplina, têm hierarquia, têm respeito ao professor, coisas que não estão acontecendo por aí.",
+            "score": 0.2854
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal pelo Rio Grande do Norte, militar reformado (ex-General, Comandante de Brigada), com 36 anos de experiência no Exército e 8 anos na Secretaria de Segurança em dois Estados e um Município.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 108377,
+            "end": 108537,
+            "text": "Eu sou Deputado Federal pelo Rio Grande do Norte, fiquei 36 anos no Exército e 8 anos na Secretaria de Segurança em dois Estados da Federação e em um Município.",
+            "score": 0.7127
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma representar inúmeras pessoas, incluindo membros de igreja, pessoas preocupadas com a família e com a sociedade.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 33,
+            "start": 79288,
+            "end": 79775,
+            "text": "Deputada Bia Kicis, colegas aqui presentes, autoridades do Governo que se posicionaram a respeito do tema, também aqueles que foram convidados para participar da audiência, os conferencistas aqui hoje e demais presentes, eu me dirijo a todos, e digo isso porque não sou especialista, sou um militar aposentado, reformado, Deputado já há 5 anos, tenho representatividade e falo aqui por inúmeras pessoas, dentre elas membros de igreja, pessoas preocupadas com a família e com a […]",
+            "score": 0.3724
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita o Deputado Osmar Terra como colega com quem conversou sobre a experiência pessoal com a Covid-19 e a vacinação.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 33,
+            "start": 79777,
+            "end": 79850,
+            "text": "Estava conversando com o meu colega Deputado Osmar Terra e disse a S.Exa.",
+            "score": 0.4309
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona o Deputado Rui Falcão e a Professora Adriana como interlocutores na audiência sobre o artigo 142.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita o professor Ives Gandra como referência constitucional, mencionando uma apresentação anterior dele em audiência pública.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 114136,
+            "end": 114225,
+            "text": "Ives Gandra, segundo o qual o primeiro poder que aparece na Constituição é o Legislativo.",
+            "score": 0.1531
+          },
+          "udv": {
+            "id": "udv-39-7-1",
+            "rule": "same_sentence",
+            "score": 0.0778
+          }
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Usa a experiência pessoal e profissional como principal recurso argumentativo, citando episódios específicos (passagem para a reserva por discordar de ordem absurda, contaminações por Covid-19 após vacinação, problema cardíaco).",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 112330,
+            "end": 112425,
+            "text": "Minha passagem para a reserva se deu exatamente porque eu não concordava com uma ordem absurda.",
+            "score": 0.302
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a literalidade de textos legais (Constituição, artigo 53) e citações de autoridades (Ives Gandra, Suprema Corte dos EUA) para sustentar suas posições.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 109460,
+            "end": 109500,
+            "text": "53, estão relativizando a Constituição\".",
+            "score": 0.2164
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem direta e emocional, usando expressões como \"Pelo amor de Deus!\", \"Não somos insanos\", \"uma canetada nossa pode causar um problema seríssimo\".",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 33,
+            "start": 82005,
+            "end": 82058,
+            "text": "Uma canetada nossa pode causar um problema seríssimo.",
+            "score": 0.5207
+          },
+          "udv": null
+        },
+        {
+          "text": "Combina defesa institucional (Forças Armadas, escolas militares) com críticas a políticas públicas (obrigatoriedade vacinal, uso da polícia para vacinação), mantendo um tom de alerta e preocupação.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 113442,
+            "end": 113535,
+            "text": "As escolas militares das três Forças — Marinha, Exército e Aeronáutica — têm esta capacidade.",
+            "score": 0.178
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa dados e estatísticas citados por terceiros (Dr. Zeballos sobre autópsias, Ives Gandra sobre a ordem dos poderes) como apoio, mas sempre vinculados à sua interpretação e defesa de suas posições.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Trata os interlocutores com respeito formal (V.Exa., S.Exa.), mas não hesita em criticar diretamente ministros e políticas governamentais, mantendo um tom de cobrança e questionamento.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 30,
+            "start": 111861,
+            "end": 111894,
+            "text": "Eu concordo plenamente com V.Exa.",
+            "score": 0.1986
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 1,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Jornalistas acusam Alexandre de Moraes de censura ao exigir bloqueio de contas da rede social X",
+      "assunto": "Acusações de censura contra Alexandre de Moraes por exigir bloqueio de contas na rede social X",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 39,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores refutam tese do “poder moderador” das Forças Armadas em seminário na CCJ",
+      "assunto": "Debate sobre a interpretação do artigo 142 da Constituição e o papel das Forças Armadas como 'poder moderador'",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 2
+    },
+    {
+      "id": 103,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Lewandowski: fuga de presídio em Mossoró foi única e não se repetirá",
+      "assunto": "Esclarecimentos do Ministro da Justiça, Ricardo Lewandowski, sobre a fuga de presídio em Mossoró, vetos à saidinha de presos e decreto sobre clubes de atiradores",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 116,
+      "split": "validation",
+      "article_date": "2023-12-13",
+      "title": "Chanceler brasileiro diz que reunião entre Venezuela e Guiana é um passo para o entendimento",
+      "assunto": "Declarações do chanceler brasileiro Mauro Vieira sobre relações internacionais e conflitos globais",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-39-7-0",
+      "hearing_id": 39,
+      "n": 15,
+      "article_name": "General Girão",
+      "proposition": "Se existe a falta de um poder moderador no País hoje, é porque esse poder está sendo exercido de maneira errada.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Assim, nós fugimos à regra e pecamos como sociedade. Para concluir, Sr. Presidente, eu quero dizer que, se está sendo sentida a falta do poder moderador no Brasil hoje, é porque ele pode estar sendo exercido de forma errada.",
+        "turn": 30,
+        "start": 113809,
+        "end": 114034
+      },
+      "verifier": {
+        "probability": 0.9793720560356524,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-39-7-1",
+      "hearing_id": 39,
+      "n": 16,
+      "article_name": "General Girão",
+      "proposition": "O Congresso deve retomar suas responsabilidades para evitar que Judiciário assuma a última palavra.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Ives Gandra, segundo o qual o primeiro poder que aparece na Constituição é o Legislativo. Esta Casa falhou e continua falhando em não permitir que nós possamos assumir responsabilidades.",
+        "turn": 30,
+        "start": 114136,
+        "end": 114322
+      },
+      "verifier": {
+        "probability": 0.19659253458667117,
+        "supported": false
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-103-1-0",
+      "hearing_id": 103,
+      "n": 14,
+      "article_name": "General Girão",
+      "proposition": "Manteve as críticas ao governo.",
+      "tier": "semantic_match_weak",
+      "evidence": {
+        "text": "Não podemos entrar nessavibe. Concluo, Sr. Ministro — sei que me faltam só 43 segundos — dizendo o seguinte.",
+        "turn": 61,
+        "start": 71971,
+        "end": 72080
+      },
+      "verifier": {
+        "probability": 0.051318065728730426,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-103-1-1",
+      "hearing_id": 103,
+      "n": 15,
+      "article_name": "General Girão",
+      "proposition": "Garantiu que o veto parcial de Lula será derrubado em sessão do Congresso Nacional.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "que isso é eleitoreiro. Nós vamos derrubar o veto do Presidente Lula aqui, tenho quase certeza absoluta.",
+        "turn": 63,
+        "start": 72669,
+        "end": 72773
+      },
+      "verifier": {
+        "probability": 0.3444433556283492,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,325 @@
+{
+  "actor": {
+    "slug": "dr-frederico",
+    "name": "DR. FREDERICO",
+    "display_name": "DR. FREDERICO",
+    "role": null,
+    "article_names": [],
+    "party_uf": [
+      "Bloco/PATRIOTA - MG"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:09:43+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      15,
+      171
+    ],
+    "input_tokens": 4880,
+    "output_tokens": 1110,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 18,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Solicita repetidamente ao Ministério da Saúde a apresentação de um estudo randomizado, duplo-cego, de fase 3, prospectivo, que comprove que a vacina contra a COVID-19 salva vidas em qualquer faixa etária, afirmando que, até o momento, não encontrou tal evidência científica de nível A.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 121492,
+            "end": 121653,
+            "text": "Mas hoje é a terceira vez que eu peço um estudo randomizado, duplo-cego, fase III que comprove, em qualquer faixa etária, que a vacina contra a COVID salva vida.",
+            "score": 0.5065
+          },
+          "udv": null
+        },
+        {
+          "text": "Oposta-se à obrigatoriedade da vacinação contra a COVID-19 em crianças de 6 meses a 5 anos, classificando a medida como \"absurda\" e \"a pior ditadura que pode haver no mundo\", e defende que a vacinação deve ser estritamente voluntária.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 122921,
+            "end": 122977,
+            "text": "Essa é a pior ditadura que pode haver no mundo.(Palmas.)",
+            "score": 0.4334
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a falta do medicamento trastuzumabe no tratamento do câncer de mama, citando que, até o fim do terceiro trimestre de 2023, o estado de Minas Gerais deveria receber 19.396 doses, tendo recebido apenas 4.900, o que representa 75% de atraso na entrega.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 71962,
+            "end": 72081,
+            "text": "Até o fim deste trimestre, que acaba daqui a exatos 17 dias, Minas Gerais deveria receber 19.396 doses de trastuzumabe.",
+            "score": 0.425
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério da Saúde e do Governo de Minas Gerais explicações sobre a escassez do trastuzumabe, destacando que o medicamento aumenta em 5% a chance de cura, conforme estudo randomizado, duplo-cego, de fase 3, prospectivo.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 72292,
+            "end": 72488,
+            "text": "Esse tratamento, Ministra, aumenta em 5% a chance de cura, conforme estudo randomizado, duplo-cego, de fase 3, prospectivo, um do mesmo tipo a que eu gostaria de ter acesso com relação às vacinas.",
+            "score": 0.5035
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a atuação da Ministra da Saúde, Nísia Trindade, por adotar \"pautas ideológicas e identitárias\", sugerindo que ela atue como \"Ministra técnica\" e foque em doenças que matam, como câncer, doenças cardíacas e renais, em vez de temas de direitos humanos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 73106,
+            "end": 73141,
+            "text": "que atue como uma Ministra técnica.",
+            "score": 0.3521
+          },
+          "udv": null
+        },
+        {
+          "text": "Denuncia que a Resolução nº 715, homologada pela Ministra, não menciona câncer, doenças cardíacas, renais ou hemodiálise, ignorando as principais causas de morte no Brasil.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 73288,
+            "end": 73329,
+            "text": "Lembro que a Resolução nº 715, que V.Exa.",
+            "score": 0.2592
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede que o Governo não condicione o recebimento do Bolsa Família à vacinação infantil, argumentando que punir os pobres por não vacinarem os filhos é incoerente com a identidade do governo.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 126007,
+            "end": 126044,
+            "text": "Não tirem o Bolsa Família dos pobres.",
+            "score": 0.3073
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que o Governo possui grande poder de comunicação e marketing (citando gasto de 240 milhões de reais em publicidade pelo Ministério da Saúde) para convencer a população, enquanto a oposição tem restrições nas redes sociais, e propõe que o debate seja travado na \"narrativa\" e na persuasão, não na coerção.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 123275,
+            "end": 123398,
+            "text": "Só o Ministério da Saúde, neste ano, gastou 240 milhões de reais de publicidade, para falar bem da vacina para a população.",
+            "score": 0.3039
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a evidência científica de nível A (estudos randomizados, duplos-cegos, de fase 3, prospectivos) como padrão-ouro para a comprovação de eficácia de tratamentos e vacinas, utilizando esse critério para questionar a obrigatoriedade vacinal e cobrar dados do Ministério da Saúde.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 122046,
+            "end": 122154,
+            "text": "Então, esta é a primeira questão: não há comprovação científica forte, com nível A de evidência, como V.Exa.",
+            "score": 0.2836
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a liberdade de escolha e a autonomia dos pais na decisão sobre intervenções médicas em crianças, considerando a obrigatoriedade vacinal incompatível com o Estado Democrático de Direito e classificando-a como regime ditatorial.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 124789,
+            "end": 124920,
+            "text": "É hipocrisia falar em Estado Democrático de Direito quando se quer obrigar um pai a fazer qualquer que seja intervenção na criança.",
+            "score": 0.1933
+          },
+          "udv": null
+        },
+        {
+          "text": "Prioriza a proteção da vida humana e o tratamento de doenças que causam altas taxas de mortalidade (como câncer), argumentando que o Ministério da Saúde deve focar em salvar vidas através de tratamentos comprovados, em vez de pautas identitárias.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 73844,
+            "end": 73883,
+            "text": "Vamos focar o tratamento do nosso povo!",
+            "score": 0.1902
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a equidade no acesso a medicamentos essenciais, criticando a falta de resposta do Governo e a lentidão na entrega de doses de trastuzumabe, o que prejudica diretamente o tratamento de pacientes oncológicos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 72728,
+            "end": 72752,
+            "text": "E por que há essa falta?",
+            "score": 0.1912
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se médico oncologista e Deputado Federal, afirmando ter ficado na linha de frente da pandemia por dois anos, montando e atuando em UTIs de COVID-19, onde intubou pacientes e se contaminou.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 121128,
+            "end": 121218,
+            "text": "Eu fiquei por 2 anos, como Deputado Federal eleito, numa UTI de COVID, intubando paciente.",
+            "score": 0.2468
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter acompanhado a trajetória da Ministra Nísia Trindade quando esta era Presidente da FIOCRUZ, no primeiro mandato, e ter conhecido a Ministra ao lado do Presidente Jair Bolsonaro.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 62,
+            "start": 68447,
+            "end": 68539,
+            "text": "Relembro que a conheci ao lado do Presidente Jair Bolsonaro, comprando 200 milhões de doses.",
+            "score": 0.3341
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se como defensor da \"liberdade de expressão\" e da \"liberdade de escolha\", alinhando-se a quem discorda da obrigatoriedade vacinal com base em estudos científicos.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 125636,
+            "end": 125953,
+            "text": "Se quiserem me ofender, me xingar, me criticar, que o façam, mas deixem que expressemos nossa liberdade de escolha, que tenhamos nossa liberdade de expressão, nossa liberdade em tudo o que o Governo quer cercear, com o absurdo de nos obrigar a usar uma vacina que, comprovadamente, tem efeito colateral para crianças.",
+            "score": 0.2758
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados específicos e números (como as 19.396 doses de trastuzumabe, os 240 milhões de reais em publicidade e as 750 mil mortes por câncer) para fundamentar suas cobranças e críticas.",
+          "passage": {
+            "hearing_id": 15,
+            "turn": 90,
+            "start": 123275,
+            "end": 123398,
+            "text": "Só o Ministério da Saúde, neste ano, gastou 240 milhões de reais de publicidade, para falar bem da vacina para a população.",
+            "score": 0.2481
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre à sua experiência pessoal como médico na linha de frente da pandemia e como oncologista para dar credibilidade técnica às suas afirmações e pedidos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom de cobrança direta e pessoal, dirigindo-se à Ministra com apelos emocionais (\"de coração\", \"pelo amor de Deus\") e fazendo comparações entre a atuação técnica esperada e a atuação ideológica percebida.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 73106,
+            "end": 73141,
+            "text": "que atue como uma Ministra técnica.",
+            "score": 0.1721
+          },
+          "udv": null
+        },
+        {
+          "text": "Usa expressões de indignação e forte carga emocional (\"absurdo\", \"ditadura\", \"hipocrisia\") para reforçar sua oposição à obrigatoriedade vacinal e à falta de medicamentos.",
+          "passage": {
+            "hearing_id": 171,
+            "turn": 64,
+            "start": 72728,
+            "end": 72752,
+            "text": "E por que há essa falta?",
+            "score": 0.2019
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe soluções baseadas no debate de \"narrativa\" e persuasão, sugerindo que o Governo use seus recursos de comunicação para convencer, em vez de obrigar.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 15,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Deputados de oposição protestam contra obrigatoriedade de vacinação contra Covid em crianças",
+      "assunto": "Obrigatoriedade da vacinação contra Covid-19 em crianças de 6 meses a 5 anos a partir de 2024",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 129,
+      "split": "validation",
+      "article_date": "2023-11-28",
+      "title": "Oposição critica vacinação de crianças contra Covid em debate com ministra da Saúde",
+      "assunto": "Debate sobre a vacinação de crianças contra Covid-19",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 171,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Nísia Trindade rebate polêmicas e detalha investimentos do novo PAC na Saúde",
+      "assunto": "Esclarecimentos da ministra da Saúde, Nísia Trindade, sobre polêmicas e investimentos do novo PAC na Saúde",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

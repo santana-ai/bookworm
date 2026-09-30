@@ -1,0 +1,420 @@
+{
+  "actor": {
+    "slug": "lucas-ramos",
+    "name": "Lucas Ramos",
+    "display_name": "Lucas Ramos",
+    "role": "Deputado (PSB-PE)",
+    "article_names": [
+      "Lucas Ramos"
+    ],
+    "party_uf": [
+      "PSB - PE",
+      "Bloco/PSB - PE"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:48:28+00:00",
+    "n_statements": 14,
+    "n_hearings": 2,
+    "hearing_ids": [
+      22,
+      50
+    ],
+    "input_tokens": 6083,
+    "output_tokens": 951,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 24,
+    "with_udv": 1,
+    "passage_only": 21,
+    "without_evidence": 2
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a universalização do acesso a medicamentos para HIV/aids e hepatites virais, atribuindo à Câmara dos Deputados o papel fundamental de garantir os direitos das pessoas que dependem dessas medicações.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 57898,
+            "end": 58105,
+            "text": "Essa universalização do acesso a medicamentos é algo que vimos perseguindo, e esta Casa, a Câmara dos Deputados, tem o papel fundamental de garantir os direitos dessas pessoas que dependem dessas medicações.",
+            "score": 0.645
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que a Comissão apresente emendas à Lei de Diretrizes Orçamentárias (LDO) e ao Orçamento da União para 2024, visando garantir a ampliação da produção e da distribuição de medicamentos para que cheguem a quem mais precisa.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 58106,
+            "end": 58467,
+            "text": "Para nós fica muito claro que, no próximo momento de discussão da Lei de Diretrizes Orçamentárias e do Orçamento da União para o próximo ano de 2024, esta Comissão tem o dever de apresentar emendas, tanto para a LDO como para o Orçamento, para garantir a ampliação da produção e da distribuição, para que o medicamento chegue a quem mais precisa, evidentemente.",
+            "score": 0.5838
+          },
+          "udv": null
+        },
+        {
+          "text": "Destaca o papel da FIOCRUZ na produção de medicamentos, pesquisa científica e desenvolvimento tecnológico, considerando a instituição importante para o Brasil.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 57531,
+            "end": 57896,
+            "text": "Presidente, eu tinha deixado a palavra facultada a outros participantes para que pudessem também se manifestar acerca de um assunto que é tão importante para o Brasil.E, no seio desta Comissão, eu acho que é importante destacarmos instituições como a FIOCRUZ, que tem um papel na produção desses medicamentos, na pesquisa científica, no desenvolvimento tecnológico.",
+            "score": 0.4852
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende o fortalecimento do Sistema Único de Saúde (SUS) para alcançar mais famílias brasileiras dependentes do serviço, afirmando que vidas dependem do acesso a esses medicamentos.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 58768,
+            "end": 58972,
+            "text": "Portanto, Presidente, eu quero aqui me irmanar à sua luta para que possamos tornar o Sistema Único de Saúde cada vez mais forte, de modo que alcancemos mais famílias brasileiras dependentes desse serviço.",
+            "score": 0.4084
+          },
+          "udv": null
+        },
+        {
+          "text": "Coloca a Comissão de Indústria, Comércio e Serviços à disposição para atuar de forma conjunta na luta em favor do acesso à saúde e da produção industrial.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 59277,
+            "end": 59444,
+            "text": "Nos próximos debates, coloco aquele colegiado, aquela Comissão, à disposição para, de forma conjunta, travarmos essa luta em favor do Brasil, em favor dos brasileiros.",
+            "score": 0.4034
+          },
+          "udv": null
+        },
+        {
+          "text": "No debate sobre e-commerce, defende a modernização da legislação em vigor para criar um ambiente favorável ao desenvolvimento de negócios, sem barrar o crescimento do setor.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 36,
+            "start": 70508,
+            "end": 70677,
+            "text": "Para a construção de uma legislação que torne esse ambiente favorável ao desenvolvimento de negócios, vamos precisar, necessariamente, repetir conversas ricas como esta.",
+            "score": 0.2874
+          },
+          "udv": {
+            "id": "udv-22-4-0",
+            "rule": "same_sentence",
+            "score": 0.3044
+          }
+        },
+        {
+          "text": "Argumenta que a tributação do e-commerce tem o objetivo de sustentar o crescimento do Brasil e garantir a implantação de políticas públicas e programas sociais, como transferência de renda.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 36,
+            "start": 70913,
+            "end": 71112,
+            "text": "Não tenho dúvida de que esse olhar para a tributação tem única e exclusivamente o objetivo de sustentar o crescimento do Brasil, de garantir a implantação de políticas públicas, de programas sociais.",
+            "score": 0.6481
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita levantamento da ABCOMM segundo o qual o e-commerce alcançou 169,6 bilhões de reais em vendas e 370 milhões de pedidos, representando 10% da receita do varejo nacional, e estima crescimento de quase 100% nos próximos 24 meses, o que poderia gerar 400 bilhões de reais.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 9,
+            "start": 15956,
+            "end": 16148,
+            "text": "A ABCOMM nos traz números da ordem de 169,6 bilhões de reais alcançados com vendas e 370 milhões de pedidos realizados em plataforma digital, ou seja, 10% de toda a receita do varejo nacional.",
+            "score": 0.5275
+          },
+          "udv": null
+        },
+        {
+          "text": "Sugere que a Receita Federal amplie a operação nas aduanas e fronteiras para otimizar a entrada de produtos, e aponta o papel fundamental dos Correios na distribuição, mencionando o monopólio na distribuição de encomendas.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 11,
+            "start": 18949,
+            "end": 19117,
+            "text": "Acredito que a Receita Federal, inclusive nesse esforço de otimizar a entrada desses produtos no Brasil, por suas aduanas, por suas fronteiras, deve ampliar a operação.",
+            "score": 0.4295
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a aplicação da legislação brasileira, como o Código de Defesa do Consumidor, em casos de devolução de produtos importados da China, incluindo a responsabilidade pelo frete de retorno.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 21,
+            "start": 41931,
+            "end": 41975,
+            "text": "O Código de Defesa do Consumidor brasileiro?",
+            "score": 0.3457
+          },
+          "udv": null
+        },
+        {
+          "text": "Pede esclarecimentos sobre a origem dos dados apresentados no dashboard do Ministério do Desenvolvimento, Indústria, Comércio e Serviços, questionando se há vinculação com a Receita Federal ou a Secretaria Especial de Fazenda.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 7,
+            "start": 15731,
+            "end": 15815,
+            "text": "Não sei se há essa vinculação com a Receita ou com a Secretaria Especial de Fazenda.",
+            "score": 0.4906
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Ministério de Indústria e Comércio a consolidação das estratégias, linhas de ação e programas traçados para a melhoria do ambiente de negócio.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 23,
+            "start": 55770,
+            "end": 55950,
+            "text": "Será que o Ministério de Indústria e Comércio poderia consolidar aqui quais são as estratégias, as linhas de ação e os programas traçados para a melhoria desse ambiente de negócio?",
+            "score": 0.7859
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza o direito universal de acesso à saúde como fundamento para defender emendas orçamentárias e o fortalecimento do SUS, justificando a necessidade de garantir condições para a universalização do acesso a medicamentos.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 58973,
+            "end": 59058,
+            "text": "Certamente, vai depender de nós a garantia desse direito universal de acesso à saúde.",
+            "score": 0.3422
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega o argumento de que a tributação deve servir para financiar políticas públicas e programas sociais, justificando a necessidade de regulamentação e taxação do e-commerce para sustentar o crescimento do país.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 36,
+            "start": 70913,
+            "end": 71112,
+            "text": "Não tenho dúvida de que esse olhar para a tributação tem única e exclusivamente o objetivo de sustentar o crescimento do Brasil, de garantir a implantação de políticas públicas, de programas sociais.",
+            "score": 0.3445
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a necessidade de diálogo entre Legislativo, Executivo, setor produtivo e Judiciário para consolidar tratativas e modernizar a legislação, justificando a realização de audiências públicas e a repetição de debates.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 23,
+            "start": 55278,
+            "end": 55726,
+            "text": "Jorge Gonçalves quais seriam, então, os desafios do varejo nacional diante do crescimento do comércio eletrônico no Brasil, da formação de capital humano, da geração de um ambiente de negócio favorável e, principalmente, de transformação digital.Eu queria entender qual é o peso desse e de outros temas no cenário, como o trabalho integrado entre Legislativo, Executivo, setor produtivo e até mesmo o Judiciário, na hora de interpelar a legislação.",
+            "score": 0.2101
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se 1º Vice-Presidente da Comissão de Indústria, Comércio e Serviços.",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 59129,
+            "end": 59276,
+            "text": "Estou aqui à inteira disposição, inclusive como 1º Vice-Presidente da Comissão de Indústria, Comércio e Serviços, que tem tudo a ver com esse tema.",
+            "score": 0.5478
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma-se pernambucano.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 23,
+            "start": 53140,
+            "end": 53367,
+            "text": "está participando de uma de um seminário que está acontecendo neste exato momento no Senado Federal e fez questão de vir até aqui para registrar sua presença e dar um abraço caloroso em um pernambucano que é fã do seu trabalho.",
+            "score": 0.1574
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara estar irmanado à luta do Presidente da sessão para fortalecer o SUS.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Menciona a presença e a contribuição do Deputado Zé Neto, da Frente Parlamentar da Indústria e do Comércio, e da Presidente da ANBIOTEC, Vanessa Silva.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 0,
+            "start": 3286,
+            "end": 3319,
+            "text": "Tem a palavra o Deputado Zé Neto.",
+            "score": 0.3397
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e levantamentos de entidades como ABCOMM, Global Payments Report e FIS para fundamentar suas posições sobre o crescimento do e-commerce e a arrecadação potencial.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 9,
+            "start": 16149,
+            "end": 16421,
+            "text": "Eu não sei se vamos encontrar nodashboardesse tipo de informação, da maneira como temos aqui estudos da Global Payments Report, por exemplo, através da sua financeira, a FIS, que estima que haverá, nos próximos 24 meses, um crescimento de quase 100% doe-commerceno Brasil.",
+            "score": 0.237
+          },
+          "udv": null
+        },
+        {
+          "text": "Formula perguntas diretas aos convidados para esclarecer dados, legislação e estratégias governamentais, como a origem dos dados do dashboard e a aplicação do Código de Defesa do Consumidor em importações.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 21,
+            "start": 41931,
+            "end": 41975,
+            "text": "O Código de Defesa do Consumidor brasileiro?",
+            "score": 0.3289
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem de colaboração e parceria, utilizando expressões como \"irmar à sua luta\", \"coloco à disposição\" e \"travarmos essa luta em favor do Brasil\".",
+          "passage": {
+            "hearing_id": 50,
+            "turn": 17,
+            "start": 59277,
+            "end": 59444,
+            "text": "Nos próximos debates, coloco aquele colegiado, aquela Comissão, à disposição para, de forma conjunta, travarmos essa luta em favor do Brasil, em favor dos brasileiros.",
+            "score": 0.4546
+          },
+          "udv": null
+        },
+        {
+          "text": "Conduz a sessão com foco na organização dos trabalhos, definindo prazos para exposições e perguntas, e agradece a participação dos convidados e parlamentares.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Cita a experiência da pandemia da COVID-19 como fator que impulsionou o crescimento do e-commerce e a necessidade de adaptação legislativa.",
+          "passage": {
+            "hearing_id": 22,
+            "turn": 9,
+            "start": 17411,
+            "end": 17679,
+            "text": "E a plataforma digital se mostra indispensável nos dias de hoje, especialmente depois de termos vivido uma explosão de crescimento durante a pandemia ocasionada pela COVID-19, em que nos vimos obrigados a comprar eletronicamente, por causa das restrições à circulação.",
+            "score": 0.203
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 8,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 10,
+      "split": "test",
+      "article_date": "2024-04-26",
+      "title": "Governo quer substituir saque-aniversário do FGTS por consignado com juros mais baixos",
+      "assunto": "Substituição do saque-aniversário do FGTS por empréstimo consignado com juros mais baixos",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 22,
+      "split": "train",
+      "article_date": "2023-06-21",
+      "title": "Debatedores apontam necessidade de mais regulamentação do e-commerce, especialmente para importações",
+      "assunto": "Necessidade de mais regulamentação do e-commerce, especialmente para importações",
+      "turns": 13,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 50,
+      "split": "train",
+      "article_date": "2023-05-26",
+      "title": "Especialistas defendem atualização de protocolos de tratamento para aids e hepatites virais",
+      "assunto": "Atualização de protocolos de tratamento para HIV/aids e hepatites virais",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 87,
+      "split": "test",
+      "article_date": "2024-04-25",
+      "title": "Relatório da regulamentação do trabalho de motoristas de aplicativo deve ser apresentado antes do recesso",
+      "assunto": "Regulamentação do trabalho de motoristas de aplicativo",
+      "turns": 1,
+      "in_profile": false,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-22-4-0",
+      "hearing_id": 22,
+      "n": 11,
+      "article_name": "Lucas Ramos",
+      "proposition": "O Poder Legislativo não pode mais ignorar a necessidade de uma regulamentação eficaz para o setor: \"Esse debate está aberto, é um primeiro encontro que nós fazemos e, com certeza, não vai ser o último para a construção de uma legislação que torne esse ambiente favorável para o desenvolvimento de negócios.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Este é um primeiro encontro que nós fazemos, e que certamente não será o último. Para a construção de uma legislação que torne esse ambiente favorável ao desenvolvimento de negócios, vamos precisar, necessariamente, repetir conversas ricas como esta.",
+        "turn": 36,
+        "start": 70427,
+        "end": 70677
+      },
+      "verifier": {
+        "probability": 0.843586797409049,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

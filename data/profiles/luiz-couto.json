@@ -1,0 +1,463 @@
+{
+  "actor": {
+    "slug": "luiz-couto",
+    "name": "Luiz Couto",
+    "display_name": "Luiz Couto",
+    "role": "Deputado (PT-PB)",
+    "article_names": [
+      "Luiz Couto"
+    ],
+    "party_uf": [
+      "Bloco/PT - PB"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:53:37+00:00",
+    "n_statements": 14,
+    "n_hearings": 4,
+    "hearing_ids": [
+      151,
+      172,
+      178,
+      203
+    ],
+    "input_tokens": 4862,
+    "output_tokens": 945,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 21,
+    "with_udv": 2,
+    "passage_only": 18,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que o enfrentamento à violência contra a mulher deve ser conduzido sob uma ótica feminista, argumentando que a violência é resultado de um machismo estrutural e não se resolve apenas com a denúncia ou punição do agressor.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 11191,
+            "end": 11277,
+            "text": "O enfrentamento à violência contra a mulher precisa ser visto sob uma ótica feminista.",
+            "score": 0.4696
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra do Estado o aparelhamento de juizados, delegacias e abrigos para garantir que as vítimas se sintam seguras para denunciar, especialmente considerando que os agressores, na maioria das vezes, mantêm relacionamento com as vítimas.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 12020,
+            "end": 12235,
+            "text": "É necessário aparelhar ainda mais o Estado, com juizados, delegacias e abrigos, para que as vítimas da agressão se sintam seguras em denunciar seus algozes, que, na maioria das vezes, têm um relacionamento com elas.",
+            "score": 0.6435
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o período de governo de Bolsonaro, referindo-se a ele como \"desgoverno\" e \"período nefasto\", associando-o à ascensão de uma voz do ódio e do machismo estrutural.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 11518,
+            "end": 11683,
+            "text": "Não devemos jamais ecoar a voz do ódio, a voz do machismo estrutural, a voz da ignorância que ecoou no período nefasto dos últimos 4 anos de desgoverno de Bolsonaro.",
+            "score": 0.5497
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a realização de concurso público para os INCRAs (Instituto Nacional de Colonização e Reforma Agrária) a fim de estabelecer estrutura técnica para a identificação e delimitação de territórios quilombolas.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 33,
+            "start": 91165,
+            "end": 91328,
+            "text": "Acho que a primeira luta relevante que temos de travar é por concurso público, a fim de se estabelecer nos nossos INCRAs estrutura para que trabalhem essa questão.",
+            "score": 0.3427
+          },
+          "udv": {
+            "id": "udv-172-3-0",
+            "rule": "same_sentence",
+            "score": 0.2935
+          }
+        },
+        {
+          "text": "Exige do Governo a contratação de técnicos comprometidos com a causa para a elaboração de relatórios técnicos de identificação e delimitação, visando a regulamentação e o reconhecimento de todos os territórios quilombolas.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 33,
+            "start": 91329,
+            "end": 91542,
+            "text": "A segunda coisa que acho importante é que se faça um trabalho no sentido de estabelecer os relatórios técnicos de identificação e delimitação, para que haja a regulamentação de todos os territórios de quilombolas.",
+            "score": 0.4181
+          },
+          "udv": {
+            "id": "udv-172-3-0",
+            "rule": "same_sentence",
+            "score": 0.3439
+          }
+        },
+        {
+          "text": "Defende a inclusão da educação profissionalizante e escolar no Plano Nacional de Educação, especificamente para o sistema prisional, visando a inclusão de vagas de educação escolar nos espaços prisionais.",
+          "passage": {
+            "hearing_id": 151,
+            "turn": 0,
+            "start": 46,
+            "end": 328,
+            "text": "Declaro aberta esta audiência pública da Comissão de Direitos Humanos, Minorias e Igualdade Racial destinada a debater a inclusão, no Plano Nacional de Educação, da educação especializada no sistema prisional, bem como a inclusão de vagas de educação escolar nos espaços prisionais.",
+            "score": 0.5946
+          },
+          "udv": null
+        },
+        {
+          "text": "Posiciona-se contra os impactos negativos dos parques de energia eólica em alto-mar, citando casos na Paraíba onde o barulho constante teria causado a ausência de pássaros, abelhas e moradores.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 19,
+            "start": 58541,
+            "end": 58717,
+            "text": "Nós temos, inclusive, um lugar onde não há mais pássaros, não há mais abelhas e não há mais gente morando porque ninguém aguenta mais ficar com aquele barulho 24 horas por dia.",
+            "score": 0.176
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a \"ótica feminista\" como fundamento para justificar a necessidade de ambientes de denúncia com sororidade, empatia e respeito, e para criticar a naturalização da violência.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 11392,
+            "end": 11516,
+            "text": "É preciso garantir que as vítimas possam denunciar em segurança, em ambientes onde encontrem sororidade, empatia e respeito.",
+            "score": 0.3355
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a dignidade e o amor como contrapontos ao ódio e ao machismo, defendendo que a voz das mulheres deve ser de igualdade, liberdade e não violência.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 11684,
+            "end": 11819,
+            "text": "A voz que devemos soar é a voz do amor, a voz das mulheres, a voz da igualdade, a voz da liberdade e a voz combatente da não violência.",
+            "score": 0.4788
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a luta pelos direitos quilombolas na necessidade de segurança territorial, resumida na frase \"Daqui não saímos, daqui ninguém nos tira\", justificando a exigência de regulamentação oficial.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 33,
+            "start": 91543,
+            "end": 91685,
+            "text": "Na realidade, são criados, mas depois é preciso reconhecê-los, para que os quilombolas possam dizer:\"Daqui não saímos, daqui ninguém nos tira.",
+            "score": 0.3775
+          },
+          "udv": null
+        },
+        {
+          "text": "Justifica a defesa da educação prisional pela crença de que todos são \"filhos e filhas amados de Deus\" e merecem respeito, além do reconhecimento da educação em direitos humanos como elemento fundamental.",
+          "passage": {
+            "hearing_id": 151,
+            "turn": 12,
+            "start": 28341,
+            "end": 28499,
+            "text": "Muito obrigado, João Moura, pela defesa não apenas da educação, mas também da educação em direitos humanos, um elemento importante que nós devemos reconhecer.",
+            "score": 0.3186
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que \"energia limpa é só a de Deus\", utilizando essa premissa para questionar a limpeza e a aceitabilidade social de outras fontes de energia, como a eólica.",
+          "passage": {
+            "hearing_id": 178,
+            "turn": 19,
+            "start": 58719,
+            "end": 58775,
+            "text": "Então, é preciso dizer que energia limpa é só a de Deus.",
+            "score": 0.4102
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal Luiz Couto, representante de eleitores, e membro da Comissão de Direitos Humanos, Minorias e Igualdade Racial.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 10099,
+            "end": 10324,
+            "text": "Quero agradecer à Presidenta desta Comissão de Direitos Humanos, Minorias e Igualdade Racial, a Deputada Luizianne Lins, por ter recebido o nosso requerimento e se debruçado sobre um tema que tanto tem nos afligido no Brasil.",
+            "score": 0.2904
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como autor do Requerimento nº 128/2023, junto com a Deputada Luizianne Lins e o Deputado Miguel Ângelo, que deu origem à audiência sobre educação prisional.",
+          "passage": {
+            "hearing_id": 151,
+            "turn": 0,
+            "start": 330,
+            "end": 477,
+            "text": "Este evento decorre da aprovação do Requerimento nº 128/2023, de minha autoria e de autoria da Deputada Luizianne Lins e do Deputado Miguel Ângelo.",
+            "score": 0.5254
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com a luta dos povos quilombolas e das comunidades negras rurais, citando a CONAQ e a Articulação Povos de Luta como parceiros na defesa de seus direitos.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 41,
+            "start": 104501,
+            "end": 104711,
+            "text": "Passo a palavra ao companheiro Denildo Rodrigues de Morais, o Biko Rodrigues, representante da Coordenação Nacional de Articulação das Comunidades Negras Rurais Quilombolas — CONAQ, por 7 minutos, prorrogáveis.",
+            "score": 0.325
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece a Deputada Luizianne Lins como Presidenta da Comissão e a Deputada Erika Kokay como companheira e defensora das causas em debate.",
+          "passage": {
+            "hearing_id": 151,
+            "turn": 12,
+            "start": 28667,
+            "end": 28794,
+            "text": "Registro a presença da nossa companheira Deputada Federal Erika Kokay, do Distrito Federal, uma grande defensora destas causas.",
+            "score": 0.4704
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados estatísticos do Fórum Brasileiro de Segurança Pública para sustentar a gravidade da violência doméstica, citando números específicos de agressões, ameaças e medidas protetivas.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 10533,
+            "end": 10820,
+            "text": "Presidente, segundo o Fórum Brasileiro de Segurança Pública, em 2022 o Brasil registrou 230.861 agressões por violência doméstica, aumento de 0,6%; 597.623 ameaças, aumento de 3%; 619.353 chamadas, aumento de 4%; e 370.209 medidas protetivas de urgência concedidas, crescimento de 13,6%.",
+            "score": 0.348
+          },
+          "udv": null
+        },
+        {
+          "text": "Recorre a citações literárias e poéticas, como o pensamento de Julio Aukay e o ditado popular \"Em mulher não se bate nem com uma flor\", para embasar seus argumentos sobre a condição feminina.",
+          "passage": {
+            "hearing_id": 203,
+            "turn": 2,
+            "start": 12242,
+            "end": 12385,
+            "text": "Presidenta, eu queria lembrar um grande representante lá de Pernambuco que, em uma de suas falas, diz:\"Em mulher não se bate nem com uma flor\".",
+            "score": 0.2547
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e religiosa, invocando Deus, amor e a condição de \"filhos amados\" para justificar posições sobre educação e direitos humanos.",
+          "passage": {
+            "hearing_id": 151,
+            "turn": 4,
+            "start": 7630,
+            "end": 7832,
+            "text": "Muito obrigado, Irmã Petra, pela sua contribuição, pela luta que trava para que tenhamos educação nos presídios, mostrando que todos nós somos filhos e filhas amados de Deus e merecemos ser respeitados.",
+            "score": 0.1982
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita experiências locais e casos concretos, como a situação do Quilombo Fonseca em Manaíra (PB) e a ausência de fauna e moradores em áreas de eólicas na Paraíba, para ilustrar seus pontos.",
+          "passage": {
+            "hearing_id": 172,
+            "turn": 33,
+            "start": 90993,
+            "end": 91089,
+            "text": "Ontem recebemos uma importante informação do Quilombo Fonseca, no Município de Manaíra, Paraíba.",
+            "score": 0.2749
+          },
+          "udv": null
+        },
+        {
+          "text": "Mantém um tom de condução protocolar nas sessões que preside, mas insere posicionamentos políticos e valorativos em seus breves comentários de encerramento ou abertura.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 110,
+      "split": "test",
+      "article_date": "2024-04-09",
+      "title": "Deputados cobram prioridade para agenda do envelhecimento saudável no G20",
+      "assunto": "Prioridade para a agenda do envelhecimento saudável no G20",
+      "turns": 9,
+      "in_profile": false,
+      "udvs": 2
+    },
+    {
+      "id": 127,
+      "split": "validation",
+      "article_date": "2023-11-29",
+      "title": "Debatedores cobram política nacional de cuidados para idosos",
+      "assunto": "Política nacional de cuidados para idosos",
+      "turns": 5,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 151,
+      "split": "train",
+      "article_date": "2023-10-17",
+      "title": "Especialistas defendem educação profissionalizante nos presídios",
+      "assunto": "Defesa da educação profissionalizante nos presídios",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 172,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "Censo quilombola representa primeiro passo na garantia de direitos, afirmam debatedores",
+      "assunto": "Censo quilombola e a utilização dos dados para garantir direitos e políticas públicas para a população quilombola",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 178,
+      "split": "train",
+      "article_date": "2023-09-05",
+      "title": "Ibama defende planejamento marinho para reduzir impacto dos parques de energia eólica em alto-mar",
+      "assunto": "Planejamento marinho para reduzir impacto dos parques de energia eólica em alto-mar",
+      "turns": 2,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 203,
+      "split": "train",
+      "article_date": "2023-08-02",
+      "title": "Desmonte das políticas públicas levou a aumento da violência contra mulheres, afirmam debatedoras",
+      "assunto": "Aumento da violência contra mulheres devido ao desmonte de políticas públicas e ascensão do ultraconservadorismo",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-110-0-0",
+      "hearing_id": 110,
+      "n": 1,
+      "article_name": "Luiz Couto",
+      "proposition": "O envelhecimento ativo e saudável pode resultar em uma redução da carga sobre o sistema de saúde, além de contribuir para o desenvolvimento econômico e social do País, uma vez que idosos ativos trabalham, consomem e desempenham papel importante na coesão social.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "O envelhecimento ativo e saudável não apenas beneficia individualmente os idosos, mas também contribui para o desenvolvimento econômico e social. Idosos ativos podem continuar a contribuir para a economia por meio do trabalho, do voluntariado e do consumo, além de desempenharem papéis importantes na coesão social e na transmissão de conhecimento intergeracional.",
+        "turn": 41,
+        "start": 66436,
+        "end": 66800
+      },
+      "verifier": {
+        "probability": 0.6359540233667412,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-110-0-1",
+      "hearing_id": 110,
+      "n": 2,
+      "article_name": "Luiz Couto",
+      "proposition": "\"Ao adotar o envelhecimento ativo e saudável como agenda prioritária no G20, os líderes globais podem demonstrar liderança e colaboração em questões de saúde e equidade, trabalhando juntos para criar um futuro mais saudável e sustentável para todas as gerações.\"",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "E o sexto: ao adotar o envelhecimento ativo e saudável como uma agenda prioritária no G20, os líderes globais podem demonstrar liderança e colaboração em questões de saúdee equidade, trabalhando juntos para criar um futuro mais saudável e sustentável para todas as gerações.",
+        "turn": 41,
+        "start": 67466,
+        "end": 67740
+      },
+      "verifier": {
+        "probability": 0.9945640702849606,
+        "supported": true
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-151-0-0",
+      "hearing_id": 151,
+      "n": 1,
+      "article_name": "Luiz Couto",
+      "proposition": "É preciso encontrar mecanismos capazes de ampliar a oferta educacional dentro do sistema penitenciário.",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "São elementos importantes para implantarmos a educação no sistema prisional brasileiro. Havia sido convidado o representante ou a representante do Ministério da Justiça e da Segurança Pública, mas, até este momento, ninguém compareceu.",
+        "turn": 10,
+        "start": 22277,
+        "end": 22513
+      },
+      "verifier": {
+        "probability": 0.9875950612843494,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-172-3-0",
+      "hearing_id": 172,
+      "n": 6,
+      "article_name": "Luiz Couto",
+      "proposition": "É papel do Parlamento cobrar do governo a reestruturação dos órgãos públicos para garantir os direitos dos quilombolas: \"O importante primeiro é dar a condição para que, de fato, esse levantamento de todos os quilombos possa ser regulamentado, e, para isso, precisa ter técnicos, gente. Por isso, acho que a luta nossa aqui é de exigir também que o próprio governo possa fazer um concurso com técnicos que, efetivamente, sejam comprometidos com essa causa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Acho que a primeira luta relevante que temos de travar é por concurso público, a fim de se estabelecer nos nossos INCRAs estrutura para que trabalhem essa questão. A segunda coisa que acho importante é que se faça um trabalho no sentido de estabelecer os relatórios técnicos de identificação e delimitação, para que haja a regulamentação de todos os territórios de quilombolas.",
+        "turn": 33,
+        "start": 91165,
+        "end": 91542
+      },
+      "verifier": {
+        "probability": 0.49278833690081086,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

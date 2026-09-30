@@ -1,0 +1,290 @@
+{
+  "actor": {
+    "slug": "filipe-barros",
+    "name": "FILIPE BARROS",
+    "display_name": "Filipe Barros",
+    "role": "Deputado (PL-PR)",
+    "article_names": [
+      "Filipe Barros"
+    ],
+    "party_uf": [
+      "PL - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:38:33+00:00",
+    "n_statements": 1,
+    "n_hearings": 1,
+    "hearing_ids": [
+      39
+    ],
+    "input_tokens": 2488,
+    "output_tokens": 646,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 1,
+    "passage_only": 10,
+    "without_evidence": 5
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende que a discussão sobre o artigo 142 da Constituição deve considerar o contexto do \"agigantamento do poder e das prerrogativas do Judiciário\", em especial do Supremo Tribunal Federal, e da \"inanição do Congresso Nacional\", citando a usurpação de atribuições legislativas pelo STF.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 105036,
+            "end": 105374,
+            "text": "142 esteve e ainda está num contexto que diz respeito ao agigantamento do poder e das prerrogativas do Judiciário, em especial do Supremo Tribunal Federal, e da completa inanição do Congresso Nacional quando suas competências e atribuições constitucionais passam a ser vilipendiadas, como a atividade legiferante, a atividade de legislar.",
+            "score": 0.4672
+          },
+          "udv": {
+            "id": "udv-39-5-0",
+            "rule": "same_sentence",
+            "score": 0.4657
+          }
+        },
+        {
+          "text": "Propõe o redesenho das instituições brasileiras para garantir que todos os Poderes sejam harmônicos e independentes, conforme a Constituição Federal, argumentando que essa harmonia não vem ocorrendo nos últimos anos.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 105685,
+            "end": 105951,
+            "text": "De alguma maneira, nós temos que redesenhar as instituições brasileiras, de modo que todos os Poderes sejam harmônicos e independentes, como prevê a Constituição Federal, o que, do meu ponto de vista, não vem ocorrendo ao longo dos últimos anos, por inúmeras razões.",
+            "score": 0.5398
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a fala do Presidente Lula sobre a existência de uma \"governança global\" cujas decisões não passariam pelo Parlamento brasileiro, classificando-a como uma afronta à soberania nacional.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 106200,
+            "end": 106367,
+            "text": "Nós não podemos nos esquecer da recente fala do Presidente Lula de que há de existir uma governança global cujas decisões não passem sequer pelo Parlamento brasileiro.",
+            "score": 0.5369
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende que o debate sobre a soberania nacional e o papel das Forças Armadas deve ser feito sob o viés nacionalista, em prol da proteção da Pátria, considerando as questões geopolíticas globais atuais.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 105978,
+            "end": 106199,
+            "text": "O segundo ponto que eu gostaria de relembrar é que o debate sobre a soberania nacional, uma das atribuições das nossas Forças Armadas, também precisa ser feito sob o viés nacionalista, em prol da proteção da nossa Pátria.",
+            "score": 0.5102
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ser favorável a um \"Estado enxuto\", mas questiona a privatização de ativos para a China, argumentando que o país está \"comprando o mundo inteiro\".",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 106969,
+            "end": 107083,
+            "text": "Para a China, que está comprando o mundo inteiro?”Nós não podemos simplesmente deixar estas questões geopolíticas.",
+            "score": 0.3293
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a PEC de iniciativa da Deputada Perpétua, com a qual concorda, e propõe que o Parlamento rediscuta e faça avançar essa proposta.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 107160,
+            "end": 107336,
+            "text": "Para finalizar, Presidente, eu gostaria de fazer menção a uma PEC de iniciativa da Deputada Perpétua, de quem eu fui colega por algum tempo no PARLASUL, no qual nós debatíamos.",
+            "score": 0.2673
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a soberania nacional como critério para avaliar políticas e declarações, justificando a crítica à fala do Presidente Lula e a defesa do papel das Forças Armadas.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 106467,
+            "end": 106570,
+            "text": "De que maneira nós poderíamos encaixar o debate sobre a soberania nacional no papel das Forças Armadas?",
+            "score": 0.2782
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a independência e harmonia entre os Poderes, prevista na Constituição Federal, como fundamento para criticar a atuação do Supremo Tribunal Federal e propor o redesenho institucional.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Emprega o viés nacionalista e a proteção da Pátria como justificativa para a inclusão de questões geopolíticas no debate sobre as Forças Armadas.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 105978,
+            "end": 106199,
+            "text": "O segundo ponto que eu gostaria de relembrar é que o debate sobre a soberania nacional, uma das atribuições das nossas Forças Armadas, também precisa ser feito sob o viés nacionalista, em prol da proteção da nossa Pátria.",
+            "score": 0.4079
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que, independentemente de posicionamentos e divergências partidárias, é possível avançar em prol do País, utilizando a democracia como espaço para convergência em temas de interesse nacional.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 107481,
+            "end": 107695,
+            "text": "Existem assuntos que, independentemente dos nossos posicionamentos partidários, o que faz parte da democracia, a despeito das nossas divergências partidárias, creio eu que nós podemos avançar em prol do nosso País.",
+            "score": 0.4081
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara ter sido colega da Deputada Perpétua no PARLASUL, onde ambos debatiam.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 107160,
+            "end": 107336,
+            "text": "Para finalizar, Presidente, eu gostaria de fazer menção a uma PEC de iniciativa da Deputada Perpétua, de quem eu fui colega por algum tempo no PARLASUL, no qual nós debatíamos.",
+            "score": 0.3145
+          },
+          "udv": null
+        },
+        {
+          "text": "Menciona ter sido colega de liberais e neoliberais, com quem divergia sobre privatizações, mas com quem mantinha diálogo.",
+          "passage": {
+            "hearing_id": 39,
+            "turn": 28,
+            "start": 106784,
+            "end": 106968,
+            "text": "Eu me lembro de, quando colegas liberais e neoliberais defendiam arduamente as privatizações, eu dizia:“Em tese, eu sou favorável a um Estado enxuto, mas você vai privatizar para quem?",
+            "score": 0.2361
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Contextualiza o debate sobre o artigo 142 vinculando-o a uma crítica prévia à atuação do Judiciário e ao enfraquecimento do Legislativo.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Utiliza exemplos concretos e recentes, como a fala do Presidente Lula e a atuação da China em compras globais, para sustentar seus argumentos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre a analogias e metáforas, como \"1 mais 1, igual a 2\", para ilustrar a complexidade do debate sobre soberania.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Adota um tom conciliatório ao final, apelando para a superação de divergências partidárias em nome do interesse nacional.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 1,
+      "split": "test",
+      "article_date": "2024-04-16",
+      "title": "Jornalistas acusam Alexandre de Moraes de censura ao exigir bloqueio de contas da rede social X",
+      "assunto": "Acusações de censura contra Alexandre de Moraes por exigir bloqueio de contas na rede social X",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 39,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores refutam tese do “poder moderador” das Forças Armadas em seminário na CCJ",
+      "assunto": "Debate sobre a interpretação do artigo 142 da Constituição e o papel das Forças Armadas como 'poder moderador'",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-1-4-0",
+      "hearing_id": 1,
+      "n": 16,
+      "article_name": "Filipe Barros",
+      "proposition": "Ressaltou que o Marco Civil da Internet é muito claro ao estabelecer que, se houver afronta à legislação, deve-se censurar uma publicação específica mediante decisão judicial motivada. \"Nós não vimos isso em nenhuma das decisões que vieram a público até agora\". Apontou que as decisões são genéricas, visando retirar do ar o perfil de usuários por tempo indeterminado.",
+      "tier": "quote_found",
+      "evidence": {
+        "text": "Nós não vimos isso em nenhuma das decisões mostradas pelos nossos expositores, nem nas que vieram a público até agora.",
+        "turn": 41,
+        "start": 74084,
+        "end": 74202
+      },
+      "verifier": {
+        "probability": 0.10506912553110673,
+        "supported": false
+      },
+      "in_profile": false
+    },
+    {
+      "id": "udv-39-5-0",
+      "hearing_id": 39,
+      "n": 13,
+      "article_name": "Filipe Barros",
+      "proposition": "A tese das Forças Armadas como um poder moderador surgiu em meio a um contexto: \"Essa discussão sobre o artigo 142 teve um contexto que é do agigantamento do Poder Judiciário e a completa inação do Congresso Nacional quando suas competências e atribuições constitucionais passaram a ser vilipendiadas\". \"Esse pano de fundo não pode ser ignorado. Temos que redesenhar as instituições brasileiras de modo que todos os Poderes sejam harmônicos e independentes, como previsto na Constituição Federal.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Lembro que esta discussão sobre o art. 142 esteve e ainda está num contexto que diz respeito ao agigantamento do poder e das prerrogativas do Judiciário, em especial do Supremo Tribunal Federal, e da completa inanição do Congresso Nacional quando suas competências e atribuições constitucionais passam a ser vilipendiadas, como a atividade legiferante, a atividade de legislar.",
+        "turn": 28,
+        "start": 104997,
+        "end": 105374
+      },
+      "verifier": {
+        "probability": 0.815612268017459,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

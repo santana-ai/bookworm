@@ -1,0 +1,330 @@
+{
+  "actor": {
+    "slug": "juninho-do-pneu",
+    "name": "Juninho do Pneu",
+    "display_name": "Juninho do Pneu",
+    "role": "Deputado (União-RJ)",
+    "article_names": [
+      "Juninho do Pneu"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - RJ"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T04:25:21+00:00",
+    "n_statements": 9,
+    "n_hearings": 2,
+    "hearing_ids": [
+      161,
+      194
+    ],
+    "input_tokens": 3193,
+    "output_tokens": 829,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 18,
+    "with_udv": 0,
+    "passage_only": 17,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a redução da velocidade nas vias para garantir a segurança de pedestres e ciclistas, argumentando que a medida gera economia na área de saúde, melhora a qualidade de vida e reduz a emissão de gases poluentes.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 69615,
+            "end": 69736,
+            "text": "Nós economizamos na área de saúde, melhoramos a qualidade de vida e o meio ambiente, porque reduzimos os gases poluentes.",
+            "score": 0.3404
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe o lançamento da Frente Parlamentar do Ciclista, iniciativa que afirma ter obtido amplo apoio de diversos Deputados, com o objetivo de ouvir contribuições e debater o tema no Parlamento.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 69887,
+            "end": 69955,
+            "text": "Nós conseguimos amplo apoio neste Parlamento, de diversos Deputados.",
+            "score": 0.4366
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a qualidade do serviço e a alta dos preços no transporte aéreo regular, caracterizando a situação como \"insustentável\" devido ao volume de reclamações, cancelamentos, atrasos e aeroportos lotados.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 1,
+            "start": 5607,
+            "end": 5782,
+            "text": "Chegamos a um ponto insustentável de número de reclamações contra o transporte aéreo brasileiro no que diz respeito à má qualidade da prestação do serviço e à alta dos preços.",
+            "score": 0.4033
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra da Agência Nacional de Aviação Civil (ANAC) e da Secretaria Nacional do Consumidor dados específicos sobre voos atrasados e cancelados nos anos de 2021, 2022 e 2023, incluindo motivos, distribuição por empresas e aeroportos, quantidade de passageiros prejudicados e destinos mais impactados.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 14,
+            "start": 36220,
+            "end": 36315,
+            "text": "Qual foi a distribuição dos voos cancelados e atrasados por essas empresas aéreas e aeroportos?",
+            "score": 0.4052
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a ANAC sobre as ações tomadas diante dos atrasos e cancelamentos e sobre a variação de reajuste das passagens, citando casos em que trechos que geralmente custam menos de 2 mil reais atingiram valores superiores a 6 mil reais.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 16,
+            "start": 36938,
+            "end": 37122,
+            "text": "E qual é o motivo de as passagens estarem com uma variação de reajuste acima do normal, com passagens chegando a mais de 6 mil reais em trecho que geralmente não custa nem 2 mil reais?",
+            "score": 0.456
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a Secretaria Nacional do Consumidor sobre o número de passageiros atendidos pelos SACs das empresas, casos de cobrança indevida ou abusiva por cancelamento ou alteração de contrato, e lesões decorrentes de ofertas não cumpridas, publicidade enganosa e venda enganosa.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 18,
+            "start": 39188,
+            "end": 39293,
+            "text": "Quantos passageiros se sentiram lesados por ofertas não cumpridas, publicidade enganosa e venda enganosa?",
+            "score": 0.4624
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a construção de critérios e caminhos pelo Congresso Nacional para responder às demandas dos usuários do transporte aéreo, reconhecendo as dificuldades do setor durante a pandemia, mas enfatizando a necessidade de soluções conjuntas.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 28,
+            "start": 67871,
+            "end": 67991,
+            "text": "Acho que este debate está sendo muito importante para nós criarmos critérios e caminhos para o Congresso Nacional andar.",
+            "score": 0.246
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a experiência de gestão municipal como fundamento para suas posições sobre mobilidade, citando a presidência da Câmara Municipal de Nova Iguaçu e os avanços obtidos ao ouvir a sociedade e debater o tema, resultando em benefícios econômicos e ambientais.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 69412,
+            "end": 69462,
+            "text": "Fui Presidente da Câmara Municipal de Nova Iguaçu.",
+            "score": 0.3397
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia suas cobranças no transporte aéreo na necessidade de transparência e dados concretos para o debate parlamentar, afirmando que \"precisamos dos dados\" para ampliar o debate e construir o melhor para o País.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 18,
+            "start": 38665,
+            "end": 38750,
+            "text": "Até para ampliarmos o debate aqui, precisamos dos dados, precisamos ouvir mais vocês.",
+            "score": 0.3876
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a responsabilidade do Parlamento em \"subir de tom\" e contribuir ativamente para a resolução de questões graves que afetam a população, como a segurança viária e a qualidade do serviço aéreo.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 70157,
+            "end": 70206,
+            "text": "Precisamos subir de tom no Parlamento brasileiro.",
+            "score": 0.3004
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Deputado Federal pelo Estado do Rio de Janeiro e ex-Presidente da Câmara Municipal de Nova Iguaçu.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 69412,
+            "end": 69462,
+            "text": "Fui Presidente da Câmara Municipal de Nova Iguaçu.",
+            "score": 0.5528
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma fazer parte da Comissão de Viação e Transportes (CVT) e atuar em parceria com o Deputado Neto Carletto nas audiências públicas.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 70028,
+            "end": 70082,
+            "text": "Também faço parte da Comissão de Viação e Transportes.",
+            "score": 0.4483
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara estar alinhado com o Deputado Bebeto, 3º Vice-Presidente da CVT, e o Deputado Nicoletti, agradecendo suas contribuições e presença.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 10,
+            "start": 31985,
+            "end": 32165,
+            "text": "Agradeço a presença do Deputado Bebeto, lá do meu Estado do Rio de Janeiro, 3º Vice-Presidente da CVT, que tem contribuído muito aqui no debate na Comissão em prol do nosso Brasil.",
+            "score": 0.4857
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma defender os interesses do seu Estado, o Rio de Janeiro, e do Brasil em suas atuações na Comissão.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 69379,
+            "end": 69411,
+            "text": "Sou do Estado do Rio de Janeiro.",
+            "score": 0.4096
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza perguntas diretas e específicas aos representantes de órgãos públicos (ANAC, Secretaria Nacional do Consumidor) para obter dados quantitativos e qualitativos sobre os problemas apontados.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 18,
+            "start": 38901,
+            "end": 39083,
+            "text": "Vitor Hugo, representante da Secretaria Nacional do Consumidor, também gostaria de fazer algumas perguntas: quantos passageiros tiveram suas demandas atendidas pelo SAC das empresas?",
+            "score": 0.1686
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita experiências pessoais de gestão pública (presidência de Câmara Municipal) para embasar suas propostas e demonstrar a viabilidade das medidas defendidas.",
+          "passage": {
+            "hearing_id": 194,
+            "turn": 22,
+            "start": 69412,
+            "end": 69462,
+            "text": "Fui Presidente da Câmara Municipal de Nova Iguaçu.",
+            "score": 0.1671
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega um tom de colaboração e convite à participação, convidando os presentes para o lançamento da Frente Parlamentar e agradecendo a presença de colegas e expositores.",
+          "passage": {
+            "hearing_id": 161,
+            "turn": 54,
+            "start": 125631,
+            "end": 125680,
+            "text": "Agradecendo a presença dos expositores, das Sras.",
+            "score": 0.3467
+          },
+          "udv": null
+        },
+        {
+          "text": "Reconhece as dificuldades enfrentadas por setores específicos (como a aviação durante a pandemia) antes de cobrar soluções, buscando um equilíbrio entre a compreensão do contexto e a exigência de resultados.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 19,
+      "split": "validation",
+      "article_date": "2023-12-14",
+      "title": "Câmara pode criar grupo para estudar proposta que reduz velocidade média das vias urbanas",
+      "assunto": "Criação de grupo de trabalho para estudar proposta de redução da velocidade média nas vias urbanas",
+      "turns": 6,
+      "in_profile": false,
+      "udvs": 1
+    },
+    {
+      "id": 161,
+      "split": "train",
+      "article_date": "2023-09-29",
+      "title": "Combustíveis e dólar explicam aumento das passagens, diz associação das empresas aéreas",
+      "assunto": "Aumento dos preços das passagens aéreas no Brasil",
+      "turns": 8,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 194,
+      "split": "train",
+      "article_date": "2023-08-15",
+      "title": "Especialistas defendem diminuição de velocidade das vias para garantir segurança de pedestres e ciclistas",
+      "assunto": "Diminuição da velocidade das vias para garantir segurança de pedestres e ciclistas",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-19-1-0",
+      "hearing_id": 19,
+      "n": 2,
+      "article_name": "Juninho do Pneu",
+      "proposition": "Propôs a criação de um grupo de trabalho para dar agilidade à tramitação do projeto de lei: \"Vamos criar um grupo de trabalho. Acho que é muito importante para a gente encaminhar o assunto.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Vamos adotar um critério aqui, criar um grupo de trabalho, para corrermos com esta pauta, que é muito importante. Está bem, Deputado? Eu queria também registrar a presença aqui da atuante Vereadora Dra.",
+        "turn": 4,
+        "start": 11736,
+        "end": 11939
+      },
+      "verifier": {
+        "probability": 0.8213057447503153,
+        "supported": true
+      },
+      "in_profile": false
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

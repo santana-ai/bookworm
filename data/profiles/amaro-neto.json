@@ -1,0 +1,316 @@
+{
+  "actor": {
+    "slug": "amaro-neto",
+    "name": "Amaro Neto",
+    "display_name": "Amaro Neto",
+    "role": "Deputado (Republicanos-ES)",
+    "article_names": [
+      "Amaro Neto"
+    ],
+    "party_uf": [
+      "Bloco/REPUBLICANOS - ES"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T01:44:49+00:00",
+    "n_statements": 19,
+    "n_hearings": 3,
+    "hearing_ids": [
+      4,
+      33,
+      38
+    ],
+    "input_tokens": 8303,
+    "output_tokens": 847,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 16,
+    "with_udv": 1,
+    "passage_only": 12,
+    "without_evidence": 3
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a aprovação da PEC 386/09, que restitui a obrigatoriedade do diploma de nível superior em Jornalismo para o exercício da profissão, argumentando que a decisão do STF de 2009, que permitiu o exercício sem formação específica, contribuiu para a desinformação e a precarização do jornalismo no Brasil.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 0,
+            "start": 4892,
+            "end": 5140,
+            "text": "Fiz o pedido desta audiência pública porque tramita atualmente na Casa a PEC 386/09, proposta de emenda à Constituição que restitui a obrigatoriedade do diploma de nível superior específico em Jornalismo para que se exerça essa profissão no Brasil.",
+            "score": 0.3913
+          },
+          "udv": {
+            "id": "udv-33-4-0",
+            "rule": "same_sentence",
+            "score": 0.3059
+          }
+        },
+        {
+          "text": "Propõe que a mobilização pela aprovação da PEC 386/09 envolva não apenas as classes sindicais e a FENAJ, mas também os veículos de comunicação e as instituições de ensino, visando sensibilizar a Câmara dos Deputados a pautar e aprovar a proposta.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 20,
+            "start": 62181,
+            "end": 62418,
+            "text": "Estamos vendo uma precarização do jornalismo em nosso País em virtude dessa decisão de 2009, então acredito que a mobilização precisa ser feita por vários atores, para que possamos sensibilizar a nossa Câmara a pautar e aprovar essa PEC.",
+            "score": 0.2636
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de uma zona franca para a cadeia do vinho e da uva no Brasil, destacando que o projeto, de âmbito nacional, beneficia produtores de todo o País e que a aprovação trará incentivos para a produção, como observado no Espírito Santo.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 25,
+            "start": 54222,
+            "end": 54485,
+            "text": "Esse projeto é tão importante para o País, Deputado Carlos e os que nos acompanham na Comissão, que, logo após a sua aprovação na CDEICS, diversos produtores do meu Estado do Espírito Santo, não só de vinho, como de uva, procuraram-nos para entender como ele era.",
+            "score": 0.3126
+          },
+          "udv": null
+        },
+        {
+          "text": "Cobra da ANATEL soluções concretas para problemas recorrentes, como o apagão de telefonia em São Paulo após temporais, a modernização da infraestrutura de fios e o combate à pirataria de sinal de TV via aplicativos.",
+          "passage": {
+            "hearing_id": 4,
+            "turn": 10,
+            "start": 26761,
+            "end": 26868,
+            "text": "Existem aplicativos que são instalados na tevê para captar, numa forma de pirataria, o sinal das emissoras.",
+            "score": 0.232
+          },
+          "udv": null
+        },
+        {
+          "text": "Questiona a ANATEL sobre a modernização das leis de telecomunicações, especificamente sobre como equilibrar as obrigações da radiodifusão (concessão pública) com as de novas mídias digitais e streaming, buscando mecanismos para que estas últimas cumpram determinações ou sejam taxadas de forma justa.",
+          "passage": {
+            "hearing_id": 4,
+            "turn": 14,
+            "start": 34428,
+            "end": 34506,
+            "text": "Nós sabemos que a radiodifusão é uma concessão pública, mas as outras não são.",
+            "score": 0.2461
+          },
+          "udv": null
+        },
+        {
+          "text": "Solicita à ANATEL esclarecimentos sobre decisões recentes que impactam o consumidor, como o novo horário do SAC, a diminuição de lojas físicas e regras sobre atraso de contas de celular.",
+          "passage": {
+            "hearing_id": 4,
+            "turn": 12,
+            "start": 29064,
+            "end": 29323,
+            "text": "Refiro-me às decisões sobre atraso de conta de celular; diminuição do número de lojas físicas das empresas de telefonia; e novo horário do SAC, que deixa de funcionar 24 horas para funcionar no horário preestabelecido de 6 horas da manhã às 10 horas da noite.",
+            "score": 0.4276
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Valoriza a formação acadêmica e a ética jornalística como instrumentos essenciais para garantir a qualidade, a credibilidade e a responsabilidade profissional, justificando a defesa da obrigatoriedade do diploma de jornalismo.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 0,
+            "start": 3048,
+            "end": 3188,
+            "text": "E, para ele desempenhar essa função de maneira ética, responsável e profissional, o diploma de jornalismo se torna um instrumento essencial.",
+            "score": 0.1953
+          },
+          "udv": null
+        },
+        {
+          "text": "Considera a comunicação e a conectividade como peças-chave para o desenvolvimento econômico e social, a inclusão digital e a redução da exclusão, fundamentando a defesa da atuação da ANATEL e da expansão da infraestrutura de telecomunicações.",
+          "passage": {
+            "hearing_id": 4,
+            "turn": 0,
+            "start": 2975,
+            "end": 3127,
+            "text": "A atuação da ANATEL permite que mais brasileiros tenham acesso a serviços de dados e voz, reduzindo a exclusão digital e promovendo uma inclusão social.",
+            "score": 0.3135
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a transparência e a democracia como pilares que dependem de um jornalismo profissional e de uma comunicação responsável, utilizando esse argumento para criticar a falta de regulamentação das novas mídias e a ausência de diploma para jornalistas.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 0,
+            "start": 4461,
+            "end": 4557,
+            "text": "A atuação dos jornalistas é essencial para garantir a transparência e a democracia na sociedade.",
+            "score": 0.2464
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se jornalista, formado em 2004 pela FAESA no Espírito Santo, e apresentador de TV, com 30 anos de atuação na área de comunicação.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 6,
+            "start": 27818,
+            "end": 27844,
+            "text": "Eu sou formado desde 2004.",
+            "score": 0.3191
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Deputado Federal pelo Espírito Santo e membro da Comissão de Comunicação da Câmara dos Deputados, onde presidiu as audiências públicas sobre jornalismo e telecomunicações.",
+          "passage": {
+            "hearing_id": 4,
+            "turn": 22,
+            "start": 43450,
+            "end": 43571,
+            "text": "O senhor é sempre muito solícito com a nossa Câmara dos Deputados e, principalmente, com a nossa Comissão de Comunicação.",
+            "score": 0.2443
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma ter atuado como Relator na CDEICS para o projeto da zona franca do vinho e da uva, tendo visitado a região produtora e dialogado com produtores e o IFES.",
+          "passage": {
+            "hearing_id": 38,
+            "turn": 25,
+            "start": 53974,
+            "end": 54220,
+            "text": "Eu estive na região que contempla a zona franca da uva e do vinho, com o amigo Deputado Carlos Gomes e com o nosso amigo Senador Alan Rick, que era Deputado Federal, hoje é um brilhante Senador pelo Acre e foi o primeiro Relator do nosso projeto.",
+            "score": 0.2988
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e fatos concretos para sustentar seus argumentos, como a citação do fechamento de cursos de jornalismo no Espírito Santo (restando apenas UFES e FAESA) e a menção à decisão do STF de 2009.",
+          "passage": {
+            "hearing_id": 33,
+            "turn": 20,
+            "start": 61371,
+            "end": 61627,
+            "text": "Acabo de receber da Suzana Tatagiba, professora lá do meu Estado do Espírito Santo, jornalista, a informação de que no Espírito Santo restam apenas dois cursos de jornalismo, um na Universidade Federal do Espírito Santo e outro na FAESA, onde eu me formei.",
+            "score": 0.2773
+          },
+          "udv": null
+        },
+        {
+          "text": "Adota um tom cordial e colaborativo, cumprimentando convidados e colegas, mas faz perguntas diretas e específicas aos representantes de órgãos como a ANATEL, buscando respostas práticas para problemas do cotidiano dos cidadãos.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Recorre à experiência pessoal e profissional para legitimar suas posições, mencionando sua trajetória como jornalista e apresentador ao defender a importância do diploma e ao questionar a ANATEL sobre a modernização do setor.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Estrutura suas falas com saudações protocolares, apresentação do tema, exposição de suas considerações iniciais e, em seguida, condução do debate com perguntas focadas em soluções e impactos práticos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 4,
+      "split": "train",
+      "article_date": "2023-11-08",
+      "title": "Anatel trabalha com operadoras de telefonia para evitar pane em São Paulo",
+      "assunto": "Trabalho da Anatel com operadoras de telefonia para evitar pane em São Paulo após temporal e discussão sobre a modernização das leis de telecomunicações",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 33,
+      "split": "train",
+      "article_date": "2023-10-26",
+      "title": "Debatedores defendem diploma de jornalismo como remédio contra notícias falsas",
+      "assunto": "Defesa da obrigatoriedade do diploma de jornalismo como medida contra a desinformação e notícias falsas",
+      "turns": 9,
+      "in_profile": true,
+      "udvs": 1
+    },
+    {
+      "id": 38,
+      "split": "train",
+      "article_date": "2023-08-16",
+      "title": "Debatedores defendem tributação especial para a cadeia do vinho",
+      "assunto": "Defesa de tributação especial para a cadeia do vinho no Brasil",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-4-1-0",
+      "hearing_id": 4,
+      "n": 8,
+      "article_name": "Amaro Neto",
+      "proposition": "Apoiou a modernização legislativa: \"Para que a radiodifusão e o serviço de TV a cabo não fiquem tão presos e que as novas mídias possam ser taxadas ou cumprir algumas determinações como as outras.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Pergunto: o que pode ser feito, com o braço de vocês, com a ajuda de vocês, para tocarmos projetos importantes aqui na Casa para acelerar essa modernização, a fim de que a radiodifusão e o serviço de TV a cabo não fiquem tão presos? O que pode ser feito para que essas novas mídias e essa comunicação diferenciada possam ser taxadas ou tenham que cumprir algumas determinações?",
+        "turn": 14,
+        "start": 34050,
+        "end": 34427
+      },
+      "verifier": {
+        "probability": 0.6837899040016894,
+        "supported": true
+      },
+      "in_profile": true
+    },
+    {
+      "id": "udv-33-4-0",
+      "hearing_id": 33,
+      "n": 9,
+      "article_name": "Amaro Neto",
+      "proposition": "Defendeu a formação em jornalismo como instrumento de garantia da qualidade do trabalho: \"Eu acredito que um grande passo para acelerar o combate às fake news é tornar o diploma de jornalismo obrigatório por meio dessa PEC que está parada aqui na Casa.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Através dele podemos assegurar que a profissão continue a evoluir, a se adaptar às constantes mudanças tecnológicas e a cumprir seu relevante papel. Fiz o pedido desta audiência pública porque tramita atualmente na Casa a PEC 386/09, proposta de emenda à Constituição que restitui a obrigatoriedade do diploma de nível superior específico em Jornalismo para que se exerça essa profissão no Brasil.",
+        "turn": 0,
+        "start": 4742,
+        "end": 5140
+      },
+      "verifier": {
+        "probability": 0.5951914723873611,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

@@ -1,0 +1,344 @@
+{
+  "actor": {
+    "slug": "geraldo-mendes",
+    "name": "Geraldo Mendes",
+    "display_name": "Geraldo Mendes",
+    "role": "Deputado (União-PR)",
+    "article_names": [
+      "Geraldo Mendes"
+    ],
+    "party_uf": [
+      "Bloco/UNIÃO - PR"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T03:48:34+00:00",
+    "n_statements": 4,
+    "n_hearings": 2,
+    "hearing_ids": [
+      2,
+      173
+    ],
+    "input_tokens": 5159,
+    "output_tokens": 934,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 20,
+    "with_udv": 0,
+    "passage_only": 19,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Pede apoio ao Ministro para a retomada das operações da fábrica de fertilizantes FAFEN, em Araucária, citando que 80% dos nitrogenados necessários à agricultura no Brasil são importados e que o fechamento em 2020 deixou mais de 1.200 ou 1.300 colaboradores desempregados.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 94,
+            "start": 153884,
+            "end": 153989,
+            "text": "Hoje, 80% dos nitrogenados necessários para a manutenção da agricultura no Brasil estão sendo importados.",
+            "score": 0.4116
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a inclusão das Pequenas Centrais Hidrelétricas (PCHs) entre as energias renováveis, equiparando-as às eólicas e solares em novos projetos, argumentando que são fontes garantidoras, geradoras de emprego e industrializadoras.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 94,
+            "start": 154512,
+            "end": 154682,
+            "text": "Temos aqui um pedido da ABRAPCH para inclusão das PCHs entre as energias renováveis, como as eólicas e as solares, que estão sendo incluídas em novos projetos renováveis.",
+            "score": 0.4833
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe a retomada da construção de usinas hidrelétricas com grandes reservatórios de regularização e acumulação para evitar novos apagões, controlar cheias e garantir segurança hídrica e elétrica.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 30822,
+            "end": 31041,
+            "text": "Assim, faz-se necessária a implantação de novos reservatórios, com o devido reconhecimento econômico de sua função, para evitar novos apagões em todo o País, além de sua importância inquestionável no controle de cheias.",
+            "score": 0.2684
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que fontes intermitentes, como eólica e solar, deveriam pagar um percentual às usinas de reservatório ou contribuir para a construção de tais reservatórios, reconhecendo economicamente a função de regularização que as hidrelétricas desempenham.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 30506,
+            "end": 30661,
+            "text": "As fontes que hoje são intermitentes deveriam pagar um percentual para as usinas de reservatório ou elas mesmas deveriam contribuir com tais reservatórios.",
+            "score": 0.6097
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o modelo atual de leilões de UHEs, no qual empresas estrangeiras podem vencer e levar projetos desenvolvidos por brasileiros, e anuncia a apresentação de um projeto de lei para alterar essa regra.",
+          "passage": null,
+          "udv": null
+        },
+        {
+          "text": "Propõe que os atingidos por usinas hidrelétricas recebam um percentual relativo à sua indenização, criando um cadastro social do reservatório, prática já adotada com sucesso em CGHs e PCHs.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 32451,
+            "end": 32602,
+            "text": "Tal medida devolveria a questão do cadastro social do reservatório, tal qual a adotada com sucesso em muitas usinas de pequeno porte, como CGHs e PCHs.",
+            "score": 0.4141
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a manutenção do reservatório original da UHE Belo Monte, criticando sua retirada e a influência de ONGs, inclusive estrangeiras, e de setores sem conhecimento técnico que se opõem ao desenvolvimento.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 34002,
+            "end": 34230,
+            "text": "Devemos, sim, manter a soberania, e não sucumbir às influências dos setores sem qualquer conhecimento técnico, a medidas leigas ou às organizações não governamentais — ONGs, inclusive estrangeiras, contrárias ao desenvolvimento.",
+            "score": 0.3625
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma que a cadeia produtiva de insumos e serviços para construção de hidrelétricas é totalmente nacional, gerando emprego e renda, enquanto a cadeia de placas solares e eólicas depende de importações.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 34388,
+            "end": 34433,
+            "text": "Nós temos a cadeia de produção toda nacional.",
+            "score": 0.2957
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita a tragédia das cheias no Rio Grande do Sul para defender a construção de reservatórios com capacidade de amortecimento de enchentes, como o Reservatório Pedra do Cavalo, na Bahia.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 31043,
+            "end": 31516,
+            "text": "Vale aqui mencionar a tragédia ocorrida nos últimos dias no Rio Grande do Sul, que levou a cheias intensas e históricas e que causaram destruição e muitas mortes.Lembro que a citada tragédia é recorrente e observada em vários Estados do Brasil.Para minimizar e evitar tragédias, é fundamental a construção de mais usinas que contenham obrigatoriamente reservatórios com regularização, acumulação e amortecimento das enchentes, como o Reservatório Pedra do Cavalo, na Bahia.",
+            "score": 0.473
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Utiliza a analogia do \"tobogã\" para justificar a necessidade de vegetação nas margens dos rios: a água que desce rápido não gera energia, enquanto a água retida pela vegetação garante geração por um mês, sustentando a posição de que os usineiros são preservadores ambientais.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 28023,
+            "end": 28131,
+            "text": "Agora, se essa água vem devagarzinho, vai haver geração de energia para um mês inteiro e mais lucratividade.",
+            "score": 0.1719
+          },
+          "udv": null
+        },
+        {
+          "text": "Baseia a defesa da hidrelétrica na característica de ser uma fonte limpa, renovável, com vida útil superior a um século e capaz de atender aos requerimentos do Acordo de Paris.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 26770,
+            "end": 26905,
+            "text": "É uma energia limpa, renovável, é uma energia que atende todos os requerimentos para o Acordo de Paris, que nós vamos ver lá na frente.",
+            "score": 0.3549
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a segurança do sistema elétrico nacional depende dos reservatórios, que possuem mecanismo de realocação de energia, atributo ausente em outras fontes, justificando a cobrança de remuneração por esse serviço.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 30264,
+            "end": 30428,
+            "text": "É importante ressaltar que as hidrelétricas possuem um mecanismo de realocação de energia, enquanto outras fontes de energia não possuem qualquer mecanismo próprio.",
+            "score": 0.3743
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a soberania nacional e o desenvolvimento econômico, opondo-se a medidas que considere leigas ou influenciadas por interesses externos que prejudicam a matriz energética brasileira.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 34002,
+            "end": 34230,
+            "text": "Devemos, sim, manter a soberania, e não sucumbir às influências dos setores sem qualquer conhecimento técnico, a medidas leigas ou às organizações não governamentais — ONGs, inclusive estrangeiras, contrárias ao desenvolvimento.",
+            "score": 0.2088
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se representante do agronegócio.",
+          "passage": {
+            "hearing_id": 2,
+            "turn": 94,
+            "start": 153775,
+            "end": 153823,
+            "text": "Hoje eu também sou representante do agronegócio.",
+            "score": 0.5984
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como Vice-Presidente da Comissão de Minas e Energia, novato na Casa, e como gerador de CGHs e PCHs e investidor do setor.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 15,
+            "start": 80825,
+            "end": 81004,
+            "text": "Eu sou Vice-Presidente da Comissão, um novato que chegou este ano à Casa, e hoje o Deputado Rodrigo de Castro passou esta audiência pública para eu presidir, a minha primeira vez.",
+            "score": 0.3339
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma viver no setor há muitos anos e conhecer as dores do setor, incluindo o longo prazo de desenvolvimento de projetos.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 26552,
+            "end": 26769,
+            "text": "Esta audiência é muito importante para o setor hidráulico no País, que é um setor que vem, há muitos anos, garantindo ao Brasil o desenvolvimento sustentável e que, ao longo dos últimos 20 anos, está sendo demonizado.",
+            "score": 0.3631
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza analogias cotidianas, como a do copo de água no tobogã, para explicar a relação entre preservação ambiental e geração de energia.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 27530,
+            "end": 27606,
+            "text": "Por exemplo, quando vem a chuva, pegue um copo de água e coloque num tobogã.",
+            "score": 0.2685
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita dados comparativos internacionais, como 23 mil usinas na China e 7 mil na Alemanha, para contrastar com as 1.500 usinas no Brasil, argumentando o potencial de crescimento.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 15,
+            "start": 81505,
+            "end": 81675,
+            "text": "Vimos ali a China com 23 mil usinas hidrelétricas, a Alemanha com 7 mil usinas hidrelétricas, e nós, que temos o maior potencial do mundo, com 1.500 usinas hidrelétricas.",
+            "score": 0.5719
+          },
+          "udv": null
+        },
+        {
+          "text": "Apela para a responsabilidade social e econômica, destacando que a energia térmica é cara e onera o consumidor final, enquanto a hidrelétrica reduz tarifas e gera benefícios como irrigação, turismo e abastecimento de água.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 33670,
+            "end": 33876,
+            "text": "Com a irrigação para a produção de alimentos, turismo, abastecimento de água, contenção de cheias, entre outros, os benefícios relacionados são ganhos econômicos como um todo, além dos relativos aroyalties.",
+            "score": 0.2446
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega tom defensivo ao descrever o setor hidráulico como \"demonizado\" nos últimos 20 anos, especialmente em relação às licenças ambientais.",
+          "passage": {
+            "hearing_id": 173,
+            "turn": 7,
+            "start": 26906,
+            "end": 26996,
+            "text": "Mas, infelizmente, nós temos sofrido muito nos últimos 20 anos com as licenças ambientais.",
+            "score": 0.4128
+          },
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 2,
+      "split": "train",
+      "article_date": "2023-08-29",
+      "title": "Ministro diz que vai enviar projeto de lei para diminuir custos da energia para o consumidor",
+      "assunto": "Envio de projetos de lei para diminuir custos da energia para o consumidor e tratar da transição energética no setor de transportes",
+      "turns": 1,
+      "in_profile": true,
+      "udvs": 0
+    },
+    {
+      "id": 173,
+      "split": "train",
+      "article_date": "2023-09-13",
+      "title": "País deve retomar projetos de hidrelétricas com reservatórios, apontam especialistas",
+      "assunto": "Retomada da construção de usinas hidrelétricas com grandes reservatórios no Brasil",
+      "turns": 3,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-173-0-0",
+      "hearing_id": 173,
+      "n": 1,
+      "article_name": "Geraldo Mendes",
+      "proposition": "É preciso vencer o discurso de que os reservatórios das usinas hidrelétricas prejudicam o meio ambiente: \"É um grande equivoco que o ‘usineiro’ não tem responsabilidade ambiental. Pelo contrário, nós somos os maiores preservadores ambientais do mundo para poder ter uma boa qualidade de produção de energia.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "É um grande equívoco falar que o usineiro não tem responsabilidade ambiental; pelo contrário, nós somos um dos maiores preservadores ambientais do mundo. Para poder haver uma boa qualidade de geração de energia, garantimos a parte de barragem e de reservatórios.",
+        "turn": 7,
+        "start": 28133,
+        "end": 28395
+      },
+      "verifier": {
+        "probability": 0.8717493360870997,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}

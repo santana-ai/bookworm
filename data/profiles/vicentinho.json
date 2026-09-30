@@ -1,0 +1,372 @@
+{
+  "actor": {
+    "slug": "vicentinho",
+    "name": "Vicentinho",
+    "display_name": "Vicentinho",
+    "role": "Deputado (PT-SP)",
+    "article_names": [
+      "Vicentinho"
+    ],
+    "party_uf": [
+      "Bloco/PT - SP",
+      "PT - SP"
+    ]
+  },
+  "provenance": {
+    "run": "qwen38_27b",
+    "model": "mlx-community/Qwen3.8-27B-8bit",
+    "prompt_version": "a80b3a121fab",
+    "generated_at": "2026-09-28T07:11:06+00:00",
+    "n_statements": 13,
+    "n_hearings": 1,
+    "hearing_ids": [
+      97
+    ],
+    "input_tokens": 6361,
+    "output_tokens": 969,
+    "source_sha256": "a311243a19361262a47c605e321777196d5f5c560991fbe6596193a3fefd4bdc"
+  },
+  "match": {
+    "method": "TF-IDF cosine between each profile item and, separately, the actor's sentences in the hearings the profile read and the text (proposition and evidence) of the actor's UDVs in those hearings; vectorizer fitted per actor on those texts, accents removed, sublinear tf, fixed stop words. A UDV is linked when the item's passage overlaps the UDV evidence in the transcript (same_sentence) or, failing that, when the item is similar enough to the UDV text (similar_text)",
+    "udv_min": 0.3,
+    "passage_min": 0.15,
+    "passage_min_words": 5
+  },
+  "counts": {
+    "claims": 22,
+    "with_udv": 1,
+    "passage_only": 20,
+    "without_evidence": 1
+  },
+  "sections": [
+    {
+      "title": "Posições",
+      "claims": [
+        {
+          "text": "Defende a criação de uma Comissão Mista, em diálogo com o Presidente da Câmara e o Presidente do Senado, para tratar da questão da indústria, tendo como base a indústria automobilística, e afirma que as portas estão abertas para isso, desde que haja pressão democrática e lobby transparente.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 92679,
+            "end": 92909,
+            "text": "Neste diálogo com o Presidente do Congresso nós definimos criar uma Comissão Mista, dependendo do diálogo com o Presidente Arthur Lira, para tratarmos da questão da indústria, tendo como base, é claro, a indústria automobilística.",
+            "score": 0.4429
+          },
+          "udv": {
+            "id": "udv-97-1-0",
+            "rule": "same_sentence",
+            "score": 0.4233
+          }
+        },
+        {
+          "text": "Critica a política industrial do Governo Bolsonaro, classificando-a como incompetente, sem plano e sem foco no desenvolvimento, e afirma que não existe competência para lidar com o setor.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 93831,
+            "end": 94006,
+            "text": "É sobre muitas outras coisas, mas, neste aspecto, não existe competência nenhuma para isso, não existe um plano, não existe uma política industrial voltada ao desenvolvimento.",
+            "score": 0.4497
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a obrigatoriedade de o setor público, nas três esferas e níveis, comprar veículos fabricados no Brasil, citando um projeto de lei que tramitou e foi aprovado na Câmara, mas não aprovado no Senado.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 91668,
+            "end": 91751,
+            "text": "Este projeto tramitou aqui em todas as Comissões, foi aprovado e foi para o Senado.",
+            "score": 0.4654
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a garantia de um percentual mínimo de produção de carro brasileiro nas autopeças, citando outro projeto de lei que ainda tramita na Casa.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 92273,
+            "end": 92388,
+            "text": "O outro projeto tratava de garantir um percentual mínimo de produção de carro brasileiro nas autopeças brasileiras.",
+            "score": 0.5636
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica a portaria do Governo que exclui o Ministério Público do Trabalho das negociações e da construção das relações de trabalho, incluindo o combate ao trabalho análogo ao escravo, argumentando que isso fere a Constituição brasileira e os princípios de freios e contrapesos.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 95098,
+            "end": 95382,
+            "text": "Nós temos conhecimento da portaria que o Governo acabou de anunciar excluindo o Ministério Público do Trabalho das negociações, das construções das relações de trabalho, inclusive do trabalho análogo ao trabalho escravo, que é muito grave e fere, inclusive, a Constituição brasileira.",
+            "score": 0.5451
+          },
+          "udv": null
+        },
+        {
+          "text": "Propõe que trabalhadores e empresários se reúnam para elaborar uma chamada em defesa da produção nacional e da indústria brasileira, sugerindo que isso pode ter significado político e social.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 37,
+            "start": 116141,
+            "end": 116304,
+            "text": "A minha sugestão é que vocês se reúnam, trabalhadores e empresários, para elaborar uma espécie de chamada em defesa da produção nacional e da indústria brasileira.",
+            "score": 0.6356
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a criação de uma frente parlamentar para discutir políticas em defesa dos trabalhadores da economia informal, afirmando que já possui 225 assinaturas para o lançamento.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 94631,
+            "end": 94812,
+            "text": "Poderíamos lançar semana que vem inclusive uma frente parlamentar para discutir políticas em defesa dos trabalhadores da economia informal, dada a gravidade que nós estamos vivendo.",
+            "score": 0.4396
+          },
+          "udv": null
+        },
+        {
+          "text": "Critica o lucro proveniente da especulação, diferenciando-o do lucro que vem da produção e da geração de riqueza, e afirma que os bancos ganham mais do que as empresas, mesmo sem produzir bens tangíveis.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 94813,
+            "end": 94960,
+            "text": "Mas a grande verdade é que o lucro que vem através da produção e da geração de riqueza é um lucro diferente daquele que vem através da especulação.",
+            "score": 0.4443
+          },
+          "udv": null
+        },
+        {
+          "text": "Defende a valorização da produção nacional e do conteúdo nacional, mencionando a necessidade de discutir o Inovar-Auto e a questão do 2030 para maior valorização da produção nacional.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 93385,
+            "end": 93552,
+            "text": "À época, nós queríamos tratar do Inovar-Auto e também discutir a questão do 2030, de maneira que houvesse maior valorização da produção nacional, do conteúdo nacional.",
+            "score": 0.7025
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Critérios e valores",
+      "claims": [
+        {
+          "text": "Justifica a defesa da indústria e da produção nacional com a ideia de que o Estado brasileiro é fundamental para o equilíbrio social e econômico do País, e que é necessário gerar emprego e riqueza no Brasil, não apenas em outros lugares.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 91837,
+            "end": 91984,
+            "text": "Se o Estado brasileiro, que é fundamental para o nosso País, que nos traz equilíbrio social e econômico, proíbe que se comprem carros importados...",
+            "score": 0.4373
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza a experiência pessoal de negociação coletiva como fundamento para suas posições, citando o acordo da câmara setorial como exemplo de sucesso que gerou 15 mil novos empregos, estabilidade no emprego, reajuste mensal automático e 20% de aumento real, elevando a produção de 950 mil para 2 milhões de veículos.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 90848,
+            "end": 90936,
+            "text": "Nós tivemos estabilidade no emprego e reajuste mensal automático — que coisa boa, não é?",
+            "score": 0.3123
+          },
+          "udv": null
+        },
+        {
+          "text": "Invoca a Constituição brasileira e os princípios de freios e contrapesos, citando Montesquieu, para justificar a defesa do papel do Ministério Público do Trabalho nas relações de trabalho.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 95098,
+            "end": 95382,
+            "text": "Nós temos conhecimento da portaria que o Governo acabou de anunciar excluindo o Ministério Público do Trabalho das negociações, das construções das relações de trabalho, inclusive do trabalho análogo ao trabalho escravo, que é muito grave e fere, inclusive, a Constituição brasileira.",
+            "score": 0.3222
+          },
+          "udv": null
+        },
+        {
+          "text": "Argumenta que a participação dos trabalhadores é essencial para que a indústria dê um passo de qualidade, baseando-se na contribuição dos trabalhadores para a geração de empregos e prosperidade.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 90233,
+            "end": 90369,
+            "text": "É claro que a indústria não vai dar um passo de qualidade sem a participação dos trabalhadores, que têm contribuições importantes a dar.",
+            "score": 0.3691
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Alinhamentos declarados",
+      "claims": [
+        {
+          "text": "Declara-se Vice-Presidente da Comissão de Trabalho, Administração e Serviço Público, e afirma que o Presidente da Comissão é o Deputado Afonso Motta.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 22,
+            "start": 67625,
+            "end": 67726,
+            "text": "O Presidente da Comissão é o nosso nobre colega Deputado Afonso Motta, que teve que viajar mais cedo.",
+            "score": 0.4225
+          },
+          "udv": null
+        },
+        {
+          "text": "Identifica-se como oriundo da categoria dos metalúrgicos, tendo sido Presidente do Sindicato dos Metalúrgicos e colega de trabalho de Aroaldo de Oliveira Silva na Mercedes-Benz.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 6,
+            "start": 3693,
+            "end": 3777,
+            "text": "O outro palestrante é o Aroaldo de Oliveira Silva, Presidente da IndustriALL Brasil.",
+            "score": 0.3067
+          },
+          "udv": null
+        },
+        {
+          "text": "Afirma estar alinhado com o Ministério Público do Trabalho, descrevendo-o como parceiro atuante nas lutas dos trabalhadores, inclusive na oposição à reforma sindical e à PEC 32.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 95556,
+            "end": 95838,
+            "text": "Temos dialogado com o Ministério Público, que tem sido um parceiro, tem sido atuante nas nossas lutas aqui, inclusive quando da deforma sindical — eu não chamo de reforma — e de outras reformas que agora se colocam aí, como essa seríssima deforma da administração pública, a PEC 32.",
+            "score": 0.4592
+          },
+          "udv": null
+        },
+        {
+          "text": "Declara ter apresentado projetos de lei ligados ao segmento automotivo e ter feito pedido de reunião com o então candidato a Presidente do Congresso, Rodrigo Pacheco, para tratar da questão da indústria.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 92452,
+            "end": 92678,
+            "text": "Eu queria também informar aos senhores que, com a presença do nosso companheiro Aroaldo e de várias centrais sindicais, nós fizemos à época um pedido de reunião com o então candidato a Presidente do Congresso, Rodrigo Pacheco.",
+            "score": 0.3656
+          },
+          "udv": null
+        }
+      ]
+    },
+    {
+      "title": "Forma de argumentar",
+      "claims": [
+        {
+          "text": "Utiliza dados e estatísticas, como os números de empregos gerados pelo acordo da câmara setorial e a produção de veículos, para fundamentar suas posições.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 90370,
+            "end": 90556,
+            "text": "Eu me lembro de quando eu era ainda Presidente do Sindicato dos Metalúrgicos, nós realizarmos aquele que nós consideramos o melhor acordo de todos os tempos, o acordo da câmara setorial.",
+            "score": 0.2131
+          },
+          "udv": null
+        },
+        {
+          "text": "Cita experiências pessoais e vivências na categoria dos metalúrgicos, como a negociação do acordo da câmara setorial, para dar credibilidade aos seus argumentos.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 90370,
+            "end": 90556,
+            "text": "Eu me lembro de quando eu era ainda Presidente do Sindicato dos Metalúrgicos, nós realizarmos aquele que nós consideramos o melhor acordo de todos os tempos, o acordo da câmara setorial.",
+            "score": 0.2626
+          },
+          "udv": null
+        },
+        {
+          "text": "Emprega linguagem emotiva e apelativa, como \"Que coisa maravilhosa!\" e \"Que pena a situação que vemos\", para engajar o público e reforçar suas críticas e defesas.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 24,
+            "start": 97352,
+            "end": 97518,
+            "text": "Hoje dá pena a situação que vemos quando andamos pelas cidades: o pessoal continua tendo carro, mas é o carrinho daquela época — por isso, diminuíram tanto as vendas.",
+            "score": 0.1748
+          },
+          "udv": null
+        },
+        {
+          "text": "Faz apelos à ação coletiva, como a criação de uma frente parlamentar e a elaboração de uma chamada em defesa da produção nacional, para mobilizar os interlocutores.",
+          "passage": {
+            "hearing_id": 97,
+            "turn": 37,
+            "start": 116141,
+            "end": 116304,
+            "text": "A minha sugestão é que vocês se reúnam, trabalhadores e empresários, para elaborar uma espécie de chamada em defesa da produção nacional e da indústria brasileira.",
+            "score": 0.2283
+          },
+          "udv": null
+        },
+        {
+          "text": "Utiliza referências a figuras históricas e constitucionais, como Montesquieu e a Constituição brasileira, para dar peso e legitimidade aos seus argumentos.",
+          "passage": null,
+          "udv": null
+        }
+      ]
+    }
+  ],
+  "hearings": [
+    {
+      "id": 3,
+      "split": "test",
+      "article_date": "2024-04-17",
+      "title": "Ministro do Trabalho volta a defender alternativa ao saque-aniversário no FGTS",
+      "assunto": "Discussão sobre a substituição do saque-aniversário do FGTS por uma nova modalidade de crédito consignado",
+      "turns": 2,
+      "in_profile": false,
+      "udvs": 0
+    },
+    {
+      "id": 97,
+      "split": "train",
+      "article_date": "2021-11-25",
+      "title": "Setor automotivo critica política industrial brasileira em debate na Câmara",
+      "assunto": "Críticas à política industrial brasileira no setor automotivo",
+      "turns": 13,
+      "in_profile": true,
+      "udvs": 1
+    }
+  ],
+  "udvs": [
+    {
+      "id": "udv-97-1-0",
+      "hearing_id": 97,
+      "n": 6,
+      "article_name": "Vicentinho",
+      "proposition": "Já obteve o apoio do presidente do Congresso, senador Rodrigo Pacheco (PSD-MG), e da Câmara, Arthur Lira (PP-AL), para a criação de uma comissão mista que discutirá a indústria nacional, principalmente a automobilística: \"As portas estão abertas, agora é preciso uma pressão democrática para que o Parlamento tenha essa sensibilidade. Há tempos, queríamos discutir a valorização do conteúdo nacional.\"",
+      "tier": "semantic_match_high",
+      "evidence": {
+        "text": "Neste diálogo com o Presidente do Congresso nós definimos criar uma Comissão Mista, dependendo do diálogo com o Presidente Arthur Lira, para tratarmos da questão da indústria, tendo como base, é claro, a indústria automobilística. Tivemos audiência com o Deputado Lira, os companheiros vieram, nós fomos lá e apresentamos, e eles concordaram.",
+        "turn": 24,
+        "start": 92679,
+        "end": 93021
+      },
+      "verifier": {
+        "probability": 0.3675248145069678,
+        "supported": true
+      },
+      "in_profile": true
+    }
+  ],
+  "verifier_threshold": 0.2428652360502445,
+  "verifier_cuts": {
+    "low": 0.2428652360502445,
+    "high": 0.7478214519952443
+  }
+}
