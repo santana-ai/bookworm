@@ -169,4 +169,4 @@ do dataset:
 }
 ```
 
-**Equipe:** Arthur Germano, João Vitor Boer Abitante, Henrique Santana.
+**Equipe:** Arthur Germano, João Vitor Boer Abitante, Henrique Santana e Otávio Finger.
