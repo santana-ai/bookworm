@@ -116,9 +116,6 @@ experimentos, no [guia de reprodução](docs/reproduce.md).
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | ambiente, verificações e convenções |
 | [`CITATION.cff`](CITATION.cff), [`LICENSE`](LICENSE) | como citar e licença |
 
-O artigo do desafio fica num repositório próprio:
-[github.com/JoaoVitorBoer/bookworm](https://github.com/JoaoVitorBoer/bookworm).
-
 ## Três leituras de uma audiência
 
 O dataset mistura três leituras parciais, e o projeto não as confunde:
